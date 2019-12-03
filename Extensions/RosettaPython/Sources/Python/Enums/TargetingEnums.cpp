@@ -13,7 +13,7 @@ using namespace RosettaStone;
 
 void AddTargetingEnums(pybind11::module& m)
 {
-    pybind11::enum_<TargetingType>(m, "TargetingType")
+    pybind11::enum_<TargetingType>(m, "TargetingType", R"pbdoc(An enumerator for identifying targeting type.)pbdoc")
         .value("NONE", TargetingType::NONE)
         .value("ALL", TargetingType::ALL)
         .value("FRIENDLY_CHARACTERS", TargetingType::FRIENDLY_CHARACTERS)
@@ -23,12 +23,12 @@ void AddTargetingEnums(pybind11::module& m)
         .value("ENEMY_MINIONS", TargetingType::ENEMY_MINIONS)
         .value("HEROS", TargetingType::HEROES);
 
-    pybind11::enum_<CharacterType>(m, "CharacterType")
+    pybind11::enum_<CharacterType>(m, "CharacterType", R"pbdoc(An enumerator for identifying character type.)pbdoc")
         .value("CHARACTERS", CharacterType::CHARACTERS)
         .value("HEROES", CharacterType::HEROES)
         .value("MINIONS", CharacterType::MINIONS);
 
-    pybind11::enum_<FriendlyType>(m, "FriendlyType")
+    pybind11::enum_<FriendlyType>(m, "FriendlyType", R"pbdoc(An enumerator for identifying friendly type.)pbdoc")
         .value("ALL", FriendlyType::ALL)
         .value("FRIENDLY", FriendlyType::FRIENDLY)
         .value("ENEMY", FriendlyType::ENEMY);

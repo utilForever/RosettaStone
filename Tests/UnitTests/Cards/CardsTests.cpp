@@ -19,6 +19,28 @@ TEST(Cards, GetAllCards)
     EXPECT_EQ(cards.size(), 7735u);
 }
 
+TEST(Cards, GetAllStandardCards)
+{
+    const std::vector<Card*> cards = Cards::GetInstance().GetAllStandardCards();
+
+    ASSERT_FALSE(cards.empty());
+    for (auto& card : cards)
+    {
+        EXPECT_EQ(card->IsStandardSet(), true);
+    }
+}
+
+TEST(Cards, GetAllWildCards)
+{
+    const std::vector<Card*> cards = Cards::GetInstance().GetAllWildCards();
+
+    ASSERT_FALSE(cards.empty());
+    for (auto& card : cards)
+    {
+        EXPECT_EQ(card->IsWildSet(), true);
+    }
+}
+
 TEST(Cards, FindCardByID)
 {
     const Card* card1 = Cards::GetInstance().FindCardByID("AT_001");
@@ -168,9 +190,11 @@ TEST(Cards, FindCardByName)
 {
     Cards& instance = Cards::GetInstance();
 
-    const Card* card = instance.FindCardByName("Flame Lance");
+    const Card* card1 = instance.FindCardByName("Flame Lance");
+    EXPECT_EQ(card1->name, "Flame Lance");
 
-    EXPECT_EQ("Flame Lance", card->name);
+    const Card* card2 = instance.FindCardByName("INVALID");
+    EXPECT_EQ(card2->name.empty(), true);
 }
 
 TEST(Cards, FindCardByCost)

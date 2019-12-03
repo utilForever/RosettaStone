@@ -168,6 +168,11 @@ void Game::RefCopyFrom(const Game& rhs)
     m_oopIndex = rhs.m_oopIndex;
 }
 
+FormatType Game::GetFormatType() const
+{
+    return m_gameConfig.formatType;
+}
+
 Player* Game::GetPlayer1()
 {
     return &m_players[0];
@@ -394,7 +399,7 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
-    triggerManager.OnStartTurnTrigger(GetCurrentPlayer(), nullptr);
+    triggerManager.OnStartTurnTrigger(GetCurrentPlayer());
     ProcessTasks();
     ProcessDestroyAndUpdateAura();
 
@@ -461,7 +466,7 @@ void Game::MainAction()
 void Game::MainEnd()
 {
     taskQueue.StartEvent();
-    triggerManager.OnEndTurnTrigger(GetCurrentPlayer(), nullptr);
+    triggerManager.OnEndTurnTrigger(GetCurrentPlayer());
     ProcessTasks();
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
@@ -593,7 +598,7 @@ void Game::ProcessDestroyAndUpdateAura()
         taskQueue.StartEvent();
         for (auto& minion : summonedMinions)
         {
-            triggerManager.OnSummonTrigger(GetCurrentPlayer(), minion);
+            triggerManager.OnSummonTrigger(minion);
         }
         summonedMinions.clear();
         ProcessTasks();
@@ -633,7 +638,7 @@ void Game::ProcessGraveyard()
             Minion* minion = deadMinion.second;
 
             // Death event created
-            triggerManager.OnDeathTrigger(minion->player, minion);
+            triggerManager.OnDeathTrigger(minion);
 
             // Remove minion from battlefield
             minion->SetLastBoardPos(minion->GetZonePosition());
@@ -669,7 +674,7 @@ void Game::UpdateAura()
     }
 }
 
-PlayState Game::Process(Player* player, ITask* task)
+std::tuple<PlayState, PlayState> Game::Process(Player* player, ITask* task)
 {
     // Process task
     task->SetPlayer(player);
@@ -685,7 +690,7 @@ PlayState Game::Process(Player* player, ITask* task)
     return CheckGameOver();
 }
 
-PlayState Game::Process(Player* player, ITask&& task)
+std::tuple<PlayState, PlayState> Game::Process(Player* player, ITask&& task)
 {
     // Process task
     task.SetPlayer(player);
@@ -705,7 +710,7 @@ void Game::ProcessUntil(Step untilStep)
     }
 }
 
-PlayState Game::PerformAction(ActionParams& params)
+std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
 {
     ITask* task;
     const auto mainOp = params.ChooseMainOp();
@@ -788,7 +793,7 @@ ReducedBoardView Game::CreateView()
     }
 }
 
-PlayState Game::CheckGameOver()
+std::tuple<PlayState, PlayState> Game::CheckGameOver()
 {
     // Check hero of two players is destroyed
     if (GetPlayer1()->GetHero()->isDestroyed)
@@ -816,6 +821,6 @@ PlayState Game::CheckGameOver()
         GameManager::ProcessNextStep(*this, nextStep);
     }
 
-    return GetCurrentPlayer()->playState;
+    return { GetPlayer1()->playState, GetPlayer2()->playState };
 }
 }  // namespace RosettaStone

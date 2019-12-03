@@ -16,27 +16,35 @@
 #include <effolkronium/random.hpp>
 
 #if !defined(ROSETTASTONE_WINDOWS)
+
 #include <stdlib.h>
 #include <unistd.h>
+
 #endif
 
 using Random = effolkronium::random_static;
 
 namespace RosettaTorch::NeuralNet
 {
-void NeuralNetworkImpl::CreateWithRandomWeights(const std::string& fileName)
+void NeuralNetworkImpl::CreateWithRandomWeights(const std::string &fileName)
 {
 }
 
-void NeuralNetworkImpl::Save(const std::string& fileName) const
+void NeuralNetworkImpl::Save(const std::string &fileName) const
 {
     torch::save(m_net, fileName);
 }
 
-void NeuralNetworkImpl::Load(const std::string& fileName, bool isRandom)
+void NeuralNetworkImpl::Load(const std::string &fileName, bool isRandom)
 {
-    // torch::load(m_net, fileName);
     m_isRandom = isRandom;
+
+    std::ifstream file(fileName);
+
+    if (file)
+    {
+        torch::load(m_net, fileName);
+    }
 }
 
 bool NeuralNetworkImpl::IsRandom() const
@@ -44,7 +52,7 @@ bool NeuralNetworkImpl::IsRandom() const
     return m_isRandom;
 }
 
-void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
+void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl &rhs)
 {
 #if defined(ROSETTASTONE_WINDOWS)
     std::string tempFile = std::tmpnam(nullptr);
@@ -66,60 +74,70 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 #endif
 }
 
-void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
-                              const NeuralNetworkOutputImpl& output,
-                              std::size_t epochs)
+void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl &input,
+                              const NeuralNetworkOutputImpl &output,
+                              [[maybe_unused]] std::size_t batchSize,
+                              std::size_t epoch)
 {
-    const auto& inputData = input.GetData();
-    const auto& outputData = output.GetData();
+    const auto &inputData = input.GetData();
+    const auto &outputData = output.GetData();
 
     torch::optim::Adam optimizer(m_net->parameters(),
                                  torch::optim::AdamOptions(lr));
 
-    for (std::size_t epoch = 0; epoch < epochs; ++epoch)
+    for (std::size_t i = 0; i < epoch; ++i)
     {
-        for (std::size_t idx = 0; idx < inputData.size(); ++idx)
+        for (std::size_t idx = 0; idx < inputData.size() / batchSize; ++idx)
         {
-            const auto outData = const_cast<float*>(std::data(outputData[idx]));
-            const auto outDataSize = static_cast<int>(outputData[idx].size());
+            auto batchHero =
+                torch::zeros({ static_cast<long long>(batchSize), 2 });
+            auto batchMinion =
+                torch::zeros({ static_cast<long long>(batchSize), 7 * 14 });
+            auto batchStandalone =
+                torch::zeros({ static_cast<long long>(batchSize), 17 });
+            auto batchOutput =
+                torch::zeros({ static_cast<long long>(batchSize), 1 });
+
+            for (std::size_t j = 0; j < batchSize; ++j)
+            {
+                batchHero[j] = inputData[batchSize * idx + j][0];
+                batchMinion[j] = inputData[batchSize * idx + j][1];
+                batchStandalone[j] = inputData[batchSize * idx + j][2];
+                batchOutput[j] = outputData[batchSize * idx + j][0];
+            }
 
             // Resets gradients
             optimizer.zero_grad();
 
-            // Executes the model one the input data
-            // ! you need to change the parameters, fitted into the model input
-            auto prediction = m_net->forward(
-                inputData[idx][0], inputData[idx][1], inputData[idx][2]);
+            // Executes the model
+            auto prediction =
+                m_net->forward(batchHero, batchMinion, batchStandalone);
 
             // Computes a loss value to judge the prediction of our model
-            // ! you need to change the parameters, fitted into the model input
-            auto loss = torch::mse_loss(
-                prediction, torch::from_blob(outData, { 1, outDataSize }));
+            auto loss = torch::mse_loss(prediction, batchOutput);
 
             // Do back-propagation
             loss.backward();
 
             // Updates the parameters
             optimizer.step();
-
-            // Saves the model
-            Save(modelName);
         }
     }
 }
 
 std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
-    const NeuralNetworkInputImpl& input, const NeuralNetworkOutputImpl& output)
+    const NeuralNetworkInputImpl &input, const NeuralNetworkOutputImpl &output)
 {
-    const auto& inputData = input.GetData();
-    const auto& outputData = output.GetData();
+    const auto &inputData = input.GetData();
+    const auto &outputData = output.GetData();
 
     std::uint64_t correct = 0, total = inputData.size();
 
     for (std::size_t idx = 0; idx < inputData.size(); ++idx)
     {
-        auto result = m_net->forward(inputData[idx][0], inputData[idx][1],
-                                     inputData[idx][2]);
+        auto result = m_net->forward(inputData[idx][0].unsqueeze(0),
+                                     inputData[idx][1].unsqueeze(0),
+                                     inputData[idx][2].unsqueeze(0));
         bool predictWin = result[0][0].item<double>() > 0.0;
         bool actualWin = outputData[idx][0] > 0.0;
 
@@ -132,23 +150,24 @@ std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
     return { correct, total };
 }
 
-double NeuralNetworkImpl::Predict(IInputGetter* input)
+double NeuralNetworkImpl::Predict(IInputGetter *input)
 {
     torch::Tensor hero, minion, standalone;
     InputDataConverter().Convert(input, hero, minion, standalone);
     return Predict(hero, minion, standalone);
 }
 
-double NeuralNetworkImpl::Predict(const torch::Tensor& hero,
-                                  const torch::Tensor& minion,
-                                  const torch::Tensor& standalone)
+double NeuralNetworkImpl::Predict(const torch::Tensor &hero,
+                                  const torch::Tensor &minion,
+                                  const torch::Tensor &standalone)
 {
     if (m_isRandom)
     {
         return Random::get<double>(-1.0, 1.0);
     }
 
-    const auto prediction = m_net->forward(hero, minion, standalone);
+    const auto prediction = m_net->forward(
+        hero.unsqueeze(0), minion.unsqueeze(0), standalone.unsqueeze(0));
     return prediction[0][0].item<double>();
 }
 }  // namespace RosettaTorch::NeuralNet

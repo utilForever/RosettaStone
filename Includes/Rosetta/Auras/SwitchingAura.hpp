@@ -46,17 +46,11 @@ class SwitchingAura : public Aura
     //! Internal method of Remove().
     void RemoveInternal() override;
 
-    //! Turns on switching aura.
-    void TurnOn(Player*, Entity*);
-
-    //! Turns off switching aura.
-    void TurnOff(Player*, Entity*);
-
     SelfCondition m_initCondition;
     TriggerType m_offTrigger;
 
-    std::function<void(Player*, Entity*)> m_onHandler;
-    std::function<void(Player*, Entity*)> m_offHandler;
+    std::function<void(Entity*)> m_onHandler;
+    std::function<void(Entity*)> m_offHandler;
 
     bool m_isRemoved = false;
 };

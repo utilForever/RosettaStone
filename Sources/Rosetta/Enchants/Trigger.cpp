@@ -46,6 +46,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
       tasks(prototype.tasks),
       condition(prototype.condition),
+      eitherTurn(prototype.eitherTurn),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
       m_owner(dynamic_cast<Playable*>(&owner)),
@@ -72,10 +73,10 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
 
     source->activatedTrigger = instance;
 
-    auto triggerFunc = [this, instance](Player* p, Entity* e) {
+    auto triggerFunc = [this, instance](Entity* e) {
         if (percentage == 1.0f || Random::get<float>(0.0f, 1.0f) < percentage)
         {
-            instance->Process(p, e);
+            instance->Process(e);
         }
     };
 
@@ -313,16 +314,16 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
     {
         if (trigger->m_sequenceType == type)
         {
-            trigger->Validate(game->GetCurrentPlayer(), source);
+            trigger->Validate(source);
         }
     }
 }
 
-void Trigger::Process(Player* player, Entity* source)
+void Trigger::Process(Entity* source)
 {
     if (m_sequenceType == SequenceType::NONE)
     {
-        Validate(player, source);
+        Validate(source);
     }
 
     if (!m_isValidated)
@@ -349,17 +350,27 @@ void Trigger::ProcessInternal(Entity* source)
         clonedTask->SetPlayer(m_owner->player);
         clonedTask->SetSource(m_owner);
 
-        if (source != nullptr)
+        if (const auto playable = dynamic_cast<Playable*>(source); playable)
         {
-            clonedTask->SetTarget(dynamic_cast<Playable*>(source));
+            clonedTask->SetTarget(playable);
         }
         else
         {
             const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
-            if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
+
+            if (enchantment != nullptr)
             {
-                clonedTask->SetTarget(
-                    dynamic_cast<Playable*>(enchantment->GetTarget()));
+                const auto enchantPlayable =
+                    dynamic_cast<Playable*>(enchantment->GetTarget());
+
+                if (enchantPlayable != nullptr)
+                {
+                    clonedTask->SetTarget(enchantPlayable);
+                }
+                else
+                {
+                    clonedTask->SetTarget(nullptr);
+                }
             }
             else
             {
@@ -380,7 +391,7 @@ void Trigger::ProcessInternal(Entity* source)
     m_isValidated = false;
 }
 
-void Trigger::Validate(Player* player, Entity* source)
+void Trigger::Validate(Entity* source)
 {
     switch (triggerSource)
     {
@@ -469,7 +480,8 @@ void Trigger::Validate(Player* player, Entity* source)
     {
         case TriggerType::TURN_START:
         case TriggerType::TURN_END:
-            if (m_owner == nullptr || player != m_owner->player)
+            if (!eitherTurn &&
+                (m_owner == nullptr || source != m_owner->player))
             {
                 return;
             }
@@ -488,10 +500,9 @@ void Trigger::Validate(Player* player, Entity* source)
 
     if (condition != nullptr)
     {
-        const bool res =
-            (source != nullptr)
-                ? condition->Evaluate(dynamic_cast<Playable*>(source))
-                : condition->Evaluate(m_owner);
+        const auto playable = dynamic_cast<Playable*>(source);
+        const bool res = (playable != nullptr) ? condition->Evaluate(playable)
+                                               : condition->Evaluate(m_owner);
 
         if (!res)
         {

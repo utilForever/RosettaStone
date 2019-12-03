@@ -43,7 +43,7 @@ TaskStatus HeroPowerTask::Impl(Player* player)
     {
         Trigger::ValidateTriggers(player->game, &power, SequenceType::TARGET);
         player->game->taskQueue.StartEvent();
-        player->game->triggerManager.OnTargetTrigger(player, &power);
+        player->game->triggerManager.OnTargetTrigger(&power);
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
     }

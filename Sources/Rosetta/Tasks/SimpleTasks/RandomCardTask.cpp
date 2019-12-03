@@ -8,18 +8,34 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
+RandomCardTask::RandomCardTask(EntityType entityType, bool opposite)
+    : ITask(entityType),
+      m_cardType(CardType::INVALID),
+      m_cardClass(CardClass::INVALID),
+      m_race(Race::INVALID),
+      m_opposite(opposite)
+{
+    // Do nothing
+}
+
 RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
-                               Race race)
-    : m_cardType(cardType), m_cardClass(cardClass), m_race(race)
+                               Race race, bool opposite)
+    : m_cardType(cardType),
+      m_cardClass(cardClass),
+      m_race(race),
+      m_opposite(opposite)
 {
     // Do nothing
 }
 
 std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
-                                               CardClass cardClass, Race race)
+                                               CardClass cardClass,
+                                               Race race) const
 {
     std::vector<Card*> result;
-    const auto cards = Cards::GetAllCards();
+    const auto cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                           ? Cards::GetAllStandardCards()
+                           : Cards::GetAllWildCards();
 
     for (const auto& card : cards)
     {
@@ -38,14 +54,33 @@ std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
 
 TaskStatus RandomCardTask::Impl(Player* player)
 {
-    auto cardsList = GetCardList(m_cardType, m_cardClass, m_race);
+    CardClass cardClass;
+
+    switch (m_entityType)
+    {
+        case EntityType::HERO:
+            cardClass = player->GetHero()->card->GetCardClass();
+            break;
+        case EntityType::ENEMY_HERO:
+            cardClass = player->opponent->GetHero()->card->GetCardClass();
+            break;
+        case EntityType::INVALID:
+            cardClass = m_cardClass;
+            break;
+        default:
+            throw std::invalid_argument(
+                "RandomCardTask::Impl() - Invalid entity type");
+    }
+
+    auto cardsList = GetCardList(m_cardType, cardClass, m_race);
     if (cardsList.empty())
     {
         return TaskStatus::STOP;
     }
 
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
-    auto randomCard = Entity::GetFromCard(player, cardsList.at(idx));
+    auto randomCard = Entity::GetFromCard(
+        m_opposite ? player->opponent : player, cardsList.at(idx));
     player->game->taskStack.playables.emplace_back(randomCard);
 
     return TaskStatus::COMPLETE;

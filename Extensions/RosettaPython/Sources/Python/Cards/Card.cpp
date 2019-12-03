@@ -6,6 +6,8 @@
 
 #include <Python/Cards/Card.hpp>
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Models/Character.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -19,6 +21,7 @@ void AddCard(pybind11::module& m)
         R"pbdoc(This class stores card information such as attack, health and cost.)pbdoc")
         .def(pybind11::init<>(), R"pbdoc(Constructs Card class.)pbdoc")
         .def_readwrite("id", &Card::id, R"pbdoc(ID of the card.)pbdoc")
+        .def_readwrite("dbf_id", &Card::dbfID, R"pbdoc(dbfID of the card.)pbdoc")
         .def_readwrite("name", &Card::name, R"pbdoc(Name of the card.)pbdoc")
         .def_readwrite("text", &Card::text, R"pbdoc(Text of the card.)pbdoc")
         .def_readwrite("game_tags", &Card::gameTags,
@@ -51,5 +54,43 @@ void AddCard(pybind11::module& m)
              Parameters
              ----------
              - game_tag : The game tag of card.)pbdoc",
-             pybind11::arg("game_tag"));
+             pybind11::arg("game_tag"))
+        .def(
+            "is_untouchable", &Card::IsUntouchable,
+            R"pbdoc(Returns the flag that indicates whether it is untouchable.)pbdoc")
+        .def(
+            "is_collectible", &Card::IsCollectible,
+            R"pbdoc(Returns the flag that indicates whether it is collectible.)pbdoc")
+        .def("is_standard_set", &Card::IsStandardSet,
+             R"pbdoc(Finds out if this card is in STANDARD set.)pbdoc")
+        .def("is_wild_set", &Card::IsWildSet,
+             R"pbdoc(Finds out if this card is in WILD set.)pbdoc")
+        .def(
+            "get_max_allowed_in_deck", &Card::GetMaxAllowedInDeck,
+            R"pbdoc(Returns the number of cards that can be inserted into the deck.)pbdoc")
+        .def(
+            "targeting_requirements", &Card::TargetingRequirements,
+            R"pbdoc(Calculates if a target is valid by testing the game state for each hardcoded requirement.
+
+			 true if the proposed target is valid, false otherwise.
+
+             Parameters
+             ----------
+			 - player : The player of the source.
+			 - target : The proposed target.)pbdoc",
+            pybind11::arg("player"), pybind11::arg("target"))
+        .def(
+            "get_valid_targets", &Card::GetValidPlayTargets,
+            R"pbdoc(Gets the valid play targets. This method defaults to targeting in the context of spells/hero powers.
+
+			A list of valid play targets.
+
+			Parameters
+			----------
+			- player : The player of the source.)pbdoc",
+            pybind11::arg("player"))
+        .def("show_brief_info", &Card::ShowBriefInfo,
+             R"pbdoc(Prints brief card information.)pbdoc")
+        .def("show_info", &Card::ShowInfo,
+             R"pbdoc(Prints card information.)pbdoc");
 }

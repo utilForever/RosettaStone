@@ -137,7 +137,7 @@ double NeuralNetRefInputGetter::GetHandField(NeuralNet::FieldType fieldType,
         case NeuralNet::FieldType::HAND_COUNT:
             return hand.size();
         case NeuralNet::FieldType::HAND_PLAYABLE:
-            return static_cast<double>(hand[handIdx]["playable"].get<bool>());
+            return hand[handIdx]["playable"];
         case NeuralNet::FieldType::HAND_COST:
             return hand[handIdx]["cost"];
         default:
@@ -151,7 +151,7 @@ double NeuralNetRefInputGetter::GetHeroPowerField(
 {
     if (fieldType == NeuralNet::FieldType::HERO_POWER_PLAYABLE)
     {
-        return static_cast<double>(heroPower["playable"].get<bool>());
+        return heroPower["playable"];
     }
 
     throw std::runtime_error("Unknown field type");

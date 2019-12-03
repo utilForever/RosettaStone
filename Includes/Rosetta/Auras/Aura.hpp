@@ -11,6 +11,7 @@
 #include <Rosetta/Commons/PriorityQueue.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 
 #include <string>
@@ -81,6 +82,7 @@ class Aura : public IAura
     void NotifyEntityRemoved(Playable* entity);
 
     SelfCondition* condition = nullptr;
+    std::pair<TriggerType, SelfCondition*> removeTrigger;
     bool restless = false;
 
  protected:
@@ -99,6 +101,8 @@ class Aura : public IAura
 
     PriorityQueue<AuraUpdateInstruction> m_auraUpdateInstQueue;
     std::vector<Playable*> m_appliedEntities;
+
+    std::function<void(Entity*)> m_removeHandler;
 
     Card* m_enchantmentCard = nullptr;
     std::vector<IEffect*> m_effects;

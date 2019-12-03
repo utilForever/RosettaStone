@@ -60,14 +60,14 @@ class Trigger
     SelfCondition* condition = nullptr;
 
     float percentage = 1.0f;
+    bool eitherTurn = false;
     bool fastExecution = false;
     bool removeAfterTriggered = false;
 
  private:
     //! Processes trigger to apply the effect.
-    //! \param player The player.
     //! \param source The source of trigger.
-    void Process(Player* player, Entity* source);
+    void Process(Entity* source);
 
     //! Internal method of Process().
     //! \param source The source of trigger.
@@ -75,9 +75,8 @@ class Trigger
 
     //! Validates triggers related to the current sequence at once before the
     //! sequence starts.
-    //! \param player The player.
     //! \param source The source of trigger.
-    void Validate(Player* player, Entity* source);
+    void Validate(Entity* source);
 
     Playable* m_owner = nullptr;
 

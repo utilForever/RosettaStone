@@ -11,20 +11,56 @@ import pyRosetta
 def test_constructors():
     deck1 = pyRosetta.DeckInfo()
 
-    assert deck1.get_name() == 'Empty'
-    assert deck1.get_class() == pyRosetta.CardClass.INVALID
-    assert deck1.get_num_of_cards() == 0
+    assert deck1.name() == 'Empty'
+    assert deck1.deck_class() == pyRosetta.CardClass.INVALID
+    assert deck1.num_of_cards() == 0
 
     deck2 = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
     
-    assert deck2.get_name() == 'Ice Magician'
-    assert deck2.get_class() == pyRosetta.CardClass.MAGE
-    assert deck2.get_num_of_cards() == 0
+    assert deck2.name() == 'Ice Magician'
+    assert deck2.deck_class() == pyRosetta.CardClass.MAGE
+    assert deck2.num_of_cards() == 0
 
 def test_card_control():
     druid_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.DRUID)
-    mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.HUNTER)
+    mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.MAGE)
 
     deck = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
     deck.show_card_list()
-    assert deck.add_card(mage_cards[0].id, 1) == True
+    assert deck.add_card(mage_cards[0].id, 1) is True
+    assert deck.card(0)[1] == 1
+    assert deck.add_card(mage_cards[0].id, 1) is True
+    assert deck.card(0)[1] == 2
+    assert deck.add_card(mage_cards[0].id, 1) is False
+    assert deck.add_card(mage_cards[1].id, 3) is False
+    assert deck.add_card(druid_cards[0].id, 1) is False
+    deck.show_card_list()
+
+    assert deck.unique_num_of_cards() == 1
+    assert deck.num_of_cards() == 2
+
+    assert deck.card(0)[1] == 2
+    assert deck.delete_card(mage_cards[0].id, 1) is True
+    assert deck.delete_card(mage_cards[0].id, 4) is False
+    assert deck.delete_card(druid_cards[0].id, 1) is False
+    deck.show_card_list()
+
+def test_num_card_in_deck():
+    mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.MAGE)
+
+    deck = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
+    deck.add_card(mage_cards[0].id, 1)
+    
+    pri_deck = deck.primitive_deck()
+    assert pri_deck[0].id == mage_cards[0].id
+
+def test_card_ids():
+    INKEEPER_EXPERT_WARLOCK = 'AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA'
+    deck = pyRosetta.DeckCode.decode('AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA').card_ids()
+    
+    assert len(deck) == 30
+
+    for card_id in deck:
+        card = pyRosetta.Cards.find_card_by_id(card_id)
+
+        assert (card.card_class() == pyRosetta.CardClass.WARLOCK or card.card_class() == pyRosetta.CardClass.NEUTRAL) is True

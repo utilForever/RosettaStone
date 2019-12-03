@@ -22,7 +22,7 @@ void Attack(Player* player, Character* source, Character* target)
 
     // Process attack trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnAttackTrigger(player, source);
+    player->game->triggerManager.OnAttackTrigger(source);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
@@ -31,7 +31,7 @@ void Attack(Player* player, Character* source, Character* target)
 
     // Process target trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnTargetTrigger(player, source);
+    player->game->triggerManager.OnTargetTrigger(source);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
@@ -110,7 +110,7 @@ void Attack(Player* player, Character* source, Character* target)
     player->game->taskQueue.StartEvent();
     if (source->afterAttackTrigger != nullptr)
     {
-        source->afterAttackTrigger(player, source);
+        source->afterAttackTrigger(source);
     }
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();

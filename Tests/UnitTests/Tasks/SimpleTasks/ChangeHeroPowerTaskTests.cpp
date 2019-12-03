@@ -18,6 +18,7 @@ TEST(ChangeHeroPowerTask, Run)
     GameConfig config;
     config.startPlayer = PlayerType::PLAYER1;
     config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
     Game game(config);
 
     Hero& hero = *game.GetPlayer1()->GetHero();
