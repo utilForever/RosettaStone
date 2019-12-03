@@ -56,7 +56,7 @@ def test_num_card_in_deck():
 
 def test_card_ids():
     INKEEPER_EXPERT_WARLOCK = 'AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA'
-    deck = pyRosetta.DeckCode.decode('AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA').card_ids()
+    deck = pyRosetta.DeckCode.decode(INKEEPER_EXPERT_WARLOCK).card_ids()
     
     assert len(deck) == 30
 

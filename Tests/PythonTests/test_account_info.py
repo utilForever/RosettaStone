@@ -33,7 +33,7 @@ def test_deck_control():
 
     player.create_deck('deck2', pyRosetta.CardClass.DREAM)
     player.create_deck('deck3', pyRosetta.CardClass.DRUID)
-    
+
     assert player.num_of_deck() == 2
     player.show_deck_list()
 
