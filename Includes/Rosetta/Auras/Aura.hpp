@@ -65,11 +65,11 @@ class Aura : public IAura
 
     //! Applies aura's effect(s) to target entity.
     //! \param entity The entity to apply aura's effect(s).
-    void Apply(Playable* entity);
+    virtual void Apply(Playable* entity);
 
     //! Disapplies aura's effect(s) to target entity.
     //! \param entity The entity to disapply aura's effect(s).
-    void Disapply(Playable* entity);
+    virtual void Disapply(Playable* entity);
 
     //! Notifies this aura instance that the given entity is added to
     //! the corresponding zone.
