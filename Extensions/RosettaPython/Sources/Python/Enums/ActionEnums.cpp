@@ -38,8 +38,8 @@ void AddActionEnums(pybind11::module& m)
     m.def("GetMainOpString", GetMainOpString,
           R"pbdoc(Returns the string of the main operation type.
 
-		  Parameters
-		  ----------
-		  - op : The string of the main operation type.)pbdoc",
+          Parameters
+          ----------
+          - op : The string of the main operation type.)pbdoc",
           pybind11::arg("op"));
 }

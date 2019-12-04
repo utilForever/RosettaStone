@@ -164,7 +164,7 @@ void AddCards(pybind11::module& m)
                     Parameters
                     ----------
                     id : The ID of the card.)pbdoc",
-					pybind11::return_value_policy::reference,
+                    pybind11::return_value_policy::reference,
                     pybind11::arg("id"))
         .def_static("find_card_by_dbf_id", &CardsWrapper::FindCardByDbfID,
                     R"pbdoc(Returns a card that matches dbf_id.
@@ -239,10 +239,10 @@ void AddCards(pybind11::module& m)
             "find_card_by_health", &CardsWrapper::FindCardByHealth,
             R"pbdoc(Returns a list of cards whose health is between min_val and max_val.
 
-			Parameters
-			----------
-			min_val : The minimum health value of the card.
-			max_val : The maximum health value of the card.)pbdoc",
+            Parameters
+            ----------
+            min_val : The minimum health value of the card.
+            max_val : The maximum health value of the card.)pbdoc",
             pybind11::arg("min_val"), pybind11::arg("max_val"))
         .def_static(
             "find_card_by_spell_power", &CardsWrapper::FindCardBySpellPower,

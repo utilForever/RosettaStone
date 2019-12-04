@@ -72,22 +72,22 @@ void AddCard(pybind11::module& m)
             "targeting_requirements", &Card::TargetingRequirements,
             R"pbdoc(Calculates if a target is valid by testing the game state for each hardcoded requirement.
 
-			 true if the proposed target is valid, false otherwise.
+		  true if the proposed target is valid, false otherwise.
 
-             Parameters
-             ----------
-			 - player : The player of the source.
-			 - target : The proposed target.)pbdoc",
+            Parameters
+            ----------
+		  - player : The player of the source.
+		  - target : The proposed target.)pbdoc",
             pybind11::arg("player"), pybind11::arg("target"))
         .def(
             "get_valid_targets", &Card::GetValidPlayTargets,
             R"pbdoc(Gets the valid play targets. This method defaults to targeting in the context of spells/hero powers.
 
-			A list of valid play targets.
+		  A list of valid play targets.
 
-			Parameters
-			----------
-			- player : The player of the source.)pbdoc",
+		  Parameters
+		  ----------
+		  - player : The player of the source.)pbdoc",
             pybind11::arg("player"))
         .def("show_brief_info", &Card::ShowBriefInfo,
              R"pbdoc(Prints brief card information.)pbdoc")

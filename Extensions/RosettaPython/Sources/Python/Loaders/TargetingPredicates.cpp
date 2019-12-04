@@ -50,7 +50,7 @@ void AddTargetingPredicates(pybind11::module& m)
 
             Parameters
             ----------
-			race : The value of race.)pbdoc")
+            race : The value of race.)pbdoc")
         .def_static(
             "req_damaged_target", &TargetingPredicates::ReqDamagedTarget,
             R"pbdoc(Predicate wrapper for checking the target requires that it is damaged.)pbdoc")
@@ -63,14 +63,14 @@ void AddTargetingPredicates(pybind11::module& m)
 
             Parameters
             ----------
-			value : The value of maximum attack.)pbdoc")
+            value : The value of maximum attack.)pbdoc")
         .def_static(
             "req_target_min_attack", &TargetingPredicates::ReqTargetMinAttack,
             R"pbdoc(Predicate wrapper for checking the target requires that the minimum attack is value.
 
             Parameters
-			----------
-			value : The value of minimum attack.)pbdoc")
+            ----------
+            value : The value of minimum attack.)pbdoc")
         .def_static(
             "req_target_for_combo", &TargetingPredicates::ReqTargetForCombo,
             R"pbdoc(Predicate wrapper for checking the target requires combo active.)pbdoc")
