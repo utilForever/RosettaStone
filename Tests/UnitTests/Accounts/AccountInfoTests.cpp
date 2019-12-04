@@ -45,6 +45,4 @@ TEST(AccountInfo, DeckControl)
     EXPECT_NO_THROW(player.DeleteDeck(0));
     EXPECT_EQ(1, static_cast<int>(player.GetNumOfDeck()));
     EXPECT_EQ("deck3", player.GetDeck(0)->GetName());
-
-    EXPECT_EQ(1, static_cast<int>(player.GetNumOfDeck()));
 }

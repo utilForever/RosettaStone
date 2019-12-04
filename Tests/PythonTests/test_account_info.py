@@ -40,5 +40,3 @@ def test_deck_control():
     player.delete_deck(0)
     assert player.num_of_deck() == 1
     assert player.deck(0).name() == 'deck3'
-
-    assert player.num_of_deck() == 1
