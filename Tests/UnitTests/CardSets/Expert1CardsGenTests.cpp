@@ -5601,6 +5601,10 @@ TEST(WarlockExpert1Test, EX1_315_SummoningPortal)
     game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
     EXPECT_EQ(card3->GetCost(), 1);
     EXPECT_EQ(card4->GetCost(), 2);
+
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pit Lord"));
+    EXPECT_EQ(card6->GetCost(), 2);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
