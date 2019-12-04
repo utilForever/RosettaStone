@@ -94,6 +94,16 @@ void SummoningPortalAura::Clone(Playable* clone)
     Activate(clone, true);
 }
 
+void SummoningPortalAura::Apply(Playable* playable)
+{
+    CalculateCost(playable);
+}
+
+void SummoningPortalAura::Disapply(Playable* playable)
+{
+    CalculateCost(playable);
+}
+
 SummoningPortalAura::SummoningPortalAura(SummoningPortalAura& prototype,
                                          Playable& owner)
     : Aura(prototype, owner)
@@ -112,16 +122,26 @@ void SummoningPortalAura::AddAll()
 
 void SummoningPortalAura::RemoveAll()
 {
+    EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
+
     for (auto& entity : m_appliedEntities)
     {
         Disapply(entity);
     }
-
-    EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
 }
 
-void SummoningPortalAura::Apply(Playable* playable)
+void SummoningPortalAura::CalculateCost(Playable* playable) const
 {
+    std::size_t numSPAura = 0;
+
+    for (auto& aura : m_owner->game->auras)
+    {
+        if (dynamic_cast<SummoningPortalAura*>(aura))
+        {
+            ++numSPAura;
+        }
+    }
+
     auto minion = dynamic_cast<Minion*>(playable);
     if (minion == nullptr)
     {
@@ -129,22 +149,14 @@ void SummoningPortalAura::Apply(Playable* playable)
     }
 
     const int cardValue = minion->card->GetCost();
-    const int cost = cardValue > 2 ? cardValue - 2 : 1;
+    int cost = cardValue;
 
-    minion->SetCost(cost - cardValue + minion->GetCost());
-
-    if (auto costManager = playable->costManager; costManager)
+    for (std::size_t i = 0; i < numSPAura; ++i)
     {
-        costManager->QueueUpdate();
+        cost = cost > 2 ? cost - 2 : 1;
     }
-}
 
-void SummoningPortalAura::Disapply(Playable* playable)
-{
-    const int cardValue = playable->card->GetCost();
-    const int delta = cardValue > 2 ? 2 : cardValue > 1 ? 1 : 0;
-
-    playable->SetCost(playable->GetCost() + delta);
+    minion->SetCost(cost);
 
     if (auto costManager = playable->costManager; costManager)
     {

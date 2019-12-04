@@ -34,6 +34,14 @@ class SummoningPortalAura : public Aura
     //! \param clone The entity to clone aura effect.
     void Clone(Playable* clone) override;
 
+    //! Applies aura's effect(s) to target playable.
+    //! \param playable The playable to apply aura's effect(s).
+    void Apply(Playable* playable) override;
+
+    //! Disapplies aura's effect(s) to target playable.
+    //! \param playable The playable to disapply aura's effect(s).
+    void Disapply(Playable* playable) override;
+
  private:
     //! Constructs switching aura with given \p prototype, \p owner.
     //! \param prototype An enrage effect for prototype.
@@ -46,13 +54,9 @@ class SummoningPortalAura : public Aura
     //! Removes this aura from all entities.
     void RemoveAll();
 
-    //! Applies aura's effect(s) to target playable.
-    //! \param playable The playable to apply aura's effect(s).
-    void Apply(Playable* playable) override;
-
-    //! Disapplies aura's effect(s) to target playable.
-    //! \param playable The playable to disapply aura's effect(s).
-    void Disapply(Playable* playable) override;
+    //! Calculates the cost.
+    //! \param playable The playable to calculate cost.
+    void CalculateCost(Playable* playable) const;
 };
 }  // namespace RosettaStone
 
