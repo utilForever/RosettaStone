@@ -57,7 +57,7 @@ void AddDeckInfo(pybind11::module& m)
             "add_card", &DeckInfo::AddCard,
             R"pbdoc(Add card(s) to deck with given card_id and num_card_to_add.
 
-			true if card(s) is added to deck successfully, and false otherwise.
+            true if card(s) is added to deck successfully, and false otherwise.
 
             Parameters
             ----------
@@ -68,7 +68,7 @@ void AddDeckInfo(pybind11::module& m)
             "delete_card", &DeckInfo::DeleteCard,
             R"pbdoc(Delete card(s) from deck with given card_id and num_card_to_delete.
 
-			true if card(s) is deleted from deck successfully, and false otherwise.
+            true if card(s) is deleted from deck successfully, and false otherwise.
 
             Parameters
             ----------

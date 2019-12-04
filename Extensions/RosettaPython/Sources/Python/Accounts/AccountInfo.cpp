@@ -54,7 +54,7 @@ void AddAccountInfo(pybind11::module& m)
         .def("create_deck", &AccountInfo::CreateDeck,
              R"pbdoc(Creates a deck with given name and deckClass.
 
-			 true if deck is created successfully, and false otherwise.
+             true if deck is created successfully, and false otherwise.
 
              Parameters
              ----------
@@ -64,7 +64,7 @@ void AddAccountInfo(pybind11::module& m)
         .def("delete_deck", &AccountInfo::DeleteDeck,
              R"pbdoc(Deletes a deck at idx.
 
-			 true if deck is deleted successfully, and false otherwise.
+             true if deck is deleted successfully, and false otherwise.
 
              Parameters
              ----------
