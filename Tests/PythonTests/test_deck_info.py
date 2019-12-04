@@ -16,7 +16,7 @@ def test_constructors():
     assert deck1.num_of_cards() == 0
 
     deck2 = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
-    
+
     assert deck2.name() == 'Ice Magician'
     assert deck2.deck_class() == pyRosetta.CardClass.MAGE
     assert deck2.num_of_cards() == 0
@@ -50,7 +50,7 @@ def test_num_card_in_deck():
 
     deck = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
     deck.add_card(mage_cards[0].id, 1)
-    
+
     pri_deck = deck.primitive_deck()
     assert pri_deck[0].id == mage_cards[0].id
 
