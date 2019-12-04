@@ -28,6 +28,11 @@ Aura::Aura(AuraType type, std::string&& enchantmentID)
     // Do nothing
 }
 
+AuraType Aura::GetType() const
+{
+    return m_type;
+}
+
 void Aura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())

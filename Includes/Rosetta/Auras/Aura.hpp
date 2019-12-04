@@ -47,6 +47,10 @@ class Aura : public IAura
     //! Default virtual destructor.
     virtual ~Aura() = default;
 
+    //! Gets the type of aura.
+    //! \return The type of aura.
+    AuraType GetType() const;
+
     //! Create new Aura instance to the owner's game.
     //! \param owner The owner of aura.
     //! \param cloning The flag to indicate that it is cloned.
