@@ -210,7 +210,28 @@ void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
 
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
+    Weapon* weapon = nullptr;
+    AuraEffects* auraEffects = nullptr;
+
+    if (m_hero != nullptr)
+    {
+        m_setasideZone->MoveTo(m_hero, m_setasideZone->GetCount());
+        m_setasideZone->MoveTo(m_hero->heroPower, m_setasideZone->GetCount());
+
+        if (m_hero->weapon != nullptr)
+        {
+            weapon = m_hero->weapon;
+        }
+
+        auraEffects = m_hero->auraEffects;
+    }
+
     m_hero = dynamic_cast<Hero*>(GetFromCard(this, heroCard));
+    m_hero->SetZoneType(ZoneType::PLAY);
+
     m_hero->heroPower = dynamic_cast<HeroPower*>(GetFromCard(this, powerCard));
+
+    m_hero->weapon = weapon;
+    m_hero->auraEffects = auraEffects;
 }
 }  // namespace RosettaStone
