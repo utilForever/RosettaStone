@@ -75,7 +75,18 @@ namespace RosettaStone
 {
 void Expert1CardsGen::AddHeroes(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- HERO - WARLOCK
+    // [EX1_323h] Lord Jaraxxus (*) - COST:0 [ATK:0/HP:15]
+    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 1178
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_323h", power);
 }
 
 void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
@@ -107,6 +118,19 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
     cards.emplace("EX1_625t2", power);
+
+    // ----------------------------------- HERO_POWER - WARLOCK
+    // [EX1_tk33] INFERNO! (*) - COST:2
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Summon a 6/6 Infernal.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("EX1_tk34"));
+    cards.emplace("EX1_tk33", power);
 }
 
 void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
@@ -2303,6 +2327,18 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_317t", power);
 
+    // --------------------------------------- WEAPON - WARLOCK
+    // [EX1_323w] Blood Fury (*) - COST:3 [ATK:3/HP:0]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DURABILITY = 8
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_323w", power);
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [EX1_596e] Demonfire (*) - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -2312,6 +2348,14 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_596e"));
     cards.emplace("EX1_596e", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_tk34] Infernal (*) - COST:6 [ATK:6/HP:6]
+    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk34", power);
 }
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)

@@ -5755,6 +5755,59 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
     EXPECT_EQ(opField[0]->card->GetRace(), Race::DEMON);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
+// - Race: Demon, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy your hero and replace it
+//       with Lord Jaraxxus.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_323_LordJaraxxus)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_323"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 15);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_596] Demonfire - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
