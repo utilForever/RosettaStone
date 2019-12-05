@@ -35,6 +35,11 @@ Player::~Player()
     delete m_fieldZone;
     delete m_deckZone;
 
+    // TODO: This code will refactor.
+    if (m_hero)
+    {
+        delete m_hero->heroPower;
+    }
     delete m_hero;
 }
 
