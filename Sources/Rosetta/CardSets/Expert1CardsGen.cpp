@@ -54,6 +54,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveDurabilityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ReplaceHeroTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
@@ -2219,6 +2220,21 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
         { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
           new SummonTask(SummonSide::SPELL) }));
     cards.emplace("EX1_320", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
+    // - Race: Demon, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy your hero and replace it
+    //       with Lord Jaraxxus.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ReplaceHeroTask("EX1_323h", "EX1_tk33", "EX1_323w"));
+    cards.emplace("EX1_323", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_596] Demonfire - COST:2
