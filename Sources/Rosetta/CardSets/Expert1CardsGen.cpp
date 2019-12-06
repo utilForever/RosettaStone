@@ -1294,6 +1294,25 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     cards.emplace("EX1_332", power);
 
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_334] Shadow Madness - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Gain control of an enemy minion with 3 or less Attack
+    //       until end of turn.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_TARGET_MAX_ATTACK = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ControlTask(EntityType::TARGET));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_334e", EntityType::TARGET));
+    cards.emplace("EX1_334", power);
+
     // ---------------------------------------- MINION - PRIEST
     // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1422,6 +1441,22 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_334e] Shadow Madness (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has switched controllers this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(std::vector<IEffect*>{
+        Effects::Charge, new Effect(GameTag::CONTROLLER_CHANGED_THIS_TURN,
+                                    EffectOperator::SET, 1) }));
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask(),
+                                  new ControlTask(EntityType::TARGET, true) };
+    cards.emplace("EX1_334e", power);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_345t] Shadow of Nothing - COST:0 [ATK:0/HP:1]
