@@ -1326,6 +1326,18 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
         }));
     cards.emplace("EX1_335", power);
 
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_339] Thoughtsteal - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Copy 2 cards in your opponent's deck and
+    //       add them to your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_DECK, 2));
+    power.AddPowerTask(new CopyTask(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("EX1_339", power);
+
     // ---------------------------------------- MINION - PRIEST
     // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare

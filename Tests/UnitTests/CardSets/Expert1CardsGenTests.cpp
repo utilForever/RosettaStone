@@ -3303,6 +3303,53 @@ TEST(PriestExpert1Test, EX1_335_Lightspawn)
     EXPECT_EQ(curField[0]->GetHealth(), 2);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [EX1_339] Thoughtsteal - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Copy 2 cards in your opponent's deck and
+//       add them to your hand.
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_339_Thoughtsteal)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player2Deck[i] = *Cards::FindCardByName("Magma Rager");
+    }
+    config.player2Deck[5] = *Cards::FindCardByName("Wolfrider");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Thoughtsteal"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_TRUE(curHand[0]->card->name == "Magma Rager" ||
+                curHand[0]->card->name == "Wolfrider");
+    EXPECT_TRUE(curHand[1]->card->name == "Magma Rager" ||
+                curHand[1]->card->name == "Wolfrider");
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
