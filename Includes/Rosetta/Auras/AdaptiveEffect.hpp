@@ -19,6 +19,14 @@ namespace RosettaStone
 class AdaptiveEffect : public IAura
 {
  public:
+    //! Constructs adaptive effect with given \p tag, \p effectOp
+    //! and \p valueFunc.
+    //! \param tag The game tag.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param valueFunc The value function to get the attribute.
+    AdaptiveEffect(GameTag tag, EffectOperator effectOp,
+                   std::function<int(Playable*)> valueFunc);
+
     //! Constructs adaptive effect with given \p condition and \p tag.
     //! \param condition The specific condition.
     //! \param tag The game tag.
