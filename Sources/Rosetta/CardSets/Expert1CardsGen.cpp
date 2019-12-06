@@ -1377,6 +1377,21 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
         new FlagTask(false, { new SummonTask("EX1_345t", SummonSide::SPELL) }));
     cards.emplace("EX1_345", power);
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Double the damage and healing of your spells and Hero Power.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(
+        AuraType::PLAYER,
+        { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::ADD, 1) }));
+    cards.emplace("EX1_350", power);
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
