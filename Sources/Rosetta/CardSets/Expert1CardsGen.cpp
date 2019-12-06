@@ -1314,6 +1314,19 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("EX1_334", power);
 
     // ---------------------------------------- MINION - PRIEST
+    // [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: This minion's Attack is always equal to its Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveEffect(
+        GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
+            return dynamic_cast<Minion*>(playable)->GetHealth();
+        }));
+    cards.emplace("EX1_335", power);
+
+    // ---------------------------------------- MINION - PRIEST
     // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------

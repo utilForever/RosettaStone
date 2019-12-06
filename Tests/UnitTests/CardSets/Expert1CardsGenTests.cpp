@@ -3258,6 +3258,52 @@ TEST(PriestExpert1Test, EX1_334_ShadowMadness)
 }
 
 // ---------------------------------------- MINION - PRIEST
+// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: This minion's Attack is always equal to its Health.
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_335_Lightspawn)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightspawn"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+}
+
+// ---------------------------------------- MINION - PRIEST
 // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
