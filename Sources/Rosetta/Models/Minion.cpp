@@ -35,6 +35,11 @@ bool Minion::IsUntouchable() const
     return card->IsUntouchable();
 }
 
+bool Minion::HasCharge() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::CHARGE));
+}
+
 void Minion::Silence()
 {
     SetGameTag(GameTag::TAUNT, 0);
