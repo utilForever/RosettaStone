@@ -1099,6 +1099,20 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
     cards.emplace("EX1_362", power);
 
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_363] Blessing of Wisdom - COST:1
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Choose a minion. Whenever it attacks, draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_363e", EntityType::TARGET));
+    cards.emplace("EX1_363", power);
+
     // ------------------------------------------ SPELL - PALADIN
     // [EX1_365] Holy Wrath - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1200,6 +1214,18 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(GameTag::ATK, EffectOperator::MUL, 2));
     cards.emplace("EX1_355e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_363e] Blessing of Wisdom (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: When this minion attacks, the player who blessed
+    //       it draws a card.
+    // --------------------------------------------------------
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
+    power.GetTrigger()->tasks = { new DrawTask(1) };
+    cards.emplace("EX1_363e", power);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_382e] Stand Down! (*) - COST:0

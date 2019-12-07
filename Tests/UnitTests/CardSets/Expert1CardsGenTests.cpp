@@ -2098,6 +2098,49 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
     EXPECT_TRUE(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD));
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [EX1_363] Blessing of Wisdom - COST:1
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Choose a minion. Whenever it attacks, draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_363_BlessingofWisdom)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blessing of Wisdom"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 4);
+
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+}
+
 // ------------------------------------------ SPELL - PALADIN
 // [EX1_365] Holy Wrath - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
