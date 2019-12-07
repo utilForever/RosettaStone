@@ -13,6 +13,7 @@
 #include <Python/Commons/Constants.hpp>
 #include <Python/Commons/DeckCode.hpp>
 
+#include <Python/Conditions/RelaCondition.hpp>
 #include <Python/Enums/ActionEnums.hpp>
 #include <Python/Enums/AuraEnums.hpp>
 #include <Python/Enums/CardEnums.hpp>
@@ -44,6 +45,8 @@ PYBIND11_MODULE(pyRosetta, m)
     AddConstants(m);
     AddDeckCode(m);
 
+    // Conditions
+    AddRelaCondition(m);
     // Enums
     AddActionEnums(m);
     AddAuraEnums(m);
