@@ -7,6 +7,7 @@
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
@@ -301,6 +302,14 @@ void Character::TakeFullHeal(Playable* source)
 
 void Character::TakeHeal(Playable* source, int heal)
 {
+    if (const auto value =
+            source->player->playerAuraEffects[GameTag::SPELL_HEALING_DOUBLE];
+        (dynamic_cast<Spell*>(source) || dynamic_cast<HeroPower*>(source)) &&
+        value > 0)
+    {
+        heal *= static_cast<int>(std::pow(2.0, value));
+    }
+
     if (GetDamage() == 0)
     {
         return;
