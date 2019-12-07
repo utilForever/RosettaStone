@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_PLAYER_HPP
 #define ROSETTASTONE_PLAYER_HPP
 
+#include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enums/GameEnums.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Entity.hpp>
@@ -188,6 +189,7 @@ class Player : public Entity
 
     Player* opponent = nullptr;
 
+    PlayerAuraEffects playerAuraEffects;
     int currentSpellPower = 0;
 
  private:
