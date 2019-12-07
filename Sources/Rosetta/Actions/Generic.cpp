@@ -7,6 +7,7 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
@@ -22,6 +23,17 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     if (isSpellDamage)
     {
         amount += static_cast<int>(source->player->currentSpellPower);
+
+        if (const auto value =
+                source->player->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE];
+            value > 0)
+        {
+            amount *= static_cast<int>(std::pow(2.0, value));
+        }
+    }
+    else if (dynamic_cast<HeroPower*>(source))
+    {
+        // TODO: Process GameTag::HEROPOWER_DAMAGE
     }
 
     target->TakeDamage(source, amount);
