@@ -335,8 +335,7 @@ void Aura::AddToGame(Playable& owner, Aura& aura)
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
         default:
-            throw std::invalid_argument(
-                "Aura::AddToGame() - Invalid aura type!");
+            break;
     }
 }
 
@@ -393,6 +392,15 @@ void Aura::UpdateInternal()
                 Apply(card);
             }
             break;
+        }   
+        case AuraType::PLAYER:
+        {
+            for (auto& effect : m_effects)
+            {
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->playerAuraEffects);
+            }
+            break;
         }
         default:
             throw std::invalid_argument(
@@ -402,11 +410,22 @@ void Aura::UpdateInternal()
 
 void Aura::RemoveInternal()
 {
-    for (auto& entity : m_appliedEntities)
+    if (m_type == AuraType::PLAYER)
     {
         for (auto& effect : m_effects)
         {
-            effect->RemoveAuraFrom(entity);
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->playerAuraEffects);
+        }
+    }
+    else
+    {
+        for (auto& entity : m_appliedEntities)
+        {
+            for (auto& effect : m_effects)
+            {
+                effect->RemoveAuraFrom(entity);
+            }
         }
     }
 
