@@ -14,6 +14,7 @@ int& PlayerAuraEffects::operator[](GameTag tag)
     switch (tag)
     {
         case GameTag::SPELLPOWER_DOUBLE:
+        case GameTag::SPELL_HEALING_DOUBLE:
             return m_spellPowerDouble;
         default:
             throw std::invalid_argument(
