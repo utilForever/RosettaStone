@@ -2108,7 +2108,7 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(PaladinExpert1Test, EX1_363_BlessingofWisdom)
+TEST(PaladinExpert1Test, EX1_363_BlessingOfWisdom)
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2186,6 +2186,78 @@ TEST(PaladinExpert1Test, EX1_365_HolyWrath)
     Entity* drawnCard = curHand[curHand.GetCount() - 1];
     const int cardCost = drawnCard->card->gameTags[GameTag::COST];
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30 - cardCost);
+}
+
+// --------------------------------------- WEAPON - PALADIN
+// [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: After you summon a minion, give it +1/+1 and
+//       this loses 1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 5
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_366_SwordOfJustice)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sword of Justice"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 5);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[1]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetHealth(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField[2]->GetAttack(), 2);
+    EXPECT_EQ(curField[2]->GetHealth(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField[3]->GetAttack(), 2);
+    EXPECT_EQ(curField[3]->GetHealth(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField[4]->GetAttack(), 2);
+    EXPECT_EQ(curField[4]->GetHealth(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), false);
 }
 
 // --------------------------------------- MINION - PALADIN

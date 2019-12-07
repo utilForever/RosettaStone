@@ -30,6 +30,7 @@
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageWeaponTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
@@ -1131,6 +1132,24 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
     cards.emplace("EX1_365", power);
 
+    // --------------------------------------- WEAPON - PALADIN
+    // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: After you summon a minion, give it +1/+1 and
+    //       this loses 1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_366e",
+                                                         EntityType::TARGET),
+                                  new DamageWeaponTask(false) };
+    cards.emplace("EX1_366", power);
+
     // --------------------------------------- MINION - PALADIN
     // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1226,6 +1245,16 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
     power.GetTrigger()->tasks = { new DrawTask(1) };
     cards.emplace("EX1_363e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_366e] Justice Served (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Has +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_366e"));
+    cards.emplace("EX1_366e", power);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_382e] Stand Down! (*) - COST:0
