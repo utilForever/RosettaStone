@@ -2682,7 +2682,7 @@ TEST(WarriorExpert1Test, EX1_391_Slam)
 TEST(WarriorExpert1Test, EX1_392_BattleRage)
 {
     GameConfig config;
-    config.player1Class = CardClass::PRIEST;
+    config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -2741,7 +2741,7 @@ TEST(WarriorExpert1Test, EX1_393_AmaniBerserker)
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
@@ -2769,6 +2769,43 @@ TEST(WarriorExpert1Test, EX1_393_AmaniBerserker)
     game.Process(curPlayer, HeroPowerTask(card1));
     EXPECT_EQ(curField[0]->GetAttack(), 5);
     EXPECT_EQ(curField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Equip a 2/2 weapon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_398_ArathiWeaponsmith)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Arathi Weaponsmith"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
 }
 
 // ---------------------------------------- SPELL - WARRIOR

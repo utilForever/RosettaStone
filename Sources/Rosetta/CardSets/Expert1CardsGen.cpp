@@ -2586,6 +2586,19 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_393e")));
     cards.emplace("EX1_393", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Equip a 2/2 weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new WeaponTask("EX1_398t"));
+    cards.emplace("EX1_398", power);
+
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_407] Brawl - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
@@ -2708,6 +2721,17 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_393e"));
     cards.emplace("EX1_393e", power);
+
+    // --------------------------------------- WEAPON - WARRIOR
+    // [EX1_398t] Battle Axe (*) - COST:1 [ATK:2/HP:0]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_398t", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_414e] Enraged (*) - COST:0
