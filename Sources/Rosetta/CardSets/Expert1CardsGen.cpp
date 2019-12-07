@@ -1150,6 +1150,30 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
                                   new DamageWeaponTask(false) };
     cards.emplace("EX1_366", power);
 
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_379] Repentance - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> After your opponent plays a minion,
+    //       reduce its Health to 1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->tasks = {
+        new ConditionTask(
+            EntityType::EVENT_SOURCE,
+            { SelfCondition::IsNotDead(), SelfCondition::IsNotUntouchable() }),
+        new FlagTask(
+            true,
+            { new AddEnchantmentTask("EX1_379e", EntityType::EVENT_SOURCE),
+              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+              new MoveToGraveyardTask(EntityType::SOURCE) })
+    };
+    cards.emplace("EX1_379", power);
+
     // --------------------------------------- MINION - PALADIN
     // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1255,6 +1279,16 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_366e"));
     cards.emplace("EX1_366e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_379e] Repentance (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Health reduced to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::SetMaxHealth(1)));
+    cards.emplace("EX1_379e", power);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_382e] Stand Down! (*) - COST:0
