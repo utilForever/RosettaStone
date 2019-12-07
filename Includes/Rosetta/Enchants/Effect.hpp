@@ -71,6 +71,10 @@ class Effect : public IEffect
     //! \param entity An entity to which effect is removed.
     void RemoveFrom(Entity* entity) const override;
 
+    //! Removes effect from the target player as an aura effect.
+    //! \param auraEffects The player aura effects.
+    void RemoveFrom(PlayerAuraEffects& auraEffects) const;
+
     //! Removes aura effect from the target entity.
     //! \param entity An entity to which aura effect is removed.
     void RemoveAuraFrom(Entity* entity) const override;
