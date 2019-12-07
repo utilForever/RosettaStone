@@ -2808,6 +2808,53 @@ TEST(WarriorExpert1Test, EX1_398_ArathiWeaponsmith)
     EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever a friendly minion takes damage, gain 1 Armor.
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_402_Armorsmith)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Armorsmith"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Amani Berserker"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, HeroPowerTask(card2));
+    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 1);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 2);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [EX1_407] Brawl - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic

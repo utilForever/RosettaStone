@@ -2599,6 +2599,18 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new WeaponTask("EX1_398t"));
     cards.emplace("EX1_398", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a friendly minion takes damage, gain 1 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = { new ArmorTask(1) };
+    cards.emplace("EX1_402", power);
+
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_407] Brawl - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
