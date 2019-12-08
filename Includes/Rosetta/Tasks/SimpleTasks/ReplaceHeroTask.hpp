@@ -23,9 +23,9 @@ class ReplaceHeroTask : public ITask
     //! \param heroCard The hero card to replace.
     //! \param heroPowerCard The hero power card to replace.
     //! \param weaponCard The weapon card to equip.
-    explicit ReplaceHeroTask(const std::string& heroCard,
-                             const std::string& heroPowerCard,
-                             const std::string& weaponCard = "");
+    explicit ReplaceHeroTask(const std::string_view& heroCard,
+                             const std::string_view& heroPowerCard,
+                             const std::string_view& weaponCard = "");
 
     //! Constructs task with given \p heroCard, \p heroPowerCard
     //! and \p weaponCard.

@@ -9,9 +9,9 @@
 
 namespace RosettaStone::SimpleTasks
 {
-ReplaceHeroTask::ReplaceHeroTask(const std::string& heroCard,
-                                 const std::string& heroPowerCard,
-                                 const std::string& weaponCard)
+ReplaceHeroTask::ReplaceHeroTask(const std::string_view& heroCard,
+                                 const std::string_view& heroPowerCard,
+                                 const std::string_view& weaponCard)
 {
     if (!heroCard.empty())
     {

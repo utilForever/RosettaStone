@@ -71,7 +71,7 @@ class Cards
     //! Returns a card that matches \p id.
     //! \param id The ID of the card.
     //! \return A card that matches \p id.
-    static Card* FindCardByID(const std::string& id);
+    static Card* FindCardByID(const std::string_view& id);
 
     //! Returns a card that matches \p dbfID.
     //! \param dbfID The dbfID of the card.
@@ -106,7 +106,7 @@ class Cards
     //! Returns a card that matches \p name.
     //! \param name The name of the card.
     //! \return A card that matches condition.
-    static Card* FindCardByName(const std::string& name);
+    static Card* FindCardByName(const std::string_view& name);
 
     //! Returns a list of cards whose cost is between \p minVal and \p maxVal.
     //! \param minVal The minimum cost value of the card.

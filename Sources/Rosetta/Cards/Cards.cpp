@@ -73,7 +73,7 @@ std::vector<Card*> Cards::GetAllWildCards()
     return result;
 }
 
-Card* Cards::FindCardByID(const std::string& id)
+Card* Cards::FindCardByID(const std::string_view& id)
 {
     for (Card* card : m_cards)
     {
@@ -174,7 +174,7 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
     return result;
 }
 
-Card* Cards::FindCardByName(const std::string& name)
+Card* Cards::FindCardByName(const std::string_view& name)
 {
     for (Card* card : m_cards)
     {
