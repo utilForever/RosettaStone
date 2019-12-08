@@ -29,7 +29,7 @@ struct TaskStack
     }
 
     std::vector<Playable*> playables;
-    std::array<int, 5> num;
+    std::array<int, 5> num = { 0, 0, 0, 0, 0 };
 
     Entity* source = nullptr;
     Playable* target = nullptr;
