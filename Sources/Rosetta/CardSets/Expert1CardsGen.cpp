@@ -2678,6 +2678,25 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
     cards.emplace("EX1_410", power);
 
+    // --------------------------------------- WEAPON - WARRIOR
+    // [EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Attacking a minion costs 1 Attack instead of 1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_411e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_411", power);
+
     // --------------------------------------- MINION - WARRIOR
     // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -2767,9 +2786,9 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     // Text: +1 Attack and +1 Durability.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(
-        { new Effect(GameTag::ATK, EffectOperator::ADD, 1),
-          new Effect(GameTag::DURABILITY, EffectOperator::ADD, 1) }));
+    power.AddEnchant(new Enchant(std::vector<IEffect*>{
+        new Effect(GameTag::ATK, EffectOperator::ADD, 1),
+        new Effect(GameTag::DURABILITY, EffectOperator::ADD, 1) }));
     cards.emplace("EX1_409e", power);
 
     // --------------------------------------- WEAPON - WARRIOR
@@ -2782,6 +2801,33 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_409t", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_411e] Bloodrage (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: No durability loss.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::Immune));
+    power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask(),
+                                  new AddEnchantmentTask("EX1_411e2",
+                                                         EntityType::WEAPON) };
+    cards.emplace("EX1_411e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_411e2] Needs Sharpening (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Decreased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant(
+        { new Effect(GameTag::ATK, EffectOperator::SUB, 1) }));
+    cards.emplace("EX1_411e2", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_414e] Enraged (*) - COST:0

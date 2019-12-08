@@ -3089,6 +3089,65 @@ TEST(WarriorExpert1Test, EX1_410_ShieldSlam)
     EXPECT_EQ(opField[0]->GetHealth(), 1);
 }
 
+// --------------------------------------- WEAPON - WARRIOR
+// [EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Attacking a minion costs 1 Attack instead of 1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 1
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_411_Gorehowl)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Gorehowl"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card2));
+    EXPECT_EQ(opPlayer->GetHero()->weapon->GetAttack(), 7);
+    EXPECT_EQ(opPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(opPlayer, AttackTask(opPlayer->GetHero(), card1));
+    EXPECT_EQ(opPlayer->GetHero()->weapon->GetAttack(), 6);
+    EXPECT_EQ(opPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 24);
+    EXPECT_EQ(opPlayer->GetHero()->HasWeapon(), false);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
