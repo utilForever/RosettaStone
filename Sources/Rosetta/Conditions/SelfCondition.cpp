@@ -39,6 +39,19 @@ SelfCondition SelfCondition::IsNotDead()
         [=](Playable* playable) -> bool { return !playable->isDestroyed; });
 }
 
+SelfCondition SelfCondition::IsNotImmune()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto character = dynamic_cast<Character*>(playable);
+        if (!character)
+        {
+            return false;
+        }
+
+        return !character->IsImmune();
+    });
+}
+
 SelfCondition SelfCondition::IsNotUntouchable()
 {
     return SelfCondition([=](Playable* playable) -> bool {
