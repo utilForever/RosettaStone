@@ -228,7 +228,7 @@ SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
 {
     return SelfCondition([=](Playable* playable) -> bool {
         auto& stack = playable->game->taskStack;
-        const auto num = index == 0 ? stack.num : stack.num1;
+        const auto num = index == 0 ? stack.num[0] : stack.num[1];
 
         return (relaSign == RelaSign::EQ && num == value) ||
                (relaSign == RelaSign::GEQ && num >= value) ||

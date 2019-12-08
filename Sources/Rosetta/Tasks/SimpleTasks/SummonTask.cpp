@@ -87,7 +87,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side)
         }
         case SummonSide::NUMBER:
         {
-            summonPos = source->game->taskStack.num - 1;
+            summonPos = source->game->taskStack.num[0] - 1;
             break;
         }
         case SummonSide::SPELL:
