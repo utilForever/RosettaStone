@@ -2986,6 +2986,48 @@ TEST(WarriorExpert1Test, EX1_408_MortalStrike)
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [EX1_409] Upgrade! - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: If you have a weapon, give it +1/+1.
+//       Otherwise equip a 1/3 weapon.
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_409_Upgrade)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Upgrade!"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Upgrade!"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [EX1_410] Shield Slam - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

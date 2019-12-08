@@ -2646,6 +2646,21 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     cards.emplace("EX1_408", power);
 
     // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_409] Upgrade! - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: If you have a weapon, give it +1/+1.
+    //       Otherwise equip a 1/3 weapon.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ConditionTask(
+        EntityType::HERO, { SelfCondition::IsWeaponEquipped() }));
+    power.AddPowerTask(new FlagTask(
+        true, { new AddEnchantmentTask("EX1_409e", EntityType::WEAPON) }));
+    power.AddPowerTask(new FlagTask(false, { new WeaponTask("EX1_409t") }));
+    cards.emplace("EX1_409", power);
+
+    // ---------------------------------------- SPELL - WARRIOR
     // [EX1_410] Shield Slam - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -2744,6 +2759,29 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_398t", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_409e] Upgraded (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +1 Attack and +1 Durability.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(
+        { new Effect(GameTag::ATK, EffectOperator::ADD, 1),
+          new Effect(GameTag::DURABILITY, EffectOperator::ADD, 1) }));
+    cards.emplace("EX1_409e", power);
+
+    // --------------------------------------- WEAPON - WARRIOR
+    // [EX1_409t] Heavy Axe (*) - COST:1 [ATK:1/HP:0]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_409t", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_414e] Enraged (*) - COST:0
