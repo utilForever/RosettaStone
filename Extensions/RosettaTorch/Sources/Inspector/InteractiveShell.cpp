@@ -11,6 +11,8 @@
 
 #include <Rosetta/Actions/ActionApplyHelper.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 InteractiveShell::InteractiveShell(Agents::MCTSRunner* controller,
@@ -244,10 +246,12 @@ bool InteractiveShell::ShowBestSubNodeInfo(
         if (!onlyShowBestChoice)
         {
             Game game = m_startBoardGetter();
-            PlayState result = PlayState::INVALID;
+            std::tuple<PlayState, PlayState> result;
             auto dummyInfo = actionInfoGetter.ApplyChoices(game, result);
 
-            if (result == PlayState::PLAYING)
+            auto& [p1Result, p2Result] = result;
+            if (p1Result == PlayState::PLAYING ||
+                p2Result == PlayState::PLAYING)
             {
                 const double v = GetStateValue(game);
                 os << indentPadding << "State-value: " << v << std::endl;

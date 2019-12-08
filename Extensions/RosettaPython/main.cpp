@@ -4,8 +4,26 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Python/Accounts/AccountInfo.hpp>
+#include <Python/Accounts/DeckInfo.hpp>
+
 #include <Python/Cards/Card.hpp>
+#include <Python/Cards/Cards.hpp>
+
+#include <Python/Commons/Constants.hpp>
+#include <Python/Commons/DeckCode.hpp>
+
+#include <Python/Enums/ActionEnums.hpp>
+#include <Python/Enums/AuraEnums.hpp>
 #include <Python/Enums/CardEnums.hpp>
+#include <Python/Enums/GameEnums.hpp>
+#include <Python/Enums/TargetingEnums.hpp>
+#include <Python/Enums/TaskEnums.hpp>
+#include <Python/Enums/TriggerEnums.hpp>
+
+#include <Python/Loaders/AccountLoader.hpp>
+#include <Python/Loaders/PowerLoader.hpp>
+#include <Python/Loaders/TargetingPredicates.hpp>
 
 #include <pybind11/pybind11.h>
 
@@ -14,9 +32,29 @@ PYBIND11_MODULE(pyRosetta, m)
     m.doc() =
         R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
 
+    // Accounts
+    AddAccountInfo(m);
+    AddDeckInfo(m);
+
     // Cards
     AddCard(m);
+    AddCards(m);
+
+    // Commons
+    AddConstants(m);
+    AddDeckCode(m);
 
     // Enums
+    AddActionEnums(m);
+    AddAuraEnums(m);
     AddCardEnums(m);
+    AddGameEnums(m);
+    AddTargetingEnums(m);
+    AddTaskEnums(m);
+    AddTriggerEnums(m);
+
+    // Loaders
+    AddAccountLoader(m);
+    AddPowerLoader(m);
+    AddTargetingPredicates(m);
 }

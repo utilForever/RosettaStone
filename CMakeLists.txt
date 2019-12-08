@@ -7,6 +7,11 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Builds/CMake")
 # Declare project
 project(RosettaStone)
 
+# Set RosettaStone's root directory
+if (NOT ROSETTA_ROOT)
+	set(ROSETTA_ROOT ${PROJECT_SOURCE_DIR})
+endif()
+
 # Set output directories
 set(DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
@@ -38,7 +43,7 @@ endif()
 set(CMAKE_MACOSX_RPATH ON)
 
 # Set resources
-set(RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Resources)
+set(RESOURCES_DIR ${ROSETTA_ROOT}/Resources)
 set(RESOURCES_JSONS
     ${RESOURCES_DIR}/cards.collectible.json
     ${RESOURCES_DIR}/cards.json)
@@ -60,6 +65,8 @@ add_subdirectory(Extensions/RosettaTorch)
 add_dependencies(RosettaTorch # just make sure of the dependency
                  RosettaStone
 )
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading

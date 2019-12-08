@@ -11,6 +11,9 @@
 
 #include <json/json.hpp>
 
+#include <tuple>
+#include <utility>
+
 namespace RosettaTorch::Judges::JSON
 {
 void Recorder::Start()
@@ -69,13 +72,13 @@ void Recorder::RecordManualAction(RosettaStone::ActionType actionType,
     m_json.emplace_back(obj);
 }
 
-void Recorder::End(RosettaStone::PlayerType playerType,
-                   RosettaStone::PlayState result)
+void Recorder::End(
+    std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result)
 {
     nlohmann::json obj;
 
     obj["type"] = "END";
-    obj["result"] = GetResultString(playerType, result);
+    obj["result"] = GetResultString(std::move(result));
 
     m_json.emplace_back(obj);
 }
@@ -123,33 +126,29 @@ std::string Recorder::GetChoiceTypeString(
     return "INVALID";
 }
 
-std::string Recorder::GetResultString(RosettaStone::PlayerType playerType,
-                                      RosettaStone::PlayState result)
+std::string Recorder::GetResultString(
+    std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result) const
 {
-    switch (result)
+    auto& [p1Result, p2Result] = result;
+
+    if (p1Result == RosettaStone::PlayState::WON &&
+        p2Result == RosettaStone::PlayState::LOST)
     {
-        case RosettaStone::PlayState::TIED:
-            return "DRAW";
-        case RosettaStone::PlayState::WON:
-            if (playerType == RosettaStone::PlayerType::PLAYER1)
-            {
-                return "PLAYER1_WIN";
-            }
-            else
-            {
-                return "PLAYER2_WIN";
-            }
-        case RosettaStone::PlayState::LOST:
-            if (playerType == RosettaStone::PlayerType::PLAYER1)
-            {
-                return "PLAYER2_WIN";
-            }
-            else
-            {
-                return "PLAYER1_WIN";
-            }
-        default:
-            return "INVALID";
+        return "PLAYER1_WIN";
     }
+
+    if (p1Result == RosettaStone::PlayState::LOST &&
+        p2Result == RosettaStone::PlayState::WON)
+    {
+        return "PLAYER2_WIN";
+    }
+
+    if (p1Result == RosettaStone::PlayState::TIED &&
+        p2Result == RosettaStone::PlayState::TIED)
+    {
+        return "DRAW";
+    }
+
+    return "INVALID";
 }
 }  // namespace RosettaTorch::Judges::JSON
