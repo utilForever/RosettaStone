@@ -85,8 +85,8 @@ void HoFCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new ConditionTask(EntityType::TARGET, { SelfCondition::IsFrozen() }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::TARGET, { new SelfCondition(SelfCondition::IsFrozen()) }));
     power.AddPowerTask(
         new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true) }));
     power.AddPowerTask(new FlagTask(

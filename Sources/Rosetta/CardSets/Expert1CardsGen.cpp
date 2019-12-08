@@ -696,7 +696,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->tasks = {
-        new ConditionTask(EntityType::TARGET, { SelfCondition::IsNotDead() }),
+        new ConditionTask(EntityType::TARGET,
+                          { new SelfCondition(SelfCondition::IsNotDead()) }),
         new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true),
                              new SetGameTagTask(EntityType::SOURCE,
                                                 GameTag::REVEALED, 1),
@@ -789,8 +790,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(
-        new ConditionTask(EntityType::TARGET, { SelfCondition::IsFrozen() }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::TARGET, { new SelfCondition(SelfCondition::IsFrozen()) }));
     power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     cards.emplace("EX1_179", power);
 
@@ -919,8 +920,9 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.GetTrigger()->tasks = {
         new ConditionTask(
             EntityType::EVENT_SOURCE,
-            { SelfCondition::IsNotDead(), SelfCondition::IsNotUntouchable(),
-              SelfCondition::IsOpFieldNotFull() }),
+            { new SelfCondition(SelfCondition::IsNotDead()),
+              new SelfCondition(SelfCondition::IsNotUntouchable()),
+              new SelfCondition(SelfCondition::IsOpFieldNotFull()) }),
         new FlagTask(true, { new SummonCopyTask(EntityType::EVENT_SOURCE),
                              new SetGameTagTask(EntityType::SOURCE,
                                                 GameTag::REVEALED, 1),
@@ -1191,7 +1193,9 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.GetTrigger()->tasks = {
         new ConditionTask(
             EntityType::EVENT_SOURCE,
-            { SelfCondition::IsNotDead(), SelfCondition::IsNotUntouchable() }),
+            std::vector<SelfCondition*>{
+                new SelfCondition(SelfCondition::IsNotDead()),
+                new SelfCondition(SelfCondition::IsNotUntouchable()) }),
         new FlagTask(
             true,
             { new AddEnchantmentTask("EX1_379e", EntityType::EVENT_SOURCE),
@@ -1485,7 +1489,8 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
         new FilterStackTask({ new SelfCondition(SelfCondition::IsMinion()) }));
     power.AddPowerTask(new CountTask(EntityType::STACK));
     power.AddPowerTask(new ConditionTask(
-        EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
+        EntityType::HERO,
+        { new SelfCondition(SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
     power.AddPowerTask(new FlagTask(
         true, { new RandomTask(EntityType::STACK, 1),
                 new CopyTask(EntityType::STACK, ZoneType::PLAY) }));
@@ -1559,13 +1564,15 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ConditionTask(
-        EntityType::SOURCE, { SelfCondition::IsHeroPowerCard("EX1_625t") }));
+        EntityType::SOURCE,
+        { new SelfCondition(SelfCondition::IsHeroPowerCard("EX1_625t")) }));
     power.AddPowerTask(
         new FlagTask(true, { new ChangeHeroPowerTask("EX1_625t2") }));
     power.AddPowerTask(new FlagTask(
         false,
         { new ConditionTask(EntityType::SOURCE,
-                            { SelfCondition::IsHeroPowerCard("EX1_625t2") }),
+                            { new SelfCondition(
+                                SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
           new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") }) }));
     cards.emplace("EX1_625", power);
 
@@ -1775,9 +1782,9 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
-        new ConditionTask(
-            EntityType::SOURCE,
-            { SelfCondition::IsTagValue(GameTag::HEADCRACK_COMBO, 1) }),
+        new ConditionTask(EntityType::SOURCE,
+                          { new SelfCondition(SelfCondition::IsTagValue(
+                              GameTag::HEADCRACK_COMBO, 1)) }),
         new FlagTask(true, { new IncludeTask(EntityType::SOURCE),
                              new FuncPlayableTask(
                                  [=](const std::vector<Playable*>& playables) {
@@ -2394,7 +2401,8 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
             { new SelfCondition(SelfCondition::IsRace(Race::DEMON)) }));
         power.AddPowerTask(new CountTask(EntityType::STACK));
         power.AddPowerTask(new ConditionTask(
-            EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
+            EntityType::HERO, { new SelfCondition(SelfCondition::IsStackNum(
+                                  1, RelaSign::GEQ)) }));
         power.AddPowerTask(new FlagTask(
             true,
             { new RandomTask(EntityType::STACK, 1), new DrawStackTask(1) }));
@@ -2428,8 +2436,8 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(
-        new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::TARGET, { new SelfCondition(SelfCondition::IsDead()) }));
     power.AddPowerTask(new FlagTask(
         true,
         { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
@@ -2463,9 +2471,10 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(EntityType::TARGET,
-                                         { SelfCondition::IsRace(Race::DEMON) },
-                                         { RelaCondition::IsFriendly() }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::TARGET,
+        { new SelfCondition(SelfCondition::IsRace(Race::DEMON)) },
+        { new RelaCondition(RelaCondition::IsFriendly()) }));
     power.AddPowerTask(new FlagTask(
         true, { new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
     power.AddPowerTask(
@@ -2580,8 +2589,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(
-        new ConditionTask(EntityType::TARGET, { SelfCondition::IsNotDead() }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::TARGET, { new SelfCondition(SelfCondition::IsNotDead()) }));
     power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     cards.emplace("EX1_391", power);
 
@@ -2665,7 +2674,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ConditionTask(
-        EntityType::HERO, { SelfCondition::IsHealth(12, RelaSign::LEQ) }));
+        EntityType::HERO,
+        { new SelfCondition(SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
     power.AddPowerTask(
         new FlagTask(true, { new DamageTask(EntityType::TARGET, 6, true) }));
     power.AddPowerTask(
@@ -2681,7 +2691,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ConditionTask(
-        EntityType::HERO, { SelfCondition::IsWeaponEquipped() }));
+        EntityType::HERO,
+        { new SelfCondition(SelfCondition::IsWeaponEquipped()) }));
     power.AddPowerTask(new FlagTask(
         true, { new AddEnchantmentTask("EX1_409e", EntityType::WEAPON) }));
     power.AddPowerTask(new FlagTask(false, { new WeaponTask("EX1_409t") }));
@@ -3651,8 +3662,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
             return playables.size() > 3 ? playables : std::vector<Playable*>{};
         }));
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
-    power.AddPowerTask(new ConditionTask(EntityType::SOURCE,
-                                         { SelfCondition::IsFieldFull() }));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::SOURCE,
+                          { new SelfCondition(SelfCondition::IsFieldFull()) }));
     power.AddPowerTask(
         new FlagTask(true, { new DestroyTask(EntityType::STACK) }));
     power.AddPowerTask(
@@ -3745,7 +3757,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
     power.GetTrigger()->tasks = {
-        new ConditionTask(EntityType::TARGET, { RelaCondition::IsFriendly() }),
+        new ConditionTask(EntityType::TARGET,
+                          { new RelaCondition(RelaCondition::IsFriendly()) }),
         new FlagTask(true, { new CopyTask(EntityType::TARGET, ZoneType::HAND, 1,
                                           false, true) }),
         new FlagTask(false,
@@ -4254,7 +4267,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ConditionTask(
-        EntityType::TARGET, { SelfCondition::IsRace(Race::MURLOC) }));
+        EntityType::TARGET,
+        { new SelfCondition(SelfCondition::IsRace(Race::MURLOC)) }));
     power.AddPowerTask(new FlagTask(
         true, { new DestroyTask(EntityType::TARGET),
                 new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE) }));

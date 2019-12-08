@@ -648,7 +648,8 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ConditionTask(
-        EntityType::SOURCE, { SelfCondition::IsControllingRace(Race::BEAST) }));
+        EntityType::SOURCE,
+        { new SelfCondition(SelfCondition::IsControllingRace(Race::BEAST)) }));
     power.AddPowerTask(
         new FlagTask(true, { new DamageTask(EntityType::TARGET, 5, true) }));
     power.AddPowerTask(
@@ -1807,8 +1808,8 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
-    power.AddPowerTask(
-        new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::TARGET, { new SelfCondition(SelfCondition::IsDead()) }));
     power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     cards.emplace("EX1_302", power);
 
