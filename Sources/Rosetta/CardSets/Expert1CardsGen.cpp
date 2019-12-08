@@ -638,6 +638,22 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     cards.emplace("DS1_188", power);
 
     // ---------------------------------------- MINION - HUNTER
+    // [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
+    // - Race: Beast, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        new EnqueueTask({ new SummonTask(SummonSide::DEATHRATTLE,
+                                         Cards::FindCardByID("EX1_534t")) },
+                        2));
+    cards.emplace("EX1_534", power);
+
+    // ---------------------------------------- MINION - HUNTER
     // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -686,22 +702,6 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("EX1_617", power);
-
-    // ---------------------------------------- MINION - HUNTER
-    // [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
-    // - Race: Beast, Set: Expert1, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
-    // --------------------------------------------------------
-    // GameTag:
-    // - DEATHRATTLE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
-        new EnqueueTask({ new SummonTask(SummonSide::DEATHRATTLE,
-                                         Cards::FindCardByID("EX1_534t")) },
-                        2));
-    cards.emplace("EX1_534", power);
 }
 
 void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
