@@ -9550,6 +9550,8 @@ TEST(NeutralExpert1Test, EX1_190_HighInquisitorWhitemane)
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetHealth(100);
+    opPlayer->GetHero()->SetHealth(100);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
@@ -9557,31 +9559,39 @@ TEST(NeutralExpert1Test, EX1_190_HighInquisitorWhitemane)
         curPlayer, Cards::FindCardByName("High Inquisitor Whitemane"));
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("High Inquisitor Whitemane"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("High Inquisitor Whitemane"));
     const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card5 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card9 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card10 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card4));
     game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
     EXPECT_EQ(curField.GetCount(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card9));
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, AttackTask(card3, card6));
-    game.Process(curPlayer, AttackTask(card4, card6));
-    game.Process(curPlayer, AttackTask(card5, card6));
+    game.Process(curPlayer, AttackTask(card4, card9));
+    game.Process(curPlayer, AttackTask(card5, card9));
+    game.Process(curPlayer, AttackTask(card6, card9));
     EXPECT_EQ(curField.GetCount(), 0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
@@ -9590,11 +9600,55 @@ TEST(NeutralExpert1Test, EX1_190_HighInquisitorWhitemane)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
+    game.Process(opPlayer, PlayCardTask::Minion(card10));
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     EXPECT_EQ(curField.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    EXPECT_EQ(curField.GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(curField[1], card10));
+    game.Process(curPlayer, AttackTask(curField[1], card10));
+    game.Process(curPlayer, AttackTask(curField[1], card10));
+    game.Process(curPlayer, AttackTask(card7, card9));
+    game.Process(curPlayer, AttackTask(card8, card10));
+    EXPECT_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField.GetCount(), 7);
+
+    std::size_t numWolfRider = 0, numWhitemane = 0;
+    for (auto& minion : curField.GetAll())
+    {
+        if (minion->card->name == "Wolfrider")
+        {
+            ++numWolfRider;
+        }
+        else if (minion->card->name == "High Inquisitor Whitemane")
+        {
+            ++numWhitemane;
+        }
+    }
+
+    EXPECT_EQ(numWolfRider, 4);
+    EXPECT_EQ(numWhitemane, 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL
