@@ -652,6 +652,45 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
                                                          EntityType::SOURCE) };
     cards.emplace("EX1_531", power);
 
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_533] Misdirection - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy attacks your hero,
+    //       instead it attacks another random character.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->tasks = {
+        new IncludeTask(EntityType::ALL,
+                        { EntityType::TARGET, EntityType::HERO }),
+        new FilterStackTask(
+            { new SelfCondition(SelfCondition::IsNotDead()),
+              new SelfCondition(SelfCondition::IsNotImmune()) }),
+        new ConditionTask(
+            EntityType::STACK,
+            { new SelfCondition(SelfCondition::IsInZone(ZoneType::PLAY)) }),
+        new FlagTask(
+            true,
+            { new ConditionTask(
+                EntityType::TARGET,
+                std::vector<SelfCondition*>{
+                    new SelfCondition(SelfCondition::IsInZone(ZoneType::PLAY)),
+                    new SelfCondition(SelfCondition::IsNotDead()) }) }),
+        new FlagTask(true, { new RandomTask(EntityType::STACK, 1),
+                             new ChangeAttackingTargetTask(EntityType::TARGET,
+                                                           EntityType::STACK),
+                             new SetGameTagTask(EntityType::SOURCE,
+                                                GameTag::REVEALED, 1),
+                             new MoveToGraveyardTask(EntityType::SOURCE) })
+    };
+    cards.emplace("EX1_533", power);
+
     // ---------------------------------------- MINION - HUNTER
     // [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
     // - Race: Beast, Set: Expert1, Rarity: Rare
