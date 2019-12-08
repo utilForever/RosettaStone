@@ -638,6 +638,21 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     cards.emplace("DS1_188", power);
 
     // ---------------------------------------- MINION - HUNTER
+    // [EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever a friendly Beast dies, gain +2/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_531e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_531", power);
+
+    // ---------------------------------------- MINION - HUNTER
     // [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
     // - Race: Beast, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -718,6 +733,17 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
     cards.emplace("DS1_188e", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [EX1_531e] Well Fed (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack and Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        new OngoingEnchant({ Effects::AttackN(2), Effects::HealthN(1) }));
+    cards.emplace("EX1_531e", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [EX1_534t] Hyena (*) - COST:2 [ATK:2/HP:2]
