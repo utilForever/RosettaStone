@@ -24,21 +24,21 @@ class ConditionTask : public ITask
     //! \param entityType The entity type to check condition.
     //! \param selfConditions A container of self condition.
     explicit ConditionTask(EntityType entityType,
-                           std::vector<SelfCondition> selfConditions);
+                           std::vector<SelfCondition*> selfConditions);
 
     //! Constructs task with given \p entityType and \p relaConditions.
     //! \param entityType The entity type to check condition.
     //! \param relaConditions A container of relation condition.
     explicit ConditionTask(EntityType entityType,
-                           std::vector<RelaCondition> relaConditions);
+                           std::vector<RelaCondition*> relaConditions);
 
     //! Constructs task with given \p entityType and \p selfConditions and \p relaConditions.
     //! \param entityType The entity type to check condition.
     //! \param selfConditions A container of self condition.
     //! \param relaConditions A container of relation condition.
     explicit ConditionTask(EntityType entityType,
-                           std::vector<SelfCondition> selfConditions,
-                           std::vector<RelaCondition> relaConditions);
+                           std::vector<SelfCondition*> selfConditions,
+                           std::vector<RelaCondition*> relaConditions);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -50,8 +50,8 @@ class ConditionTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    std::vector<SelfCondition> m_selfConditions;
-    std::vector<RelaCondition> m_relaConditions;
+    std::vector<SelfCondition*> m_selfConditions;
+    std::vector<RelaCondition*> m_relaConditions;
 };
 }  // namespace RosettaStone::SimpleTasks
 
