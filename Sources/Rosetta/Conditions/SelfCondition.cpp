@@ -268,6 +268,13 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
     });
 }
 
+SelfCondition SelfCondition::IsInZone(ZoneType zone)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetZoneType() == zone;
+    });
+}
+
 bool SelfCondition::Evaluate(Playable* owner) const
 {
     return m_func(owner);

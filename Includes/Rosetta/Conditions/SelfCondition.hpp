@@ -155,6 +155,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEventTargetIs(CardType cardType);
 
+    //! SelfCondition wrapper for checking the entity is in \p zone.
+    //! \param zone The zone type to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsInZone(ZoneType zone);
+
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
