@@ -1464,7 +1464,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
     power.GetTrigger()->tasks = {
         new IncludeTask(EntityType::FRIENDS),
-        new FilterStackTask(SelfCondition::IsDamaged()),
+        new FilterStackTask({ new SelfCondition(SelfCondition::IsDamaged()) }),
         new RandomTask(EntityType::STACK, 1), new HealTask(EntityType::STACK, 3)
     };
     cards.emplace("EX1_341", power);
@@ -1481,7 +1481,8 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::ENEMY_DECK));
-    power.AddPowerTask(new FilterStackTask(SelfCondition::IsMinion()));
+    power.AddPowerTask(
+        new FilterStackTask({ new SelfCondition(SelfCondition::IsMinion()) }));
     power.AddPowerTask(new CountTask(EntityType::STACK));
     power.AddPowerTask(new ConditionTask(
         EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
@@ -2389,8 +2390,8 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     for (size_t i = 0; i < 2; ++i)
     {
         power.AddPowerTask(new IncludeTask(EntityType::DECK));
-        power.AddPowerTask(
-            new FilterStackTask(SelfCondition::IsRace(Race::DEMON)));
+        power.AddPowerTask(new FilterStackTask(
+            { new SelfCondition(SelfCondition::IsRace(Race::DEMON)) }));
         power.AddPowerTask(new CountTask(EntityType::STACK));
         power.AddPowerTask(new ConditionTask(
             EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
@@ -3184,7 +3185,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new GetGameTagTask(EntityType::SOURCE, GameTag::ZONE_POSITION),
         new MoveToSetasideTask(EntityType::SOURCE),
         new IncludeTask(EntityType::HAND),
-        new FilterStackTask(SelfCondition::IsMinion()),
+        new FilterStackTask({ new SelfCondition(SelfCondition::IsMinion()) }),
         new RandomTask(EntityType::STACK, 1),
         new RemoveHandTask(EntityType::STACK),
         new SummonTask(SummonSide::NUMBER),
@@ -3520,8 +3521,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(
-        new FilterStackTask(EntityType::SOURCE, RelaCondition::IsSideBySide()));
+    power.AddPowerTask(new FilterStackTask(
+        EntityType::SOURCE,
+        { new RelaCondition(RelaCondition::IsSideBySide()) }));
     power.AddPowerTask(
         new SetGameTagTask(EntityType::STACK, GameTag::TAUNT, 1));
     cards.emplace("EX1_058", power);
@@ -3684,8 +3686,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(
-        new FilterStackTask(EntityType::SOURCE, RelaCondition::IsSideBySide()));
+    power.AddPowerTask(new FilterStackTask(
+        EntityType::SOURCE,
+        { new RelaCondition(RelaCondition::IsSideBySide()) }));
     power.AddPowerTask(new AddEnchantmentTask("EX1_093e", EntityType::STACK));
     cards.emplace("EX1_093", power);
 
@@ -3773,8 +3776,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(
-        new FilterStackTask(SelfCondition::IsRace(Race::MURLOC)));
+    power.AddPowerTask(new FilterStackTask(
+        { new SelfCondition(SelfCondition::IsRace(Race::MURLOC)) }));
     power.AddPowerTask(new AddEnchantmentTask("EX1_103e", EntityType::STACK));
     cards.emplace("EX1_103", power);
 
@@ -4201,8 +4204,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(
-        new FilterStackTask(EntityType::SOURCE, RelaCondition::IsSideBySide()));
+    power.AddPowerTask(new FilterStackTask(
+        EntityType::SOURCE,
+        { new RelaCondition(RelaCondition::IsSideBySide()) }));
     power.AddPowerTask(new AddEnchantmentTask("EX1_584e", EntityType::STACK));
     cards.emplace("EX1_584", power);
 
@@ -4285,11 +4289,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
-    power.GetTrigger()->tasks = { new IncludeTask(EntityType::ENEMIES),
-                                  new FilterStackTask(
-                                      SelfCondition::IsNotDead()),
-                                  new RandomTask(EntityType::STACK, 1),
-                                  new DamageTask(EntityType::STACK, 1) };
+    power.GetTrigger()->tasks = {
+        new IncludeTask(EntityType::ENEMIES),
+        new FilterStackTask({ new SelfCondition(SelfCondition::IsNotDead()) }),
+        new RandomTask(EntityType::STACK, 1),
+        new DamageTask(EntityType::STACK, 1)
+    };
     cards.emplace("NEW1_019", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4414,8 +4419,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(new FilterStackTask(
-        SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)));
+    power.AddPowerTask(new FilterStackTask({ new SelfCondition(
+        SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("NEW1_041", power);
@@ -4838,8 +4843,8 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::ALL));
-    power.AddPowerTask(
-        new FilterStackTask(SelfCondition::IsName("Ysera", false)));
+    power.AddPowerTask(new FilterStackTask(
+        { new SelfCondition(SelfCondition::IsName("Ysera", false)) }));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 5, true));
     cards.emplace("DREAM_02", power);
 

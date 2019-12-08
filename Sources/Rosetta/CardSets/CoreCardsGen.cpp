@@ -899,11 +899,12 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new EnqueueTask({ new FilterStackTask(SelfCondition::IsNotDead()),
-                          new RandomTask(EntityType::ENEMIES, 1),
-                          new DamageTask(EntityType::STACK, 1) },
-                        3, true));
+    power.AddPowerTask(new EnqueueTask(
+        { new FilterStackTask(
+              { new SelfCondition(SelfCondition::IsNotDead()) }),
+          new RandomTask(EntityType::ENEMIES, 1),
+          new DamageTask(EntityType::STACK, 1) },
+        3, true));
     cards.emplace("EX1_277", power);
 }
 
@@ -1543,7 +1544,8 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::TOTEM)));
+    power.AddPowerTask(new FilterStackTask(
+        { new SelfCondition(SelfCondition::IsRace(Race::TOTEM)) }));
     power.AddPowerTask(new AddEnchantmentTask("EX1_244e", EntityType::STACK));
     cards.emplace("EX1_244", power);
 
