@@ -29,6 +29,7 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
     }
     game->triggerManager.OnAfterSummonTrigger(minion);
     game->ProcessTasks();
+    delete game->currentEventData;
     game->currentEventData = temp;
     game->taskQueue.EndEvent();
 }
