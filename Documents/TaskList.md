@@ -25,8 +25,10 @@
 * ControlTask
 * CopyTask
 * CountTask
+* CustomTask
 * DamageNumberTask
 * DamageTask
+* DamageWeaponTask
 * DestroyTask
 * DiscardTask
 * DrawNumberTask
@@ -50,13 +52,16 @@
 * MoveToSetasideTask
 * RandomCardTask
 * RandomEntourageTask
+* RandomMinionTask
 * RandomTask
 * RemoveDurabilityTask
 * RemoveEnchantmentTask
 * RemoveHandTask
+* ReplaceHeroTask
 * ReturnHandTask
 * SetGameTagTask
 * SilenceTask
+* SummonCopyTask
 * SummonOpTask
 * SummonTask
 * SwapAttackHealthTask

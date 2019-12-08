@@ -273,25 +273,25 @@ EXPERT1 | EX1_304 | Void Terror | O
 EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
-EXPERT1 | EX1_315 | Summoning Portal |  
+EXPERT1 | EX1_315 | Summoning Portal | O
 EXPERT1 | EX1_317 | Sense Demons | O
 EXPERT1 | EX1_319 | Flame Imp | O
 EXPERT1 | EX1_320 | Bane of Doom | O
-EXPERT1 | EX1_323 | Lord Jaraxxus |  
+EXPERT1 | EX1_323 | Lord Jaraxxus | O
 EXPERT1 | EX1_332 | Silence | O
-EXPERT1 | EX1_334 | Shadow Madness |  
-EXPERT1 | EX1_335 | Lightspawn |  
-EXPERT1 | EX1_339 | Thoughtsteal |  
+EXPERT1 | EX1_334 | Shadow Madness | O
+EXPERT1 | EX1_335 | Lightspawn | O
+EXPERT1 | EX1_339 | Thoughtsteal | O
 EXPERT1 | EX1_341 | Lightwell | O
 EXPERT1 | EX1_345 | Mindgames | O
-EXPERT1 | EX1_350 | Prophet Velen |  
+EXPERT1 | EX1_350 | Prophet Velen | O
 EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
 EXPERT1 | EX1_362 | Argent Protector | O
-EXPERT1 | EX1_363 | Blessing of Wisdom |  
+EXPERT1 | EX1_363 | Blessing of Wisdom | O
 EXPERT1 | EX1_365 | Holy Wrath | O
-EXPERT1 | EX1_366 | Sword of Justice |  
-EXPERT1 | EX1_379 | Repentance |  
+EXPERT1 | EX1_366 | Sword of Justice | O
+EXPERT1 | EX1_379 | Repentance | O
 EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
 EXPERT1 | EX1_384 | Avenging Wrath | O
@@ -300,21 +300,21 @@ EXPERT1 | EX1_391 | Slam | O
 EXPERT1 | EX1_392 | Battle Rage | O
 EXPERT1 | EX1_393 | Amani Berserker | O
 EXPERT1 | EX1_396 | Mogu'shan Warden | O
-EXPERT1 | EX1_398 | Arathi Weaponsmith |  
-EXPERT1 | EX1_402 | Armorsmith |  
+EXPERT1 | EX1_398 | Arathi Weaponsmith | O
+EXPERT1 | EX1_402 | Armorsmith | O
 EXPERT1 | EX1_405 | Shieldbearer | O
 EXPERT1 | EX1_407 | Brawl | O
 EXPERT1 | EX1_408 | Mortal Strike | O
-EXPERT1 | EX1_409 | Upgrade! |  
+EXPERT1 | EX1_409 | Upgrade! | O
 EXPERT1 | EX1_410 | Shield Slam | O
-EXPERT1 | EX1_411 | Gorehowl |  
+EXPERT1 | EX1_411 | Gorehowl | O
 EXPERT1 | EX1_412 | Raging Worgen | O
 EXPERT1 | EX1_414 | Grommash Hellscream | O
 EXPERT1 | EX1_507 | Murloc Warleader | O
 EXPERT1 | EX1_509 | Murloc Tidecaller | O
 EXPERT1 | EX1_522 | Patient Assassin | O
-EXPERT1 | EX1_531 | Scavenging Hyena |  
-EXPERT1 | EX1_533 | Misdirection |  
+EXPERT1 | EX1_531 | Scavenging Hyena | O
+EXPERT1 | EX1_533 | Misdirection | O
 EXPERT1 | EX1_534 | Savannah Highmane | O
 EXPERT1 | EX1_536 | Eaglehorn Bow |  
 EXPERT1 | EX1_537 | Explosive Shot |  
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 79% (195 of 245 Cards)
+- Progress: 85% (210 of 245 Cards)
 
 ## Hall of Fame
 
