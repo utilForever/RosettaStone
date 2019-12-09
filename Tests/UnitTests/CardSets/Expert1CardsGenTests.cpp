@@ -6336,9 +6336,17 @@ TEST(WarlockExpert1Test, EX1_315_SummoningPortal)
     EXPECT_EQ(card3->GetCost(), 1);
     EXPECT_EQ(card4->GetCost(), 2);
 
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
     const auto card6 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pit Lord"));
     EXPECT_EQ(card6->GetCost(), 2);
+
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowstep"));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card7, card4));
+    EXPECT_EQ(card4->GetCost(), 0);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
