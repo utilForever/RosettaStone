@@ -52,6 +52,10 @@ class Minion : public Character
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
 
+    //! Returns the flag that indicates whether it has charge.
+    //! \return The flag that indicates whether it has charge.
+    bool HasCharge() const;
+
     //! Disables all special effects on this minion.
     void Silence();
 

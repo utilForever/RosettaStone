@@ -243,12 +243,12 @@ EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer | O
 EXPERT1 | EX1_183 | Gift of the Wild | O
 EXPERT1 | EX1_184 | Righteousness | O
-EXPERT1 | EX1_185 | Siegebreaker |  
-EXPERT1 | EX1_186 | SI:7 Infiltrator |  
-EXPERT1 | EX1_187 | Arcane Devourer |  
-EXPERT1 | EX1_188 | Barrens Stablehand |  
-EXPERT1 | EX1_189 | Brightwing |  
-EXPERT1 | EX1_190 | High Inquisitor Whitemane |  
+EXPERT1 | EX1_185 | Siegebreaker | O
+EXPERT1 | EX1_186 | SI:7 Infiltrator | O
+EXPERT1 | EX1_187 | Arcane Devourer | O
+EXPERT1 | EX1_188 | Barrens Stablehand | O
+EXPERT1 | EX1_189 | Brightwing | O
+EXPERT1 | EX1_190 | High Inquisitor Whitemane | O
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
 EXPERT1 | EX1_243 | Dust Devil | O
@@ -259,39 +259,39 @@ EXPERT1 | EX1_249 | Baron Geddon | O
 EXPERT1 | EX1_250 | Earth Elemental | O
 EXPERT1 | EX1_251 | Forked Lightning | O
 EXPERT1 | EX1_258 | Unbound Elemental | O
-EXPERT1 | EX1_259 | Lightning Storm |  
+EXPERT1 | EX1_259 | Lightning Storm | O
 EXPERT1 | EX1_274 | Ethereal Arcanist | O
-EXPERT1 | EX1_275 | Cone of Cold |  
+EXPERT1 | EX1_275 | Cone of Cold | O
 EXPERT1 | EX1_279 | Pyroblast | O
 EXPERT1 | EX1_283 | Frost Elemental | O
 EXPERT1 | EX1_287 | Counterspell | O
-EXPERT1 | EX1_289 | Ice Barrier |  
-EXPERT1 | EX1_294 | Mirror Entity |  
+EXPERT1 | EX1_289 | Ice Barrier | O
+EXPERT1 | EX1_294 | Mirror Entity | O
 EXPERT1 | EX1_301 | Felguard | O
 EXPERT1 | EX1_303 | Shadowflame | O
-EXPERT1 | EX1_304 | Void Terror |  
+EXPERT1 | EX1_304 | Void Terror | O
 EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
-EXPERT1 | EX1_315 | Summoning Portal |  
+EXPERT1 | EX1_315 | Summoning Portal | O
 EXPERT1 | EX1_317 | Sense Demons | O
 EXPERT1 | EX1_319 | Flame Imp | O
 EXPERT1 | EX1_320 | Bane of Doom | O
-EXPERT1 | EX1_323 | Lord Jaraxxus |  
+EXPERT1 | EX1_323 | Lord Jaraxxus | O
 EXPERT1 | EX1_332 | Silence | O
-EXPERT1 | EX1_334 | Shadow Madness |  
-EXPERT1 | EX1_335 | Lightspawn |  
-EXPERT1 | EX1_339 | Thoughtsteal |  
+EXPERT1 | EX1_334 | Shadow Madness | O
+EXPERT1 | EX1_335 | Lightspawn | O
+EXPERT1 | EX1_339 | Thoughtsteal | O
 EXPERT1 | EX1_341 | Lightwell | O
 EXPERT1 | EX1_345 | Mindgames | O
-EXPERT1 | EX1_350 | Prophet Velen |  
+EXPERT1 | EX1_350 | Prophet Velen | O
 EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
 EXPERT1 | EX1_362 | Argent Protector | O
-EXPERT1 | EX1_363 | Blessing of Wisdom |  
+EXPERT1 | EX1_363 | Blessing of Wisdom | O
 EXPERT1 | EX1_365 | Holy Wrath | O
-EXPERT1 | EX1_366 | Sword of Justice |  
-EXPERT1 | EX1_379 | Repentance |  
+EXPERT1 | EX1_366 | Sword of Justice | O
+EXPERT1 | EX1_379 | Repentance | O
 EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
 EXPERT1 | EX1_384 | Avenging Wrath | O
@@ -300,21 +300,21 @@ EXPERT1 | EX1_391 | Slam | O
 EXPERT1 | EX1_392 | Battle Rage | O
 EXPERT1 | EX1_393 | Amani Berserker | O
 EXPERT1 | EX1_396 | Mogu'shan Warden | O
-EXPERT1 | EX1_398 | Arathi Weaponsmith |  
-EXPERT1 | EX1_402 | Armorsmith |  
+EXPERT1 | EX1_398 | Arathi Weaponsmith | O
+EXPERT1 | EX1_402 | Armorsmith | O
 EXPERT1 | EX1_405 | Shieldbearer | O
 EXPERT1 | EX1_407 | Brawl | O
 EXPERT1 | EX1_408 | Mortal Strike | O
-EXPERT1 | EX1_409 | Upgrade! |  
+EXPERT1 | EX1_409 | Upgrade! | O
 EXPERT1 | EX1_410 | Shield Slam | O
-EXPERT1 | EX1_411 | Gorehowl |  
+EXPERT1 | EX1_411 | Gorehowl | O
 EXPERT1 | EX1_412 | Raging Worgen | O
 EXPERT1 | EX1_414 | Grommash Hellscream | O
 EXPERT1 | EX1_507 | Murloc Warleader | O
 EXPERT1 | EX1_509 | Murloc Tidecaller | O
 EXPERT1 | EX1_522 | Patient Assassin | O
-EXPERT1 | EX1_531 | Scavenging Hyena |  
-EXPERT1 | EX1_533 | Misdirection |  
+EXPERT1 | EX1_531 | Scavenging Hyena | O
+EXPERT1 | EX1_533 | Misdirection | O
 EXPERT1 | EX1_534 | Savannah Highmane | O
 EXPERT1 | EX1_536 | Eaglehorn Bow |  
 EXPERT1 | EX1_537 | Explosive Shot |  
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 75% (184 of 245 Cards)
+- Progress: 85% (210 of 245 Cards)
 
 ## Hall of Fame
 

@@ -28,15 +28,15 @@ TEST(MathNumberIndexTask, Run_Add)
 
     Player* player1 = game.GetPlayer1();
 
-    game.taskStack.num = 1;
-    game.taskStack.num1 = 2;
+    game.taskStack.num[0] = 1;
+    game.taskStack.num[1] = 2;
 
-    MathNumberIndexTask task(0, 1, MathOperation::ADD, 0);
+    MathNumberIndexTask task(0, 1, MathOperation::ADD, 1);
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num, 3);
+    EXPECT_EQ(game.taskStack.num[1], 3);
 }
 
 TEST(MathNumberIndexTask, Run_Sub)
@@ -53,15 +53,15 @@ TEST(MathNumberIndexTask, Run_Sub)
 
     Player* player1 = game.GetPlayer1();
 
-    game.taskStack.num = 5;
-    game.taskStack.num1 = 3;
+    game.taskStack.num[2] = 5;
+    game.taskStack.num[3] = 3;
 
-    MathNumberIndexTask task(0, 1, MathOperation::SUB, 1);
+    MathNumberIndexTask task(2, 3, MathOperation::SUB, 2);
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num1, 2);
+    EXPECT_EQ(game.taskStack.num[2], 2);
 }
 
 TEST(MathNumberIndexTask, Run_Mul)
@@ -78,15 +78,15 @@ TEST(MathNumberIndexTask, Run_Mul)
 
     Player* player1 = game.GetPlayer1();
 
-    game.taskStack.num = 2;
-    game.taskStack.num1 = 4;
+    game.taskStack.num[4] = 2;
+    game.taskStack.num[0] = 4;
 
-    MathNumberIndexTask task(0, 1, MathOperation::MUL, 0);
+    MathNumberIndexTask task(4, 0, MathOperation::MUL, 3);
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num, 8);
+    EXPECT_EQ(game.taskStack.num[3], 8);
 }
 
 TEST(MathNumberIndexTask, Run_Div)
@@ -103,13 +103,13 @@ TEST(MathNumberIndexTask, Run_Div)
 
     Player* player1 = game.GetPlayer1();
 
-    game.taskStack.num = 9;
-    game.taskStack.num1 = 3;
+    game.taskStack.num[1] = 9;
+    game.taskStack.num[2] = 3;
 
-    MathNumberIndexTask task(0, 1, MathOperation::DIV, 1);
+    MathNumberIndexTask task(1, 2, MathOperation::DIV, 4);
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num1, 3);
+    EXPECT_EQ(game.taskStack.num[4], 3);
 }

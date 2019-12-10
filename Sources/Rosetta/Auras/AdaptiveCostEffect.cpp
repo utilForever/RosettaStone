@@ -33,7 +33,7 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
     }
 
     owner->costManager->ActivateAdaptiveEffect(instance);
-    owner->onGoingEffect = instance;
+    owner->ongoingEffect = instance;
     owner->game->auras.emplace_back(instance);
 }
 
@@ -72,7 +72,7 @@ void AdaptiveCostEffect::Update()
 
 void AdaptiveCostEffect::Remove()
 {
-    m_owner->onGoingEffect = nullptr;
+    m_owner->ongoingEffect = nullptr;
 
     EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
 

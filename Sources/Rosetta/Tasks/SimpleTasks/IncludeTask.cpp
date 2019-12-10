@@ -8,6 +8,7 @@
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 #include <stdexcept>
 #include <utility>
@@ -205,8 +206,20 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::ENEMY_SECRETS:
+            for (auto& secret : player->opponent->GetSecretZone()->GetAll())
+            {
+                entities.emplace_back(secret);
+            }
+            break;
         case EntityType::STACK:
             entities = player->game->taskStack.playables;
+            break;
+        case EntityType::EVENT_SOURCE:
+            if (auto eventData = player->game->currentEventData; eventData)
+            {
+                entities.emplace_back(eventData->eventSource);
+            }
             break;
         default:
             throw std::invalid_argument(
@@ -400,8 +413,20 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::ENEMY_SECRETS:
+            for (auto& secret : player->opponent->GetSecretZone()->GetAll())
+            {
+                entities.emplace_back(secret);
+            }
+            break;
         case EntityType::STACK:
             entities = player->game->taskStack.playables;
+            break;
+        case EntityType::EVENT_SOURCE:
+            if (auto eventData = player->game->currentEventData; eventData)
+            {
+                entities.emplace_back(eventData->eventSource);
+            }
             break;
         default:
             throw std::invalid_argument(

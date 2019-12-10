@@ -73,12 +73,14 @@ enum class GameTag
 {
 #define X(a) a,
 #include "GameTag.def"
+#include "GameTagCustom.def"
 #undef X
 };
 
 const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
 #include "GameTag.def"
+#include "GameTagCustom.def"
 #undef X
 };
 

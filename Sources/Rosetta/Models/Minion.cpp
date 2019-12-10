@@ -35,6 +35,11 @@ bool Minion::IsUntouchable() const
     return card->IsUntouchable();
 }
 
+bool Minion::HasCharge() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::CHARGE));
+}
+
 void Minion::Silence()
 {
     SetGameTag(GameTag::TAUNT, 0);
@@ -60,9 +65,9 @@ void Minion::Silence()
         SetGameTag(GameTag::SPELLPOWER, 0);
     }
 
-    if (onGoingEffect != nullptr)
+    if (ongoingEffect != nullptr)
     {
-        onGoingEffect->Remove();
+        ongoingEffect->Remove();
     }
 
     EraseIf(game->oneTurnEffects, [this](std::pair<Entity*, IEffect*> effect) {
@@ -109,9 +114,9 @@ void Minion::Reset()
 {
     Entity::Reset();
 
-    if (onGoingEffect != nullptr)
+    if (ongoingEffect != nullptr)
     {
-        onGoingEffect->Remove();
+        ongoingEffect->Remove();
     }
 
     if (isDestroyed)

@@ -9,18 +9,28 @@
 
 namespace RosettaStone::Generic
 {
-void Summon(Player* player, Minion* minion, int fieldPos)
+void Summon(Minion* minion, int fieldPos, Entity* summoner)
 {
-    player->GetFieldZone()->Add(minion, fieldPos);
+    Game* game = minion->game;
 
-    player->game->UpdateAura();
+    minion->player->GetFieldZone()->Add(minion, fieldPos);
 
-    player->game->summonedMinions.emplace_back(minion);
+    game->UpdateAura();
+
+    game->summonedMinions.emplace_back(minion);
 
     // Process after summon trigger
-    player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnAfterSummonTrigger(minion);
-    player->game->ProcessTasks();
-    player->game->taskQueue.EndEvent();
+    game->taskQueue.StartEvent();
+    EventMetaData* temp = game->currentEventData;
+    if (summoner != nullptr)
+    {
+        game->currentEventData =
+            new EventMetaData(dynamic_cast<Playable*>(summoner), minion);
+    }
+    game->triggerManager.OnAfterSummonTrigger(minion);
+    game->ProcessTasks();
+    delete game->currentEventData;
+    game->currentEventData = temp;
+    game->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone::Generic

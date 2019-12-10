@@ -139,7 +139,7 @@ class Playable : public Entity
                       int chooseOne = 0, Playable* chooseBase = nullptr);
 
     CostManager* costManager = nullptr;
-    IAura* onGoingEffect = nullptr;
+    IAura* ongoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
 
     std::array<Playable*, 2> chooseOneCard{};

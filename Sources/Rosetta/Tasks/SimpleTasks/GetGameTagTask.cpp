@@ -32,14 +32,23 @@ TaskStatus GetGameTagTask::Impl(Player* player)
 
     if (m_numIndex == 0)
     {
-        player->game->taskStack.num = value;
+        player->game->taskStack.num[0] = value;
     }
     else if (static_cast<int>(entities.size()) > m_entityIndex)
     {
         switch (m_numIndex)
         {
             case 1:
-                player->game->taskStack.num1 = value;
+                player->game->taskStack.num[1] = value;
+                break;
+            case 2:
+                player->game->taskStack.num[2] = value;
+                break;
+            case 3:
+                player->game->taskStack.num[3] = value;
+                break;
+            case 4:
+                player->game->taskStack.num[4] = value;
                 break;
             default:
                 throw std::invalid_argument(

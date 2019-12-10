@@ -22,7 +22,6 @@ Hero::Hero(Player* player, Card* card, std::map<GameTag, int> tags)
 Hero::~Hero()
 {
     delete weapon;
-    delete heroPower;
 }
 
 int Hero::GetAttack() const

@@ -74,6 +74,10 @@ class Card
     //! \return The value of rarity.
     Rarity GetRarity() const;
 
+    //! Returns the value of cost.
+    //! \return The value of cost.
+    int GetCost() const;
+
     //! Finds out if this card has game tag.
     //! \param gameTag The game tag of card.
     //! \return true if this card has game tag, and false otherwise.

@@ -40,9 +40,21 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotDead();
 
+    //! SelfCondition wrapper for checking the entity is not immune.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotImmune();    
+
+    //! SelfCondition wrapper for checking the entity is not untouchable.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotUntouchable();
+
     //! SelfCondition wrapper for checking the field is full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
+
+    //! SelfCondition wrapper for checking the opponent field is not full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOpFieldNotFull();
 
     //! SelfCondition wrapper for checking the entity is damaged.
     //! \return Generated SelfCondition for intended purpose.
@@ -132,6 +144,21 @@ class SelfCondition
     //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHealth(int value, RelaSign relaSign);
+
+    //! SelfCondition wrapper for checking it is proposed defender.
+    //! \param cardType The type of the card to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsProposedDefender(CardType cardType);
+
+    //! SelfCondition wrapper for checking the event target is \p cardType.
+    //! \param cardType The type of the card to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEventTargetIs(CardType cardType);
+
+    //! SelfCondition wrapper for checking the entity is in \p zone.
+    //! \param zone The zone type to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsInZone(ZoneType zone);
 
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.

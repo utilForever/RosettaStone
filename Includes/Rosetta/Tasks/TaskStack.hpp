@@ -20,23 +20,19 @@ struct TaskStack
     void Reset()
     {
         playables.clear();
+        num.fill(0);
 
         source = nullptr;
         target = nullptr;
-
-        num = 0;
-        num1 = 0;
 
         flag = true;
     }
 
     std::vector<Playable*> playables;
+    std::array<int, 5> num = { 0, 0, 0, 0, 0 };
 
     Entity* source = nullptr;
     Playable* target = nullptr;
-
-    int num = 0;
-    int num1 = 0;
 
     bool flag = true;
 };

@@ -13,7 +13,7 @@ TaskStatus DrawNumberTask::Impl(Player* player)
 {
     std::vector<Entity*> cards;
 
-    for (int i = 0; i < player->game->taskStack.num; ++i)
+    for (int i = 0; i < player->game->taskStack.num[0]; ++i)
     {
         Entity* card = Generic::Draw(player, nullptr);
         cards.emplace_back(card);

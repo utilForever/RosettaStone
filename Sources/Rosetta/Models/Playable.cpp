@@ -22,7 +22,7 @@ Playable::Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags)
 
 Playable::~Playable()
 {
-    delete onGoingEffect;
+    delete ongoingEffect;
 }
 
 ZoneType Playable::GetZoneType() const
@@ -117,7 +117,7 @@ void Playable::ResetCost()
     costManager = nullptr;
     SetCost(card->gameTags[GameTag::COST]);
 
-    if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(onGoingEffect);
+    if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(ongoingEffect);
         effect != nullptr)
     {
         effect->Remove();

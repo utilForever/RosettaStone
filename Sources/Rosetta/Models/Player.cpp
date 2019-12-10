@@ -35,6 +35,11 @@ Player::~Player()
     delete m_fieldZone;
     delete m_deckZone;
 
+    // TODO: This code will refactor.
+    if (m_hero)
+    {
+        delete m_hero->heroPower;
+    }
     delete m_hero;
 }
 
@@ -198,9 +203,40 @@ void Player::SetNumMinionsPlayedThisTurn(int value)
     SetGameTag(GameTag::NUM_MINIONS_PLAYED_THIS_TURN, value);
 }
 
+int Player::GetNumFriendlyMinionsDiedThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN);
+}
+
+void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
+}
+
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
+    Weapon* weapon = nullptr;
+    AuraEffects* auraEffects = nullptr;
+
+    if (m_hero != nullptr)
+    {
+        m_setasideZone->MoveTo(m_hero, m_setasideZone->GetCount());
+        m_setasideZone->MoveTo(m_hero->heroPower, m_setasideZone->GetCount());
+
+        if (m_hero->weapon != nullptr)
+        {
+            weapon = m_hero->weapon;
+        }
+
+        auraEffects = m_hero->auraEffects;
+    }
+
     m_hero = dynamic_cast<Hero*>(GetFromCard(this, heroCard));
+    m_hero->SetZoneType(ZoneType::PLAY);
+
     m_hero->heroPower = dynamic_cast<HeroPower*>(GetFromCard(this, powerCard));
+
+    m_hero->weapon = weapon;
+    m_hero->auraEffects = auraEffects;
 }
 }  // namespace RosettaStone

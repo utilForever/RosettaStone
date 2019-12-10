@@ -107,6 +107,10 @@ class Character : public Playable
     //! \return The flag that indicates whether it is immune.
     bool IsImmune() const;
 
+    //! Returns the flag that indicates whether it is frozen.
+    //! \return The flag that indicates whether it is frozen.
+    bool IsFrozen() const;
+
     //! Returns the flag that indicates whether it has taunt.
     //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;
@@ -148,6 +152,10 @@ class Character : public Playable
     //! \param source An entity to give heal.
     //! \param heal The value of heal.
     void TakeHeal(Playable* source, int heal);
+
+    //! Copies internal attributes to \p copy.
+    //! \param copy The copied character to assign attributes.
+    void CopyInternalAttributes(Character* copy) const;
 
     std::function<void(Entity*)> preDamageTrigger;
     std::function<void(Entity*)> takeDamageTrigger;
