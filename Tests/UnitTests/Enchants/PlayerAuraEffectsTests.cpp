@@ -38,37 +38,27 @@ TEST(PlayAuraEffects, Run)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddAura(new Aura(
         AuraType::PLAYER,
-        { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::ADD, 1) }));
+        { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::SET, 0) }));
 
     Playable* playable1 = Generic::DrawCard(curPlayer, &card1);
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable1));
-    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], 1);
+    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], 0);
 
     auto card2 = GenerateMinionCard("minion2", 3, 6);
     card2.power.AddAura(new Aura(
         AuraType::PLAYER,
-        { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::SUB, 3) }));
+        { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::ADD, 1) }));
 
     Playable* playable2 = Generic::DrawCard(curPlayer, &card2);
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable2));
-    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], -2);
+    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], 1);
 
     auto card3 = GenerateMinionCard("minion3", 3, 6);
     card3.power.AddAura(new Aura(
         AuraType::PLAYER,
-        { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::SET, 5) }));
+        { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::SUB, 3) }));
 
     Playable* playable3 = Generic::DrawCard(curPlayer, &card3);
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable3));
-    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], 5);
-
-    auto card4 = GenerateMinionCard("minion4", 3, 6);
-    card4.power.AddAura(
-        new Aura(AuraType::PLAYER,
-                 { new Effect(GameTag::ATK, EffectOperator::SET, 5) }));
-
-    Playable* playable4 = Generic::DrawCard(curPlayer, &card4);
-    game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable4));
-    EXPECT_THROW(curPlayer->playerAuraEffects[GameTag::ATK],
-                 std::invalid_argument);
+    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], -2);
 }
