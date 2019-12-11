@@ -26,7 +26,7 @@ class CostManager
 
     //! Calculates the value of the cost by considering the factors
     //! such as cost aura, adaptive effect and enchantment.
-    //! \return cost The original value of the cost.
+    //! \param cost The original value of the cost.
     //! \return The final value of the cost.
     int GetCost(int cost);
 
