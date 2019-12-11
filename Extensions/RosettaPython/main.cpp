@@ -28,6 +28,8 @@
 #include <Python/Loaders/PowerLoader.hpp>
 #include <Python/Loaders/TargetingPredicates.hpp>
 
+#include <Python/Managers/CostManager.hpp>
+
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(pyRosetta, m)
@@ -64,4 +66,7 @@ PYBIND11_MODULE(pyRosetta, m)
     AddAccountLoader(m);
     AddPowerLoader(m);
     AddTargetingPredicates(m);
+
+    // Managers
+    AddCostManager(m);
 }
