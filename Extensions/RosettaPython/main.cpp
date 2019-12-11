@@ -24,6 +24,8 @@
 #include <Python/Enums/TaskEnums.hpp>
 #include <Python/Enums/TriggerEnums.hpp>
 
+#include <Python/Games/GameConfig.hpp>
+
 #include <Python/Loaders/AccountLoader.hpp>
 #include <Python/Loaders/PowerLoader.hpp>
 #include <Python/Loaders/TargetingPredicates.hpp>
@@ -61,6 +63,9 @@ PYBIND11_MODULE(pyRosetta, m)
     AddTargetingEnums(m);
     AddTaskEnums(m);
     AddTriggerEnums(m);
+
+    // Games
+    AddGameConfig(m);
 
     // Loaders
     AddAccountLoader(m);
