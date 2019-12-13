@@ -42,9 +42,9 @@ class CardDataManager
     //! \return A reference to instance of CardDataManager class.
     static CardDataManager& GetInstance();
 
-    //! Returns a pointer to card that matches \p cardID.
+    //! Returns the power of card that matches \p cardID.
     //! \param cardID The ID of the card.
-    //! \return A pointer to card that matches \p cardID.
+    //! \return The power of card that matches \p cardID.
     static Power FindPowerByCardID(const std::string_view& cardID);
 
  private:
