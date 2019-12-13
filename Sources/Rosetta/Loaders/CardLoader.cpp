@@ -131,8 +131,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::SPELLPOWER] = spellPower;
         card->gameTags[GameTag::OVERLOAD] = overload;
 
-        card->Initialize();
-
         cards.emplace_back(card);
     }
 

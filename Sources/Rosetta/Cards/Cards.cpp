@@ -18,6 +18,11 @@ Cards::Cards()
 {
     CardLoader::Load(m_cards);
     InternalCardLoader::Load(m_cards);
+
+    for (Card* card : m_cards)
+    {
+        card->Initialize();
+    }
 }
 
 Cards::~Cards()
