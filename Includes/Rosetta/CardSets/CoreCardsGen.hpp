@@ -13,105 +13,168 @@
 
 namespace RosettaStone
 {
+using PowersType = std::map<std::string, Power>;
+using PlayReqs = std::vector<std::tuple<PlayReq, int>>;
+using PlayReqsType = std::map<std::string, PlayReqs>;
+
 //!
 //! \brief CoreCardsGen class.
 //!
-//! This structure adds CORE cards to data storage with power.
+//! This structure adds CORE cards to the data storage with powers
+//! and play requirements.
 //!
 class CoreCardsGen
 {
  public:
-    //! Adds hero cards to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddHeroes(std::map<std::string, Power>& cards);
+    //! Adds hero cards to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddHeroes(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds hero power cards to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddHeroPowers(std::map<std::string, Power>& cards);
+    //! Adds hero power cards to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddHeroPowers(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds druid cards that are collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddDruid(std::map<std::string, Power>& cards);
+    //! Adds druid cards that are collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddDruid(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds druid cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddDruidNonCollect(std::map<std::string, Power>& cards);
+    //! Adds druid cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddDruidNonCollect(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds hunter cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddHunter(std::map<std::string, Power>& cards);
+    //! Adds hunter cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddHunter(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds hunter cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddHunterNonCollect(std::map<std::string, Power>& cards);
+    //! Adds hunter cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddHunterNonCollect(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds mage cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddMage(std::map<std::string, Power>& cards);
+    //! Adds mage cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddMage(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds mage cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddMageNonCollect(std::map<std::string, Power>& cards);
+    //! Adds mage cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddMageNonCollect(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds paladin cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddPaladin(std::map<std::string, Power>& cards);
+    //! Adds paladin cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddPaladin(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds paladin cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddPaladinNonCollect(std::map<std::string, Power>& cards);
+    //! Adds paladin cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddPaladinNonCollect(PowersType& powers,
+                                     PlayReqsType& playReqs);
 
-    //! Adds priest cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddPriest(std::map<std::string, Power>& cards);
+    //! Adds priest cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddPriest(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds priest cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddPriestNonCollect(std::map<std::string, Power>& cards);
+    //! Adds priest cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddPriestNonCollect(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds rogue cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddRogue(std::map<std::string, Power>& cards);
+    //! Adds rogue cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddRogue(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds rogue cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddRogueNonCollect(std::map<std::string, Power>& cards);
+    //! Adds rogue cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds shaman cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddShaman(std::map<std::string, Power>& cards);
+    //! Adds shaman cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddShaman(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds shaman cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddShamanNonCollect(std::map<std::string, Power>& cards);
+    //! Adds shaman cards that are not collectible to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddShamanNonCollect(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds warlock cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddWarlock(std::map<std::string, Power>& cards);
+    //! Adds warlock cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddWarlock(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds warlock cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddWarlockNonCollect(std::map<std::string, Power>& cards);
+    //! Adds warlock cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddWarlockNonCollect(PowersType& powers,
+                                     PlayReqsType& playReqs);
 
-    //! Adds warrior cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddWarrior(std::map<std::string, Power>& cards);
+    //! Adds warrior cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddWarrior(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds warrior cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddWarriorNonCollect(std::map<std::string, Power>& cards);
+    //! Adds warrior cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddWarriorNonCollect(PowersType& powers,
+                                     PlayReqsType& playReqs);
 
-    //! Adds neutral cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddNeutral(std::map<std::string, Power>& cards);
+    //! Adds neutral cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddNeutral(PowersType& powers, PlayReqsType& playReqs);
 
-    //! Adds neutral cards that are not collectible to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddNeutralNonCollect(std::map<std::string, Power>& cards);
+    //! Adds neutral cards that are not collectible to \p powers and
+    //! \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddNeutralNonCollect(PowersType& powers,
+                                     PlayReqsType& playReqs);
 
-    //! Adds all cards to \p cards.
-    //! \param cards Data storage to store added cards with power.
-    static void AddAll(std::map<std::string, Power>& cards);
+    //! Adds all cards to \p powers and \p playReqs.
+    //! \param powers The data storage to store added cards with powers.
+    //! \param playReqs The data storage to store added cards with
+    //! play requirements.
+    static void AddAll(PowersType& powers, PlayReqsType& playReqs);
 };
 }  // namespace RosettaStone
 
