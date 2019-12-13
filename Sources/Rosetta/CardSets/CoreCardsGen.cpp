@@ -170,6 +170,8 @@ void CoreCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 2));
     powers.emplace("CS1h_001", power);
+    playReqs.emplace("CS1h_001",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------- HERO_POWER - DRUID
     // [CS2_017] Shapeshift (*) - COST:2
@@ -194,6 +196,7 @@ void CoreCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, false));
     powers.emplace("CS2_034", power);
+    playReqs.emplace("CS2_034", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [CS2_049] Totemic Call (*) - COST:2
@@ -242,6 +245,10 @@ void CoreCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
         playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));
     }));
     powers.emplace("CS2_049", power);
+    playReqs.emplace(
+        "CS2_049",
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                  { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } });
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [CS2_056] Life Tap (*) - COST:2
@@ -276,6 +283,8 @@ void CoreCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SummonTask("CS2_101t", SummonSide::DEFAULT));
     powers.emplace("CS2_101", power);
+    playReqs.emplace("CS2_101",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [CS2_102] Armor Up! (*) - COST:2
@@ -300,6 +309,9 @@ void CoreCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
     powers.emplace("DS1h_292", power);
+    playReqs.emplace("DS1h_292",
+                     PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
+                               { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } });
 }
 
 void CoreCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
