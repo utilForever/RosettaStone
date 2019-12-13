@@ -16,7 +16,7 @@ std::vector<Card*> Cards::m_cards;
 
 Cards::Cards()
 {
-    m_cards.reserve(7735);
+    m_cards.reserve(8303);
 
     CardLoader::Load(m_cards);
     InternalCardLoader::Load(m_cards);
