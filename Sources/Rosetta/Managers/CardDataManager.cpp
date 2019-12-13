@@ -32,12 +32,14 @@ CardDataManager& CardDataManager::GetInstance()
     return instance;
 }
 
-Power CardDataManager::FindPowerByCardID(const std::string& cardID)
+Power CardDataManager::FindPowerByCardID(const std::string_view& cardID)
 {
-    const auto res = m_powers.find(cardID);
-    if (res != m_powers.end())
+    for (auto& power : m_powers)
     {
-        return res->second;
+        if (power.first == cardID)
+        {
+            return power.second;
+        }
     }
 
     return Power();

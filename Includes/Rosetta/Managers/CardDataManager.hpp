@@ -45,7 +45,7 @@ class CardDataManager
     //! Returns a pointer to card that matches \p cardID.
     //! \param cardID The ID of the card.
     //! \return A pointer to card that matches \p cardID.
-    static Power FindPowerByCardID(const std::string& cardID);
+    static Power FindPowerByCardID(const std::string_view& cardID);
 
  private:
     //! Constructor: Loads card data (powers and play requirements).
