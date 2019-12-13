@@ -15,6 +15,8 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
     {
         card->power =
             CardDataManager::GetInstance().FindPowerByCardID(card->id);
+        card->playRequirements =
+            CardDataManager::GetInstance().FindPlayReqsByCardID(card->id);
     }
 }
 }  // namespace RosettaStone
