@@ -44,4 +44,17 @@ Power CardDataManager::FindPowerByCardID(const std::string_view& cardID)
 
     return Power();
 }
+
+PlayReqs CardDataManager::FindPlayReqsByCardID(const std::string_view& cardID)
+{
+    for (auto& playReqs : m_playReqs)
+    {
+        if (playReqs.first == cardID)
+        {
+            return playReqs.second;
+        }
+    }
+
+    return PlayReqs();
+}
 }  // namespace RosettaStone

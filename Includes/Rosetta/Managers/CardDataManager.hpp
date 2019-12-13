@@ -47,6 +47,11 @@ class CardDataManager
     //! \return The power of card that matches \p cardID.
     static Power FindPowerByCardID(const std::string_view& cardID);
 
+    //! Returns the play requirements of card that matches \p cardID.
+    //! \param cardID The ID of the card.
+    //! \return The play requirements of card that matches \p cardID.
+    static PlayReqs FindPlayReqsByCardID(const std::string_view& cardID);
+
  private:
     //! Constructor: Loads card data (powers and play requirements).
     CardDataManager();
