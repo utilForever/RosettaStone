@@ -7,7 +7,7 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
-#include <Rosetta/Loaders/PowerLoader.hpp>
+#include <Rosetta/Loaders/InternalCardLoader.hpp>
 
 namespace RosettaStone
 {
@@ -17,7 +17,7 @@ std::vector<Card*> Cards::m_cards;
 Cards::Cards()
 {
     CardLoader::Load(m_cards);
-    PowerLoader::Load(m_cards);
+    InternalCardLoader::Load(m_cards);
 }
 
 Cards::~Cards()
