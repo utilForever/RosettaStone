@@ -11,13 +11,14 @@
 
 namespace RosettaStone
 {
-std::map<std::string, Power> CardDataManager::m_powers;
+PowersType CardDataManager::m_powers;
+PlayReqsType CardDataManager::m_playReqs;
 
 CardDataManager::CardDataManager()
 {
-    CoreCardsGen::AddAll(m_powers);
-    Expert1CardsGen::AddAll(m_powers);
-    HoFCardsGen::AddAll(m_powers);
+    CoreCardsGen::AddAll(m_powers, m_playReqs);
+    Expert1CardsGen::AddAll(m_powers, m_playReqs);
+    HoFCardsGen::AddAll(m_powers, m_playReqs);
 }
 
 CardDataManager::~CardDataManager()

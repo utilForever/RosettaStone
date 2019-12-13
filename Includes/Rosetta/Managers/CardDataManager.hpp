@@ -14,6 +14,10 @@
 
 namespace RosettaStone
 {
+using PowersType = std::map<std::string, Power>;
+using PlayReqs = std::vector<std::tuple<PlayReq, int>>;
+using PlayReqsType = std::map<std::string, PlayReqs>;
+
 //!
 //! \brief CardDataManager class.
 //!
@@ -50,7 +54,8 @@ class CardDataManager
     //! Destructor: Releases card data (powers and play requirements).
     ~CardDataManager();
 
-    static std::map<std::string, Power> m_powers;
+    static PowersType m_powers;
+    static PlayReqsType m_playReqs;
 };
 }  // namespace RosettaStone
 
