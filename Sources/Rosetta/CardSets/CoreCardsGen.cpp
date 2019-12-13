@@ -341,6 +341,7 @@ void CoreCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
     powers.emplace("CS2_007", power);
+    playReqs.emplace("CS2_007", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_008] Moonfire - COST:0
@@ -354,6 +355,7 @@ void CoreCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     powers.emplace("CS2_008", power);
+    playReqs.emplace("CS2_008", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_009] Mark of the Wild - COST:2
@@ -372,6 +374,8 @@ void CoreCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_009e", EntityType::TARGET));
     powers.emplace("CS2_009", power);
+    playReqs.emplace("CS2_009", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_011] Savage Roar - COST:3
@@ -397,6 +401,8 @@ void CoreCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 4, true));
     power.AddPowerTask(new DamageTask(EntityType::ENEMIES_NOTARGET, 1, true));
     powers.emplace("CS2_012", power);
+    playReqs.emplace("CS2_012", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_013] Wild Growth - COST:2
@@ -444,6 +450,7 @@ void CoreCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5));
     power.AddPowerTask(new DrawTask(1));
     powers.emplace("EX1_173", power);
+    playReqs.emplace("EX1_173", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
 void CoreCardsGen::AddDruidNonCollect(PowersType& powers,
@@ -518,6 +525,8 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_084e", EntityType::TARGET));
     powers.emplace("CS2_084", power);
+    playReqs.emplace("CS2_084", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- MINION - HUNTER
     // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2]
@@ -553,6 +562,10 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("DS1_070o", EntityType::TARGET));
     powers.emplace("DS1_070", power);
+    playReqs.emplace("DS1_070",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_WITH_RACE, 20 } });
 
     // ---------------------------------------- MINION - HUNTER
     // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
@@ -604,6 +617,8 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 3, true));
     powers.emplace("DS1_183", power);
+    playReqs.emplace("DS1_183",
+                     PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } });
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_184] Tracking - COST:1
@@ -648,6 +663,7 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     powers.emplace("DS1_185", power);
+    playReqs.emplace("DS1_185", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_539] Kill Command - COST:3
@@ -668,6 +684,7 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new FlagTask(false, { new DamageTask(EntityType::TARGET, 3, true) }));
     powers.emplace("EX1_539", power);
+    playReqs.emplace("EX1_539", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ----------------------------------------- SPELL - HUNTER
     // [NEW1_031] Animal Companion - COST:3
@@ -684,6 +701,8 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new RandomEntourageTask());
     power.AddPowerTask(new SummonTask());
     powers.emplace("NEW1_031", power);
+    playReqs.emplace("NEW1_031",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 }
 
 void CoreCardsGen::AddHunterNonCollect(PowersType& powers,
@@ -799,6 +818,8 @@ void CoreCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new TransformTask(EntityType::TARGET, "CS2_tk1"));
     powers.emplace("CS2_022", power);
+    playReqs.emplace("CS2_022", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_023] Arcane Intellect - COST:3
@@ -827,6 +848,7 @@ void CoreCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     powers.emplace("CS2_024", power);
+    playReqs.emplace("CS2_024", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_025] Arcane Explosion - COST:2
@@ -867,6 +889,8 @@ void CoreCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SummonTask("CS2_mirror", 2));
     powers.emplace("CS2_027", power);
+    playReqs.emplace("CS2_027",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_029] Fireball - COST:4
@@ -880,6 +904,7 @@ void CoreCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 6, true));
     powers.emplace("CS2_029", power);
+    playReqs.emplace("CS2_029", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_032] Flamestrike - COST:7
@@ -945,6 +970,8 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_087e", EntityType::TARGET));
     powers.emplace("CS2_087", power);
+    playReqs.emplace("CS2_087", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - PALADIN
     // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
@@ -971,6 +998,7 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 6));
     powers.emplace("CS2_089", power);
+    playReqs.emplace("CS2_089", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // --------------------------------------- WEAPON - PALADIN
     // [CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]
@@ -996,6 +1024,8 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_092e", EntityType::TARGET));
     powers.emplace("CS2_092", power);
+    playReqs.emplace("CS2_092", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_093] Consecration - COST:4
@@ -1020,6 +1050,7 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
     power.AddPowerTask(new DrawTask(1));
     powers.emplace("CS2_094", power);
+    playReqs.emplace("CS2_094", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // --------------------------------------- WEAPON - PALADIN
     // [CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
@@ -1049,6 +1080,8 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_360e", EntityType::TARGET));
     powers.emplace("EX1_360", power);
+    playReqs.emplace("EX1_360", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_371] Hand of Protection - COST:1
@@ -1067,6 +1100,8 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
     powers.emplace("EX1_371", power);
+    playReqs.emplace("EX1_371", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
 void CoreCardsGen::AddPaladinNonCollect(PowersType& powers,
@@ -1144,6 +1179,11 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new ControlTask(EntityType::TARGET));
     powers.emplace("CS1_113", power);
+    playReqs.emplace("CS1_113",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_ENEMY_TARGET, 0 },
+                               { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_130] Holy Smite - COST:1
@@ -1157,6 +1197,7 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     powers.emplace("CS1_130", power);
+    playReqs.emplace("CS1_130", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_003] Mind Vision - COST:1
@@ -1184,6 +1225,8 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new AddEnchantmentTask("CS2_004e", EntityType::TARGET));
     power.AddPowerTask(new DrawTask(1));
     powers.emplace("CS2_004", power);
+    playReqs.emplace("CS2_004", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_234] Shadow Word: Pain - COST:2
@@ -1199,6 +1242,9 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     powers.emplace("CS2_234", power);
+    playReqs.emplace("CS2_234", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_TARGET_MAX_ATTACK, 3 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- MINION - PRIEST
     // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
@@ -1230,6 +1276,8 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new AddEnchantmentTask("CS2_236e", EntityType::TARGET, true));
     powers.emplace("CS2_236", power);
+    playReqs.emplace("CS2_236", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_192] Radiance - COST:1
@@ -1255,6 +1303,10 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     powers.emplace("EX1_622", power);
+    playReqs.emplace("EX1_622",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_MIN_ATTACK, 5 } });
 }
 
 void CoreCardsGen::AddPriestNonCollect(PowersType& powers,
@@ -1301,6 +1353,10 @@ void CoreCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     powers.emplace("CS2_072", power);
+    playReqs.emplace("CS2_072",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_UNDAMAGED_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_074] Deadly Poison - COST:1
@@ -1314,6 +1370,8 @@ void CoreCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_074e", EntityType::WEAPON));
     powers.emplace("CS2_074", power);
+    playReqs.emplace("CS2_074",
+                     PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_075] Sinister Strike - COST:1
@@ -1339,6 +1397,9 @@ void CoreCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     powers.emplace("CS2_076", power);
+    playReqs.emplace("CS2_076", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_077] Sprint - COST:7
@@ -1392,6 +1453,10 @@ void CoreCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_191e", EntityType::TARGET));
     powers.emplace("EX1_191", power);
+    playReqs.emplace("EX1_191",
+                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_278] Shiv - COST:2
@@ -1406,6 +1471,7 @@ void CoreCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new DrawTask(1));
     powers.emplace("EX1_278", power);
+    playReqs.emplace("EX1_278", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_581] Sap - COST:2
@@ -1421,6 +1487,9 @@ void CoreCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
     powers.emplace("EX1_581", power);
+    playReqs.emplace("EX1_581", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } });
 }
 
 void CoreCardsGen::AddRogueNonCollect(PowersType& powers,
@@ -1475,6 +1544,8 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     powers.emplace("CS2_037", power);
+    playReqs.emplace("CS2_037", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_039] Windfury - COST:2
@@ -1493,6 +1564,8 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::WINDFURY, 1));
     powers.emplace("CS2_039", power);
+    playReqs.emplace("CS2_039", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
@@ -1513,6 +1586,8 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new HealFullTask(EntityType::TARGET));
     power.AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     powers.emplace("CS2_041", power);
+    playReqs.emplace("CS2_041", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- MINION - SHAMAN
     // [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
@@ -1529,6 +1604,8 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
     powers.emplace("CS2_042", power);
+    playReqs.emplace("CS2_042",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_045] Rockbiter Weapon - COST:2
@@ -1543,6 +1620,9 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_045e", EntityType::TARGET));
     powers.emplace("CS2_045", power);
+    playReqs.emplace("CS2_045",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_046] Bloodlust - COST:5
@@ -1583,6 +1663,8 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new TransformTask(EntityType::TARGET, "hexfrog"));
     powers.emplace("EX1_246", power);
+    playReqs.emplace("EX1_246", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
@@ -1619,6 +1701,10 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::WINDFURY, 1));
     powers.emplace("EX1_587", power);
+    playReqs.emplace("EX1_587",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 }
 
 void CoreCardsGen::AddShamanNonCollect(PowersType& powers,
@@ -1748,6 +1834,8 @@ void CoreCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 4, true));
     powers.emplace("CS2_057", power);
+    playReqs.emplace("CS2_057", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_061] Drain Life - COST:3
@@ -1762,6 +1850,7 @@ void CoreCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     power.AddPowerTask(new HealTask(EntityType::HERO, 2));
     powers.emplace("CS2_061", power);
+    playReqs.emplace("CS2_061", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_062] Hellfire - COST:4
@@ -1787,6 +1876,9 @@ void CoreCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_063e", EntityType::TARGET));
     powers.emplace("CS2_063", power);
+    playReqs.emplace("CS2_063", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } });
 
     // --------------------------------------- MINION - WARLOCK
     // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
@@ -1830,6 +1922,8 @@ void CoreCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
         EntityType::TARGET, { new SelfCondition(SelfCondition::IsDead()) }));
     power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     powers.emplace("EX1_302", power);
+    playReqs.emplace("EX1_302", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
@@ -1859,6 +1953,7 @@ void CoreCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new RandomTask(EntityType::HAND, 1));
     power.AddPowerTask(new DiscardTask(EntityType::STACK));
     powers.emplace("EX1_308", power);
+    playReqs.emplace("EX1_308", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ---------------------------------------- SPELL - WARLOCK
     // [NEW1_003] Sacrificial Pact - COST:0
@@ -1874,6 +1969,9 @@ void CoreCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     power.AddPowerTask(new HealTask(EntityType::HERO, 5));
     powers.emplace("NEW1_003", power);
+    playReqs.emplace("NEW1_003",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_TARGET_WITH_RACE, 15 } });
 }
 
 void CoreCardsGen::AddWarlockNonCollect(PowersType& powers,
@@ -1915,6 +2013,9 @@ void CoreCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_103e2", EntityType::TARGET));
     powers.emplace("CS2_103", power);
+    playReqs.emplace("CS2_103", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS2_105] Heroic Strike - COST:2
@@ -1952,6 +2053,10 @@ void CoreCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     powers.emplace("CS2_108", power);
+    playReqs.emplace("CS2_108", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                          { PlayReq::REQ_DAMAGED_TARGET, 0 } });
 
     // --------------------------------------- WEAPON - WARRIOR
     // [CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0]
@@ -1977,6 +2082,8 @@ void CoreCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     powers.emplace("CS2_114", power);
+    playReqs.emplace("CS2_114",
+                     PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } });
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
@@ -2216,6 +2323,9 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
     powers.emplace("CS2_141", power);
+    playReqs.emplace("CS2_141",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
@@ -2259,6 +2369,9 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
     powers.emplace("CS2_150", power);
+    playReqs.emplace("CS2_150",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
@@ -2386,6 +2499,9 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
     powers.emplace("CS2_189", power);
+    playReqs.emplace("CS2_189",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
@@ -2499,6 +2615,8 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 2));
     powers.emplace("EX1_011", power);
+    playReqs.emplace("EX1_011",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_015] Novice Engineer - COST:2 [ATK:1/HP:1]
@@ -2530,6 +2648,10 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_019e", EntityType::TARGET));
     powers.emplace("EX1_019", power);
+    playReqs.emplace("EX1_019",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]

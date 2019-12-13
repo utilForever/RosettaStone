@@ -106,6 +106,8 @@ void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
     powers.emplace("EX1_625t", power);
+    playReqs.emplace("EX1_625t",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [EX1_625t2] Mind Shatter (*) - COST:2
@@ -119,6 +121,8 @@ void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
     powers.emplace("EX1_625t2", power);
+    playReqs.emplace("EX1_625t2",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [EX1_tk33] INFERNO! (*) - COST:2
@@ -132,6 +136,8 @@ void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SummonTask("EX1_tk34"));
     powers.emplace("EX1_tk33", power);
+    playReqs.emplace("EX1_tk33",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 }
 
 void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
@@ -155,6 +161,8 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_154", power);
+    playReqs.emplace("EX1_154", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155] Mark of Nature - COST:3
@@ -176,6 +184,8 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_155", power);
+    playReqs.emplace("EX1_155", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_158] Soul of the Forest - COST:4
@@ -253,6 +263,8 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_166", power);
+    playReqs.emplace("EX1_166",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
@@ -306,6 +318,8 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SummonTask("EX1_tk9", 3));
     powers.emplace("EX1_571", power);
+    playReqs.emplace("EX1_571",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 }
 
 void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
@@ -326,6 +340,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
     powers.emplace("EX1_154a", power);
+    playReqs.emplace("EX1_154a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154b] Wrath (*) - COST:0
@@ -341,6 +357,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new DrawTask(1));
     powers.emplace("EX1_154b", power);
+    playReqs.emplace("EX1_154b", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155a] Tiger's Fury (*) - COST:0
@@ -355,6 +373,9 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_155ae", EntityType::TARGET));
     powers.emplace("EX1_155a", power);
+    playReqs.emplace("EX1_155a",
+                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155ae] Mark of Nature (*) - COST:0
@@ -379,6 +400,9 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_155be", EntityType::TARGET));
     powers.emplace("EX1_155b", power);
+    playReqs.emplace("EX1_155b",
+                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155be] Mark of Nature (*) - COST:0
@@ -402,6 +426,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
     powers.emplace("EX1_166a", power);
+    playReqs.emplace("EX1_166a",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_166b] Dispel (*) - COST:0
@@ -419,6 +445,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     powers.emplace("EX1_166b", power);
+    playReqs.emplace("EX1_166b", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_158e] Soul of the Forest (*) - COST:0
@@ -450,6 +478,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new SummonTask("EX1_160t", SummonSide::SPELL));
     powers.emplace("EX1_160a", power);
+    playReqs.emplace("EX1_160a",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_160b] Leader of the Pack (*) - COST:2
@@ -758,6 +788,8 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     powers.emplace("EX1_617", power);
+    playReqs.emplace("EX1_617",
+                     PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } });
 }
 
 void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
@@ -835,6 +867,8 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
         EntityType::TARGET, { new SelfCondition(SelfCondition::IsFrozen()) }));
     power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     powers.emplace("EX1_179", power);
+    playReqs.emplace("EX1_179", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_180] Tome of Intellect - COST:1
@@ -888,6 +922,8 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
         new SetGameTagTask(EntityType::STACK, GameTag::FROZEN, 1));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 1, true));
     powers.emplace("EX1_275", power);
+    playReqs.emplace("EX1_275", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
@@ -901,6 +937,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 10, true));
     powers.emplace("EX1_279", power);
+    playReqs.emplace("EX1_279", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_287] Counterspell - COST:3
@@ -1132,6 +1169,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
     power.AddPowerTask(new DrawTask(3));
     powers.emplace("EX1_354", power);
+    playReqs.emplace("EX1_354", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_355] Blessed Champion - COST:5
@@ -1146,6 +1184,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_355e", EntityType::TARGET));
     powers.emplace("EX1_355", power);
+    playReqs.emplace("EX1_355", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - PALADIN
     // [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
@@ -1169,6 +1209,11 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
     powers.emplace("EX1_362", power);
+    playReqs.emplace("EX1_362",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_363] Blessing of Wisdom - COST:1
@@ -1183,6 +1228,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_363e", EntityType::TARGET));
     powers.emplace("EX1_363", power);
+    playReqs.emplace("EX1_363", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - PALADIN
     // [EX1_365] Holy Wrath - COST:5
@@ -1201,6 +1248,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new GetGameTagTask(EntityType::STACK, GameTag::COST));
     power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
     powers.emplace("EX1_365", power);
+    playReqs.emplace("EX1_365", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // --------------------------------------- WEAPON - PALADIN
     // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
@@ -1263,6 +1311,10 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_382e", EntityType::TARGET));
     powers.emplace("EX1_382", power);
+    playReqs.emplace("EX1_382",
+                     PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // --------------------------------------- MINION - PALADIN
     // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
@@ -1418,6 +1470,8 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new AddEnchantmentTask("CS1_129e", EntityType::TARGET, true));
     powers.emplace("CS1_129", power);
+    playReqs.emplace("CS1_129", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
@@ -1438,6 +1492,11 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new ControlTask(EntityType::TARGET));
     powers.emplace("EX1_091", power);
+    playReqs.emplace("EX1_091",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_TARGET_MAX_ATTACK, 2 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_ENEMY_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_332] Silence - COST:0
@@ -1455,6 +1514,8 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     powers.emplace("EX1_332", power);
+    playReqs.emplace("EX1_332", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_334] Shadow Madness - COST:4
@@ -1474,6 +1535,12 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new ControlTask(EntityType::TARGET));
     power.AddPowerTask(new AddEnchantmentTask("EX1_334e", EntityType::TARGET));
     powers.emplace("EX1_334", power);
+    playReqs.emplace("EX1_334",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_ENEMY_TARGET, 0 },
+                               { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                               { PlayReq::REQ_TARGET_MAX_ATTACK, 3 } });
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
@@ -1540,6 +1607,8 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new FlagTask(false, { new SummonTask("EX1_345t", SummonSide::SPELL) }));
     powers.emplace("EX1_345", power);
+    playReqs.emplace("EX1_345",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
@@ -1583,6 +1652,10 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_623e", EntityType::TARGET));
     powers.emplace("EX1_623", power);
+    playReqs.emplace("EX1_623",
+                     PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_624] Holy Fire - COST:6
@@ -1597,6 +1670,7 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     power.AddPowerTask(new HealTask(EntityType::HERO, 5));
     powers.emplace("EX1_624", power);
+    playReqs.emplace("EX1_624", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_625] Shadowform - COST:3
@@ -1707,6 +1781,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new AddEnchantmentTask("CS2_073e", EntityType::TARGET));
     power.AddComboTask(new AddEnchantmentTask("CS2_073e2", EntityType::TARGET));
     powers.emplace("CS2_073", power);
+    playReqs.emplace("CS2_073", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_233] Blade Flurry - COST:4
@@ -1725,6 +1801,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageNumberTask(EntityType::ENEMY_MINIONS, true));
     power.AddPowerTask(new DestroyTask(EntityType::WEAPON));
     powers.emplace("CS2_233", power);
+    playReqs.emplace("CS2_233",
+                     PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_124] Eviscerate - COST:2
@@ -1742,6 +1820,7 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     power.AddComboTask(new DamageTask(EntityType::TARGET, 4, true));
     powers.emplace("EX1_124", power);
+    playReqs.emplace("EX1_124", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_126] Betrayal - COST:2
@@ -1760,6 +1839,9 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET));
     power.AddPowerTask(new DamageNumberTask(EntityType::STACK));
     powers.emplace("EX1_126", power);
+    playReqs.emplace("EX1_126", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } });
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
@@ -1792,6 +1874,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
     power.AddComboTask(new DamageTask(EntityType::TARGET, 2));
     powers.emplace("EX1_133", power);
+    playReqs.emplace("EX1_133",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
@@ -1808,6 +1892,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddComboTask(new DamageTask(EntityType::TARGET, 2));
     powers.emplace("EX1_134", power);
+    playReqs.emplace("EX1_134",
+                     PlayReqs{ { PlayReq::REQ_TARGET_FOR_COMBO, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_137] Headcrack - COST:3
@@ -1860,6 +1946,10 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new AddAuraEffectTask(Effects::ReduceCost(2), EntityType::TARGET));
     powers.emplace("EX1_144", power);
+    playReqs.emplace("EX1_144",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_145] Preparation - COST:0
@@ -1888,7 +1978,7 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Stealth</b>
-    //        <b>Poisonous</b>
+    //       <b>Poisonous</b>
     // --------------------------------------------------------
     // GameTag:
     // - STEALTH = 1
@@ -1914,6 +2004,9 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddComboTask(new ReturnHandTask(EntityType::TARGET));
     powers.emplace("NEW1_005", power);
+    playReqs.emplace("NEW1_005",
+                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_FOR_COMBO, 0 } });
 }
 
 void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
@@ -1988,6 +2081,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_038e", EntityType::TARGET));
     powers.emplace("CS2_038", power);
+    playReqs.emplace("CS2_038", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_053] Far Sight - COST:3
@@ -2016,6 +2111,7 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
     powers.emplace("EX1_238", power);
+    playReqs.emplace("EX1_238", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_241] Lava Burst - COST:3
@@ -2033,6 +2129,7 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     powers.emplace("EX1_241", power);
+    playReqs.emplace("EX1_241", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
@@ -2066,6 +2163,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     powers.emplace("EX1_245", power);
+    playReqs.emplace("EX1_245", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
@@ -2099,6 +2198,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SummonTask("EX1_tk11", 2));
     powers.emplace("EX1_248", power);
+    playReqs.emplace("EX1_248",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
@@ -2133,6 +2234,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     powers.emplace("EX1_251", power);
+    playReqs.emplace("EX1_251",
+                     PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } });
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
@@ -2228,7 +2331,7 @@ void Expert1CardsGen::AddShamanNonCollect(PowersType& powers,
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_053e] Far Sight (*) - COST:0
-    // - Set: expert1,
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: One of your cards costs (3) less.
     // --------------------------------------------------------
@@ -2354,6 +2457,9 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageNumberTask(EntityType::ENEMY_MINIONS, true));
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     powers.emplace("EX1_303", power);
+    playReqs.emplace("EX1_303", PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
@@ -2396,6 +2502,8 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     power.AddPowerTask(new HealTask(EntityType::HERO, 3));
     powers.emplace("EX1_309", power);
+    playReqs.emplace("EX1_309", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_312] Twisting Nether - COST:8
@@ -2489,6 +2597,7 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
         { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
           new SummonTask(SummonSide::SPELL) }));
     powers.emplace("EX1_320", power);
+    playReqs.emplace("EX1_320", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
@@ -2526,6 +2635,8 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new FlagTask(false, { new DamageTask(EntityType::TARGET, 2, true) }));
     powers.emplace("EX1_596", power);
+    playReqs.emplace("EX1_596", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(PowersType& powers,
@@ -2623,6 +2734,9 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
     powers.emplace("CS2_104", power);
+    playReqs.emplace("CS2_104", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_DAMAGED_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_391] Slam - COST:2
@@ -2640,6 +2754,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
         EntityType::TARGET, { new SelfCondition(SelfCondition::IsNotDead()) }));
     power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     powers.emplace("EX1_391", power);
+    playReqs.emplace("EX1_391", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_392] Battle Rage - COST:2
@@ -2655,6 +2771,7 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
         new CountTask(EntityType::FRIENDS, 0, { SelfCondition::IsDamaged() }));
     power.AddPowerTask(new DrawNumberTask());
     powers.emplace("EX1_392", power);
+    playReqs.emplace("EX1_392", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
@@ -2709,6 +2826,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
         new IncludeTask(EntityType::ALL_MINIONS, { EntityType::STACK }));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     powers.emplace("EX1_407", power);
+    playReqs.emplace("EX1_407",
+                     PlayReqs{ { PlayReq::REQ_MINIMUM_TOTAL_MINIONS, 2 } });
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_408] Mortal Strike - COST:4
@@ -2728,6 +2847,7 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new FlagTask(false, { new DamageTask(EntityType::TARGET, 4, true) }));
     powers.emplace("EX1_408", power);
+    playReqs.emplace("EX1_408", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_409] Upgrade! - COST:1
@@ -2762,6 +2882,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ARMOR));
     power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
     powers.emplace("EX1_410", power);
+    playReqs.emplace("EX1_410", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // --------------------------------------- WEAPON - WARRIOR
     // [EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
@@ -2811,6 +2933,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new AddEnchantmentTask("EX1_607e", EntityType::TARGET));
     powers.emplace("EX1_607", power);
+    playReqs.emplace("EX1_607", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - WARRIOR
     // [NEW1_036] Commanding Shout - COST:2
@@ -3019,6 +3143,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 3));
     powers.emplace("CS2_117", power);
+    playReqs.emplace("CS2_117",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
@@ -3094,12 +3220,16 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_188o", EntityType::TARGET));
     powers.emplace("CS2_188", power);
+    playReqs.emplace("CS2_188", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1]
@@ -3120,6 +3250,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     powers.emplace("CS2_203", power);
+    playReqs.emplace("CS2_203",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_221] Spiteful Smith - COST:5 [ATK:4/HP:6]
@@ -3193,6 +3326,11 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     powers.emplace("EX1_002", power);
+    playReqs.emplace("EX1_002",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_MUST_TARGET_TAUNTER, 0 },
+                               { PlayReq::REQ_ENEMY_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
@@ -3227,6 +3365,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     powers.emplace("EX1_005", power);
+    playReqs.emplace("EX1_005",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_MIN_ATTACK, 7 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3]
@@ -3305,7 +3447,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
-    // - Fac: neutral, Set: expert1, Rarity: legendary
+    // - Faction: neutral, Set: expert1, Rarity: legendary
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     //       <b>Deathrattle:</b> Draw a card.
@@ -3485,12 +3627,16 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
     powers.emplace("EX1_046", power);
+    playReqs.emplace("EX1_046", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
@@ -3512,6 +3658,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     powers.emplace("EX1_048", power);
+    playReqs.emplace("EX1_048",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
@@ -3532,6 +3682,11 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
     powers.emplace("EX1_049", power);
+    playReqs.emplace("EX1_049",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
@@ -3565,6 +3720,11 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
     powers.emplace("EX1_057", power);
+    playReqs.emplace("EX1_057",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_058] Sunfury Protector - COST:2 [ATK:2/HP:3]
@@ -3604,6 +3764,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SwapAttackHealthTask(EntityType::TARGET, "EX1_059e"));
     powers.emplace("EX1_059", power);
+    playReqs.emplace("EX1_059",
+                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
@@ -4058,6 +4221,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     powers.emplace("EX1_283", power);
+    playReqs.emplace("EX1_283",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
@@ -4206,6 +4371,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new TransformCopyTask());
     powers.emplace("EX1_564", power);
+    playReqs.emplace("EX1_564",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_572] Ysera - COST:9 [ATK:4/HP:12]
@@ -4321,6 +4490,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
         true, { new DestroyTask(EntityType::TARGET),
                 new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE) }));
     powers.emplace("NEW1_017", power);
+    playReqs.emplace("NEW1_017",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_TARGET_WITH_RACE, 14 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
@@ -4582,6 +4754,8 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_014te", EntityType::TARGET));
     powers.emplace("EX1_014t", power);
+    playReqs.emplace("EX1_014t", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_014te] Bananas (*) - COST:0
@@ -4933,6 +5107,8 @@ void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
     powers.emplace("DREAM_04", power);
+    playReqs.emplace("DREAM_04", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DREAM
     // [DREAM_05] Nightmare (*) - COST:0
@@ -4947,6 +5123,8 @@ void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("DREAM_05e", EntityType::TARGET));
     powers.emplace("DREAM_05", power);
+    playReqs.emplace("DREAM_05", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
 void Expert1CardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs)

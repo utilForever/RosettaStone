@@ -50,6 +50,8 @@ void HoFCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     power.AddPowerTask(new DrawOpTask(2));
     powers.emplace("EX1_161", power);
+    playReqs.emplace("EX1_161", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
 void HoFCardsGen::AddDruidNonCollect(PowersType& powers, PlayReqsType& playReqs)
@@ -93,6 +95,7 @@ void HoFCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
     power.AddPowerTask(new FlagTask(
         false, { new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1) }));
     powers.emplace("CS2_031", power);
+    playReqs.emplace("CS2_031", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
 void HoFCardsGen::AddMageNonCollect(PowersType& powers, PlayReqsType& playReqs)
@@ -197,6 +200,10 @@ void HoFCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_316e", EntityType::TARGET));
     powers.emplace("EX1_316", power);
+    playReqs.emplace("EX1_316",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 }
 
 void HoFCardsGen::AddWarlockNonCollect(PowersType& powers,
