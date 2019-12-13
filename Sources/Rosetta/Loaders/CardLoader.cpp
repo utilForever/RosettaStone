@@ -101,14 +101,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
             gameTags[GameTag::FREEZE] = 0;
         }
 
-        std::map<PlayReq, int> playRequirements;
-        for (auto iter = cardData["playRequirements"].begin();
-             iter != cardData["playRequirements"].end(); ++iter)
-        {
-            playRequirements.try_emplace(StrToEnum<PlayReq>(iter.key()),
-                                         iter.value().get<int>());
-        }
-
         std::vector<std::string> entourages;
         for (auto& entourage : cardData["entourage"])
         {
@@ -122,7 +114,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->text = text;
 
         card->gameTags = gameTags;
-        card->playRequirements = playRequirements;
         card->entourages = entourages;
 
         card->gameTags[GameTag::ATK] = attack;
