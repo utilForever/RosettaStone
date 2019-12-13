@@ -7,31 +7,31 @@
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
-#include <Rosetta/Enchants/Powers.hpp>
+#include <Rosetta/Managers/CardDataManager.hpp>
 
 namespace RosettaStone
 {
-std::map<std::string, Power> Powers::m_powers;
+std::map<std::string, Power> CardDataManager::m_powers;
 
-Powers::Powers()
+CardDataManager::CardDataManager()
 {
     CoreCardsGen::AddAll(m_powers);
     Expert1CardsGen::AddAll(m_powers);
     HoFCardsGen::AddAll(m_powers);
 }
 
-Powers::~Powers()
+CardDataManager::~CardDataManager()
 {
     m_powers.clear();
 }
 
-Powers& Powers::GetInstance()
+CardDataManager& CardDataManager::GetInstance()
 {
-    static Powers instance;
+    static CardDataManager instance;
     return instance;
 }
 
-Power Powers::FindPowerByCardID(const std::string& cardID)
+Power CardDataManager::FindPowerByCardID(const std::string& cardID)
 {
     const auto res = m_powers.find(cardID);
     if (res != m_powers.end())
