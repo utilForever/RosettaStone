@@ -15,7 +15,7 @@
 namespace RosettaStone
 {
 using PowersType = std::map<std::string, Power>;
-using PlayReqs = std::vector<std::tuple<PlayReq, int>>;
+using PlayReqs = std::map<PlayReq, int>;
 using PlayReqsType = std::map<std::string, PlayReqs>;
 
 //!
