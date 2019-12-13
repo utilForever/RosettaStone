@@ -5015,7 +5015,7 @@ TEST(RogueExpert1Test, EX1_182_Pilfer)
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Stealth</b>
-//        <b>Poisonous</b>
+//       <b>Poisonous</b>
 // --------------------------------------------------------
 // GameTag:
 // - STEALTH = 1
@@ -6866,6 +6866,8 @@ TEST(NeutralExpert1Test, CS2_181_InjuredBlademaster)
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
@@ -7865,6 +7867,8 @@ TEST(NeutralExpert1Test, EX1_045_AncientWatcher)
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
