@@ -17,6 +17,8 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
             CardDataManager::GetInstance().FindPowerByCardID(card->id);
         card->playRequirements =
             CardDataManager::GetInstance().FindPlayReqsByCardID(card->id);
+        card->entourages =
+            CardDataManager::GetInstance().FindEntouragesByCardID(card->id);
     }
 }
 }  // namespace RosettaStone
