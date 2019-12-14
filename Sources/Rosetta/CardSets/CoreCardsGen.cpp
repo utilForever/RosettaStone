@@ -251,6 +251,8 @@ void CoreCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
         "CS2_049",
         PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
                   { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } });
+    entourages.emplace(
+        "CS2_049", Entourages{ "CS2_050", "CS2_051", "CS2_052", "NEW1_009" });
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [CS2_056] Life Tap (*) - COST:2
@@ -708,6 +710,8 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_031", power);
     playReqs.emplace("NEW1_031",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+    entourages.emplace("NEW1_031",
+                       Entourages{ "NEW1_032", "NEW1_033", "NEW1_034" });
 }
 
 void CoreCardsGen::AddHunterNonCollect(PowersType& powers,

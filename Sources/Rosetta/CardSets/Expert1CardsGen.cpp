@@ -4413,6 +4413,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = { new RandomEntourageTask(1),
                                   new AddStackToTask(EntityType::HAND) };
     powers.emplace("EX1_572", power);
+    entourages.emplace(
+        "EX1_572", Entourages{ "DREAM_01", "DREAM_02", "DREAM_03", "DREAM_04",
+                               "DREAM_05" });
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
