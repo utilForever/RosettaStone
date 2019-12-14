@@ -185,7 +185,7 @@ Card* Cards::FindCardByName(const std::string_view& name)
 {
     for (Card* card : m_cards)
     {
-        if (card->name == name)
+        if (card->name == name && card->IsCollectible())
         {
             return card;
         }
