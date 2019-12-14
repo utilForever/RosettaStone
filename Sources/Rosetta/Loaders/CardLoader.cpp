@@ -101,12 +101,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
             gameTags[GameTag::FREEZE] = 0;
         }
 
-        std::vector<std::string> entourages;
-        for (auto& entourage : cardData["entourage"])
-        {
-            entourages.emplace_back(entourage.get<std::string>());
-        }
-
         Card* card = new Card();
         card->id = id;
         card->dbfID = dbfID;
@@ -114,8 +108,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->text = text;
 
         card->gameTags = gameTags;
-        card->entourages = entourages;
-
         card->gameTags[GameTag::ATK] = attack;
         card->gameTags[GameTag::CARDRACE] = cardRace;
         card->gameTags[GameTag::CARD_SET] = cardSet;
