@@ -74,7 +74,8 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
-void Expert1CardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
+                                EntouragesType& entourages)
 {
     Power power;
 
@@ -90,7 +91,8 @@ void Expert1CardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs)
     powers.emplace("EX1_323h", power);
 }
 
-void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
+                                    EntouragesType& entourages)
 {
     Power power;
 
@@ -140,7 +142,8 @@ void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 }
 
-void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
+                               EntouragesType& entourages)
 {
     Power power;
 
@@ -323,7 +326,8 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs)
+                                         PlayReqsType& playReqs,
+                                         EntouragesType& entourages)
 {
     Power power;
 
@@ -645,7 +649,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     powers.emplace("EX1_tk9", power);
 }
 
-void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
+                                EntouragesType& entourages)
 {
     Power power;
 
@@ -793,7 +798,8 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs)
+                                          PlayReqsType& playReqs,
+                                          EntouragesType& entourages)
 {
     Power power;
 
@@ -828,7 +834,8 @@ void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
     powers.emplace("EX1_534t", power);
 }
 
-void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
+                              EntouragesType& entourages)
 {
     Power power;
 
@@ -1040,7 +1047,8 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
-                                        PlayReqsType& playReqs)
+                                        PlayReqsType& playReqs,
+                                        EntouragesType& entourages)
 {
     Power power;
 
@@ -1065,7 +1073,8 @@ void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
     powers.emplace("NEW1_012o", power);
 }
 
-void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
+                                 EntouragesType& entourages)
 {
     Power power;
 
@@ -1361,7 +1370,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddPaladinNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs)
+                                           PlayReqsType& playReqs,
+                                           EntouragesType& entourages)
 {
     Power power;
 
@@ -1448,7 +1458,8 @@ void Expert1CardsGen::AddPaladinNonCollect(PowersType& powers,
     powers.emplace("EX1_619e", power);
 }
 
-void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
+                                EntouragesType& entourages)
 {
     Power power;
 
@@ -1709,7 +1720,8 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddPriestNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs)
+                                          PlayReqsType& playReqs,
+                                          EntouragesType& entourages)
 {
     Power power;
 
@@ -1760,7 +1772,8 @@ void Expert1CardsGen::AddPriestNonCollect(PowersType& powers,
     powers.emplace("EX1_623e", power);
 }
 
-void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
+                               EntouragesType& entourages)
 {
     Power power;
 
@@ -2010,7 +2023,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs)
+                                         PlayReqsType& playReqs,
+                                         EntouragesType& entourages)
 {
     Power power;
 
@@ -2061,7 +2075,8 @@ void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
     powers.emplace("EX1_145o", power);
 }
 
-void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
+                                EntouragesType& entourages)
 {
     Power power;
 
@@ -2314,7 +2329,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddShamanNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs)
+                                          PlayReqsType& playReqs,
+                                          EntouragesType& entourages)
 {
     Power power;
 
@@ -2369,7 +2385,8 @@ void Expert1CardsGen::AddShamanNonCollect(PowersType& powers,
     powers.emplace("EX1_258e", power);
 }
 
-void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
+                                 EntouragesType& entourages)
 {
     Power power;
 
@@ -2640,7 +2657,8 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs)
+                                           PlayReqsType& playReqs,
+                                           EntouragesType& entourages)
 {
     Power power;
 
@@ -2716,7 +2734,8 @@ void Expert1CardsGen::AddWarlockNonCollect(PowersType& powers,
     powers.emplace("EX1_tk34", power);
 }
 
-void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
+                                 EntouragesType& entourages)
 {
     Power power;
 
@@ -2951,7 +2970,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs)
+                                           PlayReqsType& playReqs,
+                                           EntouragesType& entourages)
 {
     Power power;
 
@@ -3111,7 +3131,8 @@ void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
     powers.emplace("NEW1_036e2", power);
 }
 
-void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
+                                 EntouragesType& entourages)
 {
     Power power;
 
@@ -4660,7 +4681,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
     powers.emplace("NEW1_041", power);
 }
 void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs)
+                                           PlayReqsType& playReqs,
+                                           EntouragesType& entourages)
 {
     Power power;
 
@@ -5055,7 +5077,8 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
 }
 
 void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs)
+                                         PlayReqsType& playReqs,
+                                         EntouragesType& entourages)
 {
     Power power;
 
@@ -5127,41 +5150,42 @@ void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
-void Expert1CardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs)
+void Expert1CardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
-    AddHeroes(powers, playReqs);
-    AddHeroPowers(powers, playReqs);
+    AddHeroes(powers, playReqs, entourages);
+    AddHeroPowers(powers, playReqs, entourages);
 
-    AddDruid(powers, playReqs);
-    AddDruidNonCollect(powers, playReqs);
+    AddDruid(powers, playReqs, entourages);
+    AddDruidNonCollect(powers, playReqs, entourages);
 
-    AddHunter(powers, playReqs);
-    AddHunterNonCollect(powers, playReqs);
+    AddHunter(powers, playReqs, entourages);
+    AddHunterNonCollect(powers, playReqs, entourages);
 
-    AddMage(powers, playReqs);
-    AddMageNonCollect(powers, playReqs);
+    AddMage(powers, playReqs, entourages);
+    AddMageNonCollect(powers, playReqs, entourages);
 
-    AddPaladin(powers, playReqs);
-    AddPaladinNonCollect(powers, playReqs);
+    AddPaladin(powers, playReqs, entourages);
+    AddPaladinNonCollect(powers, playReqs, entourages);
 
-    AddPriest(powers, playReqs);
-    AddPriestNonCollect(powers, playReqs);
+    AddPriest(powers, playReqs, entourages);
+    AddPriestNonCollect(powers, playReqs, entourages);
 
-    AddRogue(powers, playReqs);
-    AddRogueNonCollect(powers, playReqs);
+    AddRogue(powers, playReqs, entourages);
+    AddRogueNonCollect(powers, playReqs, entourages);
 
-    AddShaman(powers, playReqs);
-    AddShamanNonCollect(powers, playReqs);
+    AddShaman(powers, playReqs, entourages);
+    AddShamanNonCollect(powers, playReqs, entourages);
 
-    AddWarlock(powers, playReqs);
-    AddWarlockNonCollect(powers, playReqs);
+    AddWarlock(powers, playReqs, entourages);
+    AddWarlockNonCollect(powers, playReqs, entourages);
 
-    AddWarrior(powers, playReqs);
-    AddWarriorNonCollect(powers, playReqs);
+    AddWarrior(powers, playReqs, entourages);
+    AddWarriorNonCollect(powers, playReqs, entourages);
 
-    AddNeutral(powers, playReqs);
-    AddNeutralNonCollect(powers, playReqs);
+    AddNeutral(powers, playReqs, entourages);
+    AddNeutralNonCollect(powers, playReqs, entourages);
 
-    AddDreamNonCollect(powers, playReqs);
+    AddDreamNonCollect(powers, playReqs, entourages);
 }
 }  // namespace RosettaStone

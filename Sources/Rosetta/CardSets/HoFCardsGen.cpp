@@ -22,17 +22,20 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
-void HoFCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
+                                EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
+                           EntouragesType& entourages)
 {
     Power power;
 
@@ -54,23 +57,27 @@ void HoFCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs)
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
-void HoFCardsGen::AddDruidNonCollect(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddDruidNonCollect(PowersType& powers, PlayReqsType& playReqs,
+                                     EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
     (void)powers;
 }
 
 void HoFCardsGen::AddHunterNonCollect(PowersType& powers,
-                                      PlayReqsType& playReqs)
+                                      PlayReqsType& playReqs,
+                                      EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
+                          EntouragesType& entourages)
 {
     Power power;
 
@@ -98,23 +105,27 @@ void HoFCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs)
     playReqs.emplace("CS2_031", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
-void HoFCardsGen::AddMageNonCollect(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddMageNonCollect(PowersType& powers, PlayReqsType& playReqs,
+                                    EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
     (void)powers;
 }
 
 void HoFCardsGen::AddPaladinNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs)
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
     Power power;
 
@@ -130,12 +141,14 @@ void HoFCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void HoFCardsGen::AddPriestNonCollect(PowersType& powers,
-                                      PlayReqsType& playReqs)
+                                      PlayReqsType& playReqs,
+                                      EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
+                           EntouragesType& entourages)
 {
     Power power;
 
@@ -150,23 +163,27 @@ void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs)
     powers.emplace("NEW1_004", power);
 }
 
-void HoFCardsGen::AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs,
+                                     EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
     (void)powers;
 }
 
 void HoFCardsGen::AddShamanNonCollect(PowersType& powers,
-                                      PlayReqsType& playReqs)
+                                      PlayReqsType& playReqs,
+                                      EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
     Power power;
 
@@ -207,7 +224,8 @@ void HoFCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void HoFCardsGen::AddWarlockNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs)
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
     Power power;
 
@@ -225,18 +243,21 @@ void HoFCardsGen::AddWarlockNonCollect(PowersType& powers,
     powers.emplace("EX1_316e", power);
 }
 
-void HoFCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
     (void)powers;
 }
 
 void HoFCardsGen::AddWarriorNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs)
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
     (void)powers;
 }
 
-void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
     Power power;
 
@@ -286,7 +307,8 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs)
 }
 
 void HoFCardsGen::AddNeutralNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs)
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
     Power power;
 
@@ -301,39 +323,40 @@ void HoFCardsGen::AddNeutralNonCollect(PowersType& powers,
     powers.emplace("NEW1_027e", power);
 }
 
-void HoFCardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs)
+void HoFCardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs,
+                         EntouragesType& entourages)
 {
-    AddHeroes(powers, playReqs);
-    AddHeroPowers(powers, playReqs);
+    AddHeroes(powers, playReqs, entourages);
+    AddHeroPowers(powers, playReqs, entourages);
 
-    AddDruid(powers, playReqs);
-    AddDruidNonCollect(powers, playReqs);
+    AddDruid(powers, playReqs, entourages);
+    AddDruidNonCollect(powers, playReqs, entourages);
 
-    AddHunter(powers, playReqs);
-    AddHunterNonCollect(powers, playReqs);
+    AddHunter(powers, playReqs, entourages);
+    AddHunterNonCollect(powers, playReqs, entourages);
 
-    AddMage(powers, playReqs);
-    AddMageNonCollect(powers, playReqs);
+    AddMage(powers, playReqs, entourages);
+    AddMageNonCollect(powers, playReqs, entourages);
 
-    AddPaladin(powers, playReqs);
-    AddPaladinNonCollect(powers, playReqs);
+    AddPaladin(powers, playReqs, entourages);
+    AddPaladinNonCollect(powers, playReqs, entourages);
 
-    AddPriest(powers, playReqs);
-    AddPriestNonCollect(powers, playReqs);
+    AddPriest(powers, playReqs, entourages);
+    AddPriestNonCollect(powers, playReqs, entourages);
 
-    AddRogue(powers, playReqs);
-    AddRogueNonCollect(powers, playReqs);
+    AddRogue(powers, playReqs, entourages);
+    AddRogueNonCollect(powers, playReqs, entourages);
 
-    AddShaman(powers, playReqs);
-    AddShamanNonCollect(powers, playReqs);
+    AddShaman(powers, playReqs, entourages);
+    AddShamanNonCollect(powers, playReqs, entourages);
 
-    AddWarlock(powers, playReqs);
-    AddWarlockNonCollect(powers, playReqs);
+    AddWarlock(powers, playReqs, entourages);
+    AddWarlockNonCollect(powers, playReqs, entourages);
 
-    AddWarrior(powers, playReqs);
-    AddWarriorNonCollect(powers, playReqs);
+    AddWarrior(powers, playReqs, entourages);
+    AddWarriorNonCollect(powers, playReqs, entourages);
 
-    AddNeutral(powers, playReqs);
-    AddNeutralNonCollect(powers, playReqs);
+    AddNeutral(powers, playReqs, entourages);
+    AddNeutralNonCollect(powers, playReqs, entourages);
 }
 }  // namespace RosettaStone
