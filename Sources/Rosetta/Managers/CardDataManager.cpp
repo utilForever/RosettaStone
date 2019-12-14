@@ -13,6 +13,7 @@ namespace RosettaStone
 {
 PowersType CardDataManager::m_powers;
 PlayReqsType CardDataManager::m_playReqs;
+EntouragesType CardDataManager::m_entourages;
 
 CardDataManager::CardDataManager()
 {
