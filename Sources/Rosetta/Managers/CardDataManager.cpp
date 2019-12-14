@@ -57,4 +57,18 @@ PlayReqs CardDataManager::FindPlayReqsByCardID(const std::string_view& cardID)
 
     return PlayReqs();
 }
+
+Entourages CardDataManager::FindEntouragesByCardID(
+    const std::string_view& cardID)
+{
+    for (auto& entourages : m_entourages)
+    {
+        if (entourages.first == cardID)
+        {
+            return entourages.second;
+        }
+    }
+
+    return Entourages();
+}
 }  // namespace RosettaStone

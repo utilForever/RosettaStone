@@ -54,6 +54,11 @@ class CardDataManager
     //! \return The play requirements of card that matches \p cardID.
     static PlayReqs FindPlayReqsByCardID(const std::string_view& cardID);
 
+    //! Returns the entourages of card that matches \p cardID.
+    //! \param cardID The ID of the card.
+    //! \return The entourages of card that matches \p cardID.
+    static Entourages FindEntouragesByCardID(const std::string_view& cardID);
+
  private:
     //! Constructor: Loads card data (powers and play requirements).
     CardDataManager();
