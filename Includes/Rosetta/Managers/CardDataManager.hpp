@@ -17,6 +17,8 @@ namespace RosettaStone
 using PowersType = std::map<std::string, Power>;
 using PlayReqs = std::map<PlayReq, int>;
 using PlayReqsType = std::map<std::string, PlayReqs>;
+using Entourages = std::vector<std::string>;
+using EntouragesType = std::map<std::string, Entourages>;
 
 //!
 //! \brief CardDataManager class.
@@ -61,6 +63,7 @@ class CardDataManager
 
     static PowersType m_powers;
     static PlayReqsType m_playReqs;
+    static EntouragesType m_entourages;
 };
 }  // namespace RosettaStone
 
