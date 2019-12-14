@@ -11135,7 +11135,7 @@ TEST(NeutralExpert1Test, NEW1_030_Deathwing)
     opPlayer->SetUsedMana(0);
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Deathwing"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_030"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
     const auto card3 =
@@ -11382,7 +11382,7 @@ TEST(DreamExpert1Test, DREAM_02_YseraAwakens)
     opPlayer->SetUsedMana(0);
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysera Awakens"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DREAM_02"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysera"));
     const auto card3 =
@@ -11533,7 +11533,7 @@ TEST(DreamExpert1Test, DREAM_05_Nightmare)
     auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Nightmare"));
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("DREAM_05"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
 
