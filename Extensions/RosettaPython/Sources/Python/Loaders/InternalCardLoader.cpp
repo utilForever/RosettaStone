@@ -19,8 +19,8 @@ void AddInternalCardLoader(pybind11::module& m)
         .def_static("load", InternalCardLoader::Load,
                     R"pbdoc(Loads internal card data from card data generators.
 
-             Parameters
-             ----------
-             cards : The data storage to store added cards with power and play requirements.)pbdoc",
+                    Parameters
+                    ----------
+                    cards : The data storage to store added cards with power and play requirements.)pbdoc",
                     pybind11::arg("cards"));
 }
