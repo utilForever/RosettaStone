@@ -36,14 +36,14 @@ TEST(FieldZone, GetAll)
     curField.Add(playable1);
 
     Playable* playable2 =
-        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Worthless Imp"),
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Wisp"),
                             std::nullopt, curPlayer->GetFieldZone());
     curField.Add(playable2);
 
     auto minions = curField.GetAll();
 
     EXPECT_EQ(minions[0]->card->name, "Flame Imp");
-    EXPECT_EQ(minions[1]->card->name, "Worthless Imp");
+    EXPECT_EQ(minions[1]->card->name, "Wisp");
 }
 
 TEST(FieldZone, FindIndex)
@@ -68,12 +68,12 @@ TEST(FieldZone, FindIndex)
     curField.Add(playable1);
 
     Playable* playable2 =
-        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Worthless Imp"),
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Wisp"),
                             std::nullopt, curPlayer->GetFieldZone());
     curField.Add(playable2);
 
     Playable* playable3 =
-        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Worthless Imp"),
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Wisp"),
                             std::nullopt, curPlayer->GetFieldZone());
 
     auto character1 = dynamic_cast<Minion*>(playable1);

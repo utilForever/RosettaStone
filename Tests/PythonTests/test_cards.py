@@ -11,7 +11,7 @@ import pyRosetta
 def test_all_cards():
 	cards = pyRosetta.Cards.all_cards()
 
-	assert len(cards) == 7735
+	assert len(cards) == 8303
 
 def test_all_standard_cards():
 	cards = pyRosetta.Cards.all_standard_cards()

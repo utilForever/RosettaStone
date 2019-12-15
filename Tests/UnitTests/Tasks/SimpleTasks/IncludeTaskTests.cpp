@@ -63,7 +63,7 @@ TEST(IncludeTask, Run_NonConst)
     for (std::size_t i = 0; i < 4; ++i)
     {
         Playable* playable2 =
-            Entity::GetFromCard(player2, Cards::FindCardByName("Worthless Imp"),
+            Entity::GetFromCard(player2, Cards::FindCardByName("Wisp"),
                                 std::nullopt, player2->GetFieldZone());
         player2->GetFieldZone()->Add(playable2);
     }
@@ -76,7 +76,7 @@ TEST(IncludeTask, Run_NonConst)
     const auto entities2 = IncludeTask::GetEntities(EntityType::TARGET, player1,
                                                     nullptr, player2Field[0]);
     EXPECT_EQ(entities2.size(), 1u);
-    EXPECT_EQ(entities2[0]->card->name, "Worthless Imp");
+    EXPECT_EQ(entities2[0]->card->name, "Wisp");
 
     const auto entities3 = IncludeTask::GetEntities(EntityType::ALL, player1);
     EXPECT_EQ(entities3.size(), 12u);
@@ -230,10 +230,9 @@ TEST(IncludeTask, Run_Const)
 
     for (std::size_t i = 0; i < 4; ++i)
     {
-        Playable* playable2 =
-            Entity::GetFromCard(const_cast<Player*>(player2),
-                                Cards::FindCardByName("Worthless Imp"),
-                                std::nullopt, player2->GetFieldZone());
+        Playable* playable2 = Entity::GetFromCard(
+            const_cast<Player*>(player2), Cards::FindCardByName("Wisp"),
+            std::nullopt, player2->GetFieldZone());
         player2->GetFieldZone()->Add(playable2);
     }
 
@@ -245,7 +244,7 @@ TEST(IncludeTask, Run_Const)
     const auto entities2 = IncludeTask::GetEntities(EntityType::TARGET, player1,
                                                     nullptr, player2Field[0]);
     EXPECT_EQ(entities2.size(), 1u);
-    EXPECT_EQ(entities2[0]->card->name, "Worthless Imp");
+    EXPECT_EQ(entities2[0]->card->name, "Wisp");
 
     const auto entities3 = IncludeTask::GetEntities(EntityType::ALL, player1);
     EXPECT_EQ(entities3.size(), 12u);
