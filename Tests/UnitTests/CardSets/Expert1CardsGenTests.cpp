@@ -1150,6 +1150,72 @@ TEST(HunterExpert1Test, EX1_543_KingKrush)
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [EX1_544] Flare - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: All minions lose <b>Stealth</b>.
+//       Destroy all enemy <b>Secrets</b>. Draw a card.
+// --------------------------------------------------------
+// RefTag:
+// - STEALTH = 1
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, EX1_544_Flare)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Worgen Infiltrator"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Misdirection"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Worgen Infiltrator"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Flare"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->HasStealth(), true);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curSecret->GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField[0]->HasStealth(), true);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    EXPECT_EQ(curField[0]->HasStealth(), false);
+    EXPECT_EQ(opField[0]->HasStealth(), false);
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [EX1_609] Snipe - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

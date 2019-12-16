@@ -58,6 +58,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReplaceHeroTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RevealStealthTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -817,6 +818,23 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_543", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_544] Flare - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: All minions lose <b>Stealth</b>.
+    //       Destroy all enemy <b>Secrets</b>. Draw a card.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RevealStealthTask(EntityType::ALL_MINIONS));
+    power.AddPowerTask(new MoveToGraveyardTask(EntityType::ENEMY_SECRETS));
+    power.AddPowerTask(new DrawTask(1));
+    powers.emplace("EX1_544", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_609] Snipe - COST:2
