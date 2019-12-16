@@ -743,6 +743,26 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                         2));
     powers.emplace("EX1_534", power);
 
+    // ---------------------------------------- WEAPON - HUNTER
+    // [EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a friendly <b>Secret</b> is revealed,
+    //       gain +1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::SECRET_REVEALED));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_536e",
+                                                         EntityType::WEAPON) };
+    powers.emplace("EX1_536", power);
+
     // ---------------------------------------- MINION - HUNTER
     // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -832,6 +852,17 @@ void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_534t", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [EX1_536e] Upgraded (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Durability.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant(
+        { new Effect(GameTag::DURABILITY, EffectOperator::ADD, 1) }));
+    powers.emplace("EX1_536e", power);
 }
 
 void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,

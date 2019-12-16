@@ -911,6 +911,68 @@ TEST(HunterExpert1Test, EX1_534_SavannahHighmane)
     EXPECT_EQ(curField[3]->GetHealth(), 1);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
+// - Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever a friendly <b>Secret</b> is revealed,
+//       gain +1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, EX1_536_EaglehornBow)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eaglehorn Bow"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snipe"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
