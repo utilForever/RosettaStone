@@ -859,6 +859,26 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                                { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 
     // ----------------------------------------- SPELL - HUNTER
+    // [EX1_554] Snake Trap - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When one of your minions is attacked,
+    //       summon three 1/1 Snakes.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->tasks = { new SummonTask("EX1_554t", 3),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
+    powers.emplace("EX1_554", power);
+
+    // ----------------------------------------- SPELL - HUNTER
     // [EX1_609] Snipe - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -970,6 +990,14 @@ void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_549o"));
     powers.emplace("EX1_549o", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [EX1_554t] Snake (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_554t", power);
 }
 
 void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
