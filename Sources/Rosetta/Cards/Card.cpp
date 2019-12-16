@@ -63,8 +63,7 @@ void Card::Initialize()
                     TargetingPredicates::ReqTargetMinAttack(
                         requirement.second));
                 break;
-            case PlayReq::REQ_TARGET_WITH_RACE:
-            {
+            case PlayReq::REQ_TARGET_WITH_RACE: {
                 Race race = static_cast<Race>(requirement.second);
 
                 // NOTE: Race::EGG has special value that is not 27, but 38.
@@ -177,6 +176,16 @@ bool Card::IsUntouchable() const
     }
 
     return static_cast<bool>(gameTags.at(GameTag::UNTOUCHABLE));
+}
+
+bool Card::IsSecret() const
+{
+    if (!HasGameTag(GameTag::SECRET))
+    {
+        return false;
+    }
+
+    return static_cast<bool>(gameTags.at(GameTag::SECRET));
 }
 
 bool Card::IsCollectible() const
