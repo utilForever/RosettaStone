@@ -837,6 +837,28 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_544", power);
 
     // ----------------------------------------- SPELL - HUNTER
+    // [EX1_549] Bestial Wrath - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Give a friendly Beast +2 Attack and <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_549o", EntityType::TARGET));
+    powers.emplace("EX1_549", power);
+    playReqs.emplace("EX1_549",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_TARGET_WITH_RACE, 20 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
+
+    // ----------------------------------------- SPELL - HUNTER
     // [EX1_609] Snipe - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -935,6 +957,19 @@ void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_538t", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [EX1_549o] Bestial Wrath (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack and <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_549o"));
+    powers.emplace("EX1_549o", power);
 }
 
 void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
