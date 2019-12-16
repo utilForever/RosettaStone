@@ -58,6 +58,11 @@ Enchant* Enchants::GetEnchantFromText(const std::string& cardID)
         effects.emplace_back(Effects::Windfury);
     }
 
+    if (text.find("<b>Immune</b>") != std::string::npos)
+    {
+        effects.emplace_back(Effects::Immune);
+    }
+
     if (text.find("this turn") != std::string::npos)
     {
         isOneTurn = true;
