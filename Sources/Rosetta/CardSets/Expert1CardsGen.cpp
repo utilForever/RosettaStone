@@ -35,6 +35,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
@@ -781,6 +782,28 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     playReqs.emplace("EX1_537", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_538] Unleash the Hounds - COST:3
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: For each enemy minion, summon a 1/1 Hound with <b>Charge</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new CountTask(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(new EnqueueNumberTask(
+        { new SummonTask("EX1_538t", SummonSide::SPELL) }));
+    powers.emplace("EX1_538", power);
+    playReqs.emplace("EX1_538",
+                     PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
+                               { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+
     // ---------------------------------------- MINION - HUNTER
     // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -881,6 +904,19 @@ void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
     power.AddEnchant(new OngoingEnchant(
         { new Effect(GameTag::DURABILITY, EffectOperator::ADD, 1) }));
     powers.emplace("EX1_536e", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [EX1_538t] Hound (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_538t", power);
 }
 
 void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
