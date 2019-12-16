@@ -64,6 +64,14 @@ void TriggerManager::OnAfterCastTrigger(Entity* sender) const
     }
 }
 
+void TriggerManager::OnSecretRevealedTrigger(Entity* sender) const
+{
+    if (secretRevealedTrigger != nullptr)
+    {
+        secretRevealedTrigger(sender);
+    }
+}
+
 void TriggerManager::OnHealTrigger(Entity* sender) const
 {
     if (healTrigger != nullptr)
