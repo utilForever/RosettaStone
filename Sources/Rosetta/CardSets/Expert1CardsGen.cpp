@@ -4531,6 +4531,27 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_557", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy your opponent's weapon
+    //       and draw cards equal to its Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::ENEMY_WEAPON, GameTag::DURABILITY));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::ENEMY_WEAPON, GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(new MathNumberIndexTask(0, 1, MathOperation::SUB));
+    power.AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
+    power.AddPowerTask(new DrawNumberTask());
+    powers.emplace("EX1_558", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
