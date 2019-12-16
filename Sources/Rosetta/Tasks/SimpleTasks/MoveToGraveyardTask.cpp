@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
@@ -24,6 +25,12 @@ TaskStatus MoveToGraveyardTask::Impl(Player* player)
     {
         playable->zone->Remove(playable);
         playable->player->GetGraveyardZone()->Add(playable);
+
+        if (playable->card->IsSecret() &&
+            playable->GetGameTag(GameTag::REVEALED) == 1)
+        {
+            player->game->triggerManager.OnSecretRevealedTrigger(playable);
+        }
     }
 
     return TaskStatus::COMPLETE;
