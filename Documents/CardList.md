@@ -316,16 +316,16 @@ EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena | O
 EXPERT1 | EX1_533 | Misdirection | O
 EXPERT1 | EX1_534 | Savannah Highmane | O
-EXPERT1 | EX1_536 | Eaglehorn Bow |  
-EXPERT1 | EX1_537 | Explosive Shot |  
-EXPERT1 | EX1_538 | Unleash the Hounds |  
+EXPERT1 | EX1_536 | Eaglehorn Bow | O
+EXPERT1 | EX1_537 | Explosive Shot | O
+EXPERT1 | EX1_538 | Unleash the Hounds | O
 EXPERT1 | EX1_543 | King Krush | O
-EXPERT1 | EX1_544 | Flare |  
-EXPERT1 | EX1_549 | Bestial Wrath |  
-EXPERT1 | EX1_554 | Snake Trap |  
+EXPERT1 | EX1_544 | Flare | O
+EXPERT1 | EX1_549 | Bestial Wrath | O
+EXPERT1 | EX1_554 | Snake Trap | O
 EXPERT1 | EX1_556 | Harvest Golem | O
 EXPERT1 | EX1_557 | Nat Pagle | O
-EXPERT1 | EX1_558 | Harrison Jones |  
+EXPERT1 | EX1_558 | Harrison Jones | O
 EXPERT1 | EX1_559 | Archmage Antonidas |  
 EXPERT1 | EX1_560 | Nozdormu |  
 EXPERT1 | EX1_561 | Alexstrasza |  
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 85% (210 of 245 Cards)
+- Progress: 88% (217 of 245 Cards)
 
 ## Hall of Fame
 
