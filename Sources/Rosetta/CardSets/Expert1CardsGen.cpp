@@ -763,6 +763,24 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                                                          EntityType::WEAPON) };
     powers.emplace("EX1_536", power);
 
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_537] Explosive Shot - COST:5
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
+    powers.emplace("EX1_537", power);
+    playReqs.emplace("EX1_537", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
+
     // ---------------------------------------- MINION - HUNTER
     // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
