@@ -14,9 +14,12 @@
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
@@ -104,11 +107,6 @@ void HoFCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
-    (void)cards;
-}
-
-void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
-{
     Power power;
 
     // ----------------------------------------- SPELL - PALADIN
@@ -132,6 +130,11 @@ void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
         }
     }));
     cards.emplace("EX1_349", power);
+}
+
+void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
+{
+    (void)cards;
 }
 
 void HoFCardsGen::AddPriest(std::map<std::string, Power>& cards)
@@ -159,6 +162,23 @@ void HoFCardsGen::AddRogue(std::map<std::string, Power>& cards)
     Power power;
 
     // ------------------------------------------ SPELL - ROGUE
+    // [EX1_128] Conceal - COST:1
+    // - Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give your minions Stealth until your next turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
+    power.AddPowerTask(new FilterStackTask(
+        { new SelfCondition(SelfCondition::IsTagValue(GameTag::STEALTH, 0)) }));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_128e", EntityType::STACK));
+    cards.emplace("EX1_128", power);
+
+    // ------------------------------------------ SPELL - ROGUE
     // [NEW1_004] Vanish - COST:6
     // - Set: HoF, Rarity: Free
     // --------------------------------------------------------
@@ -171,7 +191,22 @@ void HoFCardsGen::AddRogue(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_128e] Conceal - COST:1
+    // - Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Stealthed until your next turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::Stealth));
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    cards.emplace("EX1_128e", power);
 }
 
 void HoFCardsGen::AddShaman(std::map<std::string, Power>& cards)

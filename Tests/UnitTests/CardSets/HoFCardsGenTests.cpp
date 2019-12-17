@@ -208,6 +208,57 @@ TEST(PriestHoFTest, DS1_233_MindBlast)
 }
 
 // ------------------------------------------ SPELL - ROGUE
+// [EX1_128] Conceal - COST:1
+// - Set: HoF, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your minions Stealth until your next turn.
+// --------------------------------------------------------
+TEST(RogueHoFTest, EX1_128_Conceal)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Conceal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Patient Assassin"));
+    const auto card3 = 
+		Generic::DrawCard(curPlayer, Cards::FindCardByName("Goldshire Footman"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 1);
+
+	game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+	game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+}
+
+// ------------------------------------------ SPELL - ROGUE
 // [NEW1_004] Vanish - COST:6
 // - Set: HoF, Rarity: Free
 // --------------------------------------------------------
