@@ -127,6 +127,16 @@ void Player::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
+int Player::GetTimeOut()
+{
+    return GetGameTag(GameTag::TIMEOUT) + playerAuraEffects[GameTag::TIMEOUT];
+}
+
+void Player::SetTimeOut(int value)
+{
+    SetGameTag(GameTag::TIMEOUT, value);
+}
+
 int Player::GetTotalMana() const
 {
     return GetGameTag(GameTag::RESOURCES);

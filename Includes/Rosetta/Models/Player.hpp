@@ -105,6 +105,14 @@ class Player : public Entity
     //! \param value The value to set for game tag.
     void SetGameTag(GameTag tag, int value);
 
+    //! Returns the value of time out.
+    //! \return The value of time out.
+    int GetTimeOut();
+
+    //! Sets the value of time out.
+    //! \param value The value of time out.
+    void SetTimeOut(int value);
+
     //! Returns total amount of mana available.
     //! \return Total amount of mana available.
     int GetTotalMana() const;
