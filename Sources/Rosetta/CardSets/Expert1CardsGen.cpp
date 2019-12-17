@@ -4569,6 +4569,21 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_558", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Players only have 15 seconds to take their turns.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        new Aura(AuraType::PLAYERS,
+                 { new Effect(GameTag::TIMEOUT, EffectOperator::SET, -60) }));
+    powers.emplace("EX1_560", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------

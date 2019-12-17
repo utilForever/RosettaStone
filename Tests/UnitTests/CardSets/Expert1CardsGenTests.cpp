@@ -10707,6 +10707,52 @@ TEST(NeutralExpert1Test, EX1_558_HarrisonJones)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Players only have 15 seconds to take their turns.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_560_Nozdormu)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nozdormu"));
+
+    EXPECT_EQ(curPlayer->GetTimeOut(), 75);
+    EXPECT_EQ(opPlayer->GetTimeOut(), 75);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer->GetTimeOut(), 15);
+    EXPECT_EQ(opPlayer->GetTimeOut(), 15);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer->GetTimeOut(), 15);
+    EXPECT_EQ(opPlayer->GetTimeOut(), 15);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
 // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
