@@ -402,6 +402,17 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::PLAYERS:
+        {
+            for (auto& effect : m_effects)
+            {
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->playerAuraEffects);
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->opponent->playerAuraEffects);
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "Aura::UpdateInternal() - Invalid aura type!");
@@ -416,6 +427,16 @@ void Aura::RemoveInternal()
         {
             dynamic_cast<Effect*>(effect)->RemoveFrom(
                 m_owner->player->playerAuraEffects);
+        }
+    }
+    else if (m_type == AuraType::PLAYERS)
+    {
+        for (auto& effect : m_effects)
+        {
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->playerAuraEffects);
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->opponent->playerAuraEffects);
         }
     }
     else
