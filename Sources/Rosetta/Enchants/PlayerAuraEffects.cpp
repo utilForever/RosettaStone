@@ -13,6 +13,8 @@ int& PlayerAuraEffects::operator[](GameTag tag)
 {
     switch (tag)
     {
+        case GameTag::TIMEOUT:
+            return m_timeOut;
         case GameTag::SPELLPOWER_DOUBLE:
         case GameTag::SPELL_HEALING_DOUBLE:
             return m_spellPowerDouble;

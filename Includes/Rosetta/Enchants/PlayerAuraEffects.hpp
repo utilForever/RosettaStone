@@ -43,6 +43,7 @@ class PlayerAuraEffects
     int& operator[](GameTag tag);
 
  private:
+    int m_timeOut = 0;
     int m_spellPowerDouble = 0;
 };
 }  // namespace RosettaStone
