@@ -305,6 +305,12 @@ void Game::BeginDraw()
         }
     }
 
+    // Initialize timeout
+    for (auto& player : m_players)
+    {
+        player.SetTimeOut(75);
+    }
+
     // Set next step
     nextStep =
         m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
