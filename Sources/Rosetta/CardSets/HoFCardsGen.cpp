@@ -270,6 +270,19 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_284", power);
+
+	// --------------------------------------- MINION - NEUTRAL
+    // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each damage your hero has taken.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+        auto hero = playable->player->GetHero();
+        return hero->GetMaxHealth() - hero->GetHealth();
+    }));
+    cards.emplace("EX1_620", power);
 }
 
 void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)

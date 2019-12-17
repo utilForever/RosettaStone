@@ -484,3 +484,60 @@ TEST(NeutralHoFTest, EX1_284_AzureDrake)
     EXPECT_EQ(curPlayer->GetFieldZone()->GetCount(), 1);
     EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
 }
+
+TEST(NeutralHoFTest, EX1_620_MoltenGiant)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Molten Giant"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+
+    EXPECT_EQ(card1->GetCost(), 20);
+
+    game.Process(curPlayer, PlayCardTask(card2));
+    game.Process(curPlayer, PlayCardTask(card3));
+    game.Process(curPlayer, PlayCardTask(card4));
+    game.Process(curPlayer, PlayCardTask(card5));
+
+    EXPECT_EQ(card1->GetCost(), 8);
+
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card9 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+
+    game.Process(curPlayer, PlayCardTask(card6));
+    game.Process(curPlayer, PlayCardTask(card7));
+    game.Process(curPlayer, PlayCardTask(card8));
+    game.Process(curPlayer, PlayCardTask(card9));
+
+    EXPECT_EQ(card1->GetCost(), 0);
+}
