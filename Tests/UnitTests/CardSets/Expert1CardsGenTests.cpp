@@ -2119,6 +2119,62 @@ TEST(MageExpert1Test, EX1_294_MirrorEntity)
 }
 
 // ------------------------------------------ MINION - MAGE
+// [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       add a 'Fireball' spell to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_559_ArchmageAntonidas)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Archmage Antonidas"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    EXPECT_EQ(curHand.GetCount(), 6);
+    EXPECT_EQ(curHand[5]->card->name, "Fireball");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(curHand[5], opPlayer->GetHero()));
+    EXPECT_EQ(curHand.GetCount(), 6);
+    EXPECT_EQ(curHand[5]->card->name, "Fireball");
+}
+
+// ------------------------------------------ MINION - MAGE
 // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

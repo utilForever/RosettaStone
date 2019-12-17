@@ -1182,6 +1182,23 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_294", power);
 
     // ------------------------------------------ MINION - MAGE
+    // [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell,
+    //       add a 'Fireball' spell to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddCardTask(EntityType::HAND,
+                                                  "CS2_029") };
+    powers.emplace("EX1_559", power);
+
+    // ------------------------------------------ MINION - MAGE
     // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
