@@ -133,6 +133,47 @@ TEST(MageHoFTest, CS2_031_IceLance)
     EXPECT_EQ(card7->isDestroyed, true);
 }
 
+// ----------------------------------------- SPELL - PALADIN
+// [EX1_349] Divine Favor - COST:3
+// - Faction: Neutral, Set: HoF, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw cards until you have as many in hand
+//		 as your opponent
+// --------------------------------------------------------
+TEST(PaladinHoFTest, EX1_349_DivineFavor)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Divine Favor"));
+
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(),
+              opPlayer->GetHandZone()->GetCount());
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [DS1_233] Mind Blast - COST:2
 // - Faction: Neutral, Set: HoF, Rarity: Free
@@ -485,6 +526,12 @@ TEST(NeutralHoFTest, EX1_284_AzureDrake)
     EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
+// - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
+// --------------------------------------------------------
+// Text: Costs (1) less for each damage your hero has taken.
+// --------------------------------------------------------
 TEST(NeutralHoFTest, EX1_620_MoltenGiant)
 {
     GameConfig config;

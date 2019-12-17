@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -14,9 +15,11 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -106,7 +109,29 @@ void HoFCardsGen::AddPaladin(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- SPELL - PALADIN
+    // [EX1_349] Divine Favor - COST:3
+    // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw cards until you have as many in hand
+    //		 as your opponent
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
+        if (auto handNum =
+                playable->player->opponent->GetHandZone()->GetCount() -
+                playable->player->GetHandZone()->GetCount();
+            handNum > 0)
+        {
+            while (handNum--)
+            {
+                Generic::Draw(playable->player);
+            }
+        }
+    }));
+    cards.emplace("EX1_349", power);
 }
 
 void HoFCardsGen::AddPriest(std::map<std::string, Power>& cards)
@@ -271,7 +296,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_284", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
     // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
     // --------------------------------------------------------
