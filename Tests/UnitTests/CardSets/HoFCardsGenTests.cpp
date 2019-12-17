@@ -238,15 +238,25 @@ TEST(RogueHoFTest, EX1_128_Conceal)
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Patient Assassin"));
     const auto card3 = 
-		Generic::DrawCard(curPlayer, Cards::FindCardByName("Goldshire Footman"));
+		Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
 
     EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
     EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 1);
+    EXPECT_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+	game.Process(curPlayer, AttackTask(card3, opPlayer->GetHero()));
+
+    EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    EXPECT_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
 
 	game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -254,8 +264,9 @@ TEST(RogueHoFTest, EX1_128_Conceal)
 	game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+	EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
     EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    EXPECT_EQ(card4->GetGameTag(GameTag::STEALTH), 0);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -518,6 +529,64 @@ TEST(NeutralHoFTest, EX1_050_ColdlightOracle)
     game.Process(curPlayer, PlayCardTask::Minion(card));
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
     EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
+// - Faction: Neutral, Set: HoF, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Charge. Has +1 Attack for each other Murloc
+//		 on the battlefield.
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST(NeutralHoFTest, EX1_062_OldMurkEye)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+	const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Old Murk-Eye"));
+	const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Murloc Raider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card1->GetGameTag(GameTag::ATK), 2);
+
+	game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    
+	EXPECT_EQ(card1->GetGameTag(GameTag::ATK), 5);
+
+	game.Process(curPlayer, EndTurnTask());
+	game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    EXPECT_EQ(card1->GetGameTag(GameTag::ATK), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL

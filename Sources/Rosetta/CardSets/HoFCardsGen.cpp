@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Draw.hpp>
+#include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -22,6 +23,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -315,6 +317,46 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(2));
     power.AddPowerTask(new DrawOpTask(2));
     cards.emplace("EX1_050", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
+    // - Faction: Neutral, Set: HoF, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Charge. Has +1 Attack for each other Murloc
+    //		 on the battlefield.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveEffect(GameTag::ATK,EffectOperator::ADD,[](Playable* playable) {
+        
+		int addAttackAmount = 0;
+        const auto& curMinions = playable->player->GetFieldZone()->GetAll();
+        const auto& opMinions = playable->player->opponent->GetFieldZone()->GetAll();
+
+        for (const auto var : curMinions)
+        {
+            if (playable->GetZonePosition() == var->GetZonePosition())
+                continue;
+
+            if (var->IsRace(Race::MURLOC))
+            {
+                ++addAttackAmount;
+			}
+        }
+
+		for (const auto var : opMinions)
+        {
+            if (var->IsRace(Race::MURLOC))
+            {
+                ++addAttackAmount;
+            }
+        }
+
+        return addAttackAmount;
+    }));
+    cards.emplace("EX1_062", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
