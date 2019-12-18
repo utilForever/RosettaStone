@@ -109,7 +109,7 @@ TEST(ActionValidChecker, Check)
     for (std::size_t i = 0; i < 4; ++i)
     {
         Playable* playable2 =
-            Entity::GetFromCard(player2, Cards::FindCardByName("Worthless Imp"),
+            Entity::GetFromCard(player2, Cards::FindCardByName("Wisp"),
                                 std::nullopt, player2->GetFieldZone());
         player2->GetFieldZone()->Add(playable2);
     }

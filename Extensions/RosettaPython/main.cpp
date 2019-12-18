@@ -22,7 +22,7 @@
 #include <Python/Enums/TriggerEnums.hpp>
 
 #include <Python/Loaders/AccountLoader.hpp>
-#include <Python/Loaders/PowerLoader.hpp>
+#include <Python/Loaders/InternalCardLoader.hpp>
 #include <Python/Loaders/TargetingPredicates.hpp>
 
 #include <pybind11/pybind11.h>
@@ -55,6 +55,6 @@ PYBIND11_MODULE(pyRosetta, m)
 
     // Loaders
     AddAccountLoader(m);
-    AddPowerLoader(m);
+    AddInternalCardLoader(m);
     AddTargetingPredicates(m);
 }

@@ -111,8 +111,8 @@ TEST(ActionParams, Getters)
     for (std::size_t i = 0; i < 4; ++i)
     {
         Playable* playable2 = Entity::GetFromCard(
-            player2, Cards::GetInstance().FindCardByName("Worthless Imp"),
-            std::nullopt, player2->GetFieldZone());
+            player2, Cards::GetInstance().FindCardByName("Wisp"), std::nullopt,
+            player2->GetFieldZone());
         player2->GetFieldZone()->Add(playable2);
     }
 

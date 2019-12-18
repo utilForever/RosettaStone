@@ -4,11 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PYTHON_POWER_LOADER_HPP
-#define ROSETTASTONE_PYTHON_POWER_LOADER_HPP
+#ifndef ROSETTASTONE_PYTHON_INTERNAL_CARD_LOADER_HPP
+#define ROSETTASTONE_PYTHON_INTERNAL_CARD_LOADER_HPP
 
 #include <pybind11/pybind11.h>
 
-void AddPowerLoader(pybind11::module& m);
+void AddInternalCardLoader(pybind11::module& m);
 
-#endif  // ROSETTASTONE_PYTHON_POWER_LOADER_HPP
+#endif  // ROSETTASTONE_PYTHON_INTERNAL_CARD_LOADER_HPP

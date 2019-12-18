@@ -3,8 +3,6 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Actions/Draw.hpp>
-#include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -15,32 +13,29 @@
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
-void HoFCardsGen::AddHeroes(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
+                                EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddDruid(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
+                           EntouragesType& entourages)
 {
     Power power;
 
@@ -57,25 +52,32 @@ void HoFCardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     power.AddPowerTask(new DrawOpTask(2));
-    cards.emplace("EX1_161", power);
+    powers.emplace("EX1_161", power);
+    playReqs.emplace("EX1_161", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
-void HoFCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddDruidNonCollect(PowersType& powers, PlayReqsType& playReqs,
+                                     EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddHunter(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddHunterNonCollect(PowersType& powers,
+                                      PlayReqsType& playReqs,
+                                      EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddMage(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
+                          EntouragesType& entourages)
 {
     Power power;
 
@@ -99,47 +101,31 @@ void HoFCardsGen::AddMage(std::map<std::string, Power>& cards)
         new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true) }));
     power.AddPowerTask(new FlagTask(
         false, { new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1) }));
-    cards.emplace("CS2_031", power);
+    powers.emplace("CS2_031", power);
+    playReqs.emplace("CS2_031", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
-void HoFCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddMageNonCollect(PowersType& powers, PlayReqsType& playReqs,
+                                    EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddPaladin(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
-    Power power;
-
-    // ----------------------------------------- SPELL - PALADIN
-    // [EX1_349] Divine Favor - COST:3
-    // - Faction: Neutral, Set: HoF, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: Draw cards until you have as many in hand
-    //		 as your opponent
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
-        if (auto handNum =
-                playable->player->opponent->GetHandZone()->GetCount() -
-                playable->player->GetHandZone()->GetCount();
-            handNum > 0)
-        {
-            while (handNum--)
-            {
-                Generic::Draw(playable->player);
-            }
-        }
-    }));
-    cards.emplace("EX1_349", power);
+    (void)powers;
 }
 
-void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddPaladinNonCollect(PowersType& powers,
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddPriest(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
     Power power;
 
@@ -151,34 +137,20 @@ void HoFCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
-    cards.emplace("DS1_233", power);
+    powers.emplace("DS1_233", power);
 }
 
-void HoFCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddPriestNonCollect(PowersType& powers,
+                                      PlayReqsType& playReqs,
+                                      EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddRogue(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
+                           EntouragesType& entourages)
 {
     Power power;
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [EX1_128] Conceal - COST:1
-    // - Set: HoF, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Give your minions Stealth until your next turn.
-    // --------------------------------------------------------
-    // RefTag:
-    // - STEALTH = 1
-    // --------------------------------------------------------
-
-    power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(new FilterStackTask(
-        { new SelfCondition(SelfCondition::IsTagValue(GameTag::STEALTH, 0)) }));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_128e", EntityType::STACK));
-    cards.emplace("EX1_128", power);
 
     // ------------------------------------------ SPELL - ROGUE
     // [NEW1_004] Vanish - COST:6
@@ -188,40 +160,30 @@ void HoFCardsGen::AddRogue(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::ALL_MINIONS));
-    cards.emplace("NEW1_004", power);
+    powers.emplace("NEW1_004", power);
 }
 
-void HoFCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs,
+                                     EntouragesType& entourages)
 {
-    Power power;
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [EX1_128e] Conceal - COST:1
-    // - Set: HoF, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Stealthed until your next turn.
-    // --------------------------------------------------------
-    // RefTag:
-    // - STEALTH = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(new Enchant(Effects::Stealth));
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
-    cards.emplace("EX1_128e", power);
+    (void)powers;
 }
 
-void HoFCardsGen::AddShaman(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
+                            EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddShamanNonCollect(PowersType& powers,
+                                      PlayReqsType& playReqs,
+                                      EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddWarlock(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
     Power power;
 
@@ -238,7 +200,7 @@ void HoFCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::HAND, 2));
     power.AddPowerTask(new DiscardTask(EntityType::STACK));
-    cards.emplace("EX1_310", power);
+    powers.emplace("EX1_310", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_316] Power Overwhelming - COST:1
@@ -254,10 +216,16 @@ void HoFCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_316e", EntityType::TARGET));
-    cards.emplace("EX1_316", power);
+    powers.emplace("EX1_316", power);
+    playReqs.emplace("EX1_316",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 }
 
-void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddWarlockNonCollect(PowersType& powers,
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
     Power power;
 
@@ -272,20 +240,24 @@ void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_316e"));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
-    cards.emplace("EX1_316e", power);
+    powers.emplace("EX1_316e", power);
 }
 
-void HoFCardsGen::AddWarrior(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddWarriorNonCollect(PowersType& powers,
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
-    (void)cards;
+    (void)powers;
 }
 
-void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
+                             EntouragesType& entourages)
 {
     Power power;
 
@@ -302,7 +274,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddDeathrattleTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
     power.AddDeathrattleTask(new ControlTask(EntityType::STACK));
-    cards.emplace("EX1_016", power);
+    powers.emplace("EX1_016", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
@@ -316,47 +288,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DrawTask(2));
     power.AddPowerTask(new DrawOpTask(2));
-    cards.emplace("EX1_050", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
-    // - Faction: Neutral, Set: HoF, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: Charge. Has +1 Attack for each other Murloc
-    //		 on the battlefield.
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(new AdaptiveEffect(GameTag::ATK,EffectOperator::ADD,[](Playable* playable) {
-        
-		int addAttackAmount = 0;
-        const auto& curMinions = playable->player->GetFieldZone()->GetAll();
-        const auto& opMinions = playable->player->opponent->GetFieldZone()->GetAll();
-
-        for (const auto var : curMinions)
-        {
-            if (playable->GetZonePosition() == var->GetZonePosition())
-                continue;
-
-            if (var->IsRace(Race::MURLOC))
-            {
-                ++addAttackAmount;
-			}
-        }
-
-		for (const auto var : opMinions)
-        {
-            if (var->IsRace(Race::MURLOC))
-            {
-                ++addAttackAmount;
-            }
-        }
-
-        return addAttackAmount;
-    }));
-    cards.emplace("EX1_062", power);
+    powers.emplace("EX1_050", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
@@ -371,23 +303,12 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DrawTask(1));
-    cards.emplace("EX1_284", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
-    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Costs (1) less for each damage your hero has taken.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
-        auto hero = playable->player->GetHero();
-        return hero->GetMaxHealth() - hero->GetHealth();
-    }));
-    cards.emplace("EX1_620", power);
+    powers.emplace("EX1_284", power);
 }
 
-void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddNeutralNonCollect(PowersType& powers,
+                                       PlayReqsType& playReqs,
+                                       EntouragesType& entourages)
 {
     Power power;
 
@@ -399,42 +320,43 @@ void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("NEW1_027e"));
-    cards.emplace("NEW1_027e", power);
+    powers.emplace("NEW1_027e", power);
 }
 
-void HoFCardsGen::AddAll(std::map<std::string, Power>& cards)
+void HoFCardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs,
+                         EntouragesType& entourages)
 {
-    AddHeroes(cards);
-    AddHeroPowers(cards);
+    AddHeroes(powers, playReqs, entourages);
+    AddHeroPowers(powers, playReqs, entourages);
 
-    AddDruid(cards);
-    AddDruidNonCollect(cards);
+    AddDruid(powers, playReqs, entourages);
+    AddDruidNonCollect(powers, playReqs, entourages);
 
-    AddHunter(cards);
-    AddHunterNonCollect(cards);
+    AddHunter(powers, playReqs, entourages);
+    AddHunterNonCollect(powers, playReqs, entourages);
 
-    AddMage(cards);
-    AddMageNonCollect(cards);
+    AddMage(powers, playReqs, entourages);
+    AddMageNonCollect(powers, playReqs, entourages);
 
-    AddPaladin(cards);
-    AddPaladinNonCollect(cards);
+    AddPaladin(powers, playReqs, entourages);
+    AddPaladinNonCollect(powers, playReqs, entourages);
 
-    AddPriest(cards);
-    AddPriestNonCollect(cards);
+    AddPriest(powers, playReqs, entourages);
+    AddPriestNonCollect(powers, playReqs, entourages);
 
-    AddRogue(cards);
-    AddRogueNonCollect(cards);
+    AddRogue(powers, playReqs, entourages);
+    AddRogueNonCollect(powers, playReqs, entourages);
 
-    AddShaman(cards);
-    AddShamanNonCollect(cards);
+    AddShaman(powers, playReqs, entourages);
+    AddShamanNonCollect(powers, playReqs, entourages);
 
-    AddWarlock(cards);
-    AddWarlockNonCollect(cards);
+    AddWarlock(powers, playReqs, entourages);
+    AddWarlockNonCollect(powers, playReqs, entourages);
 
-    AddWarrior(cards);
-    AddWarriorNonCollect(cards);
+    AddWarrior(powers, playReqs, entourages);
+    AddWarriorNonCollect(powers, playReqs, entourages);
 
-    AddNeutral(cards);
-    AddNeutralNonCollect(cards);
+    AddNeutral(powers, playReqs, entourages);
+    AddNeutralNonCollect(powers, playReqs, entourages);
 }
 }  // namespace RosettaStone

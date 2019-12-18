@@ -67,7 +67,6 @@
 #include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enchants/Power.hpp>
-#include <Rosetta/Enchants/Powers.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enchants/Triggers.hpp>
 #include <Rosetta/Enums/ActionEnums.hpp>
@@ -84,8 +83,9 @@
 #include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
-#include <Rosetta/Loaders/PowerLoader.hpp>
+#include <Rosetta/Loaders/InternalCardLoader.hpp>
 #include <Rosetta/Loaders/TargetingPredicates.hpp>
+#include <Rosetta/Managers/CardDataManager.hpp>
 #include <Rosetta/Managers/CostManager.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
