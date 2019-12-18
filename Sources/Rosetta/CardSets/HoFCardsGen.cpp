@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Draw.hpp>
+#include <Rosetta/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
