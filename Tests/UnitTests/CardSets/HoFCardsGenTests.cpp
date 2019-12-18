@@ -237,8 +237,8 @@ TEST(RogueHoFTest, EX1_128_Conceal)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Conceal"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Patient Assassin"));
-    const auto card3 = 
-		Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
@@ -252,19 +252,23 @@ TEST(RogueHoFTest, EX1_128_Conceal)
     EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 1);
     EXPECT_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
 
-	game.Process(curPlayer, AttackTask(card3, opPlayer->GetHero()));
+    game.Process(curPlayer, AttackTask(card3, opPlayer->GetHero()));
 
     EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
     EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
     EXPECT_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
 
-	game.Process(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-	game.Process(opPlayer, EndTurnTask());
+    EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    EXPECT_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+    game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-	EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    EXPECT_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
     EXPECT_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
     EXPECT_EQ(card4->GetGameTag(GameTag::STEALTH), 0);
 }
@@ -561,9 +565,9 @@ TEST(NeutralHoFTest, EX1_062_OldMurkEye)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-	const auto card1 =
+    const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Old Murk-Eye"));
-	const auto card2 =
+    const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
@@ -575,14 +579,14 @@ TEST(NeutralHoFTest, EX1_062_OldMurkEye)
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(card1->GetGameTag(GameTag::ATK), 2);
 
-	game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    
-	EXPECT_EQ(card1->GetGameTag(GameTag::ATK), 5);
 
-	game.Process(curPlayer, EndTurnTask());
-	game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(card1->GetGameTag(GameTag::ATK), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
 
