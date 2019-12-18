@@ -10819,6 +10819,60 @@ TEST(NeutralExpert1Test, EX1_561_Alexstrasza)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon 1/1 Whelps until your side
+//       of the battlefield is full.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_562_Onyxia)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Onyxia"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    EXPECT_EQ(curField[2]->GetAttack(), 1);
+    EXPECT_EQ(curField[2]->GetHealth(), 1);
+    EXPECT_EQ(curField[3]->GetAttack(), 8);
+    EXPECT_EQ(curField[3]->GetHealth(), 8);
+    EXPECT_EQ(curField[4]->GetAttack(), 1);
+    EXPECT_EQ(curField[4]->GetHealth(), 1);
+    EXPECT_EQ(curField[5]->GetAttack(), 1);
+    EXPECT_EQ(curField[5]->GetHealth(), 1);
+    EXPECT_EQ(curField[6]->GetAttack(), 1);
+    EXPECT_EQ(curField[6]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
 // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------

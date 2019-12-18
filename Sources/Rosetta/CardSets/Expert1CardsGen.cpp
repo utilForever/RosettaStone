@@ -4605,6 +4605,24 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                { PlayReq::REQ_HERO_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon 1/1 Whelps until your side
+    //       of the battlefield is full.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new EnqueueTask({ new SummonTask("EX1_116t", SummonSide::RIGHT),
+                          new SummonTask("EX1_116t", SummonSide::LEFT) },
+                        3));
+    powers.emplace("EX1_562", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
