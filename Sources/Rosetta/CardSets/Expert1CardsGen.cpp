@@ -4584,6 +4584,27 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_560", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Set a hero's remaining Health to 15.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_HERO_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_561e", EntityType::TARGET));
+    powers.emplace("EX1_561", power);
+    playReqs.emplace("EX1_561",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_HERO_TARGET, 0 } });
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -5181,6 +5202,16 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackN(1)));
     powers.emplace("EX1_509e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_561e] Alexstrasza's Fire (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Health set to 15.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::SetMaxHealth(15)));
+    powers.emplace("EX1_561e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
