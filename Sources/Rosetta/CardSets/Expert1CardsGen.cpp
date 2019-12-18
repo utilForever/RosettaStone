@@ -325,6 +325,24 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_571", power);
     playReqs.emplace("EX1_571",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Give your other minions +2/+2;
+    //       or Summon two 2/2 Treants with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_573", power);
 }
 
 void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
@@ -641,6 +659,53 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
     powers.emplace("EX1_570e", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_573a] Demigod's Favor (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Give your other minions +2/+2.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_573ae", EntityType::MINIONS_NOSOURCE));
+    powers.emplace("EX1_573a", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [EX1_573ae] Demigod's Favor (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2/+2.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_573ae"));
+    powers.emplace("EX1_573ae", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_573b] Shan'do's Lesson (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Summon two 2/2 Treants with <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new EnqueueTask({ new SummonTask("EX1_573t", SummonSide::RIGHT),
+                          new SummonTask("EX1_573t", SummonSide::LEFT) },
+                        1));
+    powers.emplace("EX1_573b", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_573t] Treant (*) - COST:2 [ATK:2/HP:2]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_573t", power);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_tk9] Treant (*) - COST:2 [ATK:2/HP:2]
