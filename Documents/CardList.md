@@ -326,17 +326,17 @@ EXPERT1 | EX1_554 | Snake Trap | O
 EXPERT1 | EX1_556 | Harvest Golem | O
 EXPERT1 | EX1_557 | Nat Pagle | O
 EXPERT1 | EX1_558 | Harrison Jones | O
-EXPERT1 | EX1_559 | Archmage Antonidas |  
-EXPERT1 | EX1_560 | Nozdormu |  
-EXPERT1 | EX1_561 | Alexstrasza |  
-EXPERT1 | EX1_562 | Onyxia |  
+EXPERT1 | EX1_559 | Archmage Antonidas | O
+EXPERT1 | EX1_560 | Nozdormu | O
+EXPERT1 | EX1_561 | Alexstrasza | O
+EXPERT1 | EX1_562 | Onyxia | O
 EXPERT1 | EX1_563 | Malygos | O
 EXPERT1 | EX1_564 | Faceless Manipulator | O
 EXPERT1 | EX1_567 | Doomhammer | O
 EXPERT1 | EX1_570 | Bite | O
 EXPERT1 | EX1_571 | Force of Nature | O
 EXPERT1 | EX1_572 | Ysera | O
-EXPERT1 | EX1_573 | Cenarius |  
+EXPERT1 | EX1_573 | Cenarius | O
 EXPERT1 | EX1_575 | Mana Tide Totem | O
 EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 88% (217 of 245 Cards)
+- Progress: 90% (222 of 245 Cards)
 
 ## Hall of Fame
 
