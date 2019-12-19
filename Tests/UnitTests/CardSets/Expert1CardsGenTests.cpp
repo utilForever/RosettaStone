@@ -11588,6 +11588,98 @@ TEST(NeutralExpert1Test, EX1_590_BloodKnight)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever one of your other minions dies, draw a card.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_595_CultMaster)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cult Master"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Argent Squire"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(opPlayer, AttackTask(card4, card2));
+    EXPECT_EQ(curHand.GetCount(), 4);
+
+    game.Process(opPlayer, AttackTask(card5, card2));
+    EXPECT_EQ(curHand.GetCount(), 5);
+
+    game.Process(opPlayer, AttackTask(card7, card3));
+    EXPECT_EQ(curHand.GetCount(), 6);
+
+    game.Process(opPlayer, AttackTask(card6, card1));
+    EXPECT_EQ(curHand.GetCount(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cult Master"));
+    const auto card9 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card10 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card11 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Hellfire"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    game.Process(curPlayer, PlayCardTask::Minion(card9));
+    game.Process(curPlayer, PlayCardTask::Minion(card10));
+    EXPECT_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card11));
+    EXPECT_EQ(curHand.GetCount(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------

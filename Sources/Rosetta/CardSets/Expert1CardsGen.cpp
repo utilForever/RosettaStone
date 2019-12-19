@@ -4884,6 +4884,18 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_590", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever one of your other minions dies, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->tasks = { new DrawTask(1) };
+    powers.emplace("EX1_595", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
