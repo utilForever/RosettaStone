@@ -343,6 +343,26 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_573", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_578] Savagery - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal damage equal to your hero's Attack to a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ATK));
+    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    powers.emplace("EX1_578", power);
+    playReqs.emplace("EX1_578", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
 void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
