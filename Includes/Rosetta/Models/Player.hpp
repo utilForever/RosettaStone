@@ -113,6 +113,12 @@ class Player : public Entity
     //! \param value The value of time out.
     void SetTimeOut(int value);
 
+    //! Returns whether this player all cards and powers that restore Health
+    //! deal damage instead. (e.g. True when Auchenai Soulpriest is in play.)
+    //! \return True if for this player all cards and powers that
+    //! restore Health deal damage instead.
+    bool IsHealingDoesDamage();
+
     //! Returns total amount of mana available.
     //! \return Total amount of mana available.
     int GetTotalMana() const;

@@ -137,6 +137,11 @@ void Player::SetTimeOut(int value)
     SetGameTag(GameTag::TIMEOUT, value);
 }
 
+bool Player::IsHealingDoesDamage()
+{
+    return playerAuraEffects[GameTag::HEALING_DOES_DAMAGE] > 0;
+}
+
 int Player::GetTotalMana() const
 {
     return GetGameTag(GameTag::RESOURCES);
