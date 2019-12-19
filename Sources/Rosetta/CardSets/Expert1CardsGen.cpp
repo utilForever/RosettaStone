@@ -4934,6 +4934,20 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_021", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
+    // - Race: Dragon, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Can't be targeted by spells or Hero Powers.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_TARGETED_BY_SPELLS = 1
+    // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_023", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
     // - Race: Pirate, Set: Expert1, Rarity: legendary
     // --------------------------------------------------------

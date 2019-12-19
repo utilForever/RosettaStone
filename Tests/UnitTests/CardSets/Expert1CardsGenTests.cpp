@@ -11823,6 +11823,56 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
+// - Race: Dragon, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Can't be targeted by spells or Hero Powers.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_023_FaerieDragon)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faerie Dragon"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
 // - Race: Pirate, Set: Expert1, Rarity: legendary
 // --------------------------------------------------------
