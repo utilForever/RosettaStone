@@ -4808,6 +4808,19 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_584", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each other minion on the battlefield.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveCostEffect([=](Playable* playable) {
+        return playable->player->GetFieldZone()->GetCount() +
+               playable->player->opponent->GetFieldZone()->GetCount();
+    }));
+    powers.emplace("EX1_586", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
