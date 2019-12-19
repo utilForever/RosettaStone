@@ -364,6 +364,28 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_578", power);
     playReqs.emplace("EX1_578", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_007] Starfall - COST:5
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b>
+    //       Deal 5 damage to a minion;
+    //       or 2 damage to all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_007", power);
+    playReqs.emplace("NEW1_007",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
 void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
@@ -735,6 +757,33 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_tk9", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_007a] Starfall (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to all enemy minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 2, true));
+    powers.emplace("NEW1_007a", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_007b] Starfall (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deal 5 damage to a minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    powers.emplace("NEW1_007b", power);
+    playReqs.emplace("NEW1_007b",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 } });
 }
 
 void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
