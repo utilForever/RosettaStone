@@ -310,6 +310,12 @@ void Character::TakeHeal(Playable* source, int heal)
         heal *= static_cast<int>(std::pow(2.0, value));
     }
 
+    if (source->player->IsHealingDoesDamage())
+    {
+        TakeDamage(source, heal);
+        return;
+    }
+
     if (GetDamage() == 0)
     {
         return;
