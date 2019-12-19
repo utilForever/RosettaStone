@@ -4647,6 +4647,75 @@ TEST(PriestExpert1Test, EX1_350_ProphetVelen)
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 2);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Your cards and powers that restore Health
+//       now deal damage instead.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_591_AuchenaiSoulpriest)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Auchenai Soulpriest"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Circle of Healing"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask(card2));
+    EXPECT_EQ(opField.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_621] Circle of Healing - COST:0
 // - Set: Expert1, Rarity: Common
