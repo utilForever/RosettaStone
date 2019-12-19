@@ -339,14 +339,14 @@ EXPERT1 | EX1_572 | Ysera | O
 EXPERT1 | EX1_573 | Cenarius | O
 EXPERT1 | EX1_575 | Mana Tide Totem | O
 EXPERT1 | EX1_577 | The Beast | O
-EXPERT1 | EX1_578 | Savagery |  
+EXPERT1 | EX1_578 | Savagery | O
 EXPERT1 | EX1_583 | Priestess of Elune | O
 EXPERT1 | EX1_584 | Ancient Mage | O
-EXPERT1 | EX1_586 | Sea Giant |  
-EXPERT1 | EX1_590 | Blood Knight |  
-EXPERT1 | EX1_591 | Auchenai Soulpriest |  
-EXPERT1 | EX1_594 | Vaporize |  
-EXPERT1 | EX1_595 | Cult Master |  
+EXPERT1 | EX1_586 | Sea Giant | O
+EXPERT1 | EX1_590 | Blood Knight | O
+EXPERT1 | EX1_591 | Auchenai Soulpriest | O
+EXPERT1 | EX1_594 | Vaporize | O
+EXPERT1 | EX1_595 | Cult Master | O
 EXPERT1 | EX1_596 | Demonfire | O
 EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
@@ -368,7 +368,7 @@ EXPERT1 | EX1_624 | Holy Fire | O
 EXPERT1 | EX1_625 | Shadowform | O
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
-EXPERT1 | NEW1_007 | Starfall |  
+EXPERT1 | NEW1_007 | Starfall | O
 EXPERT1 | NEW1_008 | Ancient of Lore |  
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm | O
@@ -379,7 +379,7 @@ EXPERT1 | NEW1_019 | Knife Juggler | O
 EXPERT1 | NEW1_020 | Wild Pyromancer | O
 EXPERT1 | NEW1_021 | Doomsayer | O
 EXPERT1 | NEW1_022 | Dread Corsair |  
-EXPERT1 | NEW1_023 | Faerie Dragon |  
+EXPERT1 | NEW1_023 | Faerie Dragon | O
 EXPERT1 | NEW1_024 | Captain Greenskin | O
 EXPERT1 | NEW1_025 | Bloodsail Corsair | O
 EXPERT1 | NEW1_026 | Violet Teacher |  
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 90% (222 of 245 Cards)
+- Progress: 93% (230 of 245 Cards)
 
 ## Hall of Fame
 
