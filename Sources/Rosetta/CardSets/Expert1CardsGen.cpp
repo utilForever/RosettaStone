@@ -1284,6 +1284,27 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
                                                   "CS2_029") };
     powers.emplace("EX1_559", power);
 
+    // ------------------------------------------- SPELL - MAGE
+    // [EX1_594] Vaporize - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
+    powers.emplace("EX1_594", power);
+
     // ------------------------------------------ MINION - MAGE
     // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common

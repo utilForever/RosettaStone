@@ -2315,6 +2315,55 @@ TEST(MageExpert1Test, EX1_559_ArchmageAntonidas)
     EXPECT_EQ(curHand[5]->card->name, "Fireball");
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [EX1_594] Vaporize - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_594_Vaporize)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vaporize"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
