@@ -46,6 +46,7 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathMultiplyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
@@ -4821,6 +4822,31 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_586", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_590] Blood Knight - COST:3 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> All minions lose <b>Divine Shield</b>.
+    //       Gain +3/+3 for each Shield lost.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::ALL_MINIONS));
+    power.AddPowerTask(new FilterStackTask({ new SelfCondition(
+        SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
+    power.AddPowerTask(new CountTask(EntityType::STACK));
+    power.AddPowerTask(new MathMultiplyTask(3));
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_590e", EntityType::SOURCE, true));
+    powers.emplace("EX1_590", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -5352,6 +5378,17 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::SpellPowerN(1)));
     powers.emplace("EX1_584e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_590e] Shadows of M'uru (*) - COST:0
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: This minion has consumed Divine Shields and
+    //       has increased Attack and Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::AddAttackHealthScriptTag));
+    powers.emplace("EX1_590e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_614t] Flame of Azzinoth (*) - COST:1 [ATK:2/HP:1]
