@@ -1766,6 +1766,59 @@ TEST(HunterExpert1Test, EX1_610_ExplosiveTrap)
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [EX1_611] Freezing Trap - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When an enemy minion attacks,
+//       return it to its owner's hand. It costs (2) more.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, EX1_611_FreezingTrap)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Freezing Trap"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(opHand.GetCount(), 6);
+
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(opHand.GetCount(), 7);
+    EXPECT_EQ(opHand[6]->GetCost(), 5);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [EX1_617] Deadly Shot - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

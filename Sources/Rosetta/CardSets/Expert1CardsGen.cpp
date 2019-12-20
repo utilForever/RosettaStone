@@ -1100,6 +1100,31 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_610", power);
 
     // ----------------------------------------- SPELL - HUNTER
+    // [EX1_611] Freezing Trap - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy minion attacks,
+    //       return it to its owner's hand. It costs (2) more.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        new ConditionTask(EntityType::TARGET,
+                          { new SelfCondition(SelfCondition::IsNotDead()) }),
+        new FlagTask(true, { new ReturnHandTask(EntityType::TARGET),
+                             new AddAuraEffectTask({ Effects::AddCost(2) },
+                                                   EntityType::TARGET),
+                             new SetGameTagTask(EntityType::SOURCE,
+                                                GameTag::REVEALED, 1),
+                             new MoveToGraveyardTask(EntityType::SOURCE) })
+    };
+    powers.emplace("EX1_611", power);
+
+    // ----------------------------------------- SPELL - HUNTER
     // [EX1_617] Deadly Shot - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
