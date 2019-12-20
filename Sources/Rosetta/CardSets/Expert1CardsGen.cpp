@@ -1460,6 +1460,23 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_608", power);
 
     // ------------------------------------------ MINION - MAGE
+    // [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next <b>Secret</b>
+    //       you play this turn costs (0).
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_612o", EntityType::PLAYER));
+    powers.emplace("EX1_612", power);
+
+    // ------------------------------------------ MINION - MAGE
     // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1488,6 +1505,25 @@ void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackHealthN(2)));
     powers.emplace("EX1_274e", power);
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [EX1_612o] Power of the Kirin Tor (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Your next Secret costs (0).
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::HAND, { Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsSecret());
+        aura->removeTrigger = { TriggerType::CAST_SPELL,
+                                new SelfCondition(SelfCondition::IsSecret()) };
+    }
+    powers.emplace("EX1_612o", power);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [NEW1_012o] Mana Gorged (*) - COST:0

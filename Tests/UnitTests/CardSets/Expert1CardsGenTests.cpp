@@ -2668,6 +2668,66 @@ TEST(MageExpert1Test, EX1_608_SorcerersAppretice)
 }
 
 // ------------------------------------------ MINION - MAGE
+// [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> The next <b>Secret</b>
+//       you play this turn costs (0).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_612_KirinTorMage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kirin Tor Mage"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    EXPECT_EQ(card2->GetCost(), 3);
+    EXPECT_EQ(card3->GetCost(), 3);
+    EXPECT_EQ(card4->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card2->GetCost(), 0);
+    EXPECT_EQ(card3->GetCost(), 0);
+    EXPECT_EQ(card4->GetCost(), 4);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    EXPECT_EQ(card2->GetCost(), 0);
+    EXPECT_EQ(card3->GetCost(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(card2->GetCost(), 3);
+}
+
+// ------------------------------------------ MINION - MAGE
 // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
