@@ -3293,6 +3293,29 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     power.AddAura(new EnrageEffect(AuraType::SELF, "EX1_414e"));
     powers.emplace("EX1_414", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion and give it +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_603e", EntityType::TARGET));
+    powers.emplace("EX1_603", power);
+    playReqs.emplace("EX1_603",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
+
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
@@ -3423,6 +3446,16 @@ void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_414e"));
     powers.emplace("EX1_414e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_603e] Whipped Into Shape (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_603e"));
+    powers.emplace("EX1_603e", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_607e] Inner Rage (*) - COST:0
