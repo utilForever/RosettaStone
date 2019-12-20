@@ -386,6 +386,24 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     playReqs.emplace("NEW1_007",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
                                { PlayReq::REQ_MINION_TARGET, 0 } });
+
+    // ----------------------------------------- MINION - DRUID
+    // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_008", power);
+    playReqs.emplace("NEW1_008",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 }
 
 void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
@@ -784,6 +802,31 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     playReqs.emplace("NEW1_007b",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                { PlayReq::REQ_MINION_TARGET, 0 } });
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_008a] Ancient Teachings (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(1));
+    powers.emplace("NEW1_008a", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_008b] Ancient Secrets (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Restore 5 Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 5));
+    powers.emplace("NEW1_008b", power);
+    playReqs.emplace("NEW1_008b",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
 void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,

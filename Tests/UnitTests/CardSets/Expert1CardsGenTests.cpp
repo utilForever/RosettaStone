@@ -887,6 +887,52 @@ TEST(DruidExpert1Test, NEW1_007_Starfall)
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 0);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
+// - Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST(DruidExpert1Test, NEW1_008_AncientOfLore)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient of Lore"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient of Lore"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, curPlayer->GetHero(), 2));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 20);
+}
+
 // ---------------------------------------- WEAPON - HUNTER
 // [DS1_188] Gladiator's Longbow - COST:7 [ATK:5/HP:0]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
