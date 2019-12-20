@@ -1080,6 +1080,26 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_609", power);
 
     // ----------------------------------------- SPELL - HUNTER
+    // [EX1_610] Explosive Trap - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your hero is attacked,
+    //       deal 2 damage to all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->tasks = { new DamageTask(EntityType::ENEMIES, 2, true),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
+    powers.emplace("EX1_610", power);
+
+    // ----------------------------------------- SPELL - HUNTER
     // [EX1_617] Deadly Shot - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------

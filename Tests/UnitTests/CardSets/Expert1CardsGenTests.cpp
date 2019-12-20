@@ -1696,6 +1696,76 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [EX1_610] Explosive Trap - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When your hero is attacked,
+//       deal 2 damage to all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, EX1_610_ExplosiveTrap)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Explosive Trap"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodmage Thalnos"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(opField[1]->GetHealth(), 1);
+
+    game.Process(opPlayer, AttackTask(card5, curPlayer->GetHero()));
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    EXPECT_EQ(opField.GetCount(), 1);
+    EXPECT_EQ(opField[0]->GetHealth(), 2);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [EX1_617] Deadly Shot - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
