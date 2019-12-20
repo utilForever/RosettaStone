@@ -3316,6 +3316,19 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
                                { PlayReq::REQ_MINION_TARGET, 0 },
                                { PlayReq::REQ_NONSELF_TARGET, 0 } });
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a minion takes damage, gain +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_604o",
+                                                         EntityType::SOURCE) };
+    powers.emplace("EX1_604", power);
+
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
@@ -3456,6 +3469,16 @@ void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_603e"));
     powers.emplace("EX1_603e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_604o] Berserk (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant({ Effects::AttackN(1) }));
+    powers.emplace("EX1_604o", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_607e] Inner Rage (*) - COST:0
