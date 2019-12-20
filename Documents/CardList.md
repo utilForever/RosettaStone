@@ -349,14 +349,14 @@ EXPERT1 | EX1_594 | Vaporize | O
 EXPERT1 | EX1_595 | Cult Master | O
 EXPERT1 | EX1_596 | Demonfire | O
 EXPERT1 | EX1_597 | Imp Master | O
-EXPERT1 | EX1_603 | Cruel Taskmaster |  
-EXPERT1 | EX1_604 | Frothing Berserker |  
+EXPERT1 | EX1_603 | Cruel Taskmaster | O
+EXPERT1 | EX1_604 | Frothing Berserker | O
 EXPERT1 | EX1_607 | Inner Rage | O
 EXPERT1 | EX1_608 | Sorcerer's Apprentice | O
 EXPERT1 | EX1_609 | Snipe | O
-EXPERT1 | EX1_610 | Explosive Trap |  
-EXPERT1 | EX1_611 | Freezing Trap |  
-EXPERT1 | EX1_612 | Kirin Tor Mage |  
+EXPERT1 | EX1_610 | Explosive Trap | O
+EXPERT1 | EX1_611 | Freezing Trap | O
+EXPERT1 | EX1_612 | Kirin Tor Mage | O
 EXPERT1 | EX1_613 | Edwin VanCleef |  
 EXPERT1 | EX1_614 | Illidan Stormrage | O
 EXPERT1 | EX1_616 | Mana Wraith |  
@@ -369,7 +369,7 @@ EXPERT1 | EX1_625 | Shadowform | O
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall | O
-EXPERT1 | NEW1_008 | Ancient of Lore |  
+EXPERT1 | NEW1_008 | Ancient of Lore | O
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm | O
 EXPERT1 | NEW1_014 | Master of Disguise |  
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 93% (230 of 245 Cards)
+- Progress: 96% (236 of 245 Cards)
 
 ## Hall of Fame
 
