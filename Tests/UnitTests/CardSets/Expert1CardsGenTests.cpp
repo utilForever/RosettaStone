@@ -1648,49 +1648,51 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curField = *(curPlayer->GetFieldZone());
     auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Snipe"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Snipe"));
-    const auto card4 =
+    const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
-    const auto card5 = Generic::DrawCard(
+    const auto card4 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Bloodmage Thalnos"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
     const auto card6 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
     const auto card7 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
-    const auto card8 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
     EXPECT_EQ(curSecret->GetCount(), 1);
-    EXPECT_EQ(card4->GetGameTag(GameTag::DAMAGE), 0);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
     EXPECT_EQ(curSecret->GetCount(), 0);
-    EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 4);
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card7));
-    EXPECT_TRUE(card7->isDestroyed);
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    EXPECT_TRUE(card6->isDestroyed);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card8));
-    EXPECT_EQ(card8->GetGameTag(GameTag::DAMAGE), 0);
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+    EXPECT_EQ(opField[1]->GetHealth(), 5);
 }
 
 // ----------------------------------------- SPELL - HUNTER
