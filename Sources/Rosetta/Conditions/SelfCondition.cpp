@@ -268,6 +268,17 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
     });
 }
 
+SelfCondition SelfCondition::IsSpellTargetingMinion()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto iter =
+            playable->game->entityList.find(playable->GetCardTarget());
+
+        return playable->card->GetCardType() == CardType::SPELL &&
+               iter->second->card->GetCardType() == CardType::MINION;
+    });
+}
+
 SelfCondition SelfCondition::IsInZone(ZoneType zone)
 {
     return SelfCondition([=](Playable* playable) -> bool {
