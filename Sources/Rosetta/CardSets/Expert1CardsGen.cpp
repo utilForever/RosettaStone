@@ -1490,6 +1490,35 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = { new AddEnchantmentTask("NEW1_012o",
                                                          EntityType::SOURCE) };
     powers.emplace("NEW1_012", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [tt_010] Spellbender - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy casts a spell on a minion,
+    //       summon a 1/3 as the new target.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TARGET));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsSpellTargetingMinion());
+    power.GetTrigger()->tasks = {
+        new ConditionTask(
+            EntityType::SOURCE,
+            std::vector<SelfCondition*>{
+                new SelfCondition(SelfCondition::IsFieldNotFull()),
+                new SelfCondition(
+                    SelfCondition::IsTagValue(GameTag::CANT_PLAY, 0)) }),
+        new FlagTask(
+            true,
+            { new SummonTask("tt_010a", SummonSide::DEFAULT, true),
+              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+              new MoveToGraveyardTask(EntityType::SOURCE) }),
+    };
+    powers.emplace("tt_010", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
