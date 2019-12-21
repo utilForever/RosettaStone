@@ -5459,6 +5459,22 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_037", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_038] Gruul - COST:8 [ATK:7/HP:7]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of each turn, gain +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("NEW1_038o",
+                                                         EntityType::SOURCE) };
+    powers.emplace("NEW1_038", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
     // - Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -5914,6 +5930,16 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackN(1)));
     powers.emplace("NEW1_037e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_038o] Growth (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Gruul is growing...
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant(Effects::AttackHealthN(1)));
+    powers.emplace("NEW1_038o", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_040t] Gnoll (*) - COST:2 [ATK:2/HP:2]

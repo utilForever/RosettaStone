@@ -13198,6 +13198,57 @@ TEST(NeutralExpert1Test, NEW1_037_MasterSwordsmith)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [NEW1_038] Gruul - COST:8 [ATK:7/HP:7]
+// - Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the end of each turn, gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_038_Gruul)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gruul"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 7);
+    EXPECT_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField[0]->GetAttack(), 8);
+    EXPECT_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField[0]->GetAttack(), 9);
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
 // - Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
