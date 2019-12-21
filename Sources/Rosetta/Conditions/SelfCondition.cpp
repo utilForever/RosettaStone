@@ -66,6 +66,13 @@ SelfCondition SelfCondition::IsFieldFull()
     });
 }
 
+SelfCondition SelfCondition::IsFieldNotFull()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->GetFieldZone()->IsFull();
+    });
+}
+
 SelfCondition SelfCondition::IsOpFieldNotFull()
 {
     return SelfCondition([=](Playable* playable) -> bool {

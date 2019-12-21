@@ -52,6 +52,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
 
+    //! SelfCondition wrapper for checking the field is not full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFieldNotFull();
+
     //! SelfCondition wrapper for checking the opponent field is not full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOpFieldNotFull();
