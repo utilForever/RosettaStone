@@ -70,6 +70,14 @@ class Entity
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
+    //! Returns the value of card target.
+    //! \return The value of card target.
+    int GetCardTarget() const;
+
+    //! Sets the value of card target.
+    //! \param value The value of card target.
+    void SetCardTarget(int value);
+
     //! Resets all game tag values that where changed after creation.
     //! Any enchants and trigger is removed.
     virtual void Reset();

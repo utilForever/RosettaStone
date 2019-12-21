@@ -78,6 +78,16 @@ void Entity::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
+int Entity::GetCardTarget() const
+{
+    return GetGameTag(GameTag::CARD_TARGET);
+}
+
+void Entity::SetCardTarget(int value)
+{
+    SetGameTag(GameTag::CARD_TARGET, value);
+}
+
 void Entity::Reset()
 {
     m_gameTags.erase(GameTag::DAMAGE);
