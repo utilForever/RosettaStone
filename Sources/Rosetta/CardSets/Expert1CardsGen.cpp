@@ -5415,6 +5415,20 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_027", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Enemy spells cost (0) next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_029t", EntityType::PLAYER));
+    powers.emplace("NEW1_029", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
     // - Race: Dragon, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -5873,6 +5887,23 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("NEW1_026t", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_029t] Kill Millhouse! (*) - COST:0
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Spells cost (0) this turn!
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::ENEMY_HAND, { Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::TURN_END,
+                                new SelfCondition(
+                                    SelfCondition::IsEnemyTurn()) };
+    }
+    powers.emplace("NEW1_029t", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0

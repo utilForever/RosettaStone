@@ -13023,6 +13023,68 @@ TEST(NeutralExpert1Test, NEW1_027_SouthseaCaptain)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4]
+// - Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Enemy spells cost (0) next turn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_029_MillhouseManastorm)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Millhouse Manastorm"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    EXPECT_EQ(card2->GetCost(), 4);
+    EXPECT_EQ(card3->GetCost(), 2);
+    EXPECT_EQ(card4->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card2->GetCost(), 0);
+    EXPECT_EQ(card3->GetCost(), 0);
+    EXPECT_EQ(card4->GetCost(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    EXPECT_EQ(card2->GetCost(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(card2->GetCost(), 4);
+    EXPECT_EQ(card4->GetCost(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
 // - Race: Dragon, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
