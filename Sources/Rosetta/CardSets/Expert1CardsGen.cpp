@@ -2521,6 +2521,34 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     playReqs.emplace("NEW1_005",
                      PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                { PlayReq::REQ_TARGET_FOR_COMBO, 0 } });
+
+    // ----------------------------------------- MINION - ROGUE
+    // [NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion <b>Stealth</b>
+    //       until your next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_014e", EntityType::TARGET));
+    powers.emplace("NEW1_014", power);
+    playReqs.emplace("NEW1_014",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 }
 
 void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
@@ -2584,6 +2612,19 @@ void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Enchants::AddAttackHealthScriptTag));
     powers.emplace("EX1_613e", power);
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [NEW1_014e] Disguised (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Stealthed until your next turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::Stealth));
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->removeAfterTriggered = true;
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    powers.emplace("NEW1_014e", power);
 }
 
 void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
