@@ -56,6 +56,9 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Erase from player's hand
     player->GetHandZone()->Remove(source);
 
+    // Increase the number of cards played this turn
+    player->SetNumCardsPlayedThisTurn(player->GetNumCardsPlayedThisTurn() + 1);
+
     // Set card's owner
     source->player = player;
 

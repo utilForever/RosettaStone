@@ -372,6 +372,7 @@ void Game::MainReady()
         player.GetHero()->SetNumAttacksThisTurn(0);
 
         // Player
+        player.SetNumCardsPlayedThisTurn(0);
         player.SetNumMinionsPlayedThisTurn(0);
         player.SetNumFriendlyMinionsDiedThisTurn(0);
     }
