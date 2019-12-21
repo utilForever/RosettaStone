@@ -172,6 +172,14 @@ class Player : public Entity
     //! \param isActive Whether combo is active.
     void SetComboActive(bool isActive);
 
+    //! Returns the number of cards that played this turn.
+    //! \return The number of cards that played this turn.
+    int GetNumCardsPlayedThisTurn() const;
+
+    //! Sets the number of cards that played this turn.
+    //! \param value The number of cards that played this turn.
+    void SetNumCardsPlayedThisTurn(int value);
+
     //! Returns the number of minions that played this turn.
     //! \return The number of minions that played this turn.
     int GetNumMinionsPlayedThisTurn() const;
