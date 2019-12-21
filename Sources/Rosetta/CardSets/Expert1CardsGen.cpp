@@ -5510,6 +5510,19 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     powers.emplace("NEW1_041", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever a minion dies, gain +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("tt_004o",
+                                                         EntityType::SOURCE) };
+    powers.emplace("tt_004", power);
 }
 void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
                                            PlayReqsType& playReqs,
@@ -5961,6 +5974,16 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("skele21", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [tt_004o] Cannibalize (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant({ Effects::AttackN(1) }));
+    powers.emplace("tt_004o", power);
 }
 
 void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
