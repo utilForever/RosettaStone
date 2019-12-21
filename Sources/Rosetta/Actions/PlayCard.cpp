@@ -62,9 +62,10 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Set card's owner
     source->player = player;
 
-    // Validate target trigger
+    // Set card target and validate target trigger
     if (target != nullptr)
     {
+        source->SetCardTarget(target->id);
         Trigger::ValidateTriggers(player->game, source, SequenceType::TARGET);
     }
 
