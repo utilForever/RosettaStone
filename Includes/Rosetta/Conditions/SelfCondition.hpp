@@ -160,6 +160,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsInZone(ZoneType zone);
 
+    //! SelfCondition wrapper for checking it is enemy turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEnemyTurn();
+
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.

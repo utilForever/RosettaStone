@@ -275,6 +275,13 @@ SelfCondition SelfCondition::IsInZone(ZoneType zone)
     });
 }
 
+SelfCondition SelfCondition::IsEnemyTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player != playable->game->GetCurrentPlayer();
+    });
+}
+
 bool SelfCondition::Evaluate(Playable* owner) const
 {
     return m_func(owner);
