@@ -48,6 +48,10 @@ void Aura::Activate(Playable* owner, bool cloning)
     {
         case TriggerType::NONE:
             break;
+        case TriggerType::TURN_END:
+            owner->game->triggerManager.endTurnTrigger =
+                std::move(instance->m_removeHandler);
+            break;
         case TriggerType::CAST_SPELL:
             owner->game->triggerManager.castSpellTrigger =
                 std::move(instance->m_removeHandler);
@@ -156,6 +160,9 @@ void Aura::Remove()
     switch (removeTrigger.first)
     {
         case TriggerType::NONE:
+            break;
+        case TriggerType::TURN_END:
+            m_owner->game->triggerManager.endTurnTrigger = nullptr;
             break;
         case TriggerType::CAST_SPELL:
             m_owner->game->triggerManager.castSpellTrigger = nullptr;
