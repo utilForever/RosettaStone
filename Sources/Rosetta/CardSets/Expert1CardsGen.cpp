@@ -5387,6 +5387,19 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_025", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new SummonTask("NEW1_026t",
+                                                 SummonSide::RIGHT) };
+    powers.emplace("NEW1_026", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
     // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -5852,6 +5865,14 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.AddEnchant(new Enchant(std::vector<IEffect*>(
         { Effects::AttackN(1), Effects::DurabilityN(1) })));
     powers.emplace("NEW1_024o", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_026t] Violet Apprentice (*) - COST:1 [ATK:1/HP:1]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_026t", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0
