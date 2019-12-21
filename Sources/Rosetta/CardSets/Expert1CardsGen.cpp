@@ -1115,12 +1115,12 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = {
         new ConditionTask(EntityType::TARGET,
                           { new SelfCondition(SelfCondition::IsNotDead()) }),
-        new FlagTask(true, { new ReturnHandTask(EntityType::TARGET),
-                             new AddAuraEffectTask({ Effects::AddCost(2) },
-                                                   EntityType::TARGET),
-                             new SetGameTagTask(EntityType::SOURCE,
-                                                GameTag::REVEALED, 1),
-                             new MoveToGraveyardTask(EntityType::SOURCE) })
+        new FlagTask(
+            true,
+            { new ReturnHandTask(EntityType::TARGET),
+              new AddAuraEffectTask(Effects::AddCost(2), EntityType::TARGET),
+              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+              new MoveToGraveyardTask(EntityType::SOURCE) })
     };
     powers.emplace("EX1_611", power);
 
