@@ -12701,6 +12701,50 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [NEW1_022] Dread Corsair - COST:4 [ATK:3/HP:3]
+// - Race: Pirate, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Costs (1) less per Attack of your weapon.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_022_DreadCorsair)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dread Corsair"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Deadly Poison"));
+
+    EXPECT_EQ(card1->GetCost(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(card1->GetCost(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
 // - Race: Dragon, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

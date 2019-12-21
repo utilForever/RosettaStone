@@ -5328,6 +5328,27 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_021", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_022] Dread Corsair - COST:4 [ATK:3/HP:3]
+    // - Race: Pirate, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Costs (1) less per Attack of your weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+        if (!playable->player->GetHero()->HasWeapon())
+        {
+            return 0;
+        }
+
+        return playable->player->GetHero()->weapon->GetAttack();
+    }));
+    powers.emplace("NEW1_022", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
     // - Race: Dragon, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
