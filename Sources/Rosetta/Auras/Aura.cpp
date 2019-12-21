@@ -392,7 +392,16 @@ void Aura::UpdateInternal()
                 Apply(card);
             }
             break;
-        }   
+        }
+        case AuraType::ENEMY_HAND:
+        {
+            for (auto& card :
+                 m_owner->player->opponent->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            break;
+        }
         case AuraType::PLAYER:
         {
             for (auto& effect : m_effects)
