@@ -6227,6 +6227,59 @@ TEST(RogueExpert1Test, EX1_522_PatientAssassin)
 }
 
 // ----------------------------------------- MINION - ROGUE
+// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Gain +2/+2 for each other card
+//       you've played this turn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - COMBO = 1
+// --------------------------------------------------------
+TEST(RogueExpert1Test, EX1_613_EdwinVanCleef)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[1]->GetAttack(), 4);
+    EXPECT_EQ(curField[1]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField[2]->GetAttack(), 6);
+    EXPECT_EQ(curField[2]->GetHealth(), 6);
+}
+
+// ----------------------------------------- MINION - ROGUE
 // [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

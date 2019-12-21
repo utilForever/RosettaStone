@@ -42,12 +42,14 @@
 #include <Rosetta/Tasks/SimpleTasks/FuncPlayableTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetPlayerGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathMultiplyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathSubtractTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
@@ -2481,6 +2483,26 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_522", power);
 
     // ----------------------------------------- MINION - ROGUE
+    // [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Gain +2/+2 for each other card
+    //       you've played this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - COMBO = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        new GetPlayerGameTagTask(GameTag::NUM_CARDS_PLAYED_THIS_TURN));
+    power.AddComboTask(new MathSubtractTask(1));
+    power.AddComboTask(new MathMultiplyTask(2));
+    power.AddComboTask(
+        new AddEnchantmentTask("EX1_613e", EntityType::SOURCE, true));
+    powers.emplace("EX1_613", power);
+
+    // ----------------------------------------- MINION - ROGUE
     // [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -2552,6 +2574,16 @@ void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
         aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
     }
     powers.emplace("EX1_145o", power);
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [EX1_613e] VanCleef's Vengeance (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::AddAttackHealthScriptTag));
+    powers.emplace("EX1_613e", power);
 }
 
 void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
