@@ -5186,6 +5186,23 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_614", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: ALL minions cost (1) more.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::HANDS, { Effects::AddCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsMinion());
+    }
+    powers.emplace("EX1_616", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
     // - Race: Beast, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------

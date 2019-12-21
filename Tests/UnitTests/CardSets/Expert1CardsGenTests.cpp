@@ -12270,6 +12270,67 @@ TEST(NeutralExpert1Test, EX1_614_IllidanStormrage)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: ALL minions cost (1) more.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_616_ManaWraith)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Wraith"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Starfall"));
+
+    EXPECT_EQ(card1->GetCost(), 2);
+    EXPECT_EQ(card2->GetCost(), 0);
+    EXPECT_EQ(card3->GetCost(), 4);
+    EXPECT_EQ(card4->GetCost(), 3);
+    EXPECT_EQ(card5->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card2->GetCost(), 1);
+    EXPECT_EQ(card3->GetCost(), 4);
+    EXPECT_EQ(card4->GetCost(), 4);
+    EXPECT_EQ(card5->GetCost(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1, 2));
+    EXPECT_EQ(card2->GetCost(), 0);
+    EXPECT_EQ(card3->GetCost(), 4);
+    EXPECT_EQ(card4->GetCost(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
 // - Race: Beast, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
