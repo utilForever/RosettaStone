@@ -20,7 +20,7 @@ class GetPlayerGameTagTask : public ITask
  public:
     //! Constructs task with given \p tag.
     //! \param tag A game tag to get.
-    GetPlayerGameTagTask(GameTag tag);
+    explicit GetPlayerGameTagTask(GameTag tag);
 
  private:
     //! Processes task logic internally and returns meta data.

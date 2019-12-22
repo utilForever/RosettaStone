@@ -22,7 +22,8 @@ class EnqueueNumberTask : public ITask
     //! Constructs task with given \p tasks and \p isSpellDamage.
     //! \param tasks A task vector to repeat.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.
-    EnqueueNumberTask(std::vector<ITask*> tasks, bool isSpellDamage = false);
+    explicit EnqueueNumberTask(std::vector<ITask*> tasks,
+                               bool isSpellDamage = false);
 
  private:
     //! Processes task logic internally and returns meta data.
