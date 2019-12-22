@@ -2798,12 +2798,12 @@ TEST(PriestCoreTest, CS2_003_MindVision)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mind Vision"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    auto gainedCard = curHand[4];
+    const auto gainedCard = curHand[4];
 
     bool flag = false;
-    for (auto& card : opPlayer->GetHandZone()->GetAll())
+    for (auto& handCard : opPlayer->GetHandZone()->GetAll())
     {
-        if (card->id == gainedCard->id)
+        if (handCard->card->id == gainedCard->card->id)
         {
             flag = true;
             break;
