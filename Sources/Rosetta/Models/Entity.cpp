@@ -143,6 +143,9 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
                 "Generic::DrawCard() - Invalid card type!");
     }
 
+    // Add entity to list
+    player->game->entityList.emplace(result->id, result);
+
     if (result->HasChooseOne())
     {
         delete result->chooseOneCard[0];
