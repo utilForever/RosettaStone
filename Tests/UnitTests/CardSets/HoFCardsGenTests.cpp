@@ -138,7 +138,7 @@ TEST(MageHoFTest, CS2_031_IceLance)
 // - Faction: Neutral, Set: HoF, Rarity: Rare
 // --------------------------------------------------------
 // Text: Draw cards until you have as many in hand
-//		 as your opponent
+//       as your opponent
 // --------------------------------------------------------
 TEST(PaladinHoFTest, EX1_349_DivineFavor)
 {
@@ -209,9 +209,12 @@ TEST(PriestHoFTest, DS1_233_MindBlast)
 
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_128] Conceal - COST:1
-// - Set: HoF, Rarity: Common
+// - Faction: Neutral, Set: HoF, Rarity: Common
 // --------------------------------------------------------
-// Text: Give your minions Stealth until your next turn.
+// Text: Give your minions <b>Stealth</b> until your next turn.
+// --------------------------------------------------------
+// RefTag:
+// - STEALTH = 1
 // --------------------------------------------------------
 TEST(RogueHoFTest, EX1_128_Conceal)
 {
@@ -537,12 +540,12 @@ TEST(NeutralHoFTest, EX1_050_ColdlightOracle)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
-// - Faction: Neutral, Set: HoF, Rarity: Legendary
+// - Race: Murloc, Faction: Neutral. Set: HoF, Rarity: Legendary
 // --------------------------------------------------------
-// Text: Charge. Has +1 Attack for each other Murloc
-//		 on the battlefield.
+// Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
 // --------------------------------------------------------
 // GameTag:
+// - ELITE = 1
 // - CHARGE = 1
 // --------------------------------------------------------
 TEST(NeutralHoFTest, EX1_062_OldMurkEye)
