@@ -16,8 +16,10 @@
 namespace RosettaStone::SimpleTasks
 {
 IncludeTask::IncludeTask(EntityType entityType,
-                         std::vector<EntityType> excludeTypes)
-    : ITask(entityType), m_excludeTypes(std::move(excludeTypes))
+                         std::vector<EntityType> excludeTypes, bool addFlag)
+    : ITask(entityType),
+      m_excludeTypes(std::move(excludeTypes)),
+      m_addFlag(addFlag)
 {
     // Do nothing
 }
@@ -463,7 +465,18 @@ TaskStatus IncludeTask::Impl(Player* player)
             return false;
         });
 
-        player->game->taskStack.playables = result;
+        if (m_addFlag)
+        {
+            player->game->taskStack.AddPlayables(result);
+        }
+        else
+        {
+            player->game->taskStack.playables = result;
+        }
+    }
+    else if (m_addFlag)
+    {
+        player->game->taskStack.AddPlayables(entities);
     }
     else
     {
@@ -475,6 +488,6 @@ TaskStatus IncludeTask::Impl(Player* player)
 
 ITask* IncludeTask::CloneImpl()
 {
-    return new IncludeTask(m_entityType, m_excludeTypes);
+    return new IncludeTask(m_entityType, m_excludeTypes, m_addFlag);
 }
 }  // namespace RosettaStone::SimpleTasks
