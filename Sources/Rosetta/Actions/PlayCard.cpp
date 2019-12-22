@@ -144,6 +144,12 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         player->game->triggerManager.OnTargetTrigger(minion);
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
+
+        if (minion->GetCardTarget() != target->id)
+        {
+            target = dynamic_cast<Character*>(
+                minion->game->entityList[minion->GetCardTarget()]);
+        }
     }
 
     // Process power or combo tasks
@@ -203,6 +209,12 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
             player->game->triggerManager.OnTargetTrigger(spell);
             player->game->ProcessTasks();
             player->game->taskQueue.EndEvent();
+
+            if (spell->GetCardTarget() == target->id)
+            {
+                target = dynamic_cast<Character*>(
+                    spell->game->entityList[spell->GetCardTarget()]);
+            }
         }
 
         CastSpell(player, spell, target, chooseOne);
@@ -242,6 +254,12 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
         player->game->triggerManager.OnTargetTrigger(weapon);
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
+
+        if (weapon->GetCardTarget() != target->id)
+        {
+            target = dynamic_cast<Character*>(
+                weapon->game->entityList[weapon->GetCardTarget()]);
+        }
     }
 
     // Process power tasks
