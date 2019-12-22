@@ -1515,6 +1515,15 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
         new FlagTask(
             true,
             { new SummonTask("tt_010a", SummonSide::DEFAULT, true),
+              new IncludeTask(EntityType::SOURCE, std::vector<EntityType>(),
+                              true),
+              new IncludeTask(EntityType::TARGET, std::vector<EntityType>(),
+                              true),
+              new FuncPlayableTask(
+                  [=](const std::vector<Playable*>& playables) {
+                      playables[2]->SetCardTarget(playables[0]->id);
+                      return playables;
+                  }),
               new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
               new MoveToGraveyardTask(EntityType::SOURCE) }),
     };
