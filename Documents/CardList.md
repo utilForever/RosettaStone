@@ -357,9 +357,9 @@ EXPERT1 | EX1_609 | Snipe | O
 EXPERT1 | EX1_610 | Explosive Trap | O
 EXPERT1 | EX1_611 | Freezing Trap | O
 EXPERT1 | EX1_612 | Kirin Tor Mage | O
-EXPERT1 | EX1_613 | Edwin VanCleef |  
+EXPERT1 | EX1_613 | Edwin VanCleef | O
 EXPERT1 | EX1_614 | Illidan Stormrage | O
-EXPERT1 | EX1_616 | Mana Wraith |  
+EXPERT1 | EX1_616 | Mana Wraith | O
 EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
@@ -372,29 +372,29 @@ EXPERT1 | NEW1_007 | Starfall | O
 EXPERT1 | NEW1_008 | Ancient of Lore | O
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm | O
-EXPERT1 | NEW1_014 | Master of Disguise |  
+EXPERT1 | NEW1_014 | Master of Disguise | O
 EXPERT1 | NEW1_017 | Hungry Crab | O
 EXPERT1 | NEW1_018 | Bloodsail Raider | O
 EXPERT1 | NEW1_019 | Knife Juggler | O
 EXPERT1 | NEW1_020 | Wild Pyromancer | O
 EXPERT1 | NEW1_021 | Doomsayer | O
-EXPERT1 | NEW1_022 | Dread Corsair |  
+EXPERT1 | NEW1_022 | Dread Corsair | O
 EXPERT1 | NEW1_023 | Faerie Dragon | O
 EXPERT1 | NEW1_024 | Captain Greenskin | O
 EXPERT1 | NEW1_025 | Bloodsail Corsair | O
-EXPERT1 | NEW1_026 | Violet Teacher |  
+EXPERT1 | NEW1_026 | Violet Teacher | O
 EXPERT1 | NEW1_027 | Southsea Captain | O
-EXPERT1 | NEW1_029 | Millhouse Manastorm |  
+EXPERT1 | NEW1_029 | Millhouse Manastorm | O
 EXPERT1 | NEW1_030 | Deathwing | O
 EXPERT1 | NEW1_036 | Commanding Shout | O
 EXPERT1 | NEW1_037 | Master Swordsmith | O
-EXPERT1 | NEW1_038 | Gruul |  
+EXPERT1 | NEW1_038 | Gruul | O
 EXPERT1 | NEW1_040 | Hogger | O
 EXPERT1 | NEW1_041 | Stampeding Kodo | O
-EXPERT1 | tt_004 | Flesheating Ghoul |  
-EXPERT1 | tt_010 | Spellbender |  
+EXPERT1 | tt_004 | Flesheating Ghoul | O
+EXPERT1 | tt_010 | Spellbender | O
 
-- Progress: 96% (236 of 245 Cards)
+- Progress: 100% (245 of 245 Cards)
 
 ## Hall of Fame
 
