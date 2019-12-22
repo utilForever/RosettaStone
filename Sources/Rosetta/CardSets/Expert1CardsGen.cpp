@@ -4842,9 +4842,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                 continue;
             }
 
-            j++;
+            buffer.emplace_back(i);
 
-            buffer[k++] = i;
+            ++j;
+            ++k;
         }
 
         for (--k; k >= 0; --k)
