@@ -13,8 +13,8 @@
 
 namespace RosettaStone
 {
-Hero::Hero(Player* player, Card* card, std::map<GameTag, int> tags)
-    : Character(player, card, std::move(tags))
+Hero::Hero(Player* player, Card* card, std::map<GameTag, int> tags, int id)
+    : Character(player, card, std::move(tags), id)
 {
     // Do nothing
 }

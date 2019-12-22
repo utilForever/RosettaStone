@@ -8,14 +8,15 @@
 #include <Rosetta/Models/Playable.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <utility>
-#include "Rosetta/Zones/FieldZone.hpp"
 
 namespace RosettaStone
 {
-Playable::Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags)
-    : Entity(_player->game, _card, std::move(_tags))
+Playable::Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags,
+                   int _id)
+    : Entity(_player->game, _card, std::move(_tags), _id)
 {
     player = _player;
 }

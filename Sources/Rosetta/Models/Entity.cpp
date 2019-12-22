@@ -16,7 +16,7 @@
 
 namespace RosettaStone
 {
-Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags)
+Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id)
     : game(_game), card(_card), m_gameTags(std::move(_tags))
 {
     for (auto& gameTag : _card->gameTags)
@@ -24,7 +24,7 @@ Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags)
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
 
-    id = _tags[GameTag::ENTITY_ID];
+    id = _id < 0 ? static_cast<int>(game->GetNextID()) : _id;
 }
 
 Entity::~Entity()
@@ -114,7 +114,6 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
         tags = cardTags.value();
     }
 
-    tags[GameTag::ENTITY_ID] = id > 0 ? id : player->game->GetNextID();
     tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] =
         zone != nullptr ? static_cast<int>(zone->GetType()) : 0;
@@ -124,20 +123,20 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     switch (card->GetCardType())
     {
         case CardType::HERO:
-            result = new Hero(player, card, tags);
+            result = new Hero(player, card, tags, id);
             break;
         case CardType::HERO_POWER:
             tags[GameTag::ZONE] = static_cast<int>(ZoneType::PLAY);
-            result = new HeroPower(player, card, tags);
+            result = new HeroPower(player, card, tags, id);
             break;
         case CardType::MINION:
-            result = new Minion(player, card, tags);
+            result = new Minion(player, card, tags, id);
             break;
         case CardType::SPELL:
-            result = new Spell(player, card, tags);
+            result = new Spell(player, card, tags, id);
             break;
         case CardType::WEAPON:
-            result = new Weapon(player, card, tags);
+            result = new Weapon(player, card, tags, id);
             break;
         default:
             throw std::invalid_argument(

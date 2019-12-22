@@ -19,11 +19,13 @@ namespace RosettaStone
 class Minion : public Character
 {
  public:
-    //! Constructs minion with given \p player, \p card and \p tags.
+    //! Constructs minion with given \p player, \p card, \p tags and \p id.
     //! \param player The owner of the card.
     //! \param card The card.
     //! \param tags The game tags.
-    Minion(Player* player, Card* card, std::map<GameTag, int> tags);
+    //! \param id The ID.
+    Minion(Player* player, Card* card, std::map<GameTag, int> tags,
+           int id = -1);
 
     //! Default destructor.
     ~Minion() = default;

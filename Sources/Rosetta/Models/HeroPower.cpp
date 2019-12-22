@@ -11,8 +11,9 @@
 
 namespace RosettaStone
 {
-HeroPower::HeroPower(Player* player, Card* card, std::map<GameTag, int> tags)
-    : Playable(player, card, std::move(tags))
+HeroPower::HeroPower(Player* player, Card* card, std::map<GameTag, int> tags,
+                     int id)
+    : Playable(player, card, std::move(tags), id)
 {
     // Do nothing
 }

@@ -15,8 +15,8 @@
 
 namespace RosettaStone
 {
-Character::Character(Player* player, Card* card, std::map<GameTag, int> tags)
-    : Playable(player, card, std::move(tags))
+Character::Character(Player* player, Card* card, std::map<GameTag, int> tags, int id)
+    : Playable(player, card, std::move(tags), id)
 {
     // Do nothing
 }
