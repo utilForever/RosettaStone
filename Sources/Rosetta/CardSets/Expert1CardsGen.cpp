@@ -1515,7 +1515,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
                     SelfCondition::IsTagValue(GameTag::CANT_PLAY, 0)) }),
         new FlagTask(
             true,
-            { new SummonTask("tt_010a", SummonSide::DEFAULT, true),
+            { new SummonTask("tt_010a", SummonSide::SPELL, true),
               new IncludeTask(EntityType::SOURCE, std::vector<EntityType>(),
                               true),
               new IncludeTask(EntityType::TARGET, std::vector<EntityType>(),
