@@ -1586,25 +1586,33 @@ TEST(HunterExpert1Test, EX1_554_SnakeTrap)
 
     auto& curField = *(curPlayer->GetFieldZone());
     auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Snake Trap"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snake Trap"));
     const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card6 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(curSecret->GetCount(), 1);
 
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
     EXPECT_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    game.Process(opPlayer, AttackTask(card3, card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, AttackTask(card6, card3));
     EXPECT_EQ(curSecret->GetCount(), 0);
     EXPECT_EQ(curField.GetCount(), 4);
     EXPECT_EQ(curField[1]->GetAttack(), 1);
@@ -1616,6 +1624,19 @@ TEST(HunterExpert1Test, EX1_554_SnakeTrap)
     EXPECT_EQ(curField[3]->GetAttack(), 1);
     EXPECT_EQ(curField[3]->GetHealth(), 1);
     EXPECT_EQ(curField[3]->card->GetRace(), Race::BEAST);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField.GetCount(), 5);
+
+    game.Process(curPlayer, AttackTask(card4, card5));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+    EXPECT_EQ(opField.GetCount(), 1);
 }
 
 // ----------------------------------------- SPELL - HUNTER
