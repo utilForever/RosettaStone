@@ -21,11 +21,12 @@ class Player;
 class Character : public Playable
 {
  public:
-    //! Constructs character with given \p player, \p card and \p tags.
+    //! Constructs character with given \p player, \p card, \p tags and \p id.
     //! \param player The owner of the card.
     //! \param card The card.
     //! \param tags The game tags.
-    Character(Player* player, Card* card, std::map<GameTag, int> tags);
+    //! \param id The ID.
+    Character(Player* player, Card* card, std::map<GameTag, int> tags, int id);
 
     //! Default destructor.
     ~Character() = default;

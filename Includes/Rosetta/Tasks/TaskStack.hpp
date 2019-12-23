@@ -28,6 +28,16 @@ struct TaskStack
         flag = true;
     }
 
+    //! Adds a list of playables.
+    //! \param _playables A list of playables to add.
+    void AddPlayables(const std::vector<Playable*>& _playables)
+    {
+        for (auto&& playable : _playables)
+        {
+            playables.emplace_back(playable);
+        }
+    }
+
     std::vector<Playable*> playables;
     std::array<int, 5> num = { 0, 0, 0, 0, 0 };
 

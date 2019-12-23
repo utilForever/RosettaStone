@@ -13,9 +13,13 @@ int& PlayerAuraEffects::operator[](GameTag tag)
 {
     switch (tag)
     {
+        case GameTag::TIMEOUT:
+            return m_timeOut;
         case GameTag::SPELLPOWER_DOUBLE:
         case GameTag::SPELL_HEALING_DOUBLE:
             return m_spellPowerDouble;
+        case GameTag::HEALING_DOES_DAMAGE:
+            return m_healingDoesDamage;
         default:
             throw std::invalid_argument(
                 "PlayerAuraEffects::operator[] - Invalid game tag!");

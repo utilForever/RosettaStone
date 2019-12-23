@@ -52,6 +52,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
 
+    //! SelfCondition wrapper for checking the field is not full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFieldNotFull();
+
     //! SelfCondition wrapper for checking the opponent field is not full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOpFieldNotFull();
@@ -155,10 +159,19 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEventTargetIs(CardType cardType);
 
+    //! SelfCondition wrapper for checking it is a minion
+    //! that is targeted by spell.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsSpellTargetingMinion();
+
     //! SelfCondition wrapper for checking the entity is in \p zone.
     //! \param zone The zone type to check.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsInZone(ZoneType zone);
+
+    //! SelfCondition wrapper for checking it is enemy turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEnemyTurn();
 
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.

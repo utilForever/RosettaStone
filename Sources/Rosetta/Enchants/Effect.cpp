@@ -57,7 +57,7 @@ void Effect::ApplyTo(PlayerAuraEffects& auraEffects) const
             auraEffects[m_gameTag] -= m_value;
             break;
         case EffectOperator::SET:
-            auraEffects[m_gameTag] = m_value;
+            auraEffects[m_gameTag] += m_value;
             break;
         default:
             throw std::invalid_argument(
@@ -135,7 +135,7 @@ void Effect::RemoveFrom(PlayerAuraEffects& auraEffects) const
             auraEffects[m_gameTag] += m_value;
             break;
         case EffectOperator::SET:
-            auraEffects[m_gameTag] = m_value;
+            auraEffects[m_gameTag] -= m_value;
             break;
         default:
             throw std::invalid_argument(

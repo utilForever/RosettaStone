@@ -87,6 +87,10 @@ class Card
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
 
+    //! Returns the flag that indicates whether it is secret card.
+    //! \return The flag that indicates whether it is secret card.
+    bool IsSecret() const;
+
     //! Returns the flag that indicates whether it is collectible.
     //! \return The flag that indicates whether it is collectible.
     bool IsCollectible() const;

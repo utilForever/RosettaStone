@@ -127,6 +127,21 @@ void Player::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
+int Player::GetTimeOut()
+{
+    return GetGameTag(GameTag::TIMEOUT) + playerAuraEffects[GameTag::TIMEOUT];
+}
+
+void Player::SetTimeOut(int value)
+{
+    SetGameTag(GameTag::TIMEOUT, value);
+}
+
+bool Player::IsHealingDoesDamage()
+{
+    return playerAuraEffects[GameTag::HEALING_DOES_DAMAGE] > 0;
+}
+
 int Player::GetTotalMana() const
 {
     return GetGameTag(GameTag::RESOURCES);
@@ -191,6 +206,16 @@ bool Player::IsComboActive() const
 void Player::SetComboActive(bool isActive)
 {
     SetGameTag(GameTag::COMBO_ACTIVE, isActive ? 1 : 0);
+}
+
+int Player::GetNumCardsPlayedThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_TURN);
+}
+
+void Player::SetNumCardsPlayedThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_TURN, value);
 }
 
 int Player::GetNumMinionsPlayedThisTurn() const

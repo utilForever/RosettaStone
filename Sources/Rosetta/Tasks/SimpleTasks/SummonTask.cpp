@@ -50,6 +50,20 @@ int SummonTask::GetPosition(Entity* source, SummonSide side)
             summonPos = -1;
             break;
         }
+        case SummonSide::LEFT:
+        {
+            if (source->zone->GetType() == ZoneType::PLAY)
+            {
+                const auto src = dynamic_cast<Playable*>(source);
+                summonPos = src->GetZonePosition();
+            }
+            else
+            {
+                const auto src = dynamic_cast<Minion*>(source);
+                summonPos = src->GetLastBoardPos();
+            }
+            break;
+        }
         case SummonSide::RIGHT:
         {
             if (source->zone->GetType() == ZoneType::PLAY)

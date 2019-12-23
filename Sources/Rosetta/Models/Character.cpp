@@ -15,8 +15,8 @@
 
 namespace RosettaStone
 {
-Character::Character(Player* player, Card* card, std::map<GameTag, int> tags)
-    : Playable(player, card, std::move(tags))
+Character::Character(Player* player, Card* card, std::map<GameTag, int> tags, int id)
+    : Playable(player, card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -308,6 +308,12 @@ void Character::TakeHeal(Playable* source, int heal)
         value > 0)
     {
         heal *= static_cast<int>(std::pow(2.0, value));
+    }
+
+    if (source->player->IsHealingDoesDamage())
+    {
+        TakeDamage(source, heal);
+        return;
     }
 
     if (GetDamage() == 0)

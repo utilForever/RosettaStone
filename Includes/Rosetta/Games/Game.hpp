@@ -208,6 +208,8 @@ class Game
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
+    std::map<int, Playable*> entityList;
+
     TaskQueue taskQueue;
     TaskStack taskStack;
     TriggerManager triggerManager;

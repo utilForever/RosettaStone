@@ -35,11 +35,12 @@ class Entity
     //! Default constructor.
     Entity() = default;
 
-    //! Constructs entity with given \p _game, \p _card and \p _tags.
+    //! Constructs entity with given \p _game, \p _card, \p _tags and \p _id.
     //! \param _game The game.
     //! \param _card The card.
     //! \param _tags The game tags.
-    Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags);
+    //! \param _id The ID.
+    Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id = -1);
 
     //! Destructor.
     virtual ~Entity();
@@ -69,6 +70,14 @@ class Entity
     //! \param tag The game tag to indicate ability or condition.
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
+
+    //! Returns the value of card target.
+    //! \return The value of card target.
+    int GetCardTarget() const;
+
+    //! Sets the value of card target.
+    //! \param value The value of card target.
+    void SetCardTarget(int value);
 
     //! Resets all game tag values that where changed after creation.
     //! Any enchants and trigger is removed.
