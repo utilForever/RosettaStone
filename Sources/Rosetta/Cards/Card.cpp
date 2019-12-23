@@ -63,7 +63,8 @@ void Card::Initialize()
                     TargetingPredicates::ReqTargetMinAttack(
                         requirement.second));
                 break;
-            case PlayReq::REQ_TARGET_WITH_RACE: {
+            case PlayReq::REQ_TARGET_WITH_RACE:
+            {
                 Race race = static_cast<Race>(requirement.second);
 
                 // NOTE: Race::EGG has special value that is not 27, but 38.
