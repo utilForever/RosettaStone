@@ -1094,6 +1094,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
     power.GetTrigger()->tasks = { new DamageTask(EntityType::ENEMIES, 2, true),
