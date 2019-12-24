@@ -9,7 +9,7 @@
 
 namespace RosettaStone
 {
-int& PlayerAuraEffects::operator[](GameTag tag)
+int PlayerAuraEffects::GetValue(GameTag tag) const
 {
     switch (tag)
     {
@@ -22,7 +22,27 @@ int& PlayerAuraEffects::operator[](GameTag tag)
             return m_healingDoesDamage;
         default:
             throw std::invalid_argument(
-                "PlayerAuraEffects::operator[] - Invalid game tag!");
+                "PlayerAuraEffects::GetValue() - Invalid game tag!");
+    }
+}
+
+void PlayerAuraEffects::SetValue(GameTag tag, int value)
+{
+    switch (tag)
+    {
+        case GameTag::TIMEOUT:
+            m_timeOut = value;
+            break;
+        case GameTag::SPELLPOWER_DOUBLE:
+        case GameTag::SPELL_HEALING_DOUBLE:
+            m_spellPowerDouble = value;
+            break;
+        case GameTag::HEALING_DOES_DAMAGE:
+            m_healingDoesDamage = value;
+            break;
+        default:
+            throw std::invalid_argument(
+                "PlayerAuraEffects::SetValue() - Invalid game tag!");
     }
 }
 }  // namespace RosettaStone

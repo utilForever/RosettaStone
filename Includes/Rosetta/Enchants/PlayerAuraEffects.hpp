@@ -37,10 +37,15 @@ class PlayerAuraEffects
     //! Deleted move assignment operator.
     PlayerAuraEffects& operator=(PlayerAuraEffects&&) noexcept = delete;
 
-    //! Operator overloading for operator[].
-    //! \param tag The game tag.
-    //! \return The value of game tag.
-    int& operator[](GameTag tag);
+    //! Returns the value of specific game tag.
+    //! \param tag The game tag to get value.
+    //! \return The value of specific game tag.
+    int GetValue(GameTag tag) const;
+
+    //! Sets the value of specific game tag.
+    //! \param tag The game tag to set value.
+    //! \param value The value to set.
+    void SetValue(GameTag tag, int value);
 
  private:
     int m_timeOut = 0;
