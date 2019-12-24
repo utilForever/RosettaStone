@@ -51,14 +51,23 @@ void Effect::ApplyTo(PlayerAuraEffects& auraEffects) const
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            auraEffects[m_gameTag] += m_value;
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value + m_value);
             break;
+        }
         case EffectOperator::SUB:
-            auraEffects[m_gameTag] -= m_value;
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value - m_value);
             break;
+        }
         case EffectOperator::SET:
-            auraEffects[m_gameTag] += m_value;
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value + m_value);
             break;
+        }
         default:
             throw std::invalid_argument(
                 "Effect::ApplyTo() - Invalid effect operator!");
@@ -129,14 +138,23 @@ void Effect::RemoveFrom(PlayerAuraEffects& auraEffects) const
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            auraEffects[m_gameTag] -= m_value;
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value - m_value);
             break;
+        }
         case EffectOperator::SUB:
-            auraEffects[m_gameTag] += m_value;
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value + m_value);
             break;
+        }
         case EffectOperator::SET:
-            auraEffects[m_gameTag] -= m_value;
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value - m_value);
             break;
+        }
         default:
             throw std::invalid_argument(
                 "Effect::RemoveFrom() - Invalid effect operator!");

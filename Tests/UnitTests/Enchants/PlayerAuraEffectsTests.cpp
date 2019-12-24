@@ -42,7 +42,8 @@ TEST(PlayAuraEffects, Run)
 
     Playable* playable1 = Generic::DrawCard(curPlayer, &card1);
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable1));
-    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], 0);
+    EXPECT_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
+              0);
 
     auto card2 = GenerateMinionCard("minion2", 3, 6);
     card2.power.AddAura(new Aura(
@@ -51,7 +52,8 @@ TEST(PlayAuraEffects, Run)
 
     Playable* playable2 = Generic::DrawCard(curPlayer, &card2);
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable2));
-    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], 1);
+    EXPECT_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
+              1);
 
     auto card3 = GenerateMinionCard("minion3", 3, 6);
     card3.power.AddAura(new Aura(
@@ -60,5 +62,6 @@ TEST(PlayAuraEffects, Run)
 
     Playable* playable3 = Generic::DrawCard(curPlayer, &card3);
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable3));
-    EXPECT_EQ(curPlayer->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE], -2);
+    EXPECT_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
+              -2);
 }
