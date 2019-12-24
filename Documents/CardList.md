@@ -316,50 +316,50 @@ EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena | O
 EXPERT1 | EX1_533 | Misdirection | O
 EXPERT1 | EX1_534 | Savannah Highmane | O
-EXPERT1 | EX1_536 | Eaglehorn Bow |  
-EXPERT1 | EX1_537 | Explosive Shot |  
-EXPERT1 | EX1_538 | Unleash the Hounds |  
+EXPERT1 | EX1_536 | Eaglehorn Bow | O
+EXPERT1 | EX1_537 | Explosive Shot | O
+EXPERT1 | EX1_538 | Unleash the Hounds | O
 EXPERT1 | EX1_543 | King Krush | O
-EXPERT1 | EX1_544 | Flare |  
-EXPERT1 | EX1_549 | Bestial Wrath |  
-EXPERT1 | EX1_554 | Snake Trap |  
+EXPERT1 | EX1_544 | Flare | O
+EXPERT1 | EX1_549 | Bestial Wrath | O
+EXPERT1 | EX1_554 | Snake Trap | O
 EXPERT1 | EX1_556 | Harvest Golem | O
 EXPERT1 | EX1_557 | Nat Pagle | O
-EXPERT1 | EX1_558 | Harrison Jones |  
-EXPERT1 | EX1_559 | Archmage Antonidas |  
-EXPERT1 | EX1_560 | Nozdormu |  
-EXPERT1 | EX1_561 | Alexstrasza |  
-EXPERT1 | EX1_562 | Onyxia |  
+EXPERT1 | EX1_558 | Harrison Jones | O
+EXPERT1 | EX1_559 | Archmage Antonidas | O
+EXPERT1 | EX1_560 | Nozdormu | O
+EXPERT1 | EX1_561 | Alexstrasza | O
+EXPERT1 | EX1_562 | Onyxia | O
 EXPERT1 | EX1_563 | Malygos | O
 EXPERT1 | EX1_564 | Faceless Manipulator | O
 EXPERT1 | EX1_567 | Doomhammer | O
 EXPERT1 | EX1_570 | Bite | O
 EXPERT1 | EX1_571 | Force of Nature | O
 EXPERT1 | EX1_572 | Ysera | O
-EXPERT1 | EX1_573 | Cenarius |  
+EXPERT1 | EX1_573 | Cenarius | O
 EXPERT1 | EX1_575 | Mana Tide Totem | O
 EXPERT1 | EX1_577 | The Beast | O
-EXPERT1 | EX1_578 | Savagery |  
+EXPERT1 | EX1_578 | Savagery | O
 EXPERT1 | EX1_583 | Priestess of Elune | O
 EXPERT1 | EX1_584 | Ancient Mage | O
-EXPERT1 | EX1_586 | Sea Giant |  
-EXPERT1 | EX1_590 | Blood Knight |  
-EXPERT1 | EX1_591 | Auchenai Soulpriest |  
-EXPERT1 | EX1_594 | Vaporize |  
-EXPERT1 | EX1_595 | Cult Master |  
+EXPERT1 | EX1_586 | Sea Giant | O
+EXPERT1 | EX1_590 | Blood Knight | O
+EXPERT1 | EX1_591 | Auchenai Soulpriest | O
+EXPERT1 | EX1_594 | Vaporize | O
+EXPERT1 | EX1_595 | Cult Master | O
 EXPERT1 | EX1_596 | Demonfire | O
 EXPERT1 | EX1_597 | Imp Master | O
-EXPERT1 | EX1_603 | Cruel Taskmaster |  
-EXPERT1 | EX1_604 | Frothing Berserker |  
+EXPERT1 | EX1_603 | Cruel Taskmaster | O
+EXPERT1 | EX1_604 | Frothing Berserker | O
 EXPERT1 | EX1_607 | Inner Rage | O
 EXPERT1 | EX1_608 | Sorcerer's Apprentice | O
 EXPERT1 | EX1_609 | Snipe | O
-EXPERT1 | EX1_610 | Explosive Trap |  
-EXPERT1 | EX1_611 | Freezing Trap |  
-EXPERT1 | EX1_612 | Kirin Tor Mage |  
-EXPERT1 | EX1_613 | Edwin VanCleef |  
+EXPERT1 | EX1_610 | Explosive Trap | O
+EXPERT1 | EX1_611 | Freezing Trap | O
+EXPERT1 | EX1_612 | Kirin Tor Mage | O
+EXPERT1 | EX1_613 | Edwin VanCleef | O
 EXPERT1 | EX1_614 | Illidan Stormrage | O
-EXPERT1 | EX1_616 | Mana Wraith |  
+EXPERT1 | EX1_616 | Mana Wraith | O
 EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
@@ -368,33 +368,33 @@ EXPERT1 | EX1_624 | Holy Fire | O
 EXPERT1 | EX1_625 | Shadowform | O
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
-EXPERT1 | NEW1_007 | Starfall |  
-EXPERT1 | NEW1_008 | Ancient of Lore |  
+EXPERT1 | NEW1_007 | Starfall | O
+EXPERT1 | NEW1_008 | Ancient of Lore | O
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm | O
-EXPERT1 | NEW1_014 | Master of Disguise |  
+EXPERT1 | NEW1_014 | Master of Disguise | O
 EXPERT1 | NEW1_017 | Hungry Crab | O
 EXPERT1 | NEW1_018 | Bloodsail Raider | O
 EXPERT1 | NEW1_019 | Knife Juggler | O
 EXPERT1 | NEW1_020 | Wild Pyromancer | O
 EXPERT1 | NEW1_021 | Doomsayer | O
-EXPERT1 | NEW1_022 | Dread Corsair |  
-EXPERT1 | NEW1_023 | Faerie Dragon |  
+EXPERT1 | NEW1_022 | Dread Corsair | O
+EXPERT1 | NEW1_023 | Faerie Dragon | O
 EXPERT1 | NEW1_024 | Captain Greenskin | O
 EXPERT1 | NEW1_025 | Bloodsail Corsair | O
-EXPERT1 | NEW1_026 | Violet Teacher |  
+EXPERT1 | NEW1_026 | Violet Teacher | O
 EXPERT1 | NEW1_027 | Southsea Captain | O
-EXPERT1 | NEW1_029 | Millhouse Manastorm |  
+EXPERT1 | NEW1_029 | Millhouse Manastorm | O
 EXPERT1 | NEW1_030 | Deathwing | O
 EXPERT1 | NEW1_036 | Commanding Shout | O
 EXPERT1 | NEW1_037 | Master Swordsmith | O
-EXPERT1 | NEW1_038 | Gruul |  
+EXPERT1 | NEW1_038 | Gruul | O
 EXPERT1 | NEW1_040 | Hogger | O
 EXPERT1 | NEW1_041 | Stampeding Kodo | O
-EXPERT1 | tt_004 | Flesheating Ghoul |  
-EXPERT1 | tt_010 | Spellbender |  
+EXPERT1 | tt_004 | Flesheating Ghoul | O
+EXPERT1 | tt_010 | Spellbender | O
 
-- Progress: 85% (210 of 245 Cards)
+- Progress: 100% (245 of 245 Cards)
 
 ## Hall of Fame
 

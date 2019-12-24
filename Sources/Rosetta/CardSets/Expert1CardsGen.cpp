@@ -35,17 +35,21 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncPlayableTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetPlayerGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathMultiplyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathSubtractTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
@@ -57,6 +61,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReplaceHeroTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RevealStealthTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -323,6 +328,84 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_571", power);
     playReqs.emplace("EX1_571",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Give your other minions +2/+2;
+    //       or Summon two 2/2 Treants with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_573", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_578] Savagery - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal damage equal to your hero's Attack to a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ATK));
+    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    powers.emplace("EX1_578", power);
+    playReqs.emplace("EX1_578", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_007] Starfall - COST:5
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b>
+    //       Deal 5 damage to a minion;
+    //       or 2 damage to all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_007", power);
+    playReqs.emplace("NEW1_007",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 } });
+
+    // ----------------------------------------- MINION - DRUID
+    // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_008", power);
+    playReqs.emplace("NEW1_008",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 }
 
 void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
@@ -640,6 +723,53 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
     powers.emplace("EX1_570e", power);
 
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_573a] Demigod's Favor (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Give your other minions +2/+2.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_573ae", EntityType::MINIONS_NOSOURCE));
+    powers.emplace("EX1_573a", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [EX1_573ae] Demigod's Favor (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2/+2.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_573ae"));
+    powers.emplace("EX1_573ae", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_573b] Shan'do's Lesson (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Summon two 2/2 Treants with <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new EnqueueTask({ new SummonTask("EX1_573t", SummonSide::RIGHT),
+                          new SummonTask("EX1_573t", SummonSide::LEFT) },
+                        1));
+    powers.emplace("EX1_573b", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_573t] Treant (*) - COST:2 [ATK:2/HP:2]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_573t", power);
+
     // ----------------------------------------- MINION - DRUID
     // [EX1_tk9] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Expert1
@@ -647,6 +777,58 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_tk9", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_007a] Starfall (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to all enemy minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 2, true));
+    powers.emplace("NEW1_007a", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_007b] Starfall (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deal 5 damage to a minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    powers.emplace("NEW1_007b", power);
+    playReqs.emplace("NEW1_007b",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 } });
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_008a] Ancient Teachings (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(1));
+    powers.emplace("NEW1_008a", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [NEW1_008b] Ancient Secrets (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Restore 5 Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 5));
+    powers.emplace("NEW1_008b", power);
+    playReqs.emplace("NEW1_008b",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
 
 void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
@@ -743,6 +925,66 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                         2));
     powers.emplace("EX1_534", power);
 
+    // ---------------------------------------- WEAPON - HUNTER
+    // [EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a friendly <b>Secret</b> is revealed,
+    //       gain +1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::SECRET_REVEALED));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_536e",
+                                                         EntityType::WEAPON) };
+    powers.emplace("EX1_536", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_537] Explosive Shot - COST:5
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
+    powers.emplace("EX1_537", power);
+    playReqs.emplace("EX1_537", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } });
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_538] Unleash the Hounds - COST:3
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: For each enemy minion, summon a 1/1 Hound with <b>Charge</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new CountTask(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(new EnqueueNumberTask(
+        { new SummonTask("EX1_538t", SummonSide::SPELL) }));
+    powers.emplace("EX1_538", power);
+    playReqs.emplace("EX1_538",
+                     PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
+                               { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+
     // ---------------------------------------- MINION - HUNTER
     // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -756,6 +998,66 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_543", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_544] Flare - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: All minions lose <b>Stealth</b>.
+    //       Destroy all enemy <b>Secrets</b>. Draw a card.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RevealStealthTask(EntityType::ALL_MINIONS));
+    power.AddPowerTask(new MoveToGraveyardTask(EntityType::ENEMY_SECRETS));
+    power.AddPowerTask(new DrawTask(1));
+    powers.emplace("EX1_544", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_549] Bestial Wrath - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Give a friendly Beast +2 Attack and <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_549o", EntityType::TARGET));
+    powers.emplace("EX1_549", power);
+    playReqs.emplace("EX1_549",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_TARGET_WITH_RACE, 20 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_554] Snake Trap - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When one of your minions is attacked,
+    //       summon three 1/1 Snakes.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->tasks = { new SummonTask("EX1_554t", 3),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
+    powers.emplace("EX1_554", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_609] Snipe - COST:2
@@ -779,6 +1081,52 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                              new MoveToGraveyardTask(EntityType::SOURCE) })
     };
     powers.emplace("EX1_609", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_610] Explosive Trap - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your hero is attacked,
+    //       deal 2 damage to all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->tasks = { new DamageTask(EntityType::ENEMIES, 2, true),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
+    powers.emplace("EX1_610", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_611] Freezing Trap - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy minion attacks,
+    //       return it to its owner's hand. It costs (2) more.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        new ConditionTask(EntityType::TARGET,
+                          { new SelfCondition(SelfCondition::IsNotDead()) }),
+        new FlagTask(
+            true,
+            { new ReturnHandTask(EntityType::TARGET),
+              new AddAuraEffectTask(Effects::AddCost(2), EntityType::TARGET),
+              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+              new MoveToGraveyardTask(EntityType::SOURCE) })
+    };
+    powers.emplace("EX1_611", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_617] Deadly Shot - COST:3
@@ -832,6 +1180,51 @@ void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("EX1_534t", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [EX1_536e] Upgraded (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Durability.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant(
+        { new Effect(GameTag::DURABILITY, EffectOperator::ADD, 1) }));
+    powers.emplace("EX1_536e", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [EX1_538t] Hound (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_538t", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [EX1_549o] Bestial Wrath (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack and <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_549o"));
+    powers.emplace("EX1_549o", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [EX1_554t] Snake (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("EX1_554t", power);
 }
 
 void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
@@ -1016,6 +1409,44 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_294", power);
 
     // ------------------------------------------ MINION - MAGE
+    // [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell,
+    //       add a 'Fireball' spell to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddCardTask(EntityType::HAND,
+                                                  "CS2_029") };
+    powers.emplace("EX1_559", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [EX1_594] Vaporize - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
+    powers.emplace("EX1_594", power);
+
+    // ------------------------------------------ MINION - MAGE
     // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1033,6 +1464,23 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_608", power);
 
     // ------------------------------------------ MINION - MAGE
+    // [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next <b>Secret</b>
+    //       you play this turn costs (0).
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_612o", EntityType::PLAYER));
+    powers.emplace("EX1_612", power);
+
+    // ------------------------------------------ MINION - MAGE
     // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1044,6 +1492,44 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = { new AddEnchantmentTask("NEW1_012o",
                                                          EntityType::SOURCE) };
     powers.emplace("NEW1_012", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [tt_010] Spellbender - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy casts a spell on a minion,
+    //       summon a 1/3 as the new target.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TARGET));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsSpellTargetingMinion());
+    power.GetTrigger()->tasks = {
+        new ConditionTask(
+            EntityType::SOURCE,
+            std::vector<SelfCondition*>{
+                new SelfCondition(SelfCondition::IsFieldNotFull()),
+                new SelfCondition(
+                    SelfCondition::IsTagValue(GameTag::CANT_PLAY, 0)) }),
+        new FlagTask(
+            true,
+            { new SummonTask("tt_010a", SummonSide::SPELL, true),
+              new IncludeTask(EntityType::SOURCE, std::vector<EntityType>(),
+                              true),
+              new IncludeTask(EntityType::TARGET, std::vector<EntityType>(),
+                              true),
+              new FuncPlayableTask(
+                  [=](const std::vector<Playable*>& playables) {
+                      playables[2]->SetCardTarget(playables[0]->id);
+                      return playables;
+                  }),
+              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+              new MoveToGraveyardTask(EntityType::SOURCE) }),
+    };
+    powers.emplace("tt_010", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
@@ -1061,6 +1547,25 @@ void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackHealthN(2)));
     powers.emplace("EX1_274e", power);
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [EX1_612o] Power of the Kirin Tor (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Your next Secret costs (0).
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::HAND, { Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsSecret());
+        aura->removeTrigger = { TriggerType::CAST_SPELL,
+                                new SelfCondition(SelfCondition::IsSecret()) };
+    }
+    powers.emplace("EX1_612o", power);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [NEW1_012o] Mana Gorged (*) - COST:0
@@ -1636,6 +2141,22 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
         { new Effect(GameTag::SPELLPOWER_DOUBLE, EffectOperator::ADD, 1) }));
     powers.emplace("EX1_350", power);
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Your cards and powers that restore Health
+    //       now deal damage instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(
+        AuraType::PLAYER,
+        { new Effect(GameTag::HEALING_DOES_DAMAGE, EffectOperator::SET, 1) }));
+    powers.emplace("EX1_591", power);
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
@@ -2002,6 +2523,26 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_522", power);
 
     // ----------------------------------------- MINION - ROGUE
+    // [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Gain +2/+2 for each other card
+    //       you've played this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - COMBO = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        new GetPlayerGameTagTask(GameTag::NUM_CARDS_PLAYED_THIS_TURN));
+    power.AddComboTask(new MathSubtractTask(1));
+    power.AddComboTask(new MathMultiplyTask(2));
+    power.AddComboTask(
+        new AddEnchantmentTask("EX1_613e", EntityType::SOURCE, true));
+    powers.emplace("EX1_613", power);
+
+    // ----------------------------------------- MINION - ROGUE
     // [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -2020,6 +2561,34 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     playReqs.emplace("NEW1_005",
                      PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                { PlayReq::REQ_TARGET_FOR_COMBO, 0 } });
+
+    // ----------------------------------------- MINION - ROGUE
+    // [NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion <b>Stealth</b>
+    //       until your next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_014e", EntityType::TARGET));
+    powers.emplace("NEW1_014", power);
+    playReqs.emplace("NEW1_014",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 } });
 }
 
 void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
@@ -2073,6 +2642,29 @@ void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
         aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
     }
     powers.emplace("EX1_145o", power);
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [EX1_613e] VanCleef's Vengeance (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::AddAttackHealthScriptTag));
+    powers.emplace("EX1_613e", power);
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [NEW1_014e] Disguised (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Stealthed until your next turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::Stealth));
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->removeAfterTriggered = true;
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    powers.emplace("NEW1_014e", power);
 }
 
 void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
@@ -2938,6 +3530,42 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     power.AddAura(new EnrageEffect(AuraType::SELF, "EX1_414e"));
     powers.emplace("EX1_414", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion and give it +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_603e", EntityType::TARGET));
+    powers.emplace("EX1_603", power);
+    playReqs.emplace("EX1_603",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_NONSELF_TARGET, 0 } });
+
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a minion takes damage, gain +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_604o",
+                                                         EntityType::SOURCE) };
+    powers.emplace("EX1_604", power);
+
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
@@ -3068,6 +3696,26 @@ void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_414e"));
     powers.emplace("EX1_414e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_603e] Whipped Into Shape (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_603e"));
+    powers.emplace("EX1_603e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_604o] Berserk (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant({ Effects::AttackN(1) }));
+    powers.emplace("EX1_604o", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_607e] Inner Rage (*) - COST:0
@@ -4196,9 +4844,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                 continue;
             }
 
-            j++;
+            buffer.emplace_back(i);
 
-            buffer[k++] = i;
+            ++j;
+            ++k;
         }
 
         for (--k; k >= 0; --k)
@@ -4365,6 +5014,81 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_557", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy your opponent's weapon
+    //       and draw cards equal to its Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::ENEMY_WEAPON, GameTag::DURABILITY));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::ENEMY_WEAPON, GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(new MathNumberIndexTask(0, 1, MathOperation::SUB));
+    power.AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
+    power.AddPowerTask(new DrawNumberTask());
+    powers.emplace("EX1_558", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Players only have 15 seconds to take their turns.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        new Aura(AuraType::PLAYERS,
+                 { new Effect(GameTag::TIMEOUT, EffectOperator::SET, -60) }));
+    powers.emplace("EX1_560", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Set a hero's remaining Health to 15.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_HERO_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_561e", EntityType::TARGET));
+    powers.emplace("EX1_561", power);
+    playReqs.emplace("EX1_561",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_HERO_TARGET, 0 } });
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon 1/1 Whelps until your side
+    //       of the battlefield is full.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new EnqueueTask({ new SummonTask("EX1_116t", SummonSide::RIGHT),
+                          new SummonTask("EX1_116t", SummonSide::LEFT) },
+                        3));
+    powers.emplace("EX1_562", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -4465,6 +5189,56 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_584", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each other minion on the battlefield.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveCostEffect([=](Playable* playable) {
+        return playable->player->GetFieldZone()->GetCount() +
+               playable->player->opponent->GetFieldZone()->GetCount();
+    }));
+    powers.emplace("EX1_586", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_590] Blood Knight - COST:3 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> All minions lose <b>Divine Shield</b>.
+    //       Gain +3/+3 for each Shield lost.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::ALL_MINIONS));
+    power.AddPowerTask(new FilterStackTask({ new SelfCondition(
+        SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
+    power.AddPowerTask(new CountTask(EntityType::STACK));
+    power.AddPowerTask(new MathMultiplyTask(3));
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_590e", EntityType::SOURCE, true));
+    powers.emplace("EX1_590", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever one of your other minions dies, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->tasks = { new DrawTask(1) };
+    powers.emplace("EX1_595", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -4492,6 +5266,23 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = { new SummonTask("EX1_614t",
                                                  SummonSide::RIGHT) };
     powers.emplace("EX1_614", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: ALL minions cost (1) more.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::HANDS, { Effects::AddCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsMinion());
+    }
+    powers.emplace("EX1_616", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
@@ -4578,6 +5369,41 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_021", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_022] Dread Corsair - COST:4 [ATK:3/HP:3]
+    // - Race: Pirate, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Costs (1) less per Attack of your weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+        if (!playable->player->GetHero()->HasWeapon())
+        {
+            return 0;
+        }
+
+        return playable->player->GetHero()->weapon->GetAttack();
+    }));
+    powers.emplace("NEW1_022", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
+    // - Race: Dragon, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Can't be targeted by spells or Hero Powers.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_TARGETED_BY_SPELLS = 1
+    // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_023", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
     // - Race: Pirate, Set: Expert1, Rarity: legendary
     // --------------------------------------------------------
@@ -4602,6 +5428,19 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("NEW1_025", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new SummonTask("NEW1_026t",
+                                                 SummonSide::RIGHT) };
+    powers.emplace("NEW1_026", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
     // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -4615,6 +5454,20 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
             new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     }
     powers.emplace("NEW1_027", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Enemy spells cost (0) next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_029t", EntityType::PLAYER));
+    powers.emplace("NEW1_029", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
@@ -4645,6 +5498,22 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
         new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
     };
     powers.emplace("NEW1_037", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_038] Gruul - COST:8 [ATK:7/HP:7]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of each turn, gain +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("NEW1_038o",
+                                                         EntityType::SOURCE) };
+    powers.emplace("NEW1_038", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
@@ -4682,6 +5551,19 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     powers.emplace("NEW1_041", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever a minion dies, gain +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("tt_004o",
+                                                         EntityType::SOURCE) };
+    powers.emplace("tt_004", power);
 }
 void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
                                            PlayReqsType& playReqs,
@@ -4964,6 +5846,16 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     powers.emplace("EX1_509e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_561e] Alexstrasza's Fire (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Health set to 15.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::SetMaxHealth(15)));
+    powers.emplace("EX1_561e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
@@ -4972,6 +5864,17 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::SpellPowerN(1)));
     powers.emplace("EX1_584e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_590e] Shadows of M'uru (*) - COST:0
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: This minion has consumed Divine Shields and
+    //       has increased Attack and Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::AddAttackHealthScriptTag));
+    powers.emplace("EX1_590e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_614t] Flame of Azzinoth (*) - COST:1 [ATK:2/HP:1]
@@ -5047,6 +5950,31 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
         { Effects::AttackN(1), Effects::DurabilityN(1) })));
     powers.emplace("NEW1_024o", power);
 
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_026t] Violet Apprentice (*) - COST:1 [ATK:1/HP:1]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("NEW1_026t", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_029t] Kill Millhouse! (*) - COST:0
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Spells cost (0) this turn!
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::ENEMY_HAND, { Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::TURN_END,
+                                new SelfCondition(
+                                    SelfCondition::IsEnemyTurn()) };
+    }
+    powers.emplace("NEW1_029t", power);
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0
     // - Set: Expert1
@@ -5056,6 +5984,16 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackN(1)));
     powers.emplace("NEW1_037e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_038o] Growth (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Gruul is growing...
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant(Effects::AttackHealthN(1)));
+    powers.emplace("NEW1_038o", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_040t] Gnoll (*) - COST:2 [ATK:2/HP:2]
@@ -5077,6 +6015,16 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("skele21", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [tt_004o] Cannibalize (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant({ Effects::AttackN(1) }));
+    powers.emplace("tt_004o", power);
 }
 
 void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,

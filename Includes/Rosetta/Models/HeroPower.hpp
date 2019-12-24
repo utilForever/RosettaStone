@@ -19,11 +19,13 @@ namespace RosettaStone
 class HeroPower : public Playable
 {
  public:
-    //! Constructs hero power with given \p player, \p card and \p tags.
+    //! Constructs hero power with given \p player, \p card, \p tags and \p id.
     //! \param player The owner of the card.
     //! \param card The card.
     //! \param tags The game tags.
-    HeroPower(Player* player, Card* card, std::map<GameTag, int> tags);
+    //! \param id The ID.
+    HeroPower(Player* player, Card* card, std::map<GameTag, int> tags,
+              int id = -1);
 
     //! Default destructor.
     ~HeroPower() = default;
@@ -39,6 +41,12 @@ class HeroPower : public Playable
 
     //! Deleted move assignment operator.
     HeroPower& operator=(HeroPower&&) noexcept = delete;
+
+    //! Calculates if a target is valid by testing the game state for each
+    //! hardcoded requirement.
+    //! \param target The proposed target.
+    //! \return true if the proposed target is valid, false otherwise.
+    bool TargetingRequirements(Character* target) const override;
 };
 }  // namespace RosettaStone
 

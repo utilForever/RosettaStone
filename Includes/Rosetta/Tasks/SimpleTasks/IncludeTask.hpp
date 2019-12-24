@@ -23,9 +23,11 @@ class IncludeTask : public ITask
     //! \param entityType The entity type of target to include.
     //! \param excludeTypes The array of entity type to exclude from included
     //! entity list.
+    //! \param addFlag The flag that indicates entities add to task stack.
     explicit IncludeTask(
         EntityType entityType,
-        std::vector<EntityType> excludeTypes = std::vector<EntityType>());
+        std::vector<EntityType> excludeTypes = std::vector<EntityType>(),
+        bool addFlag = false);
 
     //! Returns a list of entities based on the type of entity.
     //! \param entityType The type of entity.
@@ -60,6 +62,7 @@ class IncludeTask : public ITask
     ITask* CloneImpl() override;
 
     std::vector<EntityType> m_excludeTypes;
+    bool m_addFlag = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

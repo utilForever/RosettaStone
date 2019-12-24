@@ -305,6 +305,12 @@ void Game::BeginDraw()
         }
     }
 
+    // Initialize timeout
+    for (auto& player : m_players)
+    {
+        player.SetTimeOut(75);
+    }
+
     // Set next step
     nextStep =
         m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
@@ -366,6 +372,7 @@ void Game::MainReady()
         player.GetHero()->SetNumAttacksThisTurn(0);
 
         // Player
+        player.SetNumCardsPlayedThisTurn(0);
         player.SetNumMinionsPlayedThisTurn(0);
         player.SetNumFriendlyMinionsDiedThisTurn(0);
     }

@@ -7,10 +7,10 @@
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 #include <effolkronium/random.hpp>
-#include "Rosetta/Models/Spell.hpp"
 
 using Random = effolkronium::random_static;
 
@@ -108,6 +108,9 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
             break;
         case TriggerType::AFTER_CAST:
             game->triggerManager.afterCastTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::SECRET_REVEALED:
+            game->triggerManager.secretRevealedTrigger = std::move(triggerFunc);
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = std::move(triggerFunc);
@@ -218,6 +221,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::AFTER_CAST:
             game->triggerManager.afterCastTrigger = nullptr;
+            break;
+        case TriggerType::SECRET_REVEALED:
+            game->triggerManager.secretRevealedTrigger = nullptr;
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;

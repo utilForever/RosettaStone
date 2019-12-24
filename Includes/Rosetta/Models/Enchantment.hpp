@@ -27,8 +27,9 @@ class Enchantment : public Playable
     //! \param card The card.
     //! \param tags The game tags.
     //! \param target A target of enchantment.
+    //! \param id The ID.
     Enchantment(Player* player, Card* card, std::map<GameTag, int> tags,
-                Entity* target);
+                Entity* target, int id);
 
     //! Default destructor.
     ~Enchantment() = default;

@@ -66,6 +66,13 @@ SelfCondition SelfCondition::IsFieldFull()
     });
 }
 
+SelfCondition SelfCondition::IsFieldNotFull()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->GetFieldZone()->IsFull();
+    });
+}
+
 SelfCondition SelfCondition::IsOpFieldNotFull()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -268,10 +275,28 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
     });
 }
 
+SelfCondition SelfCondition::IsSpellTargetingMinion()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto iter =
+            playable->game->entityList.find(playable->GetCardTarget());
+
+        return playable->card->GetCardType() == CardType::SPELL &&
+               iter->second->card->GetCardType() == CardType::MINION;
+    });
+}
+
 SelfCondition SelfCondition::IsInZone(ZoneType zone)
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->GetZoneType() == zone;
+    });
+}
+
+SelfCondition SelfCondition::IsEnemyTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player != playable->game->GetCurrentPlayer();
     });
 }
 

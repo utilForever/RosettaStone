@@ -3,8 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_GET_GAME_TAG_TASK_HPP
-#define ROSETTASTONE_GET_GAME_TAG_TASK_HPP
+#ifndef ROSETTASTONE_GET_PLAYER_GAME_TAG_TASK_HPP
+#define ROSETTASTONE_GET_PLAYER_GAME_TAG_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
 
@@ -13,19 +13,14 @@ namespace RosettaStone::SimpleTasks
 //!
 //! \brief GetGameTagTask class.
 //!
-//! This class represents the task for getting game tag from entities.
+//! This class represents the task for getting game tag from player.
 //!
-class GetGameTagTask : public ITask
+class GetPlayerGameTagTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType, \p tag, \p entityIndex and
-    //! \p numIndex.
-    //! \param entityType The entity type of target to get game tag.
+    //! Constructs task with given \p tag.
     //! \param tag A game tag to get.
-    //! \param entityIndex An index of entity.
-    //! \param numIndex An index of number.
-    GetGameTagTask(EntityType entityType, GameTag tag, int entityIndex = 0,
-                   int numIndex = 0);
+    explicit GetPlayerGameTagTask(GameTag tag);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -38,9 +33,7 @@ class GetGameTagTask : public ITask
     ITask* CloneImpl() override;
 
     GameTag m_gameTag = GameTag::INVALID;
-    int m_entityIndex = 0;
-    int m_numIndex = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_GET_GAME_TAG_TASK_HPP
+#endif  // ROSETTASTONE_GET_PLAYER_GAME_TAG_TASK_HPP

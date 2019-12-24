@@ -22,11 +22,12 @@ namespace RosettaStone
 class Hero : public Character
 {
  public:
-    //! Constructs hero with given \p player, \p card and \p tags.
+    //! Constructs hero with given \p player, \p card, \p tags and \p id.
     //! \param player The owner of the card.
     //! \param card The card.
     //! \param tags The game tags.
-    Hero(Player* player, Card* card, std::map<GameTag, int> tags);
+    //! \param id The ID.
+    Hero(Player* player, Card* card, std::map<GameTag, int> tags, int id = -1);
 
     //! Default destructor.
     ~Hero();

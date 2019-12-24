@@ -171,12 +171,14 @@ bool Card::HasGameTag(GameTag gameTag) const
 
 bool Card::IsUntouchable() const
 {
-    if (!HasGameTag(GameTag::UNTOUCHABLE))
-    {
-        return false;
-    }
+    return HasGameTag(GameTag::UNTOUCHABLE) &&
+           static_cast<bool>(gameTags.at(GameTag::UNTOUCHABLE));
+}
 
-    return static_cast<bool>(gameTags.at(GameTag::UNTOUCHABLE));
+bool Card::IsSecret() const
+{
+    return HasGameTag(GameTag::SECRET) &&
+           static_cast<bool>(gameTags.at(GameTag::SECRET));
 }
 
 bool Card::IsCollectible() const

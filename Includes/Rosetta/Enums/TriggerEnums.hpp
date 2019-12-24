@@ -12,13 +12,15 @@ namespace RosettaStone
 //! \brief An enumerator for identifying trigger type.
 enum class TriggerType
 {
-    NONE,          //!< The effect has nothing.
-    TURN_START,    //!< The effect will be triggered at the start of turn.
-    TURN_END,      //!< The effect will be triggered at the end of turn.
-    PLAY_CARD,     //!< The effect will be triggered when a player plays a card.
-    CAST_SPELL,    //!< The effect will be triggered when a player plays a Spell
-                   //!< card.
-    AFTER_CAST,    //!< The effect will be triggered after a spell is played.
+    NONE,        //!< The effect has nothing.
+    TURN_START,  //!< The effect will be triggered at the start of turn.
+    TURN_END,    //!< The effect will be triggered at the end of turn.
+    PLAY_CARD,   //!< The effect will be triggered when a player plays a card.
+    CAST_SPELL,  //!< The effect will be triggered when a player plays a Spell
+                 //!< card.
+    AFTER_CAST,  //!< The effect will be triggered after a spell is played.
+    SECRET_REVEALED,  //!< The effect will be triggered when a secret is
+                      //!< activated.
     HEAL,          //!< The effect will be triggered when characters are healed.
     ATTACK,        //!< The effect will be triggered when characters attack.
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is

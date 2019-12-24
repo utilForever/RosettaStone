@@ -74,7 +74,7 @@ void PlayEnchantmentCard(Player* player, Card* card, Entity* target)
     GraveyardZone& graveyardZone = *(player->GetGraveyardZone());
     const std::map<GameTag, int> tags;
 
-    const auto enchantment = new Enchantment(player, card, tags, target);
+    const auto enchantment = new Enchantment(player, card, tags, target, -1);
     graveyardZone.Add(enchantment);
 }
 

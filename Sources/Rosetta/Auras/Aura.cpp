@@ -48,6 +48,10 @@ void Aura::Activate(Playable* owner, bool cloning)
     {
         case TriggerType::NONE:
             break;
+        case TriggerType::TURN_END:
+            owner->game->triggerManager.endTurnTrigger =
+                std::move(instance->m_removeHandler);
+            break;
         case TriggerType::CAST_SPELL:
             owner->game->triggerManager.castSpellTrigger =
                 std::move(instance->m_removeHandler);
@@ -156,6 +160,9 @@ void Aura::Remove()
     switch (removeTrigger.first)
     {
         case TriggerType::NONE:
+            break;
+        case TriggerType::TURN_END:
+            m_owner->game->triggerManager.endTurnTrigger = nullptr;
             break;
         case TriggerType::CAST_SPELL:
             m_owner->game->triggerManager.castSpellTrigger = nullptr;
@@ -392,13 +399,46 @@ void Aura::UpdateInternal()
                 Apply(card);
             }
             break;
-        }   
+        }
+        case AuraType::ENEMY_HAND:
+        {
+            for (auto& card :
+                 m_owner->player->opponent->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            break;
+        }
+        case AuraType::HANDS:
+        {
+            for (auto& card : m_owner->player->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            for (auto& card :
+                 m_owner->player->opponent->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            break;
+        }
         case AuraType::PLAYER:
         {
             for (auto& effect : m_effects)
             {
                 dynamic_cast<Effect*>(effect)->ApplyTo(
                     m_owner->player->playerAuraEffects);
+            }
+            break;
+        }
+        case AuraType::PLAYERS:
+        {
+            for (auto& effect : m_effects)
+            {
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->playerAuraEffects);
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->opponent->playerAuraEffects);
             }
             break;
         }
@@ -416,6 +456,16 @@ void Aura::RemoveInternal()
         {
             dynamic_cast<Effect*>(effect)->RemoveFrom(
                 m_owner->player->playerAuraEffects);
+        }
+    }
+    else if (m_type == AuraType::PLAYERS)
+    {
+        for (auto& effect : m_effects)
+        {
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->playerAuraEffects);
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->opponent->playerAuraEffects);
         }
     }
     else

@@ -35,6 +35,7 @@
 * DrawOpTask
 * DrawStackTask
 * DrawTask
+* EnqueueNumberTask
 * EnqueueTask
 * FilterStackTask
 * FlagTask
@@ -42,12 +43,15 @@
 * FuncPlayableTask
 * GetEventNumberTask
 * GetGameTagTask
+* GetPlayerGameTagTask
 * HealFullTask
 * HealTask
 * IncludeAdjacentTask
 * IncludeTask
 * ManaCrystalTask
+* MathMultiplyTask
 * MathNumberIndexTask
+* MathSubtractTask
 * MoveToGraveyardTask
 * MoveToSetasideTask
 * RandomCardTask
@@ -57,6 +61,7 @@
 * RemoveDurabilityTask
 * RemoveEnchantmentTask
 * RemoveHandTask
+* RevealStealthTask
 * ReplaceHeroTask
 * ReturnHandTask
 * SetGameTagTask
