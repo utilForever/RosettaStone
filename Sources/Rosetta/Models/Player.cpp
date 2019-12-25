@@ -129,7 +129,8 @@ void Player::SetGameTag(GameTag tag, int value)
 
 int Player::GetTimeOut()
 {
-    return GetGameTag(GameTag::TIMEOUT) + playerAuraEffects[GameTag::TIMEOUT];
+    return GetGameTag(GameTag::TIMEOUT) +
+           playerAuraEffects.GetValue(GameTag::TIMEOUT);
 }
 
 void Player::SetTimeOut(int value)
@@ -139,7 +140,7 @@ void Player::SetTimeOut(int value)
 
 bool Player::IsHealingDoesDamage()
 {
-    return playerAuraEffects[GameTag::HEALING_DOES_DAMAGE] > 0;
+    return playerAuraEffects.GetValue(GameTag::HEALING_DOES_DAMAGE) > 0;
 }
 
 int Player::GetTotalMana() const

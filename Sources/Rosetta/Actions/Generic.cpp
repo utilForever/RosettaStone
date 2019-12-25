@@ -24,8 +24,8 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     {
         amount += static_cast<int>(source->player->currentSpellPower);
 
-        if (const auto value =
-                source->player->playerAuraEffects[GameTag::SPELLPOWER_DOUBLE];
+        if (const auto value = source->player->playerAuraEffects.GetValue(
+                GameTag::SPELLPOWER_DOUBLE);
             value > 0)
         {
             amount *= static_cast<int>(std::pow(2.0, value));

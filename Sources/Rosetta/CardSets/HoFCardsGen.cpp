@@ -3,6 +3,9 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Draw.hpp>
+#include <Rosetta/Auras/AdaptiveCostEffect.hpp>
+#include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -13,10 +16,16 @@
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -114,7 +123,26 @@ void HoFCardsGen::AddMageNonCollect(PowersType& powers, PlayReqsType& playReqs,
 void HoFCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
                              EntouragesType& entourages)
 {
-    (void)powers;
+    Power power;
+
+    // ----------------------------------------- SPELL - PALADIN
+    // [EX1_349] Divine Favor - COST:3
+    // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw cards until you have as many in hand
+    //       as your opponent
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
+        for (auto handNum =
+                 playable->player->opponent->GetHandZone()->GetCount() -
+                 playable->player->GetHandZone()->GetCount();
+             handNum > 0; --handNum)
+        {
+            Generic::Draw(playable->player);
+        }
+    }));
+    powers.emplace("EX1_349", power);
 }
 
 void HoFCardsGen::AddPaladinNonCollect(PowersType& powers,
@@ -153,6 +181,19 @@ void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     Power power;
 
     // ------------------------------------------ SPELL - ROGUE
+    // [EX1_128] Conceal - COST:1
+    // - Faction: Neutral, Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give your minions <b>Stealth</b> until your next turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_128e", EntityType::MINIONS));
+    powers.emplace("EX1_128", power);
+
+    // ------------------------------------------ SPELL - ROGUE
     // [NEW1_004] Vanish - COST:6
     // - Set: HoF, Rarity: Free
     // --------------------------------------------------------
@@ -166,7 +207,23 @@ void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
 void HoFCardsGen::AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs,
                                      EntouragesType& entourages)
 {
-    (void)powers;
+    Power power;
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_128e] Conceal - COST:1
+    // - Set: HoF
+    // --------------------------------------------------------
+    // Text: Stealthed until your next turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::Stealth));
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    power.GetTrigger()->removeAfterTriggered = true;
+    powers.emplace("EX1_128e", power);
 }
 
 void HoFCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
@@ -291,6 +348,49 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     powers.emplace("EX1_050", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
+    // - Race: Murloc, Faction: Neutral. Set: HoF, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveEffect(
+        GameTag::ATK, EffectOperator::ADD, [](Playable* playable) {
+            int addAttackAmount = 0;
+            const auto& myMinions = playable->player->GetFieldZone()->GetAll();
+            const auto& opMinions =
+                playable->player->opponent->GetFieldZone()->GetAll();
+
+            for (const auto& minion : myMinions)
+            {
+                if (playable->GetZonePosition() == minion->GetZonePosition())
+                {
+                    continue;
+                }
+
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++addAttackAmount;
+                }
+            }
+
+            for (const auto& minion : opMinions)
+            {
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++addAttackAmount;
+                }
+            }
+
+            return addAttackAmount;
+        }));
+    powers.emplace("EX1_062", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
     // - Race: Dragon, Faction: Neutral, Set: HoF, Rarity: Rare
     // --------------------------------------------------------
@@ -304,6 +404,18 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(new DrawTask(1));
     powers.emplace("EX1_284", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each damage your hero has taken.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+        return playable->player->GetHero()->GetDamage();
+    }));
+    powers.emplace("EX1_620", power);
 }
 
 void HoFCardsGen::AddNeutralNonCollect(PowersType& powers,

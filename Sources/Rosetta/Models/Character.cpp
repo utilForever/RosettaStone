@@ -302,8 +302,8 @@ void Character::TakeFullHeal(Playable* source)
 
 void Character::TakeHeal(Playable* source, int heal)
 {
-    if (const auto value =
-            source->player->playerAuraEffects[GameTag::SPELL_HEALING_DOUBLE];
+    if (const auto value = source->player->playerAuraEffects.GetValue(
+            GameTag::SPELL_HEALING_DOUBLE);
         (dynamic_cast<Spell*>(source) || dynamic_cast<HeroPower*>(source)) &&
         value > 0)
     {
