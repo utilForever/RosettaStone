@@ -404,17 +404,17 @@ HOF | CS2_031 | Ice Lance | O
 HOF | DS1_233 | Mind Blast | O
 HOF | EX1_016 | Sylvanas Windrunner | O
 HOF | EX1_050 | Coldlight Oracle | O
-HOF | EX1_062 | Old Murk-Eye |  
+HOF | EX1_062 | Old Murk-Eye | O
 HOF | EX1_112 | Gelbin Mekkatorque |  
-HOF | EX1_128 | Conceal |  
+HOF | EX1_128 | Conceal | O
 HOF | EX1_161 | Naturalize | O
 HOF | EX1_284 | Azure Drake | O
 HOF | EX1_295 | Ice Block |  
 HOF | EX1_298 | Ragnaros the Firelord |  
 HOF | EX1_310 | Doomguard | O
 HOF | EX1_316 | Power Overwhelming | O
-HOF | EX1_349 | Divine Favor |  
-HOF | EX1_620 | Molten Giant |  
+HOF | EX1_349 | Divine Favor | O
+HOF | EX1_620 | Molten Giant | O
 HOF | GIL_130 | Gloom Stag |  
 HOF | GIL_530 | Murkspark Eel |  
 HOF | GIL_692 | Genn Greymane |  
@@ -425,4 +425,4 @@ HOF | NEW1_004 | Vanish | O
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 37% (9 of 24 Cards)
+- Progress: 54% (13 of 24 Cards)
