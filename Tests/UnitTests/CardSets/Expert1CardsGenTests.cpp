@@ -9026,6 +9026,20 @@ TEST(NeutralExpert1Test, EX1_021_ThrallmarFarseer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_023] Silvermoon Guardian - COST:4 [ATK:3/HP:3]
+// - Faction: Horde, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_023_SilvermoonGuardian)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
 // - Race: Beast, Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
