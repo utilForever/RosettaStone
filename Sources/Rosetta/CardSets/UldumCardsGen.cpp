@@ -2026,26 +2026,6 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [ULD_616] Titanic Lackey (*) - COST:1 [ATK:1/HP:1]
-    // - Set: Uldum
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly minion +2 Health
-    //       and <b>Taunt</b>.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // - MARK_OF_EVIL = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_MINION_TARGET = 0
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-
-    // --------------------------------------- MINION - NEUTRAL
     // [ULD_702] Mortuary Machine - COST:5 [ATK:8/HP:8]
     // - Race: Mechanical, Set: Uldum, Rarity: Epic
     // --------------------------------------------------------
@@ -2351,6 +2331,26 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // GameTag:
     // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ULD_616] Titanic Lackey (*) - COST:1 [ATK:1/HP:1]
+    // - Set: Uldum
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +2 Health
+    //       and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - MARK_OF_EVIL = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
