@@ -4,6 +4,20 @@ import json
 LABEL_IF_PLAYER1_WIN = 1
 LABEL_IF_PLAYER1_LOSS = -1
 
+kLabelIfFirstPlayerLoss = -1
+kLabelIfFirstPlayerWin = 1
+kLabelFirstPlayerWinIfGreaterThan = 0
+
+kHeroFeatures = 1
+kMinionFeatures = 7  # exclude card id
+kMinions = 7
+
+kCurrentHandCards = 10
+kCurrentHandCardFeatures = 1  # exclude card id
+kCurrentHandFeatures = 1
+
+kMaxCardId = 1860
+
 class DynamicMapper:
     def __init__(self, start_index = 0):
         self.dict_v_to_index = {}
