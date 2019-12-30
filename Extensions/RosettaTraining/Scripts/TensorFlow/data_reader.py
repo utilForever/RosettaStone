@@ -143,9 +143,9 @@ class DataReader:
         player1_string = 'Player1'
         player2_string = 'Player2'
 
-        if current_player is player1_string:
+        if current_player == player1_string:
             current_player_is_player1 = True
-        elif current_player is player2_string:
+        elif current_player == player2_string:
             current_player_is_player1 = False
         else:
             assert False
@@ -160,23 +160,23 @@ class DataReader:
         win_string = 'PLAYER1_WIN'
         loss_string = 'PLAYER2_WIN'
 
-        if result is win_string:
+        if result == win_string:
             return True
 
-        assert result is loss_string
+        assert result == loss_string
         return False
 
     def read_one_json(self, all_data, all_label, json_data):
         player1_win = None
         for block_data in json_data:
             action_type = block_data['type']
-            if action_type is 'END':
+            if action_type == 'END':
                 player1_win = self.win_or_loss(block_data['result'])
         assert player1_win is not None
 
         for block_data in json_data:
             action_type = block_data['type']
-            if action_type is 'MAIN_ACTION':
+            if action_type == 'MAIN_ACTION':
                 field = block_data['field']
                 data = self.read_field(field)
                 label = self.get_label(field['current_player_id'], player1_win)
