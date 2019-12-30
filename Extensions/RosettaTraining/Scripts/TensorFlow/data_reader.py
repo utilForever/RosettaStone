@@ -1,6 +1,9 @@
 import os
 import json
 
+LABEL_IF_PLAYER1_WIN = 1
+LABEL_IF_PLAYER1_LOSS = -1
+
 class DynamicMapper:
     def __init__(self, start_index = 0):
         self.dict_v_to_index = {}
@@ -120,3 +123,82 @@ class DataReader:
         self.data.extend([
             self.from_bool(hero_power['playable'])
         ])
+
+    def read_field(self, board):
+        self.data.clear()
+
+        self.read_hero_data(board['current_player'])
+        self.read_hero_data(board['opponent_player'])
+        self.read_minions_data(board['current_player']['minions'])
+        self.read_minions_data(board['opponent_player']['minions'])
+        self.add_current_hand(board['current_player']['hand'])
+        self.add_opponent_hand(board['opponent_player']['hand'])
+
+        self.add_mana_crystal(board['current_player']['mana_crystal'])
+        self.add_hero_power(board['current_player']['hero_power'])
+
+        return list(self.data)
+
+    def get_label(self, current_player, player1_win):
+        player1_string = 'Player1'
+        player2_string = 'Player2'
+
+        if current_player is player1_string:
+            current_player_is_player1 = True
+        elif current_player is player2_string:
+            current_player_is_player1 = False
+        else:
+            assert False
+
+        assert player1_win is not None
+        if current_player_is_player1 is player1_win:
+            return LABEL_IF_PLAYER1_WIN
+        else:
+            return LABEL_IF_PLAYER1_LOSS
+
+    def win_or_loss(self, result):
+        win_string = 'PLAYER1_WIN'
+        loss_string = 'PLAYER2_WIN'
+
+        if result is win_string:
+            return True
+
+        assert result is loss_string
+        return False
+
+    def read_one_json(self, all_data, all_label, json_data):
+        player1_win = None
+        for block_data in json_data:
+            action_type = block_data['type']
+            if action_type is 'END':
+                player1_win = self.win_or_loss(block_data['result'])
+        assert player1_win is not None
+
+        for block_data in json_data:
+            action_type = block_data['type']
+            if action_type is 'MAIN_ACTION':
+                field = block_data['field']
+                data = self.read_field(field)
+                label = self.get_label(field['current_player_id'], player1_win)
+
+                all_data.append(data)
+                all_label.append(label)
+    
+    def parse(self):
+        data = []
+        label = []
+
+        for (dirpath, _, filenames) in os.walk(self.dirname):
+            for idx, filename in enumerate(filenames):
+                fullpath = os.path.join(dirpath, filename)
+                print("Reading file (%d / %d): %s " % (idx+1, len(filenames), fullpath))
+                with open(fullpath) as data_file:
+                    try:
+                        json_data = json.load(data_file)
+                    except Exception:
+                        print("Skipped file %s: Failed to read json" % fullpath)
+                        continue
+                    self.read_one_json(data, label, json_data)
+            break
+
+        return data, label, self.hand_card_mapper.get_index_to_v_dict()
