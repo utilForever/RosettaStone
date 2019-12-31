@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-import json
-import os
-
 import tensorflow as tf
 
 import data_reader
@@ -138,10 +135,12 @@ class Model:
 
     return outputs
 
-  def _model_board_features(self, input_getter):
+  @staticmethod
+  def _model_board_features(input_getter):
     return [input_getter.get_rest()]
 
-  def _residual_block_unit(self, scope, inputs, hidden, add_input=None):
+  @staticmethod
+  def _residual_block_unit(scope, inputs, hidden, add_input=None):
     with tf.variable_scope(scope):
       output = tf.contrib.layers.fully_connected(
           inputs,
@@ -221,7 +220,7 @@ class Model:
       return tf.estimator.EstimatorSpec(
           mode=self._mode, predictions=final,
           export_outputs={"y": tf.estimator.export.PredictOutput({"y": final})})
-    
+
     labels = tf.reshape(labels, [-1, 1])
     loss = tf.losses.mean_squared_error(
         labels=labels,
