@@ -212,10 +212,6 @@ class Model:
         input=final,
         axis=1)
 
-    predictions = {
-        "classes": final_argmax,
-        "probabilities": tf.nn.softmax(final, name="softmax_tensor")}
-
     if self._mode == tf.estimator.ModeKeys.PREDICT:
       return tf.estimator.EstimatorSpec(
           mode=self._mode, predictions=final,
