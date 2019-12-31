@@ -1,20 +1,17 @@
 #!/usr/bin/python3
 
 import argparse
-import numpy
-import random
 import os
+import random
 import shutil
 import tempfile
 
+import numpy
 import tensorflow as tf
-from tensorflow.python.tools import freeze_graph
-from tensorflow.python.tools import saved_model_utils
-from tensorflow.python.saved_model import tag_constants
-from tensorflow.python.framework import graph_util
-from tensorflow.python.framework import importer
-from tensorflow.python.saved_model import loader
+from tensorflow.python.framework import graph_util, importer
 from tensorflow.python.platform import gfile
+from tensorflow.python.saved_model import loader, tag_constants
+from tensorflow.python.tools import freeze_graph, saved_model_utils
 
 import data_reader
 import model

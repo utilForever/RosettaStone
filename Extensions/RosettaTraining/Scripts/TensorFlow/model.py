@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
-import os
 import json
+import os
+
 import tensorflow as tf
 
 import data_reader
-
 
 kOutputNodeName = 'final_argmax'
 

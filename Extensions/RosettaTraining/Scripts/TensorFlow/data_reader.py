@@ -1,5 +1,5 @@
-import os
 import json
+import os
 
 LABEL_IF_PLAYER1_WIN = 1
 LABEL_IF_PLAYER1_LOSS = -1
