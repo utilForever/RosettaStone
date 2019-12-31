@@ -236,15 +236,15 @@ class Model:
           loss=loss,
           train_op=train_step)
 
-    else:  # EVAL mode
-      binary_labels = tf.equal(labels, data_reader.kLabelIfFirstPlayerWin)
-      predictions = tf.greater(final,
-          data_reader.kLabelFirstPlayerWinIfGreaterThan)
-      eval_metric_ops = {
-          "accuracy": tf.metrics.accuracy(
-            labels=binary_labels,
-            predictions=predictions)}
+    # EVAL mode
+    binary_labels = tf.equal(labels, data_reader.kLabelIfFirstPlayerWin)
+    predictions = tf.greater(final,
+        data_reader.kLabelFirstPlayerWinIfGreaterThan)
+    eval_metric_ops = {
+        "accuracy": tf.metrics.accuracy(
+          labels=binary_labels,
+          predictions=predictions)}
 
-      return tf.estimator.EstimatorSpec(
-          mode=self._mode, loss=loss,
-          eval_metric_ops=eval_metric_ops)
+    return tf.estimator.EstimatorSpec(
+        mode=self._mode, loss=loss,
+        eval_metric_ops=eval_metric_ops)

@@ -49,8 +49,7 @@ class DataReader:
     def from_bool(cls, v):
         if v is True:
             return 1.0
-        else:
-            return -1.0
+        return -1.0
 
     def read_hero_data(self, data):
         health = data['hero']['health']
@@ -168,8 +167,7 @@ class DataReader:
         assert player1_win is not None
         if current_player_is_player1 is player1_win:
             return LABEL_IF_PLAYER1_WIN
-        else:
-            return LABEL_IF_PLAYER1_LOSS
+        return LABEL_IF_PLAYER1_LOSS
 
     @staticmethod
     def win_or_loss(result):
