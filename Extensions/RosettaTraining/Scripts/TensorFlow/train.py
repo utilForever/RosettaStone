@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 import argparse
-import os
 import random
 import shutil
+import sys
 import tempfile
 
 import numpy
@@ -11,7 +11,7 @@ import tensorflow as tf
 from tensorflow.python.framework import graph_util, importer
 from tensorflow.python.platform import gfile
 from tensorflow.python.saved_model import loader, tag_constants
-from tensorflow.python.tools import freeze_graph, saved_model_utils
+from tensorflow.python.tools import saved_model_utils
 
 import data_reader
 import model
@@ -35,7 +35,7 @@ def _get_estimator():
       model_fn=model_fn,
       model_dir="model_output",
       config=estimator_config)
-	  
+
 def train_model(data_dir):
   dr = data_reader.DataReader(data_dir)
   data, label, _ = dr.parse()
@@ -91,7 +91,7 @@ def export_saved_model():
   graph_def = saved_model_utils.get_meta_graph_def(
       saved_model, tag_constants.SERVING).graph_def
 
-  _ = importer.import_graph_def(graph_def, name="")
+  importer.import_graph_def(graph_def, name="")
 
   with tf.Session() as sess:
     loader.load(sess, [tag_constants.SERVING], saved_model)
