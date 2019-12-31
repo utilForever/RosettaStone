@@ -68,7 +68,7 @@ class DataReader:
         attackable = False
         try:
             attackable = minion['attackable']
-        except Exception as _:
+        except Exception:
             attackable = False
 
         self.data.extend([
@@ -153,7 +153,8 @@ class DataReader:
 
         return list(self.data)
 
-    def get_label(self, current_player, player1_win):
+    @staticmethod
+    def get_label(current_player, player1_win):
         player1_string = 'Player1'
         player2_string = 'Player2'
 
@@ -170,7 +171,8 @@ class DataReader:
         else:
             return LABEL_IF_PLAYER1_LOSS
 
-    def win_or_loss(self, result):
+    @staticmethod
+    def win_or_loss(result):
         win_string = 'PLAYER1_WIN'
         loss_string = 'PLAYER2_WIN'
 
@@ -197,7 +199,7 @@ class DataReader:
 
                 all_data.append(data)
                 all_label.append(label)
-    
+
     def parse(self):
         data = []
         label = []
