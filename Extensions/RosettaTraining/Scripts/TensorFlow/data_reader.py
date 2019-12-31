@@ -127,7 +127,7 @@ class DataReader:
     def add_opponent_hand(self, hand):
         if hand is None:
             hand = {}
-        
+
         self.data.extend([
             len(hand)
         ])

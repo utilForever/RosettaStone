@@ -25,7 +25,7 @@ def _get_estimator():
       intra_op_parallelism_threads=kThreads,
       inter_op_parallelism_threads=kThreads)
   estimator_config = tf.estimator.RunConfig(session_config=sess_config)
-  
+
   training_model = model.Model()
   def model_fn(features, labels, mode):
     training_model.set_mode(mode)

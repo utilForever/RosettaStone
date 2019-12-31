@@ -206,11 +206,6 @@ class Model:
         inputs=prev,
         units=1,
         activation=None)
-		
-    final_argmax = tf.argmax(
-        name=kOutputNodeName,
-        input=final,
-        axis=1)
 
     if self._mode == tf.estimator.ModeKeys.PREDICT:
       return tf.estimator.EstimatorSpec(
