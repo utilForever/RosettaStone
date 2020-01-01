@@ -32,7 +32,7 @@ void Recorder::RecordMainAction(RosettaStone::Game& game,
     nlohmann::json obj;
 
     obj["type"] = "MAIN_ACTION";
-    obj["game"] = RosettaStone::JSONSerializer::Serialize(game);
+    obj["field"] = RosettaStone::JSONSerializer::Serialize(game);
     obj["choice"] = GetMainOpString(op);
 
     m_json.emplace_back(obj);

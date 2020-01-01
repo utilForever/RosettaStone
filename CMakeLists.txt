@@ -66,6 +66,9 @@ add_dependencies(RosettaTorch # just make sure of the dependency
                  RosettaStone
 )
 
+add_subdirectory(Extensions/RosettaTraining/Sources/GenerateTrainData)
+add_subdirectory(Extensions/RosettaTraining/Sources/Train)
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 
 # Code coverage - Debug only

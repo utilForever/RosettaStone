@@ -143,7 +143,7 @@ class Reader
         {
             if (obj[idx]["type"] == "MAIN_ACTION")
             {
-                const nlohmann::json& game = obj[idx]["game"];
+                const nlohmann::json& game = obj[idx]["field"];
 
                 int label = IsCurrentPlayerWin(game, result) ? 1 : -1;
                 callback(GetterType(game), label);
