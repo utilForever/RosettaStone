@@ -65,7 +65,7 @@ class DataReader:
         try:
             attackable = minion['attackable']
         except Exception:
-            attackable = False
+            pass
 
         self.data.extend([
             minion['card_id'],
@@ -84,7 +84,7 @@ class DataReader:
 
         count = len(minions)
 
-        for idx in range(0, 7):
+        for idx in range(0, NUM_MINIONS):
             if idx < count:
                 self.add_minion_data(minions[idx])
             else:
@@ -116,7 +116,7 @@ class DataReader:
             card_id = card['card_id']
             cost = card['cost']
             add_data(card_id, cost)
-        for _ in range(10 - len(hand)):
+        for _ in range(NUM_CURRENT_HAND_CARDS - len(hand)):
             card_id = 0
             cost = -1
             add_data(card_id, cost)

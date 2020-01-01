@@ -16,7 +16,7 @@ from tensorflow.python.tools import saved_model_utils
 import data_reader
 import model
 
-TRAINING_PERCENT = 0.5
+TRAINING_PERCENT = 0.7
 NUM_THREADS = 20
 
 def get_estimator():
