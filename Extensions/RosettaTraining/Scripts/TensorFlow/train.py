@@ -16,14 +16,13 @@ from tensorflow.python.tools import saved_model_utils
 import data_reader
 import model
 
-kTrainingPercent = 0.5
-kThreads = 20
-
+TRAINING_PERCENT = 0.5
+NUM_THREADS = 20
 
 def _get_estimator():
   sess_config = tf.ConfigProto(
-      intra_op_parallelism_threads=kThreads,
-      inter_op_parallelism_threads=kThreads)
+      intra_op_parallelism_threads=NUM_THREADS,
+      inter_op_parallelism_threads=NUM_THREADS)
   estimator_config = tf.estimator.RunConfig(session_config=sess_config)
 
   training_model = model.Model()
@@ -48,7 +47,7 @@ def train_model(data_dir):
   label = numpy.array(label)
 
   rows = len(data)
-  rows_training = int(rows * kTrainingPercent)
+  rows_training = int(rows * TRAINING_PERCENT)
   data_training = data[:rows_training]
   label_training = label[:rows_training]
   data_validation = data[rows_training:]
@@ -96,7 +95,7 @@ def export_saved_model():
   with tf.Session() as sess:
     loader.load(sess, [tag_constants.SERVING], saved_model)
     output_graph_def = graph_util.convert_variables_to_constants(
-        sess, graph_def, [model.kOutputNodeName])
+        sess, graph_def, [model.OUTPUT_NODE_NAME])
 
   with gfile.GFile(freezed_output, "wb") as f:
     f.write(output_graph_def.SerializeToString())

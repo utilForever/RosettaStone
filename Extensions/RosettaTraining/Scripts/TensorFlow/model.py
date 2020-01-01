@@ -4,63 +4,61 @@ import tensorflow as tf
 
 import data_reader
 
-kOutputNodeName = 'final_argmax'
+OUTPUT_NODE_NAME = 'final_argmax'
 
 class NextInputGetter:
   def __init__(self, data):
-    self._idx = 0
-    self._data = data
+    self.idx = 0
+    self.data = data
 
   def get_next_slice(self, size):
-    ret = tf.slice(self._data, [0, self._idx], [-1, size])
-    self._idx = self._idx + size
+    ret = tf.slice(self.data, [0, self.idx], [-1, size])
+    self.idx = self.idx + size
     return ret
 
   def get_rest(self):
-    return tf.slice(self._data, [0, self._idx], [-1, -1])
+    return tf.slice(self.data, [0, self.idx], [-1, -1])
 
 class Model:
   def __init__(self):
     self._mode = None
 
-    self.kEnableCardIdEmbed = False
-    self.kEnableHandCardIdEmbed = False
-    self.kCardIdDimension = 3
+    self.enable_card_id_embed = False
+    self.enable_hand_card_id_embed = False
+    self.card_id_dimension = 3
 
-    self.kMinionConvolutionHidden1 = 10
+    self.minion_convolution_hidden1 = 10
+    self.hero_convolution_hidden1 = 2
+    self.hand_convolution_hidden1 = 2
 
-    self.kHeroConvolutionHidden1 = 2
-
-    self.kHandConvolutionHidden1 = 2
-
-    self.kResidualBlockFeatures = 50
-    self.kResidualBlocks = 3
+    self.residual_block_features = 50
+    self.residual_blocks = 3
 
   def _model_hero(self, input_getter):
-    inputs = input_getter.get_next_slice(data_reader.kHeroFeatures)
+    inputs = input_getter.get_next_slice(data_reader.NUM_HERO_FEATURES)
 
     hero1 = tf.layers.dense(
         name='hero1',
         inputs=inputs,
-        units=self.kHeroConvolutionHidden1,
+        units=self.hero_convolution_hidden1,
         reuse=tf.AUTO_REUSE,
         activation=tf.nn.relu)
 
     return [hero1]
 
   def _get_embedded_onboard_card_id(self, card_id):
-    if not self.kEnableCardIdEmbed:
+    if not self.enable_card_id_embed:
       return None
 
     card_id = tf.to_int32(card_id, name='card_id_to_int32')
     with tf.variable_scope("onboard", reuse=tf.AUTO_REUSE):
       card_id_matrix = tf.get_variable(
           'card_embed_matrix',
-          [data_reader.kMaxCardId, self.kCardIdDimension],
+          [data_reader.NUM_MAX_CARD_ID, self.card_id_dimension],
           initializer=tf.zeros_initializer())
     card_id_embed = tf.nn.embedding_lookup(
       card_id_matrix, card_id, name='card_id_embed')
-    card_id_embed = tf.reshape(card_id_embed, [-1, self.kCardIdDimension])
+    card_id_embed = tf.reshape(card_id_embed, [-1, self.card_id_dimension])
     return card_id_embed
 
   def _model_minion(self, input_getter):
@@ -71,13 +69,13 @@ class Model:
     if card_id_embed is not None:
       inputs.append(card_id_embed)
 
-    features = input_getter.get_next_slice(data_reader.kMinionFeatures)
+    features = input_getter.get_next_slice(data_reader.NUM_MINION_FEATURES)
     inputs.append(features)
 
     minion1 = tf.layers.dense(
         name='minion1',
         inputs=tf.concat(inputs, 1),
-        units=self.kMinionConvolutionHidden1,
+        units=self.minion_convolution_hidden1,
         reuse=tf.AUTO_REUSE,
         activation=tf.nn.relu)
 
@@ -85,24 +83,24 @@ class Model:
 
   def _model_minions(self, input_getter):
     features = []
-    for _ in range(data_reader.kMinions):
+    for _ in range(data_reader.NUM_MINIONS):
       features.append(self._model_minion(input_getter))
 
     return features
 
   def _get_embedded_hand_card_id(self, card_id):
-    if not self.kEnableHandCardIdEmbed:
+    if not self.enable_hand_card_id_embed:
       return None
 
     card_id = tf.to_int32(card_id, name='card_id_to_int32')
     with tf.variable_scope("current_hand", reuse=tf.AUTO_REUSE):
       card_id_matrix = tf.get_variable(
           'card_embed_matrix',
-          [data_reader.kMaxCardId, self.kCardIdDimension],
+          [data_reader.NUM_MAX_CARD_ID, self.card_id_dimension],
           initializer=tf.zeros_initializer())
     card_id_embed = tf.nn.embedding_lookup(
       card_id_matrix, card_id, name='card_id_embed')
-    card_id_embed = tf.reshape(card_id_embed, [-1, self.kCardIdDimension])
+    card_id_embed = tf.reshape(card_id_embed, [-1, self.card_id_dimension])
     return card_id_embed
 
   def _model_current_hand_card(self, input_getter):
@@ -114,11 +112,11 @@ class Model:
       outputs.append(card_id_embed)
 
     card_features = input_getter.get_next_slice(
-        data_reader.kCurrentHandCardFeatures)
+        data_reader.NUM_CURRENT_HAND_CARD_FEATURES)
     card1 = tf.layers.dense(
         name='hand_card_1',
         inputs=card_features,
-        units=self.kHandConvolutionHidden1,
+        units=self.hand_convolution_hidden1,
         reuse=tf.AUTO_REUSE,
         activation=tf.nn.relu)
     outputs.append(card1)
@@ -128,9 +126,9 @@ class Model:
   def _model_current_hand(self, input_getter):
     outputs = []
     outputs.append(
-        input_getter.get_next_slice(data_reader.kCurrentHandFeatures))
+        input_getter.get_next_slice(data_reader.NUM_CURRENT_HAND_FEATURES))
 
-    for _ in range(data_reader.kCurrentHandCards):
+    for _ in range(data_reader.NUM_CURRENT_HAND_CARDS):
       outputs.extend(self._model_current_hand_card(input_getter))
 
     return outputs
@@ -194,12 +192,12 @@ class Model:
     dense1 = tf.layers.dense(
         name='dense1',
         inputs=inputs,
-        units=self.kResidualBlockFeatures,
+        units=self.residual_block_features,
         activation=tf.nn.relu)
 
     prev = dense1
-    for i in range(0, self.kResidualBlocks):
-      prev = self._residual_block(i+1, prev, self.kResidualBlockFeatures)
+    for i in range(0, self.residual_blocks):
+      prev = self._residual_block(i+1, prev, self.residual_block_features)
 
     final = tf.layers.dense(
         name='final',
@@ -228,9 +226,9 @@ class Model:
           train_op=train_step)
 
     # EVAL mode
-    binary_labels = tf.equal(labels, data_reader.kLabelIfFirstPlayerWin)
+    binary_labels = tf.equal(labels, data_reader.LABEL_IF_PLAYER1_WIN)
     predictions = tf.greater(final,
-        data_reader.kLabelFirstPlayerWinIfGreaterThan)
+        data_reader.LABEL_PLAYER1_WIN_IF_GREATER_THAN)
     eval_metric_ops = {
         "accuracy": tf.metrics.accuracy(
           labels=binary_labels,

@@ -3,20 +3,17 @@ import os
 
 LABEL_IF_PLAYER1_WIN = 1
 LABEL_IF_PLAYER1_LOSS = -1
+LABEL_PLAYER1_WIN_IF_GREATER_THAN = 0
 
-kLabelIfFirstPlayerLoss = -1
-kLabelIfFirstPlayerWin = 1
-kLabelFirstPlayerWinIfGreaterThan = 0
+NUM_HERO_FEATURES = 1
+NUM_MINION_FEATURES = 7  # exclude card id
+NUM_MINIONS = 7
 
-kHeroFeatures = 1
-kMinionFeatures = 7  # exclude card id
-kMinions = 7
+NUM_CURRENT_HAND_CARDS = 10
+NUM_CURRENT_HAND_CARD_FEATURES = 1  # exclude card id
+NUM_CURRENT_HAND_FEATURES = 1
 
-kCurrentHandCards = 10
-kCurrentHandCardFeatures = 1  # exclude card id
-kCurrentHandFeatures = 1
-
-kMaxCardId = 1860
+NUM_MAX_CARD_ID = 1860
 
 class DynamicMapper:
     def __init__(self, start_index = 0):
