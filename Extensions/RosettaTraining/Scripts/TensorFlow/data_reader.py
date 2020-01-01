@@ -61,11 +61,10 @@ class DataReader:
         ])
 
     def add_minion_data(self, minion):
-        attackable = False
         try:
             attackable = minion['attackable']
         except Exception:
-            pass
+            attackable = False
 
         self.data.extend([
             minion['card_id'],
