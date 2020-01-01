@@ -19,7 +19,7 @@ import model
 TRAINING_PERCENT = 0.5
 NUM_THREADS = 20
 
-def _get_estimator():
+def get_estimator():
   sess_config = tf.ConfigProto(
       intra_op_parallelism_threads=NUM_THREADS,
       inter_op_parallelism_threads=NUM_THREADS)
@@ -53,7 +53,7 @@ def train_model(data_dir):
   data_validation = data[rows_training:]
   label_validation = label[rows_training:]
 
-  estimator = _get_estimator()
+  estimator = get_estimator()
 
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
       x={"x": data_training},
@@ -79,7 +79,7 @@ def export_saved_model():
   input_dim = 140
   freezed_output = "./freezed"
 
-  estimator = _get_estimator()
+  estimator = get_estimator()
   feature = {"x": tf.placeholder(dtype=tf.float32, shape=[batch, input_dim])}
 
   export_dir = tempfile.mkdtemp()

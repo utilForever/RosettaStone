@@ -34,7 +34,7 @@ class Model:
     self.residual_block_features = 50
     self.residual_blocks = 3
 
-  def _model_hero(self, input_getter):
+  def model_hero(self, input_getter):
     inputs = input_getter.get_next_slice(data_reader.NUM_HERO_FEATURES)
 
     hero1 = tf.layers.dense(
@@ -46,7 +46,7 @@ class Model:
 
     return [hero1]
 
-  def _get_embedded_onboard_card_id(self, card_id):
+  def get_embedded_onboard_card_id(self, card_id):
     if not self.enable_card_id_embed:
       return None
 
@@ -65,7 +65,7 @@ class Model:
     inputs = []
 
     card_id = input_getter.get_next_slice(1)
-    card_id_embed = self._get_embedded_onboard_card_id(card_id)
+    card_id_embed = self.get_embedded_onboard_card_id(card_id)
     if card_id_embed is not None:
       inputs.append(card_id_embed)
 
@@ -81,14 +81,14 @@ class Model:
 
     return minion1
 
-  def _model_minions(self, input_getter):
+  def model_minions(self, input_getter):
     features = []
     for _ in range(data_reader.NUM_MINIONS):
       features.append(self._model_minion(input_getter))
 
     return features
 
-  def _get_embedded_hand_card_id(self, card_id):
+  def get_embedded_hand_card_id(self, card_id):
     if not self.enable_hand_card_id_embed:
       return None
 
@@ -103,11 +103,11 @@ class Model:
     card_id_embed = tf.reshape(card_id_embed, [-1, self.card_id_dimension])
     return card_id_embed
 
-  def _model_current_hand_card(self, input_getter):
+  def model_current_hand_card(self, input_getter):
     outputs = []
 
     card_id = input_getter.get_next_slice(1)
-    card_id_embed = self._get_embedded_hand_card_id(card_id)
+    card_id_embed = self.get_embedded_hand_card_id(card_id)
     if card_id_embed is not None:
       outputs.append(card_id_embed)
 
@@ -123,22 +123,22 @@ class Model:
 
     return outputs
 
-  def _model_current_hand(self, input_getter):
+  def model_current_hand(self, input_getter):
     outputs = []
     outputs.append(
         input_getter.get_next_slice(data_reader.NUM_CURRENT_HAND_FEATURES))
 
     for _ in range(data_reader.NUM_CURRENT_HAND_CARDS):
-      outputs.extend(self._model_current_hand_card(input_getter))
+      outputs.extend(self.model_current_hand_card(input_getter))
 
     return outputs
 
   @staticmethod
-  def _model_board_features(input_getter):
+  def model_board_features(input_getter):
     return [input_getter.get_rest()]
 
   @staticmethod
-  def _residual_block_unit(scope, inputs, hidden, add_input=None):
+  def residual_block_unit(scope, inputs, hidden, add_input=None):
     with tf.variable_scope(scope):
       output = tf.contrib.layers.fully_connected(
           inputs,
@@ -153,15 +153,15 @@ class Model:
 
       return output
 
-  def _residual_block(self, idx, inputs, hidden):
+  def residual_block(self, idx, inputs, hidden):
     name = 'residual_' + str(idx)
 
-    dense1 = self._residual_block_unit(
+    dense1 = self.residual_block_unit(
         name + '_1',
         inputs,
         hidden)
 
-    dense2 = self._residual_block_unit(
+    dense2 = self.residual_block_unit(
         name + '_2',
         dense1,
         hidden,
@@ -180,12 +180,12 @@ class Model:
 
     inputs = []
 
-    inputs.extend(self._model_hero(input_getter))  # current hero
-    inputs.extend(self._model_hero(input_getter))  # opponent hero
-    inputs.extend(self._model_minions(input_getter))  # current minions
-    inputs.extend(self._model_minions(input_getter))  # opponent minions
-    inputs.extend(self._model_current_hand(input_getter))  # current hand
-    inputs.extend(self._model_board_features(input_getter))  # board features
+    inputs.extend(self.model_hero(input_getter))  # current hero
+    inputs.extend(self.model_hero(input_getter))  # opponent hero
+    inputs.extend(self.model_minions(input_getter))  # current minions
+    inputs.extend(self.model_minions(input_getter))  # opponent minions
+    inputs.extend(self.model_current_hand(input_getter))  # current hand
+    inputs.extend(self.model_board_features(input_getter))  # board features
 
     inputs = tf.concat(inputs, 1)
 
@@ -197,7 +197,7 @@ class Model:
 
     prev = dense1
     for i in range(0, self.residual_blocks):
-      prev = self._residual_block(i+1, prev, self.residual_block_features)
+      prev = self.residual_block(i+1, prev, self.residual_block_features)
 
     final = tf.layers.dense(
         name='final',
