@@ -1,5 +1,5 @@
 
-# Define common variables for RosettaTorch and its sub-projects
+# Define common variables for RosettaRL and its sub-projects
 set(root_dir        ${PROJECT_SOURCE_DIR})
 set(script_dir      ${CMAKE_CURRENT_SOURCE_DIR}/Scripts)
 set(external_dir    ${CMAKE_CURRENT_SOURCE_DIR}/External)
@@ -29,19 +29,19 @@ file(GLOB_RECURSE sources
     ${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp)
 
 # Build library
-add_library(RosettaTorch
+add_library(RosettaRL
     ${sources}
 )
 
 # Project options
-set_target_properties(RosettaTorch
+set_target_properties(RosettaRL
 PROPERTIES
     WINDOWS_EXPORT_ALL_SYMBOLS  true
     ${DEFAULT_PROJECT_OPTIONS}
 )
 
 # Includes
-target_include_directories(RosettaTorch
+target_include_directories(RosettaRL
 PUBLIC
     ${root_dir}/Includes
     ${CMAKE_CURRENT_SOURCE_DIR}/Includes
@@ -49,19 +49,19 @@ PUBLIC
 )
 
 # Compile options
-target_compile_options(RosettaTorch
+target_compile_options(RosettaRL
 PUBLIC
     ${DEFAULT_COMPILE_OPTIONS}
 )
 
 # Compile definitions
-target_compile_definitions(RosettaTorch
+target_compile_definitions(RosettaRL
 PUBLIC
     RESOURCES_DIR="${root_dir}/Resources/"
 )
 
 # Link libraries
-target_link_libraries(RosettaTorch
+target_link_libraries(RosettaRL
 PUBLIC
     RosettaStone
     ${DEFAULT_LINKER_OPTIONS}

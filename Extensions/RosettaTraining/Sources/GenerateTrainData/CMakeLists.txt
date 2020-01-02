@@ -35,5 +35,5 @@ endif()
 # Link libraries
 target_link_libraries(${target}
 PRIVATE
-	RosettaTorch
+	RosettaRL
 )
