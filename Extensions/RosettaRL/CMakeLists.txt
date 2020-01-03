@@ -49,6 +49,8 @@ target_link_libraries(${target}
 
 add_subdirectory(Tests/AlphaZeroTests)
 add_subdirectory(Tests/MCTSTests)
+add_subdirectory(Trains/Programs/GenerateTrainData)
+add_subdirectory(Trains/Programs/Train)
 
 # Install
 install(TARGETS ${target} DESTINATION lib)
