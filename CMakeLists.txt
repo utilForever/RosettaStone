@@ -24,7 +24,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Includes
 include_directories(Includes)
 include_directories(Extensions/RosettaPython/Includes)
-include_directories(Extensions/RosettaTorch/Includes)
+include_directories(Extensions/RosettaRL/Includes)
 include_directories(Libraries)
 include_directories(Libraries/googletest/googletest/include)
 include_directories(Libraries/Clara/include)
