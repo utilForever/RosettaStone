@@ -9,6 +9,12 @@
 
 #include <NeuralNet/NeuralNetwork.hpp>
 
+#if defined(ROSETTATORCH_ML_LIBRARY_LIBTORCH)
+#include <NeuralNet/libtorch/NeuralNetworkImpl.hpp>
+#elif defined(ROSETTARL_ML_LIBRARY_TINY_DNN)
+#include <Neuralnet/tiny-dnn/NeuralNetworkImpl.hpp>
+#endif
+
 namespace RosettaTorch::NeuralNet
 {
 NeuralNetwork::NeuralNetwork() : m_impl(new NeuralNetworkImpl())

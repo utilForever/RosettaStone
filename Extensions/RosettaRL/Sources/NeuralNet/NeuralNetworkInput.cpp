@@ -9,6 +9,12 @@
 
 #include <NeuralNet/NeuralNetworkInput.hpp>
 
+#if defined(ROSETTARL_ML_LIBRARY_LIBTORCH)
+#include <NeuralNet/libtorch/NeuralNetworkInputImpl.hpp>
+#elif defined(ROSETTARL_ML_LIBRARY_TINY_DNN)
+#include <Neuralnet/tiny-dnn/NeuralNetworkInputImpl.hpp>
+#endif
+
 namespace RosettaTorch::NeuralNet
 {
 NeuralNetworkInput::NeuralNetworkInput() : m_impl(new NeuralNetworkInputImpl())

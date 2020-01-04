@@ -9,6 +9,12 @@
 
 #include <NeuralNet/NeuralNetworkOutput.hpp>
 
+#if defined(ROSETTARL_ML_LIBRARY_LIBTORCH)
+#include <NeuralNet/libtorch/NeuralNetworkOutputImpl.hpp>
+#elif defined(ROSETTARL_ML_LIBRARY_TINY_DNN)
+#include <Neuralnet/tiny-dnn/NeuralNetworkOutputImpl.hpp>
+#endif
+
 namespace RosettaTorch::NeuralNet
 {
 NeuralNetworkOutput::NeuralNetworkOutput()
