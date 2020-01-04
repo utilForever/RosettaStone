@@ -11,6 +11,8 @@
 
 #include <Rosetta/Commons/Macros.hpp>
 
+#include <fstream>
+
 #if !defined(ROSETTASTONE_WINDOWS)
 #include <stdlib.h>
 #include <unistd.h>
