@@ -122,6 +122,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 		-Wno-missing-braces
 		-Wno-register			# -> disable warning: ISO c++1z does not allow 'register' storage class specifier [-wregister] (caused by pybind11/python2.7)
         -Wno-error=register		# -> disable warning: ISO c++1z does not allow 'register' storage class specifier [-wregister] (caused by pybind11/python2.7)
+		-Wno-unused-variable    # -> disable warning: error: unused variable 'curr_delta' [-Werror=unused-variable] (caused by tiny-dnn)
 
 		${WARN_AS_ERROR_FLAGS}
 		-std=c++1z
