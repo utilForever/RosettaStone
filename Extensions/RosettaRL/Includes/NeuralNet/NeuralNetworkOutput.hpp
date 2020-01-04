@@ -10,10 +10,10 @@
 #ifndef ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_HPP
 #define ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_HPP
 
-#include <NeuralNet/NeuralNetworkOutputImpl.hpp>
-
 namespace RosettaTorch::NeuralNet
 {
+class NeuralNetworkOutputImpl;
+
 //!
 //! \brief NeuralNetworkOutput class.
 //!

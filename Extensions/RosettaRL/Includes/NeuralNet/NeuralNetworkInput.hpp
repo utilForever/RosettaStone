@@ -11,10 +11,11 @@
 #define ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_INPUT_HPP
 
 #include <NeuralNet/IInputGetter.hpp>
-#include <NeuralNet/NeuralNetworkInputImpl.hpp>
 
 namespace RosettaTorch::NeuralNet
 {
+class NeuralNetworkInputImpl;
+
 //!
 //! \brief NeuralNetworkInput class.
 //!
