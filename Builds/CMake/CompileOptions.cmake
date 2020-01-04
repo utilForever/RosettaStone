@@ -75,7 +75,8 @@ endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		/MP           # -> build with multiple processes
-		/W4           # -> warning level 3
+		/W4           # -> warning level 4
+		/bigobj       # -> number of sections exceeded object file format limit
 		${WARN_AS_ERROR_FLAGS}
 
 		/wd4251       # -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2' (caused by Torch)
@@ -97,6 +98,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/wd4146       # -> disable warning: unary minus operator applied to unsigned type, result still unsigned (caused by Torch)
 		/wd4245       # -> disable warning: conversion from 'int' to 'uint64_t', signed/unsigned mismatch (caused by Torch)
 		/wd4702       # -> disable warning: unreachable code (caused by Torch)
+		/wd4189       # -> disable warning: local variable is initialized but not referenced (caused by tiny-dnn)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
