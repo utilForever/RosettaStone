@@ -12,7 +12,7 @@
 #if defined(ROSETTARL_ML_LIBRARY_LIBTORCH)
 #include <NeuralNet/libtorch/NeuralNetworkInputImpl.hpp>
 #elif defined(ROSETTARL_ML_LIBRARY_TINY_DNN)
-#include <Neuralnet/tiny-dnn/NeuralNetworkInputImpl.hpp>
+#include <NeuralNet/tiny-dnn/NeuralNetworkInputImpl.hpp>
 #endif
 
 namespace RosettaTorch::NeuralNet
