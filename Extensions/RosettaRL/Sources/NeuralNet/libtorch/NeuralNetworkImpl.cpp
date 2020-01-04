@@ -7,8 +7,8 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <NeuralNet/InputDataConverter.hpp>
-#include <NeuralNet/NeuralNetworkImpl.hpp>
+#include <NeuralNet/libtorch/InputDataConverter.hpp>
+#include <NeuralNet/libtorch/NeuralNetworkImpl.hpp>
 
 #include <Rosetta/Commons/Macros.hpp>
 
@@ -16,26 +16,24 @@
 #include <effolkronium/random.hpp>
 
 #if !defined(ROSETTASTONE_WINDOWS)
-
 #include <stdlib.h>
 #include <unistd.h>
-
 #endif
 
 using Random = effolkronium::random_static;
 
 namespace RosettaTorch::NeuralNet
 {
-void NeuralNetworkImpl::CreateWithRandomWeights(const std::string &fileName)
+void NeuralNetworkImpl::CreateWithRandomWeights(const std::string& fileName)
 {
 }
 
-void NeuralNetworkImpl::Save(const std::string &fileName) const
+void NeuralNetworkImpl::Save(const std::string& fileName) const
 {
     torch::save(m_net, fileName);
 }
 
-void NeuralNetworkImpl::Load(const std::string &fileName, bool isRandom)
+void NeuralNetworkImpl::Load(const std::string& fileName, bool isRandom)
 {
     m_isRandom = isRandom;
 
@@ -52,10 +50,13 @@ bool NeuralNetworkImpl::IsRandom() const
     return m_isRandom;
 }
 
-void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl &rhs)
+void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 {
 #if defined(ROSETTASTONE_WINDOWS)
+#pragma warning(push)
+#pragma warning(disable : 4996)
     std::string tempFile = std::tmpnam(nullptr);
+#pragma warning(pop)
 #else
     char tempFile[] = "/tempXXXXXX";
     int fd = mkstemp(tempFile);
@@ -74,13 +75,13 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl &rhs)
 #endif
 }
 
-void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl &input,
-                              const NeuralNetworkOutputImpl &output,
+void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
+                              const NeuralNetworkOutputImpl& output,
                               [[maybe_unused]] std::size_t batchSize,
                               std::size_t epoch)
 {
-    const auto &inputData = input.GetData();
-    const auto &outputData = output.GetData();
+    const auto& inputData = input.GetData();
+    const auto& outputData = output.GetData();
 
     torch::optim::Adam optimizer(m_net->parameters(),
                                  torch::optim::AdamOptions(lr));
@@ -126,10 +127,10 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl &input,
 }
 
 std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
-    const NeuralNetworkInputImpl &input, const NeuralNetworkOutputImpl &output)
+    const NeuralNetworkInputImpl& input, const NeuralNetworkOutputImpl& output)
 {
-    const auto &inputData = input.GetData();
-    const auto &outputData = output.GetData();
+    const auto& inputData = input.GetData();
+    const auto& outputData = output.GetData();
 
     std::uint64_t correct = 0, total = inputData.size();
 
@@ -138,8 +139,8 @@ std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
         auto result = m_net->forward(inputData[idx][0].unsqueeze(0),
                                      inputData[idx][1].unsqueeze(0),
                                      inputData[idx][2].unsqueeze(0));
-        bool predictWin = result[0][0].item<double>() > 0.0;
-        bool actualWin = outputData[idx][0] > 0.0;
+        const bool predictWin = result[0][0].item<double>() > 0.0;
+        const bool actualWin = outputData[idx][0] > 0.0;
 
         if (predictWin == actualWin)
         {
@@ -150,16 +151,16 @@ std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
     return { correct, total };
 }
 
-double NeuralNetworkImpl::Predict(IInputGetter *input)
+double NeuralNetworkImpl::Predict(IInputGetter* input)
 {
     torch::Tensor hero, minion, standalone;
     InputDataConverter().Convert(input, hero, minion, standalone);
     return Predict(hero, minion, standalone);
 }
 
-double NeuralNetworkImpl::Predict(const torch::Tensor &hero,
-                                  const torch::Tensor &minion,
-                                  const torch::Tensor &standalone)
+double NeuralNetworkImpl::Predict(const torch::Tensor& hero,
+                                  const torch::Tensor& minion,
+                                  const torch::Tensor& standalone)
 {
     if (m_isRandom)
     {

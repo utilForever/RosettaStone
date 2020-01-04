@@ -7,7 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <NeuralNet/Models/CNNModel.hpp>
+#include <NeuralNet/libtorch/CNNModel.hpp>
 
 namespace RosettaTorch::NeuralNet
 {

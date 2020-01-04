@@ -7,7 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <NeuralNet/NeuralNetworkOutputImpl.hpp>
+#include <NeuralNet/libtorch/NeuralNetworkOutputImpl.hpp>
 
 namespace RosettaTorch::NeuralNet
 {

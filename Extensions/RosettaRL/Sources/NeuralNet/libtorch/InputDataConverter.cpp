@@ -7,7 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <NeuralNet/InputDataConverter.hpp>
+#include <NeuralNet/libtorch/InputDataConverter.hpp>
 
 namespace RosettaTorch::NeuralNet
 {
