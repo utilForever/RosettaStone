@@ -30,6 +30,7 @@ include_directories(Libraries/googletest/googletest/include)
 include_directories(Libraries/Clara/include)
 include_directories(Libraries/random/include)
 include_directories(Libraries/pybind11/include)
+include_directories(Libraries/tiny-dnn)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)
