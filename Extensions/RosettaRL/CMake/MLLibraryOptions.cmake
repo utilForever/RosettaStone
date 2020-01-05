@@ -4,12 +4,12 @@
 
 # Determine the best default option for ML library
 if(NOT DEFINED ROSETTARL_ML_LIBRARY)
-#	find_package(Torch QUIET)
-#	if(TORCH_FOUND)
-#	    set(ML_DEFAULT LIBTORCH)
-#	else()
+	find_package(Torch QUIET)
+	if(TORCH_FOUND)
+	    set(ML_DEFAULT LIBTORCH)
+	else()
 		set(ML_DEFAULT TINY-DNN)
-#	endif()
+	endif()
 else()
 	set(ML_DEFAULT ${ROSETTARL_ML_LIBRARY})
 endif()
