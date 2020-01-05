@@ -132,6 +132,7 @@ endif ()
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wno-int-in-bool-context
+		-Wno-class-memaccess    # -> disable warning: error: 'void* memcpy(void*, const void*, size_t)' ... [-Werror=class-memaccess] (caused by tiny-dnn)
 	)
 endif ()
 
