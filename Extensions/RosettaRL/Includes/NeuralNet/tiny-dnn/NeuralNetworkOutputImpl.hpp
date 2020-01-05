@@ -10,6 +10,15 @@
 #ifndef ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_IMPL_HPP
 #define ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_IMPL_HPP
 
+#include <Rosetta/Commons/Macros.hpp>
+
+#define CNN_SINGLE_THREAD
+
+#ifdef ROSETTASTONE_WINDOWS
+#define CNN_USE_SSE
+#include <intrin.h>
+#endif
+
 #include <tiny_dnn/tiny_dnn.h>
 
 #include <vector>

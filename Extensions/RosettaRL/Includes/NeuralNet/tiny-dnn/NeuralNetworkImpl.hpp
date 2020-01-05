@@ -13,6 +13,15 @@
 #include <NeuralNet/tiny-dnn/NeuralNetworkInputImpl.hpp>
 #include <NeuralNet/tiny-dnn/NeuralNetworkOutputImpl.hpp>
 
+#include <Rosetta/Commons/Macros.hpp>
+
+#define CNN_SINGLE_THREAD
+
+#ifdef ROSETTASTONE_WINDOWS
+#define CNN_USE_SSE
+#include <intrin.h>
+#endif
+
 #include <tiny_dnn/tiny_dnn.h>
 
 #include <string>
