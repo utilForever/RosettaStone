@@ -12,7 +12,6 @@
 
 #include <Rosetta/Commons/Macros.hpp>
 
-#include <tiny_dnn/tiny_dnn.h>
 #include <effolkronium/random.hpp>
 
 #if !defined(ROSETTASTONE_WINDOWS)
