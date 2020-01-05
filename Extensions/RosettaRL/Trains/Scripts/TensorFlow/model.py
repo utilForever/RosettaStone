@@ -46,18 +46,21 @@ class Model:
 
         return [hero1]
 
-    def get_embedded_onboard_card_id(self, card_id):
-        if not self.enable_card_id_embed:
+    def get_embedded_card_id(self, card_id, zone_type):
+        if zone_type == 'field' and not self.enable_card_id_embed:
+            return None
+        if zone_type == 'hand' and not self.enable_hand_card_id_embed:
             return None
 
         card_id = tf.to_int32(card_id, name='card_id_to_int32')
-        with tf.variable_scope("onboard", reuse=tf.AUTO_REUSE):
+        type_name = "onfield" if zone_type == 'field' else "current_hand"
+        with tf.variable_scope(type_name, reuse=tf.AUTO_REUSE):
             card_id_matrix = tf.get_variable(
             'card_embed_matrix',
             [data_reader.NUM_MAX_CARD_ID, self.card_id_dimension],
             initializer=tf.zeros_initializer())
         card_id_embed = tf.nn.embedding_lookup(
-        card_id_matrix, card_id, name='card_id_embed')
+            card_id_matrix, card_id, name='card_id_embed')
         card_id_embed = tf.reshape(card_id_embed, [-1, self.card_id_dimension])
         return card_id_embed
 
@@ -65,7 +68,7 @@ class Model:
         inputs = []
 
         card_id = input_getter.get_next_slice(1)
-        card_id_embed = self.get_embedded_onboard_card_id(card_id)
+        card_id_embed = self.get_embedded_card_id(card_id, 'field')
         if card_id_embed is not None:
             inputs.append(card_id_embed)
 
@@ -88,26 +91,11 @@ class Model:
 
         return features
 
-    def get_embedded_hand_card_id(self, card_id):
-        if not self.enable_hand_card_id_embed:
-            return None
-
-        card_id = tf.to_int32(card_id, name='card_id_to_int32')
-        with tf.variable_scope("current_hand", reuse=tf.AUTO_REUSE):
-            card_id_matrix = tf.get_variable(
-            'card_embed_matrix',
-            [data_reader.NUM_MAX_CARD_ID, self.card_id_dimension],
-            initializer=tf.zeros_initializer())
-        card_id_embed = tf.nn.embedding_lookup(
-            card_id_matrix, card_id, name='card_id_embed')
-        card_id_embed = tf.reshape(card_id_embed, [-1, self.card_id_dimension])
-        return card_id_embed
-
     def model_current_hand_card(self, input_getter):
         outputs = []
 
         card_id = input_getter.get_next_slice(1)
-        card_id_embed = self.get_embedded_hand_card_id(card_id)
+        card_id_embed = self.get_embedded_card_id(card_id, 'hand')
         if card_id_embed is not None:
             outputs.append(card_id_embed)
 
