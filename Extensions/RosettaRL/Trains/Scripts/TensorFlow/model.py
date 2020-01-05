@@ -61,7 +61,7 @@ class Model:
         card_id_embed = tf.reshape(card_id_embed, [-1, self.card_id_dimension])
         return card_id_embed
 
-    def _model_minion(self, input_getter):
+    def model_minion(self, input_getter):
         inputs = []
 
         card_id = input_getter.get_next_slice(1)
@@ -84,7 +84,7 @@ class Model:
     def model_minions(self, input_getter):
         features = []
         for _ in range(data_reader.NUM_MINIONS):
-            features.append(self._model_minion(input_getter))
+            features.append(self.model_minion(input_getter))
 
         return features
 
