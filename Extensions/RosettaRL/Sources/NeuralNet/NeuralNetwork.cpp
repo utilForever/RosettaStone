@@ -9,7 +9,7 @@
 
 #include <NeuralNet/NeuralNetwork.hpp>
 
-#if defined(ROSETTATORCH_ML_LIBRARY_LIBTORCH)
+#if defined(ROSETTARL_ML_LIBRARY_LIBTORCH)
 #include <NeuralNet/libtorch/NeuralNetworkImpl.hpp>
 #elif defined(ROSETTARL_ML_LIBRARY_TINY_DNN)
 #include <NeuralNet/tiny-dnn/NeuralNetworkImpl.hpp>
