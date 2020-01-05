@@ -132,7 +132,7 @@ endif ()
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wno-int-in-bool-context
-		-Wno-class-memaccess    # -> disable warning: error: 'void* memcpy(void*, const void*, size_t)' ... [-Werror=class-memaccess] (caused by tiny-dnn)
+		-Wno-class-memaccess	# -> disable warning: error: 'void* memcpy(void*, const void*, size_t)' ... [-Werror=class-memaccess] (caused by tiny-dnn)
 	)
 endif ()
 
@@ -141,6 +141,9 @@ endif ()
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-fsized-deallocation
+		-Wno-return-std-move			# -> disable warning: error: local variable 'in' will be copied despite being returned by name (caused by tiny-dnn)
+		-Wno-delete-non-virtual-dtor	# -> disable warning: error: destructor called on non-final 'tiny_dnn::weight_init::xavier' that has virtual functions but non-virtual destructor (caused by tiny-dnn)
+		-Wno-unused-private-field		# -> disable warning: error: private field 'itsValueItEnd' is not used (caused by tiny-dnn)
 	)
 endif ()
 
