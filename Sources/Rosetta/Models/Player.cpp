@@ -45,6 +45,11 @@ Player::~Player()
 
 void Player::RefCopy(const Player& rhs)
 {
+    if (this == &rhs)
+    {
+        return;
+    }
+
     nickname = rhs.nickname;
     playerType = rhs.playerType;
     playerID = rhs.playerID;

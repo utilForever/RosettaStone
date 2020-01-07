@@ -143,6 +143,11 @@ void Game::Initialize()
 
 void Game::RefCopyFrom(const Game& rhs)
 {
+    if (this == &rhs)
+    {
+        return;
+    }
+
     state = rhs.state;
 
     step = rhs.step;
