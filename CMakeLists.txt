@@ -23,14 +23,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Includes
 include_directories(Includes)
-include_directories(Extensions/RosettaPython/Includes)
-include_directories(Extensions/RosettaRL/Includes)
+#include_directories(Extensions/RosettaPython/Includes)
+#include_directories(Extensions/RosettaRL/Includes)
 include_directories(Libraries)
-include_directories(Libraries/googletest/googletest/include)
-include_directories(Libraries/Clara/include)
+#include_directories(Libraries/googletest/googletest/include)
+#include_directories(Libraries/Clara/include)
 include_directories(Libraries/random/include)
-include_directories(Libraries/pybind11/include)
-include_directories(Libraries/tiny-dnn)
+#include_directories(Libraries/pybind11/include)
+#include_directories(Libraries/tiny-dnn)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)
@@ -50,35 +50,35 @@ set(RESOURCES_JSONS
     ${RESOURCES_DIR}/cards.json)
 
 # Project modules
-set(BUILD_GTEST ON CACHE BOOL "" FORCE)
-set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-add_subdirectory(Libraries/googletest EXCLUDE_FROM_ALL)
-cmake_policy(SET CMP0063 NEW)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+#set(BUILD_GTEST ON CACHE BOOL "" FORCE)
+#set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
+#set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+#add_subdirectory(Libraries/googletest EXCLUDE_FROM_ALL)
+#cmake_policy(SET CMP0063 NEW)
+#set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+#set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 add_subdirectory(Sources/Rosetta)
-add_subdirectory(Tests/UnitTests)
-add_subdirectory(Extensions/RosettaConsole)
-add_subdirectory(Extensions/RosettaTool)
+#add_subdirectory(Tests/UnitTests)
+#add_subdirectory(Extensions/RosettaConsole)
+#add_subdirectory(Extensions/RosettaTool)
 
-add_subdirectory(Extensions/RosettaRL)
-add_dependencies(RosettaRL # just make sure of the dependency
-                 RosettaStone
-)
+#add_subdirectory(Extensions/RosettaRL)
+#add_dependencies(RosettaRL # just make sure of the dependency
+#                 RosettaStone
+#)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
-option(BUILD_COVERAGE "Build code coverage" OFF)
-if (CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_COMPILER_IS_GNUCXX AND BUILD_COVERAGE)
-    include(CodeCoverage)
-    setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
-endif()
+#option(BUILD_COVERAGE "Build code coverage" OFF)
+#if (CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_COMPILER_IS_GNUCXX AND BUILD_COVERAGE)
+#    include(CodeCoverage)
+#    setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
+#endif()
 
-add_subdirectory(Libraries/pybind11)
-if (BUILD_FROM_PIP)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-endif()
-add_subdirectory(Extensions/RosettaPython)
+#add_subdirectory(Libraries/pybind11)
+#if (BUILD_FROM_PIP)
+#    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+#endif()
+#add_subdirectory(Extensions/RosettaPython)
