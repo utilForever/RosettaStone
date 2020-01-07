@@ -50,6 +50,14 @@ void Player::RefCopy(const Player& rhs)
         return;
     }
 
+    delete m_hero;
+    delete m_deckZone;
+    delete m_fieldZone;
+    delete m_graveyardZone;
+    delete m_handZone;
+    delete m_secretZone;
+    delete m_setasideZone;
+
     nickname = rhs.nickname;
     playerType = rhs.playerType;
     playerID = rhs.playerID;
