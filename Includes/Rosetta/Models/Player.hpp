@@ -13,6 +13,7 @@
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Hero.hpp>
 
+#include <memory>
 #include <string>
 
 namespace RosettaStone
