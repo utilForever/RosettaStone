@@ -26,6 +26,10 @@ class HandZone : public PositioningZone<Playable>
     //! \param player The player.
     explicit HandZone(Player* player);
 
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
+    void RefCopy(HandZone* rhs) const;
+
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.

@@ -19,6 +19,19 @@ DeckZone::DeckZone(Player* player) : LimitedZone(ZoneType::DECK, MAX_DECK_SIZE)
     m_player = player;
 }
 
+void DeckZone::RefCopy(DeckZone* rhs) const
+{
+    for (int i = 0; i < m_count; ++i)
+    {
+        delete m_entities[i];
+    }
+
+    for (int i = 0; i < rhs->m_count; ++i)
+    {
+        m_entities[i] = rhs->m_entities[i];
+    }
+}
+
 Playable* DeckZone::GetTopCard() const
 {
     return m_entities[m_count - 1];
