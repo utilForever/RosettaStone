@@ -1,3 +1,6 @@
+#include <Rosetta/Commons/Macros.hpp>
+
+#if defined(ROSETTASTONE_WINDOWS)
 #include <crtdbg.h>
 #include <tchar.h>
 
@@ -16,3 +19,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
     return 0;
 }
+#else
+int main(int argc, char* argv[])
+{
+    return 0;
+}
+#endif
