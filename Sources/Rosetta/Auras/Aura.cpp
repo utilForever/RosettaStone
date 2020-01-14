@@ -16,7 +16,7 @@
 
 namespace RosettaStone
 {
-Aura::Aura(AuraType type, std::vector<IEffect*> effects)
+Aura::Aura(AuraType type, std::vector<std::unique_ptr<IEffect>> effects)
     : m_type(type), m_effects(std::move(effects))
 {
     // Do nothing
@@ -37,7 +37,7 @@ void Aura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
-        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
+        m_effects = std::move(m_enchantmentCard->power.GetEnchant()->effects);
     }
 
     auto instance = new Aura(*this, *owner);
@@ -288,7 +288,7 @@ Aura::Aura(Aura& prototype, Playable& owner)
       m_type(prototype.m_type),
       m_owner(&owner),
       m_enchantmentCard(prototype.m_enchantmentCard),
-      m_effects(prototype.m_effects),
+      m_effects(std::move(prototype.m_effects)),
       m_turnOn(prototype.m_turnOn)
 {
     if (!prototype.m_auraUpdateInstQueue.IsEmpty())
@@ -426,8 +426,8 @@ void Aura::UpdateInternal()
         {
             for (auto& effect : m_effects)
             {
-                dynamic_cast<Effect*>(effect)->ApplyTo(
-                    m_owner->player->playerAuraEffects);
+                const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+                effectPtr->ApplyTo(m_owner->player->playerAuraEffects);
             }
             break;
         }
@@ -435,9 +435,9 @@ void Aura::UpdateInternal()
         {
             for (auto& effect : m_effects)
             {
-                dynamic_cast<Effect*>(effect)->ApplyTo(
-                    m_owner->player->playerAuraEffects);
-                dynamic_cast<Effect*>(effect)->ApplyTo(
+                const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+                effectPtr->ApplyTo(m_owner->player->playerAuraEffects);
+                effectPtr->ApplyTo(
                     m_owner->player->opponent->playerAuraEffects);
             }
             break;
@@ -454,18 +454,17 @@ void Aura::RemoveInternal()
     {
         for (auto& effect : m_effects)
         {
-            dynamic_cast<Effect*>(effect)->RemoveFrom(
-                m_owner->player->playerAuraEffects);
+            const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+            effectPtr->RemoveFrom(m_owner->player->playerAuraEffects);
         }
     }
     else if (m_type == AuraType::PLAYERS)
     {
         for (auto& effect : m_effects)
         {
-            dynamic_cast<Effect*>(effect)->RemoveFrom(
-                m_owner->player->playerAuraEffects);
-            dynamic_cast<Effect*>(effect)->RemoveFrom(
-                m_owner->player->opponent->playerAuraEffects);
+            const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+            effectPtr->RemoveFrom(m_owner->player->playerAuraEffects);
+            effectPtr->RemoveFrom(m_owner->player->opponent->playerAuraEffects);
         }
     }
     else

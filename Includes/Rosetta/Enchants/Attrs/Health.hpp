@@ -8,6 +8,8 @@
 
 #include <Rosetta/Enchants/Attrs/SelfContainedIntAttr.hpp>
 
+#include <memory>
+
 namespace RosettaStone
 {
 //!
@@ -23,7 +25,7 @@ class Health : public SelfContainedIntAttr<Health, Entity>
     //! \param effectOp The effect operator of the effect.
     //! \param value The value of the effect.
     //! \return The effect that is dynamically allocated.
-    static IEffect* Effect(EffectOperator effectOp, int value)
+    static std::unique_ptr<IEffect> Effect(EffectOperator effectOp, int value)
     {
         return SelfContainedIntAttr::Effect(effectOp, value);
     }

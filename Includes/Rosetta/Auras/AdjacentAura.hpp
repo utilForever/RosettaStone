@@ -8,6 +8,8 @@
 
 #include <Rosetta/Auras/Aura.hpp>
 
+#include <memory>
+
 namespace RosettaStone
 {
 class FieldZone;
@@ -64,7 +66,7 @@ class AdjacentAura : public IAura
 
     Minion* m_owner = nullptr;
     Card* m_enchantmentCard = nullptr;
-    std::vector<IEffect*> m_effects;
+    std::vector<std::unique_ptr<IEffect>> m_effects;
 
     FieldZone* m_fieldZone = nullptr;
     Minion* m_left = nullptr;

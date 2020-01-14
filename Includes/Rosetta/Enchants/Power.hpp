@@ -11,6 +11,7 @@
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace RosettaStone
@@ -59,7 +60,7 @@ class Power
 
     //! Adds enchant.
     //! \param enchant An enchant to add.
-    void AddEnchant(Enchant* enchant);
+    void AddEnchant(std::unique_ptr<Enchant> enchant);
 
     //! Adds trigger.
     //! \param trigger An trigger to add.
@@ -79,7 +80,7 @@ class Power
 
  private:
     IAura* m_aura = nullptr;
-    Enchant* m_enchant = nullptr;
+    std::unique_ptr<Enchant> m_enchant;
     Trigger* m_trigger = nullptr;
 
     std::vector<ITask*> m_powerTask;

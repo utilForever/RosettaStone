@@ -14,7 +14,7 @@ namespace RosettaStone
 {
 SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
                              TriggerType offTrigger,
-                             std::vector<IEffect*> effects)
+                             std::vector<std::unique_ptr<IEffect>> effects)
     : Aura(type, std::move(effects)),
       m_initCondition(std::move(initCondition)),
       m_offTrigger(offTrigger)
@@ -26,7 +26,7 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
-        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
+        //m_effects = std::move(m_enchantmentCard->power.GetEnchant()->effects);
     }
 
     auto instance = new SwitchingAura(*this, *owner);

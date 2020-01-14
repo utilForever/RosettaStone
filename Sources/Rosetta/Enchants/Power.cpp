@@ -15,7 +15,7 @@ IAura* Power::GetAura()
 
 Enchant* Power::GetEnchant()
 {
-    return m_enchant;
+    return m_enchant.get();
 }
 
 Trigger* Power::GetTrigger()
@@ -41,7 +41,7 @@ std::vector<ITask*>& Power::GetComboTask()
 void Power::ClearData()
 {
     m_aura = nullptr;
-    m_enchant = nullptr;
+    m_enchant.reset();
     m_trigger = nullptr;
     m_powerTask.clear();
     m_deathrattleTask.clear();
@@ -53,9 +53,9 @@ void Power::AddAura(IAura* aura)
     m_aura = aura;
 }
 
-void Power::AddEnchant(Enchant* enchant)
+void Power::AddEnchant(std::unique_ptr<Enchant> enchant)
 {
-    m_enchant = enchant;
+    m_enchant = std::move(enchant);
 }
 
 void Power::AddTrigger(Trigger* trigger)

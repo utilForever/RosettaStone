@@ -9,6 +9,7 @@
 
 #include <Rosetta/Enchants/Effect.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace RosettaStone
@@ -42,7 +43,8 @@ class Enchant
     //! \param effect The effect of the card.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    explicit Enchant(IEffect* effect, bool _useScriptTag = false,
+    explicit Enchant(std::unique_ptr<IEffect> effect,
+                     bool _useScriptTag = false,
                      bool _isOneTurnEffect = false);
 
     //! Constructs enchant with given \p _effects, \p _useScriptTag and
@@ -50,7 +52,8 @@ class Enchant
     //! \param _effects A list of effect.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    explicit Enchant(std::vector<IEffect*> _effects, bool _useScriptTag = false,
+    explicit Enchant(std::vector<std::unique_ptr<IEffect>> _effects,
+                     bool _useScriptTag = false,
                      bool _isOneTurnEffect = false);
 
     //! Activates enchant to \p entity.
@@ -63,7 +66,7 @@ class Enchant
 
     void RemoveEffect(Entity* target, int num1, int num2);
 
-    std::vector<IEffect*> effects;
+    std::vector<std::unique_ptr<IEffect>> effects;
 
     bool useScriptTag = false;
     bool isOneTurnEffect = false;

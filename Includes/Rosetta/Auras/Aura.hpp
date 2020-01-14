@@ -14,6 +14,7 @@
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 
+#include <memory>
 #include <string>
 
 namespace RosettaStone
@@ -37,7 +38,7 @@ class Aura : public IAura
     //! Constructs aura with given \p type and \p effects.
     //! \param type The type of aura.
     //! \param effects A list of effect.
-    Aura(AuraType type, std::vector<IEffect*> effects);
+    Aura(AuraType type, std::vector<std::unique_ptr<IEffect>> effects);
 
     //! Constructs aura with given \p type and \p enchantmentID.
     //! \param type The type of aura.
@@ -109,7 +110,7 @@ class Aura : public IAura
     std::function<void(Entity*)> m_removeHandler;
 
     Card* m_enchantmentCard = nullptr;
-    std::vector<IEffect*> m_effects;
+    std::vector<std::unique_ptr<IEffect>> m_effects;
 
     bool m_turnOn = true;
 

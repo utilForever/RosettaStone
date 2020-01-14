@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-OngoingEnchant::OngoingEnchant(std::vector<IEffect*> effects)
+OngoingEnchant::OngoingEnchant(std::vector<std::unique_ptr<IEffect>> effects)
     : Enchant(std::move(effects))
 {
     // Do nothing
@@ -55,7 +55,7 @@ void OngoingEnchant::Remove()
 
 void OngoingEnchant::Clone(Playable* clone)
 {
-    auto copy = new OngoingEnchant(effects);
+    auto copy = new OngoingEnchant(std::move(effects));
     copy->game = clone->game;
     copy->target = clone;
     copy->isOneTurnEffect = isOneTurnEffect;

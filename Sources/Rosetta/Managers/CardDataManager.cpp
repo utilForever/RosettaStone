@@ -39,7 +39,7 @@ Power CardDataManager::FindPowerByCardID(const std::string_view& cardID)
     {
         if (power.first == cardID)
         {
-            return power.second;
+            return std::move(power.second);
         }
     }
 
