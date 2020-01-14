@@ -240,37 +240,37 @@ TEST(Game, GameOver_Player2Won)
     EXPECT_EQ(opPlayer->playState, PlayState::LOST);
 }
 
-TEST(Game, GameOver_Tied)
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARLOCK;
-    config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetDamage(29);
-    opPlayer->GetHero()->SetDamage(29);
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hellfire"));
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-
-    EXPECT_EQ(game.state, State::COMPLETE);
-    EXPECT_EQ(curPlayer->playState, PlayState::TIED);
-    EXPECT_EQ(opPlayer->playState, PlayState::TIED);
-}
+//TEST(Game, GameOver_Tied)
+//{
+//    GameConfig config;
+//    config.player1Class = CardClass::WARLOCK;
+//    config.player2Class = CardClass::ROGUE;
+//    config.startPlayer = PlayerType::PLAYER1;
+//    config.doFillDecks = true;
+//    config.autoRun = false;
+//
+//    Game game(config);
+//    game.Start();
+//    game.ProcessUntil(Step::MAIN_START);
+//
+//    Player* curPlayer = game.GetCurrentPlayer();
+//    Player* opPlayer = game.GetOpponentPlayer();
+//    curPlayer->SetTotalMana(10);
+//    curPlayer->SetUsedMana(0);
+//    opPlayer->SetTotalMana(10);
+//    opPlayer->SetUsedMana(0);
+//    curPlayer->GetHero()->SetDamage(29);
+//    opPlayer->GetHero()->SetDamage(29);
+//
+//    const auto card1 =
+//        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hellfire"));
+//
+//    game.Process(curPlayer, PlayCardTask::Spell(card1));
+//
+//    EXPECT_EQ(game.state, State::COMPLETE);
+//    EXPECT_EQ(curPlayer->playState, PlayState::TIED);
+//    EXPECT_EQ(opPlayer->playState, PlayState::TIED);
+//}
 
 TEST(Game, PerformAction)
 {
@@ -287,11 +287,11 @@ TEST(Game, PerformAction)
         "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
     auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
 
-    for (std::size_t j = 0; j < deck.size(); ++j)
-    {
-        config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
-        config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
-    }
+    //for (std::size_t j = 0; j < deck.size(); ++j)
+    //{
+    //    config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
+    //    config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
+    //}
 
     Game game(config);
     game.Start();

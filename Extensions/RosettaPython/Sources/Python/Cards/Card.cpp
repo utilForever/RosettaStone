@@ -30,7 +30,7 @@ void AddCard(pybind11::module& m)
                        R"pbdoc(Play requirements of the card.)pbdoc")
         .def_readwrite("entourages", &Card::entourages,
                        R"pbdoc(Entourages of the card.)pbdoc")
-        .def_readwrite("power", &Card::power, R"pbdoc(Power of the card.)pbdoc")
+        //.def_readwrite("power", &Card::power, R"pbdoc(Power of the card.)pbdoc")
         .def_readwrite("max_allowed_in_deck", &Card::maxAllowedInDeck,
                        R"pbdoc(Maximum of card in deck.)pbdoc")
         .def("initialize", &Card::Initialize,
