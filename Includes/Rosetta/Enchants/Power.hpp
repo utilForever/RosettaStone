@@ -28,6 +28,10 @@ class Enchant;
 class Power
 {
  public:
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
+    void RefCopy(const Power& rhs);
+
     //! Returns aura.
     IAura* GetAura();
 
