@@ -55,7 +55,7 @@ void AddCardToHand(Player* player, Playable* entity)
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
                     int num1, int num2)
 {
-    Power power = enchantmentCard->power;
+    Power& power = enchantmentCard->power;
 
     const auto playable = dynamic_cast<Playable*>(target);
     if (playable)
