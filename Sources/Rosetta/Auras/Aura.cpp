@@ -37,7 +37,7 @@ void Aura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
-        m_effects = std::move(m_enchantmentCard->power.GetEnchant()->effects);
+        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
     auto instance = new Aura(*this, *owner);
@@ -288,7 +288,7 @@ Aura::Aura(Aura& prototype, Playable& owner)
       m_type(prototype.m_type),
       m_owner(&owner),
       m_enchantmentCard(prototype.m_enchantmentCard),
-      m_effects(std::move(prototype.m_effects)),
+      m_effects(prototype.m_effects),
       m_turnOn(prototype.m_turnOn)
 {
     if (!prototype.m_auraUpdateInstQueue.IsEmpty())

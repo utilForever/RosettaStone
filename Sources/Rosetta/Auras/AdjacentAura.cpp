@@ -157,11 +157,11 @@ AdjacentAura::AdjacentAura(AdjacentAura& prototype, Minion& owner, bool cloning)
     m_enchantmentCard = prototype.m_enchantmentCard;
     if (prototype.m_effects.empty())
     {
-        m_effects = std::move(m_enchantmentCard->power.GetEnchant()->effects);
+        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
     else
     {
-        m_effects = std::move(prototype.m_effects);
+        m_effects = prototype.m_effects;
     }
 
     owner.ongoingEffect = this;

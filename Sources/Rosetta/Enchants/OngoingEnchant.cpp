@@ -55,7 +55,7 @@ void OngoingEnchant::Remove()
 
 void OngoingEnchant::Clone(Playable* clone)
 {
-    auto copy = new OngoingEnchant(std::move(effects));
+    auto copy = new OngoingEnchant(effects);
     copy->game = clone->game;
     copy->target = clone;
     copy->isOneTurnEffect = isOneTurnEffect;
