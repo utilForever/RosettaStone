@@ -17,9 +17,9 @@ EntouragesType CardDataManager::m_entourages;
 
 CardDataManager::CardDataManager()
 {
-    //CoreCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
-    //Expert1CardsGen::AddAll(m_powers, m_playReqs, m_entourages);
-    //HoFCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    CoreCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    Expert1CardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    HoFCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
 }
 
 CardDataManager::~CardDataManager()
@@ -39,7 +39,7 @@ Power CardDataManager::FindPowerByCardID(const std::string_view& cardID)
     {
         if (power.first == cardID)
         {
-            return std::move(power.second);
+            return power.second;
         }
     }
 
