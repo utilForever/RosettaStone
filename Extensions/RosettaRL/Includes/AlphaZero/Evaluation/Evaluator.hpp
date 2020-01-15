@@ -104,11 +104,11 @@ class Evaluator
                 "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
             auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
 
-            //for (std::size_t j = 0; j < deck.size(); ++j)
-            //{
-            //    gameConfig.player1Deck[j] = *Cards::FindCardByID(deck[j]);
-            //    gameConfig.player2Deck[j] = *Cards::FindCardByID(deck[j]);
-            //}
+            for (std::size_t j = 0; j < deck.size(); ++j)
+            {
+                gameConfig.player1Deck[j] = *Cards::FindCardByID(deck[j]);
+                gameConfig.player2Deck[j] = *Cards::FindCardByID(deck[j]);
+            }
 
             Game game(gameConfig);
             auto [p1Result, p2Result] = judger.Start(game);

@@ -32,17 +32,17 @@ TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
             enchant->RemoveEffect(enchantment->GetTarget());
         }
 
-        //if (enchantment->IsOneTurnActive())
-        //{
-        //    for (auto& effect : enchant->effects)
-        //    {
-        //        EraseIf(player->game->oneTurnEffects,
-        //                [=](std::pair<Entity*, IEffect*> eff) {
-        //                    return eff.first == enchantment->GetTarget() &&
-        //                           eff.second == effect.get();
-        //                });
-        //    }
-        //}
+        if (enchantment->IsOneTurnActive())
+        {
+            for (auto& effect : enchant->effects)
+            {
+                EraseIf(player->game->oneTurnEffects,
+                        [=](std::pair<Entity*, IEffect*> eff) {
+                            return eff.first == enchantment->GetTarget() &&
+                                   eff.second == effect.get();
+                        });
+            }
+        }
     }
 
     enchantment->Remove();

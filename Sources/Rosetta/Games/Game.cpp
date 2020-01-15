@@ -61,28 +61,28 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     }
 
     // Set up decks
-    //for (auto& card : m_gameConfig.player1Deck)
-    //{
-    //    if (card.id.empty())
-    //    {
-    //        continue;
-    //    }
+    for (auto& card : m_gameConfig.player1Deck)
+    {
+        if (card.id.empty())
+        {
+            continue;
+        }
 
-    //    Playable* playable = Entity::GetFromCard(
-    //        GetPlayer1(), &card, std::nullopt, GetPlayer1()->GetDeckZone());
-    //    GetPlayer1()->GetDeckZone()->Add(playable);
-    //}
-    //for (auto& card : m_gameConfig.player2Deck)
-    //{
-    //    if (card.id.empty())
-    //    {
-    //        continue;
-    //    }
+        Playable* playable = Entity::GetFromCard(
+            GetPlayer1(), &card, std::nullopt, GetPlayer1()->GetDeckZone());
+        GetPlayer1()->GetDeckZone()->Add(playable);
+    }
+    for (auto& card : m_gameConfig.player2Deck)
+    {
+        if (card.id.empty())
+        {
+            continue;
+        }
 
-    //    Playable* playable = Entity::GetFromCard(
-    //        GetPlayer2(), &card, std::nullopt, GetPlayer2()->GetDeckZone());
-    //    GetPlayer2()->GetDeckZone()->Add(playable);
-    //}
+        Playable* playable = Entity::GetFromCard(
+            GetPlayer2(), &card, std::nullopt, GetPlayer2()->GetDeckZone());
+        GetPlayer2()->GetDeckZone()->Add(playable);
+    }
 
     // Fill cards to deck
     if (m_gameConfig.doFillDecks)
