@@ -58,10 +58,10 @@ class Effects
     //! Creates effect that increases attack and health by \p n.
     //! \param n A value indicating how much increases.
     //! \return A dynamically allocated Effects instance.
-    static std::vector<std::unique_ptr<IEffect>> AttackHealthN(int n)
-    {
-        return { AttackN(n), HealthN(n) };
-    }
+    //static std::vector<std::unique_ptr<IEffect>> AttackHealthN(int n)
+    //{
+    //    return { AttackN(n), HealthN(n) };
+    //}
 
     //! Creates effect that sets attack to \p n.
     //! \param n The value to set.
@@ -82,10 +82,10 @@ class Effects
     //! Creates effect that sets attack and health to \p n.
     //! \param n The value to set.
     //! \return A dynamically allocated Effects instance.
-    static std::vector<std::unique_ptr<IEffect>> SetAttackHealth(int n)
-    {
-        return { SetAttack(n), SetMaxHealth(n) };
-    }
+    //static std::vector<std::unique_ptr<IEffect>> SetAttackHealth(int n)
+    //{
+    //    return { SetAttack(n), SetMaxHealth(n) };
+    //}
 
     //! Creates effect that adds cost by \p n.
     //! \param n A value indicating how much add.
