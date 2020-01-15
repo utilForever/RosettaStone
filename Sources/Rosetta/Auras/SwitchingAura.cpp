@@ -14,7 +14,7 @@ namespace RosettaStone
 {
 SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
                              TriggerType offTrigger,
-                             std::vector<std::unique_ptr<IEffect>> effects)
+                             std::vector<std::shared_ptr<IEffect>> effects)
     : Aura(type, std::move(effects)),
       m_initCondition(std::move(initCondition)),
       m_offTrigger(offTrigger)

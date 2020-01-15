@@ -66,7 +66,7 @@ class AdjacentAura : public IAura
 
     Minion* m_owner = nullptr;
     Card* m_enchantmentCard = nullptr;
-    std::vector<std::unique_ptr<IEffect>> m_effects;
+    std::vector<std::shared_ptr<IEffect>> m_effects;
 
     FieldZone* m_fieldZone = nullptr;
     Minion* m_left = nullptr;

@@ -16,7 +16,7 @@
 
 namespace RosettaStone
 {
-Aura::Aura(AuraType type, std::vector<std::unique_ptr<IEffect>> effects)
+Aura::Aura(AuraType type, std::vector<std::shared_ptr<IEffect>> effects)
     : m_type(type), m_effects(std::move(effects))
 {
     // Do nothing

@@ -30,7 +30,7 @@ class SwitchingAura : public Aura
     //! \param effects A list of effect.
     SwitchingAura(AuraType type, SelfCondition initCondition,
                   TriggerType offTrigger,
-                  std::vector<std::unique_ptr<IEffect>> effects);
+                  std::vector<std::shared_ptr<IEffect>> effects);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.

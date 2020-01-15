@@ -25,7 +25,7 @@ class Health : public SelfContainedIntAttr<Health, Entity>
     //! \param effectOp The effect operator of the effect.
     //! \param value The value of the effect.
     //! \return The effect that is dynamically allocated.
-    static std::unique_ptr<IEffect> Effect(EffectOperator effectOp, int value)
+    static std::shared_ptr<IEffect> Effect(EffectOperator effectOp, int value)
     {
         return SelfContainedIntAttr::Effect(effectOp, value);
     }

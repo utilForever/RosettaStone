@@ -21,7 +21,7 @@ class AddAuraEffectTask : public ITask
     //! Constructs task with given \p effect and \p entityType.
     //! \param effect The aura effect to apply.
     //! \param entityType The entity type of target to apply.
-    AddAuraEffectTask(IEffect* effect, EntityType entityType);
+    AddAuraEffectTask(std::shared_ptr<IEffect> effect, EntityType entityType);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,7 +33,7 @@ class AddAuraEffectTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    IEffect* m_effect = nullptr;
+    std::shared_ptr<IEffect> m_effect;
 };
 }  // namespace RosettaStone::SimpleTasks
 

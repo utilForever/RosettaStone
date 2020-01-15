@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-OngoingEnchant::OngoingEnchant(std::vector<std::unique_ptr<IEffect>> effects)
+OngoingEnchant::OngoingEnchant(std::vector<std::shared_ptr<IEffect>> effects)
     : Enchant(std::move(effects))
 {
     // Do nothing

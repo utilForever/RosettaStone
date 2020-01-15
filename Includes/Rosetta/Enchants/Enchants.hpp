@@ -38,17 +38,17 @@ class Enchants
         true);
 
     //! Enchant that adds attack/health and uses script tag.
-    //inline static Enchant AddAttackHealthScriptTag =
-    //    Enchant(Effects::AttackHealthN(0), true);
+    inline static Enchant AddAttackHealthScriptTag =
+        Enchant(Effects::AttackHealthN(0), true);
 
     //! Enchant that sets attack/health and uses script tag.
-    //inline static Enchant SetAttackHealthScriptTag =
-    //    Enchant(Effects::SetAttackHealth(0), true);
+    inline static Enchant SetAttackHealthScriptTag =
+        Enchant(Effects::SetAttackHealth(0), true);
 
     //! Creates enchant from card's text.
     //! \param cardID A card's ID.
     //! \return A newly created enchant from card's text.
-    static std::unique_ptr<Enchant> GetEnchantFromText(
+    static std::shared_ptr<Enchant> GetEnchantFromText(
         const std::string& cardID);
 };
 }  // namespace RosettaStone

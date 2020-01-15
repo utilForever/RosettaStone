@@ -64,7 +64,7 @@ class Power
 
     //! Adds enchant.
     //! \param enchant An enchant to add.
-    void AddEnchant(std::unique_ptr<Enchant> enchant);
+    void AddEnchant(std::shared_ptr<Enchant> enchant);
 
     //! Adds trigger.
     //! \param trigger An trigger to add.
@@ -84,7 +84,7 @@ class Power
 
  private:
     IAura* m_aura = nullptr;
-    std::unique_ptr<Enchant> m_enchant;
+    std::shared_ptr<Enchant> m_enchant;
     Trigger* m_trigger = nullptr;
 
     std::vector<ITask*> m_powerTask;

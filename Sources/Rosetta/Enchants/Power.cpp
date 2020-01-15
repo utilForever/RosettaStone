@@ -6,6 +6,8 @@
 
 #include <Rosetta/Enchants/Power.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
 void Power::RefCopy(const Power& rhs)
@@ -64,7 +66,7 @@ void Power::AddAura(IAura* aura)
     m_aura = aura;
 }
 
-void Power::AddEnchant(std::unique_ptr<Enchant> enchant)
+void Power::AddEnchant(std::shared_ptr<Enchant> enchant)
 {
     m_enchant = std::move(enchant);
 }

@@ -43,18 +43,16 @@ class Enchant
     //! \param effect The effect of the card.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    explicit Enchant(std::unique_ptr<IEffect> effect,
-                     bool _useScriptTag = false,
-                     bool _isOneTurnEffect = false);
+    explicit Enchant(const std::shared_ptr<IEffect>& effect,
+                     bool _useScriptTag = false, bool _isOneTurnEffect = false);
 
     //! Constructs enchant with given \p _effects, \p _useScriptTag and
     //! \p _isOneTurnEffect.
     //! \param _effects A list of effect.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    explicit Enchant(std::vector<std::unique_ptr<IEffect>> _effects,
-                     bool _useScriptTag = false,
-                     bool _isOneTurnEffect = false);
+    explicit Enchant(std::vector<std::shared_ptr<IEffect>> _effects,
+                     bool _useScriptTag = false, bool _isOneTurnEffect = false);
 
     //! Activates enchant to \p entity.
     //! \param entity An entity to which enchant is activated.
@@ -66,7 +64,7 @@ class Enchant
 
     void RemoveEffect(Entity* target, int num1, int num2);
 
-    std::vector<std::unique_ptr<IEffect>> effects;
+    std::vector<std::shared_ptr<IEffect>> effects;
 
     bool useScriptTag = false;
     bool isOneTurnEffect = false;

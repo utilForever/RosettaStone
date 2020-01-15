@@ -31,7 +31,7 @@ class SelfContainedIntAttr : public IntAttr<TargetT>
     //! \param effectOp The effect operator of the generic effect.
     //! \param value The value of the generic effect.
     //! \return The generic effect that is dynamically allocated.
-    static std::unique_ptr<GenericEffect<TargetT, SelfT>> Effect(
+    static std::shared_ptr<GenericEffect<TargetT, SelfT>> Effect(
         EffectOperator effectOp, int value)
     {
         if (m_singleton == nullptr)
@@ -39,7 +39,7 @@ class SelfContainedIntAttr : public IntAttr<TargetT>
             m_singleton = new SelfT();
         }
 
-        return std::make_unique<GenericEffect<TargetT, SelfT>>(m_singleton,
+        return std::make_shared<GenericEffect<TargetT, SelfT>>(m_singleton,
                                                                effectOp, value);
     }
 

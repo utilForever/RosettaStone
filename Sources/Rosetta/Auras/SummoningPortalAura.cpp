@@ -12,7 +12,7 @@
 namespace RosettaStone
 {
 SummoningPortalAura::SummoningPortalAura()
-    : Aura(AuraType::HAND, std::vector<std::unique_ptr<IEffect>>{})
+    : Aura(AuraType::HAND, std::vector<std::shared_ptr<IEffect>>{})
 {
     // Do nothing
 }
