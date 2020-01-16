@@ -17,6 +17,11 @@ int CostManager::GetCost(int cost)
     return finalCost > 0 ? finalCost : 0;
 }
 
+void CostManager::QueueUpdate()
+{
+    m_toBeUpdated = true;
+}
+
 void CostManager::AddCostAura(EffectOperator effectOp, int value)
 {
     m_costEffects.emplace_back(std::make_pair(effectOp, value));

@@ -30,6 +30,9 @@ class CostManager
     //! \return The final value of the cost.
     int GetCost(int cost);
 
+    //! Queues the update.
+    void QueueUpdate();
+
     //! Adds the aura that affects the cost.
     //! \param effectOp The effect operator to affect the cost value.
     //! \param value The value to affect the cost value.

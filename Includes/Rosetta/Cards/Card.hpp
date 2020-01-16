@@ -74,6 +74,10 @@ class Card
     //! \return The value of rarity.
     Rarity GetRarity() const;
 
+    //! Returns the value of cost.
+    //! \return The value of cost.
+    int GetCost() const;
+
     //! Finds out if this card has game tag.
     //! \param gameTag The game tag of card.
     //! \return true if this card has game tag, and false otherwise.
@@ -82,6 +86,10 @@ class Card
     //! Returns the flag that indicates whether it is untouchable.
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
+
+    //! Returns the flag that indicates whether it is secret card.
+    //! \return The flag that indicates whether it is secret card.
+    bool IsSecret() const;
 
     //! Returns the flag that indicates whether it is collectible.
     //! \return The flag that indicates whether it is collectible.

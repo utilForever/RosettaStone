@@ -11,21 +11,22 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FilterStackTask::FilterStackTask(SelfCondition selfCondition)
-    : m_selfCondition(new SelfCondition(std::move(selfCondition)))
+FilterStackTask::FilterStackTask(std::vector<SelfCondition*> selfConditions)
+    : m_selfConditions(std::move(selfConditions))
 {
     // Do nothing
 }
 
-FilterStackTask::FilterStackTask(EntityType type, RelaCondition relaCondition)
-    : ITask(type), m_relaCondition(new RelaCondition(std::move(relaCondition)))
+FilterStackTask::FilterStackTask(EntityType type,
+                                 std::vector<RelaCondition*> relaConditions)
+    : ITask(type), m_relaConditions(std::move(relaConditions))
 {
     // Do nothing
 }
 
 TaskStatus FilterStackTask::Impl(Player* player)
 {
-    if (m_relaCondition != nullptr)
+    if (!m_relaConditions.empty())
     {
         auto entities =
             IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
@@ -37,27 +38,41 @@ TaskStatus FilterStackTask::Impl(Player* player)
         std::vector<Playable*> filtered;
         filtered.reserve(entities.size());
 
-        for (auto& entity : player->game->taskStack.playables)
+        for (auto& playable : player->game->taskStack.playables)
         {
-            if (m_relaCondition->Evaluate(entities[0], entity))
+            bool flag = true;
+
+            for (auto& condition : m_relaConditions)
             {
-                filtered.emplace_back(entity);
+                flag = flag && condition->Evaluate(entities[0], playable);
+            }
+
+            if (flag)
+            {
+                filtered.emplace_back(playable);
             }
         }
 
         player->game->taskStack.playables = filtered;
     }
 
-    if (m_selfCondition != nullptr)
+    if (!m_selfConditions.empty())
     {
         std::vector<Playable*> filtered;
         filtered.reserve(player->game->taskStack.playables.size());
 
-        for (auto& entity : player->game->taskStack.playables)
+        for (auto& playable : player->game->taskStack.playables)
         {
-            if (m_selfCondition->Evaluate(entity))
+            bool flag = true;
+
+            for (auto& condition : m_selfConditions)
             {
-                filtered.emplace_back(entity);
+                flag = flag && condition->Evaluate(playable);
+            }
+
+            if (flag)
+            {
+                filtered.emplace_back(playable);
             }
         }
 
@@ -69,14 +84,14 @@ TaskStatus FilterStackTask::Impl(Player* player)
 
 ITask* FilterStackTask::CloneImpl()
 {
-    if (m_selfCondition != nullptr)
+    if (!m_selfConditions.empty())
     {
-        return new FilterStackTask(*m_selfCondition);
+        return new FilterStackTask(m_selfConditions);
     }
 
-    if (m_relaCondition != nullptr)
+    if (!m_relaConditions.empty())
     {
-        return new FilterStackTask(m_entityType, *m_relaCondition);
+        return new FilterStackTask(m_entityType, m_relaConditions);
     }
 
     return nullptr;

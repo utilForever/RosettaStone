@@ -75,7 +75,8 @@ endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		/MP           # -> build with multiple processes
-		/W4           # -> warning level 3
+		/W4           # -> warning level 4
+		/bigobj       # -> number of sections exceeded object file format limit
 		${WARN_AS_ERROR_FLAGS}
 
 		/wd4251       # -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2' (caused by Torch)
@@ -97,6 +98,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/wd4146       # -> disable warning: unary minus operator applied to unsigned type, result still unsigned (caused by Torch)
 		/wd4245       # -> disable warning: conversion from 'int' to 'uint64_t', signed/unsigned mismatch (caused by Torch)
 		/wd4702       # -> disable warning: unreachable code (caused by Torch)
+		/wd4189       # -> disable warning: local variable is initialized but not referenced (caused by tiny-dnn)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
@@ -120,6 +122,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 		-Wno-missing-braces
 		-Wno-register			# -> disable warning: ISO c++1z does not allow 'register' storage class specifier [-wregister] (caused by pybind11/python2.7)
         -Wno-error=register		# -> disable warning: ISO c++1z does not allow 'register' storage class specifier [-wregister] (caused by pybind11/python2.7)
+		-Wno-unused-variable    # -> disable warning: error: unused variable 'curr_delta' [-Werror=unused-variable] (caused by tiny-dnn)
 
 		${WARN_AS_ERROR_FLAGS}
 		-std=c++1z
@@ -129,6 +132,7 @@ endif ()
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wno-int-in-bool-context
+		-Wno-class-memaccess	# -> disable warning: error: 'void* memcpy(void*, const void*, size_t)' ... [-Werror=class-memaccess] (caused by tiny-dnn)
 	)
 endif ()
 
@@ -137,6 +141,9 @@ endif ()
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-fsized-deallocation
+		-Wno-return-std-move			# -> disable warning: error: local variable 'in' will be copied despite being returned by name (caused by tiny-dnn)
+		-Wno-delete-non-virtual-dtor	# -> disable warning: error: destructor called on non-final 'tiny_dnn::weight_init::xavier' that has virtual functions but non-virtual destructor (caused by tiny-dnn)
+		-Wno-unused-private-field		# -> disable warning: error: private field 'itsValueItEnd' is not used (caused by tiny-dnn)
 	)
 endif ()
 

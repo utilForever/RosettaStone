@@ -41,9 +41,11 @@ enum class EntityType
     MINIONS,
     MINIONS_NOSOURCE,
     ENEMY_MINIONS,
+    ENEMY_SECRETS,
     STACK,
     PLAYER,
-    ENEMY_PLAYER
+    ENEMY_PLAYER,
+    EVENT_SOURCE
 };
 
 //! \brief An enumerator for evaluating the relation between primitive values

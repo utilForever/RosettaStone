@@ -98,7 +98,7 @@ nlohmann::json JSONSerializer::SerializeHero(const Hero& hero)
 {
     nlohmann::json obj;
 
-    obj["card_id"] = hero.card->id;
+    obj["card_id"] = hero.card->dbfID;
     obj["health"] = hero.GetHealth();
     obj["max_health"] = hero.GetMaxHealth();
     obj["attack"] = hero.GetAttack();
@@ -111,7 +111,7 @@ nlohmann::json JSONSerializer::SerializeHeroPower(const HeroPower& heroPower)
 {
     nlohmann::json obj;
 
-    obj["card_id"] = heroPower.card->id;
+    obj["card_id"] = heroPower.card->dbfID;
     obj["usable"] = !heroPower.IsExhausted();
 
     return obj;
@@ -121,7 +121,7 @@ nlohmann::json JSONSerializer::SerializeWeapon(const Weapon& weapon)
 {
     nlohmann::json obj;
 
-    obj["card_id"] = weapon.card->id;
+    obj["card_id"] = weapon.card->dbfID;
     obj["attack"] = weapon.GetAttack();
     obj["durability"] = weapon.GetDurability();
 
@@ -189,7 +189,7 @@ nlohmann::json JSONSerializer::SerializeHandCard(const Playable& handCard)
 {
     nlohmann::json obj;
 
-    obj["card_id"] = handCard.card->id;
+    obj["card_id"] = handCard.card->dbfID;
     obj["cost"] = const_cast<Playable&>(handCard).GetCost();
 
     return obj;
@@ -199,7 +199,7 @@ nlohmann::json JSONSerializer::SerializeMinion(const Minion& minion)
 {
     nlohmann::json obj;
 
-    obj["card_id"] = minion.card->id;
+    obj["card_id"] = minion.card->dbfID;
     obj["cost"] = const_cast<Minion&>(minion).GetCost();
     obj["attack"] = minion.GetAttack();
     obj["health"] = minion.GetHealth();
@@ -215,7 +215,7 @@ nlohmann::json JSONSerializer::SerializeSecret(const Spell& secret)
 {
     nlohmann::json obj;
 
-    obj["card_id"] = secret.card->id;
+    obj["card_id"] = secret.card->dbfID;
 
     return obj;
 }

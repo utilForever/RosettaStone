@@ -12,22 +12,22 @@
 namespace RosettaStone::SimpleTasks
 {
 ConditionTask::ConditionTask(EntityType entityType,
-                             std::vector<SelfCondition> selfConditions)
+                             std::vector<SelfCondition*> selfConditions)
     : ITask(entityType), m_selfConditions(std::move(selfConditions))
 {
     // Do nothing
 }
 
 ConditionTask::ConditionTask(EntityType entityType,
-                             std::vector<RelaCondition> relaConditions)
+                             std::vector<RelaCondition*> relaConditions)
     : ITask(entityType), m_relaConditions(std::move(relaConditions))
 {
     // Do nothing
 }
 
 ConditionTask::ConditionTask(EntityType entityType,
-                             std::vector<SelfCondition> selfConditions,
-                             std::vector<RelaCondition> relaConditions)
+                             std::vector<SelfCondition*> selfConditions,
+                             std::vector<RelaCondition*> relaConditions)
     : ITask(entityType),
       m_selfConditions(std::move(selfConditions)),
       m_relaConditions(std::move(relaConditions))
@@ -50,13 +50,13 @@ TaskStatus ConditionTask::Impl(Player* player)
     {
         for (auto& condition : m_selfConditions)
         {
-            flag = flag && condition.Evaluate(playable);
+            flag = flag && condition->Evaluate(playable);
         }
 
         for (auto& condition : m_relaConditions)
         {
-            flag = flag && condition.Evaluate(dynamic_cast<Playable*>(m_source),
-                                              playable);
+            flag = flag && condition->Evaluate(
+                               dynamic_cast<Playable*>(m_source), playable);
         }
     }
 

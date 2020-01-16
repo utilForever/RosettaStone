@@ -567,28 +567,28 @@ TEST(AttackTask, Freeze)
     opField[1]->SetGameTag(GameTag::FREEZE, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(curPlayer, AttackTask(curField[1], opField[1]));
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[1]->IsFrozen(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[1]->IsFrozen(), true);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(curField[1]->IsFrozen(), true);
+    EXPECT_EQ(opField[0]->IsFrozen(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(curField[1]->IsFrozen(), false);
+    EXPECT_EQ(opField[0]->IsFrozen(), false);
 }
 
 TEST(AttackTask, Silence)

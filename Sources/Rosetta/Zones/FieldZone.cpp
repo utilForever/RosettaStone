@@ -129,9 +129,9 @@ void FieldZone::ActivateAura(Minion* entity)
 
 void FieldZone::RemoveAura(Minion* entity)
 {
-    if (entity->onGoingEffect != nullptr)
+    if (entity->ongoingEffect != nullptr)
     {
-        entity->onGoingEffect->Remove();
+        entity->ongoingEffect->Remove();
     }
 
     const int spellPower = entity->GetGameTag(GameTag::SPELLPOWER);

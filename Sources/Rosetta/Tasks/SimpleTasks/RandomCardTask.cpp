@@ -1,3 +1,8 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
@@ -9,28 +14,25 @@ using Random = effolkronium::random_static;
 namespace RosettaStone::SimpleTasks
 {
 RandomCardTask::RandomCardTask(EntityType entityType, bool opposite)
-    : ITask(entityType),
-      m_cardType(CardType::INVALID),
-      m_cardClass(CardClass::INVALID),
-      m_race(Race::INVALID),
-      m_opposite(opposite)
+    : ITask(entityType), m_opposite(opposite)
 {
     // Do nothing
 }
 
 RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
-                               Race race, bool opposite)
+                               Race race, Rarity rarity, bool opposite)
     : m_cardType(cardType),
       m_cardClass(cardClass),
       m_race(race),
+      m_rarity(rarity),
       m_opposite(opposite)
 {
     // Do nothing
 }
 
 std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
-                                               CardClass cardClass,
-                                               Race race) const
+                                               CardClass cardClass, Race race,
+                                               Rarity rarity) const
 {
     std::vector<Card*> result;
     const auto cards = m_source->game->GetFormatType() == FormatType::STANDARD
@@ -43,7 +45,8 @@ std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
              cardType == card->GetCardType()) &&
             (cardClass == CardClass::INVALID ||
              cardClass == card->GetCardClass()) &&
-            (race == Race::INVALID || race == card->GetRace()))
+            (race == Race::INVALID || race == card->GetRace()) &&
+            (rarity == Rarity::INVALID || rarity == card->GetRarity()))
         {
             result.emplace_back(card);
         }
@@ -72,22 +75,26 @@ TaskStatus RandomCardTask::Impl(Player* player)
                 "RandomCardTask::Impl() - Invalid entity type");
     }
 
-    auto cardsList = GetCardList(m_cardType, cardClass, m_race);
+    auto cardsList = GetCardList(m_cardType, cardClass, m_race, m_rarity);
     if (cardsList.empty())
     {
         return TaskStatus::STOP;
     }
 
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
-    auto randomCard = Entity::GetFromCard(
-        m_opposite ? player->opponent : player, cardsList.at(idx));
-    player->game->taskStack.playables.emplace_back(randomCard);
+    auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
+                                    cardsList.at(idx));
+    player->game->taskStack.playables.emplace_back(card);
 
     return TaskStatus::COMPLETE;
 }
 
 ITask* RandomCardTask::CloneImpl()
 {
-    return new RandomCardTask(m_cardType, m_cardClass, m_race);
+    auto clonedTask = new RandomCardTask(m_cardType, m_cardClass, m_race,
+                                         m_rarity, m_opposite);
+    clonedTask->m_entityType = m_entityType;
+
+    return clonedTask;
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -7,7 +7,7 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
-#include <Rosetta/Loaders/PowerLoader.hpp>
+#include <Rosetta/Loaders/InternalCardLoader.hpp>
 
 namespace RosettaStone
 {
@@ -16,8 +16,15 @@ std::vector<Card*> Cards::m_cards;
 
 Cards::Cards()
 {
+    m_cards.reserve(8303);
+
     CardLoader::Load(m_cards);
-    PowerLoader::Load(m_cards);
+    InternalCardLoader::Load(m_cards);
+
+    for (Card* card : m_cards)
+    {
+        card->Initialize();
+    }
 }
 
 Cards::~Cards()
@@ -73,7 +80,7 @@ std::vector<Card*> Cards::GetAllWildCards()
     return result;
 }
 
-Card* Cards::FindCardByID(const std::string& id)
+Card* Cards::FindCardByID(const std::string_view& id)
 {
     for (Card* card : m_cards)
     {
@@ -174,11 +181,11 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
     return result;
 }
 
-Card* Cards::FindCardByName(const std::string& name)
+Card* Cards::FindCardByName(const std::string_view& name)
 {
     for (Card* card : m_cards)
     {
-        if (card->name == name)
+        if (card->name == name && card->IsCollectible())
         {
             return card;
         }

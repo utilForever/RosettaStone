@@ -11,10 +11,10 @@
 namespace RosettaStone::Generic
 {
 //! Summons an minion on battlefield.
-//! \param player The player to summon an minion on battlefield.
 //! \param minion An minion to summon.
 //! \param fieldPos The position of minion to summon.
-void Summon(Player* player, Minion* minion, int fieldPos);
+//! \param summoner The summoner of minion.
+void Summon(Minion* minion, int fieldPos, Entity* summoner);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_SUMMON_HPP

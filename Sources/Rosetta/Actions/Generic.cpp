@@ -5,7 +5,9 @@
 
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
@@ -21,6 +23,17 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     if (isSpellDamage)
     {
         amount += static_cast<int>(source->player->currentSpellPower);
+
+        if (const auto value = source->player->playerAuraEffects.GetValue(
+                GameTag::SPELLPOWER_DOUBLE);
+            value > 0)
+        {
+            amount *= static_cast<int>(std::pow(2.0, value));
+        }
+    }
+    else if (dynamic_cast<HeroPower*>(source))
+    {
+        // TODO: Process GameTag::HEROPOWER_DAMAGE
     }
 
     target->TakeDamage(source, amount);
@@ -43,6 +56,19 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
                     int num1, int num2)
 {
     Power power = enchantmentCard->power;
+
+    const auto playable = dynamic_cast<Playable*>(target);
+    if (playable)
+    {
+        if (auto ongoingEnchant =
+                dynamic_cast<OngoingEnchant*>(playable->ongoingEffect);
+            dynamic_cast<OngoingEnchant*>(power.GetEnchant()) && ongoingEnchant)
+        {
+            // Increment the count of existing OngoingEnchant
+            ongoingEnchant->SetCount(ongoingEnchant->GetCount() + 1);
+            return;
+        }
+    }
 
     if (power.GetAura() != nullptr || power.GetTrigger() != nullptr ||
         !power.GetDeathrattleTask().empty())

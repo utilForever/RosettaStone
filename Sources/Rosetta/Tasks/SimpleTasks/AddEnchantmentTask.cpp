@@ -26,8 +26,8 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
     int num1 = 0, num2 = 0;
     if (m_useScriptTag)
     {
-        num1 = m_source->game->taskStack.num;
-        num2 = m_source->game->taskStack.num1;
+        num1 = m_source->game->taskStack.num[0];
+        num2 = m_source->game->taskStack.num[1];
     }
 
     const auto source = dynamic_cast<Playable*>(m_source);

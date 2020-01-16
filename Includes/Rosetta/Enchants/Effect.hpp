@@ -7,6 +7,7 @@
 #define ROSETTASTONE_EFFECT_HPP
 
 #include <Rosetta/Enchants/IEffect.hpp>
+#include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 
 namespace RosettaStone
@@ -58,6 +59,10 @@ class Effect : public IEffect
     //! \param isOneTurnEffect Whether effect lasts only one turn.
     void ApplyTo(Entity* entity, bool isOneTurnEffect = false) const override;
 
+    //! Applies effect to the target player as an aura effect.
+    //! \param auraEffects The player aura effects.
+    void ApplyTo(PlayerAuraEffects& auraEffects) const;
+
     //! Applies aura effect to the target entity.
     //! \param entity An entity to which aura effect is applied.
     void ApplyAuraTo(Entity* entity) const override;
@@ -65,6 +70,10 @@ class Effect : public IEffect
     //! Removes effect from the target entity.
     //! \param entity An entity to which effect is removed.
     void RemoveFrom(Entity* entity) const override;
+
+    //! Removes effect from the target player as an aura effect.
+    //! \param auraEffects The player aura effects.
+    void RemoveFrom(PlayerAuraEffects& auraEffects) const;
 
     //! Removes aura effect from the target entity.
     //! \param entity An entity to which aura effect is removed.

@@ -20,10 +20,10 @@ TaskStatus GetEventNumberTask::Impl(Player* player)
     switch (m_numIndex)
     {
         case 0:
-            player->game->taskStack.num = data ? data->eventNumber : 0;
+            player->game->taskStack.num[0] = data ? data->eventNumber : 0;
             break;
         case 1:
-            player->game->taskStack.num1 = data ? data->eventNumber : 0;
+            player->game->taskStack.num[1] = data ? data->eventNumber : 0;
             break;
         default:
             throw std::invalid_argument(

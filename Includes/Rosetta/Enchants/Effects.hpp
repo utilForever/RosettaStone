@@ -101,6 +101,14 @@ class Effects
         return Cost::Effect(EffectOperator::SUB, n);
     }
 
+    //! Creates effect that sets cost to \p n.
+    //! \param n A value indicating how much set.
+    //! \return A dynamically allocated Effect instance.
+    static IEffect* SetCost(int n)
+    {
+        return Cost::Effect(EffectOperator::SET, n);
+    }
+
     //! A minion ability which forces the opposing player to direct any
     //! melee attacks toward enemy targets with this ability.
     inline static IEffect* Taunt =

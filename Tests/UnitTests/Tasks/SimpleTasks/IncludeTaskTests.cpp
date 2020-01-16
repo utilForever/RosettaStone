@@ -11,6 +11,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace SimpleTasks;
@@ -43,6 +44,14 @@ TEST(IncludeTask, Run_NonConst)
         Entity::GetFromCard(player2, Cards::FindCardByName("Arcanite Reaper")));
     player2->GetHero()->AddWeapon(*weapon2);
 
+    const auto secret1 =
+        Entity::GetFromCard(player1, Cards::FindCardByName("Ice Barrier"));
+    player1->GetSecretZone()->Add(secret1);
+
+    const auto secret2 =
+        Entity::GetFromCard(player2, Cards::FindCardByName("Repentance"));
+    player2->GetSecretZone()->Add(secret2);
+
     for (std::size_t i = 0; i < 6; ++i)
     {
         Playable* playable1 =
@@ -54,7 +63,7 @@ TEST(IncludeTask, Run_NonConst)
     for (std::size_t i = 0; i < 4; ++i)
     {
         Playable* playable2 =
-            Entity::GetFromCard(player2, Cards::FindCardByName("Worthless Imp"),
+            Entity::GetFromCard(player2, Cards::FindCardByName("Wisp"),
                                 std::nullopt, player2->GetFieldZone());
         player2->GetFieldZone()->Add(playable2);
     }
@@ -67,7 +76,7 @@ TEST(IncludeTask, Run_NonConst)
     const auto entities2 = IncludeTask::GetEntities(EntityType::TARGET, player1,
                                                     nullptr, player2Field[0]);
     EXPECT_EQ(entities2.size(), 1u);
-    EXPECT_EQ(entities2[0]->card->name, "Worthless Imp");
+    EXPECT_EQ(entities2[0]->card->name, "Wisp");
 
     const auto entities3 = IncludeTask::GetEntities(EntityType::ALL, player1);
     EXPECT_EQ(entities3.size(), 12u);
@@ -150,8 +159,22 @@ TEST(IncludeTask, Run_NonConst)
     EXPECT_EQ(entities20.size(), 4u);
 
     const auto entities21 =
+        IncludeTask::GetEntities(EntityType::ENEMY_SECRETS, player1);
+    EXPECT_EQ(entities21.size(), 1u);
+
+    const auto entities22 =
         IncludeTask::GetEntities(EntityType::STACK, player1);
-    EXPECT_EQ(entities21.size(), 0u);
+    EXPECT_EQ(entities22.size(), 0u);
+
+    auto& p1Field = *(player1->GetFieldZone());
+    auto& p2Field = *(player2->GetFieldZone());
+    game.currentEventData = new EventMetaData(p1Field[0], p2Field[0]);
+
+    const auto entities23 =
+        IncludeTask::GetEntities(EntityType::EVENT_SOURCE, player1);
+    EXPECT_EQ(entities23.size(), 1u);
+
+    delete game.currentEventData;
 
     EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);
@@ -185,6 +208,14 @@ TEST(IncludeTask, Run_Const)
                             Cards::FindCardByName("Arcanite Reaper")));
     player2->GetHero()->AddWeapon(*weapon2);
 
+    const auto secret1 = Entity::GetFromCard(
+        const_cast<Player*>(player1), Cards::FindCardByName("Ice Barrier"));
+    player1->GetSecretZone()->Add(secret1);
+
+    const auto secret2 = Entity::GetFromCard(
+        const_cast<Player*>(player2), Cards::FindCardByName("Repentance"));
+    player2->GetSecretZone()->Add(secret2);
+
     std::vector<Card> player1Cards, player2Cards;
     player1Cards.reserve(6);
     player2Cards.reserve(4);
@@ -199,10 +230,9 @@ TEST(IncludeTask, Run_Const)
 
     for (std::size_t i = 0; i < 4; ++i)
     {
-        Playable* playable2 =
-            Entity::GetFromCard(const_cast<Player*>(player2),
-                                Cards::FindCardByName("Worthless Imp"),
-                                std::nullopt, player2->GetFieldZone());
+        Playable* playable2 = Entity::GetFromCard(
+            const_cast<Player*>(player2), Cards::FindCardByName("Wisp"),
+            std::nullopt, player2->GetFieldZone());
         player2->GetFieldZone()->Add(playable2);
     }
 
@@ -214,7 +244,7 @@ TEST(IncludeTask, Run_Const)
     const auto entities2 = IncludeTask::GetEntities(EntityType::TARGET, player1,
                                                     nullptr, player2Field[0]);
     EXPECT_EQ(entities2.size(), 1u);
-    EXPECT_EQ(entities2[0]->card->name, "Worthless Imp");
+    EXPECT_EQ(entities2[0]->card->name, "Wisp");
 
     const auto entities3 = IncludeTask::GetEntities(EntityType::ALL, player1);
     EXPECT_EQ(entities3.size(), 12u);
@@ -297,8 +327,22 @@ TEST(IncludeTask, Run_Const)
     EXPECT_EQ(entities20.size(), 4u);
 
     const auto entities21 =
+        IncludeTask::GetEntities(EntityType::ENEMY_SECRETS, player1);
+    EXPECT_EQ(entities21.size(), 1u);
+
+    const auto entities22 =
         IncludeTask::GetEntities(EntityType::STACK, player1);
-    EXPECT_EQ(entities21.size(), 0u);
+    EXPECT_EQ(entities22.size(), 0u);
+
+    auto& p1Field = *(player1->GetFieldZone());
+    auto& p2Field = *(player2->GetFieldZone());
+    game.currentEventData = new EventMetaData(p1Field[0], p2Field[0]);
+
+    const auto entities23 =
+        IncludeTask::GetEntities(EntityType::EVENT_SOURCE, player1);
+    EXPECT_EQ(entities23.size(), 1u);
+
+    delete game.currentEventData;
 
     EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);

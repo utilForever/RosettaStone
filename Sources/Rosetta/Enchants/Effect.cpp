@@ -46,6 +46,34 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
     }
 }
 
+void Effect::ApplyTo(PlayerAuraEffects& auraEffects) const
+{
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value + m_value);
+            break;
+        }
+        case EffectOperator::SUB:
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value - m_value);
+            break;
+        }
+        case EffectOperator::SET:
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value + m_value);
+            break;
+        }
+        default:
+            throw std::invalid_argument(
+                "Effect::ApplyTo() - Invalid effect operator!");
+    }
+}
+
 void Effect::ApplyAuraTo(Entity* entity) const
 {
     AuraEffects* auraEffects = entity->auraEffects;
@@ -99,6 +127,34 @@ void Effect::RemoveFrom(Entity* entity) const
         case EffectOperator::SET:
             entity->SetGameTag(m_gameTag, 0);
             break;
+        default:
+            throw std::invalid_argument(
+                "Effect::RemoveFrom() - Invalid effect operator!");
+    }
+}
+
+void Effect::RemoveFrom(PlayerAuraEffects& auraEffects) const
+{
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value - m_value);
+            break;
+        }
+        case EffectOperator::SUB:
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value + m_value);
+            break;
+        }
+        case EffectOperator::SET:
+        {
+            const int value = auraEffects.GetValue(m_gameTag);
+            auraEffects.SetValue(m_gameTag, value - m_value);
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "Effect::RemoveFrom() - Invalid effect operator!");

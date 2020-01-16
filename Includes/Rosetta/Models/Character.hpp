@@ -21,11 +21,12 @@ class Player;
 class Character : public Playable
 {
  public:
-    //! Constructs character with given \p player, \p card and \p tags.
+    //! Constructs character with given \p player, \p card, \p tags and \p id.
     //! \param player The owner of the card.
     //! \param card The card.
     //! \param tags The game tags.
-    Character(Player* player, Card* card, std::map<GameTag, int> tags);
+    //! \param id The ID.
+    Character(Player* player, Card* card, std::map<GameTag, int> tags, int id);
 
     //! Default destructor.
     ~Character() = default;
@@ -107,6 +108,10 @@ class Character : public Playable
     //! \return The flag that indicates whether it is immune.
     bool IsImmune() const;
 
+    //! Returns the flag that indicates whether it is frozen.
+    //! \return The flag that indicates whether it is frozen.
+    bool IsFrozen() const;
+
     //! Returns the flag that indicates whether it has taunt.
     //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;
@@ -148,6 +153,10 @@ class Character : public Playable
     //! \param source An entity to give heal.
     //! \param heal The value of heal.
     void TakeHeal(Playable* source, int heal);
+
+    //! Copies internal attributes to \p copy.
+    //! \param copy The copied character to assign attributes.
+    void CopyInternalAttributes(Character* copy) const;
 
     std::function<void(Entity*)> preDamageTrigger;
     std::function<void(Entity*)> takeDamageTrigger;

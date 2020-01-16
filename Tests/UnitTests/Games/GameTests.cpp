@@ -314,10 +314,13 @@ TEST(Game, PerformAction)
     }
 
     EXPECT_EQ(game.state, State::COMPLETE);
-    EXPECT_TRUE(game.GetPlayer1()->playState == PlayState::WON ||
-                game.GetPlayer1()->playState == PlayState::LOST);
-    EXPECT_TRUE(game.GetPlayer2()->playState == PlayState::WON ||
-                game.GetPlayer2()->playState == PlayState::LOST);
+
+    const PlayState p1State = game.GetPlayer1()->playState;
+    const PlayState p2State = game.GetPlayer2()->playState;
+    EXPECT_TRUE(p1State == PlayState::WON || p1State == PlayState::LOST ||
+                p1State == PlayState::TIED);
+    EXPECT_TRUE(p2State == PlayState::WON || p2State == PlayState::LOST ||
+                p2State == PlayState::TIED);
 }
 
 TEST(Game, CreateView)

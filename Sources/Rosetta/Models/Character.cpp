@@ -7,6 +7,7 @@
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
@@ -14,8 +15,8 @@
 
 namespace RosettaStone
 {
-Character::Character(Player* player, Card* card, std::map<GameTag, int> tags)
-    : Playable(player, card, std::move(tags))
+Character::Character(Player* player, Card* card, std::map<GameTag, int> tags, int id)
+    : Playable(player, card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -117,6 +118,11 @@ bool Character::IsImmune() const
     return static_cast<bool>(GetGameTag(GameTag::IMMUNE));
 }
 
+bool Character::IsFrozen() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::FROZEN));
+}
+
 bool Character::HasTaunt() const
 {
     return static_cast<bool>(GetGameTag(GameTag::TAUNT));
@@ -141,7 +147,7 @@ bool Character::CanAttack() const
     }
 
     // If the character is frozen, returns false
-    if (GetGameTag(GameTag::FROZEN) == 1)
+    if (IsFrozen())
     {
         return false;
     }
@@ -296,6 +302,20 @@ void Character::TakeFullHeal(Playable* source)
 
 void Character::TakeHeal(Playable* source, int heal)
 {
+    if (const auto value = source->player->playerAuraEffects.GetValue(
+            GameTag::SPELL_HEALING_DOUBLE);
+        (dynamic_cast<Spell*>(source) || dynamic_cast<HeroPower*>(source)) &&
+        value > 0)
+    {
+        heal *= static_cast<int>(std::pow(2.0, value));
+    }
+
+    if (source->player->IsHealingDoesDamage())
+    {
+        TakeDamage(source, heal);
+        return;
+    }
+
     if (GetDamage() == 0)
     {
         return;
@@ -308,5 +328,20 @@ void Character::TakeHeal(Playable* source, int heal)
     game->triggerManager.OnHealTrigger(this);
     game->ProcessTasks();
     game->taskQueue.EndEvent();
+}
+
+void Character::CopyInternalAttributes(Character* copy) const
+{
+    copy->SetAttack(GetAttack());
+    copy->SetMaxHealth(GetMaxHealth());
+    copy->SetDamage(GetDamage());
+    copy->SetNumAttacksThisTurn(GetNumAttacksThisTurn());
+    copy->SetGameTag(GameTag::STEALTH, GetGameTag(GameTag::STEALTH));
+    copy->SetGameTag(GameTag::IMMUNE, GetGameTag(GameTag::IMMUNE));
+    copy->SetGameTag(GameTag::TAUNT, GetGameTag(GameTag::TAUNT));
+    copy->SetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS,
+                     GetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS));
+    copy->SetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS,
+                     GetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS));
 }
 }  // namespace RosettaStone

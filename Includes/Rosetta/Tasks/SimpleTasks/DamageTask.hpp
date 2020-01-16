@@ -18,12 +18,21 @@ namespace RosettaStone::SimpleTasks
 class DamageTask : public ITask
 {
  public:
-    //! Constructs task with given \p character and \p damage.
+    //! Constructs task with given \p character, \p damage and \p isSpellDamage.
     //! \param entityType The entity type of target to take damage.
     //! \param damage A value indicating how much to take.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.
     DamageTask(EntityType entityType, std::size_t damage,
                bool isSpellDamage = false);
+
+    //! Constructs task with given \p character, \p damage, \p randomDamage and
+    //! \p isSpellDamage.
+    //! \param entityType The entity type of target to take damage.
+    //! \param damage A value indicating how much to take.
+    //! \param randomDamage A random value indicating how much to take.
+    //! \param isSpellDamage true if it is spell damage, and false otherwise.
+    DamageTask(EntityType entityType, std::size_t damage,
+               std::size_t randomDamage, bool isSpellDamage = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -36,6 +45,7 @@ class DamageTask : public ITask
     ITask* CloneImpl() override;
 
     std::size_t m_damage = 0;
+    std::size_t m_randomDamage = 0;
     bool m_isSpellDamage = false;
 };
 }  // namespace RosettaStone::SimpleTasks

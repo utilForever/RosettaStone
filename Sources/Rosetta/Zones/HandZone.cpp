@@ -4,13 +4,16 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
 namespace RosettaStone
 {
-HandZone::HandZone(Player* player) : PositioningZone(ZoneType::HAND, MAX_HAND_SIZE)
+HandZone::HandZone(Player* player)
+    : PositioningZone(ZoneType::HAND, MAX_HAND_SIZE)
 {
     m_game = player->game;
     m_player = player;
@@ -31,6 +34,15 @@ void HandZone::Add(Playable* entity, int zonePos)
     if (auto trigger = entity->card->power.GetTrigger(); trigger)
     {
         trigger->Activate(entity, TriggerActivation::HAND);
+    }
+
+    for (auto& iAura : entity->game->auras)
+    {
+        if (auto aura = dynamic_cast<Aura*>(iAura);
+            aura && aura->GetType() == AuraType::HAND)
+        {
+            aura->Apply(entity);
+        }
     }
 }
 

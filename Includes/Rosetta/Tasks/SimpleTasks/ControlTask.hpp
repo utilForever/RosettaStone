@@ -20,7 +20,8 @@ class ControlTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type of target to take control.
-    explicit ControlTask(EntityType entityType);
+    //! \param opposite The flag that indicates the owner is the opponent.
+    explicit ControlTask(EntityType entityType, bool opposite = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -31,6 +32,8 @@ class ControlTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
+
+    bool m_opposite = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

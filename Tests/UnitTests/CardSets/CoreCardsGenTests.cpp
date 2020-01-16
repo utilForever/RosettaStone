@@ -20,8 +20,7 @@ using namespace SimpleTasks;
 // [CS1h_001] Lesser Heal (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Restore #2 Health.
+// Text: <b>Hero Power</b> Restore 2 Health.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -64,8 +63,7 @@ TEST(HeroPowersCoreTest, CS1h_001_LesserHeal)
 // [CS2_017] Shapeshift (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       +1 Attack this turn.    +1 Armor.
+// Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
 // --------------------------------------------------------
 TEST(HeroPowersCoreTest, CS2_017_Shapeshift)
 {
@@ -125,8 +123,7 @@ TEST(HeroPowersCoreTest, CS2_017_Shapeshift)
 // [CS2_034] Fireblast (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Deal $1 damage.
+// Text: <b>Hero Power</b> Deal 1 damage.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -174,8 +171,7 @@ TEST(HeroPowersCoreTest, CS2_034_Fireblast)
 // [CS2_049] Totemic Call (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Summon a random Totem.
+// Text: <b>Hero Power</b> Summon a random Totem.
 // --------------------------------------------------------
 // Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
 // --------------------------------------------------------
@@ -246,8 +242,7 @@ TEST(HeroPowersCoreTest, CS2_049_TotemicCall)
 // [CS2_056] Life Tap (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Draw a card and take $2 damage.
+// Text: <b>Hero Power</b> Draw a card and take 2 damage.
 // --------------------------------------------------------
 TEST(HeroPowersCoreTest, CS2_056_LifeTap)
 {
@@ -281,8 +276,7 @@ TEST(HeroPowersCoreTest, CS2_056_LifeTap)
 // [CS2_083b] Dagger Mastery (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Equip a 1/2 Dagger.
+// Text: <b>Hero Power</b> Equip a 1/2 Dagger.
 // --------------------------------------------------------
 TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
 {
@@ -321,8 +315,7 @@ TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
 // [CS2_101] Reinforce (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Summon a 1/1 Silver Hand Recruit.
+// Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_NUM_MINION_SLOTS = 1
@@ -360,8 +353,7 @@ TEST(HeroPowersCoreTest, CS2_101_Reinforce)
 // [CS2_102] Armor Up! (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Gain 2 Armor.
+// Text: <b>Hero Power</b> Gain 2 Armor.
 // --------------------------------------------------------
 TEST(HeroPowersCoreTest, CS2_102_ArmorUp)
 {
@@ -394,8 +386,7 @@ TEST(HeroPowersCoreTest, CS2_102_ArmorUp)
 // [DS1h_292] Steady Shot (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b>
-//       Deal $2 damage to the enemy hero.
+// Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_STEADY_SHOT = 0
@@ -474,7 +465,7 @@ TEST(DruidCoreTest, CS2_005_Claw)
 // [CS2_007] Healing Touch - COST:3
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Restore #8 Health.
+// Text: Restore 8 Health.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -531,7 +522,7 @@ TEST(DruidCoreTest, CS2_007_HealingTouch)
 // [CS2_008] Moonfire - COST:0
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $1 damage.
+// Text: Deal 1 damage.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -707,7 +698,7 @@ TEST(DruidCoreTest, CS2_011_SavageRoar)
 // [CS2_012] Swipe - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $4 damage to an enemy and $1 damage to all other enemies.
+// Text: Deal 4 damage to an enemy and 1 damage to all other enemies.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -883,8 +874,7 @@ TEST(DruidCoreTest, EX1_169_Innervate)
 // [EX1_173] Starfire - COST:6
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $5 damage.
-//       Draw a card.
+// Text: Deal 5 damage. Draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1234,7 +1224,7 @@ TEST(HunterCoreTest, DS1_178_TundraRhino)
 // [DS1_183] Multi-Shot - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $3 damage to two random enemy minions.
+// Text: Deal 3 damage to two random enemy minions.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_MINIMUM_ENEMY_MINIONS = 1
@@ -1351,7 +1341,7 @@ TEST(HunterCoreTest, DS1_184_Tracking)
 // [DS1_185] Arcane Shot - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $2 damage.
+// Text: Deal 2 damage.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1418,8 +1408,8 @@ TEST(HunterCoreTest, DS1_185_ArcaneShot)
 // [EX1_539] Kill Command - COST:3
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $3 damage. If you control a Beast, deal
-//       $5 damage instead.
+// Text: Deal 3 damage. If you control a Beast,
+//       deal 5 damage instead.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1613,7 +1603,7 @@ TEST(MageCoreTest, CS2_023_ArcaneIntellect)
 // [CS2_024] Frostbolt - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $3 damage to a_character and <b>Freeze</b> it.
+// Text: Deal 3 damage to a character and <b>Freeze</b> it.
 // --------------------------------------------------------
 // GameTag:
 // - FREEZE = 1
@@ -1672,7 +1662,7 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(opPlayer->GetHero()->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opPlayer->GetHero()->IsFrozen(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1682,19 +1672,19 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
     EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[0]->IsFrozen(), true);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(curPlayer->GetHero()->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curPlayer->GetHero()->IsFrozen(), true);
 }
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_025] Arcane Explosion - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $1 damage to all enemy minions.
+// Text: Deal 1 damage to all enemy minions.
 // --------------------------------------------------------
 TEST(MageCoreTest, CS2_025_ArcaneExplosion)
 {
@@ -1798,11 +1788,11 @@ TEST(MageCoreTest, CS2_026_FrostNova)
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(opField[0]->GetHealth(), 2);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
     EXPECT_EQ(opField[1]->GetHealth(), 1);
-    EXPECT_EQ(opField[1]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[1]->IsFrozen(), true);
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(opPlayer->GetHero()->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(opPlayer->GetHero()->IsFrozen(), false);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1872,7 +1862,7 @@ TEST(MageCoreTest, CS2_027_MirrorImage)
 // [CS2_029] Fireball - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $6 damage.
+// Text: Deal 6 damage.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1945,7 +1935,7 @@ TEST(MageCoreTest, CS2_029_Fireball)
 // [CS2_032] Flamestrike - COST:7
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $4 damage to all enemy minions.
+// Text: Deal 4 damage to all enemy minions.
 // --------------------------------------------------------
 TEST(MageCoreTest, CS2_032_Flamestrike)
 {
@@ -2044,15 +2034,15 @@ TEST(MageCoreTest, CS2_033_WaterElemental)
     EXPECT_EQ(opField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 2);
     EXPECT_EQ(opField[0]->GetHealth(), 2);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[0]->IsFrozen(), false);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
 }
 
 // ------------------------------------------- SPELL - MAGE
 // [EX1_277] Arcane Missiles - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $3 damage randomly split among all enemies.
+// Text: Deal 3 damage randomly split among all enemies.
 // --------------------------------------------------------
 // GameTag:
 // - ImmuneToSpellpower = 1
@@ -2196,7 +2186,7 @@ TEST(PaladinCoreTest, CS2_088_GuardianOfKings)
 // [CS2_089] Holy Light - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Restore #6 Health.
+// Text: Restore 6 Health.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2311,7 +2301,7 @@ TEST(PaladinCoreTest, CS2_092_BlessingOfKings)
 // [CS2_093] Consecration - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $2 damage to all enemies.
+// Text: Deal 2 damage to all enemies.
 // --------------------------------------------------------
 TEST(PaladinCoreTest, CS2_093_Consecration)
 {
@@ -2362,8 +2352,7 @@ TEST(PaladinCoreTest, CS2_093_Consecration)
 // [CS2_094] Hammer of Wrath - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $3 damage.
-//       Draw a card.
+// Text: Deal 3 damage. Draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2569,8 +2558,8 @@ TEST(PaladinCoreTest, EX1_371_HandOfProtection)
 // [CS1_112] Holy Nova - COST:5
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $2 damage to all enemies.
-//       Restore #2 Health to all friendly characters.
+// Text: Deal 2 damage to all enemies.
+//       Restore 2 Health to all friendly characters.
 // --------------------------------------------------------
 TEST(PriestCoreTest, CS1_112_HolyNova)
 {
@@ -2711,7 +2700,7 @@ TEST(PriestCoreTest, CS1_113_MindControl)
 // [CS1_130] Holy Smite - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $2 damage.
+// Text: Deal 2 damage.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2809,12 +2798,12 @@ TEST(PriestCoreTest, CS2_003_MindVision)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mind Vision"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    auto gainedCard = curHand[4];
+    const auto gainedCard = curHand[4];
 
     bool flag = false;
-    for (auto& card : opPlayer->GetHandZone()->GetAll())
+    for (auto& handCard : opPlayer->GetHandZone()->GetAll())
     {
-        if (card->id == gainedCard->id)
+        if (handCard->card->id == gainedCard->card->id)
         {
             flag = true;
             break;
@@ -3153,7 +3142,7 @@ TEST(PriestCoreTest, EX1_622_ShadowWordDeath)
 // [CS2_072] Backstab - COST:0
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $2 damage to an undamaged minion.
+// Text: Deal 2 damage to an undamaged minion.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -3260,7 +3249,7 @@ TEST(RogueCoreTest, CS2_074_DeadlyPoison)
 // [CS2_075] Sinister Strike - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $3 damage to the enemy hero.
+// Text: Deal 3 damage to the enemy hero.
 // --------------------------------------------------------
 TEST(RogueCoreTest, CS2_075_SinisterStrike)
 {
@@ -3395,8 +3384,7 @@ TEST(RogueCoreTest, CS2_080_AssassinsBlade)
 // [EX1_129] Fan of Knives - COST:3
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $1 damage to all enemy minions.
-//       Draw a card.
+// Text: Deal 1 damage to all enemy minions. Draw a card.
 // --------------------------------------------------------
 TEST(RogueCoreTest, EX1_129_FanOfKnives)
 {
@@ -3515,8 +3503,7 @@ TEST(RogueCoreTest, EX1_191_Plaguebringer)
 // [EX1_278] Shiv - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $1 damage.
-//       Draw a card.
+// Text: Deal 1 damage. Draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -3651,7 +3638,7 @@ TEST(RogueCoreTest, EX1_581_Sap)
 // [CS2_037] Frost Shock - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $1 damage to an enemy character and <b>Freeze</b> it.
+// Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
 // --------------------------------------------------------
 // GameTag:
 // - FREEZE = 1
@@ -3703,7 +3690,7 @@ TEST(ShamanCoreTest, CS2_037_FrostShock)
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
     EXPECT_EQ(opField[0]->GetHealth(), 1);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
     EXPECT_EQ(opField.GetCount(), 1);
@@ -4314,8 +4301,7 @@ TEST(ShamanCoreTest, EX1_587_Windspeaker)
 // [CS2_057] Shadow Bolt - COST:3
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $4 damage
-//       to a minion.
+// Text: Deal 4 damage to a minion.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4370,7 +4356,7 @@ TEST(WarlockCoreTest, CS2_057_ShadowBolt)
 // [CS2_061] Drain Life - COST:3
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $2 damage. Restore #2 Health to your hero.
+// Text: Deal 2 damage. Restore 2 Health to your hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4418,7 +4404,7 @@ TEST(WarlockCoreTest, CS2_061_DrainLife)
 // [CS2_062] Hellfire - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $3 damage to all characters.
+// Text: Deal 3 damage to all characters.
 // --------------------------------------------------------
 TEST(WarlockCoreTest, CS2_062_Hellfire)
 {
@@ -4542,7 +4528,7 @@ TEST(WarlockCoreTest, CS2_063_Corruption)
 // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
 // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Deal 1 damage to ALL other characters.
+// Text: <b>Battlecry:</b> Deal 1 damage to all other characters.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -4604,7 +4590,7 @@ TEST(WarlockCoreTest, CS2_065_Voidwalker)
 // [EX1_302] Mortal Coil - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $1 damage to a minion. If that kills it, draw a card.
+// Text: Deal 1 damage to a minion. If that kills it, draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4704,8 +4690,7 @@ TEST(WarlockCoreTest, EX1_306_Succubus)
 // [EX1_308] Soulfire - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $4 damage.
-//       Discard a random card.
+// Text: Deal 4 damage. Discard a random card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4764,7 +4749,7 @@ TEST(WarlockCoreTest, EX1_308_Soulfire)
 // [NEW1_003] Sacrificial Pact - COST:0
 // - Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Destroy a Demon. Restore #5 Health to your hero.
+// Text: Destroy a Demon. Restore 5 Health to your hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -5041,7 +5026,7 @@ TEST(WarriorCoreTest, CS2_112_ArcaniteReaper)
 // [CS2_114] Cleave - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $2 damage to two random enemy minions.
+// Text: Deal 2 damage to two random enemy minions.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_MINIMUM_ENEMY_MINIONS = 1
@@ -5165,7 +5150,7 @@ TEST(WarriorCoreTest, EX1_084_WarsongCommander)
 // [EX1_400] Whirlwind - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal $1 damage to all minions.
+// Text: Deal 1 damage to all minions.
 // --------------------------------------------------------
 TEST(WarriorCoreTest, EX1_400_Whirlwind)
 {

@@ -58,6 +58,12 @@ class SummonTask : public ITask
     explicit SummonTask(const std::string& cardID, int amount,
                         SummonSide side = SummonSide::DEFAULT);
 
+    //! Returns the position of minion to summon.
+    //! \param source The source entity.
+    //! \param side The side of summoned minion.
+    //! \return The position of minion to summon.
+    static int GetPosition(Entity* source, SummonSide side);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -67,10 +73,6 @@ class SummonTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
-
-    //! Returns the position of minion to summon.
-    //! \return The position of minion to summon.
-    int GetPosition() const;
 
     std::optional<Card*> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;

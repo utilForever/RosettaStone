@@ -24,11 +24,13 @@ class Character;
 class Playable : public Entity
 {
  public:
-    //! Constructs entity with given \p _player, \p _card and \p _tags.
+    //! Constructs entity with given \p _player, \p _card, \p _tags and \p _id.
     //! \param _player The player.
     //! \param _card The card.
     //! \param _tags The game tags.
-    Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags);
+    //! \param _id The ID.
+    Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags,
+             int _id);
 
     //! Destructor.
     virtual ~Playable();
@@ -126,8 +128,10 @@ class Playable : public Entity
     //! \return true if the specified target is valid, false otherwise.
     bool IsValidPlayTarget(Character* target);
 
-    //! Gets whether the current field has any valid play targets for this playable.
-    //! \return true if the current field has any valid play targets, false otherwise.
+    //! Gets whether the current field has any valid play targets
+    //! for this playable.
+    //! \return true if the current field has any valid play targets,
+    //! false otherwise.
     bool HasAnyValidPlayTargets() const;
 
     //! Activates the task.
@@ -139,7 +143,7 @@ class Playable : public Entity
                       int chooseOne = 0, Playable* chooseBase = nullptr);
 
     CostManager* costManager = nullptr;
-    IAura* onGoingEffect = nullptr;
+    IAura* ongoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
 
     std::array<Playable*, 2> chooseOneCard{};

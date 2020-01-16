@@ -27,7 +27,7 @@
 #include <Python/Games/GameConfig.hpp>
 
 #include <Python/Loaders/AccountLoader.hpp>
-#include <Python/Loaders/PowerLoader.hpp>
+#include <Python/Loaders/InternalCardLoader.hpp>
 #include <Python/Loaders/TargetingPredicates.hpp>
 
 #include <Python/Managers/CostManager.hpp>
@@ -69,7 +69,7 @@ PYBIND11_MODULE(pyRosetta, m)
 
     // Loaders
     AddAccountLoader(m);
-    AddPowerLoader(m);
+    AddInternalCardLoader(m);
     AddTargetingPredicates(m);
 
     // Managers

@@ -58,8 +58,7 @@ class PriorityQueue
     }
 
     //! Deleted move constructor.
-    PriorityQueue(PriorityQueue&& rhs) noexcept
-        : m_count(rhs.m_count)
+    PriorityQueue(PriorityQueue&& rhs) noexcept : m_count(rhs.m_count)
     {
         const Node* rhsNode = rhs.m_head;
         Node* curNode = nullptr;
@@ -96,6 +95,13 @@ class PriorityQueue
         PriorityQueue<T> temp(rhs);
         std::swap(temp.m_head, m_head);
         return *this;
+    }
+
+    //! Gets the count of the elements.
+    //! \return The count of the elements.
+    std::size_t GetCount() const
+    {
+        return m_count;
     }
 
     //! Inserts element and sorts the underlying container.

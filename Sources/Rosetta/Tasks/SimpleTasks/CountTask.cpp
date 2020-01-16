@@ -52,10 +52,10 @@ TaskStatus CountTask::Impl(Player* player)
     switch (m_numIndex)
     {
         case 0:
-            player->game->taskStack.num = count;
+            player->game->taskStack.num[0] = count;
             break;
         case 1:
-            player->game->taskStack.num1 = count;
+            player->game->taskStack.num[1] = count;
             break;
         default:
             throw std::invalid_argument(

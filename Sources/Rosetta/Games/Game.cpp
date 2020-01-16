@@ -305,6 +305,12 @@ void Game::BeginDraw()
         }
     }
 
+    // Initialize timeout
+    for (auto& player : m_players)
+    {
+        player.SetTimeOut(75);
+    }
+
     // Set next step
     nextStep =
         m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
@@ -354,19 +360,21 @@ void Game::MainBegin()
 void Game::MainReady()
 {
     // Reset the number of attacked
-    for (auto& p : m_players)
+    for (auto& player : m_players)
     {
         // Field
-        for (auto& m : p.GetFieldZone()->GetAll())
+        for (auto& minion : player.GetFieldZone()->GetAll())
         {
-            m->SetNumAttacksThisTurn(0);
+            minion->SetNumAttacksThisTurn(0);
         }
 
         // Hero
-        p.GetHero()->SetNumAttacksThisTurn(0);
+        player.GetHero()->SetNumAttacksThisTurn(0);
 
         // Player
-        p.SetNumMinionsPlayedThisTurn(0);
+        player.SetNumCardsPlayedThisTurn(0);
+        player.SetNumMinionsPlayedThisTurn(0);
+        player.SetNumFriendlyMinionsDiedThisTurn(0);
     }
 
     // Reset exhaust for current player
@@ -505,18 +513,18 @@ void Game::MainCleanUp()
     // Unfreeze all characters they control that are Frozen, don't have
     // summoning sickness (or do have Charge) and have not attacked that turn
     // Hero
-    if (curPlayer->GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
+    if (curPlayer->GetHero()->IsFrozen() &&
         curPlayer->GetHero()->GetNumAttacksThisTurn() == 0)
     {
         curPlayer->GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
-    for (auto& m : curPlayer->GetFieldZone()->GetAll())
+    for (auto& minion : curPlayer->GetFieldZone()->GetAll())
     {
-        if (m->GetGameTag(GameTag::FROZEN) == 1 &&
-            m->GetNumAttacksThisTurn() == 0 && !m->IsExhausted())
+        if (minion->IsFrozen() && minion->GetNumAttacksThisTurn() == 0 &&
+            !minion->IsExhausted())
         {
-            m->SetGameTag(GameTag::FROZEN, 0);
+            minion->SetGameTag(GameTag::FROZEN, 0);
         }
     }
 
@@ -652,6 +660,8 @@ void Game::ProcessGraveyard()
 
             // Add minion to graveyard
             minion->player->GetGraveyardZone()->Add(minion);
+            minion->player->SetNumFriendlyMinionsDiedThisTurn(
+                minion->player->GetNumFriendlyMinionsDiedThisTurn() + 1);
         }
 
         deadMinions.clear();

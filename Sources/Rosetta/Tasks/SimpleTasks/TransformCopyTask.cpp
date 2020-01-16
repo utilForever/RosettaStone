@@ -25,7 +25,7 @@ TaskStatus TransformCopyTask::Impl(Player* player)
     }
 
     auto copy = Entity::GetFromCard(player, m_target->card, {});
-    IAura* aura = target->onGoingEffect;
+    IAura* aura = target->ongoingEffect;
 
     source->player->GetFieldZone()->Replace(source,
                                             dynamic_cast<Minion*>(copy));
@@ -64,7 +64,7 @@ TaskStatus TransformCopyTask::Impl(Player* player)
         }
     }
 
-    if (aura != nullptr && copy->onGoingEffect == nullptr)
+    if (aura != nullptr && copy->ongoingEffect == nullptr)
     {
         aura->Clone(copy);
     }

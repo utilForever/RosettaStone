@@ -28,6 +28,11 @@ Aura::Aura(AuraType type, std::string&& enchantmentID)
     // Do nothing
 }
 
+AuraType Aura::GetType() const
+{
+    return m_type;
+}
+
 void Aura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
@@ -42,6 +47,10 @@ void Aura::Activate(Playable* owner, bool cloning)
     switch (removeTrigger.first)
     {
         case TriggerType::NONE:
+            break;
+        case TriggerType::TURN_END:
+            owner->game->triggerManager.endTurnTrigger =
+                std::move(instance->m_removeHandler);
             break;
         case TriggerType::CAST_SPELL:
             owner->game->triggerManager.castSpellTrigger =
@@ -102,7 +111,7 @@ void Aura::Remove()
     m_turnOn = false;
     m_auraUpdateInstQueue.Push(
         AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
-    m_owner->onGoingEffect = nullptr;
+    m_owner->ongoingEffect = nullptr;
 
     switch (m_type)
     {
@@ -151,6 +160,9 @@ void Aura::Remove()
     switch (removeTrigger.first)
     {
         case TriggerType::NONE:
+            break;
+        case TriggerType::TURN_END:
+            m_owner->game->triggerManager.endTurnTrigger = nullptr;
             break;
         case TriggerType::CAST_SPELL:
             m_owner->game->triggerManager.castSpellTrigger = nullptr;
@@ -306,7 +318,7 @@ Aura::Aura(Aura& prototype, Playable& owner)
 void Aura::AddToGame(Playable& owner, Aura& aura)
 {
     owner.game->auras.emplace_back(&aura);
-    owner.onGoingEffect = &aura;
+    owner.ongoingEffect = &aura;
 
     switch (aura.m_type)
     {
@@ -330,8 +342,7 @@ void Aura::AddToGame(Playable& owner, Aura& aura)
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
         default:
-            throw std::invalid_argument(
-                "Aura::AddToGame() - Invalid aura type!");
+            break;
     }
 }
 
@@ -389,6 +400,48 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::ENEMY_HAND:
+        {
+            for (auto& card :
+                 m_owner->player->opponent->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            break;
+        }
+        case AuraType::HANDS:
+        {
+            for (auto& card : m_owner->player->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            for (auto& card :
+                 m_owner->player->opponent->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            break;
+        }
+        case AuraType::PLAYER:
+        {
+            for (auto& effect : m_effects)
+            {
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->playerAuraEffects);
+            }
+            break;
+        }
+        case AuraType::PLAYERS:
+        {
+            for (auto& effect : m_effects)
+            {
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->playerAuraEffects);
+                dynamic_cast<Effect*>(effect)->ApplyTo(
+                    m_owner->player->opponent->playerAuraEffects);
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "Aura::UpdateInternal() - Invalid aura type!");
@@ -397,11 +450,32 @@ void Aura::UpdateInternal()
 
 void Aura::RemoveInternal()
 {
-    for (auto& entity : m_appliedEntities)
+    if (m_type == AuraType::PLAYER)
     {
         for (auto& effect : m_effects)
         {
-            effect->RemoveAuraFrom(entity);
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->playerAuraEffects);
+        }
+    }
+    else if (m_type == AuraType::PLAYERS)
+    {
+        for (auto& effect : m_effects)
+        {
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->playerAuraEffects);
+            dynamic_cast<Effect*>(effect)->RemoveFrom(
+                m_owner->player->opponent->playerAuraEffects);
+        }
+    }
+    else
+    {
+        for (auto& entity : m_appliedEntities)
+        {
+            for (auto& effect : m_effects)
+            {
+                effect->RemoveAuraFrom(entity);
+            }
         }
     }
 

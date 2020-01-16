@@ -20,8 +20,8 @@ class GetGameTagTask : public ITask
  public:
     //! Constructs task with given \p entityType, \p tag, \p entityIndex and
     //! \p numIndex.
-    //! \param entityType The entity type of target to set game tag.
-    //! \param tag A game tag to set.
+    //! \param entityType The entity type of target to get game tag.
+    //! \param tag A game tag to get.
     //! \param entityIndex An index of entity.
     //! \param numIndex An index of number.
     GetGameTagTask(EntityType entityType, GameTag tag, int entityIndex = 0,

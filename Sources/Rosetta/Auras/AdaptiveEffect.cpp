@@ -8,8 +8,17 @@
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
+AdaptiveEffect::AdaptiveEffect(GameTag tag, EffectOperator effectOp,
+                               std::function<int(Playable*)> valueFunc)
+    : m_valueFunc(std::move(valueFunc)), m_tag(tag), m_operator(effectOp)
+{
+    // Do nothing
+}
+
 AdaptiveEffect::AdaptiveEffect(SelfCondition* condition, GameTag tag)
     : m_condition(condition),
       m_tag(tag),
@@ -40,7 +49,7 @@ void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
     }
 
     owner->game->auras.emplace_back(instance);
-    owner->onGoingEffect = instance;
+    owner->ongoingEffect = instance;
 }
 
 void AdaptiveEffect::Update()
@@ -89,7 +98,7 @@ void AdaptiveEffect::Update()
 
 void AdaptiveEffect::Remove()
 {
-    m_owner->onGoingEffect = nullptr;
+    m_owner->ongoingEffect = nullptr;
     m_turnOn = false;
 }
 

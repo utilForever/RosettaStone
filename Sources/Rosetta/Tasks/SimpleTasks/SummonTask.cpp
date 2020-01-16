@@ -39,6 +39,84 @@ SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side)
     // Do nothing
 }
 
+int SummonTask::GetPosition(Entity* source, SummonSide side)
+{
+    int summonPos;
+
+    switch (side)
+    {
+        case SummonSide::DEFAULT:
+        {
+            summonPos = -1;
+            break;
+        }
+        case SummonSide::LEFT:
+        {
+            if (source->zone->GetType() == ZoneType::PLAY)
+            {
+                const auto src = dynamic_cast<Playable*>(source);
+                summonPos = src->GetZonePosition();
+            }
+            else
+            {
+                const auto src = dynamic_cast<Minion*>(source);
+                summonPos = src->GetLastBoardPos();
+            }
+            break;
+        }
+        case SummonSide::RIGHT:
+        {
+            if (source->zone->GetType() == ZoneType::PLAY)
+            {
+                const auto src = dynamic_cast<Playable*>(source);
+                summonPos = src->GetZonePosition() + 1;
+            }
+            else
+            {
+                const auto src = dynamic_cast<Minion*>(source);
+                summonPos = src->GetLastBoardPos();
+            }
+            break;
+        }
+        case SummonSide::DEATHRATTLE:
+        {
+            if (const auto minion = dynamic_cast<Minion*>(source); minion)
+            {
+                summonPos = minion->GetLastBoardPos();
+            }
+            else if (const auto enchantment =
+                         dynamic_cast<Enchantment*>(source);
+                     enchantment)
+            {
+                const auto target =
+                    dynamic_cast<Minion*>(enchantment->GetTarget());
+                summonPos = target->GetLastBoardPos();
+            }
+            else
+            {
+                throw std::invalid_argument(
+                    "SummonTask::Impl() - Invalid summon side");
+            }
+            break;
+        }
+        case SummonSide::NUMBER:
+        {
+            summonPos = source->game->taskStack.num[0] - 1;
+            break;
+        }
+        case SummonSide::SPELL:
+        {
+            summonPos = -1;
+            break;
+        }
+        default:
+            throw std::invalid_argument(
+                "SummonTask::Impl() - Invalid summon side");
+    }
+
+    return summonPos;
+}
+
 TaskStatus SummonTask::Impl(Player* player)
 {
     TaskStack& stack = player->game->taskStack;
@@ -94,7 +172,7 @@ TaskStatus SummonTask::Impl(Player* player)
             return TaskStatus::STOP;
         }
 
-        int summonPos = GetPosition();
+        int summonPos = GetPosition(m_source, m_side);
         if (summonPos > player->GetFieldZone()->GetCount())
         {
             summonPos = player->GetFieldZone()->GetCount();
@@ -106,72 +184,11 @@ TaskStatus SummonTask::Impl(Player* player)
         }
         else
         {
-            Generic::Summon(player, summonEntity, summonPos);
+            Generic::Summon(summonEntity, summonPos, m_source);
         }
     }
 
     return TaskStatus::COMPLETE;
-}
-
-int SummonTask::GetPosition() const
-{
-    int summonPos;
-
-    switch (m_side)
-    {
-        case SummonSide::DEFAULT:
-        {
-            summonPos = -1;
-            break;
-        }
-        case SummonSide::RIGHT:
-        {
-            if (m_source->zone->GetType() == ZoneType::PLAY)
-            {
-                const auto source = dynamic_cast<Playable*>(m_source);
-                summonPos = source->GetZonePosition() + 1;
-            }
-            else
-            {
-                const auto source = dynamic_cast<Minion*>(m_source);
-                summonPos = source->GetLastBoardPos();
-            }
-            break;
-        }
-        case SummonSide::DEATHRATTLE:
-        {
-            if (const auto m = dynamic_cast<Minion*>(m_source))
-            {
-                summonPos = m->GetLastBoardPos();
-            }
-            else if (const auto e = dynamic_cast<Enchantment*>(m_source))
-            {
-                const auto target = dynamic_cast<Minion*>(e->GetTarget());
-                summonPos = target->GetLastBoardPos();
-            }
-            else
-            {
-                throw std::invalid_argument(
-                    "SummonTask::Impl() - Invalid summon side");
-            }
-            break;
-        }
-        case SummonSide::NUMBER:
-        {
-            summonPos = m_source->game->taskStack.num - 1;
-            break;
-        }
-        case SummonSide::SPELL:
-        {
-            summonPos = -1;
-            break;
-        }
-        default:
-            throw std::invalid_argument(
-                "SummonTask::Impl() - Invalid summon side");
-    }
-
-    return summonPos;
 }
 
 ITask* SummonTask::CloneImpl()

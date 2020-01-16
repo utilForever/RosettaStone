@@ -117,7 +117,7 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
                 }
             }
 
-            Summon(player, dynamic_cast<Minion*>(copiedEntity), position);
+            Summon(dynamic_cast<Minion*>(copiedEntity), position, source);
             break;
         }
         case ZoneType::SETASIDE:
@@ -129,10 +129,10 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
             break;
     }
 
-    if (copyEnchantments && source->onGoingEffect != nullptr &&
-        copiedEntity->onGoingEffect == nullptr)
+    if (copyEnchantments && source->ongoingEffect != nullptr &&
+        copiedEntity->ongoingEffect == nullptr)
     {
-        source->onGoingEffect->Clone(copiedEntity);
+        source->ongoingEffect->Clone(copiedEntity);
     }
 
     return copiedEntity;

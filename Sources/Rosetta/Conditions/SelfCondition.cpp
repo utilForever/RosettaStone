@@ -5,8 +5,8 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
 #include <string>
@@ -39,10 +39,44 @@ SelfCondition SelfCondition::IsNotDead()
         [=](Playable* playable) -> bool { return !playable->isDestroyed; });
 }
 
+SelfCondition SelfCondition::IsNotImmune()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto character = dynamic_cast<Character*>(playable);
+        if (!character)
+        {
+            return false;
+        }
+
+        return !character->IsImmune();
+    });
+}
+
+SelfCondition SelfCondition::IsNotUntouchable()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->card->IsUntouchable();
+    });
+}
+
 SelfCondition SelfCondition::IsFieldFull()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player->GetFieldZone()->IsFull();
+    });
+}
+
+SelfCondition SelfCondition::IsFieldNotFull()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->GetFieldZone()->IsFull();
+    });
+}
+
+SelfCondition SelfCondition::IsOpFieldNotFull()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->opponent->GetFieldZone()->IsFull();
     });
 }
 
@@ -139,7 +173,7 @@ SelfCondition SelfCondition::IsFrozen()
             return false;
         }
 
-        return character->GetGameTag(GameTag::FROZEN) == 1;
+        return character->IsFrozen();
     });
 }
 
@@ -201,7 +235,7 @@ SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
 {
     return SelfCondition([=](Playable* playable) -> bool {
         auto& stack = playable->game->taskStack;
-        const auto num = index == 0 ? stack.num : stack.num1;
+        const auto num = index == 0 ? stack.num[0] : stack.num[1];
 
         return (relaSign == RelaSign::EQ && num == value) ||
                (relaSign == RelaSign::GEQ && num >= value) ||
@@ -221,6 +255,48 @@ SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
         return (relaSign == RelaSign::EQ && character->GetHealth() == value) ||
                (relaSign == RelaSign::GEQ && character->GetHealth() >= value) ||
                (relaSign == RelaSign::LEQ && character->GetHealth() <= value);
+    });
+}
+
+SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
+{
+    return IsEventTargetIs(cardType);
+}
+
+SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (const auto eventData = playable->game->currentEventData; eventData)
+        {
+            return eventData->eventTarget->card->GetCardType() == cardType;
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::IsSpellTargetingMinion()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto iter =
+            playable->game->entityList.find(playable->GetCardTarget());
+
+        return playable->card->GetCardType() == CardType::SPELL &&
+               iter->second->card->GetCardType() == CardType::MINION;
+    });
+}
+
+SelfCondition SelfCondition::IsInZone(ZoneType zone)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetZoneType() == zone;
+    });
+}
+
+SelfCondition SelfCondition::IsEnemyTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player != playable->game->GetCurrentPlayer();
     });
 }
 

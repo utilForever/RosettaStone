@@ -18,23 +18,28 @@ class RandomCardTask : public ITask
     //! \param opposite The flag that indicates the card is for the opponent.
     explicit RandomCardTask(EntityType entityType, bool opposite = false);
 
-    //! Constructs task with given \p cardType, \p cardClass and \p race.
+    //! Constructs task with various arguments.
     //! \param cardType The type of card to filter.
     //! \param cardClass The class of card to filter.
     //! \param race The race of card to filter.
+    //! \param rarity The rarity of card to filter.
     //! \param opposite The flag that indicates the card is for the opponent.
     explicit RandomCardTask(CardType cardType, CardClass cardClass,
-                            Race race = Race::INVALID, bool opposite = false);
+                            Race race = Race::INVALID,
+                            Rarity rarity = Rarity::INVALID,
+                            bool opposite = false);
 
  private:
     //! Returns card list that fits the criteria.
     //! \param cardType The type of card to filter.
     //! \param cardClass The class of card to filter.
     //! \param race The race of card to filter.
-    //! \return Card list that fits the criteria.
+    //! \param rarity The rarity of card to filter.
+    //! \return A list of cards that fits the criteria.
     std::vector<Card*> GetCardList(CardType cardType = CardType::INVALID,
                                    CardClass cardClass = CardClass::INVALID,
-                                   Race race = Race::INVALID) const;
+                                   Race race = Race::INVALID,
+                                   Rarity rarity = Rarity::INVALID) const;
 
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -45,10 +50,11 @@ class RandomCardTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    CardType m_cardType;
-    CardClass m_cardClass;
-    Race m_race;
-    bool m_opposite;
+    CardType m_cardType = CardType::INVALID;
+    CardClass m_cardClass = CardClass::INVALID;
+    Race m_race = Race::INVALID;
+    Rarity m_rarity = Rarity::INVALID;
+    bool m_opposite = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

@@ -33,13 +33,32 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ## Roadmap
 
+### 2020
+
+  * Implement all standard cards
+    * Rise of Shadows
+    * Saviors of Uldum
+    * Descent of Dragons
+  * Implement programs for playing game
+    * Console-based
+    * GUI-based
+    * Web-based
+  * Prepare "Hearthstone pro gamer" vs AI match-up
+  * Implement "Hearthstone Battlegrounds"
+  * Support various deep-learning framework for RL environment
+    * Tensorflow
+    * PyTorch
+  * Fully support Python API
+  * Write a paper on Hearthstone's RL environment
+  * Make architecture documents for contributors
+  * Make tutorials for programs
+
 ### 2019
 
-  * Implement all original + some expansion cards
-  * Fully support console and GUI program
+  * Implement all original cards
+  * Implement console and GUI program
   * Provide RL environment using PyTorch C++ API
   * Support API for another language such as Python
-  * Integrate with RealStone, "Real" Hearthstone hardware using Arduino
 
 ### 2018
 
@@ -54,8 +73,8 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 ### Basic & Classic
 
   * **100% Basic (133 of 133 Cards)**
-  * 75% Classic (184 of 245 Cards)
-  * 37% Hall of Fame (9 of 24 Cards)
+  * **100% Classic (245 of 245 Cards)**
+  * 54% Hall of Fame (13 of 24 Cards)
 
 ### Adventures
 
@@ -66,6 +85,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Expansions
 
+  * 0% Descent of Dragons (0 of 140 cards)
   * 0% Saviors of Uldum (0 of 135 cards)
   * 0% Rise of Shadows (0 of 135 cards)
   * 0% Rastakhan's Rumble (0 of 135 Cards)

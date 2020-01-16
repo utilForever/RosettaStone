@@ -14,8 +14,8 @@
 
 namespace RosettaStone
 {
-Minion::Minion(Player* player, Card* card, std::map<GameTag, int> tags)
-    : Character(player, card, std::move(tags))
+Minion::Minion(Player* player, Card* card, std::map<GameTag, int> tags, int id)
+    : Character(player, card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -33,6 +33,11 @@ void Minion::SetLastBoardPos(int value)
 bool Minion::IsUntouchable() const
 {
     return card->IsUntouchable();
+}
+
+bool Minion::HasCharge() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::CHARGE));
 }
 
 void Minion::Silence()
@@ -60,9 +65,9 @@ void Minion::Silence()
         SetGameTag(GameTag::SPELLPOWER, 0);
     }
 
-    if (onGoingEffect != nullptr)
+    if (ongoingEffect != nullptr)
     {
-        onGoingEffect->Remove();
+        ongoingEffect->Remove();
     }
 
     EraseIf(game->oneTurnEffects, [this](std::pair<Entity*, IEffect*> effect) {
@@ -109,9 +114,9 @@ void Minion::Reset()
 {
     Entity::Reset();
 
-    if (onGoingEffect != nullptr)
+    if (ongoingEffect != nullptr)
     {
-        onGoingEffect->Remove();
+        ongoingEffect->Remove();
     }
 
     if (isDestroyed)

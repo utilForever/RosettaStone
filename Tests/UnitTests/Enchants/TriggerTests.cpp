@@ -141,6 +141,37 @@ TEST(Trigger, PlayCard)
     game.ProcessDestroyAndUpdateAura();
 }
 
+TEST(Trigger, PlayMinion)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    auto card1 = GenerateMinionCard("minion1", 3, 6);
+    card1.power.AddTrigger(new Trigger(TriggerType::PLAY_MINION));
+
+    PlayMinionCard(curPlayer, &card1);
+
+    curField[0]->Destroy();
+    game.ProcessDestroyAndUpdateAura();
+}
+
 TEST(Trigger, CastSpell)
 {
     GameConfig config;
@@ -423,6 +454,37 @@ TEST(Trigger, Summon)
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::SUMMON));
+
+    PlayMinionCard(curPlayer, &card1);
+
+    curField[0]->Destroy();
+    game.ProcessDestroyAndUpdateAura();
+}
+
+TEST(Trigger, AfterSummon)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    auto card1 = GenerateMinionCard("minion1", 3, 6);
+    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
 
     PlayMinionCard(curPlayer, &card1);
 

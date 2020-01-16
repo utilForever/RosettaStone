@@ -8,6 +8,7 @@
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 #include <stdexcept>
 #include <utility>
@@ -15,8 +16,10 @@
 namespace RosettaStone::SimpleTasks
 {
 IncludeTask::IncludeTask(EntityType entityType,
-                         std::vector<EntityType> excludeTypes)
-    : ITask(entityType), m_excludeTypes(std::move(excludeTypes))
+                         std::vector<EntityType> excludeTypes, bool addFlag)
+    : ITask(entityType),
+      m_excludeTypes(std::move(excludeTypes)),
+      m_addFlag(addFlag)
 {
     // Do nothing
 }
@@ -205,8 +208,20 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::ENEMY_SECRETS:
+            for (auto& secret : player->opponent->GetSecretZone()->GetAll())
+            {
+                entities.emplace_back(secret);
+            }
+            break;
         case EntityType::STACK:
             entities = player->game->taskStack.playables;
+            break;
+        case EntityType::EVENT_SOURCE:
+            if (auto eventData = player->game->currentEventData; eventData)
+            {
+                entities.emplace_back(eventData->eventSource);
+            }
             break;
         default:
             throw std::invalid_argument(
@@ -400,8 +415,20 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::ENEMY_SECRETS:
+            for (auto& secret : player->opponent->GetSecretZone()->GetAll())
+            {
+                entities.emplace_back(secret);
+            }
+            break;
         case EntityType::STACK:
             entities = player->game->taskStack.playables;
+            break;
+        case EntityType::EVENT_SOURCE:
+            if (auto eventData = player->game->currentEventData; eventData)
+            {
+                entities.emplace_back(eventData->eventSource);
+            }
             break;
         default:
             throw std::invalid_argument(
@@ -438,7 +465,18 @@ TaskStatus IncludeTask::Impl(Player* player)
             return false;
         });
 
-        player->game->taskStack.playables = result;
+        if (m_addFlag)
+        {
+            player->game->taskStack.AddPlayables(result);
+        }
+        else
+        {
+            player->game->taskStack.playables = result;
+        }
+    }
+    else if (m_addFlag)
+    {
+        player->game->taskStack.AddPlayables(entities);
     }
     else
     {
@@ -450,6 +488,6 @@ TaskStatus IncludeTask::Impl(Player* player)
 
 ITask* IncludeTask::CloneImpl()
 {
-    return new IncludeTask(m_entityType, m_excludeTypes);
+    return new IncludeTask(m_entityType, m_excludeTypes, m_addFlag);
 }
 }  // namespace RosettaStone::SimpleTasks

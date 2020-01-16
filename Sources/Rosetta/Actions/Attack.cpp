@@ -35,7 +35,19 @@ void Attack(Player* player, Character* source, Character* target)
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
-    auto realTarget = dynamic_cast<Character*>(player->game->currentEventData->eventTarget);
+    // Check source or target is destroyed
+    if (source->isDestroyed || target->isDestroyed ||
+        (source->zone != nullptr &&
+         source->zone->GetType() != ZoneType::PLAY) ||
+        (target->zone != nullptr && target->zone->GetType() != ZoneType::PLAY))
+    {
+        player->game->ProcessDestroyAndUpdateAura();
+        delete player->game->currentEventData;
+        return;
+    }
+
+    auto realTarget =
+        dynamic_cast<Character*>(player->game->currentEventData->eventTarget);
 
     // Set game step to MAIN_COMBAT
     player->game->step = Step::MAIN_COMBAT;

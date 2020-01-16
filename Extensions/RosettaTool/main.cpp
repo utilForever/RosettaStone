@@ -45,7 +45,7 @@ inline std::string ToString(const clara::Parser& p)
 inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {
 #if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
-    const filesystem::path p(path + "/Sources/Rosetta/CardSets");
+    const filesystem::path p(path + "/Tests/UnitTests/CardSets");
 
     if (!filesystem::exists(p))
     {

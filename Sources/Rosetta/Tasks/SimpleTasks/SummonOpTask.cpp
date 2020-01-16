@@ -51,7 +51,7 @@ TaskStatus SummonOpTask::Impl(Player* player)
                 Entity::GetFromCard(player->opponent, m_card.value()));
         }
 
-        Generic::Summon(player->opponent, summonEntity, -1);
+        Generic::Summon(summonEntity, -1, m_source);
     }
 
     return TaskStatus::COMPLETE;

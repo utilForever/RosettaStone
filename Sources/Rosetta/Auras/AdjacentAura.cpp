@@ -38,7 +38,7 @@ void AdjacentAura::Update()
             Disapply(m_right);
         }
 
-        m_owner->onGoingEffect = nullptr;
+        m_owner->ongoingEffect = nullptr;
         EraseIf(m_owner->game->auras,
                 [this](IAura* aura) { return aura == this; });
 
@@ -164,7 +164,7 @@ AdjacentAura::AdjacentAura(AdjacentAura& prototype, Minion& owner, bool cloning)
         m_effects = prototype.m_effects;
     }
 
-    owner.onGoingEffect = this;
+    owner.ongoingEffect = this;
     owner.game->auras.emplace_back(this);
 
     m_fieldZone = owner.player->GetFieldZone();

@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_PLAYER_HPP
 #define ROSETTASTONE_PLAYER_HPP
 
+#include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enums/GameEnums.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Entity.hpp>
@@ -104,6 +105,20 @@ class Player : public Entity
     //! \param value The value to set for game tag.
     void SetGameTag(GameTag tag, int value);
 
+    //! Returns the value of time out.
+    //! \return The value of time out.
+    int GetTimeOut();
+
+    //! Sets the value of time out.
+    //! \param value The value of time out.
+    void SetTimeOut(int value);
+
+    //! Returns whether this player all cards and powers that restore Health
+    //! deal damage instead. (e.g. True when Auchenai Soulpriest is in play.)
+    //! \return True if for this player all cards and powers that
+    //! restore Health deal damage instead.
+    bool IsHealingDoesDamage();
+
     //! Returns total amount of mana available.
     //! \return Total amount of mana available.
     int GetTotalMana() const;
@@ -157,6 +172,14 @@ class Player : public Entity
     //! \param isActive Whether combo is active.
     void SetComboActive(bool isActive);
 
+    //! Returns the number of cards that played this turn.
+    //! \return The number of cards that played this turn.
+    int GetNumCardsPlayedThisTurn() const;
+
+    //! Sets the number of cards that played this turn.
+    //! \param value The number of cards that played this turn.
+    void SetNumCardsPlayedThisTurn(int value);
+
     //! Returns the number of minions that played this turn.
     //! \return The number of minions that played this turn.
     int GetNumMinionsPlayedThisTurn() const;
@@ -164,6 +187,14 @@ class Player : public Entity
     //! Sets the number of minions that played this turn.
     //! \param value The number of minions that played this turn.
     void SetNumMinionsPlayedThisTurn(int value);
+
+    //! Returns the number of friendly minions that died this turn.
+    //! \return The number of friendly minions that died this turn.
+    int GetNumFriendlyMinionsDiedThisTurn() const;
+
+    //! Sets the number of friendly minions that died this turn.
+    //! \param value The number of friendly minions that died this turn.
+    void SetNumFriendlyMinionsDiedThisTurn(int value);
 
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
@@ -180,6 +211,7 @@ class Player : public Entity
 
     Player* opponent = nullptr;
 
+    PlayerAuraEffects playerAuraEffects;
     int currentSpellPower = 0;
 
  private:
