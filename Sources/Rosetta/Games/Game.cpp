@@ -153,8 +153,6 @@ void Game::RefCopyFrom(const Game& rhs)
     step = rhs.step;
     nextStep = rhs.nextStep;
 
-    taskQueue = rhs.taskQueue;
-    taskStack = rhs.taskStack;
     triggerManager = rhs.triggerManager;
 
     auras = rhs.auras;
