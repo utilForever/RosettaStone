@@ -50,8 +50,8 @@ TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RemoveEnchantmentTask::CloneImpl()
+std::unique_ptr<ITask> RemoveEnchantmentTask::CloneImpl()
 {
-    return new RemoveEnchantmentTask();
+    return std::make_unique<RemoveEnchantmentTask>();
 }
 }  // namespace RosettaStone::SimpleTasks

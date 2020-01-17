@@ -31,7 +31,7 @@ class FlagTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     bool m_flag = true;
     std::vector<ITask*> m_toDoTasks;

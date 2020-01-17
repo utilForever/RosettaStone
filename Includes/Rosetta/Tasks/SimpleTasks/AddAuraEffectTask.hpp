@@ -31,7 +31,7 @@ class AddAuraEffectTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     std::shared_ptr<IEffect> m_effect;
 };

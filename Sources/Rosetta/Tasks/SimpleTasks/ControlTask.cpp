@@ -51,8 +51,8 @@ TaskStatus ControlTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ControlTask::CloneImpl()
+std::unique_ptr<ITask> ControlTask::CloneImpl()
 {
-    return new ControlTask(m_entityType, m_opposite);
+    return std::make_unique<ControlTask>(m_entityType, m_opposite);
 }
 }  // namespace RosettaStone::SimpleTasks

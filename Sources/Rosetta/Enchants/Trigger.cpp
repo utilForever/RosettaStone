@@ -351,7 +351,7 @@ void Trigger::ProcessInternal(Entity* source)
 
     for (auto& task : tasks)
     {
-        ITask* clonedTask = task->Clone();
+        std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(m_owner->player);
         clonedTask->SetSource(m_owner);
@@ -390,7 +390,7 @@ void Trigger::ProcessInternal(Entity* source)
         }
         else
         {
-            m_owner->game->taskQueue.Enqueue(clonedTask);
+            m_owner->game->taskQueue.Enqueue(std::move(clonedTask));
         }
     }
 

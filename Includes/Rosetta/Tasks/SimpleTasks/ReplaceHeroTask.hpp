@@ -43,7 +43,7 @@ class ReplaceHeroTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     Card* m_heroCard = nullptr;
     Card* m_heroPowerCard = nullptr;

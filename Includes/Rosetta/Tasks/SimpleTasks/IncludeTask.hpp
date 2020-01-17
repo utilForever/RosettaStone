@@ -59,7 +59,7 @@ class IncludeTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     std::vector<EntityType> m_excludeTypes;
     bool m_addFlag = false;

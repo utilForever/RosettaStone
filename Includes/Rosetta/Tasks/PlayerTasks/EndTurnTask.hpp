@@ -26,7 +26,7 @@ class EndTurnTask : public ITask
     //! Returns Clone Of Object (pure virtual).
     //! \returns clone of object.
     //! \this uses for thread safe. not to access same task in multiple threads
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 };
 }  // namespace RosettaStone::PlayerTasks
 

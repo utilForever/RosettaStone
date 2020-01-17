@@ -25,7 +25,7 @@ TaskStatus FlagTask::Impl(Player* player)
 
     for (auto& task : m_toDoTasks)
     {
-        ITask* clonedTask = task->Clone();
+        std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
         clonedTask->SetSource(player->game->taskStack.source);
@@ -37,8 +37,8 @@ TaskStatus FlagTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* FlagTask::CloneImpl()
+std::unique_ptr<ITask> FlagTask::CloneImpl()
 {
-    return new FlagTask(m_flag, m_toDoTasks);
+    return std::make_unique<FlagTask>(m_flag, m_toDoTasks);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -33,8 +33,8 @@ TaskStatus GetEventNumberTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* GetEventNumberTask::CloneImpl()
+std::unique_ptr<ITask> GetEventNumberTask::CloneImpl()
 {
-    return new GetEventNumberTask(m_numIndex);
+    return std::make_unique<GetEventNumberTask>(m_numIndex);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -82,7 +82,7 @@ class ITask
     //! \return The cloned task.
     //! \note This will be used for solving multi-thread issue.
     //! Not to access same elements at same time.
-    ITask* Clone();
+    std::unique_ptr<ITask> Clone();
 
     //! Checks it is freeable task.
     //! \return The flag to indicate that it is freeable task.
@@ -109,7 +109,7 @@ class ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    virtual ITask* CloneImpl() = 0;
+    virtual std::unique_ptr<ITask> CloneImpl() = 0;
 };
 
 namespace Task

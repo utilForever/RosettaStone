@@ -29,8 +29,8 @@ TaskStatus AddAuraEffectTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* AddAuraEffectTask::CloneImpl()
+std::unique_ptr<ITask> AddAuraEffectTask::CloneImpl()
 {
-    return new AddAuraEffectTask(m_effect, m_entityType);
+    return std::make_unique<AddAuraEffectTask>(m_effect, m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

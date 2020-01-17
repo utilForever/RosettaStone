@@ -29,8 +29,8 @@ TaskStatus TempManaTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* TempManaTask::CloneImpl()
+std::unique_ptr<ITask> TempManaTask::CloneImpl()
 {
-    return new TempManaTask(m_amount);
+    return std::make_unique<TempManaTask>(m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

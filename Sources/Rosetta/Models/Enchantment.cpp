@@ -88,13 +88,13 @@ void Enchantment::Remove()
     {
         for (auto& power : card->power.GetDeathrattleTask())
         {
-            ITask* clonedPower = power->Clone();
+            std::unique_ptr<ITask> clonedPower = power->Clone();
 
             clonedPower->SetPlayer(m_target->player);
             clonedPower->SetSource(m_target);
             clonedPower->SetTarget(this);
 
-            game->taskQueue.Enqueue(clonedPower);
+            game->taskQueue.Enqueue(std::move(clonedPower));
         }
     }
 

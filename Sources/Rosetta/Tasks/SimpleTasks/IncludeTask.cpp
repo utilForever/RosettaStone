@@ -486,8 +486,9 @@ TaskStatus IncludeTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* IncludeTask::CloneImpl()
+std::unique_ptr<ITask> IncludeTask::CloneImpl()
 {
-    return new IncludeTask(m_entityType, m_excludeTypes, m_addFlag);
+    return std::make_unique<IncludeTask>(m_entityType, m_excludeTypes,
+                                         m_addFlag);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -26,7 +26,7 @@ class TaskQueue
 
     //! Returns the current queue.
     //! \return The current queue.
-    std::queue<ITask*>& GetCurrentQueue();
+    std::queue<std::unique_ptr<ITask>>& GetCurrentQueue();
 
     //! Returns flag that indicates task queue is empty.
     //! \return Flag that indicates task queue is empty.
@@ -40,17 +40,15 @@ class TaskQueue
 
     //! Enqueues the task.
     //! \param task The task to enqueue.
-    void Enqueue(ITask* task);
+    void Enqueue(std::unique_ptr<ITask> task);
 
     //! Processes the task.
     //! \return The result of task processing.
     TaskStatus Process();
 
  private:
-    std::stack<std::queue<ITask*>> m_eventStack;
-    std::queue<ITask*> m_baseQueue;
-
-    ITask* m_currentTask = nullptr;
+    std::stack<std::queue<std::unique_ptr<ITask>>> m_eventStack;
+    std::queue<std::unique_ptr<ITask>> m_baseQueue;
 
     bool m_eventFlag = false;
 };

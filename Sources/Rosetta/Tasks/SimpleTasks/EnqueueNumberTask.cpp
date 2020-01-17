@@ -31,21 +31,21 @@ TaskStatus EnqueueNumberTask::Impl(Player* player)
     {
         for (auto& task : m_tasks)
         {
-            ITask* clonedTask = task->Clone();
+            std::unique_ptr<ITask> clonedTask = task->Clone();
 
             clonedTask->SetPlayer(player);
             clonedTask->SetSource(m_source);
             clonedTask->SetTarget(m_target);
 
-            player->game->taskQueue.Enqueue(clonedTask);
+            player->game->taskQueue.Enqueue(std::move(clonedTask));
         }
     }
 
     return TaskStatus::COMPLETE;
 }
 
-ITask* EnqueueNumberTask::CloneImpl()
+std::unique_ptr<ITask> EnqueueNumberTask::CloneImpl()
 {
-    return new EnqueueNumberTask(m_tasks, m_isSpellDamage);
+    return std::make_unique<EnqueueNumberTask>(m_tasks, m_isSpellDamage);
 }
 }  // namespace RosettaStone::SimpleTasks

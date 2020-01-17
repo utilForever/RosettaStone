@@ -41,8 +41,9 @@ TaskStatus SwapAttackHealthTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* SwapAttackHealthTask::CloneImpl()
+std::unique_ptr<ITask> SwapAttackHealthTask::CloneImpl()
 {
-    return new SwapAttackHealthTask(m_entityType, m_enchantmentID);
+    return std::make_unique<SwapAttackHealthTask>(m_entityType,
+                                                  m_enchantmentID);
 }
 }  // namespace RosettaStone::SimpleTasks

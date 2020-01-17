@@ -23,8 +23,8 @@ TaskStatus ChangeHeroPowerTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ChangeHeroPowerTask::CloneImpl()
+std::unique_ptr<ITask> ChangeHeroPowerTask::CloneImpl()
 {
-    return new ChangeHeroPowerTask(m_card->id);
+    return std::make_unique<ChangeHeroPowerTask>(m_card->id);
 }
 }  // namespace RosettaStone::SimpleTasks

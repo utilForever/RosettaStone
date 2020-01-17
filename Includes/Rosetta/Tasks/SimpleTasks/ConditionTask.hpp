@@ -48,7 +48,7 @@ class ConditionTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     std::vector<SelfCondition*> m_selfConditions;
     std::vector<RelaCondition*> m_relaConditions;

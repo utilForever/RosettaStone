@@ -33,7 +33,7 @@ class AddEnchantmentTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     Card* m_enchantmentCard = nullptr;
     bool m_useScriptTag = false;

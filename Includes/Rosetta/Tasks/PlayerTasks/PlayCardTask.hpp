@@ -74,7 +74,7 @@ class PlayCardTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     int m_fieldPos = -1;
     int m_chooseOne = 0;

@@ -50,11 +50,10 @@ TaskStatus ITask::Run()
     return Impl(m_player);
 }
 
-ITask* ITask::Clone()
+std::unique_ptr<ITask> ITask::Clone()
 {
-    ITask* clonedTask = CloneImpl();
-    clonedTask->EnableFreeable();
-
+    std::unique_ptr<ITask> clonedTask = CloneImpl();
+    
     clonedTask->m_entityType = m_entityType;
     clonedTask->m_player = m_player;
     clonedTask->m_source = m_source;

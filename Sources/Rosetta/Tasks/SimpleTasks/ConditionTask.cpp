@@ -67,8 +67,9 @@ TaskStatus ConditionTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ConditionTask::CloneImpl()
+std::unique_ptr<ITask> ConditionTask::CloneImpl()
 {
-    return new ConditionTask(m_entityType, m_selfConditions, m_relaConditions);
+    return std::make_unique<ConditionTask>(m_entityType, m_selfConditions,
+                                           m_relaConditions);
 }
 }  // namespace RosettaStone::SimpleTasks

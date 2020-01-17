@@ -57,9 +57,9 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* AddEnchantmentTask::CloneImpl()
+std::unique_ptr<ITask> AddEnchantmentTask::CloneImpl()
 {
-    return new AddEnchantmentTask(m_enchantmentCard->id, m_entityType,
-                                  m_useScriptTag);
+    return std::make_unique<AddEnchantmentTask>(m_enchantmentCard->id,
+                                                m_entityType, m_useScriptTag);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -36,8 +36,8 @@ TaskStatus MoveToGraveyardTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* MoveToGraveyardTask::CloneImpl()
+std::unique_ptr<ITask> MoveToGraveyardTask::CloneImpl()
 {
-    return new MoveToGraveyardTask(m_entityType);
+    return std::make_unique<MoveToGraveyardTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

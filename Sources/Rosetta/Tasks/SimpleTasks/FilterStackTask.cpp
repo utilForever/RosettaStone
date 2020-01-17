@@ -82,16 +82,17 @@ TaskStatus FilterStackTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* FilterStackTask::CloneImpl()
+std::unique_ptr<ITask> FilterStackTask::CloneImpl()
 {
     if (!m_selfConditions.empty())
     {
-        return new FilterStackTask(m_selfConditions);
+        return std::make_unique<FilterStackTask>(m_selfConditions);
     }
 
     if (!m_relaConditions.empty())
     {
-        return new FilterStackTask(m_entityType, m_relaConditions);
+        return std::make_unique<FilterStackTask>(m_entityType,
+                                                 m_relaConditions);
     }
 
     return nullptr;

@@ -35,8 +35,8 @@ TaskStatus RemoveHandTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RemoveHandTask::CloneImpl()
+std::unique_ptr<ITask> RemoveHandTask::CloneImpl()
 {
-    return new RemoveHandTask(m_entityType);
+    return std::make_unique<RemoveHandTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks
