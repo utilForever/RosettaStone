@@ -111,7 +111,7 @@ void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
     powers.emplace("EX1_625t", power);
     playReqs.emplace("EX1_625t",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -126,7 +126,7 @@ void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
     powers.emplace("EX1_625t2", power);
     playReqs.emplace("EX1_625t2",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -141,7 +141,7 @@ void Expert1CardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("EX1_tk34"));
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk34"));
     powers.emplace("EX1_tk33", power);
     playReqs.emplace("EX1_tk33",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
@@ -205,7 +205,8 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_158e", EntityType::MINIONS));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_158e", EntityType::MINIONS));
     powers.emplace("EX1_158", power);
 
     // ------------------------------------------ SPELL - DRUID
@@ -300,7 +301,8 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_183e", EntityType::MINIONS));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_183e", EntityType::MINIONS));
     powers.emplace("EX1_183", power);
 
     // ------------------------------------------- SPELL - DRUID
@@ -310,8 +312,9 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_570e", EntityType::HERO));
-    power.AddPowerTask(new ArmorTask(4));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_570e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
     powers.emplace("EX1_570", power);
 
     // ------------------------------------------ SPELL - DRUID
@@ -324,7 +327,7 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("EX1_tk9", 3));
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 3));
     powers.emplace("EX1_571", power);
     playReqs.emplace("EX1_571",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
@@ -361,8 +364,10 @@ void Expert1CardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ATK));
-    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
     powers.emplace("EX1_578", power);
     playReqs.emplace("EX1_578", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -425,7 +430,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     powers.emplace("EX1_154a", power);
     playReqs.emplace("EX1_154a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -441,8 +447,9 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
-    power.AddPowerTask(new DrawTask(1));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
     powers.emplace("EX1_154b", power);
     playReqs.emplace("EX1_154b", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -458,7 +465,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_155ae", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_155ae", EntityType::TARGET));
     powers.emplace("EX1_155a", power);
     playReqs.emplace("EX1_155a",
                      PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
@@ -485,7 +493,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_155be", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_155be", EntityType::TARGET));
     powers.emplace("EX1_155b", power);
     playReqs.emplace("EX1_155b",
                      PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
@@ -511,7 +520,7 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
     powers.emplace("EX1_166a", power);
     playReqs.emplace("EX1_166a",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -530,7 +539,7 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
     powers.emplace("EX1_166b", power);
     playReqs.emplace("EX1_166b", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -542,7 +551,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: Deathrattle: Summon a 2/2 Treant.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new SummonTask("EX1_158t", SummonSide::DEFAULT));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_158t", SummonSide::DEFAULT));
     powers.emplace("EX1_158e", power);
 
     // ----------------------------------------- MINION - DRUID
@@ -563,7 +573,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("EX1_160t", SummonSide::SPELL));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("EX1_160t", SummonSide::SPELL));
     powers.emplace("EX1_160a", power);
     playReqs.emplace("EX1_160a",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
@@ -576,7 +587,7 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        new AddEnchantmentTask("EX1_160be", EntityType::MINIONS));
+        std::make_shared<AddEnchantmentTask>("EX1_160be", EntityType::MINIONS));
     powers.emplace("EX1_160b", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
@@ -604,7 +615,7 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: Gain 2 Mana Crystals.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ManaCrystalTask(2, true));
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(2, true));
     powers.emplace("EX1_164a", power);
 
     // ------------------------------------------ SPELL - DRUID
@@ -614,7 +625,7 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: Draw 3 cards.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DrawTask(3));
+    power.AddPowerTask(std::make_shared<DrawTask>(3));
     powers.emplace("EX1_164b", power);
 
     // ----------------------------------------- MINION - DRUID
@@ -624,7 +635,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: <b>Charge</b>
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new TransformTask(EntityType::SOURCE, "EX1_165t1"));
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "EX1_165t1"));
     powers.emplace("EX1_165a", power);
 
     // ----------------------------------------- MINION - DRUID
@@ -634,7 +646,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new TransformTask(EntityType::SOURCE, "EX1_165t2"));
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "EX1_165t2"));
     powers.emplace("EX1_165b", power);
 
     // ----------------------------------------- MINION - DRUID
@@ -670,7 +683,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: +5 Health and <b>Taunt</b>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_178ae", EntityType::SOURCE));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_178ae", EntityType::SOURCE));
     powers.emplace("EX1_178a", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
@@ -690,7 +704,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: +5 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_178be", EntityType::SOURCE));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_178be", EntityType::SOURCE));
     powers.emplace("EX1_178b", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
@@ -730,8 +745,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: Give your other minions +2/+2.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new AddEnchantmentTask("EX1_573ae", EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_573ae", EntityType::MINIONS_NOSOURCE));
     powers.emplace("EX1_573a", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
@@ -751,10 +766,10 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: Summon two 2/2 Treants with <b>Taunt</b>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new EnqueueTask({ new SummonTask("EX1_573t", SummonSide::RIGHT),
-                          new SummonTask("EX1_573t", SummonSide::LEFT) },
-                        1));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        std::vector<ITask*>{ new SummonTask("EX1_573t", SummonSide::RIGHT),
+                             new SummonTask("EX1_573t", SummonSide::LEFT) },
+        1));
     powers.emplace("EX1_573b", power);
 
     // ----------------------------------------- MINION - DRUID
@@ -785,7 +800,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: Deal 2 damage to all enemy minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
     powers.emplace("NEW1_007a", power);
 
     // ------------------------------------------ SPELL - DRUID
@@ -799,7 +815,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
     powers.emplace("NEW1_007b", power);
     playReqs.emplace("NEW1_007b",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -812,7 +829,7 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // Text: Draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DrawTask(1));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
     powers.emplace("NEW1_008a", power);
 
     // ------------------------------------------ SPELL - DRUID
@@ -825,7 +842,7 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::TARGET, 5));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
     powers.emplace("NEW1_008b", power);
     playReqs.emplace("NEW1_008b",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -919,10 +936,10 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(
-        new EnqueueTask({ new SummonTask(SummonSide::DEATHRATTLE,
-                                         Cards::FindCardByID("EX1_534t")) },
-                        2));
+    power.AddDeathrattleTask(std::make_shared<EnqueueTask>(
+        std::vector<ITask*>{ new SummonTask(SummonSide::DEATHRATTLE,
+                                            Cards::FindCardByID("EX1_534t")) },
+        2));
     powers.emplace("EX1_534", power);
 
     // ---------------------------------------- WEAPON - HUNTER
@@ -956,9 +973,12 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
-    power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET));
-    power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
     powers.emplace("EX1_537", power);
     playReqs.emplace("EX1_537", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -977,9 +997,9 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new CountTask(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(new EnqueueNumberTask(
-        { new SummonTask("EX1_538t", SummonSide::SPELL) }));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        std::vector<ITask*>{ new SummonTask("EX1_538t", SummonSide::SPELL) }));
     powers.emplace("EX1_538", power);
     playReqs.emplace("EX1_538",
                      PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
@@ -1011,9 +1031,11 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RevealStealthTask(EntityType::ALL_MINIONS));
-    power.AddPowerTask(new MoveToGraveyardTask(EntityType::ENEMY_SECRETS));
-    power.AddPowerTask(new DrawTask(1));
+    power.AddPowerTask(
+        std::make_shared<RevealStealthTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(
+        std::make_shared<MoveToGraveyardTask>(EntityType::ENEMY_SECRETS));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
     powers.emplace("EX1_544", power);
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1031,7 +1053,8 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - IMMUNE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_549o", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_549o", EntityType::TARGET));
     powers.emplace("EX1_549", power);
     playReqs.emplace("EX1_549",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -1138,8 +1161,9 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
-    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
     powers.emplace("EX1_617", power);
     playReqs.emplace("EX1_617",
                      PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } });
@@ -1244,9 +1268,10 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 2, true));
     power.AddPowerTask(
-        new SetGameTagTask(EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
     powers.emplace("CS2_028", power);
 
     // ------------------------------------------- SPELL - MAGE
@@ -1264,10 +1289,13 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(new ConditionTask(
-        EntityType::TARGET, { new SelfCondition(SelfCondition::IsFrozen()) }));
-    power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+                                SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{ new DrawTask(1) }));
     powers.emplace("EX1_179", power);
     playReqs.emplace("EX1_179", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -1279,8 +1307,9 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // Text: Add a random Mage spell to your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomCardTask(CardType::SPELL, CardClass::MAGE));
-    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     powers.emplace("EX1_180", power);
 
     // ------------------------------------------ MINION - MAGE
@@ -1319,10 +1348,12 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET, true));
     power.AddPowerTask(
-        new SetGameTagTask(EntityType::STACK, GameTag::FROZEN, 1));
-    power.AddPowerTask(new DamageTask(EntityType::STACK, 1, true));
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 1, true));
     powers.emplace("EX1_275", power);
     playReqs.emplace("EX1_275", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -1337,7 +1368,8 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 10, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 10, true));
     powers.emplace("EX1_279", power);
     playReqs.emplace("EX1_279", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -1479,7 +1511,8 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_612o", EntityType::PLAYER));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_612o", EntityType::PLAYER));
     powers.emplace("EX1_612", power);
 
     // ------------------------------------------ MINION - MAGE
@@ -1668,8 +1701,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new SetGameTagTask(EntityType::MINIONS, GameTag::DIVINE_SHIELD, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::MINIONS, GameTag::DIVINE_SHIELD, 1));
     powers.emplace("EX1_184", power);
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1682,8 +1715,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
-    power.AddPowerTask(new DrawTask(3));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
+    power.AddPowerTask(std::make_shared<DrawTask>(3));
     powers.emplace("EX1_354", power);
     playReqs.emplace("EX1_354", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -1698,7 +1731,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_355e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_355e", EntityType::TARGET));
     powers.emplace("EX1_355", power);
     playReqs.emplace("EX1_355", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -1722,8 +1756,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
     powers.emplace("EX1_362", power);
     playReqs.emplace("EX1_362",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -1742,7 +1776,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_363e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_363e", EntityType::TARGET));
     powers.emplace("EX1_363", power);
     playReqs.emplace("EX1_363", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -1760,9 +1795,11 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DrawTask(1, true));
-    power.AddPowerTask(new GetGameTagTask(EntityType::STACK, GameTag::COST));
-    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::STACK, GameTag::COST));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
     powers.emplace("EX1_365", power);
     playReqs.emplace("EX1_365", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -1825,7 +1862,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_382e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_382e", EntityType::TARGET));
     powers.emplace("EX1_382", power);
     playReqs.emplace("EX1_382",
                      PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
@@ -1846,7 +1884,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new WeaponTask("EX1_383t"));
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("EX1_383t"));
     powers.emplace("EX1_383", power);
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1859,9 +1897,10 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
-                                         new DamageTask(EntityType::STACK, 1) },
-                                       8, true));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        std::vector<ITask*>{ new RandomTask(EntityType::ENEMIES, 1),
+                             new DamageTask(EntityType::STACK, 1) },
+        8, true));
     powers.emplace("EX1_384", power);
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1871,8 +1910,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new AddEnchantmentTask("EX1_619e", EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_619e", EntityType::ALL_MINIONS));
     powers.emplace("EX1_619", power);
 }
 
@@ -1982,12 +2021,14 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::HEALTH));
     power.AddPowerTask(
-        new GetGameTagTask(EntityType::TARGET, GameTag::DAMAGE, 0, 1));
-    power.AddPowerTask(new MathNumberIndexTask(0, 1, MathOperation::SUB));
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::DAMAGE, 0, 1));
     power.AddPowerTask(
-        new AddEnchantmentTask("CS1_129e", EntityType::TARGET, true));
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "CS1_129e", EntityType::TARGET, true));
     powers.emplace("CS1_129", power);
     playReqs.emplace("CS1_129", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -2009,7 +2050,7 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ControlTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
     powers.emplace("EX1_091", power);
     playReqs.emplace("EX1_091",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -2031,7 +2072,7 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
     powers.emplace("EX1_332", power);
     playReqs.emplace("EX1_332", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -2051,8 +2092,9 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_MAX_ATTACK = 3
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ControlTask(EntityType::TARGET));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_334e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_334e", EntityType::TARGET));
     powers.emplace("EX1_334", power);
     playReqs.emplace("EX1_334",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -2082,8 +2124,9 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     //       add them to your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomTask(EntityType::ENEMY_DECK, 2));
-    power.AddPowerTask(new CopyTask(EntityType::STACK, ZoneType::HAND));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 2));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
     powers.emplace("EX1_339", power);
 
     // ---------------------------------------- MINION - PRIEST
@@ -2113,18 +2156,21 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::ENEMY_DECK));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
     power.AddPowerTask(
-        new FilterStackTask({ new SelfCondition(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(new CountTask(EntityType::STACK));
-    power.AddPowerTask(new ConditionTask(
-        EntityType::HERO,
-        { new SelfCondition(SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
-    power.AddPowerTask(new FlagTask(
-        true, { new RandomTask(EntityType::STACK, 1),
-                new CopyTask(EntityType::STACK, ZoneType::PLAY) }));
-    power.AddPowerTask(
-        new FlagTask(false, { new SummonTask("EX1_345t", SummonSide::SPELL) }));
+        std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
+            new SelfCondition(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, std::vector<SelfCondition*>{ new SelfCondition(
+                              SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{
+                  new RandomTask(EntityType::STACK, 1),
+                  new CopyTask(EntityType::STACK, ZoneType::PLAY) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        std::vector<ITask*>{ new SummonTask("EX1_345t", SummonSide::SPELL) }));
     powers.emplace("EX1_345", power);
     playReqs.emplace("EX1_345",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
@@ -2169,7 +2215,7 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // Text: Restore 4 Health to all minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL_MINIONS, 4));
     powers.emplace("EX1_621", power);
 
     // ---------------------------------------- MINION - PRIEST
@@ -2187,7 +2233,8 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_623e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_623e", EntityType::TARGET));
     powers.emplace("EX1_623", power);
     playReqs.emplace("EX1_623",
                      PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
@@ -2204,8 +2251,9 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
-    power.AddPowerTask(new HealTask(EntityType::HERO, 5));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
     powers.emplace("EX1_624", power);
     playReqs.emplace("EX1_624", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -2217,17 +2265,19 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     //       If already in Shadowform: 3 damage.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(
-        EntityType::SOURCE,
-        { new SelfCondition(SelfCondition::IsHeroPowerCard("EX1_625t")) }));
-    power.AddPowerTask(
-        new FlagTask(true, { new ChangeHeroPowerTask("EX1_625t2") }));
-    power.AddPowerTask(new FlagTask(
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, std::vector<SelfCondition*>{ new SelfCondition(
+                                SelfCondition::IsHeroPowerCard("EX1_625t")) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{ new ChangeHeroPowerTask("EX1_625t2") }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
         false,
-        { new ConditionTask(EntityType::SOURCE,
-                            { new SelfCondition(
-                                SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
-          new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") }) }));
+        std::vector<ITask*>{
+            new ConditionTask(
+                EntityType::SOURCE,
+                { new SelfCondition(
+                    SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
+            new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") }) }));
     powers.emplace("EX1_625", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -2240,8 +2290,9 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - SILENCE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SilenceTask(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(new DrawTask(1));
+    power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
     powers.emplace("EX1_626", power);
 }
 
@@ -2319,8 +2370,10 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("CS2_073e", EntityType::TARGET));
-    power.AddComboTask(new AddEnchantmentTask("CS2_073e2", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_073e", EntityType::TARGET));
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("CS2_073e2", EntityType::TARGET));
     powers.emplace("CS2_073", power);
     playReqs.emplace("CS2_073", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -2338,9 +2391,11 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_WEAPON_EQUIPPED = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::WEAPON, GameTag::ATK));
-    power.AddPowerTask(new DamageNumberTask(EntityType::ENEMY_MINIONS, true));
-    power.AddPowerTask(new DestroyTask(EntityType::WEAPON));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS, true));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::WEAPON));
     powers.emplace("CS2_233", power);
     playReqs.emplace("CS2_233",
                      PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } });
@@ -2358,8 +2413,10 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddComboTask(new DamageTask(EntityType::TARGET, 4, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddComboTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
     powers.emplace("EX1_124", power);
     playReqs.emplace("EX1_124", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -2376,9 +2433,11 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::ATK));
-    power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET));
-    power.AddPowerTask(new DamageNumberTask(EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DamageNumberTask>(EntityType::STACK));
     powers.emplace("EX1_126", power);
     playReqs.emplace("EX1_126", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 },
@@ -2394,7 +2453,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - COMBO = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddComboTask(new SummonTask("EX1_131t", SummonSide::RIGHT));
+    power.AddComboTask(
+        std::make_shared<SummonTask>("EX1_131t", SummonSide::RIGHT));
     powers.emplace("EX1_131", power);
 
     // ----------------------------------------- WEAPON - ROGUE
@@ -2412,8 +2472,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
-    power.AddComboTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
     powers.emplace("EX1_133", power);
     playReqs.emplace("EX1_133",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
@@ -2431,7 +2491,7 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_FOR_COMBO = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddComboTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
     powers.emplace("EX1_134", power);
     playReqs.emplace("EX1_134",
                      PlayReqs{ { PlayReq::REQ_TARGET_FOR_COMBO, 0 } });
@@ -2447,10 +2507,12 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - COMBO = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 2, true));
-    power.AddComboTask(new DamageTask(EntityType::ENEMY_HERO, 2, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
     power.AddComboTask(
-        new SetGameTagTask(EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddComboTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         new ConditionTask(EntityType::SOURCE,
@@ -2483,9 +2545,9 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
-    power.AddPowerTask(
-        new AddAuraEffectTask(Effects::ReduceCost(2), EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(
+        Effects::ReduceCost(2), EntityType::TARGET));
     powers.emplace("EX1_144", power);
     playReqs.emplace("EX1_144",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -2499,7 +2561,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // Text: The next spell you cast this turn costs (2) less.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_145o", EntityType::PLAYER));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_145o", EntityType::PLAYER));
     powers.emplace("EX1_145", power);
 
     // ------------------------------------------ SPELL - ROGUE
@@ -2510,8 +2573,9 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     //       <i>(from your opponent's class)</i>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomCardTask(EntityType::ENEMY_HERO));
-    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(EntityType::ENEMY_HERO));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     powers.emplace("EX1_182", power);
 
     // ----------------------------------------- MINION - ROGUE
@@ -2541,12 +2605,12 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - COMBO = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddComboTask(
-        new GetPlayerGameTagTask(GameTag::NUM_CARDS_PLAYED_THIS_TURN));
-    power.AddComboTask(new MathSubtractTask(1));
-    power.AddComboTask(new MathMultiplyTask(2));
-    power.AddComboTask(
-        new AddEnchantmentTask("EX1_613e", EntityType::SOURCE, true));
+    power.AddComboTask(std::make_shared<GetPlayerGameTagTask>(
+        GameTag::NUM_CARDS_PLAYED_THIS_TURN));
+    power.AddComboTask(std::make_shared<MathSubtractTask>(1));
+    power.AddComboTask(std::make_shared<MathMultiplyTask>(2));
+    power.AddComboTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_613e", EntityType::SOURCE, true));
     powers.emplace("EX1_613", power);
 
     // ----------------------------------------- MINION - ROGUE
@@ -2563,7 +2627,7 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_FOR_COMBO = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddComboTask(new ReturnHandTask(EntityType::TARGET));
+    power.AddComboTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
     powers.emplace("NEW1_005", power);
     playReqs.emplace("NEW1_005",
                      PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
@@ -2589,7 +2653,8 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - STEALTH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("NEW1_014e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_014e", EntityType::TARGET));
     powers.emplace("NEW1_014", power);
     playReqs.emplace("NEW1_014",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -2694,7 +2759,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("CS2_038e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_038e", EntityType::TARGET));
     powers.emplace("CS2_038", power);
     playReqs.emplace("CS2_038", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -2706,8 +2772,9 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // Text: Draw a card. That card costs (3) less.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DrawTask(1, true));
-    power.AddPowerTask(new AddEnchantmentTask("CS2_053e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_053e", EntityType::STACK));
     powers.emplace("CS2_053", power);
 
     // ----------------------------------------- SPELL - SHAMAN
@@ -2724,7 +2791,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     powers.emplace("EX1_238", power);
     playReqs.emplace("EX1_238", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -2742,7 +2810,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
     powers.emplace("EX1_241", power);
     playReqs.emplace("EX1_241", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -2775,8 +2844,9 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
     powers.emplace("EX1_245", power);
     playReqs.emplace("EX1_245", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -2811,7 +2881,7 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("EX1_tk11", 2));
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk11", 2));
     powers.emplace("EX1_248", power);
     playReqs.emplace("EX1_248",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
@@ -2846,8 +2916,10 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
-    power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
     powers.emplace("EX1_251", power);
     playReqs.emplace("EX1_251",
                      PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } });
@@ -2880,7 +2952,8 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 2, 1, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, 1, true));
     powers.emplace("EX1_259", power);
 
     // ---------------------------------------- WEAPON - SHAMAN
@@ -2941,8 +3014,10 @@ void Expert1CardsGen::AddShamanNonCollect(PowersType& powers,
     // Text: <b>Deathrattle:</b> Resummon this minion.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, ZoneType::PLAY));
-    power.AddDeathrattleTask(new SummonTask(SummonSide::DEATHRATTLE));
+    power.AddDeathrattleTask(
+        std::make_shared<CopyTask>(EntityType::SOURCE, ZoneType::PLAY));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>(SummonSide::DEATHRATTLE));
     powers.emplace("CS2_038e", power);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
@@ -3017,9 +3092,9 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // Text: Add a random Demon to your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON));
-    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::DEMON));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     powers.emplace("EX1_181", power);
 
     // --------------------------------------- MINION - WARLOCK
@@ -3053,7 +3128,7 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ManaCrystalTask(-1, false));
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(-1, false));
     powers.emplace("EX1_301", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -3072,9 +3147,11 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::ATK));
-    power.AddPowerTask(new DamageNumberTask(EntityType::ENEMY_MINIONS, true));
-    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS, true));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
     powers.emplace("EX1_303", power);
     playReqs.emplace("EX1_303", PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 },
@@ -3091,20 +3168,23 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeAdjacentTask(EntityType::SOURCE));
     power.AddPowerTask(
-        new GetGameTagTask(EntityType::STACK, GameTag::ATK, 0, 1));
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 0, 1));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 1, 2));
     power.AddPowerTask(
-        new GetGameTagTask(EntityType::STACK, GameTag::ATK, 1, 2));
-    power.AddPowerTask(new MathNumberIndexTask(1, 2, MathOperation::ADD));
+        std::make_shared<MathNumberIndexTask>(1, 2, MathOperation::ADD));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 0, 3));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 1, 4));
     power.AddPowerTask(
-        new GetGameTagTask(EntityType::STACK, GameTag::HEALTH, 0, 3));
-    power.AddPowerTask(
-        new GetGameTagTask(EntityType::STACK, GameTag::HEALTH, 1, 4));
-    power.AddPowerTask(new MathNumberIndexTask(3, 4, MathOperation::ADD, 1));
-    power.AddPowerTask(new DestroyTask(EntityType::STACK));
-    power.AddPowerTask(
-        new AddEnchantmentTask("EX1_304e", EntityType::SOURCE, true));
+        std::make_shared<MathNumberIndexTask>(3, 4, MathOperation::ADD, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_304e", EntityType::SOURCE, true));
     powers.emplace("EX1_304", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -3118,8 +3198,8 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
-    power.AddPowerTask(new HealTask(EntityType::HERO, 3));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
     powers.emplace("EX1_309", power);
     playReqs.emplace("EX1_309", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -3131,7 +3211,7 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // Text: Destroy all minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
     powers.emplace("EX1_312", power);
 
     // --------------------------------------- MINION - WARLOCK
@@ -3144,7 +3224,7 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::HERO, 5));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
     powers.emplace("EX1_313", power);
 
     // --------------------------------------- MINION - WARLOCK
@@ -3169,18 +3249,21 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     for (size_t i = 0; i < 2; ++i)
     {
-        power.AddPowerTask(new IncludeTask(EntityType::DECK));
-        power.AddPowerTask(new FilterStackTask(
-            { new SelfCondition(SelfCondition::IsRace(Race::DEMON)) }));
-        power.AddPowerTask(new CountTask(EntityType::STACK));
-        power.AddPowerTask(new ConditionTask(
-            EntityType::HERO, { new SelfCondition(SelfCondition::IsStackNum(
-                                  1, RelaSign::GEQ)) }));
-        power.AddPowerTask(new FlagTask(
-            true,
-            { new RandomTask(EntityType::STACK, 1), new DrawStackTask(1) }));
-        power.AddPowerTask(new FlagTask(
-            false, { new AddCardTask(EntityType::HAND, "EX1_317t") }));
+        power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+        power.AddPowerTask(
+            std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
+                new SelfCondition(SelfCondition::IsRace(Race::DEMON)) }));
+        power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+        power.AddPowerTask(std::make_shared<ConditionTask>(
+            EntityType::HERO,
+            std::vector<SelfCondition*>{ new SelfCondition(
+                SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
+        power.AddPowerTask(std::make_shared<FlagTask>(
+            true, std::vector<ITask*>{ new RandomTask(EntityType::STACK, 1),
+                                       new DrawStackTask(1) }));
+        power.AddPowerTask(std::make_shared<FlagTask>(
+            false, std::vector<ITask*>{
+                       new AddCardTask(EntityType::HAND, "EX1_317t") }));
     }
     powers.emplace("EX1_317", power);
 
@@ -3194,7 +3277,7 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::HERO, 3));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3));
     powers.emplace("EX1_319", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -3208,13 +3291,16 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(new ConditionTask(
-        EntityType::TARGET, { new SelfCondition(SelfCondition::IsDead()) }));
-    power.AddPowerTask(new FlagTask(
-        true,
-        { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
-          new SummonTask(SummonSide::SPELL) }));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, std::vector<SelfCondition*>{
+                                new SelfCondition(SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{ new RandomCardTask(CardType::MINION,
+                                                      CardClass::INVALID,
+                                                      Race::DEMON),
+                                   new SummonTask(SummonSide::SPELL) }));
     powers.emplace("EX1_320", power);
     playReqs.emplace("EX1_320", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -3230,7 +3316,8 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ReplaceHeroTask("EX1_323h", "EX1_tk33", "EX1_323w"));
+    power.AddPowerTask(
+        std::make_shared<ReplaceHeroTask>("EX1_323h", "EX1_tk33", "EX1_323w"));
     powers.emplace("EX1_323", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -3245,14 +3332,18 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(
+    power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET,
-        { new SelfCondition(SelfCondition::IsRace(Race::DEMON)) },
-        { new RelaCondition(RelaCondition::IsFriendly()) }));
-    power.AddPowerTask(new FlagTask(
-        true, { new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
-    power.AddPowerTask(
-        new FlagTask(false, { new DamageTask(EntityType::TARGET, 2, true) }));
+        std::vector<SelfCondition*>{
+            new SelfCondition(SelfCondition::IsRace(Race::DEMON)) },
+        std::vector<RelaCondition*>{
+            new RelaCondition(RelaCondition::IsFriendly()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{
+                  new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 2, true) }));
     powers.emplace("EX1_596", power);
     playReqs.emplace("EX1_596", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -3354,7 +3445,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_DAMAGED_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_104e", EntityType::TARGET));
     powers.emplace("CS2_104", power);
     playReqs.emplace("CS2_104", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 },
@@ -3371,10 +3463,13 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(new ConditionTask(
-        EntityType::TARGET, { new SelfCondition(SelfCondition::IsNotDead()) }));
-    power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+                                SelfCondition::IsNotDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{ new DrawTask(1) }));
     powers.emplace("EX1_391", power);
     playReqs.emplace("EX1_391", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -3389,9 +3484,10 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new CountTask(EntityType::FRIENDS, 0, { SelfCondition::IsDamaged() }));
-    power.AddPowerTask(new DrawNumberTask());
+    power.AddPowerTask(std::make_shared<CountTask>(
+        EntityType::FRIENDS, 0,
+        std::vector<SelfCondition>{ SelfCondition::IsDamaged() }));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
     powers.emplace("EX1_392", power);
     playReqs.emplace("EX1_392", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
 
@@ -3418,7 +3514,7 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new WeaponTask("EX1_398t"));
+    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_398t"));
     powers.emplace("EX1_398", power);
 
     // --------------------------------------- MINION - WARRIOR
@@ -3443,10 +3539,11 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINIMUM_TOTAL_MINIONS = 2
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomTask(EntityType::ALL_MINIONS, 1));
     power.AddPowerTask(
-        new IncludeTask(EntityType::ALL_MINIONS, { EntityType::STACK }));
-    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+        std::make_shared<RandomTask>(EntityType::ALL_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ALL_MINIONS, std::vector<EntityType>{ EntityType::STACK }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
     powers.emplace("EX1_407", power);
     playReqs.emplace("EX1_407",
                      PlayReqs{ { PlayReq::REQ_MINIMUM_TOTAL_MINIONS, 2 } });
@@ -3461,13 +3558,15 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(
-        EntityType::HERO,
-        { new SelfCondition(SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
-    power.AddPowerTask(
-        new FlagTask(true, { new DamageTask(EntityType::TARGET, 6, true) }));
-    power.AddPowerTask(
-        new FlagTask(false, { new DamageTask(EntityType::TARGET, 4, true) }));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, std::vector<SelfCondition*>{ new SelfCondition(
+                              SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 6, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 4, true) }));
     powers.emplace("EX1_408", power);
     playReqs.emplace("EX1_408", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -3479,12 +3578,14 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     //       Otherwise equip a 1/3 weapon.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(
-        EntityType::HERO,
-        { new SelfCondition(SelfCondition::IsWeaponEquipped()) }));
-    power.AddPowerTask(new FlagTask(
-        true, { new AddEnchantmentTask("EX1_409e", EntityType::WEAPON) }));
-    power.AddPowerTask(new FlagTask(false, { new WeaponTask("EX1_409t") }));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, std::vector<SelfCondition*>{ new SelfCondition(
+                              SelfCondition::IsWeaponEquipped()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{
+                  new AddEnchantmentTask("EX1_409e", EntityType::WEAPON) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, std::vector<ITask*>{ new WeaponTask("EX1_409t") }));
     powers.emplace("EX1_409", power);
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -3501,8 +3602,10 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ARMOR));
-    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ARMOR));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
     powers.emplace("EX1_410", power);
     playReqs.emplace("EX1_410", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -3556,8 +3659,9 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_NONSELF_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_603e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_603e", EntityType::TARGET));
     powers.emplace("EX1_603", power);
     playReqs.emplace("EX1_603",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -3588,8 +3692,10 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_607e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_607e", EntityType::TARGET));
     powers.emplace("EX1_607", power);
     playReqs.emplace("EX1_607", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -3603,8 +3709,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        new AddEnchantmentTask("NEW1_036e2", EntityType::PLAYER));
-    power.AddPowerTask(new DrawTask(1));
+        std::make_shared<AddEnchantmentTask>("NEW1_036e2", EntityType::PLAYER));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
     powers.emplace("NEW1_036", power);
 }
 
@@ -3825,7 +3931,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::TARGET, 3));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
     powers.emplace("CS2_117", power);
     playReqs.emplace("CS2_117",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
@@ -3854,7 +3960,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("CS2_152", SummonSide::RIGHT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_152", SummonSide::RIGHT));
     powers.emplace("CS2_151", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3893,7 +4000,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::SOURCE, 4, false));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::SOURCE, 4, false));
     powers.emplace("CS2_181", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3910,7 +4018,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("CS2_188o", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_188o", EntityType::TARGET));
     powers.emplace("CS2_188", power);
     playReqs.emplace("CS2_188", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -3932,7 +4041,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - SILENCE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
     powers.emplace("CS2_203", power);
     playReqs.emplace("CS2_203",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -4008,7 +4117,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
     powers.emplace("EX1_002", power);
     playReqs.emplace("EX1_002",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -4047,7 +4156,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_MIN_ATTACK = 7
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
     powers.emplace("EX1_005", power);
     playReqs.emplace("EX1_005",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -4142,7 +4251,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new DrawTask(1));
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
     powers.emplace("EX1_012", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4156,7 +4265,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddCardTask(EntityType::ENEMY_HAND, "EX1_014t", 2));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "EX1_014t", 2));
     powers.emplace("EX1_014", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4234,7 +4344,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, false));
     powers.emplace("EX1_029", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4272,9 +4383,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: <b>Battlecry:</b> Gain +1 Health for each card in your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new CountTask(EntityType::HAND));
-    power.AddPowerTask(
-        new AddEnchantmentTask("EX1_043e", EntityType::SOURCE, true));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_043e", EntityType::SOURCE, true));
     powers.emplace("EX1_043", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4317,7 +4428,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_046e", EntityType::TARGET));
     powers.emplace("EX1_046", power);
     playReqs.emplace("EX1_046", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -4340,7 +4452,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - SILENCE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
     powers.emplace("EX1_048", power);
     playReqs.emplace("EX1_048",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -4364,7 +4476,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
     powers.emplace("EX1_049", power);
     playReqs.emplace("EX1_049",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -4402,7 +4514,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_NONSELF_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
     powers.emplace("EX1_057", power);
     playReqs.emplace("EX1_057",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -4423,12 +4535,12 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(new FilterStackTask(
-        EntityType::SOURCE,
-        { new RelaCondition(RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, std::vector<RelaCondition*>{ new RelaCondition(
+                                RelaCondition::IsSideBySide()) }));
     power.AddPowerTask(
-        new SetGameTagTask(EntityType::STACK, GameTag::TAUNT, 1));
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 1));
     powers.emplace("EX1_058", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4446,7 +4558,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        new SwapAttackHealthTask(EntityType::TARGET, "EX1_059e"));
+        std::make_shared<SwapAttackHealthTask>(EntityType::TARGET, "EX1_059e"));
     powers.emplace("EX1_059", power);
     playReqs.emplace("EX1_059",
                      PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
@@ -4514,10 +4626,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new EnqueueTask({ new RandomTask(EntityType::ALL_NOSOURCE, 1),
-                          new DamageTask(EntityType::STACK, 1) },
-                        3, false));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        std::vector<ITask*>{ new RandomTask(EntityType::ALL_NOSOURCE, 1),
+                             new DamageTask(EntityType::STACK, 1) },
+        3, false));
     powers.emplace("EX1_082", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4532,12 +4644,15 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomTask(EntityType::ALL_MINIONS_NOSOURCE, 1));
-    power.AddPowerTask(new ChanceTask(true));
-    power.AddPowerTask(new FlagTask(
-        true, { new TransformTask(EntityType::STACK, "EX1_tk28") }));
-    power.AddPowerTask(new FlagTask(
-        false, { new TransformTask(EntityType::STACK, "EX1_tk29") }));
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    power.AddPowerTask(std::make_shared<ChanceTask>(true));
+    power.AddPowerTask(
+        std::make_shared<FlagTask>(true, std::vector<ITask*>{ new TransformTask(
+                                             EntityType::STACK, "EX1_tk28") }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, std::vector<ITask*>{
+                   new TransformTask(EntityType::STACK, "EX1_tk29") }));
     powers.emplace("EX1_083", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4551,19 +4666,20 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
     power.AddPowerTask(
-        new FuncPlayableTask([=](const std::vector<Playable*>& playables) {
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
             return playables.size() > 3 ? playables : std::vector<Playable*>{};
         }));
-    power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
-    power.AddPowerTask(
-        new ConditionTask(EntityType::SOURCE,
-                          { new SelfCondition(SelfCondition::IsFieldFull()) }));
-    power.AddPowerTask(
-        new FlagTask(true, { new DestroyTask(EntityType::STACK) }));
-    power.AddPowerTask(
-        new FlagTask(false, { new ControlTask(EntityType::STACK) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, std::vector<SelfCondition*>{ new SelfCondition(
+                                SelfCondition::IsFieldFull()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{ new DestroyTask(EntityType::STACK) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, std::vector<ITask*>{ new ControlTask(EntityType::STACK) }));
     powers.emplace("EX1_085", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4576,7 +4692,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ManaCrystalTask(1, false, true));
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false, true));
     powers.emplace("EX1_089", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4592,11 +4708,12 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(new FilterStackTask(
-        EntityType::SOURCE,
-        { new RelaCondition(RelaCondition::IsSideBySide()) }));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_093e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, std::vector<RelaCondition*>{ new RelaCondition(
+                                RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_093e", EntityType::STACK));
     powers.emplace("EX1_093", power);
 
     // ---------------------------------------- MINION - NEUTRAL
@@ -4621,7 +4738,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new DrawTask(1));
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
     powers.emplace("EX1_096", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4636,7 +4753,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new DamageTask(EntityType::ALL, 2));
+    power.AddDeathrattleTask(std::make_shared<DamageTask>(EntityType::ALL, 2));
     powers.emplace("EX1_097", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4683,10 +4800,13 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(new FilterStackTask(
-        { new SelfCondition(SelfCondition::IsRace(Race::MURLOC)) }));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_103e", EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(
+        std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
+            new SelfCondition(SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_103e", EntityType::STACK));
     powers.emplace("EX1_103", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4713,7 +4833,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(
-        new SummonTask("EX1_110t", SummonSide::DEATHRATTLE));
+        std::make_shared<SummonTask>("EX1_110t", SummonSide::DEATHRATTLE));
     powers.emplace("EX1_110", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4729,7 +4849,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new EnqueueTask({ new SummonOpTask("EX1_116t") }, 2));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        std::vector<ITask*>{ new SummonOpTask("EX1_116t") }, 2));
     powers.emplace("EX1_116", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4772,8 +4893,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomTask(EntityType::ENEMY_SECRETS, 1));
-    power.AddPowerTask(new MoveToGraveyardTask(EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_SECRETS, 1));
+    power.AddPowerTask(
+        std::make_shared<MoveToGraveyardTask>(EntityType::STACK));
     powers.emplace("EX1_186", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4799,9 +4922,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new RandomMinionTask(GameTag::CARDRACE, static_cast<int>(Race::BEAST)));
-    power.AddPowerTask(new SummonTask());
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        GameTag::CARDRACE, static_cast<int>(Race::BEAST)));
+    power.AddPowerTask(std::make_shared<SummonTask>());
     powers.emplace("EX1_188", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4816,9 +4939,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomCardTask(CardType::MINION, CardClass::INVALID,
-                                          Race::INVALID, Rarity::LEGENDARY));
-    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
+                                         Race::INVALID, Rarity::LEGENDARY));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     powers.emplace("EX1_189", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4833,7 +4957,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new CustomTask([](Player* player) {
+    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
         const auto field = player->GetFieldZone();
         if (field->IsFull())
         {
@@ -4903,8 +5027,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::FROZEN, 1));
     powers.emplace("EX1_283", power);
     playReqs.emplace("EX1_283",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
@@ -5009,7 +5133,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(
-        new SummonTask("skele21", SummonSide::DEATHRATTLE));
+        std::make_shared<SummonTask>("skele21", SummonSide::DEATHRATTLE));
     powers.emplace("EX1_556", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5040,13 +5164,14 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::ENEMY_WEAPON, GameTag::DURABILITY));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::ENEMY_WEAPON, GameTag::DAMAGE, 0, 1));
     power.AddPowerTask(
-        new GetGameTagTask(EntityType::ENEMY_WEAPON, GameTag::DURABILITY));
-    power.AddPowerTask(
-        new GetGameTagTask(EntityType::ENEMY_WEAPON, GameTag::DAMAGE, 0, 1));
-    power.AddPowerTask(new MathNumberIndexTask(0, 1, MathOperation::SUB));
-    power.AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
-    power.AddPowerTask(new DrawNumberTask());
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
     powers.emplace("EX1_558", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5079,7 +5204,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_HERO_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_561e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_561e", EntityType::TARGET));
     powers.emplace("EX1_561", power);
     playReqs.emplace("EX1_561",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -5097,10 +5223,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new EnqueueTask({ new SummonTask("EX1_116t", SummonSide::RIGHT),
-                          new SummonTask("EX1_116t", SummonSide::LEFT) },
-                        3));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        std::vector<ITask*>{ new SummonTask("EX1_116t", SummonSide::RIGHT),
+                             new SummonTask("EX1_116t", SummonSide::LEFT) },
+        3));
     powers.emplace("EX1_562", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5129,7 +5255,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_NONSELF_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new TransformCopyTask());
+    power.AddPowerTask(std::make_shared<TransformCopyTask>());
     powers.emplace("EX1_564", power);
     playReqs.emplace("EX1_564",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -5167,7 +5293,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new SummonOpTask("EX1_finkle"));
+    power.AddDeathrattleTask(std::make_shared<SummonOpTask>("EX1_finkle"));
     powers.emplace("EX1_577", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5180,7 +5306,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::HERO, 4));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 4));
     powers.emplace("EX1_583", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5196,11 +5322,12 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - SPELLPOWER = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
-    power.AddPowerTask(new FilterStackTask(
-        EntityType::SOURCE,
-        { new RelaCondition(RelaCondition::IsSideBySide()) }));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_584e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, std::vector<RelaCondition*>{ new RelaCondition(
+                                RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_584e", EntityType::STACK));
     powers.emplace("EX1_584", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5230,15 +5357,16 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::ALL_MINIONS));
-    power.AddPowerTask(new FilterStackTask({ new SelfCondition(
-        SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
-    power.AddPowerTask(
-        new SetGameTagTask(EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
-    power.AddPowerTask(new CountTask(EntityType::STACK));
-    power.AddPowerTask(new MathMultiplyTask(3));
-    power.AddPowerTask(
-        new AddEnchantmentTask("EX1_590e", EntityType::SOURCE, true));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        std::vector<SelfCondition*>{ new SelfCondition(
+            SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<MathMultiplyTask>(3));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_590e", EntityType::SOURCE, true));
     powers.emplace("EX1_590", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5313,12 +5441,13 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_WITH_RACE = 14
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(
-        EntityType::TARGET,
-        { new SelfCondition(SelfCondition::IsRace(Race::MURLOC)) }));
-    power.AddPowerTask(new FlagTask(
-        true, { new DestroyTask(EntityType::TARGET),
-                new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE) }));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+                                SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, std::vector<ITask*>{
+                  new DestroyTask(EntityType::TARGET),
+                  new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE) }));
     powers.emplace("NEW1_017", power);
     playReqs.emplace("NEW1_017",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -5335,9 +5464,10 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::WEAPON, GameTag::ATK));
     power.AddPowerTask(
-        new AddEnchantmentTask("NEW1_018e", EntityType::SOURCE, true));
+        std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "NEW1_018e", EntityType::SOURCE, true));
     powers.emplace("NEW1_018", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5425,7 +5555,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: <b>Battlecry:</b> Give your weapon +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("NEW1_024o", EntityType::WEAPON));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_024o", EntityType::WEAPON));
     powers.emplace("NEW1_024", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5439,7 +5570,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RemoveDurabilityTask(1, true));
+    power.AddPowerTask(std::make_shared<RemoveDurabilityTask>(1, true));
     powers.emplace("NEW1_025", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5481,7 +5612,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("NEW1_029t", EntityType::PLAYER));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_029t", EntityType::PLAYER));
     powers.emplace("NEW1_029", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5495,8 +5627,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS_NOSOURCE));
-    power.AddPowerTask(new RemoveHandTask(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<RemoveHandTask>(EntityType::HAND));
     powers.emplace("NEW1_030", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5560,11 +5693,13 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(new FilterStackTask({ new SelfCondition(
-        SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
-    power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
-    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        std::vector<SelfCondition*>{ new SelfCondition(
+            SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
     powers.emplace("NEW1_041", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5674,7 +5809,8 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_014te", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_014te", EntityType::TARGET));
     powers.emplace("EX1_014t", power);
     playReqs.emplace("EX1_014t", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -6077,10 +6213,12 @@ void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
     // Text: Deal 5 damage to all characters except Ysera.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::ALL));
-    power.AddPowerTask(new FilterStackTask(
-        { new SelfCondition(SelfCondition::IsName("Ysera", false)) }));
-    power.AddPowerTask(new DamageTask(EntityType::STACK, 5, true));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL));
+    power.AddPowerTask(
+        std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
+            new SelfCondition(SelfCondition::IsName("Ysera", false)) }));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 5, true));
     powers.emplace("DREAM_02", power);
 
     // ----------------------------------------- MINION - DREAM
@@ -6102,7 +6240,7 @@ void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
     powers.emplace("DREAM_04", power);
     playReqs.emplace("DREAM_04", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -6118,7 +6256,8 @@ void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("DREAM_05e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DREAM_05e", EntityType::TARGET));
     powers.emplace("DREAM_05", power);
     playReqs.emplace("DREAM_05", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });

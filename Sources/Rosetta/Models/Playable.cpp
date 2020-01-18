@@ -406,7 +406,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         }
     }
 
-    std::vector<ITask*> tasks;
+    std::vector<std::shared_ptr<ITask>> tasks;
     switch (type)
     {
         case PowerType::POWER:

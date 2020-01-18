@@ -59,8 +59,8 @@ void HoFCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
-    power.AddPowerTask(new DrawOpTask(2));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
     powers.emplace("EX1_161", power);
     playReqs.emplace("EX1_161", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -104,12 +104,15 @@ void HoFCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(
-        EntityType::TARGET, { new SelfCondition(SelfCondition::IsFrozen()) }));
-    power.AddPowerTask(
-        new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true) }));
-    power.AddPowerTask(new FlagTask(
-        false, { new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1) }));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+                                SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 4, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, std::vector<ITask*>{ new SetGameTagTask(EntityType::TARGET,
+                                                       GameTag::FROZEN, 1) }));
     powers.emplace("CS2_031", power);
     playReqs.emplace("CS2_031", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }
@@ -133,7 +136,7 @@ void HoFCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     //       as your opponent
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
         for (auto handNum =
                  playable->player->opponent->GetHandZone()->GetCount() -
                  playable->player->GetHandZone()->GetCount();
@@ -164,7 +167,8 @@ void HoFCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // Text: Deal 5 damage to the enemy hero.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
     powers.emplace("DS1_233", power);
 }
 
@@ -190,7 +194,8 @@ void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // - STEALTH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_128e", EntityType::MINIONS));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_128e", EntityType::MINIONS));
     powers.emplace("EX1_128", power);
 
     // ------------------------------------------ SPELL - ROGUE
@@ -200,7 +205,8 @@ void HoFCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // Text: Return all minions to their owner's hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::ALL_MINIONS));
+    power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::ALL_MINIONS));
     powers.emplace("NEW1_004", power);
 }
 
@@ -255,8 +261,8 @@ void HoFCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomTask(EntityType::HAND, 2));
-    power.AddPowerTask(new DiscardTask(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::HAND, 2));
+    power.AddPowerTask(std::make_shared<DiscardTask>(EntityType::STACK));
     powers.emplace("EX1_310", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -272,7 +278,8 @@ void HoFCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_316e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_316e", EntityType::TARGET));
     powers.emplace("EX1_316", power);
     playReqs.emplace("EX1_316",
                      PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -329,8 +336,9 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
-    power.AddDeathrattleTask(new ControlTask(EntityType::STACK));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddDeathrattleTask(std::make_shared<ControlTask>(EntityType::STACK));
     powers.emplace("EX1_016", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -343,15 +351,16 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DrawTask(2));
-    power.AddPowerTask(new DrawOpTask(2));
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
     powers.emplace("EX1_050", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
     // - Race: Murloc, Faction: Neutral. Set: HoF, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
+    // Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the
+    // battlefield.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -402,7 +411,7 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DrawTask(1));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
     powers.emplace("EX1_284", power);
 
     // --------------------------------------- MINION - NEUTRAL
