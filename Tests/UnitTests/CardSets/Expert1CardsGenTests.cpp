@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -7907,7 +7907,7 @@ TEST(WarlockExpert1Test, EX1_323_LordJaraxxus)
 // [EX1_596] Demonfire - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal 2 damage to a minion. If it?�s a friendly Demon,
+// Text: Deal 2 damage to a minion. If it’s a friendly Demon,
 //       give it +2/+2 instead.
 // --------------------------------------------------------
 // PlayReq:
