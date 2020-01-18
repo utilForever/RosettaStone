@@ -45,15 +45,15 @@ class Power
 
     //! Returns a list of power tasks.
     //! \return A list of power tasks.
-    std::vector<ITask*>& GetPowerTask();
+    std::vector<std::shared_ptr<ITask>>& GetPowerTask();
 
     //! Returns a list of deathrattle tasks.
     //! \return A list of deathrattle tasks.
-    std::vector<ITask*>& GetDeathrattleTask();
+    std::vector<std::shared_ptr<ITask>>& GetDeathrattleTask();
 
     //! Returns a list of combo tasks.
     //! \return A list of combo tasks.
-    std::vector<ITask*>& GetComboTask();
+    std::vector<std::shared_ptr<ITask>>& GetComboTask();
 
     //! Clears power task and enchant.
     void ClearData();
@@ -72,24 +72,24 @@ class Power
 
     //! Adds power task.
     //! \param task A pointer to power task.
-    void AddPowerTask(ITask* task);
+    void AddPowerTask(std::shared_ptr<ITask> task);
 
     //! Adds deathrattle task.
     //! \param task A pointer to deathrattle task.
-    void AddDeathrattleTask(ITask* task);
+    void AddDeathrattleTask(std::shared_ptr<ITask> task);
 
     //! Adds combo task.
     //! \param task A pointer to combo task.
-    void AddComboTask(ITask* task);
+    void AddComboTask(std::shared_ptr<ITask> task);
 
  private:
     IAura* m_aura = nullptr;
     std::shared_ptr<Enchant> m_enchant;
     Trigger* m_trigger = nullptr;
 
-    std::vector<ITask*> m_powerTask;
-    std::vector<ITask*> m_deathrattleTask;
-    std::vector<ITask*> m_comboTask;
+    std::vector<std::shared_ptr<ITask>> m_powerTask;
+    std::vector<std::shared_ptr<ITask>> m_deathrattleTask;
+    std::vector<std::shared_ptr<ITask>> m_comboTask;
 };
 }  // namespace RosettaStone
 

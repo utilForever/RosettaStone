@@ -13,7 +13,7 @@ namespace RosettaStone
 void Power::RefCopy(const Power& rhs)
 {
     m_aura = rhs.m_aura;
-    //m_enchant = std::make_unique<Enchant>(*rhs.m_enchant);
+    // m_enchant = std::make_unique<Enchant>(*rhs.m_enchant);
     m_trigger = rhs.m_trigger;
 
     m_powerTask = rhs.m_powerTask;
@@ -36,17 +36,17 @@ Trigger* Power::GetTrigger()
     return m_trigger;
 }
 
-std::vector<ITask*>& Power::GetPowerTask()
+std::vector<std::shared_ptr<ITask>>& Power::GetPowerTask()
 {
     return m_powerTask;
 }
 
-std::vector<ITask*>& Power::GetDeathrattleTask()
+std::vector<std::shared_ptr<ITask>>& Power::GetDeathrattleTask()
 {
     return m_deathrattleTask;
 }
 
-std::vector<ITask*>& Power::GetComboTask()
+std::vector<std::shared_ptr<ITask>>& Power::GetComboTask()
 {
     return m_comboTask;
 }
@@ -76,17 +76,17 @@ void Power::AddTrigger(Trigger* trigger)
     m_trigger = trigger;
 }
 
-void Power::AddPowerTask(ITask* task)
+void Power::AddPowerTask(std::shared_ptr<ITask> task)
 {
     m_powerTask.emplace_back(task);
 }
 
-void Power::AddDeathrattleTask(ITask* task)
+void Power::AddDeathrattleTask(std::shared_ptr<ITask> task)
 {
     m_deathrattleTask.emplace_back(task);
 }
 
-void Power::AddComboTask(ITask* task)
+void Power::AddComboTask(std::shared_ptr<ITask> task)
 {
     m_comboTask.emplace_back(task);
 }
