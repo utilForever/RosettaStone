@@ -687,16 +687,12 @@ void Game::UpdateAura()
     }
 }
 
-std::tuple<PlayState, PlayState> Game::Process(Player* player, ITask* task)
+std::tuple<PlayState, PlayState> Game::Process(Player* player,
+                                               std::unique_ptr<ITask> task)
 {
     // Process task
     task->SetPlayer(player);
-    Task::Run(task);
-
-    if (task->IsFreeable())
-    {
-        delete task;
-    }
+    Task::Run(std::move(task));
 
     taskStack.Reset();
 
@@ -725,7 +721,7 @@ void Game::ProcessUntil(Step untilStep)
 
 std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
 {
-    ITask* task;
+    std::unique_ptr<ITask> task;
     const auto mainOp = params.ChooseMainOp();
 
     switch (mainOp)
@@ -760,7 +756,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
                     chooseOne = 2;
                 }
             }
-            task = new PlayCardTask(card, target, fieldPos, chooseOne);
+            task = std::make_unique<PlayCardTask>(card, target, fieldPos, chooseOne);
             break;
         }
         case MainOpType::ATTACK:
@@ -768,7 +764,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
             Character* source = params.GetAttacker();
             Character* target = params.GetSpecifiedTarget(
                 source->GetValidCombatTargets(GetCurrentPlayer()->opponent));
-            task = new AttackTask(source, target);
+            task = std::make_unique<AttackTask>(source, target);
             break;
         }
         case MainOpType::USE_HERO_POWER:
@@ -776,12 +772,12 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
             Hero* hero = GetCurrentPlayer()->GetHero();
             Character* target = params.GetSpecifiedTarget(
                 hero->heroPower->GetValidPlayTargets());
-            task = new HeroPowerTask(target);
+            task = std::make_unique<HeroPowerTask>(target);
             break;
         }
         case MainOpType::END_TURN:
         {
-            task = new EndTurnTask();
+            task = std::make_unique<EndTurnTask>();
             break;
         }
         default:
@@ -790,8 +786,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
         }
     }
 
-    task->EnableFreeable();
-    return Process(GetCurrentPlayer(), task);
+    return Process(GetCurrentPlayer(), std::move(task));
 }
 
 ReducedBoardView Game::CreateView()

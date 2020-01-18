@@ -182,7 +182,8 @@ class Game
     //! \param player A player to run task.
     //! \param task The game task to execute.
     //! \return The result of the game (player1 and player2).
-    std::tuple<PlayState, PlayState> Process(Player* player, ITask* task);
+    std::tuple<PlayState, PlayState> Process(Player* player,
+                                             std::unique_ptr<ITask> task);
 
     //! Process the specified task.
     //! \param player A player to run task.

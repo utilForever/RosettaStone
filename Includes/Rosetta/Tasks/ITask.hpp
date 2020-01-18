@@ -106,7 +106,7 @@ namespace Task
 //! Calls Impl method and returns meta data.
 //! \param task The task to run.
 //! \return The result of task processing.
-inline TaskStatus Run(ITask* task)
+inline TaskStatus Run(std::unique_ptr<ITask> task)
 {
     return task->Run();
 }
