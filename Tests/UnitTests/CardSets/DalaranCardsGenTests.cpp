@@ -16,6 +16,19 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b> <b>Battlecry:</b> Restore 3 Health.
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
 TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
 {
     GameConfig config;
