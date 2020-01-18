@@ -2030,7 +2030,6 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
                                            PlayReqsType& playReqs,
                                            EntouragesType& entourages)
 {
-    
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_011e] Lazul's Curse (*) - COST:0
     // - Set: Dalaran

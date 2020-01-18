@@ -58,5 +58,4 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
     game.Process(opPlayer, AttackTask(opHero, curField[0]));
 
     EXPECT_EQ(curField[0]->HasDivineShield(), false);
-
 }
