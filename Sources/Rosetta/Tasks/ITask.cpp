@@ -61,15 +61,4 @@ std::unique_ptr<ITask> ITask::Clone()
 
     return clonedTask;
 }
-
-bool ITask::IsFreeable() const
-{
-    return m_isFreeable;
-}
-
-void ITask::EnableFreeable()
-{
-    m_isFreeable = true;
-}
-
 }  // namespace RosettaStone

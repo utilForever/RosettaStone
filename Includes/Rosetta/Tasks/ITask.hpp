@@ -84,22 +84,11 @@ class ITask
     //! Not to access same elements at same time.
     std::unique_ptr<ITask> Clone();
 
-    //! Checks it is freeable task.
-    //! \return The flag to indicate that it is freeable task.
-    //! \note This will be used for solving multi-thread and memory leak issue.
-    //! \note You have to free it if it is cloned, otherwise cause leaks memory.
-    bool IsFreeable() const;
-
-    //! Enables that it is freeable task.
-    void EnableFreeable();
-
  protected:
     EntityType m_entityType = EntityType::INVALID;
     Player* m_player = nullptr;
     Entity* m_source = nullptr;
     Playable* m_target = nullptr;
-
-    bool m_isFreeable = false;
 
  private:
     //! Processes task logic internally and returns meta data.
