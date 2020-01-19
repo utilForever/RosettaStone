@@ -23,13 +23,15 @@ class FilterStackTask : public ITask
  public:
     //! Constructs task with given \p selfConditions.
     //! \param selfConditions A list of self conditions to filter.
-    explicit FilterStackTask(std::vector<SelfCondition*> selfConditions);
+    explicit FilterStackTask(
+        std::vector<std::shared_ptr<SelfCondition>> selfConditions);
 
     //! Constructs task with given \p type and \p relaConditions.
     //! \param type The entity type of target to filter.
     //! \param relaConditions A list of relation conditions to filter.
-    explicit FilterStackTask(EntityType type,
-                             std::vector<RelaCondition*> relaConditions);
+    explicit FilterStackTask(
+        EntityType type,
+        std::vector<std::shared_ptr<RelaCondition>> relaConditions);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -41,8 +43,8 @@ class FilterStackTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    std::vector<SelfCondition*> m_selfConditions;
-    std::vector<RelaCondition*> m_relaConditions;
+    std::vector<std::shared_ptr<SelfCondition>> m_selfConditions;
+    std::vector<std::shared_ptr<RelaCondition>> m_relaConditions;
 };
 }  // namespace RosettaStone::SimpleTasks
 

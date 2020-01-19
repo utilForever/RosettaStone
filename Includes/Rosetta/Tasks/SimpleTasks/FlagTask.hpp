@@ -21,7 +21,7 @@ class FlagTask : public ITask
     //! Constructs task with given \p flag and \p toDoTask.
     //! \param flag A flag to check previous task results.
     //! \param toDoTasks A list of tasks to run depending on flag.
-    explicit FlagTask(bool flag, std::vector<ITask*> toDoTasks);
+    explicit FlagTask(bool flag, std::vector<std::shared_ptr<ITask>> toDoTasks);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -34,7 +34,7 @@ class FlagTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     bool m_flag = true;
-    std::vector<ITask*> m_toDoTasks;
+    std::vector<std::shared_ptr<ITask>> m_toDoTasks;
 };
 }  // namespace RosettaStone::SimpleTasks
 

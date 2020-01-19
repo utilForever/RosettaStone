@@ -10,7 +10,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FlagTask::FlagTask(bool flag, std::vector<ITask*> toDoTasks)
+FlagTask::FlagTask(bool flag, std::vector<std::shared_ptr<ITask>> toDoTasks)
     : m_flag(flag), m_toDoTasks(std::move(toDoTasks))
 {
     // Do nothing

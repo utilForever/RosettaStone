@@ -23,22 +23,25 @@ class ConditionTask : public ITask
     //! Constructs task with given \p entityType and \p selfConditions.
     //! \param entityType The entity type to check condition.
     //! \param selfConditions A container of self condition.
-    explicit ConditionTask(EntityType entityType,
-                           std::vector<SelfCondition*> selfConditions);
+    explicit ConditionTask(
+        EntityType entityType,
+        std::vector<std::shared_ptr<SelfCondition>> selfConditions);
 
     //! Constructs task with given \p entityType and \p relaConditions.
     //! \param entityType The entity type to check condition.
     //! \param relaConditions A container of relation condition.
-    explicit ConditionTask(EntityType entityType,
-                           std::vector<RelaCondition*> relaConditions);
+    explicit ConditionTask(
+        EntityType entityType,
+        std::vector<std::shared_ptr<RelaCondition>> relaConditions);
 
-    //! Constructs task with given \p entityType and \p selfConditions and \p relaConditions.
-    //! \param entityType The entity type to check condition.
+    //! Constructs task with given \p entityType and \p selfConditions and \p
+    //! relaConditions. \param entityType The entity type to check condition.
     //! \param selfConditions A container of self condition.
     //! \param relaConditions A container of relation condition.
-    explicit ConditionTask(EntityType entityType,
-                           std::vector<SelfCondition*> selfConditions,
-                           std::vector<RelaCondition*> relaConditions);
+    explicit ConditionTask(
+        EntityType entityType,
+        std::vector<std::shared_ptr<SelfCondition>> selfConditions,
+        std::vector<std::shared_ptr<RelaCondition>> relaConditions);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -50,8 +53,8 @@ class ConditionTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    std::vector<SelfCondition*> m_selfConditions;
-    std::vector<RelaCondition*> m_relaConditions;
+    std::vector<std::shared_ptr<SelfCondition>> m_selfConditions;
+    std::vector<std::shared_ptr<RelaCondition>> m_relaConditions;
 };
 }  // namespace RosettaStone::SimpleTasks
 

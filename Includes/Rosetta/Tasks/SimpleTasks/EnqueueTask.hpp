@@ -22,7 +22,8 @@ class EnqueueTask : public ITask
     //! \param tasks A task vector to repeat.
     //! \param num The number of times to repeat tasks.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.
-    EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage = false);
+    EnqueueTask(std::vector<std::shared_ptr<ITask>> tasks, int num,
+                bool isSpellDamage = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -34,7 +35,7 @@ class EnqueueTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    std::vector<ITask*> m_tasks;
+    std::vector<std::shared_ptr<ITask>> m_tasks;
     int m_num = 0;
     bool m_isSpellDamage = false;
 };
