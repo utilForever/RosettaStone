@@ -31,6 +31,10 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+
 void HoFCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
                             EntouragesType& entourages)
 {
@@ -105,14 +109,14 @@ void HoFCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFrozen()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         true,
-        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 4, true) }));
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, std::vector<ITask*>{ new SetGameTagTask(EntityType::TARGET,
-                                                       GameTag::FROZEN, 1) }));
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+                   EntityType::TARGET, GameTag::FROZEN, 1) }));
     powers.emplace("CS2_031", power);
     playReqs.emplace("CS2_031", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 }

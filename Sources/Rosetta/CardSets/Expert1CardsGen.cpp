@@ -79,6 +79,10 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+
 void Expert1CardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
 {
@@ -767,8 +771,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        std::vector<ITask*>{ new SummonTask("EX1_573t", SummonSide::RIGHT),
-                             new SummonTask("EX1_573t", SummonSide::LEFT) },
+        TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT) },
         1));
     powers.emplace("EX1_573b", power);
 
@@ -904,25 +908,28 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = {
         new IncludeTask(EntityType::ALL,
                         { EntityType::TARGET, EntityType::HERO }),
-        new FilterStackTask(
-            { new SelfCondition(SelfCondition::IsNotDead()),
-              new SelfCondition(SelfCondition::IsNotImmune()) }),
-        new ConditionTask(
-            EntityType::STACK,
-            { new SelfCondition(SelfCondition::IsInZone(ZoneType::PLAY)) }),
+        new FilterStackTask(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+            std::make_shared<SelfCondition>(SelfCondition::IsNotImmune()) }),
+        new ConditionTask(EntityType::STACK,
+                          SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsInZone(ZoneType::PLAY)) }),
         new FlagTask(
             true,
-            { new ConditionTask(
+            TaskList{ std::make_shared<ConditionTask>(
                 EntityType::TARGET,
-                std::vector<SelfCondition*>{
-                    new SelfCondition(SelfCondition::IsInZone(ZoneType::PLAY)),
-                    new SelfCondition(SelfCondition::IsNotDead()) }) }),
-        new FlagTask(true, { new RandomTask(EntityType::STACK, 1),
-                             new ChangeAttackingTargetTask(EntityType::TARGET,
-                                                           EntityType::STACK),
-                             new SetGameTagTask(EntityType::SOURCE,
-                                                GameTag::REVEALED, 1),
-                             new MoveToGraveyardTask(EntityType::SOURCE) })
+                SelfCondList{ std::make_shared<SelfCondition>(
+                                  SelfCondition::IsInZone(ZoneType::PLAY)),
+                              std::make_shared<SelfCondition>(
+                                  SelfCondition::IsNotDead()) }) }),
+        new FlagTask(
+            true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                            std::make_shared<ChangeAttackingTargetTask>(
+                                EntityType::TARGET, EntityType::STACK),
+                            std::make_shared<SetGameTagTask>(
+                                EntityType::SOURCE, GameTag::REVEALED, 1),
+                            std::make_shared<MoveToGraveyardTask>(
+                                EntityType::SOURCE) })
     };
     powers.emplace("EX1_533", power);
 
@@ -937,8 +944,8 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(std::make_shared<EnqueueTask>(
-        std::vector<ITask*>{ new SummonTask(SummonSide::DEATHRATTLE,
-                                            Cards::FindCardByID("EX1_534t")) },
+        TaskList{ std::make_shared<SummonTask>(
+            SummonSide::DEATHRATTLE, Cards::FindCardByID("EX1_534t")) },
         2));
     powers.emplace("EX1_534", power);
 
@@ -1097,11 +1104,15 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->tasks = {
         new ConditionTask(EntityType::TARGET,
-                          { new SelfCondition(SelfCondition::IsNotDead()) }),
-        new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true),
-                             new SetGameTagTask(EntityType::SOURCE,
-                                                GameTag::REVEALED, 1),
-                             new MoveToGraveyardTask(EntityType::SOURCE) })
+                          SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsNotDead()) }),
+        new FlagTask(
+            true,
+            TaskList{
+                std::make_shared<DamageTask>(EntityType::TARGET, 4, true),
+                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                 GameTag::REVEALED, 1),
+                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) })
     };
     powers.emplace("EX1_609", power);
 
@@ -1141,13 +1152,17 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->tasks = {
         new ConditionTask(EntityType::TARGET,
-                          { new SelfCondition(SelfCondition::IsNotDead()) }),
+                          SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsNotDead()) }),
         new FlagTask(
             true,
-            { new ReturnHandTask(EntityType::TARGET),
-              new AddAuraEffectTask(Effects::AddCost(2), EntityType::TARGET),
-              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
-              new MoveToGraveyardTask(EntityType::SOURCE) })
+            TaskList{
+                std::make_shared<ReturnHandTask>(EntityType::TARGET),
+                std::make_shared<AddAuraEffectTask>(Effects::AddCost(2),
+                                                    EntityType::TARGET),
+                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                 GameTag::REVEALED, 1),
+                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) })
     };
     powers.emplace("EX1_611", power);
 
@@ -1292,10 +1307,10 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFrozen()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{ new DrawTask(1) }));
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
     powers.emplace("EX1_179", power);
     playReqs.emplace("EX1_179", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -1432,13 +1447,19 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = {
         new ConditionTask(
             EntityType::EVENT_SOURCE,
-            { new SelfCondition(SelfCondition::IsNotDead()),
-              new SelfCondition(SelfCondition::IsNotUntouchable()),
-              new SelfCondition(SelfCondition::IsOpFieldNotFull()) }),
-        new FlagTask(true, { new SummonCopyTask(EntityType::EVENT_SOURCE),
-                             new SetGameTagTask(EntityType::SOURCE,
-                                                GameTag::REVEALED, 1),
-                             new MoveToGraveyardTask(EntityType::SOURCE) }),
+            SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsNotUntouchable()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsOpFieldNotFull()) }),
+        new FlagTask(
+            true,
+            TaskList{
+                std::make_shared<SummonCopyTask>(EntityType::EVENT_SOURCE),
+                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                 GameTag::REVEALED, 1),
+                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) }),
     };
     powers.emplace("EX1_294", power);
 
@@ -1543,26 +1564,29 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsSpellTargetingMinion());
     power.GetTrigger()->tasks = {
-        new ConditionTask(
-            EntityType::SOURCE,
-            std::vector<SelfCondition*>{
-                new SelfCondition(SelfCondition::IsFieldNotFull()),
-                new SelfCondition(
-                    SelfCondition::IsTagValue(GameTag::CANT_PLAY, 0)) }),
+        new ConditionTask(EntityType::SOURCE,
+                          SelfCondList{ std::make_shared<SelfCondition>(
+                                            SelfCondition::IsFieldNotFull()),
+                                        std::make_shared<SelfCondition>(
+                                            SelfCondition::IsTagValue(
+                                                GameTag::CANT_PLAY, 0)) }),
         new FlagTask(
             true,
-            { new SummonTask("tt_010a", SummonSide::SPELL, true),
-              new IncludeTask(EntityType::SOURCE, std::vector<EntityType>(),
-                              true),
-              new IncludeTask(EntityType::TARGET, std::vector<EntityType>(),
-                              true),
-              new FuncPlayableTask(
-                  [=](const std::vector<Playable*>& playables) {
-                      playables[2]->SetCardTarget(playables[0]->id);
-                      return playables;
-                  }),
-              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
-              new MoveToGraveyardTask(EntityType::SOURCE) }),
+            TaskList{
+                std::make_shared<SummonTask>("tt_010a", SummonSide::SPELL,
+                                             true),
+                std::make_shared<IncludeTask>(EntityType::SOURCE,
+                                              std::vector<EntityType>(), true),
+                std::make_shared<IncludeTask>(EntityType::TARGET,
+                                              std::vector<EntityType>(), true),
+                std::make_shared<FuncPlayableTask>(
+                    [=](const std::vector<Playable*>& playables) {
+                        playables[2]->SetCardTarget(playables[0]->id);
+                        return playables;
+                    }),
+                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                 GameTag::REVEALED, 1),
+                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) }),
     };
     powers.emplace("tt_010", power);
 }
@@ -1836,14 +1860,16 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->tasks = {
         new ConditionTask(
             EntityType::EVENT_SOURCE,
-            std::vector<SelfCondition*>{
-                new SelfCondition(SelfCondition::IsNotDead()),
-                new SelfCondition(SelfCondition::IsNotUntouchable()) }),
+            SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsNotUntouchable()) }),
         new FlagTask(
-            true,
-            { new AddEnchantmentTask("EX1_379e", EntityType::EVENT_SOURCE),
-              new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
-              new MoveToGraveyardTask(EntityType::SOURCE) })
+            true, { std::make_shared<AddEnchantmentTask>(
+                        "EX1_379e", EntityType::EVENT_SOURCE),
+                    std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                    std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) })
     };
     powers.emplace("EX1_379", power);
 
@@ -1898,8 +1924,8 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        std::vector<ITask*>{ new RandomTask(EntityType::ENEMIES, 1),
-                             new DamageTask(EntityType::STACK, 1) },
+        TaskList{ std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 1) },
         8, true));
     powers.emplace("EX1_384", power);
 
@@ -2140,7 +2166,8 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
     power.GetTrigger()->tasks = {
         new IncludeTask(EntityType::FRIENDS),
-        new FilterStackTask({ new SelfCondition(SelfCondition::IsDamaged()) }),
+        new FilterStackTask(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
         new RandomTask(EntityType::STACK, 1), new HealTask(EntityType::STACK, 3)
     };
     powers.emplace("EX1_341", power);
@@ -2157,20 +2184,19 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
-    power.AddPowerTask(
-        std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
-            new SelfCondition(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
     power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::HERO, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{
-                  new RandomTask(EntityType::STACK, 1),
-                  new CopyTask(EntityType::STACK, ZoneType::PLAY) }));
+        true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<CopyTask>(EntityType::STACK,
+                                                   ZoneType::PLAY) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false,
-        std::vector<ITask*>{ new SummonTask("EX1_345t", SummonSide::SPELL) }));
+        false, TaskList{ std::make_shared<SummonTask>("EX1_345t",
+                                                      SummonSide::SPELL) }));
     powers.emplace("EX1_345", power);
     playReqs.emplace("EX1_345",
                      PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
@@ -2266,18 +2292,19 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsHeroPowerCard("EX1_625t")) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{ new ChangeHeroPowerTask("EX1_625t2") }));
+        true, TaskList{ std::make_shared<ChangeHeroPowerTask>("EX1_625t2") }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         false,
-        std::vector<ITask*>{
-            new ConditionTask(
-                EntityType::SOURCE,
-                { new SelfCondition(
-                    SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
-            new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") }) }));
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::SOURCE,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<ChangeHeroPowerTask>(
+                                 "EX1_625t") }) }));
     powers.emplace("EX1_625", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -2515,20 +2542,22 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
         EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
-        new ConditionTask(EntityType::SOURCE,
-                          { new SelfCondition(SelfCondition::IsTagValue(
-                              GameTag::HEADCRACK_COMBO, 1)) }),
-        new FlagTask(true, { new IncludeTask(EntityType::SOURCE),
-                             new FuncPlayableTask(
-                                 [=](const std::vector<Playable*>& playables) {
-                                     auto source = playables[0];
-                                     source->zone->Remove(source);
-                                     source->SetGameTag(
-                                         GameTag::HEADCRACK_COMBO, 0);
+        new ConditionTask(
+            EntityType::SOURCE,
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsTagValue(GameTag::HEADCRACK_COMBO, 1)) }),
+        new FlagTask(
+            true,
+            TaskList{ std::make_shared<IncludeTask>(EntityType::SOURCE),
+                      std::make_shared<FuncPlayableTask>(
+                          [=](const std::vector<Playable*>& playables) {
+                              auto source = playables[0];
+                              source->zone->Remove(source);
+                              source->SetGameTag(GameTag::HEADCRACK_COMBO, 0);
 
-                                     return std::vector<Playable*>{ source };
-                                 }),
-                             new AddStackToTask(EntityType::HAND) })
+                              return std::vector<Playable*>{ source };
+                          }),
+                      std::make_shared<AddStackToTask>(EntityType::HAND) })
     };
     power.GetTrigger()->removeAfterTriggered = true;
     powers.emplace("EX1_137", power);
@@ -3250,20 +3279,20 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     for (size_t i = 0; i < 2; ++i)
     {
         power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-        power.AddPowerTask(
-            std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
-                new SelfCondition(SelfCondition::IsRace(Race::DEMON)) }));
+        power.AddPowerTask(std::make_shared<FilterStackTask>(
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsRace(Race::DEMON)) }));
         power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
         power.AddPowerTask(std::make_shared<ConditionTask>(
             EntityType::HERO,
-            std::vector<SelfCondition*>{ new SelfCondition(
+            SelfCondList{ std::make_shared<SelfCondition>(
                 SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
         power.AddPowerTask(std::make_shared<FlagTask>(
-            true, std::vector<ITask*>{ new RandomTask(EntityType::STACK, 1),
-                                       new DrawStackTask(1) }));
+            true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                            std::make_shared<DrawStackTask>(1) }));
         power.AddPowerTask(std::make_shared<FlagTask>(
-            false, std::vector<ITask*>{
-                       new AddCardTask(EntityType::HAND, "EX1_317t") }));
+            false, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                           "EX1_317t") }));
     }
     powers.emplace("EX1_317", power);
 
@@ -3294,13 +3323,12 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, std::vector<SelfCondition*>{
-                                new SelfCondition(SelfCondition::IsDead()) }));
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{ new RandomCardTask(CardType::MINION,
-                                                      CardClass::INVALID,
-                                                      Race::DEMON),
-                                   new SummonTask(SummonSide::SPELL) }));
+        true, TaskList{ std::make_shared<RandomCardTask>(
+                            CardType::MINION, CardClass::INVALID, Race::DEMON),
+                        std::make_shared<SummonTask>(SummonSide::SPELL) }));
     powers.emplace("EX1_320", power);
     playReqs.emplace("EX1_320", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -3334,16 +3362,16 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET,
-        std::vector<SelfCondition*>{
-            new SelfCondition(SelfCondition::IsRace(Race::DEMON)) },
-        std::vector<RelaCondition*>{
-            new RelaCondition(RelaCondition::IsFriendly()) }));
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DEMON)) },
+        RelaCondList{
+            std::make_shared<RelaCondition>(RelaCondition::IsFriendly()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{
-                  new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "EX1_596e", EntityType::TARGET) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         false,
-        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 2, true) }));
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
     powers.emplace("EX1_596", power);
     playReqs.emplace("EX1_596", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                           { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
@@ -3466,10 +3494,10 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsNotDead()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{ new DrawTask(1) }));
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
     powers.emplace("EX1_391", power);
     playReqs.emplace("EX1_391", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -3559,14 +3587,14 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::HERO, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         true,
-        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 6, true) }));
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         false,
-        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 4, true) }));
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
     powers.emplace("EX1_408", power);
     playReqs.emplace("EX1_408", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -3579,13 +3607,13 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::HERO, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::IsWeaponEquipped()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{
-                  new AddEnchantmentTask("EX1_409e", EntityType::WEAPON) }));
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "EX1_409e", EntityType::WEAPON) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, std::vector<ITask*>{ new WeaponTask("EX1_409t") }));
+        false, TaskList{ std::make_shared<WeaponTask>("EX1_409t") }));
     powers.emplace("EX1_409", power);
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -4179,7 +4207,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
         new GetGameTagTask(EntityType::SOURCE, GameTag::ZONE_POSITION),
         new MoveToSetasideTask(EntityType::SOURCE),
         new IncludeTask(EntityType::HAND),
-        new FilterStackTask({ new SelfCondition(SelfCondition::IsMinion()) }),
+        new FilterStackTask(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
         new RandomTask(EntityType::STACK, 1),
         new RemoveHandTask(EntityType::STACK),
         new SummonTask(SummonSide::NUMBER),
@@ -4537,7 +4566,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
     power.AddPowerTask(std::make_shared<FilterStackTask>(
-        EntityType::SOURCE, std::vector<RelaCondition*>{ new RelaCondition(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
                                 RelaCondition::IsSideBySide()) }));
     power.AddPowerTask(
         std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 1));
@@ -4627,8 +4656,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        std::vector<ITask*>{ new RandomTask(EntityType::ALL_NOSOURCE, 1),
-                             new DamageTask(EntityType::STACK, 1) },
+        TaskList{ std::make_shared<RandomTask>(EntityType::ALL_NOSOURCE, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 1) },
         3, false));
     powers.emplace("EX1_082", power);
 
@@ -4647,12 +4676,12 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
     power.AddPowerTask(std::make_shared<ChanceTask>(true));
-    power.AddPowerTask(
-        std::make_shared<FlagTask>(true, std::vector<ITask*>{ new TransformTask(
-                                             EntityType::STACK, "EX1_tk28") }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, std::vector<ITask*>{
-                   new TransformTask(EntityType::STACK, "EX1_tk29") }));
+        true, TaskList{ std::make_shared<TransformTask>(EntityType::STACK,
+                                                        "EX1_tk28") }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<TransformTask>(EntityType::STACK,
+                                                         "EX1_tk29") }));
     powers.emplace("EX1_083", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4674,12 +4703,12 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
         }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFieldFull()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{ new DestroyTask(EntityType::STACK) }));
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::STACK) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, std::vector<ITask*>{ new ControlTask(EntityType::STACK) }));
+        false, TaskList{ std::make_shared<ControlTask>(EntityType::STACK) }));
     powers.emplace("EX1_085", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4710,7 +4739,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
     power.AddPowerTask(std::make_shared<FilterStackTask>(
-        EntityType::SOURCE, std::vector<RelaCondition*>{ new RelaCondition(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
                                 RelaCondition::IsSideBySide()) }));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_093e", EntityType::STACK));
@@ -4770,11 +4799,13 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
     power.GetTrigger()->tasks = {
         new ConditionTask(EntityType::TARGET,
-                          { new RelaCondition(RelaCondition::IsFriendly()) }),
-        new FlagTask(true, { new CopyTask(EntityType::TARGET, ZoneType::HAND, 1,
-                                          false, true) }),
-        new FlagTask(false,
-                     { new CopyTask(EntityType::TARGET, ZoneType::HAND) })
+                          RelaCondList{ std::make_shared<RelaCondition>(
+                              RelaCondition::IsFriendly()) }),
+        new FlagTask(true,
+                     TaskList{ std::make_shared<CopyTask>(
+                         EntityType::TARGET, ZoneType::HAND, 1, false, true) }),
+        new FlagTask(false, TaskList{ std::make_shared<CopyTask>(
+                                EntityType::TARGET, ZoneType::HAND) })
     };
     powers.emplace("EX1_100", power);
 
@@ -4802,9 +4833,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(
-        std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
-            new SelfCondition(SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_103e", EntityType::STACK));
     powers.emplace("EX1_103", power);
@@ -4850,7 +4881,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        std::vector<ITask*>{ new SummonOpTask("EX1_116t") }, 2));
+        TaskList{ std::make_shared<SummonOpTask>("EX1_116t") }, 2));
     powers.emplace("EX1_116", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5224,8 +5255,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        std::vector<ITask*>{ new SummonTask("EX1_116t", SummonSide::RIGHT),
-                             new SummonTask("EX1_116t", SummonSide::LEFT) },
+        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
         3));
     powers.emplace("EX1_562", power);
 
@@ -5324,7 +5355,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
     power.AddPowerTask(std::make_shared<FilterStackTask>(
-        EntityType::SOURCE, std::vector<RelaCondition*>{ new RelaCondition(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
                                 RelaCondition::IsSideBySide()) }));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_584e", EntityType::STACK));
@@ -5359,7 +5390,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
     power.AddPowerTask(std::make_shared<FilterStackTask>(
-        std::vector<SelfCondition*>{ new SelfCondition(
+        SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
     power.AddPowerTask(std::make_shared<SetGameTagTask>(
         EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
@@ -5442,12 +5473,12 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, std::vector<SelfCondition*>{ new SelfCondition(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsRace(Race::MURLOC)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{
-                  new DestroyTask(EntityType::TARGET),
-                  new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE) }));
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET),
+                        std::make_shared<AddEnchantmentTask>(
+                            "NEW1_017e", EntityType::SOURCE) }));
     powers.emplace("NEW1_017", power);
     playReqs.emplace("NEW1_017",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -5485,7 +5516,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
     power.GetTrigger()->tasks = {
         new IncludeTask(EntityType::ENEMIES),
-        new FilterStackTask({ new SelfCondition(SelfCondition::IsNotDead()) }),
+        new FilterStackTask(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
         new RandomTask(EntityType::STACK, 1),
         new DamageTask(EntityType::STACK, 1)
     };
@@ -5696,7 +5728,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
     power.AddPowerTask(std::make_shared<FilterStackTask>(
-        std::vector<SelfCondition*>{ new SelfCondition(
+        SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
     power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
@@ -6214,9 +6246,9 @@ void Expert1CardsGen::AddDreamNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL));
-    power.AddPowerTask(
-        std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
-            new SelfCondition(SelfCondition::IsName("Ysera", false)) }));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsName("Ysera", false)) }));
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::STACK, 5, true));
     powers.emplace("DREAM_02", power);

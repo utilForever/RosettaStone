@@ -50,6 +50,10 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+
 void CoreCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
                              EntouragesType& entourages)
 {
@@ -701,14 +705,14 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
-        std::vector<SelfCondition*>{ new SelfCondition(
+        SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsControllingRace(Race::BEAST)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         true,
-        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 5, true) }));
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 5, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         false,
-        std::vector<ITask*>{ new DamageTask(EntityType::TARGET, 3, true) }));
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3, true) }));
     powers.emplace("EX1_539", power);
     playReqs.emplace("EX1_539", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -976,10 +980,11 @@ void CoreCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        std::vector<ITask*>{ new FilterStackTask({ new SelfCondition(
-                                 SelfCondition::IsNotDead()) }),
-                             new RandomTask(EntityType::ENEMIES, 1),
-                             new DamageTask(EntityType::STACK, 1) },
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
         3, true));
     powers.emplace("EX1_277", power);
 }
@@ -1708,9 +1713,8 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(
-        std::make_shared<FilterStackTask>(std::vector<SelfCondition*>{
-            new SelfCondition(SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_244e", EntityType::STACK));
     powers.emplace("EX1_244", power);
@@ -1994,10 +1998,10 @@ void CoreCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, std::vector<SelfCondition*>{
-                                new SelfCondition(SelfCondition::IsDead()) }));
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, std::vector<ITask*>{ new DrawTask(1) }));
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
     powers.emplace("EX1_302", power);
     playReqs.emplace("EX1_302", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } });
