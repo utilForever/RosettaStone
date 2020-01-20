@@ -57,7 +57,7 @@ class Trigger
     TriggerSource triggerSource = TriggerSource::NONE;
 
     std::vector<std::shared_ptr<ITask>> tasks;
-    SelfCondition* condition = nullptr;
+    std::shared_ptr<SelfCondition> condition;
 
     float percentage = 1.0f;
     bool eitherTurn = false;
