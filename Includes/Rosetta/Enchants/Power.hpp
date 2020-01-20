@@ -68,7 +68,7 @@ class Power
 
     //! Adds trigger.
     //! \param trigger An trigger to add.
-    void AddTrigger(Trigger* trigger);
+    void AddTrigger(std::shared_ptr<Trigger> trigger);
 
     //! Adds power task.
     //! \param task A pointer to power task.
@@ -85,7 +85,7 @@ class Power
  private:
     IAura* m_aura = nullptr;
     std::shared_ptr<Enchant> m_enchant;
-    Trigger* m_trigger = nullptr;
+    std::shared_ptr<Trigger> m_trigger;
 
     std::vector<std::shared_ptr<ITask>> m_powerTask;
     std::vector<std::shared_ptr<ITask>> m_deathrattleTask;

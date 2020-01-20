@@ -33,7 +33,7 @@ Enchant* Power::GetEnchant()
 
 Trigger* Power::GetTrigger()
 {
-    return m_trigger;
+    return m_trigger.get();
 }
 
 std::vector<std::shared_ptr<ITask>>& Power::GetPowerTask()
@@ -71,9 +71,9 @@ void Power::AddEnchant(std::shared_ptr<Enchant> enchant)
     m_enchant = std::move(enchant);
 }
 
-void Power::AddTrigger(Trigger* trigger)
+void Power::AddTrigger(std::shared_ptr<Trigger> trigger)
 {
-    m_trigger = trigger;
+    m_trigger = std::move(trigger);
 }
 
 void Power::AddPowerTask(std::shared_ptr<ITask> task)
