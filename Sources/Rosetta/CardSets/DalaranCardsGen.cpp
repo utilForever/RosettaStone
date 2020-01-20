@@ -4,6 +4,9 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
@@ -86,7 +89,9 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-
+    power.ClearData();
+    power.AddDeathrattleTask(new AddCardTask(EntityType::HAND, "DAL_354t", 2));
+    powers.emplace("DAL_354", power);
     // ----------------------------------------- MINION - DRUID
     // [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
     // - Set: Dalaran, Rarity: Rare
