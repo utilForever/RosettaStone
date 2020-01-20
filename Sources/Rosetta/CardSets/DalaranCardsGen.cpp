@@ -22,6 +22,7 @@ void DalaranCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
 void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
+    Power power;
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256] The Forest's Aid - COST:8
     // - Set: Dalaran, Rarity: Rare
@@ -46,6 +47,10 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_350", power);
+    playReqs.emplace("DAL_350", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351] Blessing of the Ancients - COST:3
