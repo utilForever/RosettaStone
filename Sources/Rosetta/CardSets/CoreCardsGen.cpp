@@ -561,7 +561,7 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
     power.GetTrigger()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("CS2_237", power);
 
