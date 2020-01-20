@@ -871,7 +871,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - IMMUNE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TARGET));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "DS1_188e", EntityType::HERO) };
@@ -884,7 +884,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a friendly Beast dies, gain +2/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
@@ -903,7 +903,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
     power.GetTrigger()->tasks = {
@@ -965,7 +965,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::SECRET_REVEALED));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SECRET_REVEALED));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_536e", EntityType::WEAPON) };
@@ -1081,7 +1081,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsProposedDefender(CardType::MINION));
@@ -1103,7 +1103,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
@@ -1130,7 +1130,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
@@ -1153,7 +1153,7 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
@@ -1201,7 +1201,7 @@ void Expert1CardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::Immune));
-    power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
     powers.emplace("DS1_188e", power);
@@ -1346,7 +1346,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsControllingSecret());
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
@@ -1406,7 +1406,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - COUNTER = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
     power.GetTrigger()->tasks = {
         std::make_shared<SetGameTagTask>(EntityType::TARGET, GameTag::CANT_PLAY,
@@ -1429,7 +1429,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
     power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(8),
@@ -1450,7 +1450,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
@@ -1482,7 +1482,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddCardTask>(
         EntityType::HAND, "CS2_029") };
@@ -1498,7 +1498,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
@@ -1553,7 +1553,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you cast a spell, gain +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "NEW1_012o", EntityType::SOURCE) };
@@ -1570,7 +1570,7 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TARGET));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsSpellTargetingMinion());
     power.GetTrigger()->tasks = {
@@ -1664,7 +1664,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->tasks = {
         std::make_shared<SummonTask>("EX1_130a", SummonSide::SPELL, true),
@@ -1687,7 +1687,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = {
         std::make_shared<GetEventNumberTask>(),
@@ -1709,7 +1709,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
     power.GetTrigger()->tasks = {
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
@@ -1854,7 +1854,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - DURABILITY = 5
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
                                       "EX1_366e", EntityType::TARGET),
@@ -1872,7 +1872,7 @@ void Expert1CardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::EVENT_SOURCE,
@@ -1990,7 +1990,7 @@ void Expert1CardsGen::AddPaladinNonCollect(PowersType& powers,
     // Text: When this minion attacks, the player who blessed
     //       it draws a card.
     // --------------------------------------------------------
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("EX1_363e", power);
@@ -2180,7 +2180,7 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     //       to a damaged friendly character.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::FRIENDS),
         std::make_shared<FilterStackTask>(SelfCondList{
@@ -2369,7 +2369,7 @@ void Expert1CardsGen::AddPriestNonCollect(PowersType& powers,
             Effects::Charge,
             std::make_shared<Effect>(GameTag::CONTROLLER_CHANGED_THIS_TURN,
                                      EffectOperator::SET, 1) }));
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->eitherTurn = true;
     power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>(),
                                   std::make_shared<ControlTask>(
@@ -2559,7 +2559,7 @@ void Expert1CardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
     power.AddComboTask(std::make_shared<SetGameTagTask>(
         EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::SOURCE,
@@ -2782,7 +2782,7 @@ void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->removeAfterTriggered = true;
     power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
     powers.emplace("NEW1_014e", power);
@@ -2982,7 +2982,7 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - OVERLOAD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsOverloadCard());
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
@@ -3027,7 +3027,7 @@ void Expert1CardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // Text: At the end of your turn, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("EX1_575", power);
 
@@ -3080,7 +3080,7 @@ void Expert1CardsGen::AddShamanNonCollect(PowersType& powers,
             Effects::ReduceCost(3),
             std::make_shared<Effect>(GameTag::DISPLAYED_CREATOR,
                                      EffectOperator::SET, 1) }));
-    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
     power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
     power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
     power.GetTrigger()->removeAfterTriggered = true;
@@ -3126,7 +3126,7 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - STEALTH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
         std::make_shared<AddEnchantmentTask>("CS2_059o", EntityType::STACK)
@@ -3548,7 +3548,8 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_393e")));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_393e")));
     powers.emplace("EX1_393", power);
 
     // --------------------------------------- MINION - WARRIOR
@@ -3571,7 +3572,7 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a friendly minion takes damage, gain 1 Armor.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
     power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(1) };
     powers.emplace("EX1_402", power);
@@ -3667,7 +3668,7 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - DURABILITY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TARGET));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsProposedDefender(CardType::MINION));
@@ -3722,7 +3723,7 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a minion takes damage, gain +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_604o", EntityType::SOURCE) };
@@ -3834,7 +3835,7 @@ void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::Immune));
-    power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->fastExecution = true;
     power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>(),
@@ -3911,7 +3912,7 @@ void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
         const auto enchant = dynamic_cast<Enchant*>(power.GetEnchant());
         enchant->isOneTurnEffect = true;
     }
-    power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     {
         const auto trigger = dynamic_cast<Trigger*>(power.GetTrigger());
         trigger->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
@@ -4141,7 +4142,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a character is healed, gain +2 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::HEAL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::HEAL));
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_001e", EntityType::SOURCE) };
     powers.emplace("EX1_001", power);
@@ -4182,7 +4183,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     //       friendly minion +1 Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
         std::make_shared<AddEnchantmentTask>("EX1_004e", EntityType::STACK)
@@ -4221,7 +4222,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     //       random one in your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::HasMinionInHand());
     power.GetTrigger()->tasks = {
@@ -4245,7 +4246,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever this minion takes damage, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("EX1_007", power);
@@ -4273,7 +4274,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_009e")));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_009e")));
     powers.emplace("EX1_009", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4446,7 +4448,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you play a card, gain +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_044e", EntityType::SOURCE) };
@@ -4542,7 +4544,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you cast a spell, gain +2 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_055o", EntityType::SOURCE) };
@@ -4659,7 +4661,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsSecret());
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
@@ -4774,7 +4776,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you cast a spell, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("EX1_095", power);
@@ -4818,7 +4820,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::TARGET, RelaCondList{ std::make_shared<RelaCondition>(
@@ -4839,7 +4841,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: At the start of your turn, deal 2 damage to a random enemy.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 2)
@@ -4962,7 +4964,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you cast a spell, gain +2/+2.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_187e", EntityType::SOURCE) };
@@ -5069,7 +5071,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
         EntityType::ALL_NOSOURCE, 2) };
     powers.emplace("EX1_249", power);
@@ -5101,7 +5103,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_390e")));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_390e")));
     powers.emplace("EX1_390", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5171,7 +5174,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you summon a Murloc, gain +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::SUMMON));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
@@ -5204,7 +5207,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->percentage = 0.5f;
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("EX1_557", power);
@@ -5331,7 +5334,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { std::make_shared<RandomEntourageTask>(1),
                                   std::make_shared<AddStackToTask>(
                                       EntityType::HAND) };
@@ -5434,7 +5437,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever one of your other minions dies, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("EX1_595", power);
@@ -5447,7 +5450,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     //       and summon a 1/1 Imp.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         std::make_shared<DamageTask>(EntityType::SOURCE, 1),
         std::make_shared<SummonTask>("EX1_598", SummonSide::RIGHT)
@@ -5464,7 +5467,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
     power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "EX1_614t", SummonSide::RIGHT) };
     powers.emplace("EX1_614", power);
@@ -5540,7 +5543,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::ENEMIES),
@@ -5557,7 +5560,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // Text: After you cast a spell, deal 1 damage to all minions.
     // --------------------------------------------------------
-    power.AddTrigger(new Trigger(TriggerType::AFTER_CAST));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
         EntityType::ALL_MINIONS, 1) };
@@ -5570,7 +5573,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: At the start of your turn, destroy all minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
         EntityType::ALL_MINIONS) };
     powers.emplace("NEW1_021", power);
@@ -5642,7 +5645,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "NEW1_026t", SummonSide::RIGHT) };
@@ -5702,7 +5705,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     //       give another random friendly minion +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
         std::make_shared<AddEnchantmentTask>("NEW1_037e", EntityType::STACK)
@@ -5719,7 +5722,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->eitherTurn = true;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "NEW1_038o", EntityType::SOURCE) };
@@ -5739,7 +5742,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "NEW1_040t", SummonSide::RIGHT) };
     powers.emplace("NEW1_040", power);
@@ -5771,7 +5774,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a minion dies, gain +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "tt_004o", EntityType::SOURCE) };
@@ -5823,7 +5826,7 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DREAM_05e"));
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
         EntityType::TARGET) };
     powers.emplace("DREAM_05e", power);

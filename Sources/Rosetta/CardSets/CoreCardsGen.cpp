@@ -558,7 +558,7 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you summon a Beast, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::SUMMON));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
@@ -1109,7 +1109,7 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - DURABILITY = 2
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
                                                              2) };
@@ -1309,7 +1309,7 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a minion is healed, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::HEAL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::HEAL));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("CS2_235", power);
@@ -1887,7 +1887,7 @@ void CoreCardsGen::AddShamanNonCollect(PowersType& powers,
     // Text: At the end of your turn, restore 1 Health to all friendly minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { std::make_shared<HealTask>(
         EntityType::MINIONS, 1) };
     powers.emplace("NEW1_009", power);
@@ -2070,7 +2070,7 @@ void CoreCardsGen::AddWarlockNonCollect(PowersType& powers,
     // Text: At the start of the corrupting player's turn, destroy this minion.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
         EntityType::TARGET) };
     powers.emplace("CS2_063e", power);
@@ -2252,7 +2252,7 @@ void CoreCardsGen::AddWarriorNonCollect(PowersType& powers,
             Effects::Charge,
             std::make_shared<Effect>(GameTag::CANNOT_ATTACK_HEROES,
                                      EffectOperator::SET, 1) }));
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
         EntityType::TARGET, GameTag::CANNOT_ATTACK_HEROES, 0) };
     power.GetTrigger()->removeAfterTriggered = true;
@@ -2785,7 +2785,7 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever this minion takes damage, gain +3 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_399e", EntityType::SOURCE) };
