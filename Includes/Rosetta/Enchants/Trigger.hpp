@@ -56,7 +56,7 @@ class Trigger
 
     TriggerSource triggerSource = TriggerSource::NONE;
 
-    std::vector<ITask*> tasks;
+    std::vector<std::shared_ptr<ITask>> tasks;
     SelfCondition* condition = nullptr;
 
     float percentage = 1.0f;
