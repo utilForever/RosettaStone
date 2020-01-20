@@ -231,7 +231,7 @@ void HoFCardsGen::AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
     power.GetTrigger()->removeAfterTriggered = true;
     powers.emplace("EX1_128e", power);
 }
@@ -307,7 +307,8 @@ void HoFCardsGen::AddWarlockNonCollect(PowersType& powers,
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_316e"));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::TARGET) };
     powers.emplace("EX1_316e", power);
 }
 

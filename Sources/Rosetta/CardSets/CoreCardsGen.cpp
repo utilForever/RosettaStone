@@ -562,7 +562,7 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
-    power.GetTrigger()->tasks = { new DrawTask(1) };
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("CS2_237", power);
 
     // ---------------------------------------- MINION - HUNTER
@@ -1111,7 +1111,8 @@ void CoreCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { new HealTask(EntityType::HERO, 2) };
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
+                                                             2) };
     powers.emplace("CS2_097", power);
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1310,7 +1311,7 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::HEAL));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
-    power.GetTrigger()->tasks = { new DrawTask(1) };
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("CS2_235", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -1887,7 +1888,8 @@ void CoreCardsGen::AddShamanNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { new HealTask(EntityType::MINIONS, 1) };
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(
+        EntityType::MINIONS, 1) };
     powers.emplace("NEW1_009", power);
 }
 
@@ -2069,7 +2071,8 @@ void CoreCardsGen::AddWarlockNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::TARGET) };
     powers.emplace("CS2_063e", power);
 }
 
@@ -2250,7 +2253,7 @@ void CoreCardsGen::AddWarriorNonCollect(PowersType& powers,
             std::make_shared<Effect>(GameTag::CANNOT_ATTACK_HEROES,
                                      EffectOperator::SET, 1) }));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { new SetGameTagTask(
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
         EntityType::TARGET, GameTag::CANNOT_ATTACK_HEROES, 0) };
     power.GetTrigger()->removeAfterTriggered = true;
     powers.emplace("CS2_103e2", power);
@@ -2784,8 +2787,8 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_399e",
-                                                         EntityType::SOURCE) };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_399e", EntityType::SOURCE) };
     powers.emplace("EX1_399", power);
 
     // --------------------------------------- MINION - NEUTRAL

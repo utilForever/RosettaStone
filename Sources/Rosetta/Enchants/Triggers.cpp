@@ -15,7 +15,7 @@ Trigger Triggers::EnrageTrigger(std::string&& enchantmentID)
     Trigger trigger(TriggerType::PREDAMAGE);
     trigger.triggerSource = TriggerSource::SELF;
     trigger.condition = new SelfCondition(SelfCondition::IsUndamaged());
-    trigger.tasks = { new SimpleTasks::AddEnchantmentTask(
+    trigger.tasks = { std::make_shared<SimpleTasks::AddEnchantmentTask>(
         std::move(enchantmentID), EntityType::SOURCE) };
 
     return trigger;
