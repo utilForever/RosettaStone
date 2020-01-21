@@ -217,7 +217,7 @@ class Game
     EventMetaData* currentEventData = nullptr;
 
     std::vector<IAura*> auras;
-    std::vector<Trigger*> triggers;
+    std::vector<std::shared_ptr<Trigger>> triggers;
     std::vector<std::pair<Entity*, IEffect*>> oneTurnEffects;
     std::vector<Enchantment*> oneTurnEffectEchantments;
     std::vector<Minion*> summonedMinions;
