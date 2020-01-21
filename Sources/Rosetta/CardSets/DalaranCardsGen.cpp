@@ -5,6 +5,8 @@
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -99,7 +101,13 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you restore Health,
     //       add a random Druid spell to your hand.
     // --------------------------------------------------------
-
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType ::HEAL));
+    //power.GetTrigger()->triggerSource = TriggerSource ::FRIENDLY;
+    power.GetTrigger()->tasks = { new RandomCardTask(CardType::SPELL,
+                                                     CardClass::DRUID),
+                                  new AddStackToTask(EntityType::HAND) };
+    powers.emplace("DAL_355", power);
     // ----------------------------------------- MINION - DRUID
     // [DAL_357] Lucentbark - COST:8 [ATK:4/HP:8]
     // - Set: Dalaran, Rarity: Legendary
