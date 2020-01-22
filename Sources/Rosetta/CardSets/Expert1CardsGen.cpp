@@ -83,6 +83,7 @@ using TaskList = std::vector<std::shared_ptr<ITask>>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void Expert1CardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
@@ -1521,7 +1522,8 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(1) }));
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(1) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsSpell());
@@ -1628,7 +1630,8 @@ void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::HAND, { Effects::SetCost(0) }));
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsSecret());
@@ -2153,7 +2156,7 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // Text: This minion's Attack is always equal to its Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveEffect(
+    power.AddAura(std::make_shared<AdaptiveEffect>(
         GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
             return dynamic_cast<Minion*>(playable)->GetHealth();
         }));
@@ -2229,10 +2232,10 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(
+    power.AddAura(std::make_shared<Aura>(
         AuraType::PLAYER,
-        std::vector<std::shared_ptr<IEffect>>{ std::make_shared<Effect>(
-            GameTag::SPELLPOWER_DOUBLE, EffectOperator::ADD, 1) }));
+        EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER_DOUBLE,
+                                             EffectOperator::ADD, 1) }));
     powers.emplace("EX1_350", power);
 
     // ---------------------------------------- MINION - PRIEST
@@ -2246,10 +2249,10 @@ void Expert1CardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(
+    power.AddAura(std::make_shared<Aura>(
         AuraType::PLAYER,
-        std::vector<std::shared_ptr<IEffect>>{ std::make_shared<Effect>(
-            GameTag::HEALING_DOES_DAMAGE, EffectOperator::SET, 1) }));
+        EffectList{ std::make_shared<Effect>(GameTag::HEALING_DOES_DAMAGE,
+                                             EffectOperator::SET, 1) }));
     powers.emplace("EX1_591", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -2755,7 +2758,8 @@ void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(2) }));
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(2) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsSpell());
@@ -3157,7 +3161,8 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_185e"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_185e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsRace(Race::DEMON));
@@ -3285,7 +3290,7 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new SummoningPortalAura());
+    power.AddAura(std::make_shared<SummoningPortalAura>());
     powers.emplace("EX1_315", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -3689,7 +3694,7 @@ void Expert1CardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF, "EX1_414e"));
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_414e"));
     powers.emplace("EX1_414", power);
 
     // --------------------------------------- MINION - WARRIOR
@@ -3946,7 +3951,7 @@ void Expert1CardsGen::AddWarriorNonCollect(PowersType& powers,
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD, "NEW1_036e"));
+    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "NEW1_036e"));
     powers.emplace("NEW1_036e2", power);
 }
 
@@ -3996,7 +4001,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveEffect(
+    power.AddAura(std::make_shared<AdaptiveEffect>(
         new SelfCondition(SelfCondition::IsWeaponEquipped()), GameTag::CHARGE));
     powers.emplace("CS2_146", power);
 
@@ -4107,7 +4112,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::WEAPON, "CS2_221e"));
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::WEAPON, "CS2_221e"));
     powers.emplace("CS2_221", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4120,7 +4125,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::HAND, { Effects::AddCost(3) }));
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::AddCost(3) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsMinion());
@@ -4642,9 +4648,9 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new SwitchingAura(
+    power.AddAura(std::make_shared<SwitchingAura>(
         AuraType::HAND, SelfCondition::MinionsPlayedThisTurn(0),
-        TriggerType::PLAY_MINION, { Effects::ReduceCost(1) }));
+        TriggerType::PLAY_MINION, EffectList{ Effects::ReduceCost(1) }));
     {
         const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsMinion());
@@ -4874,7 +4880,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Costs (1) less for each other card in your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
         return playable->player->GetHandZone()->GetCount() - 1;
     }));
     powers.emplace("EX1_105", power);
@@ -4922,7 +4928,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdjacentAura("EX1_162o"));
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_162o"));
     powers.emplace("EX1_162", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5146,7 +5152,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - WINDFURY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF, "EX1_412e"));
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_412e"));
     powers.emplace("EX1_412", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -5159,7 +5165,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_507e"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_507e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition =
@@ -5244,8 +5251,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::PLAYERS,
-                           { std::make_shared<Effect>(
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYERS, EffectList{ std::make_shared<Effect>(
                                GameTag::TIMEOUT, EffectOperator::SET, -60) }));
     powers.emplace("EX1_560", power);
 
@@ -5398,7 +5405,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Costs (1) less for each other minion on the battlefield.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveCostEffect([=](Playable* playable) {
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
         return playable->player->GetFieldZone()->GetCount() +
                playable->player->opponent->GetFieldZone()->GetCount();
     }));
@@ -5482,7 +5489,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::HANDS, { Effects::AddCost(1) }));
+    power.AddAura(std::make_shared<Aura>(AuraType::HANDS,
+                                         EffectList{ Effects::AddCost(1) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsMinion());
@@ -5589,7 +5597,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
         if (!playable->player->GetHero()->HasWeapon())
         {
             return 0;
@@ -5658,7 +5666,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Your other Pirates have +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition =
@@ -6188,7 +6197,8 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
     // Text: Spells cost (0) this turn!
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::ENEMY_HAND, { Effects::SetCost(0) }));
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND,
+                                         EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsSpell());

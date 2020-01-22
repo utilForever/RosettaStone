@@ -372,7 +372,7 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveEffect(
+    power.AddAura(std::make_shared<AdaptiveEffect>(
         GameTag::ATK, EffectOperator::ADD, [](Playable* playable) {
             int addAttackAmount = 0;
             const auto& myMinions = playable->player->GetFieldZone()->GetAll();
@@ -426,7 +426,7 @@ void HoFCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Costs (1) less for each damage your hero has taken.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
         return playable->player->GetHero()->GetDamage();
     }));
     powers.emplace("EX1_620", power);

@@ -601,7 +601,8 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
@@ -621,7 +622,7 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD, "DS1_178e"));
+    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "DS1_178e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
@@ -807,7 +808,8 @@ void CoreCardsGen::AddHunterNonCollect(PowersType& powers,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_033o"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_033o"));
     powers.emplace("NEW1_033", power);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
@@ -1751,7 +1753,7 @@ void CoreCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdjacentAura("EX1_565o"));
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_565o"));
     powers.emplace("EX1_565", power);
 
     // ---------------------------------------- MINION - SHAMAN
@@ -2188,7 +2190,7 @@ void CoreCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD, "EX1_084e"));
+    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "EX1_084e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition =
@@ -2347,7 +2349,8 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
     powers.emplace("CS2_122", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2664,7 +2667,8 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "CS2_222o"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_222o"));
     powers.emplace("CS2_222", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2812,7 +2816,8 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Your other Murlocs have +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition =
