@@ -86,7 +86,7 @@ class Aura : public IAura
     //! \param entity The entity to notify that it is removed.
     void NotifyEntityRemoved(Playable* entity);
 
-    SelfCondition* condition = nullptr;
+    std::shared_ptr<SelfCondition> condition;
     std::pair<TriggerType, SelfCondition*> removeTrigger;
     bool restless = false;
 
