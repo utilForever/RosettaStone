@@ -1526,7 +1526,8 @@ void Expert1CardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
                                          EffectList{ Effects::ReduceCost(1) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsSpell());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
     }
     powers.emplace("EX1_608", power);
 
@@ -1634,7 +1635,8 @@ void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
                                          EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsSecret());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret());
         aura->removeTrigger = { TriggerType::CAST_SPELL,
                                 new SelfCondition(SelfCondition::IsSecret()) };
     }
@@ -2762,7 +2764,8 @@ void Expert1CardsGen::AddRogueNonCollect(PowersType& powers,
                                          EffectList{ Effects::ReduceCost(2) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsSpell());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
         aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
     }
     powers.emplace("EX1_145o", power);
@@ -3165,7 +3168,8 @@ void Expert1CardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_185e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::DEMON));
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON));
     }
     powers.emplace("EX1_185", power);
 
@@ -4129,7 +4133,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                          EffectList{ Effects::AddCost(3) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsMinion());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion());
     }
     powers.emplace("CS2_227", power);
 
@@ -4653,7 +4658,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
         TriggerType::PLAY_MINION, EffectList{ Effects::ReduceCost(1) }));
     {
         const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsMinion());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion());
     }
     powers.emplace("EX1_076", power);
 
@@ -5169,8 +5175,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_507e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition =
-            new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC));
     }
     powers.emplace("EX1_507", power);
 
@@ -5493,7 +5499,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                          EffectList{ Effects::AddCost(1) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsMinion());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion());
     }
     powers.emplace("EX1_616", power);
 
@@ -5670,8 +5677,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition =
-            new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::PIRATE));
     }
     powers.emplace("NEW1_027", power);
 
@@ -6201,7 +6208,8 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
                                          EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsSpell());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
         aura->removeTrigger = { TriggerType::TURN_END,
                                 new SelfCondition(
                                     SelfCondition::IsEnemyTurn()) };

@@ -605,7 +605,8 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
     }
     powers.emplace("DS1_175", power);
 
@@ -625,7 +626,8 @@ void CoreCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "DS1_178e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
     }
     powers.emplace("DS1_178", power);
 
@@ -2193,8 +2195,8 @@ void CoreCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "EX1_084e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition =
-            new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::CHARGE, 1));
         aura->restless = true;
     }
     powers.emplace("EX1_084", power);
@@ -2820,8 +2822,8 @@ void CoreCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition =
-            new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC));
     }
     powers.emplace("EX1_508", power);
 
