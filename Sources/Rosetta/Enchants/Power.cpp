@@ -23,7 +23,7 @@ void Power::RefCopy(const Power& rhs)
 
 IAura* Power::GetAura()
 {
-    return m_aura;
+    return m_aura.get();
 }
 
 Enchant* Power::GetEnchant()
@@ -53,7 +53,7 @@ std::vector<std::shared_ptr<ITask>>& Power::GetComboTask()
 
 void Power::ClearData()
 {
-    m_aura = nullptr;
+    m_aura.reset();
     m_enchant.reset();
     m_trigger = nullptr;
     m_powerTask.clear();
@@ -61,9 +61,9 @@ void Power::ClearData()
     m_comboTask.clear();
 }
 
-void Power::AddAura(IAura* aura)
+void Power::AddAura(std::shared_ptr<IAura> aura)
 {
-    m_aura = aura;
+    m_aura = std::move(aura);
 }
 
 void Power::AddEnchant(std::shared_ptr<Enchant> enchant)

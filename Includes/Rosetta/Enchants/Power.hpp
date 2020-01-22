@@ -60,7 +60,7 @@ class Power
 
     //! Adds aura.
     //! \param aura An aura to add.
-    void AddAura(IAura* aura);
+    void AddAura(std::shared_ptr<IAura> aura);
 
     //! Adds enchant.
     //! \param enchant An enchant to add.
@@ -83,7 +83,7 @@ class Power
     void AddComboTask(std::shared_ptr<ITask> task);
 
  private:
-    IAura* m_aura = nullptr;
+    std::shared_ptr<IAura> m_aura;
     std::shared_ptr<Enchant> m_enchant;
     std::shared_ptr<Trigger> m_trigger;
 
