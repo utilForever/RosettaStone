@@ -4007,7 +4007,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(std::make_shared<AdaptiveEffect>(
-        new SelfCondition(SelfCondition::IsWeaponEquipped()), GameTag::CHARGE));
+        std::make_shared<SelfCondition>(SelfCondition::IsWeaponEquipped()),
+        GameTag::CHARGE));
     powers.emplace("CS2_146", power);
 
     // --------------------------------------- MINION - NEUTRAL
