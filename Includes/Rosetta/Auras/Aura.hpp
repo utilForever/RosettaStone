@@ -87,7 +87,7 @@ class Aura : public IAura
     void NotifyEntityRemoved(Playable* entity);
 
     std::shared_ptr<SelfCondition> condition;
-    std::pair<TriggerType, SelfCondition*> removeTrigger;
+    std::pair<TriggerType, std::shared_ptr<SelfCondition>> removeTrigger;
     bool restless = false;
 
  protected:

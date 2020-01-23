@@ -1638,7 +1638,8 @@ void Expert1CardsGen::AddMageNonCollect(PowersType& powers,
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsSecret());
         aura->removeTrigger = { TriggerType::CAST_SPELL,
-                                new SelfCondition(SelfCondition::IsSecret()) };
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsSecret()) };
     }
     powers.emplace("EX1_612o", power);
 
@@ -6211,7 +6212,7 @@ void Expert1CardsGen::AddNeutralNonCollect(PowersType& powers,
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsSpell());
         aura->removeTrigger = { TriggerType::TURN_END,
-                                new SelfCondition(
+                                std::make_shared<SelfCondition>(
                                     SelfCondition::IsEnemyTurn()) };
     }
     powers.emplace("NEW1_029t", power);
