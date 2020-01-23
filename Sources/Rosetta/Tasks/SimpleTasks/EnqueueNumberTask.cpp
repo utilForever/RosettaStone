@@ -10,7 +10,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-EnqueueNumberTask::EnqueueNumberTask(std::vector<ITask*> tasks,
+EnqueueNumberTask::EnqueueNumberTask(std::vector<std::shared_ptr<ITask>> tasks,
                                      bool isSpellDamage)
     : m_tasks(std::move(tasks)), m_isSpellDamage(isSpellDamage)
 {

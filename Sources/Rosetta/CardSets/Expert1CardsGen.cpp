@@ -1008,8 +1008,8 @@ void Expert1CardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
-        std::vector<ITask*>{ new SummonTask("EX1_538t", SummonSide::SPELL) }));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("EX1_538t", SummonSide::SPELL) }));
     powers.emplace("EX1_538", power);
     playReqs.emplace("EX1_538",
                      PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
