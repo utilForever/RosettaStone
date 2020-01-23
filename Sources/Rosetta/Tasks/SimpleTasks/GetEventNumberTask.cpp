@@ -15,7 +15,7 @@ GetEventNumberTask::GetEventNumberTask(int numIndex) : m_numIndex(numIndex)
 
 TaskStatus GetEventNumberTask::Impl(Player* player)
 {
-    const auto data = player->game->currentEventData;
+    const auto data = player->game->currentEventData.get();
 
     switch (m_numIndex)
     {

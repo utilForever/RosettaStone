@@ -15,7 +15,8 @@
 
 namespace RosettaStone
 {
-Character::Character(Player* player, Card* card, std::map<GameTag, int> tags, int id)
+Character::Character(Player* player, Card* card, std::map<GameTag, int> tags,
+                     int id)
     : Playable(player, card, std::move(tags), id)
 {
     // Do nothing
@@ -241,8 +242,9 @@ int Character::TakeDamage(Playable* source, int damage)
         (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
 
     game->taskQueue.StartEvent();
-    EventMetaData* temp = game->currentEventData;
-    game->currentEventData = new EventMetaData(source, this, amount);
+    auto tempEventData = std::move(game->currentEventData);
+    game->currentEventData =
+        std::make_unique<EventMetaData>(source, this, amount);
 
     if (preDamageTrigger != nullptr)
     {
@@ -254,8 +256,8 @@ int Character::TakeDamage(Playable* source, int damage)
         {
             game->taskQueue.EndEvent();
 
-            delete game->currentEventData;
-            game->currentEventData = temp;
+            game->currentEventData.reset();
+            game->currentEventData = std::move(tempEventData);
 
             return 0;
         }
@@ -265,8 +267,8 @@ int Character::TakeDamage(Playable* source, int damage)
     {
         game->taskQueue.EndEvent();
 
-        delete game->currentEventData;
-        game->currentEventData = temp;
+        game->currentEventData.reset();
+        game->currentEventData = std::move(tempEventData);
 
         return 0;
     }
@@ -289,8 +291,8 @@ int Character::TakeDamage(Playable* source, int damage)
     game->ProcessTasks();
     game->taskQueue.EndEvent();
 
-    delete game->currentEventData;
-    game->currentEventData = temp;
+    game->currentEventData.reset();
+    game->currentEventData = std::move(tempEventData);
 
     return amount;
 }

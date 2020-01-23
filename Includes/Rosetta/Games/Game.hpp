@@ -214,7 +214,7 @@ class Game
     TaskQueue taskQueue;
     TaskStack taskStack;
     TriggerManager triggerManager;
-    EventMetaData* currentEventData = nullptr;
+    std::unique_ptr<EventMetaData> currentEventData;
 
     std::vector<IAura*> auras;
     std::vector<std::shared_ptr<Trigger>> triggers;
