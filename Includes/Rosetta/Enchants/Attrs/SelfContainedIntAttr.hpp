@@ -36,7 +36,7 @@ class SelfContainedIntAttr : public IntAttr<TargetT>
     {
         if (m_singleton == nullptr)
         {
-            m_singleton = new SelfT();
+            m_singleton = std::make_shared<SelfT>();
         }
 
         return std::make_shared<GenericEffect<TargetT, SelfT>>(m_singleton,
@@ -44,7 +44,7 @@ class SelfContainedIntAttr : public IntAttr<TargetT>
     }
 
  private:
-    inline static SelfT* m_singleton = nullptr;
+    inline static std::shared_ptr<SelfT> m_singleton;
 };
 }  // namespace RosettaStone
 
