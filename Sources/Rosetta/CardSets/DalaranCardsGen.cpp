@@ -4,6 +4,9 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
@@ -1504,6 +1507,8 @@ void DalaranCardsGen::AddWarriorNonCollect(PowersType& powers,
 void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                  EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_058] Hecklebot - COST:4 [ATK:3/HP:8]
     // - Race: Mechanical, Set: Dalaran, Rarity: Rare
@@ -1536,7 +1541,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DAL_078] Travelling Healer - COST:4 [ATK:3/HP:2]
+    // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
     // - Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Divine Shield</b> <b>Battlecry:</b> Restore 3 Health.
@@ -1548,6 +1553,11 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 3));
+    powers.emplace("DAL_078", power);
+    playReqs.emplace("DAL_078",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_081] Spellward Jeweler - COST:3 [ATK:3/HP:4]
