@@ -9,6 +9,7 @@
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace RosettaStone
