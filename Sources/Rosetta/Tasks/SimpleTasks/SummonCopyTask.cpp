@@ -107,7 +107,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
             {
                 for (auto& enchantment : minion->appliedEnchantments)
                 {
-                    Enchantment* instance = Enchantment::GetInstance(
+                    auto instance = Enchantment::GetInstance(
                         player, enchantment->card, copy);
 
                     if (const auto value1 = enchantment->GetGameTag(
@@ -128,7 +128,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
                     if (enchantment->IsOneTurnActive())
                     {
-                        instance->game->oneTurnEffectEchantments.emplace_back(
+                        instance->game->oneTurnEffectEnchantments.emplace_back(
                             instance);
                     }
                 }

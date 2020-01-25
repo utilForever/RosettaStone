@@ -219,7 +219,7 @@ class Game
     std::vector<IAura*> auras;
     std::vector<std::shared_ptr<Trigger>> triggers;
     std::vector<std::pair<Entity*, IEffect*>> oneTurnEffects;
-    std::vector<Enchantment*> oneTurnEffectEchantments;
+    std::vector<std::shared_ptr<Enchantment>> oneTurnEffectEnchantments;
     std::vector<Minion*> summonedMinions;
     std::map<std::size_t, Minion*> deadMinions;
 

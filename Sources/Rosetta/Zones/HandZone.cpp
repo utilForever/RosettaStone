@@ -63,7 +63,7 @@ Playable* HandZone::Remove(Playable* entity)
 {
     entity->ResetCost();
 
-    for (auto* enchant : entity->appliedEnchantments)
+    for (const auto& enchant : entity->appliedEnchantments)
     {
         if (enchant->activatedTrigger != nullptr)
         {

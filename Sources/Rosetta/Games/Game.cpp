@@ -495,7 +495,7 @@ void Game::MainCleanUp()
     const auto curPlayer = GetCurrentPlayer();
 
     // Remove one-turn effects
-    if (const auto enchantments = oneTurnEffectEchantments;
+    if (const auto enchantments = oneTurnEffectEnchantments;
         !enchantments.empty())
     {
         for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)

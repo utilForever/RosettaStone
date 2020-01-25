@@ -206,7 +206,7 @@ void Aura::Apply(Playable* entity)
         if (auto trigger = m_enchantmentCard->power.GetTrigger();
             trigger != nullptr)
         {
-            trigger->Activate(instance);
+            trigger->Activate(instance.get());
         }
     }
 
@@ -236,7 +236,7 @@ void Aura::Disapply(Playable* entity)
         m_enchantmentCard->power.GetTrigger() != nullptr)
     {
         const std::string cardID = m_enchantmentCard->id;
-        std::vector<Enchantment*> enchantments = entity->appliedEnchantments;
+        auto enchantments = entity->appliedEnchantments;
 
         for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
         {
@@ -485,8 +485,7 @@ void Aura::RemoveInternal()
     {
         for (auto& entity : m_appliedEntities)
         {
-            std::vector<Enchantment*> enchantments =
-                entity->appliedEnchantments;
+            auto enchantments = entity->appliedEnchantments;
 
             for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
             {
