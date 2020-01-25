@@ -10,17 +10,6 @@
 
 namespace RosettaStone
 {
-void Power::RefCopy(const Power& rhs)
-{
-    m_aura = rhs.m_aura;
-    // m_enchant = std::make_unique<Enchant>(*rhs.m_enchant);
-    m_trigger = rhs.m_trigger;
-
-    m_powerTask = rhs.m_powerTask;
-    m_deathrattleTask = rhs.m_deathrattleTask;
-    m_comboTask = rhs.m_comboTask;
-}
-
 IAura* Power::GetAura()
 {
     return m_aura.get();

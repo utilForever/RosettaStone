@@ -129,27 +129,6 @@ void Card::Initialize()
     }
 }
 
-void Card::RefCopy(const Card& rhs)
-{
-    id = rhs.id;
-    dbfID = rhs.dbfID;
-    name = rhs.name;
-    text = rhs.text;
-
-    gameTags = rhs.gameTags;
-    playRequirements = rhs.playRequirements;
-    entourages = rhs.entourages;
-
-    targetingPredicate = rhs.targetingPredicate;
-    targetingAvailabilityPredicate = rhs.targetingAvailabilityPredicate;
-
-    targetingType = rhs.targetingType;
-    power.RefCopy(rhs.power);
-
-    maxAllowedInDeck = rhs.maxAllowedInDeck;
-    mustHaveToTargetToPlay = rhs.mustHaveToTargetToPlay;
-}
-
 CardClass Card::GetCardClass() const
 {
     return static_cast<CardClass>(gameTags.at(GameTag::CLASS));

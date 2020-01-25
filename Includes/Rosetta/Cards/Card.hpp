@@ -32,10 +32,6 @@ class Card
     //! Initializes card data.
     void Initialize();
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopy(const Card& rhs);
-
     //! Returns the value of card class.
     //! \return The value of card class.
     CardClass GetCardClass() const;
