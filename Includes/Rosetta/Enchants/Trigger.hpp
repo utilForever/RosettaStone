@@ -9,6 +9,7 @@
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace RosettaStone
@@ -56,8 +57,8 @@ class Trigger
 
     TriggerSource triggerSource = TriggerSource::NONE;
 
-    std::vector<ITask*> tasks;
-    SelfCondition* condition = nullptr;
+    std::vector<std::shared_ptr<ITask>> tasks;
+    std::shared_ptr<SelfCondition> condition;
 
     float percentage = 1.0f;
     bool eitherTurn = false;

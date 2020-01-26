@@ -57,8 +57,9 @@ TaskStatus PlayCardTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* PlayCardTask::CloneImpl()
+std::unique_ptr<ITask> PlayCardTask::CloneImpl()
 {
-    return new PlayCardTask(m_source, m_target, m_fieldPos, m_chooseOne);
+    return std::make_unique<PlayCardTask>(m_source, m_target, m_fieldPos,
+                                          m_chooseOne);
 }
 }  // namespace RosettaStone::PlayerTasks

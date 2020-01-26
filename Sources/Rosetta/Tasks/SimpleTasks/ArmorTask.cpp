@@ -19,8 +19,8 @@ TaskStatus ArmorTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ArmorTask::CloneImpl()
+std::unique_ptr<ITask> ArmorTask::CloneImpl()
 {
-    return new ArmorTask(m_amount);
+    return std::make_unique<ArmorTask>(m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

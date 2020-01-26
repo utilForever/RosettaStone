@@ -33,7 +33,7 @@ class DamageWeaponTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     bool m_opponent = true;
     int m_amount = 0;

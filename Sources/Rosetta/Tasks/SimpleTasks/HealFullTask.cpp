@@ -27,8 +27,8 @@ TaskStatus HealFullTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* HealFullTask::CloneImpl()
+std::unique_ptr<ITask> HealFullTask::CloneImpl()
 {
-    return new HealFullTask(m_entityType);
+    return std::make_unique<HealFullTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -20,8 +20,8 @@ TaskStatus MathMultiplyTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* MathMultiplyTask::CloneImpl()
+std::unique_ptr<ITask> MathMultiplyTask::CloneImpl()
 {
-    return new MathMultiplyTask(m_amount);
+    return std::make_unique<MathMultiplyTask>(m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -125,9 +125,9 @@ TaskStatus CopyTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* CopyTask::CloneImpl()
+std::unique_ptr<ITask> CopyTask::CloneImpl()
 {
-    return new CopyTask(m_entityType, m_zoneType, m_amount, m_addToStack,
-                        m_toOpponent);
+    return std::make_unique<CopyTask>(m_entityType, m_zoneType, m_amount,
+                                      m_addToStack, m_toOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks

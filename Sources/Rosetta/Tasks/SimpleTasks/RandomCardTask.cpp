@@ -89,10 +89,10 @@ TaskStatus RandomCardTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RandomCardTask::CloneImpl()
+std::unique_ptr<ITask> RandomCardTask::CloneImpl()
 {
-    auto clonedTask = new RandomCardTask(m_cardType, m_cardClass, m_race,
-                                         m_rarity, m_opposite);
+    auto clonedTask = std::make_unique<RandomCardTask>(
+        m_cardType, m_cardClass, m_race, m_rarity, m_opposite);
     clonedTask->m_entityType = m_entityType;
 
     return clonedTask;

@@ -77,8 +77,8 @@ TaskStatus TransformCopyTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* TransformCopyTask::CloneImpl()
+std::unique_ptr<ITask> TransformCopyTask::CloneImpl()
 {
-    return new TransformCopyTask();
+    return std::make_unique<TransformCopyTask>();
 }
 }  // namespace RosettaStone::SimpleTasks

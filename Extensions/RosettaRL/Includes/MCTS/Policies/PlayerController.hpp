@@ -12,6 +12,8 @@
 
 #include <Rosetta/Views/Board.hpp>
 
+#include <memory>
+
 namespace RosettaTorch::MCTS
 {
 //!
@@ -85,7 +87,7 @@ class PlayerController
     }
 
  private:
-    RosettaStone::Game* m_game = nullptr;
+    std::unique_ptr<RosettaStone::Game> m_game;
 };
 }  // namespace RosettaTorch::MCTS
 

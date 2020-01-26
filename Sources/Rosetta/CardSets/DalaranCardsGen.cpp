@@ -1554,7 +1554,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::TARGET, 3));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
     powers.emplace("DAL_078", power);
     playReqs.emplace("DAL_078",
                      PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });

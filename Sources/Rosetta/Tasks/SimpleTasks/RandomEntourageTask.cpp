@@ -46,8 +46,8 @@ TaskStatus RandomEntourageTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RandomEntourageTask::CloneImpl()
+std::unique_ptr<ITask> RandomEntourageTask::CloneImpl()
 {
-    return new RandomEntourageTask(m_count, m_isOpponent);
+    return std::make_unique<RandomEntourageTask>(m_count, m_isOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -7,7 +7,7 @@
 
 namespace RosettaStone
 {
-std::queue<ITask*>& TaskQueue::GetCurrentQueue()
+std::queue<std::unique_ptr<ITask>>& TaskQueue::GetCurrentQueue()
 {
     return m_eventStack.empty() ? m_baseQueue : m_eventStack.top();
 }
@@ -36,36 +36,27 @@ void TaskQueue::EndEvent()
     }
 }
 
-void TaskQueue::Enqueue(ITask* task)
+void TaskQueue::Enqueue(std::unique_ptr<ITask> task)
 {
     if (m_eventFlag)
     {
         if (!GetCurrentQueue().empty())
         {
-            m_eventStack.push(std::queue<ITask*>{});
+            m_eventStack.push(std::queue<std::unique_ptr<ITask>>{});
         }
 
         m_eventFlag = false;
     }
 
-    GetCurrentQueue().push(task);
+    GetCurrentQueue().push(std::move(task));
 }
 
 TaskStatus TaskQueue::Process()
 {
-    ITask* currentTask = GetCurrentQueue().front();
+    std::unique_ptr<ITask> currentTask = std::move(GetCurrentQueue().front());
     GetCurrentQueue().pop();
-    m_currentTask = currentTask;
 
     const TaskStatus status = currentTask->Run();
-
-    if (currentTask->IsFreeable())
-    {
-        delete currentTask;
-    }
-
-    m_currentTask = nullptr;
-
     return status;
 }
 }  // namespace RosettaStone

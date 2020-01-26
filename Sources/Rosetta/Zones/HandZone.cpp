@@ -19,6 +19,19 @@ HandZone::HandZone(Player* player)
     m_player = player;
 }
 
+void HandZone::RefCopy(HandZone* rhs) const
+{
+    for (int i = 0; i < m_count; ++i)
+    {
+        delete m_entities[i];
+    }
+
+    for (int i = 0; i < rhs->m_count; ++i)
+    {
+        m_entities[i] = rhs->m_entities[i];
+    }
+}
+
 void HandZone::Add(Playable* entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
@@ -50,7 +63,7 @@ Playable* HandZone::Remove(Playable* entity)
 {
     entity->ResetCost();
 
-    for (auto* enchant : entity->appliedEnchantments)
+    for (const auto& enchant : entity->appliedEnchantments)
     {
         if (enchant->activatedTrigger != nullptr)
         {

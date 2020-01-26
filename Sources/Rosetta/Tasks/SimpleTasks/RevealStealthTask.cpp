@@ -30,8 +30,8 @@ TaskStatus RevealStealthTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RevealStealthTask::CloneImpl()
+std::unique_ptr<ITask> RevealStealthTask::CloneImpl()
 {
-    return new RevealStealthTask(m_entityType);
+    return std::make_unique<RevealStealthTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

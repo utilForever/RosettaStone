@@ -27,8 +27,9 @@ class GenericEffect : public IEffect
     //! \param attr The attribute to change.
     //! \param effectOp The effect operator to change the attribute.
     //! \param value The value to change the attribute.
-    GenericEffect(AttrT* attr, EffectOperator effectOp, int value)
-        : m_attr(attr), m_effectOp(effectOp), m_value(value)
+    GenericEffect(std::shared_ptr<AttrT> attr, EffectOperator effectOp,
+                  int value)
+        : m_attr(std::move(attr)), m_effectOp(effectOp), m_value(value)
     {
         // Do nothing
     }
@@ -77,7 +78,7 @@ class GenericEffect : public IEffect
     }
 
  private:
-    AttrT* m_attr = nullptr;
+    std::shared_ptr<AttrT> m_attr;
     EffectOperator m_effectOp;
     int m_value;
 };

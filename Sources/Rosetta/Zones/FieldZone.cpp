@@ -18,6 +18,19 @@ FieldZone::FieldZone(Player* player)
     m_player = player;
 }
 
+void FieldZone::RefCopy(FieldZone* rhs) const
+{
+    for (int i = 0; i < m_count; ++i)
+    {
+        delete m_entities[i];
+    }
+
+    for (int i = 0; i < rhs->m_count; ++i)
+    {
+        m_entities[i] = rhs->m_entities[i];
+    }
+}
+
 std::vector<Minion*> FieldZone::GetAll()
 {
     return PositioningZone::GetAll();

@@ -12,9 +12,9 @@
 
 namespace RosettaStone
 {
-Enchant* Enchants::GetEnchantFromText(const std::string& cardID)
+std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
 {
-    std::vector<IEffect*> effects;
+    std::vector<std::shared_ptr<IEffect>> effects;
     bool isOneTurn = false;
 
     static std::regex attackHealthRegex("\\+([[:digit:]]+)/\\+([[:digit:]]+)");
@@ -68,6 +68,6 @@ Enchant* Enchants::GetEnchantFromText(const std::string& cardID)
         isOneTurn = true;
     }
 
-    return new Enchant(effects, false, isOneTurn);
+    return std::make_shared<Enchant>(effects, false, isOneTurn);
 }
 }  // namespace RosettaStone

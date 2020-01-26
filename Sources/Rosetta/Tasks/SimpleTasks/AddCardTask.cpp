@@ -51,8 +51,8 @@ TaskStatus AddCardTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* AddCardTask::CloneImpl()
+std::unique_ptr<ITask> AddCardTask::CloneImpl()
 {
-    return new AddCardTask(m_entityType, m_cardID, m_amount);
+    return std::make_unique<AddCardTask>(m_entityType, m_cardID, m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

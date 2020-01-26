@@ -19,8 +19,9 @@ AdaptiveEffect::AdaptiveEffect(GameTag tag, EffectOperator effectOp,
     // Do nothing
 }
 
-AdaptiveEffect::AdaptiveEffect(SelfCondition* condition, GameTag tag)
-    : m_condition(condition),
+AdaptiveEffect::AdaptiveEffect(std::shared_ptr<SelfCondition> condition,
+                               GameTag tag)
+    : m_condition(std::move(condition)),
       m_tag(tag),
       m_operator(EffectOperator::SET),
       m_isSwitching(true)

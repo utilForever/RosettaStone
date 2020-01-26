@@ -9,6 +9,8 @@
 #include <Rosetta/Enchants/Attrs/IntAttr.hpp>
 #include <Rosetta/Enchants/GenericEffect.hpp>
 
+#include <memory>
+
 namespace RosettaStone
 {
 //!
@@ -29,19 +31,20 @@ class SelfContainedIntAttr : public IntAttr<TargetT>
     //! \param effectOp The effect operator of the generic effect.
     //! \param value The value of the generic effect.
     //! \return The generic effect that is dynamically allocated.
-    static GenericEffect<TargetT, SelfT>* Effect(EffectOperator effectOp,
-                                                 int value)
+    static std::shared_ptr<GenericEffect<TargetT, SelfT>> Effect(
+        EffectOperator effectOp, int value)
     {
         if (m_singleton == nullptr)
         {
-            m_singleton = new SelfT();
+            m_singleton = std::make_shared<SelfT>();
         }
 
-        return new GenericEffect<TargetT, SelfT>(m_singleton, effectOp, value);
+        return std::make_shared<GenericEffect<TargetT, SelfT>>(m_singleton,
+                                                               effectOp, value);
     }
 
  private:
-    inline static SelfT* m_singleton = nullptr;
+    inline static std::shared_ptr<SelfT> m_singleton;
 };
 }  // namespace RosettaStone
 

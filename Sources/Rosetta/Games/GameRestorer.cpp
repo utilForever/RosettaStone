@@ -31,12 +31,12 @@ GameRestorer GameRestorer::Prepare(BoardView& view,
     return restorer;
 }
 
-Game* GameRestorer::RestoreGame()
+std::unique_ptr<Game> GameRestorer::RestoreGame()
 {
     p1UnknownCardsManager.Prepare();
     p2UnknownCardsManager.Prepare();
 
-    Game* game = new Game();
+    std::unique_ptr<Game> game = std::make_unique<Game>();
     MakePlayer(PlayerType::PLAYER1, *game, m_view.GetPlayer1(),
                p1UnknownCardsManager);
     MakePlayer(PlayerType::PLAYER2, *game, m_view.GetPlayer2(),

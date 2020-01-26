@@ -18,7 +18,8 @@ void Attack(Player* player, Character* source, Character* target)
         return;
     }
 
-    player->game->currentEventData = new EventMetaData(source, target);
+    player->game->currentEventData =
+        std::make_unique<EventMetaData>(source, target);
 
     // Process attack trigger
     player->game->taskQueue.StartEvent();
@@ -42,7 +43,7 @@ void Attack(Player* player, Character* source, Character* target)
         (target->zone != nullptr && target->zone->GetType() != ZoneType::PLAY))
     {
         player->game->ProcessDestroyAndUpdateAura();
-        delete player->game->currentEventData;
+        player->game->currentEventData.reset();
         return;
     }
 
@@ -130,7 +131,7 @@ void Attack(Player* player, Character* source, Character* target)
     // Process destroy and update aura
     player->game->ProcessDestroyAndUpdateAura();
 
-    delete player->game->currentEventData;
+    player->game->currentEventData.reset();
 
     // Set game step to MAIN_ACTION
     player->game->step = Step::MAIN_ACTION;

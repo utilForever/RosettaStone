@@ -25,8 +25,8 @@ TaskStatus FuncNumberTask::Impl(Player*)
     return TaskStatus::COMPLETE;
 }
 
-ITask* FuncNumberTask::CloneImpl()
+std::unique_ptr<ITask> FuncNumberTask::CloneImpl()
 {
-    return new FuncNumberTask(m_func);
+    return std::make_unique<FuncNumberTask>(m_func);
 }
 }  // namespace RosettaStone::SimpleTasks

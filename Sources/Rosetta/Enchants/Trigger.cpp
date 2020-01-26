@@ -68,7 +68,7 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
         }
     }
 
-    auto* instance = new Trigger(*this, *source);
+    auto instance = std::make_shared<Trigger>(*this, *source);
     Game* game = source->game;
 
     source->activatedTrigger = instance;
@@ -305,12 +305,11 @@ void Trigger::Remove() const
             break;
     }
 
-    m_owner->activatedTrigger = nullptr;
-
     if (m_sequenceType != SequenceType::NONE)
     {
-        EraseIf(game->triggers,
-                [this](Trigger* trigger) { return trigger == this; });
+        EraseIf(game->triggers, [this](std::shared_ptr<Trigger> trigger) {
+            return trigger.get() == this;
+        });
     }
 }
 
@@ -351,7 +350,7 @@ void Trigger::ProcessInternal(Entity* source)
 
     for (auto& task : tasks)
     {
-        ITask* clonedTask = task->Clone();
+        std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(m_owner->player);
         clonedTask->SetSource(m_owner);
@@ -390,7 +389,7 @@ void Trigger::ProcessInternal(Entity* source)
         }
         else
         {
-            m_owner->game->taskQueue.Enqueue(clonedTask);
+            m_owner->game->taskQueue.Enqueue(std::move(clonedTask));
         }
     }
 

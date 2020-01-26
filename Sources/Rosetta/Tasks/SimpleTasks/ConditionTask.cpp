@@ -11,23 +11,26 @@
 
 namespace RosettaStone::SimpleTasks
 {
-ConditionTask::ConditionTask(EntityType entityType,
-                             std::vector<SelfCondition*> selfConditions)
+ConditionTask::ConditionTask(
+    EntityType entityType,
+    std::vector<std::shared_ptr<SelfCondition>> selfConditions)
     : ITask(entityType), m_selfConditions(std::move(selfConditions))
 {
     // Do nothing
 }
 
-ConditionTask::ConditionTask(EntityType entityType,
-                             std::vector<RelaCondition*> relaConditions)
+ConditionTask::ConditionTask(
+    EntityType entityType,
+    std::vector<std::shared_ptr<RelaCondition>> relaConditions)
     : ITask(entityType), m_relaConditions(std::move(relaConditions))
 {
     // Do nothing
 }
 
-ConditionTask::ConditionTask(EntityType entityType,
-                             std::vector<SelfCondition*> selfConditions,
-                             std::vector<RelaCondition*> relaConditions)
+ConditionTask::ConditionTask(
+    EntityType entityType,
+    std::vector<std::shared_ptr<SelfCondition>> selfConditions,
+    std::vector<std::shared_ptr<RelaCondition>> relaConditions)
     : ITask(entityType),
       m_selfConditions(std::move(selfConditions)),
       m_relaConditions(std::move(relaConditions))
@@ -67,8 +70,9 @@ TaskStatus ConditionTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ConditionTask::CloneImpl()
+std::unique_ptr<ITask> ConditionTask::CloneImpl()
 {
-    return new ConditionTask(m_entityType, m_selfConditions, m_relaConditions);
+    return std::make_unique<ConditionTask>(m_entityType, m_selfConditions,
+                                           m_relaConditions);
 }
 }  // namespace RosettaStone::SimpleTasks
