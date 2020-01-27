@@ -16,7 +16,7 @@ TEST(Cards, GetAllCards)
     const std::vector<Card*> cards = Cards::GetInstance().GetAllCards();
 
     ASSERT_FALSE(cards.empty());
-    EXPECT_EQ(cards.size(), 8303u);
+    EXPECT_EQ(cards.size(), 8637u);
 }
 
 TEST(Cards, GetAllStandardCards)
