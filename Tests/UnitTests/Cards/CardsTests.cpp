@@ -8,6 +8,7 @@
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Commons/Constants.hpp>
 
 using namespace RosettaStone;
 
@@ -16,7 +17,7 @@ TEST(Cards, GetAllCards)
     const std::vector<Card*> cards = Cards::GetInstance().GetAllCards();
 
     ASSERT_FALSE(cards.empty());
-    EXPECT_EQ(cards.size(), 8637u);
+    EXPECT_EQ(static_cast<int>(cards.size()), NUM_ALL_CARDS);
 }
 
 TEST(Cards, GetAllStandardCards)
