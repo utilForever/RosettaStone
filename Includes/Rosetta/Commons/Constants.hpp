@@ -60,6 +60,9 @@ constexpr std::array<CardSet, 19> WILD_CARD_SETS = {
     CardSet::LOOTAPALOOZA,  // Kobolds & Catacombs, 2017
 };
 
+//! The number of all cards.
+constexpr int NUM_ALL_CARDS = 8637;
+
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
 constexpr int NUM_PLAYER_CLASS = 9;
