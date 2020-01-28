@@ -7,6 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -57,6 +58,8 @@ void PlayMinionCard(Player* player, Card* card)
     const std::map<GameTag, int> tags;
 
     const auto minion = new Minion(player, card, tags);
+    player->game->entityList.emplace(minion->id, minion);
+
     fieldZone.Add(minion);
     fieldZone[minion->GetZonePosition()]->player = player;
 }
@@ -66,6 +69,8 @@ void PlayWeaponCard(Player* player, Card* card)
     const std::map<GameTag, int> tags;
 
     const auto weapon = new Weapon(player, card, tags);
+    player->game->entityList.emplace(weapon->id, weapon);
+
     player->GetHero()->AddWeapon(*weapon);
 }
 
@@ -75,6 +80,8 @@ void PlayEnchantmentCard(Player* player, Card* card, Entity* target)
     const std::map<GameTag, int> tags;
 
     const auto enchantment = new Enchantment(player, card, tags, target, -1);
+    player->game->entityList.emplace(enchantment->id, enchantment);
+
     graveyardZone.Add(enchantment);
 }
 
