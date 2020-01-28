@@ -116,10 +116,17 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
         aura->SetIsFieldChanged(true);
     }
 
-    // Set exhausted by checking GameTag::CHARGE
-    if (newEntity->GetGameTag(GameTag::CHARGE) == 0)
+    if (!newEntity->HasCharge())
     {
-        newEntity->SetExhausted(true);
+        if (newEntity->IsRush())
+        {
+            newEntity->SetAttackableByRush(true);
+            newEntity->game->rushMinions.emplace_back(newEntity->id);
+        }
+        else
+        {
+            newEntity->SetExhausted(true);
+        }
     }
 }
 
