@@ -58,6 +58,10 @@ class Minion : public Character
     //! \return The flag that indicates whether it has charge.
     bool HasCharge() const;
 
+    //! Returns the flag that indicates whether it is rush.
+    //! \return The flag that indicates whether it is rush.
+    bool IsRush() const;
+
     //! Disables all special effects on this minion.
     void Silence();
 
