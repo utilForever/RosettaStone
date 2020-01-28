@@ -4,6 +4,8 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -25,6 +27,8 @@ void DalaranCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
 void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256] The Forest's Aid - COST:8
     // - Set: Dalaran, Rarity: Rare
@@ -63,6 +67,11 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // PlayReq:
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_351e", EntityType::MINIONS));
+    powers.emplace("DAL_351", power);
+    playReqs.emplace("DAL_351", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_352] Crystalsong Portal - COST:2
@@ -151,6 +160,8 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
                                          PlayReqsType& playReqs,
                                          EntouragesType& entourages)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [DAL_256t2] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Set: Dalaran
@@ -193,6 +204,12 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // PlayReq:
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_351e", EntityType::MINIONS));
+    powers.emplace("DAL_351ts", power);
+    playReqs.emplace("DAL_351ts",
+                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_354t] Squirrel (*) - COST:1 [ATK:1/HP:1]
@@ -2033,6 +2050,8 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
                                            PlayReqsType& playReqs,
                                            EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_011e] Lazul's Curse (*) - COST:0
     // - Set: Dalaran
@@ -2110,6 +2129,9 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_351e"));
+    powers.emplace("DAL_351e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_548e] Arcane Expansion (*) - COST:0
