@@ -119,6 +119,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
 void Game::Initialize()
 {
+    rushMinions.reserve(MAX_FIELD_SIZE);
+
     // Set game to player
     for (auto& p : m_players)
     {
@@ -481,6 +483,16 @@ void Game::MainEnd()
     ProcessTasks();
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
+
+    if (!rushMinions.empty())
+    {
+        for (auto& minion : rushMinions)
+        {
+            entityList[minion]->SetGameTag(GameTag::ATTACKABLE_BY_RUSH, 0);
+        }
+
+        rushMinions.clear();
+    }
 
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
