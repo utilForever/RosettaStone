@@ -54,6 +54,7 @@ void FieldZone::Add(Playable* entity, int zonePos)
             if (minion->IsRush())
             {
                 minion->SetAttackableByRush(true);
+                minion->game->rushMinions.emplace_back(minion->id);
             }
             else
             {
