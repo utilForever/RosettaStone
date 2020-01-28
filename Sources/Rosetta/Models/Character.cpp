@@ -211,9 +211,9 @@ std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
 
     for (auto& minion : opponent->GetFieldZone()->GetAll())
     {
-        if (minion->GetGameTag(GameTag::STEALTH) == 0)
+        if (!minion->HasStealth())
         {
-            if (minion->GetGameTag(GameTag::TAUNT) == 1)
+            if (minion->HasTaunt())
             {
                 isExistTauntInField = true;
                 targetsHaveTaunt.emplace_back(minion);
@@ -232,9 +232,8 @@ std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
         return targetsHaveTaunt;
     }
 
-    if (GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
-        opponent->GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
-        opponent->GetHero()->GetGameTag(GameTag::STEALTH) == 0)
+    if (!CantAttackHeroes() && !opponent->GetHero()->IsImmune() &&
+        !opponent->GetHero()->HasStealth())
     {
         targets.emplace_back(opponent->GetHero());
     }
@@ -285,7 +284,7 @@ int Character::TakeDamage(Playable* source, int damage)
         }
     }
 
-    if (GetGameTag(GameTag::IMMUNE) == 1)
+    if (IsImmune())
     {
         game->taskQueue.EndEvent();
 
