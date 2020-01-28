@@ -47,9 +47,19 @@ void FieldZone::Add(Playable* entity, int zonePos)
 
     PositioningZone::Add(minion, zonePos);
 
-    if (minion->HasCharge())
+    if (minion->player == minion->game->GetCurrentPlayer())
     {
-        minion->SetExhausted(true);
+        if (!minion->HasCharge())
+        {
+            if (minion->IsRush())
+            {
+                minion->SetAttackableByRush(true);
+            }
+            else
+            {
+                minion->SetExhausted(true);
+            }
+        }
     }
 
     minion->orderOfPlay = minion->game->GetNextOOP();
