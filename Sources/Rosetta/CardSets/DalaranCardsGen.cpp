@@ -1987,6 +1987,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_760", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_771] Soldier of Fortune - COST:4 [ATK:5/HP:6]

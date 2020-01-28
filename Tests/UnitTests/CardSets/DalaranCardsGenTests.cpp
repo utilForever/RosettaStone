@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Utils/CardSetUtils.hpp>
+
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
@@ -52,7 +53,7 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
 
     auto& curField = *(curPlayer->GetFieldZone());
     auto opHero = opPlayer->GetHero();
-    
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Traveling Healer"));
     const auto card2 =
@@ -71,4 +72,18 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
     game.Process(opPlayer, AttackTask(opHero, curField[0]));
 
     EXPECT_EQ(curField[0]->HasDivineShield(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_760_BurlyShovelfist)
+{
+    // Do nothing
 }
