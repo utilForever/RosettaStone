@@ -43,16 +43,18 @@ std::vector<Minion*> FieldZone::GetAll() const
 
 void FieldZone::Add(Playable* entity, int zonePos)
 {
-    PositioningZone::Add(dynamic_cast<Minion*>(entity), zonePos);
+    const auto minion = dynamic_cast<Minion*>(entity);
 
-    if (entity->GetGameTag(GameTag::CHARGE) != 1)
+    PositioningZone::Add(minion, zonePos);
+
+    if (minion->HasCharge())
     {
-        entity->SetExhausted(true);
+        minion->SetExhausted(true);
     }
 
-    entity->orderOfPlay = entity->game->GetNextOOP();
+    minion->orderOfPlay = minion->game->GetNextOOP();
 
-    ActivateAura(dynamic_cast<Minion*>(entity));
+    ActivateAura(minion);
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
@@ -62,14 +64,16 @@ void FieldZone::Add(Playable* entity, int zonePos)
 
 Playable* FieldZone::Remove(Playable* entity)
 {
-    RemoveAura(dynamic_cast<Minion*>(entity));
+    const auto minion = dynamic_cast<Minion*>(entity);
+
+    RemoveAura(minion);
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
         adjacentAuras[i]->SetIsFieldChanged(true);
     }
 
-    return PositioningZone::Remove(dynamic_cast<Minion*>(entity));
+    return PositioningZone::Remove(minion);
 }
 
 void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
