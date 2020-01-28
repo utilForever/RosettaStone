@@ -181,9 +181,21 @@ bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
         return false;
     }
 
-    const Hero* hero = dynamic_cast<Hero*>(target);
-    return !(hero != nullptr &&
-             hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
+    if (const auto hero = dynamic_cast<Hero*>(target); hero)
+    {
+        if (CantAttackHeroes())
+        {
+            return false;
+        }
+
+        if (const auto minion = dynamic_cast<const Minion*>(this);
+            minion && minion->IsAttackableByRush())
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
