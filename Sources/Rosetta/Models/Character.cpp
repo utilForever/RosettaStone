@@ -168,9 +168,9 @@ bool Character::CanAttack() const
     return true;
 }
 
-bool Character::IsValidCombatTarget(Player* opponent, Character* target) const
+bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
 {
-    auto targets = GetValidCombatTargets(opponent);
+    auto targets = GetValidAttackTargets(opponent);
     if (std::find(targets.begin(), targets.end(), target) == targets.end())
     {
         return false;
@@ -181,7 +181,7 @@ bool Character::IsValidCombatTarget(Player* opponent, Character* target) const
              hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
 }
 
-std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
+std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;

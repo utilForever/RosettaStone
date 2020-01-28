@@ -763,7 +763,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
         {
             Character* source = params.GetAttacker();
             Character* target = params.GetSpecifiedTarget(
-                source->GetValidCombatTargets(GetCurrentPlayer()->opponent));
+                source->GetValidAttackTargets(GetCurrentPlayer()->opponent));
             task = std::make_unique<AttackTask>(source, target);
             break;
         }
