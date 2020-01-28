@@ -160,12 +160,17 @@ bool Character::CanAttack() const
     }
 
     //! If the character can't attack, returns false
-    if (GetGameTag(GameTag::CANT_ATTACK) == 1)
+    if (CantAttack())
     {
         return false;
     }
 
     return true;
+}
+
+bool Character::CantAttack() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::CANT_ATTACK));
 }
 
 bool Character::CantAttackHeroes() const
