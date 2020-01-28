@@ -128,6 +128,10 @@ class Character : public Playable
     //! \return Whether attack is possible.
     bool CanAttack() const;
 
+    //! Returns whether it can't attack heroes.
+    //! \return Whether it can't attack heroes.
+    bool CantAttackHeroes() const;
+
     //! Returns whether the target is valid in attack.
     //! \param opponent The opponent player.
     //! \param target A pointer to the target.

@@ -168,6 +168,11 @@ bool Character::CanAttack() const
     return true;
 }
 
+bool Character::CantAttackHeroes() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::CANNOT_ATTACK_HEROES));
+}
+
 bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
 {
     auto targets = GetValidAttackTargets(opponent);
