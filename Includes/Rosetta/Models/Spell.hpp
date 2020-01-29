@@ -45,13 +45,17 @@ class Spell : public Playable
     //! \return Whether spell is secret.
     bool IsSecret() const;
 
-    //! Returns whether spell is countered.
-    //! \return Whether spell is countered.
-    bool IsCountered() const;
+    //! Returns whether spell is quest.
+    //! \return Whether spell is quest.
+    bool IsQuest() const;
 
     //! Returns whether spell is twinspell.
     //! \return Whether spell is twinspell.
     bool IsTwinspell() const;
+
+    //! Returns whether spell is countered.
+    //! \return Whether spell is countered.
+    bool IsCountered() const;
 
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.

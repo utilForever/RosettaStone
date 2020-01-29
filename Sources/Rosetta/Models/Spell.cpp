@@ -23,14 +23,19 @@ bool Spell::IsSecret() const
     return GetGameTag(GameTag::SECRET) == 1;
 }
 
-bool Spell::IsCountered() const
+bool Spell::IsQuest() const
 {
-    return GetGameTag(GameTag::CANT_PLAY) == 1;
+    return GetGameTag(GameTag::QUEST) == 1;
 }
 
 bool Spell::IsTwinspell() const
 {
     return GetGameTag(GameTag::TWINSPELL) == 1;
+}
+
+bool Spell::IsCountered() const
+{
+    return GetGameTag(GameTag::CANT_PLAY) == 1;
 }
 
 bool Spell::TargetingRequirements(Character* target) const
