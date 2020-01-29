@@ -32,7 +32,19 @@ void SecretZone::RefCopy(SecretZone* rhs) const
 
 void SecretZone::Add(Playable* entity, int zonePos)
 {
-    LimitedZone::Add(dynamic_cast<Spell*>(entity), zonePos);
+    const auto spell = dynamic_cast<Spell*>(entity);
+
+    if (spell->IsQuest())
+    {
+        if (m_quest != nullptr)
+        {
+            throw std::logic_error("Another quest is already in play");
+        }
+
+        m_quest = spell;
+    }
+
+    LimitedZone::Add(spell, zonePos);
 
     entity->orderOfPlay = entity->game->GetNextOOP();
 }
