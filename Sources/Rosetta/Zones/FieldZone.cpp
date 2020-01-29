@@ -43,16 +43,29 @@ std::vector<Minion*> FieldZone::GetAll() const
 
 void FieldZone::Add(Playable* entity, int zonePos)
 {
-    PositioningZone::Add(dynamic_cast<Minion*>(entity), zonePos);
+    const auto minion = dynamic_cast<Minion*>(entity);
 
-    if (entity->GetGameTag(GameTag::CHARGE) != 1)
+    PositioningZone::Add(minion, zonePos);
+
+    if (minion->player == minion->game->GetCurrentPlayer())
     {
-        entity->SetExhausted(true);
+        if (!minion->HasCharge())
+        {
+            if (minion->IsRush())
+            {
+                minion->SetAttackableByRush(true);
+                minion->game->rushMinions.emplace_back(minion->id);
+            }
+            else
+            {
+                minion->SetExhausted(true);
+            }
+        }
     }
 
-    entity->orderOfPlay = entity->game->GetNextOOP();
+    minion->orderOfPlay = minion->game->GetNextOOP();
 
-    ActivateAura(dynamic_cast<Minion*>(entity));
+    ActivateAura(minion);
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
@@ -62,14 +75,16 @@ void FieldZone::Add(Playable* entity, int zonePos)
 
 Playable* FieldZone::Remove(Playable* entity)
 {
-    RemoveAura(dynamic_cast<Minion*>(entity));
+    const auto minion = dynamic_cast<Minion*>(entity);
+
+    RemoveAura(minion);
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
         adjacentAuras[i]->SetIsFieldChanged(true);
     }
 
-    return PositioningZone::Remove(dynamic_cast<Minion*>(entity));
+    return PositioningZone::Remove(minion);
 }
 
 void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
@@ -101,10 +116,17 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
         aura->SetIsFieldChanged(true);
     }
 
-    // Set exhausted by checking GameTag::CHARGE
-    if (newEntity->GetGameTag(GameTag::CHARGE) == 0)
+    if (!newEntity->HasCharge())
     {
-        newEntity->SetExhausted(true);
+        if (newEntity->IsRush())
+        {
+            newEntity->SetAttackableByRush(true);
+            newEntity->game->rushMinions.emplace_back(newEntity->id);
+        }
+        else
+        {
+            newEntity->SetExhausted(true);
+        }
     }
 }
 

@@ -210,6 +210,7 @@ class Game
     Step nextStep = Step::INVALID;
 
     std::map<int, Playable*> entityList;
+    std::vector<int> rushMinions;
 
     TaskQueue taskQueue;
     TaskStack taskStack;

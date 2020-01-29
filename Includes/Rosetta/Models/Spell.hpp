@@ -49,6 +49,10 @@ class Spell : public Playable
     //! \return Whether spell is countered.
     bool IsCountered() const;
 
+    //! Returns whether spell is twinspell.
+    //! \return Whether spell is twinspell.
+    bool IsTwinspell() const;
+
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
     //! \param target The proposed target.

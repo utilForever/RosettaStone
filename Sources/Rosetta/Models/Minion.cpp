@@ -40,6 +40,21 @@ bool Minion::HasCharge() const
     return static_cast<bool>(GetGameTag(GameTag::CHARGE));
 }
 
+bool Minion::IsRush() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::RUSH));
+}
+
+bool Minion::IsAttackableByRush() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::ATTACKABLE_BY_RUSH));
+}
+
+void Minion::SetAttackableByRush(bool attackable)
+{
+    SetGameTag(GameTag::ATTACKABLE_BY_RUSH, static_cast<int>(attackable));
+}
+
 void Minion::Silence()
 {
     SetGameTag(GameTag::TAUNT, 0);

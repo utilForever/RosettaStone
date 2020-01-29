@@ -28,6 +28,11 @@ bool Spell::IsCountered() const
     return GetGameTag(GameTag::CANT_PLAY) == 1;
 }
 
+bool Spell::IsTwinspell() const
+{
+    return GetGameTag(GameTag::TWINSPELL) == 1;
+}
+
 bool Spell::TargetingRequirements(Character* target) const
 {
     return !target->GetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS) &&

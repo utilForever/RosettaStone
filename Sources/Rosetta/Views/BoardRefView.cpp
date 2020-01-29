@@ -176,7 +176,8 @@ std::vector<Playable*> BoardRefView::GetHandCards() const
     }
 }
 
-std::vector<std::pair<Playable*, bool>> BoardRefView::GetOpponentHandCards() const
+std::vector<std::pair<Playable*, bool>> BoardRefView::GetOpponentHandCards()
+    const
 {
     std::vector<Playable*> playables;
 
@@ -245,6 +246,11 @@ int BoardRefView::GetDeckCardCount(PlayerType playerType) const
 
 bool BoardRefView::IsHeroAttackable(PlayerType playerType) const
 {
+    if (GetCurrentPlayer() != playerType)
+    {
+        return false;
+    }
+
     if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1()->GetHero()->CanAttack();
@@ -257,6 +263,11 @@ bool BoardRefView::IsHeroAttackable(PlayerType playerType) const
 
 bool BoardRefView::IsMinionAttackable(PlayerType playerType, int idx) const
 {
+    if (GetCurrentPlayer() != playerType)
+    {
+        return false;
+    }
+
     if (playerType == PlayerType::PLAYER1)
     {
         const auto fieldZone = m_game.GetPlayer1()->GetFieldZone();

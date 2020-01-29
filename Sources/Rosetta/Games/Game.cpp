@@ -119,6 +119,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
 void Game::Initialize()
 {
+    rushMinions.reserve(MAX_FIELD_SIZE);
+
     // Set game to player
     for (auto& p : m_players)
     {
@@ -482,6 +484,16 @@ void Game::MainEnd()
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
 
+    if (!rushMinions.empty())
+    {
+        for (auto& minion : rushMinions)
+        {
+            entityList[minion]->SetGameTag(GameTag::ATTACKABLE_BY_RUSH, 0);
+        }
+
+        rushMinions.clear();
+    }
+
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
     if (m_gameConfig.autoRun)
@@ -763,7 +775,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
         {
             Character* source = params.GetAttacker();
             Character* target = params.GetSpecifiedTarget(
-                source->GetValidCombatTargets(GetCurrentPlayer()->opponent));
+                source->GetValidAttackTargets(GetCurrentPlayer()->opponent));
             task = std::make_unique<AttackTask>(source, target);
             break;
         }
