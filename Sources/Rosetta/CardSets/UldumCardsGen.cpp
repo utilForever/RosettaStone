@@ -4,9 +4,22 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
+#include <Rosetta/Conditions/RelaCondition.hpp>
+#include <Rosetta/Enchants/Effects.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using EntityTypeList = std::vector<EntityType>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
+
 void UldumCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
                               EntouragesType& entourages)
 {
@@ -16,6 +29,8 @@ void UldumCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
 void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
                                   EntouragesType& entourages)
 {
+    Power power;
+
     // ------------------------------------- HERO_POWER - DRUID
     // [ULD_131p] Ossirian Tear (*) - COST:0
     // - Set: Uldum
@@ -75,6 +90,17 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(
+        EntityType::TARGET, false, true, SummonSide::RIGHT));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_431e", EntityType::STACK));
+    powers.emplace("ULD_431p", power);
+    playReqs.emplace("ULD_431p",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 },
+                               { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // -------------------------------------- HERO_POWER - MAGE
     // [ULD_433p] Ascendant Scroll (*) - COST:2
@@ -634,6 +660,8 @@ void UldumCardsGen::AddMageNonCollect(PowersType& powers,
 void UldumCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [ULD_143] Pharaoh's Blessing - COST:6
     // - Faction: Neutral, Set: Uldum, Rarity: Rare
@@ -697,6 +725,14 @@ void UldumCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::HasReborn());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_431p") };
+    powers.emplace("ULD_431", power);
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_438] Salhet's Pride - COST:3 [ATK:3/HP:1]
@@ -763,6 +799,8 @@ void UldumCardsGen::AddPaladinNonCollect(PowersType& powers,
                                          PlayReqsType& playReqs,
                                          EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ULD_143e] Pharaoh's Blessing (*) - COST:0
     // - Set: Uldum
@@ -783,6 +821,9 @@ void UldumCardsGen::AddPaladinNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: 2/2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetAttackHealth(2)));
+    powers.emplace("ULD_431e", power);
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_439t] Sandwasp (*) - COST:1 [ATK:2/HP:1]
