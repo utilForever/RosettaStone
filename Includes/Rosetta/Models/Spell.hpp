@@ -41,6 +41,9 @@ class Spell : public Playable
     //! Deleted move assignment operator.
     Spell& operator=(Spell&&) noexcept = delete;
 
+    //! Increases the value of quest progress.
+    void IncreaseQuestProgress();
+
     //! Returns whether spell is secret.
     //! \return Whether spell is secret.
     bool IsSecret() const;

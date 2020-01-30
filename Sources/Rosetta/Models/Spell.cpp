@@ -18,6 +18,12 @@ Spell::Spell(Player* player, Card* card, std::map<GameTag, int> tags, int id)
     // Do nothing
 }
 
+void Spell::IncreaseQuestProgress()
+{
+    const int val = GetGameTag(GameTag::QUEST_PROGRESS);
+    SetGameTag(GameTag::QUEST_PROGRESS, val + 1);
+}
+
 bool Spell::IsSecret() const
 {
     return GetGameTag(GameTag::SECRET) == 1;
