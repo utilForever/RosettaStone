@@ -41,6 +41,10 @@ class Spell : public Playable
     //! Deleted move assignment operator.
     Spell& operator=(Spell&&) noexcept = delete;
 
+    //! Gets the value of quest progress.
+    //! \return The value of quest progress.
+    int GetQuestProgress() const;
+
     //! Increases the value of quest progress.
     void IncreaseQuestProgress();
 
