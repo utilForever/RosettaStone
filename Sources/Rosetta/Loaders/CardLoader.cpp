@@ -123,6 +123,15 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::SPELLPOWER] = spellPower;
         card->gameTags[GameTag::OVERLOAD] = overload;
 
+        // Add the value of GameTag::QUEST_PROGRESS_TOTAL
+        if (card->gameTags[GameTag::QUEST] == 1)
+        {
+            if (card->id == "ULD_431")
+            {
+                card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] = 5;
+            }
+        }
+
         cards.emplace_back(card);
     }
 
