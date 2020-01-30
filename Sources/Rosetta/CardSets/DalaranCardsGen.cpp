@@ -7,6 +7,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -145,6 +146,11 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("DAL_733t", 2));
+    powers.emplace("DAL_733", power);
+    playReqs.emplace("DAL_733",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
