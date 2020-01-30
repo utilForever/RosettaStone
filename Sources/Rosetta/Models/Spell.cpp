@@ -23,6 +23,11 @@ int Spell::GetQuestProgress() const
     return GetGameTag(GameTag::QUEST_PROGRESS);
 }
 
+int Spell::GetQuestProgressTotal() const
+{
+    return GetGameTag(GameTag::QUEST_PROGRESS_TOTAL);
+}
+
 void Spell::IncreaseQuestProgress()
 {
     const int val = GetGameTag(GameTag::QUEST_PROGRESS);

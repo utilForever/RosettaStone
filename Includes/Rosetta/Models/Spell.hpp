@@ -45,6 +45,10 @@ class Spell : public Playable
     //! \return The value of quest progress.
     int GetQuestProgress() const;
 
+    //! Gets the value of quest progress total.
+    //! \return The value of quest progress total.
+    int GetQuestProgressTotal() const;
+
     //! Increases the value of quest progress.
     void IncreaseQuestProgress();
 
