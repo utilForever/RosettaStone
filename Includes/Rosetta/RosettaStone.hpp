@@ -151,6 +151,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MathSubtractTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
