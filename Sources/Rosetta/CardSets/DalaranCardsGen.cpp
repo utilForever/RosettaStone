@@ -7,6 +7,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -96,6 +97,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddDeathrattleTask(new AddCardTask(EntityType::HAND, "DAL_354t", 2));
     powers.emplace("DAL_354", power);
+
     // ----------------------------------------- MINION - DRUID
     // [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
     // - Set: Dalaran, Rarity: Rare
@@ -110,6 +112,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
                                                      CardClass::DRUID),
                                   new AddStackToTask(EntityType::HAND) };
     powers.emplace("DAL_355", power);
+
     // ----------------------------------------- MINION - DRUID
     // [DAL_357] Lucentbark - COST:8 [ATK:4/HP:8]
     // - Set: Dalaran, Rarity: Legendary
@@ -210,6 +213,10 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 5));
+    powers.emplace("DAL_350b", power);
+    playReqs.emplace("DAL_350b", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351ts] Blessing of the Ancients (*) - COST:3
