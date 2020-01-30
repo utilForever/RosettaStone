@@ -52,6 +52,11 @@ bool Spell::IsPlayableByPlayer()
         return false;
     }
 
+    if (IsQuest() && player->GetSecretZone()->quest != nullptr)
+    {
+        return false;
+    }
+
     return Playable::IsPlayableByPlayer();
 }
 }  // namespace RosettaStone
