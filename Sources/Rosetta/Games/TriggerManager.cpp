@@ -135,4 +135,12 @@ void TriggerManager::OnDeathTrigger(Entity* sender) const
         deathTrigger(sender);
     }
 }
+
+void TriggerManager::OnUseHeroPowerTrigger(Entity* sender) const
+{
+    if (useHeroPowerTrigger != nullptr)
+    {
+        useHeroPowerTrigger(sender);
+    }
+}
 }  // namespace RosettaStone
