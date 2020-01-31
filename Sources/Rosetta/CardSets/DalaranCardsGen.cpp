@@ -155,7 +155,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(new SummonTask("DAL_733t", 2));
     powers.emplace("DAL_733", power);
-    playReqs.emplace("CS2_087", PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+    playReqs.emplace("DAL_733", PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
@@ -261,6 +261,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_733t", power);
 }
 
 void DalaranCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
