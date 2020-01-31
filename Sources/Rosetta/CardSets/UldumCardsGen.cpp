@@ -92,7 +92,7 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<SummonCopyTask>(
-        EntityType::TARGET, false, true, SummonSide::RIGHT));
+        EntityType::TARGET, false, true, SummonSide::TARGET));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("ULD_431e", EntityType::STACK));
     powers.emplace("ULD_431p", power);
