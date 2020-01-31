@@ -60,6 +60,10 @@ class Spell : public Playable
     //! \return Whether spell is quest.
     bool IsQuest() const;
 
+    //! Returns whether spell is sidequest.
+    //! \return Whether spell is sidequest.
+    bool IsSidequest() const;
+
     //! Returns whether spell is twinspell.
     //! \return Whether spell is twinspell.
     bool IsTwinspell() const;
