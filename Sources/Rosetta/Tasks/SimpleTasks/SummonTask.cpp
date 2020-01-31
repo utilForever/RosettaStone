@@ -39,7 +39,7 @@ SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side)
     // Do nothing
 }
 
-int SummonTask::GetPosition(Entity* source, SummonSide side)
+int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target)
 {
     int summonPos;
 
@@ -88,9 +88,9 @@ int SummonTask::GetPosition(Entity* source, SummonSide side)
                          dynamic_cast<Enchantment*>(source);
                      enchantment)
             {
-                const auto target =
+                const auto enchantmentTarget =
                     dynamic_cast<Minion*>(enchantment->GetTarget());
-                summonPos = target->GetLastBoardPos();
+                summonPos = enchantmentTarget->GetLastBoardPos();
             }
             else
             {
@@ -107,6 +107,12 @@ int SummonTask::GetPosition(Entity* source, SummonSide side)
         case SummonSide::SPELL:
         {
             summonPos = -1;
+            break;
+        }
+        case SummonSide::TARGET:
+        {
+            const auto tgt = dynamic_cast<Playable*>(target);
+            summonPos = tgt->GetZonePosition() + 1;
             break;
         }
         default:

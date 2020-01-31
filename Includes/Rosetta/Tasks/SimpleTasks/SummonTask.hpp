@@ -62,8 +62,10 @@ class SummonTask : public ITask
     //! Returns the position of minion to summon.
     //! \param source The source entity.
     //! \param side The side of summoned minion.
+    //! \param target The target entity.
     //! \return The position of minion to summon.
-    static int GetPosition(Entity* source, SummonSide side);
+    static int GetPosition(Entity* source, SummonSide side,
+                           Entity* target = nullptr);
 
  private:
     //! Processes task logic internally and returns meta data.
