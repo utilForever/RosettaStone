@@ -11,7 +11,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>

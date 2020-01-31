@@ -82,9 +82,7 @@
 #include <Rosetta/Enums/TriggerEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
-#include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Games/GameRestorer.hpp>
-#include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/InternalCardLoader.hpp>
@@ -92,6 +90,8 @@
 #include <Rosetta/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/Managers/CardDataManager.hpp>
 #include <Rosetta/Managers/CostManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
+#include <Rosetta/Managers/TriggerManager.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Enchantment.hpp>

@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Games/TriggerManager.hpp>
+#include <Rosetta/Managers/TriggerManager.hpp>
 
 namespace RosettaStone
 {

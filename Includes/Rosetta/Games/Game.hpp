@@ -8,7 +8,7 @@
 
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
-#include <Rosetta/Games/TriggerManager.hpp>
+#include <Rosetta/Managers/TriggerManager.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/EventMetaData.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
