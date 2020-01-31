@@ -182,6 +182,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // [DAL_256t2] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_256t2", power);
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256ts] The Forest's Aid (*) - COST:8
