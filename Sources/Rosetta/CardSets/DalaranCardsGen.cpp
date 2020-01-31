@@ -106,8 +106,10 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     //       add a random Druid spell to your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType ::HEAL));
-    //power.GetTrigger()->triggerSource = TriggerSource ::FRIENDLY;
+    power.AddTrigger(new Trigger(TriggerType::HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    /*power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsEventSourceFriendly());*/
     power.GetTrigger()->tasks = { new RandomCardTask(CardType::SPELL,
                                                      CardClass::DRUID),
                                   new AddStackToTask(EntityType::HAND) };
@@ -145,7 +147,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: Summon two 1/2 Dryads with <b>Lifesteal</b>.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINION_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
@@ -153,7 +155,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(new SummonTask("DAL_733t", 2));
     powers.emplace("DAL_733", power);
-    playReqs.emplace("CS2_087", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
+    playReqs.emplace("CS2_087", PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
