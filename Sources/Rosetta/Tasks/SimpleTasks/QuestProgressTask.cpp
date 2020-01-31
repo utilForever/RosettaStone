@@ -47,6 +47,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
         spell->SetGameTag(GameTag::REVEALED, 1);
 
         // Move quest to graveyard
+        player->GetSecretZone()->Remove(spell);
         player->GetSecretZone()->quest = nullptr;
         player->GetGraveyardZone()->Add(spell);
 
