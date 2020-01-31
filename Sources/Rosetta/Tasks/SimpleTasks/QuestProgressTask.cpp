@@ -19,6 +19,22 @@ QuestProgressTask::QuestProgressTask(const std::string& questRewardID)
     // Do nothing
 }
 
+QuestProgressTask::QuestProgressTask(
+    std::vector<std::shared_ptr<ITask>> rewardTasks)
+    : m_tasks(std::move(rewardTasks))
+{
+    // Do nothing
+}
+
+QuestProgressTask::QuestProgressTask(
+    const std::string& questRewardID,
+    std::vector<std::shared_ptr<ITask>> rewardTasks)
+    : m_card(Cards::FindCardByID(questRewardID)),
+      m_tasks(std::move(rewardTasks))
+{
+    // Do nothing
+}
+
 TaskStatus QuestProgressTask::Impl(Player* player)
 {
     auto spell = dynamic_cast<Spell*>(m_source);
@@ -31,27 +47,54 @@ TaskStatus QuestProgressTask::Impl(Player* player)
 
     if (spell->GetQuestProgress() == spell->GetQuestProgressTotal())
     {
-        Playable* reward = Entity::GetFromCard(player, m_card);
-
-        // Reward card is hero power or minion
-        if (const auto heroPower = dynamic_cast<HeroPower*>(reward); heroPower)
+        if (!m_card->id.empty())
         {
-            delete player->GetHero()->heroPower;
-            player->GetHero()->heroPower = heroPower;
+            Playable* reward = Entity::GetFromCard(player, m_card);
+
+            // Reward card is hero power or minion
+            if (const auto heroPower = dynamic_cast<HeroPower*>(reward);
+                heroPower)
+            {
+                delete player->GetHero()->heroPower;
+                player->GetHero()->heroPower = heroPower;
+            }
+            else
+            {
+                Generic::AddCardToHand(player, reward);
+            }
+
+            spell->SetGameTag(GameTag::REVEALED, 1);
+
+            // Move quest to graveyard
+            player->GetSecretZone()->Remove(spell);
+            player->GetSecretZone()->quest = nullptr;
+            player->GetGraveyardZone()->Add(spell);
+
+            return TaskStatus::COMPLETE;
         }
-        else
+
+        if (!m_tasks.empty())
         {
-            Generic::AddCardToHand(player, reward);
+            for (auto& task : m_tasks)
+            {
+                std::unique_ptr<ITask> clonedTask = task->Clone();
+
+                clonedTask->SetPlayer(player);
+                clonedTask->SetSource(player->game->taskStack.source);
+                clonedTask->SetTarget(player->game->taskStack.target);
+
+                clonedTask->Run();
+            }
+
+            spell->SetGameTag(GameTag::REVEALED, 1);
+
+            // Move quest to graveyard
+            player->GetSecretZone()->Remove(spell);
+            player->GetSecretZone()->quest = nullptr;
+            player->GetGraveyardZone()->Add(spell);
+
+            return TaskStatus::COMPLETE;
         }
-
-        spell->SetGameTag(GameTag::REVEALED, 1);
-
-        // Move quest to graveyard
-        player->GetSecretZone()->Remove(spell);
-        player->GetSecretZone()->quest = nullptr;
-        player->GetGraveyardZone()->Add(spell);
-
-        return TaskStatus::COMPLETE;
     }
 
     return TaskStatus::COMPLETE;
@@ -59,6 +102,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
 
 std::unique_ptr<ITask> QuestProgressTask::CloneImpl()
 {
-    return std::make_unique<QuestProgressTask>(m_card->id);
+    const std::string cardID = m_card ? m_card->id : "";
+    return std::make_unique<QuestProgressTask>(cardID, m_tasks);
 }
 }  // namespace RosettaStone::SimpleTasks

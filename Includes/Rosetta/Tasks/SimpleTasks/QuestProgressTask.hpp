@@ -22,6 +22,16 @@ class QuestProgressTask : public ITask
     //! \param questRewardID The card ID that is a reward of the quest.
     explicit QuestProgressTask(const std::string& questRewardID);
 
+    //! Constructs task with given \p rewardTasks.
+    //! \param rewardTasks A list of tasks to run that is a reward of the quest.
+    explicit QuestProgressTask(std::vector<std::shared_ptr<ITask>> rewardTasks);
+
+    //! Constructs task with given \p questRewardID and \p rewardTasks.
+    //! \param questRewardID The card ID that is a reward of the quest.
+    //! \param rewardTasks A list of tasks to run that is a reward of the quest.
+    explicit QuestProgressTask(const std::string& questRewardID,
+                               std::vector<std::shared_ptr<ITask>> rewardTasks);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -33,6 +43,7 @@ class QuestProgressTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     Card* m_card = nullptr;
+    std::vector<std::shared_ptr<ITask>> m_tasks;
 };
 }  // namespace RosettaStone::SimpleTasks
 
