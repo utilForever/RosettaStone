@@ -67,8 +67,8 @@ bool Spell::TargetingRequirements(Character* target) const
 
 bool Spell::IsPlayableByPlayer()
 {
-    if (IsSecret() && (player->GetSecretZone()->IsFull() ||
-                       player->GetSecretZone()->Exist(this)))
+    if ((IsSecret() || IsSidequest()) && (player->GetSecretZone()->IsFull() ||
+                                          player->GetSecretZone()->Exist(this)))
     {
         return false;
     }

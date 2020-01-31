@@ -17,7 +17,7 @@ void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
 {
     player->game->taskQueue.StartEvent();
 
-    if (spell->IsSecret() || spell->IsQuest())
+    if (spell->IsSecret() || spell->IsQuest() || spell->IsSidequest())
     {
         // Process trigger
         if (spell->card->power.GetTrigger())
