@@ -18,7 +18,8 @@ enum class SummonSide
     RIGHT,        //!< Summoning right of the minion.
     DEATHRATTLE,  //!< Summoning at the last position of the source.
     NUMBER,       //!< Summoning at a given position in the stack number.
-    SPELL         //!< Summoning by spell, currently like default.
+    SPELL,        //!< Summoning by spell, currently like default.
+    TARGET,       //!< Summoning right of the target.
 };
 
 //!
