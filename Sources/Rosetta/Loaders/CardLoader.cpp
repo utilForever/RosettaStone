@@ -131,6 +131,13 @@ void CardLoader::Load(std::vector<Card*>& cards)
                 card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] = 5;
             }
         }
+        else if (card->gameTags[GameTag::SIDEQUEST] == 1)
+        {
+            if (card->id == "DRG_255")
+            {
+                card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] = 3;
+            }
+        }
 
         cards.emplace_back(card);
     }
