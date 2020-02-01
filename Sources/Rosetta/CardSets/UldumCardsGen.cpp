@@ -8,6 +8,7 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -1720,6 +1721,13 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: At the end of your turn, deal 1 damage
     //       to another random friendly minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 1)
+    };
+    powers.emplace("ULD_182", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_183] Anubisath Warbringer - COST:9 [ATK:9/HP:6]
