@@ -659,7 +659,7 @@ ULDUM | ULD_266 | Grandmummy |
 ULDUM | ULD_268 | Psychopomp |  
 ULDUM | ULD_269 | Wretched Reclaimer |  
 ULDUM | ULD_270 | Sandhoof Waterbearer |  
-ULDUM | ULD_271 | Injured Tol'vir |  
+ULDUM | ULD_271 | Injured Tol'vir | O
 ULDUM | ULD_272 | Holy Ripple |  
 ULDUM | ULD_273 | Overflow |  
 ULDUM | ULD_274 | Wasteland Assassin |  
