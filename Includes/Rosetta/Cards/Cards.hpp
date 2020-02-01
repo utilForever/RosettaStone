@@ -61,6 +61,16 @@ class Cards
     //! \return A list of all cards.
     static const std::vector<Card*>& GetAllCards();
 
+    //! Returns a list of standard cards that matches specific card class.
+    //! \param cardClass The card class to match.
+    //! \return A list of standard cards that matches specific card class.
+    static const std::vector<Card*>& GetStandardCards(CardClass cardClass);
+
+    //! Returns a list of wild cards that matches specific card class.
+    //! \param cardClass The card class to match.
+    //! \return A list of wild cards that matches specific card class.
+    static const std::vector<Card*>& GetWildCards(CardClass cardClass);
+
     //! Returns a list of all standard cards.
     //! \return A list of all standard cards.
     static const std::vector<Card*>& GetAllStandardCards();

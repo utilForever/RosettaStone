@@ -80,6 +80,16 @@ const std::vector<Card*>& Cards::GetAllCards()
     return m_cards;
 }
 
+const std::vector<Card*>& Cards::GetStandardCards(CardClass cardClass)
+{
+    return m_standardCards[static_cast<int>(cardClass)];
+}
+
+const std::vector<Card*>& Cards::GetWildCards(CardClass cardClass)
+{
+    return m_wildCards[static_cast<int>(cardClass)];
+}
+
 const std::vector<Card*>& Cards::GetAllStandardCards()
 {
     return m_allStandardCards;
