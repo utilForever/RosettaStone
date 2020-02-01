@@ -1651,6 +1651,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<SummonTask>("ULD_174t", SummonSide::DEATHRATTLE));
+    powers.emplace("ULD_174", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_177] Octosari - COST:8 [ATK:8/HP:8]
@@ -2154,6 +2157,9 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // [ULD_174t] Sea Serpent (*) - COST:3 [ATK:3/HP:4]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD174t", power);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_178a] Siamat's Wind (*) - COST:0
