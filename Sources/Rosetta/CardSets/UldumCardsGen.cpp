@@ -2048,6 +2048,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_450", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_702] Mortuary Machine - COST:5 [ATK:8/HP:8]

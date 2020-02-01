@@ -161,6 +161,83 @@ TEST(NeutralUldumTest, ULD_271_InjuredTolvir)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
+// - Race: Demon, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>
+// --------------------------------------------------------
+// GameTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_450_Vilefiend)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vilefiend"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightwarden"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 24);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    EXPECT_EQ(curField[1]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    EXPECT_EQ(curField[1]->GetAttack(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    EXPECT_EQ(curField[1]->GetAttack(), 7);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    EXPECT_EQ(curField[1]->GetAttack(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_712] Bug Collector - COST:2 [ATK:2/HP:1]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
