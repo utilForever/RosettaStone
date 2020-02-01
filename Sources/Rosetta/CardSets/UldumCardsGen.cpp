@@ -1748,6 +1748,10 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    powers.emplace("ULD_184", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_185] Temple Berserker - COST:2 [ATK:1/HP:2]

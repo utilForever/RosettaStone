@@ -123,6 +123,49 @@ TEST(NeutralUldumTest, ULD_182_SpittingCamel)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_184] Kobold Sandtrooper - COST:2 [ATK:2/HP:1]
+// - Faction: Alliance, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Deal 3 damage to the enemy hero.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_184_KoboldSandtrooper)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kobold Sandtrooper"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_191] Beaming Sidekick - COST:1 [ATK:1/HP:2]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
