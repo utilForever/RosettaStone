@@ -691,7 +691,7 @@ ULDUM | ULD_433 | Raid the Sky Temple |
 ULDUM | ULD_435 | Naga Sand Witch |  
 ULDUM | ULD_438 | Salhet's Pride |  
 ULDUM | ULD_439 | Sandwasp Queen |  
-ULDUM | ULD_450 | Vilefiend |  
+ULDUM | ULD_450 | Vilefiend | O
 ULDUM | ULD_500 | Sir Finley of the Sands |  
 ULDUM | ULD_702 | Mortuary Machine |  
 ULDUM | ULD_703 | Desert Obelisk |  
