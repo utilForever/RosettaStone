@@ -612,7 +612,7 @@ ULDUM | ULD_170 | Weaponized Wasp |
 ULDUM | ULD_171 | Totemic Surge |  
 ULDUM | ULD_172 | Plague of Murlocs |  
 ULDUM | ULD_173 | Vessina |  
-ULDUM | ULD_174 | Serpent Egg |  
+ULDUM | ULD_174 | Serpent Egg | O
 ULDUM | ULD_177 | Octosari |  
 ULDUM | ULD_178 | Siamat |  
 ULDUM | ULD_179 | Phalanx Commander |  
