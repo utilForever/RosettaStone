@@ -618,7 +618,7 @@ ULDUM | ULD_178 | Siamat |
 ULDUM | ULD_179 | Phalanx Commander |  
 ULDUM | ULD_180 | Sunstruck Henchman |  
 ULDUM | ULD_181 | Earthquake |  
-ULDUM | ULD_182 | Spitting Camel |  
+ULDUM | ULD_182 | Spitting Camel | O
 ULDUM | ULD_183 | Anubisath Warbringer |  
 ULDUM | ULD_184 | Kobold Sandtrooper |  
 ULDUM | ULD_185 | Temple Berserker |  
