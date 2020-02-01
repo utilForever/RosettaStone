@@ -8,6 +8,7 @@
 #define ROSETTASTONE_CARDS_HPP
 
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Commons/Constants.hpp>
 
 #include <vector>
 
@@ -156,6 +157,8 @@ class Cards
     ~Cards();
 
     static std::vector<Card*> m_cards;
+    static std::array<std::vector<Card*>, NUM_PLAYER_CLASS> m_standardCards;
+    static std::array<std::vector<Card*>, NUM_PLAYER_CLASS> m_wildCards;
     static std::vector<Card*> m_allStandardCards;
     static std::vector<Card*> m_allWildCards;
 };

@@ -13,7 +13,10 @@
 namespace RosettaStone
 {
 Card emptyCard;
+
 std::vector<Card*> Cards::m_cards;
+std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_standardCards;
+std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_wildCards;
 std::vector<Card*> Cards::m_allStandardCards;
 std::vector<Card*> Cards::m_allWildCards;
 
@@ -31,15 +34,26 @@ Cards::Cards()
 
     for (Card* card : m_cards)
     {
+        // NOTE: Subtract 2 because of CardClass::DRUID = 2
+        const auto cardClass = static_cast<int>(card->GetCardClass()) - 2;
+
         if (card->IsCollectible() && card->IsStandardSet() &&
             card->GetCardType() != CardType::HERO)
         {
+            if (card->GetCardClass() != CardClass::NEUTRAL)
+            {
+                m_standardCards[cardClass].emplace_back(card);
+            }     
             m_allStandardCards.emplace_back(card);
         }
 
         if (card->IsCollectible() && card->IsWildSet() &&
             card->GetCardType() != CardType::HERO)
         {
+            if (card->GetCardClass() != CardClass::NEUTRAL)
+            {
+                m_wildCards[cardClass].emplace_back(card);
+            }
             m_allWildCards.emplace_back(card);
         }
     }
