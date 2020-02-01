@@ -26,7 +26,7 @@ using namespace SimpleTasks;
 // GameTag:
 // - DEATHRATTLE = 1
 // --------------------------------------------------------
-TEST(NeutralUldumTest, ULD_174_Serpent_Egg)
+TEST(NeutralUldumTest, ULD_174_SerpentEgg)
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -78,7 +78,7 @@ TEST(NeutralUldumTest, ULD_174_Serpent_Egg)
 // - REQ_FRIENDLY_TARGET = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(NeutralUldumTest, ULD_191_Beaming_Sidekick)
+TEST(NeutralUldumTest, ULD_191_BeamingSidekick)
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -132,7 +132,7 @@ TEST(NeutralUldumTest, ULD_191_Beaming_Sidekick)
 // RefTag:
 // - RUSH = 1
 // --------------------------------------------------------
-TEST(NeutralUldumTest, ULD_712_Bug_Collector)
+TEST(NeutralUldumTest, ULD_712_BugCollector)
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
