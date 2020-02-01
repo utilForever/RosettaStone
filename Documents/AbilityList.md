@@ -22,7 +22,7 @@
 * [x] Freeze
 * [x] Immune
 * [ ] Inspire
-* [ ] Lifesteal
+* [x] Lifesteal
 * [ ] Magnetic
 * [ ] Mega-Windfury
 * [ ] Overkill
