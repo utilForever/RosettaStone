@@ -7,6 +7,7 @@
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -2093,6 +2094,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("ULD_430t"));
+    powers.emplace("ULD_712", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_719] Desert Hare - COST:3 [ATK:1/HP:1]
@@ -2352,6 +2356,9 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_430t", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_616] Titanic Lackey (*) - COST:1 [ATK:1/HP:1]
