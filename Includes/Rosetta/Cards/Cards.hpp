@@ -62,11 +62,11 @@ class Cards
 
     //! Returns a list of all standard cards.
     //! \return A list of all standard cards.
-    static std::vector<Card*> GetAllStandardCards();
+    static const std::vector<Card*>& GetAllStandardCards();
 
     //! Returns a list of all wild cards.
     //! \return A list of all wild cards.
-    static std::vector<Card*> GetAllWildCards();
+    static const std::vector<Card*>& GetAllWildCards();
 
     //! Returns a card that matches \p id.
     //! \param id The ID of the card.
@@ -156,6 +156,8 @@ class Cards
     ~Cards();
 
     static std::vector<Card*> m_cards;
+    static std::vector<Card*> m_allStandardCards;
+    static std::vector<Card*> m_allWildCards;
 };
 }  // namespace RosettaStone
 

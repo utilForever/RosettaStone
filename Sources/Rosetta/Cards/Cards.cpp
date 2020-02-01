@@ -14,6 +14,8 @@ namespace RosettaStone
 {
 Card emptyCard;
 std::vector<Card*> Cards::m_cards;
+std::vector<Card*> Cards::m_allStandardCards;
+std::vector<Card*> Cards::m_allWildCards;
 
 Cards::Cards()
 {
@@ -25,6 +27,21 @@ Cards::Cards()
     for (Card* card : m_cards)
     {
         card->Initialize();
+    }
+
+    for (Card* card : m_cards)
+    {
+        if (card->IsCollectible() && card->IsStandardSet() &&
+            card->GetCardType() != CardType::HERO)
+        {
+            m_allStandardCards.emplace_back(card);
+        }
+
+        if (card->IsCollectible() && card->IsWildSet() &&
+            card->GetCardType() != CardType::HERO)
+        {
+            m_allWildCards.emplace_back(card);
+        }
     }
 }
 
@@ -49,36 +66,14 @@ const std::vector<Card*>& Cards::GetAllCards()
     return m_cards;
 }
 
-std::vector<Card*> Cards::GetAllStandardCards()
+const std::vector<Card*>& Cards::GetAllStandardCards()
 {
-    std::vector<Card*> result;
-
-    for (Card* card : m_cards)
-    {
-        if (card->IsCollectible() && card->IsStandardSet() &&
-            card->GetCardType() != CardType::HERO)
-        {
-            result.emplace_back(card);
-        }
-    }
-
-    return result;
+    return m_allStandardCards;
 }
 
-std::vector<Card*> Cards::GetAllWildCards()
+const std::vector<Card*>& Cards::GetAllWildCards()
 {
-    std::vector<Card*> result;
-
-    for (Card* card : m_cards)
-    {
-        if (card->IsCollectible() && card->IsWildSet() &&
-            card->GetCardType() != CardType::HERO)
-        {
-            result.emplace_back(card);
-        }
-    }
-
-    return result;
+    return m_allWildCards;
 }
 
 Card* Cards::FindCardByID(const std::string_view& id)
