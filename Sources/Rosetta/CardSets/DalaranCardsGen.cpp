@@ -6,6 +6,7 @@
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -437,6 +438,8 @@ void DalaranCardsGen::AddHunterNonCollect(PowersType& powers,
 void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
                               EntouragesType& entourages)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2]
     // - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
@@ -449,6 +452,10 @@ void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(CardType::MINION, CardClass::MAGE));
+    powers.emplace("DAL_163", power);
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177] Conjurer's Calling - COST:3
