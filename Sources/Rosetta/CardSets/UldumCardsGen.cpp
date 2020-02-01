@@ -4,6 +4,11 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
+#include <Rosetta/Enchants/Effects.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
@@ -1608,6 +1613,8 @@ void UldumCardsGen::AddWarriorNonCollect(PowersType& powers,
 void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_003] Zephrys the Great - COST:2 [ATK:3/HP:2]
     // - Race: Elemental, Set: Uldum, Rarity: Legendary
@@ -1790,6 +1797,14 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_191e", EntityType::TARGET));
+    powers.emplace("ULD_191", power);
+    playReqs.emplace("ULD_191",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_193] Living Monument - COST:10 [ATK:10/HP:10]
@@ -2129,6 +2144,8 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
                                          PlayReqsType& playReqs,
                                          EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_174t] Sea Serpent (*) - COST:3 [ATK:3/HP:4]
     // - Race: Beast, Set: Uldum
@@ -2240,6 +2257,9 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_191e"));
+    powers.emplace("ULD_191e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_197e] Stuck! (*) - COST:0
