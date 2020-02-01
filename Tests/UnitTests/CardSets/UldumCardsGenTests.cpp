@@ -121,6 +121,46 @@ TEST(NeutralUldumTest, ULD_191_BeamingSidekick)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Deal 3 damage to this minion.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_271_InjuredTolvir)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Tol'vir"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetDamage(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_712] Bug Collector - COST:2 [ATK:2/HP:1]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------

@@ -7,6 +7,7 @@
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -1652,7 +1653,8 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<SummonTask>("ULD_174t", SummonSide::DEATHRATTLE));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("ULD_174t", SummonSide::DEATHRATTLE));
     powers.emplace("ULD_174", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1958,6 +1960,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::SOURCE, 3));
+    powers.emplace("ULD_271", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2]
