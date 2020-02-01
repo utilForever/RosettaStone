@@ -701,7 +701,7 @@ ULDUM | ULD_707 | Plague of Wrath |
 ULDUM | ULD_708 | Livewire Lance |  
 ULDUM | ULD_709 | Armored Goon |  
 ULDUM | ULD_711 | Hack the System |  
-ULDUM | ULD_712 | Bug Collector |  
+ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts |  
 ULDUM | ULD_714 | Penance |  
 ULDUM | ULD_715 | Plague of Madness |  
