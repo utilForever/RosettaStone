@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
@@ -59,7 +60,7 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
                 }
             }
 
-            result[i] = pick;
+            result.emplace_back(pick);
         }
     }
 
@@ -80,7 +81,10 @@ TaskStatus DiscoverTask::Impl(Player* player)
             Discover(player->game->GetFormatType(), m_discoverCriteria);
     }
 
-    auto result = GetChoices(cardsToDiscover, m_numberOfChoices);
+    const auto result = GetChoices(cardsToDiscover, m_numberOfChoices);
+
+    Generic::CreateChoiceCards(player, m_source, ChoiceType::GENERAL,
+                               m_choiceAction, result);
 
     return TaskStatus::COMPLETE;
 }
@@ -88,7 +92,8 @@ TaskStatus DiscoverTask::Impl(Player* player)
 std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 {
     return std::make_unique<DiscoverTask>(m_discoverCriteria.cardType,
-                                          m_discoverCriteria.cardClass);
+                                          m_discoverCriteria.cardClass,
+                                          m_choiceAction);
 }
 
 std::vector<Card*> DiscoverTask::Discover(FormatType format,
