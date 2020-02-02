@@ -82,12 +82,14 @@ const std::vector<Card*>& Cards::GetAllCards()
 
 const std::vector<Card*>& Cards::GetStandardCards(CardClass cardClass)
 {
-    return m_standardCards[static_cast<int>(cardClass)];
+    // NOTE: Subtract 2 because of CardClass::DRUID = 2
+    return m_standardCards[static_cast<int>(cardClass) - 2];
 }
 
 const std::vector<Card*>& Cards::GetWildCards(CardClass cardClass)
 {
-    return m_wildCards[static_cast<int>(cardClass)];
+    // NOTE: Subtract 2 because of CardClass::DRUID = 2
+    return m_wildCards[static_cast<int>(cardClass) - 2];
 }
 
 const std::vector<Card*>& Cards::GetAllStandardCards()
