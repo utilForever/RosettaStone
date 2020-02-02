@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -90,6 +91,52 @@ TEST(DruidDalaranTest, DAL_351_BlessingOfTheAncients)
     EXPECT_EQ(curField[1]->GetHealth(), 3);
     EXPECT_EQ(curField[2]->GetAttack(), 3);
     EXPECT_EQ(curField[2]->GetHealth(), 3);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2]
+// - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a Mage minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST(MageDalaranTest, DAL_163_MessengerRaven)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Messenger Raven"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        EXPECT_EQ(card->GetCardType(), CardType::MINION);
+        EXPECT_EQ(card->GetCardClass(), CardClass::MAGE);
+    }
 }
 
 // --------------------------------------- MINION - NEUTRAL
