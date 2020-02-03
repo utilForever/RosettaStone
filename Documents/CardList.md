@@ -685,7 +685,7 @@ ULDUM | ULD_329 | Dune Sculptor |
 ULDUM | ULD_410 | Scarlet Webweaver |  
 ULDUM | ULD_413 | Splitting Axe |  
 ULDUM | ULD_429 | Hunter's Pack |  
-ULDUM | ULD_430 | Desert Spear |  
+ULDUM | ULD_430 | Desert Spear | O
 ULDUM | ULD_431 | Making Mummies |  
 ULDUM | ULD_433 | Raid the Sky Temple |  
 ULDUM | ULD_435 | Naga Sand Witch |  
@@ -717,7 +717,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 9% (13 of 135 Cards)
+- Progress: 10% (14 of 135 Cards)
 
 ## Rise of Shadows
 
