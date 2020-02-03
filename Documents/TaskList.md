@@ -31,6 +31,7 @@
 * DamageWeaponTask
 * DestroyTask
 * DiscardTask
+* DiscoverTask
 * DrawNumberTask
 * DrawOpTask
 * DrawStackTask
@@ -54,6 +55,7 @@
 * MathSubtractTask
 * MoveToGraveyardTask
 * MoveToSetasideTask
+* QuestProgressTask
 * RandomCardTask
 * RandomEntourageTask
 * RandomMinionTask

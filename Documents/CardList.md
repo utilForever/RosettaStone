@@ -456,7 +456,7 @@ DALARAN | DAL_065 | Unsleeping Soul |
 DALARAN | DAL_070 | The Boom Reaver |  
 DALARAN | DAL_071 | Mutate |  
 DALARAN | DAL_077 | Toxfin |  
-DALARAN | DAL_078 | Traveling Healer |  
+DALARAN | DAL_078 | Traveling Healer | O
 DALARAN | DAL_081 | Spellward Jeweler |  
 DALARAN | DAL_085 | Dalaran Crusader |  
 DALARAN | DAL_086 | Sunreaver Spy |  
@@ -470,14 +470,14 @@ DALARAN | DAL_096 | Violet Warden |
 DALARAN | DAL_141 | Desperate Measures |  
 DALARAN | DAL_146 | Bronze Herald |  
 DALARAN | DAL_147 | Dragon Speaker |  
-DALARAN | DAL_163 | Messenger Raven |  
+DALARAN | DAL_163 | Messenger Raven | O
 DALARAN | DAL_173 | Darkest Hour |  
 DALARAN | DAL_177 | Conjurer's Calling |  
 DALARAN | DAL_182 | Magic Dart Frog |  
 DALARAN | DAL_185 | Aranasi Broodmother |  
 DALARAN | DAL_256 | The Forest's Aid |  
 DALARAN | DAL_350 | Crystal Power |  
-DALARAN | DAL_351 | Blessing of the Ancients |  
+DALARAN | DAL_351 | Blessing of the Ancients | O
 DALARAN | DAL_352 | Crystalsong Portal |  
 DALARAN | DAL_354 | Acornbearer |  
 DALARAN | DAL_355 | Lifeweaver |  
@@ -562,7 +562,7 @@ DALARAN | DAL_749 | Recurring Villain |
 DALARAN | DAL_751 | Mad Summoner |  
 DALARAN | DAL_752 | Jepetto Joybuzz |  
 DALARAN | DAL_759 | Vicious Scraphound |  
-DALARAN | DAL_760 | Burly Shovelfist |  
+DALARAN | DAL_760 | Burly Shovelfist | O
 DALARAN | DAL_769 | Improve Morale |  
 DALARAN | DAL_770 | Omega Devastator |  
 DALARAN | DAL_771 | Soldier of Fortune |  
@@ -570,8 +570,9 @@ DALARAN | DAL_773 | Magic Carpet |
 DALARAN | DAL_774 | Exotic Mountseller |  
 DALARAN | DAL_775 | Tunnel Blaster |  
 DALARAN | DAL_799 | Crystal Stag |  
+DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 2% (4 of 136 Cards)
 
 ## Saviors of Uldum
 
@@ -682,7 +683,7 @@ ULDUM | ULD_410 | Scarlet Webweaver |
 ULDUM | ULD_413 | Splitting Axe |  
 ULDUM | ULD_429 | Hunter's Pack |  
 ULDUM | ULD_430 | Desert Spear |  
-ULDUM | ULD_431 | Making Mummies |  
+ULDUM | ULD_431 | Making Mummies | O
 ULDUM | ULD_433 | Raid the Sky Temple |  
 ULDUM | ULD_435 | Naga Sand Witch |  
 ULDUM | ULD_438 | Salhet's Pride |  
@@ -713,7 +714,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 4% (7 of 135 Cards)
+- Progress: 5% (8 of 135 Cards)
 
 ## Descent of Dragons
 
@@ -822,7 +823,7 @@ DRAGONS | DRG_251 | Clear the Way |
 DRAGONS | DRG_252 | Phase Stalker |  
 DRAGONS | DRG_253 | Dwarven Sharpshooter |  
 DRAGONS | DRG_254 | Primordial Explorer |  
-DRAGONS | DRG_255 | Toxic Reinforcements |  
+DRAGONS | DRG_255 | Toxic Reinforcements | O
 DRAGONS | DRG_256 | Dragonbane |  
 DRAGONS | DRG_257 | Frizz Kindleroost |  
 DRAGONS | DRG_258 | Sanctuary |  
@@ -860,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest |
 DRAGONS | DRG_650 | Galakrond, the Unbreakable |  
 DRAGONS | DRG_660 | Galakrond, the Unspeakable |  
 
-- Progress: 0% (0 of 140 Cards)
+- Progress: 0% (1 of 140 Cards)
 
 ## Galakrond's Awakening
 
