@@ -173,6 +173,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEnemyTurn();
 
+    //! SelfCondition wrapper for checking the player has unspent mana.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsUnspentMana();
+
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.

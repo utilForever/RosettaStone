@@ -301,6 +301,13 @@ SelfCondition SelfCondition::IsEnemyTurn()
     });
 }
 
+SelfCondition SelfCondition::IsUnspentMana()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetRemainingMana();
+    });
+}
+
 bool SelfCondition::Evaluate(Playable* owner) const
 {
     return m_func(owner);
