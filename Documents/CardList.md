@@ -583,7 +583,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 ULDUM | ULD_003 | Zephrys the Great |  
 ULDUM | ULD_131 | Untapped Potential |  
-ULDUM | ULD_133 | Crystal Merchant |  
+ULDUM | ULD_133 | Crystal Merchant | O
 ULDUM | ULD_134 | BEEEES!!! |  
 ULDUM | ULD_135 | Hidden Oasis |  
 ULDUM | ULD_136 | Worthy Expedition |  
@@ -717,7 +717,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 4% (10 of 135 Cards)
+- Progress: 9% (11 of 135 Cards)
 
 ## Rise of Shadows
 
