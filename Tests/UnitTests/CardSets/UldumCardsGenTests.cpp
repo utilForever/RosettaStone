@@ -76,6 +76,70 @@ TEST(DruidUldumTest, ULD_133_CrystalMerchant)
     EXPECT_EQ(opHand.GetCount(), 7);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [ULD_152] Pressure Plate - COST:2
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent casts a spell,
+//       destroy a random enemy minion.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_152_PressurePlate)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pressure Plate"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    EXPECT_EQ(curSecret.GetCount(), 1);
+    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 0);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    EXPECT_EQ(curSecret.GetCount(), 0);
+    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 1);
+    EXPECT_EQ(opField.GetCount(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_174] Serpent Egg - COST:2 [ATK:0/HP:3]
 // - Set: Uldum, Rarity: Common

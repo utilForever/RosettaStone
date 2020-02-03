@@ -9,10 +9,13 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -337,6 +340,8 @@ void UldumCardsGen::AddDruidNonCollect(PowersType& powers,
 void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                               EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [ULD_151] Ramkahen Wildtamer - COST:3 [ATK:4/HP:3]
     // - Set: Uldum, Rarity: Rare
@@ -357,6 +362,19 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsFieldNotEmpty());
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+        std::make_shared<DestroyTask>(EntityType::STACK),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
+                                         1),
+        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
+    };
+    powers.emplace("ULD_152", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_154] Hyena Alpha - COST:4 [ATK:3/HP:3]
