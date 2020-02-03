@@ -310,6 +310,13 @@ int Character::TakeDamage(Playable* source, int damage)
     game->triggerManager.OnDealDamageTrigger(source);
 
     game->ProcessTasks();
+
+    if (source != nullptr && source->GetGameTag(GameTag::LIFESTEAL) == 1 &&
+        amount > 0)
+    {
+        source->player->GetHero()->TakeHeal(source, amount);
+    }
+
     game->taskQueue.EndEvent();
 
     game->currentEventData.reset();

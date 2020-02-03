@@ -6,8 +6,12 @@
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -1649,6 +1653,8 @@ void UldumCardsGen::AddWarriorNonCollect(PowersType& powers,
 void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_003] Zephrys the Great - COST:2 [ATK:3/HP:2]
     // - Race: Elemental, Set: Uldum, Rarity: Legendary
@@ -1684,6 +1690,10 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("ULD_174t", SummonSide::DEATHRATTLE));
+    powers.emplace("ULD_174", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_177] Octosari - COST:8 [ATK:8/HP:8]
@@ -1748,6 +1758,13 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: At the end of your turn, deal 1 damage
     //       to another random friendly minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 1)
+    };
+    powers.emplace("ULD_182", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_183] Anubisath Warbringer - COST:9 [ATK:9/HP:6]
@@ -1768,6 +1785,10 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    powers.emplace("ULD_184", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_185] Temple Berserker - COST:2 [ATK:1/HP:2]
@@ -1831,6 +1852,14 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_191e", EntityType::TARGET));
+    powers.emplace("ULD_191", power);
+    playReqs.emplace("ULD_191",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                               { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                               { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_193] Living Monument - COST:10 [ATK:10/HP:10]
@@ -1980,6 +2009,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::SOURCE, 3));
+    powers.emplace("ULD_271", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2]
@@ -2065,6 +2097,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_450", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_702] Mortuary Machine - COST:5 [ATK:8/HP:8]
@@ -2119,6 +2154,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("ULD_430t"));
+    powers.emplace("ULD_712", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_719] Desert Hare - COST:3 [ATK:1/HP:1]
@@ -2170,10 +2208,15 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
                                          PlayReqsType& playReqs,
                                          EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_174t] Sea Serpent (*) - COST:3 [ATK:3/HP:4]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_174t", power);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_178a] Siamat's Wind (*) - COST:0
@@ -2281,6 +2324,9 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_191e"));
+    powers.emplace("ULD_191e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_197e] Stuck! (*) - COST:0
@@ -2373,6 +2419,9 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_430t", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_616] Titanic Lackey (*) - COST:1 [ATK:1/HP:1]
