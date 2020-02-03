@@ -2179,7 +2179,7 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("ULD174t", power);
+    powers.emplace("ULD_174t", power);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_178a] Siamat's Wind (*) - COST:0
