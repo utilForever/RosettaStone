@@ -380,12 +380,20 @@ TEST(NeutralUldumTest, ULD_712_BugCollector)
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curField[1]->card->name, "Locust");
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::RUSH), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     EXPECT_EQ(opField.GetCount(), 2);
+    EXPECT_EQ(opField[1]->card->name, "Locust");
+    EXPECT_EQ(opField[1]->GetAttack(), 1);
+    EXPECT_EQ(opField[1]->GetHealth(), 1);
+    EXPECT_EQ(opField[1]->GetGameTag(GameTag::RUSH), 1);
 
     game.Process(opPlayer, AttackTask(opField[1], curField[1]));
     EXPECT_EQ(curField.GetCount(), 1);
