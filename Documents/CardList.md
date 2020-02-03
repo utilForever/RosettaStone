@@ -612,21 +612,21 @@ ULDUM | ULD_170 | Weaponized Wasp |
 ULDUM | ULD_171 | Totemic Surge |  
 ULDUM | ULD_172 | Plague of Murlocs |  
 ULDUM | ULD_173 | Vessina |  
-ULDUM | ULD_174 | Serpent Egg |  
+ULDUM | ULD_174 | Serpent Egg | O
 ULDUM | ULD_177 | Octosari |  
 ULDUM | ULD_178 | Siamat |  
 ULDUM | ULD_179 | Phalanx Commander |  
 ULDUM | ULD_180 | Sunstruck Henchman |  
 ULDUM | ULD_181 | Earthquake |  
-ULDUM | ULD_182 | Spitting Camel |  
+ULDUM | ULD_182 | Spitting Camel | O
 ULDUM | ULD_183 | Anubisath Warbringer |  
-ULDUM | ULD_184 | Kobold Sandtrooper |  
+ULDUM | ULD_184 | Kobold Sandtrooper | O
 ULDUM | ULD_185 | Temple Berserker |  
 ULDUM | ULD_186 | Pharaoh Cat |  
 ULDUM | ULD_188 | Golden Scarab |  
 ULDUM | ULD_189 | Faceless Lurker |  
 ULDUM | ULD_190 | Pit Crocolisk |  
-ULDUM | ULD_191 | Beaming Sidekick |  
+ULDUM | ULD_191 | Beaming Sidekick | O
 ULDUM | ULD_193 | Living Monument |  
 ULDUM | ULD_194 | Wasteland Scorpid |  
 ULDUM | ULD_195 | Frightened Flunky |  
@@ -659,7 +659,7 @@ ULDUM | ULD_266 | Grandmummy |
 ULDUM | ULD_268 | Psychopomp |  
 ULDUM | ULD_269 | Wretched Reclaimer |  
 ULDUM | ULD_270 | Sandhoof Waterbearer |  
-ULDUM | ULD_271 | Injured Tol'vir |  
+ULDUM | ULD_271 | Injured Tol'vir | O
 ULDUM | ULD_272 | Holy Ripple |  
 ULDUM | ULD_273 | Overflow |  
 ULDUM | ULD_274 | Wasteland Assassin |  
@@ -691,7 +691,7 @@ ULDUM | ULD_433 | Raid the Sky Temple |
 ULDUM | ULD_435 | Naga Sand Witch |  
 ULDUM | ULD_438 | Salhet's Pride |  
 ULDUM | ULD_439 | Sandwasp Queen |  
-ULDUM | ULD_450 | Vilefiend |  
+ULDUM | ULD_450 | Vilefiend | O
 ULDUM | ULD_500 | Sir Finley of the Sands |  
 ULDUM | ULD_702 | Mortuary Machine |  
 ULDUM | ULD_703 | Desert Obelisk |  
@@ -701,7 +701,7 @@ ULDUM | ULD_707 | Plague of Wrath |
 ULDUM | ULD_708 | Livewire Lance |  
 ULDUM | ULD_709 | Armored Goon |  
 ULDUM | ULD_711 | Hack the System |  
-ULDUM | ULD_712 | Bug Collector |  
+ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts |  
 ULDUM | ULD_714 | Penance |  
 ULDUM | ULD_715 | Plague of Madness |  
@@ -717,7 +717,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 4% (7 of 135 Cards)
 
 ## Rise of Shadows
 
