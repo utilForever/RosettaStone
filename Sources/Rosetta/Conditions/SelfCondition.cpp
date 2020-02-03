@@ -80,6 +80,13 @@ SelfCondition SelfCondition::IsOpFieldNotFull()
     });
 }
 
+SelfCondition SelfCondition::IsFieldNotEmpty()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->GetFieldZone()->IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsDamaged()
 {
     return SelfCondition([=](Playable* playable) -> bool {

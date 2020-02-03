@@ -42,7 +42,7 @@ class SelfCondition
 
     //! SelfCondition wrapper for checking the entity is not immune.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition IsNotImmune();    
+    static SelfCondition IsNotImmune();
 
     //! SelfCondition wrapper for checking the entity is not untouchable.
     //! \return Generated SelfCondition for intended purpose.
@@ -55,6 +55,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the field is not full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldNotFull();
+
+    //! SelfCondition wrapper for checking the field is not empty.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFieldNotEmpty();
 
     //! SelfCondition wrapper for checking the opponent field is not full.
     //! \return Generated SelfCondition for intended purpose.
