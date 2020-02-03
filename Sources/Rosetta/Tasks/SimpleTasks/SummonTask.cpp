@@ -112,7 +112,15 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target)
         case SummonSide::TARGET:
         {
             const auto tgt = dynamic_cast<Playable*>(target);
-            summonPos = tgt->GetZonePosition() + 1;
+            if (tgt != nullptr)
+            {
+                summonPos = tgt->GetZonePosition() + 1;
+            }
+            else
+            {
+                throw std::invalid_argument(
+                    "SummonTask::Impl() - target is nullptr"); 
+            }
             break;
         }
         default:
