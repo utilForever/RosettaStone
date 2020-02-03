@@ -594,7 +594,7 @@ ULDUM | ULD_140 | Supreme Archaeology |
 ULDUM | ULD_143 | Pharaoh's Blessing |  
 ULDUM | ULD_145 | Brazen Zealot |  
 ULDUM | ULD_151 | Ramkahen Wildtamer |  
-ULDUM | ULD_152 | Pressure Plate |  
+ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha |  
 ULDUM | ULD_155 | Unseal the Vault |  
 ULDUM | ULD_156 | Dinotamer Brann |  
@@ -717,7 +717,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 9% (12 of 135 Cards)
+- Progress: 9% (13 of 135 Cards)
 
 ## Rise of Shadows
 
