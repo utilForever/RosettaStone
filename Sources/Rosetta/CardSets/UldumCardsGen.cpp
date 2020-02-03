@@ -9,6 +9,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
@@ -123,6 +124,8 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
 void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
                              EntouragesType& entourages)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [ULD_131] Untapped Potential - COST:1
     // - Set: Uldum, Rarity: Legendary
@@ -146,6 +149,12 @@ void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: If you have any unspent Mana at the end of your turn,
     //       draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana());
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    powers.emplace("ULD_133", power);
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_134] BEEEES!!! - COST:3 [ATK:1/HP:4]

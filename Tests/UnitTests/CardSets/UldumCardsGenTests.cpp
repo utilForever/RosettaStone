@@ -17,6 +17,65 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ----------------------------------------- MINION - DRUID
+// [ULD_133] Crystal Merchant - COST:2 [ATK:1/HP:4]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: If you have any unspent Mana at the end of your turn,
+//       draw a card.
+// --------------------------------------------------------
+TEST(DruidUldumTest, ULD_133_CrystalMerchant)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crystal Merchant"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curHand.GetCount(), 5);
+    EXPECT_EQ(opHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(curHand.GetCount(), 6);
+    EXPECT_EQ(opHand.GetCount(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(curHand.GetCount(), 7);
+    EXPECT_EQ(opHand.GetCount(), 6);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetRemainingMana(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(curHand.GetCount(), 6);
+    EXPECT_EQ(opHand.GetCount(), 7);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_174] Serpent Egg - COST:2 [ATK:0/HP:3]
 // - Set: Uldum, Rarity: Common
