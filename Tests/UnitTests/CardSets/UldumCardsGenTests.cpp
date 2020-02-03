@@ -61,7 +61,7 @@ TEST(NeutralUldumTest, ULD_174_SerpentEgg)
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->card->name, "Sea Serpent");
 }
 
 // --------------------------------------- MINION - NEUTRAL
