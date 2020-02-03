@@ -1848,6 +1848,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_194", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_196] Neferset Ritualist - COST:2 [ATK:2/HP:3]
