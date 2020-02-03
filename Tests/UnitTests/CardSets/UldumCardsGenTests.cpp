@@ -262,6 +262,49 @@ TEST(NeutralUldumTest, ULD_271_InjuredTolvir)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_289] Fishflinger - COST:2 [ATK:3/HP:2]
+// - Race: Murloc, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a random Murloc
+//       to each player's hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_289_Fishflinger)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fishflinger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curHand.GetCount(), 5);
+    EXPECT_EQ(opHand.GetCount(), 6);
+    EXPECT_EQ(curHand[4]->card->GetRace(), Race::MURLOC);
+    EXPECT_EQ(opHand[5]->card->GetRace(), Race::MURLOC);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
 // - Race: Demon, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
