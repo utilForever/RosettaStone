@@ -670,7 +670,7 @@ ULDUM | ULD_282 | Jar Dealer |
 ULDUM | ULD_285 | Hooked Scimitar |  
 ULDUM | ULD_286 | Shadow of Death |  
 ULDUM | ULD_288 | Anka, the Buried |  
-ULDUM | ULD_289 | Fishflinger |  
+ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
 ULDUM | ULD_291 | Corrupt the Waters |  
 ULDUM | ULD_292 | Oasis Surger |  
