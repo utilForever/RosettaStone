@@ -50,7 +50,7 @@ constexpr std::array<CardSet, 21> WILD_CARD_SETS = {
     CardSet::YEAR_OF_THE_DRAGON,  // Galakrond's Awakening, 2020
 
     // Wild
-    CardSet::NAXX,           // Curse of Naxxramas, 2014
+    CardSet::NAXX,          // Curse of Naxxramas, 2014
     CardSet::GVG,           // Goblins vs Gnomes, 2014
     CardSet::BRM,           // Blackrock Mountain, 2015
     CardSet::TGT,           // The Grand Tournament, 2015
