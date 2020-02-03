@@ -1835,6 +1835,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_193", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_194] Wasteland Scorpid - COST:7 [ATK:3/HP:9]
