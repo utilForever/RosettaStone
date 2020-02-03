@@ -10,6 +10,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
@@ -236,6 +237,10 @@ void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // Text: Restore 5 Health to all characters. Draw 5 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL, 5));
+    power.AddPowerTask(std::make_shared<DrawTask>(5));
+    powers.emplace("ULD_273", power);
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_292] Oasis Surger - COST:5 [ATK:3/HP:3]

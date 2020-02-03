@@ -396,6 +396,83 @@ TEST(NeutralUldumTest, ULD_271_InjuredTolvir)
     EXPECT_EQ(curField[0]->GetDamage(), 3);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [ULD_273] Overflow - COST:7
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Restore 5 Health to all characters. Draw 5 cards.
+// --------------------------------------------------------
+TEST(DruidUldumTest, ULD_273_Overflow)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = config.player2Deck[i] =
+            *Cards::FindCardByName("Magma Rager");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Tol'vir"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Injured Tol'vir"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Overflow"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card5));
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+    EXPECT_EQ(opField[0]->GetHealth(), 6);
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
+    EXPECT_EQ(curHand.GetCount(), 10);
+    EXPECT_EQ(opHand.GetCount(), 6);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_289] Fishflinger - COST:2 [ATK:3/HP:2]
 // - Race: Murloc, Set: Uldum, Rarity: Common
