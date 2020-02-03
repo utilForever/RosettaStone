@@ -580,6 +580,74 @@ TEST(NeutralUldumTest, ULD_289_Fishflinger)
     EXPECT_EQ(opHand[5]->card->GetRace(), Race::MURLOC);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: After your hero attacks,
+//       summon a 1/1 Locust with <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_430_DesertSpear)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Spear"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fiery War Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(opField.GetCount(), 0);
+    EXPECT_EQ(curField[1]->card->name, "Locust");
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::RUSH), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card3));
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(opField.GetCount(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
 // - Race: Demon, Set: Uldum, Rarity: Common

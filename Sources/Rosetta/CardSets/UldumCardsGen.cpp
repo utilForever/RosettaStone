@@ -464,6 +464,12 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "ULD_430t", SummonSide::SPELL) };
+    powers.emplace("ULD_430", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_713] Swarm of Locusts - COST:6
