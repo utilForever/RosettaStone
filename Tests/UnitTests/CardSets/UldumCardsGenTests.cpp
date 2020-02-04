@@ -368,6 +368,21 @@ TEST(NeutralUldumTest, ULD_271_InjuredTolvir)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_275_BoneWraith)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
 // - Race: Demon, Set: Uldum, Rarity: Common
 // --------------------------------------------------------

@@ -2037,6 +2037,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_275", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_282] Jar Dealer - COST:1 [ATK:1/HP:1]
