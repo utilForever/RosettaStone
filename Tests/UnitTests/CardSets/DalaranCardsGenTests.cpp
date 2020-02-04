@@ -78,6 +78,58 @@ TEST(DruidDalaranTest, DAL_350_CrystalPower)
 }
 
 // ----------------------------------------- MINION - DRUID
+// [DAL_354] Acornbearer - COST:1 [ATK:2/HP:1]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Add two 1/1 Squirrels to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(DruidDalaranTest, DAL_354_Acornbearer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Acornbearer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+	game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, curField[0]));
+
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    EXPECT_EQ(curHand[4]->card->name, "Squirrel");
+    EXPECT_EQ(curHand[5]->card->name, "Squirrel");
+}
+
+// ----------------------------------------- MINION - DRUID
 // [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
 // - Set: Dalaran, Rarity: Rare
 // --------------------------------------------------------
@@ -108,14 +160,14 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
 
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Lifeweaver"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lifeweaver"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Healing Touch"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
     game.Process(curPlayer,
@@ -125,12 +177,12 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
     EXPECT_EQ(curHand[4]->card->GetCardClass(), CardClass::DRUID);
-    //EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+    // EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
 
-	game.Process(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-	game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
 
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
@@ -192,7 +244,7 @@ TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
     EXPECT_EQ(curField[0]->GetAttack(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 2);
 
-	game.Process(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     const auto card5 =
