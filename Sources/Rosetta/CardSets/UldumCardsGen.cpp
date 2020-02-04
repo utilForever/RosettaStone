@@ -2188,6 +2188,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DIVINE_SHIELD = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_721", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_723] Murmy - COST:1 [ATK:1/HP:1]

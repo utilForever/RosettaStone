@@ -537,6 +537,22 @@ TEST(NeutralUldumTest, ULD_712_BugCollector)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_721] Colossus of the Moon - COST:10 [ATK:10/HP:10]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b> <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DIVINE_SHIELD = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_721_ColossusOfTheMoon)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_723] Murmy - COST:1 [ATK:1/HP:1]
 // - Race: Murloc, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
