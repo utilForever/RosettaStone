@@ -21,6 +21,7 @@ CardDataManager::CardDataManager()
     CoreCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
     Expert1CardsGen::AddAll(m_powers, m_playReqs, m_entourages);
     HoFCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    DalaranCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
 }
 
 CardDataManager::~CardDataManager()
