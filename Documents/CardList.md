@@ -443,7 +443,7 @@ DALARAN | DAL_011 | Lazul's Scheme |
 DALARAN | DAL_030 | Shadowy Figure |  
 DALARAN | DAL_039 | Convincing Infiltrator |  
 DALARAN | DAL_040 | Hench-Clan Shadequill |  
-DALARAN | DAL_047 | Walking Fountain |  
+DALARAN | DAL_047 | Walking Fountain | O
 DALARAN | DAL_049 | Underbelly Angler |  
 DALARAN | DAL_052 | Muckmorpher |  
 DALARAN | DAL_058 | Hecklebot |  
@@ -458,13 +458,13 @@ DALARAN | DAL_071 | Mutate |
 DALARAN | DAL_077 | Toxfin |  
 DALARAN | DAL_078 | Traveling Healer | O
 DALARAN | DAL_081 | Spellward Jeweler |  
-DALARAN | DAL_085 | Dalaran Crusader |  
+DALARAN | DAL_085 | Dalaran Crusader | O
 DALARAN | DAL_086 | Sunreaver Spy |  
 DALARAN | DAL_087 | Hench-Clan Hag |  
 DALARAN | DAL_088 | Safeguard |  
 DALARAN | DAL_089 | Spellbook Binder |  
-DALARAN | DAL_090 | Hench-Clan Sneak |  
-DALARAN | DAL_092 | Arcane Servant |  
+DALARAN | DAL_090 | Hench-Clan Sneak | O
+DALARAN | DAL_092 | Arcane Servant | O
 DALARAN | DAL_095 | Violet Spellsword |  
 DALARAN | DAL_096 | Violet Warden |  
 DALARAN | DAL_141 | Desperate Measures |  
@@ -557,7 +557,7 @@ DALARAN | DAL_742 | Whirlwind Tempest |
 DALARAN | DAL_743 | Hench-Clan Hogsteed |  
 DALARAN | DAL_744 | Faceless Rager |  
 DALARAN | DAL_747 | Flight Master |  
-DALARAN | DAL_748 | Mana Reservoir |  
+DALARAN | DAL_748 | Mana Reservoir | O
 DALARAN | DAL_749 | Recurring Villain |  
 DALARAN | DAL_751 | Mad Summoner |  
 DALARAN | DAL_752 | Jepetto Joybuzz |  
@@ -572,7 +572,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag |  
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 2% (4 of 136 Cards)
+- Progress: 6% (9 of 136 Cards)
 
 ## Saviors of Uldum
 
@@ -630,9 +630,9 @@ ULDUM | ULD_195 | Frightened Flunky |
 ULDUM | ULD_196 | Neferset Ritualist |  
 ULDUM | ULD_197 | Quicksand Elemental |  
 ULDUM | ULD_198 | Conjured Mirage |  
-ULDUM | ULD_205 | Candletaker |  
-ULDUM | ULD_206 | Restless Mummy |  
-ULDUM | ULD_207 | Ancestral Guardian |  
+ULDUM | ULD_205 | Candletaker | O
+ULDUM | ULD_206 | Restless Mummy | O
+ULDUM | ULD_207 | Ancestral Guardian | O
 ULDUM | ULD_208 | Khartut Defender |  
 ULDUM | ULD_209 | Vulpera Scoundrel |  
 ULDUM | ULD_212 | Wild Bloodstinger |  
@@ -659,8 +659,8 @@ ULDUM | ULD_270 | Sandhoof Waterbearer |
 ULDUM | ULD_271 | Injured Tol'vir | O
 ULDUM | ULD_272 | Holy Ripple |  
 ULDUM | ULD_273 | Overflow |  
-ULDUM | ULD_274 | Wasteland Assassin |  
-ULDUM | ULD_275 | Bone Wraith |  
+ULDUM | ULD_274 | Wasteland Assassin | O
+ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
 ULDUM | ULD_280 | Sahket Sapper |  
 ULDUM | ULD_282 | Jar Dealer |  
@@ -707,14 +707,14 @@ ULDUM | ULD_717 | Plague of Flames |
 ULDUM | ULD_718 | Plague of Death |  
 ULDUM | ULD_719 | Desert Hare |  
 ULDUM | ULD_720 | Bloodsworn Mercenary |  
-ULDUM | ULD_721 | Colossus of the Moon |  
-ULDUM | ULD_723 | Murmy |  
+ULDUM | ULD_721 | Colossus of the Moon | O
+ULDUM | ULD_723 | Murmy | O
 ULDUM | ULD_724 | Activate the Obelisk |  
 ULDUM | ULD_726 | Ancient Mysteries |  
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 5% (8 of 135 Cards)
+- Progress: 11% (15 of 135 Cards)
 
 ## Descent of Dragons
 
@@ -755,7 +755,7 @@ DRAGONS | DRG_061 | Gyrocopter |
 DRAGONS | DRG_062 | Wyrmrest Purifier |  
 DRAGONS | DRG_063 | Dragonmaw Poacher |  
 DRAGONS | DRG_064 | Zul'Drak Ritualist |  
-DRAGONS | DRG_065 | Hippogryph |  
+DRAGONS | DRG_065 | Hippogryph | O
 DRAGONS | DRG_066 | Evasive Chimaera |  
 DRAGONS | DRG_067 | Troll Batrider |  
 DRAGONS | DRG_068 | Living Dragonbreath |  
@@ -812,7 +812,7 @@ DRAGONS | DRG_231 | Lightforged Crusader |
 DRAGONS | DRG_232 | Lightforged Zealot |  
 DRAGONS | DRG_233 | Sand Breath |  
 DRAGONS | DRG_235 | Dragonrider Talritha |  
-DRAGONS | DRG_239 | Blazing Battlemage |  
+DRAGONS | DRG_239 | Blazing Battlemage | O
 DRAGONS | DRG_242 | Shield of Galakrond |  
 DRAGONS | DRG_246 | Time Rip |  
 DRAGONS | DRG_247 | Seal Fate |  
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest |
 DRAGONS | DRG_650 | Galakrond, the Unbreakable |  
 DRAGONS | DRG_660 | Galakrond, the Unspeakable |  
 
-- Progress: 0% (1 of 140 Cards)
+- Progress: 2% (3 of 140 Cards)
 
 ## Galakrond's Awakening
 
