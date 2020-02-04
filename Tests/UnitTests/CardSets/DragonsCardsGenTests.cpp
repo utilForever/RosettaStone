@@ -97,3 +97,12 @@ TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
     game.Process(opPlayer, AttackTask(card2, curField[0]));
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+TEST(NeutralDragonsTest, DRG_239_BlazingBattlemage)
+{
+    // Do nothing
+}

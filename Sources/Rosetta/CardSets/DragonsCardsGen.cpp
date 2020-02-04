@@ -1824,6 +1824,8 @@ void DragonsCardsGen::AddWarriorNonCollect(PowersType& powers,
 void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                  EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_049] Tasty Flyfish - COST:2 [ATK:2/HP:2]
     // - Race: Murloc, Set: Dragons, Rarity: Common
@@ -2249,6 +2251,9 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
     // - Set: Dragons, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DRG_239", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_242] Shield of Galakrond - COST:5 [ATK:4/HP:5]
