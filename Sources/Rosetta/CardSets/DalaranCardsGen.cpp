@@ -1115,6 +1115,8 @@ void DalaranCardsGen::AddRogueNonCollect(PowersType& powers,
 void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_009] Hagatha's Scheme - COST:5
     // - Set: Dalaran, Rarity: Rare
@@ -1137,6 +1139,9 @@ void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - LIFESTEAL = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_047", power);
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_049] Underbelly Angler - COST:2 [ATK:2/HP:3]

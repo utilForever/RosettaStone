@@ -139,6 +139,22 @@ TEST(MageDalaranTest, DAL_163_MessengerRaven)
     }
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
+// - Race: Elemental, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>, <b>Rush</b>, <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// - LIFESTEAL = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(ShamanDalaranTest, DAL_047_WalkingFountain)
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
