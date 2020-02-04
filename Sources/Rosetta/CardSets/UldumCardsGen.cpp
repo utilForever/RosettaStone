@@ -1518,6 +1518,8 @@ void UldumCardsGen::AddWarlockNonCollect(PowersType& powers,
 void UldumCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [ULD_195] Frightened Flunky - COST:2 [ATK:2/HP:2]
     // - Set: Uldum, Rarity: Common
@@ -1542,6 +1544,9 @@ void UldumCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - RUSH = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_206", power);
 
     // --------------------------------------- MINION - WARRIOR
     // [ULD_253] Tomb Warden - COST:8 [ATK:3/HP:6]
