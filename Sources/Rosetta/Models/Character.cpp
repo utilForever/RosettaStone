@@ -243,6 +243,12 @@ std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
 
 int Character::TakeDamage(Playable* source, int damage)
 {
+    if (source == nullptr)
+    {
+        throw std::invalid_argument(
+            "Character::TakeDamage() - source is nullptr");
+    }
+
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
 
@@ -311,8 +317,7 @@ int Character::TakeDamage(Playable* source, int damage)
 
     game->ProcessTasks();
 
-    if (source != nullptr && source->GetGameTag(GameTag::LIFESTEAL) == 1 &&
-        amount > 0)
+    if (source->HasLifesteal() && amount > 0)
     {
         source->player->GetHero()->TakeHeal(source, amount);
     }
