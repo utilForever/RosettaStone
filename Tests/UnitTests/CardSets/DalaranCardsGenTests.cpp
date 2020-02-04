@@ -197,6 +197,20 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_090_HenchClanSneak)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

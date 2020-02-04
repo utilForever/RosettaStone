@@ -1663,6 +1663,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_090", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
