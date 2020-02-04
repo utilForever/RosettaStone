@@ -368,6 +368,21 @@ TEST(NeutralUldumTest, ULD_271_InjuredTolvir)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b> <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_274_WastelandAssassin)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------

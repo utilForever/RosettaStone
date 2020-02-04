@@ -2026,6 +2026,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - STEALTH = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_274", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5]
