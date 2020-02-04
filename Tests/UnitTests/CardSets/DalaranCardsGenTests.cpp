@@ -197,6 +197,15 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
+// - Race: Elemental, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_092_ArcaneServant)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

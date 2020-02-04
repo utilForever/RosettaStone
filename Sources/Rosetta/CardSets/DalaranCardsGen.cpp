@@ -1668,6 +1668,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
     // - Race: Elemental, Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_092", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_095] Violet Spellsword - COST:4 [ATK:1/HP:6]
