@@ -1603,6 +1603,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_085", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]

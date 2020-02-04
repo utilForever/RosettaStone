@@ -197,6 +197,20 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_085] Dalaran Crusader - COST:5 [ATK:5/HP:4]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_085_DalaranCrusader)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
