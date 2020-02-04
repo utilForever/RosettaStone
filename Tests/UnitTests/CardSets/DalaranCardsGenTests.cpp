@@ -17,6 +17,66 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------ SPELL - DRUID
+// [DAL_350] Crystal Power - COST:1
+// - Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Deal 2 damage to a minion;
+//       or Restore 5 Health.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(DruidDalaranTest, DAL_350_CrystalPower)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crystal Power"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crystal Power"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero(), 2));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 25);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3, 1));
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
+}
+
 // ----------------------------------------- MINION - DRUID
 // [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
 // - Set: Dalaran, Rarity: Rare
