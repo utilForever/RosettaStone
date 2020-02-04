@@ -87,6 +87,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has choose one.
     bool HasChooseOne() const;
 
+    //! Returns the flag that indicates whether it has lifesteal.
+    //! \return The flag that indicates whether it has lifesteal.
+    bool HasLifesteal() const;
+
     //! Resets the value of the cost.
     void ResetCost();
 
