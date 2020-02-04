@@ -239,6 +239,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // [DAL_354t] Squirrel (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_354t", power);
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_357t] Spirit of Lucentbark (*) - COST:11 [ATK:0/HP:1]
