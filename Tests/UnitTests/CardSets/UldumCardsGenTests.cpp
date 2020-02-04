@@ -126,7 +126,7 @@ TEST(HunterUldumTest, ULD_152_PressurePlate)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer,
-                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+                 PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
     EXPECT_EQ(curSecret.GetCount(), 1);
     EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 0);
 
