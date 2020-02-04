@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
@@ -155,7 +156,8 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(new SummonTask("DAL_733t", 2));
     powers.emplace("DAL_733", power);
-    playReqs.emplace("DAL_733", PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+    playReqs.emplace("DAL_733",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
@@ -205,8 +207,8 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    powers.emplace("EX1_350a", power);
-    playReqs.emplace("EX1_350a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+    powers.emplace("DAL_350a", power);
+    playReqs.emplace("DAL_350a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
