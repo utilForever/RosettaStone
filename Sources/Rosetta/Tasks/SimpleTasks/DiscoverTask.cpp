@@ -44,24 +44,9 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
     else
     {
         result.reserve(numberOfChoices);
-        Card* pick = nullptr;
-
-        for (std::size_t i = 0; i < numberOfChoices; ++i)
-        {
-            while (true)
-            {
-                pick = cardsToDiscover[Random::get<std::size_t>(
-                    0, cardsToDiscover.size() - 1)];
-
-                if (std::find(result.begin(), result.end(), pick) ==
-                    result.end())
-                {
-                    break;
-                }
-            }
-
-            result.emplace_back(pick);
-        }
+        std::sample(cardsToDiscover.begin(), cardsToDiscover.end(),
+                    std::back_inserter(result), numberOfChoices,
+                    Random::get_engine());
     }
 
     return result;

@@ -48,7 +48,6 @@ TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    // const auto curSecret = curPlayer->GetSecretZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Toxic Reinforcements"));
