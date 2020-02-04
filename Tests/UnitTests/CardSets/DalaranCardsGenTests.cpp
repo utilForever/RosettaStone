@@ -11,6 +11,7 @@
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
@@ -64,7 +65,7 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
     EXPECT_EQ(curHand[4]->card->GetCardClass(), CardClass::DRUID);
-    EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+    //EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
 
 	game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -86,8 +87,7 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
 // RefTag:
 // - LIFESTEAL = 1
 // --------------------------------------------------------
-/*
-TEST(DruidDalaranTest, DAL_733_Dreamway Guardians)
+TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -106,13 +106,41 @@ TEST(DruidDalaranTest, DAL_733_Dreamway Guardians)
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetDamage(10);
+    curPlayer->GetHero()->SetDamage(1);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dreamway Guardians"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dreamway Guardians"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dreamway Guardians"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dreamway Guardians"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dreamway Guardians"));
 
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 4);
-}*/
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curField.GetCount(), 2);
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField.GetCount(), 4);
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curField.GetCount(), 6);
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curField[0]->card->name, "Crystal Dryad");
+    EXPECT_EQ(curField[1]->card->name, "Crystal Dryad");
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+	game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, AttackTask(card5, curField[0]));
+
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
