@@ -7,6 +7,7 @@
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Managers/CardDataManager.hpp>
 
 namespace RosettaStone
