@@ -206,6 +206,20 @@ TEST(NeutralDalaranTest, DAL_092_ArcaneServant)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
+// - Race: Elemental, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_748_ManaReservoir)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

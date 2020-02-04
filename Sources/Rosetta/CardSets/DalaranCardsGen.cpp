@@ -1971,6 +1971,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_748", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_749] Recurring Villain - COST:5 [ATK:3/HP:6]
