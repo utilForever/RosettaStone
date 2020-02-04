@@ -11,8 +11,8 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -1923,6 +1923,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_205", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_208] Khartut Defender - COST:6 [ATK:3/HP:4]

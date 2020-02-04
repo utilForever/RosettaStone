@@ -314,6 +314,20 @@ TEST(NeutralUldumTest, ULD_191_BeamingSidekick)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_205] Candletaker - COST:3 [ATK:3/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_205_Candletaker)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
