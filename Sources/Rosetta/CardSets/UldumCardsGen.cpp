@@ -2189,6 +2189,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_723", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_727] Body Wrapper - COST:4 [ATK:4/HP:4]

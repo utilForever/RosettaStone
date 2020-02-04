@@ -491,3 +491,17 @@ TEST(NeutralUldumTest, ULD_712_BugCollector)
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(opField.GetCount(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [ULD_723] Murmy - COST:1 [ATK:1/HP:1]
+// - Race: Murloc, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_723_Murmy)
+{
+    // Do nothing
+}
