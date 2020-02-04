@@ -99,6 +99,21 @@ TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_065] Hippogryph - COST:4 [ATK:2/HP:6]
+// - Race: Beast, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(NeutralDragonsTest, DRG_065_Hippogryph)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------

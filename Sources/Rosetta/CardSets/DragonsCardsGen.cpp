@@ -1975,6 +1975,9 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DRG_065", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_066] Evasive Chimaera - COST:2 [ATK:2/HP:1]
