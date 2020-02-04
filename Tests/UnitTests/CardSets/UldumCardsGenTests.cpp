@@ -17,6 +17,21 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// --------------------------------------- MINION - PALADIN
+// [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b> <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - LIFESTEAL = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(PaladinUldumTest, ULD_207_AncestralGuardian)
+{
+    // Do nothing
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [ULD_431] Making Mummies - COST:1
 // - Set: Uldum, Rarity: Legendary

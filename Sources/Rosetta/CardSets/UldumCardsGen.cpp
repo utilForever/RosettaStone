@@ -699,6 +699,9 @@ void UldumCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - LIFESTEAL = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_207", power);
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_217] Micro Mummy - COST:2 [ATK:1/HP:2]
