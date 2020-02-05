@@ -55,6 +55,11 @@ void Minion::SetAttackableByRush(bool attackable)
     SetGameTag(GameTag::ATTACKABLE_BY_RUSH, static_cast<int>(attackable));
 }
 
+bool Minion::HasReborn() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::REBORN));
+}
+
 void Minion::Silence()
 {
     SetGameTag(GameTag::TAUNT, 0);
@@ -72,6 +77,8 @@ void Minion::Silence()
     SetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS, 0);
     SetGameTag(GameTag::IMMUNE, 0);
     SetGameTag(GameTag::CANT_ATTACK, 0);
+    SetGameTag(GameTag::RUSH, 0);
+    SetGameTag(GameTag::REBORN, 0);
 
     const int spellPower = GetGameTag(GameTag::SPELLPOWER);
     if (spellPower > 0)

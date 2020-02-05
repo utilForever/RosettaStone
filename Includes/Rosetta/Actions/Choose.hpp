@@ -30,6 +30,15 @@ bool ChoicePick(Player* player, std::size_t choice);
 //! \param choices A container of card to choose.
 void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
                   const std::vector<std::size_t>& choices);
+
+//! Creates choice cards for player.
+//! \param player The player to create choice cards.
+//! \param source The source entity.
+//! \param type A choice type.
+//! \param action A choice action.
+//! \param choices A container of card to choose.
+void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
+                       ChoiceAction action, const std::vector<Card*>& choices);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_DRAW_HPP

@@ -34,12 +34,13 @@ enum class TriggerType
     DEAL_DAMAGE,  //!< The effect will be triggered when a character is damaged.
     TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages to source.
-    PREDAMAGE,    //!< Effect will be triggered when a character gets predamage.
-                  //!< This event happens just before the character is actually
-                  //!< damaged.
+    PREDAMAGE,    //!< The effect will be triggered when a character gets
+                //!< predamage. This event happens just before the character is
+                //!< actually damaged.
     TARGET,  //!< The effect will be triggered when a card is targeted by an
              //!< attacking minion or a played card.
     DEATH,   //!< The effect will be triggered when a minion dies.
+    USE_HERO_POWER,  //!< The effect will be triggered when a hero uses power.
 };
 
 //! \brief An enumerator for identifying trigger source.

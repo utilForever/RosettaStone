@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
 
 namespace RosettaStone
 {

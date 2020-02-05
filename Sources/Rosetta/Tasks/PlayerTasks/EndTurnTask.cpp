@@ -4,7 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 

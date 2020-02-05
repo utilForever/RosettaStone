@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -92,6 +93,68 @@ TEST(DruidDalaranTest, DAL_351_BlessingOfTheAncients)
     EXPECT_EQ(curField[2]->GetHealth(), 3);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2]
+// - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a Mage minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST(MageDalaranTest, DAL_163_MessengerRaven)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Messenger Raven"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        EXPECT_EQ(card->GetCardType(), CardType::MINION);
+        EXPECT_EQ(card->GetCardClass(), CardClass::MAGE);
+    }
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
+// - Race: Elemental, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>, <b>Rush</b>, <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// - LIFESTEAL = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(ShamanDalaranTest, DAL_047_WalkingFountain)
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
@@ -147,6 +210,57 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
     game.Process(opPlayer, AttackTask(opHero, curField[0]));
 
     EXPECT_EQ(curField[0]->HasDivineShield(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_085] Dalaran Crusader - COST:5 [ATK:5/HP:4]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_085_DalaranCrusader)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_090_HenchClanSneak)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
+// - Race: Elemental, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_092_ArcaneServant)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
+// - Race: Elemental, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_748_ManaReservoir)
+{
+    // Do nothing
 }
 
 // --------------------------------------- MINION - NEUTRAL

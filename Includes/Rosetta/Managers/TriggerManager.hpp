@@ -85,6 +85,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnDeathTrigger(Entity* sender) const;
 
+    //! Callback for trigger when hero uses power.
+    //! \param sender An entity that is the source of trigger.
+    void OnUseHeroPowerTrigger(Entity* sender) const;
+
     std::function<void(Entity*)> startTurnTrigger;
     std::function<void(Entity*)> endTurnTrigger;
     std::function<void(Entity*)> playCardTrigger;
@@ -101,6 +105,7 @@ class TriggerManager
     std::function<void(Entity*)> takeDamageTrigger;
     std::function<void(Entity*)> targetTrigger;
     std::function<void(Entity*)> deathTrigger;
+    std::function<void(Entity*)> useHeroPowerTrigger;
 };
 }  // namespace RosettaStone
 
