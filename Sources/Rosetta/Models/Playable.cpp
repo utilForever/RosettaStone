@@ -113,6 +113,11 @@ bool Playable::HasChooseOne() const
     return GetGameTag(GameTag::CHOOSE_ONE) == 1;
 }
 
+bool Playable::HasLifesteal() const
+{
+    return GetGameTag(GameTag::LIFESTEAL) == 1;
+}
+
 void Playable::ResetCost()
 {
     costManager = nullptr;

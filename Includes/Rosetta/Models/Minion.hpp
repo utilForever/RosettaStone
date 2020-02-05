@@ -70,6 +70,10 @@ class Minion : public Character
     //! \param attackable The value of attackable.
     void SetAttackableByRush(bool attackable);
 
+    //! Returns the flag that indicates whether it has reborn.
+    //! \return The flag that indicates whether it has reborn.
+    bool HasReborn() const;
+
     //! Disables all special effects on this minion.
     void Silence();
 

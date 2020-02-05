@@ -7,10 +7,11 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
@@ -677,6 +678,12 @@ void Game::ProcessGraveyard()
             minion->player->GetGraveyardZone()->Add(minion);
             minion->player->SetNumFriendlyMinionsDiedThisTurn(
                 minion->player->GetNumFriendlyMinionsDiedThisTurn() + 1);
+
+            // Summon minion if it has reborn
+            if (minion->HasReborn())
+            {
+                Generic::SummonReborn(minion);
+            }
         }
 
         deadMinions.clear();
@@ -768,7 +775,8 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
                     chooseOne = 2;
                 }
             }
-            task = std::make_unique<PlayCardTask>(card, target, fieldPos, chooseOne);
+            task = std::make_unique<PlayCardTask>(card, target, fieldPos,
+                                                  chooseOne);
             break;
         }
         case MainOpType::ATTACK:

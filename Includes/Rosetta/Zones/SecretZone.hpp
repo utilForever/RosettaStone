@@ -42,6 +42,8 @@ class SecretZone : public LimitedZone<Spell>
     //! \param entity The spell to check whether it exists.
     //! \return The flag that indicates whether the spell exists.
     bool Exist(Playable* entity) const;
+
+    Spell* quest = nullptr;
 };
 }  // namespace RosettaStone
 

@@ -24,26 +24,30 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 7> STANDARD_CARD_SETS = {
-    CardSet::CORE,      // Basic, 2014
-    CardSet::EXPERT1,   // Classic, 2014
-    CardSet::GILNEAS,   // The Witchwood, 2018
-    CardSet::BOOMSDAY,  // The Boomsday Project, 2018
-    CardSet::TROLL,     // Rastakhan's Rumble, 2018
-    CardSet::DALARAN,   // Rise of Shadows, 2019
-    CardSet::ULDUM,     // Saviors of Uldum, 2019
+constexpr std::array<CardSet, 9> STANDARD_CARD_SETS = {
+    CardSet::CORE,                // Basic, 2014
+    CardSet::EXPERT1,             // Classic, 2014
+    CardSet::GILNEAS,             // The Witchwood, 2018
+    CardSet::BOOMSDAY,            // The Boomsday Project, 2018
+    CardSet::TROLL,               // Rastakhan's Rumble, 2018
+    CardSet::DALARAN,             // Rise of Shadows, 2019
+    CardSet::ULDUM,               // Saviors of Uldum, 2019
+    CardSet::DRAGONS,             // Descent of Dragons, 2019
+    CardSet::YEAR_OF_THE_DRAGON,  // Galakrond's Awakening, 2020
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 19> WILD_CARD_SETS = {
+constexpr std::array<CardSet, 21> WILD_CARD_SETS = {
     // Standard
-    CardSet::CORE,      // Basic, 2014
-    CardSet::EXPERT1,   // Classic, 2014
-    CardSet::GILNEAS,   // The Witchwood, 2018
-    CardSet::BOOMSDAY,  // The Boomsday Project, 2018
-    CardSet::TROLL,     // Rastakhan's Rumble, 2018
-    CardSet::DALARAN,   // Rise of Shadows, 2019
-    CardSet::ULDUM,     // Saviors of Uldum, 2019
+    CardSet::CORE,                // Basic, 2014
+    CardSet::EXPERT1,             // Classic, 2014
+    CardSet::GILNEAS,             // The Witchwood, 2018
+    CardSet::BOOMSDAY,            // The Boomsday Project, 2018
+    CardSet::TROLL,               // Rastakhan's Rumble, 2018
+    CardSet::DALARAN,             // Rise of Shadows, 2019
+    CardSet::ULDUM,               // Saviors of Uldum, 2019
+    CardSet::DRAGONS,             // Descent of Dragons, 2019
+    CardSet::YEAR_OF_THE_DRAGON,  // Galakrond's Awakening, 2020
 
     // Wild
     CardSet::NAXX,          // Curse of Naxxramas, 2014

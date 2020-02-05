@@ -108,6 +108,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
 
+    //! SelfCondition wrapper for checking the entity has reborn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasReborn();
+
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();

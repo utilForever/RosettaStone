@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Games/TriggerManager.hpp>
+#include <Rosetta/Managers/TriggerManager.hpp>
 
 namespace RosettaStone
 {
@@ -133,6 +133,14 @@ void TriggerManager::OnDeathTrigger(Entity* sender) const
     if (deathTrigger != nullptr)
     {
         deathTrigger(sender);
+    }
+}
+
+void TriggerManager::OnUseHeroPowerTrigger(Entity* sender) const
+{
+    if (useHeroPowerTrigger != nullptr)
+    {
+        useHeroPowerTrigger(sender);
     }
 }
 }  // namespace RosettaStone

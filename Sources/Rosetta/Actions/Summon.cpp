@@ -5,7 +5,10 @@
 
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone::Generic
 {
@@ -32,5 +35,20 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
     game->currentEventData.reset();
     game->currentEventData = std::move(tempEventData);
     game->taskQueue.EndEvent();
+}
+
+void SummonReborn(Minion* minion)
+{
+    const int zonePos = SummonTask::GetPosition(minion, SummonSide::RIGHT);
+    const auto copy = dynamic_cast<Minion*>(
+        Entity::GetFromCard(minion->player, minion->card, minion->GetGameTags(),
+                            minion->player->GetFieldZone()));
+
+    // When the minion is first destroyed, it loses the visual effect but
+    // retains the keyword. The keyword is then functionally meaningless.
+    copy->SetDamage(copy->GetHealth() - 1);
+    copy->SetGameTag(GameTag::REBORN, 0);
+
+    Summon(copy, zonePos, minion);
 }
 }  // namespace RosettaStone::Generic
