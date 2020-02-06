@@ -140,21 +140,6 @@ TEST(HunterUldumTest, ULD_152_PressurePlate)
     EXPECT_EQ(opField.GetCount(), 0);
 }
 
-// --------------------------------------- MINION - WARRIOR
-// [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
-// - Set: Uldum, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Rush</b> <b>Reborn</b>
-// --------------------------------------------------------
-// GameTag:
-// - RUSH = 1
-// - REBORN = 1
-// --------------------------------------------------------
-TEST(WarriorUldumTest, ULD_206_RestlessMummy)
-{
-    // Do nothing
-}
-
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
@@ -260,6 +245,21 @@ TEST(PaladinUldumTest, ULD_431_MakingMummies)
     EXPECT_EQ(curField[2]->GetAttack(), 1);
     EXPECT_EQ(curField[2]->GetHealth(), 1);
     EXPECT_EQ(curField[2]->HasReborn(), true);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(WarriorUldumTest, ULD_206_RestlessMummy)
+{
+    // Do nothing
 }
 
 // --------------------------------------- MINION - NEUTRAL
