@@ -771,7 +771,7 @@ TEST(HunterUldumTest, ULD_430_DesertSpear)
     EXPECT_EQ(curField[1]->card->name, "Locust");
     EXPECT_EQ(curField[1]->GetAttack(), 1);
     EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::RUSH), 1);
+    EXPECT_EQ(curField[1]->IsRush(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
