@@ -80,6 +80,13 @@ SelfCondition SelfCondition::IsOpFieldNotFull()
     });
 }
 
+SelfCondition SelfCondition::IsFieldNotEmpty()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->GetFieldZone()->IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsDamaged()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -311,6 +318,13 @@ SelfCondition SelfCondition::IsEnemyTurn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player != playable->game->GetCurrentPlayer();
+    });
+}
+
+SelfCondition SelfCondition::IsUnspentMana()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetRemainingMana();
     });
 }
 

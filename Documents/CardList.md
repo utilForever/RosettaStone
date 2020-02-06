@@ -580,7 +580,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 ULDUM | ULD_003 | Zephrys the Great |  
 ULDUM | ULD_131 | Untapped Potential |  
-ULDUM | ULD_133 | Crystal Merchant |  
+ULDUM | ULD_133 | Crystal Merchant | O
 ULDUM | ULD_134 | BEEEES!!! |  
 ULDUM | ULD_135 | Hidden Oasis |  
 ULDUM | ULD_136 | Worthy Expedition |  
@@ -591,7 +591,7 @@ ULDUM | ULD_140 | Supreme Archaeology |
 ULDUM | ULD_143 | Pharaoh's Blessing |  
 ULDUM | ULD_145 | Brazen Zealot |  
 ULDUM | ULD_151 | Ramkahen Wildtamer |  
-ULDUM | ULD_152 | Pressure Plate |  
+ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha |  
 ULDUM | ULD_155 | Unseal the Vault |  
 ULDUM | ULD_156 | Dinotamer Brann |  
@@ -624,8 +624,8 @@ ULDUM | ULD_188 | Golden Scarab |
 ULDUM | ULD_189 | Faceless Lurker |  
 ULDUM | ULD_190 | Pit Crocolisk |  
 ULDUM | ULD_191 | Beaming Sidekick | O
-ULDUM | ULD_193 | Living Monument |  
-ULDUM | ULD_194 | Wasteland Scorpid |  
+ULDUM | ULD_193 | Living Monument | O
+ULDUM | ULD_194 | Wasteland Scorpid | O
 ULDUM | ULD_195 | Frightened Flunky |  
 ULDUM | ULD_196 | Neferset Ritualist |  
 ULDUM | ULD_197 | Quicksand Elemental |  
@@ -658,7 +658,7 @@ ULDUM | ULD_269 | Wretched Reclaimer |
 ULDUM | ULD_270 | Sandhoof Waterbearer |  
 ULDUM | ULD_271 | Injured Tol'vir | O
 ULDUM | ULD_272 | Holy Ripple |  
-ULDUM | ULD_273 | Overflow |  
+ULDUM | ULD_273 | Overflow | O
 ULDUM | ULD_274 | Wasteland Assassin | O
 ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
@@ -667,7 +667,7 @@ ULDUM | ULD_282 | Jar Dealer |
 ULDUM | ULD_285 | Hooked Scimitar |  
 ULDUM | ULD_286 | Shadow of Death |  
 ULDUM | ULD_288 | Anka, the Buried |  
-ULDUM | ULD_289 | Fishflinger |  
+ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
 ULDUM | ULD_291 | Corrupt the Waters |  
 ULDUM | ULD_292 | Oasis Surger |  
@@ -682,7 +682,7 @@ ULDUM | ULD_329 | Dune Sculptor |
 ULDUM | ULD_410 | Scarlet Webweaver |  
 ULDUM | ULD_413 | Splitting Axe |  
 ULDUM | ULD_429 | Hunter's Pack |  
-ULDUM | ULD_430 | Desert Spear |  
+ULDUM | ULD_430 | Desert Spear | O
 ULDUM | ULD_431 | Making Mummies | O
 ULDUM | ULD_433 | Raid the Sky Temple |  
 ULDUM | ULD_435 | Naga Sand Witch |  
@@ -714,7 +714,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 11% (15 of 135 Cards)
+- Progress: 16% (22 of 135 Cards)
 
 ## Descent of Dragons
 

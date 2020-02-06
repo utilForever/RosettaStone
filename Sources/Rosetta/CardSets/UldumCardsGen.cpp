@@ -8,9 +8,16 @@
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -143,6 +150,8 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
 void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
                              EntouragesType& entourages)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [ULD_131] Untapped Potential - COST:1
     // - Set: Uldum, Rarity: Legendary
@@ -166,6 +175,12 @@ void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: If you have any unspent Mana at the end of your turn,
     //       draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana());
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    powers.emplace("ULD_133", power);
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_134] BEEEES!!! - COST:3 [ATK:1/HP:4]
@@ -247,6 +262,10 @@ void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // Text: Restore 5 Health to all characters. Draw 5 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL, 5));
+    power.AddPowerTask(std::make_shared<DrawTask>(5));
+    powers.emplace("ULD_273", power);
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_292] Oasis Surger - COST:5 [ATK:3/HP:3]
@@ -343,6 +362,8 @@ void UldumCardsGen::AddDruidNonCollect(PowersType& powers,
 void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                               EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [ULD_151] Ramkahen Wildtamer - COST:3 [ATK:4/HP:3]
     // - Set: Uldum, Rarity: Rare
@@ -363,6 +384,19 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsFieldNotEmpty());
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+        std::make_shared<DestroyTask>(EntityType::STACK),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
+                                         1),
+        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
+    };
+    powers.emplace("ULD_152", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_154] Hyena Alpha - COST:4 [ATK:3/HP:3]
@@ -452,6 +486,12 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "ULD_430t", SummonSide::SPELL) };
+    powers.emplace("ULD_430", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_713] Swarm of Locusts - COST:6
@@ -1878,6 +1918,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_193", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_194] Wasteland Scorpid - COST:7 [ATK:3/HP:9]
@@ -1888,6 +1931,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_194", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_196] Neferset Ritualist - COST:2 [ATK:2/HP:3]
@@ -2073,6 +2119,14 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::MURLOC));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
+                                         Race::MURLOC, Rarity::INVALID, true));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    powers.emplace("ULD_289", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_290] History Buff - COST:3 [ATK:3/HP:4]
