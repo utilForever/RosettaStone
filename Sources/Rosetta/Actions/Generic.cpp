@@ -55,7 +55,7 @@ void AddCardToHand(Player* player, Playable* entity)
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
                     int num1, int num2)
 {
-    Power power = enchantmentCard->power;
+    Power& power = enchantmentCard->power;
 
     const auto playable = dynamic_cast<Playable*>(target);
     if (playable)
@@ -75,17 +75,17 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
     {
         // Create Enchantment instance Only when it is needed.
         // As an owner entity for auras, triggers or deathrattle tasks.
-        Enchantment* enchantment =
+        auto enchantment =
             Enchantment::GetInstance(creator->player, enchantmentCard, target);
 
         if (auto aura = power.GetAura(); aura)
         {
-            aura->Activate(enchantment);
+            aura->Activate(enchantment.get());
         }
 
         if (auto trigger = power.GetTrigger(); trigger)
         {
-            trigger->Activate(enchantment);
+            trigger->Activate(enchantment.get());
         }
     }
 

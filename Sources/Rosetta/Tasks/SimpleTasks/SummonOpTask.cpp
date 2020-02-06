@@ -57,8 +57,8 @@ TaskStatus SummonOpTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* SummonOpTask::CloneImpl()
+std::unique_ptr<ITask> SummonOpTask::CloneImpl()
 {
-    return new SummonOpTask(m_card, m_amount);
+    return std::make_unique<SummonOpTask>(m_card, m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

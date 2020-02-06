@@ -15,6 +15,19 @@ GraveyardZone::GraveyardZone(Player* player)
     // Do nothing
 }
 
+void GraveyardZone::RefCopy(GraveyardZone* rhs)
+{
+    for (int i = 0; i < GetCount(); ++i)
+    {
+        delete m_entities[i];
+    }
+
+    for (int i = 0; i < rhs->GetCount(); ++i)
+    {
+        m_entities.emplace_back(rhs->m_entities[i]);
+    }
+}
+
 void GraveyardZone::Add(Playable* entity, int zonePos)
 {
     UnlimitedZone::Add(entity, zonePos);

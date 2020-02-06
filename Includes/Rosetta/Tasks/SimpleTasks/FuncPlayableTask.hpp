@@ -34,7 +34,7 @@ class FuncPlayableTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     std::function<std::vector<Playable*>(std::vector<Playable*>)> m_func;
 };

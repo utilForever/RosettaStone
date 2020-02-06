@@ -31,6 +31,10 @@ class FieldZone : public PositioningZone<Minion>
     //! \param player The player.
     explicit FieldZone(Player* player);
 
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
+    void RefCopy(FieldZone* rhs) const;
+
     //! Returns all entities in board zone.
     //! \return A list of entity in board zone.
     std::vector<Minion*> GetAll() override;

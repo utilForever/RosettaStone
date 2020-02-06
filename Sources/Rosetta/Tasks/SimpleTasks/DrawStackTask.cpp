@@ -31,8 +31,8 @@ TaskStatus DrawStackTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* DrawStackTask::CloneImpl()
+std::unique_ptr<ITask> DrawStackTask::CloneImpl()
 {
-    return new DrawStackTask(m_amount);
+    return std::make_unique<DrawStackTask>(m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

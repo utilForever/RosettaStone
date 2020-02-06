@@ -39,8 +39,8 @@ TaskStatus ChangeAttackingTargetTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ChangeAttackingTargetTask::CloneImpl()
+std::unique_ptr<ITask> ChangeAttackingTargetTask::CloneImpl()
 {
-    return new ChangeAttackingTargetTask(m_typeA, m_typeB);
+    return std::make_unique<ChangeAttackingTargetTask>(m_typeA, m_typeB);
 }
 }  // namespace RosettaStone::SimpleTasks

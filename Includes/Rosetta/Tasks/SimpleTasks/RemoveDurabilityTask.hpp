@@ -26,7 +26,7 @@ class RemoveDurabilityTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     int m_amount;
     bool m_isOpponent;

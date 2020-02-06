@@ -629,3 +629,80 @@ TEST(AttackTask, Silence)
     game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
 }
+
+TEST(AttackTask, Rush)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto card = GenerateMinionCard("minion1", 1, 10);
+    card.gameTags[GameTag::RUSH] = 1;
+
+    PlayMinionCard(curPlayer, &card);
+    PlayMinionCard(opPlayer, &card);
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+}
+
+TEST(AttackTask, Reborn)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto card1 = GenerateMinionCard("minion1", 10, 1);
+    auto card2 = GenerateMinionCard("minion1", 1, 10);
+    card1.gameTags[GameTag::RUSH] = 1;
+    card2.gameTags[GameTag::REBORN] = 1;
+
+    PlayMinionCard(curPlayer, &card1);
+    PlayMinionCard(opPlayer, &card2);
+
+    EXPECT_EQ(opField[0]->HasReborn(), true);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(opField[0]->HasReborn(), false);
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
+}

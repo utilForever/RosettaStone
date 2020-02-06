@@ -30,7 +30,7 @@ class AdaptiveEffect : public IAura
     //! Constructs adaptive effect with given \p condition and \p tag.
     //! \param condition The specific condition.
     //! \param tag The game tag.
-    AdaptiveEffect(SelfCondition* condition, GameTag tag);
+    AdaptiveEffect(std::shared_ptr<SelfCondition> condition, GameTag tag);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive effect.
@@ -56,7 +56,7 @@ class AdaptiveEffect : public IAura
 
     Playable* m_owner = nullptr;
 
-    SelfCondition* m_condition = nullptr;
+    std::shared_ptr<SelfCondition> m_condition;
     std::function<int(Playable*)> m_valueFunc;
 
     GameTag m_tag;

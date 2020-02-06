@@ -39,7 +39,7 @@ TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
                 EraseIf(player->game->oneTurnEffects,
                         [=](std::pair<Entity*, IEffect*> eff) {
                             return eff.first == enchantment->GetTarget() &&
-                                   eff.second == effect;
+                                   eff.second == effect.get();
                         });
             }
         }
@@ -50,8 +50,8 @@ TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RemoveEnchantmentTask::CloneImpl()
+std::unique_ptr<ITask> RemoveEnchantmentTask::CloneImpl()
 {
-    return new RemoveEnchantmentTask();
+    return std::make_unique<RemoveEnchantmentTask>();
 }
 }  // namespace RosettaStone::SimpleTasks

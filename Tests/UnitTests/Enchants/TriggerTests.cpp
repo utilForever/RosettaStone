@@ -40,7 +40,7 @@ TEST(Trigger, None)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::NONE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::NONE));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -71,7 +71,7 @@ TEST(Trigger, TurnStart)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -102,7 +102,7 @@ TEST(Trigger, TurnEnd)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -133,7 +133,7 @@ TEST(Trigger, PlayCard)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -164,7 +164,7 @@ TEST(Trigger, PlayMinion)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PLAY_MINION));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -195,7 +195,7 @@ TEST(Trigger, CastSpell)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -226,7 +226,7 @@ TEST(Trigger, AfterCast)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_CAST));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -257,7 +257,7 @@ TEST(Trigger, Heal)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::HEAL));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::HEAL));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -288,7 +288,7 @@ TEST(Trigger, Attack)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -319,7 +319,8 @@ TEST(Trigger, AfterAttack_None)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::NONE;
 
     PlayMinionCard(curPlayer, &card1);
@@ -351,7 +352,8 @@ TEST(Trigger, AfterAttack_Hero)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::HERO;
 
     PlayMinionCard(curPlayer, &card1);
@@ -383,7 +385,8 @@ TEST(Trigger, AfterAttack_Self)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, &card1);
@@ -417,7 +420,8 @@ TEST(Trigger, AfterAttack_EnchantmentTarget)
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
 
     PlayMinionCard(curPlayer, &card2);
@@ -453,7 +457,7 @@ TEST(Trigger, Summon)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::SUMMON));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -484,7 +488,8 @@ TEST(Trigger, AfterSummon)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -515,7 +520,7 @@ TEST(Trigger, DealDamage)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEAL_DAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, &card1);
@@ -547,7 +552,7 @@ TEST(Trigger, TakeDamage)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -578,7 +583,7 @@ TEST(Trigger, Predamage_None)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::NONE;
 
     PlayMinionCard(curPlayer, &card1);
@@ -612,7 +617,7 @@ TEST(Trigger, Predamage_Hero)
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::HERO;
 
     PlayMinionCard(curPlayer, &card2);
@@ -648,7 +653,7 @@ TEST(Trigger, Predamage_Self)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, &card1);
@@ -682,7 +687,7 @@ TEST(Trigger, Predamage_EnchantmentTarget)
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
 
     PlayMinionCard(curPlayer, &card2);
@@ -718,7 +723,7 @@ TEST(Trigger, Target)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TARGET));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
 
     PlayMinionCard(curPlayer, &card1);
 

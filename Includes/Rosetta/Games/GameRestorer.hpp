@@ -12,6 +12,8 @@
 
 #include <Rosetta/Views/BoardView.hpp>
 
+#include <memory>
+
 namespace RosettaStone
 {
 //!
@@ -37,7 +39,7 @@ class GameRestorer
 
     //! Restore the game from the board view.
     //! \return The restored game that is filled with the game state.
-    Game* RestoreGame();
+    std::unique_ptr<Game> RestoreGame();
 
  private:
     //! Makes the player data to restore the game.

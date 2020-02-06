@@ -40,7 +40,8 @@ class Entity
     //! \param _card The card.
     //! \param _tags The game tags.
     //! \param _id The ID.
-    Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id = -1);
+    Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags,
+           int _id = -1);
 
     //! Destructor.
     virtual ~Entity();
@@ -101,7 +102,7 @@ class Entity
     IZone* zone = nullptr;
 
     AuraEffects* auraEffects = nullptr;
-    std::vector<Enchantment*> appliedEnchantments;
+    std::vector<std::shared_ptr<Enchantment>> appliedEnchantments;
 
     int id = 0;
 

@@ -1,12 +1,15 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
@@ -31,6 +34,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
     Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256] The Forest's Aid - COST:8
     // - Set: Dalaran, Rarity: Rare
@@ -58,7 +62,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(nullptr);
     powers.emplace("DAL_350", power);
-    playReqs.emplace("DAL_350", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
+    playReqs.emplace("DAL_350", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });  
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351] Blessing of the Ancients - COST:3
@@ -73,6 +77,11 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // PlayReq:
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_351e", EntityType::MINIONS));
+    powers.emplace("DAL_351", power);
+    playReqs.emplace("DAL_351", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_352] Crystalsong Portal - COST:2
@@ -95,8 +104,8 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new AddCardTask(EntityType::HAND, "DAL_354t", 2));
-    powers.emplace("DAL_354", power);
+    power.AddDeathrattleTask(std::make_shared<AddCardTask>(EntityType::HAND, "DAL_354t", 2));
+    powers.emplace("DAL_354", power);  
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
@@ -106,11 +115,10 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     //       add a random Druid spell to your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType ::HEAL));
-    //power.GetTrigger()->triggerSource = TriggerSource ::FRIENDLY;
-    power.GetTrigger()->tasks = { new RandomCardTask(CardType::SPELL,
-                                                     CardClass::DRUID),
-                                  new AddStackToTask(EntityType::HAND) };
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::HEAL));
+    power.GetTrigger()->tasks = { std::make_shared<RandomCardTask>(CardType::SPELL,
+                                                                   CardClass::DRUID),
+                                  std::make_shared<AddStackToTask>(EntityType::HAND) };
     powers.emplace("DAL_355", power);
 
     // ----------------------------------------- MINION - DRUID
@@ -151,7 +159,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // - LIFESTEAL = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("DAL_733t", 2));
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_733t", 2));
     powers.emplace("DAL_733", power);
     playReqs.emplace("CS2_087", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -176,6 +184,7 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
                                          EntouragesType& entourages)
 {
     Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [DAL_256t2] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Set: Dalaran
@@ -199,7 +208,7 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
     powers.emplace("EX1_350a", power);
     playReqs.emplace("EX1_350a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
@@ -214,7 +223,7 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::TARGET, 5));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
     powers.emplace("DAL_350b", power);
     playReqs.emplace("DAL_350b", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
@@ -227,6 +236,12 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // PlayReq:
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_351e", EntityType::MINIONS));
+    powers.emplace("DAL_351ts", power);
+    playReqs.emplace("DAL_351ts",
+                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_354t] Squirrel (*) - COST:1 [ATK:1/HP:1]
@@ -454,6 +469,8 @@ void DalaranCardsGen::AddHunterNonCollect(PowersType& powers,
 void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
                               EntouragesType& entourages)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2]
     // - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
@@ -466,6 +483,10 @@ void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(CardType::MINION, CardClass::MAGE));
+    powers.emplace("DAL_163", power);
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177] Conjurer's Calling - COST:3
@@ -1125,6 +1146,8 @@ void DalaranCardsGen::AddRogueNonCollect(PowersType& powers,
 void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_009] Hagatha's Scheme - COST:5
     // - Set: Dalaran, Rarity: Rare
@@ -1147,6 +1170,9 @@ void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - LIFESTEAL = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_047", power);
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_049] Underbelly Angler - COST:2 [ATK:2/HP:3]
@@ -1541,6 +1567,8 @@ void DalaranCardsGen::AddWarriorNonCollect(PowersType& powers,
 void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                  EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_058] Hecklebot - COST:4 [ATK:3/HP:8]
     // - Race: Mechanical, Set: Dalaran, Rarity: Rare
@@ -1573,7 +1601,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DAL_078] Travelling Healer - COST:4 [ATK:3/HP:2]
+    // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
     // - Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Divine Shield</b> <b>Battlecry:</b> Restore 3 Health.
@@ -1585,6 +1613,11 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
+    powers.emplace("DAL_078", power);
+    playReqs.emplace("DAL_078",
+                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_081] Spellward Jeweler - COST:3 [ATK:3/HP:4]
@@ -1606,6 +1639,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_085", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
@@ -1666,11 +1702,17 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_090", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
     // - Race: Elemental, Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_092", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_095] Violet Spellsword - COST:4 [ATK:1/HP:6]
@@ -1971,6 +2013,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_748", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_749] Recurring Villain - COST:5 [ATK:3/HP:6]
@@ -2014,6 +2059,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_760", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_771] Soldier of Fortune - COST:4 [ATK:5/HP:6]
@@ -2057,6 +2105,8 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
                                            PlayReqsType& playReqs,
                                            EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_011e] Lazul's Curse (*) - COST:0
     // - Set: Dalaran
@@ -2134,6 +2184,9 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_351e"));
+    powers.emplace("DAL_351e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_548e] Arcane Expansion (*) - COST:0

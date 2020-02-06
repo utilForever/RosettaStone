@@ -7,10 +7,11 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
@@ -119,6 +120,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
 void Game::Initialize()
 {
+    rushMinions.reserve(MAX_FIELD_SIZE);
+
     // Set game to player
     for (auto& p : m_players)
     {
@@ -143,13 +146,16 @@ void Game::Initialize()
 
 void Game::RefCopyFrom(const Game& rhs)
 {
+    if (this == &rhs)
+    {
+        return;
+    }
+
     state = rhs.state;
 
     step = rhs.step;
     nextStep = rhs.nextStep;
 
-    taskQueue = rhs.taskQueue;
-    taskStack = rhs.taskStack;
     triggerManager = rhs.triggerManager;
 
     auras = rhs.auras;
@@ -479,6 +485,16 @@ void Game::MainEnd()
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
 
+    if (!rushMinions.empty())
+    {
+        for (auto& minion : rushMinions)
+        {
+            entityList[minion]->SetGameTag(GameTag::ATTACKABLE_BY_RUSH, 0);
+        }
+
+        rushMinions.clear();
+    }
+
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
     if (m_gameConfig.autoRun)
@@ -492,7 +508,7 @@ void Game::MainCleanUp()
     const auto curPlayer = GetCurrentPlayer();
 
     // Remove one-turn effects
-    if (const auto enchantments = oneTurnEffectEchantments;
+    if (const auto enchantments = oneTurnEffectEnchantments;
         !enchantments.empty())
     {
         for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
@@ -662,6 +678,12 @@ void Game::ProcessGraveyard()
             minion->player->GetGraveyardZone()->Add(minion);
             minion->player->SetNumFriendlyMinionsDiedThisTurn(
                 minion->player->GetNumFriendlyMinionsDiedThisTurn() + 1);
+
+            // Summon minion if it has reborn
+            if (minion->HasReborn())
+            {
+                Generic::SummonReborn(minion);
+            }
         }
 
         deadMinions.clear();
@@ -684,16 +706,12 @@ void Game::UpdateAura()
     }
 }
 
-std::tuple<PlayState, PlayState> Game::Process(Player* player, ITask* task)
+std::tuple<PlayState, PlayState> Game::Process(Player* player,
+                                               std::unique_ptr<ITask> task)
 {
     // Process task
     task->SetPlayer(player);
-    Task::Run(task);
-
-    if (task->IsFreeable())
-    {
-        delete task;
-    }
+    Task::Run(std::move(task));
 
     taskStack.Reset();
 
@@ -722,7 +740,7 @@ void Game::ProcessUntil(Step untilStep)
 
 std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
 {
-    ITask* task;
+    std::unique_ptr<ITask> task;
     const auto mainOp = params.ChooseMainOp();
 
     switch (mainOp)
@@ -757,15 +775,16 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
                     chooseOne = 2;
                 }
             }
-            task = new PlayCardTask(card, target, fieldPos, chooseOne);
+            task = std::make_unique<PlayCardTask>(card, target, fieldPos,
+                                                  chooseOne);
             break;
         }
         case MainOpType::ATTACK:
         {
             Character* source = params.GetAttacker();
             Character* target = params.GetSpecifiedTarget(
-                source->GetValidCombatTargets(GetCurrentPlayer()->opponent));
-            task = new AttackTask(source, target);
+                source->GetValidAttackTargets(GetCurrentPlayer()->opponent));
+            task = std::make_unique<AttackTask>(source, target);
             break;
         }
         case MainOpType::USE_HERO_POWER:
@@ -773,12 +792,12 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
             Hero* hero = GetCurrentPlayer()->GetHero();
             Character* target = params.GetSpecifiedTarget(
                 hero->heroPower->GetValidPlayTargets());
-            task = new HeroPowerTask(target);
+            task = std::make_unique<HeroPowerTask>(target);
             break;
         }
         case MainOpType::END_TURN:
         {
-            task = new EndTurnTask();
+            task = std::make_unique<EndTurnTask>();
             break;
         }
         default:
@@ -787,8 +806,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
         }
     }
 
-    task->EnableFreeable();
-    return Process(GetCurrentPlayer(), task);
+    return Process(GetCurrentPlayer(), std::move(task));
 }
 
 ReducedBoardView Game::CreateView()

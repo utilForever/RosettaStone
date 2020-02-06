@@ -39,8 +39,8 @@ TaskStatus TransformTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* TransformTask::CloneImpl()
+std::unique_ptr<ITask> TransformTask::CloneImpl()
 {
-    return new TransformTask(m_entityType, m_cardID);
+    return std::make_unique<TransformTask>(m_entityType, m_cardID);
 }
 }  // namespace RosettaStone::SimpleTasks

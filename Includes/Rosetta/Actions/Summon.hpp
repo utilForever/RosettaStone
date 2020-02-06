@@ -15,6 +15,10 @@ namespace RosettaStone::Generic
 //! \param fieldPos The position of minion to summon.
 //! \param summoner The summoner of minion.
 void Summon(Minion* minion, int fieldPos, Entity* summoner);
+
+//! Summons an minion that has reborn on battlefield.
+//! \param minion An minion to summon.
+void SummonReborn(Minion* minion);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_SUMMON_HPP

@@ -22,9 +22,7 @@ namespace RosettaStone
 struct GameConfig
 {
     FormatType formatType = FormatType::STANDARD;
-
     PlayerType startPlayer = PlayerType::RANDOM;
-
     CardClass player1Class = CardClass::INVALID;
     CardClass player2Class = CardClass::INVALID;
 

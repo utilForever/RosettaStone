@@ -20,8 +20,10 @@ Enchantment::Enchantment(Player* player, Card* card,
     // Do nothing
 }
 
-Enchantment* Enchantment::GetInstance(Player* player, Card* card,
-                                      Entity* target, int num1, int num2)
+std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
+                                                      Card* card,
+                                                      Entity* target, int num1,
+                                                      int num2)
 {
     const int id = player->game->GetNextID();
 
@@ -30,14 +32,15 @@ Enchantment* Enchantment::GetInstance(Player* player, Card* card,
     tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] = static_cast<int>(ZoneType::SETASIDE);
 
-    Enchantment* instance = new Enchantment(player, card, tags, target, id);
+    auto instance =
+        std::make_shared<Enchantment>(player, card, tags, target, id);
 
     target->appliedEnchantments.emplace_back(instance);
 
     if (card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] == 1)
     {
         instance->m_isOneTurnActive = true;
-        player->game->oneTurnEffectEchantments.emplace_back(instance);
+        player->game->oneTurnEffectEnchantments.emplace_back(instance);
     }
 
     instance->orderOfPlay = player->game->GetNextOOP();
@@ -88,13 +91,13 @@ void Enchantment::Remove()
     {
         for (auto& power : card->power.GetDeathrattleTask())
         {
-            ITask* clonedPower = power->Clone();
+            std::unique_ptr<ITask> clonedPower = power->Clone();
 
             clonedPower->SetPlayer(m_target->player);
             clonedPower->SetSource(m_target);
             clonedPower->SetTarget(this);
 
-            game->taskQueue.Enqueue(clonedPower);
+            game->taskQueue.Enqueue(std::move(clonedPower));
         }
     }
 
@@ -106,16 +109,6 @@ void Enchantment::Remove()
     if (activatedTrigger != nullptr)
     {
         activatedTrigger->Remove();
-    }
-
-    EraseIf(m_target->appliedEnchantments,
-            [this](Enchantment* enchantment) { return enchantment == this; });
-
-    if (m_isOneTurnActive)
-    {
-        EraseIf(
-            game->oneTurnEffectEchantments,
-            [this](Enchantment* enchantment) { return enchantment == this; });
     }
 }
 }  // namespace RosettaStone

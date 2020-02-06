@@ -55,8 +55,8 @@ TaskStatus ChooseTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ChooseTask::CloneImpl()
+std::unique_ptr<ITask> ChooseTask::CloneImpl()
 {
-    return new ChooseTask(m_choices);
+    return std::make_unique<ChooseTask>(m_choices);
 }
 }  // namespace RosettaStone::PlayerTasks

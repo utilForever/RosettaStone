@@ -5,8 +5,12 @@
 // property of any third parties.
 
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/CardSets/UldumCardsGen.hpp>
+#include <Rosetta/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/Managers/CardDataManager.hpp>
 
 namespace RosettaStone
@@ -20,6 +24,10 @@ CardDataManager::CardDataManager()
     CoreCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
     Expert1CardsGen::AddAll(m_powers, m_playReqs, m_entourages);
     HoFCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    DalaranCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    UldumCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    DragonsCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
+    YoDCardsGen::AddAll(m_powers, m_playReqs, m_entourages);
 }
 
 CardDataManager::~CardDataManager()

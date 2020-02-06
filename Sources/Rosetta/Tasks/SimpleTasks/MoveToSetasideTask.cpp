@@ -29,8 +29,8 @@ TaskStatus MoveToSetasideTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* MoveToSetasideTask::CloneImpl()
+std::unique_ptr<ITask> MoveToSetasideTask::CloneImpl()
 {
-    return new MoveToSetasideTask(m_entityType);
+    return std::make_unique<MoveToSetasideTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

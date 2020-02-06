@@ -1,46 +1,58 @@
 # RosettaStone ability list
 
-- [Keywords](#keywords)
+- [Evergreen Keywords](#evergreen-keywords)
+- [Other Keywords](#other-keywords)
+- [Keyworded Generation abilities](#keyworded-generation-abilities)
 - [Other abilities](#other-abilities)
-- [Types of ability](#types-of-ability)
-- [Boss and Tavern Brawl abilities](#boss-and-tavern-brawl-abilities)
 
-## Keywords
+## Evergreen Keywords
 
-* [ ] Adapt
 * [x] Battlecry
-* [ ] Casts When Drawn
-* [x] Charge
 * [x] Choose One
-* [ ] Choose Twice
 * [x] Combo
-* [x] Counter
 * [x] Deathrattle
-* [ ] Discover
+* [x] Discover
 * [x] Divine Shield
-* [ ] Echo
 * [x] Freeze
-* [x] Immune
-* [ ] Inspire
-* [ ] Lifesteal
-* [ ] Magnetic
-* [ ] Mega-Windfury
-* [ ] Overkill
-* [x] Overload
-* [ ] Passive
+* [x] Lifesteal
 * [x] Poisonous
-* [ ] Quest
-* [ ] Reborn
-* [ ] Recruit
-* [ ] Rush
+* [x] Overload
+* [x] Rush
 * [x] Secret
 * [x] Silence
-* [ ] Start of Game
 * [x] Stealth
 * [x] Spell Damage
 * [x] Taunt
-* [ ] Twinspell
 * [x] Windfury
+
+## Other Keywords
+
+* [ ] Adapt
+* [ ] Casts When Drawn
+* [x] Charge
+* [ ] Choose Twice
+* [x] Counter
+* [ ] Echo
+* [x] Immune
+* [ ] Inspire
+* [ ] Invoke
+* [ ] Magnetic
+* [ ] Mega-Windfury
+* [ ] Overkill
+* [ ] Passive
+* [x] Quest
+* [x] Reborn
+* [ ] Recruit
+* [x] Sidequest
+* [ ] Start of Game
+* [x] Twinspell
+
+## Keyworded Generation Abilities
+
+* [ ] Death Knight
+* [ ] Jade Golem
+* [ ] Lackey
+* [ ] Spare Part
 
 ## Other abilities
 
@@ -60,6 +72,7 @@
 * [ ] Forgetful
 * [x] Gain Armor
 * [ ] Generate
+* [ ] Highlander
 * [x] Increment attribute
 * [ ] Joust
 * [x] Mind control effect
@@ -82,20 +95,3 @@
 * [x] Transform
 * [ ] Transform in hand
 * [ ] Unlimited attacks
-
-## Types of ability
-
-* [x] Area of effect
-* [ ] In-hand effect
-* [ ] On-discard effect
-* [ ] On-draw effect
-* [x] Ongoing effect
-* [ ] Positional effect
-* [x] Random effect
-* [ ] Removal
-* [x] Triggered effect
-
-## Boss and Tavern Brawl abilities
-
-* [ ] Auto-cast
-* [ ] Auto-attack

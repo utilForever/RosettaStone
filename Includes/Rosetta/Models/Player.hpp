@@ -13,6 +13,7 @@
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Hero.hpp>
 
+#include <memory>
 #include <string>
 
 namespace RosettaStone
@@ -217,12 +218,12 @@ class Player : public Entity
  private:
     Hero* m_hero = nullptr;
 
-    DeckZone* m_deckZone = nullptr;
-    FieldZone* m_fieldZone = nullptr;
-    GraveyardZone* m_graveyardZone = nullptr;
-    HandZone* m_handZone = nullptr;
-    SecretZone* m_secretZone = nullptr;
-    SetasideZone* m_setasideZone = nullptr;
+    std::unique_ptr<DeckZone> m_deckZone;
+    std::unique_ptr<FieldZone> m_fieldZone;
+    std::unique_ptr<GraveyardZone> m_graveyardZone;
+    std::unique_ptr<HandZone> m_handZone;
+    std::unique_ptr<SecretZone> m_secretZone;
+    std::unique_ptr<SetasideZone> m_setasideZone;
 
     std::map<GameTag, int> m_gameTags;
 };

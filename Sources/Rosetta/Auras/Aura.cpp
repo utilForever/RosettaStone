@@ -16,7 +16,7 @@
 
 namespace RosettaStone
 {
-Aura::Aura(AuraType type, std::vector<IEffect*> effects)
+Aura::Aura(AuraType type, std::vector<std::shared_ptr<IEffect>> effects)
     : m_type(type), m_effects(std::move(effects))
 {
     // Do nothing
@@ -206,7 +206,7 @@ void Aura::Apply(Playable* entity)
         if (auto trigger = m_enchantmentCard->power.GetTrigger();
             trigger != nullptr)
         {
-            trigger->Activate(instance);
+            trigger->Activate(instance.get());
         }
     }
 
@@ -236,7 +236,7 @@ void Aura::Disapply(Playable* entity)
         m_enchantmentCard->power.GetTrigger() != nullptr)
     {
         const std::string cardID = m_enchantmentCard->id;
-        std::vector<Enchantment*> enchantments = entity->appliedEnchantments;
+        auto enchantments = entity->appliedEnchantments;
 
         for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
         {
@@ -426,8 +426,8 @@ void Aura::UpdateInternal()
         {
             for (auto& effect : m_effects)
             {
-                dynamic_cast<Effect*>(effect)->ApplyTo(
-                    m_owner->player->playerAuraEffects);
+                const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+                effectPtr->ApplyTo(m_owner->player->playerAuraEffects);
             }
             break;
         }
@@ -435,9 +435,9 @@ void Aura::UpdateInternal()
         {
             for (auto& effect : m_effects)
             {
-                dynamic_cast<Effect*>(effect)->ApplyTo(
-                    m_owner->player->playerAuraEffects);
-                dynamic_cast<Effect*>(effect)->ApplyTo(
+                const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+                effectPtr->ApplyTo(m_owner->player->playerAuraEffects);
+                effectPtr->ApplyTo(
                     m_owner->player->opponent->playerAuraEffects);
             }
             break;
@@ -454,18 +454,17 @@ void Aura::RemoveInternal()
     {
         for (auto& effect : m_effects)
         {
-            dynamic_cast<Effect*>(effect)->RemoveFrom(
-                m_owner->player->playerAuraEffects);
+            const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+            effectPtr->RemoveFrom(m_owner->player->playerAuraEffects);
         }
     }
     else if (m_type == AuraType::PLAYERS)
     {
         for (auto& effect : m_effects)
         {
-            dynamic_cast<Effect*>(effect)->RemoveFrom(
-                m_owner->player->playerAuraEffects);
-            dynamic_cast<Effect*>(effect)->RemoveFrom(
-                m_owner->player->opponent->playerAuraEffects);
+            const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+            effectPtr->RemoveFrom(m_owner->player->playerAuraEffects);
+            effectPtr->RemoveFrom(m_owner->player->opponent->playerAuraEffects);
         }
     }
     else
@@ -486,8 +485,7 @@ void Aura::RemoveInternal()
     {
         for (auto& entity : m_appliedEntities)
         {
-            std::vector<Enchantment*> enchantments =
-                entity->appliedEnchantments;
+            auto enchantments = entity->appliedEnchantments;
 
             for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
             {

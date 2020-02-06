@@ -18,23 +18,16 @@ namespace RosettaStone
 {
 Player::Player() : playerID(USER_INVALID)
 {
-    m_deckZone = new DeckZone(this);
-    m_fieldZone = new FieldZone(this);
-    m_graveyardZone = new GraveyardZone(this);
-    m_handZone = new HandZone(this);
-    m_secretZone = new SecretZone(this);
-    m_setasideZone = new SetasideZone(this);
+    m_deckZone = std::make_unique<DeckZone>(this);
+    m_fieldZone = std::make_unique<FieldZone>(this);
+    m_graveyardZone = std::make_unique<GraveyardZone>(this);
+    m_handZone = std::make_unique<HandZone>(this);
+    m_secretZone = std::make_unique<SecretZone>(this);
+    m_setasideZone = std::make_unique<SetasideZone>(this);
 }
 
 Player::~Player()
 {
-    delete m_setasideZone;
-    delete m_secretZone;
-    delete m_handZone;
-    delete m_graveyardZone;
-    delete m_fieldZone;
-    delete m_deckZone;
-
     // TODO: This code will refactor.
     if (m_hero)
     {
@@ -45,6 +38,13 @@ Player::~Player()
 
 void Player::RefCopy(const Player& rhs)
 {
+    if (this == &rhs)
+    {
+        return;
+    }
+
+    delete m_hero;
+
     nickname = rhs.nickname;
     playerType = rhs.playerType;
     playerID = rhs.playerID;
@@ -56,12 +56,12 @@ void Player::RefCopy(const Player& rhs)
     m_hero = rhs.m_hero;
     opponent = rhs.opponent;
 
-    m_deckZone = rhs.m_deckZone;
-    m_fieldZone = rhs.m_fieldZone;
-    m_graveyardZone = rhs.m_graveyardZone;
-    m_handZone = rhs.m_handZone;
-    m_secretZone = rhs.m_secretZone;
-    m_setasideZone = rhs.m_setasideZone;
+    m_deckZone->RefCopy(rhs.m_deckZone.get());
+    m_fieldZone->RefCopy(rhs.m_fieldZone.get());
+    m_graveyardZone->RefCopy(rhs.m_graveyardZone.get());
+    m_handZone->RefCopy(rhs.m_handZone.get());
+    m_secretZone->RefCopy(rhs.m_secretZone.get());
+    m_setasideZone->RefCopy(rhs.m_setasideZone.get());
 
     m_gameTags = rhs.m_gameTags;
     currentSpellPower = rhs.currentSpellPower;
@@ -69,32 +69,32 @@ void Player::RefCopy(const Player& rhs)
 
 FieldZone* Player::GetFieldZone() const
 {
-    return m_fieldZone;
+    return m_fieldZone.get();
 }
 
 DeckZone* Player::GetDeckZone() const
 {
-    return m_deckZone;
+    return m_deckZone.get();
 }
 
 GraveyardZone* Player::GetGraveyardZone() const
 {
-    return m_graveyardZone;
+    return m_graveyardZone.get();
 }
 
 HandZone* Player::GetHandZone() const
 {
-    return m_handZone;
+    return m_handZone.get();
 }
 
 SecretZone* Player::GetSecretZone() const
 {
-    return m_secretZone;
+    return m_secretZone.get();
 }
 
 SetasideZone* Player::GetSetasideZone() const
 {
-    return m_setasideZone;
+    return m_setasideZone.get();
 }
 
 Hero* Player::GetHero() const

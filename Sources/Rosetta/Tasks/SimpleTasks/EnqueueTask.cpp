@@ -10,7 +10,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-EnqueueTask::EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage)
+EnqueueTask::EnqueueTask(std::vector<std::shared_ptr<ITask>> tasks, int num,
+                         bool isSpellDamage)
     : m_tasks(std::move(tasks)), m_num(num), m_isSpellDamage(isSpellDamage)
 {
     // Do nothing
@@ -25,21 +26,21 @@ TaskStatus EnqueueTask::Impl(Player* player)
     {
         for (auto& task : m_tasks)
         {
-            ITask* clonedTask = task->Clone();
+            std::unique_ptr<ITask> clonedTask = task->Clone();
 
             clonedTask->SetPlayer(player);
             clonedTask->SetSource(m_source);
             clonedTask->SetTarget(m_target);
 
-            player->game->taskQueue.Enqueue(clonedTask);
+            player->game->taskQueue.Enqueue(std::move(clonedTask));
         }
     }
 
     return TaskStatus::COMPLETE;
 }
 
-ITask* EnqueueTask::CloneImpl()
+std::unique_ptr<ITask> EnqueueTask::CloneImpl()
 {
-    return new EnqueueTask(m_tasks, m_num, m_isSpellDamage);
+    return std::make_unique<EnqueueTask>(m_tasks, m_num, m_isSpellDamage);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -27,7 +27,8 @@ TEST(GetEventNumberTask, Run)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    game.currentEventData = new EventMetaData(nullptr, nullptr, 1);
+    game.currentEventData =
+        std::make_unique<EventMetaData>(nullptr, nullptr, 1);
 
     GetEventNumberTask task0(0);
     task0.SetPlayer(game.GetPlayer1());
@@ -45,5 +46,5 @@ TEST(GetEventNumberTask, Run)
     task2.SetPlayer(game.GetPlayer1());
     EXPECT_THROW(task2.Run(), std::invalid_argument);
 
-    delete game.currentEventData;
+    game.currentEventData.reset();
 }

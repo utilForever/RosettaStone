@@ -56,9 +56,9 @@ TaskStatus DamageTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* DamageTask::CloneImpl()
+std::unique_ptr<ITask> DamageTask::CloneImpl()
 {
-    return new DamageTask(m_entityType, m_damage, m_randomDamage,
-                          m_isSpellDamage);
+    return std::make_unique<DamageTask>(m_entityType, m_damage, m_randomDamage,
+                                        m_isSpellDamage);
 }
 }  // namespace RosettaStone::SimpleTasks

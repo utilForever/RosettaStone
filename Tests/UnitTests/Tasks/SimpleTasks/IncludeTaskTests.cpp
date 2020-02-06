@@ -168,13 +168,14 @@ TEST(IncludeTask, Run_NonConst)
 
     auto& p1Field = *(player1->GetFieldZone());
     auto& p2Field = *(player2->GetFieldZone());
-    game.currentEventData = new EventMetaData(p1Field[0], p2Field[0]);
+    game.currentEventData =
+        std::make_unique<EventMetaData>(p1Field[0], p2Field[0]);
 
     const auto entities23 =
         IncludeTask::GetEntities(EntityType::EVENT_SOURCE, player1);
     EXPECT_EQ(entities23.size(), 1u);
 
-    delete game.currentEventData;
+    game.currentEventData.reset();
 
     EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);
@@ -336,13 +337,14 @@ TEST(IncludeTask, Run_Const)
 
     auto& p1Field = *(player1->GetFieldZone());
     auto& p2Field = *(player2->GetFieldZone());
-    game.currentEventData = new EventMetaData(p1Field[0], p2Field[0]);
+    game.currentEventData =
+        std::make_unique<EventMetaData>(p1Field[0], p2Field[0]);
 
     const auto entities23 =
         IncludeTask::GetEntities(EntityType::EVENT_SOURCE, player1);
     EXPECT_EQ(entities23.size(), 1u);
 
-    delete game.currentEventData;
+    game.currentEventData.reset();
 
     EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);

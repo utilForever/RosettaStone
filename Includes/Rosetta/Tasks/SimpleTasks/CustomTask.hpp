@@ -32,7 +32,7 @@ class CustomTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     std::function<void(Player*)> m_func;
 };
