@@ -116,10 +116,8 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     //       add a random Druid spell to your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(
-        std::make_shared<Trigger>(TriggerType::HEAL));
-	power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsEventSourceFriendly());
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GIVE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = {
         std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::DRUID),
         std::make_shared<AddStackToTask>(EntityType::HAND)
@@ -158,7 +156,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: Summon two 1/2 Dryads with <b>Lifesteal</b>.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINION_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
@@ -197,7 +195,7 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_256t2", power);  
+    powers.emplace("DAL_256t2", power);
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256ts] The Forest's Aid (*) - COST:8
@@ -217,7 +215,8 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
     powers.emplace("DAL_350a", power);
     playReqs.emplace("DAL_350a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 } });
