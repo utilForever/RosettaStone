@@ -528,6 +528,11 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("ULD_430t", 7));
+    powers.emplace("ULD_713", power);
+    playReqs.emplace("ULD_713",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 }
 
 void UldumCardsGen::AddHunterNonCollect(PowersType& powers,

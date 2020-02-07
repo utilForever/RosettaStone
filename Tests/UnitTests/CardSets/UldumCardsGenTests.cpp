@@ -318,6 +318,53 @@ TEST(HunterUldumTest, ULD_155_UnsealTheVault)
     EXPECT_EQ(opField[0]->GetAttack(), 1);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [ULD_713] Swarm of Locusts - COST:6
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon seven 1/1 Locusts with <b>Rush</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_713_SwarmOfLocusts)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Swarm of Locusts"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    for (int i = 0; i < 7; ++i)
+    {
+        EXPECT_EQ(curField[i]->card->name, "Locust");
+        EXPECT_EQ(curField[i]->GetAttack(), 1);
+        EXPECT_EQ(curField[i]->GetHealth(), 1);
+        EXPECT_EQ(curField[i]->IsRush(), true);
+    }
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
