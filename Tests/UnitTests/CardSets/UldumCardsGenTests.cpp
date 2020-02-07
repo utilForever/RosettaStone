@@ -140,6 +140,73 @@ TEST(HunterUldumTest, ULD_152_PressurePlate)
     EXPECT_EQ(opField.GetCount(), 0);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [ULD_154] Hyena Alpha - COST:4 [ATK:3/HP:3]
+// - Race: Beast, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+//       summon two 2/2 Hyenas.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_154_HyenaAlpha)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Redemption"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Redemption"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Hyena Alpha"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Hyena Alpha"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(opPlayer->GetSecretZone()->GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField.GetCount(), 4);
+    EXPECT_EQ(opField[0]->card->name, "Hyena Alpha");
+    EXPECT_EQ(opField[1]->card->name, "Hyena Alpha");
+    EXPECT_EQ(opField[2]->GetAttack(), 2);
+    EXPECT_EQ(opField[2]->GetHealth(), 2);
+    EXPECT_EQ(opField[2]->card->name, "Hyena");
+    EXPECT_EQ(opField[3]->GetAttack(), 2);
+    EXPECT_EQ(opField[3]->GetHealth(), 2);
+    EXPECT_EQ(opField[3]->card->name, "Hyena");
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
