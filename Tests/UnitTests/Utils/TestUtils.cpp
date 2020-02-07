@@ -110,4 +110,24 @@ void ExpectCardEqual(const Card& card1, const Card& card2)
     EXPECT_EQ(card1.entourages, card2.entourages);
     EXPECT_EQ(card1.maxAllowedInDeck, card2.maxAllowedInDeck);
 }
+
+std::vector<Card*> GetChoiceCards(Game& game)
+{
+    if (!game.GetCurrentPlayer()->choice.has_value())
+    {
+        throw std::logic_error("There is no active choices.");
+    }
+
+    std::vector<std::size_t> choices = game.GetCurrentPlayer()->choice->choices;
+
+    std::vector<Card*> result;
+    result.reserve(choices.size());
+
+    for (std::size_t choice : choices)
+    {
+        result.emplace_back(game.entityList[choice]->card);
+    }
+
+    return result;
+}
 }  // namespace TestUtils

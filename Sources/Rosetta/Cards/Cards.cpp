@@ -13,7 +13,12 @@
 namespace RosettaStone
 {
 Card emptyCard;
+
 std::vector<Card*> Cards::m_cards;
+std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_standardCards;
+std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_wildCards;
+std::vector<Card*> Cards::m_allStandardCards;
+std::vector<Card*> Cards::m_allWildCards;
 
 Cards::Cards()
 {
@@ -25,6 +30,32 @@ Cards::Cards()
     for (Card* card : m_cards)
     {
         card->Initialize();
+    }
+
+    for (Card* card : m_cards)
+    {
+        // NOTE: Subtract 2 because of CardClass::DRUID = 2
+        const auto cardClass = static_cast<int>(card->GetCardClass()) - 2;
+
+        if (card->IsCollectible() && card->IsStandardSet() &&
+            card->GetCardType() != CardType::HERO)
+        {
+            if (card->GetCardClass() != CardClass::NEUTRAL)
+            {
+                m_standardCards[cardClass].emplace_back(card);
+            }     
+            m_allStandardCards.emplace_back(card);
+        }
+
+        if (card->IsCollectible() && card->IsWildSet() &&
+            card->GetCardType() != CardType::HERO)
+        {
+            if (card->GetCardClass() != CardClass::NEUTRAL)
+            {
+                m_wildCards[cardClass].emplace_back(card);
+            }
+            m_allWildCards.emplace_back(card);
+        }
     }
 }
 
@@ -49,36 +80,26 @@ const std::vector<Card*>& Cards::GetAllCards()
     return m_cards;
 }
 
-std::vector<Card*> Cards::GetAllStandardCards()
+const std::vector<Card*>& Cards::GetStandardCards(CardClass cardClass)
 {
-    std::vector<Card*> result;
-
-    for (Card* card : m_cards)
-    {
-        if (card->IsCollectible() && card->IsStandardSet() &&
-            card->GetCardType() != CardType::HERO)
-        {
-            result.emplace_back(card);
-        }
-    }
-
-    return result;
+    // NOTE: Subtract 2 because of CardClass::DRUID = 2
+    return m_standardCards[static_cast<int>(cardClass) - 2];
 }
 
-std::vector<Card*> Cards::GetAllWildCards()
+const std::vector<Card*>& Cards::GetWildCards(CardClass cardClass)
 {
-    std::vector<Card*> result;
+    // NOTE: Subtract 2 because of CardClass::DRUID = 2
+    return m_wildCards[static_cast<int>(cardClass) - 2];
+}
 
-    for (Card* card : m_cards)
-    {
-        if (card->IsCollectible() && card->IsWildSet() &&
-            card->GetCardType() != CardType::HERO)
-        {
-            result.emplace_back(card);
-        }
-    }
+const std::vector<Card*>& Cards::GetAllStandardCards()
+{
+    return m_allStandardCards;
+}
 
-    return result;
+const std::vector<Card*>& Cards::GetAllWildCards()
+{
+    return m_allWildCards;
 }
 
 Card* Cards::FindCardByID(const std::string_view& id)

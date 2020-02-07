@@ -80,6 +80,13 @@ SelfCondition SelfCondition::IsOpFieldNotFull()
     });
 }
 
+SelfCondition SelfCondition::IsFieldNotEmpty()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->GetFieldZone()->IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsDamaged()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -174,6 +181,19 @@ SelfCondition SelfCondition::IsFrozen()
         }
 
         return character->IsFrozen();
+    });
+}
+
+SelfCondition SelfCondition::HasReborn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->HasReborn();
     });
 }
 
@@ -312,6 +332,13 @@ SelfCondition SelfCondition::IsEnemyTurn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player != playable->game->GetCurrentPlayer();
+    });
+}
+
+SelfCondition SelfCondition::IsUnspentMana()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetRemainingMana();
     });
 }
 

@@ -42,7 +42,7 @@ class SelfCondition
 
     //! SelfCondition wrapper for checking the entity is not immune.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition IsNotImmune();    
+    static SelfCondition IsNotImmune();
 
     //! SelfCondition wrapper for checking the entity is not untouchable.
     //! \return Generated SelfCondition for intended purpose.
@@ -55,6 +55,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the field is not full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldNotFull();
+
+    //! SelfCondition wrapper for checking the field is not empty.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFieldNotEmpty();
 
     //! SelfCondition wrapper for checking the opponent field is not full.
     //! \return Generated SelfCondition for intended purpose.
@@ -103,6 +107,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the entity is frozen.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
+
+    //! SelfCondition wrapper for checking the entity has reborn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasReborn();
 
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.
@@ -176,6 +184,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking it is enemy turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEnemyTurn();
+
+    //! SelfCondition wrapper for checking the player has unspent mana.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsUnspentMana();
 
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.

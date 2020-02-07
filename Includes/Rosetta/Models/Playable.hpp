@@ -59,33 +59,37 @@ class Playable : public Entity
     //! \param cost The value of cost.
     void SetCost(int cost);
 
-    //! Returns the value of exhausted.
-    //! \return The value of exhausted.
+    //! Returns the flag that indicates whether it is exhausted.
+    //! \return The flag that indicates whether it is exhausted.
     bool IsExhausted() const;
 
-    //! Sets the value of exhausted.
-    //! \param exhausted The value of exhausted.
+    //! Sets the flag that indicates whether it is exhausted.
+    //! \param exhausted The flag that indicates whether it is exhausted.
     void SetExhausted(bool exhausted);
 
-    //! Returns whether this entity has combo.
-    //! \return Whether this entity has combo.
+    //! Returns the flag that indicates whether it has combo.
+    //! \return The flag that indicates whether it has combo.
     bool HasCombo() const;
 
-    //! Returns whether this entity has overload.
-    //! \return Whether this entity has overload.
+    //! Returns the flag that indicates whether it has overload.
+    //! \return The flag that indicates whether it has overload.
     bool HasOverload() const;
 
     //! Returns the value of overload.
     //! \return The value of overload.
     int GetOverload() const;
 
-    //! Returns whether this entity has deathrattle power.
-    //! \return Whether this entity has deathrattle power.
+    //! Returns the flag that indicates whether it has deathrattle.
+    //! \return The flag that indicates whether it has deathrattle.
     bool HasDeathrattle() const;
 
-    //! Returns whether this entity has to choose one.
-    //! \return Whether this entity has to choose one.
+    //! Returns the flag that indicates whether it has choose one.
+    //! \return The flag that indicates whether it has choose one.
     bool HasChooseOne() const;
+
+    //! Returns the flag that indicates whether it has lifesteal.
+    //! \return The flag that indicates whether it has lifesteal.
+    bool HasLifesteal() const;
 
     //! Resets the value of the cost.
     void ResetCost();

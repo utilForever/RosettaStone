@@ -4,9 +4,21 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
+#include <Rosetta/Conditions/RelaCondition.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using EntityTypeList = std::vector<EntityType>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
+
 void DragonsCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
 {
@@ -472,6 +484,8 @@ void DragonsCardsGen::AddDruidNonCollect(PowersType& powers,
 void DragonsCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [DRG_006] Corrosive Breath - COST:2
     // - Set: Dragons, Rarity: Common
@@ -572,6 +586,11 @@ void DragonsCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - QUEST_REWARD_DATABASE_ID = 41127
     // - SIDEQUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<SummonTask>("DRG_255t2", 3) }) };
+    powers.emplace("DRG_255", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_256] Dragonbane - COST:4 [ATK:3/HP:5]
@@ -1805,6 +1824,8 @@ void DragonsCardsGen::AddWarriorNonCollect(PowersType& powers,
 void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
                                  EntouragesType& entourages)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_049] Tasty Flyfish - COST:2 [ATK:2/HP:2]
     // - Race: Murloc, Set: Dragons, Rarity: Common
@@ -1954,6 +1975,9 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DRG_065", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_066] Evasive Chimaera - COST:2 [ATK:2/HP:1]
@@ -2230,6 +2254,9 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
     // - Set: Dragons, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DRG_239", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_242] Shield of Galakrond - COST:5 [ATK:4/HP:5]
@@ -2314,6 +2341,8 @@ void DragonsCardsGen::AddNeutralNonCollect(PowersType& powers,
                                            PlayReqsType& playReqs,
                                            EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_008e] Righteous Cause (*) - COST:0
     // - Set: Dragons
@@ -2527,6 +2556,10 @@ void DragonsCardsGen::AddNeutralNonCollect(PowersType& powers,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, false));
+    powers.emplace("DRG_255t2", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_257e3] Ready to Hatch! (*) - COST:0

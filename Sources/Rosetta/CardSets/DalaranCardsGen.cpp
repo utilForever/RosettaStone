@@ -1,15 +1,15 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
-#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
@@ -34,6 +34,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
                                EntouragesType& entourages)
 {
     Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256] The Forest's Aid - COST:8
     // - Set: Dalaran, Rarity: Rare
@@ -157,7 +158,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: Summon two 1/2 Dryads with <b>Lifesteal</b>.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
@@ -189,13 +190,14 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
                                          EntouragesType& entourages)
 {
     Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [DAL_256t2] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Set: Dalaran
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_256t2", power);
+    powers.emplace("DAL_256t2", power);  
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256ts] The Forest's Aid (*) - COST:8
@@ -483,6 +485,8 @@ void DalaranCardsGen::AddHunterNonCollect(PowersType& powers,
 void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
                               EntouragesType& entourages)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2]
     // - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
@@ -495,6 +499,10 @@ void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(CardType::MINION, CardClass::MAGE));
+    powers.emplace("DAL_163", power);
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177] Conjurer's Calling - COST:3
@@ -1154,6 +1162,8 @@ void DalaranCardsGen::AddRogueNonCollect(PowersType& powers,
 void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_009] Hagatha's Scheme - COST:5
     // - Set: Dalaran, Rarity: Rare
@@ -1176,6 +1186,9 @@ void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - LIFESTEAL = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_047", power);
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_049] Underbelly Angler - COST:2 [ATK:2/HP:3]
@@ -1642,6 +1655,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_085", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
@@ -1702,11 +1718,17 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_090", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
     // - Race: Elemental, Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_092", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_095] Violet Spellsword - COST:4 [ATK:1/HP:6]
@@ -2007,6 +2029,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_748", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_749] Recurring Villain - COST:5 [ATK:3/HP:6]

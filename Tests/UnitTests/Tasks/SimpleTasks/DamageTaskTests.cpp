@@ -29,6 +29,7 @@ TEST(DamageTask, Run)
     game.Start();
 
     Player* player1 = game.GetPlayer1();
+    auto& p1Field = *(player1->GetFieldZone());
 
     std::vector<Card> cards;
     cards.reserve(5);
@@ -43,10 +44,7 @@ TEST(DamageTask, Run)
 
     DamageTask damage(EntityType::FRIENDS, 1);
     damage.SetPlayer(player1);
-
-    Entity tempEntity;
-
-    damage.SetSource(&tempEntity);
+    damage.SetSource(p1Field[0]);
 
     TaskStatus result = damage.Run();
     game.ProcessDestroyAndUpdateAura();

@@ -190,6 +190,9 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
         case TriggerType::DEATH:
             game->triggerManager.deathTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::USE_HERO_POWER:
+            game->triggerManager.useHeroPowerTrigger = std::move(triggerFunc);
+            break;
         default:
             break;
     }
@@ -300,6 +303,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::DEATH:
             game->triggerManager.deathTrigger = nullptr;
+            break;
+        case TriggerType::USE_HERO_POWER:
+            game->triggerManager.useHeroPowerTrigger = nullptr;
             break;
         default:
             break;
