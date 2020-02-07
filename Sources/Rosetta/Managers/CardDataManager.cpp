@@ -9,6 +9,7 @@
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/Managers/CardDataManager.hpp>

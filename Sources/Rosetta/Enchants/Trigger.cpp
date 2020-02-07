@@ -112,8 +112,11 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
         case TriggerType::SECRET_REVEALED:
             game->triggerManager.secretRevealedTrigger = std::move(triggerFunc);
             break;
-        case TriggerType::HEAL:
-            game->triggerManager.healTrigger = std::move(triggerFunc);
+        case TriggerType::GIVE_HEAL:
+            game->triggerManager.giveHealTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::TAKE_HEAL:
+            game->triggerManager.takeHealTrigger = std::move(triggerFunc);
             break;
         case TriggerType::ATTACK:
             game->triggerManager.attackTrigger = std::move(triggerFunc);
@@ -228,8 +231,11 @@ void Trigger::Remove() const
         case TriggerType::SECRET_REVEALED:
             game->triggerManager.secretRevealedTrigger = nullptr;
             break;
-        case TriggerType::HEAL:
-            game->triggerManager.healTrigger = nullptr;
+        case TriggerType::GIVE_HEAL:
+            game->triggerManager.giveHealTrigger = nullptr;
+            break;
+        case TriggerType::TAKE_HEAL:
+            game->triggerManager.takeHealTrigger = nullptr;
             break;
         case TriggerType::ATTACK:
             game->triggerManager.attackTrigger = nullptr;
