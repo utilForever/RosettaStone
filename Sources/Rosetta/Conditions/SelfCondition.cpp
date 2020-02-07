@@ -296,20 +296,6 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
     });
 }
 
-SelfCondition SelfCondition::IsEventSourceFriendly()
-{
-    return SelfCondition([=](Playable* playable) -> bool {
-        if (const auto eventData = playable->game->currentEventData.get();
-            eventData)
-        {
-            return eventData->eventTarget->player == playable->player;
-
-        }
-
-        return false;
-    });
-}
-
 SelfCondition SelfCondition::IsSpellTargetingMinion()
 {
     return SelfCondition([=](Playable* playable) -> bool {

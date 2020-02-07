@@ -167,10 +167,6 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEventTargetIs(CardType cardType);
 
-	//! SelfCondition wrapper for checking the event source is friendly.
-    //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition IsEventSourceFriendly();
-
     //! SelfCondition wrapper for checking it is a minion
     //! that is targeted by spell.
     //! \return Generated SelfCondition for intended purpose.
