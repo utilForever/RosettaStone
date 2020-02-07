@@ -69,6 +69,10 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Give your minions +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_155e", EntityType::MINIONS));
+    powers.emplace("ULD_155p", power);
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [ULD_291p] Heart of Vir'naal (*) - COST:2
@@ -440,6 +444,12 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53925
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_155p") };
+    powers.emplace("ULD_155", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
@@ -524,6 +534,8 @@ void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
                                         PlayReqsType& playReqs,
                                         EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [ULD_154t] Hyena (*) - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: Uldum
@@ -535,6 +547,9 @@ void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_155e"));
+    powers.emplace("ULD_155e", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_156t] Duke (*) - COST:5 [ATK:5/HP:5]

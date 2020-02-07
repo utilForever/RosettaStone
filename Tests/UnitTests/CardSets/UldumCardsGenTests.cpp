@@ -207,6 +207,117 @@ TEST(HunterUldumTest, ULD_154_HyenaAlpha)
     EXPECT_EQ(opField[3]->card->name, "Hyena");
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [ULD_155] Unseal the Vault - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Summon 20 minions.
+//       <b>Reward:</b> Ramkahen Roar.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 20
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 53925
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_155_UnsealTheVault)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unseal the Vault"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer->GetSecretZone()->quest->card->name,
+              "Unseal the Vault");
+
+    for (int i = 1; i <= 4; ++i)
+    {
+        for (int j = 0; j < 5; ++j)
+        {
+            game.Process(curPlayer,
+                         PlayCardTask::Minion(Generic::DrawCard(
+                             curPlayer, Cards::FindCardByName("Wisp"))));
+        }
+        EXPECT_EQ(card1->GetGameTag(GameTag::QUEST_PROGRESS), i * 5);
+        EXPECT_EQ(curField.GetCount(), 5);
+
+        game.Process(curPlayer,
+                     PlayCardTask::Spell(Generic::DrawCard(
+                         curPlayer, Cards::FindCardByName("Twisting Nether"))));
+        EXPECT_EQ(curField.GetCount(), 0);
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_START);
+
+        game.Process(opPlayer, PlayCardTask::Minion(Generic::DrawCard(
+                                   opPlayer, Cards::FindCardByName("Wisp"))));
+        EXPECT_EQ(card1->GetGameTag(GameTag::QUEST_PROGRESS), i * 5);
+
+        game.Process(opPlayer,
+                     PlayCardTask::Spell(Generic::DrawCard(
+                         opPlayer, Cards::FindCardByName("Twisting Nether"))));
+        EXPECT_EQ(opField.GetCount(), 0);
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_START);
+    }
+    EXPECT_EQ(curPlayer->GetHeroPower().card->name, "Ramkahen Roar");
+
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[1]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(opField[0]->GetAttack(), 1);
+    EXPECT_EQ(opField[0]->GetAttack(), 1);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
