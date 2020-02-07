@@ -244,14 +244,17 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
+
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card3, opPlayer->GetHero()));
 
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(curHand[4]->card->GetCardClass(), CardClass::DRUID);
-    // EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+    EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
