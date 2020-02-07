@@ -29,7 +29,7 @@ include_directories(Libraries)
 include_directories(Libraries/googletest/googletest/include)
 include_directories(Libraries/Clara/include)
 include_directories(Libraries/random/include)
-# include_directories(Libraries/pybind11/include)
+include_directories(Libraries/pybind11/include)
 include_directories(Libraries/tiny-dnn)
 
 # Compile options
@@ -67,7 +67,7 @@ add_dependencies(RosettaRL # just make sure of the dependency
                  RosettaStone
 )
 
-#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
@@ -77,8 +77,8 @@ if (CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_COMPILER_IS_GNUCXX AND BUILD_COVERA
     setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
 endif()
 
-#add_subdirectory(Libraries/pybind11)
-#if (BUILD_FROM_PIP)
-#    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-#endif()
-#add_subdirectory(Extensions/RosettaPython)
+add_subdirectory(Libraries/pybind11)
+if (BUILD_FROM_PIP)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+endif()
+add_subdirectory(Extensions/RosettaPython)
