@@ -276,13 +276,14 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
     });
 }
 
-SelfCondition SelfCondition::IsEventSourceFriendly(CardType cardType)
+SelfCondition SelfCondition::IsEventSourceFriendly()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         if (const auto eventData = playable->game->currentEventData.get();
             eventData)
         {
-            return eventData->eventTarget->card->GetCardType() == cardType;
+            return eventData->eventTarget->player == playable->player;
+
         }
 
         return false;
