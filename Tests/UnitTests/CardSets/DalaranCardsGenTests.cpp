@@ -197,9 +197,8 @@ TEST(DruidDalaranTest, DAL_354_Acornbearer)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-	game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, curField[0]));
-
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
     EXPECT_EQ(curHand[4]->card->name, "Squirrel");
     EXPECT_EQ(curHand[5]->card->name, "Squirrel");
@@ -246,23 +245,22 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
-
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
     EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+    EXPECT_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card3, opPlayer->GetHero()));
-
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
     EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+    EXPECT_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
-
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
@@ -313,16 +311,20 @@ TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(curField.GetCount(), 2);
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curField.GetCount(), 4);
-    game.Process(curPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curField.GetCount(), 6);
-    game.Process(curPlayer, PlayCardTask::Spell(card4));
-    EXPECT_EQ(curField.GetCount(), 7);
     EXPECT_EQ(curField[0]->card->name, "Crystal Dryad");
     EXPECT_EQ(curField[1]->card->name, "Crystal Dryad");
     EXPECT_EQ(curField[0]->GetAttack(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 2);
+    EXPECT_EQ(curField[0]->HasLifesteal(), true);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curField.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    EXPECT_EQ(curField.GetCount(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -332,7 +334,6 @@ TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, AttackTask(card5, curField[0]));
-
     EXPECT_EQ(curField[0]->GetHealth(), 1);
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
