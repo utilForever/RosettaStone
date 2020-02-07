@@ -4155,7 +4155,7 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a character is healed, gain +2 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::HEAL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_001e", EntityType::SOURCE) };
     powers.emplace("EX1_001", power);
