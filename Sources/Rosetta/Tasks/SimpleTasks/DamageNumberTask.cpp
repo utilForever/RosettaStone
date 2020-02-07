@@ -32,8 +32,8 @@ TaskStatus DamageNumberTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* DamageNumberTask::CloneImpl()
+std::unique_ptr<ITask> DamageNumberTask::CloneImpl()
 {
-    return new DamageNumberTask(m_entityType, m_isSpellDamage);
+    return std::make_unique<DamageNumberTask>(m_entityType, m_isSpellDamage);
 }
 }  // namespace RosettaStone::SimpleTasks

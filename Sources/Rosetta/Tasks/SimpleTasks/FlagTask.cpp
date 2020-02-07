@@ -10,7 +10,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FlagTask::FlagTask(bool flag, std::vector<ITask*> toDoTasks)
+FlagTask::FlagTask(bool flag, std::vector<std::shared_ptr<ITask>> toDoTasks)
     : m_flag(flag), m_toDoTasks(std::move(toDoTasks))
 {
     // Do nothing
@@ -25,7 +25,7 @@ TaskStatus FlagTask::Impl(Player* player)
 
     for (auto& task : m_toDoTasks)
     {
-        ITask* clonedTask = task->Clone();
+        std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
         clonedTask->SetSource(player->game->taskStack.source);
@@ -37,8 +37,8 @@ TaskStatus FlagTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* FlagTask::CloneImpl()
+std::unique_ptr<ITask> FlagTask::CloneImpl()
 {
-    return new FlagTask(m_flag, m_toDoTasks);
+    return std::make_unique<FlagTask>(m_flag, m_toDoTasks);
 }
 }  // namespace RosettaStone::SimpleTasks

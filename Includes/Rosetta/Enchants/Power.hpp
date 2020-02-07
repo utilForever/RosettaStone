@@ -11,6 +11,7 @@
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace RosettaStone
@@ -40,51 +41,51 @@ class Power
 
     //! Returns a list of power tasks.
     //! \return A list of power tasks.
-    std::vector<ITask*>& GetPowerTask();
+    std::vector<std::shared_ptr<ITask>>& GetPowerTask();
 
     //! Returns a list of deathrattle tasks.
     //! \return A list of deathrattle tasks.
-    std::vector<ITask*>& GetDeathrattleTask();
+    std::vector<std::shared_ptr<ITask>>& GetDeathrattleTask();
 
     //! Returns a list of combo tasks.
     //! \return A list of combo tasks.
-    std::vector<ITask*>& GetComboTask();
+    std::vector<std::shared_ptr<ITask>>& GetComboTask();
 
     //! Clears power task and enchant.
     void ClearData();
 
     //! Adds aura.
     //! \param aura An aura to add.
-    void AddAura(IAura* aura);
+    void AddAura(std::shared_ptr<IAura> aura);
 
     //! Adds enchant.
     //! \param enchant An enchant to add.
-    void AddEnchant(Enchant* enchant);
+    void AddEnchant(std::shared_ptr<Enchant> enchant);
 
     //! Adds trigger.
     //! \param trigger An trigger to add.
-    void AddTrigger(Trigger* trigger);
+    void AddTrigger(std::shared_ptr<Trigger> trigger);
 
     //! Adds power task.
     //! \param task A pointer to power task.
-    void AddPowerTask(ITask* task);
+    void AddPowerTask(std::shared_ptr<ITask> task);
 
     //! Adds deathrattle task.
     //! \param task A pointer to deathrattle task.
-    void AddDeathrattleTask(ITask* task);
+    void AddDeathrattleTask(std::shared_ptr<ITask> task);
 
     //! Adds combo task.
     //! \param task A pointer to combo task.
-    void AddComboTask(ITask* task);
+    void AddComboTask(std::shared_ptr<ITask> task);
 
  private:
-    IAura* m_aura = nullptr;
-    Enchant* m_enchant = nullptr;
-    Trigger* m_trigger = nullptr;
+    std::shared_ptr<IAura> m_aura;
+    std::shared_ptr<Enchant> m_enchant;
+    std::shared_ptr<Trigger> m_trigger;
 
-    std::vector<ITask*> m_powerTask;
-    std::vector<ITask*> m_deathrattleTask;
-    std::vector<ITask*> m_comboTask;
+    std::vector<std::shared_ptr<ITask>> m_powerTask;
+    std::vector<std::shared_ptr<ITask>> m_deathrattleTask;
+    std::vector<std::shared_ptr<ITask>> m_comboTask;
 };
 }  // namespace RosettaStone
 

@@ -30,8 +30,8 @@ TaskStatus ChanceTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ChanceTask::CloneImpl()
+std::unique_ptr<ITask> ChanceTask::CloneImpl()
 {
-    return new ChanceTask(m_useFlag);
+    return std::make_unique<ChanceTask>(m_useFlag);
 }
 }  // namespace RosettaStone::SimpleTasks

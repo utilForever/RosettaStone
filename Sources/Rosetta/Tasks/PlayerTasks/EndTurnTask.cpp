@@ -20,8 +20,8 @@ TaskStatus EndTurnTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* EndTurnTask::CloneImpl()
+std::unique_ptr<ITask> EndTurnTask::CloneImpl()
 {
-    return new EndTurnTask();
+    return std::make_unique<EndTurnTask>();
 }
 }  // namespace RosettaStone::PlayerTasks

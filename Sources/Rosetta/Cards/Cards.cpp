@@ -6,6 +6,7 @@
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/InternalCardLoader.hpp>
 
@@ -16,7 +17,7 @@ std::vector<Card*> Cards::m_cards;
 
 Cards::Cards()
 {
-    m_cards.reserve(8303);
+    m_cards.reserve(NUM_ALL_CARDS);
 
     CardLoader::Load(m_cards);
     InternalCardLoader::Load(m_cards);

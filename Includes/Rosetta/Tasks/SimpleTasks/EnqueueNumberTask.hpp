@@ -22,7 +22,7 @@ class EnqueueNumberTask : public ITask
     //! Constructs task with given \p tasks and \p isSpellDamage.
     //! \param tasks A task vector to repeat.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.
-    explicit EnqueueNumberTask(std::vector<ITask*> tasks,
+    explicit EnqueueNumberTask(std::vector<std::shared_ptr<ITask>> tasks,
                                bool isSpellDamage = false);
 
  private:
@@ -33,9 +33,9 @@ class EnqueueNumberTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
-    std::vector<ITask*> m_tasks;
+    std::vector<std::shared_ptr<ITask>> m_tasks;
     bool m_isSpellDamage = false;
 };
 }  // namespace RosettaStone::SimpleTasks

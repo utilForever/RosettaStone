@@ -138,7 +138,7 @@ void AdjacentAura::Disapply(Minion* minion)
         m_enchantmentCard->power.GetTrigger() != nullptr)
     {
         const std::string cardID = m_enchantmentCard->id;
-        std::vector<Enchantment*> enchantments = minion->appliedEnchantments;
+        auto enchantments = minion->appliedEnchantments;
 
         for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
         {

@@ -1179,7 +1179,7 @@ void DragonsCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DRG_031] Necrium Apothecary - COST:4 [ATK:2/HP:5]
+    // [DRG_031] Necrium Apothecary - COST:5 [ATK:2/HP:5]
     // - Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Combo:</b> Draw a <b>Deathrattle</b> minion
@@ -1353,7 +1353,7 @@ void DragonsCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // - Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
-    //       If you've <b>Invoked</b> twice, give them +3/+3.
+    //       If you've <b>Invoked</b> twice, give them +2/+2.
     // --------------------------------------------------------
     // GameTag:
     // - 676 = 1
@@ -1413,7 +1413,7 @@ void DragonsCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [DRG_248] Invocation of Frost - COST:1
+    // [DRG_248] Invocation of Frost - COST:2
     // - Set: Dragons, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Freeze</b> an enemy. <b>Invoke</b> Galakrond.
@@ -1630,7 +1630,7 @@ void DragonsCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [DRG_250] Fiendish Rites - COST:3
+    // [DRG_250] Fiendish Rites - COST:4
     // - Set: Dragons, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Invoke</b> Galakrond.
@@ -1678,7 +1678,7 @@ void DragonsCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
                                  EntouragesType& entourages)
 {
     // --------------------------------------- MINION - WARRIOR
-    // [DRG_019] Scion of Ruin - COST:3 [ATK:3/HP:2]
+    // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
     // - Race: Dragon, Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Rush</b>. <b>Battlecry:</b> If you've
@@ -1753,7 +1753,7 @@ void DragonsCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - DURABILITY = 3
+    // - DURABILITY = 2
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
@@ -2177,7 +2177,7 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - Race: Dragon, Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
-    //       add 2 random Dragons to your hand. They cost (0).
+    //       add 2 other random Dragons to your hand. They cost (0).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

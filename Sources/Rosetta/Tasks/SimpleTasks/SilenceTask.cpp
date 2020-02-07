@@ -33,8 +33,8 @@ TaskStatus SilenceTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* SilenceTask::CloneImpl()
+std::unique_ptr<ITask> SilenceTask::CloneImpl()
 {
-    return new SilenceTask(m_entityType);
+    return std::make_unique<SilenceTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

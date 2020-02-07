@@ -20,8 +20,8 @@ TaskStatus MathSubtractTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* MathSubtractTask::CloneImpl()
+std::unique_ptr<ITask> MathSubtractTask::CloneImpl()
 {
-    return new MathSubtractTask(m_amount);
+    return std::make_unique<MathSubtractTask>(m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

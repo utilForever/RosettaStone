@@ -61,8 +61,8 @@ TaskStatus HeroPowerTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* HeroPowerTask::CloneImpl()
+std::unique_ptr<ITask> HeroPowerTask::CloneImpl()
 {
-    return new HeroPowerTask(m_target);
+    return std::make_unique<HeroPowerTask>(m_target);
 }
 }  // namespace RosettaStone::PlayerTasks

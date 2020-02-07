@@ -42,7 +42,7 @@ class DamageTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     std::size_t m_damage = 0;
     std::size_t m_randomDamage = 0;

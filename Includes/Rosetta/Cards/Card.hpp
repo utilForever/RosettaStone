@@ -29,24 +29,6 @@ class Power;
 class Card
 {
  public:
-    //! Default constructor.
-    Card() = default;
-
-    //! Default destructor.
-    virtual ~Card() = default;
-
-    //! Default copy constructor.
-    Card(const Card& card) = default;
-
-    //! Default move constructor.
-    Card(Card&& card) = default;
-
-    //! Default copy assignment operator.
-    Card& operator=(const Card& card) = default;
-
-    //! Default move assignment operator.
-    Card& operator=(Card&& card) = default;
-
     //! Initializes card data.
     void Initialize();
 
@@ -121,10 +103,10 @@ class Card
     std::vector<Character*> GetValidPlayTargets(Player* player);
 
     //! Prints brief card information.
-    virtual void ShowBriefInfo() const;
+    void ShowBriefInfo() const;
 
     //! Prints card information.
-    virtual void ShowInfo() const;
+    void ShowInfo() const;
 
     std::string id;
     int dbfID;

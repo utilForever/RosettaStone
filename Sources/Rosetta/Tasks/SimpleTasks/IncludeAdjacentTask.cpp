@@ -105,8 +105,8 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* IncludeAdjacentTask::CloneImpl()
+std::unique_ptr<ITask> IncludeAdjacentTask::CloneImpl()
 {
-    return new IncludeAdjacentTask(m_entityType, m_includeCenter);
+    return std::make_unique<IncludeAdjacentTask>(m_entityType, m_includeCenter);
 }
 }  // namespace RosettaStone::SimpleTasks

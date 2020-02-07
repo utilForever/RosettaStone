@@ -21,16 +21,16 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
 
     // Process after summon trigger
     game->taskQueue.StartEvent();
-    EventMetaData* temp = game->currentEventData;
+    auto tempEventData = std::move(game->currentEventData);
     if (summoner != nullptr)
     {
-        game->currentEventData =
-            new EventMetaData(dynamic_cast<Playable*>(summoner), minion);
+        game->currentEventData = std::make_unique<EventMetaData>(
+            dynamic_cast<Playable*>(summoner), minion);
     }
     game->triggerManager.OnAfterSummonTrigger(minion);
     game->ProcessTasks();
-    delete game->currentEventData;
-    game->currentEventData = temp;
+    game->currentEventData.reset();
+    game->currentEventData = std::move(tempEventData);
     game->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone::Generic

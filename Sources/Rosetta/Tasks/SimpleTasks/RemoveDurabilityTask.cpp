@@ -21,8 +21,8 @@ TaskStatus RemoveDurabilityTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RemoveDurabilityTask::CloneImpl()
+std::unique_ptr<ITask> RemoveDurabilityTask::CloneImpl()
 {
-    return new RemoveDurabilityTask(m_amount, m_isOpponent);
+    return std::make_unique<RemoveDurabilityTask>(m_amount, m_isOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks

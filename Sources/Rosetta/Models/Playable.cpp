@@ -406,7 +406,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         }
     }
 
-    std::vector<ITask*> tasks;
+    std::vector<std::shared_ptr<ITask>> tasks;
     switch (type)
     {
         case PowerType::POWER:
@@ -427,13 +427,13 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
 
     for (auto& task : tasks)
     {
-        ITask* clonedTask = task->Clone();
+        std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
         clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
         clonedTask->SetTarget(target);
 
-        game->taskQueue.Enqueue(clonedTask);
+        game->taskQueue.Enqueue(std::move(clonedTask));
     }
 }
 }  // namespace RosettaStone

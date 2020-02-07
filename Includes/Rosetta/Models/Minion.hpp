@@ -58,6 +58,18 @@ class Minion : public Character
     //! \return The flag that indicates whether it has charge.
     bool HasCharge() const;
 
+    //! Returns the flag that indicates whether it is rush.
+    //! \return The flag that indicates whether it is rush.
+    bool IsRush() const;
+
+    //! Returns the flag that indicates whether it is attackable by rush.
+    //! \return The flag that indicates whether it is attackable by rush.
+    bool IsAttackableByRush() const;
+
+    //! Sets the flag that indicates whether it is attackable by rush.
+    //! \param attackable The value of attackable.
+    void SetAttackableByRush(bool attackable);
+
     //! Disables all special effects on this minion.
     void Silence();
 

@@ -182,7 +182,8 @@ class Game
     //! \param player A player to run task.
     //! \param task The game task to execute.
     //! \return The result of the game (player1 and player2).
-    std::tuple<PlayState, PlayState> Process(Player* player, ITask* task);
+    std::tuple<PlayState, PlayState> Process(Player* player,
+                                             std::unique_ptr<ITask> task);
 
     //! Process the specified task.
     //! \param player A player to run task.
@@ -209,16 +210,17 @@ class Game
     Step nextStep = Step::INVALID;
 
     std::map<int, Playable*> entityList;
+    std::vector<int> rushMinions;
 
     TaskQueue taskQueue;
     TaskStack taskStack;
     TriggerManager triggerManager;
-    EventMetaData* currentEventData = nullptr;
+    std::unique_ptr<EventMetaData> currentEventData;
 
     std::vector<IAura*> auras;
-    std::vector<Trigger*> triggers;
+    std::vector<std::shared_ptr<Trigger>> triggers;
     std::vector<std::pair<Entity*, IEffect*>> oneTurnEffects;
-    std::vector<Enchantment*> oneTurnEffectEchantments;
+    std::vector<std::shared_ptr<Enchantment>> oneTurnEffectEnchantments;
     std::vector<Minion*> summonedMinions;
     std::map<std::size_t, Minion*> deadMinions;
 

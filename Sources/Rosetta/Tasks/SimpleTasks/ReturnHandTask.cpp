@@ -30,8 +30,8 @@ TaskStatus ReturnHandTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ReturnHandTask::CloneImpl()
+std::unique_ptr<ITask> ReturnHandTask::CloneImpl()
 {
-    return new ReturnHandTask(m_entityType);
+    return std::make_unique<ReturnHandTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -38,7 +38,7 @@ class SummonCopyTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     SummonSide m_side = SummonSide::DEFAULT;
     bool m_randomFlag = false;

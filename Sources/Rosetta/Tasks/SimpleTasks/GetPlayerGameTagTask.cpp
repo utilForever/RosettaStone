@@ -19,8 +19,8 @@ TaskStatus GetPlayerGameTagTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* GetPlayerGameTagTask::CloneImpl()
+std::unique_ptr<ITask> GetPlayerGameTagTask::CloneImpl()
 {
-    return new GetPlayerGameTagTask(m_gameTag);
+    return std::make_unique<GetPlayerGameTagTask>(m_gameTag);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -6,6 +6,8 @@
 #ifndef ROSETTASTONE_IAURA_HPP
 #define ROSETTASTONE_IAURA_HPP
 
+#include <memory>
+
 namespace RosettaStone
 {
 class Playable;

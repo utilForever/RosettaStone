@@ -34,8 +34,8 @@ TaskStatus WeaponTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* WeaponTask::CloneImpl()
+std::unique_ptr<ITask> WeaponTask::CloneImpl()
 {
-    return new WeaponTask(m_cardID);
+    return std::make_unique<WeaponTask>(m_cardID);
 }
 }  // namespace RosettaStone::SimpleTasks

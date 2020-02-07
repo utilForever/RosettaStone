@@ -77,8 +77,8 @@ TaskStatus RandomMinionTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RandomMinionTask::CloneImpl()
+std::unique_ptr<ITask> RandomMinionTask::CloneImpl()
 {
-    return new RandomMinionTask(m_gameTag, m_value, m_amount);
+    return std::make_unique<RandomMinionTask>(m_gameTag, m_value, m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

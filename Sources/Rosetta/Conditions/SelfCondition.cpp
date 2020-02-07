@@ -266,7 +266,21 @@ SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
 SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        if (const auto eventData = playable->game->currentEventData; eventData)
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
+        {
+            return eventData->eventTarget->card->GetCardType() == cardType;
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::IsEventSourceFriendly(CardType cardType)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
         {
             return eventData->eventTarget->card->GetCardType() == cardType;
         }

@@ -31,7 +31,7 @@ class ChangeAttackingTargetTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     EntityType m_typeA;
     EntityType m_typeB;

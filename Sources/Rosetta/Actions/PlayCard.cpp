@@ -34,7 +34,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         return;
     }
 
-    player->game->currentEventData = new EventMetaData(source, target);
+    player->game->currentEventData =
+        std::make_unique<EventMetaData>(source, target);
 
     // Check card has overload
     if (source->HasOverload())
@@ -75,20 +76,17 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Pass to sub-logic
     switch (source->card->GetCardType())
     {
-        case CardType::MINION:
-        {
+        case CardType::MINION: {
             const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos, chooseOne);
             break;
         }
-        case CardType::SPELL:
-        {
+        case CardType::SPELL: {
             const auto spell = dynamic_cast<Spell*>(source);
             PlaySpell(player, spell, target, chooseOne);
             break;
         }
-        case CardType::WEAPON:
-        {
+        case CardType::WEAPON: {
             const auto weapon = dynamic_cast<Weapon*>(source);
             PlayWeapon(player, weapon, target);
             break;

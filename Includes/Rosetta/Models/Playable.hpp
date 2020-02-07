@@ -144,7 +144,7 @@ class Playable : public Entity
 
     CostManager* costManager = nullptr;
     IAura* ongoingEffect = nullptr;
-    Trigger* activatedTrigger = nullptr;
+    std::shared_ptr<Trigger> activatedTrigger;
 
     std::array<Playable*, 2> chooseOneCard{};
 

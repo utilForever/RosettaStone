@@ -629,3 +629,45 @@ TEST(AttackTask, Silence)
     game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
 }
+
+TEST(AttackTask, Rush)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto card = GenerateMinionCard("minion1", 1, 10);
+    card.gameTags[GameTag::RUSH] = 1;
+
+    PlayMinionCard(curPlayer, &card);
+    PlayMinionCard(opPlayer, &card);
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+}

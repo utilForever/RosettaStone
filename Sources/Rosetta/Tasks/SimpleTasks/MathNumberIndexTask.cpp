@@ -69,9 +69,10 @@ TaskStatus MathNumberIndexTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* MathNumberIndexTask::CloneImpl()
+std::unique_ptr<ITask> MathNumberIndexTask::CloneImpl()
 {
-    return new MathNumberIndexTask(m_indexA, m_indexB, m_mathOp, m_resultIndex);
+    return std::make_unique<MathNumberIndexTask>(m_indexA, m_indexB, m_mathOp,
+                                                 m_resultIndex);
 }
 
 int MathNumberIndexTask::GetNumber(int index, const TaskStack& taskStack)

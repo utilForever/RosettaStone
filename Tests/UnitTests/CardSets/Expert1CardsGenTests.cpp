@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -12074,7 +12074,7 @@ TEST(NeutralExpert1Test, EX1_584_AncientMage)
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    game.Process(curPlayer, new PlayCardTask(card1, nullptr, 1, 0));
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 1, 0));
 
     EXPECT_EQ(curField[1]->card->name, "Ancient Mage");
     EXPECT_EQ(curField[0]->GetSpellPower(), 1);

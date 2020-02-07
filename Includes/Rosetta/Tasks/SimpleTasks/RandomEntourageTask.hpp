@@ -31,7 +31,7 @@ class RandomEntourageTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     int m_count = 1;
     bool m_isOpponent = false;

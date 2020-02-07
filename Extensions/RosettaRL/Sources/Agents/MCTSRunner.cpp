@@ -48,7 +48,7 @@ void MCTSRunner::Run(const BoardRefView& gameState)
             boardView.Parse(gameState, p1Unknown, p2Unknown);
             auto gameRestorer =
                 GameRestorer::Prepare(boardView, p1Unknown, p2Unknown);
-            auto gameGetter = [&]() -> Game* {
+            auto gameGetter = [&]() -> std::unique_ptr<Game> {
                 return gameRestorer.RestoreGame();
             };
 

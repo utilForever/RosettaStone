@@ -64,8 +64,8 @@ TaskStatus CountTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* CountTask::CloneImpl()
+std::unique_ptr<ITask> CountTask::CloneImpl()
 {
-    return new CountTask(m_entityType, m_numIndex, m_conditions);
+    return std::make_unique<CountTask>(m_entityType, m_numIndex, m_conditions);
 }
 }  // namespace RosettaStone::SimpleTasks
