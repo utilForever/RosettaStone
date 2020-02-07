@@ -593,7 +593,7 @@ ULDUM | ULD_145 | Brazen Zealot |
 ULDUM | ULD_151 | Ramkahen Wildtamer |  
 ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha | O
-ULDUM | ULD_155 | Unseal the Vault |  
+ULDUM | ULD_155 | Unseal the Vault | O
 ULDUM | ULD_156 | Dinotamer Brann |  
 ULDUM | ULD_157 | Questing Explorer |  
 ULDUM | ULD_158 | Sandstorm Elemental |  
