@@ -53,9 +53,13 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnSecretRevealedTrigger(Entity* sender) const;
 
-    //! Callback for trigger when entity is healed.
+    //! Callback for trigger when playable heals character.
     //! \param sender An entity that is the source of trigger.
-    void OnHealTrigger(Entity* sender) const;
+    void OnGiveHealTrigger(Entity* sender) const;
+
+    //! Callback for trigger when character is healed.
+    //! \param sender An entity that is the source of trigger.
+    void OnTakeHealTrigger(Entity* sender) const;
 
     //! Callback for trigger when entity attacks target.
     //! \param sender An entity that is the source of trigger.
@@ -97,7 +101,8 @@ class TriggerManager
     std::function<void(Entity*)> castSpellTrigger;
     std::function<void(Entity*)> afterCastTrigger;
     std::function<void(Entity*)> secretRevealedTrigger;
-    std::function<void(Entity*)> healTrigger;
+    std::function<void(Entity*)> giveHealTrigger;
+    std::function<void(Entity*)> takeHealTrigger;
     std::function<void(Entity*)> attackTrigger;
     std::function<void(Entity*)> summonTrigger;
     std::function<void(Entity*)> afterSummonTrigger;
