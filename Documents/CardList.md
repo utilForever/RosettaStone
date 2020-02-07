@@ -699,7 +699,7 @@ ULDUM | ULD_708 | Livewire Lance |
 ULDUM | ULD_709 | Armored Goon |  
 ULDUM | ULD_711 | Hack the System |  
 ULDUM | ULD_712 | Bug Collector | O
-ULDUM | ULD_713 | Swarm of Locusts |  
+ULDUM | ULD_713 | Swarm of Locusts | O
 ULDUM | ULD_714 | Penance |  
 ULDUM | ULD_715 | Plague of Madness |  
 ULDUM | ULD_716 | Tip the Scales |  
@@ -714,7 +714,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 16% (23 of 135 Cards)
+- Progress: 16% (24 of 135 Cards)
 
 ## Descent of Dragons
 
