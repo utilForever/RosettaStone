@@ -424,7 +424,7 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
                               SelfCondition::IsControllingSecret()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<EnqueueTask>(
-                  TaskList{ std::make_shared<SummonTask>("EX1_534t",
+                  TaskList{ std::make_shared<SummonTask>("ULD_154t",
                                                          SummonSide::SPELL) },
                   2) }));
     powers.emplace("ULD_154", power);
@@ -540,6 +540,9 @@ void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
     // [ULD_154t] Hyena (*) - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_154t", power);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [ULD_155e] Roar! (*) - COST:0
