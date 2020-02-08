@@ -773,8 +773,8 @@ void Expert1CardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT),
-                  std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT) },
+        TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT),
+                  std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT) },
         1));
     powers.emplace("EX1_573b", power);
 
@@ -5299,8 +5299,8 @@ void Expert1CardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
-                  std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
+        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT),
+                  std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT) },
         3));
     powers.emplace("EX1_562", power);
 

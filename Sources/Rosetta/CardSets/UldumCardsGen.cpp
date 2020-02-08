@@ -425,8 +425,8 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(std::make_shared<FlagTask>(
         true,
         TaskList{
-            std::make_shared<SummonTask>("ULD_154t", SummonSide::RIGHT),
-            std::make_shared<SummonTask>("ULD_154t", SummonSide::LEFT) }));
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::LEFT),
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::RIGHT) }));
     powers.emplace("ULD_154", power);
 
     // ----------------------------------------- SPELL - HUNTER
