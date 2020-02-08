@@ -234,7 +234,7 @@ TEST(Trigger, AfterCast)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Heal)
+TEST(Trigger, GiveHeal)
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -257,7 +257,38 @@ TEST(Trigger, Heal)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::HEAL));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::GIVE_HEAL));
+
+    PlayMinionCard(curPlayer, &card1);
+
+    curField[0]->Destroy();
+    game.ProcessDestroyAndUpdateAura();
+}
+
+TEST(Trigger, TakeHeal)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    auto card1 = GenerateMinionCard("minion1", 3, 6);
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
 
     PlayMinionCard(curPlayer, &card1);
 

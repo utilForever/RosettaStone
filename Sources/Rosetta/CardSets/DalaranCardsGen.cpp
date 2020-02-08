@@ -1,13 +1,18 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -54,6 +59,10 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_350", power);
+    playReqs.emplace("DAL_350", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351] Blessing of the Ancients - COST:3
@@ -94,6 +103,10 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DAL_354t", 2));
+    powers.emplace("DAL_354", power);
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
@@ -102,6 +115,14 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever you restore Health,
     //       add a random Druid spell to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GIVE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::DRUID),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    powers.emplace("DAL_355", power);
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_357] Lucentbark - COST:8 [ATK:4/HP:8]
@@ -135,11 +156,16 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: Summon two 1/2 Dryads with <b>Lifesteal</b>.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINION_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_733t", 2));
+    powers.emplace("DAL_733", power);
+    playReqs.emplace("DAL_733",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
@@ -167,6 +193,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // [DAL_256t2] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_256t2", power);
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256ts] The Forest's Aid (*) - COST:8
@@ -185,6 +214,12 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    powers.emplace("DAL_350a", power);
+    playReqs.emplace("DAL_350a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350b] Healing Blossom (*) - COST:1
@@ -195,6 +230,11 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
+    powers.emplace("DAL_350b", power);
+    playReqs.emplace("DAL_350b",
+                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351ts] Blessing of the Ancients (*) - COST:3
@@ -216,6 +256,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // [DAL_354t] Squirrel (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_354t", power);
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_357t] Spirit of Lucentbark (*) - COST:11 [ATK:0/HP:1]
@@ -240,6 +283,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("DAL_733t", power);
 }
 
 void DalaranCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,

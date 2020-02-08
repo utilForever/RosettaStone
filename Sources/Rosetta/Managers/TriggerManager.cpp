@@ -72,11 +72,19 @@ void TriggerManager::OnSecretRevealedTrigger(Entity* sender) const
     }
 }
 
-void TriggerManager::OnHealTrigger(Entity* sender) const
+void TriggerManager::OnGiveHealTrigger(Entity* sender) const
 {
-    if (healTrigger != nullptr)
+    if (giveHealTrigger != nullptr)
     {
-        healTrigger(sender);
+        giveHealTrigger(sender);
+    }
+}
+
+void TriggerManager::OnTakeHealTrigger(Entity* sender) const
+{
+    if (takeHealTrigger != nullptr)
+    {
+        takeHealTrigger(sender);
     }
 }
 
