@@ -156,7 +156,7 @@ TEST(HunterUldumTest, ULD_152_PressurePlate)
 TEST(HunterUldumTest, ULD_154_HyenaAlpha)
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -225,7 +225,7 @@ TEST(HunterUldumTest, ULD_154_HyenaAlpha)
 TEST(HunterUldumTest, ULD_155_UnsealTheVault)
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -334,8 +334,8 @@ TEST(HunterUldumTest, ULD_155_UnsealTheVault)
 TEST(HunterUldumTest, ULD_430_DesertSpear)
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::MAGE;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
@@ -401,7 +401,7 @@ TEST(HunterUldumTest, ULD_430_DesertSpear)
 TEST(HunterUldumTest, ULD_713_SwarmOfLocusts)
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
