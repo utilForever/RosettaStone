@@ -9,9 +9,12 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
@@ -66,6 +69,10 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Give your minions +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_155e", EntityType::MINIONS));
+    powers.emplace("ULD_155p", power);
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [ULD_291p] Heart of Vir'naal (*) - COST:2
@@ -411,6 +418,16 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::LEFT),
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::RIGHT) }));
+    powers.emplace("ULD_154", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_155] Unseal the Vault - COST:1
@@ -427,6 +444,12 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53925
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_155p") };
+    powers.emplace("ULD_155", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
@@ -505,16 +528,26 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("ULD_430t", 7));
+    powers.emplace("ULD_713", power);
+    playReqs.emplace("ULD_713",
+                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
 }
 
 void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
                                         PlayReqsType& playReqs,
                                         EntouragesType& entourages)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [ULD_154t] Hyena (*) - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    powers.emplace("ULD_154t", power);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [ULD_155e] Roar! (*) - COST:0
@@ -522,6 +555,9 @@ void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_155e"));
+    powers.emplace("ULD_155e", power);
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_156t] Duke (*) - COST:5 [ATK:5/HP:5]

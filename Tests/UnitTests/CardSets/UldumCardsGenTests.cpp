@@ -140,6 +140,299 @@ TEST(HunterUldumTest, ULD_152_PressurePlate)
     EXPECT_EQ(opField.GetCount(), 0);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [ULD_154] Hyena Alpha - COST:4 [ATK:3/HP:3]
+// - Race: Beast, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+//       summon two 2/2 Hyenas.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_154_HyenaAlpha)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Redemption"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Redemption"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Hyena Alpha"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Hyena Alpha"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(opPlayer->GetSecretZone()->GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField.GetCount(), 4);
+    EXPECT_EQ(opField[0]->card->name, "Hyena Alpha");
+    EXPECT_EQ(opField[2]->card->name, "Hyena Alpha");
+    EXPECT_EQ(opField[1]->GetAttack(), 2);
+    EXPECT_EQ(opField[1]->GetHealth(), 2);
+    EXPECT_EQ(opField[1]->card->name, "Hyena");
+    EXPECT_EQ(opField[3]->GetAttack(), 2);
+    EXPECT_EQ(opField[3]->GetHealth(), 2);
+    EXPECT_EQ(opField[3]->card->name, "Hyena");
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [ULD_155] Unseal the Vault - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Summon 20 minions.
+//       <b>Reward:</b> Ramkahen Roar.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 20
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 53925
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_155_UnsealTheVault)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unseal the Vault"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer->GetSecretZone()->quest->card->name,
+              "Unseal the Vault");
+
+    for (int i = 1; i <= 4; ++i)
+    {
+        for (int j = 0; j < 5; ++j)
+        {
+            game.Process(curPlayer,
+                         PlayCardTask::Minion(Generic::DrawCard(
+                             curPlayer, Cards::FindCardByName("Wisp"))));
+        }
+        EXPECT_EQ(card1->GetGameTag(GameTag::QUEST_PROGRESS), i * 5);
+        EXPECT_EQ(curField.GetCount(), 5);
+
+        game.Process(curPlayer,
+                     PlayCardTask::Spell(Generic::DrawCard(
+                         curPlayer, Cards::FindCardByName("Twisting Nether"))));
+        EXPECT_EQ(curField.GetCount(), 0);
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_START);
+
+        game.Process(opPlayer, PlayCardTask::Minion(Generic::DrawCard(
+                                   opPlayer, Cards::FindCardByName("Wisp"))));
+        EXPECT_EQ(card1->GetGameTag(GameTag::QUEST_PROGRESS), i * 5);
+
+        game.Process(opPlayer,
+                     PlayCardTask::Spell(Generic::DrawCard(
+                         opPlayer, Cards::FindCardByName("Twisting Nether"))));
+        EXPECT_EQ(opField.GetCount(), 0);
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_START);
+    }
+    EXPECT_EQ(curPlayer->GetHeroPower().card->name, "Ramkahen Roar");
+
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[1]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(opField[0]->GetAttack(), 1);
+    EXPECT_EQ(opField[0]->GetAttack(), 1);
+}
+
+// ---------------------------------------- WEAPON - HUNTER
+// [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: After your hero attacks,
+//       summon a 1/1 Locust with <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_430_DesertSpear)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Spear"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fiery War Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(opField.GetCount(), 0);
+    EXPECT_EQ(curField[1]->card->name, "Locust");
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    EXPECT_EQ(curField[1]->IsRush(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card3));
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(opField.GetCount(), 0);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [ULD_713] Swarm of Locusts - COST:6
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon seven 1/1 Locusts with <b>Rush</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST(HunterUldumTest, ULD_713_SwarmOfLocusts)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Swarm of Locusts"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    for (int i = 0; i < 7; ++i)
+    {
+        EXPECT_EQ(curField[i]->card->name, "Locust");
+        EXPECT_EQ(curField[i]->GetAttack(), 1);
+        EXPECT_EQ(curField[i]->GetHealth(), 1);
+        EXPECT_EQ(curField[i]->IsRush(), true);
+    }
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
@@ -626,6 +919,36 @@ TEST(DruidUldumTest, ULD_273_Overflow)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b> <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_274_WastelandAssassin)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST(NeutralUldumTest, ULD_275_BoneWraith)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_289] Fishflinger - COST:2 [ATK:3/HP:2]
 // - Race: Murloc, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
@@ -666,104 +989,6 @@ TEST(NeutralUldumTest, ULD_289_Fishflinger)
     EXPECT_EQ(opHand.GetCount(), 6);
     EXPECT_EQ(curHand[4]->card->GetRace(), Race::MURLOC);
     EXPECT_EQ(opHand[5]->card->GetRace(), Race::MURLOC);
-}
-
-// ---------------------------------------- WEAPON - HUNTER
-// [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
-// - Set: Uldum, Rarity: Common
-// --------------------------------------------------------
-// Text: After your hero attacks,
-//       summon a 1/1 Locust with <b>Rush</b>.
-// --------------------------------------------------------
-// GameTag:
-// - DURABILITY = 3
-// --------------------------------------------------------
-// RefTag:
-// - RUSH = 1
-// --------------------------------------------------------
-TEST(HunterUldumTest, ULD_430_DesertSpear)
-{
-    GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Spear"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fiery War Axe"));
-
-    game.Process(curPlayer, PlayCardTask::Weapon(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
-    EXPECT_EQ(curField.GetCount(), 1);
-
-    game.Process(curPlayer,
-                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(opField.GetCount(), 0);
-    EXPECT_EQ(curField[1]->card->name, "Locust");
-    EXPECT_EQ(curField[1]->GetAttack(), 1);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[1]->IsRush(), true);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
-
-    game.Process(opPlayer, PlayCardTask::Weapon(card3));
-    game.Process(opPlayer,
-                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(opField.GetCount(), 0);
-}
-
-// --------------------------------------- MINION - NEUTRAL
-// [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2]
-// - Set: Uldum, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Stealth</b> <b>Reborn</b>
-// --------------------------------------------------------
-// GameTag:
-// - STEALTH = 1
-// - REBORN = 1
-// --------------------------------------------------------
-TEST(NeutralUldumTest, ULD_274_WastelandAssassin)
-{
-    // Do nothing
-}
-
-// --------------------------------------- MINION - NEUTRAL
-// [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5]
-// - Set: Uldum, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Taunt</b> <b>Reborn</b>
-// --------------------------------------------------------
-// GameTag:
-// - TAUNT = 1
-// - REBORN = 1
-// --------------------------------------------------------
-TEST(NeutralUldumTest, ULD_275_BoneWraith)
-{
-    // Do nothing
 }
 
 // --------------------------------------- MINION - NEUTRAL

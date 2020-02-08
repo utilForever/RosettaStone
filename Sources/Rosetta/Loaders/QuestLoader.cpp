@@ -10,7 +10,11 @@ namespace RosettaStone
 {
 int QuestLoader::GetQuestProgressTotal(const std::string_view& cardID)
 {
-    if (cardID == "ULD_431")
+    if (cardID == "ULD_155")
+    {
+        return 20;
+    }
+    else if (cardID == "ULD_431")
     {
         return 5;
     }
