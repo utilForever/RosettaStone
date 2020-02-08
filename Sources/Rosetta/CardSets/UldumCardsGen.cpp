@@ -423,10 +423,10 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
         EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::IsControllingSecret()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<EnqueueTask>(
-                  TaskList{ std::make_shared<SummonTask>("ULD_154t",
-                                                         SummonSide::SPELL) },
-                  2) }));
+        true,
+        TaskList{
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::RIGHT),
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::LEFT) }));
     powers.emplace("ULD_154", power);
 
     // ----------------------------------------- SPELL - HUNTER

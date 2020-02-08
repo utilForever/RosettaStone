@@ -198,10 +198,10 @@ TEST(HunterUldumTest, ULD_154_HyenaAlpha)
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     EXPECT_EQ(opField.GetCount(), 4);
     EXPECT_EQ(opField[0]->card->name, "Hyena Alpha");
-    EXPECT_EQ(opField[1]->card->name, "Hyena Alpha");
-    EXPECT_EQ(opField[2]->GetAttack(), 2);
-    EXPECT_EQ(opField[2]->GetHealth(), 2);
-    EXPECT_EQ(opField[2]->card->name, "Hyena");
+    EXPECT_EQ(opField[2]->card->name, "Hyena Alpha");
+    EXPECT_EQ(opField[1]->GetAttack(), 2);
+    EXPECT_EQ(opField[1]->GetHealth(), 2);
+    EXPECT_EQ(opField[1]->card->name, "Hyena");
     EXPECT_EQ(opField[3]->GetAttack(), 2);
     EXPECT_EQ(opField[3]->GetHealth(), 2);
     EXPECT_EQ(opField[3]->card->name, "Hyena");
