@@ -1313,7 +1313,7 @@ void CoreCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // Text: Whenever a minion is healed, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::HEAL));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     powers.emplace("CS2_235", power);

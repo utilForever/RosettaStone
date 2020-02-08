@@ -356,11 +356,16 @@ void Character::TakeHeal(Playable* source, int heal)
         return;
     }
 
+    game->taskQueue.StartEvent();
+    game->triggerManager.OnGiveHealTrigger(source);
+    game->ProcessTasks();
+    game->taskQueue.EndEvent();
+
     const int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
     game->taskQueue.StartEvent();
-    game->triggerManager.OnHealTrigger(this);
+    game->triggerManager.OnTakeHealTrigger(this);
     game->ProcessTasks();
     game->taskQueue.EndEvent();
 }
