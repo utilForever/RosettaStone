@@ -18,7 +18,7 @@ std::map<std::string, CardDef> CardDefs::m_data;
 
 CardDefs::CardDefs()
 {
-    //CoreCardsGen::AddAll(m_data);
+    CoreCardsGen::AddAll(m_data);
     //Expert1CardsGen::AddAll(m_data);
     //HoFCardsGen::AddAll(m_data);
     //DalaranCardsGen::AddAll(m_data);
