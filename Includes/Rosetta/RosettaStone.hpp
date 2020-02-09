@@ -43,6 +43,7 @@
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Cards/CardDef.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/DeckCode.hpp>
