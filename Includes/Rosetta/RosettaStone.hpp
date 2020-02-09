@@ -44,6 +44,7 @@
 #include <Rosetta/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/CardDef.hpp>
+#include <Rosetta/Cards/CardDefs.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/DeckCode.hpp>
