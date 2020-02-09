@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/CardDefs.hpp>
 #include <Rosetta/Loaders/InternalCardLoader.hpp>
-#include <Rosetta/Managers/CardDataManager.hpp>
 
 namespace RosettaStone
 {
@@ -13,12 +13,12 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
 {
     for (auto& card : cards)
     {
-        card->power =
-            CardDataManager::GetInstance().FindPowerByCardID(card->id);
-        card->playRequirements =
-            CardDataManager::GetInstance().FindPlayReqsByCardID(card->id);
-        card->entourages =
-            CardDataManager::GetInstance().FindEntouragesByCardID(card->id);
+        const auto cardDef =
+            CardDefs::GetInstance().FindCardDefByCardID(card->id);
+
+        card->power = cardDef.power;
+        card->playRequirements = cardDef.playReqs;
+        card->entourages = cardDef.entourages;
     }
 }
 }  // namespace RosettaStone
