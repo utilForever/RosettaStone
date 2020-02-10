@@ -462,7 +462,7 @@ DALARAN | DAL_085 | Dalaran Crusader | O
 DALARAN | DAL_086 | Sunreaver Spy |  
 DALARAN | DAL_087 | Hench-Clan Hag |  
 DALARAN | DAL_088 | Safeguard |  
-DALARAN | DAL_089 | Spellbook Binder |  
+DALARAN | DAL_089 | Spellbook Binder | O
 DALARAN | DAL_090 | Hench-Clan Sneak | O
 DALARAN | DAL_092 | Arcane Servant | O
 DALARAN | DAL_095 | Violet Spellsword |  

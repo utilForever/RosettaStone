@@ -53,7 +53,7 @@ class CMakeBuild(build_ext):
             build_args += ['--', '/m']
         else:
             cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-            cmake_args += ['-DROSETTA_ROOT=C:/Users/1cekrim/Github/RosettaStone']
+            cmake_args += ['-DROSETTA_ROOT=C:/Users/User/Documents/RosettaStone']
             num_jobs = env.get('NUM_JOBS', multiprocessing.cpu_count())
             build_args += ['--', '-j%s' % str(num_jobs), 'pyRosetta']
 

@@ -472,6 +472,49 @@ TEST(NeutralDalaranTest, DAL_085_DalaranCrusader)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_089] Spellbook Binder - COST:2 [ATK:3/HP:2]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you have <b>Spell Damage</b>,
+//       draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST(NeutralDalaranTest, DAL_089_SpellbookBinder)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spellbook Binder"));
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    EXPECT_EQ(curPlayer->currentSpellPower,1);
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+}
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
