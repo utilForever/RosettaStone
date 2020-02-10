@@ -776,8 +776,8 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT),
-                  std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT) },
+        TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT) },
         1));
     cards.emplace("EX1_573b", CardDef(power));
 
@@ -5309,8 +5309,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT),
-                  std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT) },
+        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
         3));
     cards.emplace("EX1_562", CardDef(power));
 
