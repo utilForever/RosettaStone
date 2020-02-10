@@ -2017,7 +2017,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
-    // --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - WARLOCK
     // [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
     // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
