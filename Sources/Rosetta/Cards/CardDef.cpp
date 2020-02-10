@@ -20,6 +20,12 @@ CardDef::CardDef(Power _power, std::map<PlayReq, int> _playReqs)
     // Do nothing
 }
 
+CardDef::CardDef(Power _power, std::vector<std::string> _entourages)
+    : power(std::move(_power)), entourages(std::move(_entourages))
+{
+    // Do nothing
+}
+
 CardDef::CardDef(Power _power, std::map<PlayReq, int> _playReqs,
                  std::vector<std::string> _entourages)
     : power(std::move(_power)),
