@@ -10,3 +10,6 @@
 [submodule "Libraries/tiny-dnn"]
 	path = Libraries/tiny-dnn
 	url = https://github.com/tiny-dnn/tiny-dnn
+[submodule "Libraries/doctest"]
+	path = Libraries/doctest
+	url = https://github.com/onqtam/doctest
