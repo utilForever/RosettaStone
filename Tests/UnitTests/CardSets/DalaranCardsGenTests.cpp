@@ -512,7 +512,6 @@ TEST(NeutralDalaranTest, DAL_089_SpellbookBinder)
     game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
     EXPECT_EQ(curPlayer->currentSpellPower,1);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-
 }
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
