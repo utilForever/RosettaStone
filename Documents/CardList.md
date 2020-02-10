@@ -480,14 +480,14 @@ DALARAN | DAL_350 | Crystal Power |
 DALARAN | DAL_351 | Blessing of the Ancients | O
 DALARAN | DAL_352 | Crystalsong Portal |  
 DALARAN | DAL_354 | Acornbearer |  
-DALARAN | DAL_355 | Lifeweaver |  
+DALARAN | DAL_355 | Lifeweaver | 
 DALARAN | DAL_357 | Lucentbark |  
 DALARAN | DAL_366 | Unidentified Contract |  
 DALARAN | DAL_371 | Marked Shot |  
 DALARAN | DAL_372 | Arcane Fletcher |  
 DALARAN | DAL_373 | Rapid Fire |  
 DALARAN | DAL_376 | Oblivitron |  
-DALARAN | DAL_377 | Nine Lives |  
+DALARAN | DAL_377 | Nine Lives |  	
 DALARAN | DAL_378 | Unleash the Beast |  
 DALARAN | DAL_379 | Vereesa Windrunner |  
 DALARAN | DAL_400 | EVIL Cable Rat |  
