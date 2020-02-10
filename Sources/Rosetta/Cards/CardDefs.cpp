@@ -20,7 +20,7 @@ CardDefs::CardDefs()
 {
     CoreCardsGen::AddAll(m_data);
     Expert1CardsGen::AddAll(m_data);
-    //HoFCardsGen::AddAll(m_data);
+    HoFCardsGen::AddAll(m_data);
     //DalaranCardsGen::AddAll(m_data);
     //UldumCardsGen::AddAll(m_data);
     //DragonsCardsGen::AddAll(m_data);
