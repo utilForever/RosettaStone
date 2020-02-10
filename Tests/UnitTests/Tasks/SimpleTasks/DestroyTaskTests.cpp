@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Minion.hpp>
@@ -17,7 +17,7 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(DestroyTask, Run)
+TEST_CASE("[DestroyTask] - Run")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -50,8 +50,8 @@ TEST(DestroyTask, Run)
     TaskStatus result = task1.Run();
     game.ProcessDestroyAndUpdateAura();
 
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(p1Field.GetCount(), 0);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(p1Field.GetCount(), 0);
 
     // Destroy Target Minion
     const auto minion2 = new Minion(player2, &card, tags);
@@ -65,8 +65,8 @@ TEST(DestroyTask, Run)
     TaskStatus result2 = task2.Run();
     game.ProcessDestroyAndUpdateAura();
 
-    EXPECT_EQ(result2, TaskStatus::COMPLETE);
-    EXPECT_EQ(p2Field.GetCount(), 0);
+    CHECK_EQ(result2, TaskStatus::COMPLETE);
+    CHECK_EQ(p2Field.GetCount(), 0);
 
     // Destroy Target Weapon
     Card weaponCard;
@@ -79,6 +79,6 @@ TEST(DestroyTask, Run)
     TaskStatus result3 = task3.Run();
     game.ProcessDestroyAndUpdateAura();
 
-    EXPECT_EQ(result3, TaskStatus::COMPLETE);
-    EXPECT_EQ(player2->GetHero()->HasWeapon(), false);
+    CHECK_EQ(result3, TaskStatus::COMPLETE);
+    CHECK_EQ(player2->GetHero()->HasWeapon(), false);
 }

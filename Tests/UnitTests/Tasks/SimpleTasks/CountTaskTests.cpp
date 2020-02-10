@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
@@ -14,7 +14,7 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(CountTask, Run)
+TEST_CASE("[CountTask] - Run")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -30,16 +30,16 @@ TEST(CountTask, Run)
     CountTask task0(EntityType::HERO, 0);
     task0.SetPlayer(game.GetPlayer1());
     TaskStatus result0 = task0.Run();
-    EXPECT_EQ(result0, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num[0], 1);
+    CHECK_EQ(result0, TaskStatus::COMPLETE);
+    CHECK_EQ(game.taskStack.num[0], 1);
 
     CountTask task1(EntityType::ENEMY_HERO, 1);
     task1.SetPlayer(game.GetPlayer1());
     TaskStatus result1 = task1.Run();
-    EXPECT_EQ(result1, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num[1], 1);
+    CHECK_EQ(result1, TaskStatus::COMPLETE);
+    CHECK_EQ(game.taskStack.num[1], 1);
 
     CountTask task2(EntityType::DECK, 2);
     task2.SetPlayer(game.GetPlayer1());
-    EXPECT_THROW(task2.Run(), std::invalid_argument);
+    CHECK_THROWS_AS(task2.Run(), std::invalid_argument);
 }

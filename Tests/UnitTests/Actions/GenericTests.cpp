@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -19,7 +19,7 @@
 
 using namespace RosettaStone;
 
-TEST(Generic, ShuffleIntoDeck)
+TEST_CASE("[Generic] - ShuffleIntoDeck")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -38,11 +38,11 @@ TEST(Generic, ShuffleIntoDeck)
                             std::nullopt, curPlayer->GetHandZone());
 
     Generic::ShuffleIntoDeck(curPlayer, coinCard);
-    EXPECT_EQ(curPlayer->GetDeckZone()->GetCount(), 1);
-    EXPECT_EQ((*curPlayer->GetDeckZone())[0]->card->id, "GAME_005");
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 1);
+    CHECK_EQ((*curPlayer->GetDeckZone())[0]->card->id, "GAME_005");
 }
 
-TEST(Generic, ShuffleIntoDeck_Full)
+TEST_CASE("[Generic] - ShuffleIntoDeck_Full")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -69,10 +69,10 @@ TEST(Generic, ShuffleIntoDeck_Full)
     }
 
     Generic::ShuffleIntoDeck(curPlayer, coinCard);
-    EXPECT_EQ(curPlayer->GetDeckZone()->GetCount(), MAX_DECK_SIZE);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), MAX_DECK_SIZE);
 }
 
-TEST(Generic, GetZone)
+TEST_CASE("[Generic] - GetZone")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -87,18 +87,18 @@ TEST(Generic, GetZone)
 
     Player* curPlayer = game.GetCurrentPlayer();
 
-    EXPECT_EQ(curPlayer->GetDeckZone(),
+    CHECK_EQ(curPlayer->GetDeckZone(),
               Generic::GetZone(curPlayer, ZoneType::DECK));
-    EXPECT_EQ(curPlayer->GetFieldZone(),
+    CHECK_EQ(curPlayer->GetFieldZone(),
               Generic::GetZone(curPlayer, ZoneType::PLAY));
-    EXPECT_EQ(curPlayer->GetGraveyardZone(),
+    CHECK_EQ(curPlayer->GetGraveyardZone(),
               Generic::GetZone(curPlayer, ZoneType::GRAVEYARD));
-    EXPECT_EQ(curPlayer->GetHandZone(),
+    CHECK_EQ(curPlayer->GetHandZone(),
               Generic::GetZone(curPlayer, ZoneType::HAND));
-    EXPECT_EQ(curPlayer->GetSecretZone(),
+    CHECK_EQ(curPlayer->GetSecretZone(),
               Generic::GetZone(curPlayer, ZoneType::SECRET));
-    EXPECT_EQ(curPlayer->GetSetasideZone(),
+    CHECK_EQ(curPlayer->GetSetasideZone(),
               Generic::GetZone(curPlayer, ZoneType::SETASIDE));
-    EXPECT_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::INVALID));
-    EXPECT_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::REMOVEDFROMGAME));
+    CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::INVALID));
+    CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::REMOVEDFROMGAME));
 }

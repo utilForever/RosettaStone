@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
@@ -14,7 +14,7 @@
 using namespace RosettaStone;
 using namespace TestUtils;
 
-TEST(BoardRefView, GetSide)
+TEST_CASE("[BoardRefView] - GetSide")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -30,10 +30,10 @@ TEST(BoardRefView, GetSide)
     Player* curPlayer = game.GetCurrentPlayer();
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetSide(), PlayerType::PLAYER1);
+    CHECK_EQ(board.GetSide(), PlayerType::PLAYER1);
 }
 
-TEST(BoardRefView, GetTurn)
+TEST_CASE("[BoardRefView] - GetTurn")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -49,13 +49,13 @@ TEST(BoardRefView, GetTurn)
     Player* curPlayer = game.GetCurrentPlayer();
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetTurn(), 1);
+    CHECK_EQ(board.GetTurn(), 1);
 
     game.SetTurn(10);
-    EXPECT_EQ(board.GetTurn(), 10);
+    CHECK_EQ(board.GetTurn(), 10);
 }
 
-TEST(BoardRefView, GetCurrentPlayer)
+TEST_CASE("[BoardRefView] - GetCurrentPlayer")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -71,10 +71,10 @@ TEST(BoardRefView, GetCurrentPlayer)
     Player* curPlayer = game.GetCurrentPlayer();
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetCurrentPlayer(), curPlayer->playerType);
+    CHECK_EQ(board.GetCurrentPlayer(), curPlayer->playerType);
 }
 
-TEST(BoardRefView, GetFatigueDamage)
+TEST_CASE("[BoardRefView] - GetFatigueDamage")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -94,11 +94,11 @@ TEST(BoardRefView, GetFatigueDamage)
     opPlayer->GetHero()->fatigue = 5;
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetFatigueDamage(PlayerType::PLAYER1), 3);
-    EXPECT_EQ(board.GetFatigueDamage(PlayerType::PLAYER2), 5);
+    CHECK_EQ(board.GetFatigueDamage(PlayerType::PLAYER1), 3);
+    CHECK_EQ(board.GetFatigueDamage(PlayerType::PLAYER2), 5);
 }
 
-TEST(BoardRefView, GetTotalMana)
+TEST_CASE("[BoardRefView] - GetTotalMana")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -118,11 +118,11 @@ TEST(BoardRefView, GetTotalMana)
     opPlayer->SetTotalMana(7);
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetTotalMana(PlayerType::PLAYER1), 4);
-    EXPECT_EQ(board.GetTotalMana(PlayerType::PLAYER2), 7);
+    CHECK_EQ(board.GetTotalMana(PlayerType::PLAYER1), 4);
+    CHECK_EQ(board.GetTotalMana(PlayerType::PLAYER2), 7);
 }
 
-TEST(BoardRefView, GetUsedMana)
+TEST_CASE("[BoardRefView] - GetUsedMana")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -142,11 +142,11 @@ TEST(BoardRefView, GetUsedMana)
     opPlayer->SetUsedMana(3);
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetUsedMana(PlayerType::PLAYER1), 4);
-    EXPECT_EQ(board.GetUsedMana(PlayerType::PLAYER2), 3);
+    CHECK_EQ(board.GetUsedMana(PlayerType::PLAYER1), 4);
+    CHECK_EQ(board.GetUsedMana(PlayerType::PLAYER2), 3);
 }
 
-TEST(BoardRefView, GetTemporaryMana)
+TEST_CASE("[BoardRefView] - GetTemporaryMana")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -166,11 +166,11 @@ TEST(BoardRefView, GetTemporaryMana)
     opPlayer->SetTemporaryMana(5);
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetTemporaryMana(PlayerType::PLAYER1), 2);
-    EXPECT_EQ(board.GetTemporaryMana(PlayerType::PLAYER2), 5);
+    CHECK_EQ(board.GetTemporaryMana(PlayerType::PLAYER1), 2);
+    CHECK_EQ(board.GetTemporaryMana(PlayerType::PLAYER2), 5);
 }
 
-TEST(BoardRefView, GetOverloadOwed)
+TEST_CASE("[BoardRefView] - GetOverloadOwed")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -190,11 +190,11 @@ TEST(BoardRefView, GetOverloadOwed)
     opPlayer->SetOverloadOwed(3);
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetOverloadOwed(PlayerType::PLAYER1), 6);
-    EXPECT_EQ(board.GetOverloadOwed(PlayerType::PLAYER2), 3);
+    CHECK_EQ(board.GetOverloadOwed(PlayerType::PLAYER1), 6);
+    CHECK_EQ(board.GetOverloadOwed(PlayerType::PLAYER2), 3);
 }
 
-TEST(BoardRefView, GetOverloadLocked)
+TEST_CASE("[BoardRefView] - GetOverloadLocked")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -214,11 +214,11 @@ TEST(BoardRefView, GetOverloadLocked)
     opPlayer->SetOverloadLocked(2);
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetOverloadLocked(PlayerType::PLAYER1), 7);
-    EXPECT_EQ(board.GetOverloadLocked(PlayerType::PLAYER2), 2);
+    CHECK_EQ(board.GetOverloadLocked(PlayerType::PLAYER1), 7);
+    CHECK_EQ(board.GetOverloadLocked(PlayerType::PLAYER2), 2);
 }
 
-TEST(BoardRefView, GetRemainingMana)
+TEST_CASE("[BoardRefView] - GetRemainingMana")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -240,11 +240,11 @@ TEST(BoardRefView, GetRemainingMana)
     opPlayer->SetUsedMana(3);
 
     BoardRefView board(game, curPlayer->playerType);
-    EXPECT_EQ(board.GetRemainingMana(PlayerType::PLAYER1), 0);
-    EXPECT_EQ(board.GetRemainingMana(PlayerType::PLAYER2), 4);
+    CHECK_EQ(board.GetRemainingMana(PlayerType::PLAYER1), 0);
+    CHECK_EQ(board.GetRemainingMana(PlayerType::PLAYER2), 4);
 }
 
-TEST(BoardRefView, GetHero)
+TEST_CASE("[BoardRefView] - GetHero")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -261,13 +261,13 @@ TEST(BoardRefView, GetHero)
     Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer->playerType);
-    EXPECT_EQ(board1.GetHero()->card->id, "HERO_01");
+    CHECK_EQ(board1.GetHero()->card->id, "HERO_01");
 
     BoardRefView board2(game, opPlayer->playerType);
-    EXPECT_EQ(board2.GetHero()->card->id, "HERO_03");
+    CHECK_EQ(board2.GetHero()->card->id, "HERO_03");
 }
 
-TEST(BoardRefView, GetOpponentHero)
+TEST_CASE("[BoardRefView] - GetOpponentHero")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -284,13 +284,13 @@ TEST(BoardRefView, GetOpponentHero)
     Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer->playerType);
-    EXPECT_EQ(board1.GetHero()->card->id, "HERO_01");
+    CHECK_EQ(board1.GetHero()->card->id, "HERO_01");
 
     BoardRefView board2(game, opPlayer->playerType);
-    EXPECT_EQ(board2.GetHero()->card->id, "HERO_03");
+    CHECK_EQ(board2.GetHero()->card->id, "HERO_03");
 }
 
-TEST(BoardRefView, GetHeroPower)
+TEST_CASE("[BoardRefView] - GetHeroPower")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -304,11 +304,11 @@ TEST(BoardRefView, GetHeroPower)
     game.ProcessUntil(Step::MAIN_START);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
-    EXPECT_EQ(board.GetHeroPower(PlayerType::PLAYER1).card->id, "CS2_102");
-    EXPECT_EQ(board.GetHeroPower(PlayerType::PLAYER2).card->id, "CS2_083b");
+    CHECK_EQ(board.GetHeroPower(PlayerType::PLAYER1).card->id, "CS2_102");
+    CHECK_EQ(board.GetHeroPower(PlayerType::PLAYER2).card->id, "CS2_083b");
 }
 
-TEST(BoardRefView, GetWeapon)
+TEST_CASE("[BoardRefView] - GetWeapon")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -322,11 +322,11 @@ TEST(BoardRefView, GetWeapon)
     game.ProcessUntil(Step::MAIN_START);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
-    EXPECT_EQ(board.GetWeapon(PlayerType::PLAYER1), nullptr);
-    EXPECT_EQ(board.GetWeapon(PlayerType::PLAYER2), nullptr);
+    CHECK_EQ(board.GetWeapon(PlayerType::PLAYER1), nullptr);
+    CHECK_EQ(board.GetWeapon(PlayerType::PLAYER2), nullptr);
 }
 
-TEST(BoardRefView, GetHandCards)
+TEST_CASE("[BoardRefView] - GetHandCards")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -343,13 +343,13 @@ TEST(BoardRefView, GetHandCards)
     Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer->playerType);
-    EXPECT_EQ(board1.GetHandCards().size(), 4u);
+    CHECK_EQ(board1.GetHandCards().size(), 4u);
 
     BoardRefView board2(game, opPlayer->playerType);
-    EXPECT_EQ(board2.GetHandCards().size(), 5u);
+    CHECK_EQ(board2.GetHandCards().size(), 5u);
 }
 
-TEST(BoardRefView, GetOpponentHandCards)
+TEST_CASE("[BoardRefView] - GetOpponentHandCards")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -366,13 +366,13 @@ TEST(BoardRefView, GetOpponentHandCards)
     Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer->playerType);
-    EXPECT_EQ(board1.GetOpponentHandCards().at(0).second, false);
+    CHECK_EQ(board1.GetOpponentHandCards().at(0).second, false);
 
     BoardRefView board2(game, opPlayer->playerType);
-    EXPECT_EQ(board2.GetOpponentHandCards().at(0).second, false);
+    CHECK_EQ(board2.GetOpponentHandCards().at(0).second, false);
 }
 
-TEST(BoardRefView, GetOpponentHandCardCount)
+TEST_CASE("[BoardRefView] - GetOpponentHandCardCount")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -389,13 +389,13 @@ TEST(BoardRefView, GetOpponentHandCardCount)
     Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer->playerType);
-    EXPECT_EQ(board1.GetOpponentHandCardCount(), 5);
+    CHECK_EQ(board1.GetOpponentHandCardCount(), 5);
 
     BoardRefView board2(game, opPlayer->playerType);
-    EXPECT_EQ(board2.GetOpponentHandCardCount(), 4);
+    CHECK_EQ(board2.GetOpponentHandCardCount(), 4);
 }
 
-TEST(BoardRefView, GetMinions)
+TEST_CASE("[BoardRefView] - GetMinions")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -430,13 +430,13 @@ TEST(BoardRefView, GetMinions)
     }
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
-    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER1).size(), 5u);
-    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER1)[0]->card->id, "test0");
-    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER2).size(), 3u);
-    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER2)[0]->card->id, "test1");
+    CHECK_EQ(board.GetMinions(PlayerType::PLAYER1).size(), 5u);
+    CHECK_EQ(board.GetMinions(PlayerType::PLAYER1)[0]->card->id, "test0");
+    CHECK_EQ(board.GetMinions(PlayerType::PLAYER2).size(), 3u);
+    CHECK_EQ(board.GetMinions(PlayerType::PLAYER2)[0]->card->id, "test1");
 }
 
-TEST(BoardRefView, GetDeckCardCount)
+TEST_CASE("[BoardRefView] - GetDeckCardCount")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -450,11 +450,11 @@ TEST(BoardRefView, GetDeckCardCount)
     game.ProcessUntil(Step::MAIN_START);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
-    EXPECT_EQ(board.GetDeckCardCount(PlayerType::PLAYER1), 5);
-    EXPECT_EQ(board.GetDeckCardCount(PlayerType::PLAYER2), 5);
+    CHECK_EQ(board.GetDeckCardCount(PlayerType::PLAYER1), 5);
+    CHECK_EQ(board.GetDeckCardCount(PlayerType::PLAYER2), 5);
 }
 
-TEST(BoardRefView, IsHeroAttackable)
+TEST_CASE("[BoardRefView] - IsHeroAttackable")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -471,11 +471,11 @@ TEST(BoardRefView, IsHeroAttackable)
     curPlayer->GetHero()->SetAttack(4);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
-    EXPECT_EQ(board.IsHeroAttackable(PlayerType::PLAYER1), true);
-    EXPECT_EQ(board.IsHeroAttackable(PlayerType::PLAYER2), false);
+    CHECK_EQ(board.IsHeroAttackable(PlayerType::PLAYER1), true);
+    CHECK_EQ(board.IsHeroAttackable(PlayerType::PLAYER2), false);
 }
 
-TEST(BoardRefView, IsMinionAttackable)
+TEST_CASE("[BoardRefView] - IsMinionAttackable")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -515,13 +515,13 @@ TEST(BoardRefView, IsMinionAttackable)
     curField[0]->SetExhausted(false);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
-    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER1, 0), true);
-    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER1, 1), false);
-    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER2, 0), false);
-    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER2, 1), false);
+    CHECK_EQ(board.IsMinionAttackable(PlayerType::PLAYER1, 0), true);
+    CHECK_EQ(board.IsMinionAttackable(PlayerType::PLAYER1, 1), false);
+    CHECK_EQ(board.IsMinionAttackable(PlayerType::PLAYER2, 0), false);
+    CHECK_EQ(board.IsMinionAttackable(PlayerType::PLAYER2, 1), false);
 }
 
-TEST(CurrentPlayerBoardRefView, GetCurrentPlayer)
+TEST_CASE("[CurrentPlayerBoardRefView] - GetCurrentPlayer")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -535,6 +535,6 @@ TEST(CurrentPlayerBoardRefView, GetCurrentPlayer)
     game.ProcessUntil(Step::MAIN_START);
 
     auto curPlayerBoardRefView = CurrentPlayerBoardRefView(game);
-    EXPECT_EQ(curPlayerBoardRefView.GetCurrentPlayer()->playerType,
+    CHECK_EQ(curPlayerBoardRefView.GetCurrentPlayer()->playerType,
               PlayerType::PLAYER1);
 }

@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
@@ -15,7 +15,7 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(ControlTask, Run)
+TEST_CASE("[ControlTask] - Run")
 {
     GameConfig config;
     config.startPlayer = PlayerType::PLAYER1;
@@ -50,19 +50,19 @@ TEST(ControlTask, Run)
     control.SetTarget(player2Field[0]);
     TaskStatus result = control.Run();
 
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1Field.GetCount(), 7);
-    EXPECT_EQ(player2Field.GetCount(), 5);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(player1Field.GetCount(), 7);
+    CHECK_EQ(player2Field.GetCount(), 5);
 
     // Check controlled minion has valid data
-    EXPECT_EQ(player1Field[6]->GetAttack(), 1);
-    EXPECT_EQ(player1Field[6]->GetHealth(), 1);
+    CHECK_EQ(player1Field[6]->GetAttack(), 1);
+    CHECK_EQ(player1Field[6]->GetHealth(), 1);
 
     control.SetPlayer(player1);
     control.SetTarget(player2Field[1]);
     result = control.Run();
 
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1Field.GetCount(), 7);
-    EXPECT_EQ(player2Field.GetCount(), 5);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(player1Field.GetCount(), 7);
+    CHECK_EQ(player2Field.GetCount(), 5);
 }

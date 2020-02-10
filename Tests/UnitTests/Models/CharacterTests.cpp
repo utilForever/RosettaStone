@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
@@ -13,7 +13,7 @@
 using namespace RosettaStone;
 using namespace TestUtils;
 
-TEST(Character, Health)
+TEST_CASE("[Character] - Health")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -32,20 +32,20 @@ TEST(Character, Health)
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     PlayMinionCard(curPlayer, &card1);
-    EXPECT_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
 
     curField[0]->SetDamage(2);
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 
     curField[0]->SetHealth(8);
-    EXPECT_EQ(curField[0]->GetDamage(), 0);
-    EXPECT_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->GetDamage(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
 
     curField[0]->SetHealth(0);
-    EXPECT_EQ(curField[0]->isDestroyed, true);
+    CHECK_EQ(curField[0]->isDestroyed, true);
 }
 
-TEST(Character, MaxHealth)
+TEST_CASE("[Character] - MaxHealth")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -64,17 +64,17 @@ TEST(Character, MaxHealth)
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     PlayMinionCard(curPlayer, &card1);
-    EXPECT_EQ(curField[0]->GetMaxHealth(), 6);
+    CHECK_EQ(curField[0]->GetMaxHealth(), 6);
 
     curField[0]->SetDamage(2);
-    EXPECT_EQ(curField[0]->GetMaxHealth(), 6);
+    CHECK_EQ(curField[0]->GetMaxHealth(), 6);
 
     curField[0]->SetMaxHealth(8);
-    EXPECT_EQ(curField[0]->GetHealth(), 6);
-    EXPECT_EQ(curField[0]->GetMaxHealth(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetMaxHealth(), 8);
 }
 
-TEST(Character, SpellPower)
+TEST_CASE("[Character] - SpellPower")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -93,8 +93,8 @@ TEST(Character, SpellPower)
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     PlayMinionCard(curPlayer, &card1);
-    EXPECT_EQ(curField[0]->GetSpellPower(), 0);
+    CHECK_EQ(curField[0]->GetSpellPower(), 0);
 
     curField[0]->SetSpellPower(4);
-    EXPECT_EQ(curField[0]->GetSpellPower(), 4);
+    CHECK_EQ(curField[0]->GetSpellPower(), 4);
 }

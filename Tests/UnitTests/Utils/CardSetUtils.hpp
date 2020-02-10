@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_CARD_SET_UTILS_HPP
 #define ROSETTASTONE_CARD_SET_UTILS_HPP
 
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>

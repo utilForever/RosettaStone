@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -14,7 +14,7 @@
 using namespace RosettaStone;
 using namespace PlayerTasks;
 
-TEST(FieldZone, GetAll)
+TEST_CASE("[FieldZone] - GetAll")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -42,11 +42,11 @@ TEST(FieldZone, GetAll)
 
     auto minions = curField.GetAll();
 
-    EXPECT_EQ(minions[0]->card->name, "Flame Imp");
-    EXPECT_EQ(minions[1]->card->name, "Wisp");
+    CHECK_EQ(minions[0]->card->name, "Flame Imp");
+    CHECK_EQ(minions[1]->card->name, "Wisp");
 }
 
-TEST(FieldZone, FindIndex)
+TEST_CASE("[FieldZone] - FindIndex")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -80,7 +80,7 @@ TEST(FieldZone, FindIndex)
     auto character2 = dynamic_cast<Minion*>(playable2);
     auto character3 = dynamic_cast<Minion*>(playable3);
 
-    EXPECT_EQ(curField.FindIndex(character1), 0);
-    EXPECT_EQ(curField.FindIndex(character2), 1);
-    EXPECT_EQ(curField.FindIndex(character3), -1);
+    CHECK_EQ(curField.FindIndex(character1), 0);
+    CHECK_EQ(curField.FindIndex(character2), 1);
+    CHECK_EQ(curField.FindIndex(character3), -1);
 }

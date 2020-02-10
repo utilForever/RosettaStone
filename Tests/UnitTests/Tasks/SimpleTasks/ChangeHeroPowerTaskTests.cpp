@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -13,7 +13,7 @@
 using namespace RosettaStone;
 using namespace SimpleTasks;
 
-TEST(ChangeHeroPowerTask, Run)
+TEST_CASE("[ChangeHeroPowerTask] - Run")
 {
     GameConfig config;
     config.startPlayer = PlayerType::PLAYER1;
@@ -24,16 +24,16 @@ TEST(ChangeHeroPowerTask, Run)
     Hero& hero = *game.GetPlayer1()->GetHero();
 
     hero.heroPower->SetExhausted(true);
-    EXPECT_EQ(hero.heroPower->card->id,
+    CHECK_EQ(hero.heroPower->card->id,
               Cards::GetDefaultHeroPower(CardClass::PRIEST)->id);
-    EXPECT_TRUE(hero.heroPower->IsExhausted());
+    CHECK(hero.heroPower->IsExhausted());
 
     ChangeHeroPowerTask change(Cards::GetDefaultHeroPower(CardClass::MAGE)->id);
     change.SetPlayer(game.GetPlayer1());
 
     TaskStatus result = change.Run();
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(hero.heroPower->card->id,
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(hero.heroPower->card->id,
               Cards::GetDefaultHeroPower(CardClass::MAGE)->id);
-    EXPECT_FALSE(hero.heroPower->IsExhausted());
+    CHECK_FALSE(hero.heroPower->IsExhausted());
 }

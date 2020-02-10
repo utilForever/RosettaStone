@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Enchants/PlayerAuraEffects.hpp>
@@ -17,7 +17,7 @@ using namespace TestUtils;
 
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
-TEST(PlayAuraEffects, Run)
+TEST_CASE("[PlayAuraEffects] - Run")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -47,7 +47,7 @@ TEST(PlayAuraEffects, Run)
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable1));
     // NOTE: This test code fails intermittently.
     // TODO: I'll find the cause and correct later.
-    //EXPECT_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
+    //CHECK_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
     //          0);
 
     auto card2 = GenerateMinionCard("minion2", 3, 6);
@@ -60,7 +60,7 @@ TEST(PlayAuraEffects, Run)
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable2));
     // NOTE: This test code fails intermittently.
     // TODO: I'll find the cause and correct later.
-    //EXPECT_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
+    //CHECK_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
     //          1);
 
     auto card3 = GenerateMinionCard("minion3", 3, 6);
@@ -73,7 +73,7 @@ TEST(PlayAuraEffects, Run)
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable3));
     // NOTE: This test code fails intermittently.
     // TODO: I'll find the cause and correct later.
-    //EXPECT_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
+    //CHECK_EQ(curPlayer->playerAuraEffects.GetValue(GameTag::SPELLPOWER_DOUBLE),
     //          -2);
 
     auto card4 = GenerateMinionCard("minion4", 3, 6);
@@ -83,6 +83,6 @@ TEST(PlayAuraEffects, Run)
 
     Playable* playable4 = Generic::DrawCard(curPlayer, &card4);
     game.Process(curPlayer, PlayerTasks::PlayCardTask::Minion(playable4));
-    EXPECT_THROW(curPlayer->playerAuraEffects.GetValue(GameTag::ATK),
+    CHECK_THROWS_AS(curPlayer->playerAuraEffects.GetValue(GameTag::ATK),
                  std::invalid_argument);
 }

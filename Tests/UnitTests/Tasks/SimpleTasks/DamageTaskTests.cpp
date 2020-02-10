@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -16,7 +16,7 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(DamageTask, Run)
+TEST_CASE("[DamageTask] - Run")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -49,11 +49,11 @@ TEST(DamageTask, Run)
     TaskStatus result = damage.Run();
     game.ProcessDestroyAndUpdateAura();
 
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(player1->GetFieldZone()->GetCount(), 0);
 }
 
-TEST(DamageTask, SpellPower)
+TEST_CASE("[DamageTask] - SpellPower")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -86,10 +86,10 @@ TEST(DamageTask, SpellPower)
     TaskStatus result = damage1.Run();
     game.ProcessDestroyAndUpdateAura();
 
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
     for (std::size_t i = 0; i < 5; ++i)
     {
-        EXPECT_EQ(p1Field[i]->GetHealth(), 4);
+        CHECK_EQ(p1Field[i]->GetHealth(), 4);
     }
 
     player1->currentSpellPower = 1;
@@ -101,9 +101,9 @@ TEST(DamageTask, SpellPower)
     result = damage2.Run();
     game.ProcessDestroyAndUpdateAura();
 
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
     for (std::size_t i = 0; i < 5; ++i)
     {
-        EXPECT_EQ(p1Field[i]->GetHealth(), 2);
+        CHECK_EQ(p1Field[i]->GetHealth(), 2);
     }
 }

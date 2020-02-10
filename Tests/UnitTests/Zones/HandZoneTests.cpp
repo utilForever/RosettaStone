@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -14,7 +14,7 @@
 using namespace RosettaStone;
 using namespace PlayerTasks;
 
-TEST(HandZone, FindIndex)
+TEST_CASE("[HandZone] - FindIndex")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -43,7 +43,7 @@ TEST(HandZone, FindIndex)
         Entity::GetFromCard(curPlayer, Cards::FindCardByName("Flamestrike"),
                             std::nullopt, curPlayer->GetHandZone());
 
-    EXPECT_EQ(curPlayer->GetHandZone()->FindIndex(playable1), 0);
-    EXPECT_EQ(curPlayer->GetHandZone()->FindIndex(playable2), 1);
-    EXPECT_EQ(curPlayer->GetHandZone()->FindIndex(playable3), -1);
+    CHECK_EQ(curPlayer->GetHandZone()->FindIndex(playable1), 0);
+    CHECK_EQ(curPlayer->GetHandZone()->FindIndex(playable2), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->FindIndex(playable3), -1);
 }

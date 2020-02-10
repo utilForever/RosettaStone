@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -54,7 +54,7 @@ class TestActionParams : public ActionParams
     const Board* m_board = nullptr;
 };
 
-TEST(ActionValidChecker, Check)
+TEST_CASE("[ActionValidChecker] - Check")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -117,12 +117,12 @@ TEST(ActionValidChecker, Check)
     TestActionParams actionParams;
     const Board board(game, game.GetCurrentPlayer()->playerType);
 
-    EXPECT_NO_THROW(actionParams.Init(board));
+    CHECK_NOTHROW(actionParams.Init(board));
 
-    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(0),
+    CHECK_EQ(actionParams.GetChecker().GetMainOpType(0),
               MainOpType::PLAY_CARD);
-    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(1), MainOpType::ATTACK);
-    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(2),
+    CHECK_EQ(actionParams.GetChecker().GetMainOpType(1), MainOpType::ATTACK);
+    CHECK_EQ(actionParams.GetChecker().GetMainOpType(2),
               MainOpType::USE_HERO_POWER);
-    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(3), MainOpType::END_TURN);
+    CHECK_EQ(actionParams.GetChecker().GetMainOpType(3), MainOpType::END_TURN);
 }

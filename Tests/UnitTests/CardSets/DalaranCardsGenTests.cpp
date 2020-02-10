@@ -31,7 +31,7 @@ using namespace SimpleTasks;
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(DruidDalaranTest, DAL_350_CrystalPower)
+TEST_CASE("[Druid : Spell] - DAL_350 : Crystal Power")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -63,19 +63,19 @@ TEST(DruidDalaranTest, DAL_350_CrystalPower)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero(), 2));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3, 1));
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -91,7 +91,7 @@ TEST(DruidDalaranTest, DAL_350_CrystalPower)
 // PlayReq:
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(DruidDalaranTest, DAL_351_BlessingOfTheAncients)
+TEST_CASE("[Druid : Spell] - DAL_351 : Blessing of the Ancients")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -126,31 +126,31 @@ TEST(DruidDalaranTest, DAL_351_BlessingOfTheAncients)
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[1]->GetAttack(), 1);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[2]->GetAttack(), 1);
-    EXPECT_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curHand.GetCount(), 1);
-    EXPECT_EQ(curHand[0]->card->id, "DAL_351ts");
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[0]->GetHealth(), 2);
-    EXPECT_EQ(curField[1]->GetAttack(), 2);
-    EXPECT_EQ(curField[1]->GetHealth(), 2);
-    EXPECT_EQ(curField[2]->GetAttack(), 2);
-    EXPECT_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->id, "DAL_351ts");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
-    EXPECT_EQ(curHand.GetCount(), 0);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[0]->GetHealth(), 3);
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetHealth(), 3);
-    EXPECT_EQ(curField[2]->GetAttack(), 3);
-    EXPECT_EQ(curField[2]->GetHealth(), 3);
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 3);
 }
 
 // ----------------------------------------- MINION - DRUID
@@ -162,7 +162,7 @@ TEST(DruidDalaranTest, DAL_351_BlessingOfTheAncients)
 // GameTag:
 // - DEATHRATTLE = 1
 // --------------------------------------------------------
-TEST(DruidDalaranTest, DAL_354_Acornbearer)
+TEST_CASE("[Druid : Minion] - DAL_354 : Acornbearer")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -191,17 +191,17 @@ TEST(DruidDalaranTest, DAL_354_Acornbearer)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, curField[0]));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(curHand[4]->card->name, "Squirrel");
-    EXPECT_EQ(curHand[5]->card->name, "Squirrel");
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->name, "Squirrel");
+    CHECK_EQ(curHand[5]->card->name, "Squirrel");
 }
 
 // ----------------------------------------- MINION - DRUID
@@ -211,7 +211,7 @@ TEST(DruidDalaranTest, DAL_354_Acornbearer)
 // Text: Whenever you restore Health,
 //       add a random Druid spell to your hand.
 // --------------------------------------------------------
-TEST(DruidDalaranTest, DAL_355_Lifeweaver)
+TEST_CASE("[Druid : Minion] - DAL_355 : Lifeweaver")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -245,24 +245,24 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
-    EXPECT_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+    CHECK_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card3, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
-    EXPECT_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->GetCardClass(), CardClass::DRUID);
+    CHECK_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -277,7 +277,7 @@ TEST(DruidDalaranTest, DAL_355_Lifeweaver)
 // RefTag:
 // - LIFESTEAL = 1
 // --------------------------------------------------------
-TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
+TEST_CASE("[Druid : Spell] - DAL_733 : Dreamway Guardians")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -310,21 +310,21 @@ TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
         curPlayer, Cards::FindCardByName("Dreamway Guardians"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(curField[0]->card->name, "Crystal Dryad");
-    EXPECT_EQ(curField[1]->card->name, "Crystal Dryad");
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 2);
-    EXPECT_EQ(curField[0]->HasLifesteal(), true);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Crystal Dryad");
+    CHECK_EQ(curField[1]->card->name, "Crystal Dryad");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField.GetCount(), 4);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField.GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::Spell(card4));
-    EXPECT_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField.GetCount(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -334,8 +334,8 @@ TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, AttackTask(card5, curField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ------------------------------------------ MINION - MAGE
@@ -350,7 +350,7 @@ TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
 // RefTag:
 // - DISCOVER = 1
 // --------------------------------------------------------
-TEST(MageDalaranTest, DAL_163_MessengerRaven)
+TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -374,13 +374,13 @@ TEST(MageDalaranTest, DAL_163_MessengerRaven)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Messenger Raven"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer->choice.has_value(), true);
+    CHECK_EQ(curPlayer->choice.has_value(), true);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
     {
-        EXPECT_EQ(card->GetCardType(), CardType::MINION);
-        EXPECT_EQ(card->GetCardClass(), CardClass::MAGE);
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
     }
 }
 
@@ -395,7 +395,7 @@ TEST(MageDalaranTest, DAL_163_MessengerRaven)
 // - LIFESTEAL = 1
 // - RUSH = 1
 // --------------------------------------------------------
-TEST(ShamanDalaranTest, DAL_047_WalkingFountain)
+TEST_CASE("[Shaman : Minion] - DAL_047 : Walking Fountain")
 {
     // Do nothing
 }
@@ -413,7 +413,7 @@ TEST(ShamanDalaranTest, DAL_047_WalkingFountain)
 // PlayReq:
 // - REQ_TARGET_IF_AVAILABLE = 0
 // --------------------------------------------------------
-TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
+TEST_CASE("[Neutral : Minion] - DAL_078 : Travelling Healer")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -444,17 +444,17 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card1, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[0]->HasDivineShield(), true);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
 
     game.Process(opPlayer, PlayCardTask::Weapon(card2));
     game.Process(opPlayer, AttackTask(opHero, curField[0]));
 
-    EXPECT_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -466,7 +466,7 @@ TEST(NeutralDalaranTest, DAL_078_TravellingHealer)
 // GameTag:
 // - DIVINE_SHIELD = 1
 // --------------------------------------------------------
-TEST(NeutralDalaranTest, DAL_085_DalaranCrusader)
+TEST_CASE("[Neutral : Minion] - DAL_085 : Dalaran Crusader")
 {
     // Do nothing
 }
@@ -480,7 +480,7 @@ TEST(NeutralDalaranTest, DAL_085_DalaranCrusader)
 // GameTag:
 // - STEALTH = 1
 // --------------------------------------------------------
-TEST(NeutralDalaranTest, DAL_090_HenchClanSneak)
+TEST_CASE("[Neutral : Minion] - DAL_090 : Hench-Clan Sneak")
 {
     // Do nothing
 }
@@ -489,7 +489,7 @@ TEST(NeutralDalaranTest, DAL_090_HenchClanSneak)
 // [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
-TEST(NeutralDalaranTest, DAL_092_ArcaneServant)
+TEST_CASE("[Neutral : Minion] - DAL_092 : Arcane Servant")
 {
     // Do nothing
 }
@@ -503,7 +503,7 @@ TEST(NeutralDalaranTest, DAL_092_ArcaneServant)
 // GameTag:
 // - SPELLPOWER = 1
 // --------------------------------------------------------
-TEST(NeutralDalaranTest, DAL_748_ManaReservoir)
+TEST_CASE("[Neutral : Minion] - DAL_748 : Mana Reservoir")
 {
     // Do nothing
 }
@@ -517,7 +517,7 @@ TEST(NeutralDalaranTest, DAL_748_ManaReservoir)
 // GameTag:
 // - RUSH = 1
 // --------------------------------------------------------
-TEST(NeutralDalaranTest, DAL_760_BurlyShovelfist)
+TEST_CASE("[Neutral : Minion] - DAL_760 : Burly Shovelfist")
 {
     // Do nothing
 }

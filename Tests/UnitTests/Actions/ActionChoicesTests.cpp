@@ -4,49 +4,51 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include <doctest.h>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
 
+#include <stdexcept>
+
 using namespace RosettaStone;
 
-TEST(ActionChoices, InvalidChoice)
+TEST_CASE("[ActionChoices] - InvalidChoice")
 {
     ActionChoices choices;
 
     // Get
-    EXPECT_THROW(choices.Get(0), std::runtime_error);
-    EXPECT_THROW(choices.Get(1), std::runtime_error);
-    EXPECT_THROW(choices.Get(2), std::runtime_error);
-    EXPECT_THROW(choices.Get(), std::runtime_error);
+    CHECK_THROWS_AS(choices.Get(0), std::runtime_error);
+    CHECK_THROWS_AS(choices.Get(1), std::runtime_error);
+    CHECK_THROWS_AS(choices.Get(2), std::runtime_error);
+    CHECK_THROWS_AS(choices.Get(), std::runtime_error);
 
     // IsEmpty
-    EXPECT_THROW(choices.IsEmpty(), std::runtime_error);
+    CHECK_THROWS_AS(choices.IsEmpty(), std::runtime_error);
 
     // Size
-    EXPECT_THROW(choices.Size(), std::runtime_error);
+    CHECK_THROWS_AS(choices.Size(), std::runtime_error);
 
     //! Begin, IsEnd, StepNext
-    EXPECT_THROW(choices.Begin(), std::runtime_error);
-    EXPECT_THROW(choices.IsEnd(), std::runtime_error);
-    EXPECT_THROW(choices.StepNext(), std::runtime_error);
+    CHECK_THROWS_AS(choices.Begin(), std::runtime_error);
+    CHECK_THROWS_AS(choices.IsEnd(), std::runtime_error);
+    CHECK_THROWS_AS(choices.StepNext(), std::runtime_error);
 }
 
-TEST(ActionChoices, ChooseFromCardIDs)
+TEST_CASE("[ActionChoices] - ChooseFromCardIDs")
 {
     const std::vector<std::size_t> cardIDs = { 1, 4, 6 };
     ActionChoices choices(cardIDs);
 
     // Get
-    EXPECT_EQ(choices.Get(0), 1);
-    EXPECT_EQ(choices.Get(1), 4);
-    EXPECT_EQ(choices.Get(2), 6);
+    CHECK_EQ(choices.Get(0), 1);
+    CHECK_EQ(choices.Get(1), 4);
+    CHECK_EQ(choices.Get(2), 6);
 
     // IsEmpty
-    EXPECT_EQ(choices.IsEmpty(), false);
+    CHECK_EQ(choices.IsEmpty(), false);
 
     // Size
-    EXPECT_EQ(choices.Size(), 3);
+    CHECK_EQ(choices.Size(), 3);
 
     //! Begin, IsEnd, StepNext
     int sum = 0;
@@ -54,23 +56,23 @@ TEST(ActionChoices, ChooseFromCardIDs)
     {
         sum += choices.Get();
     }
-    EXPECT_EQ(sum, 11);
+    CHECK_EQ(sum, 11);
 }
 
-TEST(ActionChoices, ChooseFromNumbers)
+TEST_CASE("[ActionChoices] - ChooseFromNumbers")
 {
     ActionChoices choices(3);
 
     // Get
-    EXPECT_EQ(choices.Get(0), 0);
-    EXPECT_EQ(choices.Get(1), 1);
-    EXPECT_EQ(choices.Get(2), 2);
+    CHECK_EQ(choices.Get(0), 0);
+    CHECK_EQ(choices.Get(1), 1);
+    CHECK_EQ(choices.Get(2), 2);
 
     // IsEmpty
-    EXPECT_EQ(choices.IsEmpty(), false);
+    CHECK_EQ(choices.IsEmpty(), false);
 
     // Size
-    EXPECT_EQ(choices.Size(), 3);
+    CHECK_EQ(choices.Size(), 3);
 
     //! Begin, IsEnd, StepNext
     int sum = 0;
@@ -78,5 +80,5 @@ TEST(ActionChoices, ChooseFromNumbers)
     {
         sum += choices.Get();
     }
-    EXPECT_EQ(sum, 3);
+    CHECK_EQ(sum, 3);
 }

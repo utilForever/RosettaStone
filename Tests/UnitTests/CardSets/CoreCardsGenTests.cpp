@@ -25,7 +25,7 @@ using namespace SimpleTasks;
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS1h_001_LesserHeal)
+TEST_CASE("[Priest : Hero Power] - CS1h_001 : Lesser Heal")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -49,14 +49,14 @@ TEST(HeroPowersCoreTest, CS1h_001_LesserHeal)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
 
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ------------------------------------- HERO_POWER - DRUID
@@ -65,7 +65,7 @@ TEST(HeroPowersCoreTest, CS1h_001_LesserHeal)
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS2_017_Shapeshift)
+TEST_CASE("[Druid : Hero Power] - CS2_017 : Shapeshift")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -98,25 +98,25 @@ TEST(HeroPowersCoreTest, CS2_017_Shapeshift)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 1);
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 1);
 
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 1);
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
 }
 
 // -------------------------------------- HERO_POWER - MAGE
@@ -128,7 +128,7 @@ TEST(HeroPowersCoreTest, CS2_017_Shapeshift)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS2_034_Fireblast)
+TEST_CASE("[Mage : Hero Power] - CS2_034 : Fireblast")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -157,14 +157,14 @@ TEST(HeroPowersCoreTest, CS2_034_Fireblast)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, HeroPowerTask(card1));
 
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 }
 
 // ------------------------------------ HERO_POWER - SHAMAN
@@ -179,7 +179,7 @@ TEST(HeroPowersCoreTest, CS2_034_Fireblast)
 // - REQ_NUM_MINION_SLOTS = 1
 // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS2_049_TotemicCall)
+TEST_CASE("[Shaman : Hero Power] - CS2_049 : Totemic Call")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -234,8 +234,8 @@ TEST(HeroPowersCoreTest, CS2_049_TotemicCall)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField.GetCount(), 4);
-    EXPECT_EQ(opField.GetCount(), 4);
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(opField.GetCount(), 4);
 }
 
 // ----------------------------------- HERO_POWER - WARLOCK
@@ -244,7 +244,7 @@ TEST(HeroPowersCoreTest, CS2_049_TotemicCall)
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Draw a card and take 2 damage.
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS2_056_LifeTap)
+TEST_CASE("[Warlock : Hero Power] - CS2_056 : Life Tap")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -264,12 +264,12 @@ TEST(HeroPowersCoreTest, CS2_056_LifeTap)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 4);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
 }
 
 // ------------------------------------- HERO_POWER - ROGUE
@@ -278,7 +278,7 @@ TEST(HeroPowersCoreTest, CS2_056_LifeTap)
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
+TEST_CASE("[Rogue : Hero Power] - CS2_083b : Dagger Mastery")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -298,17 +298,17 @@ TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), true);
-    EXPECT_EQ(curPlayer->GetWeapon().GetAttack(), 1);
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 1);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
 }
 
 // ----------------------------------- HERO_POWER - PALADIN
@@ -320,7 +320,7 @@ TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
 // PlayReq:
 // - REQ_NUM_MINION_SLOTS = 1
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS2_101_Reinforce)
+TEST_CASE("[Paladin : Hero Power] - CS2_101 : Reinforce")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -344,9 +344,9 @@ TEST(HeroPowersCoreTest, CS2_101_Reinforce)
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
 // ----------------------------------- HERO_POWER - WARRIOR
@@ -355,7 +355,7 @@ TEST(HeroPowersCoreTest, CS2_101_Reinforce)
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Gain 2 Armor.
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, CS2_102_ArmorUp)
+TEST_CASE("[Warrior : Hero Power] - CS2_102 : Armor Up!")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -375,11 +375,11 @@ TEST(HeroPowersCoreTest, CS2_102_ArmorUp)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 }
 
 // ------------------------------------ HERO_POWER - HUNTER
@@ -392,7 +392,7 @@ TEST(HeroPowersCoreTest, CS2_102_ArmorUp)
 // - REQ_STEADY_SHOT = 0
 // - REQ_MINION_OR_ENEMY_HERO = 0
 // --------------------------------------------------------
-TEST(HeroPowersCoreTest, DS1h_292_SteadyShot)
+TEST_CASE("[Hunter : Hero Power] - DS1h_292 : Steady Shot")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -414,7 +414,7 @@ TEST(HeroPowersCoreTest, DS1h_292_SteadyShot)
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -423,7 +423,7 @@ TEST(HeroPowersCoreTest, DS1h_292_SteadyShot)
 // --------------------------------------------------------
 // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_005_Claw)
+TEST_CASE("[Druid : Spell] - CS2_005 : Claw")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -447,18 +447,18 @@ TEST(DruidCoreTest, CS2_005_Claw)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Claw"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 2);
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -470,7 +470,7 @@ TEST(DruidCoreTest, CS2_005_Claw)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_007_HealingTouch)
+TEST_CASE("[Druid : Spell] - CS2_007 : Healing Touch")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -512,10 +512,10 @@ TEST(DruidCoreTest, CS2_007_HealingTouch)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 23);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -527,7 +527,7 @@ TEST(DruidCoreTest, CS2_007_HealingTouch)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_008_Moonfire)
+TEST_CASE("[Druid : Spell] - CS2_008 : Moonfire")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -574,18 +574,18 @@ TEST(DruidCoreTest, CS2_008_Moonfire)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -602,7 +602,7 @@ TEST(DruidCoreTest, CS2_008_Moonfire)
 // RefTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_009_MarkOfTheWild)
+TEST_CASE("[Druid : Spell] - CS2_009 : Mark of the Wild")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -630,14 +630,14 @@ TEST(DruidCoreTest, CS2_009_MarkOfTheWild)
     auto& curField = *(curPlayer->GetFieldZone());
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
-    EXPECT_EQ(curField[0]->GetAttack(), 5);
-    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -646,7 +646,7 @@ TEST(DruidCoreTest, CS2_009_MarkOfTheWild)
 // --------------------------------------------------------
 // Text: Give your characters +2 Attack this turn.
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_011_SavageRoar)
+TEST_CASE("[Druid : Spell] - CS2_011 : Savage Roar")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -677,21 +677,21 @@ TEST(DruidCoreTest, CS2_011_SavageRoar)
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 2);
-    EXPECT_EQ(curField[0]->GetAttack(), 5);
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -704,7 +704,7 @@ TEST(DruidCoreTest, CS2_011_SavageRoar)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_012_Swipe)
+TEST_CASE("[Druid : Spell] - CS2_012 : Swipe")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -739,23 +739,23 @@ TEST(DruidCoreTest, CS2_012_Swipe)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
-    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 25);
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -764,7 +764,7 @@ TEST(DruidCoreTest, CS2_012_Swipe)
 // --------------------------------------------------------
 // Text: Gain an empty Mana Crystal.
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_013_WildGrowth)
+TEST_CASE("[Druid : Spell] - CS2_013 : Wild Growth")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -790,12 +790,12 @@ TEST(DruidCoreTest, CS2_013_WildGrowth)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wild Growth"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetRemainingMana(), 6);
-    EXPECT_EQ(curPlayer->GetTotalMana(), 10);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curPlayer->GetRemainingMana(), 3);
-    EXPECT_EQ(curPlayer->GetTotalMana(), 10);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
 }
 
 // ----------------------------------------- MINION - DRUID
@@ -807,7 +807,7 @@ TEST(DruidCoreTest, CS2_013_WildGrowth)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(DruidCoreTest, CS2_232_IronbarkProtector)
+TEST_CASE("[Druid : Minion] - CS2_232 : Ironbark Protector")
 {
     // Do nothing
 }
@@ -818,7 +818,7 @@ TEST(DruidCoreTest, CS2_232_IronbarkProtector)
 // --------------------------------------------------------
 // Text: Gain 1 Mana Crystal this turn only.
 // --------------------------------------------------------
-TEST(DruidCoreTest, EX1_169_Innervate)
+TEST_CASE("[Druid : Spell] - EX1_169 : Innervate")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -846,16 +846,16 @@ TEST(DruidCoreTest, EX1_169_Innervate)
         curPlayer, Cards::FindCardByName("Dragonling Mechanic"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetRemainingMana(), 10);
-    EXPECT_EQ(curPlayer->GetTemporaryMana(), 1);
-    EXPECT_EQ(curPlayer->GetTotalMana(), 9);
-    EXPECT_EQ(curPlayer->GetUsedMana(), 0);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+    CHECK_EQ(curPlayer->GetTotalMana(), 9);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curPlayer->GetRemainingMana(), 6);
-    EXPECT_EQ(curPlayer->GetTemporaryMana(), 0);
-    EXPECT_EQ(curPlayer->GetTotalMana(), 9);
-    EXPECT_EQ(curPlayer->GetUsedMana(), 3);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+    CHECK_EQ(curPlayer->GetTotalMana(), 9);
+    CHECK_EQ(curPlayer->GetUsedMana(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -864,10 +864,10 @@ TEST(DruidCoreTest, EX1_169_Innervate)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curPlayer->GetRemainingMana(), 10);
-    EXPECT_EQ(curPlayer->GetTemporaryMana(), 0);
-    EXPECT_EQ(curPlayer->GetTotalMana(), 10);
-    EXPECT_EQ(curPlayer->GetUsedMana(), 0);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -879,7 +879,7 @@ TEST(DruidCoreTest, EX1_169_Innervate)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(DruidCoreTest, EX1_173_Starfire)
+TEST_CASE("[Druid : Spell] - EX1_173 : Starfire")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -910,14 +910,14 @@ TEST(DruidCoreTest, EX1_173_Starfire)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -930,7 +930,7 @@ TEST(DruidCoreTest, EX1_173_Starfire)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(HunterCoreTest, CS2_084_HuntersMark)
+TEST_CASE("[Hunter : Spell] - CS2_084 : Hunter's Mark")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -958,13 +958,13 @@ TEST(HunterCoreTest, CS2_084_HuntersMark)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Hunter's Mark"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
 // ---------------------------------------- MINION - HUNTER
@@ -973,7 +973,7 @@ TEST(HunterCoreTest, CS2_084_HuntersMark)
 // --------------------------------------------------------
 // Text: Whenever you summon a Beast, draw a card.
 // --------------------------------------------------------
-TEST(HunterCoreTest, CS2_237_StarvingBuzzard)
+TEST_CASE("[Hunter : Minion] - CS2_237 : Starving Buzzard")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1009,10 +1009,10 @@ TEST(HunterCoreTest, CS2_237_StarvingBuzzard)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 
 // ---------------------------------------- MINION - HUNTER
@@ -1032,7 +1032,7 @@ TEST(HunterCoreTest, CS2_237_StarvingBuzzard)
 // RefTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(HunterCoreTest, DS1_070_Houndmaster)
+TEST_CASE("[Hunter : Minion] - DS1_070 : Houndmaster")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1071,16 +1071,16 @@ TEST(HunterCoreTest, DS1_070_Houndmaster)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curField[1]->GetAttack(), 5);
-    EXPECT_EQ(curField[1]->GetHealth(), 4);
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
 }
 
 // ---------------------------------------- MINION - HUNTER
@@ -1092,7 +1092,7 @@ TEST(HunterCoreTest, DS1_070_Houndmaster)
 // GameTag:
 // - AURA = 1
 // --------------------------------------------------------
-TEST(HunterCoreTest, DS1_175_TimberWolf)
+TEST_CASE("[Hunter : Minion] - DS1_175 : Timber Wolf")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1126,38 +1126,38 @@ TEST(HunterCoreTest, DS1_175_TimberWolf)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(curField[2]->GetAttack(), 4);
-    EXPECT_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[2]->GetAttack(), 5);
-    EXPECT_EQ(curField[2]->GetHealth(), 2);
-    EXPECT_EQ(curField[3]->GetAttack(), 2);
-    EXPECT_EQ(curField[3]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, AttackTask(card5, card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[2]->GetAttack(), 4);
-    EXPECT_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
 }
 
 // ---------------------------------------- MINION - HUNTER
@@ -1172,7 +1172,7 @@ TEST(HunterCoreTest, DS1_175_TimberWolf)
 // RefTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(HunterCoreTest, DS1_178_TundraRhino)
+TEST_CASE("[Hunter : Minion] - DS1_178 : Tundra Rhino")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1202,11 +1202,11 @@ TEST(HunterCoreTest, DS1_178_TundraRhino)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Starving Buzzard"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::CHARGE), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1215,9 +1215,9 @@ TEST(HunterCoreTest, DS1_178_TundraRhino)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::CHARGE), 1);
-    EXPECT_EQ(curField[2]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[2]->GetGameTag(GameTag::CHARGE), 1);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -1229,7 +1229,7 @@ TEST(HunterCoreTest, DS1_178_TundraRhino)
 // PlayReq:
 // - REQ_MINIMUM_ENEMY_MINIONS = 1
 // --------------------------------------------------------
-TEST(HunterCoreTest, DS1_183_MultiShot)
+TEST_CASE("[Hunter : Spell] - DS1_183 : Multi-Shot")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1265,7 +1265,7 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     int totalHealth = opField[0]->GetHealth();
-    EXPECT_EQ(totalHealth, 4);
+    CHECK_EQ(totalHealth, 4);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1275,22 +1275,22 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     totalHealth += opField[1]->GetHealth();
-    EXPECT_EQ(totalHealth, 8);
+    CHECK_EQ(totalHealth, 8);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     totalHealth += opField[2]->GetHealth();
-    EXPECT_EQ(totalHealth, 12);
+    CHECK_EQ(totalHealth, 12);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField.GetCount(), 3);
     totalHealth = opField[0]->GetHealth();
     totalHealth += opField[1]->GetHealth();
     totalHealth += opField[2]->GetHealth();
-    EXPECT_EQ(totalHealth, 6);
+    CHECK_EQ(totalHealth, 6);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -1300,7 +1300,7 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
 // Text: Look at the top 3 cards of your deck. Draw one and discard
 // the others.
 // --------------------------------------------------------
-TEST(HunterCoreTest, DS1_184_Tracking)
+TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1323,18 +1323,18 @@ TEST(HunterCoreTest, DS1_184_Tracking)
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Tracking"));
 
-    EXPECT_EQ(curPlayer->GetDeckZone()->GetCount(), 5);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_TRUE(curPlayer->choice.has_value());
-    EXPECT_EQ(curPlayer->choice.value().choices.size(), 3u);
+    CHECK(curPlayer->choice.has_value());
+    CHECK_EQ(curPlayer->choice.value().choices.size(), 3u);
 
     game.Process(
         curPlayer,
         ChooseTask::Pick(curPlayer, curPlayer->choice.value().choices[0]));
-    EXPECT_EQ(curPlayer->GetDeckZone()->GetCount(), 2);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 2);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -1346,7 +1346,7 @@ TEST(HunterCoreTest, DS1_184_Tracking)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(HunterCoreTest, DS1_185_ArcaneShot)
+TEST_CASE("[Hunter : Spell] - DS1_185 : Arcane Shot")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1390,18 +1390,18 @@ TEST(HunterCoreTest, DS1_185_ArcaneShot)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -1414,7 +1414,7 @@ TEST(HunterCoreTest, DS1_185_ArcaneShot)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(HunterCoreTest, EX1_539_KillCommand)
+TEST_CASE("[Hunter : Spell] - EX1_539 : Kill Command")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1443,12 +1443,12 @@ TEST(HunterCoreTest, EX1_539_KillCommand)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -1462,7 +1462,7 @@ TEST(HunterCoreTest, EX1_539_KillCommand)
 // PlayReq:
 // - REQ_NUM_MINION_SLOTS = 1
 // --------------------------------------------------------
-TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
+TEST_CASE("[Hunter : Spell] - NEW1_031 : Animal Companion")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1495,10 +1495,10 @@ TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
     int isLeokk1 = (curField[0]->card->name == "Leokk") ? 1 : 0;
     int isLeokk2 = (curField[1]->card->name == "Leokk") ? 1 : 0;
 
-    EXPECT_EQ(curField[0]->card->gameTags[GameTag::ATK] + isLeokk2,
-              curField[0]->GetAttack());
-    EXPECT_EQ(curField[1]->card->gameTags[GameTag::ATK] + isLeokk1,
-              curField[1]->GetAttack());
+    CHECK_EQ(curField[0]->card->gameTags[GameTag::ATK] + isLeokk2,
+             curField[0]->GetAttack());
+    CHECK_EQ(curField[1]->card->gameTags[GameTag::ATK] + isLeokk1,
+             curField[1]->GetAttack());
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1512,7 +1512,7 @@ TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_022_Polymorph)
+TEST_CASE("[Mage : Spell] - CS2_022 : Polymorph")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1555,14 +1555,14 @@ TEST(MageCoreTest, CS2_022_Polymorph)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(opField[0]->GetAttack(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1571,7 +1571,7 @@ TEST(MageCoreTest, CS2_022_Polymorph)
 // --------------------------------------------------------
 // Text: Draw 2 cards.
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_023_ArcaneIntellect)
+TEST_CASE("[Mage : Spell] - CS2_023 : Arcane Intellect")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1593,10 +1593,10 @@ TEST(MageCoreTest, CS2_023_ArcaneIntellect)
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Intellect"));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1611,7 +1611,7 @@ TEST(MageCoreTest, CS2_023_ArcaneIntellect)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_024_Frostbolt)
+TEST_CASE("[Mage : Spell] - CS2_024 : Frostbolt")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1657,12 +1657,12 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(opPlayer->GetHero()->IsFrozen(), true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->IsFrozen(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1671,13 +1671,13 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->IsFrozen(), true);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(curPlayer->GetHero()->IsFrozen(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetHero()->IsFrozen(), true);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1686,7 +1686,7 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
 // --------------------------------------------------------
 // Text: Deal 1 damage to all enemy minions.
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_025_ArcaneExplosion)
+TEST_CASE("[Mage : Spell] - CS2_025 : Arcane Explosion")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1725,17 +1725,17 @@ TEST(MageCoreTest, CS2_025_ArcaneExplosion)
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::Minion(card5));
-    EXPECT_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField.GetCount(), 3);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(opField.GetCount(), 0);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1747,7 +1747,7 @@ TEST(MageCoreTest, CS2_025_ArcaneExplosion)
 // GameTag:
 // - FREEZE = 1
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_026_FrostNova)
+TEST_CASE("[Mage : Spell] - CS2_026 : Frost Nova")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1781,18 +1781,18 @@ TEST(MageCoreTest, CS2_026_FrostNova)
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
-    EXPECT_EQ(opField[0]->IsFrozen(), true);
-    EXPECT_EQ(opField[1]->GetHealth(), 1);
-    EXPECT_EQ(opField[1]->IsFrozen(), true);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(opPlayer->GetHero()->IsFrozen(), false);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->IsFrozen(), true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->IsFrozen(), false);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1807,7 +1807,7 @@ TEST(MageCoreTest, CS2_026_FrostNova)
 // RefTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_027_MirrorImage)
+TEST_CASE("[Mage : Spell] - CS2_027 : Mirror Image")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1837,25 +1837,25 @@ TEST(MageCoreTest, CS2_027_MirrorImage)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mirror Image"));
 
     auto& curField = *(curPlayer->GetFieldZone());
-    EXPECT_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 0);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(curField[0]->GetAttack(), 0);
-    EXPECT_EQ(curField[0]->GetHealth(), 2);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
-    EXPECT_EQ(curField[1]->GetAttack(), 0);
-    EXPECT_EQ(curField[1]->GetHealth(), 2);
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 0);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField.GetCount(), 4);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField.GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::Spell(card4));
-    EXPECT_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField.GetCount(), 7);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1867,7 +1867,7 @@ TEST(MageCoreTest, CS2_027_MirrorImage)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_029_Fireball)
+TEST_CASE("[Mage : Spell] - CS2_029 : Fireball")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1911,11 +1911,11 @@ TEST(MageCoreTest, CS2_029_Fireball)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1924,11 +1924,11 @@ TEST(MageCoreTest, CS2_029_Fireball)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1937,7 +1937,7 @@ TEST(MageCoreTest, CS2_029_Fireball)
 // --------------------------------------------------------
 // Text: Deal 4 damage to all enemy minions.
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_032_Flamestrike)
+TEST_CASE("[Mage : Spell] - CS2_032 : Flamestrike")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1971,14 +1971,14 @@ TEST(MageCoreTest, CS2_032_Flamestrike)
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
 }
 
 // ------------------------------------------ MINION - MAGE
@@ -1990,7 +1990,7 @@ TEST(MageCoreTest, CS2_032_Flamestrike)
 // GameTag:
 // - FREEZE = 1
 // --------------------------------------------------------
-TEST(MageCoreTest, CS2_033_WaterElemental)
+TEST_CASE("[Mage : Minion] - CS2_033 : Water Elemental")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -2030,12 +2030,12 @@ TEST(MageCoreTest, CS2_033_WaterElemental)
 
     game.Process(curPlayer, AttackTask(card1, card2));
 
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 2);
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
-    EXPECT_EQ(curField[0]->IsFrozen(), false);
-    EXPECT_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -2047,7 +2047,7 @@ TEST(MageCoreTest, CS2_033_WaterElemental)
 // GameTag:
 // - ImmuneToSpellpower = 1
 // --------------------------------------------------------
-TEST(MageCoreTest, EX1_277_ArcaneMissiles)
+TEST_CASE("[Mage : Spell] - EX1_277 : Arcane Missiles")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -2082,7 +2082,7 @@ TEST(MageCoreTest, EX1_277_ArcaneMissiles)
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     int totalHealth = opPlayer->GetHero()->GetHealth();
     totalHealth += opField[0]->GetHealth();
-    EXPECT_EQ(totalHealth, 37);
+    CHECK_EQ(totalHealth, 37);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -2090,12 +2090,12 @@ TEST(MageCoreTest, EX1_277_ArcaneMissiles)
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     totalHealth = opPlayer->GetHero()->GetHealth();
     totalHealth += opField[0]->GetHealth();
-    EXPECT_EQ(totalHealth, 34);
+    CHECK_EQ(totalHealth, 34);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     totalHealth = opPlayer->GetHero()->GetHealth();
     totalHealth += opField[0]->GetHealth();
-    EXPECT_EQ(totalHealth, 31);
+    CHECK_EQ(totalHealth, 31);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2108,7 +2108,7 @@ TEST(MageCoreTest, EX1_277_ArcaneMissiles)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_087_BlessingOfMight)
+TEST_CASE("[Paladin : SPell] - CS2_087 : Blessing of Might")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2136,10 +2136,10 @@ TEST(PaladinCoreTest, CS2_087_BlessingOfMight)
         curPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
 }
 
 // --------------------------------------- MINION - PALADIN
@@ -2151,7 +2151,7 @@ TEST(PaladinCoreTest, CS2_087_BlessingOfMight)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_088_GuardianOfKings)
+TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -2179,7 +2179,7 @@ TEST(PaladinCoreTest, CS2_088_GuardianOfKings)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2191,7 +2191,7 @@ TEST(PaladinCoreTest, CS2_088_GuardianOfKings)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_089_HolyLight)
+TEST_CASE("[Paladin : Spell] - CS2_089 : Holy Light")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2233,10 +2233,10 @@ TEST(PaladinCoreTest, CS2_089_HolyLight)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 21);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 21);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 }
 
 // --------------------------------------- WEAPON - PALADIN
@@ -2246,7 +2246,7 @@ TEST(PaladinCoreTest, CS2_089_HolyLight)
 // GameTag:
 // - DURABILITY = 4
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_091_LightsJustice)
+TEST_CASE("[Paladin : Weapon] - CS2_091 : Light's Justice")
 {
     // Do nothing
 }
@@ -2261,7 +2261,7 @@ TEST(PaladinCoreTest, CS2_091_LightsJustice)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_092_BlessingOfKings)
+TEST_CASE("[Paladin : Spell] - CS2_092 : Blessing of Kings")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2289,12 +2289,12 @@ TEST(PaladinCoreTest, CS2_092_BlessingOfKings)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 7);
-    EXPECT_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2303,7 +2303,7 @@ TEST(PaladinCoreTest, CS2_092_BlessingOfKings)
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemies.
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_093_Consecration)
+TEST_CASE("[Paladin : Spell] - CS2_093 : Consecration")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2337,15 +2337,15 @@ TEST(PaladinCoreTest, CS2_093_Consecration)
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2357,7 +2357,7 @@ TEST(PaladinCoreTest, CS2_093_Consecration)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_094_HammerOfWrath)
+TEST_CASE("[Paladin : Spell] - CS2_094 : Hammer of Wrath")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2388,14 +2388,14 @@ TEST(PaladinCoreTest, CS2_094_HammerOfWrath)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(opField[0]->GetHealth(), 4);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 
 // --------------------------------------- WEAPON - PALADIN
@@ -2407,7 +2407,7 @@ TEST(PaladinCoreTest, CS2_094_HammerOfWrath)
 // GameTag:
 // - DURABILITY = 2
 // --------------------------------------------------------
-TEST(PaladinCoreTest, CS2_097_TruesilverChampion)
+TEST_CASE("[Paladin : Weapon] - CS2_097 : Truesilver Champion")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2432,15 +2432,15 @@ TEST(PaladinCoreTest, CS2_097_TruesilverChampion)
         curPlayer, Cards::FindCardByName("Truesilver Champion"));
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 26);
-    EXPECT_EQ(curPlayer->GetWeapon().GetAttack(), 4);
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 26);
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2453,7 +2453,7 @@ TEST(PaladinCoreTest, CS2_097_TruesilverChampion)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(PaladinCoreTest, EX1_360_Humility)
+TEST_CASE("[Paladin : Spell] - EX1_360 : Humility")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2484,13 +2484,13 @@ TEST(PaladinCoreTest, EX1_360_Humility)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField[0]->GetAttack(), 6);
+    CHECK_EQ(opField[0]->GetAttack(), 6);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2506,7 +2506,7 @@ TEST(PaladinCoreTest, EX1_360_Humility)
 // RefTag:
 // - DIVINE_SHIELD = 1
 // --------------------------------------------------------
-TEST(PaladinCoreTest, EX1_371_HandOfProtection)
+TEST_CASE("[Paladin : Spell] - EX1_371 : Hand of Protection")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2539,19 +2539,19 @@ TEST(PaladinCoreTest, EX1_371_HandOfProtection)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2561,7 +2561,7 @@ TEST(PaladinCoreTest, EX1_371_HandOfProtection)
 // Text: Deal 2 damage to all enemies.
 //       Restore 2 Health to all friendly characters.
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS1_112_HolyNova)
+TEST_CASE("[Priest : Spell] - CS1_112 : Holy Nova")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -2617,15 +2617,15 @@ TEST(PriestCoreTest, CS1_112_HolyNova)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(card1, card4));
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
-    EXPECT_EQ(curField[0]->GetHealth(), 5);
-    EXPECT_EQ(curField[1]->GetHealth(), 7);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2640,7 +2640,7 @@ TEST(PriestCoreTest, CS1_112_HolyNova)
 // - REQ_ENEMY_TARGET = 0
 // - REQ_NUM_MINION_SLOTS = 1
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS1_113_MindControl)
+TEST_CASE("[Priest : Spell] - CS1_113 : Mind Control")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -2673,27 +2673,27 @@ TEST(PriestCoreTest, CS1_113_MindControl)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Mind Control"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
-    EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 8);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 8);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2705,7 +2705,7 @@ TEST(PriestCoreTest, CS1_113_MindControl)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS1_130_HolySmite)
+TEST_CASE("[Priest : Spell] - CS1_130 : Holy Smite")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -2752,18 +2752,18 @@ TEST(PriestCoreTest, CS1_130_HolySmite)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 0);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2772,7 +2772,7 @@ TEST(PriestCoreTest, CS1_130_HolySmite)
 // --------------------------------------------------------
 // Text: Put a copy of a random card in your opponent's hand into your hand.
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS2_003_MindVision)
+TEST_CASE("[Priest : Spell] - CS2_003 : Mind Vision")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -2810,7 +2810,7 @@ TEST(PriestCoreTest, CS2_003_MindVision)
         }
     }
 
-    EXPECT_TRUE(flag);
+    CHECK(flag);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2824,7 +2824,7 @@ TEST(PriestCoreTest, CS2_003_MindVision)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS2_004_PowerWordShield)
+TEST_CASE("[Priest : Spell] - CS2_004 : Power Word: Shield")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -2852,12 +2852,12 @@ TEST(PriestCoreTest, CS2_004_PowerWordShield)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2871,7 +2871,7 @@ TEST(PriestCoreTest, CS2_004_PowerWordShield)
 // - REQ_TARGET_MAX_ATTACK = 3
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS2_234_ShadowWordPain)
+TEST_CASE("[Priest : Spell] - CS2_234 : Shadow Word: Pain")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -2904,25 +2904,25 @@ TEST(PriestCoreTest, CS2_234_ShadowWordPain)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(opField.GetCount(), 1);
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -2931,7 +2931,7 @@ TEST(PriestCoreTest, CS2_234_ShadowWordPain)
 // --------------------------------------------------------
 // Text: Whenever a minion is healed, draw a card.
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS2_235_NorthshireCleric)
+TEST_CASE("[Priest : Minion] - CS2_235 : Northshire Cleric")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -2962,18 +2962,18 @@ TEST(PriestCoreTest, CS2_235_NorthshireCleric)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
 
     curField[0]->SetDamage(2);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2986,7 +2986,7 @@ TEST(PriestCoreTest, CS2_235_NorthshireCleric)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(PriestCoreTest, CS2_236_DivineSpirit)
+TEST_CASE("[Priest : Spell] - CS2_236 : Divine Spirit")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -3016,20 +3016,20 @@ TEST(PriestCoreTest, CS2_236_DivineSpirit)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     game.Process(opPlayer, AttackTask(card3, card2));
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -3038,7 +3038,7 @@ TEST(PriestCoreTest, CS2_236_DivineSpirit)
 // --------------------------------------------------------
 // Text: Restore 5 Health to your hero.
 // --------------------------------------------------------
-TEST(PriestCoreTest, EX1_192_Radiance)
+TEST_CASE("[Priest : Spell] - EX1_192 : Radiance")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -3064,13 +3064,13 @@ TEST(PriestCoreTest, EX1_192_Radiance)
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Radiance"));
 
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 22);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -3084,7 +3084,7 @@ TEST(PriestCoreTest, EX1_192_Radiance)
 // - REQ_MINION_TARGET = 0
 // - REQ_TARGET_MIN_ATTACK = 5
 // --------------------------------------------------------
-TEST(PriestCoreTest, EX1_622_ShadowWordDeath)
+TEST_CASE("[Priest : Spell] - EX1_622 : Shadow Word: Death")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -3117,25 +3117,25 @@ TEST(PriestCoreTest, EX1_622_ShadowWordDeath)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(opField.GetCount(), 1);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3149,7 +3149,7 @@ TEST(PriestCoreTest, EX1_622_ShadowWordDeath)
 // - REQ_MINION_TARGET = 0
 // - REQ_UNDAMAGED_TARGET = 0
 // --------------------------------------------------------
-TEST(RogueCoreTest, CS2_072_Backstab)
+TEST_CASE("[Rogue : Spell] - CS2_072 : Backstab")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3187,12 +3187,12 @@ TEST(RogueCoreTest, CS2_072_Backstab)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3204,7 +3204,7 @@ TEST(RogueCoreTest, CS2_072_Backstab)
 // PlayReq:
 // - REQ_WEAPON_EQUIPPED = 0
 // --------------------------------------------------------
-TEST(RogueCoreTest, CS2_074_DeadlyPoison)
+TEST_CASE("[Rogue : Spell] - CS2_074 : Deadly Poison")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3228,21 +3228,21 @@ TEST(RogueCoreTest, CS2_074_DeadlyPoison)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Deadly Poison"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, HeroPowerTask());
-    EXPECT_EQ(curPlayer->GetWeapon().GetAttack(), 1);
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetWeapon().GetAttack(), 3);
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetWeapon().GetAttack(), 3);
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3251,7 +3251,7 @@ TEST(RogueCoreTest, CS2_074_DeadlyPoison)
 // --------------------------------------------------------
 // Text: Deal 3 damage to the enemy hero.
 // --------------------------------------------------------
-TEST(RogueCoreTest, CS2_075_SinisterStrike)
+TEST_CASE("[Rogue : Spell] - CS2_075 : Sinister Strike")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3275,7 +3275,7 @@ TEST(RogueCoreTest, CS2_075_SinisterStrike)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Sinister Strike"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3289,7 +3289,7 @@ TEST(RogueCoreTest, CS2_075_SinisterStrike)
 // - REQ_MINION_TARGET = 0
 // - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
-TEST(RogueCoreTest, CS2_076_Assassinate)
+TEST_CASE("[Rogue : Spell] - CS2_076 : Assassinate")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3320,18 +3320,18 @@ TEST(RogueCoreTest, CS2_076_Assassinate)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3340,7 +3340,7 @@ TEST(RogueCoreTest, CS2_076_Assassinate)
 // --------------------------------------------------------
 // Text: Draw 4 cards.
 // --------------------------------------------------------
-TEST(RogueCoreTest, CS2_077_Sprint)
+TEST_CASE("[Rogue : Spell] - CS2_077 : Sprint")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3362,10 +3362,10 @@ TEST(RogueCoreTest, CS2_077_Sprint)
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Sprint"));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 8);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 8);
 }
 
 // ----------------------------------------- WEAPON - ROGUE
@@ -3375,7 +3375,7 @@ TEST(RogueCoreTest, CS2_077_Sprint)
 // GameTag:
 // - DURABILITY = 4
 // --------------------------------------------------------
-TEST(RogueCoreTest, CS2_080_AssassinsBlade)
+TEST_CASE("[Rogue : Weapon] - CS2_080 : Assassin's Blade")
 {
     // Do nothing
 }
@@ -3386,7 +3386,7 @@ TEST(RogueCoreTest, CS2_080_AssassinsBlade)
 // --------------------------------------------------------
 // Text: Deal 1 damage to all enemy minions. Draw a card.
 // --------------------------------------------------------
-TEST(RogueCoreTest, EX1_129_FanOfKnives)
+TEST_CASE("[Rogue : Spell] - EX1_129 : Fan of Knives")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3426,20 +3426,20 @@ TEST(RogueCoreTest, EX1_129_FanOfKnives)
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::Minion(card5));
 
-    EXPECT_EQ(opField.GetCount(), 3);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 7);
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 7);
-    EXPECT_EQ(opField.GetCount(), 0);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ----------------------------------------- MINION - ROGUE
@@ -3459,7 +3459,7 @@ TEST(RogueCoreTest, EX1_129_FanOfKnives)
 // RefTag:
 // - POISONOUS = 1
 // --------------------------------------------------------
-TEST(RogueCoreTest, EX1_191_Plaguebringer)
+TEST_CASE("[Rogue : Minion] - EX1_191 : Plaguebringer")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -3495,8 +3495,8 @@ TEST(RogueCoreTest, EX1_191_Plaguebringer)
     game.Process(opPlayer, PlayCardTask::MinionTarget(card2, card3));
 
     game.Process(opPlayer, AttackTask(card3, card1));
-    EXPECT_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
-    EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 1);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 1);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3508,7 +3508,7 @@ TEST(RogueCoreTest, EX1_191_Plaguebringer)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(RogueCoreTest, EX1_278_Shiv)
+TEST_CASE("[Rogue : Spell] - EX1_278 : Shiv")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3543,22 +3543,22 @@ TEST(RogueCoreTest, EX1_278_Shiv)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 8);
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 8);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curPlayer->currentSpellPower, 1);
+    CHECK_EQ(curPlayer->currentSpellPower, 1);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 7);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3572,7 +3572,7 @@ TEST(RogueCoreTest, EX1_278_Shiv)
 // - REQ_MINION_TARGET = 0
 // - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
-TEST(RogueCoreTest, EX1_581_Sap)
+TEST_CASE("[Rogue : Spell] - EX1_581 : Sap")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3606,32 +3606,32 @@ TEST(RogueCoreTest, EX1_581_Sap)
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card4));
-    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetAttack(), 7);
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetAttack(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 7);
-    EXPECT_EQ(opField[0]->GetAttack(), 3);
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -3647,7 +3647,7 @@ TEST(RogueCoreTest, EX1_581_Sap)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
-TEST(ShamanCoreTest, CS2_037_FrostShock)
+TEST_CASE("[Shaman : Spell] - CS2_037 : Frost Shock")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -3683,17 +3683,17 @@ TEST(ShamanCoreTest, CS2_037_FrostShock)
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
-    EXPECT_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -3709,7 +3709,7 @@ TEST(ShamanCoreTest, CS2_037_FrostShock)
 // RefTag:
 // - WINDFURY = 1
 // --------------------------------------------------------
-TEST(ShamanCoreTest, CS2_039_Windfury)
+TEST_CASE("[Shaman : Spell] - CS2_039 : Windfury")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -3737,7 +3737,7 @@ TEST(ShamanCoreTest, CS2_039_Windfury)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Windfury"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -3746,16 +3746,16 @@ TEST(ShamanCoreTest, CS2_039_Windfury)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 24);
-    EXPECT_EQ(curField[0]->IsExhausted(), true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(curField[0]->IsExhausted(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
-    EXPECT_EQ(curField[0]->IsExhausted(), false);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    CHECK_EQ(curField[0]->IsExhausted(), false);
 
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 18);
-    EXPECT_EQ(curField[0]->IsExhausted(), true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
+    CHECK_EQ(curField[0]->IsExhausted(), true);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -3773,7 +3773,7 @@ TEST(ShamanCoreTest, CS2_039_Windfury)
 // Tag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(ShamanCoreTest, CS2_041_AncestralHealing)
+TEST_CASE("[Shaman : Spell] - CS2_041 : Ancestral Healing")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -3810,15 +3810,15 @@ TEST(ShamanCoreTest, CS2_041_AncestralHealing)
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     game.Process(opPlayer, AttackTask(card3, card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 2);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
 }
 
 // ---------------------------------------- MINION - SHAMAN
@@ -3833,7 +3833,7 @@ TEST(ShamanCoreTest, CS2_041_AncestralHealing)
 // PlayReq:
 // - REQ_TARGET_IF_AVAILABLE = 0
 // --------------------------------------------------------
-TEST(ShamanCoreTest, CS2_042_FireElemental)
+TEST_CASE("[Shaman : Minion] - CS2_042 : Fire Elemental")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -3864,19 +3864,19 @@ TEST(ShamanCoreTest, CS2_042_FireElemental)
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opField[0]));
-    EXPECT_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -3889,7 +3889,7 @@ TEST(ShamanCoreTest, CS2_042_FireElemental)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_FRIENDLY_TARGET = 0
 // --------------------------------------------------------
-TEST(ShamanCoreTest, CS2_045_RockbiterWeapon)
+TEST_CASE("[Shaman : Spell] - CS2_045 : Rockbiter Weapon")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -3919,21 +3919,21 @@ TEST(ShamanCoreTest, CS2_045_RockbiterWeapon)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -3942,7 +3942,7 @@ TEST(ShamanCoreTest, CS2_045_RockbiterWeapon)
 // --------------------------------------------------------
 // Text: Give your minions +3 Attack this turn.
 // --------------------------------------------------------
-TEST(ShamanCoreTest, CS2_046_Bloodlust)
+TEST_CASE("[Shaman : Spell] - CS2_046 : Bloodlust")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -3972,10 +3972,10 @@ TEST(ShamanCoreTest, CS2_046_Bloodlust)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -3984,14 +3984,14 @@ TEST(ShamanCoreTest, CS2_046_Bloodlust)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 9);
-    EXPECT_EQ(curField[1]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetAttack(), 6);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -4000,7 +4000,7 @@ TEST(ShamanCoreTest, CS2_046_Bloodlust)
 // --------------------------------------------------------
 // Text: Give your Totems +2 Health.
 // --------------------------------------------------------
-TEST(ShamanCoreTest, EX1_244_TotemicMight)
+TEST_CASE("[Shaman : Spell] - EX1_244 : Totemic Might")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -4040,12 +4040,12 @@ TEST(ShamanCoreTest, EX1_244_TotemicMight)
     int totem2Health = curField[1]->GetHealth();
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curField[0]->GetHealth(), totem1Health + 2);
-    EXPECT_EQ(curField[1]->GetHealth(), totem2Health + 2);
-    EXPECT_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), totem1Health + 2);
+    CHECK_EQ(curField[1]->GetHealth(), totem2Health + 2);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -4061,7 +4061,7 @@ TEST(ShamanCoreTest, EX1_244_TotemicMight)
 // RefTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(ShamanCoreTest, EX1_246_Hex)
+TEST_CASE("[Shaman : Spell] - EX1_246 : Hex")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -4104,16 +4104,16 @@ TEST(ShamanCoreTest, EX1_246_Hex)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetAttack(), 0);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(opField[0]->GetAttack(), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::TAUNT), 1);
 }
 
 // ---------------------------------------- MINION - SHAMAN
@@ -4126,7 +4126,7 @@ TEST(ShamanCoreTest, EX1_246_Hex)
 // - ADJACENT_BUFF = 1
 // - AURA = 1
 // --------------------------------------------------------
-TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
+TEST_CASE("[Shaman : Minion] - EX1_565 : Flametongue Totem")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -4166,12 +4166,12 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 0);
-    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::Minion(card5));
-    EXPECT_EQ(curField[1]->GetAttack(), 8);
-    EXPECT_EQ(curField[1]->GetHealth(), 7);
+    CHECK_EQ(curField[1]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -4180,14 +4180,14 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[1]->GetAttack(), 10);
-    EXPECT_EQ(curField[1]->GetHealth(), 7);
-    EXPECT_EQ(curField[2]->GetAttack(), 0);
-    EXPECT_EQ(curField[2]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 10);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
+    CHECK_EQ(curField[2]->GetAttack(), 0);
+    CHECK_EQ(curField[2]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::Minion(card6));
-    EXPECT_EQ(curField[3]->GetAttack(), 3);
-    EXPECT_EQ(curField[3]->GetHealth(), 4);
+    CHECK_EQ(curField[3]->GetAttack(), 3);
+    CHECK_EQ(curField[3]->GetHealth(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -4196,14 +4196,14 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[3]->GetAttack(), 5);
-    EXPECT_EQ(curField[3]->GetHealth(), 4);
-    EXPECT_EQ(curField[4]->GetAttack(), 0);
-    EXPECT_EQ(curField[4]->GetHealth(), 3);
+    CHECK_EQ(curField[3]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 4);
+    CHECK_EQ(curField[4]->GetAttack(), 0);
+    CHECK_EQ(curField[4]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::Minion(card7));
-    EXPECT_EQ(curField[5]->GetAttack(), 5);
-    EXPECT_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->GetAttack(), 5);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -4212,10 +4212,10 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(curField[5]->GetAttack(), 7);
-    EXPECT_EQ(curField[5]->GetHealth(), 1);
-    EXPECT_EQ(curField[6]->GetAttack(), 0);
-    EXPECT_EQ(curField[6]->GetHealth(), 3);
+    CHECK_EQ(curField[5]->GetAttack(), 7);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->GetAttack(), 0);
+    CHECK_EQ(curField[6]->GetHealth(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -4223,10 +4223,10 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
     game.Process(opPlayer, PlayCardTask::Minion(card8));
     game.Process(opPlayer, AttackTask(card8, card7));
 
-    EXPECT_EQ(curField[4]->GetAttack(), 2);
-    EXPECT_EQ(curField[4]->GetHealth(), 3);
-    EXPECT_EQ(curField[5]->GetAttack(), 2);
-    EXPECT_EQ(curField[5]->GetHealth(), 3);
+    CHECK_EQ(curField[4]->GetAttack(), 2);
+    CHECK_EQ(curField[4]->GetHealth(), 3);
+    CHECK_EQ(curField[5]->GetAttack(), 2);
+    CHECK_EQ(curField[5]->GetHealth(), 3);
 }
 
 // ---------------------------------------- MINION - SHAMAN
@@ -4246,7 +4246,7 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
 // RefTag:
 // - WINDFURY = 1
 // --------------------------------------------------------
-TEST(ShamanCoreTest, EX1_587_Windspeaker)
+TEST_CASE("[Shaman : Minion] - EX1_587 : Windspeaker")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -4277,24 +4277,24 @@ TEST(ShamanCoreTest, EX1_587_Windspeaker)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -4307,7 +4307,7 @@ TEST(ShamanCoreTest, EX1_587_Windspeaker)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(WarlockCoreTest, CS2_057_ShadowBolt)
+TEST_CASE("[Warlock : Spell] - CS2_057 : Shadow Bolt")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -4345,11 +4345,11 @@ TEST(WarlockCoreTest, CS2_057_ShadowBolt)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -4361,7 +4361,7 @@ TEST(WarlockCoreTest, CS2_057_ShadowBolt)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(WarlockCoreTest, CS2_061_DrainLife)
+TEST_CASE("[Warlock : Spell] - CS2_061 : Drain Life")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -4388,7 +4388,7 @@ TEST(WarlockCoreTest, CS2_061_DrainLife)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Drain Life"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -4396,8 +4396,8 @@ TEST(WarlockCoreTest, CS2_061_DrainLife)
     opPlayer->GetHero()->SetDamage(10);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 5);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -4406,7 +4406,7 @@ TEST(WarlockCoreTest, CS2_061_DrainLife)
 // --------------------------------------------------------
 // Text: Deal 3 damage to all characters.
 // --------------------------------------------------------
-TEST(WarlockCoreTest, CS2_062_Hellfire)
+TEST_CASE("[Warlock : Spell] - CS2_062 : Hellfire")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -4442,25 +4442,25 @@ TEST(WarlockCoreTest, CS2_062_Hellfire)
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField.GetCount(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::Minion(card5));
-    EXPECT_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -4474,7 +4474,7 @@ TEST(WarlockCoreTest, CS2_062_Hellfire)
 // - REQ_MINION_TARGET = 0
 // - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
-TEST(WarlockCoreTest, CS2_063_Corruption)
+TEST_CASE("[Warlock : Spell] - CS2_063 : Corruption")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -4505,23 +4505,23 @@ TEST(WarlockCoreTest, CS2_063_Corruption)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // --------------------------------------- MINION - WARLOCK
@@ -4533,7 +4533,7 @@ TEST(WarlockCoreTest, CS2_063_Corruption)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(WarlockCoreTest, CS2_064_DreadInfernal)
+TEST_CASE("[Warlock : Minion] - CS2_064 : Dread Infernal")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -4561,15 +4561,15 @@ TEST(WarlockCoreTest, CS2_064_DreadInfernal)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Dread Infernal"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 29);
-    EXPECT_EQ(curField[0]->GetHealth(), 6);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
 }
 
 // --------------------------------------- MINION - WARLOCK
@@ -4581,7 +4581,7 @@ TEST(WarlockCoreTest, CS2_064_DreadInfernal)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(WarlockCoreTest, CS2_065_Voidwalker)
+TEST_CASE("[Warlock : Minion] - CS2_065 : Voidwalker")
 {
     // Do nothing
 }
@@ -4596,7 +4596,7 @@ TEST(WarlockCoreTest, CS2_065_Voidwalker)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(WarlockCoreTest, EX1_302_MortalCoil)
+TEST_CASE("[Warlock : Spell] - EX1_302 : Mortal Coil")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -4634,15 +4634,15 @@ TEST(WarlockCoreTest, EX1_302_MortalCoil)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
-// --------------------------------------- MINION - NEUTRAL
+// --------------------------------------- MINION - WARLOCK
 // [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
 // - Faction: Horde, Set: Core, Rarity: Free
 // --------------------------------------------------------
@@ -4651,7 +4651,7 @@ TEST(WarlockCoreTest, EX1_302_MortalCoil)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(WarlockCoreTest, EX1_306_Succubus)
+TEST_CASE("[Warlock : Minion] - EX1_306 : Felstalker")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -4677,13 +4677,13 @@ TEST(WarlockCoreTest, EX1_306_Succubus)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 3);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -4695,7 +4695,7 @@ TEST(WarlockCoreTest, EX1_306_Succubus)
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST(WarlockCoreTest, EX1_308_Soulfire)
+TEST_CASE("[Warlock : Spell] - EX1_308 : Soulfire")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -4726,23 +4726,23 @@ TEST(WarlockCoreTest, EX1_308_Soulfire)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 4);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
+    CHECK_EQ(opField.GetCount(), 0);
 
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Soulfire"));
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 3);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 3);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -4755,7 +4755,7 @@ TEST(WarlockCoreTest, EX1_308_Soulfire)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_TARGET_WITH_RACE = 15
 // --------------------------------------------------------
-TEST(WarlockCoreTest, NEW1_003_SacrificialPact)
+TEST_CASE("[Warlock : Spell] - NEW1_003 : Sacrificial Pact")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -4787,15 +4787,15 @@ TEST(WarlockCoreTest, NEW1_003_SacrificialPact)
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 22);
-    EXPECT_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curField.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField.GetCount(), 1);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
@@ -4813,7 +4813,7 @@ TEST(WarlockCoreTest, NEW1_003_SacrificialPact)
 // RefTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(WarriorCoreTest, CS2_103_Charge)
+TEST_CASE("[Warrior : Spell] - CS2_103 : Charge")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -4852,27 +4852,27 @@ TEST(WarriorCoreTest, CS2_103_Charge)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 0);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 0);
 
     game.Process(curPlayer, AttackTask(card2, card3));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 1);
 
     game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     game.Process(curPlayer, AttackTask(card2, card3));
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 0);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 0);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
@@ -4881,7 +4881,7 @@ TEST(WarriorCoreTest, CS2_103_Charge)
 // --------------------------------------------------------
 // Text: Give your hero +4 Attack this turn.
 // --------------------------------------------------------
-TEST(WarriorCoreTest, CS2_105_HeroicStrike)
+TEST_CASE("[Warrior : Spell] - CS2_105 : Heroic Strike")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -4909,34 +4909,34 @@ TEST(WarriorCoreTest, CS2_105_HeroicStrike)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Weapon(card3));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 7);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 7);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 19);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
 }
 
 // --------------------------------------- WEAPON - WARRIOR
@@ -4946,7 +4946,7 @@ TEST(WarriorCoreTest, CS2_105_HeroicStrike)
 // GameTag:
 // - DURABILITY = 2
 // --------------------------------------------------------
-TEST(WarriorCoreTest, CS2_106_FieryWarAxe)
+TEST_CASE("[Warrior : Weapon] - CS2_106 : Fiery War Axe")
 {
     // Do nothing
 }
@@ -4963,7 +4963,7 @@ TEST(WarriorCoreTest, CS2_106_FieryWarAxe)
 // - REQ_ENEMY_TARGET = 0
 // - REQ_DAMAGED_TARGET = 0
 // --------------------------------------------------------
-TEST(WarriorCoreTest, CS2_108_Execute)
+TEST_CASE("[Warrior : Spell] - CS2_108 : Execute")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -5001,13 +5001,13 @@ TEST(WarriorCoreTest, CS2_108_Execute)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, AttackTask(card2, card3));
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // --------------------------------------- WEAPON - WARRIOR
@@ -5017,7 +5017,7 @@ TEST(WarriorCoreTest, CS2_108_Execute)
 // GameTag:
 // - DURABILITY = 2
 // --------------------------------------------------------
-TEST(WarriorCoreTest, CS2_112_ArcaniteReaper)
+TEST_CASE("[Warrior : Weapon] - CS2_112 : Arcanite Reaper")
 {
     // Do nothing
 }
@@ -5031,7 +5031,7 @@ TEST(WarriorCoreTest, CS2_112_ArcaniteReaper)
 // PlayReq:
 // - REQ_MINIMUM_ENEMY_MINIONS = 1
 // --------------------------------------------------------
-TEST(WarriorCoreTest, CS2_114_Cleave)
+TEST_CASE("[Warrior : Spell] - CS2_114 : Cleave")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -5066,27 +5066,27 @@ TEST(WarriorCoreTest, CS2_114_Cleave)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opField[1]->GetHealth(), 7);
+    CHECK_EQ(opField[1]->GetHealth(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetHealth(), 3);
-    EXPECT_EQ(opField[1]->GetHealth(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[1]->GetHealth(), 5);
 }
 
 // --------------------------------------- MINION - WARRIOR
@@ -5101,7 +5101,7 @@ TEST(WarriorCoreTest, CS2_114_Cleave)
 // RefTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(WarriorCoreTest, EX1_084_WarsongCommander)
+TEST_CASE("[Warrior : Minion] - EX1_084 : Warsong Commander")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -5135,15 +5135,15 @@ TEST(WarriorCoreTest, EX1_084_WarsongCommander)
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[1]->GetAttack(), 1);
-    EXPECT_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[1]->GetAttack(), 2);
-    EXPECT_EQ(curField[2]->GetAttack(), 4);
-    EXPECT_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[3]->GetAttack(), 2);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
@@ -5152,7 +5152,7 @@ TEST(WarriorCoreTest, EX1_084_WarsongCommander)
 // --------------------------------------------------------
 // Text: Deal 1 damage to all minions.
 // --------------------------------------------------------
-TEST(WarriorCoreTest, EX1_400_Whirlwind)
+TEST_CASE("[Warrior : Spell] - EX1_400 : Whirlwind")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -5187,30 +5187,30 @@ TEST(WarriorCoreTest, EX1_400_Whirlwind)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
-    EXPECT_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 6);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(opField.GetCount(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 6);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
@@ -5220,7 +5220,7 @@ TEST(WarriorCoreTest, EX1_400_Whirlwind)
 // Text: Gain 5 Armor.
 //       Draw a card.
 // --------------------------------------------------------
-TEST(WarriorCoreTest, EX1_606_ShieldBlock)
+TEST_CASE("[Warrior : Spell] - EX1_606 : Shield Block")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -5245,8 +5245,8 @@ TEST(WarriorCoreTest, EX1_606_ShieldBlock)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Block"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 8);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
 }
 
 // --------------------------------------- MINION - WARRIOR
@@ -5258,7 +5258,7 @@ TEST(WarriorCoreTest, EX1_606_ShieldBlock)
 // GameTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(WarriorCoreTest, NEW1_011_KorkronElite)
+TEST_CASE("[Warrior : Minion] - NEW1_011 : Kor'kron Elite")
 {
     // Do nothing
 }
@@ -5272,7 +5272,7 @@ TEST(WarriorCoreTest, NEW1_011_KorkronElite)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS1_042_GoldshireFootman)
+TEST_CASE("[Neutral : Minion] - CS1_042 : Goldshire Footman")
 {
     // Do nothing
 }
@@ -5281,7 +5281,7 @@ TEST(NeutralCoreTest, CS1_042_GoldshireFootman)
 // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
 // - Race: Elemental, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_118_MagmaRager)
+TEST_CASE("[Neutral : Minion] - CS2_118 : Magma Rager")
 {
     // Do nothing
 }
@@ -5290,7 +5290,7 @@ TEST(NeutralCoreTest, CS2_118_MagmaRager)
 // [CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]
 // - Race: Beast, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_119_OasisSnapjaw)
+TEST_CASE("[Neutral : Minion] - CS2_119 : Oasis Snapjaw")
 {
     // Do nothing
 }
@@ -5299,7 +5299,7 @@ TEST(NeutralCoreTest, CS2_119_OasisSnapjaw)
 // [CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
 // - Race: Beast, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_120_RiverCrocolisk)
+TEST_CASE("[Neutral : Minion] - CS2_120 : River Crocolisk")
 {
     // Do nothing
 }
@@ -5313,7 +5313,7 @@ TEST(NeutralCoreTest, CS2_120_RiverCrocolisk)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_121_FrostwolfGrunt)
+TEST_CASE("[Neutral : Minion] - CS2_121 : Frostwolf Grunt")
 {
     // Do nothing
 }
@@ -5327,7 +5327,7 @@ TEST(NeutralCoreTest, CS2_121_FrostwolfGrunt)
 // GameTag:
 // - AURA = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_122_RaidLeader)
+TEST_CASE("[Neutral : Minion] - CS2_122 : Raid Leader")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -5357,17 +5357,17 @@ TEST(NeutralCoreTest, CS2_122_RaidLeader)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     game.Process(opPlayer, AttackTask(card3, card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5379,7 +5379,7 @@ TEST(NeutralCoreTest, CS2_122_RaidLeader)
 // GameTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_124_Wolfrider)
+TEST_CASE("[Neutral : Minion] - CS2_124 : Wolfrider")
 {
     // Do nothing
 }
@@ -5393,7 +5393,7 @@ TEST(NeutralCoreTest, CS2_124_Wolfrider)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_125_IronfurGrizzly)
+TEST_CASE("[Neutral : Minion] - CS2_125 : Ironfur Grizzly")
 {
     // Do nothing
 }
@@ -5407,7 +5407,7 @@ TEST(NeutralCoreTest, CS2_125_IronfurGrizzly)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_127_SilverbackPatriarch)
+TEST_CASE("[Neutral : Minion] - CS2_127 : Silverback Patriarch")
 {
     // Do nothing
 }
@@ -5421,7 +5421,7 @@ TEST(NeutralCoreTest, CS2_127_SilverbackPatriarch)
 // GameTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_131_StormwindKnight)
+TEST_CASE("[Neutral : Minion] - CS2_131 : Stormwind Knight")
 {
     // Do nothing
 }
@@ -5439,7 +5439,7 @@ TEST(NeutralCoreTest, CS2_131_StormwindKnight)
 // - REQ_TARGET_IF_AVAILABLE = 0
 // - REQ_NONSELF_TARGET = 0
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_141_IronforgeRifleman)
+TEST_CASE("[Neutral : Minion] - CS2_141 : Ironforge Rifleman")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -5470,13 +5470,13 @@ TEST(NeutralCoreTest, CS2_141_IronforgeRifleman)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5488,7 +5488,7 @@ TEST(NeutralCoreTest, CS2_141_IronforgeRifleman)
 // GameTag:
 // - SPELLPOWER = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_142_KoboldGeomancer)
+TEST_CASE("[Neutral : Minion] - CS2_142 : Kobold Geomancer")
 {
     // Do nothing
 }
@@ -5502,7 +5502,7 @@ TEST(NeutralCoreTest, CS2_142_KoboldGeomancer)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_147_GnomishInventor)
+TEST_CASE("[Neutral : Minion] - CS2_147 : Gnomish Inventor")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -5524,10 +5524,10 @@ TEST(NeutralCoreTest, CS2_147_GnomishInventor)
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Gnomish Inventor"));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5543,7 +5543,7 @@ TEST(NeutralCoreTest, CS2_147_GnomishInventor)
 // - REQ_TARGET_IF_AVAILABLE = 0
 // - REQ_NONSELF_TARGET = 0
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_150_StormpikeCommando)
+TEST_CASE("[Neutral : Minion] - CS2_150 : Stormpike Commando")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -5574,19 +5574,19 @@ TEST(NeutralCoreTest, CS2_150_StormpikeCommando)
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5598,7 +5598,7 @@ TEST(NeutralCoreTest, CS2_150_StormpikeCommando)
 // GameTag:
 // - SPELLPOWER = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_155_Archmage)
+TEST_CASE("[Neutral : Minion] - CS2_155 : Archmage")
 {
     // Do nothing
 }
@@ -5612,7 +5612,7 @@ TEST(NeutralCoreTest, CS2_155_Archmage)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_162_LordOfTheArena)
+TEST_CASE("[Neutral : Minion] - CS2_162 : Lord of the Arena")
 {
     // Do nothing
 }
@@ -5621,7 +5621,7 @@ TEST(NeutralCoreTest, CS2_162_LordOfTheArena)
 // [CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
 // - Race: Murloc, Faction: Alliance, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_168_MurlocRaider)
+TEST_CASE("[Neutral : Minion] - CS2_168 : Murloc Raider")
 {
     // Do nothing
 }
@@ -5635,7 +5635,7 @@ TEST(NeutralCoreTest, CS2_168_MurlocRaider)
 // GameTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_171_StonetuskBoar)
+TEST_CASE("[Neutral : Minion] - CS2_171 : Stonetusk Boar")
 {
     // Do nothing
 }
@@ -5644,7 +5644,7 @@ TEST(NeutralCoreTest, CS2_171_StonetuskBoar)
 // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
 // - Race: Beast, Faction: Horde, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_172_BloodfenRaptor)
+TEST_CASE("[Neutral : Minion] - CS2_172 : Bloodfen Raptor")
 {
     // Do nothing
 }
@@ -5658,7 +5658,7 @@ TEST(NeutralCoreTest, CS2_172_BloodfenRaptor)
 // GameTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_173_BluegillWarrior)
+TEST_CASE("[Neutral : Minion] - CS2_173 : Bluegill Warrior")
 {
     // Do nothing
 }
@@ -5672,7 +5672,7 @@ TEST(NeutralCoreTest, CS2_173_BluegillWarrior)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_179_SenjinShieldmasta)
+TEST_CASE("[Neutral : Minion] - CS2_179 : Sen'jin Shieldmasta")
 {
     // Do nothing
 }
@@ -5681,7 +5681,7 @@ TEST(NeutralCoreTest, CS2_179_SenjinShieldmasta)
 // [CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_182_ChillwindYeti)
+TEST_CASE("[Neutral : Minion] - CS2_182 : Chillwind Yeti")
 {
     // Do nothing
 }
@@ -5690,7 +5690,7 @@ TEST(NeutralCoreTest, CS2_182_ChillwindYeti)
 // [CS2_186] War Golem - COST:7 [ATK:7/HP:7]
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_186_WarGolem)
+TEST_CASE("[Neutral : Minion] - CS2_186 : War Golem")
 {
     // Do nothing
 }
@@ -5704,7 +5704,7 @@ TEST(NeutralCoreTest, CS2_186_WarGolem)
 // GameTag:
 // - TAUNT = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_187_BootyBayBodyguard)
+TEST_CASE("[Neutral : Minion] - CS2_187 : Booty Bay Bodyguard")
 {
     // Do nothing
 }
@@ -5722,7 +5722,7 @@ TEST(NeutralCoreTest, CS2_187_BootyBayBodyguard)
 // - REQ_TARGET_IF_AVAILABLE = 0
 // - REQ_NONSELF_TARGET = 0
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_189_ElvenArcher)
+TEST_CASE("[Neutral : Minion] - CS2_189 : Elven Archer")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -5753,13 +5753,13 @@ TEST(NeutralCoreTest, CS2_189_ElvenArcher)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5771,7 +5771,7 @@ TEST(NeutralCoreTest, CS2_189_ElvenArcher)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_196_RazorfenHunter)
+TEST_CASE("[Neutral : Minion] - CS2_196 : Razorfen Hunter")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -5797,10 +5797,10 @@ TEST(NeutralCoreTest, CS2_196_RazorfenHunter)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Razorfen Hunter"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[0]->GetHealth(), 3);
-    EXPECT_EQ(curField[1]->GetAttack(), 1);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5812,7 +5812,7 @@ TEST(NeutralCoreTest, CS2_196_RazorfenHunter)
 // GameTag:
 // - SPELLPOWER = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_197_OgreMagi)
+TEST_CASE("[Neutral : Minion] - CS2_197 : Ogre Magi")
 {
     // Do nothing
 }
@@ -5821,7 +5821,7 @@ TEST(NeutralCoreTest, CS2_197_OgreMagi)
 // [CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
 // - Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_200_BoulderfistOgre)
+TEST_CASE("[Neutral : Minion] - CS2_200 : Boulderfist Ogre")
 {
     // Do nothing
 }
@@ -5830,7 +5830,7 @@ TEST(NeutralCoreTest, CS2_200_BoulderfistOgre)
 // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
 // - Race: Beast, Set: Core, Rarity: Free
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_201_CoreHound)
+TEST_CASE("[Neutral : Minion] - CS2_201 : Core Hound")
 {
     // Do nothing
 }
@@ -5844,7 +5844,7 @@ TEST(NeutralCoreTest, CS2_201_CoreHound)
 // GameTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_213_RecklessRocketeer)
+TEST_CASE("[Neutral : Minion] - CS2_213 : Reckless Rocketeer")
 {
     // Do nothing
 }
@@ -5858,7 +5858,7 @@ TEST(NeutralCoreTest, CS2_213_RecklessRocketeer)
 // GameTag:
 // - AURA = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_222_StormwindChampion)
+TEST_CASE("[Neutral : Minion] - CS2_222 : Stormwind Champion")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -5891,8 +5891,8 @@ TEST(NeutralCoreTest, CS2_222_StormwindChampion)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
-    EXPECT_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -5901,10 +5901,10 @@ TEST(NeutralCoreTest, CS2_222_StormwindChampion)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 7);
-    EXPECT_EQ(curField[0]->GetHealth(), 8);
-    EXPECT_EQ(curField[1]->GetAttack(), 6);
-    EXPECT_EQ(curField[1]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[1]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -5912,14 +5912,14 @@ TEST(NeutralCoreTest, CS2_222_StormwindChampion)
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     opField[0]->SetAttack(7);
     game.Process(opPlayer, AttackTask(card3, card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 7);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     opField[0]->SetAttack(6);
     game.Process(opPlayer, AttackTask(card4, card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 6);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5932,7 +5932,7 @@ TEST(NeutralCoreTest, CS2_222_StormwindChampion)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_226_FrostwolfWarlord)
+TEST_CASE("[Neutral : Minion] - CS2_226 : Frostwolf Warlord")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -5962,12 +5962,12 @@ TEST(NeutralCoreTest, CS2_226_FrostwolfWarlord)
         curPlayer, Cards::FindCardByName("Frostwolf Warlord"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 4);
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[1]->GetAttack(), 5);
-    EXPECT_EQ(curField[1]->GetHealth(), 5);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -5976,8 +5976,8 @@ TEST(NeutralCoreTest, CS2_226_FrostwolfWarlord)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[2]->GetAttack(), 6);
-    EXPECT_EQ(curField[2]->GetHealth(), 6);
+    CHECK_EQ(curField[2]->GetAttack(), 6);
+    CHECK_EQ(curField[2]->GetHealth(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5989,7 +5989,7 @@ TEST(NeutralCoreTest, CS2_226_FrostwolfWarlord)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, DS1_055_DarkscaleHealer)
+TEST_CASE("[Neutral : Minion] - DS1_055 : Darkscale Healer")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -6033,9 +6033,9 @@ TEST(NeutralCoreTest, DS1_055_DarkscaleHealer)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6050,7 +6050,7 @@ TEST(NeutralCoreTest, DS1_055_DarkscaleHealer)
 // PlayReq:
 // - REQ_TARGET_IF_AVAILABLE = 0
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_011_VoodooDoctor)
+TEST_CASE("[Neutral : Minion] - EX1_011 : Voodoo Doctor")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -6091,10 +6091,10 @@ TEST(NeutralCoreTest, EX1_011_VoodooDoctor)
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card1, curPlayer->GetHero()));
-    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6106,7 +6106,7 @@ TEST(NeutralCoreTest, EX1_011_VoodooDoctor)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_015_NoviceEngineer)
+TEST_CASE("[Neutral : Minion] - EX1_015 : Novice Engineer")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -6128,10 +6128,10 @@ TEST(NeutralCoreTest, EX1_015_NoviceEngineer)
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Novice Engineer"));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6148,7 +6148,7 @@ TEST(NeutralCoreTest, EX1_015_NoviceEngineer)
 // - REQ_MINION_TARGET = 0
 // - REQ_FRIENDLY_TARGET = 0
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_019_ShatteredSunCleric)
+TEST_CASE("[Neutral : Minion] - EX1_019 : Shattered Sun Cleric")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -6176,12 +6176,12 @@ TEST(NeutralCoreTest, EX1_019_ShatteredSunCleric)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironfur Grizzly"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 4);
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6193,7 +6193,7 @@ TEST(NeutralCoreTest, EX1_019_ShatteredSunCleric)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_025_DragonlingMechanic)
+TEST_CASE("[Neutral : Minion] - EX1_025 : Dragonling Mechanic")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -6219,9 +6219,9 @@ TEST(NeutralCoreTest, EX1_025_DragonlingMechanic)
         curPlayer, Cards::FindCardByName("Dragonling Mechanic"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(curField[1]->GetAttack(), 2);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6233,7 +6233,7 @@ TEST(NeutralCoreTest, EX1_025_DragonlingMechanic)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_066_AcidicSwampOoze)
+TEST_CASE("[Neutral : Minion] - EX1_066 : Acidic Swamp Ooze")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -6259,13 +6259,13 @@ TEST(NeutralCoreTest, EX1_066_AcidicSwampOoze)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
-    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6274,7 +6274,7 @@ TEST(NeutralCoreTest, EX1_066_AcidicSwampOoze)
 // --------------------------------------------------------
 // Text: Whenever this minion takes damage, gain +3 Attack.
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_399_GurubashiBerserker)
+TEST_CASE("[Neutral : Minion] - EX1_399 : Gurubashi Berserker")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -6300,13 +6300,13 @@ TEST(NeutralCoreTest, EX1_399_GurubashiBerserker)
         curPlayer, Cards::FindCardByName("Gurubashi Berserker"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, HeroPowerTask(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -6315,7 +6315,7 @@ TEST(NeutralCoreTest, EX1_399_GurubashiBerserker)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, HeroPowerTask(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetAttack(), 8);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6327,7 +6327,7 @@ TEST(NeutralCoreTest, EX1_399_GurubashiBerserker)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_506_MurlocTidehunter)
+TEST_CASE("[Neutral : Minion] - EX1_506 : Murloc Tidehunter")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -6353,9 +6353,9 @@ TEST(NeutralCoreTest, EX1_506_MurlocTidehunter)
         curPlayer, Cards::FindCardByName("Murloc Tidehunter"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(curField[1]->GetAttack(), 1);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6364,7 +6364,7 @@ TEST(NeutralCoreTest, EX1_506_MurlocTidehunter)
 // --------------------------------------------------------
 // Text: Your other Murlocs have +1 Attack.
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_508_GrimscaleOracle)
+TEST_CASE("[Neutral : Minion] - EX1_508 : Grimscale Oracle")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -6398,38 +6398,38 @@ TEST(NeutralCoreTest, EX1_508_GrimscaleOracle)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(curField[2]->GetAttack(), 3);
-    EXPECT_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[2]->GetAttack(), 4);
-    EXPECT_EQ(curField[2]->GetHealth(), 1);
-    EXPECT_EQ(curField[3]->GetAttack(), 2);
-    EXPECT_EQ(curField[3]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, AttackTask(card5, card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[1]->GetAttack(), 3);
-    EXPECT_EQ(curField[1]->GetHealth(), 1);
-    EXPECT_EQ(curField[2]->GetAttack(), 3);
-    EXPECT_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6441,7 +6441,7 @@ TEST(NeutralCoreTest, EX1_508_GrimscaleOracle)
 // GameTag:
 // - SPELLPOWER = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_582_DalaranMage)
+TEST_CASE("[Neutral : Minion] - EX1_582 : Dalaran Mage")
 {
     // Do nothing
 }
@@ -6455,7 +6455,7 @@ TEST(NeutralCoreTest, EX1_582_DalaranMage)
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, EX1_593_Nightblade)
+TEST_CASE("[Neutral : Minion] - EX1_593 : Nightblade")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -6479,5 +6479,5 @@ TEST(NeutralCoreTest, EX1_593_Nightblade)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Nightblade"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
