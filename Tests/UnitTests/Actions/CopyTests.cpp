@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <doctest.h>
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Cards/Cards.hpp>

@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include <doctest.h>
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/Draw.hpp>
