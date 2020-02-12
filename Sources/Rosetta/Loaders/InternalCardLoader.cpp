@@ -18,6 +18,7 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
 
         card->power = cardDef.power;
         card->playRequirements = cardDef.playReqs;
+        card->chooseCardIDs = cardDef.chooseCardIDs;
         card->entourages = cardDef.entourages;
     }
 }
