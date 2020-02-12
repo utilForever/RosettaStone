@@ -33,21 +33,32 @@ class CardDef
     //! \param _playReqs The play requirements data.
     CardDef(Power _power, std::map<PlayReq, int> _playReqs);
 
-    //! Constructs card def with given \p _power and \p _entourages.
+    //! Constructs card def with given \p _power and \p _chooseCardIDs.
     //! \param _power The power data.
-    //! \param _entourages The entourages data.
-    CardDef(Power _power, std::vector<std::string> _entourages);
+    //! \param _chooseCardIDs The choose card IDs data.
+    CardDef(Power _power, std::vector<std::string> _chooseCardIDs);
 
     //! Constructs card def with given \p _power, \p _playReqs and
-    //! \p _entourages.
+    //! \p _chooseCardIDs.
     //! \param _power The power data.
     //! \param _playReqs The play requirements data.
+    //! \param _chooseCardIDs The choose card IDs data.
+    CardDef(Power _power, std::map<PlayReq, int> _playReqs,
+            std::vector<std::string> _chooseCardIDs);
+
+    //! Constructs card def with given \p _power, \p _playReqs,
+    //! \p _chooseCardIDs and \p _entourages.
+    //! \param _power The power data.
+    //! \param _playReqs The play requirements data.
+    //! \param _chooseCardIDs The choose card IDs data.
     //! \param _entourages The entourages data.
     CardDef(Power _power, std::map<PlayReq, int> _playReqs,
+            std::vector<std::string> _chooseCardIDs,
             std::vector<std::string> _entourages);
 
     Power power;
     std::map<PlayReq, int> playReqs;
+    std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
 };
 }  // namespace RosettaStone
