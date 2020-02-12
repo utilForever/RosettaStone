@@ -12,8 +12,6 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 
-#include <clara.hpp>
-
 #include <array>
 #include <cctype>
 #include <functional>
@@ -46,20 +44,6 @@ inline std::size_t GetInputNum(const std::string& inputStr)
     }
 
     return 0;
-}
-
-inline std::string ToString(const clara::Opt& opt)
-{
-    std::ostringstream oss;
-    oss << (clara::Parser() | opt);
-    return oss.str();
-}
-
-inline std::string ToString(const clara::Parser& p)
-{
-    std::ostringstream oss;
-    oss << p;
-    return oss.str();
 }
 
 inline std::tuple<int, int> ParseValueRangeFromString(const std::string& str,
