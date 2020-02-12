@@ -93,6 +93,7 @@
 #include <Rosetta/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/Managers/CostManager.hpp>
 #include <Rosetta/Managers/GameManager.hpp>
+#include <Rosetta/Managers/TriggerEventHandler.hpp>
 #include <Rosetta/Managers/TriggerManager.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
