@@ -1,6 +1,3 @@
-[submodule "Libraries/Clara"]
-	path = Libraries/Clara
-	url = https://github.com/catchorg/Clara
 [submodule "Libraries/random"]
 	path = Libraries/random
 	url = https://github.com/effolkronium/random
