@@ -80,6 +80,7 @@ using namespace RosettaStone::SimpleTasks;
 namespace RosettaStone
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using EntityTypeList = std::vector<EntityType>;
@@ -173,10 +174,11 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace(
-        "EX1_154",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cards.emplace("EX1_154",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "EX1_154a", "EX1_154b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155] Mark of Nature - COST:3
@@ -197,10 +199,11 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace(
-        "EX1_155",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cards.emplace("EX1_155",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "EX1_155a", "EX1_155b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_158] Soul of the Forest - COST:4
@@ -228,7 +231,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("EX1_160", CardDef(power));
+    cards.emplace("EX1_160",
+                  CardDef(power, ChooseCardIDs{ "EX1_160a", "EX1_160b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164] Nourish - COST:6
@@ -241,7 +245,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("EX1_164", CardDef(power));
+    cards.emplace("EX1_164",
+                  CardDef(power, ChooseCardIDs{ "EX1_164a", "EX1_164b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
@@ -259,7 +264,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("EX1_165", CardDef(power));
+    cards.emplace("EX1_165",
+                  CardDef(power, ChooseCardIDs{ "EX1_165a", "EX1_165b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2]
@@ -280,7 +286,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace(
         "EX1_166",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
+                ChooseCardIDs{ "EX1_166a", "EX1_166b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
@@ -296,7 +303,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("EX1_178", CardDef(power));
+    cards.emplace("EX1_178",
+                  CardDef(power, ChooseCardIDs{ "EX1_178a", "EX1_178b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_183] Gift of the Wild - COST:8
@@ -355,7 +363,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("EX1_573", CardDef(power));
+    cards.emplace("EX1_573",
+                  CardDef(power, ChooseCardIDs{ "EX1_573a", "EX1_573b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_578] Savagery - COST:1
@@ -397,10 +406,11 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace(
-        "NEW1_007",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cards.emplace("NEW1_007",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "NEW1_007a", "NEW1_007b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
@@ -418,7 +428,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace(
         "NEW1_008",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
+                ChooseCardIDs{ "NEW1_008a", "NEW1_008b" }));
 }
 
 void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
@@ -5364,8 +5375,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                                   std::make_shared<AddStackToTask>(
                                       EntityType::HAND) };
     cards.emplace("EX1_572",
-                  CardDef(power, Entourages{ "DREAM_01", "DREAM_02", "DREAM_03",
-                                             "DREAM_04", "DREAM_05" }));
+                  CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                          Entourages{ "DREAM_01", "DREAM_02", "DREAM_03",
+                                      "DREAM_04", "DREAM_05" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]

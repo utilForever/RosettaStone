@@ -19,6 +19,7 @@ using namespace RosettaStone::SimpleTasks;
 namespace RosettaStone
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 
 void DalaranCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -60,9 +61,9 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace(
-        "DAL_350",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cards.emplace("DAL_350",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } },
+                          ChooseCardIDs{ "DAL_350a", "DAL_350b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351] Blessing of the Ancients - COST:3

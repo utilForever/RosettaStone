@@ -51,6 +51,7 @@ using namespace RosettaStone::SimpleTasks;
 namespace RosettaStone
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
@@ -258,6 +259,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         CardDef(power,
                 PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
                           { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } },
+                ChooseCardIDs{},
                 Entourages{ "CS2_050", "CS2_051", "CS2_052", "NEW1_009" }));
 
     // ----------------------------------- HERO_POWER - WARLOCK
@@ -739,6 +741,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "NEW1_031",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
                 Entourages{ "NEW1_032", "NEW1_033", "NEW1_034" }));
 }
 
