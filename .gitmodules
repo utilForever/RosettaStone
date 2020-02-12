@@ -10,3 +10,6 @@
 [submodule "Libraries/doctest"]
 	path = Libraries/doctest
 	url = https://github.com/onqtam/doctest
+[submodule "Libraries/Lyra"]
+	path = Libraries/Lyra
+	url = https://github.com/bfgroup/Lyra
