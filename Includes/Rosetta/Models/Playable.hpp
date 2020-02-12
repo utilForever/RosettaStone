@@ -150,8 +150,6 @@ class Playable : public Entity
     IAura* ongoingEffect = nullptr;
     std::shared_ptr<Trigger> activatedTrigger;
 
-    std::array<Playable*, 2> chooseOneCard{};
-
     int orderOfPlay = 0;
     bool isDestroyed = false;
 };
