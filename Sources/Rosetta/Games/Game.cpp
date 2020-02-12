@@ -747,35 +747,26 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
     {
         case MainOpType::PLAY_CARD:
         {
-            Playable* card = params.ChooseHandCard();
+            Playable* playCard = params.ChooseHandCard();
             Character* target =
-                params.GetSpecifiedTarget(card->GetValidPlayTargets());
+                params.GetSpecifiedTarget(playCard->GetValidPlayTargets());
             const int totalMinions =
                 GetCurrentPlayer()->GetFieldZone()->GetCount();
             const int fieldPos = params.GetMinionPutLocation(totalMinions);
             int chooseOne = 0;
-            if (card->HasChooseOne())
+
+            if (playCard->HasChooseOne())
             {
-                const std::size_t card1ID =
-                    std::hash<std::string>{}(card->chooseOneCard[0]->card->id);
-                const std::size_t card2ID =
-                    std::hash<std::string>{}(card->chooseOneCard[1]->card->id);
-
                 std::vector<std::size_t> cardIDs;
-                cardIDs.emplace_back(card1ID);
-                cardIDs.emplace_back(card2ID);
+                for (std::size_t i = 1;
+                     i <= playCard->card->chooseCardIDs.size(); ++i)
+                {
+                    cardIDs.emplace_back(i);
+                }
 
-                const std::size_t chooseCardID = params.ChooseOne(cardIDs);
-                if (chooseCardID == card1ID)
-                {
-                    chooseOne = 1;
-                }
-                else
-                {
-                    chooseOne = 2;
-                }
+                chooseOne = params.ChooseOne(cardIDs);
             }
-            task = std::make_unique<PlayCardTask>(card, target, fieldPos,
+            task = std::make_unique<PlayCardTask>(playCard, target, fieldPos,
                                                   chooseOne);
             break;
         }
