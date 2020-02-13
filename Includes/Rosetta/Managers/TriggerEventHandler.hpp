@@ -24,12 +24,14 @@ class TriggerEventHandler
     using Func = std::function<void(Entity*)>;
 
     TriggerEventHandler();
-    TriggerEventHandler(const Func& func);
+    TriggerEventHandler(Func func);
 
-    void operator()();
+    TriggerEventHandler& operator=(const TriggerEventHandler& handler);
 
-    bool operator==(const TriggerEventHandler& handler);
-    bool operator!=(std::nullptr_t);
+    void operator()(Entity* entity) const;
+
+    bool operator==(const TriggerEventHandler& handler) const;
+    bool operator!=(std::nullptr_t) const;
 
     int id;
     static int counter;
