@@ -14,6 +14,8 @@
 
 namespace RosettaStone
 {
+class Entity;
+
 //!
 //! \brief TriggerEvent class.
 //!
@@ -25,13 +27,13 @@ class TriggerEvent
     void AddHandler(const TriggerEventHandler& handler);
     void RemoveHandler(const TriggerEventHandler& handler);
 
-    void operator()();
+    void operator()(Entity* entity) const;
 
     TriggerEvent& operator+=(const TriggerEventHandler& handler);
     TriggerEvent& operator-=(const TriggerEventHandler& handler);
 
  private:
-    void NotifyHandlers();
+    void NotifyHandlers(Entity* entity) const;
 
     std::vector<std::unique_ptr<TriggerEventHandler>> m_handlers;
 };
