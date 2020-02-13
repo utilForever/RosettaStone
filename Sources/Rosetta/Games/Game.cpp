@@ -617,17 +617,14 @@ void Game::ProcessDestroyAndUpdateAura()
     UpdateAura();
 
     // Process summoned minions
-    if (triggerManager.summonTrigger != nullptr)
+    taskQueue.StartEvent();
+    for (auto& minion : summonedMinions)
     {
-        taskQueue.StartEvent();
-        for (auto& minion : summonedMinions)
-        {
-            triggerManager.OnSummonTrigger(minion);
-        }
-        summonedMinions.clear();
-        ProcessTasks();
-        taskQueue.EndEvent();
+        triggerManager.OnSummonTrigger(minion);
     }
+    summonedMinions.clear();
+    ProcessTasks();
+    taskQueue.EndEvent();
 
     taskQueue.StartEvent();
     do

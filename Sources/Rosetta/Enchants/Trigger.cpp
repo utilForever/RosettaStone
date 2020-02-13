@@ -54,7 +54,14 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       m_triggerActivation(prototype.m_triggerActivation),
       m_sequenceType(prototype.m_sequenceType)
 {
-    // Do nothing
+    auto triggerFunc = [this](Entity* e) {
+        if (percentage == 1.0f || Random::get<float>(0.0f, 1.0f) < percentage)
+        {
+            Process(e);
+        }
+    };
+
+    m_handler = TriggerEventHandler(triggerFunc);
 }
 
 void Trigger::Activate(Playable* source, TriggerActivation activation,
@@ -73,13 +80,6 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
 
     source->activatedTrigger = instance;
 
-    auto triggerFunc = [this, instance](Entity* e) {
-        if (percentage == 1.0f || Random::get<float>(0.0f, 1.0f) < percentage)
-        {
-            instance->Process(e);
-        }
-    };
-
     if (m_sequenceType != SequenceType::NONE)
     {
         game->triggers.emplace_back(instance);
@@ -88,52 +88,50 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
-            game->triggerManager.startTurnTrigger = std::move(triggerFunc);
+            game->triggerManager.startTurnTrigger += m_handler;
             break;
         case TriggerType::TURN_END:
-            game->triggerManager.endTurnTrigger = std::move(triggerFunc);
+            game->triggerManager.endTurnTrigger += m_handler;
             break;
         case TriggerType::PLAY_CARD:
-            game->triggerManager.playCardTrigger = std::move(triggerFunc);
+            game->triggerManager.playCardTrigger += m_handler;
             break;
         case TriggerType::PLAY_MINION:
-            game->triggerManager.playMinionTrigger = std::move(triggerFunc);
+            game->triggerManager.playMinionTrigger += m_handler;
             break;
         case TriggerType::AFTER_PLAY_MINION:
-            game->triggerManager.afterPlayMinionTrigger =
-                std::move(triggerFunc);
+            game->triggerManager.afterPlayMinionTrigger += m_handler;
             break;
         case TriggerType::CAST_SPELL:
-            game->triggerManager.castSpellTrigger = std::move(triggerFunc);
+            game->triggerManager.castSpellTrigger += m_handler;
             break;
         case TriggerType::AFTER_CAST:
-            game->triggerManager.afterCastTrigger = std::move(triggerFunc);
+            game->triggerManager.afterCastTrigger += m_handler;
             break;
         case TriggerType::SECRET_REVEALED:
-            game->triggerManager.secretRevealedTrigger = std::move(triggerFunc);
+            game->triggerManager.secretRevealedTrigger += m_handler;
             break;
         case TriggerType::GIVE_HEAL:
-            game->triggerManager.giveHealTrigger = std::move(triggerFunc);
+            game->triggerManager.giveHealTrigger += m_handler;
             break;
         case TriggerType::TAKE_HEAL:
-            game->triggerManager.takeHealTrigger = std::move(triggerFunc);
+            game->triggerManager.takeHealTrigger += m_handler;
             break;
         case TriggerType::ATTACK:
-            game->triggerManager.attackTrigger = std::move(triggerFunc);
+            game->triggerManager.attackTrigger += m_handler;
             break;
         case TriggerType::AFTER_ATTACK:
             switch (triggerSource)
             {
                 case TriggerSource::HERO:
                 {
-                    source->player->GetHero()->afterAttackTrigger =
-                        std::move(triggerFunc);
+                    source->player->GetHero()->afterAttackTrigger += m_handler;
                     break;
                 }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(source);
-                    minion->afterAttackTrigger = std::move(triggerFunc);
+                    minion->afterAttackTrigger += m_handler;
                     break;
                 }
                 case TriggerSource::ENCHANTMENT_TARGET:
@@ -141,7 +139,7 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
                     const auto enchantment = dynamic_cast<Enchantment*>(source);
                     auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
-                    minion->afterAttackTrigger = std::move(triggerFunc);
+                    minion->afterAttackTrigger += m_handler;
                     break;
                 }
                 default:
@@ -149,30 +147,29 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
             }
             break;
         case TriggerType::SUMMON:
-            game->triggerManager.summonTrigger = std::move(triggerFunc);
+            game->triggerManager.summonTrigger += m_handler;
             break;
         case TriggerType::AFTER_SUMMON:
-            game->triggerManager.afterSummonTrigger = std::move(triggerFunc);
+            game->triggerManager.afterSummonTrigger += m_handler;
             break;
         case TriggerType::DEAL_DAMAGE:
-            game->triggerManager.dealDamageTrigger = std::move(triggerFunc);
+            game->triggerManager.dealDamageTrigger += m_handler;
             break;
         case TriggerType::TAKE_DAMAGE:
-            game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
+            game->triggerManager.takeDamageTrigger += m_handler;
             break;
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
                 case TriggerSource::HERO:
                 {
-                    source->player->GetHero()->preDamageTrigger =
-                        std::move(triggerFunc);
+                    source->player->GetHero()->preDamageTrigger += m_handler;
                     break;
                 }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(source);
-                    minion->preDamageTrigger = std::move(triggerFunc);
+                    minion->preDamageTrigger += m_handler;
                     break;
                 }
                 case TriggerSource::ENCHANTMENT_TARGET:
@@ -180,7 +177,7 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
                     const auto enchantment = dynamic_cast<Enchantment*>(source);
                     auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
-                    minion->preDamageTrigger = std::move(triggerFunc);
+                    minion->preDamageTrigger += m_handler;
                     break;
                 }
                 default:
@@ -188,13 +185,13 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
             }
             break;
         case TriggerType::TARGET:
-            game->triggerManager.targetTrigger = std::move(triggerFunc);
+            game->triggerManager.targetTrigger += m_handler;
             break;
         case TriggerType::DEATH:
-            game->triggerManager.deathTrigger = std::move(triggerFunc);
+            game->triggerManager.deathTrigger += m_handler;
             break;
         case TriggerType::USE_HERO_POWER:
-            game->triggerManager.useHeroPowerTrigger = std::move(triggerFunc);
+            game->triggerManager.useHeroPowerTrigger += m_handler;
             break;
         default:
             break;
@@ -208,50 +205,50 @@ void Trigger::Remove() const
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
-            game->triggerManager.startTurnTrigger = nullptr;
+            game->triggerManager.startTurnTrigger -= m_handler;
             break;
         case TriggerType::TURN_END:
-            game->triggerManager.endTurnTrigger = nullptr;
+            game->triggerManager.endTurnTrigger -= m_handler;
             break;
         case TriggerType::PLAY_CARD:
-            game->triggerManager.playCardTrigger = nullptr;
+            game->triggerManager.playCardTrigger -= m_handler;
             break;
         case TriggerType::PLAY_MINION:
-            game->triggerManager.playMinionTrigger = nullptr;
+            game->triggerManager.playMinionTrigger -= m_handler;
             break;
         case TriggerType::AFTER_PLAY_MINION:
-            game->triggerManager.afterPlayMinionTrigger = nullptr;
+            game->triggerManager.afterPlayMinionTrigger -= m_handler;
             break;
         case TriggerType::CAST_SPELL:
-            game->triggerManager.castSpellTrigger = nullptr;
+            game->triggerManager.castSpellTrigger -= m_handler;
             break;
         case TriggerType::AFTER_CAST:
-            game->triggerManager.afterCastTrigger = nullptr;
+            game->triggerManager.afterCastTrigger -= m_handler;
             break;
         case TriggerType::SECRET_REVEALED:
-            game->triggerManager.secretRevealedTrigger = nullptr;
+            game->triggerManager.secretRevealedTrigger -= m_handler;
             break;
         case TriggerType::GIVE_HEAL:
-            game->triggerManager.giveHealTrigger = nullptr;
+            game->triggerManager.giveHealTrigger -= m_handler;
             break;
         case TriggerType::TAKE_HEAL:
-            game->triggerManager.takeHealTrigger = nullptr;
+            game->triggerManager.takeHealTrigger -= m_handler;
             break;
         case TriggerType::ATTACK:
-            game->triggerManager.attackTrigger = nullptr;
+            game->triggerManager.attackTrigger -= m_handler;
             break;
         case TriggerType::AFTER_ATTACK:
             switch (triggerSource)
             {
                 case TriggerSource::HERO:
                 {
-                    m_owner->player->GetHero()->afterAttackTrigger = nullptr;
+                    m_owner->player->GetHero()->afterAttackTrigger -= m_handler;
                     break;
                 }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(m_owner);
-                    minion->afterAttackTrigger = nullptr;
+                    minion->afterAttackTrigger -= m_handler;
                     break;
                 }
                 case TriggerSource::ENCHANTMENT_TARGET:
@@ -260,36 +257,36 @@ void Trigger::Remove() const
                         dynamic_cast<Enchantment*>(m_owner);
                     auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
-                    minion->afterAttackTrigger = nullptr;
+                    minion->afterAttackTrigger -= m_handler;
                     break;
                 }
                 default:
                     break;
             }
         case TriggerType::SUMMON:
-            game->triggerManager.summonTrigger = nullptr;
+            game->triggerManager.summonTrigger -= m_handler;
             break;
         case TriggerType::AFTER_SUMMON:
-            game->triggerManager.afterSummonTrigger = nullptr;
+            game->triggerManager.afterSummonTrigger -= m_handler;
             break;
         case TriggerType::DEAL_DAMAGE:
-            game->triggerManager.dealDamageTrigger = nullptr;
+            game->triggerManager.dealDamageTrigger -= m_handler;
             break;
         case TriggerType::TAKE_DAMAGE:
-            game->triggerManager.takeDamageTrigger = nullptr;
+            game->triggerManager.takeDamageTrigger -= m_handler;
             break;
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
                 case TriggerSource::HERO:
                 {
-                    m_owner->player->GetHero()->preDamageTrigger = nullptr;
+                    m_owner->player->GetHero()->preDamageTrigger -= m_handler;
                     break;
                 }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(m_owner);
-                    minion->preDamageTrigger = nullptr;
+                    minion->preDamageTrigger -= m_handler;
                     break;
                 }
                 case TriggerSource::ENCHANTMENT_TARGET:
@@ -298,20 +295,20 @@ void Trigger::Remove() const
                         dynamic_cast<Enchantment*>(m_owner);
                     auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
-                    minion->preDamageTrigger = nullptr;
+                    minion->preDamageTrigger -= m_handler;
                     break;
                 }
                 default:
                     break;
             }
         case TriggerType::TARGET:
-            game->triggerManager.targetTrigger = nullptr;
+            game->triggerManager.targetTrigger -= m_handler;
             break;
         case TriggerType::DEATH:
-            game->triggerManager.deathTrigger = nullptr;
+            game->triggerManager.deathTrigger -= m_handler;
             break;
         case TriggerType::USE_HERO_POWER:
-            game->triggerManager.useHeroPowerTrigger = nullptr;
+            game->triggerManager.useHeroPowerTrigger -= m_handler;
             break;
         default:
             break;
