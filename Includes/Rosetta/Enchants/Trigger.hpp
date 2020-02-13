@@ -8,6 +8,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
+#include <Rosetta/Managers/TriggerEventHandler.hpp>
 
 #include <memory>
 #include <vector>
@@ -84,6 +85,8 @@ class Trigger
     TriggerType m_triggerType = TriggerType::NONE;
     TriggerActivation m_triggerActivation = TriggerActivation::PLAY;
     SequenceType m_sequenceType = SequenceType::NONE;
+
+    TriggerEventHandler m_handler;
 
     bool m_isValidated = false;
 };

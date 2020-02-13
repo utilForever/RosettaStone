@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_TRIGGER_MANAGER_HPP
 #define ROSETTASTONE_TRIGGER_MANAGER_HPP
 
-#include <functional>
+#include <Rosetta/Managers/TriggerEvent.hpp>
 
 namespace RosettaStone
 {
@@ -93,24 +93,24 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnUseHeroPowerTrigger(Entity* sender) const;
 
-    std::function<void(Entity*)> startTurnTrigger;
-    std::function<void(Entity*)> endTurnTrigger;
-    std::function<void(Entity*)> playCardTrigger;
-    std::function<void(Entity*)> playMinionTrigger;
-    std::function<void(Entity*)> afterPlayMinionTrigger;
-    std::function<void(Entity*)> castSpellTrigger;
-    std::function<void(Entity*)> afterCastTrigger;
-    std::function<void(Entity*)> secretRevealedTrigger;
-    std::function<void(Entity*)> giveHealTrigger;
-    std::function<void(Entity*)> takeHealTrigger;
-    std::function<void(Entity*)> attackTrigger;
-    std::function<void(Entity*)> summonTrigger;
-    std::function<void(Entity*)> afterSummonTrigger;
-    std::function<void(Entity*)> dealDamageTrigger;
-    std::function<void(Entity*)> takeDamageTrigger;
-    std::function<void(Entity*)> targetTrigger;
-    std::function<void(Entity*)> deathTrigger;
-    std::function<void(Entity*)> useHeroPowerTrigger;
+    TriggerEvent startTurnTrigger;
+    TriggerEvent endTurnTrigger;
+    TriggerEvent playCardTrigger;
+    TriggerEvent playMinionTrigger;
+    TriggerEvent afterPlayMinionTrigger;
+    TriggerEvent castSpellTrigger;
+    TriggerEvent afterCastTrigger;
+    TriggerEvent secretRevealedTrigger;
+    TriggerEvent giveHealTrigger;
+    TriggerEvent takeHealTrigger;
+    TriggerEvent attackTrigger;
+    TriggerEvent summonTrigger;
+    TriggerEvent afterSummonTrigger;
+    TriggerEvent dealDamageTrigger;
+    TriggerEvent takeDamageTrigger;
+    TriggerEvent targetTrigger;
+    TriggerEvent deathTrigger;
+    TriggerEvent useHeroPowerTrigger;
 };
 }  // namespace RosettaStone
 
