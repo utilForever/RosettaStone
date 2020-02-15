@@ -8,92 +8,92 @@
 
 namespace RosettaStone
 {
-void TriggerManager::OnStartTurnTrigger(Entity* sender) const
+void TriggerManager::OnStartTurnTrigger(Entity* sender)
 {
     startTurnTrigger(sender);
 }
 
-void TriggerManager::OnEndTurnTrigger(Entity* sender) const
+void TriggerManager::OnEndTurnTrigger(Entity* sender)
 {
     endTurnTrigger(sender);
 }
 
-void TriggerManager::OnPlayCardTrigger(Entity* sender) const
+void TriggerManager::OnPlayCardTrigger(Entity* sender)
 {
     playCardTrigger(sender);
 }
 
-void TriggerManager::OnPlayMinionTrigger(Entity* sender) const
+void TriggerManager::OnPlayMinionTrigger(Entity* sender)
 {
     playMinionTrigger(sender);
 }
 
-void TriggerManager::OnAfterPlayMinionTrigger(Entity* sender) const
+void TriggerManager::OnAfterPlayMinionTrigger(Entity* sender)
 {
     afterPlayMinionTrigger(sender);
 }
 
-void TriggerManager::OnCastSpellTrigger(Entity* sender) const
+void TriggerManager::OnCastSpellTrigger(Entity* sender)
 {
     castSpellTrigger(sender);
 }
 
-void TriggerManager::OnAfterCastTrigger(Entity* sender) const
+void TriggerManager::OnAfterCastTrigger(Entity* sender)
 {
     afterCastTrigger(sender);
 }
 
-void TriggerManager::OnSecretRevealedTrigger(Entity* sender) const
+void TriggerManager::OnSecretRevealedTrigger(Entity* sender)
 {
     secretRevealedTrigger(sender);
 }
 
-void TriggerManager::OnGiveHealTrigger(Entity* sender) const
+void TriggerManager::OnGiveHealTrigger(Entity* sender)
 {
     giveHealTrigger(sender);
 }
 
-void TriggerManager::OnTakeHealTrigger(Entity* sender) const
+void TriggerManager::OnTakeHealTrigger(Entity* sender)
 {
     takeHealTrigger(sender);
 }
 
-void TriggerManager::OnAttackTrigger(Entity* sender) const
+void TriggerManager::OnAttackTrigger(Entity* sender)
 {
     attackTrigger(sender);
 }
 
-void TriggerManager::OnSummonTrigger(Entity* sender) const
+void TriggerManager::OnSummonTrigger(Entity* sender)
 {
     summonTrigger(sender);
 }
 
-void TriggerManager::OnAfterSummonTrigger(Entity* sender) const
+void TriggerManager::OnAfterSummonTrigger(Entity* sender)
 {
     afterSummonTrigger(sender);
 }
 
-void TriggerManager::OnDealDamageTrigger(Entity* sender) const
+void TriggerManager::OnDealDamageTrigger(Entity* sender)
 {
     dealDamageTrigger(sender);
 }
 
-void TriggerManager::OnTakeDamageTrigger(Entity* sender) const
+void TriggerManager::OnTakeDamageTrigger(Entity* sender)
 {
     takeDamageTrigger(sender);
 }
 
-void TriggerManager::OnTargetTrigger(Entity* sender) const
+void TriggerManager::OnTargetTrigger(Entity* sender)
 {
     targetTrigger(sender);
 }
 
-void TriggerManager::OnDeathTrigger(Entity* sender) const
+void TriggerManager::OnDeathTrigger(Entity* sender)
 {
     deathTrigger(sender);
 }
 
-void TriggerManager::OnUseHeroPowerTrigger(Entity* sender) const
+void TriggerManager::OnUseHeroPowerTrigger(Entity* sender)
 {
     useHeroPowerTrigger(sender);
 }
