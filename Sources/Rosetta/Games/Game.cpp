@@ -156,8 +156,6 @@ void Game::RefCopyFrom(const Game& rhs)
     step = rhs.step;
     nextStep = rhs.nextStep;
 
-    triggerManager = rhs.triggerManager;
-
     auras = rhs.auras;
     triggers = rhs.triggers;
     oneTurnEffects = rhs.oneTurnEffects;
