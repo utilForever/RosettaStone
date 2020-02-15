@@ -28,7 +28,7 @@ class TriggerEventHandler
 
     //! Constructs trigger event handler with given \p func.
     //! \param func A functor to run.
-    TriggerEventHandler(Func func);
+    explicit TriggerEventHandler(Func func);
 
     //! Default destructor.
     ~TriggerEventHandler() noexcept = default;

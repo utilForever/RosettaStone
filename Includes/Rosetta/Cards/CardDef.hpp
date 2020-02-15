@@ -26,30 +26,30 @@ class CardDef
 
     //! Constructs card def with given \p _power.
     //! \param _power The power data.
-    CardDef(Power _power);
+    explicit CardDef(Power _power);
 
     //! Constructs card def with given \p _power and \p _playReqs.
     //! \param _power The power data.
     //! \param _playReqs The play requirements data.
-    CardDef(Power _power, std::map<PlayReq, int> _playReqs);
+    explicit CardDef(Power _power, std::map<PlayReq, int> _playReqs);
 
     //! Constructs card def with given \p _power and \p _chooseCardIDs.
     //! \param _power The power data.
     //! \param _chooseCardIDs The choose card IDs data.
-    CardDef(Power _power, std::vector<std::string> _chooseCardIDs);
+    explicit CardDef(Power _power, std::vector<std::string> _chooseCardIDs);
 
     //! Constructs card def with given \p _power and \p _questProgressTotal.
     //! \param _power The power data.
     //! \param _questProgressTotal The quest progress total data.
-    CardDef(Power _power, int _questProgressTotal);
+    explicit CardDef(Power _power, int _questProgressTotal);
 
     //! Constructs card def with given \p _power, \p _playReqs and
     //! \p _chooseCardIDs.
     //! \param _power The power data.
     //! \param _playReqs The play requirements data.
     //! \param _chooseCardIDs The choose card IDs data.
-    CardDef(Power _power, std::map<PlayReq, int> _playReqs,
-            std::vector<std::string> _chooseCardIDs);
+    explicit CardDef(Power _power, std::map<PlayReq, int> _playReqs,
+                     std::vector<std::string> _chooseCardIDs);
 
     //! Constructs card def with given \p _power, \p _playReqs,
     //! \p _chooseCardIDs and \p _entourages.
@@ -57,9 +57,9 @@ class CardDef
     //! \param _playReqs The play requirements data.
     //! \param _chooseCardIDs The choose card IDs data.
     //! \param _entourages The entourages data.
-    CardDef(Power _power, std::map<PlayReq, int> _playReqs,
-            std::vector<std::string> _chooseCardIDs,
-            std::vector<std::string> _entourages);
+    explicit CardDef(Power _power, std::map<PlayReq, int> _playReqs,
+                     std::vector<std::string> _chooseCardIDs,
+                     std::vector<std::string> _entourages);
 
     Power power;
     std::map<PlayReq, int> playReqs;
