@@ -89,7 +89,6 @@
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/InternalCardLoader.hpp>
-#include <Rosetta/Loaders/QuestLoader.hpp>
 #include <Rosetta/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/Managers/CostManager.hpp>
 #include <Rosetta/Managers/GameManager.hpp>
