@@ -10,6 +10,8 @@
 
 namespace RosettaStone
 {
+int TriggerEventHandler::counter = 0;
+
 TriggerEventHandler::TriggerEventHandler() : id(0)
 {
     // Do nothing
@@ -31,7 +33,24 @@ TriggerEventHandler& TriggerEventHandler::operator=(
 
     if (m_func == nullptr)
     {
-        m_func = handler.m_func;
+        m_func = handler;
+        id = ++counter;
+    }
+
+    return *this;
+}
+
+TriggerEventHandler& TriggerEventHandler::operator=(
+    TriggerEventHandler&& handler) noexcept
+{
+    if (&handler == this)
+    {
+        return *this;
+    }
+
+    if (m_func == nullptr)
+    {
+        m_func = handler;
         id = ++counter;
     }
 
@@ -40,7 +59,10 @@ TriggerEventHandler& TriggerEventHandler::operator=(
 
 void TriggerEventHandler::operator()(Entity* entity) const
 {
-    m_func(entity);
+    if (m_func)
+    {
+        m_func(entity);
+    }
 }
 
 bool TriggerEventHandler::operator==(const TriggerEventHandler& handler) const
