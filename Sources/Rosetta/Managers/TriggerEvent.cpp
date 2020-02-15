@@ -17,16 +17,30 @@ void TriggerEvent::AddHandler(const TriggerEventHandler& handler)
 
 void TriggerEvent::RemoveHandler(const TriggerEventHandler& handler)
 {
-    m_handlers.erase(
-        std::remove_if(
-            m_handlers.begin(), m_handlers.end(),
-            [&](const std::unique_ptr<TriggerEventHandler>& _handler) {
-                return *_handler == handler;
-            }),
-        m_handlers.end());
+    if (m_isNotifying)
+    {
+        for (auto& _handler : m_handlers)
+        {
+            if (*_handler == handler)
+            {
+                _handler->toBeRemoved = true;
+                break;
+            }
+        }
+    }
+    else
+    {
+        m_handlers.erase(
+            std::remove_if(
+                m_handlers.begin(), m_handlers.end(),
+                [&](const std::unique_ptr<TriggerEventHandler>& _handler) {
+                    return *_handler == handler;
+                }),
+            m_handlers.end());
+    }
 }
 
-void TriggerEvent::operator()(Entity* entity) const
+void TriggerEvent::operator()(Entity* entity)
 {
     NotifyHandlers(entity);
 }
@@ -45,8 +59,10 @@ TriggerEvent& TriggerEvent::operator-=(const TriggerEventHandler& handler)
     return *this;
 }
 
-void TriggerEvent::NotifyHandlers(Entity* entity) const
+void TriggerEvent::NotifyHandlers(Entity* entity)
 {
+    m_isNotifying = true;
+
     for (auto& func : m_handlers)
     {
         if (func != nullptr)
@@ -54,5 +70,15 @@ void TriggerEvent::NotifyHandlers(Entity* entity) const
             (*func)(entity);
         }
     }
+
+    m_handlers.erase(
+        std::remove_if(
+            m_handlers.begin(), m_handlers.end(),
+            [&](const std::unique_ptr<TriggerEventHandler>& handler) {
+                return handler->toBeRemoved;
+            }),
+        m_handlers.end());
+
+    m_isNotifying = false;
 }
 }  // namespace RosettaStone

@@ -24,18 +24,33 @@ class Entity;
 class TriggerEvent
 {
  public:
+    //! Adds a trigger event handler.
+    //! \param handler A trigger event handler to add.
     void AddHandler(const TriggerEventHandler& handler);
+
+    //! Removes a trigger event handler.
+    //! \param handler A trigger event handler to remove.
     void RemoveHandler(const TriggerEventHandler& handler);
 
-    void operator()(Entity* entity) const;
+    //! Operator overloading: operator().
+    //! \param entity The argument of functor.
+    void operator()(Entity* entity);
 
+    //! Operator overloading: operator+=.
+    //! \param handler A trigger event handler to add.
     TriggerEvent& operator+=(const TriggerEventHandler& handler);
+
+    //! Operator overloading: operator-=.
+    //! \param handler A trigger event handler to remove.
     TriggerEvent& operator-=(const TriggerEventHandler& handler);
 
  private:
-    void NotifyHandlers(Entity* entity) const;
+    //! Notifies a list of trigger handlers to run.
+    //! \param entity The argument of functor.
+    void NotifyHandlers(Entity* entity);
 
     std::vector<std::unique_ptr<TriggerEventHandler>> m_handlers;
+    bool m_isNotifying = false;
 };
 }  // namespace RosettaStone
 
