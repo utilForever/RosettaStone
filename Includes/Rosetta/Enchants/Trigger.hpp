@@ -61,6 +61,8 @@ class Trigger
     std::vector<std::shared_ptr<ITask>> tasks;
     std::shared_ptr<SelfCondition> condition;
 
+    TriggerEventHandler handler;
+
     float percentage = 1.0f;
     bool eitherTurn = false;
     bool fastExecution = false;
@@ -85,8 +87,6 @@ class Trigger
     TriggerType m_triggerType = TriggerType::NONE;
     TriggerActivation m_triggerActivation = TriggerActivation::PLAY;
     SequenceType m_sequenceType = SequenceType::NONE;
-
-    TriggerEventHandler m_handler;
 
     bool m_isValidated = false;
 };
