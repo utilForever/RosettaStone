@@ -185,8 +185,9 @@ void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_128e", EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_128e", EntityType::MINIONS, false,
+        SelfCondition::HasNotStealth()));
     cards.emplace("EX1_128", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
