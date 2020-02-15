@@ -5886,7 +5886,7 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // Text: Increased Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(2)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(1)));
     cards.emplace("EX1_004e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
