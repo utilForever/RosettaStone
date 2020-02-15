@@ -20,6 +20,8 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
         card->playRequirements = cardDef.playReqs;
         card->chooseCardIDs = cardDef.chooseCardIDs;
         card->entourages = cardDef.entourages;
+        card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] =
+            cardDef.questProgressTotal;
     }
 }
 }  // namespace RosettaStone
