@@ -584,7 +584,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_255t2", 3) }) };
-    cards.emplace("DRG_255", CardDef(power));
+    cards.emplace("DRG_255", CardDef(power, 3));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_256] Dragonbane - COST:4 [ATK:3/HP:5]
