@@ -184,6 +184,19 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::HasNotStealth()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return !minion->HasStealth();
+    });
+}
+
 SelfCondition SelfCondition::HasReborn()
 {
     return SelfCondition([=](Playable* playable) -> bool {

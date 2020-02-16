@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
@@ -17,7 +17,7 @@
 using namespace RosettaStone;
 using namespace TestUtils;
 
-TEST(Trigger, None)
+TEST_CASE("[Trigger] - None")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -48,7 +48,7 @@ TEST(Trigger, None)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TurnStart)
+TEST_CASE("[Trigger] - TurnStart")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -79,7 +79,7 @@ TEST(Trigger, TurnStart)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TurnEnd)
+TEST_CASE("[Trigger] - TurnEnd")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -110,7 +110,7 @@ TEST(Trigger, TurnEnd)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, PlayCard)
+TEST_CASE("[Trigger] - PlayCard")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -141,7 +141,7 @@ TEST(Trigger, PlayCard)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, PlayMinion)
+TEST_CASE("[Trigger] - PlayMinion")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -172,7 +172,7 @@ TEST(Trigger, PlayMinion)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, CastSpell)
+TEST_CASE("[Trigger] - CastSpell")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -203,7 +203,7 @@ TEST(Trigger, CastSpell)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterCast)
+TEST_CASE("[Trigger] - AfterCast")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -234,7 +234,7 @@ TEST(Trigger, AfterCast)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, GiveHeal)
+TEST_CASE("[Trigger] - GiveHeal")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -265,7 +265,7 @@ TEST(Trigger, GiveHeal)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TakeHeal)
+TEST_CASE("[Trigger] - TakeHeal")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -296,7 +296,7 @@ TEST(Trigger, TakeHeal)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Attack)
+TEST_CASE("[Trigger] - Attack")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -327,7 +327,7 @@ TEST(Trigger, Attack)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_None)
+TEST_CASE("[Trigger] - AfterAttack_None")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -360,7 +360,7 @@ TEST(Trigger, AfterAttack_None)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_Hero)
+TEST_CASE("[Trigger] - AfterAttack_Hero")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -393,7 +393,7 @@ TEST(Trigger, AfterAttack_Hero)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_Self)
+TEST_CASE("[Trigger] - AfterAttack_Self")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -426,7 +426,7 @@ TEST(Trigger, AfterAttack_Self)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_EnchantmentTarget)
+TEST_CASE("[Trigger] - AfterAttack_EnchantmentTarget")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -465,7 +465,7 @@ TEST(Trigger, AfterAttack_EnchantmentTarget)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Summon)
+TEST_CASE("[Trigger] - Summon")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -496,7 +496,7 @@ TEST(Trigger, Summon)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterSummon)
+TEST_CASE("[Trigger] - AfterSummon")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -528,7 +528,7 @@ TEST(Trigger, AfterSummon)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, DealDamage)
+TEST_CASE("[Trigger] - DealDamage")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -560,7 +560,7 @@ TEST(Trigger, DealDamage)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TakeDamage)
+TEST_CASE("[Trigger] - TakeDamage")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -591,7 +591,7 @@ TEST(Trigger, TakeDamage)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_None)
+TEST_CASE("[Trigger] - Predamage_None")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -623,7 +623,7 @@ TEST(Trigger, Predamage_None)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_Hero)
+TEST_CASE("[Trigger] - Predamage_Hero")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -661,7 +661,7 @@ TEST(Trigger, Predamage_Hero)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_Self)
+TEST_CASE("[Trigger] - Predamage_Self")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -693,7 +693,7 @@ TEST(Trigger, Predamage_Self)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_EnchantmentTarget)
+TEST_CASE("[Trigger] - Predamage_EnchantmentTarget")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -731,7 +731,7 @@ TEST(Trigger, Predamage_EnchantmentTarget)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Target)
+TEST_CASE("[Trigger] - Target")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;

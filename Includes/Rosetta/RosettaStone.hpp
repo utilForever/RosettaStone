@@ -43,6 +43,8 @@
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Cards/CardDef.hpp>
+#include <Rosetta/Cards/CardDefs.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/DeckCode.hpp>
@@ -87,11 +89,11 @@
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/InternalCardLoader.hpp>
-#include <Rosetta/Loaders/QuestLoader.hpp>
 #include <Rosetta/Loaders/TargetingPredicates.hpp>
-#include <Rosetta/Managers/CardDataManager.hpp>
 #include <Rosetta/Managers/CostManager.hpp>
 #include <Rosetta/Managers/GameManager.hpp>
+#include <Rosetta/Managers/TriggerEvent.hpp>
+#include <Rosetta/Managers/TriggerEventHandler.hpp>
 #include <Rosetta/Managers/TriggerManager.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>

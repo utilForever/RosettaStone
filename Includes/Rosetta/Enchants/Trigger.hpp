@@ -8,6 +8,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
+#include <Rosetta/Managers/TriggerEventHandler.hpp>
 
 #include <memory>
 #include <vector>
@@ -59,6 +60,8 @@ class Trigger
 
     std::vector<std::shared_ptr<ITask>> tasks;
     std::shared_ptr<SelfCondition> condition;
+
+    TriggerEventHandler handler;
 
     float percentage = 1.0f;
     bool eitherTurn = false;

@@ -7,9 +7,12 @@ matrix:
       addons:
         apt:
           sources:
+            - deadsnakes
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
+            - python3.7-dev
+            - python3.7-venv
         sonarcloud:
           organization: "utilforever-github"
           token:
