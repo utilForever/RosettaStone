@@ -13,6 +13,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -649,6 +650,9 @@ void DalaranCardsGen::AddMageNonCollect(PowersType& powers,
 void DalaranCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
                                  EntouragesType& entourages)
 {
+
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_141] Desperate Measures - COST:1
     // - Set: Dalaran, Rarity: Rare
@@ -756,6 +760,10 @@ void DalaranCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - BATTLECRY = 1
     // - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::HEROES));
+    powers.emplace("DAL_581", power);
+
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_727] Call to Adventure - COST:3

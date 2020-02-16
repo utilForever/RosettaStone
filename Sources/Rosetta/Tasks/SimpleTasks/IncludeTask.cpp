@@ -119,6 +119,10 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMY_HERO:
             entities.emplace_back(player->opponent->GetHero());
             break;
+        case EntityType ::HEROES:
+            entities.emplace_back(player->GetHero());
+            entities.emplace_back(player->opponent->GetHero());
+            break;
         case EntityType::WEAPON:
             if (player->GetHero()->HasWeapon())
             {
@@ -325,6 +329,10 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(player->GetHero());
             break;
         case EntityType::ENEMY_HERO:
+            entities.emplace_back(player->opponent->GetHero());
+            break;
+        case EntityType ::HEROES:
+            entities.emplace_back(player->GetHero());
             entities.emplace_back(player->opponent->GetHero());
             break;
         case EntityType::WEAPON:
