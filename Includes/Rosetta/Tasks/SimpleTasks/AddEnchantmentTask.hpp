@@ -24,7 +24,7 @@ class AddEnchantmentTask : public ITask
     //! \param useScriptTag The flag that indicates whether it uses script tag.
     //! \param selfCondition The self condition to check.
     AddEnchantmentTask(
-        const std::string& cardID, EntityType entityType,
+        const std::string_view& cardID, EntityType entityType,
         bool useScriptTag = false,
         std::optional<SelfCondition> selfCondition = std::nullopt);
 

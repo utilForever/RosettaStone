@@ -15,7 +15,7 @@
 namespace RosettaStone::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(
-    const std::string& cardID, EntityType entityType, bool useScriptTag,
+    const std::string_view& cardID, EntityType entityType, bool useScriptTag,
     std::optional<SelfCondition> selfCondition)
     : ITask(entityType),
       m_enchantmentCard(Cards::FindCardByID(cardID)),
