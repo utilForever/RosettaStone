@@ -384,6 +384,87 @@ TEST(MageDalaranTest, DAL_163_MessengerRaven)
     }
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [DAL_577] Ray of Frost - COST:1
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> <b>Freeze</b> a minion.
+//       If it's already <b>Frozen</b>, deal 2 damage to it.
+// --------------------------------------------------------
+// GameTag:
+// - TWINSPELL_COPY = 54193
+// - TWINSPELL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST(MageDalaranTest, DAL_577_RayOfFrost)
+{
+  GameConfig config;
+  config.player1Class = CardClass::MAGE;
+  config.player2Class = CardClass::MAGE;
+  config.startPlayer = PlayerType::PLAYER1;
+  config.doFillDecks = false;
+  config.autoRun = false;
+
+  Game game(config);
+  game.Start();
+  game.ProcessUntil(Step::MAIN_START);
+
+  Player* curPlayer = game.GetCurrentPlayer();
+  Player* opPlayer = game.GetOpponentPlayer();
+  curPlayer->SetTotalMana(10);
+  curPlayer->SetUsedMana(0);
+  opPlayer->SetTotalMana(10);
+  opPlayer->SetUsedMana(0);
+
+  auto& curField = *(curPlayer->GetFieldZone());
+  auto& opHand = *(opPlayer->GetHandZone());
+
+  const auto card1 =
+      Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
+  const auto card2 =
+      Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
+  const auto card3 =
+      Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient Watcher"));
+
+  game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+  game.Process(curPlayer, EndTurnTask());
+  game.ProcessUntil(Step::MAIN_START);
+
+
+  game.Process(opPlayer, PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+  EXPECT_EQ(opHand.GetCount(), 3);
+  EXPECT_EQ(card1->GetGameTag(GameTag::TWINSPELL), 1);
+
+  EXPECT_EQ(curField[0]->IsFrozen(), 0);
+  game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
+  EXPECT_EQ(curField[0]->IsFrozen(), 1);
+  EXPECT_EQ(curField[0]->GetDamage(), 0);
+
+  EXPECT_EQ(opHand.GetCount(), 3);
+  EXPECT_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
+  game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card3));
+  EXPECT_EQ(curField[0]->IsFrozen(), 1);
+  EXPECT_EQ(curField[0]->GetDamage(), 2);
+
+  EXPECT_EQ(opHand.GetCount(), 3);
+  EXPECT_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
+  game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
+  EXPECT_EQ(curField[0]->IsFrozen(), 1);
+  EXPECT_EQ(curField[0]->GetDamage(), 4);
+
+  EXPECT_EQ(opHand.GetCount(), 2);
+  game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
+  EXPECT_EQ(card3->isDestroyed, true);
+  EXPECT_EQ(opHand.GetCount(), 1);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DAL_581] Nozari - COST:10 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dalaran, Rarity: Legendary

@@ -14,11 +14,17 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+
 void DalaranCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
                                 EntouragesType& entourages)
 {
@@ -566,6 +572,19 @@ void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+            EntityType::TARGET, GameTag::FROZEN, 1) }));
+    powers.emplace("DAL_577", power);
+    playReqs.emplace("DAL_577", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0} });
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_578] Power of Creation - COST:8
@@ -620,6 +639,7 @@ void DalaranCardsGen::AddMageNonCollect(PowersType& powers,
                                         PlayReqsType& playReqs,
                                         EntouragesType& entourages)
 {
+    Power power;
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177ts] Conjurer's Calling (*) - COST:3
     // - Set: Dalaran, Rarity: Rare
@@ -645,6 +665,19 @@ void DalaranCardsGen::AddMageNonCollect(PowersType& powers,
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+            EntityType::TARGET, GameTag::FROZEN, 1) }));
+    powers.emplace("DAL_577ts", power);
+    playReqs.emplace("DAL_577ts", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0} });
 }
 
 void DalaranCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
