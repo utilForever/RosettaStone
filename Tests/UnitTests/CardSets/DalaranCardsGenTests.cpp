@@ -508,9 +508,15 @@ TEST(NeutralDalaranTest, DAL_089_SpellbookBinder)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Spellbook Binder"));
-    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
-    EXPECT_EQ(curPlayer->currentSpellPower,1);
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spellbook Binder"));
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 1));
+    EXPECT_EQ(curPlayer->currentSpellPower, 0);
+    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3, 3));
+    EXPECT_EQ(curPlayer->currentSpellPower, 1);
     EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 // --------------------------------------- MINION - NEUTRAL

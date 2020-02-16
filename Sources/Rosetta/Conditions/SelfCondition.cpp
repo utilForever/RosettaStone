@@ -200,11 +200,7 @@ SelfCondition SelfCondition::HasReborn()
 SelfCondition SelfCondition::HasSpellPower()
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        if (playable->player->currentSpellPower > 0)
-        {
-            return true;
-        }
-        return false;
+        return playable->player->currentSpellPower > 0;
     });
 }
 SelfCondition SelfCondition::HasMinionInHand()
