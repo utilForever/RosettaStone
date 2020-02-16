@@ -146,19 +146,6 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     // Add entity to list
     player->game->entityList.emplace(result->id, result);
 
-    if (result->HasChooseOne())
-    {
-        delete result->chooseOneCard[0];
-        delete result->chooseOneCard[1];
-
-        result->chooseOneCard[0] =
-            GetFromCard(player, Cards::FindCardByID(result->card->id + "a"),
-                        std::nullopt, player->GetSetasideZone());
-        result->chooseOneCard[1] =
-            GetFromCard(player, Cards::FindCardByID(result->card->id + "b"),
-                        std::nullopt, player->GetSetasideZone());
-    }
-
     return result;
 }
 }  // namespace RosettaStone

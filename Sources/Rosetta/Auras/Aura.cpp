@@ -49,12 +49,12 @@ void Aura::Activate(Playable* owner, bool cloning)
         case TriggerType::NONE:
             break;
         case TriggerType::TURN_END:
-            owner->game->triggerManager.endTurnTrigger =
-                std::move(instance->m_removeHandler);
+            owner->game->triggerManager.endTurnTrigger +=
+                instance->m_removeHandler;
             break;
         case TriggerType::CAST_SPELL:
-            owner->game->triggerManager.castSpellTrigger =
-                std::move(instance->m_removeHandler);
+            owner->game->triggerManager.castSpellTrigger +=
+                instance->m_removeHandler;
             break;
         default:
             break;
@@ -162,10 +162,10 @@ void Aura::Remove()
         case TriggerType::NONE:
             break;
         case TriggerType::TURN_END:
-            m_owner->game->triggerManager.endTurnTrigger = nullptr;
+            m_owner->game->triggerManager.endTurnTrigger -= m_removeHandler;
             break;
         case TriggerType::CAST_SPELL:
-            m_owner->game->triggerManager.castSpellTrigger = nullptr;
+            m_owner->game->triggerManager.castSpellTrigger -= m_removeHandler;
             break;
         default:
             break;
@@ -296,7 +296,7 @@ Aura::Aura(Aura& prototype, Playable& owner)
         m_auraUpdateInstQueue = prototype.m_auraUpdateInstQueue;
     }
 
-    m_removeHandler = [this](Entity* source) {
+    auto removeFunc = [this](Entity* source) {
         if (removeTrigger.second != nullptr)
         {
             if (dynamic_cast<Player*>(source))
@@ -313,6 +313,8 @@ Aura::Aura(Aura& prototype, Playable& owner)
 
         Remove();
     };
+
+    m_removeHandler = TriggerEventHandler(removeFunc);
 }
 
 void Aura::AddToGame(Playable& owner, Aura& aura)

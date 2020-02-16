@@ -4,11 +4,15 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#define DOCTEST_CONFIG_IMPLEMENT
+#include <doctest.h>
 
-int main(int argc, char* argv[])
+int main()
 {
-    testing::InitGoogleTest(&argc, argv);
-    const int ret = RUN_ALL_TESTS();
-    return ret;
+    doctest::Context context;
+
+    // Run queries, or run tests unless --no-run is specified
+    const int res = context.run();
+
+    return res;
 }

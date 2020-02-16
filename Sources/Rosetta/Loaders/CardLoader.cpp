@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <Rosetta/Loaders/CardLoader.hpp>
-#include <Rosetta/Loaders/QuestLoader.hpp>
 
 #include <fstream>
 
@@ -123,14 +122,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::RARITY] = rarity;
         card->gameTags[GameTag::SPELLPOWER] = spellPower;
         card->gameTags[GameTag::OVERLOAD] = overload;
-
-        // Add the value of GameTag::QUEST_PROGRESS_TOTAL
-        if (card->gameTags[GameTag::QUEST] == 1 ||
-            card->gameTags[GameTag::SIDEQUEST] == 1)
-        {
-            card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] =
-                QuestLoader::GetQuestProgressTotal(card->id);
-        }
 
         cards.emplace_back(card);
     }

@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -18,7 +18,7 @@
 
 using namespace RosettaStone;
 
-TEST(Copy, Copy)
+TEST_CASE("[Copy] - Copy")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -50,7 +50,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::HAND);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
 
         delete playable;
     }
@@ -69,7 +69,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::PLAY);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
 
         delete playable;
     }
@@ -88,7 +88,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::PLAY);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
 
         delete playable;
     }
@@ -107,7 +107,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::HAND);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
 
         delete playable;
     }
@@ -126,7 +126,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::DECK);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
 
         delete playable;
     }
@@ -145,7 +145,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::DECK);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
 
         delete playable;
     }
@@ -165,7 +165,7 @@ TEST(Copy, Copy)
 
         auto copiedEntity =
             Generic::Copy(curPlayer, playable, ZoneType::GRAVEYARD);
-        EXPECT_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
+        CHECK_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
 
         delete playable;
     }
@@ -185,7 +185,7 @@ TEST(Copy, Copy)
 
         auto copiedEntity =
             Generic::Copy(curPlayer, playable, ZoneType::GRAVEYARD);
-        EXPECT_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
+        CHECK_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
 
         delete playable;
     }
@@ -205,7 +205,7 @@ TEST(Copy, Copy)
 
         auto copiedEntity =
             Generic::Copy(curPlayer, playable, ZoneType::GRAVEYARD);
-        EXPECT_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
+        CHECK_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
 
         delete playable;
     }
@@ -224,7 +224,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::PLAY);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
 
         delete playable;
     }
@@ -243,7 +243,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::HAND);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
 
         delete playable;
     }
@@ -262,7 +262,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::DECK);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
 
         delete playable;
     }
@@ -281,7 +281,7 @@ TEST(Copy, Copy)
         playable->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, playable, ZoneType::HAND);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
 
         delete playable;
     }
@@ -301,7 +301,7 @@ TEST(Copy, Copy)
 
         auto copiedEntity =
             Generic::Copy(curPlayer, playable, ZoneType::SETASIDE);
-        EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::SETASIDE);
+        CHECK_EQ(copiedEntity->GetZoneType(), ZoneType::SETASIDE);
 
         delete playable;
     }

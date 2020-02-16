@@ -27,7 +27,7 @@ using namespace SimpleTasks;
 // - QUEST_REWARD_DATABASE_ID = 41127
 // - SIDEQUEST = 1
 // --------------------------------------------------------
-TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
+TEST_CASE("[Hunter : Spell] - DRG_255 : Toxic Reinforcements")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -57,11 +57,11 @@ TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
     auto quest = dynamic_cast<Spell*>(card1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(quest->GetQuestProgress(), 0);
-    EXPECT_EQ(quest->GetQuestProgressTotal(), 3);
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 3);
 
     game.Process(curPlayer, HeroPowerTask());
-    EXPECT_EQ(quest->GetQuestProgress(), 1);
+    CHECK_EQ(quest->GetQuestProgress(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -72,7 +72,7 @@ TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, HeroPowerTask());
-    EXPECT_EQ(quest->GetQuestProgress(), 2);
+    CHECK_EQ(quest->GetQuestProgress(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -81,20 +81,20 @@ TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, HeroPowerTask());
-    EXPECT_EQ(quest->GetQuestProgress(), 3);
-    EXPECT_EQ(curField.GetCount(), 3);
-    EXPECT_EQ(curField[0]->card->id, "DRG_255t2");
-    EXPECT_EQ(curField[1]->card->id, "DRG_255t2");
-    EXPECT_EQ(curField[2]->card->id, "DRG_255t2");
+    CHECK_EQ(quest->GetQuestProgress(), 3);
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->id, "DRG_255t2");
+    CHECK_EQ(curField[1]->card->id, "DRG_255t2");
+    CHECK_EQ(curField[2]->card->id, "DRG_255t2");
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     opPlayer->GetHero()->SetDamage(0);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     game.Process(opPlayer, AttackTask(card2, curField[0]));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -107,7 +107,7 @@ TEST(HunterDragonsTest, DRG_255_ToxicReinforcements)
 // - TAUNT = 1
 // - RUSH = 1
 // --------------------------------------------------------
-TEST(NeutralDragonsTest, DRG_065_Hippogryph)
+TEST_CASE("[Neutral : Minion] - DRG_065 : Hippogryph")
 {
     // Do nothing
 }
@@ -116,7 +116,7 @@ TEST(NeutralDragonsTest, DRG_065_Hippogryph)
 // [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------
-TEST(NeutralDragonsTest, DRG_239_BlazingBattlemage)
+TEST_CASE("[Neutral : Minion] - DRG_239 : Blazing Battlemage")
 {
     // Do nothing
 }

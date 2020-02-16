@@ -19,8 +19,7 @@ using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
-void DragonsCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- HERO - WARLOCK
     // [DRG_600] Galakrond, the Wretched - COST:7 [ATK:0/HP:30]
@@ -270,8 +269,7 @@ void DragonsCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
-                                    EntouragesType& entourages)
+void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- HERO_POWER - WARRIOR
     // [DRG_238p] Galakrond's Might (*) - COST:2
@@ -312,8 +310,7 @@ void DragonsCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ SPELL - DRUID
     // [DRG_051] Strength in Numbers - COST:1
@@ -427,9 +424,7 @@ void DragonsCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddDruidNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311a] Spin 'em Up (*) - COST:0
@@ -481,8 +476,7 @@ void DragonsCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -590,7 +584,7 @@ void DragonsCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_255t2", 3) }) };
-    powers.emplace("DRG_255", power);
+    cards.emplace("DRG_255", CardDef(power, 3));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_256] Dragonbane - COST:4 [ATK:3/HP:5]
@@ -604,9 +598,7 @@ void DragonsCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddHunterNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs,
-                                          EntouragesType& entourages)
+void DragonsCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DRG_095e] Intimidated (*) - COST:0
@@ -626,8 +618,7 @@ void DragonsCardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
-                              EntouragesType& entourages)
+void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ MINION - MAGE
     // [DRG_102] Azure Explorer - COST:4 [ATK:2/HP:3]
@@ -748,9 +739,7 @@ void DragonsCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddMageNonCollect(PowersType& powers,
-                                        PlayReqsType& playReqs,
-                                        EntouragesType& entourages)
+void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ MINION - MAGE
     // [DRG_104t2] Snow Elemental (*) - COST:5 [ATK:5/HP:5]
@@ -872,8 +861,7 @@ void DragonsCardsGen::AddMageNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - PALADIN
     // [DRG_008] Righteous Cause - COST:1
@@ -996,9 +984,8 @@ void DragonsCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddPaladinNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DragonsCardsGen::AddPaladinNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - PALADIN
     // [DRG_225t] Microcopter (*) - COST:1 [ATK:1/HP:1]
@@ -1026,8 +1013,7 @@ void DragonsCardsGen::AddPaladinNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - PRIEST
     // [DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
@@ -1144,9 +1130,7 @@ void DragonsCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddPriestNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs,
-                                          EntouragesType& entourages)
+void DragonsCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [DRG_300e] Draconic Fate (*) - COST:0
@@ -1156,8 +1140,7 @@ void DragonsCardsGen::AddPriestNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- MINION - ROGUE
     // [DRG_027] Umbral Skulker - COST:4 [ATK:3/HP:3]
@@ -1277,9 +1260,7 @@ void DragonsCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddRogueNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [DRG_030e] Praise Galakrond! (*) - COST:0
@@ -1321,8 +1302,7 @@ void DragonsCardsGen::AddRogueNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_096] Bandersmosh - COST:5 [ATK:5/HP:5]
@@ -1446,9 +1426,7 @@ void DragonsCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddShamanNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs,
-                                          EntouragesType& entourages)
+void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DRG_068e] Toasty (*) - COST:0
@@ -1543,8 +1521,7 @@ void DragonsCardsGen::AddShamanNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARLOCK
     // [DRG_201] Crazed Netherwing - COST:5 [ATK:5/HP:5]
@@ -1661,9 +1638,8 @@ void DragonsCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddWarlockNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DragonsCardsGen::AddWarlockNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [DRG_202e] Power of the Cult (*) - COST:0
@@ -1693,8 +1669,7 @@ void DragonsCardsGen::AddWarlockNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARRIOR
     // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
@@ -1806,9 +1781,8 @@ void DragonsCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddWarriorNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DragonsCardsGen::AddWarriorNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DRG_238t10e] Galakrond's Might (*) - COST:0
@@ -1821,8 +1795,7 @@ void DragonsCardsGen::AddWarriorNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1977,7 +1950,7 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DRG_065", power);
+    cards.emplace("DRG_065", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_066] Evasive Chimaera - COST:2 [ATK:2/HP:1]
@@ -2256,7 +2229,7 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DRG_239", power);
+    cards.emplace("DRG_239", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_242] Shield of Galakrond - COST:5 [ATK:4/HP:5]
@@ -2337,9 +2310,8 @@ void DragonsCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddNeutralNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DragonsCardsGen::AddNeutralNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2559,7 +2531,7 @@ void DragonsCardsGen::AddNeutralNonCollect(PowersType& powers,
     power.ClearData();
     power.AddDeathrattleTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, false));
-    powers.emplace("DRG_255t2", power);
+    cards.emplace("DRG_255t2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_257e3] Ready to Hatch! (*) - COST:0
@@ -2636,40 +2608,39 @@ void DragonsCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DragonsCardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void DragonsCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 {
-    AddHeroes(powers, playReqs, entourages);
-    AddHeroPowers(powers, playReqs, entourages);
+    AddHeroes(cards);
+    AddHeroPowers(cards);
 
-    AddDruid(powers, playReqs, entourages);
-    AddDruidNonCollect(powers, playReqs, entourages);
+    AddDruid(cards);
+    AddDruidNonCollect(cards);
 
-    AddHunter(powers, playReqs, entourages);
-    AddHunterNonCollect(powers, playReqs, entourages);
+    AddHunter(cards);
+    AddHunterNonCollect(cards);
 
-    AddMage(powers, playReqs, entourages);
-    AddMageNonCollect(powers, playReqs, entourages);
+    AddMage(cards);
+    AddMageNonCollect(cards);
 
-    AddPaladin(powers, playReqs, entourages);
-    AddPaladinNonCollect(powers, playReqs, entourages);
+    AddPaladin(cards);
+    AddPaladinNonCollect(cards);
 
-    AddPriest(powers, playReqs, entourages);
-    AddPriestNonCollect(powers, playReqs, entourages);
+    AddPriest(cards);
+    AddPriestNonCollect(cards);
 
-    AddRogue(powers, playReqs, entourages);
-    AddRogueNonCollect(powers, playReqs, entourages);
+    AddRogue(cards);
+    AddRogueNonCollect(cards);
 
-    AddShaman(powers, playReqs, entourages);
-    AddShamanNonCollect(powers, playReqs, entourages);
+    AddShaman(cards);
+    AddShamanNonCollect(cards);
 
-    AddWarlock(powers, playReqs, entourages);
-    AddWarlockNonCollect(powers, playReqs, entourages);
+    AddWarlock(cards);
+    AddWarlockNonCollect(cards);
 
-    AddWarrior(powers, playReqs, entourages);
-    AddWarriorNonCollect(powers, playReqs, entourages);
+    AddWarrior(cards);
+    AddWarriorNonCollect(cards);
 
-    AddNeutral(powers, playReqs, entourages);
-    AddNeutralNonCollect(powers, playReqs, entourages);
+    AddNeutral(cards);
+    AddNeutralNonCollect(cards);
 }
 }  // namespace RosettaStone

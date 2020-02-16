@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -15,7 +15,7 @@
 using namespace RosettaStone;
 using namespace PlayerTasks;
 
-TEST(SecretZone, Exist)
+TEST_CASE("[SecretZone] - Exist")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -40,6 +40,6 @@ TEST(SecretZone, Exist)
                             std::nullopt, curPlayer->GetHandZone());
     curPlayer->GetHandZone()->Add(playable2);
 
-    EXPECT_EQ(curPlayer->GetSecretZone()->Exist(playable1), true);
-    EXPECT_EQ(curPlayer->GetSecretZone()->Exist(playable2), false);
+    CHECK_EQ(curPlayer->GetSecretZone()->Exist(playable1), true);
+    CHECK_EQ(curPlayer->GetSecretZone()->Exist(playable2), false);
 }

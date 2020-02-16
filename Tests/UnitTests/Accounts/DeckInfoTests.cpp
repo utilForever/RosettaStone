@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Accounts/DeckInfo.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -13,20 +13,20 @@
 
 using namespace RosettaStone;
 
-TEST(DeckInfo, Constructors)
+TEST_CASE("[DeckInfo] - Constructors")
 {
     const DeckInfo deck1;
-    EXPECT_EQ(deck1.GetName(), "Empty");
-    EXPECT_EQ(deck1.GetClass(), CardClass::INVALID);
-    EXPECT_EQ(deck1.GetNumOfCards(), 0u);
+    CHECK_EQ(deck1.GetName(), "Empty");
+    CHECK_EQ(deck1.GetClass(), CardClass::INVALID);
+    CHECK_EQ(deck1.GetNumOfCards(), 0u);
 
     const DeckInfo deck2("Ice Magician", CardClass::MAGE);
-    EXPECT_EQ(deck2.GetName(), "Ice Magician");
-    EXPECT_EQ(deck2.GetClass(), CardClass::MAGE);
-    EXPECT_EQ(deck2.GetNumOfCards(), 0u);
+    CHECK_EQ(deck2.GetName(), "Ice Magician");
+    CHECK_EQ(deck2.GetClass(), CardClass::MAGE);
+    CHECK_EQ(deck2.GetNumOfCards(), 0u);
 }
 
-TEST(DeckInfo, CardControl)
+TEST_CASE("[DeckInfo] - CardControl")
 {
     std::vector<Card*> druidCards =
         Cards::GetInstance().FindCardByClass(CardClass::DRUID);
@@ -34,28 +34,28 @@ TEST(DeckInfo, CardControl)
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
     DeckInfo deck("Ice Magician", CardClass::MAGE);
-    EXPECT_NO_THROW(deck.ShowCardList());
-    EXPECT_TRUE(deck.AddCard(mageCards.at(0)->id, 1));
-    EXPECT_EQ(deck.GetCard(0).second, 1u);
-    EXPECT_TRUE(deck.AddCard(mageCards.at(0)->id, 1));
-    EXPECT_EQ(deck.GetCard(0).second, 2u);
-    EXPECT_FALSE(deck.AddCard(mageCards.at(0)->id, 1));
-    EXPECT_FALSE(deck.AddCard(mageCards.at(1)->id, 3));
-    EXPECT_FALSE(deck.AddCard(druidCards.at(0)->id, 1));
-    EXPECT_NO_THROW(deck.ShowCardList());
+    CHECK_NOTHROW(deck.ShowCardList());
+    CHECK(deck.AddCard(mageCards.at(0)->id, 1));
+    CHECK_EQ(deck.GetCard(0).second, 1u);
+    CHECK(deck.AddCard(mageCards.at(0)->id, 1));
+    CHECK_EQ(deck.GetCard(0).second, 2u);
+    CHECK_FALSE(deck.AddCard(mageCards.at(0)->id, 1));
+    CHECK_FALSE(deck.AddCard(mageCards.at(1)->id, 3));
+    CHECK_FALSE(deck.AddCard(druidCards.at(0)->id, 1));
+    CHECK_NOTHROW(deck.ShowCardList());
 
-    EXPECT_EQ(deck.GetUniqueNumOfCards(), 1u);
-    EXPECT_EQ(deck.GetNumOfCards(), 2u);
+    CHECK_EQ(deck.GetUniqueNumOfCards(), 1u);
+    CHECK_EQ(deck.GetNumOfCards(), 2u);
 
-    EXPECT_EQ(deck.GetCard(0).second, 2u);
-    EXPECT_TRUE(deck.DeleteCard(mageCards.at(0)->id, 1));
-    //EXPECT_EQ(deck.GetCard(0).second, 1u);
-    EXPECT_FALSE(deck.DeleteCard(mageCards.at(0)->id, 4));
-    EXPECT_FALSE(deck.DeleteCard(druidCards.at(0)->id, 1));
-    EXPECT_NO_THROW(deck.ShowCardList());
+    CHECK_EQ(deck.GetCard(0).second, 2u);
+    CHECK(deck.DeleteCard(mageCards.at(0)->id, 1));
+    // CHECK_EQ(deck.GetCard(0).second, 1u);
+    CHECK_FALSE(deck.DeleteCard(mageCards.at(0)->id, 4));
+    CHECK_FALSE(deck.DeleteCard(druidCards.at(0)->id, 1));
+    CHECK_NOTHROW(deck.ShowCardList());
 }
 
-TEST(DeckInfo, GetNumCardInDeck)
+TEST_CASE("[DeckInfo] - GetNumCardInDeck")
 {
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
@@ -63,11 +63,11 @@ TEST(DeckInfo, GetNumCardInDeck)
     DeckInfo deck("Ice Magician", CardClass::MAGE);
     deck.AddCard(mageCards.at(0)->id, 1);
 
-    EXPECT_EQ(deck.GetNumCardInDeck(mageCards.at(0)->id), 1u);
-    EXPECT_EQ(deck.GetNumCardInDeck(mageCards.at(1)->id), 0u);
+    CHECK_EQ(deck.GetNumCardInDeck(mageCards.at(0)->id), 1u);
+    CHECK_EQ(deck.GetNumCardInDeck(mageCards.at(1)->id), 0u);
 }
 
-TEST(DeckInfo, GetPrimitiveDeck)
+TEST_CASE("[DeckInfo] - GetPrimitiveDeck")
 {
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
@@ -77,21 +77,22 @@ TEST(DeckInfo, GetPrimitiveDeck)
 
     std::vector<Card*> priDeck = deck.GetPrimitiveDeck();
 
-    EXPECT_EQ(priDeck.at(0)->id, mageCards.at(0)->id);
+    CHECK_EQ(priDeck.at(0)->id, mageCards.at(0)->id);
 }
 
-TEST(DeckInfo, GetCardIDs)
+TEST_CASE("[DeckInfo] - GetCardIDs")
 {
     const std::string INNKEEPER_EXPERT_WARLOCK =
         "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
     auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
 
-    EXPECT_EQ(deck.size(), 30u);
+    CHECK_EQ(deck.size(), 30u);
 
     for (const auto& cardID : deck)
     {
         Card* card = Cards::GetInstance().FindCardByID(cardID);
-        EXPECT_TRUE(card->GetCardClass() == CardClass::WARLOCK ||
-                    card->GetCardClass() == CardClass::NEUTRAL);
+        CHECK_EQ((card->GetCardClass() == CardClass::WARLOCK ||
+                  card->GetCardClass() == CardClass::NEUTRAL),
+                 true);
     }
 }

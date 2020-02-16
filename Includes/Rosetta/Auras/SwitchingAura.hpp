@@ -52,8 +52,8 @@ class SwitchingAura : public Aura
     SelfCondition m_initCondition;
     TriggerType m_offTrigger;
 
-    std::function<void(Entity*)> m_onHandler;
-    std::function<void(Entity*)> m_offHandler;
+    TriggerEventHandler m_onHandler;
+    TriggerEventHandler m_offHandler;
 
     bool m_isRemoved = false;
 };

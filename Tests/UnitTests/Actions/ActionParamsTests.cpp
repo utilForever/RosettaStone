@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
@@ -56,7 +56,7 @@ class TestActionParams : public ActionParams
     const Game* m_game = nullptr;
 };
 
-TEST(ActionParams, Getters)
+TEST_CASE("[ActionParams] - Getters")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -119,11 +119,11 @@ TEST(ActionParams, Getters)
     TestActionParams actionParams;
     actionParams.Init(game);
 
-    EXPECT_TRUE(actionParams.GetMinionPutLocation(0) == 0);
-    EXPECT_TRUE(actionParams.GetSpecifiedTarget({}) == nullptr);
-    EXPECT_TRUE(actionParams.GetSpecifiedTarget(
+    CHECK(actionParams.GetMinionPutLocation(0) == 0);
+    CHECK(actionParams.GetSpecifiedTarget({}) == nullptr);
+    CHECK(actionParams.GetSpecifiedTarget(
                     { (*player1->GetFieldZone())[0] }) != nullptr);
-    EXPECT_TRUE(actionParams.ChooseOne({ 0 }) == 0);
-    EXPECT_TRUE(actionParams.ChooseHandCard() != nullptr);
-    EXPECT_TRUE(actionParams.GetAttacker() != nullptr);
+    CHECK(actionParams.ChooseOne({ 0 }) == 0);
+    CHECK(actionParams.ChooseHandCard() != nullptr);
+    CHECK(actionParams.GetAttacker() != nullptr);
 }

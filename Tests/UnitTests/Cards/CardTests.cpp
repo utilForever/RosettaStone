@@ -4,14 +4,14 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 
 using namespace RosettaStone;
 
-TEST(Card, Constructer)
+TEST_CASE("[Card] - Constructer")
 {
     Card card1;
     card1.id = "cardTest1";
@@ -41,20 +41,20 @@ TEST(Card, Constructer)
     card2.gameTags[GameTag::COST] = 1;
     card2.Initialize();
 
-    EXPECT_NO_THROW(card1.ShowBriefInfo());
-    EXPECT_NO_THROW(card1.ShowInfo());
-    EXPECT_EQ("cardTest1", card1.id);
-    EXPECT_EQ(Rarity::COMMON, card1.GetRarity());
-    EXPECT_EQ(CardClass::NEUTRAL, card1.GetCardClass());
-    EXPECT_EQ(CardType::MINION, card1.GetCardType());
-    EXPECT_EQ(Race::DRAGON, card1.GetRace());
-    EXPECT_EQ(1, card1.gameTags.at(GameTag::COST));
-    EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
-    EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
-    EXPECT_EQ(1, card1.gameTags.at(GameTag::COLLECTIBLE));
+    CHECK_NOTHROW(card1.ShowBriefInfo());
+    CHECK_NOTHROW(card1.ShowInfo());
+    CHECK_EQ("cardTest1", card1.id);
+    CHECK_EQ(Rarity::COMMON, card1.GetRarity());
+    CHECK_EQ(CardClass::NEUTRAL, card1.GetCardClass());
+    CHECK_EQ(CardType::MINION, card1.GetCardType());
+    CHECK_EQ(Race::DRAGON, card1.GetRace());
+    CHECK_EQ(1, card1.gameTags.at(GameTag::COST));
+    CHECK_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
+    CHECK_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
+    CHECK_EQ(1, card1.gameTags.at(GameTag::COLLECTIBLE));
 }
 
-TEST(Card, HasMechanic)
+TEST_CASE("[Card] - HasMechanic")
 {
     Card card;
     card.id = "cardTest1";
@@ -70,5 +70,5 @@ TEST(Card, HasMechanic)
     card.gameTags[GameTag::COST] = 1;
     card.Initialize();
 
-    EXPECT_EQ(false, card.HasGameTag(GameTag::ADAPT));
+    CHECK_EQ(false, card.HasGameTag(GameTag::ADAPT));
 }
