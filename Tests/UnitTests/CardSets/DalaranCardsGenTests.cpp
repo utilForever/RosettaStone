@@ -338,6 +338,69 @@ TEST(DruidDalaranTest, DAL_733_DreamwayGuardians)
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
+// - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Draw a Mech from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(HunterDalaranTest, DAL_604_Ursatron)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Harvest Golem");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    EXPECT_EQ(card1->isDestroyed, true);
+    EXPECT_EQ(curHand.GetCount(), 5);
+    EXPECT_EQ(curHand[4]->card->name, "Harvest Golem");
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    EXPECT_EQ(card2->isDestroyed, true);
+    EXPECT_EQ(curHand.GetCount(), 5);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2]
 // - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
@@ -404,65 +467,65 @@ TEST(MageDalaranTest, DAL_163_MessengerRaven)
 // --------------------------------------------------------
 TEST(MageDalaranTest, DAL_577_RayOfFrost)
 {
-  GameConfig config;
-  config.player1Class = CardClass::MAGE;
-  config.player2Class = CardClass::MAGE;
-  config.startPlayer = PlayerType::PLAYER1;
-  config.doFillDecks = false;
-  config.autoRun = false;
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
 
-  Game game(config);
-  game.Start();
-  game.ProcessUntil(Step::MAIN_START);
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
 
-  Player* curPlayer = game.GetCurrentPlayer();
-  Player* opPlayer = game.GetOpponentPlayer();
-  curPlayer->SetTotalMana(10);
-  curPlayer->SetUsedMana(0);
-  opPlayer->SetTotalMana(10);
-  opPlayer->SetUsedMana(0);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
-  auto& curField = *(curPlayer->GetFieldZone());
-  auto& opHand = *(opPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
 
-  const auto card1 =
-      Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
-  const auto card2 =
-      Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
-  const auto card3 =
-      Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient Watcher"));
+    const auto card1 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient Watcher"));
 
-  game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
 
-  game.Process(curPlayer, EndTurnTask());
-  game.ProcessUntil(Step::MAIN_START);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    EXPECT_EQ(opHand.GetCount(), 3);
+    EXPECT_EQ(card1->GetGameTag(GameTag::TWINSPELL), 1);
 
-  game.Process(opPlayer, PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
-  EXPECT_EQ(opHand.GetCount(), 3);
-  EXPECT_EQ(card1->GetGameTag(GameTag::TWINSPELL), 1);
+    EXPECT_EQ(curField[0]->IsFrozen(), 0);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
+    EXPECT_EQ(curField[0]->IsFrozen(), 1);
+    EXPECT_EQ(curField[0]->GetDamage(), 0);
 
-  EXPECT_EQ(curField[0]->IsFrozen(), 0);
-  game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
-  EXPECT_EQ(curField[0]->IsFrozen(), 1);
-  EXPECT_EQ(curField[0]->GetDamage(), 0);
+    EXPECT_EQ(opHand.GetCount(), 3);
+    EXPECT_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card3));
+    EXPECT_EQ(curField[0]->IsFrozen(), 1);
+    EXPECT_EQ(curField[0]->GetDamage(), 2);
 
-  EXPECT_EQ(opHand.GetCount(), 3);
-  EXPECT_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
-  game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card3));
-  EXPECT_EQ(curField[0]->IsFrozen(), 1);
-  EXPECT_EQ(curField[0]->GetDamage(), 2);
+    EXPECT_EQ(opHand.GetCount(), 3);
+    EXPECT_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
+    EXPECT_EQ(curField[0]->IsFrozen(), 1);
+    EXPECT_EQ(curField[0]->GetDamage(), 4);
 
-  EXPECT_EQ(opHand.GetCount(), 3);
-  EXPECT_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
-  game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
-  EXPECT_EQ(curField[0]->IsFrozen(), 1);
-  EXPECT_EQ(curField[0]->GetDamage(), 4);
-
-  EXPECT_EQ(opHand.GetCount(), 2);
-  game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
-  EXPECT_EQ(card3->isDestroyed, true);
-  EXPECT_EQ(opHand.GetCount(), 1);
+    EXPECT_EQ(opHand.GetCount(), 2);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
+    EXPECT_EQ(card3->isDestroyed, true);
+    EXPECT_EQ(opHand.GetCount(), 1);
 }
 
 // --------------------------------------- MINION - PALADIN
@@ -503,13 +566,15 @@ TEST(PaladinDalaranTest, DAL_581_Nozari)
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Nozari"));
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 24);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 24);
 
     game.Process(opPlayer, EndTurnTask());
