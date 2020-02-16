@@ -484,7 +484,7 @@ TEST_CASE("[Neutral : Minion] - DAL_085 : Dalaran Crusader")
 // RefTag:
 // - SPELLPOWER = 1
 // --------------------------------------------------------
-TEST(NeutralDalaranTest, DAL_089_SpellbookBinder)
+TEST_CASE("[Neutral : Minion] - DAL_089 : Spellbook Binder")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -510,15 +510,17 @@ TEST(NeutralDalaranTest, DAL_089_SpellbookBinder)
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Spellbook Binder"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Spellbook Binder"));
-    game.Process(curPlayer, PlayCardTask::Minion(card2, 1));
-    EXPECT_EQ(curPlayer->currentSpellPower, 0);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
-    game.Process(curPlayer, PlayCardTask::Minion(card1, 2));
-    game.Process(curPlayer, PlayCardTask::Minion(card3, 3));
-    EXPECT_EQ(curPlayer->currentSpellPower, 1);
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->currentSpellPower, 0);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->currentSpellPower, 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
 // - Set: Dalaran, Rarity: Common
