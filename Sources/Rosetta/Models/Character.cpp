@@ -273,21 +273,18 @@ int Character::TakeDamage(Playable* source, int damage)
     game->currentEventData =
         std::make_unique<EventMetaData>(source, this, amount);
 
-    if (preDamageTrigger != nullptr)
+    preDamageTrigger(this);
+    game->ProcessTasks();
+    amount = game->currentEventData->eventNumber;
+
+    if (amount == 0 && armor == 0)
     {
-        preDamageTrigger(this);
-        game->ProcessTasks();
-        amount = game->currentEventData->eventNumber;
+        game->taskQueue.EndEvent();
 
-        if (amount == 0 && armor == 0)
-        {
-            game->taskQueue.EndEvent();
+        game->currentEventData.reset();
+        game->currentEventData = std::move(tempEventData);
 
-            game->currentEventData.reset();
-            game->currentEventData = std::move(tempEventData);
-
-            return 0;
-        }
+        return 0;
     }
 
     if (IsImmune())
@@ -308,10 +305,7 @@ int Character::TakeDamage(Playable* source, int damage)
     SetDamage(GetDamage() + amount);
 
     // Process damage triggers
-    if (takeDamageTrigger != nullptr)
-    {
-        takeDamageTrigger(this);
-    }
+    takeDamageTrigger(this);
     game->triggerManager.OnTakeDamageTrigger(this);
     game->triggerManager.OnDealDamageTrigger(source);
 

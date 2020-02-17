@@ -4,11 +4,13 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Playable.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <utility>
 
@@ -401,14 +403,12 @@ bool Playable::HasAnyValidPlayTargets() const
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
-    if (HasChooseOne())
+    if (HasChooseOne() && chooseOne > 0)
     {
-        if (chooseOne > 0)
-        {
-            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne,
-                                                       this);
-            return;
-        }
+        Playable* playable = GetFromCard(
+            player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
+            std::nullopt, player->GetSetasideZone());
+        playable->ActivateTask(type, target, chooseOne, this);
     }
 
     std::vector<std::shared_ptr<ITask>> tasks;

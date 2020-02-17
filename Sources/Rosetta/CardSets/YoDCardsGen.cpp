@@ -7,8 +7,7 @@
 
 namespace RosettaStone
 {
-void YoDCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
-                            EntouragesType& entourages)
+void YoDCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // -------------------------------------------- HERO - MAGE
     // [YOD_009] The Amazing Reno - COST:10 [ATK:0/HP:30]
@@ -23,8 +22,7 @@ void YoDCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void YoDCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
     // -------------------------------------- HERO_POWER - MAGE
     // [YOD_009h] What Does This Do? (*) - COST:0
@@ -38,8 +36,7 @@ void YoDCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
-                           EntouragesType& entourages)
+void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001] Rising Winds - COST:2
@@ -80,8 +77,7 @@ void YoDCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddDruidNonCollect(PowersType& powers, PlayReqsType& playReqs,
-                                     EntouragesType& entourages)
+void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001b] Take Flight (*) - COST:2
@@ -114,8 +110,7 @@ void YoDCardsGen::AddDruidNonCollect(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
-                            EntouragesType& entourages)
+void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - HUNTER
     // [YOD_004] Chopshop Copter - COST:3 [ATK:2/HP:4]
@@ -156,9 +151,7 @@ void YoDCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddHunterNonCollect(PowersType& powers,
-                                      PlayReqsType& playReqs,
-                                      EntouragesType& entourages)
+void YoDCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [YOD_005e] Fresh Scent (*) - COST:0
@@ -180,8 +173,7 @@ void YoDCardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
-                          EntouragesType& entourages)
+void YoDCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ MINION - MAGE
     // [YOD_007] Animated Avalanche - COST:7 [ATK:7/HP:6]
@@ -205,13 +197,11 @@ void YoDCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddMageNonCollect(PowersType& powers, PlayReqsType& playReqs,
-                                    EntouragesType& entourages)
+void YoDCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
 }
 
-void YoDCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - PALADIN
     // [YOD_010] Shotbot - COST:2 [ATK:2/HP:2]
@@ -255,9 +245,7 @@ void YoDCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddPaladinNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs,
-                                       EntouragesType& entourages)
+void YoDCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - PALADIN
     // [YOD_012ts] Air Raid (*) - COST:2
@@ -273,8 +261,7 @@ void YoDCardsGen::AddPaladinNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
-                            EntouragesType& entourages)
+void YoDCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - PRIEST
     // [YOD_013] Cleric of Scales - COST:1 [ATK:1/HP:1]
@@ -314,9 +301,7 @@ void YoDCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddPriestNonCollect(PowersType& powers,
-                                      PlayReqsType& playReqs,
-                                      EntouragesType& entourages)
+void YoDCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [YOD_015e] Prophecized (*) - COST:0
@@ -326,8 +311,7 @@ void YoDCardsGen::AddPriestNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
-                           EntouragesType& entourages)
+void YoDCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- MINION - ROGUE
     // [YOD_016] Skyvateer - COST:2 [ATK:1/HP:3]
@@ -368,8 +352,7 @@ void YoDCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs,
-                                     EntouragesType& entourages)
+void YoDCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [YOD_018e] Forged in Wax (*) - COST:0
@@ -379,8 +362,7 @@ void YoDCardsGen::AddRogueNonCollect(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
-                            EntouragesType& entourages)
+void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_020] Explosive Evolution - COST:2
@@ -420,9 +402,7 @@ void YoDCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddShamanNonCollect(PowersType& powers,
-                                      PlayReqsType& playReqs,
-                                      EntouragesType& entourages)
+void YoDCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - SHAMAN
     // [YOD_041t] Stormblocker (*) - COST:5 [ATK:5/HP:6]
@@ -433,8 +413,7 @@ void YoDCardsGen::AddShamanNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void YoDCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - WARLOCK
     // [YOD_025] Twisted Knowledge - COST:2
@@ -469,9 +448,7 @@ void YoDCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddWarlockNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs,
-                                       EntouragesType& entourages)
+void YoDCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [YOD_026e] Servant's Sacrifice (*) - COST:0
@@ -488,8 +465,7 @@ void YoDCardsGen::AddWarlockNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARRIOR
     // [YOD_022] Risky Skipper - COST:1 [ATK:1/HP:3]
@@ -523,14 +499,11 @@ void YoDCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddWarriorNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs,
-                                       EntouragesType& entourages)
+void YoDCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
 }
 
-void YoDCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
@@ -644,9 +617,7 @@ void YoDCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddNeutralNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs,
-                                       EntouragesType& entourages)
+void YoDCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_029t] Ice Shard - COST:1 [ATK:1/HP:1]
@@ -687,40 +658,39 @@ void YoDCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void YoDCardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs,
-                         EntouragesType& entourages)
+void YoDCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 {
-    AddHeroes(powers, playReqs, entourages);
-    AddHeroPowers(powers, playReqs, entourages);
+    AddHeroes(cards);
+    AddHeroPowers(cards);
 
-    AddDruid(powers, playReqs, entourages);
-    AddDruidNonCollect(powers, playReqs, entourages);
+    AddDruid(cards);
+    AddDruidNonCollect(cards);
 
-    AddHunter(powers, playReqs, entourages);
-    AddHunterNonCollect(powers, playReqs, entourages);
+    AddHunter(cards);
+    AddHunterNonCollect(cards);
 
-    AddMage(powers, playReqs, entourages);
-    AddMageNonCollect(powers, playReqs, entourages);
+    AddMage(cards);
+    AddMageNonCollect(cards);
 
-    AddPaladin(powers, playReqs, entourages);
-    AddPaladinNonCollect(powers, playReqs, entourages);
+    AddPaladin(cards);
+    AddPaladinNonCollect(cards);
 
-    AddPriest(powers, playReqs, entourages);
-    AddPriestNonCollect(powers, playReqs, entourages);
+    AddPriest(cards);
+    AddPriestNonCollect(cards);
 
-    AddRogue(powers, playReqs, entourages);
-    AddRogueNonCollect(powers, playReqs, entourages);
+    AddRogue(cards);
+    AddRogueNonCollect(cards);
 
-    AddShaman(powers, playReqs, entourages);
-    AddShamanNonCollect(powers, playReqs, entourages);
+    AddShaman(cards);
+    AddShamanNonCollect(cards);
 
-    AddWarlock(powers, playReqs, entourages);
-    AddWarlockNonCollect(powers, playReqs, entourages);
+    AddWarlock(cards);
+    AddWarlockNonCollect(cards);
 
-    AddWarrior(powers, playReqs, entourages);
-    AddWarriorNonCollect(powers, playReqs, entourages);
+    AddWarrior(cards);
+    AddWarriorNonCollect(cards);
 
-    AddNeutral(powers, playReqs, entourages);
-    AddNeutralNonCollect(powers, playReqs, entourages);
+    AddNeutral(cards);
+    AddNeutralNonCollect(cards);
 }
 }  // namespace RosettaStone

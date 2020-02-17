@@ -462,7 +462,7 @@ DALARAN | DAL_085 | Dalaran Crusader | O
 DALARAN | DAL_086 | Sunreaver Spy |  
 DALARAN | DAL_087 | Hench-Clan Hag |  
 DALARAN | DAL_088 | Safeguard |  
-DALARAN | DAL_089 | Spellbook Binder |  
+DALARAN | DAL_089 | Spellbook Binder | O
 DALARAN | DAL_090 | Hench-Clan Sneak | O
 DALARAN | DAL_092 | Arcane Servant | O
 DALARAN | DAL_095 | Violet Spellsword |  
@@ -476,11 +476,11 @@ DALARAN | DAL_177 | Conjurer's Calling |
 DALARAN | DAL_182 | Magic Dart Frog |  
 DALARAN | DAL_185 | Aranasi Broodmother |  
 DALARAN | DAL_256 | The Forest's Aid |  
-DALARAN | DAL_350 | Crystal Power |  
+DALARAN | DAL_350 | Crystal Power | O
 DALARAN | DAL_351 | Blessing of the Ancients | O
 DALARAN | DAL_352 | Crystalsong Portal |  
-DALARAN | DAL_354 | Acornbearer |  
-DALARAN | DAL_355 | Lifeweaver |  
+DALARAN | DAL_354 | Acornbearer | O
+DALARAN | DAL_355 | Lifeweaver | O
 DALARAN | DAL_357 | Lucentbark |  
 DALARAN | DAL_366 | Unidentified Contract |  
 DALARAN | DAL_371 | Marked Shot |  
@@ -550,7 +550,7 @@ DALARAN | DAL_728 | Daring Escape |
 DALARAN | DAL_729 | Madame Lazul |  
 DALARAN | DAL_731 | Duel! |  
 DALARAN | DAL_732 | Keeper Stalladris |  
-DALARAN | DAL_733 | Dreamway Guardians |  
+DALARAN | DAL_733 | Dreamway Guardians | O
 DALARAN | DAL_735 | Dalaran Librarian |  
 DALARAN | DAL_736 | Archivist Elysiana |  
 DALARAN | DAL_742 | Whirlwind Tempest |  
@@ -572,7 +572,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag |  
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 6% (9 of 136 Cards)
+- Progress: 10% (14 of 136 Cards)
 
 ## Saviors of Uldum
 
@@ -714,7 +714,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 19% (25 of 135 Cards)
+- Progress: 18% (25 of 135 Cards)
 
 ## Descent of Dragons
 

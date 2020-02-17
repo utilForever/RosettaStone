@@ -184,6 +184,19 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::HasNotStealth()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return !minion->HasStealth();
+    });
+}
+
 SelfCondition SelfCondition::HasReborn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -197,6 +210,12 @@ SelfCondition SelfCondition::HasReborn()
     });
 }
 
+SelfCondition SelfCondition::HasSpellPower()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->currentSpellPower > 0;
+    });
+}
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Playable* playable) -> bool {

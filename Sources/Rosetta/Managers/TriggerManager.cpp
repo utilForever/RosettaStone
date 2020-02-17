@@ -8,147 +8,93 @@
 
 namespace RosettaStone
 {
-void TriggerManager::OnStartTurnTrigger(Entity* sender) const
+void TriggerManager::OnStartTurnTrigger(Entity* sender)
 {
-    if (startTurnTrigger != nullptr)
-    {
-        startTurnTrigger(sender);
-    }
+    startTurnTrigger(sender);
 }
 
-void TriggerManager::OnEndTurnTrigger(Entity* sender) const
+void TriggerManager::OnEndTurnTrigger(Entity* sender)
 {
-    if (endTurnTrigger != nullptr)
-    {
-        endTurnTrigger(sender);
-    }
+    endTurnTrigger(sender);
 }
 
-void TriggerManager::OnPlayCardTrigger(Entity* sender) const
+void TriggerManager::OnPlayCardTrigger(Entity* sender)
 {
-    if (playCardTrigger != nullptr)
-    {
-        playCardTrigger(sender);
-    }
+    playCardTrigger(sender);
 }
 
-void TriggerManager::OnPlayMinionTrigger(Entity* sender) const
+void TriggerManager::OnPlayMinionTrigger(Entity* sender)
 {
-    if (playMinionTrigger != nullptr)
-    {
-        playMinionTrigger(sender);
-    }
+    playMinionTrigger(sender);
 }
 
-void TriggerManager::OnAfterPlayMinionTrigger(Entity* sender) const
+void TriggerManager::OnAfterPlayMinionTrigger(Entity* sender)
 {
-    if (afterPlayMinionTrigger != nullptr)
-    {
-        afterPlayMinionTrigger(sender);
-    }
+    afterPlayMinionTrigger(sender);
 }
 
-void TriggerManager::OnCastSpellTrigger(Entity* sender) const
+void TriggerManager::OnCastSpellTrigger(Entity* sender)
 {
-    if (castSpellTrigger != nullptr)
-    {
-        castSpellTrigger(sender);
-    }
+    castSpellTrigger(sender);
 }
 
-void TriggerManager::OnAfterCastTrigger(Entity* sender) const
+void TriggerManager::OnAfterCastTrigger(Entity* sender)
 {
-    if (afterCastTrigger != nullptr)
-    {
-        afterCastTrigger(sender);
-    }
+    afterCastTrigger(sender);
 }
 
-void TriggerManager::OnSecretRevealedTrigger(Entity* sender) const
+void TriggerManager::OnSecretRevealedTrigger(Entity* sender)
 {
-    if (secretRevealedTrigger != nullptr)
-    {
-        secretRevealedTrigger(sender);
-    }
+    secretRevealedTrigger(sender);
 }
 
-void TriggerManager::OnGiveHealTrigger(Entity* sender) const
+void TriggerManager::OnGiveHealTrigger(Entity* sender)
 {
-    if (giveHealTrigger != nullptr)
-    {
-        giveHealTrigger(sender);
-    }
+    giveHealTrigger(sender);
 }
 
-void TriggerManager::OnTakeHealTrigger(Entity* sender) const
+void TriggerManager::OnTakeHealTrigger(Entity* sender)
 {
-    if (takeHealTrigger != nullptr)
-    {
-        takeHealTrigger(sender);
-    }
+    takeHealTrigger(sender);
 }
 
-void TriggerManager::OnAttackTrigger(Entity* sender) const
+void TriggerManager::OnAttackTrigger(Entity* sender)
 {
-    if (attackTrigger != nullptr)
-    {
-        attackTrigger(sender);
-    }
+    attackTrigger(sender);
 }
 
-void TriggerManager::OnSummonTrigger(Entity* sender) const
+void TriggerManager::OnSummonTrigger(Entity* sender)
 {
-    if (summonTrigger != nullptr)
-    {
-        summonTrigger(sender);
-    }
+    summonTrigger(sender);
 }
 
-void TriggerManager::OnAfterSummonTrigger(Entity* sender) const
+void TriggerManager::OnAfterSummonTrigger(Entity* sender)
 {
-    if (afterSummonTrigger != nullptr)
-    {
-        afterSummonTrigger(sender);
-    }
+    afterSummonTrigger(sender);
 }
 
-void TriggerManager::OnDealDamageTrigger(Entity* sender) const
+void TriggerManager::OnDealDamageTrigger(Entity* sender)
 {
-    if (dealDamageTrigger != nullptr)
-    {
-        dealDamageTrigger(sender);
-    }
+    dealDamageTrigger(sender);
 }
 
-void TriggerManager::OnTakeDamageTrigger(Entity* sender) const
+void TriggerManager::OnTakeDamageTrigger(Entity* sender)
 {
-    if (takeDamageTrigger != nullptr)
-    {
-        takeDamageTrigger(sender);
-    }
+    takeDamageTrigger(sender);
 }
 
-void TriggerManager::OnTargetTrigger(Entity* sender) const
+void TriggerManager::OnTargetTrigger(Entity* sender)
 {
-    if (targetTrigger != nullptr)
-    {
-        targetTrigger(sender);
-    }
+    targetTrigger(sender);
 }
 
-void TriggerManager::OnDeathTrigger(Entity* sender) const
+void TriggerManager::OnDeathTrigger(Entity* sender)
 {
-    if (deathTrigger != nullptr)
-    {
-        deathTrigger(sender);
-    }
+    deathTrigger(sender);
 }
 
-void TriggerManager::OnUseHeroPowerTrigger(Entity* sender) const
+void TriggerManager::OnUseHeroPowerTrigger(Entity* sender)
 {
-    if (useHeroPowerTrigger != nullptr)
-    {
-        useHeroPowerTrigger(sender);
-    }
+    useHeroPowerTrigger(sender);
 }
 }  // namespace RosettaStone

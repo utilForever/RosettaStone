@@ -6,7 +6,7 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-TEST(YoDCardsGen, Temp)
+TEST_CASE("[YoDCardsGen] - Temp")
 {
-    EXPECT_TRUE(true);
+    CHECK(true);
 }

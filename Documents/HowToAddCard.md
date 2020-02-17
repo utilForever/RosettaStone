@@ -81,13 +81,13 @@ So you can add a card to the `AddNeutral` function.
 Wolfrider is a minion with the **Charge** ability. [Charge](https://hearthstone.gamepedia.com/Charge) is an ability allowing a minion to attack the same turn it is summoned or brought under a new player's control. The default abilities such as **Charge**, **Windfury** are saved as GameTag when parsing card data, so you don't need to add power separately. Therefore, you can add a card like this:
 
 ```C++
-void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
+void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
-    // - Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -96,7 +96,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("CS2_124", nullptr);
+    cards.emplace("CS2_124", CardDef(power));
 }
 ```
 
@@ -119,13 +119,13 @@ Ancestral Healing is a shaman spell card, from the Basic set. It restores a mini
 This card has two powers: One is the power to restore current maximum health, and the other is the power to grant the Taunt ability. Also, this card is a shaman spell card. So you can add a card to the `AddShaman` function.
 
 ```C++
-void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
+void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
-    // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Restore a minion
     //       to full Health and
@@ -139,16 +139,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealFullTask(EntityType::TARGET));
-    power.AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
-    cards.emplace("CS2_041", power);
+    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_041e", EntityType::TARGET));
+    cards.emplace(
+        "CS2_041",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 ```
 
 Meanwhile, The power to grant the Taunt ability is the enchantment of Ancestral Healing. This enchantment is called **CS2_041e ("Ancestral Infusion")**. Since this card can't be collected, add it to `ShamanNonCollect` function.
 
 ```C++
-void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
+void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -162,8 +166,8 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Effects::Taunt));
-    cards.emplace("CS2_041e", power);
+    power.AddEnchant(std::make_unique<Enchant>(Effects::Taunt));
+    cards.emplace("CS2_041e", CardDef(power));
 }
 ```
 
@@ -187,7 +191,7 @@ Test file has the following structure:
 // GameTag:
 // - CHARGE = 1
 // --------------------------------------------------------
-TEST(NeutralCoreTest, CS2_124_Wolfrider)
+TEST_CASE("[Neutral : Minion] - CS2_124 : Wolfrider")
 {
     ...
 }
@@ -239,7 +243,16 @@ opPlayer.SetUsedMana(0);
 Then, you should perform operations according to the scenario and test it.
 
 ```C++
-TEST(NeutralCoreTest, CS2_124_Wolfrider)
+// --------------------------------------- MINION - NEUTRAL
+// [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
+// - Faction: Horde, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS2_124 : Wolfrider")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -259,12 +272,12 @@ TEST(NeutralCoreTest, CS2_124_Wolfrider)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetFieldZone();    
-    auto& opField = opPlayer.GetFieldZone();    
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     // 1. Current player draws "Acidic Swamp Ooze" card.
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+        curPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
 
     // 2. Current player plays "Acidic Swap Ooze" card.
     game.Process(curPlayer, PlayCardTask::Minion(card1));
@@ -275,7 +288,7 @@ TEST(NeutralCoreTest, CS2_124_Wolfrider)
 
     // 4. Opponent player draws "Wolfrider" card.
     const auto card2 = Generic::DrawCard(
-        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+        opPlayer, Cards::FindCardByName("Wolfrider"));
 
     // 5. Opponent player plays "Wolfrider" card.
     game.Process(opPlayer, PlayCardTask::Minion(card2));
@@ -290,21 +303,12 @@ TEST(NeutralCoreTest, CS2_124_Wolfrider)
 When you have finished writing test code, compile and build it. And you have to make sure the test passes.
 
 ```
-[==========] Running 77 tests from 16 test cases.
-[----------] Global test environment set-up.
-
-...
-
-[----------] 1 tests from NeutralCoreTest
-[ RUN      ] NeutralCoreTest.CS2_124_Wolfrider
-[       OK ] NeutralCoreTest.CS2_124_Wolfrider (0 ms)
-[----------] 1 tests from NeutralCoreTest (0 ms total)
-
-...
-
-[----------] Global test environment tear-down
-[==========] 77 tests from 16 test cases ran. (501 ms total)
-[  PASSED  ] 77 tests.
+[doctest] doctest version is "2.3.6"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases:    583 |    583 passed |      0 failed |      0 skipped
+[doctest] assertions:   6336 |   6336 passed |      0 failed |
+[doctest] Status: SUCCESS!
 ```
 
 Good! Now, [let's do a pull request](./PullRequests.md).

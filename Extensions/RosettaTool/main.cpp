@@ -7,7 +7,9 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 
-#include <clara.hpp>
+#include <lyra/cli_parser.hpp>
+#include <lyra/help.hpp>
+#include <lyra/opt.hpp>
 
 #if defined(ROSETTASTONE_WINDOWS)
 #include <filesystem>
@@ -16,7 +18,6 @@
 #endif
 #include <fstream>
 #include <iostream>
-#include <regex>
 #include <string>
 #include <vector>
 
@@ -27,20 +28,6 @@ namespace filesystem = std::experimental::filesystem;
 #endif
 
 using namespace RosettaStone;
-
-inline std::string ToString(const clara::Opt& opt)
-{
-    std::ostringstream oss;
-    oss << (clara::Parser() | opt);
-    return oss.str();
-}
-
-inline std::string ToString(const clara::Parser& p)
-{
-    std::ostringstream oss;
-    oss << p;
-    return oss.str();
-}
 
 inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {
@@ -168,15 +155,16 @@ int main(int argc, char* argv[])
     std::string projectPath;
 
     // Parsing
-    auto parser = clara::Help(showHelp) |
-                  clara::Opt(isExportAllCard)["-a"]["--all"](
+    auto parser = lyra::cli_parser() | lyra::help(showHelp) |
+                  lyra::opt(isExportAllCard)["-a"]["--all"](
                       "Export a list of all expansion cards") |
-                  clara::Opt(cardSetName, "cardSet")["-c"]["--cardset"](
+                  lyra::opt(cardSetName, "cardSet")["-c"]["--cardset"](
                       "Export a list of specific expansion cards") |
-                  clara::Opt(projectPath, "path")["-p"]["--path"](
+                  lyra::opt(projectPath, "path")["-p"]["--path"](
                       "Specify RosettaStone project path");
 
-    auto result = parser.parse(clara::Args(argc, argv));
+    auto result = parser.parse({ argc, argv });
+
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << '\n';
@@ -185,7 +173,7 @@ int main(int argc, char* argv[])
 
     if (showHelp)
     {
-        std::cout << ToString(parser) << '\n';
+        std::cout << parser << '\n';
         exit(EXIT_SUCCESS);
     }
 

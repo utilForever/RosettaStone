@@ -10,13 +10,17 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::SimpleTasks
 {
-AddEnchantmentTask::AddEnchantmentTask(const std::string& cardID,
-                                       EntityType entityType, bool useScriptTag)
+AddEnchantmentTask::AddEnchantmentTask(
+    const std::string_view& cardID, EntityType entityType, bool useScriptTag,
+    std::optional<SelfCondition> selfCondition)
     : ITask(entityType),
       m_enchantmentCard(Cards::FindCardByID(cardID)),
-      m_useScriptTag(useScriptTag)
+      m_useScriptTag(useScriptTag),
+      m_selfCondition(std::move(selfCondition))
 {
     // Do nothing
 }
@@ -50,6 +54,11 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
 
     for (auto& playable : playables)
     {
+        if (m_selfCondition.has_value() && !m_selfCondition->Evaluate(playable))
+        {
+            continue;
+        }
+
         Generic::AddEnchantment(m_enchantmentCard, source, playable, num1,
                                 num2);
     }
@@ -59,7 +68,7 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
 
 std::unique_ptr<ITask> AddEnchantmentTask::CloneImpl()
 {
-    return std::make_unique<AddEnchantmentTask>(m_enchantmentCard->id,
-                                                m_entityType, m_useScriptTag);
+    return std::make_unique<AddEnchantmentTask>(
+        m_enchantmentCard->id, m_entityType, m_useScriptTag, m_selfCondition);
 }
 }  // namespace RosettaStone::SimpleTasks

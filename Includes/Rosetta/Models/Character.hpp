@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_CHARACTER_HPP
 #define ROSETTASTONE_CHARACTER_HPP
 
+#include <Rosetta/Managers/TriggerEvent.hpp>
 #include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
@@ -166,9 +167,9 @@ class Character : public Playable
     //! \param copy The copied character to assign attributes.
     void CopyInternalAttributes(Character* copy) const;
 
-    std::function<void(Entity*)> preDamageTrigger;
-    std::function<void(Entity*)> takeDamageTrigger;
-    std::function<void(Entity*)> afterAttackTrigger;
+    TriggerEvent preDamageTrigger;
+    TriggerEvent takeDamageTrigger;
+    TriggerEvent afterAttackTrigger;
 };
 }  // namespace RosettaStone
 

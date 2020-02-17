@@ -13,6 +13,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
@@ -27,23 +28,26 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
+using EntityTypeList = std::vector<EntityType>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
-void DalaranCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DalaranCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
-    (void)powers;
+    (void)cards;
 }
 
-void DalaranCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
-                                    EntouragesType& entourages)
+void DalaranCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
-    (void)powers;
+    (void)cards;
 }
 
-void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -73,8 +77,9 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_350", power);
-    playReqs.emplace("DAL_350", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
+    cards.emplace("DAL_350",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } },
+                          ChooseCardIDs{ "DAL_350a", "DAL_350b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351] Blessing of the Ancients - COST:3
@@ -92,8 +97,9 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DAL_351e", EntityType::MINIONS));
-    powers.emplace("DAL_351", power);
-    playReqs.emplace("DAL_351", PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
+    cards.emplace(
+        "DAL_351",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_352] Crystalsong Portal - COST:2
@@ -118,7 +124,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddDeathrattleTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "DAL_354t", 2));
-    powers.emplace("DAL_354", power);
+    cards.emplace("DAL_354", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
@@ -134,7 +140,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
         std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::DRUID),
         std::make_shared<AddStackToTask>(EntityType::HAND)
     };
-    powers.emplace("DAL_355", power);
+    cards.emplace("DAL_355", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_357] Lucentbark - COST:8 [ATK:4/HP:8]
@@ -175,9 +181,9 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<SummonTask>("DAL_733t", 2));
-    powers.emplace("DAL_733", power);
-    playReqs.emplace("DAL_733",
-                     PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } });
+    cards.emplace(
+        "DAL_733",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
@@ -195,9 +201,7 @@ void DalaranCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -207,7 +211,7 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_256t2", power);
+    cards.emplace("DAL_256t2", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256ts] The Forest's Aid (*) - COST:8
@@ -229,9 +233,10 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    powers.emplace("DAL_350a", power);
-    playReqs.emplace("DAL_350a", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_MINION_TARGET, 0 } });
+    cards.emplace(
+        "DAL_350a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350b] Healing Blossom (*) - COST:1
@@ -244,9 +249,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
-    powers.emplace("DAL_350b", power);
-    playReqs.emplace("DAL_350b",
-                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } });
+    cards.emplace(
+        "DAL_350b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351ts] Blessing of the Ancients (*) - COST:3
@@ -260,9 +265,9 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DAL_351e", EntityType::MINIONS));
-    powers.emplace("DAL_351ts", power);
-    playReqs.emplace("DAL_351ts",
-                     PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } });
+    cards.emplace(
+        "DAL_351ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_354t] Squirrel (*) - COST:1 [ATK:1/HP:1]
@@ -270,7 +275,7 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_354t", power);
+    cards.emplace("DAL_354t", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_357t] Spirit of Lucentbark (*) - COST:11 [ATK:0/HP:1]
@@ -297,13 +302,13 @@ void DalaranCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_733t", power);
+    cards.emplace("DAL_733t", CardDef(power));
 }
 
-void DalaranCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
     Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_371] Marked Shot - COST:4
     // - Set: Dalaran, Rarity: Common
@@ -439,12 +444,10 @@ void DalaranCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     power.AddDeathrattleTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
                         std::make_shared<DrawStackTask>(1) }));
-    powers.emplace("DAL_604", power);
+    cards.emplace("DAL_604", CardDef(power));
 }
 
-void DalaranCardsGen::AddHunterNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs,
-                                          EntouragesType& entourages)
+void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_373ts] Rapid Fire (*) - COST:1
@@ -507,8 +510,7 @@ void DalaranCardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
-                              EntouragesType& entourages)
+void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -527,7 +529,7 @@ void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<DiscoverTask>(CardType::MINION, CardClass::MAGE));
-    powers.emplace("DAL_163", power);
+    cards.emplace("DAL_163", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177] Conjurer's Calling - COST:3
@@ -601,9 +603,9 @@ void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<SetGameTagTask>(
                    EntityType::TARGET, GameTag::FROZEN, 1) }));
-    powers.emplace("DAL_577", power);
-    playReqs.emplace("DAL_577", PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                          { PlayReq::REQ_MINION_TARGET, 0 } });
+    cards.emplace("DAL_577", CardDef(power,
+                                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                               { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_578] Power of Creation - COST:8
@@ -654,11 +656,10 @@ void DalaranCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddMageNonCollect(PowersType& powers,
-                                        PlayReqsType& playReqs,
-                                        EntouragesType& entourages)
+void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177ts] Conjurer's Calling (*) - COST:3
     // - Set: Dalaran, Rarity: Rare
@@ -694,14 +695,12 @@ void DalaranCardsGen::AddMageNonCollect(PowersType& powers,
     power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<SetGameTagTask>(
                    EntityType::TARGET, GameTag::FROZEN, 1) }));
-    powers.emplace("DAL_577ts", power);
-    playReqs.emplace("DAL_577ts",
-                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                               { PlayReq::REQ_MINION_TARGET, 0 } });
+    cards.emplace("DAL_577ts", CardDef(power,
+                                     PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                               { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
-void DalaranCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -814,7 +813,7 @@ void DalaranCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::HEROES));
-    powers.emplace("DAL_581", power);
+    cards.emplace("DAL_581", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_727] Call to Adventure - COST:3
@@ -831,9 +830,8 @@ void DalaranCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddPaladinNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DalaranCardsGen::AddPaladinNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_141ts] Desperate Measures (*) - COST:1
@@ -883,8 +881,7 @@ void DalaranCardsGen::AddPaladinNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_011] Lazul's Scheme - COST:0
@@ -1024,9 +1021,7 @@ void DalaranCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddPriestNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs,
-                                          EntouragesType& entourages)
+void DalaranCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [DAL_030e] Shade (*) - COST:0
@@ -1036,8 +1031,7 @@ void DalaranCardsGen::AddPriestNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ SPELL - ROGUE
     // [DAL_010] Togwaggle's Scheme - COST:1
@@ -1168,9 +1162,7 @@ void DalaranCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddRogueNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void DalaranCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ SPELL - ROGUE
     // [DAL_366t1] Assassin's Contract (*) - COST:6
@@ -1217,8 +1209,7 @@ void DalaranCardsGen::AddRogueNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
-                                EntouragesType& entourages)
+void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1246,7 +1237,7 @@ void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_047", power);
+    cards.emplace("DAL_047", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_049] Underbelly Angler - COST:2 [ATK:2/HP:3]
@@ -1343,9 +1334,7 @@ void DalaranCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddShamanNonCollect(PowersType& powers,
-                                          PlayReqsType& playReqs,
-                                          EntouragesType& entourages)
+void DalaranCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_431t] Drustvar Horror (*) - COST:5 [ATK:5/HP:5]
@@ -1365,8 +1354,7 @@ void DalaranCardsGen::AddShamanNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - WARLOCK
     // [DAL_007] Rafaam's Scheme - COST:3
@@ -1482,9 +1470,8 @@ void DalaranCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddWarlockNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DalaranCardsGen::AddWarlockNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [DAL_605e] Imptastic (*) - COST:2
@@ -1494,8 +1481,7 @@ void DalaranCardsGen::AddWarlockNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - WARRIOR
     // [DAL_008] Dr. Boom's Scheme - COST:4
@@ -1612,9 +1598,8 @@ void DalaranCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddWarriorNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DalaranCardsGen::AddWarriorNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DAL_062e] Sweeping Strikes (*) - COST:0
@@ -1638,8 +1623,7 @@ void DalaranCardsGen::AddWarriorNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
-                                 EntouragesType& entourages)
+void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1689,9 +1673,9 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
-    powers.emplace("DAL_078", power);
-    playReqs.emplace("DAL_078",
-                     PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } });
+    cards.emplace(
+        "DAL_078",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_081] Spellward Jeweler - COST:3 [ATK:3/HP:4]
@@ -1715,7 +1699,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_085", power);
+    cards.emplace("DAL_085", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
@@ -1766,6 +1750,13 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::HasSpellPower()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace("DAL_089", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
@@ -1778,7 +1769,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_090", power);
+    cards.emplace("DAL_090", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
@@ -1786,7 +1777,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_092", power);
+    cards.emplace("DAL_092", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_095] Violet Spellsword - COST:4 [ATK:1/HP:6]
@@ -2089,7 +2080,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_748", power);
+    cards.emplace("DAL_748", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_749] Recurring Villain - COST:5 [ATK:3/HP:6]
@@ -2135,7 +2126,7 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    powers.emplace("DAL_760", power);
+    cards.emplace("DAL_760", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_771] Soldier of Fortune - COST:4 [ATK:5/HP:6]
@@ -2175,9 +2166,8 @@ void DalaranCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
-                                           PlayReqsType& playReqs,
-                                           EntouragesType& entourages)
+void DalaranCardsGen::AddNeutralNonCollect(
+    std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2206,7 +2196,7 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
     // [DAL_081e] Sparkly (*) - COST:0
     // - Set: Dalaran
     // --------------------------------------------------------
-    // Text: Can't be targeted by spells or Hero Powers.
+    // Text: Can't be targeted by spells or Hero cards.
     // --------------------------------------------------------
     // GameTag:
     // - CANT_BE_TARGETED_BY_SPELLS = 1
@@ -2260,7 +2250,7 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DAL_351e"));
-    powers.emplace("DAL_351e", power);
+    cards.emplace("DAL_351e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_548e] Arcane Expansion (*) - COST:0
@@ -2501,40 +2491,39 @@ void DalaranCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void DalaranCardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void DalaranCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 {
-    AddHeroes(powers, playReqs, entourages);
-    AddHeroPowers(powers, playReqs, entourages);
+    AddHeroes(cards);
+    AddHeroPowers(cards);
 
-    AddDruid(powers, playReqs, entourages);
-    AddDruidNonCollect(powers, playReqs, entourages);
+    AddDruid(cards);
+    AddDruidNonCollect(cards);
 
-    AddHunter(powers, playReqs, entourages);
-    AddHunterNonCollect(powers, playReqs, entourages);
+    AddHunter(cards);
+    AddHunterNonCollect(cards);
 
-    AddMage(powers, playReqs, entourages);
-    AddMageNonCollect(powers, playReqs, entourages);
+    AddMage(cards);
+    AddMageNonCollect(cards);
 
-    AddPaladin(powers, playReqs, entourages);
-    AddPaladinNonCollect(powers, playReqs, entourages);
+    AddPaladin(cards);
+    AddPaladinNonCollect(cards);
 
-    AddPriest(powers, playReqs, entourages);
-    AddPriestNonCollect(powers, playReqs, entourages);
+    AddPriest(cards);
+    AddPriestNonCollect(cards);
 
-    AddRogue(powers, playReqs, entourages);
-    AddRogueNonCollect(powers, playReqs, entourages);
+    AddRogue(cards);
+    AddRogueNonCollect(cards);
 
-    AddShaman(powers, playReqs, entourages);
-    AddShamanNonCollect(powers, playReqs, entourages);
+    AddShaman(cards);
+    AddShamanNonCollect(cards);
 
-    AddWarlock(powers, playReqs, entourages);
-    AddWarlockNonCollect(powers, playReqs, entourages);
+    AddWarlock(cards);
+    AddWarlockNonCollect(cards);
 
-    AddWarrior(powers, playReqs, entourages);
-    AddWarriorNonCollect(powers, playReqs, entourages);
+    AddWarrior(cards);
+    AddWarriorNonCollect(cards);
 
-    AddNeutral(powers, playReqs, entourages);
-    AddNeutralNonCollect(powers, playReqs, entourages);
+    AddNeutral(cards);
+    AddNeutralNonCollect(cards);
 }
 }  // namespace RosettaStone

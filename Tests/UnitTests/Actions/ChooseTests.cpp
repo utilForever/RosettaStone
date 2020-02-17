@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
@@ -13,7 +13,7 @@
 
 using namespace RosettaStone;
 
-TEST(Choose, ChoiceMulligan)
+TEST_CASE("[Choose] - ChoiceMulligan")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -50,9 +50,9 @@ TEST(Choose, ChoiceMulligan)
     Generic::ChoiceMulligan(curPlayer, curChoices);
     Generic::ChoiceMulligan(opPlayer, opChoices);
 
-    EXPECT_EQ(curHandCount, curPlayer->GetHandZone()->GetCount());
-    EXPECT_EQ(opHandCount, opPlayer->GetHandZone()->GetCount());
+    CHECK_EQ(curHandCount, curPlayer->GetHandZone()->GetCount());
+    CHECK_EQ(opHandCount, opPlayer->GetHandZone()->GetCount());
 
-    EXPECT_EQ(curPlayer->choice, std::nullopt);
-    EXPECT_EQ(opPlayer->choice, std::nullopt);
+    CHECK_EQ(curPlayer->choice, std::nullopt);
+    CHECK_EQ(opPlayer->choice, std::nullopt);
 }
