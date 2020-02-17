@@ -521,16 +521,16 @@ DALARAN | DAL_571 | Mysterious Blade |
 DALARAN | DAL_573 | Commander Rhyssa |  
 DALARAN | DAL_575 | Khadgar |  
 DALARAN | DAL_576 | Kirin Tor Tricaster |  
-DALARAN | DAL_577 | Ray of Frost |  
+DALARAN | DAL_577 | Ray of Frost | O
 DALARAN | DAL_578 | Power of Creation |  
-DALARAN | DAL_581 | Nozari |  
+DALARAN | DAL_581 | Nozari | O
 DALARAN | DAL_582 | Portal Keeper |  
 DALARAN | DAL_587 | Shimmerfly |  
 DALARAN | DAL_589 | Hunting Party |  
 DALARAN | DAL_592 | Batterhead |  
 DALARAN | DAL_602 | Plot Twist |  
 DALARAN | DAL_603 | Mana Cyclone |  
-DALARAN | DAL_604 | Ursatron |  
+DALARAN | DAL_604 | Ursatron | O
 DALARAN | DAL_605 | Impferno |  
 DALARAN | DAL_606 | EVIL Genius |  
 DALARAN | DAL_607 | Fel Lord Betrug |  
@@ -572,7 +572,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag |  
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 10% (14 of 136 Cards)
+- Progress: 12% (17 of 136 Cards)
 
 ## Saviors of Uldum
 
