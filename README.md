@@ -252,15 +252,10 @@ Copyright (c) 2017-2019 RosettaStone Team
   * [Sunghwan Kim](https://github.com/FYLSunghwan)
   * [Kyounguk Chae](https://github.com/ShyRoute)
   * [Junryung Ju](https://github.com/ArtBlnd)
-
-RealStone, "Real" Hearthstone hardware using Arduino
-
-Copyright (c) 2018-2019 RealStone Team
-
-  * Taehyeon Song
-  * Doun Lee
-  * Yeonsu Jung
-  * Suha Cho
+  * [Beomgyu Kim](https://github.com/solarmagic)
+  * [Doun Lee](https://github.com/Rayiz3)
+  * [Ingyun Ahn](https://github.com/goltong1)
+  * [Cheolwan Park](https://github.com/Cheolwan-Park)
 
 RosettaStone is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License. RosettaStone is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 
