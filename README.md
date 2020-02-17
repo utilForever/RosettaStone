@@ -88,7 +88,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
   * 2% Descent of Dragons (3 of 140 cards)
   * 18% Saviors of Uldum (25 of 135 cards)
-  * 9% Rise of Shadows (13 of 136 cards)
+  * 12% Rise of Shadows (17 of 136 cards)
   * 0% Rastakhan's Rumble (0 of 135 Cards)
   * 0% The Boomsday Project (0 of 135 Cards)
   * 0% The Witchwood (0 of 135 Cards)
@@ -252,15 +252,10 @@ Copyright (c) 2017-2019 RosettaStone Team
   * [Sunghwan Kim](https://github.com/FYLSunghwan)
   * [Kyounguk Chae](https://github.com/ShyRoute)
   * [Junryung Ju](https://github.com/ArtBlnd)
-
-RealStone, "Real" Hearthstone hardware using Arduino
-
-Copyright (c) 2018-2019 RealStone Team
-
-  * Taehyeon Song
-  * Doun Lee
-  * Yeonsu Jung
-  * Suha Cho
+  * [Beomgyu Kim](https://github.com/solarmagic)
+  * [Doun Lee](https://github.com/Rayiz3)
+  * [Ingyun Ahn](https://github.com/goltong1)
+  * [Cheolwan Park](https://github.com/Cheolwan-Park)
 
 RosettaStone is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License. RosettaStone is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 

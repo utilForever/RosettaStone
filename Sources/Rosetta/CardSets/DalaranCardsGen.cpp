@@ -9,12 +9,19 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -300,6 +307,8 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_371] Marked Shot - COST:4
     // - Set: Dalaran, Rarity: Common
@@ -423,6 +432,15 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MECHANICAL)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("DAL_604", CardDef(power));
 }
 
 void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
@@ -571,6 +589,20 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+    cards.emplace(
+        "DAL_577",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_578] Power of Creation - COST:8
@@ -623,6 +655,8 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177ts] Conjurer's Calling (*) - COST:3
     // - Set: Dalaran, Rarity: Rare
@@ -648,10 +682,26 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+    cards.emplace(
+        "DAL_577ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_141] Desperate Measures - COST:1
     // - Set: Dalaran, Rarity: Rare
@@ -759,6 +809,9 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::HEROES));
+    cards.emplace("DAL_581", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_727] Call to Adventure - COST:3

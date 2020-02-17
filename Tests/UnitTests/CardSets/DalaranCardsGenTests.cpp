@@ -265,6 +265,69 @@ TEST_CASE("[Druid : Minion] - DAL_355 : Lifeweaver")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
+// - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Draw a Mech from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DAL_604 : Ursatron")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Harvest Golem");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(card1->isDestroyed, true);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Harvest Golem");
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(card2->isDestroyed, true);
+    CHECK_EQ(curHand.GetCount(), 5);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [DAL_733] Dreamway Guardians - COST:2
 // - Faction: Neutral, Set: Dalaran, Rarity: Rare
@@ -382,6 +445,144 @@ TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
         CHECK_EQ(card->GetCardType(), CardType::MINION);
         CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
     }
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [DAL_577] Ray of Frost - COST:1
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> <b>Freeze</b> a minion.
+//       If it's already <b>Frozen</b>, deal 2 damage to it.
+// --------------------------------------------------------
+// GameTag:
+// - TWINSPELL_COPY = 54193
+// - TWINSPELL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DAL_577 : Ray of Frost")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_577"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient Watcher"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(opHand.GetCount(), 3);
+    CHECK_EQ(card1->GetGameTag(GameTag::TWINSPELL), 1);
+
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[0]->GetDamage(), 0);
+
+    CHECK_EQ(opHand.GetCount(), 3);
+    CHECK_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[0]->GetDamage(), 2);
+
+    CHECK_EQ(opHand.GetCount(), 3);
+    CHECK_EQ(opHand[2]->GetGameTag(GameTag::TWINSPELL), 0);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[0]->GetDamage(), 4);
+
+    CHECK_EQ(opHand.GetCount(), 2);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
+    CHECK_EQ(card3->isDestroyed, true);
+    CHECK_EQ(opHand.GetCount(), 1);
+}
+
+// --------------------------------------- MINION - PALADIN
+// [DAL_581] Nozari - COST:10 [ATK:4/HP:12]
+// - Race: Dragon, Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Restore both heroes to full Health.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DAL_581 : Nozari")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nozari"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ---------------------------------------- MINION - SHAMAN
