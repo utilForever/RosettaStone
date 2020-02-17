@@ -210,6 +210,12 @@ SelfCondition SelfCondition::HasReborn()
     });
 }
 
+SelfCondition SelfCondition::HasSpellPower()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->currentSpellPower > 0;
+    });
+}
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Playable* playable) -> bool {

@@ -462,7 +462,7 @@ DALARAN | DAL_085 | Dalaran Crusader | O
 DALARAN | DAL_086 | Sunreaver Spy |  
 DALARAN | DAL_087 | Hench-Clan Hag |  
 DALARAN | DAL_088 | Safeguard |  
-DALARAN | DAL_089 | Spellbook Binder |  
+DALARAN | DAL_089 | Spellbook Binder | O
 DALARAN | DAL_090 | Hench-Clan Sneak | O
 DALARAN | DAL_092 | Arcane Servant | O
 DALARAN | DAL_095 | Violet Spellsword |  
@@ -572,7 +572,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag |  
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 9% (13 of 136 Cards)
+- Progress: 10% (14 of 136 Cards)
 
 ## Saviors of Uldum
 
