@@ -119,7 +119,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMY_HERO:
             entities.emplace_back(player->opponent->GetHero());
             break;
-        case EntityType ::HEROES:
+        case EntityType::HEROES:
             entities.emplace_back(player->GetHero());
             entities.emplace_back(player->opponent->GetHero());
             break;
@@ -331,7 +331,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMY_HERO:
             entities.emplace_back(player->opponent->GetHero());
             break;
-        case EntityType ::HEROES:
+        case EntityType::HEROES:
             entities.emplace_back(player->GetHero());
             entities.emplace_back(player->opponent->GetHero());
             break;
