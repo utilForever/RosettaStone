@@ -437,13 +437,9 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddDeathrattleTask(std::make_shared<FilterStackTask>(
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsRace(Race::MECHANICAL)) }));
-    power.AddDeathrattleTask(std::make_shared<CountTask>(EntityType::STACK));
-    power.AddDeathrattleTask(std::make_shared<ConditionTask>(
-        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
-                              SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
-    power.AddDeathrattleTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
-                        std::make_shared<DrawStackTask>(1) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<DrawStackTask>(1));
     cards.emplace("DAL_604", CardDef(power));
 }
 
