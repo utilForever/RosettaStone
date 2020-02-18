@@ -37,9 +37,9 @@ class GameRestorer
                                 Views::Types::UnknownCardsInfo& p1Unknown,
                                 Views::Types::UnknownCardsInfo& p2Unknown);
 
-    //! Restore the game from the board view.
-    //! \return The restored game that is filled with the game state.
-    std::unique_ptr<Game> RestoreGame();
+    //! Restore the game state from the board view.
+    //! \return The restored game state.
+    GameState RestoreGameState();
 
  private:
     //! Makes the player data to restore the game.

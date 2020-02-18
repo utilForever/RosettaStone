@@ -31,7 +31,7 @@ GameRestorer GameRestorer::Prepare(BoardView& view,
     return restorer;
 }
 
-std::unique_ptr<Game> GameRestorer::RestoreGame()
+GameState GameRestorer::RestoreGameState()
 {
     p1UnknownCardsManager.Prepare();
     p2UnknownCardsManager.Prepare();
@@ -44,7 +44,8 @@ std::unique_ptr<Game> GameRestorer::RestoreGame()
     game->SetCurrentPlayer(m_view.GetCurrentPlayer());
     game->SetTurn(m_view.GetTurn());
 
-    return game;
+    const GameState gameState;
+    return gameState;
 }
 
 void GameRestorer::MakePlayer(
