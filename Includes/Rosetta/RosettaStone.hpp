@@ -86,6 +86,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameRestorer.hpp>
+#include <Rosetta/Games/GameState.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/InternalCardLoader.hpp>
