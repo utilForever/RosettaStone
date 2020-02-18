@@ -118,6 +118,16 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     m_turn = 1;
 }
 
+const GameState& Game::GetGameState() const
+{
+    return m_gameState;
+}
+
+void Game::SetGameState(const GameState& state)
+{
+    m_gameState = state;
+}
+
 void Game::Initialize()
 {
     rushMinions.reserve(MAX_FIELD_SIZE);

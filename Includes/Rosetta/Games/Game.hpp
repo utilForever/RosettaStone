@@ -8,6 +8,7 @@
 
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
+#include <Rosetta/Games/GameState.hpp>
 #include <Rosetta/Managers/TriggerManager.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/EventMetaData.hpp>
@@ -51,6 +52,14 @@ class Game
 
     //! Deleted move assignment operator.
     Game& operator=(Game&&) noexcept = delete;
+
+    //! Gets the game state.
+    //! \return The game state.
+    const GameState& GetGameState() const;
+
+    //! Sets the game state.
+    //! \param state The game state.
+    void SetGameState(const GameState& state);
 
     //! Initializes the game state and player related variables.
     void Initialize();
@@ -230,6 +239,7 @@ class Game
     std::tuple<PlayState, PlayState> CheckGameOver();
 
     GameConfig m_gameConfig;
+    GameState m_gameState;
 
     std::array<Player, 2> m_players;
     std::size_t m_turn = 0;
