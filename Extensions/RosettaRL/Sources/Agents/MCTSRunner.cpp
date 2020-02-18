@@ -48,15 +48,15 @@ void MCTSRunner::Run(const BoardRefView& gameState)
             boardView.Parse(gameState, p1Unknown, p2Unknown);
             auto gameRestorer =
                 GameRestorer::Prepare(boardView, p1Unknown, p2Unknown);
-            auto gameGetter = [&]() -> std::unique_ptr<Game> {
-                return gameRestorer.RestoreGame();
+            auto gameStateGetter = [&]() -> GameState {
+                return gameRestorer.RestoreGameState();
             };
 
             MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics, m_config.mcts);
 
             while (!m_stopFlag.load())
             {
-                mcts.Iterate([&]() { return gameGetter(); });
+                mcts.Iterate([&]() { return gameStateGetter(); });
 
                 m_statistics.IterateSucceeded();
             }
