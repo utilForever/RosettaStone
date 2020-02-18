@@ -11,4 +11,8 @@
 
 namespace RosettaStone
 {
+const Player* GameState::GetCurrentPlayer() const
+{
+    return new Player();
+}
 }  // namespace RosettaStone

@@ -10,6 +10,8 @@
 #ifndef ROSETTASTONE_GAME_STATE_HPP
 #define ROSETTASTONE_GAME_STATE_HPP
 
+#include <Rosetta/Models/Player.hpp>
+
 namespace RosettaStone
 {
 //!
@@ -19,6 +21,10 @@ namespace RosettaStone
 //!
 class GameState
 {
+ public:
+    //! Returns the player controlling the current turn.
+    //! \return The player controlling the current turn.
+    const Player* GetCurrentPlayer() const;
 };
 }  // namespace RosettaStone
 
