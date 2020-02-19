@@ -28,6 +28,21 @@ class GameState
         std::map<GameTag, int> gameTags;
     };
 
+    struct PlayerInfo
+    {
+        std::map<GameTag, int> gameTags;
+
+        GameStateInfo hero;
+        GameStateInfo heroPower;
+        std::vector<GameStateInfo> deck;
+        std::vector<GameStateInfo> hand;
+    };
+
+    //! Gets the information of player.
+    //! \param type The player type.
+    //! \return The information of player.
+    PlayerInfo& GetPlayerInfo(PlayerType type);
+
     //! Sets the player controlling the current turn.
     //! \param type The player type controlling the current turn.
     void SetCurrentPlayer(PlayerType type);
@@ -51,6 +66,8 @@ class GameState
     void IncreaseTurn();
 
  private:
+    std::array<PlayerInfo, 2> m_playerInfo;
+
     PlayerType m_currentPlayer = PlayerType::INVALID;
 
     std::size_t m_turn = 0;
