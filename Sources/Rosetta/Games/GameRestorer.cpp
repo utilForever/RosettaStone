@@ -7,10 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/GameRestorer.hpp>
-#include <Rosetta/Zones/DeckZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
 
 namespace RosettaStone
 {
@@ -37,10 +34,10 @@ GameState GameRestorer::RestoreGameState()
     p2UnknownCardsManager.Prepare();
 
     GameState gameState;
-    MakePlayer(PlayerType::PLAYER1, gameState, m_view.GetPlayer1(),
-               p1UnknownCardsManager);
-    MakePlayer(PlayerType::PLAYER2, gameState, m_view.GetPlayer2(),
-               p2UnknownCardsManager);
+    MakePlayer(gameState.GetPlayerInfo(PlayerType::PLAYER1), gameState,
+               m_view.GetPlayer1(), p1UnknownCardsManager);
+    MakePlayer(gameState.GetPlayerInfo(PlayerType::PLAYER2), gameState,
+               m_view.GetPlayer2(), p2UnknownCardsManager);
     gameState.SetCurrentPlayer(m_view.GetCurrentPlayer());
     gameState.SetTurn(m_view.GetTurn());
 
@@ -48,117 +45,93 @@ GameState GameRestorer::RestoreGameState()
 }
 
 void GameRestorer::MakePlayer(
-    PlayerType playerType, GameState& gameState,
+    GameState::PlayerInfo& info, GameState& gameState,
     const Views::Types::Player& viewPlayer,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
-    MakeHeroAndHeroPower(playerType, gameState, viewPlayer.hero,
-                         viewPlayer.heroPower);
-    MakeDeck(playerType, gameState, viewPlayer.deck, unknownCardsSetsManager);
-    MakeHand(playerType, gameState, viewPlayer.hand, unknownCardsSetsManager);
-    MakeMinions(playerType, gameState, viewPlayer.minions);
+    MakeHeroAndHeroPower(info, viewPlayer.hero, viewPlayer.heroPower);
+    MakeDeck(info, viewPlayer.deck, unknownCardsSetsManager);
+    MakeHand(info, viewPlayer.hand, unknownCardsSetsManager);
+    MakeMinions(info, viewPlayer.minions);
 
-    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
-                                                         : game.GetPlayer2();
-
-    player->GetHero()->fatigue = viewPlayer.fatigue;
-    MakeManaCrystal(player, viewPlayer.manaCrystal);
+    info.gameTags.emplace(GameTag::FATIGUE, viewPlayer.fatigue);
+    MakeManaCrystal(info, viewPlayer.manaCrystal);
 }
 
 void GameRestorer::MakeHeroAndHeroPower(
-    PlayerType playerType, GameState& gameState, const Views::Types::Hero& hero,
+    GameState::PlayerInfo& info, const Views::Types::Hero& hero,
     const Views::Types::HeroPower& heroPower)
 {
-    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
-                                                         : game.GetPlayer2();
+    info.hero.cardID = hero.cardID;
+    info.heroPower.cardID = heroPower.cardID;
 
-    player->AddHeroAndPower(Cards::FindCardByID(hero.cardID),
-                            Cards::FindCardByID(heroPower.cardID));
+    info.hero.gameTags.emplace(GameTag::ATK, hero.attack);
+    info.hero.gameTags.emplace(GameTag::DAMAGE, hero.maxHealth - hero.health);
+    info.hero.gameTags.emplace(GameTag::HEALTH, hero.maxHealth);
+    info.hero.gameTags.emplace(GameTag::ARMOR, hero.armor);
+    info.hero.gameTags.emplace(GameTag::EXHAUSTED, hero.isExhausted);
 
-    player->GetHero()->SetAttack(hero.attack);
-    player->GetHero()->SetHealth(hero.health);
-    player->GetHero()->SetMaxHealth(hero.maxHealth);
-    player->GetHero()->SetArmor(hero.armor);
-    player->GetHero()->SetExhausted(hero.isExhausted);
-
-    player->GetHeroPower().SetExhausted(heroPower.isExhausted);
+    info.heroPower.gameTags.emplace(GameTag::EXHAUSTED, heroPower.isExhausted);
 }
 
 void GameRestorer::MakeDeck(
-    PlayerType playerType, GameState& gameState,
-    std::vector<Views::Types::CardInfo> cards,
+    GameState::PlayerInfo& info, std::vector<Views::Types::CardInfo> cards,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
-    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
-                                                         : game.GetPlayer2();
-
     for (const auto& card : cards)
     {
         const std::string cardID = card.GetCardID(unknownCardsSetsManager);
-        Playable* playable =
-            Entity::GetFromCard(player, Cards::FindCardByID(cardID),
-                                std::nullopt, player->GetDeckZone());
 
-        player->GetDeckZone()->Add(playable);
+        GameState::GameStateInfo cardInfo;
+        cardInfo.cardID = cardID;
+
+        info.deck.emplace_back(cardInfo);
     }
 }
 
 void GameRestorer::MakeHand(
-    PlayerType playerType, GameState& gameState,
-    std::vector<Views::Types::CardInfo> cards,
+    GameState::PlayerInfo& info, std::vector<Views::Types::CardInfo> cards,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
-    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
-                                                         : game.GetPlayer2();
-
     for (const auto& card : cards)
     {
         const std::string cardID = card.GetCardID(unknownCardsSetsManager);
-        Playable* playable =
-            Entity::GetFromCard(player, Cards::FindCardByID(cardID),
-                                std::nullopt, player->GetHandZone());
 
-        player->GetHandZone()->Add(playable);
+        GameState::GameStateInfo cardInfo;
+        cardInfo.cardID = cardID;
+
+        info.hand.emplace_back(cardInfo);
     }
 }
 
-void GameRestorer::MakeMinions(PlayerType playerType, GameState& gameState,
+void GameRestorer::MakeMinions(GameState::PlayerInfo& info,
                                const Views::Types::Minions& minions)
 {
-    int pos = 0;
-
     for (const auto& minion : minions.minions)
     {
-        AddMinion(playerType, gameState, minion, pos);
-        ++pos;
+        AddMinion(info, minion);
     }
 }
 
-void GameRestorer::MakeManaCrystal(Player* player,
+void GameRestorer::MakeManaCrystal(GameState::PlayerInfo& info,
                                    const Views::Types::ManaCrystal& manaCrystal)
 {
-    player->SetUsedMana(manaCrystal.used);
-    player->SetTotalMana(manaCrystal.total);
-    player->SetOverloadOwed(manaCrystal.overloadOwed);
-    player->SetOverloadLocked(manaCrystal.overloadLocked);
+    info.gameTags.emplace(GameTag::RESOURCES_USED, manaCrystal.used);
+    info.gameTags.emplace(GameTag::RESOURCES, manaCrystal.total);
+    info.gameTags.emplace(GameTag::OVERLOAD_OWED, manaCrystal.overloadOwed);
+    info.gameTags.emplace(GameTag::OVERLOAD_LOCKED, manaCrystal.overloadLocked);
 }
 
-void GameRestorer::AddMinion(PlayerType playerType, GameState& gameState,
-                             const Views::Types::Minion& minion, int pos)
+void GameRestorer::AddMinion(GameState::PlayerInfo& info,
+                             const Views::Types::Minion& minion)
 {
-    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
-                                                         : game.GetPlayer2();
-
-    Playable* playable =
-        Entity::GetFromCard(player, Cards::FindCardByID(minion.cardID),
-                            std::nullopt, player->GetFieldZone());
-    player->GetFieldZone()->Add(playable, pos);
-
-    Minion* m = (*player->GetFieldZone())[pos];
-    m->SetAttack(minion.attack);
-    m->SetHealth(minion.health);
-    m->SetMaxHealth(minion.maxHealth);
-    m->SetSpellPower(minion.spellPower);
-    m->SetExhausted(minion.isExhausted);
+    GameState::GameStateInfo cardInfo;
+    cardInfo.cardID = minion.cardID;
+    cardInfo.gameTags.emplace(GameTag::ATK, minion.attack);
+    cardInfo.gameTags.emplace(GameTag::DAMAGE,
+                              minion.maxHealth - minion.health);
+    cardInfo.gameTags.emplace(GameTag::HEALTH, minion.maxHealth);
+    cardInfo.gameTags.emplace(GameTag::SPELLPOWER, minion.spellPower);
+    cardInfo.gameTags.emplace(GameTag::EXHAUSTED, minion.isExhausted);
 }
 }  // namespace RosettaStone

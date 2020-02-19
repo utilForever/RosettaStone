@@ -12,8 +12,6 @@
 
 #include <Rosetta/Views/BoardView.hpp>
 
-#include <memory>
-
 namespace RosettaStone
 {
 //!
@@ -43,64 +41,56 @@ class GameRestorer
 
  private:
     //! Makes the player data to restore the game.
-    //! \param playerType The type of the player.
+    //! \param info The information of player.
     //! \param gameState The game state.
     //! \param viewPlayer The player type of the view.
     //! \param unknownCardsSetsManager The manager of unknown cards sets.
     void MakePlayer(
-        PlayerType playerType, GameState& gameState,
+        GameState::PlayerInfo& info, GameState& gameState,
         const Views::Types::Player& viewPlayer,
         const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager);
 
     //! Makes the hero and hero power data to restore the game.
-    //! \param playerType The type of the player.
-    //! \param gameState The game state.
+    //! \param info The information of player.
     //! \param hero The hero type of the view.
     //! \param heroPower The hero power type of the view.
-    void MakeHeroAndHeroPower(PlayerType playerType, GameState& gameState,
+    void MakeHeroAndHeroPower(GameState::PlayerInfo& info,
                               const Views::Types::Hero& hero,
                               const Views::Types::HeroPower& heroPower);
 
     //! Makes the deck data to restore the game.
-    //! \param playerType The type of the player.
-    //! \param gameState The game state.
+    //! \param info The information of player.
     //! \param cards The deck type of the view.
     //! \param unknownCardsSetsManager The manager of unknown cards sets.
     void MakeDeck(
-        PlayerType playerType, GameState& gameState,
-        std::vector<Views::Types::CardInfo> cards,
+        GameState::PlayerInfo& info, std::vector<Views::Types::CardInfo> cards,
         const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager);
 
     //! Makes the hand data to restore the game.
-    //! \param playerType The type of the player.
-    //! \param gameState The game state.
+    //! \param info The information of player.
     //! \param cards The hand type of the view.
     //! \param unknownCardsSetsManager The manager of unknown cards sets.
     void MakeHand(
-        PlayerType playerType, GameState& gameState,
-        std::vector<Views::Types::CardInfo> cards,
+        GameState::PlayerInfo& info, std::vector<Views::Types::CardInfo> cards,
         const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager);
 
     //! Makes the minions data to restore the game.
-    //! \param playerType The type of the player.
-    //! \param gameState The game state.
+    //! \param info The information of player.
     //! \param minions The minions type of the view.
-    void MakeMinions(PlayerType playerType, GameState& gameState,
+    void MakeMinions(GameState::PlayerInfo& info,
                      const Views::Types::Minions& minions);
 
     //! Makes the mana crystal data to restore the game.
-    //! \param player The player context.
+    //! \param info The information of player.
     //! \param manaCrystal The mana crystal type of the view.
-    void MakeManaCrystal(Player* player,
+    void MakeManaCrystal(GameState::PlayerInfo& info,
                          const Views::Types::ManaCrystal& manaCrystal);
 
     //! Adds minion to minions data.
-    //! \param playerType The type of the player.
-    //! \param gameState The game state.
+    //! \param info The information of player.
     //! \param minion The minion type of the view.
-    //! \param pos The position of the minion.
-    void AddMinion(PlayerType playerType, GameState& gameState,
-                   const Views::Types::Minion& minion, int pos);
+    void AddMinion(GameState::PlayerInfo& info,
+                   const Views::Types::Minion& minion);
 
     const BoardView& m_view;
 
