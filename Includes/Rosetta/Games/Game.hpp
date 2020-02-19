@@ -108,14 +108,6 @@ class Game
     //! \return The opponent player.
     const Player* GetOpponentPlayer() const;
 
-    //! Gets the turn of the game.
-    //! \return The turn of the game.
-    int GetTurn() const;
-
-    //! Sets the turn of the game.
-    //! \param turn The turn of the game.
-    void SetTurn(int turn);
-
     //! Gets the next entity identifier.
     //! \return The next entity ID.
     std::size_t GetNextID();
@@ -242,7 +234,6 @@ class Game
     GameState m_gameState;
 
     std::array<Player, 2> m_players;
-    std::size_t m_turn = 0;
 
     std::size_t m_entityID = 0;
     std::size_t m_oopIndex = 0;

@@ -176,7 +176,6 @@ void Game::RefCopyFrom(const Game& rhs)
 
     m_players[0].RefCopy(rhs.m_players[0]);
     m_players[1].RefCopy(rhs.m_players[1]);
-    m_turn = rhs.m_turn;
 
     m_entityID = rhs.m_entityID;
     m_oopIndex = rhs.m_oopIndex;
@@ -250,16 +249,6 @@ const Player* Game::GetOpponentPlayer() const
     }
 
     return &m_players[0];
-}
-
-int Game::GetTurn() const
-{
-    return m_turn;
-}
-
-void Game::SetTurn(int turn)
-{
-    m_turn = turn;
 }
 
 std::size_t Game::GetNextID()

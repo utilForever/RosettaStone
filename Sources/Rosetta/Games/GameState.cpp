@@ -11,4 +11,18 @@
 
 namespace RosettaStone
 {
+int GameState::GetTurn() const
+{
+    return m_turn;
+}
+
+void GameState::SetTurn(int turn)
+{
+    m_turn = turn;
+}
+
+void GameState::IncreaseTurn()
+{
+    ++m_turn;
+}
 }  // namespace RosettaStone

@@ -27,6 +27,20 @@ class GameState
         std::string cardID;
         std::map<GameTag, int> gameTags;
     };
+
+    //! Gets the turn of the game.
+    //! \return The turn of the game.
+    int GetTurn() const;
+
+    //! Sets the turn of the game.
+    //! \param turn The turn of the game.
+    void SetTurn(int turn);
+
+    //! Increases the turn of the game.
+    void IncreaseTurn();
+
+ private:
+    std::size_t m_turn = 0;
 };
 }  // namespace RosettaStone
 
