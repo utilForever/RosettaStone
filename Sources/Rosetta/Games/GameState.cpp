@@ -21,6 +21,13 @@ PlayerType GameState::GetCurrentPlayer() const
     return m_currentPlayer;
 }
 
+void GameState::SwapCurrentPlayer()
+{
+    m_currentPlayer = (m_currentPlayer == PlayerType::PLAYER1)
+                          ? PlayerType::PLAYER2
+                          : PlayerType::PLAYER1;
+}
+
 int GameState::GetTurn() const
 {
     return m_turn;

@@ -36,6 +36,9 @@ class GameState
     //! \return The player type controlling the current turn.
     PlayerType GetCurrentPlayer() const;
 
+    //! Swaps the player for the next turn.
+    void SwapCurrentPlayer();
+
     //! Gets the turn of the game.
     //! \return The turn of the game.
     int GetTurn() const;
