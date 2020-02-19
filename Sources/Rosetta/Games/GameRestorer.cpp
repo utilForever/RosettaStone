@@ -41,7 +41,7 @@ GameState GameRestorer::RestoreGameState()
                p1UnknownCardsManager);
     MakePlayer(PlayerType::PLAYER2, gameState, m_view.GetPlayer2(),
                p2UnknownCardsManager);
-    game->SetCurrentPlayer(m_view.GetCurrentPlayer());
+    gameState.SetCurrentPlayer(m_view.GetCurrentPlayer());
     gameState.SetTurn(m_view.GetTurn());
 
     return gameState;

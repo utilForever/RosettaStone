@@ -105,12 +105,12 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         case PlayerType::RANDOM:
         {
             const auto val = Random::get(0, 1);
-            m_currentPlayer =
-                (val == 0) ? PlayerType::PLAYER1 : PlayerType::PLAYER2;
+            m_gameState.SetCurrentPlayer((val == 0) ? PlayerType::PLAYER1
+                                                    : PlayerType::PLAYER2);
             break;
         }
         default:
-            m_currentPlayer = m_gameConfig.startPlayer;
+            m_gameState.SetCurrentPlayer(m_gameConfig.startPlayer);
             break;
     }
 
@@ -208,7 +208,7 @@ const Player* Game::GetPlayer2() const
 
 Player* Game::GetCurrentPlayer()
 {
-    if (m_currentPlayer == PlayerType::PLAYER1)
+    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
     {
         return &m_players[0];
     }
@@ -218,7 +218,7 @@ Player* Game::GetCurrentPlayer()
 
 const Player* Game::GetCurrentPlayer() const
 {
-    if (m_currentPlayer == PlayerType::PLAYER1)
+    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
     {
         return &m_players[0];
     }
@@ -228,7 +228,7 @@ const Player* Game::GetCurrentPlayer() const
 
 Player* Game::GetOpponentPlayer()
 {
-    if (m_currentPlayer == PlayerType::PLAYER1)
+    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
     {
         return &m_players[1];
     }
@@ -238,7 +238,7 @@ Player* Game::GetOpponentPlayer()
 
 const Player* Game::GetOpponentPlayer() const
 {
-    if (m_currentPlayer == PlayerType::PLAYER1)
+    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
     {
         return &m_players[1];
     }
@@ -547,9 +547,7 @@ void Game::MainCleanUp()
 void Game::MainNext()
 {
     // Set player for next turn
-    m_currentPlayer = (m_currentPlayer == PlayerType::PLAYER1)
-                          ? PlayerType::PLAYER2
-                          : PlayerType::PLAYER1;
+    m_gameState.SwapCurrentPlayer();
 
     // Count next turn
     m_gameState.IncreaseTurn();
@@ -791,7 +789,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
 
 ReducedBoardView Game::CreateView()
 {
-    if (m_currentPlayer == PlayerType::PLAYER1)
+    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
     {
         return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER1));
     }
