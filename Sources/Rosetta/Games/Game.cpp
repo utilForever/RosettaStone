@@ -115,7 +115,7 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     }
 
     // Set first turn
-    m_turn = 1;
+    m_gameState.SetTurn(1);
 }
 
 const GameState& Game::GetGameState() const
@@ -557,7 +557,7 @@ void Game::MainNext()
                           : PlayerType::PLAYER1;
 
     // Count next turn
-    m_turn++;
+    m_gameState.IncreaseTurn();
 
     // Set next step
     nextStep = Step::MAIN_READY;
