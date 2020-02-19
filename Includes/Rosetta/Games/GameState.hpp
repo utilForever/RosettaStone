@@ -22,9 +22,11 @@ namespace RosettaStone
 class GameState
 {
  public:
-    //! Returns the player controlling the current turn.
-    //! \return The player controlling the current turn.
-    const Player* GetCurrentPlayer() const;
+    struct GameStateInfo
+    {
+        std::string cardID;
+        std::map<GameTag, int> gameTags;
+    };
 };
 }  // namespace RosettaStone
 
