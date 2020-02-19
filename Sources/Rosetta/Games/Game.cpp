@@ -226,11 +226,6 @@ const Player* Game::GetCurrentPlayer() const
     return &m_players[1];
 }
 
-void Game::SetCurrentPlayer(PlayerType playerType)
-{
-    m_currentPlayer = playerType;
-}
-
 Player* Game::GetOpponentPlayer()
 {
     if (m_currentPlayer == PlayerType::PLAYER1)

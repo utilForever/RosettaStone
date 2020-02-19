@@ -11,6 +11,16 @@
 
 namespace RosettaStone
 {
+void GameState::SetCurrentPlayer(PlayerType playerType)
+{
+    m_currentPlayer = playerType;
+}
+
+PlayerType GameState::GetCurrentPlayer() const
+{
+    return m_currentPlayer;
+}
+
 int GameState::GetTurn() const
 {
     return m_turn;

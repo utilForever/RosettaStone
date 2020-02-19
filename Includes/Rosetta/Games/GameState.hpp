@@ -28,6 +28,14 @@ class GameState
         std::map<GameTag, int> gameTags;
     };
 
+    //! Sets the player controlling the current turn.
+    //! \param type The player type controlling the current turn.
+    void SetCurrentPlayer(PlayerType type);
+
+    //! Gets the player controlling the current turn.
+    //! \return The player type controlling the current turn.
+    PlayerType GetCurrentPlayer() const;
+
     //! Gets the turn of the game.
     //! \return The turn of the game.
     int GetTurn() const;
@@ -40,6 +48,8 @@ class GameState
     void IncreaseTurn();
 
  private:
+    PlayerType m_currentPlayer = PlayerType::INVALID;
+
     std::size_t m_turn = 0;
 };
 }  // namespace RosettaStone

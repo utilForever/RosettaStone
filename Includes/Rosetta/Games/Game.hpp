@@ -96,10 +96,6 @@ class Game
     //! \return The player controlling the current turn.
     const Player* GetCurrentPlayer() const;
 
-    //! Sets the player controlling the current turn.
-    //! \param type The player type controlling the current turn.
-    void SetCurrentPlayer(PlayerType type);
-
     //! Returns the opponent player.
     //! \return The opponent player.
     Player* GetOpponentPlayer();
@@ -237,8 +233,6 @@ class Game
 
     std::size_t m_entityID = 0;
     std::size_t m_oopIndex = 0;
-
-    PlayerType m_currentPlayer = PlayerType::INVALID;
 };
 }  // namespace RosettaStone
 
