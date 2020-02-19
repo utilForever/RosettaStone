@@ -66,7 +66,7 @@ nlohmann::json JSONSerializer::SerializeGame(Game& game)
     nlohmann::json obj;
 
     obj["current_player"] = GetPlayerString(game.GetCurrentPlayer());
-    obj["turn"] = game.GetTurn();
+    obj["turn"] = game.GetGameState().GetTurn();
     obj["player1"] = SerializePlayer(game.GetPlayer1());
     obj["player2"] = SerializePlayer(game.GetPlayer2());
 

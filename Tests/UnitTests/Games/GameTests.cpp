@@ -122,21 +122,13 @@ TEST_CASE("[Game] - CurOpPlayer")
     config.doFillDecks = true;
     config.autoRun = false;
 
-    Game game1;
-
-    game1.SetCurrentPlayer(PlayerType::PLAYER2);
-    CHECK_EQ(game1.GetCurrentPlayer()->playerType, PlayerType::PLAYER2);
-    CHECK_EQ(game1.GetOpponentPlayer()->playerType, PlayerType::PLAYER1);
-
-    const Game game2(config);
-
-    CHECK_EQ(game2.GetOpponentPlayer()->playerType, PlayerType::PLAYER2);
+    const Game game1(config);
+    CHECK_EQ(game1.GetOpponentPlayer()->playerType, PlayerType::PLAYER2);
 
     config.startPlayer = PlayerType::PLAYER2;
 
-    const Game game3(config);
-
-    CHECK_EQ(game3.GetOpponentPlayer()->playerType, PlayerType::PLAYER1);
+    const Game game2(config);
+    CHECK_EQ(game2.GetOpponentPlayer()->playerType, PlayerType::PLAYER1);
 }
 
 TEST_CASE("[Game] - Turn")
@@ -155,25 +147,27 @@ TEST_CASE("[Game] - Turn")
     auto* curPlayer = game.GetCurrentPlayer();
     auto* opPlayer = game.GetOpponentPlayer();
 
-    CHECK_EQ(game.GetTurn(), 1);
+    CHECK_EQ(game.GetGameState().GetTurn(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    CHECK_EQ(game.GetTurn(), 2);
+    CHECK_EQ(game.GetGameState().GetTurn(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    CHECK_EQ(game.GetTurn(), 3);
+    CHECK_EQ(game.GetGameState().GetTurn(), 3);
 
-    game.SetTurn(30);
-    CHECK_EQ(game.GetTurn(), 30);
+    GameState gameState;
+    gameState.SetTurn(30);
+    game.SetGameState(gameState);
+    CHECK_EQ(game.GetGameState().GetTurn(), 30);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    CHECK_EQ(game.GetTurn(), 31);
+    CHECK_EQ(game.GetGameState().GetTurn(), 31);
 }
 
 TEST_CASE("[Game] - GameOver_Player1Won")

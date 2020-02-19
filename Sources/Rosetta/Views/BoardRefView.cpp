@@ -25,7 +25,7 @@ PlayerType BoardRefView::GetSide() const
 
 int BoardRefView::GetTurn() const
 {
-    return m_game.GetTurn();
+    return m_game.GetGameState().GetTurn();
 }
 
 PlayerType BoardRefView::GetCurrentPlayer() const

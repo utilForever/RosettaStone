@@ -51,7 +51,9 @@ TEST_CASE("[BoardRefView] - GetTurn")
     BoardRefView board(game, curPlayer->playerType);
     CHECK_EQ(board.GetTurn(), 1);
 
-    game.SetTurn(10);
+    GameState gameState;
+    gameState.SetTurn(10);
+    game.SetGameState(gameState);
     CHECK_EQ(board.GetTurn(), 10);
 }
 
