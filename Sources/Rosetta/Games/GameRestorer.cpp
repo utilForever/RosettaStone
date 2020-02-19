@@ -36,27 +36,27 @@ GameState GameRestorer::RestoreGameState()
     p1UnknownCardsManager.Prepare();
     p2UnknownCardsManager.Prepare();
 
-    std::unique_ptr<Game> game = std::make_unique<Game>();
-    MakePlayer(PlayerType::PLAYER1, *game, m_view.GetPlayer1(),
+    GameState gameState;
+    MakePlayer(PlayerType::PLAYER1, gameState, m_view.GetPlayer1(),
                p1UnknownCardsManager);
-    MakePlayer(PlayerType::PLAYER2, *game, m_view.GetPlayer2(),
+    MakePlayer(PlayerType::PLAYER2, gameState, m_view.GetPlayer2(),
                p2UnknownCardsManager);
     game->SetCurrentPlayer(m_view.GetCurrentPlayer());
     game->SetTurn(m_view.GetTurn());
 
-    const GameState gameState;
     return gameState;
 }
 
 void GameRestorer::MakePlayer(
-    PlayerType playerType, Game& game, const Views::Types::Player& viewPlayer,
+    PlayerType playerType, GameState& gameState,
+    const Views::Types::Player& viewPlayer,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
-    MakeHeroAndHeroPower(playerType, game, viewPlayer.hero,
+    MakeHeroAndHeroPower(playerType, gameState, viewPlayer.hero,
                          viewPlayer.heroPower);
-    MakeDeck(playerType, game, viewPlayer.deck, unknownCardsSetsManager);
-    MakeHand(playerType, game, viewPlayer.hand, unknownCardsSetsManager);
-    MakeMinions(playerType, game, viewPlayer.minions);
+    MakeDeck(playerType, gameState, viewPlayer.deck, unknownCardsSetsManager);
+    MakeHand(playerType, gameState, viewPlayer.hand, unknownCardsSetsManager);
+    MakeMinions(playerType, gameState, viewPlayer.minions);
 
     Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
                                                          : game.GetPlayer2();
@@ -66,7 +66,7 @@ void GameRestorer::MakePlayer(
 }
 
 void GameRestorer::MakeHeroAndHeroPower(
-    PlayerType playerType, Game& game, const Views::Types::Hero& hero,
+    PlayerType playerType, GameState& gameState, const Views::Types::Hero& hero,
     const Views::Types::HeroPower& heroPower)
 {
     Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
@@ -85,7 +85,7 @@ void GameRestorer::MakeHeroAndHeroPower(
 }
 
 void GameRestorer::MakeDeck(
-    PlayerType playerType, Game& game,
+    PlayerType playerType, GameState& gameState,
     std::vector<Views::Types::CardInfo> cards,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
@@ -104,7 +104,7 @@ void GameRestorer::MakeDeck(
 }
 
 void GameRestorer::MakeHand(
-    PlayerType playerType, Game& game,
+    PlayerType playerType, GameState& gameState,
     std::vector<Views::Types::CardInfo> cards,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
@@ -122,14 +122,14 @@ void GameRestorer::MakeHand(
     }
 }
 
-void GameRestorer::MakeMinions(PlayerType playerType, Game& game,
+void GameRestorer::MakeMinions(PlayerType playerType, GameState& gameState,
                                const Views::Types::Minions& minions)
 {
     int pos = 0;
 
     for (const auto& minion : minions.minions)
     {
-        AddMinion(playerType, game, minion, pos);
+        AddMinion(playerType, gameState, minion, pos);
         ++pos;
     }
 }
@@ -143,7 +143,7 @@ void GameRestorer::MakeManaCrystal(Player* player,
     player->SetOverloadLocked(manaCrystal.overloadLocked);
 }
 
-void GameRestorer::AddMinion(PlayerType playerType, Game& game,
+void GameRestorer::AddMinion(PlayerType playerType, GameState& gameState,
                              const Views::Types::Minion& minion, int pos)
 {
     Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
