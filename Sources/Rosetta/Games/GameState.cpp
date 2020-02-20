@@ -11,16 +11,27 @@
 
 namespace RosettaStone
 {
-PlayerType GameState::GetCurrentPlayer() const
+const Player& GameState::GetCurrentPlayer() const
 {
-    return m_currentPlayer;
+    if (m_curPlayer == PlayerType::PLAYER1)
+    {
+        return m_players[0];
+    }
+    else if (m_curPlayer == PlayerType::PLAYER2)
+    {
+        return m_players[1];
+    }
+    else
+    {
+        throw std::invalid_argument(
+            "GameState::GetCurrentPlayer() - Invalid player type!");
+    }
 }
 
-void GameState::SwapCurrentPlayer()
+void GameState::SwapPlayer()
 {
-    m_currentPlayer = (m_currentPlayer == PlayerType::PLAYER1)
-                          ? PlayerType::PLAYER2
-                          : PlayerType::PLAYER1;
+    m_curPlayer = (m_curPlayer == PlayerType::PLAYER1) ? PlayerType::PLAYER2
+                                                       : PlayerType::PLAYER1;
 }
 
 int GameState::GetTurn() const

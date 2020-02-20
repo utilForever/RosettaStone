@@ -229,8 +229,6 @@ class Game
     GameConfig m_gameConfig;
     GameState m_gameState;
 
-    std::array<Player, 2> m_players;
-
     std::size_t m_entityID = 0;
     std::size_t m_oopIndex = 0;
 };

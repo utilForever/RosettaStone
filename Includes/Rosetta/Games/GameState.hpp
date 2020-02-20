@@ -23,11 +23,11 @@ class GameState
 {
  public:
     //! Gets the player controlling the current turn.
-    //! \return The player type controlling the current turn.
-    PlayerType GetCurrentPlayer() const;
+    //! \return The player controlling the current turn.
+    const Player& GetCurrentPlayer() const;
 
     //! Swaps the player for the next turn.
-    void SwapCurrentPlayer();
+    void SwapPlayer();
 
     //! Gets the turn of the game.
     //! \return The turn of the game.
@@ -41,7 +41,8 @@ class GameState
     void IncreaseTurn();
 
  private:
-    PlayerType m_currentPlayer = PlayerType::INVALID;
+    std::array<Player, 2> m_players;
+    PlayerType m_curPlayer = PlayerType::INVALID;
 
     std::size_t m_turn = 0;
 };
