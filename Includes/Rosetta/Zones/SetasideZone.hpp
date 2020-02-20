@@ -29,7 +29,7 @@ class SetasideZone : public UnlimitedZone
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
-    void RefCopy(SetasideZone* rhs);
+    void RefCopy(const SetasideZone& rhs);
 
     //! Returns The entity that has ID.
     //! \param id The ID of entity.

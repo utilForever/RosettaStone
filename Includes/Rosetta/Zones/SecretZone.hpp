@@ -26,7 +26,7 @@ class SecretZone : public LimitedZone<Spell>
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
-    void RefCopy(SecretZone* rhs) const;
+    void RefCopy(const SecretZone& rhs) const;
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

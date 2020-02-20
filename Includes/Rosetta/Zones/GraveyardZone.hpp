@@ -27,7 +27,7 @@ class GraveyardZone : public UnlimitedZone
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
-    void RefCopy(GraveyardZone* rhs);
+    void RefCopy(const GraveyardZone& rhs);
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

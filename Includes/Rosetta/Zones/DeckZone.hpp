@@ -29,7 +29,7 @@ class DeckZone : public LimitedZone<Playable>
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
-    void RefCopy(DeckZone* rhs) const;
+    void RefCopy(const DeckZone& rhs) const;
 
     //! Returns the top card from deck.
     //! \return The top card of deck.

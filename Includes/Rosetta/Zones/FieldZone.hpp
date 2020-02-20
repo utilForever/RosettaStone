@@ -33,7 +33,7 @@ class FieldZone : public PositioningZone<Minion>
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
-    void RefCopy(FieldZone* rhs) const;
+    void RefCopy(const FieldZone& rhs) const;
 
     //! Returns all entities in board zone.
     //! \return A list of entity in board zone.
