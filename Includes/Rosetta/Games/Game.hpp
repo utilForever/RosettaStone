@@ -72,38 +72,6 @@ class Game
     //! \return The format type of the game.
     FormatType GetFormatType() const;
 
-    //! Returns the first player.
-    //! \return The first player.
-    Player* GetPlayer1();
-
-    //! Returns the first player.
-    //! \return The first player.
-    const Player* GetPlayer1() const;
-
-    //! Returns the second player.
-    //! \return The second player.
-    Player* GetPlayer2();
-
-    //! Returns the second player.
-    //! \return The second player.
-    const Player* GetPlayer2() const;
-
-    //! Returns the player controlling the current turn.
-    //! \return The player controlling the current turn.
-    Player* GetCurrentPlayer();
-
-    //! Returns the player controlling the current turn.
-    //! \return The player controlling the current turn.
-    const Player* GetCurrentPlayer() const;
-
-    //! Returns the opponent player.
-    //! \return The opponent player.
-    Player* GetOpponentPlayer();
-
-    //! Returns the opponent player.
-    //! \return The opponent player.
-    const Player* GetOpponentPlayer() const;
-
     //! Gets the next entity identifier.
     //! \return The next entity ID.
     std::size_t GetNextID();

@@ -186,66 +186,6 @@ FormatType Game::GetFormatType() const
     return m_gameConfig.formatType;
 }
 
-Player* Game::GetPlayer1()
-{
-    return &m_players[0];
-}
-
-const Player* Game::GetPlayer1() const
-{
-    return &m_players[0];
-}
-
-Player* Game::GetPlayer2()
-{
-    return &m_players[1];
-}
-
-const Player* Game::GetPlayer2() const
-{
-    return &m_players[1];
-}
-
-Player* Game::GetCurrentPlayer()
-{
-    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
-    {
-        return &m_players[0];
-    }
-
-    return &m_players[1];
-}
-
-const Player* Game::GetCurrentPlayer() const
-{
-    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
-    {
-        return &m_players[0];
-    }
-
-    return &m_players[1];
-}
-
-Player* Game::GetOpponentPlayer()
-{
-    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
-    {
-        return &m_players[1];
-    }
-
-    return &m_players[0];
-}
-
-const Player* Game::GetOpponentPlayer() const
-{
-    if (m_gameState.GetCurrentPlayer() == PlayerType::PLAYER1)
-    {
-        return &m_players[1];
-    }
-
-    return &m_players[0];
-}
-
 std::size_t Game::GetNextID()
 {
     return m_entityID++;
