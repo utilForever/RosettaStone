@@ -22,9 +22,21 @@ namespace RosettaStone
 class GameState
 {
  public:
+    //! Returns the player controlling the current turn.
+    //! \return The player controlling the current turn.
+    Player& GetCurrentPlayer();
+
     //! Gets the player controlling the current turn.
     //! \return The player controlling the current turn.
     const Player& GetCurrentPlayer() const;
+
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    Player& GetOpponentPlayer();
+
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    const Player& GetOpponentPlayer() const;
 
     //! Swaps the player for the next turn.
     void SwapPlayer();
