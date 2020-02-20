@@ -11,28 +11,6 @@
 
 namespace RosettaStone
 {
-GameState::PlayerInfo& GameState::GetPlayerInfo(PlayerType type)
-{
-    if (type == PlayerType::PLAYER1)
-    {
-        return m_playerInfo[0];
-    }
-    else if (type == PlayerType::PLAYER2)
-    {
-        return m_playerInfo[1];
-    }
-    else
-    {
-        throw std::invalid_argument(
-            "GameState::GetPlayerInfo() - Invalid player type!");
-    }
-}
-
-void GameState::SetCurrentPlayer(PlayerType playerType)
-{
-    m_currentPlayer = playerType;
-}
-
 PlayerType GameState::GetCurrentPlayer() const
 {
     return m_currentPlayer;
