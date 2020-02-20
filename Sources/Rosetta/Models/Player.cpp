@@ -67,34 +67,34 @@ void Player::RefCopy(const Player& rhs)
     currentSpellPower = rhs.currentSpellPower;
 }
 
-FieldZone* Player::GetFieldZone() const
+FieldZone& Player::GetFieldZone()
 {
-    return m_fieldZone.get();
+    return m_fieldZone;
 }
 
-DeckZone* Player::GetDeckZone() const
+DeckZone& Player::GetDeckZone()
 {
-    return m_deckZone.get();
+    return m_deckZone;
 }
 
-GraveyardZone* Player::GetGraveyardZone() const
+GraveyardZone& Player::GetGraveyardZone()
 {
-    return m_graveyardZone.get();
+    return m_graveyardZone;
 }
 
-HandZone* Player::GetHandZone() const
+HandZone& Player::GetHandZone()
 {
-    return m_handZone.get();
+    return m_handZone;
 }
 
-SecretZone* Player::GetSecretZone() const
+SecretZone& Player::GetSecretZone()
 {
-    return m_secretZone.get();
+    return m_secretZone;
 }
 
-SetasideZone* Player::GetSetasideZone() const
+SetasideZone& Player::GetSetasideZone()
 {
-    return m_setasideZone.get();
+    return m_setasideZone;
 }
 
 Hero* Player::GetHero() const

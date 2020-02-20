@@ -12,19 +12,18 @@
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Hero.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
-#include <memory>
 #include <string>
 
 namespace RosettaStone
 {
 class Game;
-class DeckZone;
-class FieldZone;
-class GraveyardZone;
-class HandZone;
-class SecretZone;
-class SetasideZone;
 
 //!
 //! \brief Player class.
@@ -62,27 +61,27 @@ class Player : public Entity
 
     //! Returns player's field zone.
     //! \return Player's field zone.
-    FieldZone* GetFieldZone() const;
+    FieldZone& GetFieldZone();
 
     //! Returns player's deck zone.
     //! \return Player's deck zone.
-    DeckZone* GetDeckZone() const;
+    DeckZone& GetDeckZone();
 
     //! Returns player's graveyard zone.
     //! \return Player's graveyard zone.
-    GraveyardZone* GetGraveyardZone() const;
+    GraveyardZone& GetGraveyardZone();
 
     //! Returns player's hand zone.
     //! \return Player's hand zone.
-    HandZone* GetHandZone() const;
+    HandZone& GetHandZone();
 
     //! Returns player's secret zone.
     //! \return player's secret zone.
-    SecretZone* GetSecretZone() const;
+    SecretZone& GetSecretZone();
 
     //! Returns player's setaside zone.
     //! \return Player's setaside zone.
-    SetasideZone* GetSetasideZone() const;
+    SetasideZone& GetSetasideZone();
 
     //! Returns player's hero.
     //! \return Player's hero.
@@ -218,12 +217,12 @@ class Player : public Entity
  private:
     Hero* m_hero = nullptr;
 
-    std::unique_ptr<DeckZone> m_deckZone;
-    std::unique_ptr<FieldZone> m_fieldZone;
-    std::unique_ptr<GraveyardZone> m_graveyardZone;
-    std::unique_ptr<HandZone> m_handZone;
-    std::unique_ptr<SecretZone> m_secretZone;
-    std::unique_ptr<SetasideZone> m_setasideZone;
+    DeckZone m_deckZone;
+    FieldZone m_fieldZone;
+    GraveyardZone m_graveyardZone;
+    HandZone m_handZone;
+    SecretZone m_secretZone;
+    SetasideZone m_setasideZone;
 
     std::map<GameTag, int> m_gameTags;
 };
