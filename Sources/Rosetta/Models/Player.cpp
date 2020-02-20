@@ -4,26 +4,21 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
-#include <Rosetta/Zones/DeckZone.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/GraveyardZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
-#include <Rosetta/Zones/SecretZone.hpp>
-#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone
 {
-Player::Player() : playerID(USER_INVALID)
+Player::Player()
+    : playerID(USER_INVALID),
+      m_deckZone(this),
+      m_fieldZone(this),
+      m_graveyardZone(this),
+      m_handZone(this),
+      m_secretZone(this),
+      m_setasideZone(this)
 {
-    m_deckZone = std::make_unique<DeckZone>(this);
-    m_fieldZone = std::make_unique<FieldZone>(this);
-    m_graveyardZone = std::make_unique<GraveyardZone>(this);
-    m_handZone = std::make_unique<HandZone>(this);
-    m_secretZone = std::make_unique<SecretZone>(this);
-    m_setasideZone = std::make_unique<SetasideZone>(this);
+    // Do nothing
 }
 
 Player::~Player()
@@ -56,12 +51,12 @@ void Player::RefCopy(const Player& rhs)
     m_hero = rhs.m_hero;
     opponent = rhs.opponent;
 
-    m_deckZone->RefCopy(rhs.m_deckZone.get());
-    m_fieldZone->RefCopy(rhs.m_fieldZone.get());
-    m_graveyardZone->RefCopy(rhs.m_graveyardZone.get());
-    m_handZone->RefCopy(rhs.m_handZone.get());
-    m_secretZone->RefCopy(rhs.m_secretZone.get());
-    m_setasideZone->RefCopy(rhs.m_setasideZone.get());
+    m_deckZone.RefCopy(rhs.m_deckZone);
+    m_fieldZone.RefCopy(rhs.m_fieldZone);
+    m_graveyardZone.RefCopy(rhs.m_graveyardZone);
+    m_handZone.RefCopy(rhs.m_handZone);
+    m_secretZone.RefCopy(rhs.m_secretZone);
+    m_setasideZone.RefCopy(rhs.m_setasideZone);
 
     m_gameTags = rhs.m_gameTags;
     currentSpellPower = rhs.currentSpellPower;
@@ -246,8 +241,8 @@ void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 
     if (m_hero != nullptr)
     {
-        m_setasideZone->MoveTo(m_hero, m_setasideZone->GetCount());
-        m_setasideZone->MoveTo(m_hero->heroPower, m_setasideZone->GetCount());
+        m_setasideZone.MoveTo(m_hero, m_setasideZone.GetCount());
+        m_setasideZone.MoveTo(m_hero->heroPower, m_setasideZone.GetCount());
 
         if (m_hero->weapon != nullptr)
         {
