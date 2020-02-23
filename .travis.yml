@@ -58,6 +58,13 @@ matrix:
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest
+    - name: Test Docker based on Ubuntu 20.04 LTS + gcc
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal focal
     - name: Test OS X 10.14 + Xcode 10.2 + clang
       os: osx
       osx_image: xcode10.2
