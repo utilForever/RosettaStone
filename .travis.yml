@@ -37,13 +37,6 @@ matrix:
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh
-    - name: Test Docker based on Ubuntu 18.10 LTS + gcc
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.cosmic cosmic
     - name: Test Docker based on Ubuntu 19.04 LTS + gcc
       os: linux
       dist: trusty
