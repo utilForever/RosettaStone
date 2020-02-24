@@ -34576,7 +34576,7 @@
     {
         "artist": "Jim Nelson",
         "cardClass": "DRUID",
-        "cost": 0,
+        "cost": 1,
         "dbfId": 55040,
         "id": "DRG_311a",
         "name": "Spin 'em Up",
@@ -34587,7 +34587,7 @@
     {
         "artist": "Dave Allsop",
         "cardClass": "DRUID",
-        "cost": 0,
+        "cost": 1,
         "dbfId": 55041,
         "id": "DRG_311b",
         "name": "Small Repairs",
@@ -116358,7 +116358,7 @@
         "faction": "ALLIANCE",
         "id": "YOD_012ts",
         "name": "Air Raid",
-        "rarity": "COMMON",
+        "rarity": "RARE",
         "referencedTags": [
             "TAUNT"
         ],
@@ -116533,6 +116533,7 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Risky Skipper",
+        "race": "PIRATE",
         "rarity": "RARE",
         "set": "YEAR_OF_THE_DRAGON",
         "text": "After you play a minion, deal 1 damage to all minions.",
@@ -116869,7 +116870,6 @@
         ],
         "name": "Sharkbait",
         "race": "BEAST",
-        "rarity": "LEGENDARY",
         "set": "YEAR_OF_THE_DRAGON",
         "text": "<b>Rush</b>",
         "type": "MINION"
