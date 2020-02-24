@@ -63,6 +63,10 @@ class Weapon : public Playable
     //! Remove the value of durability by amount.
     //! \param amount The amount to be removed.
     void RemoveDurability(int amount);
+
+    //! Returns the flag that indicates whether it is immune.
+    //! \return The flag that indicates whether it is immune.
+    bool IsImmune() const;
 };
 }  // namespace RosettaStone
 
