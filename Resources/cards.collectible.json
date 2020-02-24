@@ -44775,6 +44775,7 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Risky Skipper",
+        "race": "PIRATE",
         "rarity": "RARE",
         "set": "YEAR_OF_THE_DRAGON",
         "text": "After you play a minion, deal 1 damage to all minions.",

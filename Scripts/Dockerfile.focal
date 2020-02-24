@@ -1,9 +1,9 @@
-FROM ubuntu:18.10
+FROM ubuntu:20.04
 LABEL maintainer "Chris Ohk <utilforever@gmail.com>"
 
 RUN apt-get update && apt-get install -y \
     build-essential \
-    python-dev \
+    python2-dev \
     python-pip \
     python3-dev \
     python3-pip \
@@ -25,5 +25,5 @@ WORKDIR /app/ENV3
 RUN pip3 install -r ../requirements.txt && \
     pip3 install .. && \
     python3 -m pytest ../Tests/PythonTests/
-
+    
 WORKDIR /
