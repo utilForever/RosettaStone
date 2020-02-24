@@ -149,6 +149,21 @@ SelfCondition SelfCondition::IsControllingSecret()
     });
 }
 
+SelfCondition SelfCondition::IsHoldingRace(Race race)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& minion : playable->player->GetHandZone()->GetAll())
+        {
+            if (minion->card->GetRace() == race)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsMinion()
 {
     return SelfCondition([=](Playable* playable) -> bool {
