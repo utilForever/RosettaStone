@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
@@ -522,6 +523,12 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::DRAGON)),
+        GameTag::IMMUNE));
+    cards.emplace("DRG_007", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_010] Diving Gryphon - COST:3 [ATK:4/HP:1]

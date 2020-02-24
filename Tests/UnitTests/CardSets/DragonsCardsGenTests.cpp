@@ -77,6 +77,80 @@ TEST_CASE("[Hunter : Spell] - DRG_006 : Corrosive Breath")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [DRG_007] Stormhammer - COST:3 [ATK:3/HP:0]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: Doesn't lose Durability while you control a Dragon.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DRG_007 : Stormhammer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stormhammer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brightwing"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHero->weapon->GetAttack(), 3);
+    CHECK_EQ(curHero->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->weapon->GetDurability(), 1);
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHero->weapon->IsImmune(), true);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->weapon->GetDurability(), 1);
+    CHECK_EQ(opHero->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curHero->weapon->IsImmune(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->weapon, nullptr);
+    CHECK_EQ(opHero->GetHealth(), 21);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_255] Toxic Reinforcements - COST:1
 // - Set: Dragons, Rarity: Epic
