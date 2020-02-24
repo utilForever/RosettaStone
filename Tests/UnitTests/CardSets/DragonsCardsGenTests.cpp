@@ -16,6 +16,68 @@ using namespace PlayerTasks;
 using namespace SimpleTasks;
 
 // ----------------------------------------- SPELL - HUNTER
+// [DRG_006] Corrosive Breath - COST:2
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage to a minion. If you're holding
+//       a Dragon, it also hits the enemy hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DRG_006 : Corrosive Breath")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Corrosive Breath"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Corrosive Breath"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brightwing"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [DRG_255] Toxic Reinforcements - COST:1
 // - Set: Dragons, Rarity: Epic
 // --------------------------------------------------------

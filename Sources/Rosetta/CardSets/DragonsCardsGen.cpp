@@ -5,7 +5,9 @@
 
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -13,6 +15,9 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
@@ -487,6 +492,26 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion. If you're holding
     //       a Dragon, it also hits the enemy hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<DamageTask>(EntityType::TARGET, 3, true),
+            std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3, true) }));
+    cards.emplace(
+        "DRG_006",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [DRG_007] Stormhammer - COST:3 [ATK:3/HP:0]
