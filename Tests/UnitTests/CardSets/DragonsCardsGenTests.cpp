@@ -8,6 +8,7 @@
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
@@ -149,6 +150,58 @@ TEST_CASE("[Hunter : Weapon] - DRG_007 : Stormhammer")
     game.Process(curPlayer, AttackTask(curHero, opHero));
     CHECK_EQ(curHero->weapon, nullptr);
     CHECK_EQ(opHero->GetHealth(), 21);
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [DRG_010] Diving Gryphon - COST:3 [ATK:4/HP:1]
+// - Race: Beast, Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Battlecry:</b> Draw a
+//       <b>Rush</b> minion from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DAL_604 : Ursatron")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Restless Mummy");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Diving Gryphon"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Diving Gryphon"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Restless Mummy");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
 }
 
 // ----------------------------------------- SPELL - HUNTER

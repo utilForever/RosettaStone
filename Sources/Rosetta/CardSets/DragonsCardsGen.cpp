@@ -13,6 +13,10 @@
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include "Rosetta/Tasks/SimpleTasks/IncludeTask.hpp"
+#include "Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp"
+#include "Rosetta/Tasks/SimpleTasks/RandomTask.hpp"
+#include "Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp"
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -543,6 +547,13 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRush()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("DRG_010", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_095] Veranus - COST:6 [ATK:7/HP:6]
