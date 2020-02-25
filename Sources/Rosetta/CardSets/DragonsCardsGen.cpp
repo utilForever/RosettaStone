@@ -10,13 +10,13 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
-#include "Rosetta/Tasks/SimpleTasks/IncludeTask.hpp"
-#include "Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp"
-#include "Rosetta/Tasks/SimpleTasks/RandomTask.hpp"
-#include "Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp"
 
 using namespace RosettaStone::SimpleTasks;
 
