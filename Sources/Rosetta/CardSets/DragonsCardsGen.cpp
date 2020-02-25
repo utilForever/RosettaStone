@@ -6,6 +6,8 @@
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
@@ -895,6 +897,8 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [DRG_008] Righteous Cause - COST:1
     // - Set: Dragons, Rarity: Rare
@@ -906,6 +910,12 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - QUEST_PROGRESS_TOTAL = 5
     // - SIDEQUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<AddEnchantmentTask>(
+            "DRG_008e", EntityType::MINIONS) }) };
+    cards.emplace("DRG_008", CardDef(power, 5));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_225] Sky Claw - COST:3 [ATK:1/HP:2]
@@ -2353,6 +2363,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_008e"));
+    cards.emplace("DRG_008e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_049e] Well Fed (*) - COST:0
