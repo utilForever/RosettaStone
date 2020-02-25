@@ -199,6 +199,19 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::IsRush()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->IsRush();
+    });
+}
+
 SelfCondition SelfCondition::HasNotStealth()
 {
     return SelfCondition([=](Playable* playable) -> bool {
