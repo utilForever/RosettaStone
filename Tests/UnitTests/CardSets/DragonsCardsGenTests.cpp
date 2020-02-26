@@ -163,7 +163,7 @@ TEST_CASE("[Hunter : Weapon] - DRG_007 : Stormhammer")
 // - BATTLECRY = 1
 // - RUSH = 1
 // --------------------------------------------------------
-TEST_CASE("[Druid : Spell] - DAL_604 : Ursatron")
+TEST_CASE("[Hunter : Minion] - DRG_010 : Diving Gryphon")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
