@@ -102,6 +102,11 @@ Hero* Player::GetHero() const
     return m_hero;
 }
 
+void Player::SetHero(Hero* hero)
+{
+    m_hero = hero;
+}
+
 HeroPower& Player::GetHeroPower() const
 {
     return *m_hero->heroPower;

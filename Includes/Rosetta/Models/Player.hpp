@@ -84,9 +84,13 @@ class Player : public Entity
     //! \return Player's setaside zone.
     SetasideZone* GetSetasideZone() const;
 
-    //! Returns player's hero.
-    //! \return Player's hero.
+    //! Returns the hero of the player.
+    //! \return The hero of the player.
     Hero* GetHero() const;
+
+    //! Sets the hero of the player.
+    //! \param hero The hero of the player.
+    void SetHero(Hero* hero);
 
     //! Returns player's hero power.
     //! \return Player's hero power.
