@@ -1953,6 +1953,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - WINDFURY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_061", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_062] Wyrmrest Purifier - COST:2 [ATK:3/HP:2]

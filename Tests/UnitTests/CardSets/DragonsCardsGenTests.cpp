@@ -379,6 +379,21 @@ TEST_CASE("[Paladin : Spell] - DRG_008 : Righteous Cause")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
+// - Race: Mechanical, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_061 : Gyrocopter")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_065] Hippogryph - COST:4 [ATK:2/HP:6]
 // - Race: Beast, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
