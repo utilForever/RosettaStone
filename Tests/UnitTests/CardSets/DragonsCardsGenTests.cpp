@@ -8,8 +8,8 @@
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
@@ -31,7 +31,7 @@ TEST_CASE("[Hunter : Spell] - DRG_006 : Corrosive Breath")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
-    config.player2Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
@@ -55,7 +55,7 @@ TEST_CASE("[Hunter : Spell] - DRG_006 : Corrosive Breath")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Corrosive Breath"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brightwing"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Herald"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
 
