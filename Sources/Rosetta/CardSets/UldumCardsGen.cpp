@@ -444,7 +444,7 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         "ULD_155p") };
-    cards.emplace("ULD_155", CardDef(power, 20));
+    cards.emplace("ULD_155", CardDef(power, 20, 0));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
@@ -804,7 +804,7 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         std::make_shared<SelfCondition>(SelfCondition::HasReborn());
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         "ULD_431p") };
-    cards.emplace("ULD_431", CardDef(power, 5));
+    cards.emplace("ULD_431", CardDef(power, 5, 0));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_438] Salhet's Pride - COST:3 [ATK:3/HP:1]

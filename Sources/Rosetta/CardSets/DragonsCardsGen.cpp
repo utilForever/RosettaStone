@@ -629,7 +629,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_255t2", 3) }) };
-    cards.emplace("DRG_255", CardDef(power, 3));
+    cards.emplace("DRG_255", CardDef(power, 3, 0));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_256] Dragonbane - COST:4 [ATK:3/HP:5]
@@ -926,7 +926,7 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<AddEnchantmentTask>(
             "DRG_008e", EntityType::MINIONS) }) };
-    cards.emplace("DRG_008", CardDef(power, 5));
+    cards.emplace("DRG_008", CardDef(power, 5, 0));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_225] Sky Claw - COST:3 [ATK:1/HP:2]
