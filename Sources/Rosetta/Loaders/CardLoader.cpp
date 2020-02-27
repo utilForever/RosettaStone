@@ -75,6 +75,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
                                 ? 0
                                 : static_cast<int>(StrToEnum<Faction>(
                                       cardData["faction"].get<std::string>()));
+        const int armor =
+            cardData["armor"].is_null() ? 0 : cardData["armor"].get<int>();
         const int health =
             cardData["health"].is_null() ? 0 : cardData["health"].get<int>();
         const int rarity = cardData["rarity"].is_null()
@@ -118,6 +120,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::DAMAGE] = 0;
         card->gameTags[GameTag::DURABILITY] = durability;
         card->gameTags[GameTag::FACTION] = faction;
+        card->gameTags[GameTag::ARMOR] = armor;
         card->gameTags[GameTag::HEALTH] = health;
         card->gameTags[GameTag::RARITY] = rarity;
         card->gameTags[GameTag::SPELLPOWER] = spellPower;
