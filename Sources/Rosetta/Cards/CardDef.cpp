@@ -26,8 +26,10 @@ CardDef::CardDef(Power _power, std::vector<std::string> _chooseCardIDs)
     // Do nothing
 }
 
-CardDef::CardDef(Power _power, int _questProgressTotal)
-    : power(std::move(_power)), questProgressTotal(_questProgressTotal)
+CardDef::CardDef(Power _power, int _questProgressTotal, int _heroPowerDbfID)
+    : power(std::move(_power)),
+      questProgressTotal(_questProgressTotal),
+      heroPowerDbfID(_heroPowerDbfID)
 {
     // Do nothing
 }
