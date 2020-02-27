@@ -15,6 +15,7 @@
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -33,6 +34,8 @@ using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- HERO - WARLOCK
     // [DRG_600] Galakrond, the Wretched - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
@@ -48,6 +51,11 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::DEMON));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("DRG_600", CardDef(power, 0, 55807));
 
     // ----------------------------------------- HERO - WARLOCK
     // [DRG_600t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -283,6 +291,8 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- HERO_POWER - WARRIOR
     // [DRG_238p] Galakrond's Might (*) - COST:2
     // - Set: Dragons
@@ -303,6 +313,9 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon two 1/1 Imps.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_238t12t2", 2));
+    cards.emplace("DRG_238p3", CardDef(power));
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [DRG_238p4] Galakrond's Fury (*) - COST:2
@@ -1694,6 +1707,8 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void DragonsCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [DRG_202e] Power of the Cult (*) - COST:0
     // - Set: Dragons
@@ -1720,6 +1735,9 @@ void DragonsCardsGen::AddWarlockNonCollect(
     // [DRG_238t12t2] Draconic Imp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_238t12t2", CardDef(power));
 }
 
 void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
