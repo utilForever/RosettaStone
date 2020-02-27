@@ -78,6 +78,12 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Pass to sub-logic
     switch (source->card->GetCardType())
     {
+        case CardType::HERO:
+        {
+            const auto hero = dynamic_cast<Hero*>(source);
+            PlayHero(player, hero, target, chooseOne);
+            break;
+        }
         case CardType::MINION:
         {
             const auto minion = dynamic_cast<Minion*>(source);
@@ -93,7 +99,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         case CardType::WEAPON:
         {
             const auto weapon = dynamic_cast<Weapon*>(source);
-            PlayWeapon(player, weapon, target); 
+            PlayWeapon(player, weapon, target);
             break;
         }
         default:
