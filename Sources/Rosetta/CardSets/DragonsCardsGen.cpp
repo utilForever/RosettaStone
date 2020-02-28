@@ -232,6 +232,10 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_620t6", 2));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_620t3", CardDef(power, 0, 55808));
 
     // ----------------------------------------- HERO - WARRIOR
     // [DRG_650] Galakrond, the Unbreakable - COST:7 [ATK:0/HP:30]
@@ -1648,6 +1652,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_620t6", CardDef(power));
 }
 
 void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
