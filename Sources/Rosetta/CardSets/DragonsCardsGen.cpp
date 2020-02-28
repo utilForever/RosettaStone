@@ -8,9 +8,12 @@
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
@@ -120,6 +123,11 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_610e", EntityType::STACK));
+    cards.emplace("DRG_610", CardDef(power, 0, 55806));
 
     // ------------------------------------------- HERO - ROGUE
     // [DRG_610t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -323,6 +331,9 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Add a <b>Lackey</b> to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddLackeyTask>(1));
+    cards.emplace("DRG_238p2", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [DRG_238p3] Galakrond's Malice (*) - COST:2
@@ -1345,6 +1356,8 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [DRG_030e] Praise Galakrond! (*) - COST:0
     // - Set: Dragons
@@ -1383,6 +1396,9 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
+    cards.emplace("DRG_610e", CardDef(power));
 }
 
 void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)

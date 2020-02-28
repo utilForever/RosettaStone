@@ -37,7 +37,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600 : Galakrond, the Wretched")
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
+    config.doFillDecks = true;
     config.autoRun = false;
 
     Game game(config);
@@ -50,6 +50,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600 : Galakrond, the Wretched")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
@@ -90,7 +91,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600t2 : Galakrond, the Apocalypse")
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
+    config.doFillDecks = true;
     config.autoRun = false;
 
     Game game(config);
@@ -103,6 +104,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600t2 : Galakrond, the Apocalypse")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
@@ -144,7 +146,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600t3 : Galakrond, Azeroth's End")
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
+    config.doFillDecks = true;
     config.autoRun = false;
 
     Game game(config);
@@ -157,6 +159,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600t3 : Galakrond, Azeroth's End")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
@@ -181,6 +184,68 @@ TEST_CASE("[Warlock : Hero] - DRG_600t3 : Galakrond, Azeroth's End")
     CHECK_EQ(curField.GetCount(), 6);
     CHECK_EQ(curField[4]->card->name, "Draconic Imp");
     CHECK_EQ(curField[5]->card->name, "Draconic Imp");
+}
+
+// ------------------------------------------- HERO - ROGUE
+// [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw 1 card. It costs (0).
+//       <i>(@)</i>
+// --------------------------------------------------------
+// GameTag:
+// - TAG_SCRIPT_DATA_NUM_2 = 2
+// - ELITE = 1
+// - BATTLECRY = 1
+// - ARMOR = 5
+// - HERO_POWER = 55806
+// - 676 = 1
+// - GALAKROND_HERO_CARD = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Galakrond, the Nightmare"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[3]->GetCost(), 4);
+    CHECK_EQ(curHand[4]->GetCost(), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->IsLackey(), true);
 }
 
 // ----------------------------------------- SPELL - HUNTER
