@@ -18,6 +18,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -71,6 +72,13 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55807
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(
+                      CardType::MINION, CardClass::INVALID, Race::DEMON),
+                  std::make_shared<SummonTask>() },
+        2));
+    cards.emplace("DRG_600t2", CardDef(power, 0, 55807));
 
     // ----------------------------------------- HERO - WARLOCK
     // [DRG_600t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]

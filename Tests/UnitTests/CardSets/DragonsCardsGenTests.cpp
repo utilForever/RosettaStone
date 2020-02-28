@@ -70,6 +70,60 @@ TEST_CASE("[Warlock : Hero] - DRG_600 : Galakrond, the Wretched")
     CHECK_EQ(curField[2]->card->name, "Draconic Imp");
 }
 
+// ----------------------------------------- HERO - WARLOCK
+// [DRG_600t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon 2 random Demons. <i>(@)</i>
+// --------------------------------------------------------
+// GameTag:
+// - TAG_SCRIPT_DATA_NUM_2 = 2
+// - ELITE = 1
+// - BATTLECRY = 1
+// - ARMOR = 5
+// - HERO_POWER = 55807
+// - GALAKROND_HERO_CARD = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Hero] - DRG_600t2 : Galakrond, the Apocalypse")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DRG_600t2"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->GetRace(), Race::DEMON);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::DEMON);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[2]->card->name, "Draconic Imp");
+    CHECK_EQ(curField[3]->card->name, "Draconic Imp");
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common
