@@ -124,6 +124,65 @@ TEST_CASE("[Warlock : Hero] - DRG_600t2 : Galakrond, the Apocalypse")
     CHECK_EQ(curField[3]->card->name, "Draconic Imp");
 }
 
+// ----------------------------------------- HERO - WARLOCK
+// [DRG_600t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon 4 random Demons.
+//       Equip a 5/2 Claw.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - ARMOR = 5
+// - HERO_POWER = 55807
+// - GALAKROND_HERO_CARD = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Hero] - DRG_600t3 : Galakrond, Azeroth's End")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DRG_600t3"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->card->GetRace(), Race::DEMON);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::DEMON);
+    CHECK_EQ(curField[2]->card->GetRace(), Race::DEMON);
+    CHECK_EQ(curField[3]->card->GetRace(), Race::DEMON);
+    CHECK_EQ(curPlayer->GetWeapon().card->name, "Dragon Claw");
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 5);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField[4]->card->name, "Draconic Imp");
+    CHECK_EQ(curField[5]->card->name, "Draconic Imp");
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common

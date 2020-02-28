@@ -11,6 +11,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -18,7 +19,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -94,6 +95,14 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55807
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(
+                      CardType::MINION, CardClass::INVALID, Race::DEMON),
+                  std::make_shared<SummonTask>() },
+        4));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_600t3", CardDef(power, 0, 55807));
 
     // ------------------------------------------- HERO - ROGUE
     // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
