@@ -211,6 +211,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_620t5", 2));
+    cards.emplace("DRG_620t2", CardDef(power, 0, 55808));
 
     // ------------------------------------------ HERO - SHAMAN
     // [DRG_620t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
@@ -1632,6 +1635,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_620t5", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_620t6] Raging Storm (*) - COST:8 [ATK:8/HP:8]
