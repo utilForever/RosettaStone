@@ -2129,6 +2129,7 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<RandomCardTask>(
         CardType::MINION, CardClass::INVALID, Race::MURLOC));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     power.AddPowerTask(
         std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
                                          Race::MURLOC, Rarity::INVALID, true));
