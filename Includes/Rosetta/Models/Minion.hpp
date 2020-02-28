@@ -50,6 +50,10 @@ class Minion : public Character
     //! \param value The value of last board position.
     void SetLastBoardPos(int value);
 
+    //! Returns the flag that indicates whether it is Lackey.
+    //! \return The flag that indicates whether it is Lackey.
+    bool IsLackey() const;
+
     //! Returns the flag that indicates whether it is untouchable.
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;

@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
@@ -28,6 +29,13 @@ int Minion::GetLastBoardPos() const
 void Minion::SetLastBoardPos(int value)
 {
     SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, value);
+}
+
+bool Minion::IsLackey() const
+{
+    auto lackeys = Cards::GetLackeys();
+
+    return std::find(lackeys.begin(), lackeys.end(), card) != lackeys.end();
 }
 
 bool Minion::IsUntouchable() const
