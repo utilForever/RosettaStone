@@ -81,6 +81,7 @@ TaskStatus RandomCardTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
+    player->game->taskStack.playables.clear();
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
     auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
                                     cardsList.at(idx));
