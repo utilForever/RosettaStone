@@ -302,6 +302,16 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55805
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 4));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_650e3", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(4));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_650t3", CardDef(power, 0, 55805));
 
     // ------------------------------------------ HERO - PRIEST
     // [DRG_660] Galakrond, the Unspeakable - COST:7 [ATK:0/HP:30]
@@ -2786,6 +2796,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_650e3"));
+    cards.emplace("DRG_650e3", CardDef(power));
 }
 
 void DragonsCardsGen::AddAll(std::map<std::string, CardDef>& cards)
