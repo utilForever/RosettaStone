@@ -9,7 +9,6 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
@@ -190,6 +189,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_620t4", 2));
+    cards.emplace("DRG_620", CardDef(power, 0, 55808));
 
     // ------------------------------------------ HERO - SHAMAN
     // [DRG_620t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -365,6 +367,9 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_238t14t3", 1));
+    cards.emplace("DRG_238p4", CardDef(power));
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [DRG_238p5] Galakrond's Wit (*) - COST:2
@@ -1538,6 +1543,8 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DRG_068e] Toasty (*) - COST:0
     // - Set: Dragons
@@ -1599,6 +1606,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_238t14t3", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_620t4] Brewing Storm (*) - COST:2 [ATK:2/HP:2]
@@ -1609,6 +1619,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_620t4", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_620t5] Living Storm (*) - COST:4 [ATK:4/HP:4]
