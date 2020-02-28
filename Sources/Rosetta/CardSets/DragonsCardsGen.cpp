@@ -253,6 +253,15 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_650e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("DRG_650", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
     // [DRG_650t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -344,6 +353,10 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Give your hero +3 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_238t10e", EntityType::HERO));
+    cards.emplace("DRG_238p", CardDef(power));
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [DRG_238p2] Galakrond's Guile (*) - COST:2
@@ -1925,6 +1938,8 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void DragonsCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DRG_238t10e] Galakrond's Might (*) - COST:0
     // - Set: Dragons
@@ -1934,6 +1949,9 @@ void DragonsCardsGen::AddWarriorNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_238t10e"));
+    cards.emplace("DRG_238t10e", CardDef(power));
 }
 
 void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -2739,6 +2757,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_650e"));
+    cards.emplace("DRG_650e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_650e2] Galakrond's Strength (*) - COST:0

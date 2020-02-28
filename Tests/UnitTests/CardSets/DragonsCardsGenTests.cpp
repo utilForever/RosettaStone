@@ -586,6 +586,76 @@ TEST_CASE("[Shaman : Hero] - DRG_620t3 : Galakrond, Azeroth's End")
     CHECK_EQ(curField[2]->IsRush(), true);
 }
 
+// ----------------------------------------- HERO - WARRIOR
+// [DRG_650] Galakrond, the Unbreakable - COST:7 [ATK:0/HP:30]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw 1 minion. Give it +4/+4.
+//       <i>(@)</i>
+// --------------------------------------------------------
+// GameTag:
+// - TAG_SCRIPT_DATA_NUM_2 = 2
+// - ELITE = 1
+// - BATTLECRY = 1
+// - ARMOR = 5
+// - HERO_POWER = 55805
+// - 676 = 1
+// - GALAKROND_HERO_CARD = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Hero] - DRG_650 : Galakrond, the Unbreakable")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Galakrond, the Unbreakable"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 5);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->CanAttack(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(curPlayer->GetHero()->CanAttack(), false);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common
