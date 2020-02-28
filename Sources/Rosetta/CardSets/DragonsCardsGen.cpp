@@ -144,6 +144,11 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55806
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_610e", EntityType::STACK));
+    cards.emplace("DRG_610t2", CardDef(power, 0, 55806));
 
     // ------------------------------------------- HERO - ROGUE
     // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
