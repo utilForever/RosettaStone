@@ -164,6 +164,12 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55806
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(4, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_610e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_610t3", CardDef(power, 0, 55806));
 
     // ------------------------------------------ HERO - SHAMAN
     // [DRG_620] Galakrond, the Tempest - COST:7 [ATK:0/HP:30]
