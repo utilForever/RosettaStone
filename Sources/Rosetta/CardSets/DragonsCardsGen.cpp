@@ -278,6 +278,15 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55805
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_650e2", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(2));
+    cards.emplace("DRG_650t2", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
     // [DRG_650t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
@@ -2767,6 +2776,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_650e2"));
+    cards.emplace("DRG_650e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_650e3] Galakrond's Strength (*) - COST:0
