@@ -19,6 +19,7 @@ std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_standardCards;
 std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_wildCards;
 std::vector<Card*> Cards::m_allStandardCards;
 std::vector<Card*> Cards::m_allWildCards;
+std::vector<Card*> Cards::m_lackeys;
 
 Cards::Cards()
 {
@@ -43,7 +44,7 @@ Cards::Cards()
             if (card->GetCardClass() != CardClass::NEUTRAL)
             {
                 m_standardCards[cardClass].emplace_back(card);
-            }     
+            }
             m_allStandardCards.emplace_back(card);
         }
 
@@ -55,6 +56,17 @@ Cards::Cards()
                 m_wildCards[cardClass].emplace_back(card);
             }
             m_allWildCards.emplace_back(card);
+        }
+
+        if (card->id == "DAL_613" ||  // DAL_613: Faceless Lackey
+            card->id == "DAL_614" ||  // DAL_614: Kobold Lackey
+            card->id == "DAL_615" ||  // DAL_615: Witchy Lackey
+            card->id == "DAL_739" ||  // DAL_739: Goblin Lackey
+            card->id == "DAL_741" ||  // DAL_741: Ethereal Lackey
+            card->id == "ULD_616" ||  // ULD_616: Titanic Lackey
+            card->id == "DRG_052")    // DRG_052: Draconic Lackey
+        {
+            m_lackeys.emplace_back(card);
         }
     }
 }
@@ -100,6 +112,11 @@ const std::vector<Card*>& Cards::GetAllStandardCards()
 const std::vector<Card*>& Cards::GetAllWildCards()
 {
     return m_allWildCards;
+}
+
+std::vector<Card*> Cards::GetLackeys()
+{
+    return m_lackeys;
 }
 
 Card* Cards::FindCardByID(const std::string_view& id)
