@@ -201,6 +201,14 @@ class Player : public Entity
     //! \param value The number of friendly minions that died this turn.
     void SetNumFriendlyMinionsDiedThisTurn(int value);
 
+    //! Returns the value of main Galakrond.
+    //! \return The value of main Galakrond.
+    CardClass GetMainGalakrond() const;
+
+    //! Sets the value of main Galakrond.
+    //! \param value The value of main Galakrond.
+    void SetMainGalakrond(int value);
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
