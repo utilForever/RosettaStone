@@ -19,6 +19,7 @@
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/InvokeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
@@ -1190,6 +1191,8 @@ void DragonsCardsGen::AddPaladinNonCollect(
 
 void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
     // - Race: Dragon, Set: Dragons, Rarity: Legendary
@@ -1259,6 +1262,9 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace("DRG_303", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [DRG_304] Chronobreaker - COST:5 [ATK:4/HP:5]
