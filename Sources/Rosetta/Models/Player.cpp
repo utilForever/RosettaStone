@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -252,6 +253,34 @@ CardClass Player::GetMainGalakrond() const
 void Player::SetMainGalakrond(int value)
 {
     SetGameTag(GameTag::MAIN_GALAKROND, value);
+}
+
+void Player::UpgradeGalakrond()
+{
+    // If the player has already turned into Galakrond, return false.
+    if (galakrond->GetZoneType() == ZoneType::PLAY)
+    {
+        return;
+    }
+
+    const auto cardID = galakrond->card->id;
+
+    // If Galakrond have already upgraded to the final stage, return false.
+    if (EndsWith(cardID, "t3"))
+    {
+        return;
+    }
+
+    // NOTE: The length of level 1 card IDs is 7.
+    // For example, "DRG_600".
+    if (cardID.size() == 7)
+    {
+        galakrond->card = Cards::FindCardByID(cardID + "t2");
+    }
+    else if (EndsWith(cardID, "t2"))
+    {
+        galakrond->card = Cards::FindCardByID(cardID.substr(0, 7) + "t3");
+    }
 }
 
 int Player::GetInvoke() const

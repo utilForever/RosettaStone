@@ -209,6 +209,9 @@ class Player : public Entity
     //! \param value The value of main Galakrond.
     void SetMainGalakrond(int value);
 
+    //! Upgrades the Galakrond hero card.
+    void UpgradeGalakrond();
+
     //! Returns the value of invoke.
     //! \return The value of invoke.
     int GetInvoke() const;
@@ -229,6 +232,7 @@ class Player : public Entity
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
 
+    Playable* galakrond = nullptr;
     Player* opponent = nullptr;
 
     PlayerAuraEffects playerAuraEffects;
