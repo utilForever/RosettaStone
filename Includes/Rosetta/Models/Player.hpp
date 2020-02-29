@@ -209,6 +209,9 @@ class Player : public Entity
     //! \param value The value of main Galakrond.
     void SetMainGalakrond(int value);
 
+    //! Increases the value of invoke.
+    void IncreaseInvoke();
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.

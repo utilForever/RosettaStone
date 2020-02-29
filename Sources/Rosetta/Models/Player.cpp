@@ -254,6 +254,12 @@ void Player::SetMainGalakrond(int value)
     SetGameTag(GameTag::MAIN_GALAKROND, value);
 }
 
+void Player::IncreaseInvoke()
+{
+    const int val = GetGameTag(GameTag::INVOKE_COUNTER);
+    SetGameTag(GameTag::INVOKE_COUNTER, val + 1);
+}
+
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
     Weapon* weapon = nullptr;
