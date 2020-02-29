@@ -374,6 +374,13 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55810
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 4));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_660t3", CardDef(power, 0, 55810));
 }
 
 void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
