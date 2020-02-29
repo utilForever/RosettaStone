@@ -112,6 +112,20 @@ std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
     return results;
 }
 
+//! Finds out if \p value ends with \p ending.
+//! \param value The original string.
+//! \param ending The suffix string to check.
+//! \return true if \p value ends with \p ending, false otherwise.
+inline bool EndsWith(const std::string& value, const std::string& ending)
+{
+    if (ending.size() > value.size())
+    {
+        return false;
+    }
+
+    return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
+}
+
 //! Decodes Base64 based string.
 //! \param src Base64 based string.
 //! \return A unsigned char type container consists of decoded string.
