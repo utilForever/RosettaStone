@@ -353,6 +353,12 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55810
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("DRG_660t2", CardDef(power, 0, 55810));
 
     // ------------------------------------------ HERO - PRIEST
     // [DRG_660t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
