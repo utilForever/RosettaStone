@@ -804,6 +804,78 @@ TEST_CASE("[Warrior : Hero] - DRG_650t2 : Galakrond, the Apocalypse")
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
 }
 
+// ------------------------------------------ HERO - PRIEST
+// [DRG_660] Galakrond, the Unspeakable - COST:7 [ATK:0/HP:30]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy 1 random enemy minion.
+//       <i>(@)</i>
+// --------------------------------------------------------
+// GameTag:
+// - TAG_SCRIPT_DATA_NUM_2 = 2
+// - ELITE = 1
+// - BATTLECRY = 1
+// - ARMOR = 5
+// - HERO_POWER = 55810
+// - 676 = 1
+// - GALAKROND_HERO_CARD = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Hero] - DRG_660 : Galakrond, the Unspeakable")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(10);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Galakrond, the Unspeakable"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(opPlayer, HeroPowerTask());
+    CHECK_EQ(opHand.GetCount(), 7);
+    CHECK_EQ(opHand[6]->card->GetCardClass(), CardClass::PRIEST);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common

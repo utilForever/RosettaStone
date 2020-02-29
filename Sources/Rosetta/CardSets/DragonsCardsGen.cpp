@@ -9,8 +9,10 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
@@ -329,6 +331,12 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("DRG_660", CardDef(power, 0, 55810));
 
     // ------------------------------------------ HERO - PRIEST
     // [DRG_660t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -416,6 +424,11 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Add a random Priest minion to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::PRIEST));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("DRG_238p5", CardDef(power));
 }
 
 void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
