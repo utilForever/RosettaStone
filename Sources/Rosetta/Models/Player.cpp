@@ -245,16 +245,6 @@ void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
     SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
 }
 
-CardClass Player::GetMainGalakrond() const
-{
-    return static_cast<CardClass>(GetGameTag(GameTag::MAIN_GALAKROND));
-}
-
-void Player::SetMainGalakrond(int value)
-{
-    SetGameTag(GameTag::MAIN_GALAKROND, value);
-}
-
 void Player::UpgradeGalakrond()
 {
     // If the player has already turned into Galakrond, return false.
