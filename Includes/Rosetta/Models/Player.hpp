@@ -209,6 +209,10 @@ class Player : public Entity
     //! \param value The value of main Galakrond.
     void SetMainGalakrond(int value);
 
+    //! Returns the value of invoke.
+    //! \return The value of invoke.
+    int GetInvoke() const;
+
     //! Increases the value of invoke.
     void IncreaseInvoke();
 

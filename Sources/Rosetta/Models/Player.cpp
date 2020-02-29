@@ -254,6 +254,11 @@ void Player::SetMainGalakrond(int value)
     SetGameTag(GameTag::MAIN_GALAKROND, value);
 }
 
+int Player::GetInvoke() const
+{
+    return GetGameTag(GameTag::INVOKE_COUNTER);
+}
+
 void Player::IncreaseInvoke()
 {
     const int val = GetGameTag(GameTag::INVOKE_COUNTER);
