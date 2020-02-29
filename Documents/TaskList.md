@@ -16,6 +16,7 @@
 * AddAuraEffectTask
 * AddCardTask
 * AddEnchantmentTask
+* AddLackeyTask
 * AddStackToTask
 * ArmorTask
 * ChanceTask
@@ -49,6 +50,7 @@
 * HealTask
 * IncludeAdjacentTask
 * IncludeTask
+* InvokeTask
 * ManaCrystalTask
 * MathMultiplyTask
 * MathNumberIndexTask
