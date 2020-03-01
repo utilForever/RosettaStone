@@ -3,16 +3,36 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/InvokeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
@@ -21,6 +41,8 @@ using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- HERO - WARLOCK
     // [DRG_600] Galakrond, the Wretched - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
@@ -36,6 +58,11 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::DEMON));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("DRG_600", CardDef(power, 0, 55807));
 
     // ----------------------------------------- HERO - WARLOCK
     // [DRG_600t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -51,6 +78,13 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55807
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(
+                      CardType::MINION, CardClass::INVALID, Race::DEMON),
+                  std::make_shared<SummonTask>() },
+        2));
+    cards.emplace("DRG_600t2", CardDef(power, 0, 55807));
 
     // ----------------------------------------- HERO - WARLOCK
     // [DRG_600t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
@@ -66,6 +100,14 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55807
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(
+                      CardType::MINION, CardClass::INVALID, Race::DEMON),
+                  std::make_shared<SummonTask>() },
+        4));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_600t3", CardDef(power, 0, 55807));
 
     // ------------------------------------------- HERO - ROGUE
     // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
@@ -83,6 +125,11 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_610e", EntityType::STACK));
+    cards.emplace("DRG_610", CardDef(power, 0, 55806));
 
     // ------------------------------------------- HERO - ROGUE
     // [DRG_610t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -99,6 +146,11 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55806
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_610e", EntityType::STACK));
+    cards.emplace("DRG_610t2", CardDef(power, 0, 55806));
 
     // ------------------------------------------- HERO - ROGUE
     // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
@@ -114,6 +166,12 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55806
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(4, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_610e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_610t3", CardDef(power, 0, 55806));
 
     // ------------------------------------------ HERO - SHAMAN
     // [DRG_620] Galakrond, the Tempest - COST:7 [ATK:0/HP:30]
@@ -134,6 +192,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_620t4", 2));
+    cards.emplace("DRG_620", CardDef(power, 0, 55808));
 
     // ------------------------------------------ HERO - SHAMAN
     // [DRG_620t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -153,6 +214,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_620t5", 2));
+    cards.emplace("DRG_620t2", CardDef(power, 0, 55808));
 
     // ------------------------------------------ HERO - SHAMAN
     // [DRG_620t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
@@ -171,6 +235,10 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_620t6", 2));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_620t3", CardDef(power, 0, 55808));
 
     // ----------------------------------------- HERO - WARRIOR
     // [DRG_650] Galakrond, the Unbreakable - COST:7 [ATK:0/HP:30]
@@ -188,6 +256,15 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_650e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("DRG_650", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
     // [DRG_650t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -204,6 +281,15 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55805
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_650e2", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(2));
+    cards.emplace("DRG_650t2", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
     // [DRG_650t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
@@ -219,6 +305,16 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55805
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 4));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_650e3", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(4));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_650t3", CardDef(power, 0, 55805));
 
     // ------------------------------------------ HERO - PRIEST
     // [DRG_660] Galakrond, the Unspeakable - COST:7 [ATK:0/HP:30]
@@ -236,6 +332,12 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("DRG_660", CardDef(power, 0, 55810));
 
     // ------------------------------------------ HERO - PRIEST
     // [DRG_660t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
@@ -252,6 +354,12 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55810
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("DRG_660t2", CardDef(power, 0, 55810));
 
     // ------------------------------------------ HERO - PRIEST
     // [DRG_660t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
@@ -267,16 +375,29 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - HERO_POWER = 55810
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 4));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
+    cards.emplace("DRG_660t3", CardDef(power, 0, 55810));
 }
 
 void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- HERO_POWER - WARRIOR
     // [DRG_238p] Galakrond's Might (*) - COST:2
     // - Set: Dragons
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Give your hero +3 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_238t10e", EntityType::HERO));
+    cards.emplace("DRG_238p", CardDef(power));
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [DRG_238p2] Galakrond's Guile (*) - COST:2
@@ -284,6 +405,9 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Add a <b>Lackey</b> to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddLackeyTask>(1));
+    cards.emplace("DRG_238p2", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [DRG_238p3] Galakrond's Malice (*) - COST:2
@@ -291,6 +415,9 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon two 1/1 Imps.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_238t12t2", 2));
+    cards.emplace("DRG_238p3", CardDef(power));
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [DRG_238p4] Galakrond's Fury (*) - COST:2
@@ -301,6 +428,9 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_238t14t3", 1));
+    cards.emplace("DRG_238p4", CardDef(power));
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [DRG_238p5] Galakrond's Wit (*) - COST:2
@@ -308,6 +438,11 @@ void DragonsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Add a random Priest minion to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::PRIEST));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("DRG_238p5", CardDef(power));
 }
 
 void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -487,6 +622,26 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion. If you're holding
     //       a Dragon, it also hits the enemy hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<DamageTask>(EntityType::TARGET, 3, true),
+            std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3, true) }));
+    cards.emplace(
+        "DRG_006",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [DRG_007] Stormhammer - COST:3 [ATK:3/HP:0]
@@ -497,6 +652,12 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::DRAGON)),
+        GameTag::IMMUNE));
+    cards.emplace("DRG_007", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_010] Diving Gryphon - COST:3 [ATK:4/HP:1]
@@ -509,6 +670,13 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRush()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("DRG_010", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_095] Veranus - COST:6 [ATK:7/HP:6]
@@ -584,7 +752,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_255t2", 3) }) };
-    cards.emplace("DRG_255", CardDef(power, 3));
+    cards.emplace("DRG_255", CardDef(power, 3, 0));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_256] Dragonbane - COST:4 [ATK:3/HP:5]
@@ -863,6 +1031,8 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [DRG_008] Righteous Cause - COST:1
     // - Set: Dragons, Rarity: Rare
@@ -874,6 +1044,12 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - QUEST_PROGRESS_TOTAL = 5
     // - SIDEQUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<AddEnchantmentTask>(
+            "DRG_008e", EntityType::MINIONS) }) };
+    cards.emplace("DRG_008", CardDef(power, 5, 0));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_225] Sky Claw - COST:3 [ATK:1/HP:2]
@@ -1015,6 +1191,8 @@ void DragonsCardsGen::AddPaladinNonCollect(
 
 void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
     // - Race: Dragon, Set: Dragons, Rarity: Legendary
@@ -1084,6 +1262,9 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace("DRG_303", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [DRG_304] Chronobreaker - COST:5 [ATK:4/HP:5]
@@ -1262,6 +1443,8 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [DRG_030e] Praise Galakrond! (*) - COST:0
     // - Set: Dragons
@@ -1300,6 +1483,9 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
+    cards.emplace("DRG_610e", CardDef(power));
 }
 
 void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
@@ -1428,6 +1614,8 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DRG_068e] Toasty (*) - COST:0
     // - Set: Dragons
@@ -1489,6 +1677,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_238t14t3", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_620t4] Brewing Storm (*) - COST:2 [ATK:2/HP:2]
@@ -1499,6 +1690,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_620t4", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_620t5] Living Storm (*) - COST:4 [ATK:4/HP:4]
@@ -1509,6 +1703,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_620t5", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_620t6] Raging Storm (*) - COST:8 [ATK:8/HP:8]
@@ -1519,6 +1716,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_620t6", CardDef(power));
 }
 
 void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
@@ -1641,6 +1841,8 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void DragonsCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [DRG_202e] Power of the Cult (*) - COST:0
     // - Set: Dragons
@@ -1667,6 +1869,9 @@ void DragonsCardsGen::AddWarlockNonCollect(
     // [DRG_238t12t2] Draconic Imp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_238t12t2", CardDef(power));
 }
 
 void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
@@ -1784,6 +1989,8 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void DragonsCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DRG_238t10e] Galakrond's Might (*) - COST:0
     // - Set: Dragons
@@ -1793,6 +2000,9 @@ void DragonsCardsGen::AddWarriorNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_238t10e"));
+    cards.emplace("DRG_238t10e", CardDef(power));
 }
 
 void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -1900,6 +2110,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - WINDFURY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_061", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_062] Wyrmrest Purifier - COST:2 [ATK:3/HP:2]
@@ -2321,6 +2534,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_008e"));
+    cards.emplace("DRG_008e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_049e] Well Fed (*) - COST:0
@@ -2592,6 +2808,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_650e"));
+    cards.emplace("DRG_650e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_650e2] Galakrond's Strength (*) - COST:0
@@ -2599,6 +2818,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_650e2"));
+    cards.emplace("DRG_650e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_650e3] Galakrond's Strength (*) - COST:0
@@ -2606,6 +2828,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_650e3"));
+    cards.emplace("DRG_650e3", CardDef(power));
 }
 
 void DragonsCardsGen::AddAll(std::map<std::string, CardDef>& cards)

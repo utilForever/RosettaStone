@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -100,6 +101,11 @@ SetasideZone* Player::GetSetasideZone() const
 Hero* Player::GetHero() const
 {
     return m_hero;
+}
+
+void Player::SetHero(Hero* hero)
+{
+    m_hero = hero;
 }
 
 HeroPower& Player::GetHeroPower() const
@@ -237,6 +243,45 @@ int Player::GetNumFriendlyMinionsDiedThisTurn() const
 void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
 {
     SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
+}
+
+void Player::UpgradeGalakrond()
+{
+    // If the player has already turned into Galakrond, return false.
+    if (galakrond->GetZoneType() == ZoneType::PLAY)
+    {
+        return;
+    }
+
+    const auto cardID = galakrond->card->id;
+
+    // If Galakrond have already upgraded to the final stage, return false.
+    if (EndsWith(cardID, "t3"))
+    {
+        return;
+    }
+
+    // NOTE: The length of level 1 card IDs is 7.
+    // For example, "DRG_600".
+    if (cardID.size() == 7)
+    {
+        galakrond->card = Cards::FindCardByID(cardID + "t2");
+    }
+    else if (EndsWith(cardID, "t2"))
+    {
+        galakrond->card = Cards::FindCardByID(cardID.substr(0, 7) + "t3");
+    }
+}
+
+int Player::GetInvoke() const
+{
+    return GetGameTag(GameTag::INVOKE_COUNTER);
+}
+
+void Player::IncreaseInvoke()
+{
+    const int val = GetGameTag(GameTag::INVOKE_COUNTER);
+    SetGameTag(GameTag::INVOKE_COUNTER, val + 1);
 }
 
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)

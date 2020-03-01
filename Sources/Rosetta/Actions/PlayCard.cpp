@@ -5,10 +5,12 @@
 
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone::Generic
 {
@@ -76,17 +78,26 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Pass to sub-logic
     switch (source->card->GetCardType())
     {
-        case CardType::MINION: {
+        case CardType::HERO:
+        {
+            const auto hero = dynamic_cast<Hero*>(source);
+            PlayHero(player, hero, target, chooseOne);
+            break;
+        }
+        case CardType::MINION:
+        {
             const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos, chooseOne);
             break;
         }
-        case CardType::SPELL: {
+        case CardType::SPELL:
+        {
             const auto spell = dynamic_cast<Spell*>(source);
             PlaySpell(player, spell, target, chooseOne);
             break;
         }
-        case CardType::WEAPON: {
+        case CardType::WEAPON:
+        {
             const auto weapon = dynamic_cast<Weapon*>(source);
             PlayWeapon(player, weapon, target);
             break;
@@ -101,6 +112,45 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     {
         player->SetComboActive(true);
     }
+}
+
+void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
+{
+    Hero* oldHero = player->GetHero();
+
+    hero->SetZoneType(ZoneType::PLAY);
+    hero->SetHealth(oldHero->GetMaxHealth());
+    hero->SetDamage(oldHero->GetDamage());
+    hero->SetArmor(oldHero->GetArmor() + hero->card->gameTags[GameTag::ARMOR]);
+    hero->SetExhausted(oldHero->IsExhausted());
+
+    player->GetSetasideZone()->Add(oldHero);
+    hero->weapon = oldHero->weapon;
+    player->GetSetasideZone()->Add(oldHero->heroPower);
+    hero->heroPower = dynamic_cast<HeroPower*>(Entity::GetFromCard(
+        player, Cards::FindCardByDbfID(hero->GetGameTag(GameTag::HERO_POWER))));
+    if (auto trigger = hero->heroPower->card->power.GetTrigger(); trigger)
+    {
+        trigger->Activate(hero->heroPower);
+    }
+
+    player->SetHero(hero);
+    if (auto trigger = hero->card->power.GetTrigger(); trigger)
+    {
+        trigger->Activate(hero);
+    }
+
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnPlayCardTrigger(hero);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
+
+    player->game->taskQueue.StartEvent();
+    hero->ActivateTask(PowerType::POWER, target, chooseOne);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
 }
 
 void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,

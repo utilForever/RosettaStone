@@ -72,7 +72,14 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Playable* playable = Entity::GetFromCard(
             GetPlayer1(), &card, std::nullopt, GetPlayer1()->GetDeckZone());
         GetPlayer1()->GetDeckZone()->Add(playable);
+
+        //! Set Galakrond hero card
+        if (card.IsGalakrond())
+        {
+            GetPlayer1()->galakrond = playable;
+        }
     }
+
     for (auto& card : m_gameConfig.player2Deck)
     {
         if (card.id.empty())
@@ -83,6 +90,12 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Playable* playable = Entity::GetFromCard(
             GetPlayer2(), &card, std::nullopt, GetPlayer2()->GetDeckZone());
         GetPlayer2()->GetDeckZone()->Add(playable);
+
+        //! Set Galakrond hero card
+        if (card.IsGalakrond())
+        {
+            GetPlayer2()->galakrond = playable;
+        }
     }
 
     // Fill cards to deck

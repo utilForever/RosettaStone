@@ -84,9 +84,13 @@ class Player : public Entity
     //! \return Player's setaside zone.
     SetasideZone* GetSetasideZone() const;
 
-    //! Returns player's hero.
-    //! \return Player's hero.
+    //! Returns the hero of the player.
+    //! \return The hero of the player.
     Hero* GetHero() const;
+
+    //! Sets the hero of the player.
+    //! \param hero The hero of the player.
+    void SetHero(Hero* hero);
 
     //! Returns player's hero power.
     //! \return Player's hero power.
@@ -197,6 +201,16 @@ class Player : public Entity
     //! \param value The number of friendly minions that died this turn.
     void SetNumFriendlyMinionsDiedThisTurn(int value);
 
+    //! Upgrades the Galakrond hero card.
+    void UpgradeGalakrond();
+
+    //! Returns the value of invoke.
+    //! \return The value of invoke.
+    int GetInvoke() const;
+
+    //! Increases the value of invoke.
+    void IncreaseInvoke();
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
@@ -210,6 +224,7 @@ class Player : public Entity
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
 
+    Playable* galakrond = nullptr;
     Player* opponent = nullptr;
 
     PlayerAuraEffects playerAuraEffects;

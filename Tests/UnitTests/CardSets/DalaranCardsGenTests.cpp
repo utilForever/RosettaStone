@@ -274,7 +274,7 @@ TEST_CASE("[Druid : Minion] - DAL_355 : Lifeweaver")
 // GameTag:
 // - DEATHRATTLE = 1
 // --------------------------------------------------------
-TEST_CASE("[Druid : Spell] - DAL_604 : Ursatron")
+TEST_CASE("[Hunter : Minion] - DAL_604 : Ursatron")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -465,7 +465,7 @@ TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
 // RefTag:
 // - FREEZE = 1
 // --------------------------------------------------------
-TEST_CASE("[Mage : Minion] - DAL_577 : Ray of Frost")
+TEST_CASE("[Mage : Spell] - DAL_577 : Ray of Frost")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;

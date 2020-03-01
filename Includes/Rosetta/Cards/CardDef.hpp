@@ -38,10 +38,13 @@ class CardDef
     //! \param _chooseCardIDs The choose card IDs data.
     explicit CardDef(Power _power, std::vector<std::string> _chooseCardIDs);
 
-    //! Constructs card def with given \p _power and \p _questProgressTotal.
+    //! Constructs card def with given \p _power, \p _questProgressTotal
+    //! and \p _heroPowerDbfID.
     //! \param _power The power data.
     //! \param _questProgressTotal The quest progress total data.
-    explicit CardDef(Power _power, int _questProgressTotal);
+    //! \param _heroPowerDbfID The hero power defID data.
+    explicit CardDef(Power _power, int _questProgressTotal,
+                     int _heroPowerDbfID);
 
     //! Constructs card def with given \p _power, \p _playReqs and
     //! \p _chooseCardIDs.
@@ -66,6 +69,7 @@ class CardDef
     std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
     int questProgressTotal = 0;
+    int heroPowerDbfID = 0;
 };
 }  // namespace RosettaStone
 

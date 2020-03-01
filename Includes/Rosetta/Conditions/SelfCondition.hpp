@@ -81,8 +81,8 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRace(Race race);
 
-    //! SelfCondition wrapper for checking there is the entity with \p race in
-    //! field zone.
+    //! SelfCondition wrapper for checking there is the entity
+    //! with \p race in field zone.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
@@ -91,6 +91,12 @@ class SelfCondition
     //! in the owner's secret zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingSecret();
+
+    //! SelfCondition wrapper for checking the player has entity
+    //! with \p race in hand zone.
+    //! \param race The race for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHoldingRace(Race race);
 
     //! SelfCondition wrapper for checking the entity is minion.
     //! \return Generated SelfCondition for intended purpose.
@@ -107,6 +113,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the entity is frozen.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
+
+    //! SelfCondition wrapper for checking the entity is rush.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsRush();
 
     //! SelfCondition wrapper for checking the entity has not stealth.
     //! \return Generated SelfCondition for intended purpose.

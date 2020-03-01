@@ -79,6 +79,10 @@ class Cards
     //! \return A list of all wild cards.
     static const std::vector<Card*>& GetAllWildCards();
 
+    //! Returns a list of Lackey cards.
+    //! \return A list of Lackey cards.
+    static std::vector<Card*> GetLackeys();
+
     //! Returns a card that matches \p id.
     //! \param id The ID of the card.
     //! \return A card that matches \p id.
@@ -171,6 +175,7 @@ class Cards
     static std::array<std::vector<Card*>, NUM_PLAYER_CLASS> m_wildCards;
     static std::vector<Card*> m_allStandardCards;
     static std::vector<Card*> m_allWildCards;
+    static std::vector<Card*> m_lackeys;
 };
 }  // namespace RosettaStone
 

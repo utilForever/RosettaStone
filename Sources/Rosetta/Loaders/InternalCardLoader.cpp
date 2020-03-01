@@ -22,6 +22,7 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
         card->entourages = cardDef.entourages;
         card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] =
             cardDef.questProgressTotal;
+        card->gameTags[GameTag::HERO_POWER] = cardDef.heroPowerDbfID;
     }
 }
 }  // namespace RosettaStone

@@ -22,6 +22,14 @@ namespace RosettaStone::Generic
 void PlayCard(Player* player, Playable* source, Character* target = nullptr,
               int fieldPos = -1, int chooseOne = 0);
 
+//! Plays a hero card from player's hand.
+//! \param player The player to play hero card.
+//! \param hero A pointer to hero card to play.
+//! \param target A target of the character to receive power.
+//! \param chooseOne The index of chosen card from two cards.
+void PlayHero(Player* player, Hero* hero, Character* target = nullptr,
+              int chooseOne = 0);
+
 //! Plays a minion card from player's hand.
 //! \param player The player to play minion card.
 //! \param minion A pointer to minion card to play.

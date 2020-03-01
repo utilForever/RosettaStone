@@ -720,10 +720,10 @@ ULDUM | ULD_728 | Subdue |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-DRAGONS | DRG_006 | Corrosive Breath |  
-DRAGONS | DRG_007 | Stormhammer |  
-DRAGONS | DRG_008 | Righteous Cause |  
-DRAGONS | DRG_010 | Diving Gryphon |  
+DRAGONS | DRG_006 | Corrosive Breath | O
+DRAGONS | DRG_007 | Stormhammer | O
+DRAGONS | DRG_008 | Righteous Cause | O
+DRAGONS | DRG_010 | Diving Gryphon | O
 DRAGONS | DRG_019 | Scion of Ruin |  
 DRAGONS | DRG_020 | EVIL Quartermaster |  
 DRAGONS | DRG_021 | Ritual Chopper |  
@@ -751,7 +751,7 @@ DRAGONS | DRG_057 | Hot Air Balloon |
 DRAGONS | DRG_058 | Wing Commander |  
 DRAGONS | DRG_059 | Goboglide Tech |  
 DRAGONS | DRG_060 | Fire Hawk |  
-DRAGONS | DRG_061 | Gyrocopter |  
+DRAGONS | DRG_061 | Gyrocopter | O
 DRAGONS | DRG_062 | Wyrmrest Purifier |  
 DRAGONS | DRG_063 | Dragonmaw Poacher |  
 DRAGONS | DRG_064 | Zul'Drak Ritualist |  
@@ -831,7 +831,7 @@ DRAGONS | DRG_270 | Malygos, Aspect of Magic |
 DRAGONS | DRG_300 | Fate Weaver |  
 DRAGONS | DRG_301 | Whispers of EVIL |  
 DRAGONS | DRG_302 | Grave Rune |  
-DRAGONS | DRG_303 | Disciple of Galakrond |  
+DRAGONS | DRG_303 | Disciple of Galakrond | O
 DRAGONS | DRG_304 | Chronobreaker |  
 DRAGONS | DRG_306 | Envoy of Lazul |  
 DRAGONS | DRG_307 | Breath of the Infinite |  
@@ -855,13 +855,13 @@ DRAGONS | DRG_401 | Grizzled Wizard |
 DRAGONS | DRG_402 | Sathrovarr |  
 DRAGONS | DRG_403 | Blowtorch Saboteur |  
 DRAGONS | DRG_500 | Molten Breath |  
-DRAGONS | DRG_600 | Galakrond, the Wretched |  
-DRAGONS | DRG_610 | Galakrond, the Nightmare |  
-DRAGONS | DRG_620 | Galakrond, the Tempest |  
-DRAGONS | DRG_650 | Galakrond, the Unbreakable |  
-DRAGONS | DRG_660 | Galakrond, the Unspeakable |  
+DRAGONS | DRG_600 | Galakrond, the Wretched | O
+DRAGONS | DRG_610 | Galakrond, the Nightmare | O
+DRAGONS | DRG_620 | Galakrond, the Tempest | O
+DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
+DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 2% (3 of 140 Cards)
+- Progress: 10% (14 of 140 Cards)
 
 ## Galakrond's Awakening
 

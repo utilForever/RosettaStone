@@ -141,6 +141,12 @@ bool Character::HasDivineShield() const
 
 bool Character::CanAttack() const
 {
+    //! If the current player is opponent, returns false
+    if (player != game->GetCurrentPlayer())
+    {
+        return false;
+    }
+
     // If the value of attack is 0, returns false
     if (GetAttack() == 0)
     {
