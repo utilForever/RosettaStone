@@ -7,10 +7,11 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
@@ -71,7 +72,14 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Playable* playable = Entity::GetFromCard(
             GetPlayer1(), &card, std::nullopt, GetPlayer1()->GetDeckZone());
         GetPlayer1()->GetDeckZone()->Add(playable);
+
+        //! Set Galakrond hero card
+        if (card.IsGalakrond())
+        {
+            GetPlayer1()->galakrond = playable;
+        }
     }
+
     for (auto& card : m_gameConfig.player2Deck)
     {
         if (card.id.empty())
@@ -82,6 +90,12 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Playable* playable = Entity::GetFromCard(
             GetPlayer2(), &card, std::nullopt, GetPlayer2()->GetDeckZone());
         GetPlayer2()->GetDeckZone()->Add(playable);
+
+        //! Set Galakrond hero card
+        if (card.IsGalakrond())
+        {
+            GetPlayer2()->galakrond = playable;
+        }
     }
 
     // Fill cards to deck
@@ -119,6 +133,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
 void Game::Initialize()
 {
+    rushMinions.reserve(MAX_FIELD_SIZE);
+
     // Set game to player
     for (auto& p : m_players)
     {
@@ -143,14 +159,15 @@ void Game::Initialize()
 
 void Game::RefCopyFrom(const Game& rhs)
 {
+    if (this == &rhs)
+    {
+        return;
+    }
+
     state = rhs.state;
 
     step = rhs.step;
     nextStep = rhs.nextStep;
-
-    taskQueue = rhs.taskQueue;
-    taskStack = rhs.taskStack;
-    triggerManager = rhs.triggerManager;
 
     auras = rhs.auras;
     triggers = rhs.triggers;
@@ -479,6 +496,16 @@ void Game::MainEnd()
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
 
+    if (!rushMinions.empty())
+    {
+        for (auto& minion : rushMinions)
+        {
+            entityList[minion]->SetGameTag(GameTag::ATTACKABLE_BY_RUSH, 0);
+        }
+
+        rushMinions.clear();
+    }
+
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
     if (m_gameConfig.autoRun)
@@ -492,7 +519,7 @@ void Game::MainCleanUp()
     const auto curPlayer = GetCurrentPlayer();
 
     // Remove one-turn effects
-    if (const auto enchantments = oneTurnEffectEchantments;
+    if (const auto enchantments = oneTurnEffectEnchantments;
         !enchantments.empty())
     {
         for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
@@ -601,17 +628,14 @@ void Game::ProcessDestroyAndUpdateAura()
     UpdateAura();
 
     // Process summoned minions
-    if (triggerManager.summonTrigger != nullptr)
+    taskQueue.StartEvent();
+    for (auto& minion : summonedMinions)
     {
-        taskQueue.StartEvent();
-        for (auto& minion : summonedMinions)
-        {
-            triggerManager.OnSummonTrigger(minion);
-        }
-        summonedMinions.clear();
-        ProcessTasks();
-        taskQueue.EndEvent();
+        triggerManager.OnSummonTrigger(minion);
     }
+    summonedMinions.clear();
+    ProcessTasks();
+    taskQueue.EndEvent();
 
     taskQueue.StartEvent();
     do
@@ -662,6 +686,12 @@ void Game::ProcessGraveyard()
             minion->player->GetGraveyardZone()->Add(minion);
             minion->player->SetNumFriendlyMinionsDiedThisTurn(
                 minion->player->GetNumFriendlyMinionsDiedThisTurn() + 1);
+
+            // Summon minion if it has reborn
+            if (minion->HasReborn())
+            {
+                Generic::SummonReborn(minion);
+            }
         }
 
         deadMinions.clear();
@@ -684,16 +714,12 @@ void Game::UpdateAura()
     }
 }
 
-std::tuple<PlayState, PlayState> Game::Process(Player* player, ITask* task)
+std::tuple<PlayState, PlayState> Game::Process(Player* player,
+                                               std::unique_ptr<ITask> task)
 {
     // Process task
     task->SetPlayer(player);
-    Task::Run(task);
-
-    if (task->IsFreeable())
-    {
-        delete task;
-    }
+    Task::Run(std::move(task));
 
     taskStack.Reset();
 
@@ -722,50 +748,42 @@ void Game::ProcessUntil(Step untilStep)
 
 std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
 {
-    ITask* task;
+    std::unique_ptr<ITask> task;
     const auto mainOp = params.ChooseMainOp();
 
     switch (mainOp)
     {
         case MainOpType::PLAY_CARD:
         {
-            Playable* card = params.ChooseHandCard();
+            Playable* playCard = params.ChooseHandCard();
             Character* target =
-                params.GetSpecifiedTarget(card->GetValidPlayTargets());
+                params.GetSpecifiedTarget(playCard->GetValidPlayTargets());
             const int totalMinions =
                 GetCurrentPlayer()->GetFieldZone()->GetCount();
             const int fieldPos = params.GetMinionPutLocation(totalMinions);
             int chooseOne = 0;
-            if (card->HasChooseOne())
+
+            if (playCard->HasChooseOne())
             {
-                const std::size_t card1ID =
-                    std::hash<std::string>{}(card->chooseOneCard[0]->card->id);
-                const std::size_t card2ID =
-                    std::hash<std::string>{}(card->chooseOneCard[1]->card->id);
-
                 std::vector<std::size_t> cardIDs;
-                cardIDs.emplace_back(card1ID);
-                cardIDs.emplace_back(card2ID);
+                for (std::size_t i = 1;
+                     i <= playCard->card->chooseCardIDs.size(); ++i)
+                {
+                    cardIDs.emplace_back(i);
+                }
 
-                const std::size_t chooseCardID = params.ChooseOne(cardIDs);
-                if (chooseCardID == card1ID)
-                {
-                    chooseOne = 1;
-                }
-                else
-                {
-                    chooseOne = 2;
-                }
+                chooseOne = params.ChooseOne(cardIDs);
             }
-            task = new PlayCardTask(card, target, fieldPos, chooseOne);
+            task = std::make_unique<PlayCardTask>(playCard, target, fieldPos,
+                                                  chooseOne);
             break;
         }
         case MainOpType::ATTACK:
         {
             Character* source = params.GetAttacker();
             Character* target = params.GetSpecifiedTarget(
-                source->GetValidCombatTargets(GetCurrentPlayer()->opponent));
-            task = new AttackTask(source, target);
+                source->GetValidAttackTargets(GetCurrentPlayer()->opponent));
+            task = std::make_unique<AttackTask>(source, target);
             break;
         }
         case MainOpType::USE_HERO_POWER:
@@ -773,12 +791,12 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
             Hero* hero = GetCurrentPlayer()->GetHero();
             Character* target = params.GetSpecifiedTarget(
                 hero->heroPower->GetValidPlayTargets());
-            task = new HeroPowerTask(target);
+            task = std::make_unique<HeroPowerTask>(target);
             break;
         }
         case MainOpType::END_TURN:
         {
-            task = new EndTurnTask();
+            task = std::make_unique<EndTurnTask>();
             break;
         }
         default:
@@ -787,8 +805,7 @@ std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
         }
     }
 
-    task->EnableFreeable();
-    return Process(GetCurrentPlayer(), task);
+    return Process(GetCurrentPlayer(), std::move(task));
 }
 
 ReducedBoardView Game::CreateView()

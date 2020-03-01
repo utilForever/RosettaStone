@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
@@ -14,7 +14,7 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(MathNumberIndexTask, Run_Add)
+TEST_CASE("[MathNumberIndexTask] - Run_Add")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -35,11 +35,11 @@ TEST(MathNumberIndexTask, Run_Add)
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num[1], 3);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(game.taskStack.num[1], 3);
 }
 
-TEST(MathNumberIndexTask, Run_Sub)
+TEST_CASE("[MathNumberIndexTask] - Run_Sub")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -60,11 +60,11 @@ TEST(MathNumberIndexTask, Run_Sub)
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num[2], 2);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(game.taskStack.num[2], 2);
 }
 
-TEST(MathNumberIndexTask, Run_Mul)
+TEST_CASE("[MathNumberIndexTask] - Run_Mul")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -85,11 +85,11 @@ TEST(MathNumberIndexTask, Run_Mul)
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num[3], 8);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(game.taskStack.num[3], 8);
 }
 
-TEST(MathNumberIndexTask, Run_Div)
+TEST_CASE("[MathNumberIndexTask] - Run_Div")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -110,6 +110,6 @@ TEST(MathNumberIndexTask, Run_Div)
     task.SetPlayer(player1);
 
     TaskStatus result = task.Run();
-    EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(game.taskStack.num[4], 3);
+    CHECK_EQ(result, TaskStatus::COMPLETE);
+    CHECK_EQ(game.taskStack.num[4], 3);
 }

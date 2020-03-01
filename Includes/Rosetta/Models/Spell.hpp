@@ -41,9 +41,32 @@ class Spell : public Playable
     //! Deleted move assignment operator.
     Spell& operator=(Spell&&) noexcept = delete;
 
+    //! Gets the value of quest progress.
+    //! \return The value of quest progress.
+    int GetQuestProgress() const;
+
+    //! Gets the value of quest progress total.
+    //! \return The value of quest progress total.
+    int GetQuestProgressTotal() const;
+
+    //! Increases the value of quest progress.
+    void IncreaseQuestProgress();
+
     //! Returns whether spell is secret.
     //! \return Whether spell is secret.
     bool IsSecret() const;
+
+    //! Returns whether spell is quest.
+    //! \return Whether spell is quest.
+    bool IsQuest() const;
+
+    //! Returns whether spell is sidequest.
+    //! \return Whether spell is sidequest.
+    bool IsSidequest() const;
+
+    //! Returns whether spell is twinspell.
+    //! \return Whether spell is twinspell.
+    bool IsTwinspell() const;
 
     //! Returns whether spell is countered.
     //! \return Whether spell is countered.

@@ -99,7 +99,7 @@ TaskStatus result = task.Run();
 The last thing you need to do is test task you've added. We propose [DestroyTaskTests](../Tests/UnitTests/Tasks/SimpleTasks/DestroyTaskTests.cpp). This is simplest task to learn how to test.
 
 ```C++
-TEST(DestroyTask, Run)
+TEST_CASE("[DestroyTask] - Run")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;

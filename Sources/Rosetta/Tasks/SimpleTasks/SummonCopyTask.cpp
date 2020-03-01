@@ -70,7 +70,8 @@ TaskStatus SummonCopyTask::Impl(Player* player)
             const auto minion = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, playables[i]->card));
 
-            Generic::Summon(minion, SummonTask::GetPosition(m_source, m_side),
+            Generic::Summon(minion,
+                            SummonTask::GetPosition(m_source, m_side, m_target),
                             m_source);
 
             if (m_addToStack)
@@ -95,7 +96,8 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 minion->SetGameTag(GameTag::CONTROLLER, player->playerID);
             }
 
-            const int zonePos = SummonTask::GetPosition(m_source, m_side);
+            const int zonePos =
+                SummonTask::GetPosition(m_source, m_side, m_target);
 
             const auto copy = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, minion->card, minion->GetGameTags(),
@@ -107,7 +109,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
             {
                 for (auto& enchantment : minion->appliedEnchantments)
                 {
-                    Enchantment* instance = Enchantment::GetInstance(
+                    auto instance = Enchantment::GetInstance(
                         player, enchantment->card, copy);
 
                     if (const auto value1 = enchantment->GetGameTag(
@@ -128,7 +130,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
                     if (enchantment->IsOneTurnActive())
                     {
-                        instance->game->oneTurnEffectEchantments.emplace_back(
+                        instance->game->oneTurnEffectEnchantments.emplace_back(
                             instance);
                     }
                 }
@@ -142,7 +144,14 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
             if (m_addToStack)
             {
-                m_source->game->taskStack.playables.emplace_back(minion);
+                if (m_side == SummonSide::TARGET)
+                {
+                    m_source->game->taskStack.playables.emplace_back(copy);
+                }
+                else
+                {
+                    m_source->game->taskStack.playables.emplace_back(minion);
+                }
             }
         }
     }
@@ -150,8 +159,9 @@ TaskStatus SummonCopyTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* SummonCopyTask::CloneImpl()
+std::unique_ptr<ITask> SummonCopyTask::CloneImpl()
 {
-    return new SummonCopyTask(m_entityType, m_randomFlag, m_addToStack, m_side);
+    return std::make_unique<SummonCopyTask>(m_entityType, m_randomFlag,
+                                            m_addToStack, m_side);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
@@ -13,7 +13,7 @@
 
 using namespace RosettaStone;
 
-TEST(Board, RefCopyFrom)
+TEST_CASE("[Board] - RefCopyFrom")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -33,11 +33,11 @@ TEST(Board, RefCopyFrom)
     const auto board2 = new Board(game, opPlayer->playerType);
 
     board1->RefCopyFrom(*board2);
-    EXPECT_EQ(board1->GetViewType(), PlayerType::PLAYER2);
-    EXPECT_EQ(board1->GetCurrentPlayer()->playerType, PlayerType::PLAYER1);
+    CHECK_EQ(board1->GetViewType(), PlayerType::PLAYER2);
+    CHECK_EQ(board1->GetCurrentPlayer()->playerType, PlayerType::PLAYER1);
 }
 
-TEST(Board, CreateView)
+TEST_CASE("[Board] - CreateView")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -63,15 +63,15 @@ TEST(Board, CreateView)
     const Board board2(game, opPlayer->playerType);
 
     auto reducedBoard1 = board1.CreateView();
-    EXPECT_EQ(reducedBoard1.GetMyHero().attack, 2);
-    EXPECT_EQ(reducedBoard1.GetMyHero().armor, 3);
+    CHECK_EQ(reducedBoard1.GetMyHero().attack, 2);
+    CHECK_EQ(reducedBoard1.GetMyHero().armor, 3);
 
     auto reducedBoard2 = board2.CreateView();
-    EXPECT_EQ(reducedBoard2.GetMyHero().attack, 1);
-    EXPECT_EQ(reducedBoard2.GetMyHero().armor, 2);
+    CHECK_EQ(reducedBoard2.GetMyHero().attack, 1);
+    CHECK_EQ(reducedBoard2.GetMyHero().armor, 2);
 }
 
-TEST(Board, RevealHiddenInfoForSimulation)
+TEST_CASE("[Board] - RevealHiddenInfoForSimulation")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -88,6 +88,6 @@ TEST(Board, RevealHiddenInfoForSimulation)
     game.nextStep = Step::MAIN_ACTION;
 
     const Board board(game, game.GetCurrentPlayer()->playerType);
-    EXPECT_EQ(game.step, board.RevealHiddenInfoForSimulation().step);
-    EXPECT_EQ(game.nextStep, board.RevealHiddenInfoForSimulation().nextStep);
+    CHECK_EQ(game.step, board.RevealHiddenInfoForSimulation().step);
+    CHECK_EQ(game.nextStep, board.RevealHiddenInfoForSimulation().nextStep);
 }

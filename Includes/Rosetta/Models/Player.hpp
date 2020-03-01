@@ -13,6 +13,7 @@
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Hero.hpp>
 
+#include <memory>
 #include <string>
 
 namespace RosettaStone
@@ -83,9 +84,13 @@ class Player : public Entity
     //! \return Player's setaside zone.
     SetasideZone* GetSetasideZone() const;
 
-    //! Returns player's hero.
-    //! \return Player's hero.
+    //! Returns the hero of the player.
+    //! \return The hero of the player.
     Hero* GetHero() const;
+
+    //! Sets the hero of the player.
+    //! \param hero The hero of the player.
+    void SetHero(Hero* hero);
 
     //! Returns player's hero power.
     //! \return Player's hero power.
@@ -196,6 +201,16 @@ class Player : public Entity
     //! \param value The number of friendly minions that died this turn.
     void SetNumFriendlyMinionsDiedThisTurn(int value);
 
+    //! Upgrades the Galakrond hero card.
+    void UpgradeGalakrond();
+
+    //! Returns the value of invoke.
+    //! \return The value of invoke.
+    int GetInvoke() const;
+
+    //! Increases the value of invoke.
+    void IncreaseInvoke();
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
@@ -209,6 +224,7 @@ class Player : public Entity
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
 
+    Playable* galakrond = nullptr;
     Player* opponent = nullptr;
 
     PlayerAuraEffects playerAuraEffects;
@@ -217,12 +233,12 @@ class Player : public Entity
  private:
     Hero* m_hero = nullptr;
 
-    DeckZone* m_deckZone = nullptr;
-    FieldZone* m_fieldZone = nullptr;
-    GraveyardZone* m_graveyardZone = nullptr;
-    HandZone* m_handZone = nullptr;
-    SecretZone* m_secretZone = nullptr;
-    SetasideZone* m_setasideZone = nullptr;
+    std::unique_ptr<DeckZone> m_deckZone;
+    std::unique_ptr<FieldZone> m_fieldZone;
+    std::unique_ptr<GraveyardZone> m_graveyardZone;
+    std::unique_ptr<HandZone> m_handZone;
+    std::unique_ptr<SecretZone> m_secretZone;
+    std::unique_ptr<SetasideZone> m_setasideZone;
 
     std::map<GameTag, int> m_gameTags;
 };

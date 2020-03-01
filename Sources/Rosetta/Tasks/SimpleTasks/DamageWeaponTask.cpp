@@ -33,8 +33,8 @@ TaskStatus DamageWeaponTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* DamageWeaponTask::CloneImpl()
+std::unique_ptr<ITask> DamageWeaponTask::CloneImpl()
 {
-    return new DamageWeaponTask(m_opponent, m_amount);
+    return std::make_unique<DamageWeaponTask>(m_opponent, m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -15,6 +15,10 @@
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 
+#include <lyra/cli_parser.hpp>
+#include <lyra/help.hpp>
+#include <lyra/opt.hpp>
+
 #include <cctype>
 #if defined(ROSETTASTONE_WINDOWS)
 #include <filesystem>
@@ -538,42 +542,42 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
 
     // Parsing
     auto parser =
-        clara::Help(showHelp) |
-        clara::Opt(strName, "name")["-n"]["--name"](
+        lyra::cli_parser() | lyra::help(showHelp) |
+        lyra::opt(strName, "name")["-n"]["--name"](
             "the name of a card"
             "(You can enclose the name with \"\", regardless of whether it "
             "contains spaces.)") |
-        clara::Opt(strRarity, "rarity")["-r"]["--rarity"](
+        lyra::opt(strRarity, "rarity")["-r"]["--rarity"](
             "a rough measure of the quality and scarcity of a card") |
-        clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"](
+        lyra::opt(strPlayerClass, "playerClass")["-c"]["--class"](
             "the primary determinant of a hero's powers and abilities") |
-        clara::Opt(strCardType, "cardType")["-t"]["--type"](
+        lyra::opt(strCardType, "cardType")["-t"]["--type"](
             "spell cards, weapon cards, minion cards and hero cards") |
-        clara::Opt(strRace, "race")["-e"]["--race"](
+        lyra::opt(strRace, "race")["-e"]["--race"](
             "does not directly affect the behavior of the minion, but allows "
             "it to be affected by certain type-specific effects") |
-        clara::Opt(strCost, "cost")["-s"]["--cost"](
+        lyra::opt(strCost, "cost")["-s"]["--cost"](
             "determines how much mana is required to play that card from the "
             "hand or to use that hero power"
             "(You can search for an exact value such as 3 or a range of values "
             "like 3-4.)") |
-        clara::Opt(strAttack, "attack")["-a"]["--attack"](
+        lyra::opt(strAttack, "attack")["-a"]["--attack"](
             "the primary determinant of a hero's powers and abilities"
             "(You can search for an exact value such as 3 or a range of values "
             "like 3-4.)") |
-        clara::Opt(strHealth, "health")["-l"]["--health"](
+        lyra::opt(strHealth, "health")["-l"]["--health"](
             "an attribute found on heroes and minions, reflecting the "
             "remaining survivability of the character"
             "(You can search for an exact value such as 3 or a range of values "
             "like 3-4.)") |
-        clara::Opt(strGameTag, "mechanic")["-m"]["--mechanic"](
+        lyra::opt(strGameTag, "mechanic")["-m"]["--mechanic"](
             "describes the total effect of playing that card or special "
             "effects or powers additional to the basic functions of the card") |
-        clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
+        lyra::opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
 
     auto result =
-        parser.parse(clara::Args(static_cast<int>(convertedSplitCmds.size()),
-                                 convertedSplitCmds.data()));
+        parser.parse(lyra::args(static_cast<int>(convertedSplitCmds.size()),
+                                convertedSplitCmds.data()));
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << '\n';
@@ -582,7 +586,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
 
     if (showHelp)
     {
-        std::cout << ToString(parser) << '\n';
+        std::cout << parser << '\n';
         isValid = false;
     }
 

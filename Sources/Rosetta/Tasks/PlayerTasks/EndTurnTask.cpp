@@ -4,7 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Managers/GameManager.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 
@@ -20,8 +20,8 @@ TaskStatus EndTurnTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* EndTurnTask::CloneImpl()
+std::unique_ptr<ITask> EndTurnTask::CloneImpl()
 {
-    return new EndTurnTask();
+    return std::make_unique<EndTurnTask>();
 }
 }  // namespace RosettaStone::PlayerTasks

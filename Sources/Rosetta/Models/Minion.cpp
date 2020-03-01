@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
@@ -30,6 +31,13 @@ void Minion::SetLastBoardPos(int value)
     SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, value);
 }
 
+bool Minion::IsLackey() const
+{
+    auto lackeys = Cards::GetLackeys();
+
+    return std::find(lackeys.begin(), lackeys.end(), card) != lackeys.end();
+}
+
 bool Minion::IsUntouchable() const
 {
     return card->IsUntouchable();
@@ -38,6 +46,26 @@ bool Minion::IsUntouchable() const
 bool Minion::HasCharge() const
 {
     return static_cast<bool>(GetGameTag(GameTag::CHARGE));
+}
+
+bool Minion::IsRush() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::RUSH));
+}
+
+bool Minion::IsAttackableByRush() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::ATTACKABLE_BY_RUSH));
+}
+
+void Minion::SetAttackableByRush(bool attackable)
+{
+    SetGameTag(GameTag::ATTACKABLE_BY_RUSH, static_cast<int>(attackable));
+}
+
+bool Minion::HasReborn() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::REBORN));
 }
 
 void Minion::Silence()
@@ -57,6 +85,8 @@ void Minion::Silence()
     SetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS, 0);
     SetGameTag(GameTag::IMMUNE, 0);
     SetGameTag(GameTag::CANT_ATTACK, 0);
+    SetGameTag(GameTag::RUSH, 0);
+    SetGameTag(GameTag::REBORN, 0);
 
     const int spellPower = GetGameTag(GameTag::SPELLPOWER);
     if (spellPower > 0)

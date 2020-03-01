@@ -15,18 +15,19 @@ namespace RosettaStone
 {
 Enchant::Enchant(GameTag gameTag, EffectOperator effectOperator, int value)
 {
-    auto effect = new Effect(gameTag, effectOperator, value);
+    auto effect = std::make_shared<Effect>(gameTag, effectOperator, value);
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(IEffect* effect, bool _useScriptTag, bool _isOneTurnEffect)
+Enchant::Enchant(const std::shared_ptr<IEffect>& effect, bool _useScriptTag,
+                 bool _isOneTurnEffect)
     : useScriptTag(_useScriptTag), isOneTurnEffect(_isOneTurnEffect)
 {
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(std::vector<IEffect*> _effects, bool _useScriptTag,
-                 bool _isOneTurnEffect)
+Enchant::Enchant(std::vector<std::shared_ptr<IEffect>> _effects,
+                 bool _useScriptTag, bool _isOneTurnEffect)
     : effects(std::move(_effects)),
       useScriptTag(_useScriptTag),
       isOneTurnEffect(_isOneTurnEffect)

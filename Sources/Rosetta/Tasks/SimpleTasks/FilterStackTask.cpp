@@ -11,14 +11,15 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FilterStackTask::FilterStackTask(std::vector<SelfCondition*> selfConditions)
+FilterStackTask::FilterStackTask(
+    std::vector<std::shared_ptr<SelfCondition>> selfConditions)
     : m_selfConditions(std::move(selfConditions))
 {
     // Do nothing
 }
 
-FilterStackTask::FilterStackTask(EntityType type,
-                                 std::vector<RelaCondition*> relaConditions)
+FilterStackTask::FilterStackTask(
+    EntityType type, std::vector<std::shared_ptr<RelaCondition>> relaConditions)
     : ITask(type), m_relaConditions(std::move(relaConditions))
 {
     // Do nothing
@@ -82,16 +83,17 @@ TaskStatus FilterStackTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* FilterStackTask::CloneImpl()
+std::unique_ptr<ITask> FilterStackTask::CloneImpl()
 {
     if (!m_selfConditions.empty())
     {
-        return new FilterStackTask(m_selfConditions);
+        return std::make_unique<FilterStackTask>(m_selfConditions);
     }
 
     if (!m_relaConditions.empty())
     {
-        return new FilterStackTask(m_entityType, m_relaConditions);
+        return std::make_unique<FilterStackTask>(m_entityType,
+                                                 m_relaConditions);
     }
 
     return nullptr;

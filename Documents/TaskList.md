@@ -16,6 +16,7 @@
 * AddAuraEffectTask
 * AddCardTask
 * AddEnchantmentTask
+* AddLackeyTask
 * AddStackToTask
 * ArmorTask
 * ChanceTask
@@ -31,6 +32,7 @@
 * DamageWeaponTask
 * DestroyTask
 * DiscardTask
+* DiscoverTask
 * DrawNumberTask
 * DrawOpTask
 * DrawStackTask
@@ -48,12 +50,14 @@
 * HealTask
 * IncludeAdjacentTask
 * IncludeTask
+* InvokeTask
 * ManaCrystalTask
 * MathMultiplyTask
 * MathNumberIndexTask
 * MathSubtractTask
 * MoveToGraveyardTask
 * MoveToSetasideTask
+* QuestProgressTask
 * RandomCardTask
 * RandomEntourageTask
 * RandomMinionTask

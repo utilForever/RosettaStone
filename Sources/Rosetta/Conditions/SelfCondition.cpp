@@ -80,6 +80,13 @@ SelfCondition SelfCondition::IsOpFieldNotFull()
     });
 }
 
+SelfCondition SelfCondition::IsFieldNotEmpty()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->GetFieldZone()->IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsDamaged()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -142,6 +149,21 @@ SelfCondition SelfCondition::IsControllingSecret()
     });
 }
 
+SelfCondition SelfCondition::IsHoldingRace(Race race)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& minion : playable->player->GetHandZone()->GetAll())
+        {
+            if (minion->card->GetRace() == race)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsMinion()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -177,6 +199,51 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::IsRush()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->IsRush();
+    });
+}
+
+SelfCondition SelfCondition::HasNotStealth()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return !minion->HasStealth();
+    });
+}
+
+SelfCondition SelfCondition::HasReborn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->HasReborn();
+    });
+}
+
+SelfCondition SelfCondition::HasSpellPower()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->currentSpellPower > 0;
+    });
+}
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -266,7 +333,8 @@ SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
 SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        if (const auto eventData = playable->game->currentEventData; eventData)
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
         {
             return eventData->eventTarget->card->GetCardType() == cardType;
         }
@@ -297,6 +365,13 @@ SelfCondition SelfCondition::IsEnemyTurn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player != playable->game->GetCurrentPlayer();
+    });
+}
+
+SelfCondition SelfCondition::IsUnspentMana()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetRemainingMana();
     });
 }
 

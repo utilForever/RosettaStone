@@ -7,9 +7,12 @@ matrix:
       addons:
         apt:
           sources:
+            - deadsnakes
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
+            - python3.7-dev
+            - python3.7-venv
         sonarcloud:
           organization: "utilforever-github"
           token:
@@ -34,13 +37,6 @@ matrix:
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh
-    - name: Test Docker based on Ubuntu 18.10 LTS + gcc
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.cosmic cosmic
     - name: Test Docker based on Ubuntu 19.04 LTS + gcc
       os: linux
       dist: trusty
@@ -62,6 +58,13 @@ matrix:
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest
+    - name: Test Docker based on Ubuntu 20.04 LTS + gcc
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal focal
     - name: Test OS X 10.14 + Xcode 10.2 + clang
       os: osx
       osx_image: xcode10.2

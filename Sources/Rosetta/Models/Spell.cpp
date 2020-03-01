@@ -18,9 +18,40 @@ Spell::Spell(Player* player, Card* card, std::map<GameTag, int> tags, int id)
     // Do nothing
 }
 
+int Spell::GetQuestProgress() const
+{
+    return GetGameTag(GameTag::QUEST_PROGRESS);
+}
+
+int Spell::GetQuestProgressTotal() const
+{
+    return GetGameTag(GameTag::QUEST_PROGRESS_TOTAL);
+}
+
+void Spell::IncreaseQuestProgress()
+{
+    const int val = GetGameTag(GameTag::QUEST_PROGRESS);
+    SetGameTag(GameTag::QUEST_PROGRESS, val + 1);
+}
+
 bool Spell::IsSecret() const
 {
     return GetGameTag(GameTag::SECRET) == 1;
+}
+
+bool Spell::IsQuest() const
+{
+    return GetGameTag(GameTag::QUEST) == 1;
+}
+
+bool Spell::IsSidequest() const
+{
+    return GetGameTag(GameTag::SIDEQUEST) == 1;
+}
+
+bool Spell::IsTwinspell() const
+{
+    return GetGameTag(GameTag::TWINSPELL) == 1;
 }
 
 bool Spell::IsCountered() const
@@ -36,8 +67,13 @@ bool Spell::TargetingRequirements(Character* target) const
 
 bool Spell::IsPlayableByPlayer()
 {
-    if (IsSecret() && (player->GetSecretZone()->IsFull() ||
-                       player->GetSecretZone()->Exist(this)))
+    if ((IsSecret() || IsSidequest()) && (player->GetSecretZone()->IsFull() ||
+                                          player->GetSecretZone()->Exist(this)))
+    {
+        return false;
+    }
+
+    if (IsQuest() && player->GetSecretZone()->quest != nullptr)
     {
         return false;
     }

@@ -29,24 +29,6 @@ class Power;
 class Card
 {
  public:
-    //! Default constructor.
-    Card() = default;
-
-    //! Default destructor.
-    virtual ~Card() = default;
-
-    //! Default copy constructor.
-    Card(const Card& card) = default;
-
-    //! Default move constructor.
-    Card(Card&& card) = default;
-
-    //! Default copy assignment operator.
-    Card& operator=(const Card& card) = default;
-
-    //! Default move assignment operator.
-    Card& operator=(Card&& card) = default;
-
     //! Initializes card data.
     void Initialize();
 
@@ -82,6 +64,14 @@ class Card
     //! \param gameTag The game tag of card.
     //! \return true if this card has game tag, and false otherwise.
     bool HasGameTag(GameTag gameTag) const;
+
+    //! Returns the flag that indicates whether it is Lackey.
+    //! \return The flag that indicates whether it is Lackey.
+    bool IsLackey() const;
+
+    //! Returns the flag that indicates whether it is Galakrond.
+    //! \return The flag that indicates whether it is Galakrond.
+    bool IsGalakrond() const;
 
     //! Returns the flag that indicates whether it is untouchable.
     //! \return The flag that indicates whether it is untouchable.
@@ -121,10 +111,10 @@ class Card
     std::vector<Character*> GetValidPlayTargets(Player* player);
 
     //! Prints brief card information.
-    virtual void ShowBriefInfo() const;
+    void ShowBriefInfo() const;
 
     //! Prints card information.
-    virtual void ShowInfo() const;
+    void ShowInfo() const;
 
     std::string id;
     int dbfID;
@@ -133,6 +123,7 @@ class Card
 
     std::map<GameTag, int> gameTags;
     std::map<PlayReq, int> playRequirements;
+    std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
 
     std::vector<TargetingPredicate> targetingPredicate;

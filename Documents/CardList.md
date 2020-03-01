@@ -3,9 +3,10 @@
 * [Basic](#basic)
 * [Classic](#classic)
 * [Hall of Fame](#hall-of-fame)
-* [Descent of Dragons](#descent-of-dragons)
-* [Saviors of Uldum](#saviors-of-uldum)
 * [Rise of Shadows](#rise-of-shadows)
+* [Saviors of Uldum](#saviors-of-uldum)
+* [Descent of Dragons](#descent-of-dragons)
+* [Galakrond's Awakening](#galakronds-awakening)
 
 ## Basic
 
@@ -430,14 +431,299 @@ HOF | PRO_001 | Elite Tauren Chieftain |
 
 - Progress: 54% (13 of 24 Cards)
 
+## Rise of Shadows
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+DALARAN | DAL_007 | Rafaam's Scheme |  
+DALARAN | DAL_008 | Dr. Boom's Scheme |  
+DALARAN | DAL_009 | Hagatha's Scheme |  
+DALARAN | DAL_010 | Togwaggle's Scheme |  
+DALARAN | DAL_011 | Lazul's Scheme |  
+DALARAN | DAL_030 | Shadowy Figure |  
+DALARAN | DAL_039 | Convincing Infiltrator |  
+DALARAN | DAL_040 | Hench-Clan Shadequill |  
+DALARAN | DAL_047 | Walking Fountain | O
+DALARAN | DAL_049 | Underbelly Angler |  
+DALARAN | DAL_052 | Muckmorpher |  
+DALARAN | DAL_058 | Hecklebot |  
+DALARAN | DAL_059 | Dimensional Ripper |  
+DALARAN | DAL_060 | Clockwork Goblin |  
+DALARAN | DAL_062 | Sweeping Strikes |  
+DALARAN | DAL_063 | Wrenchcalibur |  
+DALARAN | DAL_064 | Blastmaster Boom |  
+DALARAN | DAL_065 | Unsleeping Soul |  
+DALARAN | DAL_070 | The Boom Reaver |  
+DALARAN | DAL_071 | Mutate |  
+DALARAN | DAL_077 | Toxfin |  
+DALARAN | DAL_078 | Traveling Healer | O
+DALARAN | DAL_081 | Spellward Jeweler |  
+DALARAN | DAL_085 | Dalaran Crusader | O
+DALARAN | DAL_086 | Sunreaver Spy |  
+DALARAN | DAL_087 | Hench-Clan Hag |  
+DALARAN | DAL_088 | Safeguard |  
+DALARAN | DAL_089 | Spellbook Binder | O
+DALARAN | DAL_090 | Hench-Clan Sneak | O
+DALARAN | DAL_092 | Arcane Servant | O
+DALARAN | DAL_095 | Violet Spellsword |  
+DALARAN | DAL_096 | Violet Warden |  
+DALARAN | DAL_141 | Desperate Measures |  
+DALARAN | DAL_146 | Bronze Herald |  
+DALARAN | DAL_147 | Dragon Speaker |  
+DALARAN | DAL_163 | Messenger Raven | O
+DALARAN | DAL_173 | Darkest Hour |  
+DALARAN | DAL_177 | Conjurer's Calling |  
+DALARAN | DAL_182 | Magic Dart Frog |  
+DALARAN | DAL_185 | Aranasi Broodmother |  
+DALARAN | DAL_256 | The Forest's Aid |  
+DALARAN | DAL_350 | Crystal Power | O
+DALARAN | DAL_351 | Blessing of the Ancients | O
+DALARAN | DAL_352 | Crystalsong Portal |  
+DALARAN | DAL_354 | Acornbearer | O
+DALARAN | DAL_355 | Lifeweaver | O
+DALARAN | DAL_357 | Lucentbark |  
+DALARAN | DAL_366 | Unidentified Contract |  
+DALARAN | DAL_371 | Marked Shot |  
+DALARAN | DAL_372 | Arcane Fletcher |  
+DALARAN | DAL_373 | Rapid Fire |  
+DALARAN | DAL_376 | Oblivitron |  
+DALARAN | DAL_377 | Nine Lives |  
+DALARAN | DAL_378 | Unleash the Beast |  
+DALARAN | DAL_379 | Vereesa Windrunner |  
+DALARAN | DAL_400 | EVIL Cable Rat |  
+DALARAN | DAL_413 | EVIL Conscripter |  
+DALARAN | DAL_415 | EVIL Miscreant |  
+DALARAN | DAL_416 | Hench-Clan Burglar |  
+DALARAN | DAL_417 | Heistbaron Togwaggle |  
+DALARAN | DAL_422 | Arch-Villain Rafaam |  
+DALARAN | DAL_431 | Swampqueen Hagatha |  
+DALARAN | DAL_432 | Witch's Brew |  
+DALARAN | DAL_433 | Sludge Slurper |  
+DALARAN | DAL_434 | Arcane Watcher |  
+DALARAN | DAL_538 | Unseen Saboteur |  
+DALARAN | DAL_539 | Sunreaver Warmage |  
+DALARAN | DAL_544 | Potion Vendor |  
+DALARAN | DAL_546 | Barista Lynchen |  
+DALARAN | DAL_548 | Azerite Elemental |  
+DALARAN | DAL_550 | Underbelly Ooze |  
+DALARAN | DAL_551 | Proud Defender |  
+DALARAN | DAL_553 | Big Bad Archmage |  
+DALARAN | DAL_554 | Chef Nomi |  
+DALARAN | DAL_558 | Archmage Vargoth |  
+DALARAN | DAL_560 | Heroic Innkeeper |  
+DALARAN | DAL_561 | Jumbo Imp |  
+DALARAN | DAL_563 | Eager Underling |  
+DALARAN | DAL_565 | Portal Overfiend |  
+DALARAN | DAL_566 | Eccentric Scribe |  
+DALARAN | DAL_568 | Lightforged Blessing |  
+DALARAN | DAL_570 | Never Surrender! |  
+DALARAN | DAL_571 | Mysterious Blade |  
+DALARAN | DAL_573 | Commander Rhyssa |  
+DALARAN | DAL_575 | Khadgar |  
+DALARAN | DAL_576 | Kirin Tor Tricaster |  
+DALARAN | DAL_577 | Ray of Frost | O
+DALARAN | DAL_578 | Power of Creation |  
+DALARAN | DAL_581 | Nozari | O
+DALARAN | DAL_582 | Portal Keeper |  
+DALARAN | DAL_587 | Shimmerfly |  
+DALARAN | DAL_589 | Hunting Party |  
+DALARAN | DAL_592 | Batterhead |  
+DALARAN | DAL_602 | Plot Twist |  
+DALARAN | DAL_603 | Mana Cyclone |  
+DALARAN | DAL_604 | Ursatron | O
+DALARAN | DAL_605 | Impferno |  
+DALARAN | DAL_606 | EVIL Genius |  
+DALARAN | DAL_607 | Fel Lord Betrug |  
+DALARAN | DAL_608 | Magic Trick |  
+DALARAN | DAL_609 | Kalecgos |  
+DALARAN | DAL_710 | Soul of the Murloc |  
+DALARAN | DAL_714 | Underbelly Fence |  
+DALARAN | DAL_716 | Vendetta |  
+DALARAN | DAL_719 | Tak Nozwhisker |  
+DALARAN | DAL_720 | Waggle Pick |  
+DALARAN | DAL_721 | Catrina Muerte |  
+DALARAN | DAL_723 | Forbidden Words |  
+DALARAN | DAL_724 | Mass Resurrection |  
+DALARAN | DAL_726 | Scargil |  
+DALARAN | DAL_727 | Call to Adventure |  
+DALARAN | DAL_728 | Daring Escape |  
+DALARAN | DAL_729 | Madame Lazul |  
+DALARAN | DAL_731 | Duel! |  
+DALARAN | DAL_732 | Keeper Stalladris |  
+DALARAN | DAL_733 | Dreamway Guardians | O
+DALARAN | DAL_735 | Dalaran Librarian |  
+DALARAN | DAL_736 | Archivist Elysiana |  
+DALARAN | DAL_742 | Whirlwind Tempest |  
+DALARAN | DAL_743 | Hench-Clan Hogsteed |  
+DALARAN | DAL_744 | Faceless Rager |  
+DALARAN | DAL_747 | Flight Master |  
+DALARAN | DAL_748 | Mana Reservoir | O
+DALARAN | DAL_749 | Recurring Villain |  
+DALARAN | DAL_751 | Mad Summoner |  
+DALARAN | DAL_752 | Jepetto Joybuzz |  
+DALARAN | DAL_759 | Vicious Scraphound |  
+DALARAN | DAL_760 | Burly Shovelfist | O
+DALARAN | DAL_769 | Improve Morale |  
+DALARAN | DAL_770 | Omega Devastator |  
+DALARAN | DAL_771 | Soldier of Fortune |  
+DALARAN | DAL_773 | Magic Carpet |  
+DALARAN | DAL_774 | Exotic Mountseller |  
+DALARAN | DAL_775 | Tunnel Blaster |  
+DALARAN | DAL_799 | Crystal Stag |  
+DALARAN | DAL_800 | Zayle, Shadow Cloak |  
+
+- Progress: 12% (17 of 136 Cards)
+
+## Saviors of Uldum
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+ULDUM | ULD_003 | Zephrys the Great |  
+ULDUM | ULD_131 | Untapped Potential |  
+ULDUM | ULD_133 | Crystal Merchant | O
+ULDUM | ULD_134 | BEEEES!!! |  
+ULDUM | ULD_135 | Hidden Oasis |  
+ULDUM | ULD_136 | Worthy Expedition |  
+ULDUM | ULD_137 | Garden Gnome |  
+ULDUM | ULD_138 | Anubisath Defender |  
+ULDUM | ULD_139 | Elise the Enlightened |  
+ULDUM | ULD_140 | Supreme Archaeology |  
+ULDUM | ULD_143 | Pharaoh's Blessing |  
+ULDUM | ULD_145 | Brazen Zealot |  
+ULDUM | ULD_151 | Ramkahen Wildtamer |  
+ULDUM | ULD_152 | Pressure Plate | O
+ULDUM | ULD_154 | Hyena Alpha | O
+ULDUM | ULD_155 | Unseal the Vault | O
+ULDUM | ULD_156 | Dinotamer Brann |  
+ULDUM | ULD_157 | Questing Explorer |  
+ULDUM | ULD_158 | Sandstorm Elemental |  
+ULDUM | ULD_160 | Sinister Deal |  
+ULDUM | ULD_161 | Neferset Thrasher |  
+ULDUM | ULD_162 | EVIL Recruiter |  
+ULDUM | ULD_163 | Expired Merchant |  
+ULDUM | ULD_165 | Riftcleaver |  
+ULDUM | ULD_167 | Diseased Vulture |  
+ULDUM | ULD_168 | Dark Pharaoh Tekahn |  
+ULDUM | ULD_169 | Mogu Fleshshaper |  
+ULDUM | ULD_170 | Weaponized Wasp |  
+ULDUM | ULD_171 | Totemic Surge |  
+ULDUM | ULD_172 | Plague of Murlocs |  
+ULDUM | ULD_173 | Vessina |  
+ULDUM | ULD_174 | Serpent Egg | O
+ULDUM | ULD_177 | Octosari |  
+ULDUM | ULD_178 | Siamat |  
+ULDUM | ULD_179 | Phalanx Commander |  
+ULDUM | ULD_180 | Sunstruck Henchman |  
+ULDUM | ULD_181 | Earthquake |  
+ULDUM | ULD_182 | Spitting Camel | O
+ULDUM | ULD_183 | Anubisath Warbringer |  
+ULDUM | ULD_184 | Kobold Sandtrooper | O
+ULDUM | ULD_185 | Temple Berserker |  
+ULDUM | ULD_186 | Pharaoh Cat |  
+ULDUM | ULD_188 | Golden Scarab |  
+ULDUM | ULD_189 | Faceless Lurker |  
+ULDUM | ULD_190 | Pit Crocolisk |  
+ULDUM | ULD_191 | Beaming Sidekick | O
+ULDUM | ULD_193 | Living Monument | O
+ULDUM | ULD_194 | Wasteland Scorpid | O
+ULDUM | ULD_195 | Frightened Flunky |  
+ULDUM | ULD_196 | Neferset Ritualist |  
+ULDUM | ULD_197 | Quicksand Elemental |  
+ULDUM | ULD_198 | Conjured Mirage |  
+ULDUM | ULD_205 | Candletaker | O
+ULDUM | ULD_206 | Restless Mummy | O
+ULDUM | ULD_207 | Ancestral Guardian | O
+ULDUM | ULD_208 | Khartut Defender |  
+ULDUM | ULD_209 | Vulpera Scoundrel |  
+ULDUM | ULD_212 | Wild Bloodstinger |  
+ULDUM | ULD_214 | Generous Mummy |  
+ULDUM | ULD_215 | Wrapped Golem |  
+ULDUM | ULD_216 | Puzzle Box of Yogg-Saron |  
+ULDUM | ULD_217 | Micro Mummy |  
+ULDUM | ULD_229 | Mischief Maker |  
+ULDUM | ULD_231 | Whirlkick Master |  
+ULDUM | ULD_236 | Tortollan Pilgrim |  
+ULDUM | ULD_238 | Reno the Relicologist |  
+ULDUM | ULD_239 | Flame Ward |  
+ULDUM | ULD_240 | Arcane Flakmage |  
+ULDUM | ULD_250 | Infested Goblin |  
+ULDUM | ULD_253 | Tomb Warden |  
+ULDUM | ULD_256 | Into the Fray |  
+ULDUM | ULD_258 | Armagedillo |  
+ULDUM | ULD_262 | High Priest Amet |  
+ULDUM | ULD_265 | Embalming Ritual |  
+ULDUM | ULD_266 | Grandmummy |  
+ULDUM | ULD_268 | Psychopomp |  
+ULDUM | ULD_269 | Wretched Reclaimer |  
+ULDUM | ULD_270 | Sandhoof Waterbearer |  
+ULDUM | ULD_271 | Injured Tol'vir | O
+ULDUM | ULD_272 | Holy Ripple |  
+ULDUM | ULD_273 | Overflow | O
+ULDUM | ULD_274 | Wasteland Assassin | O
+ULDUM | ULD_275 | Bone Wraith | O
+ULDUM | ULD_276 | EVIL Totem |  
+ULDUM | ULD_280 | Sahket Sapper |  
+ULDUM | ULD_282 | Jar Dealer |  
+ULDUM | ULD_285 | Hooked Scimitar |  
+ULDUM | ULD_286 | Shadow of Death |  
+ULDUM | ULD_288 | Anka, the Buried |  
+ULDUM | ULD_289 | Fishflinger | O
+ULDUM | ULD_290 | History Buff |  
+ULDUM | ULD_291 | Corrupt the Waters |  
+ULDUM | ULD_292 | Oasis Surger |  
+ULDUM | ULD_293 | Cloud Prince |  
+ULDUM | ULD_304 | King Phaoris |  
+ULDUM | ULD_309 | Dwarven Archaeologist |  
+ULDUM | ULD_324 | Impbalming |  
+ULDUM | ULD_326 | Bazaar Burglary |  
+ULDUM | ULD_327 | Bazaar Mugger |  
+ULDUM | ULD_328 | Clever Disguise |  
+ULDUM | ULD_329 | Dune Sculptor |  
+ULDUM | ULD_410 | Scarlet Webweaver |  
+ULDUM | ULD_413 | Splitting Axe |  
+ULDUM | ULD_429 | Hunter's Pack |  
+ULDUM | ULD_430 | Desert Spear | O
+ULDUM | ULD_431 | Making Mummies | O
+ULDUM | ULD_433 | Raid the Sky Temple |  
+ULDUM | ULD_435 | Naga Sand Witch |  
+ULDUM | ULD_438 | Salhet's Pride |  
+ULDUM | ULD_439 | Sandwasp Queen |  
+ULDUM | ULD_450 | Vilefiend | O
+ULDUM | ULD_500 | Sir Finley of the Sands |  
+ULDUM | ULD_702 | Mortuary Machine |  
+ULDUM | ULD_703 | Desert Obelisk |  
+ULDUM | ULD_705 | Mogu Cultist |  
+ULDUM | ULD_706 | Blatant Decoy |  
+ULDUM | ULD_707 | Plague of Wrath |  
+ULDUM | ULD_708 | Livewire Lance |  
+ULDUM | ULD_709 | Armored Goon |  
+ULDUM | ULD_711 | Hack the System |  
+ULDUM | ULD_712 | Bug Collector | O
+ULDUM | ULD_713 | Swarm of Locusts | O
+ULDUM | ULD_714 | Penance |  
+ULDUM | ULD_715 | Plague of Madness |  
+ULDUM | ULD_716 | Tip the Scales |  
+ULDUM | ULD_717 | Plague of Flames |  
+ULDUM | ULD_718 | Plague of Death |  
+ULDUM | ULD_719 | Desert Hare |  
+ULDUM | ULD_720 | Bloodsworn Mercenary |  
+ULDUM | ULD_721 | Colossus of the Moon | O
+ULDUM | ULD_723 | Murmy | O
+ULDUM | ULD_724 | Activate the Obelisk |  
+ULDUM | ULD_726 | Ancient Mysteries |  
+ULDUM | ULD_727 | Body Wrapper |  
+ULDUM | ULD_728 | Subdue |  
+
+- Progress: 18% (25 of 135 Cards)
+
 ## Descent of Dragons
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-DRAGONS | DRG_006 | Corrosive Breath |  
-DRAGONS | DRG_007 | Stormhammer |  
-DRAGONS | DRG_008 | Righteous Cause |  
-DRAGONS | DRG_010 | Diving Gryphon |  
+DRAGONS | DRG_006 | Corrosive Breath | O
+DRAGONS | DRG_007 | Stormhammer | O
+DRAGONS | DRG_008 | Righteous Cause | O
+DRAGONS | DRG_010 | Diving Gryphon | O
 DRAGONS | DRG_019 | Scion of Ruin |  
 DRAGONS | DRG_020 | EVIL Quartermaster |  
 DRAGONS | DRG_021 | Ritual Chopper |  
@@ -465,11 +751,11 @@ DRAGONS | DRG_057 | Hot Air Balloon |
 DRAGONS | DRG_058 | Wing Commander |  
 DRAGONS | DRG_059 | Goboglide Tech |  
 DRAGONS | DRG_060 | Fire Hawk |  
-DRAGONS | DRG_061 | Gyrocopter |  
+DRAGONS | DRG_061 | Gyrocopter | O
 DRAGONS | DRG_062 | Wyrmrest Purifier |  
 DRAGONS | DRG_063 | Dragonmaw Poacher |  
 DRAGONS | DRG_064 | Zul'Drak Ritualist |  
-DRAGONS | DRG_065 | Hippogryph |  
+DRAGONS | DRG_065 | Hippogryph | O
 DRAGONS | DRG_066 | Evasive Chimaera |  
 DRAGONS | DRG_067 | Troll Batrider |  
 DRAGONS | DRG_068 | Living Dragonbreath |  
@@ -526,7 +812,7 @@ DRAGONS | DRG_231 | Lightforged Crusader |
 DRAGONS | DRG_232 | Lightforged Zealot |  
 DRAGONS | DRG_233 | Sand Breath |  
 DRAGONS | DRG_235 | Dragonrider Talritha |  
-DRAGONS | DRG_239 | Blazing Battlemage |  
+DRAGONS | DRG_239 | Blazing Battlemage | O
 DRAGONS | DRG_242 | Shield of Galakrond |  
 DRAGONS | DRG_246 | Time Rip |  
 DRAGONS | DRG_247 | Seal Fate |  
@@ -537,7 +823,7 @@ DRAGONS | DRG_251 | Clear the Way |
 DRAGONS | DRG_252 | Phase Stalker |  
 DRAGONS | DRG_253 | Dwarven Sharpshooter |  
 DRAGONS | DRG_254 | Primordial Explorer |  
-DRAGONS | DRG_255 | Toxic Reinforcements |  
+DRAGONS | DRG_255 | Toxic Reinforcements | O
 DRAGONS | DRG_256 | Dragonbane |  
 DRAGONS | DRG_257 | Frizz Kindleroost |  
 DRAGONS | DRG_258 | Sanctuary |  
@@ -545,7 +831,7 @@ DRAGONS | DRG_270 | Malygos, Aspect of Magic |
 DRAGONS | DRG_300 | Fate Weaver |  
 DRAGONS | DRG_301 | Whispers of EVIL |  
 DRAGONS | DRG_302 | Grave Rune |  
-DRAGONS | DRG_303 | Disciple of Galakrond |  
+DRAGONS | DRG_303 | Disciple of Galakrond | O
 DRAGONS | DRG_304 | Chronobreaker |  
 DRAGONS | DRG_306 | Envoy of Lazul |  
 DRAGONS | DRG_307 | Breath of the Infinite |  
@@ -569,294 +855,52 @@ DRAGONS | DRG_401 | Grizzled Wizard |
 DRAGONS | DRG_402 | Sathrovarr |  
 DRAGONS | DRG_403 | Blowtorch Saboteur |  
 DRAGONS | DRG_500 | Molten Breath |  
-DRAGONS | DRG_600 | Galakrond, the Wretched |  
-DRAGONS | DRG_610 | Galakrond, the Nightmare |  
-DRAGONS | DRG_620 | Galakrond, the Tempest |  
-DRAGONS | DRG_650 | Galakrond, the Unbreakable |  
-DRAGONS | DRG_660 | Galakrond, the Unspeakable |  
+DRAGONS | DRG_600 | Galakrond, the Wretched | O
+DRAGONS | DRG_610 | Galakrond, the Nightmare | O
+DRAGONS | DRG_620 | Galakrond, the Tempest | O
+DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
+DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 0% (0 of 140 Cards)
+- Progress: 10% (14 of 140 Cards)
 
-## Saviors of Uldum
-
-Set | ID | Name | Implemented
-:---: | :---: | :---: | :---:
-ULDUM | ULD_003 | Zephrys the Great |  
-ULDUM | ULD_131 | Untapped Potential |  
-ULDUM | ULD_133 | Crystal Merchant |  
-ULDUM | ULD_134 | BEEEES!!! |  
-ULDUM | ULD_135 | Hidden Oasis |  
-ULDUM | ULD_136 | Worthy Expedition |  
-ULDUM | ULD_137 | Garden Gnome |  
-ULDUM | ULD_138 | Anubisath Defender |  
-ULDUM | ULD_139 | Elise the Enlightened |  
-ULDUM | ULD_140 | Supreme Archaeology |  
-ULDUM | ULD_143 | Pharaoh's Blessing |  
-ULDUM | ULD_145 | Brazen Zealot |  
-ULDUM | ULD_151 | Ramkahen Wildtamer |  
-ULDUM | ULD_152 | Pressure Plate |  
-ULDUM | ULD_154 | Hyena Alpha |  
-ULDUM | ULD_155 | Unseal the Vault |  
-ULDUM | ULD_156 | Dinotamer Brann |  
-ULDUM | ULD_157 | Questing Explorer |  
-ULDUM | ULD_158 | Sandstorm Elemental |  
-ULDUM | ULD_160 | Sinister Deal |  
-ULDUM | ULD_161 | Neferset Thrasher |  
-ULDUM | ULD_162 | EVIL Recruiter |  
-ULDUM | ULD_163 | Expired Merchant |  
-ULDUM | ULD_165 | Riftcleaver |  
-ULDUM | ULD_167 | Diseased Vulture |  
-ULDUM | ULD_168 | Dark Pharaoh Tekahn |  
-ULDUM | ULD_169 | Mogu Fleshshaper |  
-ULDUM | ULD_170 | Weaponized Wasp |  
-ULDUM | ULD_171 | Totemic Surge |  
-ULDUM | ULD_172 | Plague of Murlocs |  
-ULDUM | ULD_173 | Vessina |  
-ULDUM | ULD_174 | Serpent Egg |  
-ULDUM | ULD_177 | Octosari |  
-ULDUM | ULD_178 | Siamat |  
-ULDUM | ULD_179 | Phalanx Commander |  
-ULDUM | ULD_180 | Sunstruck Henchman |  
-ULDUM | ULD_181 | Earthquake |  
-ULDUM | ULD_182 | Spitting Camel |  
-ULDUM | ULD_183 | Anubisath Warbringer |  
-ULDUM | ULD_184 | Kobold Sandtrooper |  
-ULDUM | ULD_185 | Temple Berserker |  
-ULDUM | ULD_186 | Pharaoh Cat |  
-ULDUM | ULD_188 | Golden Scarab |  
-ULDUM | ULD_189 | Faceless Lurker |  
-ULDUM | ULD_190 | Pit Crocolisk |  
-ULDUM | ULD_191 | Beaming Sidekick |  
-ULDUM | ULD_193 | Living Monument |  
-ULDUM | ULD_194 | Wasteland Scorpid |  
-ULDUM | ULD_195 | Frightened Flunky |  
-ULDUM | ULD_196 | Neferset Ritualist |  
-ULDUM | ULD_197 | Quicksand Elemental |  
-ULDUM | ULD_198 | Conjured Mirage |  
-ULDUM | ULD_205 | Candletaker |  
-ULDUM | ULD_206 | Restless Mummy |  
-ULDUM | ULD_207 | Ancestral Guardian |  
-ULDUM | ULD_208 | Khartut Defender |  
-ULDUM | ULD_209 | Vulpera Scoundrel |  
-ULDUM | ULD_212 | Wild Bloodstinger |  
-ULDUM | ULD_214 | Generous Mummy |  
-ULDUM | ULD_215 | Wrapped Golem |  
-ULDUM | ULD_216 | Puzzle Box of Yogg-Saron |  
-ULDUM | ULD_217 | Micro Mummy |  
-ULDUM | ULD_229 | Mischief Maker |  
-ULDUM | ULD_231 | Whirlkick Master |  
-ULDUM | ULD_236 | Tortollan Pilgrim |  
-ULDUM | ULD_238 | Reno the Relicologist |  
-ULDUM | ULD_239 | Flame Ward |  
-ULDUM | ULD_240 | Arcane Flakmage |  
-ULDUM | ULD_250 | Infested Goblin |  
-ULDUM | ULD_253 | Tomb Warden |  
-ULDUM | ULD_256 | Into the Fray |  
-ULDUM | ULD_258 | Armagedillo |  
-ULDUM | ULD_262 | High Priest Amet |  
-ULDUM | ULD_265 | Embalming Ritual |  
-ULDUM | ULD_266 | Grandmummy |  
-ULDUM | ULD_268 | Psychopomp |  
-ULDUM | ULD_269 | Wretched Reclaimer |  
-ULDUM | ULD_270 | Sandhoof Waterbearer |  
-ULDUM | ULD_271 | Injured Tol'vir |  
-ULDUM | ULD_272 | Holy Ripple |  
-ULDUM | ULD_273 | Overflow |  
-ULDUM | ULD_274 | Wasteland Assassin |  
-ULDUM | ULD_275 | Bone Wraith |  
-ULDUM | ULD_276 | EVIL Totem |  
-ULDUM | ULD_280 | Sahket Sapper |  
-ULDUM | ULD_282 | Jar Dealer |  
-ULDUM | ULD_285 | Hooked Scimitar |  
-ULDUM | ULD_286 | Shadow of Death |  
-ULDUM | ULD_288 | Anka, the Buried |  
-ULDUM | ULD_289 | Fishflinger |  
-ULDUM | ULD_290 | History Buff |  
-ULDUM | ULD_291 | Corrupt the Waters |  
-ULDUM | ULD_292 | Oasis Surger |  
-ULDUM | ULD_293 | Cloud Prince |  
-ULDUM | ULD_304 | King Phaoris |  
-ULDUM | ULD_309 | Dwarven Archaeologist |  
-ULDUM | ULD_324 | Impbalming |  
-ULDUM | ULD_326 | Bazaar Burglary |  
-ULDUM | ULD_327 | Bazaar Mugger |  
-ULDUM | ULD_328 | Clever Disguise |  
-ULDUM | ULD_329 | Dune Sculptor |  
-ULDUM | ULD_410 | Scarlet Webweaver |  
-ULDUM | ULD_413 | Splitting Axe |  
-ULDUM | ULD_429 | Hunter's Pack |  
-ULDUM | ULD_430 | Desert Spear |  
-ULDUM | ULD_431 | Making Mummies |  
-ULDUM | ULD_433 | Raid the Sky Temple |  
-ULDUM | ULD_435 | Naga Sand Witch |  
-ULDUM | ULD_438 | Salhet's Pride |  
-ULDUM | ULD_439 | Sandwasp Queen |  
-ULDUM | ULD_450 | Vilefiend |  
-ULDUM | ULD_500 | Sir Finley of the Sands |  
-ULDUM | ULD_702 | Mortuary Machine |  
-ULDUM | ULD_703 | Desert Obelisk |  
-ULDUM | ULD_705 | Mogu Cultist |  
-ULDUM | ULD_706 | Blatant Decoy |  
-ULDUM | ULD_707 | Plague of Wrath |  
-ULDUM | ULD_708 | Livewire Lance |  
-ULDUM | ULD_709 | Armored Goon |  
-ULDUM | ULD_711 | Hack the System |  
-ULDUM | ULD_712 | Bug Collector |  
-ULDUM | ULD_713 | Swarm of Locusts |  
-ULDUM | ULD_714 | Penance |  
-ULDUM | ULD_715 | Plague of Madness |  
-ULDUM | ULD_716 | Tip the Scales |  
-ULDUM | ULD_717 | Plague of Flames |  
-ULDUM | ULD_718 | Plague of Death |  
-ULDUM | ULD_719 | Desert Hare |  
-ULDUM | ULD_720 | Bloodsworn Mercenary |  
-ULDUM | ULD_721 | Colossus of the Moon |  
-ULDUM | ULD_723 | Murmy |  
-ULDUM | ULD_724 | Activate the Obelisk |  
-ULDUM | ULD_726 | Ancient Mysteries |  
-ULDUM | ULD_727 | Body Wrapper |  
-ULDUM | ULD_728 | Subdue |  
-
-- Progress: 0% (0 of 135 Cards)
-
-## Rise of Shadows
+## Galakrond's Awakening
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-DALARAN | DAL_007 | Rafaam's Scheme |  
-DALARAN | DAL_008 | Dr. Boom's Scheme |  
-DALARAN | DAL_009 | Hagatha's Scheme |  
-DALARAN | DAL_010 | Togwaggle's Scheme |  
-DALARAN | DAL_011 | Lazul's Scheme |  
-DALARAN | DAL_030 | Shadowy Figure |  
-DALARAN | DAL_039 | Convincing Infiltrator |  
-DALARAN | DAL_040 | Hench-Clan Shadequill |  
-DALARAN | DAL_047 | Walking Fountain |  
-DALARAN | DAL_049 | Underbelly Angler |  
-DALARAN | DAL_052 | Muckmorpher |  
-DALARAN | DAL_058 | Hecklebot |  
-DALARAN | DAL_059 | Dimensional Ripper |  
-DALARAN | DAL_060 | Clockwork Goblin |  
-DALARAN | DAL_062 | Sweeping Strikes |  
-DALARAN | DAL_063 | Wrenchcalibur |  
-DALARAN | DAL_064 | Blastmaster Boom |  
-DALARAN | DAL_065 | Unsleeping Soul |  
-DALARAN | DAL_070 | The Boom Reaver |  
-DALARAN | DAL_071 | Mutate |  
-DALARAN | DAL_077 | Toxfin |  
-DALARAN | DAL_078 | Traveling Healer |  
-DALARAN | DAL_081 | Spellward Jeweler |  
-DALARAN | DAL_085 | Dalaran Crusader |  
-DALARAN | DAL_086 | Sunreaver Spy |  
-DALARAN | DAL_087 | Hench-Clan Hag |  
-DALARAN | DAL_088 | Safeguard |  
-DALARAN | DAL_089 | Spellbook Binder |  
-DALARAN | DAL_090 | Hench-Clan Sneak |  
-DALARAN | DAL_092 | Arcane Servant |  
-DALARAN | DAL_095 | Violet Spellsword |  
-DALARAN | DAL_096 | Violet Warden |  
-DALARAN | DAL_141 | Desperate Measures |  
-DALARAN | DAL_146 | Bronze Herald |  
-DALARAN | DAL_147 | Dragon Speaker |  
-DALARAN | DAL_163 | Messenger Raven |  
-DALARAN | DAL_173 | Darkest Hour |  
-DALARAN | DAL_177 | Conjurer's Calling |  
-DALARAN | DAL_182 | Magic Dart Frog |  
-DALARAN | DAL_185 | Aranasi Broodmother |  
-DALARAN | DAL_256 | The Forest's Aid |  
-DALARAN | DAL_350 | Crystal Power |  
-DALARAN | DAL_351 | Blessing of the Ancients |  
-DALARAN | DAL_352 | Crystalsong Portal |  
-DALARAN | DAL_354 | Acornbearer |  
-DALARAN | DAL_355 | Lifeweaver |  
-DALARAN | DAL_357 | Lucentbark |  
-DALARAN | DAL_366 | Unidentified Contract |  
-DALARAN | DAL_371 | Marked Shot |  
-DALARAN | DAL_372 | Arcane Fletcher |  
-DALARAN | DAL_373 | Rapid Fire |  
-DALARAN | DAL_376 | Oblivitron |  
-DALARAN | DAL_377 | Nine Lives |  
-DALARAN | DAL_378 | Unleash the Beast |  
-DALARAN | DAL_379 | Vereesa Windrunner |  
-DALARAN | DAL_400 | EVIL Cable Rat |  
-DALARAN | DAL_413 | EVIL Conscripter |  
-DALARAN | DAL_415 | EVIL Miscreant |  
-DALARAN | DAL_416 | Hench-Clan Burglar |  
-DALARAN | DAL_417 | Heistbaron Togwaggle |  
-DALARAN | DAL_422 | Arch-Villain Rafaam |  
-DALARAN | DAL_431 | Swampqueen Hagatha |  
-DALARAN | DAL_432 | Witch's Brew |  
-DALARAN | DAL_433 | Sludge Slurper |  
-DALARAN | DAL_434 | Arcane Watcher |  
-DALARAN | DAL_538 | Unseen Saboteur |  
-DALARAN | DAL_539 | Sunreaver Warmage |  
-DALARAN | DAL_544 | Potion Vendor |  
-DALARAN | DAL_546 | Barista Lynchen |  
-DALARAN | DAL_548 | Azerite Elemental |  
-DALARAN | DAL_550 | Underbelly Ooze |  
-DALARAN | DAL_551 | Proud Defender |  
-DALARAN | DAL_553 | Big Bad Archmage |  
-DALARAN | DAL_554 | Chef Nomi |  
-DALARAN | DAL_558 | Archmage Vargoth |  
-DALARAN | DAL_560 | Heroic Innkeeper |  
-DALARAN | DAL_561 | Jumbo Imp |  
-DALARAN | DAL_563 | Eager Underling |  
-DALARAN | DAL_565 | Portal Overfiend |  
-DALARAN | DAL_566 | Eccentric Scribe |  
-DALARAN | DAL_568 | Lightforged Blessing |  
-DALARAN | DAL_570 | Never Surrender! |  
-DALARAN | DAL_571 | Mysterious Blade |  
-DALARAN | DAL_573 | Commander Rhyssa |  
-DALARAN | DAL_575 | Khadgar |  
-DALARAN | DAL_576 | Kirin Tor Tricaster |  
-DALARAN | DAL_577 | Ray of Frost |  
-DALARAN | DAL_578 | Power of Creation |  
-DALARAN | DAL_581 | Nozari |  
-DALARAN | DAL_582 | Portal Keeper |  
-DALARAN | DAL_587 | Shimmerfly |  
-DALARAN | DAL_589 | Hunting Party |  
-DALARAN | DAL_592 | Batterhead |  
-DALARAN | DAL_602 | Plot Twist |  
-DALARAN | DAL_603 | Mana Cyclone |  
-DALARAN | DAL_604 | Ursatron |  
-DALARAN | DAL_605 | Impferno |  
-DALARAN | DAL_606 | EVIL Genius |  
-DALARAN | DAL_607 | Fel Lord Betrug |  
-DALARAN | DAL_608 | Magic Trick |  
-DALARAN | DAL_609 | Kalecgos |  
-DALARAN | DAL_710 | Soul of the Murloc |  
-DALARAN | DAL_714 | Underbelly Fence |  
-DALARAN | DAL_716 | Vendetta |  
-DALARAN | DAL_719 | Tak Nozwhisker |  
-DALARAN | DAL_720 | Waggle Pick |  
-DALARAN | DAL_721 | Catrina Muerte |  
-DALARAN | DAL_723 | Forbidden Words |  
-DALARAN | DAL_724 | Mass Resurrection |  
-DALARAN | DAL_726 | Scargil |  
-DALARAN | DAL_727 | Call to Adventure |  
-DALARAN | DAL_728 | Daring Escape |  
-DALARAN | DAL_729 | Madame Lazul |  
-DALARAN | DAL_731 | Duel! |  
-DALARAN | DAL_732 | Keeper Stalladris |  
-DALARAN | DAL_733 | Dreamway Guardians |  
-DALARAN | DAL_735 | Dalaran Librarian |  
-DALARAN | DAL_736 | Archivist Elysiana |  
-DALARAN | DAL_742 | Whirlwind Tempest |  
-DALARAN | DAL_743 | Hench-Clan Hogsteed |  
-DALARAN | DAL_744 | Faceless Rager |  
-DALARAN | DAL_747 | Flight Master |  
-DALARAN | DAL_748 | Mana Reservoir |  
-DALARAN | DAL_749 | Recurring Villain |  
-DALARAN | DAL_751 | Mad Summoner |  
-DALARAN | DAL_752 | Jepetto Joybuzz |  
-DALARAN | DAL_759 | Vicious Scraphound |  
-DALARAN | DAL_760 | Burly Shovelfist |  
-DALARAN | DAL_769 | Improve Morale |  
-DALARAN | DAL_770 | Omega Devastator |  
-DALARAN | DAL_771 | Soldier of Fortune |  
-DALARAN | DAL_773 | Magic Carpet |  
-DALARAN | DAL_774 | Exotic Mountseller |  
-DALARAN | DAL_775 | Tunnel Blaster |  
-DALARAN | DAL_799 | Crystal Stag |  
+YEAR_OF_THE_DRAGON | YOD_001 | Rising Winds |  
+YEAR_OF_THE_DRAGON | YOD_003 | Winged Guardian |  
+YEAR_OF_THE_DRAGON | YOD_004 | Chopshop Copter |  
+YEAR_OF_THE_DRAGON | YOD_005 | Fresh Scent |  
+YEAR_OF_THE_DRAGON | YOD_006 | Escaped Manasaber |  
+YEAR_OF_THE_DRAGON | YOD_007 | Animated Avalanche |  
+YEAR_OF_THE_DRAGON | YOD_008 | Arcane Amplifier |  
+YEAR_OF_THE_DRAGON | YOD_009 | The Amazing Reno |  
+YEAR_OF_THE_DRAGON | YOD_010 | Shotbot |  
+YEAR_OF_THE_DRAGON | YOD_012 | Air Raid |  
+YEAR_OF_THE_DRAGON | YOD_013 | Cleric of Scales |  
+YEAR_OF_THE_DRAGON | YOD_014 | Aeon Reaver |  
+YEAR_OF_THE_DRAGON | YOD_015 | Dark Prophecy |  
+YEAR_OF_THE_DRAGON | YOD_016 | Skyvateer |  
+YEAR_OF_THE_DRAGON | YOD_017 | Shadow Sculptor |  
+YEAR_OF_THE_DRAGON | YOD_018 | Waxmancy |  
+YEAR_OF_THE_DRAGON | YOD_020 | Explosive Evolution |  
+YEAR_OF_THE_DRAGON | YOD_022 | Risky Skipper |  
+YEAR_OF_THE_DRAGON | YOD_023 | Boom Squad |  
+YEAR_OF_THE_DRAGON | YOD_024 | Bomb Wrangler |  
+YEAR_OF_THE_DRAGON | YOD_025 | Twisted Knowledge |  
+YEAR_OF_THE_DRAGON | YOD_026 | Fiendish Servant |  
+YEAR_OF_THE_DRAGON | YOD_027 | Chaos Gazer |  
+YEAR_OF_THE_DRAGON | YOD_028 | Skydiving Instructor |  
+YEAR_OF_THE_DRAGON | YOD_029 | Hailbringer |  
+YEAR_OF_THE_DRAGON | YOD_030 | Licensed Adventurer |  
+YEAR_OF_THE_DRAGON | YOD_032 | Frenzied Felwing |  
+YEAR_OF_THE_DRAGON | YOD_033 | Boompistol Bully |  
+YEAR_OF_THE_DRAGON | YOD_035 | Grand Lackey Erkh |  
+YEAR_OF_THE_DRAGON | YOD_036 | Rotnest Drake |  
+YEAR_OF_THE_DRAGON | YOD_038 | Sky Gen'ral Kragg |  
+YEAR_OF_THE_DRAGON | YOD_040 | Steel Beetle |  
+YEAR_OF_THE_DRAGON | YOD_041 | Eye of the Storm |  
+YEAR_OF_THE_DRAGON | YOD_042 | The Fist of Ra-den |  
+YEAR_OF_THE_DRAGON | YOD_043 | Scalelord |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 0% (0 of 35 Cards)

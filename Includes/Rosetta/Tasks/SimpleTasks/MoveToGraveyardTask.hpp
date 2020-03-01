@@ -30,7 +30,7 @@ class MoveToGraveyardTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 };
 }  // namespace RosettaStone::SimpleTasks
 

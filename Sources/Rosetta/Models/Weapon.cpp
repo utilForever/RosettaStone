@@ -52,4 +52,9 @@ void Weapon::RemoveDurability(int amount)
 {
     SetDurability(GetDurability() - amount);
 }
+
+bool Weapon::IsImmune() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::IMMUNE));
+}
 }  // namespace RosettaStone

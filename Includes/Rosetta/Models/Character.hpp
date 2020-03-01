@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_CHARACTER_HPP
 #define ROSETTASTONE_CHARACTER_HPP
 
+#include <Rosetta/Managers/TriggerEvent.hpp>
 #include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
@@ -128,16 +129,24 @@ class Character : public Playable
     //! \return Whether attack is possible.
     bool CanAttack() const;
 
-    //! Returns whether the target is valid in combat.
+    //! Returns whether it can't attack.
+    //! \return Whether it can't attack.
+    bool CantAttack() const;
+
+    //! Returns whether it can't attack heroes.
+    //! \return Whether it can't attack heroes.
+    bool CantAttackHeroes() const;
+
+    //! Returns whether the target is valid in attack.
     //! \param opponent The opponent player.
     //! \param target A pointer to the target.
     //! \return true if the target is valid, and false otherwise.
-    bool IsValidCombatTarget(Player* opponent, Character* target) const;
+    bool IsValidAttackTarget(Player* opponent, Character* target) const;
 
-    //! Returns a list of valid target in combat.
+    //! Returns a list of valid target in attack.
     //! \param opponent The opponent player.
     //! \return A list of pointer to valid target.
-    std::vector<Character*> GetValidCombatTargets(Player* opponent) const;
+    std::vector<Character*> GetValidAttackTargets(Player* opponent) const;
 
     //! Takes damage from a certain other entity.
     //! \param source An entity to give damage.
@@ -158,9 +167,9 @@ class Character : public Playable
     //! \param copy The copied character to assign attributes.
     void CopyInternalAttributes(Character* copy) const;
 
-    std::function<void(Entity*)> preDamageTrigger;
-    std::function<void(Entity*)> takeDamageTrigger;
-    std::function<void(Entity*)> afterAttackTrigger;
+    TriggerEvent preDamageTrigger;
+    TriggerEvent takeDamageTrigger;
+    TriggerEvent afterAttackTrigger;
 };
 }  // namespace RosettaStone
 

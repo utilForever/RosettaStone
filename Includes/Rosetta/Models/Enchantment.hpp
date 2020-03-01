@@ -53,8 +53,9 @@ class Enchantment : public Playable
     //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     //! \return The resulting enchantment entity.
-    static Enchantment* GetInstance(Player* player, Card* card, Entity* target,
-                                    int num1 = 0, int num2 = 0);
+    static std::shared_ptr<Enchantment> GetInstance(Player* player, Card* card,
+                                                    Entity* target,
+                                                    int num1 = 0, int num2 = 0);
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.

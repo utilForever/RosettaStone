@@ -119,6 +119,10 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMY_HERO:
             entities.emplace_back(player->opponent->GetHero());
             break;
+        case EntityType::HEROES:
+            entities.emplace_back(player->GetHero());
+            entities.emplace_back(player->opponent->GetHero());
+            break;
         case EntityType::WEAPON:
             if (player->GetHero()->HasWeapon())
             {
@@ -218,7 +222,8 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             entities = player->game->taskStack.playables;
             break;
         case EntityType::EVENT_SOURCE:
-            if (auto eventData = player->game->currentEventData; eventData)
+            if (auto eventData = player->game->currentEventData.get();
+                eventData)
             {
                 entities.emplace_back(eventData->eventSource);
             }
@@ -326,6 +331,10 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMY_HERO:
             entities.emplace_back(player->opponent->GetHero());
             break;
+        case EntityType::HEROES:
+            entities.emplace_back(player->GetHero());
+            entities.emplace_back(player->opponent->GetHero());
+            break;
         case EntityType::WEAPON:
             if (player->GetHero()->HasWeapon())
             {
@@ -425,7 +434,8 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             entities = player->game->taskStack.playables;
             break;
         case EntityType::EVENT_SOURCE:
-            if (auto eventData = player->game->currentEventData; eventData)
+            if (auto eventData = player->game->currentEventData.get();
+                eventData)
             {
                 entities.emplace_back(eventData->eventSource);
             }
@@ -486,8 +496,9 @@ TaskStatus IncludeTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* IncludeTask::CloneImpl()
+std::unique_ptr<ITask> IncludeTask::CloneImpl()
 {
-    return new IncludeTask(m_entityType, m_excludeTypes, m_addFlag);
+    return std::make_unique<IncludeTask>(m_entityType, m_excludeTypes,
+                                         m_addFlag);
 }
 }  // namespace RosettaStone::SimpleTasks

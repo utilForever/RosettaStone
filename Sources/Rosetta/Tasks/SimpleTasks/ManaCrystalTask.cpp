@@ -28,8 +28,8 @@ TaskStatus ManaCrystalTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ManaCrystalTask::CloneImpl()
+std::unique_ptr<ITask> ManaCrystalTask::CloneImpl()
 {
-    return new ManaCrystalTask(m_amount, m_fill, m_isOpponent);
+    return std::make_unique<ManaCrystalTask>(m_amount, m_fill, m_isOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks

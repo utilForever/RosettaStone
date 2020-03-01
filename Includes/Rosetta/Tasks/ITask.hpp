@@ -82,24 +82,13 @@ class ITask
     //! \return The cloned task.
     //! \note This will be used for solving multi-thread issue.
     //! Not to access same elements at same time.
-    ITask* Clone();
-
-    //! Checks it is freeable task.
-    //! \return The flag to indicate that it is freeable task.
-    //! \note This will be used for solving multi-thread and memory leak issue.
-    //! \note You have to free it if it is cloned, otherwise cause leaks memory.
-    bool IsFreeable() const;
-
-    //! Enables that it is freeable task.
-    void EnableFreeable();
+    std::unique_ptr<ITask> Clone();
 
  protected:
     EntityType m_entityType = EntityType::INVALID;
     Player* m_player = nullptr;
     Entity* m_source = nullptr;
     Playable* m_target = nullptr;
-
-    bool m_isFreeable = false;
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -109,7 +98,7 @@ class ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    virtual ITask* CloneImpl() = 0;
+    virtual std::unique_ptr<ITask> CloneImpl() = 0;
 };
 
 namespace Task
@@ -117,7 +106,7 @@ namespace Task
 //! Calls Impl method and returns meta data.
 //! \param task The task to run.
 //! \return The result of task processing.
-inline TaskStatus Run(ITask* task)
+inline TaskStatus Run(std::unique_ptr<ITask> task)
 {
     return task->Run();
 }

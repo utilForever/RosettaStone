@@ -13,12 +13,13 @@ void Attack(Player* player, Character* source, Character* target)
 {
     // Check source can attack and target is valid
     if (!source->CanAttack() ||
-        !source->IsValidCombatTarget(player->opponent, target))
+        !source->IsValidAttackTarget(player->opponent, target))
     {
         return;
     }
 
-    player->game->currentEventData = new EventMetaData(source, target);
+    player->game->currentEventData =
+        std::make_unique<EventMetaData>(source, target);
 
     // Process attack trigger
     player->game->taskQueue.StartEvent();
@@ -42,7 +43,7 @@ void Attack(Player* player, Character* source, Character* target)
         (target->zone != nullptr && target->zone->GetType() != ZoneType::PLAY))
     {
         player->game->ProcessDestroyAndUpdateAura();
-        delete player->game->currentEventData;
+        player->game->currentEventData.reset();
         return;
     }
 
@@ -120,17 +121,14 @@ void Attack(Player* player, Character* source, Character* target)
 
     // Process after attack trigger
     player->game->taskQueue.StartEvent();
-    if (source->afterAttackTrigger != nullptr)
-    {
-        source->afterAttackTrigger(source);
-    }
+    source->afterAttackTrigger(source);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
     // Process destroy and update aura
     player->game->ProcessDestroyAndUpdateAura();
 
-    delete player->game->currentEventData;
+    player->game->currentEventData.reset();
 
     // Set game step to MAIN_ACTION
     player->game->step = Step::MAIN_ACTION;

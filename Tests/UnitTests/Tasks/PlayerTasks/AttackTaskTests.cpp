@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -22,7 +22,7 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace TestUtils;
 
-TEST(AttackTask, Default)
+TEST_CASE("[AttackTask] - Default")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -56,22 +56,22 @@ TEST(AttackTask, Default)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
-    EXPECT_EQ(curField[0]->GetHealth(), 6);
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, AttackTask(opField[0], curField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField.GetCount(), 0);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
 
     auto card3 = GenerateMinionCard("minion3", 5, 6);
     auto card4 = GenerateMinionCard("minion4", 5, 4);
@@ -86,8 +86,8 @@ TEST(AttackTask, Default)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
 
     auto card5 = GenerateMinionCard("minion5", 5, 4);
 
@@ -101,11 +101,11 @@ TEST(AttackTask, Default)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField.GetCount(), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
 }
 
-TEST(AttackTask, Weapon)
+TEST_CASE("[AttackTask] - Weapon")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -144,8 +144,8 @@ TEST(AttackTask, Weapon)
 
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), opField[0]));
 
-    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -155,12 +155,12 @@ TEST(AttackTask, Weapon)
 
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), opField[0]));
 
-    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), false);
-    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
 }
 
-TEST(AttackTask, ZeroAttack)
+TEST_CASE("[AttackTask] - ZeroAttack")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -190,10 +190,10 @@ TEST(AttackTask, ZeroAttack)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
-TEST(AttackTask, Charge)
+TEST_CASE("[AttackTask] - Charge")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -222,13 +222,13 @@ TEST(AttackTask, Charge)
     PlayMinionCard(opPlayer, &card1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
 
     game.Process(curPlayer, AttackTask(curField[1], opField[0]));
-    EXPECT_EQ(curField[1]->GetNumAttacksThisTurn(), 1);
+    CHECK_EQ(curField[1]->GetNumAttacksThisTurn(), 1);
 }
 
-TEST(AttackTask, Taunt)
+TEST_CASE("[AttackTask] - Taunt")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -264,15 +264,15 @@ TEST(AttackTask, Taunt)
     opField[1]->SetGameTag(GameTag::TAUNT, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(opField[0]->GetHealth(), 10);
+    CHECK_EQ(opField[0]->GetHealth(), 10);
 
     opField[1]->SetGameTag(GameTag::TAUNT, 0);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
 }
 
-TEST(AttackTask, Stealth)
+TEST_CASE("[AttackTask] - Stealth")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -307,17 +307,17 @@ TEST(AttackTask, Stealth)
     opField[0]->SetGameTag(GameTag::STEALTH, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(opField[0]->GetHealth(), 10);
+    CHECK_EQ(opField[0]->GetHealth(), 10);
 
     curField[0]->SetGameTag(GameTag::STEALTH, 1);
     opField[0]->SetGameTag(GameTag::STEALTH, 0);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::STEALTH), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::STEALTH), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
 }
 
-TEST(AttackTask, Immune)
+TEST_CASE("[AttackTask] - Immune")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -352,8 +352,8 @@ TEST(AttackTask, Immune)
     curField[0]->SetGameTag(GameTag::IMMUNE, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 10);
-    EXPECT_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -364,11 +364,11 @@ TEST(AttackTask, Immune)
     curField[0]->SetGameTag(GameTag::IMMUNE, 0);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 9);
-    EXPECT_EQ(opField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField[0]->GetHealth(), 8);
 }
 
-TEST(AttackTask, Windfury)
+TEST_CASE("[AttackTask] - Windfury")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -401,10 +401,10 @@ TEST(AttackTask, Windfury)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -415,16 +415,16 @@ TEST(AttackTask, Windfury)
     curField[0]->SetGameTag(GameTag::WINDFURY, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
 }
 
-TEST(AttackTask, DivineShield)
+TEST_CASE("[AttackTask] - DivineShield")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -459,8 +459,8 @@ TEST(AttackTask, DivineShield)
     curField[0]->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 10);
-    EXPECT_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -471,11 +471,11 @@ TEST(AttackTask, DivineShield)
     opField[0]->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 9);
-    EXPECT_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
 }
 
-TEST(AttackTask, Poisonous)
+TEST_CASE("[AttackTask] - Poisonous")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -510,8 +510,8 @@ TEST(AttackTask, Poisonous)
     curField[0]->SetGameTag(GameTag::POISONOUS, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField[0]->GetHealth(), 9);
-    EXPECT_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField.GetCount(), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -525,11 +525,11 @@ TEST(AttackTask, Poisonous)
     opField[0]->SetGameTag(GameTag::POISONOUS, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(curField.GetCount(), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
 }
 
-TEST(AttackTask, Freeze)
+TEST_CASE("[AttackTask] - Freeze")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -567,31 +567,31 @@ TEST(AttackTask, Freeze)
     opField[1]->SetGameTag(GameTag::FREEZE, 1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
-    EXPECT_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(curPlayer, AttackTask(curField[1], opField[1]));
-    EXPECT_EQ(curField[1]->IsFrozen(), true);
+    CHECK_EQ(curField[1]->IsFrozen(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[1]->IsFrozen(), true);
-    EXPECT_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[1]->IsFrozen(), true);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[1]->IsFrozen(), true);
-    EXPECT_EQ(opField[0]->IsFrozen(), false);
+    CHECK_EQ(curField[1]->IsFrozen(), true);
+    CHECK_EQ(opField[0]->IsFrozen(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[1]->IsFrozen(), false);
-    EXPECT_EQ(opField[0]->IsFrozen(), false);
+    CHECK_EQ(curField[1]->IsFrozen(), false);
+    CHECK_EQ(opField[0]->IsFrozen(), false);
 }
 
-TEST(AttackTask, Silence)
+TEST_CASE("[AttackTask] - Silence")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -622,10 +622,87 @@ TEST(AttackTask, Silence)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     curField[0]->Silence();
 
     game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+}
+
+TEST_CASE("[AttackTask] - Rush")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto card = GenerateMinionCard("minion1", 1, 10);
+    card.gameTags[GameTag::RUSH] = 1;
+
+    PlayMinionCard(curPlayer, &card);
+    PlayMinionCard(opPlayer, &card);
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+}
+
+TEST_CASE("[AttackTask] - Reborn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto card1 = GenerateMinionCard("minion1", 10, 1);
+    auto card2 = GenerateMinionCard("minion1", 1, 10);
+    card1.gameTags[GameTag::RUSH] = 1;
+    card2.gameTags[GameTag::REBORN] = 1;
+
+    PlayMinionCard(curPlayer, &card1);
+    PlayMinionCard(opPlayer, &card2);
+
+    CHECK_EQ(opField[0]->HasReborn(), true);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(opField[0]->HasReborn(), false);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 }

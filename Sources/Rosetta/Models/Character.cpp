@@ -15,7 +15,8 @@
 
 namespace RosettaStone
 {
-Character::Character(Player* player, Card* card, std::map<GameTag, int> tags, int id)
+Character::Character(Player* player, Card* card, std::map<GameTag, int> tags,
+                     int id)
     : Playable(player, card, std::move(tags), id)
 {
     // Do nothing
@@ -140,6 +141,12 @@ bool Character::HasDivineShield() const
 
 bool Character::CanAttack() const
 {
+    //! If the current player is opponent, returns false
+    if (player != game->GetCurrentPlayer())
+    {
+        return false;
+    }
+
     // If the value of attack is 0, returns false
     if (GetAttack() == 0)
     {
@@ -159,7 +166,7 @@ bool Character::CanAttack() const
     }
 
     //! If the character can't attack, returns false
-    if (GetGameTag(GameTag::CANT_ATTACK) == 1)
+    if (CantAttack())
     {
         return false;
     }
@@ -167,20 +174,42 @@ bool Character::CanAttack() const
     return true;
 }
 
-bool Character::IsValidCombatTarget(Player* opponent, Character* target) const
+bool Character::CantAttack() const
 {
-    auto targets = GetValidCombatTargets(opponent);
+    return static_cast<bool>(GetGameTag(GameTag::CANT_ATTACK));
+}
+
+bool Character::CantAttackHeroes() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::CANNOT_ATTACK_HEROES));
+}
+
+bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
+{
+    auto targets = GetValidAttackTargets(opponent);
     if (std::find(targets.begin(), targets.end(), target) == targets.end())
     {
         return false;
     }
 
-    const Hero* hero = dynamic_cast<Hero*>(target);
-    return !(hero != nullptr &&
-             hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
+    if (const auto hero = dynamic_cast<Hero*>(target); hero)
+    {
+        if (CantAttackHeroes())
+        {
+            return false;
+        }
+
+        if (const auto minion = dynamic_cast<const Minion*>(this);
+            minion && minion->IsAttackableByRush())
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
-std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
+std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;
@@ -188,9 +217,9 @@ std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
 
     for (auto& minion : opponent->GetFieldZone()->GetAll())
     {
-        if (minion->GetGameTag(GameTag::STEALTH) == 0)
+        if (!minion->HasStealth())
         {
-            if (minion->GetGameTag(GameTag::TAUNT) == 1)
+            if (minion->HasTaunt())
             {
                 isExistTauntInField = true;
                 targetsHaveTaunt.emplace_back(minion);
@@ -209,9 +238,8 @@ std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
         return targetsHaveTaunt;
     }
 
-    if (GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
-        opponent->GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
-        opponent->GetHero()->GetGameTag(GameTag::STEALTH) == 0)
+    if (!CantAttackHeroes() && !opponent->GetHero()->IsImmune() &&
+        !opponent->GetHero()->HasStealth())
     {
         targets.emplace_back(opponent->GetHero());
     }
@@ -221,6 +249,12 @@ std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
 
 int Character::TakeDamage(Playable* source, int damage)
 {
+    if (source == nullptr)
+    {
+        throw std::invalid_argument(
+            "Character::TakeDamage() - source is nullptr");
+    }
+
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
 
@@ -241,32 +275,30 @@ int Character::TakeDamage(Playable* source, int damage)
         (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
 
     game->taskQueue.StartEvent();
-    EventMetaData* temp = game->currentEventData;
-    game->currentEventData = new EventMetaData(source, this, amount);
+    auto tempEventData = std::move(game->currentEventData);
+    game->currentEventData =
+        std::make_unique<EventMetaData>(source, this, amount);
 
-    if (preDamageTrigger != nullptr)
-    {
-        preDamageTrigger(this);
-        game->ProcessTasks();
-        amount = game->currentEventData->eventNumber;
+    preDamageTrigger(this);
+    game->ProcessTasks();
+    amount = game->currentEventData->eventNumber;
 
-        if (amount == 0 && armor == 0)
-        {
-            game->taskQueue.EndEvent();
-
-            delete game->currentEventData;
-            game->currentEventData = temp;
-
-            return 0;
-        }
-    }
-
-    if (GetGameTag(GameTag::IMMUNE) == 1)
+    if (amount == 0 && armor == 0)
     {
         game->taskQueue.EndEvent();
 
-        delete game->currentEventData;
-        game->currentEventData = temp;
+        game->currentEventData.reset();
+        game->currentEventData = std::move(tempEventData);
+
+        return 0;
+    }
+
+    if (IsImmune())
+    {
+        game->taskQueue.EndEvent();
+
+        game->currentEventData.reset();
+        game->currentEventData = std::move(tempEventData);
 
         return 0;
     }
@@ -279,18 +311,21 @@ int Character::TakeDamage(Playable* source, int damage)
     SetDamage(GetDamage() + amount);
 
     // Process damage triggers
-    if (takeDamageTrigger != nullptr)
-    {
-        takeDamageTrigger(this);
-    }
+    takeDamageTrigger(this);
     game->triggerManager.OnTakeDamageTrigger(this);
     game->triggerManager.OnDealDamageTrigger(source);
 
     game->ProcessTasks();
+
+    if (source->HasLifesteal() && amount > 0)
+    {
+        source->player->GetHero()->TakeHeal(source, amount);
+    }
+
     game->taskQueue.EndEvent();
 
-    delete game->currentEventData;
-    game->currentEventData = temp;
+    game->currentEventData.reset();
+    game->currentEventData = std::move(tempEventData);
 
     return amount;
 }
@@ -321,11 +356,16 @@ void Character::TakeHeal(Playable* source, int heal)
         return;
     }
 
+    game->taskQueue.StartEvent();
+    game->triggerManager.OnGiveHealTrigger(source);
+    game->ProcessTasks();
+    game->taskQueue.EndEvent();
+
     const int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
     game->taskQueue.StartEvent();
-    game->triggerManager.OnHealTrigger(this);
+    game->triggerManager.OnTakeHealTrigger(this);
     game->ProcessTasks();
     game->taskQueue.EndEvent();
 }

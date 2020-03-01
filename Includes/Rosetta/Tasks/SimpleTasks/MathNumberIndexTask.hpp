@@ -44,7 +44,7 @@ class MathNumberIndexTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     //! Returns the number of index from task stack.
     //! \param index The index to get number.

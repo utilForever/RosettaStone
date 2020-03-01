@@ -22,6 +22,8 @@ void PlayWeaponCard(Player* player, Card* card);
 void PlayEnchantmentCard(Player* player, Card* card, Entity* target);
 
 void ExpectCardEqual(const Card& card1, const Card& card2);
+
+std::vector<Card*> GetChoiceCards(Game& game);
 }  // namespace TestUtils
 
 #endif  // UNIT_TESTS_TEST_UTILS_HPP

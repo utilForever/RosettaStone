@@ -28,19 +28,20 @@ class SelfContainedBoolAttr : public BoolAttr<TargetT>
     //! Generates new generic effect for boolean attribute.
     //! \param value The value of the generic effect.
     //! \return The generic effect that is dynamically allocated.
-    static GenericEffect<TargetT, SelfT>* Effect(bool value = true)
+    static std::shared_ptr<GenericEffect<TargetT, SelfT>> Effect(
+        bool value = true)
     {
         if (m_singleton == nullptr)
         {
-            m_singleton = new SelfT();
+            m_singleton = std::make_shared<SelfT>();
         }
 
-        return new GenericEffect<TargetT, SelfT>(
+        return std::make_shared<GenericEffect<TargetT, SelfT>>(
             m_singleton, EffectOperator::SET, value ? 1 : 0);
     }
 
  private:
-    inline static SelfT* m_singleton = nullptr;
+    inline static std::shared_ptr<SelfT> m_singleton;
 };
 }  // namespace RosettaStone
 

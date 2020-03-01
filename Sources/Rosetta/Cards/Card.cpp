@@ -169,6 +169,42 @@ bool Card::HasGameTag(GameTag gameTag) const
     return gameTags.find(gameTag) != gameTags.end();
 }
 
+bool Card::IsLackey() const
+{
+    if (id == "DAL_613" ||  // DAL_613: Faceless Lackey
+        id == "DAL_614" ||  // DAL_614: Kobold Lackey
+        id == "DAL_615" ||  // DAL_615: Witchy Lackey
+        id == "DAL_739" ||  // DAL_739: Goblin Lackey
+        id == "DAL_741" ||  // DAL_741: Ethereal Lackey
+        id == "ULD_616" ||  // ULD_616: Titanic Lackey
+        id == "DRG_052")    // DRG_052: Draconic Lackey
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Card::IsGalakrond() const
+{
+    // NOTE: Galakrond hero card list
+    // DRG_600: Galakrond, the Wretched
+    // DRG_610: Galakrond, the Nightmare
+    // DRG_620: Galakrond, the Tempest
+    // DRG_650: Galakrond, the Unbreakable
+    // DRG_660: Galakrond, the Unspeakable
+    if (id == "DRG_600" || id == "DRG_600t2" || id == "DRG_600t3" ||
+        id == "DRG_610" || id == "DRG_610t2" || id == "DRG_610t3" ||
+        id == "DRG_620" || id == "DRG_620t2" || id == "DRG_620t3" ||
+        id == "DRG_650" || id == "DRG_650t2" || id == "DRG_650t3" ||
+        id == "DRG_660" || id == "DRG_660t2" || id == "DRG_660t3")
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Card::IsUntouchable() const
 {
     return HasGameTag(GameTag::UNTOUCHABLE) &&

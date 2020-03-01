@@ -50,6 +50,10 @@ class Minion : public Character
     //! \param value The value of last board position.
     void SetLastBoardPos(int value);
 
+    //! Returns the flag that indicates whether it is Lackey.
+    //! \return The flag that indicates whether it is Lackey.
+    bool IsLackey() const;
+
     //! Returns the flag that indicates whether it is untouchable.
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
@@ -57,6 +61,22 @@ class Minion : public Character
     //! Returns the flag that indicates whether it has charge.
     //! \return The flag that indicates whether it has charge.
     bool HasCharge() const;
+
+    //! Returns the flag that indicates whether it is rush.
+    //! \return The flag that indicates whether it is rush.
+    bool IsRush() const;
+
+    //! Returns the flag that indicates whether it is attackable by rush.
+    //! \return The flag that indicates whether it is attackable by rush.
+    bool IsAttackableByRush() const;
+
+    //! Sets the flag that indicates whether it is attackable by rush.
+    //! \param attackable The value of attackable.
+    void SetAttackableByRush(bool attackable);
+
+    //! Returns the flag that indicates whether it has reborn.
+    //! \return The flag that indicates whether it has reborn.
+    bool HasReborn() const;
 
     //! Disables all special effects on this minion.
     void Silence();

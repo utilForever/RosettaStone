@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -18,23 +19,16 @@ namespace RosettaStone
 {
 Player::Player() : playerID(USER_INVALID)
 {
-    m_deckZone = new DeckZone(this);
-    m_fieldZone = new FieldZone(this);
-    m_graveyardZone = new GraveyardZone(this);
-    m_handZone = new HandZone(this);
-    m_secretZone = new SecretZone(this);
-    m_setasideZone = new SetasideZone(this);
+    m_deckZone = std::make_unique<DeckZone>(this);
+    m_fieldZone = std::make_unique<FieldZone>(this);
+    m_graveyardZone = std::make_unique<GraveyardZone>(this);
+    m_handZone = std::make_unique<HandZone>(this);
+    m_secretZone = std::make_unique<SecretZone>(this);
+    m_setasideZone = std::make_unique<SetasideZone>(this);
 }
 
 Player::~Player()
 {
-    delete m_setasideZone;
-    delete m_secretZone;
-    delete m_handZone;
-    delete m_graveyardZone;
-    delete m_fieldZone;
-    delete m_deckZone;
-
     // TODO: This code will refactor.
     if (m_hero)
     {
@@ -45,6 +39,13 @@ Player::~Player()
 
 void Player::RefCopy(const Player& rhs)
 {
+    if (this == &rhs)
+    {
+        return;
+    }
+
+    delete m_hero;
+
     nickname = rhs.nickname;
     playerType = rhs.playerType;
     playerID = rhs.playerID;
@@ -56,12 +57,12 @@ void Player::RefCopy(const Player& rhs)
     m_hero = rhs.m_hero;
     opponent = rhs.opponent;
 
-    m_deckZone = rhs.m_deckZone;
-    m_fieldZone = rhs.m_fieldZone;
-    m_graveyardZone = rhs.m_graveyardZone;
-    m_handZone = rhs.m_handZone;
-    m_secretZone = rhs.m_secretZone;
-    m_setasideZone = rhs.m_setasideZone;
+    m_deckZone->RefCopy(rhs.m_deckZone.get());
+    m_fieldZone->RefCopy(rhs.m_fieldZone.get());
+    m_graveyardZone->RefCopy(rhs.m_graveyardZone.get());
+    m_handZone->RefCopy(rhs.m_handZone.get());
+    m_secretZone->RefCopy(rhs.m_secretZone.get());
+    m_setasideZone->RefCopy(rhs.m_setasideZone.get());
 
     m_gameTags = rhs.m_gameTags;
     currentSpellPower = rhs.currentSpellPower;
@@ -69,37 +70,42 @@ void Player::RefCopy(const Player& rhs)
 
 FieldZone* Player::GetFieldZone() const
 {
-    return m_fieldZone;
+    return m_fieldZone.get();
 }
 
 DeckZone* Player::GetDeckZone() const
 {
-    return m_deckZone;
+    return m_deckZone.get();
 }
 
 GraveyardZone* Player::GetGraveyardZone() const
 {
-    return m_graveyardZone;
+    return m_graveyardZone.get();
 }
 
 HandZone* Player::GetHandZone() const
 {
-    return m_handZone;
+    return m_handZone.get();
 }
 
 SecretZone* Player::GetSecretZone() const
 {
-    return m_secretZone;
+    return m_secretZone.get();
 }
 
 SetasideZone* Player::GetSetasideZone() const
 {
-    return m_setasideZone;
+    return m_setasideZone.get();
 }
 
 Hero* Player::GetHero() const
 {
     return m_hero;
+}
+
+void Player::SetHero(Hero* hero)
+{
+    m_hero = hero;
 }
 
 HeroPower& Player::GetHeroPower() const
@@ -237,6 +243,45 @@ int Player::GetNumFriendlyMinionsDiedThisTurn() const
 void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
 {
     SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
+}
+
+void Player::UpgradeGalakrond()
+{
+    // If the player has already turned into Galakrond, return false.
+    if (galakrond->GetZoneType() == ZoneType::PLAY)
+    {
+        return;
+    }
+
+    const auto cardID = galakrond->card->id;
+
+    // If Galakrond have already upgraded to the final stage, return false.
+    if (EndsWith(cardID, "t3"))
+    {
+        return;
+    }
+
+    // NOTE: The length of level 1 card IDs is 7.
+    // For example, "DRG_600".
+    if (cardID.size() == 7)
+    {
+        galakrond->card = Cards::FindCardByID(cardID + "t2");
+    }
+    else if (EndsWith(cardID, "t2"))
+    {
+        galakrond->card = Cards::FindCardByID(cardID.substr(0, 7) + "t3");
+    }
+}
+
+int Player::GetInvoke() const
+{
+    return GetGameTag(GameTag::INVOKE_COUNTER);
+}
+
+void Player::IncreaseInvoke()
+{
+    const int val = GetGameTag(GameTag::INVOKE_COUNTER);
+    SetGameTag(GameTag::INVOKE_COUNTER, val + 1);
 }
 
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)

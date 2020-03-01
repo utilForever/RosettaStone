@@ -137,4 +137,31 @@ void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
 
     player->choice = choice;
 }
+
+void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
+                       ChoiceAction action, const std::vector<Card*>& choices)
+{
+    std::vector<std::size_t> choiceIDs;
+
+    for (auto& card : choices)
+    {
+        std::map<GameTag, int> cardTags;
+        cardTags.emplace(GameTag::CREATOR, source->id);
+        cardTags.emplace(GameTag::DISPLAYED_CREATOR, source->id);
+
+        Playable* choiceEntity = Entity::GetFromCard(player, card, cardTags,
+                                                     player->GetSetasideZone());
+        choiceIDs.emplace_back(choiceEntity->id);
+    }
+
+    Choice choice;
+    choice.choiceType = type;
+    choice.choiceAction = action;
+    choice.choices = choiceIDs;
+
+    if (!player->choice.has_value())
+    {
+        player->choice = choice;
+    }
+}
 }  // namespace RosettaStone::Generic

@@ -4,11 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
+#include <Utils/CardSetUtils.hpp>
 
-int main(int argc, char* argv[])
+TEST_CASE("[YoDCardsGen] - Temp")
 {
-    testing::InitGoogleTest(&argc, argv);
-    const int ret = RUN_ALL_TESTS();
-    return ret;
+    CHECK(true);
 }

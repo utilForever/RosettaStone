@@ -14,6 +14,7 @@
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 
+#include <memory>
 #include <string>
 
 namespace RosettaStone
@@ -37,7 +38,7 @@ class Aura : public IAura
     //! Constructs aura with given \p type and \p effects.
     //! \param type The type of aura.
     //! \param effects A list of effect.
-    Aura(AuraType type, std::vector<IEffect*> effects);
+    Aura(AuraType type, std::vector<std::shared_ptr<IEffect>> effects);
 
     //! Constructs aura with given \p type and \p enchantmentID.
     //! \param type The type of aura.
@@ -85,8 +86,8 @@ class Aura : public IAura
     //! \param entity The entity to notify that it is removed.
     void NotifyEntityRemoved(Playable* entity);
 
-    SelfCondition* condition = nullptr;
-    std::pair<TriggerType, SelfCondition*> removeTrigger;
+    std::shared_ptr<SelfCondition> condition;
+    std::pair<TriggerType, std::shared_ptr<SelfCondition>> removeTrigger;
     bool restless = false;
 
  protected:
@@ -106,10 +107,10 @@ class Aura : public IAura
     PriorityQueue<AuraUpdateInstruction> m_auraUpdateInstQueue;
     std::vector<Playable*> m_appliedEntities;
 
-    std::function<void(Entity*)> m_removeHandler;
+    TriggerEventHandler m_removeHandler;
 
     Card* m_enchantmentCard = nullptr;
-    std::vector<IEffect*> m_effects;
+    std::vector<std::shared_ptr<IEffect>> m_effects;
 
     bool m_turnOn = true;
 

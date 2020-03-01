@@ -30,6 +30,7 @@ enum class EntityType
     ENEMIES_NOTARGET,
     HERO,
     ENEMY_HERO,
+    HEROES,
     WEAPON,
     ENEMY_WEAPON,
     HAND,

@@ -4,18 +4,46 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
+#include <Rosetta/Conditions/RelaCondition.hpp>
+#include <Rosetta/Enchants/Effects.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
-void UldumCardsGen::AddHeroes(PowersType& powers, PlayReqsType& playReqs,
-                              EntouragesType& entourages)
+using PlayReqs = std::map<PlayReq, int>;
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using EntityTypeList = std::vector<EntityType>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
+
+void UldumCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
-    (void)powers;
+    (void)cards;
 }
 
-void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
-                                  EntouragesType& entourages)
+void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- HERO_POWER - DRUID
     // [ULD_131p] Ossirian Tear (*) - COST:0
     // - Set: Uldum
@@ -40,6 +68,10 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Give your minions +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_155e", EntityType::MINIONS));
+    cards.emplace("ULD_155p", CardDef(power));
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [ULD_291p] Heart of Vir'naal (*) - COST:2
@@ -75,6 +107,17 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_MINION_TARGET = 0
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(
+        EntityType::TARGET, false, true, SummonSide::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_431e", EntityType::STACK));
+    cards.emplace(
+        "ULD_431p",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // -------------------------------------- HERO_POWER - MAGE
     // [ULD_433p] Ascendant Scroll (*) - COST:2
@@ -110,9 +153,10 @@ void UldumCardsGen::AddHeroPowers(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [ULD_131] Untapped Potential - COST:1
     // - Set: Uldum, Rarity: Legendary
@@ -136,6 +180,12 @@ void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // Text: If you have any unspent Mana at the end of your turn,
     //       draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana());
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("ULD_133", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_134] BEEEES!!! - COST:3 [ATK:1/HP:4]
@@ -217,6 +267,10 @@ void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
     // Text: Restore 5 Health to all characters. Draw 5 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL, 5));
+    power.AddPowerTask(std::make_shared<DrawTask>(5));
+    cards.emplace("ULD_273", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_292] Oasis Surger - COST:5 [ATK:3/HP:3]
@@ -231,9 +285,7 @@ void UldumCardsGen::AddDruid(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddDruidNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs,
-                                       EntouragesType& entourages)
+void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- MINION - DRUID
     // [ULD_134t] Bee (*) - COST:1 [ATK:1/HP:1]
@@ -310,9 +362,10 @@ void UldumCardsGen::AddDruidNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
-                              EntouragesType& entourages)
+void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [ULD_151] Ramkahen Wildtamer - COST:3 [ATK:4/HP:3]
     // - Set: Uldum, Rarity: Rare
@@ -333,6 +386,19 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsFieldNotEmpty());
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+        std::make_shared<DestroyTask>(EntityType::STACK),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
+                                         1),
+        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
+    };
+    cards.emplace("ULD_152", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_154] Hyena Alpha - COST:4 [ATK:3/HP:3]
@@ -347,6 +413,16 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::LEFT),
+            std::make_shared<SummonTask>("ULD_154t", SummonSide::RIGHT) }));
+    cards.emplace("ULD_154", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_155] Unseal the Vault - COST:1
@@ -363,6 +439,12 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53925
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_155p") };
+    cards.emplace("ULD_155", CardDef(power, 20, 0));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
@@ -422,6 +504,12 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "ULD_430t", SummonSide::SPELL) };
+    cards.emplace("ULD_430", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_713] Swarm of Locusts - COST:6
@@ -435,16 +523,24 @@ void UldumCardsGen::AddHunter(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("ULD_430t", 7));
+    cards.emplace(
+        "ULD_713",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 }
 
-void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
-                                        PlayReqsType& playReqs,
-                                        EntouragesType& entourages)
+void UldumCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [ULD_154t] Hyena (*) - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_154t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [ULD_155e] Roar! (*) - COST:0
@@ -452,6 +548,9 @@ void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_155e"));
+    cards.emplace("ULD_155e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_156t] Duke (*) - COST:5 [ATK:5/HP:5]
@@ -492,8 +591,7 @@ void UldumCardsGen::AddHunterNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
-                            EntouragesType& entourages)
+void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------- SPELL - MAGE
     // [ULD_216] Puzzle Box of Yogg-Saron - COST:10
@@ -612,9 +710,7 @@ void UldumCardsGen::AddMage(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddMageNonCollect(PowersType& powers,
-                                      PlayReqsType& playReqs,
-                                      EntouragesType& entourages)
+void UldumCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------- ENCHANTMENT - MAGE
     // [ULD_435e] Sandwitched (*) - COST:0
@@ -631,9 +727,10 @@ void UldumCardsGen::AddMageNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [ULD_143] Pharaoh's Blessing - COST:6
     // - Faction: Neutral, Set: Uldum, Rarity: Rare
@@ -667,6 +764,9 @@ void UldumCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // - LIFESTEAL = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_207", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_217] Micro Mummy - COST:2 [ATK:1/HP:2]
@@ -697,6 +797,14 @@ void UldumCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::HasReborn());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_431p") };
+    cards.emplace("ULD_431", CardDef(power, 5, 0));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_438] Salhet's Pride - COST:3 [ATK:3/HP:1]
@@ -759,10 +867,10 @@ void UldumCardsGen::AddPaladin(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddPaladinNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ULD_143e] Pharaoh's Blessing (*) - COST:0
     // - Set: Uldum
@@ -783,6 +891,9 @@ void UldumCardsGen::AddPaladinNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: 2/2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetAttackHealth(2)));
+    cards.emplace("ULD_431e", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_439t] Sandwasp (*) - COST:1 [ATK:2/HP:1]
@@ -797,8 +908,7 @@ void UldumCardsGen::AddPaladinNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
-                              EntouragesType& entourages)
+void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - PRIEST
     // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
@@ -924,9 +1034,7 @@ void UldumCardsGen::AddPriest(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddPriestNonCollect(PowersType& powers,
-                                        PlayReqsType& playReqs,
-                                        EntouragesType& entourages)
+void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_262e] Amet's Blessing (*) - COST:0
@@ -953,8 +1061,7 @@ void UldumCardsGen::AddPriestNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
-                             EntouragesType& entourages)
+void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- MINION - ROGUE
     // [ULD_186] Pharaoh Cat - COST:1 [ATK:1/HP:2]
@@ -1079,9 +1186,7 @@ void UldumCardsGen::AddRogue(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddRogueNonCollect(PowersType& powers,
-                                       PlayReqsType& playReqs,
-                                       EntouragesType& entourages)
+void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [ULD_285e] Polished (*) - COST:0
@@ -1128,8 +1233,7 @@ void UldumCardsGen::AddRogueNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
-                              EntouragesType& entourages)
+void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- MINION - SHAMAN
     // [ULD_158] Sandstorm Elemental - COST:2 [ATK:2/HP:2]
@@ -1253,9 +1357,7 @@ void UldumCardsGen::AddShaman(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddShamanNonCollect(PowersType& powers,
-                                        PlayReqsType& playReqs,
-                                        EntouragesType& entourages)
+void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [ULD_171e] Big Surge (*) - COST:0
@@ -1282,8 +1384,7 @@ void UldumCardsGen::AddShamanNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_140] Supreme Archaeology - COST:1
@@ -1414,9 +1515,7 @@ void UldumCardsGen::AddWarlock(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddWarlockNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [ULD_140e] Origination (*) - COST:0
@@ -1467,9 +1566,10 @@ void UldumCardsGen::AddWarlockNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [ULD_195] Frightened Flunky - COST:2 [ATK:2/HP:2]
     // - Set: Uldum, Rarity: Common
@@ -1494,6 +1594,9 @@ void UldumCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // - RUSH = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_206", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [ULD_253] Tomb Warden - COST:8 [ATK:3/HP:6]
@@ -1595,9 +1698,7 @@ void UldumCardsGen::AddWarrior(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddWarriorNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void UldumCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARRIOR
     // [ULD_711t] Stone Golem (*) - COST:3 [ATK:4/HP:3]
@@ -1605,9 +1706,10 @@ void UldumCardsGen::AddWarriorNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
-                               EntouragesType& entourages)
+void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_003] Zephrys the Great - COST:2 [ATK:3/HP:2]
     // - Race: Elemental, Set: Uldum, Rarity: Legendary
@@ -1643,6 +1745,10 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("ULD_174t", SummonSide::DEATHRATTLE));
+    cards.emplace("ULD_174", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_177] Octosari - COST:8 [ATK:8/HP:8]
@@ -1707,6 +1813,13 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // Text: At the end of your turn, deal 1 damage
     //       to another random friendly minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 1)
+    };
+    cards.emplace("ULD_182", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_183] Anubisath Warbringer - COST:9 [ATK:9/HP:6]
@@ -1727,6 +1840,10 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cards.emplace("ULD_184", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_185] Temple Berserker - COST:2 [ATK:1/HP:2]
@@ -1790,6 +1907,14 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_191e", EntityType::TARGET));
+    cards.emplace(
+        "ULD_191",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_193] Living Monument - COST:10 [ATK:10/HP:10]
@@ -1800,6 +1925,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_193", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_194] Wasteland Scorpid - COST:7 [ATK:3/HP:9]
@@ -1810,6 +1938,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_194", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_196] Neferset Ritualist - COST:2 [ATK:2/HP:3]
@@ -1853,6 +1984,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_205", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_208] Khartut Defender - COST:6 [ATK:3/HP:4]
@@ -1939,6 +2073,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::SOURCE, 3));
+    cards.emplace("ULD_271", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2]
@@ -1950,6 +2087,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - STEALTH = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_274", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5]
@@ -1961,6 +2101,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - TAUNT = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_275", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_282] Jar Dealer - COST:1 [ATK:1/HP:1]
@@ -1983,6 +2126,15 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::MURLOC));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
+                                         Race::MURLOC, Rarity::INVALID, true));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("ULD_289", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_290] History Buff - COST:3 [ATK:3/HP:4]
@@ -2024,6 +2176,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_450", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_702] Mortuary Machine - COST:5 [ATK:8/HP:8]
@@ -2078,6 +2233,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("ULD_430t"));
+    cards.emplace("ULD_712", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_719] Desert Hare - COST:3 [ATK:1/HP:1]
@@ -2100,6 +2258,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // - DIVINE_SHIELD = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_721", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_723] Murmy - COST:1 [ATK:1/HP:1]
@@ -2110,6 +2271,9 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_723", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_727] Body Wrapper - COST:4 [ATK:4/HP:4]
@@ -2125,14 +2289,17 @@ void UldumCardsGen::AddNeutral(PowersType& powers, PlayReqsType& playReqs,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
-                                         PlayReqsType& playReqs,
-                                         EntouragesType& entourages)
+void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_174t] Sea Serpent (*) - COST:3 [ATK:3/HP:4]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_174t", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_178a] Siamat's Wind (*) - COST:0
@@ -2240,6 +2407,9 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_191e"));
+    cards.emplace("ULD_191e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_197e] Stuck! (*) - COST:0
@@ -2332,6 +2502,9 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_430t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_616] Titanic Lackey (*) - COST:1 [ATK:1/HP:1]
@@ -2379,40 +2552,39 @@ void UldumCardsGen::AddNeutralNonCollect(PowersType& powers,
     // --------------------------------------------------------
 }
 
-void UldumCardsGen::AddAll(PowersType& powers, PlayReqsType& playReqs,
-                           EntouragesType& entourages)
+void UldumCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 {
-    AddHeroes(powers, playReqs, entourages);
-    AddHeroPowers(powers, playReqs, entourages);
+    AddHeroes(cards);
+    AddHeroPowers(cards);
 
-    AddDruid(powers, playReqs, entourages);
-    AddDruidNonCollect(powers, playReqs, entourages);
+    AddDruid(cards);
+    AddDruidNonCollect(cards);
 
-    AddHunter(powers, playReqs, entourages);
-    AddHunterNonCollect(powers, playReqs, entourages);
+    AddHunter(cards);
+    AddHunterNonCollect(cards);
 
-    AddMage(powers, playReqs, entourages);
-    AddMageNonCollect(powers, playReqs, entourages);
+    AddMage(cards);
+    AddMageNonCollect(cards);
 
-    AddPaladin(powers, playReqs, entourages);
-    AddPaladinNonCollect(powers, playReqs, entourages);
+    AddPaladin(cards);
+    AddPaladinNonCollect(cards);
 
-    AddPriest(powers, playReqs, entourages);
-    AddPriestNonCollect(powers, playReqs, entourages);
+    AddPriest(cards);
+    AddPriestNonCollect(cards);
 
-    AddRogue(powers, playReqs, entourages);
-    AddRogueNonCollect(powers, playReqs, entourages);
+    AddRogue(cards);
+    AddRogueNonCollect(cards);
 
-    AddShaman(powers, playReqs, entourages);
-    AddShamanNonCollect(powers, playReqs, entourages);
+    AddShaman(cards);
+    AddShamanNonCollect(cards);
 
-    AddWarlock(powers, playReqs, entourages);
-    AddWarlockNonCollect(powers, playReqs, entourages);
+    AddWarlock(cards);
+    AddWarlockNonCollect(cards);
 
-    AddWarrior(powers, playReqs, entourages);
-    AddWarriorNonCollect(powers, playReqs, entourages);
+    AddWarrior(cards);
+    AddWarriorNonCollect(cards);
 
-    AddNeutral(powers, playReqs, entourages);
-    AddNeutralNonCollect(powers, playReqs, entourages);
+    AddNeutral(cards);
+    AddNeutralNonCollect(cards);
 }
 }  // namespace RosettaStone

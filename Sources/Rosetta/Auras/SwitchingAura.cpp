@@ -14,7 +14,7 @@ namespace RosettaStone
 {
 SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
                              TriggerType offTrigger,
-                             std::vector<IEffect*> effects)
+                             std::vector<std::shared_ptr<IEffect>> effects)
     : Aura(type, std::move(effects)),
       m_initCondition(std::move(initCondition)),
       m_offTrigger(offTrigger)
@@ -26,24 +26,24 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
-        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
+        //m_effects = std::move(m_enchantmentCard->power.GetEnchant()->effects);
     }
 
     auto instance = new SwitchingAura(*this, *owner);
 
     AddToGame(*owner, *instance);
 
-    owner->game->triggerManager.startTurnTrigger = instance->m_onHandler;
-    owner->game->triggerManager.endTurnTrigger = instance->m_offHandler;
+    owner->game->triggerManager.startTurnTrigger += instance->m_onHandler;
+    owner->game->triggerManager.endTurnTrigger += instance->m_offHandler;
 
     switch (m_offTrigger)
     {
         case TriggerType::PLAY_MINION:
-            owner->game->triggerManager.playMinionTrigger =
+            owner->game->triggerManager.playMinionTrigger +=
                 instance->m_offHandler;
             break;
         case TriggerType::CAST_SPELL:
-            owner->game->triggerManager.castSpellTrigger =
+            owner->game->triggerManager.castSpellTrigger +=
                 instance->m_offHandler;
             break;
         default:
@@ -71,16 +71,16 @@ void SwitchingAura::Remove()
 
     m_isRemoved = true;
 
-    m_owner->game->triggerManager.startTurnTrigger = nullptr;
-    m_owner->game->triggerManager.endTurnTrigger = nullptr;
+    m_owner->game->triggerManager.startTurnTrigger -= m_onHandler;
+    m_owner->game->triggerManager.endTurnTrigger -= m_offHandler;
 
     switch (m_offTrigger)
     {
         case TriggerType::PLAY_MINION:
-            m_owner->game->triggerManager.playMinionTrigger = nullptr;
+            m_owner->game->triggerManager.playMinionTrigger -= m_offHandler;
             break;
         case TriggerType::CAST_SPELL:
-            m_owner->game->triggerManager.castSpellTrigger = nullptr;
+            m_owner->game->triggerManager.castSpellTrigger -= m_offHandler;
             break;
         default:
             throw std::invalid_argument(
@@ -112,7 +112,7 @@ SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
       m_initCondition(prototype.m_initCondition),
       m_offTrigger(prototype.m_offTrigger)
 {
-    m_onHandler = [this](Entity*) {
+    auto onFunc = [this](Entity*) {
         if (m_turnOn)
         {
             return;
@@ -124,7 +124,7 @@ SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
             AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
     };
 
-    m_offHandler = [this](Entity*) {
+    auto offFunc = [this](Entity*) {
         if (!m_turnOn)
         {
             return;
@@ -135,5 +135,8 @@ SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
         m_auraUpdateInstQueue.Push(
             AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
     };
+
+    m_onHandler = TriggerEventHandler(onFunc);
+    m_offHandler = TriggerEventHandler(offFunc);
 }
 }  // namespace RosettaStone

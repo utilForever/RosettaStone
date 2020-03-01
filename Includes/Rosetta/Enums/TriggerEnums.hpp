@@ -21,7 +21,9 @@ enum class TriggerType
     AFTER_CAST,  //!< The effect will be triggered after a spell is played.
     SECRET_REVEALED,  //!< The effect will be triggered when a secret is
                       //!< activated.
-    HEAL,          //!< The effect will be triggered when characters are healed.
+    GIVE_HEAL,        //!< The effect will be triggered when a playable heals a
+                      //!< character.
+    TAKE_HEAL,        //!< The effect will be triggered when a character is healed.
     ATTACK,        //!< The effect will be triggered when characters attack.
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
                    //!< ended.
@@ -31,15 +33,16 @@ enum class TriggerType
                   //!< card.
     AFTER_PLAY_MINION,  //!< The effect will be triggered after a minion is
                         //!< played.
-    DEAL_DAMAGE,  //!< The effect will be triggered when a character is damaged.
-    TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
+    DEAL_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages to source.
-    PREDAMAGE,    //!< Effect will be triggered when a character gets predamage.
-                  //!< This event happens just before the character is actually
-                  //!< damaged.
+    TAKE_DAMAGE,  //!< The effect will be triggered when a character is damaged.
+    PREDAMAGE,    //!< The effect will be triggered when a character gets
+                //!< predamage. This event happens just before the character is
+                //!< actually damaged.
     TARGET,  //!< The effect will be triggered when a card is targeted by an
              //!< attacking minion or a played card.
     DEATH,   //!< The effect will be triggered when a minion dies.
+    USE_HERO_POWER,  //!< The effect will be triggered when a hero uses power.
 };
 
 //! \brief An enumerator for identifying trigger source.

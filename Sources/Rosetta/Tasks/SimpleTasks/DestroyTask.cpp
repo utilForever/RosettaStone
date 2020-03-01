@@ -26,8 +26,8 @@ TaskStatus DestroyTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* DestroyTask::CloneImpl()
+std::unique_ptr<ITask> DestroyTask::CloneImpl()
 {
-    return new DestroyTask(m_entityType);
+    return std::make_unique<DestroyTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

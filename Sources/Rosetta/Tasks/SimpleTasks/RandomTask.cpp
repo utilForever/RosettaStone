@@ -50,8 +50,8 @@ TaskStatus RandomTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* RandomTask::CloneImpl()
+std::unique_ptr<ITask> RandomTask::CloneImpl()
 {
-    return new RandomTask(m_entityType, m_amount);
+    return std::make_unique<RandomTask>(m_entityType, m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

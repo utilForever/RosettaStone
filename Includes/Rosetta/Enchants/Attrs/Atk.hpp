@@ -8,6 +8,8 @@
 
 #include <Rosetta/Enchants/Attrs/SelfContainedIntAttr.hpp>
 
+#include <memory>
+
 namespace RosettaStone
 {
 //!
@@ -23,7 +25,7 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
     //! \param effectOp The effect operator of the effect.
     //! \param value The value of the effect.
     //! \return The effect that is dynamically allocated.
-    static IEffect* Effect(EffectOperator effectOp, int value)
+    static std::shared_ptr<IEffect> Effect(EffectOperator effectOp, int value)
     {
         return SelfContainedIntAttr::Effect(effectOp, value);
     }
@@ -104,7 +106,8 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
 
     //! Sets the value the attribute that is affected by the aura effect.
     //! \param auraEffects The aura effects that affects the attribute.
-    //! \param value The value the attribute that is affected by the aura effect.
+    //! \param value The value the attribute that is affected by
+    //! the aura effect.
     void SetAuraValue(AuraEffects* auraEffects, int value) override
     {
         auraEffects->SetAttack(value);

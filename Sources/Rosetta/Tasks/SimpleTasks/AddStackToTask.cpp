@@ -34,8 +34,8 @@ TaskStatus AddStackToTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* AddStackToTask::CloneImpl()
+std::unique_ptr<ITask> AddStackToTask::CloneImpl()
 {
-    return new AddStackToTask(m_entityType);
+    return std::make_unique<AddStackToTask>(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -17,7 +17,7 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(IncludeTask, Run_NonConst)
+TEST_CASE("[IncludeTask] - Run_NonConst")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -70,117 +70,118 @@ TEST(IncludeTask, Run_NonConst)
 
     const auto entities1 =
         IncludeTask::GetEntities(EntityType::SOURCE, player1, player1Field[0]);
-    EXPECT_EQ(entities1.size(), 1u);
-    EXPECT_EQ(entities1[0]->card->name, "Flame Imp");
+    CHECK_EQ(entities1.size(), 1u);
+    CHECK_EQ(entities1[0]->card->name, "Flame Imp");
 
     const auto entities2 = IncludeTask::GetEntities(EntityType::TARGET, player1,
                                                     nullptr, player2Field[0]);
-    EXPECT_EQ(entities2.size(), 1u);
-    EXPECT_EQ(entities2[0]->card->name, "Wisp");
+    CHECK_EQ(entities2.size(), 1u);
+    CHECK_EQ(entities2[0]->card->name, "Wisp");
 
     const auto entities3 = IncludeTask::GetEntities(EntityType::ALL, player1);
-    EXPECT_EQ(entities3.size(), 12u);
+    CHECK_EQ(entities3.size(), 12u);
 
     const auto entities4_1 = IncludeTask::GetEntities(EntityType::ALL_NOSOURCE,
                                                       player1, player1Field[0]);
-    EXPECT_EQ(entities4_1.size(), 11u);
+    CHECK_EQ(entities4_1.size(), 11u);
 
     const auto entities4_2 = IncludeTask::GetEntities(EntityType::ALL_NOSOURCE,
                                                       player1, player2Field[0]);
-    EXPECT_EQ(entities4_2.size(), 11u);
+    CHECK_EQ(entities4_2.size(), 11u);
 
     const auto entities5 =
         IncludeTask::GetEntities(EntityType::FRIENDS, player1);
-    EXPECT_EQ(entities5.size(), 7u);
+    CHECK_EQ(entities5.size(), 7u);
 
     const auto entities6 =
         IncludeTask::GetEntities(EntityType::ENEMIES, player1);
-    EXPECT_EQ(entities6.size(), 5u);
+    CHECK_EQ(entities6.size(), 5u);
 
     const auto entities7_1 = IncludeTask::GetEntities(
         EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
-    EXPECT_EQ(entities7_1.size(), 4u);
+    CHECK_EQ(entities7_1.size(), 4u);
 
     const auto entities7_2 = IncludeTask::GetEntities(
         EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
-    EXPECT_EQ(entities7_2.size(), 4u);
+    CHECK_EQ(entities7_2.size(), 4u);
 
     const auto entities8 = IncludeTask::GetEntities(EntityType::HERO, player1);
-    EXPECT_EQ(entities8.size(), 1u);
-    EXPECT_EQ(entities8[0]->card->GetCardClass(), CardClass::WARLOCK);
+    CHECK_EQ(entities8.size(), 1u);
+    CHECK_EQ(entities8[0]->card->GetCardClass(), CardClass::WARLOCK);
 
     const auto entities9 =
         IncludeTask::GetEntities(EntityType::ENEMY_HERO, player1);
-    EXPECT_EQ(entities9.size(), 1u);
-    EXPECT_EQ(entities9[0]->card->GetCardClass(), CardClass::PALADIN);
+    CHECK_EQ(entities9.size(), 1u);
+    CHECK_EQ(entities9[0]->card->GetCardClass(), CardClass::PALADIN);
 
     const auto entities10 =
         IncludeTask::GetEntities(EntityType::WEAPON, player1);
-    EXPECT_EQ(entities10.size(), 1u);
-    EXPECT_EQ(entities10[0]->card->name, "Fiery War Axe");
+    CHECK_EQ(entities10.size(), 1u);
+    CHECK_EQ(entities10[0]->card->name, "Fiery War Axe");
 
     const auto entities11 =
         IncludeTask::GetEntities(EntityType::ENEMY_WEAPON, player1);
-    EXPECT_EQ(entities11.size(), 1u);
-    EXPECT_EQ(entities11[0]->card->name, "Arcanite Reaper");
+    CHECK_EQ(entities11.size(), 1u);
+    CHECK_EQ(entities11[0]->card->name, "Arcanite Reaper");
 
     const auto entities12 = IncludeTask::GetEntities(EntityType::HAND, player1);
-    EXPECT_EQ(entities12.size(), 4u);
+    CHECK_EQ(entities12.size(), 4u);
 
     const auto entities13 =
         IncludeTask::GetEntities(EntityType::ENEMY_HAND, player1);
-    EXPECT_EQ(entities13.size(), 5u);
+    CHECK_EQ(entities13.size(), 5u);
 
     const auto entities14 = IncludeTask::GetEntities(EntityType::DECK, player1);
-    EXPECT_EQ(entities14.size(), 5u);
+    CHECK_EQ(entities14.size(), 5u);
 
     const auto entities15 =
         IncludeTask::GetEntities(EntityType::ENEMY_DECK, player1);
-    EXPECT_EQ(entities15.size(), 5u);
+    CHECK_EQ(entities15.size(), 5u);
 
     const auto entities16 =
         IncludeTask::GetEntities(EntityType::ALL_MINIONS, player1);
-    EXPECT_EQ(entities16.size(), 10u);
+    CHECK_EQ(entities16.size(), 10u);
 
     const auto entities17 = IncludeTask::GetEntities(
         EntityType::ALL_MINIONS_NOSOURCE, player1, player1Field[0]);
-    EXPECT_EQ(entities17.size(), 9u);
+    CHECK_EQ(entities17.size(), 9u);
 
     const auto entities18 =
         IncludeTask::GetEntities(EntityType::MINIONS, player1);
-    EXPECT_EQ(entities18.size(), 6u);
+    CHECK_EQ(entities18.size(), 6u);
 
     const auto entities19 = IncludeTask::GetEntities(
         EntityType::MINIONS_NOSOURCE, player1, player1Field[0]);
-    EXPECT_EQ(entities19.size(), 5u);
+    CHECK_EQ(entities19.size(), 5u);
 
     const auto entities20 =
         IncludeTask::GetEntities(EntityType::ENEMY_MINIONS, player1);
-    EXPECT_EQ(entities20.size(), 4u);
+    CHECK_EQ(entities20.size(), 4u);
 
     const auto entities21 =
         IncludeTask::GetEntities(EntityType::ENEMY_SECRETS, player1);
-    EXPECT_EQ(entities21.size(), 1u);
+    CHECK_EQ(entities21.size(), 1u);
 
     const auto entities22 =
         IncludeTask::GetEntities(EntityType::STACK, player1);
-    EXPECT_EQ(entities22.size(), 0u);
+    CHECK_EQ(entities22.size(), 0u);
 
     auto& p1Field = *(player1->GetFieldZone());
     auto& p2Field = *(player2->GetFieldZone());
-    game.currentEventData = new EventMetaData(p1Field[0], p2Field[0]);
+    game.currentEventData =
+        std::make_unique<EventMetaData>(p1Field[0], p2Field[0]);
 
     const auto entities23 =
         IncludeTask::GetEntities(EntityType::EVENT_SOURCE, player1);
-    EXPECT_EQ(entities23.size(), 1u);
+    CHECK_EQ(entities23.size(), 1u);
 
-    delete game.currentEventData;
+    game.currentEventData.reset();
 
-    EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
+    CHECK_THROWS_AS(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);
 }
 
-TEST(IncludeTask, Run_Const)
+TEST_CASE("[IncludeTask] - Run_Const")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -238,112 +239,113 @@ TEST(IncludeTask, Run_Const)
 
     const auto entities1 =
         IncludeTask::GetEntities(EntityType::SOURCE, player1, player1Field[0]);
-    EXPECT_EQ(entities1.size(), 1u);
-    EXPECT_EQ(entities1[0]->card->name, "Flame Imp");
+    CHECK_EQ(entities1.size(), 1u);
+    CHECK_EQ(entities1[0]->card->name, "Flame Imp");
 
     const auto entities2 = IncludeTask::GetEntities(EntityType::TARGET, player1,
                                                     nullptr, player2Field[0]);
-    EXPECT_EQ(entities2.size(), 1u);
-    EXPECT_EQ(entities2[0]->card->name, "Wisp");
+    CHECK_EQ(entities2.size(), 1u);
+    CHECK_EQ(entities2[0]->card->name, "Wisp");
 
     const auto entities3 = IncludeTask::GetEntities(EntityType::ALL, player1);
-    EXPECT_EQ(entities3.size(), 12u);
+    CHECK_EQ(entities3.size(), 12u);
 
     const auto entities4_1 = IncludeTask::GetEntities(EntityType::ALL_NOSOURCE,
                                                       player1, player1Field[0]);
-    EXPECT_EQ(entities4_1.size(), 11u);
+    CHECK_EQ(entities4_1.size(), 11u);
 
     const auto entities4_2 = IncludeTask::GetEntities(EntityType::ALL_NOSOURCE,
                                                       player1, player2Field[0]);
-    EXPECT_EQ(entities4_2.size(), 11u);
+    CHECK_EQ(entities4_2.size(), 11u);
 
     const auto entities5 =
         IncludeTask::GetEntities(EntityType::FRIENDS, player1);
-    EXPECT_EQ(entities5.size(), 7u);
+    CHECK_EQ(entities5.size(), 7u);
 
     const auto entities6 =
         IncludeTask::GetEntities(EntityType::ENEMIES, player1);
-    EXPECT_EQ(entities6.size(), 5u);
+    CHECK_EQ(entities6.size(), 5u);
 
     const auto entities7_1 = IncludeTask::GetEntities(
         EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
-    EXPECT_EQ(entities7_1.size(), 4u);
+    CHECK_EQ(entities7_1.size(), 4u);
 
     const auto entities7_2 = IncludeTask::GetEntities(
         EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
-    EXPECT_EQ(entities7_2.size(), 4u);
+    CHECK_EQ(entities7_2.size(), 4u);
 
     const auto entities8 = IncludeTask::GetEntities(EntityType::HERO, player1);
-    EXPECT_EQ(entities8.size(), 1u);
-    EXPECT_EQ(entities8[0]->card->GetCardClass(), CardClass::WARLOCK);
+    CHECK_EQ(entities8.size(), 1u);
+    CHECK_EQ(entities8[0]->card->GetCardClass(), CardClass::WARLOCK);
 
     const auto entities9 =
         IncludeTask::GetEntities(EntityType::ENEMY_HERO, player1);
-    EXPECT_EQ(entities9.size(), 1u);
-    EXPECT_EQ(entities9[0]->card->GetCardClass(), CardClass::PALADIN);
+    CHECK_EQ(entities9.size(), 1u);
+    CHECK_EQ(entities9[0]->card->GetCardClass(), CardClass::PALADIN);
 
     const auto entities10 =
         IncludeTask::GetEntities(EntityType::WEAPON, player1);
-    EXPECT_EQ(entities10.size(), 1u);
-    EXPECT_EQ(entities10[0]->card->name, "Fiery War Axe");
+    CHECK_EQ(entities10.size(), 1u);
+    CHECK_EQ(entities10[0]->card->name, "Fiery War Axe");
 
     const auto entities11 =
         IncludeTask::GetEntities(EntityType::ENEMY_WEAPON, player1);
-    EXPECT_EQ(entities11.size(), 1u);
-    EXPECT_EQ(entities11[0]->card->name, "Arcanite Reaper");
+    CHECK_EQ(entities11.size(), 1u);
+    CHECK_EQ(entities11[0]->card->name, "Arcanite Reaper");
 
     const auto entities12 = IncludeTask::GetEntities(EntityType::HAND, player1);
-    EXPECT_EQ(entities12.size(), 4u);
+    CHECK_EQ(entities12.size(), 4u);
 
     const auto entities13 =
         IncludeTask::GetEntities(EntityType::ENEMY_HAND, player1);
-    EXPECT_EQ(entities13.size(), 5u);
+    CHECK_EQ(entities13.size(), 5u);
 
     const auto entities14 = IncludeTask::GetEntities(EntityType::DECK, player1);
-    EXPECT_EQ(entities14.size(), 5u);
+    CHECK_EQ(entities14.size(), 5u);
 
     const auto entities15 =
         IncludeTask::GetEntities(EntityType::ENEMY_DECK, player1);
-    EXPECT_EQ(entities15.size(), 5u);
+    CHECK_EQ(entities15.size(), 5u);
 
     const auto entities16 =
         IncludeTask::GetEntities(EntityType::ALL_MINIONS, player1);
-    EXPECT_EQ(entities16.size(), 10u);
+    CHECK_EQ(entities16.size(), 10u);
 
     const auto entities17 = IncludeTask::GetEntities(
         EntityType::ALL_MINIONS_NOSOURCE, player1, player1Field[0]);
-    EXPECT_EQ(entities17.size(), 9u);
+    CHECK_EQ(entities17.size(), 9u);
 
     const auto entities18 =
         IncludeTask::GetEntities(EntityType::MINIONS, player1);
-    EXPECT_EQ(entities18.size(), 6u);
+    CHECK_EQ(entities18.size(), 6u);
 
     const auto entities19 = IncludeTask::GetEntities(
         EntityType::MINIONS_NOSOURCE, player1, player1Field[0]);
-    EXPECT_EQ(entities19.size(), 5u);
+    CHECK_EQ(entities19.size(), 5u);
 
     const auto entities20 =
         IncludeTask::GetEntities(EntityType::ENEMY_MINIONS, player1);
-    EXPECT_EQ(entities20.size(), 4u);
+    CHECK_EQ(entities20.size(), 4u);
 
     const auto entities21 =
         IncludeTask::GetEntities(EntityType::ENEMY_SECRETS, player1);
-    EXPECT_EQ(entities21.size(), 1u);
+    CHECK_EQ(entities21.size(), 1u);
 
     const auto entities22 =
         IncludeTask::GetEntities(EntityType::STACK, player1);
-    EXPECT_EQ(entities22.size(), 0u);
+    CHECK_EQ(entities22.size(), 0u);
 
     auto& p1Field = *(player1->GetFieldZone());
     auto& p2Field = *(player2->GetFieldZone());
-    game.currentEventData = new EventMetaData(p1Field[0], p2Field[0]);
+    game.currentEventData =
+        std::make_unique<EventMetaData>(p1Field[0], p2Field[0]);
 
     const auto entities23 =
         IncludeTask::GetEntities(EntityType::EVENT_SOURCE, player1);
-    EXPECT_EQ(entities23.size(), 1u);
+    CHECK_EQ(entities23.size(), 1u);
 
-    delete game.currentEventData;
+    game.currentEventData.reset();
 
-    EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
+    CHECK_THROWS_AS(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);
 }

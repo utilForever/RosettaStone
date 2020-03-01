@@ -4,11 +4,13 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Playable.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <utility>
 
@@ -111,6 +113,11 @@ bool Playable::HasDeathrattle() const
 bool Playable::HasChooseOne() const
 {
     return GetGameTag(GameTag::CHOOSE_ONE) == 1;
+}
+
+bool Playable::HasLifesteal() const
+{
+    return GetGameTag(GameTag::LIFESTEAL) == 1;
 }
 
 void Playable::ResetCost()
@@ -396,17 +403,15 @@ bool Playable::HasAnyValidPlayTargets() const
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
-    if (HasChooseOne())
+    if (HasChooseOne() && chooseOne > 0)
     {
-        if (chooseOne > 0)
-        {
-            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne,
-                                                       this);
-            return;
-        }
+        Playable* playable = GetFromCard(
+            player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
+            std::nullopt, player->GetSetasideZone());
+        playable->ActivateTask(type, target, chooseOne, this);
     }
 
-    std::vector<ITask*> tasks;
+    std::vector<std::shared_ptr<ITask>> tasks;
     switch (type)
     {
         case PowerType::POWER:
@@ -427,13 +432,13 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
 
     for (auto& task : tasks)
     {
-        ITask* clonedTask = task->Clone();
+        std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
         clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
         clonedTask->SetTarget(target);
 
-        game->taskQueue.Enqueue(clonedTask);
+        game->taskQueue.Enqueue(std::move(clonedTask));
     }
 }
 }  // namespace RosettaStone

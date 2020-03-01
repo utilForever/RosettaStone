@@ -8,6 +8,7 @@
 #define ROSETTASTONE_CARDS_HPP
 
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Commons/Constants.hpp>
 
 #include <vector>
 
@@ -60,13 +61,27 @@ class Cards
     //! \return A list of all cards.
     static const std::vector<Card*>& GetAllCards();
 
+    //! Returns a list of standard cards that matches specific card class.
+    //! \param cardClass The card class to match.
+    //! \return A list of standard cards that matches specific card class.
+    static const std::vector<Card*>& GetStandardCards(CardClass cardClass);
+
+    //! Returns a list of wild cards that matches specific card class.
+    //! \param cardClass The card class to match.
+    //! \return A list of wild cards that matches specific card class.
+    static const std::vector<Card*>& GetWildCards(CardClass cardClass);
+
     //! Returns a list of all standard cards.
     //! \return A list of all standard cards.
-    static std::vector<Card*> GetAllStandardCards();
+    static const std::vector<Card*>& GetAllStandardCards();
 
     //! Returns a list of all wild cards.
     //! \return A list of all wild cards.
-    static std::vector<Card*> GetAllWildCards();
+    static const std::vector<Card*>& GetAllWildCards();
+
+    //! Returns a list of Lackey cards.
+    //! \return A list of Lackey cards.
+    static std::vector<Card*> GetLackeys();
 
     //! Returns a card that matches \p id.
     //! \param id The ID of the card.
@@ -156,6 +171,11 @@ class Cards
     ~Cards();
 
     static std::vector<Card*> m_cards;
+    static std::array<std::vector<Card*>, NUM_PLAYER_CLASS> m_standardCards;
+    static std::array<std::vector<Card*>, NUM_PLAYER_CLASS> m_wildCards;
+    static std::vector<Card*> m_allStandardCards;
+    static std::vector<Card*> m_allWildCards;
+    static std::vector<Card*> m_lackeys;
 };
 }  // namespace RosettaStone
 

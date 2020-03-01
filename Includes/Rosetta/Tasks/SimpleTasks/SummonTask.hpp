@@ -18,7 +18,8 @@ enum class SummonSide
     RIGHT,        //!< Summoning right of the minion.
     DEATHRATTLE,  //!< Summoning at the last position of the source.
     NUMBER,       //!< Summoning at a given position in the stack number.
-    SPELL         //!< Summoning by spell, currently like default.
+    SPELL,        //!< Summoning by spell, currently like default.
+    TARGET,       //!< Summoning right of the target.
 };
 
 //!
@@ -61,8 +62,10 @@ class SummonTask : public ITask
     //! Returns the position of minion to summon.
     //! \param source The source entity.
     //! \param side The side of summoned minion.
+    //! \param target The target entity.
     //! \return The position of minion to summon.
-    static int GetPosition(Entity* source, SummonSide side);
+    static int GetPosition(Entity* source, SummonSide side,
+                           Entity* target = nullptr);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -72,7 +75,7 @@ class SummonTask : public ITask
 
     //! Internal method of Clone().
     //! \return The cloned task.
-    ITask* CloneImpl() override;
+    std::unique_ptr<ITask> CloneImpl() override;
 
     std::optional<Card*> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;

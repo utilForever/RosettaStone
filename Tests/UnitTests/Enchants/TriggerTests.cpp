@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Utils/TestUtils.hpp>
-#include "gtest/gtest.h"
+#include "doctest_proxy.hpp"
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
@@ -17,7 +17,7 @@
 using namespace RosettaStone;
 using namespace TestUtils;
 
-TEST(Trigger, None)
+TEST_CASE("[Trigger] - None")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -40,7 +40,7 @@ TEST(Trigger, None)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::NONE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::NONE));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -48,7 +48,7 @@ TEST(Trigger, None)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TurnStart)
+TEST_CASE("[Trigger] - TurnStart")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -71,7 +71,7 @@ TEST(Trigger, TurnStart)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -79,7 +79,7 @@ TEST(Trigger, TurnStart)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TurnEnd)
+TEST_CASE("[Trigger] - TurnEnd")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -102,7 +102,7 @@ TEST(Trigger, TurnEnd)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -110,7 +110,7 @@ TEST(Trigger, TurnEnd)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, PlayCard)
+TEST_CASE("[Trigger] - PlayCard")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -133,7 +133,7 @@ TEST(Trigger, PlayCard)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -141,7 +141,7 @@ TEST(Trigger, PlayCard)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, PlayMinion)
+TEST_CASE("[Trigger] - PlayMinion")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -164,7 +164,7 @@ TEST(Trigger, PlayMinion)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PLAY_MINION));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -172,7 +172,7 @@ TEST(Trigger, PlayMinion)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, CastSpell)
+TEST_CASE("[Trigger] - CastSpell")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -195,7 +195,7 @@ TEST(Trigger, CastSpell)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -203,7 +203,7 @@ TEST(Trigger, CastSpell)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterCast)
+TEST_CASE("[Trigger] - AfterCast")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -226,7 +226,7 @@ TEST(Trigger, AfterCast)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_CAST));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -234,7 +234,7 @@ TEST(Trigger, AfterCast)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Heal)
+TEST_CASE("[Trigger] - GiveHeal")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -257,7 +257,7 @@ TEST(Trigger, Heal)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::HEAL));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::GIVE_HEAL));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -265,7 +265,7 @@ TEST(Trigger, Heal)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Attack)
+TEST_CASE("[Trigger] - TakeHeal")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -288,7 +288,7 @@ TEST(Trigger, Attack)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -296,7 +296,7 @@ TEST(Trigger, Attack)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_None)
+TEST_CASE("[Trigger] - Attack")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -319,7 +319,39 @@ TEST(Trigger, AfterAttack_None)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+
+    PlayMinionCard(curPlayer, &card1);
+
+    curField[0]->Destroy();
+    game.ProcessDestroyAndUpdateAura();
+}
+
+TEST_CASE("[Trigger] - AfterAttack_None")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    auto card1 = GenerateMinionCard("minion1", 3, 6);
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::NONE;
 
     PlayMinionCard(curPlayer, &card1);
@@ -328,7 +360,7 @@ TEST(Trigger, AfterAttack_None)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_Hero)
+TEST_CASE("[Trigger] - AfterAttack_Hero")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -351,7 +383,8 @@ TEST(Trigger, AfterAttack_Hero)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::HERO;
 
     PlayMinionCard(curPlayer, &card1);
@@ -360,7 +393,7 @@ TEST(Trigger, AfterAttack_Hero)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_Self)
+TEST_CASE("[Trigger] - AfterAttack_Self")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -383,7 +416,8 @@ TEST(Trigger, AfterAttack_Self)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, &card1);
@@ -392,7 +426,7 @@ TEST(Trigger, AfterAttack_Self)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterAttack_EnchantmentTarget)
+TEST_CASE("[Trigger] - AfterAttack_EnchantmentTarget")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -417,7 +451,8 @@ TEST(Trigger, AfterAttack_EnchantmentTarget)
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
 
     PlayMinionCard(curPlayer, &card2);
@@ -430,7 +465,7 @@ TEST(Trigger, AfterAttack_EnchantmentTarget)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Summon)
+TEST_CASE("[Trigger] - Summon")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -453,7 +488,7 @@ TEST(Trigger, Summon)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::SUMMON));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -461,7 +496,7 @@ TEST(Trigger, Summon)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, AfterSummon)
+TEST_CASE("[Trigger] - AfterSummon")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -484,7 +519,8 @@ TEST(Trigger, AfterSummon)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
+    card1.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -492,7 +528,7 @@ TEST(Trigger, AfterSummon)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, DealDamage)
+TEST_CASE("[Trigger] - DealDamage")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -515,7 +551,7 @@ TEST(Trigger, DealDamage)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEAL_DAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, &card1);
@@ -524,7 +560,7 @@ TEST(Trigger, DealDamage)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TakeDamage)
+TEST_CASE("[Trigger] - TakeDamage")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -547,7 +583,7 @@ TEST(Trigger, TakeDamage)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
 
     PlayMinionCard(curPlayer, &card1);
 
@@ -555,7 +591,7 @@ TEST(Trigger, TakeDamage)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_None)
+TEST_CASE("[Trigger] - Predamage_None")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -578,7 +614,7 @@ TEST(Trigger, Predamage_None)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::NONE;
 
     PlayMinionCard(curPlayer, &card1);
@@ -587,7 +623,7 @@ TEST(Trigger, Predamage_None)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_Hero)
+TEST_CASE("[Trigger] - Predamage_Hero")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -612,7 +648,7 @@ TEST(Trigger, Predamage_Hero)
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::HERO;
 
     PlayMinionCard(curPlayer, &card2);
@@ -625,7 +661,7 @@ TEST(Trigger, Predamage_Hero)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_Self)
+TEST_CASE("[Trigger] - Predamage_Self")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -648,7 +684,7 @@ TEST(Trigger, Predamage_Self)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, &card1);
@@ -657,7 +693,7 @@ TEST(Trigger, Predamage_Self)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Predamage_EnchantmentTarget)
+TEST_CASE("[Trigger] - Predamage_EnchantmentTarget")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -682,7 +718,7 @@ TEST(Trigger, Predamage_EnchantmentTarget)
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
 
     PlayMinionCard(curPlayer, &card2);
@@ -695,7 +731,7 @@ TEST(Trigger, Predamage_EnchantmentTarget)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, Target)
+TEST_CASE("[Trigger] - Target")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -718,7 +754,7 @@ TEST(Trigger, Target)
     auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TARGET));
+    card1.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
 
     PlayMinionCard(curPlayer, &card1);
 

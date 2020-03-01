@@ -21,8 +21,8 @@ TaskStatus AttackTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* AttackTask::CloneImpl()
+std::unique_ptr<ITask> AttackTask::CloneImpl()
 {
-    return new AttackTask(m_source, m_target);
+    return std::make_unique<AttackTask>(m_source, m_target);
 }
 }  // namespace RosettaStone::PlayerTasks

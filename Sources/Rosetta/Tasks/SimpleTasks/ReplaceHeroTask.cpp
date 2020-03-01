@@ -59,8 +59,9 @@ TaskStatus ReplaceHeroTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* ReplaceHeroTask::CloneImpl()
+std::unique_ptr<ITask> ReplaceHeroTask::CloneImpl()
 {
-    return new ReplaceHeroTask(m_heroCard, m_heroPowerCard, m_weaponCard);
+    return std::make_unique<ReplaceHeroTask>(m_heroCard, m_heroPowerCard,
+                                             m_weaponCard);
 }
 }  // namespace RosettaStone::SimpleTasks
