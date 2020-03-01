@@ -65,6 +65,10 @@ class Card
     //! \return true if this card has game tag, and false otherwise.
     bool HasGameTag(GameTag gameTag) const;
 
+    //! Returns the flag that indicates whether it is Lackey.
+    //! \return The flag that indicates whether it is Lackey.
+    bool IsLackey() const;
+
     //! Returns the flag that indicates whether it is Galakrond.
     //! \return The flag that indicates whether it is Galakrond.
     bool IsGalakrond() const;

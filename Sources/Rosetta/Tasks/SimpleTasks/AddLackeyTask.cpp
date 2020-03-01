@@ -28,9 +28,8 @@ TaskStatus AddLackeyTask::Impl(Player* player)
 
     for (int i = 0; i < m_amount && !player->GetHandZone()->IsFull(); ++i)
     {
-        const auto idx = Random::get<std::size_t>(0, lackeys.size() - 1);
         const auto lackey = Entity::GetFromCard(
-            player, lackeys.at(idx), std::nullopt, player->GetHandZone());
+            player, *Random::get(lackeys), std::nullopt, player->GetHandZone());
         Generic::AddCardToHand(player, lackey);
     }
 

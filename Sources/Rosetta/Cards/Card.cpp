@@ -169,6 +169,22 @@ bool Card::HasGameTag(GameTag gameTag) const
     return gameTags.find(gameTag) != gameTags.end();
 }
 
+bool Card::IsLackey() const
+{
+    if (id == "DAL_613" ||  // DAL_613: Faceless Lackey
+        id == "DAL_614" ||  // DAL_614: Kobold Lackey
+        id == "DAL_615" ||  // DAL_615: Witchy Lackey
+        id == "DAL_739" ||  // DAL_739: Goblin Lackey
+        id == "DAL_741" ||  // DAL_741: Ethereal Lackey
+        id == "ULD_616" ||  // ULD_616: Titanic Lackey
+        id == "DRG_052")    // DRG_052: Draconic Lackey
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Card::IsGalakrond() const
 {
     // NOTE: Galakrond hero card list
