@@ -10,6 +10,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
@@ -1918,6 +1919,9 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<AddLackeyTask>(1));
+    power.AddPowerTask(std::make_shared<ArmorTask>(3));
+    cards.emplace("DRG_020", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [DRG_021] Ritual Chopper - COST:2 [ATK:1/HP:0]
