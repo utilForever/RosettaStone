@@ -1987,6 +1987,11 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::PIRATE));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("DRG_024", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [DRG_025] Ancharrr - COST:3 [ATK:2/HP:0]
