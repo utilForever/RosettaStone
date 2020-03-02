@@ -1935,6 +1935,8 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace("DRG_021", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [DRG_022] Ramming Speed - COST:3

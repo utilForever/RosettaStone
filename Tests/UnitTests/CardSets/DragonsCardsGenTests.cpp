@@ -1547,6 +1547,54 @@ TEST_CASE("[Warrior : Minion] - DRG_020 : EVIL Quartermaster")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 3);
 }
 
+// --------------------------------------- WEAPON - WARRIOR
+// [DRG_021] Ritual Chopper - COST:2 [ATK:1/HP:0]
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Invoke</b> Galakrond.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - BATTLECRY = 1
+// - 676 = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - DRG_021 : Ritual Chopper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] =
+        *Cards::FindCardByName("Galakrond, the Unbreakable");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ritual Chopper"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetInvoke(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common
