@@ -1875,6 +1875,76 @@ TEST_CASE("[Warrior : Minion] - DRG_026 : Deathwing, Mad Aspect")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [DRG_249] Awaken! - COST:3
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Invoke</b> Galakrond. Deal 1 damage to all minions.
+// --------------------------------------------------------
+// GameTag:
+// - 676 = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - DRG_249 : Awaken!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player2Deck[0] =
+        *Cards::FindCardByName("Galakrond, the Unbreakable");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Awaken!"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(opPlayer->GetInvoke(), 1);
+    CHECK_EQ(opPlayer->GetHero()->GetAttack(), 3);
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(opPlayer->GetHero()->GetAttack(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common

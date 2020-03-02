@@ -2059,6 +2059,10 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
+    cards.emplace("DRG_249", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [DRG_500] Molten Breath - COST:4
