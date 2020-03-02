@@ -16,7 +16,7 @@ AttackTask::AttackTask(Entity* source, Playable* target) : ITask(source, target)
 TaskStatus AttackTask::Impl(Player* player)
 {
     Generic::Attack(player, dynamic_cast<Character*>(m_source),
-                    dynamic_cast<Character*>(m_target));
+                    dynamic_cast<Character*>(m_target), false);
 
     return TaskStatus::COMPLETE;
 }
