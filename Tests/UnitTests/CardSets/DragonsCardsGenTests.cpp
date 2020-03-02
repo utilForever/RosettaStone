@@ -1648,6 +1648,71 @@ TEST_CASE("[Warrior : Spell] - DRG_022 : Ramming Speed")
     CHECK_EQ(curField.GetCount(), 1);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [DRG_023] Skybarge - COST:3 [ATK:2/HP:5]
+// - Race: Mechanical, Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you summon a Pirate,
+//       deal 2 damage to a random enemy.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DRG_023 : Skybarge")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Cabal Shadow Priest"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Skybarge"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Southsea Deckhand"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Southsea Deckhand"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    bool check31 = curField[0]->GetHealth() == 3 &&
+                   curPlayer->GetHero()->GetHealth() == 30;
+    bool check32 = curField[0]->GetHealth() == 5 &&
+                   curPlayer->GetHero()->GetHealth() == 28;
+    bool check3 = (check31 || check32);
+    CHECK(check3);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    bool check41 = curField[0]->GetHealth() == 1 &&
+                   curPlayer->GetHero()->GetHealth() == 30;
+    bool check42 = curField[0]->GetHealth() == 3 &&
+                   curPlayer->GetHero()->GetHealth() == 28;
+    bool check43 = curField[0]->GetHealth() == 5 &&
+                   curPlayer->GetHero()->GetHealth() == 26;
+    bool check4 = (check41 | check42 | check43);
+    CHECK(check4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common

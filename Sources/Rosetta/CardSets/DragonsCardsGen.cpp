@@ -1967,6 +1967,16 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: After you summon a Pirate,
     //       deal 2 damage to a random enemy.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::PIRATE));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 2)
+    };
+    cards.emplace("DRG_023", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [DRG_024] Sky Raider - COST:1 [ATK:1/HP:2]
