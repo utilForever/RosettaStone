@@ -23,6 +23,7 @@
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
@@ -1876,6 +1877,8 @@ void DragonsCardsGen::AddWarlockNonCollect(
 
 void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
     // - Race: Dragon, Set: Dragons, Rarity: Epic
@@ -1891,6 +1894,16 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::HasInvokedTwice()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<SummonCopyTask>(EntityType::SOURCE, false,
+                                                   false, SummonSide::LEFT),
+                  std::make_shared<SummonCopyTask>(
+                      EntityType::SOURCE, false, false, SummonSide::RIGHT) }));
+    cards.emplace("DRG_019", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [DRG_020] EVIL Quartermaster - COST:3 [ATK:2/HP:3]

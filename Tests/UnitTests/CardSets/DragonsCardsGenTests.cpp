@@ -1402,7 +1402,8 @@ TEST_CASE("[Priest : Spell] - DRG_303 : Disciple of Galakrond")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Unspeakable");
+    config.player1Deck[0] =
+        *Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -1446,6 +1447,60 @@ TEST_CASE("[Priest : Spell] - DRG_303 : Disciple of Galakrond")
     CHECK_EQ(curPlayer->GetInvoke(), 4);
     CHECK_EQ(curHand[0]->card->id, "DRG_660t3");
     CHECK_EQ(curHand.GetCount(), 5);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
+// - Race: Dragon, Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Rush</b>. <b>Battlecry:</b> If you've
+//       <b>Invoked</b> twice, summon 2 copies of this.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - 676 = 1
+// - RUSH = 1
+// --------------------------------------------------------
+// RefTag:
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DRG_019 : Scion of Ruin")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scion of Ruin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scion of Ruin"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    curPlayer->IncreaseInvoke();
+    curPlayer->IncreaseInvoke();
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->card->name, "Scion of Ruin");
+    CHECK_EQ(curField[3]->card->name, "Scion of Ruin");
 }
 
 // --------------------------------------- MINION - NEUTRAL
