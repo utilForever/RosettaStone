@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -1501,6 +1502,51 @@ TEST_CASE("[Rogue : Minion] - DRG_027 : Umbral Skulker")
     CHECK_EQ(curHand[0]->card->name, "The Coin");
     CHECK_EQ(curHand[1]->card->name, "The Coin");
     CHECK_EQ(curHand[2]->card->name, "The Coin");
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [DRG_028] Dragon's Hoard - COST:1
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Discover</b> a <b>Legendary</b> minion
+//       from another class.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - DRG_028 : Dragon's Hoard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dragon's Hoard"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetRarity(), Rarity::LEGENDARY);
+    }
 }
 
 // --------------------------------------- MINION - WARRIOR

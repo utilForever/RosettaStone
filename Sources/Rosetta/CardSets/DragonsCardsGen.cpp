@@ -18,6 +18,7 @@
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
@@ -1363,6 +1364,11 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(CardType::MINION, CardClass::INVALID,
+                                       Race::INVALID, Rarity::LEGENDARY));
+    cards.emplace("DRG_028", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DRG_030] Praise Galakrond! - COST:1
