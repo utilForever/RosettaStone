@@ -8,6 +8,7 @@
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
@@ -1327,6 +1328,8 @@ void DragonsCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [DRG_027] Umbral Skulker - COST:4 [ATK:3/HP:3]
     // - Set: Dragons, Rarity: Epic
@@ -1341,6 +1344,13 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::HasInvokedTwice()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                      "GAME_005", 3) }));
+    cards.emplace("DRG_027", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DRG_028] Dragon's Hoard - COST:1

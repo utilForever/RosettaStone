@@ -1449,6 +1449,60 @@ TEST_CASE("[Priest : Spell] - DRG_303 : Disciple of Galakrond")
     CHECK_EQ(curHand.GetCount(), 5);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DRG_027] Umbral Skulker - COST:4 [ATK:3/HP:3]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you've <b>Invoked</b> twice,
+//       add 3 Coins to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - 676 = 1
+// --------------------------------------------------------
+// RefTag:
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DRG_027 : Umbral Skulker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Umbral Skulker"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Umbral Skulker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    curPlayer->IncreaseInvoke();
+    curPlayer->IncreaseInvoke();
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[0]->card->name, "The Coin");
+    CHECK_EQ(curHand[1]->card->name, "The Coin");
+    CHECK_EQ(curHand[2]->card->name, "The Coin");
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic
