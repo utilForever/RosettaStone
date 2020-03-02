@@ -244,6 +244,14 @@ SelfCondition SelfCondition::HasSpellPower()
         return playable->player->currentSpellPower > 0;
     });
 }
+
+SelfCondition SelfCondition::HasInvokedTwice()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetInvoke() >= 2;
+    });
+}
+
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Playable* playable) -> bool {

@@ -130,6 +130,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasSpellPower();
 
+    //! SelfCondition wrapper for checking the player has invoked twice.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasInvokedTwice();
+
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();
