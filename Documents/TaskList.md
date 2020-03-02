@@ -19,6 +19,7 @@
 * AddLackeyTask
 * AddStackToTask
 * ArmorTask
+* AttackTask
 * ChanceTask
 * ChangeAttackingTargetTask
 * ChangeHeroPowerTask

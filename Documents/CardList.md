@@ -724,15 +724,15 @@ DRAGONS | DRG_006 | Corrosive Breath | O
 DRAGONS | DRG_007 | Stormhammer | O
 DRAGONS | DRG_008 | Righteous Cause | O
 DRAGONS | DRG_010 | Diving Gryphon | O
-DRAGONS | DRG_019 | Scion of Ruin |  
-DRAGONS | DRG_020 | EVIL Quartermaster |  
-DRAGONS | DRG_021 | Ritual Chopper |  
-DRAGONS | DRG_022 | Ramming Speed |  
-DRAGONS | DRG_023 | Skybarge |  
-DRAGONS | DRG_024 | Sky Raider |  
-DRAGONS | DRG_025 | Ancharrr |  
-DRAGONS | DRG_026 | Deathwing, Mad Aspect |  
-DRAGONS | DRG_027 | Umbral Skulker |  
+DRAGONS | DRG_019 | Scion of Ruin | O
+DRAGONS | DRG_020 | EVIL Quartermaster | O
+DRAGONS | DRG_021 | Ritual Chopper | O
+DRAGONS | DRG_022 | Ramming Speed | O
+DRAGONS | DRG_023 | Skybarge | O
+DRAGONS | DRG_024 | Sky Raider | O
+DRAGONS | DRG_025 | Ancharrr | O
+DRAGONS | DRG_026 | Deathwing, Mad Aspect | O
+DRAGONS | DRG_027 | Umbral Skulker | O
 DRAGONS | DRG_028 | Dragon's Hoard |  
 DRAGONS | DRG_030 | Praise Galakrond! |  
 DRAGONS | DRG_031 | Necrium Apothecary |  
@@ -817,7 +817,7 @@ DRAGONS | DRG_242 | Shield of Galakrond |
 DRAGONS | DRG_246 | Time Rip |  
 DRAGONS | DRG_247 | Seal Fate |  
 DRAGONS | DRG_248 | Invocation of Frost |  
-DRAGONS | DRG_249 | Awaken! |  
+DRAGONS | DRG_249 | Awaken! | O
 DRAGONS | DRG_250 | Fiendish Rites |  
 DRAGONS | DRG_251 | Clear the Way |  
 DRAGONS | DRG_252 | Phase Stalker |  
@@ -854,14 +854,14 @@ DRAGONS | DRG_324 | Elemental Allies |
 DRAGONS | DRG_401 | Grizzled Wizard |  
 DRAGONS | DRG_402 | Sathrovarr |  
 DRAGONS | DRG_403 | Blowtorch Saboteur |  
-DRAGONS | DRG_500 | Molten Breath |  
+DRAGONS | DRG_500 | Molten Breath | O
 DRAGONS | DRG_600 | Galakrond, the Wretched | O
 DRAGONS | DRG_610 | Galakrond, the Nightmare | O
 DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 10% (14 of 140 Cards)
+- Progress: 17% (25 of 140 Cards)
 
 ## Galakrond's Awakening
 
