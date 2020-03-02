@@ -1813,6 +1813,68 @@ TEST_CASE("[Warrior : Weapon] - DRG_025 : Ancharrr")
     CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [DRG_026] Deathwing, Mad Aspect - COST:8 [ATK:12/HP:12]
+// - Race: Dragon, Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Attack ALL other minions.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DRG_026 : Deathwing, Mad Aspect")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Deathwing, Mad Aspect"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    curPlayer->SetUsedMana(0);
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common

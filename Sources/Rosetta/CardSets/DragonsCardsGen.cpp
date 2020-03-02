@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
@@ -13,6 +14,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
@@ -29,6 +31,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -2027,6 +2030,24 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
+        auto enemyMinions = player->opponent->GetFieldZone()->GetAll();
+        Random::shuffle(enemyMinions.begin(), enemyMinions.end());
+
+        auto& curField = *(player->GetFieldZone());
+        const auto deathwing = curField[player->GetFieldZone()->GetCount() - 1];
+        for (auto& minion : enemyMinions)
+        {
+            Generic::Attack(player, deathwing, minion, true);
+
+            if (deathwing->isDestroyed)
+            {
+                break;
+            }
+        }
+    }));
+    cards.emplace("DRG_026", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [DRG_249] Awaken! - COST:3
