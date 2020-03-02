@@ -2003,6 +2003,19 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DURABILITY = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::DECK),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+            std::make_shared<SelfCondition>(
+                SelfCondition::IsRace(Race::PIRATE)) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DrawStackTask>(1)
+    };
+    cards.emplace("DRG_025", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [DRG_026] Deathwing, Mad Aspect - COST:8 [ATK:12/HP:12]

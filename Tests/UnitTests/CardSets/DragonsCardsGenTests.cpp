@@ -1752,6 +1752,67 @@ TEST_CASE("[Warrior : Minion] - DRG_024 : Sky Raider")
     CHECK_EQ(curHand[4]->card->GetRace(), Race::PIRATE);
 }
 
+// --------------------------------------- WEAPON - WARRIOR
+// [DRG_025] Ancharrr - COST:3 [ATK:2/HP:0]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After your hero attacks, draw a Pirate from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DURABILITY = 2
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - DRG_025 : Ancharrr")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        if (i % 2 == 0)
+        {
+            config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        }
+        else
+        {
+            config.player1Deck[i] = *Cards::FindCardByName("Southsea Deckhand");
+        }
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancharrr"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Southsea Deckhand");
+    CHECK_EQ(curHand[4]->card->GetRace(), Race::PIRATE);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common
