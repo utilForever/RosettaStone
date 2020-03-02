@@ -634,17 +634,14 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsHoldingRace(Race::DRAGON)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true,
-        TaskList{
-            std::make_shared<DamageTask>(EntityType::TARGET, 3, true),
-            std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3, true) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        false,
-        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3, true) }));
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3,
+                                                     true) }));
     cards.emplace(
         "DRG_006",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
