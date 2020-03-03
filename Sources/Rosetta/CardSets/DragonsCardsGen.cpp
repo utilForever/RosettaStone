@@ -1380,6 +1380,18 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_030e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace(
+        "DRG_030",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [DRG_031] Necrium Apothecary - COST:5 [ATK:2/HP:5]
@@ -1471,6 +1483,9 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_030e"));
+    cards.emplace("DRG_030e", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DRG_035t] Sky Pirate (*) - COST:1 [ATK:1/HP:1]
