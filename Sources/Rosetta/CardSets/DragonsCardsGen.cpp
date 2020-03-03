@@ -37,6 +37,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -1434,6 +1435,22 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: Draw 3 cards.
     //       Costs (3) less while you're holding a Dragon.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(3));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        auto hands = playable->player->GetHandZone()->GetAll();
+
+        for (auto& card : hands)
+        {
+            if (card->card->GetRace() == Race::DRAGON)
+            {
+                return 3;
+            }
+        }
+
+        return 0;
+    }));
+    cards.emplace("DRG_033", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DRG_034] Stowaway - COST:5 [ATK:4/HP:4]

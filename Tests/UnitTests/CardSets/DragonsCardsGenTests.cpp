@@ -1678,6 +1678,55 @@ TEST_CASE("[Rogue : Minion] - DRG_031 : Necrium Apothecary")
     CHECK_EQ(curField[2]->HasDeathrattle(), false);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [DRG_033] Candle Breath - COST:6
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 3 cards.
+//       Costs (3) less while you're holding a Dragon.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - DRG_033 : Candle Breath")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Candle Breath"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    CHECK_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic
