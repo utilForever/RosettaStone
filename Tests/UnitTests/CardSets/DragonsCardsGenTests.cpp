@@ -1727,6 +1727,46 @@ TEST_CASE("[Rogue : Spell] - DRG_033 : Candle Breath")
     CHECK_EQ(curHand.GetCount(), 8);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DRG_035] Bloodsail Flybooter - COST:1 [ATK:1/HP:1]
+// - Race: Pirate, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add two 1/1 Pirates to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DRG_035 : Bloodsail Flybooter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodsail Flybooter"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->name, "Sky Pirate");
+    CHECK_EQ(curHand[5]->card->name, "Sky Pirate");
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [DRG_247] Seal Fate - COST:3
 // - Set: Dragons, Rarity: Rare

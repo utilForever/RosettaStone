@@ -1472,6 +1472,10 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DRG_035t", 2));
+    cards.emplace("DRG_035", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DRG_036] Waxadred - COST:5 [ATK:7/HP:5]
@@ -1551,6 +1555,9 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // [DRG_035t] Sky Pirate (*) - COST:1 [ATK:1/HP:1]
     // - Race: Pirate, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_035t", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DRG_036t] Waxadred's Candle (*) - COST:5
