@@ -1488,6 +1488,10 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "DRG_036t", 1));
+    cards.emplace("DRG_036", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DRG_037] Flik Skyshiv - COST:6 [ATK:4/HP:4]
@@ -1571,6 +1575,10 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<SummonTask>("DRG_036"));
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_036"));
+    cards.emplace("DRG_036t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [DRG_074e] Camouflaged (*) - COST:0

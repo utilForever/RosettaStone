@@ -9,6 +9,7 @@
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
@@ -1765,6 +1766,65 @@ TEST_CASE("[Rogue : Minion] - DRG_035 : Bloodsail Flybooter")
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(curHand[4]->card->name, "Sky Pirate");
     CHECK_EQ(curHand[5]->card->name, "Sky Pirate");
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [DRG_036] Waxadred - COST:5 [ATK:7/HP:5]
+// - Race: Dragon, Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Shuffle a Candle into your deck
+//       that resummons Waxadred when drawn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DRG_036 : Waxadred")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Waxadred"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curDeck[0]->card->name, "Waxadred's Candle");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Waxadred");
 }
 
 // ------------------------------------------ SPELL - ROGUE
