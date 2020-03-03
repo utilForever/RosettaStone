@@ -8,6 +8,7 @@
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
@@ -15,6 +16,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
@@ -24,6 +26,7 @@
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/InvokeTask.hpp>
@@ -1406,6 +1409,23 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddComboTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()) }));
+    power.AddComboTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddComboTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
+    power.AddComboTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                         GameTag::ENTITY_ID),
+                        std::make_shared<AddEnchantmentTask>(
+                            "DRG_031e", EntityType::SOURCE, false, true),
+                        std::make_shared<DrawStackTask>(1) }));
+    cards.emplace("DRG_031", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DRG_033] Candle Breath - COST:6
@@ -1486,6 +1506,17 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DRG_030e"));
     cards.emplace("DRG_030e", CardDef(power));
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [DRG_031e] Necrium Infusion (*) - COST:0
+    // - Set: Dragons
+    // --------------------------------------------------------
+    // Text: Copied Deathrattle from {0}.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<ActivateCapturedDeathrattleTask>());
+    cards.emplace("DRG_031e", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DRG_035t] Sky Pirate (*) - COST:1 [ATK:1/HP:1]

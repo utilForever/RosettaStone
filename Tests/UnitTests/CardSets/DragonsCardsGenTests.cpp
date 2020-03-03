@@ -1603,6 +1603,81 @@ TEST_CASE("[Rogue : Spell] - DRG_030 : Praise Galakrond!")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->IsLackey(), true);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DRG_031] Necrium Apothecary - COST:5 [ATK:2/HP:5]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Draw a <b>Deathrattle</b> minion
+//       from your deck and gain its <b>Deathrattle</b>.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DRG_031 : Necrium Apothecary")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (std::size_t i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Leper Gnome");
+        config.player2Deck[i] = *Cards::FindCardByName("Leper Gnome");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Necrium Apothecary"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Necrium Apothecary"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Necrium Apothecary"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curField[0]->HasDeathrattle(), false);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Leper Gnome");
+    CHECK_EQ(curField[1]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[5]));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curField[2]->HasDeathrattle(), false);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic
