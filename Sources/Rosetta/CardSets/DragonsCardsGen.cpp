@@ -1508,6 +1508,18 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_UNDAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace(
+        "DRG_247",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_UNDAMAGED_TARGET, 0 } }));
 }
 
 void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)

@@ -1727,6 +1727,64 @@ TEST_CASE("[Rogue : Spell] - DRG_033 : Candle Breath")
     CHECK_EQ(curHand.GetCount(), 8);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [DRG_247] Seal Fate - COST:3
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 3 damage to an undamaged character.
+//       <b>Invoke</b> Galakrond.
+// --------------------------------------------------------
+// GameTag:
+// - 676 = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_UNDAMAGED_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - DRG_247 : Seal Fate")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Nightmare");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Seal Fate"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Seal Fate"));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetInvoke(), 1);
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->IsLackey(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetInvoke(), 1);
+    CHECK_EQ(curHand.GetCount(), 3);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic
