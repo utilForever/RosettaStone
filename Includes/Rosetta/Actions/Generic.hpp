@@ -30,8 +30,9 @@ void AddCardToHand(Player* player, Playable* entity);
 //! \param target The target entity.
 //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
 //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
+//! \param entityID The entity ID to be stored in the enchantment.
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
-                    int num1 = -1, int num2 = -1);
+                    int num1 = -1, int num2 = -1, int entityID = 0);
 
 //! Shuffles card into deck.
 //! \param player The player to shuffle card into deck.

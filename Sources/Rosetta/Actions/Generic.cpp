@@ -53,7 +53,7 @@ void AddCardToHand(Player* player, Playable* entity)
 }
 
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
-                    int num1, int num2)
+                    int num1, int num2, int entityID)
 {
     Power& power = enchantmentCard->power;
 
@@ -86,6 +86,12 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
         if (auto trigger = power.GetTrigger(); trigger)
         {
             trigger->Activate(enchantment.get());
+        }
+
+        if (entityID > 0)
+        {
+            enchantment->SetCapturedCard(
+                creator->game->entityList[entityID]->card);
         }
     }
 
