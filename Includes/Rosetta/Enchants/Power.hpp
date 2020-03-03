@@ -51,6 +51,10 @@ class Power
     //! \return A list of combo tasks.
     std::vector<std::shared_ptr<ITask>>& GetComboTask();
 
+    //! Returns a list of topdeck tasks.
+    //! \return A list of topdeck tasks.
+    std::vector<std::shared_ptr<ITask>>& GetTopdeckTask();
+
     //! Clears power task and enchant.
     void ClearData();
 
@@ -78,6 +82,10 @@ class Power
     //! \param task A pointer to combo task.
     void AddComboTask(std::shared_ptr<ITask> task);
 
+    //! Adds topdeck task.
+    //! \param task A pointer to topdeck task.
+    void AddTopdeckTask(std::shared_ptr<ITask> task);
+
  private:
     std::shared_ptr<IAura> m_aura;
     std::shared_ptr<Enchant> m_enchant;
@@ -86,6 +94,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_powerTask;
     std::vector<std::shared_ptr<ITask>> m_deathrattleTask;
     std::vector<std::shared_ptr<ITask>> m_comboTask;
+    std::vector<std::shared_ptr<ITask>> m_topdeckTask;
 };
 }  // namespace RosettaStone
 
