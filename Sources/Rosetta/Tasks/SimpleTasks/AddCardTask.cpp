@@ -6,6 +6,7 @@
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 
 #include <utility>
 
@@ -40,6 +41,17 @@ TaskStatus AddCardTask::Impl(Player* player)
                 Generic::AddCardToHand(
                     player->opponent,
                     Entity::GetFromCard(player->opponent, card));
+            }
+            break;
+        }
+        case EntityType::DECK:
+        {
+            for (int i = 0; i < m_amount && !player->GetDeckZone()->IsFull();
+                 ++i)
+            {
+                Card* card = Cards::FindCardByID(m_cardID);
+                Generic::ShuffleIntoDeck(player,
+                                         Entity::GetFromCard(player, card));
             }
             break;
         }
