@@ -13,6 +13,7 @@
 
 ## Basic tasks
 
+* ActivateCapturedDeathrattleTask
 * AddAuraEffectTask
 * AddCardTask
 * AddEnchantmentTask

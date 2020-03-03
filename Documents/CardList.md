@@ -733,13 +733,13 @@ DRAGONS | DRG_024 | Sky Raider | O
 DRAGONS | DRG_025 | Ancharrr | O
 DRAGONS | DRG_026 | Deathwing, Mad Aspect | O
 DRAGONS | DRG_027 | Umbral Skulker | O
-DRAGONS | DRG_028 | Dragon's Hoard |  
-DRAGONS | DRG_030 | Praise Galakrond! |  
-DRAGONS | DRG_031 | Necrium Apothecary |  
-DRAGONS | DRG_033 | Candle Breath |  
+DRAGONS | DRG_028 | Dragon's Hoard | O
+DRAGONS | DRG_030 | Praise Galakrond! | O
+DRAGONS | DRG_031 | Necrium Apothecary | O
+DRAGONS | DRG_033 | Candle Breath | O
 DRAGONS | DRG_034 | Stowaway |  
-DRAGONS | DRG_035 | Bloodsail Flybooter |  
-DRAGONS | DRG_036 | Waxadred |  
+DRAGONS | DRG_035 | Bloodsail Flybooter | O
+DRAGONS | DRG_036 | Waxadred | O
 DRAGONS | DRG_037 | Flik Skyshiv |  
 DRAGONS | DRG_049 | Tasty Flyfish |  
 DRAGONS | DRG_050 | Devoted Maniac |  
@@ -815,7 +815,7 @@ DRAGONS | DRG_235 | Dragonrider Talritha |
 DRAGONS | DRG_239 | Blazing Battlemage | O
 DRAGONS | DRG_242 | Shield of Galakrond |  
 DRAGONS | DRG_246 | Time Rip |  
-DRAGONS | DRG_247 | Seal Fate |  
+DRAGONS | DRG_247 | Seal Fate | O
 DRAGONS | DRG_248 | Invocation of Frost |  
 DRAGONS | DRG_249 | Awaken! | O
 DRAGONS | DRG_250 | Fiendish Rites |  
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 17% (25 of 140 Cards)
+- Progress: 22% (32 of 140 Cards)
 
 ## Galakrond's Awakening
 
