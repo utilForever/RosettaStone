@@ -347,11 +347,11 @@ void Game::BeginMulligan()
     std::vector<std::size_t> p1HandIDs, p2HandIDs;
     for (auto& entity : GetPlayer1()->GetHandZone()->GetAll())
     {
-        p1HandIDs.emplace_back(entity->id);
+        p1HandIDs.emplace_back(entity->GetGameTag(GameTag::ENTITY_ID));
     }
     for (auto& entity : GetPlayer2()->GetHandZone()->GetAll())
     {
-        p2HandIDs.emplace_back(entity->id);
+        p2HandIDs.emplace_back(entity->GetGameTag(GameTag::ENTITY_ID));
     }
 
     // Create choice for each player

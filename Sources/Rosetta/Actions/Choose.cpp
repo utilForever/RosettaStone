@@ -47,8 +47,10 @@ void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices)
             std::vector<Playable*> mulliganList;
             for (const auto entity : hand->GetAll())
             {
-                const bool isExist = std::find(choices.begin(), choices.end(),
-                                               entity->id) == choices.end();
+                const bool isExist =
+                    std::find(choices.begin(), choices.end(),
+                              entity->GetGameTag(GameTag::ENTITY_ID)) ==
+                    choices.end();
                 if (isExist && entity->card->id != "GAME_005")
                 {
                     mulliganList.push_back(entity);
@@ -146,12 +148,14 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
     for (auto& card : choices)
     {
         std::map<GameTag, int> cardTags;
-        cardTags.emplace(GameTag::CREATOR, source->id);
-        cardTags.emplace(GameTag::DISPLAYED_CREATOR, source->id);
+        cardTags.emplace(GameTag::CREATOR,
+                         source->GetGameTag(GameTag::ENTITY_ID));
+        cardTags.emplace(GameTag::DISPLAYED_CREATOR,
+                         source->GetGameTag(GameTag::ENTITY_ID));
 
         Playable* choiceEntity = Entity::GetFromCard(player, card, cardTags,
                                                      player->GetSetasideZone());
-        choiceIDs.emplace_back(choiceEntity->id);
+        choiceIDs.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
     }
 
     Choice choice;

@@ -674,7 +674,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
         {
             Playable* card = deck->GetTopCard();
             deck->Remove(card);
-            ids.emplace_back(card->id);
+            ids.emplace_back(card->GetGameTag(GameTag::ENTITY_ID));
             playable->player->GetSetasideZone()->Add(card);
         }
 

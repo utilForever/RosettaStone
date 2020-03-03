@@ -84,7 +84,8 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
         auto& oneTurnEffects = player->game->oneTurnEffects;
         for (int i = static_cast<int>(oneTurnEffects.size()) - 1; i >= 0; --i)
         {
-            if (oneTurnEffects[i].first->id == source->id)
+            if (oneTurnEffects[i].first->GetGameTag(GameTag::ENTITY_ID) ==
+                source->GetGameTag(GameTag::ENTITY_ID))
             {
                 oneTurnEffects.emplace_back(
                     std::make_pair(copiedEntity, oneTurnEffects[i].second));

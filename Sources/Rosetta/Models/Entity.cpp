@@ -24,7 +24,8 @@ Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id)
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
 
-    id = _id < 0 ? static_cast<int>(game->GetNextID()) : _id;
+    Entity::SetGameTag(GameTag::ENTITY_ID,
+                       _id < 0 ? static_cast<int>(game->GetNextID()) : _id);
 }
 
 Entity::~Entity()
@@ -144,7 +145,8 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     }
 
     // Add entity to list
-    player->game->entityList.emplace(result->id, result);
+    player->game->entityList.emplace(result->GetGameTag(GameTag::ENTITY_ID),
+                                     result);
 
     return result;
 }

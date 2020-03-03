@@ -31,7 +31,7 @@ Playable* SetasideZone::GetEntity(int id)
 {
     for (auto& entity : m_entities)
     {
-        if (entity->id == id)
+        if (entity->GetGameTag(GameTag::ENTITY_ID) == id)
         {
             return entity;
         }
