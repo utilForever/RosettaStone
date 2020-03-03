@@ -39,17 +39,18 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     target->TakeDamage(source, amount);
 }
 
-void AddCardToHand(Player* player, Playable* entity)
+bool AddCardToHand(Player* player, Playable* entity)
 {
     // Add card to graveyard if hand is full
     if (player->GetHandZone()->IsFull())
     {
         player->GetGraveyardZone()->Add(entity);
-        return;
+        return false;
     }
 
     // Add card to hand
     player->GetHandZone()->Add(entity);
+    return true;
 }
 
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,

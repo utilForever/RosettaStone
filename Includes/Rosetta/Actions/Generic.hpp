@@ -22,7 +22,8 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
 //! Adds card to hand.
 //! \param player The player to add card to hand.
 //! \param entity A card to add.
-void AddCardToHand(Player* player, Playable* entity);
+//! \return The flag that indicates a card is successfully added to hand.
+bool AddCardToHand(Player* player, Playable* entity);
 
 //! Creates a new enchantment and attaches it to the given target.
 //! \param enchantmentCard The base card for the enchantment.
