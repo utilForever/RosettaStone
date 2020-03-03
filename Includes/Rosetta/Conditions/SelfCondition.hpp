@@ -118,6 +118,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRush();
 
+    //! SelfCondition wrapper for checking the entity has deathrattle.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasDeathrattle();
+
     //! SelfCondition wrapper for checking the entity has not stealth.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNotStealth();

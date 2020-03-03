@@ -212,6 +212,19 @@ SelfCondition SelfCondition::IsRush()
     });
 }
 
+SelfCondition SelfCondition::HasDeathrattle()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->HasDeathrattle();
+    });
+}
+
 SelfCondition SelfCondition::HasNotStealth()
 {
     return SelfCondition([=](Playable* playable) -> bool {
