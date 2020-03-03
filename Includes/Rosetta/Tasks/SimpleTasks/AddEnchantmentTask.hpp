@@ -18,14 +18,15 @@ namespace RosettaStone::SimpleTasks
 class AddEnchantmentTask : public ITask
 {
  public:
-    //! Constructs task with given \p cardID, \p entityType and \p useScriptTag.
+    //! Constructs task with given various parameters.
     //! \param cardID The card ID of enchantment to play.
     //! \param entityType The entity type of target to grant.
     //! \param useScriptTag The flag that indicates whether it uses script tag.
+    //! \param useEntityID The flag that indicates whether it uses entity ID.
     //! \param selfCondition The self condition to check.
     AddEnchantmentTask(
         const std::string_view& cardID, EntityType entityType,
-        bool useScriptTag = false,
+        bool useScriptTag = false, bool useEntityID = false,
         std::optional<SelfCondition> selfCondition = std::nullopt);
 
  private:
@@ -40,6 +41,7 @@ class AddEnchantmentTask : public ITask
 
     Card* m_enchantmentCard = nullptr;
     bool m_useScriptTag = false;
+    bool m_useEntityID = false;
     std::optional<SelfCondition> m_selfCondition = std::nullopt;
 };
 }  // namespace RosettaStone::SimpleTasks
