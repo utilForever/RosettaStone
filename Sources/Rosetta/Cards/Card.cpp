@@ -26,6 +26,7 @@ void Card::Initialize()
         switch (requirement.first)
         {
             case PlayReq::REQ_TARGET_TO_PLAY:
+            case PlayReq::REQ_STEADY_SHOT:
                 mustHaveToTargetToPlay = true;
                 needsTarget = true;
                 break;
@@ -44,6 +45,9 @@ void Card::Initialize()
                 break;
             case PlayReq::REQ_HERO_TARGET:
                 characterType = CharacterType::HEROES;
+                break;
+            case PlayReq::REQ_MINION_OR_ENEMY_HERO:
+                characterType = CharacterType::CHARACTERS_EXCEPT_HERO;
                 break;
             case PlayReq::REQ_DAMAGED_TARGET:
                 targetingPredicate.emplace_back(
@@ -108,6 +112,9 @@ void Card::Initialize()
                         targetingType = TargetingType::ENEMY_CHARACTERS;
                         break;
                 }
+                break;
+            case CharacterType::CHARACTERS_EXCEPT_HERO:
+                targetingType = TargetingType::CHARACTERS_EXCEPT_HERO;
                 break;
             case CharacterType::HEROES:
                 targetingType = TargetingType::HEROES;
@@ -307,6 +314,11 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
             friendlyMinions = true;
             enemyMinions = true;
             hero = true;
+            enemyHero = true;
+            break;
+        case TargetingType::CHARACTERS_EXCEPT_HERO:
+            friendlyMinions = true;
+            enemyMinions = true;
             enemyHero = true;
             break;
         case TargetingType::FRIENDLY_CHARACTERS:
