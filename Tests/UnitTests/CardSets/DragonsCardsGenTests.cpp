@@ -1797,6 +1797,68 @@ TEST_CASE("[Hunter : Spell] - DRG_251 : Clear the Way")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [DRG_252] Phase Stalker - COST:2 [ATK:2/HP:3]
+// - Race: Beast, Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you use your Hero Power,
+//       cast a <b>Secret</b> from your deck.
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DRG_252 : Phase Stalker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Snake Trap");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Phase Stalker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curDeck.GetCount(), 25);
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(curSecret[0]->card->name, "Snake Trap");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(curDeck.GetCount(), 24);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curDeck.GetCount(), 24);
+    CHECK_EQ(curSecret.GetCount(), 1);
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [DRG_254] Primordial Explorer - COST:3 [ATK:2/HP:3]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

@@ -26,6 +26,7 @@
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncPlayableTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -39,8 +40,14 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -848,6 +855,59 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::DECK),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }),
+        std::make_shared<FuncPlayableTask>(
+            [=](const std::vector<Playable*>& playables) {
+                if (playables.empty())
+                {
+                    return std::vector<Playable*>{};
+                }
+
+                auto player = playables[0]->player;
+
+                while (!playables.empty())
+                {
+                    // Pick random secret
+                    const auto idx =
+                        Random::get<std::size_t>(0, playables.size() - 1);
+                    auto pick = playables[idx];
+
+                    // Check it exists in secret zone
+                    if (player->GetSecretZone()->Exist(pick))
+                    {
+                        EraseIf(const_cast<std::vector<Playable*>&>(playables),
+                                [=](Playable* playable) {
+                                    return playable == pick;
+                                });
+                        continue;
+                    }
+
+                    // Remove it from deck zone
+                    player->GetDeckZone()->Remove(pick);
+                    if (auto trigger = pick->card->power.GetTrigger(); trigger)
+                    {
+                        trigger->Activate(pick);
+                    }
+
+                    // Add it to secret zone
+                    player->GetSecretZone()->Add(pick);
+                    if (player == player->game->GetCurrentPlayer())
+                    {
+                        pick->SetExhausted(true);
+                    }
+
+                    break;
+                }
+
+                return std::vector<Playable*>{};
+            })
+    };
+    cards.emplace("DRG_252", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_253] Dwarven Sharpshooter - COST:1 [ATK:1/HP:3]
