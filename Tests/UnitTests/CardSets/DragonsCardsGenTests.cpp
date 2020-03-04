@@ -1255,7 +1255,7 @@ TEST_CASE("[Druid : Minion] - DRG_313 : Emerald Explorer")
 // Text: Draw 2 cards.
 //       Costs (2) less for each Treant you control.
 // --------------------------------------------------------
-TEST_CASE("[Druid : Minion] - DRG_312 : Shrubadier")
+TEST_CASE("[Druid : Spell] - DRG_314 : Aeroponics")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -1304,6 +1304,62 @@ TEST_CASE("[Druid : Minion] - DRG_312 : Shrubadier")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card5, curField[1]));
     CHECK_EQ(card1->GetCost(), 1);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [DRG_318] Breath of Dreams - COST:2
+// - Faction: Neutral, Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a card. If you're holding a Dragon,
+//       gain an empty Mana Crystal.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DRG_318 : Breath of Dreams")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(3);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Breath of Dreams"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Breath of Dreams"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curPlayer->GetTotalMana(), 4);
+    CHECK_EQ(curPlayer->GetUsedMana(), 3);
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    curPlayer->SetTotalMana(3);
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curPlayer->GetTotalMana(), 3);
+    CHECK_EQ(curPlayer->GetUsedMana(), 2);
 }
 
 // ----------------------------------------- SPELL - HUNTER

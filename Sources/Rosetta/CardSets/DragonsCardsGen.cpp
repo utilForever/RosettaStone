@@ -30,6 +30,7 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/InvokeTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
@@ -595,6 +596,14 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Draw a card. If you're holding a Dragon,
     //       gain an empty Mana Crystal.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<ManaCrystalTask>(1, false) }));
+    cards.emplace("DRG_318", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DRG_319] Goru the Mightree - COST:7 [ATK:5/HP:10]
