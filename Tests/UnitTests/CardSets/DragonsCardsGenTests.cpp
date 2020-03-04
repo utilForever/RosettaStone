@@ -1307,6 +1307,69 @@ TEST_CASE("[Druid : Spell] - DRG_314 : Aeroponics")
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [DRG_317] Secure the Deck - COST:1
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Sidequest:</b> Attack twice with your hero.
+//       <b>Reward:</b> Add 3 'Claw' spells to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - QUEST_PROGRESS_TOTAL = 2
+// - SIDEQUEST = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DRG_317 : Secure the Deck")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Secure the Deck"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 2);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(quest->GetQuestProgress(), 2);
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[0]->card->name, "Claw");
+    CHECK_EQ(curHand[1]->card->name, "Claw");
+    CHECK_EQ(curHand[2]->card->name, "Claw");
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [DRG_318] Breath of Dreams - COST:2
 // - Faction: Neutral, Set: Dragons, Rarity: Rare
 // --------------------------------------------------------

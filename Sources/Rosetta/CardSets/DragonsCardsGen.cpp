@@ -588,6 +588,12 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - QUEST_PROGRESS_TOTAL = 2
     // - SIDEQUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(TaskList{
+        std::make_shared<AddCardTask>(EntityType::HAND, "CS2_005", 3) }) };
+    cards.emplace("DRG_317", CardDef(power, 2, 0));
 
     // ------------------------------------------ SPELL - DRUID
     // [DRG_318] Breath of Dreams - COST:2
