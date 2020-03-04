@@ -869,6 +869,10 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    cards.emplace("DRG_254", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DRG_255] Toxic Reinforcements - COST:1
