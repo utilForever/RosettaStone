@@ -496,9 +496,20 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_311",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "DRG_311a", "DRG_311b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [DRG_312] Shrubadier - COST:2 [ATK:1/HP:1]
@@ -588,12 +599,23 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311a] Spin 'em Up (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
     // Text: Summon a 2/2 Treant.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_311t", SummonSide::SPELL));
+    cards.emplace(
+        "DRG_311a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311b] Small Repairs (*) - COST:0
@@ -604,11 +626,35 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_311e", EntityType::TARGET));
+    cards.emplace(
+        "DRG_311b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
+    // ------------------------------------------ SPELL - DRUID
+    // [DRG_311e] Spore Hardened (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Health and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_311e"));
+    cards.emplace("DRG_311e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DRG_311t] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_311t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [DRG_315e] Embiggened (*) - COST:0

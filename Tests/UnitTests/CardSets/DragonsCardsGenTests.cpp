@@ -1096,6 +1096,57 @@ TEST_CASE("[Druid : Spell] - DRG_051 : Strength in Numbers")
     CHECK_EQ(curField[2]->card->name, "Wisp");
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [DRG_311] Treenforcements - COST:1
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Give a minion +2 Health and
+//       <b>Taunt</b>; or Summon a 2/2 Treant.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DRG_311 : Treenforcements")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Treenforcements"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Treenforcements"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Treant");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField[0], 2));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common
