@@ -902,6 +902,13 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 5)
+    };
+    cards.emplace("DRG_256", CardDef(power));
 }
 
 void DragonsCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)

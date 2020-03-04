@@ -1925,6 +1925,58 @@ TEST_CASE("[Hunter : Spell] - DRG_255 : Toxic Reinforcements")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [DRG_256] Dragonbane - COST:4 [ATK:3/HP:5]
+// - Race: Mechanical, Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After you use your Hero Power,
+//       deal 5 damage to a random enemy.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DRG_256 : Dragonbane")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dragonbane"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, HeroPowerTask());
+    const bool check = (curPlayer->GetHero()->GetHealth() == 23 &&
+                        curField[0]->GetHealth() == 12) ||
+                       (curPlayer->GetHero()->GetHealth() == 28 &&
+                        curField[0]->GetHealth() == 7);
+    CHECK_EQ(check, true);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DRG_008] Righteous Cause - COST:1
 // - Set: Dragons, Rarity: Rare
