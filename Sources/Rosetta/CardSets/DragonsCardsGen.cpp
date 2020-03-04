@@ -830,6 +830,13 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRush());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<SummonTask>("DRG_251t", 1) }) };
+    cards.emplace("DRG_251", CardDef(power, 3, 0));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_252] Phase Stalker - COST:2 [ATK:2/HP:3]
@@ -916,6 +923,9 @@ void DragonsCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_251t", CardDef(power));
 }
 
 void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
