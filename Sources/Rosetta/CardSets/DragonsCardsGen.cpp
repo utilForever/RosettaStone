@@ -915,6 +915,12 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your Hero Power can target minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::CAN_TARGET_MINION_BY_HERO_POWER,
+                              EffectOperator::SET, 1) }));
+    cards.emplace("DRG_253", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_254] Primordial Explorer - COST:3 [ATK:2/HP:3]

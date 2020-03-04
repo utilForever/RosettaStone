@@ -1859,6 +1859,66 @@ TEST_CASE("[Hunter : Minion] - DRG_252 : Phase Stalker")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [DRG_253] Dwarven Sharpshooter - COST:1 [ATK:1/HP:3]
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: Your Hero Power can target minions.
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DRG_253 : Dwarven Sharpshooter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Dwarven Sharpshooter"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [DRG_254] Primordial Explorer - COST:3 [ATK:2/HP:3]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
