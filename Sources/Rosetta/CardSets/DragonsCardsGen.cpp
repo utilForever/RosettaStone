@@ -538,6 +538,10 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    cards.emplace("DRG_313", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DRG_314] Aeroponics - COST:5
