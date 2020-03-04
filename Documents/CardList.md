@@ -779,7 +779,7 @@ DRAGONS | DRG_089 | Dragonqueen Alexstrasza |
 DRAGONS | DRG_090 | Murozond the Infinite |  
 DRAGONS | DRG_091 | Shu'ma |  
 DRAGONS | DRG_092 | Transmogrifier |  
-DRAGONS | DRG_095 | Veranus |  
+DRAGONS | DRG_095 | Veranus | O
 DRAGONS | DRG_096 | Bandersmosh |  
 DRAGONS | DRG_099 | Kronx Dragonhoof |  
 DRAGONS | DRG_102 | Azure Explorer |  
@@ -819,12 +819,12 @@ DRAGONS | DRG_247 | Seal Fate | O
 DRAGONS | DRG_248 | Invocation of Frost |  
 DRAGONS | DRG_249 | Awaken! | O
 DRAGONS | DRG_250 | Fiendish Rites |  
-DRAGONS | DRG_251 | Clear the Way |  
-DRAGONS | DRG_252 | Phase Stalker |  
-DRAGONS | DRG_253 | Dwarven Sharpshooter |  
-DRAGONS | DRG_254 | Primordial Explorer |  
+DRAGONS | DRG_251 | Clear the Way | O
+DRAGONS | DRG_252 | Phase Stalker | O
+DRAGONS | DRG_253 | Dwarven Sharpshooter | O
+DRAGONS | DRG_254 | Primordial Explorer | O
 DRAGONS | DRG_255 | Toxic Reinforcements | O
-DRAGONS | DRG_256 | Dragonbane |  
+DRAGONS | DRG_256 | Dragonbane | O
 DRAGONS | DRG_257 | Frizz Kindleroost |  
 DRAGONS | DRG_258 | Sanctuary |  
 DRAGONS | DRG_270 | Malygos, Aspect of Magic |  
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 28% (40 of 140 Cards)
+- Progress: 32% (46 of 140 Cards)
 
 ## Galakrond's Awakening
 
