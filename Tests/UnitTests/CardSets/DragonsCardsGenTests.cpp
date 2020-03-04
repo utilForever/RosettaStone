@@ -1248,6 +1248,64 @@ TEST_CASE("[Druid : Minion] - DRG_313 : Emerald Explorer")
     }
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [DRG_314] Aeroponics - COST:5
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw 2 cards.
+//       Costs (2) less for each Treant you control.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DRG_312 : Shrubadier")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Aeroponics"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shrubadier"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shrubadier"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shrubadier"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card1->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card1->GetCost(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(card1->GetCost(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, curField[1]));
+    CHECK_EQ(card1->GetCost(), 1);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common

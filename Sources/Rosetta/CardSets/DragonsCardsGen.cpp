@@ -550,6 +550,23 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Draw 2 cards.
     //       Costs (2) less for each Treant you control.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
+        int numTreants = 0;
+
+        for (auto& minion : minions)
+        {
+            if (minion->card->name == "Treant")
+            {
+                ++numTreants;
+            }
+        }
+
+        return 2 * numTreants;
+    }));
+    cards.emplace("DRG_314", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DRG_315] Embiggen - COST:0
