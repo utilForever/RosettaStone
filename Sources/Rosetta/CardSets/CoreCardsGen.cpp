@@ -322,7 +322,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, false));
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
     cards.emplace(
         "DS1h_292",
         CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
