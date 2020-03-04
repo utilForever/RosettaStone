@@ -74,6 +74,7 @@
 * SilenceTask
 * SummonCopyTask
 * SummonOpTask
+* SummonStackTask
 * SummonTask
 * SwapAttackHealthTask
 * TempManaTask

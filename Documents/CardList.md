@@ -743,7 +743,7 @@ DRAGONS | DRG_036 | Waxadred | O
 DRAGONS | DRG_037 | Flik Skyshiv |  
 DRAGONS | DRG_049 | Tasty Flyfish |  
 DRAGONS | DRG_050 | Devoted Maniac |  
-DRAGONS | DRG_051 | Strength in Numbers |  
+DRAGONS | DRG_051 | Strength in Numbers | O
 DRAGONS | DRG_054 | Big Ol' Whelp |  
 DRAGONS | DRG_055 | Hoard Pillager |  
 DRAGONS | DRG_056 | Parachute Brigand |  
@@ -838,15 +838,15 @@ DRAGONS | DRG_307 | Breath of the Infinite |
 DRAGONS | DRG_308 | Mindflayer Kaahrj |  
 DRAGONS | DRG_309 | Nozdormu the Timeless |  
 DRAGONS | DRG_310 | Evasive Drakonid |  
-DRAGONS | DRG_311 | Treenforcements |  
-DRAGONS | DRG_312 | Shrubadier |  
-DRAGONS | DRG_313 | Emerald Explorer |  
-DRAGONS | DRG_314 | Aeroponics |  
+DRAGONS | DRG_311 | Treenforcements | O
+DRAGONS | DRG_312 | Shrubadier | O
+DRAGONS | DRG_313 | Emerald Explorer | O
+DRAGONS | DRG_314 | Aeroponics | O
 DRAGONS | DRG_315 | Embiggen |  
-DRAGONS | DRG_317 | Secure the Deck |  
-DRAGONS | DRG_318 | Breath of Dreams |  
+DRAGONS | DRG_317 | Secure the Deck | O
+DRAGONS | DRG_318 | Breath of Dreams | O
 DRAGONS | DRG_319 | Goru the Mightree |  
-DRAGONS | DRG_320 | Ysera, Unleashed |  
+DRAGONS | DRG_320 | Ysera, Unleashed | O
 DRAGONS | DRG_321 | Rolling Fireball |  
 DRAGONS | DRG_322 | Dragoncaster |  
 DRAGONS | DRG_323 | Learn Draconic |  
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 22% (32 of 140 Cards)
+- Progress: 28% (40 of 140 Cards)
 
 ## Galakrond's Awakening
 
