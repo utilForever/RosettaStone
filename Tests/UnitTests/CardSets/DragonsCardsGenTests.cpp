@@ -1106,6 +1106,10 @@ TEST_CASE("[Druid : Spell] - DRG_051 : Strength in Numbers")
 // GameTag:
 // - CHOOSE_ONE = 1
 // --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
 // RefTag:
 // - TAUNT = 1
 // --------------------------------------------------------
@@ -1145,6 +1149,56 @@ TEST_CASE("[Druid : Spell] - DRG_311 : Treenforcements")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField[0], 2));
     CHECK_EQ(curField[0]->GetHealth(), 4);
     CHECK_EQ(curField[0]->HasTaunt(), true);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [DRG_312] Shrubadier - COST:2 [ATK:1/HP:1]
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 2/2 Treant.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DRG_312 : Shrubadier")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shrubadier"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shrubadier"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Treant");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask(card2, nullptr, 1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->card->name, "Shrubadier");
+    CHECK_EQ(curField[1]->card->name, "Shrubadier");
+    CHECK_EQ(curField[2]->card->name, "Treant");
+    CHECK_EQ(curField[3]->card->name, "Treant");
 }
 
 // ----------------------------------------- SPELL - HUNTER

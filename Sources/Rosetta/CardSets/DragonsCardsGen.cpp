@@ -520,6 +520,10 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_311t", SummonSide::RIGHT));
+    cards.emplace("DRG_312", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DRG_313] Emerald Explorer - COST:6 [ATK:4/HP:8]
