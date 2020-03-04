@@ -811,6 +811,10 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_095e", EntityType::ENEMY_MINIONS));
+    cards.emplace("DRG_095", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DRG_251] Clear the Way - COST:1
@@ -891,12 +895,17 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DRG_095e] Intimidated (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
     // Text: Health changed to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    cards.emplace("DRG_095e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DRG_251t] Gryphon (*) - COST:4 [ATK:4/HP:4]
