@@ -278,6 +278,13 @@ bool Playable::IsValidPlayTarget(Character* target)
             return false;
         case TargetingType::ALL:
             break;
+        case TargetingType::CHARACTERS_EXCEPT_HERO:
+            if (dynamic_cast<Hero*>(target) != nullptr &&
+                target->player == player)
+            {
+                return false;
+            }
+            break;
         case TargetingType::FRIENDLY_CHARACTERS:
             if (target->player != player)
             {
@@ -341,6 +348,11 @@ bool Playable::HasAnyValidPlayTargets() const
             hero = true;
             enemyHero = true;
             break;
+        case TargetingType::CHARACTERS_EXCEPT_HERO:
+            friendlyMinions = true;
+            enemyMinions = true;
+            enemyHero = true;
+            break;            
         case TargetingType::FRIENDLY_CHARACTERS:
             friendlyMinions = true;
             hero = true;
