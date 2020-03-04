@@ -33,6 +33,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
@@ -635,6 +636,10 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "DRG_320t", 7));
+    cards.emplace("DRG_320", CardDef(power));
 }
 
 void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
@@ -722,6 +727,14 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<RandomMinionTask>(
+        GameTag::CARDRACE, static_cast<int>(Race::DRAGON)));
+    power.AddTopdeckTask(std::make_shared<SummonTask>());
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        GameTag::CARDRACE, static_cast<int>(Race::DRAGON)));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("DRG_320t", CardDef(power));
 }
 
 void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)

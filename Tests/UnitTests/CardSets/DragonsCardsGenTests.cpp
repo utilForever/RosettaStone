@@ -1425,6 +1425,66 @@ TEST_CASE("[Druid : Spell] - DRG_318 : Breath of Dreams")
     CHECK_EQ(curPlayer->GetUsedMana(), 2);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [DRG_320] Ysera, Unleashed - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Shuffle 7 Dream Portals into your deck.
+//       When drawn, summon a random Dragon.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DRG_320 : Ysera, Unleashed")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysera, Unleashed"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curDeck.GetCount(), 7);
+    for (int i = 0; i < 7; ++i)
+    {
+        CHECK_EQ(curDeck[i]->card->name, "Dream Portal");
+    }
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 7);
+    for (int i = 0; i < 7; ++i)
+    {
+        CHECK_EQ(curField[i]->card->GetRace(), Race::DRAGON);
+    }
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common
