@@ -1022,6 +1022,80 @@ TEST_CASE("[Priest : Hero] - DRG_660t3 : Galakrond, Azeroth's End")
     CHECK_EQ(opHand[6]->card->GetCardClass(), CardClass::PRIEST);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [DRG_051] Strength in Numbers - COST:1
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Sidequest:</b> Spend 10 Mana on minions.
+//       <b>Reward:</b> Summon a minion from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - QUEST_PROGRESS_TOTAL = 10
+// - SIDEQUEST = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DRG_051 : Strength in Numbers")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Strength in Numbers"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(quest->GetQuestProgress(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(quest->GetQuestProgress(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(quest->GetQuestProgress(), 12);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 24);
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Wisp");
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common
