@@ -2250,6 +2250,53 @@ TEST_CASE("[Paladin : Minion] - DRG_226 : Amber Watcher")
     CHECK_EQ(opField[0]->GetHealth(), 12);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [DRG_229] Bronze Explorer - COST:3 [ATK:2/HP:3]
+// - Race: Dragon, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>
+//       <b>Battlecry:</b> <b>Discover</b> a Dragon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - LIFESTEAL = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DRG_229 : Bronze Explorer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Explorer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetRace(), Race::DRAGON);
+    }
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [DRG_303] Disciple of Galakrond - COST:1 [ATK:1/HP:2]
 // - Set: Dragons, Rarity: Common

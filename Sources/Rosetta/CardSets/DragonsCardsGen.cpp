@@ -1315,6 +1315,10 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    cards.emplace("DRG_229", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_231] Lightforged Crusader - COST:7 [ATK:7/HP:7]
