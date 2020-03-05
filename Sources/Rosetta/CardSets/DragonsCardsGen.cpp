@@ -47,6 +47,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include "Rosetta/Tasks/SimpleTasks/HealTask.hpp"
+
 using Random = effolkronium::random_static;
 
 using namespace RosettaStone::SimpleTasks;
@@ -1291,6 +1293,14 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
+    cards.emplace(
+        "DRG_226",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_229] Bronze Explorer - COST:3 [ATK:2/HP:3]
