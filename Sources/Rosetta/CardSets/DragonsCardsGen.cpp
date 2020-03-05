@@ -1079,6 +1079,10 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "EX1_277", 1));
+    cards.emplace("DRG_107", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DRG_109] Mana Giant - COST:8 [ATK:8/HP:8]
