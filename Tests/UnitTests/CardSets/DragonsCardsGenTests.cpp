@@ -2393,6 +2393,66 @@ TEST_CASE("[Paladin : Minion] - DRG_229 : Bronze Explorer")
     }
 }
 
+// --------------------------------------- MINION - PALADIN
+// [DRG_231] Lightforged Crusader - COST:7 [ATK:7/HP:7]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no Neutral cards,
+//       add 5 random Paladin cards to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DRG_231 : Lightforged Crusader")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (std::size_t i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Leper Gnome");
+        config.player2Deck[i] = *Cards::FindCardByName("Leper Gnome");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightforged Crusader"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightforged Crusader"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 10);
+    for (std::size_t i = 5; i < 10; ++i)
+    {
+        CHECK_EQ(curHand[i]->card->GetCardClass(), CardClass::PALADIN);
+    }
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [DRG_303] Disciple of Galakrond - COST:1 [ATK:1/HP:2]
 // - Set: Dragons, Rarity: Common

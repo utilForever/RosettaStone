@@ -1343,6 +1343,17 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasNoNeutralCardsInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<EnqueueTask>(
+            TaskList{ std::make_shared<RandomCardTask>(CardType::INVALID,
+                                                       CardClass::PALADIN),
+                      std::make_shared<AddStackToTask>(EntityType::HAND) },
+            5) }));
+    cards.emplace("DRG_231", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_232] Lightforged Zealot - COST:4 [ATK:4/HP:2]
