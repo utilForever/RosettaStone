@@ -2961,6 +2961,63 @@ TEST_CASE("[Paladin : Minion] - DRG_309 : Nozdormu the Timeless")
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [DRG_246] Time Rip - COST:5
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy a minion. <b>Invoke</b> Galakrond.
+// --------------------------------------------------------
+// GameTag:
+// - 676 = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - DRG_246 : Time Rip")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player2Deck[0] =
+        *Cards::FindCardByName("Galakrond, the Unspeakable");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Whispers of EVIL"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 3);
+    CHECK_EQ(opHand[2]->card->GetCardClass(), CardClass::PRIEST);
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [DRG_301] Whispers of EVIL - COST:0
 // - Faction: Neutral, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
