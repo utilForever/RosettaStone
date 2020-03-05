@@ -5,6 +5,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
@@ -393,6 +394,23 @@ SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player->GetRemainingMana();
+    });
+}
+
+SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        auto cards = playable->player->GetDeckZone()->GetAll();
+
+        for (auto& card : cards)
+        {
+            if (card->card->GetCardClass() == CardClass::NEUTRAL)
+            {
+                return false;
+            }
+        }
+
+        return true;
     });
 }
 

@@ -211,6 +211,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();
 
+    //! SelfCondition wrapper for checking the player has no neutral cards
+    //! in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasNoNeutralCardsInDeck();
+
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
