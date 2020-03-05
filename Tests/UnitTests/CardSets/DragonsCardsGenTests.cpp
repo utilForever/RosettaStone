@@ -2579,6 +2579,99 @@ TEST_CASE("[Paladin : Spell] - DRG_233 : Sand Breath")
     CHECK_EQ(curField[1]->HasDivineShield(), false);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [DRG_235] Dragonrider Talritha - COST:3 [ATK:3/HP:3]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give a Dragon in your hand +3/+3
+//       and this <b>Deathrattle</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DRG_235 : Dragonrider Talritha")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dragonrider Talritha"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Amber Watcher"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Amber Watcher"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    auto minion2 = dynamic_cast<Minion*>(card2);
+    auto minion3 = dynamic_cast<Minion*>(card3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(minion2->GetAttack(), 4);
+    CHECK_EQ(minion2->GetHealth(), 6);
+    CHECK_EQ(minion3->GetAttack(), 4);
+    CHECK_EQ(minion3->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    bool check1 = (minion2->GetAttack() == 7 && minion2->GetHealth() == 9 &&
+                   minion2->HasDeathrattle() == true &&
+                   minion3->GetAttack() == 4 && minion3->GetHealth() == 6);
+    bool check2 = (minion2->GetAttack() == 4 && minion2->GetHealth() == 6 &&
+                   minion3->GetAttack() == 7 && minion3->GetHealth() == 9 &&
+                   minion3->HasDeathrattle() == true);
+    bool check = check1 || check2;
+    CHECK_EQ(check, true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    if (check1)
+    {
+        game.Process(curPlayer,
+                     PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
+    }
+    else
+    {
+        game.Process(curPlayer,
+                     PlayCardTask::MinionTarget(card3, curPlayer->GetHero()));
+    }
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, curField[0]));
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 7);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 9);
+    CHECK_EQ(curHand[0]->HasDeathrattle(), true);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [DRG_303] Disciple of Galakrond - COST:1 [ATK:1/HP:2]
 // - Set: Dragons, Rarity: Common

@@ -1411,6 +1411,17 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("DRG_235e", EntityType::STACK));
+    cards.emplace("DRG_235", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DRG_258] Sanctuary - COST:2
@@ -3220,6 +3231,18 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // Text: +3/+3 and <b>Deathrattle:</b> Give a Dragon in your hand this
     // enchant.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_235e"));
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("DRG_235e", EntityType::STACK));
+    cards.emplace("DRG_235e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_250e] Fiendish Rites (*) - COST:0
