@@ -166,7 +166,7 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     player->GetFieldZone()->Add(minion, fieldPos);
 
     // Apply card mechanics tags
-    for (const auto tags : minion->card->gameTags)
+    for (const auto tags : minion->GetGameTags())
     {
         minion->SetGameTag(tags.first, tags.second);
     }
