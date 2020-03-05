@@ -119,6 +119,9 @@ bool ChoicePick(Player* player, std::size_t choice)
                 "ChoiceMulligan() - Invalid choice action!");
     }
 
+    // It's done! - Reset choice
+    player->choice = std::nullopt;
+
     return true;
 }
 
@@ -155,6 +158,7 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
 
         Playable* choiceEntity = Entity::GetFromCard(player, card, cardTags,
                                                      player->GetSetasideZone());
+        player->GetSetasideZone()->Add(choiceEntity);
         choiceIDs.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
     }
 
