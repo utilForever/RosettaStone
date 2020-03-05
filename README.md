@@ -86,7 +86,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Expansions
 
-  * 32% Descent of Dragons (46 of 140 cards)
+  * 42% Descent of Dragons (60 of 140 cards)
   * 18% Saviors of Uldum (25 of 135 cards)
   * 12% Rise of Shadows (17 of 136 cards)
   * 0% Rastakhan's Rumble (0 of 135 Cards)

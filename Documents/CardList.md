@@ -782,10 +782,10 @@ DRAGONS | DRG_092 | Transmogrifier |
 DRAGONS | DRG_095 | Veranus | O
 DRAGONS | DRG_096 | Bandersmosh |  
 DRAGONS | DRG_099 | Kronx Dragonhoof |  
-DRAGONS | DRG_102 | Azure Explorer |  
+DRAGONS | DRG_102 | Azure Explorer | O
 DRAGONS | DRG_104 | Chenvaala |  
-DRAGONS | DRG_106 | Arcane Breath |  
-DRAGONS | DRG_107 | Violet Spellwing |  
+DRAGONS | DRG_106 | Arcane Breath | O
+DRAGONS | DRG_107 | Violet Spellwing | O
 DRAGONS | DRG_109 | Mana Giant |  
 DRAGONS | DRG_201 | Crazed Netherwing |  
 DRAGONS | DRG_202 | Dragonblight Cultist |  
@@ -805,16 +805,16 @@ DRAGONS | DRG_218 | Corrupt Elementalist |
 DRAGONS | DRG_219 | Lightning Breath |  
 DRAGONS | DRG_223 | Cumulo-Maximus |  
 DRAGONS | DRG_224 | Nithogg |  
-DRAGONS | DRG_225 | Sky Claw |  
-DRAGONS | DRG_226 | Amber Watcher |  
-DRAGONS | DRG_229 | Bronze Explorer |  
-DRAGONS | DRG_231 | Lightforged Crusader |  
-DRAGONS | DRG_232 | Lightforged Zealot |  
-DRAGONS | DRG_233 | Sand Breath |  
-DRAGONS | DRG_235 | Dragonrider Talritha |  
+DRAGONS | DRG_225 | Sky Claw | O
+DRAGONS | DRG_226 | Amber Watcher | O
+DRAGONS | DRG_229 | Bronze Explorer | O
+DRAGONS | DRG_231 | Lightforged Crusader | O
+DRAGONS | DRG_232 | Lightforged Zealot | O
+DRAGONS | DRG_233 | Sand Breath | O
+DRAGONS | DRG_235 | Dragonrider Talritha | O
 DRAGONS | DRG_239 | Blazing Battlemage | O
 DRAGONS | DRG_242 | Shield of Galakrond |  
-DRAGONS | DRG_246 | Time Rip |  
+DRAGONS | DRG_246 | Time Rip | O
 DRAGONS | DRG_247 | Seal Fate | O
 DRAGONS | DRG_248 | Invocation of Frost |  
 DRAGONS | DRG_249 | Awaken! | O
@@ -826,17 +826,17 @@ DRAGONS | DRG_254 | Primordial Explorer | O
 DRAGONS | DRG_255 | Toxic Reinforcements | O
 DRAGONS | DRG_256 | Dragonbane | O
 DRAGONS | DRG_257 | Frizz Kindleroost |  
-DRAGONS | DRG_258 | Sanctuary |  
+DRAGONS | DRG_258 | Sanctuary | O
 DRAGONS | DRG_270 | Malygos, Aspect of Magic |  
 DRAGONS | DRG_300 | Fate Weaver |  
-DRAGONS | DRG_301 | Whispers of EVIL |  
+DRAGONS | DRG_301 | Whispers of EVIL | O
 DRAGONS | DRG_302 | Grave Rune |  
 DRAGONS | DRG_303 | Disciple of Galakrond | O
 DRAGONS | DRG_304 | Chronobreaker |  
 DRAGONS | DRG_306 | Envoy of Lazul |  
 DRAGONS | DRG_307 | Breath of the Infinite |  
 DRAGONS | DRG_308 | Mindflayer Kaahrj |  
-DRAGONS | DRG_309 | Nozdormu the Timeless |  
+DRAGONS | DRG_309 | Nozdormu the Timeless | O
 DRAGONS | DRG_310 | Evasive Drakonid |  
 DRAGONS | DRG_311 | Treenforcements | O
 DRAGONS | DRG_312 | Shrubadier | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 32% (46 of 140 Cards)
+- Progress: 42% (60 of 140 Cards)
 
 ## Galakrond's Awakening
 
