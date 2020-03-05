@@ -1009,6 +1009,8 @@ void DragonsCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [DRG_102] Azure Explorer - COST:4 [ATK:2/HP:3]
     // - Race: Dragon, Set: Dragons, Rarity: Common
@@ -1022,6 +1024,10 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    cards.emplace("DRG_102", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DRG_104] Chenvaala - COST:3 [ATK:2/HP:5]
