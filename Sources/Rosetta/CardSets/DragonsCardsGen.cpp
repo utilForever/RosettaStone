@@ -1584,6 +1584,9 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddLackeyTask>(1));
+    cards.emplace("DRG_301", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DRG_302] Grave Rune - COST:4
