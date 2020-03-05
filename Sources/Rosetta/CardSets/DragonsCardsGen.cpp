@@ -1360,11 +1360,17 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: Dragons, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no Neutral cards,
-    //       equip a 4/2 Truesilver_Champion.
+    //       equip a 4/2 Truesilver Champion.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasNoNeutralCardsInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<WeaponTask>("DRG_232t") }));
+    cards.emplace("DRG_232", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DRG_233] Sand Breath - COST:1
@@ -1439,6 +1445,12 @@ void DragonsCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
+                                                             2) };
+    cards.emplace("DRG_232t", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_258t] Indomitable Champion (*) - COST:4 [ATK:3/HP:6]
