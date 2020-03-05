@@ -2749,6 +2749,51 @@ TEST_CASE("[Paladin : Spell] - DRG_258 : Sanctuary")
     CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [DRG_309] Nozdormu the Timeless - COST:4 [ATK:8/HP:8]
+// - Race: Dragon, Faction: Neutral, Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Set each player to 10 Mana Crystals.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DRG_309 : Nozdormu the Timeless")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(5);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nozdormu the Timeless"));
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 4);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+    CHECK_EQ(opPlayer->GetTotalMana(), 5);
+    CHECK_EQ(opPlayer->GetUsedMana(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
+    CHECK_EQ(curPlayer->GetUsedMana(), 10);
+    CHECK_EQ(opPlayer->GetTotalMana(), 10);
+    CHECK_EQ(opPlayer->GetUsedMana(), 5);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [DRG_303] Disciple of Galakrond - COST:1 [ATK:1/HP:2]
 // - Set: Dragons, Rarity: Common

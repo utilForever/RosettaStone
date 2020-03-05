@@ -1457,6 +1457,10 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(10, false, false));
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(10, false, true));
+    cards.emplace("DRG_309", CardDef(power));
 }
 
 void DragonsCardsGen::AddPaladinNonCollect(
