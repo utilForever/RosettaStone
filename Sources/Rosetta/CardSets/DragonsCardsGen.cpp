@@ -1283,6 +1283,19 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "DRG_225e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MECHANICAL));
+    }
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_225t", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_225t", SummonSide::RIGHT));
+    cards.emplace("DRG_225", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_226] Amber Watcher - COST:5 [ATK:4/HP:6]
@@ -1396,10 +1409,15 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void DragonsCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [DRG_225t] Microcopter (*) - COST:1 [ATK:1/HP:1]
     // - Race: Mechanical, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_225t", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [DRG_232t] Truesilver Champion (*) - COST:4 [ATK:4/HP:0]
@@ -3132,6 +3150,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack from Sky Claw.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_225e"));
+    cards.emplace("DRG_225e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_233e] Sand Breath (*) - COST:0
