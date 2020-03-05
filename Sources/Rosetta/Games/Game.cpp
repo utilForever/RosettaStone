@@ -506,6 +506,8 @@ void Game::MainEnd()
         rushMinions.clear();
     }
 
+    GetCurrentPlayer()->GetHero()->damageTakenThisTurn = 0;
+
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
     if (m_gameConfig.autoRun)

@@ -316,16 +316,19 @@ int Character::TakeDamage(Playable* source, int damage)
     game->triggerManager.OnDealDamageTrigger(source);
 
     game->ProcessTasks();
+    game->taskQueue.EndEvent();
+    game->currentEventData.reset();
+    game->currentEventData = std::move(tempEventData);
 
     if (source->HasLifesteal() && amount > 0)
     {
         source->player->GetHero()->TakeHeal(source, amount);
     }
 
-    game->taskQueue.EndEvent();
-
-    game->currentEventData.reset();
-    game->currentEventData = std::move(tempEventData);
+    if (hero != nullptr)
+    {
+        hero->damageTakenThisTurn += amount;
+    }
 
     return amount;
 }
