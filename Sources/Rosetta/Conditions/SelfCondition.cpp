@@ -390,6 +390,14 @@ SelfCondition SelfCondition::IsEnemyTurn()
     });
 }
 
+SelfCondition SelfCondition::IsMyHeroUndamagedEnemyTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player != playable->game->GetCurrentPlayer() &&
+               playable->player->GetHero()->damageTakenThisTurn == 0;
+    });
+}
+
 SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {

@@ -207,6 +207,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEnemyTurn();
 
+    //! SelfCondition wrapper for checking my hero is undamaged in enemy turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsMyHeroUndamagedEnemyTurn();
+
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();
