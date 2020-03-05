@@ -1438,6 +1438,14 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsMyHeroUndamagedEnemyTurn());
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<SummonTask>("DRG_258t") }) };
+    cards.emplace("DRG_258", CardDef(power, 1, 0));
 
     // --------------------------------------- MINION - PALADIN
     // [DRG_309] Nozdormu the Timeless - COST:4 [ATK:8/HP:8]
@@ -1489,6 +1497,9 @@ void DragonsCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_258t", CardDef(power));
 }
 
 void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
