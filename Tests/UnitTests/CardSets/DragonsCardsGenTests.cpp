@@ -1818,7 +1818,7 @@ TEST_CASE("[Hunter : Minion] - DRG_252 : Phase Stalker")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    for (int i = 0; i < 30; ++i)
+    for (int i = 0; i < 7; ++i)
     {
         config.player1Deck[i] = *Cards::FindCardByName("Snake Trap");
     }
@@ -1839,12 +1839,14 @@ TEST_CASE("[Hunter : Minion] - DRG_252 : Phase Stalker")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Phase Stalker"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curDeck.GetCount(), 26);
+    CHECK_EQ(curDeck.GetCount(), 3);
 
     game.Process(curPlayer, HeroPowerTask());
-    CHECK_EQ(curDeck.GetCount(), 25);
+    CHECK_EQ(curDeck.GetCount(), 2);
     CHECK_EQ(curSecret.GetCount(), 1);
     CHECK_EQ(curSecret[0]->card->name, "Snake Trap");
 
@@ -1854,11 +1856,26 @@ TEST_CASE("[Hunter : Minion] - DRG_252 : Phase Stalker")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    CHECK_EQ(curDeck.GetCount(), 24);
+    CHECK_EQ(curDeck.GetCount(), 1);
 
     game.Process(curPlayer, HeroPowerTask());
-    CHECK_EQ(curDeck.GetCount(), 24);
+    CHECK_EQ(curDeck.GetCount(), 1);
     CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(curSecret.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curSecret.GetCount(), 0);
 }
 
 // ---------------------------------------- MINION - HUNTER
