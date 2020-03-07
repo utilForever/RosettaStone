@@ -16,10 +16,11 @@ namespace RosettaStone::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(
     const std::string_view& cardID, EntityType entityType, bool useScriptTag,
-    std::optional<SelfCondition> selfCondition)
+    bool useEntityID, std::optional<SelfCondition> selfCondition)
     : ITask(entityType),
       m_enchantmentCard(Cards::FindCardByID(cardID)),
       m_useScriptTag(useScriptTag),
+      m_useEntityID(useEntityID),
       m_selfCondition(std::move(selfCondition))
 {
     // Do nothing
@@ -27,25 +28,35 @@ AddEnchantmentTask::AddEnchantmentTask(
 
 TaskStatus AddEnchantmentTask::Impl(Player* player)
 {
-    int num1 = 0, num2 = 0;
+    int num1 = 0, num2 = 0, entityID = 0;
     if (m_useScriptTag)
     {
         num1 = m_source->game->taskStack.num[0];
         num2 = m_source->game->taskStack.num[1];
+
+        if (m_useEntityID)
+        {
+            entityID = m_source->game->taskStack.playables[0]->GetGameTag(
+                GameTag::ENTITY_ID);
+        }
+    }
+    else if (m_useEntityID)
+    {
+        num1 = entityID = m_source->game->taskStack.num[0];
     }
 
     const auto source = dynamic_cast<Playable*>(m_source);
 
     if (m_entityType == EntityType::PLAYER)
     {
-        Generic::AddEnchantment(m_enchantmentCard, source, player, num1, num2);
+        Generic::AddEnchantment(m_enchantmentCard, source, player, num1, num2, entityID);
         return TaskStatus::COMPLETE;
     }
 
     if (m_entityType == EntityType::ENEMY_PLAYER)
     {
         Generic::AddEnchantment(m_enchantmentCard, source, player->opponent,
-                                num1, num2);
+                                num1, num2, entityID);
         return TaskStatus::COMPLETE;
     }
 
@@ -60,7 +71,7 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
         }
 
         Generic::AddEnchantment(m_enchantmentCard, source, playable, num1,
-                                num2);
+                                num2, entityID);
     }
 
     return TaskStatus::COMPLETE;
@@ -68,7 +79,8 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
 
 std::unique_ptr<ITask> AddEnchantmentTask::CloneImpl()
 {
-    return std::make_unique<AddEnchantmentTask>(
-        m_enchantmentCard->id, m_entityType, m_useScriptTag, m_selfCondition);
+    return std::make_unique<AddEnchantmentTask>(m_enchantmentCard->id,
+                                                m_entityType, m_useScriptTag,
+                                                m_useEntityID, m_selfCondition);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -464,7 +464,8 @@ void Trigger::Validate(Entity* source)
         {
             const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
             if (enchantment == nullptr || source == nullptr ||
-                enchantment->GetTarget()->id != source->id)
+                enchantment->GetTarget()->GetGameTag(GameTag::ENTITY_ID) !=
+                    source->GetGameTag(GameTag::ENTITY_ID))
             {
                 return;
             }

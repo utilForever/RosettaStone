@@ -83,6 +83,16 @@ bool Enchantment::IsOneTurnActive() const
     return m_isOneTurnActive;
 }
 
+Card* Enchantment::GetCapturedCard() const
+{
+    return m_capturedCard;
+}
+
+void Enchantment::SetCapturedCard(Card* card)
+{
+    m_capturedCard = card;
+}
+
 void Enchantment::Remove()
 {
     if (const auto deathrattleTask = card->power.GetDeathrattleTask();

@@ -14,7 +14,9 @@ namespace RosettaStone::Generic
 //! \param player An owner of source character.
 //! \param source A pointer to source character.
 //! \param target A pointer to target character.
-void Attack(Player* player, Character* source, Character* target);
+//! \param skipPrePhase The flag indicates whether it skips pre-phase.
+void Attack(Player* player, Character* source, Character* target,
+            bool skipPrePhase);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_ATTACK_HPP

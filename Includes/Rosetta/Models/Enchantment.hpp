@@ -73,11 +73,20 @@ class Enchantment : public Playable
     //! \return The flag that indicates whether it is one turn active.
     bool IsOneTurnActive() const;
 
+    //! Returns the captured card.
+    //! \return The captured card.
+    Card* GetCapturedCard() const;
+
+    //! Sets the captured card.
+    //! \param card The captured card to set.
+    void SetCapturedCard(Card* card);
+
     //! Removes enchantment.
     void Remove();
 
  private:
     Entity* m_target = nullptr;
+    Card* m_capturedCard = nullptr;
 
     bool m_isOneTurnActive = false;
 };

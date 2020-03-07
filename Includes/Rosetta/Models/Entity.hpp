@@ -104,8 +104,6 @@ class Entity
     AuraEffects* auraEffects = nullptr;
     std::vector<std::shared_ptr<Enchantment>> appliedEnchantments;
 
-    int id = 0;
-
  protected:
     std::map<GameTag, int> m_gameTags;
 };

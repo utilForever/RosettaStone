@@ -13,12 +13,14 @@
 
 ## Basic tasks
 
+* ActivateCapturedDeathrattleTask
 * AddAuraEffectTask
 * AddCardTask
 * AddEnchantmentTask
 * AddLackeyTask
 * AddStackToTask
 * ArmorTask
+* AttackTask
 * ChanceTask
 * ChangeAttackingTargetTask
 * ChangeHeroPowerTask
@@ -72,6 +74,7 @@
 * SilenceTask
 * SummonCopyTask
 * SummonOpTask
+* SummonStackTask
 * SummonTask
 * SwapAttackHealthTask
 * TempManaTask

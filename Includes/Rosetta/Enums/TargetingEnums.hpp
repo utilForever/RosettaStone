@@ -14,6 +14,7 @@ enum class TargetingType
 {
     NONE,
     ALL,
+    CHARACTERS_EXCEPT_HERO,
     FRIENDLY_CHARACTERS,
     ENEMY_CHARACTERS,
     ALL_MINIONS,
@@ -26,6 +27,7 @@ enum class TargetingType
 enum class CharacterType
 {
     CHARACTERS,
+    CHARACTERS_EXCEPT_HERO,
     HEROES,
     MINIONS
 };

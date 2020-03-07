@@ -9,13 +9,17 @@
 
 namespace RosettaStone::Generic
 {
-void Attack(Player* player, Character* source, Character* target)
+void Attack(Player* player, Character* source, Character* target,
+            bool skipPrePhase)
 {
-    // Check source can attack and target is valid
-    if (!source->CanAttack() ||
-        !source->IsValidAttackTarget(player->opponent, target))
+    if (!skipPrePhase)
     {
-        return;
+        // Check source can attack and target is valid
+        if (!source->CanAttack() ||
+            !source->IsValidAttackTarget(player->opponent, target))
+        {
+            return;
+        }
     }
 
     player->game->currentEventData =

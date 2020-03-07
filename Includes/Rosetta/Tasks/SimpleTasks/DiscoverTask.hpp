@@ -14,12 +14,15 @@ namespace RosettaStone::SimpleTasks
 class DiscoverCriteria
 {
  public:
-    explicit DiscoverCriteria(CardType _cardType, CardClass _cardClass);
+    explicit DiscoverCriteria(CardType _cardType, CardClass _cardClass,
+                              Race _race, Rarity _rarity);
 
     bool Evaluate(Card* card) const;
 
     CardType cardType = CardType::INVALID;
     CardClass cardClass = CardClass::INVALID;
+    Race race = Race::INVALID;
+    Rarity rarity = Rarity::INVALID;
 };
 
 //!
@@ -30,12 +33,16 @@ class DiscoverCriteria
 class DiscoverTask : public ITask
 {
  public:
-    //! Constructs task with given \p cardType and \p cardClass.
-    //! \param cardType The amount to draw card.
-    //! \param cardClass A flag to store card to stack.
+    //! Constructs task with given various parameters.
+    //! \param cardType The type of card to discover.
+    //! \param cardClass The class of card to discover.
+    //! \param race The race of card to discover.
+    //! \param rarity The rarity of card to discover.
     //! \param choiceAction The choice action of discover effect.
     explicit DiscoverTask(CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
+                          Race race = Race::INVALID,
+                          Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND);
 
     //! Gets cards to choose from the sets.

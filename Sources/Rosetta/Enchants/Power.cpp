@@ -40,6 +40,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetComboTask()
     return m_comboTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetTopdeckTask()
+{
+    return m_topdeckTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();
@@ -48,6 +53,7 @@ void Power::ClearData()
     m_powerTask.clear();
     m_deathrattleTask.clear();
     m_comboTask.clear();
+    m_topdeckTask.clear();
 }
 
 void Power::AddAura(std::shared_ptr<IAura> aura)
@@ -78,5 +84,10 @@ void Power::AddDeathrattleTask(std::shared_ptr<ITask> task)
 void Power::AddComboTask(std::shared_ptr<ITask> task)
 {
     m_comboTask.emplace_back(task);
+}
+
+void Power::AddTopdeckTask(std::shared_ptr<ITask> task)
+{
+    m_topdeckTask.emplace_back(task);
 }
 }  // namespace RosettaStone

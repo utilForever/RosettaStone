@@ -1609,7 +1609,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
                                               std::vector<EntityType>(), true),
                 std::make_shared<FuncPlayableTask>(
                     [=](const std::vector<Playable*>& playables) {
-                        playables[2]->SetCardTarget(playables[0]->id);
+                        playables[2]->SetCardTarget(
+                            playables[0]->GetGameTag(GameTag::ENTITY_ID));
                         return playables;
                     }),
                 std::make_shared<SetGameTagTask>(EntityType::SOURCE,

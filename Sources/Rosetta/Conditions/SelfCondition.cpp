@@ -5,6 +5,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
@@ -212,6 +213,19 @@ SelfCondition SelfCondition::IsRush()
     });
 }
 
+SelfCondition SelfCondition::HasDeathrattle()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->HasDeathrattle();
+    });
+}
+
 SelfCondition SelfCondition::HasNotStealth()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -244,6 +258,14 @@ SelfCondition SelfCondition::HasSpellPower()
         return playable->player->currentSpellPower > 0;
     });
 }
+
+SelfCondition SelfCondition::HasInvokedTwice()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetInvoke() >= 2;
+    });
+}
+
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -368,10 +390,35 @@ SelfCondition SelfCondition::IsEnemyTurn()
     });
 }
 
+SelfCondition SelfCondition::IsMyHeroUndamagedEnemyTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player != playable->game->GetCurrentPlayer() &&
+               playable->player->GetHero()->damageTakenThisTurn == 0;
+    });
+}
+
 SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player->GetRemainingMana();
+    });
+}
+
+SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        auto cards = playable->player->GetDeckZone()->GetAll();
+
+        for (auto& card : cards)
+        {
+            if (card->card->GetCardClass() == CardClass::NEUTRAL)
+            {
+                return false;
+            }
+        }
+
+        return true;
     });
 }
 

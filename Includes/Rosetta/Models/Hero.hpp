@@ -75,6 +75,7 @@ class Hero : public Character
     Weapon* weapon = nullptr;
 
     int fatigue = 0;
+    int damageTakenThisTurn = 0;
 };
 }  // namespace RosettaStone
 

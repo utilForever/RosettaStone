@@ -58,7 +58,8 @@ void PlayMinionCard(Player* player, Card* card)
     const std::map<GameTag, int> tags;
 
     const auto minion = new Minion(player, card, tags);
-    player->game->entityList.emplace(minion->id, minion);
+    player->game->entityList.emplace(minion->GetGameTag(GameTag::ENTITY_ID),
+                                     minion);
 
     fieldZone.Add(minion);
     fieldZone[minion->GetZonePosition()]->player = player;
@@ -69,7 +70,8 @@ void PlayWeaponCard(Player* player, Card* card)
     const std::map<GameTag, int> tags;
 
     const auto weapon = new Weapon(player, card, tags);
-    player->game->entityList.emplace(weapon->id, weapon);
+    player->game->entityList.emplace(weapon->GetGameTag(GameTag::ENTITY_ID),
+                                     weapon);
 
     player->GetHero()->AddWeapon(*weapon);
 }
@@ -80,7 +82,8 @@ void PlayEnchantmentCard(Player* player, Card* card, Entity* target)
     const std::map<GameTag, int> tags;
 
     const auto enchantment = new Enchantment(player, card, tags, target, -1);
-    player->game->entityList.emplace(enchantment->id, enchantment);
+    player->game->entityList.emplace(
+        enchantment->GetGameTag(GameTag::ENTITY_ID), enchantment);
 
     graveyardZone.Add(enchantment);
 }

@@ -6,7 +6,10 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone::Generic
 {
@@ -27,7 +30,30 @@ Playable* Draw(Player* player, Playable* cardToDraw)
                               : player->GetDeckZone()->GetTopCard());
 
     // Add card to hand
-    AddCardToHand(player, playable);
+    if (AddCardToHand(player, playable))
+    {
+        auto tasks = playable->card->power.GetTopdeckTask();
+
+        // Process topdeck tasks
+        if (!tasks.empty())
+        {
+            player->GetSetasideZone()->Add(
+                player->GetHandZone()->Remove(playable));
+
+            for (auto& task : tasks)
+            {
+                std::unique_ptr<ITask> clonedTask = task->Clone();
+
+                clonedTask->SetPlayer(player);
+                clonedTask->SetSource(playable);
+                clonedTask->SetTarget(nullptr);
+
+                clonedTask->Run();
+            }
+
+            Draw(player, cardToDraw);
+        }
+    }
 
     return playable;
 }

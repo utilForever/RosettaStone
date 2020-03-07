@@ -22,7 +22,8 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
 //! Adds card to hand.
 //! \param player The player to add card to hand.
 //! \param entity A card to add.
-void AddCardToHand(Player* player, Playable* entity);
+//! \return The flag that indicates a card is successfully added to hand.
+bool AddCardToHand(Player* player, Playable* entity);
 
 //! Creates a new enchantment and attaches it to the given target.
 //! \param enchantmentCard The base card for the enchantment.
@@ -30,8 +31,9 @@ void AddCardToHand(Player* player, Playable* entity);
 //! \param target The target entity.
 //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
 //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
+//! \param entityID The entity ID to be stored in the enchantment.
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
-                    int num1 = -1, int num2 = -1);
+                    int num1 = -1, int num2 = -1, int entityID = 0);
 
 //! Shuffles card into deck.
 //! \param player The player to shuffle card into deck.

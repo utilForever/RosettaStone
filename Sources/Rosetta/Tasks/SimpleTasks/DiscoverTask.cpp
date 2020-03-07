@@ -14,20 +14,26 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-DiscoverCriteria::DiscoverCriteria(CardType _cardType, CardClass _cardClass)
-    : cardType(_cardType), cardClass(_cardClass)
+DiscoverCriteria::DiscoverCriteria(CardType _cardType, CardClass _cardClass,
+                                   Race _race, Rarity _rarity)
+    : cardType(_cardType), cardClass(_cardClass), race(_race), rarity(_rarity)
 {
     // Do nothing
 }
 
 bool DiscoverCriteria::Evaluate(Card* card) const
 {
-    return cardType == CardType::INVALID || card->GetCardType() == cardType;
+    return (cardType == CardType::INVALID || cardType == card->GetCardType()) &&
+           (cardClass == CardClass::INVALID ||
+            cardClass == card->GetCardClass()) &&
+           (race == Race::INVALID || race == card->GetRace()) &&
+           (rarity == Rarity::INVALID || rarity == card->GetRarity());
 }
 
-DiscoverTask::DiscoverTask(CardType cardType, CardClass cardClass,
-                           ChoiceAction ChoiceAction)
-    : m_discoverCriteria(cardType, cardClass), m_choiceAction(ChoiceAction)
+DiscoverTask::DiscoverTask(CardType cardType, CardClass cardClass, Race race,
+                           Rarity rarity, ChoiceAction ChoiceAction)
+    : m_discoverCriteria(cardType, cardClass, race, rarity),
+      m_choiceAction(ChoiceAction)
 {
     // Do nothing
 }
@@ -76,9 +82,9 @@ TaskStatus DiscoverTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 {
-    return std::make_unique<DiscoverTask>(m_discoverCriteria.cardType,
-                                          m_discoverCriteria.cardClass,
-                                          m_choiceAction);
+    return std::make_unique<DiscoverTask>(
+        m_discoverCriteria.cardType, m_discoverCriteria.cardClass,
+        m_discoverCriteria.race, m_discoverCriteria.rarity, m_choiceAction);
 }
 
 std::vector<Card*> DiscoverTask::Discover(FormatType format,
@@ -86,9 +92,34 @@ std::vector<Card*> DiscoverTask::Discover(FormatType format,
 {
     std::vector<Card*> cards;
 
-    if (criteria.cardClass == CardClass::INVALID)
+    if (criteria.cardClass == CardClass::INVALID ||
+        criteria.cardClass == CardClass::ANOTHER_CLASS)
     {
-        // TODO: Add code later
+        auto allCards = (format == FormatType::STANDARD)
+                            ? Cards::GetAllStandardCards()
+                            : Cards::GetAllWildCards();
+
+        for (auto& card : allCards)
+        {
+            if (!criteria.Evaluate(card))
+            {
+                continue;
+            }
+
+            if (criteria.cardClass == CardClass::INVALID)
+            {
+                cards.emplace_back(card);
+            }
+            else
+            {
+                if (card->GetCardClass() !=
+                        m_player->GetHero()->card->GetCardClass() &&
+                    card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+        }
     }
     else
     {

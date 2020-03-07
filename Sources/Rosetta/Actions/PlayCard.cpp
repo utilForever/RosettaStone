@@ -68,7 +68,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Set card target and validate target trigger
     if (target != nullptr)
     {
-        source->SetCardTarget(target->id);
+        source->SetCardTarget(target->GetGameTag(GameTag::ENTITY_ID));
         Trigger::ValidateTriggers(player->game, source, SequenceType::TARGET);
     }
 
@@ -166,7 +166,7 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     player->GetFieldZone()->Add(minion, fieldPos);
 
     // Apply card mechanics tags
-    for (const auto tags : minion->card->gameTags)
+    for (const auto tags : minion->GetGameTags())
     {
         minion->SetGameTag(tags.first, tags.second);
     }
@@ -193,7 +193,7 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
 
-        if (minion->GetCardTarget() != target->id)
+        if (minion->GetCardTarget() != target->GetGameTag(GameTag::ENTITY_ID))
         {
             target = dynamic_cast<Character*>(
                 minion->game->entityList[minion->GetCardTarget()]);
@@ -258,7 +258,8 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
             player->game->ProcessTasks();
             player->game->taskQueue.EndEvent();
 
-            if (spell->GetCardTarget() == target->id)
+            if (spell->GetCardTarget() ==
+                target->GetGameTag(GameTag::ENTITY_ID))
             {
                 target = dynamic_cast<Character*>(
                     spell->game->entityList[spell->GetCardTarget()]);
@@ -303,7 +304,7 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
 
-        if (weapon->GetCardTarget() != target->id)
+        if (weapon->GetCardTarget() != target->GetGameTag(GameTag::ENTITY_ID))
         {
             target = dynamic_cast<Character*>(
                 weapon->game->entityList[weapon->GetCardTarget()]);

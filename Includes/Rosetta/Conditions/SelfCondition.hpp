@@ -118,6 +118,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRush();
 
+    //! SelfCondition wrapper for checking the entity has deathrattle.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasDeathrattle();
+
     //! SelfCondition wrapper for checking the entity has not stealth.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNotStealth();
@@ -129,6 +133,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the player has spellpower.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasSpellPower();
+
+    //! SelfCondition wrapper for checking the player has invoked twice.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasInvokedTwice();
 
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.
@@ -199,9 +207,18 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEnemyTurn();
 
+    //! SelfCondition wrapper for checking my hero is undamaged in enemy turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsMyHeroUndamagedEnemyTurn();
+
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();
+
+    //! SelfCondition wrapper for checking the player has no neutral cards
+    //! in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasNoNeutralCardsInDeck();
 
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.

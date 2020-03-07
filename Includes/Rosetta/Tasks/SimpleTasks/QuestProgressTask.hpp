@@ -10,6 +10,13 @@
 
 namespace RosettaStone::SimpleTasks
 {
+//! The type of quest progress.
+enum class ProgressType
+{
+    DEFAULT,     //!< Increases progress count when the trigger is called.
+    SPEND_MANA,  //!< Increases progress count when the player spends mana.
+};
+
 //!
 //! \brief QuestProgressTask class.
 //!
@@ -22,14 +29,19 @@ class QuestProgressTask : public ITask
     //! \param questRewardID The card ID that is a reward of the quest.
     explicit QuestProgressTask(const std::string& questRewardID);
 
-    //! Constructs task with given \p rewardTasks.
+    //! Constructs task with given \p rewardTasks and \p progressType.
     //! \param rewardTasks A list of tasks to run that is a reward of the quest.
-    explicit QuestProgressTask(std::vector<std::shared_ptr<ITask>> rewardTasks);
+    //! \param progressType The type of quest progress.
+    explicit QuestProgressTask(
+        std::vector<std::shared_ptr<ITask>> rewardTasks,
+        ProgressType progressType = ProgressType::DEFAULT);
 
-    //! Constructs task with given \p questRewardID and \p rewardTasks.
+    //! Constructs task with given various parameters.
     //! \param questRewardID The card ID that is a reward of the quest.
+    //! \param progressType The type of quest progress.
     //! \param rewardTasks A list of tasks to run that is a reward of the quest.
     explicit QuestProgressTask(const std::string& questRewardID,
+                               ProgressType progressType,
                                std::vector<std::shared_ptr<ITask>> rewardTasks);
 
  private:
@@ -43,6 +55,7 @@ class QuestProgressTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     Card* m_card = nullptr;
+    ProgressType m_progressType = ProgressType::DEFAULT;
     std::vector<std::shared_ptr<ITask>> m_tasks;
 };
 }  // namespace RosettaStone::SimpleTasks
