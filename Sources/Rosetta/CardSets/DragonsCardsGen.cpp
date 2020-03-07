@@ -872,38 +872,30 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
                 auto player = playables[0]->player;
 
-                while (!playables.empty())
+                EraseIf(const_cast<std::vector<Playable*>&>(playables),
+                        [=](Playable* playable) {
+                            return player->GetSecretZone()->Exist(playable);
+                        });
+
+                if (playables.empty())
                 {
-                    // Pick random secret
-                    const auto idx =
-                        Random::get<std::size_t>(0, playables.size() - 1);
-                    auto pick = playables[idx];
+                    return std::vector<Playable*>{};
+                }
 
-                    // Check it exists in secret zone
-                    if (player->GetSecretZone()->Exist(pick))
-                    {
-                        EraseIf(const_cast<std::vector<Playable*>&>(playables),
-                                [=](Playable* playable) {
-                                    return playable == pick;
-                                });
-                        continue;
-                    }
+                auto pick = *Random::get(playables);
 
-                    // Remove it from deck zone
-                    player->GetDeckZone()->Remove(pick);
-                    if (auto trigger = pick->card->power.GetTrigger(); trigger)
-                    {
-                        trigger->Activate(pick);
-                    }
+                // Remove it from deck zone
+                player->GetDeckZone()->Remove(pick);
+                if (auto trigger = pick->card->power.GetTrigger(); trigger)
+                {
+                    trigger->Activate(pick);
+                }
 
-                    // Add it to secret zone
-                    player->GetSecretZone()->Add(pick);
-                    if (player == player->game->GetCurrentPlayer())
-                    {
-                        pick->SetExhausted(true);
-                    }
-
-                    break;
+                // Add it to secret zone
+                player->GetSecretZone()->Add(pick);
+                if (player == player->game->GetCurrentPlayer())
+                {
+                    pick->SetExhausted(true);
                 }
 
                 return std::vector<Playable*>{};
