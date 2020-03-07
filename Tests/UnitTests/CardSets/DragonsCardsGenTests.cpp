@@ -1706,6 +1706,7 @@ TEST_CASE("[Hunter : Minion] - DRG_095 : Veranus")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Wyrm"));
@@ -1715,6 +1716,8 @@ TEST_CASE("[Hunter : Minion] - DRG_095 : Veranus")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Water Elemental"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Veranus"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Phase Stalker"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
@@ -1726,11 +1729,15 @@ TEST_CASE("[Hunter : Minion] - DRG_095 : Veranus")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(curField[0]->GetHealth(), 1);
     CHECK_EQ(curField[1]->GetHealth(), 1);
     CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[1]->GetHealth(), 6);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -3844,7 +3851,7 @@ TEST_CASE("[Warrior : Minion] - DRG_023 : Skybarge")
                    curPlayer->GetHero()->GetHealth() == 28;
     bool check43 = curField[0]->GetHealth() == 5 &&
                    curPlayer->GetHero()->GetHealth() == 26;
-    bool check4 = (check41 | check42 | check43);
+    bool check4 = (check41 || check42 || check43);
     CHECK(check4);
 }
 
