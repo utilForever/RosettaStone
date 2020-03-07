@@ -1714,9 +1714,9 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DiscoverTask>(CardType::MINION, CardClass::INVALID,
-                                       Race::INVALID, Rarity::LEGENDARY));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::MINION, CardClass::ANOTHER_CLASS, Race::INVALID,
+        Rarity::LEGENDARY));
     cards.emplace("DRG_028", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
