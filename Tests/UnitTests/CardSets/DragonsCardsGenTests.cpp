@@ -1240,6 +1240,7 @@ TEST_CASE("[Druid : Minion] - DRG_313 : Emerald Explorer")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curPlayer->choice.has_value(), true);
+    CHECK_EQ(curPlayer->choice.value().choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -1958,6 +1959,7 @@ TEST_CASE("[Hunter : Minion] - DRG_254 : Primordial Explorer")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curPlayer->choice.has_value(), true);
+    CHECK_EQ(curPlayer->choice.value().choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2139,6 +2141,7 @@ TEST_CASE("[Mage : Minion] - DRG_102 : Azure Explorer")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curPlayer->choice.has_value(), true);
+    CHECK_EQ(curPlayer->choice.value().choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2551,6 +2554,7 @@ TEST_CASE("[Paladin : Minion] - DRG_229 : Bronze Explorer")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curPlayer->choice.has_value(), true);
+    CHECK_EQ(curPlayer->choice.value().choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
