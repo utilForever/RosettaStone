@@ -3219,6 +3219,11 @@ TEST_CASE("[Rogue : Spell] - DRG_028 : Dragon's Hoard")
     {
         CHECK_EQ(card->GetCardType(), CardType::MINION);
         CHECK_EQ(card->GetRarity(), Rarity::LEGENDARY);
+
+        bool check = (card->GetCardClass() !=
+                      curPlayer->GetHero()->card->GetCardClass()) &&
+                     (card->GetCardClass() != CardClass::NEUTRAL);
+        CHECK_EQ(check, true);
     }
 }
 
