@@ -694,7 +694,7 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311e] Spore Hardened (*) - COST:0
-    // - Set: Expert1
+    // - Set: Dragons
     // --------------------------------------------------------
     // Text: +2 Health and <b>Taunt</b>.
     // --------------------------------------------------------
