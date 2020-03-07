@@ -92,11 +92,8 @@ std::vector<Card*> DiscoverTask::Discover(FormatType format,
 {
     std::vector<Card*> cards;
 
-    if (criteria.cardClass == CardClass::INVALID)
-    {
-        // TODO: Add code later
-    }
-    else if (criteria.cardClass == CardClass::ANOTHER_CLASS)
+    if (criteria.cardClass == CardClass::INVALID ||
+        criteria.cardClass == CardClass::ANOTHER_CLASS)
     {
         auto allCards = (format == FormatType::STANDARD)
                             ? Cards::GetAllStandardCards()
@@ -109,11 +106,18 @@ std::vector<Card*> DiscoverTask::Discover(FormatType format,
                 continue;
             }
 
-            if (card->GetCardClass() !=
-                    m_player->GetHero()->card->GetCardClass() &&
-                card->GetCardClass() != CardClass::NEUTRAL)
+            if (criteria.cardClass == CardClass::INVALID)
             {
                 cards.emplace_back(card);
+            }
+            else
+            {
+                if (card->GetCardClass() !=
+                        m_player->GetHero()->card->GetCardClass() &&
+                    card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    cards.emplace_back(card);
+                }
             }
         }
     }
