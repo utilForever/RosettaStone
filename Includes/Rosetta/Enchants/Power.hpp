@@ -9,7 +9,7 @@
 
 #include <Rosetta/Auras/Aura.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
-#include <Rosetta/Enchants/Trigger.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
 
 #include <memory>
 #include <vector>

@@ -11,8 +11,8 @@
 #include <Rosetta/Commons/PriorityQueue.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
-#include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
 
 #include <memory>
 #include <string>
