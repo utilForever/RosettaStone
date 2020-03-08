@@ -73,8 +73,6 @@
 #include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enchants/Power.hpp>
-#include <Rosetta/Enchants/Trigger.hpp>
-#include <Rosetta/Enchants/Triggers.hpp>
 #include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
@@ -185,6 +183,8 @@
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
+#include <Rosetta/Triggers/Triggers.hpp>
 #include <Rosetta/Views/Board.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Views/BoardView.hpp>

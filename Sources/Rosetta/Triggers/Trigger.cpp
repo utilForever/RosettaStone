@@ -4,11 +4,11 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Commons/Utils.hpp>
-#include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
 
 #include <effolkronium/random.hpp>
 

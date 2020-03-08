@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_TRIGGERS_HPP
 #define ROSETTASTONE_TRIGGERS_HPP
 
-#include <Rosetta/Enchants/Trigger.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
 
 #include <string>
 

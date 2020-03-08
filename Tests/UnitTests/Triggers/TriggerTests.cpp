@@ -8,9 +8,9 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 
