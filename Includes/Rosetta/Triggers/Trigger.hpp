@@ -92,4 +92,4 @@ class Trigger
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_EFFECT_HPP
+#endif  // ROSETTASTONE_TRIGGER_HPP
