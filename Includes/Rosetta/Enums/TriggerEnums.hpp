@@ -23,7 +23,7 @@ enum class TriggerType
                       //!< activated.
     GIVE_HEAL,        //!< The effect will be triggered when a playable heals a
                       //!< character.
-    TAKE_HEAL,        //!< The effect will be triggered when a character is healed.
+    TAKE_HEAL,     //!< The effect will be triggered when a character is healed.
     ATTACK,        //!< The effect will be triggered when characters attack.
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
                    //!< ended.
@@ -43,6 +43,7 @@ enum class TriggerType
              //!< attacking minion or a played card.
     DEATH,   //!< The effect will be triggered when a minion dies.
     USE_HERO_POWER,  //!< The effect will be triggered when a hero uses power.
+    MULTI_TRIGGER,   //!< The effect for multi trigger.
 };
 
 //! \brief An enumerator for identifying trigger source.
