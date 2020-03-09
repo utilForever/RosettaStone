@@ -64,14 +64,15 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     handler = TriggerEventHandler(triggerFunc);
 }
 
-void Trigger::Activate(Playable* source, TriggerActivation activation,
-                       bool cloning)
+std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
+                                           TriggerActivation activation,
+                                           bool cloning)
 {
     if (!cloning && activation != m_triggerActivation)
     {
         if (m_triggerActivation != TriggerActivation::HAND_OR_PLAY)
         {
-            return;
+            return nullptr;
         }
     }
 
@@ -198,6 +199,8 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
         default:
             break;
     }
+
+    return instance;
 }
 
 void Trigger::Remove() const
