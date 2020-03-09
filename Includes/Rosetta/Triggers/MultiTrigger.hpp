@@ -23,7 +23,26 @@ class MultiTrigger : public Trigger
     //! \param triggers A list of trigger.
     MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers);
 
- private:
+    //! Constructs trigger with given \p triggers, \p prototype and \p owner.
+    //! \param triggers A list of trigger.
+    //! \param prototype The multi trigger for prototype.
+    //! \param owner The owner of multi trigger.
+    MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers,
+                 MultiTrigger& prototype, Entity& owner);
+
+    //! Creates a new instance of MultiTrigger object in source's game.
+    //! \param source The source of trigger.
+    //! \param activation The activation of trigger.
+    //! \param cloning The flag to indicate that it is cloned.
+    //! \return A new instance of MultiTrigger object.
+    std::shared_ptr<Trigger> Activate(
+        Playable* source,
+        TriggerActivation activation = TriggerActivation::PLAY,
+        bool cloning = false) override;
+
+    //! Removes this object from game and unsubscribe from the related event.
+    void Remove() const override;
+
     std::vector<std::shared_ptr<Trigger>> m_triggers;
 };
 }  // namespace RosettaStone
