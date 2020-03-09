@@ -183,6 +183,7 @@
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
+#include <Rosetta/Triggers/MultiTrigger.hpp>
 #include <Rosetta/Triggers/Trigger.hpp>
 #include <Rosetta/Triggers/Triggers.hpp>
 #include <Rosetta/Views/Board.hpp>
