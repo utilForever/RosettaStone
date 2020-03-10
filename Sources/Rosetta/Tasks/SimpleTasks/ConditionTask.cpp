@@ -63,8 +63,6 @@ TaskStatus ConditionTask::Impl(Player* player)
         }
     }
 
-    player->game->taskStack.source = m_source;
-    player->game->taskStack.target = m_target;
     player->game->taskStack.flag = flag;
 
     return TaskStatus::COMPLETE;
