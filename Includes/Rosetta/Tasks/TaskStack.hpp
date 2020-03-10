@@ -44,7 +44,7 @@ struct TaskStack
     Entity* source = nullptr;
     Playable* target = nullptr;
 
-    bool flag = true;
+    bool flag = false;
 };
 }  // namespace RosettaStone
 
