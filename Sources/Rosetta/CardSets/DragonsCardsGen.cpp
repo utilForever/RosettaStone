@@ -33,15 +33,19 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/InvokeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathAddTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Triggers/MultiTrigger.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
@@ -1031,6 +1035,37 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    auto trigger1 = std::make_shared<Trigger>(TriggerType::CAST_SPELL);
+    trigger1->triggerSource = TriggerSource::FRIENDLY;
+    trigger1->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_1),
+        std::make_shared<MathAddTask>(1),
+        std::make_shared<SetGameTagNumberTask>(EntityType::SOURCE,
+                                               GameTag::TAG_SCRIPT_DATA_NUM_1),
+        std::make_shared<SetGameTagNumberTask>(EntityType::SOURCE,
+                                               GameTag::CUSTOM_KEYWORD_EFFECT),
+        std::make_shared<NumberConditionTask>(3, RelaSign::EQ),
+        std::make_shared<FlagTask>(
+            true,
+            TaskList{
+                std::make_shared<SummonTask>("DRG_104t2"),
+                std::make_shared<SetGameTagTask>(
+                    EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 0),
+                std::make_shared<SetGameTagTask>(
+                    EntityType::SOURCE, GameTag::CUSTOM_KEYWORD_EFFECT, 0) })
+    };
+    auto trigger2 = std::make_shared<Trigger>(TriggerType::TURN_END);
+    trigger2->tasks = {
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_1, 0),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::CUSTOM_KEYWORD_EFFECT, 0)
+    };
+    power.AddTrigger(std::make_shared<MultiTrigger>(
+        std::vector<std::shared_ptr<Trigger>>{ trigger1, trigger2 }));
+    cards.emplace("DRG_104", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_106] Arcane Breath - COST:1
@@ -1149,10 +1184,15 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [DRG_104t2] Snow Elemental (*) - COST:5 [ATK:5/HP:5]
     // - Race: Elemental, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_104t2", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t1] Malygos's Intellect (*) - COST:3
