@@ -94,8 +94,8 @@ TaskStatus QuestProgressTask::Impl(Player* player)
                 std::unique_ptr<ITask> clonedTask = task->Clone();
 
                 clonedTask->SetPlayer(player);
-                clonedTask->SetSource(player->game->taskStack.source);
-                clonedTask->SetTarget(player->game->taskStack.target);
+                clonedTask->SetSource(m_source);
+                clonedTask->SetTarget(m_target);
 
                 clonedTask->Run();
             }
