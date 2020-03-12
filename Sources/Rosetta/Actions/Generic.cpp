@@ -66,7 +66,8 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
             dynamic_cast<OngoingEnchant*>(power.GetEnchant()) && ongoingEnchant)
         {
             // Increment the count of existing OngoingEnchant
-            ongoingEnchant->SetCount(ongoingEnchant->GetCount() + 1);
+            const int val = ongoingEnchant->GetCount();
+            ongoingEnchant->SetCount(val + 1);
             return;
         }
     }

@@ -60,7 +60,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->GetHandZone()->Remove(source);
 
     // Increase the number of cards played this turn
-    player->SetNumCardsPlayedThisTurn(player->GetNumCardsPlayedThisTurn() + 1);
+    const int val = player->GetNumCardsPlayedThisTurn();
+    player->SetNumCardsPlayedThisTurn(val + 1);
 
     // Set card's owner
     source->player = player;
@@ -159,8 +160,8 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     // Validate play minion trigger
     Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
 
-    const int numMinionsPlayedThisTurn = player->GetNumMinionsPlayedThisTurn();
-    player->SetNumMinionsPlayedThisTurn(numMinionsPlayedThisTurn + 1);
+    const int val = player->GetNumMinionsPlayedThisTurn();
+    player->SetNumMinionsPlayedThisTurn(val + 1);
 
     // Add minion to field zone
     player->GetFieldZone()->Add(minion, fieldPos);

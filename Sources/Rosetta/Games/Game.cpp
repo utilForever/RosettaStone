@@ -686,8 +686,9 @@ void Game::ProcessGraveyard()
 
             // Add minion to graveyard
             minion->player->GetGraveyardZone()->Add(minion);
-            minion->player->SetNumFriendlyMinionsDiedThisTurn(
-                minion->player->GetNumFriendlyMinionsDiedThisTurn() + 1);
+
+            const int val = minion->player->GetNumFriendlyMinionsDiedThisTurn();
+            minion->player->SetNumFriendlyMinionsDiedThisTurn(val + 1);
 
             // Summon minion if it has reborn
             if (minion->HasReborn())
