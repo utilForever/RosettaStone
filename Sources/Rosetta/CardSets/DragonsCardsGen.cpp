@@ -1118,6 +1118,11 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Costs (1) less for each card you've played this
     //       game that didn't start in your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        return playable->player->GetNumSpellsPlayedThisGame();
+    }));
+    cards.emplace("DRG_109", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DRG_270] Malygos, Aspect of Magic - COST:5 [ATK:2/HP:8]

@@ -2380,6 +2380,63 @@ TEST_CASE("[Mage : Minion] - DRG_107 : Violet Spellwing")
     CHECK_EQ(curHand[0]->card->name, "Arcane Missiles");
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DRG_109] Mana Giant - COST:8 [ATK:8/HP:8]
+// - Race: Elemental, Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: Costs (1) less for each card you've played this
+//       game that didn't start in your deck.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DRG_109 : Mana Giant")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Giant"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Missiles"));
+
+    CHECK_EQ(card1->GetCost(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DRG_008] Righteous Cause - COST:1
 // - Set: Dragons, Rarity: Rare
