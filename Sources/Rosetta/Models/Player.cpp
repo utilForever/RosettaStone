@@ -245,6 +245,17 @@ void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
     SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
 }
 
+int Player::GetNumSpellsPlayedThisGame() const
+{
+    return GetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME);
+}
+
+void Player::IncreaseNumSpellsPlayedThisGame()
+{
+    const int val = GetNumSpellsPlayedThisGame();
+    SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME, val + 1);
+}
+
 void Player::UpgradeGalakrond()
 {
     // If the player has already turned into Galakrond, return false.

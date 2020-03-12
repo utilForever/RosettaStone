@@ -201,6 +201,13 @@ class Player : public Entity
     //! \param value The number of friendly minions that died this turn.
     void SetNumFriendlyMinionsDiedThisTurn(int value);
 
+    //! Returns the number of spells that played this game.
+    //! \return The number of spells that played this game.
+    int GetNumSpellsPlayedThisGame() const;
+
+    //! Increases the number of spells that played this game.
+    void IncreaseNumSpellsPlayedThisGame();
+
     //! Upgrades the Galakrond hero card.
     void UpgradeGalakrond();
 
