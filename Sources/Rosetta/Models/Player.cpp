@@ -276,6 +276,17 @@ void Player::IncreaseNumSpellsPlayedThisGame()
     SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME, val + 1);
 }
 
+int Player::GetNumCardsPlayedThisGameNotStartInDeck() const
+{
+    return GetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_GAME_NOT_START_IN_DECK);
+}
+
+void Player::IncreaseNumCardsPlayedThisGameNotStartInDeck()
+{
+    const int val = GetNumCardsPlayedThisGameNotStartInDeck();
+    SetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_GAME_NOT_START_IN_DECK, val + 1);
+}
+
 void Player::UpgradeGalakrond()
 {
     // If the player has already turned into Galakrond, return false.

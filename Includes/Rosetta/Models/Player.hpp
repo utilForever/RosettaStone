@@ -224,6 +224,16 @@ class Player : public Entity
     //! Increases the number of spells that played this game.
     void IncreaseNumSpellsPlayedThisGame();
 
+    //! Returns the number of cards that played this game that
+    //! didn't start in your deck.
+    //! \return The number of cards that played this game that
+    //! didn't start in your deck.
+    int GetNumCardsPlayedThisGameNotStartInDeck() const;
+
+    //! Increases the number of cards that played this game that
+    //! didn't start in your deck.
+    void IncreaseNumCardsPlayedThisGameNotStartInDeck();
+
     //! Upgrades the Galakrond hero card.
     void UpgradeGalakrond();
 
