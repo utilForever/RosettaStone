@@ -160,7 +160,7 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     // Validate play minion trigger
     Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
 
-    const int val = player->GetNumMinionsPlayedThisTurn();
+    int val = player->GetNumMinionsPlayedThisTurn();
     player->SetNumMinionsPlayedThisTurn(val + 1);
 
     // Add minion to field zone
@@ -179,6 +179,13 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
+
+    // Check the race of minion
+    if (minion->card->GetRace() == Race::ELEMENTAL)
+    {
+        val = player->GetNumElementalPlayedThisTurn();
+        player->SetNumElementalPlayedThisTurn(val + 1);
+    }
 
     // Process summon trigger
     player->game->taskQueue.StartEvent();
@@ -227,6 +234,8 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     player->game->triggerManager.OnAfterSummonTrigger(minion);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
+
+    player->game->ProcessDestroyAndUpdateAura();
 }
 
 void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)

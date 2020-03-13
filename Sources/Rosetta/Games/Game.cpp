@@ -379,14 +379,14 @@ void Game::MainReady()
     // Reset the number of attacked
     for (auto& player : m_players)
     {
+        // Hero
+        player.GetHero()->SetNumAttacksThisTurn(0);
+
         // Field
         for (auto& minion : player.GetFieldZone()->GetAll())
         {
             minion->SetNumAttacksThisTurn(0);
         }
-
-        // Hero
-        player.GetHero()->SetNumAttacksThisTurn(0);
 
         // Player
         player.SetNumCardsPlayedThisTurn(0);
@@ -396,20 +396,29 @@ void Game::MainReady()
 
     // Reset exhaust for current player
     const auto curPlayer = GetCurrentPlayer();
+
     // Hero
     curPlayer->GetHero()->SetExhausted(false);
+
+    // Hero power
+    curPlayer->GetHeroPower().SetExhausted(false);
+
     // Weapon
     if (curPlayer->GetHero()->HasWeapon())
     {
         curPlayer->GetWeapon().SetExhausted(false);
     }
-    // Hero power
-    curPlayer->GetHeroPower().SetExhausted(false);
+
     // Field
     for (auto& m : curPlayer->GetFieldZone()->GetAll())
     {
         m->SetExhausted(false);
     }
+
+    // Player
+    const int val = curPlayer->GetNumElementalPlayedThisTurn();
+    curPlayer->SetNumElementalPlayedLastTurn(val);
+    curPlayer->SetNumElementalPlayedThisTurn(0);
 
     // Reset combo active
     curPlayer->SetComboActive(false);
