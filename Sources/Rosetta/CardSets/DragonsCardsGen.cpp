@@ -44,6 +44,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Triggers/MultiTrigger.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
@@ -1137,6 +1138,23 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(std::vector<std::string>{
+                  "DRG_270t1",
+                  "DRG_270t2",
+                  "DRG_270t4",
+                  "DRG_270t5",
+                  "DRG_270t6",
+                  "DRG_270t7",
+                  "DRG_270t8",
+                  "DRG_270t9",
+                  "DRG_270t11",
+              }) }));
+    cards.emplace("DRG_270", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_321] Rolling Fireball - COST:5
@@ -1208,6 +1226,9 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(4));
+    cards.emplace("DRG_270t1", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t2] Malygos's Tome (*) - COST:1
@@ -1218,6 +1239,13 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE),
+            std::make_shared<AddStackToTask>(EntityType::HAND) },
+        3));
+    cards.emplace("DRG_270t2", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t4] Malygos's Explosion (*) - COST:2
@@ -1228,6 +1256,10 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    cards.emplace("DRG_270t4", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t5] Malygos's Nova (*) - COST:1
@@ -1238,6 +1270,10 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    cards.emplace("DRG_270t5", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t6] Malygos's Polymorph (*) - COST:1
@@ -1248,6 +1284,17 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::TARGET, "DRG_270t6t"));
+    cards.emplace(
+        "DRG_270t6",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [DRG_270t6t] Malygos's Sheep (*) - COST:1 [ATK:1/HP:1]
@@ -1256,6 +1303,9 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_270t6t", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t7] Malygos's Flamestrike (*) - COST:7
@@ -1266,6 +1316,10 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 8, true));
+    cards.emplace("DRG_270t7", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t8] Malygos's Frostbolt (*) - COST:0
@@ -1276,6 +1330,17 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::FROZEN, 1));
+    cards.emplace(
+        "DRG_270t8",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t9] Malygos's Fireball (*) - COST:4
@@ -1286,6 +1351,15 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 8, true));
+    cards.emplace(
+        "DRG_270t9",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t11] Malygos's Missiles (*) - COST:1
@@ -1297,6 +1371,15 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        6, true));
+    cards.emplace("DRG_270t11", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [DRG_322e] Draconic Magic (*) - COST:0

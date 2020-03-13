@@ -2437,6 +2437,69 @@ TEST_CASE("[Mage : Minion] - DRG_109 : Mana Giant")
     CHECK_EQ(curPlayer->GetRemainingMana(), 3);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DRG_270] Malygos, Aspect of Magic - COST:5 [ATK:2/HP:8]
+// - Race: Dragon, Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       <b>Discover</b> an upgraded Mage spell.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DRG_270 : Malygos, Aspect of Magic")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Malygos, Aspect of Magic"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Malygos, Aspect of Magic"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Herald"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+    }
+
+    Generic::ChoicePick(curPlayer, 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->choice.has_value(), false);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DRG_008] Righteous Cause - COST:1
 // - Set: Dragons, Rarity: Rare
