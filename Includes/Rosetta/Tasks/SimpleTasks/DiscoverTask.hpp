@@ -14,6 +14,8 @@ namespace RosettaStone::SimpleTasks
 class DiscoverCriteria
 {
  public:
+    DiscoverCriteria() = default;
+
     explicit DiscoverCriteria(CardType _cardType, CardClass _cardClass,
                               Race _race, Rarity _rarity);
 
@@ -45,6 +47,26 @@ class DiscoverTask : public ITask
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND);
 
+    //! Constructs task with given \p cardIDs and \p choiceAction.
+    //! \param cardIDs A list of card IDs to discover.
+    //! \param choiceAction The choice action of discover effect.
+    explicit DiscoverTask(const std::vector<std::string>& cardIDs,
+                          ChoiceAction choiceAction = ChoiceAction::HAND);
+
+    //! Constructs task with given various parameters.
+    //! \param cards A list of cards to discover.
+    //! \param cardType The type of card to discover.
+    //! \param cardClass The class of card to discover.
+    //! \param race The race of card to discover.
+    //! \param rarity The rarity of card to discover.
+    //! \param choiceAction The choice action of discover effect.
+    explicit DiscoverTask(std::vector<Card*> cards,
+                          CardType cardType = CardType::INVALID,
+                          CardClass cardClass = CardClass::INVALID,
+                          Race race = Race::INVALID,
+                          Rarity rarity = Rarity::INVALID,
+                          ChoiceAction choiceAction = ChoiceAction::HAND);
+
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
     //! \param numberOfChoices The number of choices.
@@ -66,6 +88,8 @@ class DiscoverTask : public ITask
     //! \param criteria The discover criteria.
     //! \return A list of cards to discover.
     std::vector<Card*> Discover(FormatType format, DiscoverCriteria criteria);
+
+    std::vector<Card*> m_cards;
 
     DiscoverType m_discoverType = DiscoverType::INVALID;
     DiscoverCriteria m_discoverCriteria;
