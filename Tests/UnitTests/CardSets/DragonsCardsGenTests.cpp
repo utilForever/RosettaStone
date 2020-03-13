@@ -2580,6 +2580,66 @@ TEST_CASE("[Mage : Minion] - DRG_322 : Dragoncaster")
     CHECK_EQ(card6->GetCost(), 4);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [DRG_323] Learn Draconic - COST:1
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Sidequest:</b> Spend 8 Mana on spells.
+//       <b>Reward:</b> Summon a 6/6 Dragon.
+// --------------------------------------------------------
+// GameTag:
+// - QUEST_PROGRESS_TOTAL = 8
+// - QUEST_REWARD_DATABASE_ID = 55282
+// - SIDEQUEST = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - DRG_323 : Learn Draconic")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Learn Draconic"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 8);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(quest->GetQuestProgress(), 4);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Draconic Emissary");
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->card->GetRace(), Race::DRAGON);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DRG_008] Righteous Cause - COST:1
 // - Set: Dragons, Rarity: Rare

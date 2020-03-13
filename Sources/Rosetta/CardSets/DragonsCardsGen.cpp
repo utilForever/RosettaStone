@@ -1198,6 +1198,12 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - QUEST_REWARD_DATABASE_ID = 55282
     // - SIDEQUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<SummonTask>("DRG_323t") },
+        ProgressType::SPEND_MANA_ON_SPELLS) };
+    cards.emplace("DRG_323", CardDef(power, 8, 0));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_324] Elemental Allies - COST:1
@@ -1415,6 +1421,9 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // [DRG_323t] Draconic Emissary (*) - COST:6 [ATK:6/HP:6]
     // - Race: Dragon, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_323t", CardDef(power));
 }
 
 void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
