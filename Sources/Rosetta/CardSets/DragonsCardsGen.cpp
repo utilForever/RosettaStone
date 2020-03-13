@@ -1177,6 +1177,14 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DRG_322e", EntityType::PLAYER) }));
+    cards.emplace("DRG_322", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DRG_323] Learn Draconic - COST:1
@@ -1390,6 +1398,18 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsSpell()) };
+    }
+    cards.emplace("DRG_322e", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DRG_323t] Draconic Emissary (*) - COST:6 [ATK:6/HP:6]
