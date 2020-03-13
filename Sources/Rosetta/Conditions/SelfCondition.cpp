@@ -21,6 +21,17 @@ SelfCondition::SelfCondition(std::function<bool(Playable*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsNotStartInDeck()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto entityID = playable->GetGameTag(GameTag::ENTITY_ID);
+        const auto curDeckCount = playable->player->GetDeckZone()->GetCount();
+        const auto opDeckCount =
+            playable->player->opponent->GetDeckZone()->GetCount();
+        return entityID > curDeckCount + opDeckCount + 7;
+    });
+}
+
 SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 {
     return SelfCondition([=](Playable* playable) -> bool {
