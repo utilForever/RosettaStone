@@ -783,10 +783,10 @@ DRAGONS | DRG_095 | Veranus | O
 DRAGONS | DRG_096 | Bandersmosh |  
 DRAGONS | DRG_099 | Kronx Dragonhoof |  
 DRAGONS | DRG_102 | Azure Explorer | O
-DRAGONS | DRG_104 | Chenvaala |  
+DRAGONS | DRG_104 | Chenvaala | O
 DRAGONS | DRG_106 | Arcane Breath | O
 DRAGONS | DRG_107 | Violet Spellwing | O
-DRAGONS | DRG_109 | Mana Giant |  
+DRAGONS | DRG_109 | Mana Giant | O
 DRAGONS | DRG_201 | Crazed Netherwing |  
 DRAGONS | DRG_202 | Dragonblight Cultist |  
 DRAGONS | DRG_203 | Veiled Worshipper |  
@@ -827,7 +827,7 @@ DRAGONS | DRG_255 | Toxic Reinforcements | O
 DRAGONS | DRG_256 | Dragonbane | O
 DRAGONS | DRG_257 | Frizz Kindleroost |  
 DRAGONS | DRG_258 | Sanctuary | O
-DRAGONS | DRG_270 | Malygos, Aspect of Magic |  
+DRAGONS | DRG_270 | Malygos, Aspect of Magic | O
 DRAGONS | DRG_300 | Fate Weaver |  
 DRAGONS | DRG_301 | Whispers of EVIL | O
 DRAGONS | DRG_302 | Grave Rune |  
@@ -848,9 +848,9 @@ DRAGONS | DRG_318 | Breath of Dreams | O
 DRAGONS | DRG_319 | Goru the Mightree |  
 DRAGONS | DRG_320 | Ysera, Unleashed | O
 DRAGONS | DRG_321 | Rolling Fireball |  
-DRAGONS | DRG_322 | Dragoncaster |  
-DRAGONS | DRG_323 | Learn Draconic |  
-DRAGONS | DRG_324 | Elemental Allies |  
+DRAGONS | DRG_322 | Dragoncaster | O
+DRAGONS | DRG_323 | Learn Draconic | O
+DRAGONS | DRG_324 | Elemental Allies | O
 DRAGONS | DRG_401 | Grizzled Wizard |  
 DRAGONS | DRG_402 | Sathrovarr |  
 DRAGONS | DRG_403 | Blowtorch Saboteur |  
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 42% (60 of 140 Cards)
+- Progress: 47% (66 of 140 Cards)
 
 ## Galakrond's Awakening
 
