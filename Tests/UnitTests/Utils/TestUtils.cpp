@@ -26,6 +26,7 @@ Card GenerateMinionCard(std::string&& id, int attack, int health)
     card.gameTags[GameTag::DAMAGE] = 0;
     card.gameTags[GameTag::HEALTH] = health;
     card.gameTags[GameTag::COST] = 0;
+    card.gameTags[GameTag::CARDRACE] = static_cast<int>(Race::INVALID);
 
     return card;
 }
