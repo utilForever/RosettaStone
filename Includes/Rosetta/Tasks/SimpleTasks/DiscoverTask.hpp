@@ -6,7 +6,6 @@
 #ifndef ROSETTASTONE_DISCOVER_TASK_HPP
 #define ROSETTASTONE_DISCOVER_TASK_HPP
 
-#include <Rosetta/Enums/DiscoverEnums.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
@@ -91,7 +90,6 @@ class DiscoverTask : public ITask
 
     std::vector<Card*> m_cards;
 
-    DiscoverType m_discoverType = DiscoverType::INVALID;
     DiscoverCriteria m_discoverCriteria;
     ChoiceAction m_choiceAction = ChoiceAction::INVALID;
     std::size_t m_numberOfChoices = 3;

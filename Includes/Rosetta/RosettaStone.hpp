@@ -76,7 +76,6 @@
 #include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Enums/DiscoverEnums.hpp>
 #include <Rosetta/Enums/GameEnums.hpp>
 #include <Rosetta/Enums/TargetingEnums.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
