@@ -2725,28 +2725,51 @@ TEST_CASE("[Mage : Minion] - EX1_612 : Kirin Tor Mage")
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Kirin Tor Mage"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kirin Tor Mage"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
     const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
+    const auto card5 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
-    CHECK_EQ(card2->GetCost(), 3);
     CHECK_EQ(card3->GetCost(), 3);
-    CHECK_EQ(card4->GetCost(), 4);
+    CHECK_EQ(card4->GetCost(), 3);
+    CHECK_EQ(card5->GetCost(), 4);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(card2->GetCost(), 0);
     CHECK_EQ(card3->GetCost(), 0);
-    CHECK_EQ(card4->GetCost(), 4);
+    CHECK_EQ(card4->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 4);
 
     game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
-    CHECK_EQ(card2->GetCost(), 0);
+                 PlayCardTask::SpellTarget(card5, opPlayer->GetHero()));
     CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 0);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(card4->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card4->GetCost(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(card4->GetCost(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(card4->GetCost(), 3);
 }
 
 // ------------------------------------------ MINION - MAGE
