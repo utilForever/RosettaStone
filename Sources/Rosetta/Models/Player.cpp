@@ -245,6 +245,16 @@ void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
     SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
 }
 
+int Player::GetNumElementalPlayedThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_THIS_TURN);
+}
+
+void Player::SetNumElementalPlayedThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_THIS_TURN, value);
+}
+
 int Player::GetNumSpellsPlayedThisGame() const
 {
     return GetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME);

@@ -201,6 +201,14 @@ class Player : public Entity
     //! \param value The number of friendly minions that died this turn.
     void SetNumFriendlyMinionsDiedThisTurn(int value);
 
+    //! Returns the number of elemental minions that played this turn.
+    //! \return The number of elemental minions that played this turn.
+    int GetNumElementalPlayedThisTurn() const;
+
+    //! Sets the number of elemental minions that played this turn.
+    //! \param value The number of elemental minions that played this turn.
+    void SetNumElementalPlayedThisTurn(int value);
+
     //! Returns the number of spells that played this game.
     //! \return The number of spells that played this game.
     int GetNumSpellsPlayedThisGame() const;
