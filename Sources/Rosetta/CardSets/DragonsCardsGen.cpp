@@ -1121,7 +1121,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
-        return playable->player->GetNumSpellsPlayedThisGame();
+        return playable->player->GetNumCardsPlayedThisGameNotStartInDeck();
     }));
     cards.emplace("DRG_109", CardDef(power));
 
