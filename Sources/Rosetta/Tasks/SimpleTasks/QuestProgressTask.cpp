@@ -50,6 +50,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             spell->IncreaseQuestProgress();
             break;
         case ProgressType::SPEND_MANA:
+        case ProgressType::SPEND_MANA_ON_SPELLS:
             const auto source = player->game->currentEventData->eventSource;
             const auto cost = source->GetCost();
             for (int i = 0; i < cost; ++i)
