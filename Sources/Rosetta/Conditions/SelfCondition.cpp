@@ -300,6 +300,13 @@ SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
     });
 }
 
+SelfCondition SelfCondition::IsNotPlayElementalMinionThisTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetNumElementalPlayedThisTurn() == 0;
+    });
+}
+
 SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
                                         RelaSign relaSign)
 {
