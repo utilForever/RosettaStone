@@ -17,6 +17,8 @@ enum class ProgressType
     SPEND_MANA,  //!< Increases progress count when the player spends mana.
     SPEND_MANA_ON_SPELLS,  //!< Increases progress count when the player spends
                            //!< mana on spells.
+    PLAY_ELEMENTAL_MINONS,  //!< Increases progress count when the player plays
+                            //!< an elemental minion in this turn.
 };
 
 //!
