@@ -2640,6 +2640,103 @@ TEST_CASE("[Mage : Spell] - DRG_323 : Learn Draconic")
     CHECK_EQ(curField[0]->card->GetRace(), Race::DRAGON);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [DRG_324] Elemental Allies - COST:1
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Sidequest:</b> Play an Elemental 2 turns in a row.
+//       <b>Reward:</b> Draw 3 spells from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - QUEST_PROGRESS_TOTAL = 2
+// - QUEST_REWARD_DATABASE_ID = 395
+// - SIDEQUEST = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - DRG_324 : Elemental Allies")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player2Deck[i] = *Cards::FindCardByName("Fireball");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elemental Allies"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Reservoir"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Reservoir"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Reservoir"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 23);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(quest->GetQuestProgress(), 2);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 20);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 10);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DRG_008] Righteous Cause - COST:1
 // - Set: Dragons, Rarity: Rare

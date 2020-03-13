@@ -1217,6 +1217,31 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - QUEST_REWARD_DATABASE_ID = 395
     // - SIDEQUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    auto trigger3 = std::make_shared<Trigger>(TriggerType::PLAY_MINION);
+    trigger3->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::ELEMENTAL));
+    trigger3->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{
+            std::make_shared<IncludeTask>(EntityType::DECK),
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }),
+            std::make_shared<RandomTask>(EntityType::STACK, 3),
+            std::make_shared<DrawStackTask>(3) },
+        ProgressType::PLAY_ELEMENTAL_MINONS) };
+    auto trigger4 = std::make_shared<Trigger>(TriggerType::TURN_END);
+    trigger4->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsNotPlayElementalMinionThisTurn());
+    trigger4->tasks = { std::make_shared<IncludeTask>(EntityType::SOURCE),
+                        std::make_shared<FuncPlayableTask>(
+                            [=](const std::vector<Playable*>& playables) {
+                                auto spell = dynamic_cast<Spell*>(playables[0]);
+                                spell->SetGameTag(GameTag::QUEST_PROGRESS, 0);
+                                return std::vector<Playable*>{};
+                            }) };
+    power.AddTrigger(std::make_shared<MultiTrigger>(
+        std::vector<std::shared_ptr<Trigger>>{ trigger3, trigger4 }));
+    cards.emplace("DRG_324", CardDef(power, 2, 0));
 }
 
 void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
