@@ -7,6 +7,7 @@
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
@@ -62,6 +63,15 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Increase the number of cards played this turn
     const int val = player->GetNumCardsPlayedThisTurn();
     player->SetNumCardsPlayedThisTurn(val + 1);
+
+    // Increase the number of cards played this game
+    // that didn't start in your deck
+    if (source->GetGameTag(GameTag::ENTITY_ID) >
+        player->GetDeckZone()->GetCount() +
+            player->opponent->GetDeckZone()->GetCount() + 7)
+    {
+        player->IncreaseNumCardsPlayedThisGameNotStartInDeck();
+    }
 
     // Set card's owner
     source->player = player;
