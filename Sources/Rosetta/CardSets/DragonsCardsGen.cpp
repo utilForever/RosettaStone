@@ -2457,6 +2457,14 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::ALL_NOSOURCE, 3) }));
+    cards.emplace("DRG_201", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_202] Dragonblight Cultist - COST:3 [ATK:1/HP:1]
