@@ -4367,6 +4367,83 @@ TEST_CASE("[Shaman : Spell] - DRG_219 : Lightning Breath")
     CHECK_EQ(curField[2]->GetHealth(), 4);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DRG_223] Cumulo-Maximus - COST:5 [ATK:5/HP:5]
+// - Race: Elemental, Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you have <b>Overloaded</b>
+//       Mana Crystals, deal 5 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DRG_223 : Cumulo-Maximus")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cumulo-Maximus"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cumulo-Maximus"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cumulo-Maximus"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Bolt"));
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, opHero));
+    CHECK_EQ(opHero->GetHealth(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, opHero));
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opHero));
+    CHECK_EQ(opHero->GetHealth(), 22);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, opHero));
+    CHECK_EQ(opHero->GetHealth(), 17);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_248] Invocation of Frost - COST:2
 // - Set: Dragons, Rarity: Common
