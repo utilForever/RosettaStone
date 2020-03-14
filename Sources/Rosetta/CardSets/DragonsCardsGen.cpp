@@ -2478,6 +2478,13 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_202e", EntityType::SOURCE, true));
+    cards.emplace("DRG_202", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_203] Veiled Worshipper - COST:4 [ATK:5/HP:4]
@@ -2614,6 +2621,9 @@ void DragonsCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("DRG_202e", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_207t] Abyssal Destroyer (*) - COST:1 [ATK:1/HP:1]
