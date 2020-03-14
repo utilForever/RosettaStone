@@ -2290,6 +2290,12 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_224t", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_224t", SummonSide::RIGHT));
+    cards.emplace("DRG_224", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_248] Invocation of Frost - COST:2
@@ -2365,6 +2371,11 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<TransformTask>(
+        EntityType::SOURCE, "DRG_224t2") };
+    cards.emplace("DRG_224t", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_224t2] Storm Drake (*) - COST:4 [ATK:4/HP:4]
@@ -2375,6 +2386,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_224t2", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_238t14t3] Windswept Elemental (*) - COST:2 [ATK:2/HP:1]
