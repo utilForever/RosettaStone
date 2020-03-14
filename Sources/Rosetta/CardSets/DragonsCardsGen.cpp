@@ -2155,6 +2155,10 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_215e", EntityType::MINIONS));
+    cards.emplace("DRG_215", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_216] Surging Tempest - COST:1 [ATK:1/HP:3]
@@ -3416,6 +3420,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_215e"));
+    cards.emplace("DRG_215e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_217e] Galakrond's Power (*) - COST:0
