@@ -4112,6 +4112,77 @@ TEST_CASE("[Shaman : Spell] - DRG_215 : Storm's Wrath")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DRG_216] Surging Tempest - COST:1 [ATK:1/HP:3]
+// - Race: Elemental, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: Has +1 Attack while you have <b>Overloaded</b>
+//       Mana Crystals.
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DRG_216 : Surging Tempest")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Surging Tempest"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Bolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_217] Dragon's Pack - COST:5
 // - Set: Dragons, Rarity: Epic

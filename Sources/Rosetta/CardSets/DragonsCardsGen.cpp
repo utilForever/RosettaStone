@@ -2173,6 +2173,15 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            return (playable->player->GetOverloadLocked() > 0 ||
+                    playable->player->GetOverloadOwed() > 0)
+                       ? 1
+                       : 0;
+        }));
+    cards.emplace("DRG_216", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_217] Dragon's Pack - COST:5
