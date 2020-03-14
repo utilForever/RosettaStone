@@ -2591,6 +2591,11 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("DRG_209t", 1) };
+    cards.emplace("DRG_209", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DRG_250] Fiendish Rites - COST:4
@@ -2639,6 +2644,9 @@ void DragonsCardsGen::AddWarlockNonCollect(
     // [DRG_209t] Nether Drake (*) - COST:6 [ATK:6/HP:6]
     // - Race: Dragon, Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_209t", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_238t12t2] Draconic Imp (*) - COST:1 [ATK:1/HP:1]
