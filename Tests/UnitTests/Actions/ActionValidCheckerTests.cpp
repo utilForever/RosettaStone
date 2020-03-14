@@ -65,7 +65,7 @@ TEST_CASE("[ActionValidChecker] - Check")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* player1 = game.GetPlayer1();
     Player* player2 = game.GetPlayer2();

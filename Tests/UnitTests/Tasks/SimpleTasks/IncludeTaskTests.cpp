@@ -28,7 +28,7 @@ TEST_CASE("[IncludeTask] - Run_NonConst")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* player1 = game.GetPlayer1();
     Player* player2 = game.GetPlayer2();
@@ -192,7 +192,7 @@ TEST_CASE("[IncludeTask] - Run_Const")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     const Player* player1 = game.GetPlayer1();
     const Player* player2 = game.GetPlayer2();

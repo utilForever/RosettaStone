@@ -30,7 +30,7 @@ TEST_CASE("[Generic] - ShuffleIntoDeck")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Playable* coinCard =
@@ -53,7 +53,7 @@ TEST_CASE("[Generic] - ShuffleIntoDeck_Full")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Playable* coinCard =
@@ -83,7 +83,7 @@ TEST_CASE("[Generic] - GetZone")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
 

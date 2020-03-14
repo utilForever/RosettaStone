@@ -25,7 +25,7 @@ TEST_CASE("[CountTask] - Run")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     CountTask task0(EntityType::HERO, 0);
     task0.SetPlayer(game.GetPlayer1());

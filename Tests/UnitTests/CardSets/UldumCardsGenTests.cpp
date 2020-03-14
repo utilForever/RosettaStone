@@ -35,7 +35,7 @@ TEST_CASE("[Druid : Minion] - ULD_133 : Crystal Merchant")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -57,12 +57,12 @@ TEST_CASE("[Druid : Minion] - ULD_133 : Crystal Merchant")
     CHECK_EQ(opHand.GetCount(), 5);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(opHand.GetCount(), 6);
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curHand.GetCount(), 7);
     CHECK_EQ(opHand.GetCount(), 6);
 
@@ -71,7 +71,7 @@ TEST_CASE("[Druid : Minion] - ULD_133 : Crystal Merchant")
     CHECK_EQ(curPlayer->GetRemainingMana(), 0);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(opHand.GetCount(), 7);
 }
@@ -100,7 +100,7 @@ TEST_CASE("[Druid : Spell] - ULD_273 : Overflow")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -133,7 +133,7 @@ TEST_CASE("[Druid : Spell] - ULD_273 : Overflow")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer,
@@ -142,7 +142,7 @@ TEST_CASE("[Druid : Spell] - ULD_273 : Overflow")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card5));
     CHECK_EQ(curField[0]->GetHealth(), 6);
@@ -174,7 +174,7 @@ TEST_CASE("[Hunter : Spell] - ULD_152 : Pressure Plate")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -200,7 +200,7 @@ TEST_CASE("[Hunter : Spell] - ULD_152 : Pressure Plate")
     CHECK_EQ(curSecret.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
@@ -241,7 +241,7 @@ TEST_CASE("[Hunter : Minion] - ULD_154 : Hyena Alpha")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -264,7 +264,7 @@ TEST_CASE("[Hunter : Minion] - ULD_154 : Hyena Alpha")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(opField.GetCount(), 1);
@@ -312,7 +312,7 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -347,7 +347,7 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
         CHECK_EQ(curField.GetCount(), 0);
 
         game.Process(curPlayer, EndTurnTask());
-        game.ProcessUntil(Step::MAIN_START);
+        game.ProcessUntil(Step::MAIN_ACTION);
 
         game.Process(opPlayer, PlayCardTask::Minion(Generic::DrawCard(
                                    opPlayer, Cards::FindCardByName("Wisp"))));
@@ -359,7 +359,7 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
         CHECK_EQ(opField.GetCount(), 0);
 
         game.Process(opPlayer, EndTurnTask());
-        game.ProcessUntil(Step::MAIN_START);
+        game.ProcessUntil(Step::MAIN_ACTION);
     }
     CHECK_EQ(curPlayer->GetHeroPower().card->name, "Ramkahen Roar");
 
@@ -379,13 +379,13 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
     CHECK_EQ(curField[1]->GetAttack(), 3);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::Minion(card5));
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curField[0]->GetAttack(), 5);
@@ -418,7 +418,7 @@ TEST_CASE("[Hunter : Weapon] - ULD_430 : Desert Spear")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -452,7 +452,7 @@ TEST_CASE("[Hunter : Weapon] - ULD_430 : Desert Spear")
     CHECK_EQ(curField[1]->IsRush(), true);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Weapon(card3));
     game.Process(opPlayer,
@@ -485,7 +485,7 @@ TEST_CASE("[Hunter : Spell] - ULD_713 : Swarm of Locusts")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -553,7 +553,7 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -651,7 +651,7 @@ TEST_CASE("[Neutral : Minion] - ULD_174 : Serpent Egg")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -671,7 +671,7 @@ TEST_CASE("[Neutral : Minion] - ULD_174 : Serpent Egg")
     CHECK_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 1);
@@ -696,7 +696,7 @@ TEST_CASE("[Neutral : Minion] - ULD_182 : Spitting Camel")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -721,17 +721,17 @@ TEST_CASE("[Neutral : Minion] - ULD_182 : Spitting Camel")
     CHECK_EQ(curField[2]->GetHealth(), 5);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curField[0]->GetHealth(), 4);
     CHECK_EQ(curField[1]->GetHealth() + curField[2]->GetHealth(), 9);
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curField[0]->GetHealth(), 4);
     CHECK_EQ(curField[1]->GetHealth() + curField[2]->GetHealth(), 9);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curField[0]->GetHealth(), 4);
     CHECK_EQ(curField[1]->GetHealth() + curField[2]->GetHealth(), 8);
 }
@@ -756,7 +756,7 @@ TEST_CASE("[Neutral : Minion] - ULD_184 : Kobold Sandtrooper")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -773,7 +773,7 @@ TEST_CASE("[Neutral : Minion] - ULD_184 : Kobold Sandtrooper")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
@@ -804,7 +804,7 @@ TEST_CASE("[Neutral : Minion] - ULD_191 : Beaming Sidekick")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -899,7 +899,7 @@ TEST_CASE("[Neutral : Minion] - ULD_271 : Injured Tol'vir")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -968,7 +968,7 @@ TEST_CASE("[Neutral : Minion] - ULD_289 : Fishflinger")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -1010,7 +1010,7 @@ TEST_CASE("[Neutral : Minion] - ULD_450 : Vilefiend")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -1032,7 +1032,7 @@ TEST_CASE("[Neutral : Minion] - ULD_450 : Vilefiend")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
@@ -1040,7 +1040,7 @@ TEST_CASE("[Neutral : Minion] - ULD_450 : Vilefiend")
     CHECK_EQ(curField[1]->GetAttack(), 1);
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
@@ -1048,14 +1048,14 @@ TEST_CASE("[Neutral : Minion] - ULD_450 : Vilefiend")
     CHECK_EQ(curField[1]->GetAttack(), 3);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
     CHECK_EQ(curField[1]->GetAttack(), 5);
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
@@ -1090,7 +1090,7 @@ TEST_CASE("[Neutral : Minion] - ULD_712 : Bug Collector")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -1115,7 +1115,7 @@ TEST_CASE("[Neutral : Minion] - ULD_712 : Bug Collector")
     CHECK_EQ(curField[1]->GetGameTag(GameTag::RUSH), 1);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(opField.GetCount(), 2);

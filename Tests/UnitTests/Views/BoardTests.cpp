@@ -24,7 +24,7 @@ TEST_CASE("[Board] - RefCopyFrom")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -48,7 +48,7 @@ TEST_CASE("[Board] - CreateView")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -82,7 +82,7 @@ TEST_CASE("[Board] - RevealHiddenInfoForSimulation")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.step = Step::BEGIN_DRAW;
     game.nextStep = Step::MAIN_ACTION;
