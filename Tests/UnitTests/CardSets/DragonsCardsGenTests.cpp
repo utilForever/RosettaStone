@@ -4175,6 +4175,51 @@ TEST_CASE("[Shaman : Spell] - DRG_217 : Dragon's Pack")
     CHECK_EQ(curField[3]->GetHealth(), 5);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DRG_218] Corrupt Elementalist - COST:6 [ATK:3/HP:3]
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Invoke</b> Galakrond twice.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - 676 = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DRG_218 : Corrupt Elementalist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Tempest");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Corrupt Elementalist"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetInvoke(), 2);
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Windswept Elemental");
+    CHECK_EQ(curField[2]->card->name, "Windswept Elemental");
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic

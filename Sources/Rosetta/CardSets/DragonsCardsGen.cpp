@@ -2200,7 +2200,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cards.emplace("DRG_217", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DRG_218] Corrupt Elementalist - COST:5 [ATK:3/HP:3]
+    // [DRG_218] Corrupt Elementalist - COST:6 [ATK:3/HP:3]
     // - Set: Dragons, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Invoke</b> Galakrond twice.
@@ -2210,6 +2210,10 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace("DRG_218", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_219] Lightning Breath - COST:3
