@@ -33,8 +33,12 @@ SummonTask::SummonTask(const std::string& cardID, SummonSide side,
     // Do nothing
 }
 
-SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side)
-    : m_card(Cards::FindCardByID(cardID)), m_side(side), m_amount(amount)
+SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side,
+                       bool addToStack)
+    : m_card(Cards::FindCardByID(cardID)),
+      m_side(side),
+      m_amount(amount),
+      m_addToStack(addToStack)
 {
     // Do nothing
 }
