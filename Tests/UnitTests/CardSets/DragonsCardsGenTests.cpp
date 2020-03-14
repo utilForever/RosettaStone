@@ -4688,6 +4688,61 @@ TEST_CASE("[Warlock : Spell] - DRG_205 : Nether Breath")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [DRG_206] Rain of Fire - COST:1
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 1 damage to all characters.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - DRG_206 : Rain of Fire")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rain of Fire"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHero->GetHealth(), 24);
+    CHECK_EQ(opHero->GetHealth(), 24);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [DRG_250] Fiendish Rites - COST:4
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------

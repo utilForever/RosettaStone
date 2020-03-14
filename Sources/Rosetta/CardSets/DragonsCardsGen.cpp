@@ -2536,6 +2536,10 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to all characters.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL, 1, true));
+    cards.emplace("DRG_206", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_207] Abyssal Summoner - COST:6 [ATK:2/HP:2]
