@@ -4637,6 +4637,57 @@ TEST_CASE("[Warlock : Minion] - DRG_201 : Crazed Netherwing")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [DRG_205] Nether Breath - COST:2
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 2 damage. If you're holding a Dragon,
+//       deal 4 damage with <b>Lifesteal</b> instead.
+// --------------------------------------------------------
+// RefTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - DRG_205 : Nether Breath")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+    curHero->SetDamage(20);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nether Breath"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nether Breath"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Crazed Netherwing"));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, opHero));
+    CHECK_EQ(curHero->GetHealth(), 14);
+    CHECK_EQ(opHero->GetHealth(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opHero));
+    CHECK_EQ(curHero->GetHealth(), 14);
+    CHECK_EQ(opHero->GetHealth(), 24);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [DRG_250] Fiendish Rites - COST:4
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------
