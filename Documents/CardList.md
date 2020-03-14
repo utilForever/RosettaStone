@@ -787,24 +787,24 @@ DRAGONS | DRG_104 | Chenvaala | O
 DRAGONS | DRG_106 | Arcane Breath | O
 DRAGONS | DRG_107 | Violet Spellwing | O
 DRAGONS | DRG_109 | Mana Giant | O
-DRAGONS | DRG_201 | Crazed Netherwing |  
-DRAGONS | DRG_202 | Dragonblight Cultist |  
-DRAGONS | DRG_203 | Veiled Worshipper |  
+DRAGONS | DRG_201 | Crazed Netherwing | O
+DRAGONS | DRG_202 | Dragonblight Cultist | O
+DRAGONS | DRG_203 | Veiled Worshipper | O
 DRAGONS | DRG_204 | Dark Skies |  
-DRAGONS | DRG_205 | Nether Breath |  
-DRAGONS | DRG_206 | Rain of Fire |  
+DRAGONS | DRG_205 | Nether Breath | O
+DRAGONS | DRG_206 | Rain of Fire | O
 DRAGONS | DRG_207 | Abyssal Summoner |  
 DRAGONS | DRG_208 | Valdris Felgorge |  
-DRAGONS | DRG_209 | Zzeraku the Warped |  
-DRAGONS | DRG_211 | Squallhunter |  
+DRAGONS | DRG_209 | Zzeraku the Warped | O
+DRAGONS | DRG_211 | Squallhunter | O
 DRAGONS | DRG_213 | Twin Tyrant |  
-DRAGONS | DRG_215 | Storm's Wrath |  
-DRAGONS | DRG_216 | Surging Tempest |  
-DRAGONS | DRG_217 | Dragon's Pack |  
-DRAGONS | DRG_218 | Corrupt Elementalist |  
-DRAGONS | DRG_219 | Lightning Breath |  
-DRAGONS | DRG_223 | Cumulo-Maximus |  
-DRAGONS | DRG_224 | Nithogg |  
+DRAGONS | DRG_215 | Storm's Wrath | O
+DRAGONS | DRG_216 | Surging Tempest | O
+DRAGONS | DRG_217 | Dragon's Pack | O
+DRAGONS | DRG_218 | Corrupt Elementalist | O
+DRAGONS | DRG_219 | Lightning Breath | O
+DRAGONS | DRG_223 | Cumulo-Maximus | O
+DRAGONS | DRG_224 | Nithogg | O
 DRAGONS | DRG_225 | Sky Claw | O
 DRAGONS | DRG_226 | Amber Watcher | O
 DRAGONS | DRG_229 | Bronze Explorer | O
@@ -816,9 +816,9 @@ DRAGONS | DRG_239 | Blazing Battlemage | O
 DRAGONS | DRG_242 | Shield of Galakrond |  
 DRAGONS | DRG_246 | Time Rip | O
 DRAGONS | DRG_247 | Seal Fate | O
-DRAGONS | DRG_248 | Invocation of Frost |  
+DRAGONS | DRG_248 | Invocation of Frost | O
 DRAGONS | DRG_249 | Awaken! | O
-DRAGONS | DRG_250 | Fiendish Rites |  
+DRAGONS | DRG_250 | Fiendish Rites | O
 DRAGONS | DRG_251 | Clear the Way | O
 DRAGONS | DRG_252 | Phase Stalker | O
 DRAGONS | DRG_253 | Dwarven Sharpshooter | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 47% (66 of 140 Cards)
+- Progress: 58% (82 of 140 Cards)
 
 ## Galakrond's Awakening
 
