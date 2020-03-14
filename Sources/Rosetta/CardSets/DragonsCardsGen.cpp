@@ -2445,6 +2445,8 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [DRG_201] Crazed Netherwing - COST:5 [ATK:5/HP:5]
     // - Race: Dragon, Faction: Neutral, Set: Dragons, Rarity: Rare
@@ -2558,6 +2560,11 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_250e", EntityType::MINIONS));
+    cards.emplace("DRG_250", CardDef(power));
 }
 
 void DragonsCardsGen::AddWarlockNonCollect(
@@ -3581,6 +3588,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_250e"));
+    cards.emplace("DRG_250e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_255t2] Leper Gnome (*) - COST:1 [ATK:1/HP:1]
