@@ -220,6 +220,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMyHeroUndamagedEnemyTurn();
 
+    //! SelfCondition wrapper for checking the player is overloaded.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOverloaded();
+
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();

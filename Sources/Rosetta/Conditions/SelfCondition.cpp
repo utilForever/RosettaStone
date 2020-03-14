@@ -416,6 +416,14 @@ SelfCondition SelfCondition::IsMyHeroUndamagedEnemyTurn()
     });
 }
 
+SelfCondition SelfCondition::IsOverloaded()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetOverloadLocked() > 0 ||
+               playable->player->GetOverloadOwed() > 0;
+    });
+}
+
 SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {
