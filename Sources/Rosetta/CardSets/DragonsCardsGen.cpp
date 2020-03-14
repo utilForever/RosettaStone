@@ -2231,6 +2231,24 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 4 damage to a minion. If you're holding
     //       a Dragon, also damage its neighbors.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<IncludeAdjacentTask>(EntityType::TARGET),
+                  std::make_shared<DamageTask>(EntityType::STACK, 4, true) }));
+    cards.emplace(
+        "DRG_219",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_223] Cumulo-Maximus - COST:5 [ATK:5/HP:5]

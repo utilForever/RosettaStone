@@ -4292,6 +4292,82 @@ TEST_CASE("[Shaman : Minion] - DRG_218 : Corrupt Elementalist")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
+// [DRG_219] Lightning Breath - COST:3
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 4 damage to a minion. If you're holding
+//       a Dragon, also damage its neighbors.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - DRG_219 : Lightning Breath")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Breath"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Breath"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Bronze Herald"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    curPlayer->SetUsedMana(0);
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    curPlayer->SetUsedMana(0);
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+    CHECK_EQ(curField[1]->GetHealth(), 12);
+    CHECK_EQ(curField[2]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+    CHECK_EQ(curField[2]->GetHealth(), 8);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card3));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+    CHECK_EQ(curField[2]->GetHealth(), 4);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
 // [DRG_248] Invocation of Frost - COST:2
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------
