@@ -1544,6 +1544,7 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::HasNoNeutralCardsInDeck()) }));
@@ -1566,6 +1567,7 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::HasNoNeutralCardsInDeck()) }));
@@ -1868,6 +1870,7 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::HasInvokedTwice()) }));
@@ -2544,6 +2547,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::HasInvokedTwice()) }));
@@ -2568,6 +2572,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(std::make_shared<AddLackeyTask>(1));
     power.AddPowerTask(std::make_shared<ArmorTask>(3));
     cards.emplace("DRG_020", CardDef(power));
@@ -2584,6 +2589,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(std::make_shared<InvokeTask>());
     cards.emplace("DRG_021", CardDef(power));
 
@@ -2597,6 +2603,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
@@ -2703,6 +2710,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
     power.AddPowerTask(std::make_shared<InvokeTask>());
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
