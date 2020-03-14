@@ -2185,6 +2185,16 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_217t", 2, SummonSide::SPELL, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::HasInvokedTwice()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DRG_217e", EntityType::STACK) }));
+    cards.emplace("DRG_217", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_218] Corrupt Elementalist - COST:5 [ATK:3/HP:3]
@@ -2284,6 +2294,9 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_217t", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_224t] Storm Egg (*) - COST:1 [ATK:0/HP:3]
@@ -3428,11 +3441,14 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // [DRG_217e] Galakrond's Power (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: +3/+3.
+    // Text: +2/+2.
     // --------------------------------------------------------
     // GameTag:
     // - HIDE_WATERMARK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_217e"));
+    cards.emplace("DRG_217e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_225e] Mechanical Might (*) - COST:0
