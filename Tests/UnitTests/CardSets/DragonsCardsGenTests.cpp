@@ -4220,6 +4220,62 @@ TEST_CASE("[Shaman : Minion] - DRG_218 : Corrupt Elementalist")
     CHECK_EQ(curField[2]->card->name, "Windswept Elemental");
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [DRG_248] Invocation of Frost - COST:2
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Freeze</b> an enemy. <b>Invoke</b> Galakrond.
+// --------------------------------------------------------
+// GameTag:
+// - 676 = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - DRG_248 : Corrupt Elementalist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Tempest");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Invocation of Frost"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetInvoke(), 0);
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetInvoke(), 1);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Windswept Elemental");
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic
