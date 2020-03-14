@@ -484,6 +484,8 @@ void Game::MainDraw()
 
 void Game::MainStart()
 {
+    ProcessDestroyAndUpdateAura();
+
     // Set next step
     nextStep = Step::MAIN_ACTION;
     if (m_gameConfig.autoRun)
