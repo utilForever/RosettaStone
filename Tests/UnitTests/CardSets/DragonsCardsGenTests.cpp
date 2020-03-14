@@ -4035,6 +4035,21 @@ TEST_CASE("[Rogue : Spell] - DRG_247 : Seal Fate")
     CHECK_EQ(curHand.GetCount(), 3);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DRG_211] Squallhunter - COST:4 [ATK:5/HP:7]
+// - Race: Dragon, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +2</b> <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 2
+// - OVERLOAD = 2
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DRG_211 : Squallhunter")
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic

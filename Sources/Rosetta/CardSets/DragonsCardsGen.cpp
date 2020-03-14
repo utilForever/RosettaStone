@@ -2119,6 +2119,8 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_096] Bandersmosh - COST:5 [ATK:5/HP:5]
     // - Set: Dragons, Rarity: Legendary
@@ -2140,6 +2142,9 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - SPELLPOWER = 2
     // - OVERLOAD = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_211", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_215] Storm's Wrath - COST:1
