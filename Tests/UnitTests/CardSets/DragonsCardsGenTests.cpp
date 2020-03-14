@@ -4636,6 +4636,57 @@ TEST_CASE("[Warlock : Minion] - DRG_201 : Crazed Netherwing")
     CHECK_EQ(curField[1]->GetHealth(), 5);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DRG_203] Veiled Worshipper - COST:4 [ATK:5/HP:4]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you've <b>Invoked</b> twice,
+//       draw 3 cards.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - 676 = 1
+// --------------------------------------------------------
+// RefTag:
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DRG_203 : Veiled Worshipper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Veiled Worshipper"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Veiled Worshipper"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    curPlayer->IncreaseInvoke();
+    curPlayer->IncreaseInvoke();
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [DRG_205] Nether Breath - COST:2
 // - Set: Dragons, Rarity: Rare

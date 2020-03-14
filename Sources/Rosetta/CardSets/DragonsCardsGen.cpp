@@ -2493,6 +2493,13 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::HasInvokedTwice()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(3) }));
+    cards.emplace("DRG_203", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DRG_204] Dark Skies - COST:3
