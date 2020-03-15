@@ -5857,3 +5857,55 @@ TEST_CASE("[Neutral : Minion] - DRG_242 : Shield of Galakrond")
     CHECK_EQ(curPlayer->GetInvoke(), 1);
     CHECK_EQ(curHand.GetCount(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DRG_310] Evasive Drakonid - COST:7 [ATK:7/HP:7]
+// - Race: Dragon, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Can't be targeted by spells or Hero Powers.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_310 : Evasive Drakonid")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Evasive Drakonid"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+}
