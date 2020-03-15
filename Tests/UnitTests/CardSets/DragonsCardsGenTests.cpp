@@ -5631,6 +5631,44 @@ TEST_CASE("[Neutral : Minion] - DRG_050 : Devoted Maniac")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_054] Big Ol' Whelp - COST:5 [ATK:5/HP:5]
+// - Race: Dragon, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_054 : Big Ol' Whelp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Big Ol' Whelp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

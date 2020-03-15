@@ -2940,6 +2940,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("DRG_054", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_055] Hoard Pillager - COST:4 [ATK:4/HP:2]
