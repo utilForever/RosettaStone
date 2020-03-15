@@ -3158,6 +3158,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_073", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_074] Camouflaged Dirigible - COST:6 [ATK:6/HP:6]
