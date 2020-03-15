@@ -5801,6 +5801,60 @@ TEST_CASE("[Neutral : Minion] - DRG_073 : Evasive Feywing")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_079] Evasive Wyrm - COST:6 [ATK:5/HP:3]
+// - Race: Dragon, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>. <b>Rush</b>.
+//       Can't be targeted by spells or Hero Powers.
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// - RUSH = 1
+// - 1211 = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_079 : Evasive Wyrm")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Evasive Wyrm"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------

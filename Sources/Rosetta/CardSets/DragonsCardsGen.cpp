@@ -3232,6 +3232,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - 1211 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_079", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_081] Scalerider - COST:3 [ATK:3/HP:3]
