@@ -5582,6 +5582,55 @@ TEST_CASE("[Neutral : Minion] - DRG_049 : Tasty Flyfish")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_050] Devoted Maniac - COST:4 [ATK:2/HP:2]
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Battlecry:</b> <b>Invoke</b> Galakrond.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - 676 = 1
+// - RUSH = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_050 : Devoted Maniac")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] =
+        *Cards::FindCardByName("Galakrond, the Unspeakable");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Devoted Maniac"));
+
+    CHECK_EQ(curPlayer->GetInvoke(), 0);
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetInvoke(), 1);
+    CHECK_EQ(curHand.GetCount(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

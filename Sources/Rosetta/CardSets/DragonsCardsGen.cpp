@@ -2927,6 +2927,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace("DRG_050", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_054] Big Ol' Whelp - COST:5 [ATK:5/HP:5]
