@@ -5532,6 +5532,56 @@ TEST_CASE("[Warrior : Spell] - DRG_500 : Molten Breath")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_049] Tasty Flyfish - COST:2 [ATK:2/HP:2]
+// - Race: Murloc, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give a Dragon in your hand +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_049 : Tasty Flyfish")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tasty Flyfish"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    auto minion = dynamic_cast<Minion*>(card2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(minion->GetAttack(), 4);
+    CHECK_EQ(minion->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(minion->GetAttack(), 6);
+    CHECK_EQ(minion->GetHealth(), 14);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

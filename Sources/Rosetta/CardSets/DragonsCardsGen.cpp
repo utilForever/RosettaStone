@@ -2902,6 +2902,17 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("DRG_049e", EntityType::STACK));
+    cards.emplace("DRG_049", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_050] Devoted Maniac - COST:4 [ATK:2/HP:2]
@@ -3428,6 +3439,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_049e"));
+    cards.emplace("DRG_049e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_052] Draconic Lackey (*) - COST:1 [ATK:1/HP:1]
