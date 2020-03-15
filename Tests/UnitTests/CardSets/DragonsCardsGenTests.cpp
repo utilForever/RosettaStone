@@ -5699,6 +5699,58 @@ TEST_CASE("[Neutral : Minion] - DRG_065 : Hippogryph")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_066] Evasive Chimaera - COST:2 [ATK:2/HP:1]
+// - Race: Beast, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Poisonous</b>
+//       Can't be targeted by spells or Hero Powers.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_066 : Evasive Chimaera")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Evasive Chimaera"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------

@@ -3078,6 +3078,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_067] Troll Batrider - COST:4 [ATK:3/HP:3]
