@@ -741,10 +741,10 @@ DRAGONS | DRG_034 | Stowaway |
 DRAGONS | DRG_035 | Bloodsail Flybooter | O
 DRAGONS | DRG_036 | Waxadred | O
 DRAGONS | DRG_037 | Flik Skyshiv |  
-DRAGONS | DRG_049 | Tasty Flyfish |  
-DRAGONS | DRG_050 | Devoted Maniac |  
+DRAGONS | DRG_049 | Tasty Flyfish | O
+DRAGONS | DRG_050 | Devoted Maniac | O
 DRAGONS | DRG_051 | Strength in Numbers | O
-DRAGONS | DRG_054 | Big Ol' Whelp |  
+DRAGONS | DRG_054 | Big Ol' Whelp | O
 DRAGONS | DRG_055 | Hoard Pillager |  
 DRAGONS | DRG_056 | Parachute Brigand |  
 DRAGONS | DRG_057 | Hot Air Balloon |  
@@ -756,20 +756,20 @@ DRAGONS | DRG_062 | Wyrmrest Purifier |
 DRAGONS | DRG_063 | Dragonmaw Poacher |  
 DRAGONS | DRG_064 | Zul'Drak Ritualist |  
 DRAGONS | DRG_065 | Hippogryph | O
-DRAGONS | DRG_066 | Evasive Chimaera |  
+DRAGONS | DRG_066 | Evasive Chimaera | O
 DRAGONS | DRG_067 | Troll Batrider |  
 DRAGONS | DRG_068 | Living Dragonbreath |  
 DRAGONS | DRG_069 | Platebreaker |  
 DRAGONS | DRG_070 | Dragon Breeder |  
 DRAGONS | DRG_071 | Bad Luck Albatross |  
 DRAGONS | DRG_072 | Skyfin |  
-DRAGONS | DRG_073 | Evasive Feywing |  
+DRAGONS | DRG_073 | Evasive Feywing | O
 DRAGONS | DRG_074 | Camouflaged Dirigible |  
 DRAGONS | DRG_075 | Cobalt Spellkin |  
 DRAGONS | DRG_076 | Faceless Corruptor |  
 DRAGONS | DRG_077 | Utgarde Grapplesniper |  
 DRAGONS | DRG_078 | Depth Charge |  
-DRAGONS | DRG_079 | Evasive Wyrm |  
+DRAGONS | DRG_079 | Evasive Wyrm | O
 DRAGONS | DRG_081 | Scalerider |  
 DRAGONS | DRG_082 | Kobold Stickyfinger |  
 DRAGONS | DRG_084 | Tentacled Menace |  
@@ -813,7 +813,7 @@ DRAGONS | DRG_232 | Lightforged Zealot | O
 DRAGONS | DRG_233 | Sand Breath | O
 DRAGONS | DRG_235 | Dragonrider Talritha | O
 DRAGONS | DRG_239 | Blazing Battlemage | O
-DRAGONS | DRG_242 | Shield of Galakrond |  
+DRAGONS | DRG_242 | Shield of Galakrond | O
 DRAGONS | DRG_246 | Time Rip | O
 DRAGONS | DRG_247 | Seal Fate | O
 DRAGONS | DRG_248 | Invocation of Frost | O
@@ -837,7 +837,7 @@ DRAGONS | DRG_306 | Envoy of Lazul |
 DRAGONS | DRG_307 | Breath of the Infinite |  
 DRAGONS | DRG_308 | Mindflayer Kaahrj |  
 DRAGONS | DRG_309 | Nozdormu the Timeless | O
-DRAGONS | DRG_310 | Evasive Drakonid |  
+DRAGONS | DRG_310 | Evasive Drakonid | O
 DRAGONS | DRG_311 | Treenforcements | O
 DRAGONS | DRG_312 | Shrubadier | O
 DRAGONS | DRG_313 | Emerald Explorer | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 58% (82 of 140 Cards)
+- Progress: 64% (90 of 140 Cards)
 
 ## Galakrond's Awakening
 
