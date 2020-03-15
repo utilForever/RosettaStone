@@ -5706,3 +5706,52 @@ TEST_CASE("[Neutral : Minion] - DRG_239 : Blazing Battlemage")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DRG_242] Shield of Galakrond - COST:5 [ATK:4/HP:5]
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> <b>Invoke</b> Galakrond.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// - 676 = 1
+// - EMPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_242 : Shield of Galakrond")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] =
+        *Cards::FindCardByName("Galakrond, the Unspeakable");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shield of Galakrond"));
+
+    CHECK_EQ(curPlayer->GetInvoke(), 0);
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetInvoke(), 1);
+    CHECK_EQ(curHand.GetCount(), 2);
+}

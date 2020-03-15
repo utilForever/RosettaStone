@@ -3358,6 +3358,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - 676 = 1
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<InvokeTask>());
+    cards.emplace("DRG_242", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_257] Frizz Kindleroost - COST:4 [ATK:5/HP:4]
