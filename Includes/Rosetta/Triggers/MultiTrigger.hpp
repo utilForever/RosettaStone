@@ -21,7 +21,7 @@ class MultiTrigger : public Trigger
  public:
     //! Constructs multi trigger with given \p triggers.
     //! \param triggers A list of trigger.
-    MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers);
+    explicit MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers);
 
     //! Constructs trigger with given \p triggers, \p prototype and \p owner.
     //! \param triggers A list of trigger.
