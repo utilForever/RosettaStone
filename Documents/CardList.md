@@ -741,10 +741,10 @@ DRAGONS | DRG_034 | Stowaway |
 DRAGONS | DRG_035 | Bloodsail Flybooter | O
 DRAGONS | DRG_036 | Waxadred | O
 DRAGONS | DRG_037 | Flik Skyshiv |  
-DRAGONS | DRG_049 | Tasty Flyfish |  
-DRAGONS | DRG_050 | Devoted Maniac |  
+DRAGONS | DRG_049 | Tasty Flyfish | O
+DRAGONS | DRG_050 | Devoted Maniac | O
 DRAGONS | DRG_051 | Strength in Numbers | O
-DRAGONS | DRG_054 | Big Ol' Whelp |  
+DRAGONS | DRG_054 | Big Ol' Whelp | O
 DRAGONS | DRG_055 | Hoard Pillager |  
 DRAGONS | DRG_056 | Parachute Brigand |  
 DRAGONS | DRG_057 | Hot Air Balloon |  
@@ -756,20 +756,20 @@ DRAGONS | DRG_062 | Wyrmrest Purifier |
 DRAGONS | DRG_063 | Dragonmaw Poacher |  
 DRAGONS | DRG_064 | Zul'Drak Ritualist |  
 DRAGONS | DRG_065 | Hippogryph | O
-DRAGONS | DRG_066 | Evasive Chimaera |  
+DRAGONS | DRG_066 | Evasive Chimaera | O
 DRAGONS | DRG_067 | Troll Batrider |  
 DRAGONS | DRG_068 | Living Dragonbreath |  
 DRAGONS | DRG_069 | Platebreaker |  
 DRAGONS | DRG_070 | Dragon Breeder |  
 DRAGONS | DRG_071 | Bad Luck Albatross |  
 DRAGONS | DRG_072 | Skyfin |  
-DRAGONS | DRG_073 | Evasive Feywing |  
+DRAGONS | DRG_073 | Evasive Feywing | O
 DRAGONS | DRG_074 | Camouflaged Dirigible |  
 DRAGONS | DRG_075 | Cobalt Spellkin |  
 DRAGONS | DRG_076 | Faceless Corruptor |  
 DRAGONS | DRG_077 | Utgarde Grapplesniper |  
 DRAGONS | DRG_078 | Depth Charge |  
-DRAGONS | DRG_079 | Evasive Wyrm |  
+DRAGONS | DRG_079 | Evasive Wyrm | O
 DRAGONS | DRG_081 | Scalerider |  
 DRAGONS | DRG_082 | Kobold Stickyfinger |  
 DRAGONS | DRG_084 | Tentacled Menace |  
@@ -783,28 +783,28 @@ DRAGONS | DRG_095 | Veranus | O
 DRAGONS | DRG_096 | Bandersmosh |  
 DRAGONS | DRG_099 | Kronx Dragonhoof |  
 DRAGONS | DRG_102 | Azure Explorer | O
-DRAGONS | DRG_104 | Chenvaala |  
+DRAGONS | DRG_104 | Chenvaala | O
 DRAGONS | DRG_106 | Arcane Breath | O
 DRAGONS | DRG_107 | Violet Spellwing | O
-DRAGONS | DRG_109 | Mana Giant |  
-DRAGONS | DRG_201 | Crazed Netherwing |  
-DRAGONS | DRG_202 | Dragonblight Cultist |  
-DRAGONS | DRG_203 | Veiled Worshipper |  
+DRAGONS | DRG_109 | Mana Giant | O
+DRAGONS | DRG_201 | Crazed Netherwing | O
+DRAGONS | DRG_202 | Dragonblight Cultist | O
+DRAGONS | DRG_203 | Veiled Worshipper | O
 DRAGONS | DRG_204 | Dark Skies |  
-DRAGONS | DRG_205 | Nether Breath |  
-DRAGONS | DRG_206 | Rain of Fire |  
+DRAGONS | DRG_205 | Nether Breath | O
+DRAGONS | DRG_206 | Rain of Fire | O
 DRAGONS | DRG_207 | Abyssal Summoner |  
 DRAGONS | DRG_208 | Valdris Felgorge |  
-DRAGONS | DRG_209 | Zzeraku the Warped |  
-DRAGONS | DRG_211 | Squallhunter |  
+DRAGONS | DRG_209 | Zzeraku the Warped | O
+DRAGONS | DRG_211 | Squallhunter | O
 DRAGONS | DRG_213 | Twin Tyrant |  
-DRAGONS | DRG_215 | Storm's Wrath |  
-DRAGONS | DRG_216 | Surging Tempest |  
-DRAGONS | DRG_217 | Dragon's Pack |  
-DRAGONS | DRG_218 | Corrupt Elementalist |  
-DRAGONS | DRG_219 | Lightning Breath |  
-DRAGONS | DRG_223 | Cumulo-Maximus |  
-DRAGONS | DRG_224 | Nithogg |  
+DRAGONS | DRG_215 | Storm's Wrath | O
+DRAGONS | DRG_216 | Surging Tempest | O
+DRAGONS | DRG_217 | Dragon's Pack | O
+DRAGONS | DRG_218 | Corrupt Elementalist | O
+DRAGONS | DRG_219 | Lightning Breath | O
+DRAGONS | DRG_223 | Cumulo-Maximus | O
+DRAGONS | DRG_224 | Nithogg | O
 DRAGONS | DRG_225 | Sky Claw | O
 DRAGONS | DRG_226 | Amber Watcher | O
 DRAGONS | DRG_229 | Bronze Explorer | O
@@ -813,12 +813,12 @@ DRAGONS | DRG_232 | Lightforged Zealot | O
 DRAGONS | DRG_233 | Sand Breath | O
 DRAGONS | DRG_235 | Dragonrider Talritha | O
 DRAGONS | DRG_239 | Blazing Battlemage | O
-DRAGONS | DRG_242 | Shield of Galakrond |  
+DRAGONS | DRG_242 | Shield of Galakrond | O
 DRAGONS | DRG_246 | Time Rip | O
 DRAGONS | DRG_247 | Seal Fate | O
-DRAGONS | DRG_248 | Invocation of Frost |  
+DRAGONS | DRG_248 | Invocation of Frost | O
 DRAGONS | DRG_249 | Awaken! | O
-DRAGONS | DRG_250 | Fiendish Rites |  
+DRAGONS | DRG_250 | Fiendish Rites | O
 DRAGONS | DRG_251 | Clear the Way | O
 DRAGONS | DRG_252 | Phase Stalker | O
 DRAGONS | DRG_253 | Dwarven Sharpshooter | O
@@ -827,7 +827,7 @@ DRAGONS | DRG_255 | Toxic Reinforcements | O
 DRAGONS | DRG_256 | Dragonbane | O
 DRAGONS | DRG_257 | Frizz Kindleroost |  
 DRAGONS | DRG_258 | Sanctuary | O
-DRAGONS | DRG_270 | Malygos, Aspect of Magic |  
+DRAGONS | DRG_270 | Malygos, Aspect of Magic | O
 DRAGONS | DRG_300 | Fate Weaver |  
 DRAGONS | DRG_301 | Whispers of EVIL | O
 DRAGONS | DRG_302 | Grave Rune |  
@@ -837,7 +837,7 @@ DRAGONS | DRG_306 | Envoy of Lazul |
 DRAGONS | DRG_307 | Breath of the Infinite |  
 DRAGONS | DRG_308 | Mindflayer Kaahrj |  
 DRAGONS | DRG_309 | Nozdormu the Timeless | O
-DRAGONS | DRG_310 | Evasive Drakonid |  
+DRAGONS | DRG_310 | Evasive Drakonid | O
 DRAGONS | DRG_311 | Treenforcements | O
 DRAGONS | DRG_312 | Shrubadier | O
 DRAGONS | DRG_313 | Emerald Explorer | O
@@ -848,9 +848,9 @@ DRAGONS | DRG_318 | Breath of Dreams | O
 DRAGONS | DRG_319 | Goru the Mightree |  
 DRAGONS | DRG_320 | Ysera, Unleashed | O
 DRAGONS | DRG_321 | Rolling Fireball |  
-DRAGONS | DRG_322 | Dragoncaster |  
-DRAGONS | DRG_323 | Learn Draconic |  
-DRAGONS | DRG_324 | Elemental Allies |  
+DRAGONS | DRG_322 | Dragoncaster | O
+DRAGONS | DRG_323 | Learn Draconic | O
+DRAGONS | DRG_324 | Elemental Allies | O
 DRAGONS | DRG_401 | Grizzled Wizard |  
 DRAGONS | DRG_402 | Sathrovarr |  
 DRAGONS | DRG_403 | Blowtorch Saboteur |  
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 42% (60 of 140 Cards)
+- Progress: 64% (90 of 140 Cards)
 
 ## Galakrond's Awakening
 

@@ -6,7 +6,6 @@
 #ifndef ROSETTASTONE_DISCOVER_TASK_HPP
 #define ROSETTASTONE_DISCOVER_TASK_HPP
 
-#include <Rosetta/Enums/DiscoverEnums.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
@@ -14,6 +13,8 @@ namespace RosettaStone::SimpleTasks
 class DiscoverCriteria
 {
  public:
+    DiscoverCriteria() = default;
+
     explicit DiscoverCriteria(CardType _cardType, CardClass _cardClass,
                               Race _race, Rarity _rarity);
 
@@ -45,6 +46,26 @@ class DiscoverTask : public ITask
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND);
 
+    //! Constructs task with given \p cardIDs and \p choiceAction.
+    //! \param cardIDs A list of card IDs to discover.
+    //! \param choiceAction The choice action of discover effect.
+    explicit DiscoverTask(const std::vector<std::string>& cardIDs,
+                          ChoiceAction choiceAction = ChoiceAction::HAND);
+
+    //! Constructs task with given various parameters.
+    //! \param cards A list of cards to discover.
+    //! \param cardType The type of card to discover.
+    //! \param cardClass The class of card to discover.
+    //! \param race The race of card to discover.
+    //! \param rarity The rarity of card to discover.
+    //! \param choiceAction The choice action of discover effect.
+    explicit DiscoverTask(std::vector<Card*> cards,
+                          CardType cardType = CardType::INVALID,
+                          CardClass cardClass = CardClass::INVALID,
+                          Race race = Race::INVALID,
+                          Rarity rarity = Rarity::INVALID,
+                          ChoiceAction choiceAction = ChoiceAction::HAND);
+
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
     //! \param numberOfChoices The number of choices.
@@ -61,9 +82,14 @@ class DiscoverTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
+    //! Evaluates a list of cards by the format type and the discover criteria.
+    //! \param format The format type.
+    //! \param criteria The discover criteria.
+    //! \return A list of cards to discover.
     std::vector<Card*> Discover(FormatType format, DiscoverCriteria criteria);
 
-    DiscoverType m_discoverType = DiscoverType::INVALID;
+    std::vector<Card*> m_cards;
+
     DiscoverCriteria m_discoverCriteria;
     ChoiceAction m_choiceAction = ChoiceAction::INVALID;
     std::size_t m_numberOfChoices = 3;

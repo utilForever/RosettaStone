@@ -56,8 +56,11 @@ class SummonTask : public ITask
     //! \param cardID The card ID to summon.
     //! \param amount The number of minions to summon.
     //! \param side The side of summoned minion.
+    //! \param addToStack The flag that indicates
+    //! whether the summon entity should add to stack.
     explicit SummonTask(const std::string& cardID, int amount,
-                        SummonSide side = SummonSide::DEFAULT);
+                        SummonSide side = SummonSide::DEFAULT,
+                        bool addToStack = false);
 
     //! Returns the position of minion to summon.
     //! \param source The source entity.

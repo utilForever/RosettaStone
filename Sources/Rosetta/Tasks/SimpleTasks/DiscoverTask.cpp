@@ -10,6 +10,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <utility>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
@@ -31,9 +33,29 @@ bool DiscoverCriteria::Evaluate(Card* card) const
 }
 
 DiscoverTask::DiscoverTask(CardType cardType, CardClass cardClass, Race race,
-                           Rarity rarity, ChoiceAction ChoiceAction)
+                           Rarity rarity, ChoiceAction choiceAction)
     : m_discoverCriteria(cardType, cardClass, race, rarity),
-      m_choiceAction(ChoiceAction)
+      m_choiceAction(choiceAction)
+{
+    // Do nothing
+}
+
+DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
+                           ChoiceAction choiceAction)
+    : m_choiceAction(choiceAction)
+{
+    for (auto& cardID : cardIDs)
+    {
+        m_cards.emplace_back(Cards::FindCardByID(cardID));
+    }
+}
+
+DiscoverTask::DiscoverTask(std::vector<Card*> cards, CardType cardType,
+                           CardClass cardClass, Race race, Rarity rarity,
+                           ChoiceAction choiceAction)
+    : m_cards(std::move(cards)),
+      m_discoverCriteria(cardType, cardClass, race, rarity),
+      m_choiceAction(choiceAction)
 {
     // Do nothing
 }
@@ -60,19 +82,18 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
 
 TaskStatus DiscoverTask::Impl(Player* player)
 {
-    std::vector<Card*> cardsToDiscover;
+    std::vector<Card*> result;
 
-    if (m_discoverType != DiscoverType::INVALID)
+    if (!m_cards.empty())
     {
-        // TODO: Add code later
+        result = GetChoices(m_cards, m_numberOfChoices);
     }
     else
     {
-        cardsToDiscover =
+        const auto cardsToDiscover =
             Discover(player->game->GetFormatType(), m_discoverCriteria);
+        result = GetChoices(cardsToDiscover, m_numberOfChoices);
     }
-
-    const auto result = GetChoices(cardsToDiscover, m_numberOfChoices);
 
     Generic::CreateChoiceCards(player, m_source, ChoiceType::GENERAL,
                                m_choiceAction, result);
@@ -83,7 +104,7 @@ TaskStatus DiscoverTask::Impl(Player* player)
 std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 {
     return std::make_unique<DiscoverTask>(
-        m_discoverCriteria.cardType, m_discoverCriteria.cardClass,
+        m_cards, m_discoverCriteria.cardType, m_discoverCriteria.cardClass,
         m_discoverCriteria.race, m_discoverCriteria.rarity, m_choiceAction);
 }
 

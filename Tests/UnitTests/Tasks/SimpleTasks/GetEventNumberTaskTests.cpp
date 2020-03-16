@@ -25,7 +25,7 @@ TEST_CASE("[GetEventNumberTask] - Run")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.currentEventData =
         std::make_unique<EventMetaData>(nullptr, nullptr, 1);

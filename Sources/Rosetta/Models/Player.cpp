@@ -245,6 +245,48 @@ void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
     SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
 }
 
+int Player::GetNumElementalPlayedThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_THIS_TURN);
+}
+
+void Player::SetNumElementalPlayedThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_THIS_TURN, value);
+}
+
+int Player::GetNumElementalPlayedLastTurn() const
+{
+    return GetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_LAST_TURN);
+}
+
+void Player::SetNumElementalPlayedLastTurn(int value)
+{
+    SetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_LAST_TURN, value);
+}
+
+int Player::GetNumSpellsPlayedThisGame() const
+{
+    return GetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME);
+}
+
+void Player::IncreaseNumSpellsPlayedThisGame()
+{
+    const int val = GetNumSpellsPlayedThisGame();
+    SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME, val + 1);
+}
+
+int Player::GetNumCardsPlayedThisGameNotStartInDeck() const
+{
+    return GetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_GAME_NOT_START_IN_DECK);
+}
+
+void Player::IncreaseNumCardsPlayedThisGameNotStartInDeck()
+{
+    const int val = GetNumCardsPlayedThisGameNotStartInDeck();
+    SetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_GAME_NOT_START_IN_DECK, val + 1);
+}
+
 void Player::UpgradeGalakrond()
 {
     // If the player has already turned into Galakrond, return false.

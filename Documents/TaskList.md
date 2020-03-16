@@ -54,11 +54,13 @@
 * IncludeTask
 * InvokeTask
 * ManaCrystalTask
+* MathAddTask
 * MathMultiplyTask
 * MathNumberIndexTask
 * MathSubtractTask
 * MoveToGraveyardTask
 * MoveToSetasideTask
+* NumberConditionTask
 * QuestProgressTask
 * RandomCardTask
 * RandomEntourageTask
@@ -67,9 +69,10 @@
 * RemoveDurabilityTask
 * RemoveEnchantmentTask
 * RemoveHandTask
-* RevealStealthTask
 * ReplaceHeroTask
 * ReturnHandTask
+* RevealStealthTask
+* SetGameTagNumberTask
 * SetGameTagTask
 * SilenceTask
 * SummonCopyTask

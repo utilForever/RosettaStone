@@ -50,9 +50,18 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             spell->IncreaseQuestProgress();
             break;
         case ProgressType::SPEND_MANA:
+        case ProgressType::SPEND_MANA_ON_SPELLS:
+        {
             const auto source = player->game->currentEventData->eventSource;
             const auto cost = source->GetCost();
             for (int i = 0; i < cost; ++i)
+            {
+                spell->IncreaseQuestProgress();
+            }
+            break;
+        }
+        case ProgressType::PLAY_ELEMENTAL_MINONS:
+            if (player->GetNumElementalPlayedThisTurn() == 1)
             {
                 spell->IncreaseQuestProgress();
             }
@@ -94,8 +103,8 @@ TaskStatus QuestProgressTask::Impl(Player* player)
                 std::unique_ptr<ITask> clonedTask = task->Clone();
 
                 clonedTask->SetPlayer(player);
-                clonedTask->SetSource(player->game->taskStack.source);
-                clonedTask->SetTarget(player->game->taskStack.target);
+                clonedTask->SetSource(m_source);
+                clonedTask->SetTarget(m_target);
 
                 clonedTask->Run();
             }

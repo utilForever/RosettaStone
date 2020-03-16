@@ -38,16 +38,21 @@ class Trigger
     //! \param owner The owner of trigger.
     Trigger(Trigger& prototype, Entity& owner);
 
-    //! Activates trigger to battlefield.
+    //! Default virtual destructor.
+    virtual ~Trigger() = default;
+
+    //! Creates a new instance of Trigger object in source's game.
     //! \param source The source of trigger.
     //! \param activation The activation of trigger.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Playable* source,
-                  TriggerActivation activation = TriggerActivation::PLAY,
-                  bool cloning = false);
+    //! \return A new instance of Trigger object.
+    virtual std::shared_ptr<Trigger> Activate(
+        Playable* source,
+        TriggerActivation activation = TriggerActivation::PLAY,
+        bool cloning = false);
 
     //! Removes this object from game and unsubscribe from the related event.
-    void Remove() const;
+    virtual void Remove() const;
 
     //! Checks triggers related to the current Sequence at once before sequence
     //! starts.
@@ -92,4 +97,4 @@ class Trigger
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_EFFECT_HPP
+#endif  // ROSETTASTONE_TRIGGER_HPP

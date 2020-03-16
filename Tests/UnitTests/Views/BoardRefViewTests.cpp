@@ -25,7 +25,7 @@ TEST_CASE("[BoardRefView] - GetSide")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
 
@@ -44,7 +44,7 @@ TEST_CASE("[BoardRefView] - GetTurn")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
 
@@ -66,7 +66,7 @@ TEST_CASE("[BoardRefView] - GetCurrentPlayer")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
 
@@ -85,7 +85,7 @@ TEST_CASE("[BoardRefView] - GetFatigueDamage")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -109,7 +109,7 @@ TEST_CASE("[BoardRefView] - GetTotalMana")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -133,7 +133,7 @@ TEST_CASE("[BoardRefView] - GetUsedMana")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -157,7 +157,7 @@ TEST_CASE("[BoardRefView] - GetTemporaryMana")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -181,7 +181,7 @@ TEST_CASE("[BoardRefView] - GetOverloadOwed")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -205,7 +205,7 @@ TEST_CASE("[BoardRefView] - GetOverloadLocked")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -229,7 +229,7 @@ TEST_CASE("[BoardRefView] - GetRemainingMana")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -255,7 +255,7 @@ TEST_CASE("[BoardRefView] - GetHero")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -278,7 +278,7 @@ TEST_CASE("[BoardRefView] - GetOpponentHero")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -301,7 +301,7 @@ TEST_CASE("[BoardRefView] - GetHeroPower")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
     CHECK_EQ(board.GetHeroPower(PlayerType::PLAYER1).card->id, "CS2_102");
@@ -319,7 +319,7 @@ TEST_CASE("[BoardRefView] - GetWeapon")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
     CHECK_EQ(board.GetWeapon(PlayerType::PLAYER1), nullptr);
@@ -337,7 +337,7 @@ TEST_CASE("[BoardRefView] - GetHandCards")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -360,7 +360,7 @@ TEST_CASE("[BoardRefView] - GetOpponentHandCards")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -383,7 +383,7 @@ TEST_CASE("[BoardRefView] - GetOpponentHandCardCount")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -406,7 +406,7 @@ TEST_CASE("[BoardRefView] - GetMinions")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -447,7 +447,7 @@ TEST_CASE("[BoardRefView] - GetDeckCardCount")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     BoardRefView board(game, game.GetCurrentPlayer()->playerType);
     CHECK_EQ(board.GetDeckCardCount(PlayerType::PLAYER1), 5);
@@ -465,7 +465,7 @@ TEST_CASE("[BoardRefView] - IsHeroAttackable")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     curPlayer->GetHero()->SetAttack(4);
@@ -486,7 +486,7 @@ TEST_CASE("[BoardRefView] - IsMinionAttackable")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -532,7 +532,7 @@ TEST_CASE("[CurrentPlayerBoardRefView] - GetCurrentPlayer")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     auto curPlayerBoardRefView = CurrentPlayerBoardRefView(game);
     CHECK_EQ(curPlayerBoardRefView.GetCurrentPlayer()->playerType,

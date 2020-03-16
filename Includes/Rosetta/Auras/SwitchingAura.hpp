@@ -7,7 +7,7 @@
 #define ROSETTASTONE_SWITCHING_AURA_HPP
 
 #include <Rosetta/Auras/Aura.hpp>
-#include <Rosetta/Enchants/Trigger.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
 
 #include <memory>
 

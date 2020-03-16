@@ -150,7 +150,7 @@ TEST_CASE("[Game] - Turn")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     auto* curPlayer = game.GetCurrentPlayer();
     auto* opPlayer = game.GetOpponentPlayer();
@@ -158,12 +158,12 @@ TEST_CASE("[Game] - Turn")
     CHECK_EQ(game.GetTurn(), 1);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(game.GetTurn(), 2);
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(game.GetTurn(), 3);
 
@@ -171,7 +171,7 @@ TEST_CASE("[Game] - Turn")
     CHECK_EQ(game.GetTurn(), 30);
 
     game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(game.GetTurn(), 31);
 }
@@ -187,7 +187,7 @@ TEST_CASE("[Game] - GameOver_Player1Won")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -219,7 +219,7 @@ TEST_CASE("[Game] - GameOver_Player2Won")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -251,7 +251,7 @@ TEST_CASE("[Game] - GameOver_Tied")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
@@ -336,13 +336,13 @@ TEST_CASE("[Game] - CreateView")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     const auto player1View = game.CreateView();
     CHECK_EQ(player1View.GetMyHeroPower().cardID, "CS2_102");
 
     game.Process(game.GetCurrentPlayer(), EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     const auto player2View = game.CreateView();
     CHECK_EQ(player2View.GetMyHeroPower().cardID, "CS2_083b");

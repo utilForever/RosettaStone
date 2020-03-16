@@ -24,7 +24,7 @@ TEST_CASE("[Choose] - ChoiceMulligan")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();

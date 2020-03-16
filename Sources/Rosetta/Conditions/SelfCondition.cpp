@@ -21,6 +21,17 @@ SelfCondition::SelfCondition(std::function<bool(Playable*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsNotStartInDeck()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto entityID = playable->GetGameTag(GameTag::ENTITY_ID);
+        const auto curDeckCount = playable->player->GetDeckZone()->GetCount();
+        const auto opDeckCount =
+            playable->player->opponent->GetDeckZone()->GetCount();
+        return entityID > curDeckCount + opDeckCount + 7;
+    });
+}
+
 SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -300,6 +311,13 @@ SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
     });
 }
 
+SelfCondition SelfCondition::IsNotPlayElementalMinionThisTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetNumElementalPlayedThisTurn() == 0;
+    });
+}
+
 SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
                                         RelaSign relaSign)
 {
@@ -395,6 +413,14 @@ SelfCondition SelfCondition::IsMyHeroUndamagedEnemyTurn()
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player != playable->game->GetCurrentPlayer() &&
                playable->player->GetHero()->damageTakenThisTurn == 0;
+    });
+}
+
+SelfCondition SelfCondition::IsOverloaded()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetOverloadLocked() > 0 ||
+               playable->player->GetOverloadOwed() > 0;
     });
 }
 

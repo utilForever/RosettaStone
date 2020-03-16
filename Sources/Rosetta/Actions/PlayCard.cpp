@@ -7,6 +7,7 @@
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
@@ -60,7 +61,17 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->GetHandZone()->Remove(source);
 
     // Increase the number of cards played this turn
-    player->SetNumCardsPlayedThisTurn(player->GetNumCardsPlayedThisTurn() + 1);
+    const int val = player->GetNumCardsPlayedThisTurn();
+    player->SetNumCardsPlayedThisTurn(val + 1);
+
+    // Increase the number of cards played this game
+    // that didn't start in your deck
+    if (source->GetGameTag(GameTag::ENTITY_ID) >
+        player->GetDeckZone()->GetCount() +
+            player->opponent->GetDeckZone()->GetCount() + 7)
+    {
+        player->IncreaseNumCardsPlayedThisGameNotStartInDeck();
+    }
 
     // Set card's owner
     source->player = player;
@@ -159,8 +170,16 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     // Validate play minion trigger
     Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
 
-    const int numMinionsPlayedThisTurn = player->GetNumMinionsPlayedThisTurn();
-    player->SetNumMinionsPlayedThisTurn(numMinionsPlayedThisTurn + 1);
+    // Increase the number of minions that played this turn
+    int val = player->GetNumMinionsPlayedThisTurn();
+    player->SetNumMinionsPlayedThisTurn(val + 1);
+
+    // Check the race of minion
+    if (minion->card->GetRace() == Race::ELEMENTAL)
+    {
+        val = player->GetNumElementalPlayedThisTurn();
+        player->SetNumElementalPlayedThisTurn(val + 1);
+    }
 
     // Add minion to field zone
     player->GetFieldZone()->Add(minion, fieldPos);
@@ -226,6 +245,8 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     player->game->triggerManager.OnAfterSummonTrigger(minion);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
+
+    player->game->ProcessDestroyAndUpdateAura();
 }
 
 void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
@@ -275,6 +296,8 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->triggerManager.OnAfterCastTrigger(spell);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
+
+    player->IncreaseNumSpellsPlayedThisGame();
 
     player->game->ProcessDestroyAndUpdateAura();
 }

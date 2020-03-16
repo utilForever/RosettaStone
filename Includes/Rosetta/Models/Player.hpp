@@ -201,6 +201,39 @@ class Player : public Entity
     //! \param value The number of friendly minions that died this turn.
     void SetNumFriendlyMinionsDiedThisTurn(int value);
 
+    //! Returns the number of elemental minions that played this turn.
+    //! \return The number of elemental minions that played this turn.
+    int GetNumElementalPlayedThisTurn() const;
+
+    //! Sets the number of elemental minions that played this turn.
+    //! \param value The number of elemental minions that played this turn.
+    void SetNumElementalPlayedThisTurn(int value);
+
+    //! Returns the number of elemental minions that played this turn.
+    //! \return The number of elemental minions that played this turn.
+    int GetNumElementalPlayedLastTurn() const;
+
+    //! Sets the number of elemental minions that played this turn.
+    //! \param value The number of elemental minions that played this turn.
+    void SetNumElementalPlayedLastTurn(int value);
+
+    //! Returns the number of spells that played this game.
+    //! \return The number of spells that played this game.
+    int GetNumSpellsPlayedThisGame() const;
+
+    //! Increases the number of spells that played this game.
+    void IncreaseNumSpellsPlayedThisGame();
+
+    //! Returns the number of cards that played this game that
+    //! didn't start in your deck.
+    //! \return The number of cards that played this game that
+    //! didn't start in your deck.
+    int GetNumCardsPlayedThisGameNotStartInDeck() const;
+
+    //! Increases the number of cards that played this game that
+    //! didn't start in your deck.
+    void IncreaseNumCardsPlayedThisGameNotStartInDeck();
+
     //! Upgrades the Galakrond hero card.
     void UpgradeGalakrond();
 

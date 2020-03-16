@@ -25,7 +25,7 @@ TEST_CASE("[FieldZone] - GetAll")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     auto& curField = *(curPlayer->GetFieldZone());
@@ -57,7 +57,7 @@ TEST_CASE("[FieldZone] - FindIndex")
 
     Game game(config);
     game.Start();
-    game.ProcessUntil(Step::MAIN_START);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     auto& curField = *(curPlayer->GetFieldZone());

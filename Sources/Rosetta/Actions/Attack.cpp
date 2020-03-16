@@ -112,7 +112,8 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Increase the number of attacked
-    source->SetNumAttacksThisTurn(source->GetNumAttacksThisTurn() + 1);
+    const int val = source->GetNumAttacksThisTurn();
+    source->SetNumAttacksThisTurn(val + 1);
 
     // Check source is exhausted
     if ((source->GetNumAttacksThisTurn() >= 1 &&

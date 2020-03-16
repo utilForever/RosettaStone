@@ -22,9 +22,6 @@ struct TaskStack
         playables.clear();
         num.fill(0);
 
-        source = nullptr;
-        target = nullptr;
-
         flag = true;
     }
 
@@ -41,10 +38,7 @@ struct TaskStack
     std::vector<Playable*> playables;
     std::array<int, 5> num = { 0, 0, 0, 0, 0 };
 
-    Entity* source = nullptr;
-    Playable* target = nullptr;
-
-    bool flag = true;
+    bool flag = false;
 };
 }  // namespace RosettaStone
 

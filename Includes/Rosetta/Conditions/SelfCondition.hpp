@@ -27,6 +27,10 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Playable*)> func);
 
+    //! SelfCondition wrapper for checking the entity is not start in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotStartInDeck();
+
     //! SelfCondition wrapper for checking the hero power equals \p cardID.
     //! \param cardID The card ID of hero power.
     //! \return Generated SelfCondition for intended purpose.
@@ -152,6 +156,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition MinionsPlayedThisTurn(int num);
 
+    //! SelfCondition wrapper for checking the player don't play
+    //! elemental minion in this turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotPlayElementalMinionThisTurn();
+
     //! SelfCondition wrapper for checking there is the entity that satisfies
     //! condition with \p tag, \p value and \p relaSign.
     //! \param tag The game tag to check condition.
@@ -210,6 +219,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking my hero is undamaged in enemy turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMyHeroUndamagedEnemyTurn();
+
+    //! SelfCondition wrapper for checking the player is overloaded.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOverloaded();
 
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.

@@ -73,12 +73,9 @@
 #include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enchants/Power.hpp>
-#include <Rosetta/Enchants/Trigger.hpp>
-#include <Rosetta/Enchants/Triggers.hpp>
 #include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Enums/DiscoverEnums.hpp>
 #include <Rosetta/Enums/GameEnums.hpp>
 #include <Rosetta/Enums/TargetingEnums.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
@@ -155,11 +152,13 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/InvokeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathAddTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathMultiplyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubtractTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
@@ -171,6 +170,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ReplaceHeroTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RevealStealthTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -185,6 +185,9 @@
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
+#include <Rosetta/Triggers/MultiTrigger.hpp>
+#include <Rosetta/Triggers/Trigger.hpp>
+#include <Rosetta/Triggers/Triggers.hpp>
 #include <Rosetta/Views/Board.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Views/BoardView.hpp>

@@ -4,9 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Enchants/Triggers.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Triggers/Triggers.hpp>
 
 namespace RosettaStone
 {
