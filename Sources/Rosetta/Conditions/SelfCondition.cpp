@@ -154,6 +154,22 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsOpControllingRace(Race race)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& minion :
+             playable->player->opponent->GetFieldZone()->GetAll())
+        {
+            if (minion->card->GetRace() == race)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingSecret()
 {
     return SelfCondition([=](Playable* playable) -> bool {
