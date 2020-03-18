@@ -6217,6 +6217,68 @@ TEST_CASE("[Neutral : Minion] - DRG_242 : Shield of Galakrond")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_257] Frizz Kindleroost - COST:4 [ATK:5/HP:4]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Reduce the Cost of Dragons
+//       in your deck by (2).
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_257 : Frizz Kindleroost")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frizz Kindleroost"));
+
+    CHECK_EQ(curHand[0]->GetCost(), 9);
+    CHECK_EQ(curHand[1]->GetCost(), 9);
+    CHECK_EQ(curHand[2]->GetCost(), 9);
+    CHECK_EQ(curHand[3]->GetCost(), 9);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 9);
+    }
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand[0]->GetCost(), 9);
+    CHECK_EQ(curHand[1]->GetCost(), 9);
+    CHECK_EQ(curHand[2]->GetCost(), 9);
+    CHECK_EQ(curHand[3]->GetCost(), 9);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 7);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_310] Evasive Drakonid - COST:7 [ATK:7/HP:7]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

@@ -3427,6 +3427,15 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_257e3", EntityType::STACK));
+    cards.emplace("DRG_257", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_310] Evasive Drakonid - COST:7 [ATK:7/HP:7]
@@ -3767,6 +3776,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Reduced Cost.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("DRG_257e3", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_308e] Shadowborn (*) - COST:0
