@@ -63,6 +63,11 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
         effects.emplace_back(Effects::Immune);
     }
 
+    if (text.find("<b>Rush</b>") != std::string::npos)
+    {
+        effects.emplace_back(Effects::Rush);
+    }
+
     if (text.find("this turn") != std::string::npos)
     {
         isOneTurn = true;
