@@ -5751,6 +5751,55 @@ TEST_CASE("[Neutral : Minion] - DRG_066 : Evasive Chimaera")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_069] Platebreaker - COST:5 [ATK:5/HP:5]
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy your opponent's Armor.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_069 : Platebreaker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Block"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Platebreaker"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHero->GetArmor(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHero->GetArmor(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHero->GetArmor(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_073] Evasive Feywing - COST:4 [ATK:5/HP:4]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

@@ -3114,6 +3114,10 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::ENEMY_HERO,
+                                                        GameTag::ARMOR, 0));
+    cards.emplace("DRG_069", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_070] Dragon Breeder - COST:2 [ATK:2/HP:3]
