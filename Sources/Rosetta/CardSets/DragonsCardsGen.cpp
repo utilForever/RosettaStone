@@ -2967,6 +2967,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: At the start of your turn, gain +1 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DRG_057e", EntityType::SOURCE) };
+    cards.emplace("DRG_057", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_058] Wing Commander - COST:4 [ATK:2/HP:5]
@@ -3516,6 +3521,16 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - MARK_OF_EVIL = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [DRG_057e] Up, Up, and Away! (*) - COST:0
+    // - Set: Dragons
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(1)));
+    cards.emplace("DRG_057e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_058e] Commanding (*) - COST:0
