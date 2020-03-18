@@ -3038,6 +3038,15 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsOpControllingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DRG_063e", EntityType::SOURCE) }));
+    cards.emplace("DRG_063", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_064] Zul'Drak Ritualist - COST:4 [ATK:3/HP:9]
@@ -3528,6 +3537,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4 and <b>Rush</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_063e"));
+    cards.emplace("DRG_063e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_071t] Albatross (*) - COST:1 [ATK:1/HP:1]
