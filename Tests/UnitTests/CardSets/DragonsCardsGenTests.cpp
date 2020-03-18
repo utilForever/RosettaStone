@@ -5800,6 +5800,52 @@ TEST_CASE("[Neutral : Minion] - DRG_069 : Platebreaker")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_071] Bad Luck Albatross - COST:3 [ATK:4/HP:3]
+// - Race: Beast, Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Shuffle two 1/1 Albatross
+//       into your opponent's deck.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_071 : Bad Luck Albatross")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bad Luck Albatross"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(opDeck.GetCount(), 2);
+    CHECK_EQ(opDeck[0]->card->name, "Albatross");
+    CHECK_EQ(opDeck[1]->card->name, "Albatross");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_073] Evasive Feywing - COST:4 [ATK:5/HP:4]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

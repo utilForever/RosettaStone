@@ -2551,8 +2551,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to all characters.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ALL, 1, true));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 1, true));
     cards.emplace("DRG_206", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
@@ -3140,6 +3139,10 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_DECK, "DRG_071t", 2));
+    cards.emplace("DRG_071", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_072] Skyfin - COST:5 [ATK:3/HP:3]
@@ -3501,6 +3504,14 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +4/+4 and <b>Rush</b>.
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [DRG_071t] Albatross (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: Dragons
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_071t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_084e] Tentacle Confusion (*) - COST:0
