@@ -5846,6 +5846,61 @@ TEST_CASE("[Neutral : Minion] - DRG_071 : Bad Luck Albatross")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_072] Skyfin - COST:5 [ATK:3/HP:3]
+// - Race: Murloc, Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       summon 2 random Murlocs.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_072 : Skyfin")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Skyfin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Skyfin"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Herald"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::MURLOC);
+    CHECK_EQ(curField[2]->card->GetRace(), Race::MURLOC);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_073] Evasive Feywing - COST:4 [ATK:5/HP:4]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

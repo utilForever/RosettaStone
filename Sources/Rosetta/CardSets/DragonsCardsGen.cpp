@@ -3154,6 +3154,18 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<EnqueueTask>(
+            TaskList{ std::make_shared<RandomCardTask>(
+                          CardType::MINION, CardClass::INVALID, Race::MURLOC),
+                      std::make_shared<SummonTask>() },
+            2) }));
+    cards.emplace("DRG_072", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_073] Evasive Feywing - COST:4 [ATK:5/HP:4]
