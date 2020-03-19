@@ -402,6 +402,11 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::ENEMY_HERO_POWER:
+        {
+            Apply(m_owner->player->opponent->GetHero()->heroPower);
+            break;
+        }
         case AuraType::HAND:
         {
             for (auto& card : m_owner->player->GetHandZone()->GetAll())
