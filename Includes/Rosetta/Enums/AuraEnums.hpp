@@ -19,9 +19,11 @@ enum class AuraType
     FIELD,     //!< This type of aura affects all friendly minions.
     FIELD_EXCEPT_SOURCE,  //!< This type of aura affects all friendly minions
                           //!< except the source of the aura.
-    HERO,        //!< This type of aura affects the source's controller.
-    WEAPON,      //!< This type of aura affects the weapon of the source's
-                 //!< controller.
+    HERO,              //!< This type of aura affects the source's controller.
+    ENEMY_HERO_POWER,  //!< This type of aura effects the power of the source's
+                       //!< enemy controller.
+    WEAPON,            //!< This type of aura affects the weapon of the source's
+                       //!< controller.
     HAND,        //!< This type of aura affects all entities in the hand of the
                  //!< source's controller.
     ENEMY_HAND,  //!< This type of aura affects all entities in the hand of the
