@@ -3491,6 +3491,10 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_403e", EntityType::ENEMY_PLAYER));
+    cards.emplace("DRG_403", CardDef(power));
 }
 
 void DragonsCardsGen::AddNeutralNonCollect(
@@ -3825,6 +3829,14 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (3).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HERO_POWER,
+                                         EffectList{ Effects::SetCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::USE_HERO_POWER, nullptr };
+    }
+    cards.emplace("DRG_403e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_650e] Galakrond's Strength (*) - COST:0
