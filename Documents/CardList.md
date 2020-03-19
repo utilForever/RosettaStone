@@ -747,22 +747,22 @@ DRAGONS | DRG_051 | Strength in Numbers | O
 DRAGONS | DRG_054 | Big Ol' Whelp | O
 DRAGONS | DRG_055 | Hoard Pillager |  
 DRAGONS | DRG_056 | Parachute Brigand |  
-DRAGONS | DRG_057 | Hot Air Balloon |  
+DRAGONS | DRG_057 | Hot Air Balloon | O
 DRAGONS | DRG_058 | Wing Commander |  
 DRAGONS | DRG_059 | Goboglide Tech |  
 DRAGONS | DRG_060 | Fire Hawk |  
 DRAGONS | DRG_061 | Gyrocopter | O
 DRAGONS | DRG_062 | Wyrmrest Purifier |  
-DRAGONS | DRG_063 | Dragonmaw Poacher |  
+DRAGONS | DRG_063 | Dragonmaw Poacher | O
 DRAGONS | DRG_064 | Zul'Drak Ritualist |  
 DRAGONS | DRG_065 | Hippogryph | O
 DRAGONS | DRG_066 | Evasive Chimaera | O
 DRAGONS | DRG_067 | Troll Batrider |  
 DRAGONS | DRG_068 | Living Dragonbreath |  
-DRAGONS | DRG_069 | Platebreaker |  
+DRAGONS | DRG_069 | Platebreaker | O
 DRAGONS | DRG_070 | Dragon Breeder |  
-DRAGONS | DRG_071 | Bad Luck Albatross |  
-DRAGONS | DRG_072 | Skyfin |  
+DRAGONS | DRG_071 | Bad Luck Albatross | O
+DRAGONS | DRG_072 | Skyfin | O
 DRAGONS | DRG_073 | Evasive Feywing | O
 DRAGONS | DRG_074 | Camouflaged Dirigible |  
 DRAGONS | DRG_075 | Cobalt Spellkin |  
@@ -770,7 +770,7 @@ DRAGONS | DRG_076 | Faceless Corruptor |
 DRAGONS | DRG_077 | Utgarde Grapplesniper |  
 DRAGONS | DRG_078 | Depth Charge |  
 DRAGONS | DRG_079 | Evasive Wyrm | O
-DRAGONS | DRG_081 | Scalerider |  
+DRAGONS | DRG_081 | Scalerider | O
 DRAGONS | DRG_082 | Kobold Stickyfinger |  
 DRAGONS | DRG_084 | Tentacled Menace |  
 DRAGONS | DRG_086 | Chromatic Egg |  
@@ -825,7 +825,7 @@ DRAGONS | DRG_253 | Dwarven Sharpshooter | O
 DRAGONS | DRG_254 | Primordial Explorer | O
 DRAGONS | DRG_255 | Toxic Reinforcements | O
 DRAGONS | DRG_256 | Dragonbane | O
-DRAGONS | DRG_257 | Frizz Kindleroost |  
+DRAGONS | DRG_257 | Frizz Kindleroost | O
 DRAGONS | DRG_258 | Sanctuary | O
 DRAGONS | DRG_270 | Malygos, Aspect of Magic | O
 DRAGONS | DRG_300 | Fate Weaver |  
@@ -853,7 +853,7 @@ DRAGONS | DRG_323 | Learn Draconic | O
 DRAGONS | DRG_324 | Elemental Allies | O
 DRAGONS | DRG_401 | Grizzled Wizard |  
 DRAGONS | DRG_402 | Sathrovarr |  
-DRAGONS | DRG_403 | Blowtorch Saboteur |  
+DRAGONS | DRG_403 | Blowtorch Saboteur | O
 DRAGONS | DRG_500 | Molten Breath | O
 DRAGONS | DRG_600 | Galakrond, the Wretched | O
 DRAGONS | DRG_610 | Galakrond, the Nightmare | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 64% (90 of 140 Cards)
+- Progress: 70% (98 of 140 Cards)
 
 ## Galakrond's Awakening
 
