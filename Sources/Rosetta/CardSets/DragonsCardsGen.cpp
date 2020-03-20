@@ -15,12 +15,14 @@
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ClearStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
@@ -3258,6 +3260,21 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonStackTask>(true) }));
+    power.AddPowerTask(std::make_shared<ClearStackTask>());
+    power.AddPowerTask(std::make_shared<DrawOpTask>(1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonStackTask>(true) }));
+    cards.emplace("DRG_077", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_078] Depth Charge - COST:1 [ATK:0/HP:5]

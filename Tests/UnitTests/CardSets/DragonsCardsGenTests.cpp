@@ -6174,6 +6174,72 @@ TEST_CASE("[Neutral : Minion] - DRG_073 : Evasive Feywing")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_077] Utgarde Grapplesniper - COST:6 [ATK:5/HP:5]
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Both players draw a card.
+//       If it's a Dragon, summon it.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_077 : Utgarde Grapplesniper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Utgarde Grapplesniper"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Utgarde Grapplesniper"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Fireball");
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Malygos");
+    CHECK_EQ(opHand.GetCount(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Fireball");
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[2]->card->name, "Malygos");
+    CHECK_EQ(opHand.GetCount(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_079] Evasive Wyrm - COST:6 [ATK:5/HP:3]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
