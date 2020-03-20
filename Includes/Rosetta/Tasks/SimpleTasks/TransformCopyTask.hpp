@@ -19,8 +19,10 @@ namespace RosettaStone::SimpleTasks
 class TransformCopyTask : public ITask
 {
  public:
-    //! Default constructor.
-    TransformCopyTask() = default;
+    //! Constructs task with given \p fromTarget.
+    //! \param toTarget true if it transforms to target,
+    //! false if it transforms from target.
+    TransformCopyTask(bool toTarget = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -31,6 +33,8 @@ class TransformCopyTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
+
+    bool m_toTarget = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
