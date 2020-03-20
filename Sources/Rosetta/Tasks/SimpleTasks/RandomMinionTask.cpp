@@ -95,6 +95,7 @@ TaskStatus RandomMinionTask::Impl(Player* player)
 
 std::unique_ptr<ITask> RandomMinionTask::CloneImpl()
 {
-    return std::make_unique<RandomMinionTask>(m_gameTag, m_value, m_amount);
+    return std::make_unique<RandomMinionTask>(m_gameTag, m_value, m_amount,
+                                              m_relaSign, m_opposite);
 }
 }  // namespace RosettaStone::SimpleTasks
