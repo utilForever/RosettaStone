@@ -33,10 +33,26 @@ TaskStatus RandomMinionTask::Impl(Player* player)
     std::vector<Card*> cardsList;
     for (const auto& card : cards)
     {
-        if (m_gameTag == GameTag::CARDRACE && m_relaSign == RelaSign::EQ &&
-            card->GetRace() == static_cast<Race>(m_value))
+        if (m_gameTag == GameTag::CARDRACE && m_relaSign == RelaSign::EQ)
         {
-            cardsList.emplace_back(card);
+            if (card->GetCardType() == CardType::MINION &&
+                card->GetRace() == static_cast<Race>(m_value))
+            {
+                cardsList.emplace_back(card);
+            }
+        }
+        else
+        {
+            if (card->GetCardType() == CardType::MINION &&
+                ((m_relaSign == RelaSign::EQ &&
+                  card->gameTags[m_gameTag] == m_value) ||
+                 (m_relaSign == RelaSign::GEQ &&
+                  card->gameTags[m_gameTag] >= m_value) ||
+                 (m_relaSign == RelaSign::LEQ &&
+                  card->gameTags[m_gameTag] <= m_value)))
+            {
+                cardsList.emplace_back(card);
+            }
         }
     }
 
