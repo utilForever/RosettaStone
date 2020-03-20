@@ -4,20 +4,38 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Draw.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-DrawOpTask::DrawOpTask(int amount) : m_amount(amount)
+DrawOpTask::DrawOpTask(int amount, bool toStack)
+    : m_amount(amount), m_toStack(toStack)
 {
     // Do nothing
 }
 
 TaskStatus DrawOpTask::Impl(Player* player)
 {
+    std::vector<Playable*> cards;
+
     for (int i = 0; i < m_amount; ++i)
     {
-        Generic::Draw(player->opponent, nullptr);
+        Playable* card = Generic::Draw(player->opponent, nullptr);
+        cards.emplace_back(card);
+    }
+
+    if (cards.empty() || cards.at(0) == nullptr)
+    {
+        return TaskStatus::COMPLETE;
+    }
+
+    if (m_toStack)
+    {
+        for (auto& card : cards)
+        {
+            player->game->taskStack.playables.emplace_back(card);
+        }
     }
 
     return TaskStatus::COMPLETE;
@@ -25,6 +43,6 @@ TaskStatus DrawOpTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DrawOpTask::CloneImpl()
 {
-    return std::make_unique<DrawOpTask>(m_amount);
+    return std::make_unique<DrawOpTask>(m_amount, m_toStack);
 }
 }  // namespace RosettaStone::SimpleTasks

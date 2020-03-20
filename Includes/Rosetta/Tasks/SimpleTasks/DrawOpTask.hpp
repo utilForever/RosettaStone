@@ -19,9 +19,10 @@ namespace RosettaStone::SimpleTasks
 class DrawOpTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount.
+    //! Constructs task with given \p amount and \p toStack.
     //! \param amount The amount to draw card.
-    explicit DrawOpTask(int amount);
+    //! \param toStack A flag to store card to stack.
+    explicit DrawOpTask(int amount, bool toStack = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -34,6 +35,7 @@ class DrawOpTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     int m_amount = 0;
+    bool m_toStack = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
