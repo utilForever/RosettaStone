@@ -3390,6 +3390,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::STACK, 4));
+    cards.emplace("DRG_213", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_239] Blazing Battlemage - COST:1 [ATK:2/HP:2]
