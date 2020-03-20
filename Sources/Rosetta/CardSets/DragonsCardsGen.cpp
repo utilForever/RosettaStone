@@ -3405,6 +3405,13 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonTask>("DRG_091t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("DRG_091t", SummonSide::LEFT) },
+        3) };
+    cards.emplace("DRG_091", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_092] Transmogrifier - COST:2 [ATK:2/HP:3]
@@ -3664,6 +3671,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // [DRG_091t] Tentacle (*) - COST:1 [ATK:1/HP:1]
     // - Set: Dragons
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_091t", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DRG_099t1] Decimation (*) - COST:0
