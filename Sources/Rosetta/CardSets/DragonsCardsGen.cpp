@@ -3104,6 +3104,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::STACK, 3));
+    cards.emplace("DRG_067", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_068] Living Dragonbreath - COST:3 [ATK:3/HP:4]
