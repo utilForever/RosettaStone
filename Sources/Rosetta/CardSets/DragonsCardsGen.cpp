@@ -3283,6 +3283,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the start of your turn,
     //       deal 5 damage to ALL minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 5) };
+    cards.emplace("DRG_078", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_079] Evasive Wyrm - COST:6 [ATK:5/HP:3]

@@ -6240,6 +6240,59 @@ TEST_CASE("[Neutral : Minion] - DRG_077 : Utgarde Grapplesniper")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_078] Depth Charge - COST:1 [ATK:0/HP:5]
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       deal 5 damage to ALL minions.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_078 : Depth Charge")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Depth Charge"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_079] Evasive Wyrm - COST:6 [ATK:5/HP:3]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
