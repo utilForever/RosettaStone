@@ -5842,6 +5842,49 @@ TEST_CASE("[Neutral : Minion] - DRG_063 : Dragonmaw Poacher")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_064] Zul'Drak Ritualist - COST:4 [ATK:3/HP:9]
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Battlecry:</b> Summon three
+//       random 1-Cost minions for your opponent.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_064 : Zul'Drak Ritualist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Zul'Drak Ritualist"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->card->GetCost(), 1);
+    CHECK_EQ(opField[1]->card->GetCost(), 1);
+    CHECK_EQ(opField[2]->card->GetCost(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_065] Hippogryph - COST:4 [ATK:2/HP:6]
 // - Race: Beast, Set: Dragons, Rarity: Common
 // --------------------------------------------------------

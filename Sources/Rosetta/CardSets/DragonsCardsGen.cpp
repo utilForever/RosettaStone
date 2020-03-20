@@ -44,6 +44,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
@@ -3077,6 +3078,13 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomMinionTask>(GameTag::COST, 1, 1,
+                                                     RelaSign::EQ, true),
+                  std::make_shared<SummonOpTask>() },
+        3));
+    cards.emplace("DRG_064", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_065] Hippogryph - COST:4 [ATK:2/HP:6]
