@@ -26,6 +26,14 @@ TaskStatus AddStackToTask::Impl(Player* player)
             }
             break;
         }
+        case EntityType::ENEMY_HAND:
+        {
+            for (auto& entity : player->game->taskStack.playables)
+            {
+                Generic::AddCardToHand(entity->player->opponent, entity);
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "AddStackToTask::Impl() - Invalid entity type");
