@@ -122,6 +122,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeAttackingTargetTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ClearStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
