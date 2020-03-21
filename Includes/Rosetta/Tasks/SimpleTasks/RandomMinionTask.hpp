@@ -19,9 +19,11 @@ class RandomMinionTask : public ITask
     //! \param amount The amount of minions to pick.
     //! \param relaSign The relation sign to filter.
     //! \param opposite The flag that indicates the card is for the opponent.
+    //! \param excludeSelf The flag that indicates whether to exclude self
+    //! from the list.
     explicit RandomMinionTask(GameTag tag, int value, int amount = 1,
                               RelaSign relaSign = RelaSign::EQ,
-                              bool opposite = false);
+                              bool opposite = false, bool excludeSelf = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -38,6 +40,7 @@ class RandomMinionTask : public ITask
     int m_amount = 0;
     RelaSign m_relaSign = RelaSign::EQ;
     bool m_opposite = false;
+    bool m_excludeSelf = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

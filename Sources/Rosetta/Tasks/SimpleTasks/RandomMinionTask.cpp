@@ -14,12 +14,14 @@ using Random = effolkronium::random_static;
 namespace RosettaStone::SimpleTasks
 {
 RandomMinionTask::RandomMinionTask(GameTag tag, int value, int amount,
-                                   RelaSign relaSign, bool opposite)
+                                   RelaSign relaSign, bool opposite,
+                                   bool excludeSelf)
     : m_gameTag(tag),
       m_value(value),
       m_amount(amount),
       m_relaSign(relaSign),
-      m_opposite(opposite)
+      m_opposite(opposite),
+      m_excludeSelf(excludeSelf)
 {
     // Do nothing
 }
@@ -33,6 +35,11 @@ TaskStatus RandomMinionTask::Impl(Player* player)
     std::vector<Card*> cardsList;
     for (const auto& card : cards)
     {
+        if (m_excludeSelf && card->id == m_source->card->id)
+        {
+            continue;
+        }
+
         if (m_gameTag == GameTag::CARDRACE && m_relaSign == RelaSign::EQ)
         {
             if (card->GetCardType() == CardType::MINION &&
@@ -95,7 +102,7 @@ TaskStatus RandomMinionTask::Impl(Player* player)
 
 std::unique_ptr<ITask> RandomMinionTask::CloneImpl()
 {
-    return std::make_unique<RandomMinionTask>(m_gameTag, m_value, m_amount,
-                                              m_relaSign, m_opposite);
+    return std::make_unique<RandomMinionTask>(
+        m_gameTag, m_value, m_amount, m_relaSign, m_opposite, m_excludeSelf);
 }
 }  // namespace RosettaStone::SimpleTasks
