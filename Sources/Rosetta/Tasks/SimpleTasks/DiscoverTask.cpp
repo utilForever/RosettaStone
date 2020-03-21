@@ -26,8 +26,6 @@ DiscoverCriteria::DiscoverCriteria(CardType _cardType, CardClass _cardClass,
 bool DiscoverCriteria::Evaluate(Card* card) const
 {
     return (cardType == CardType::INVALID || cardType == card->GetCardType()) &&
-           (cardClass == CardClass::INVALID ||
-            cardClass == card->GetCardClass()) &&
            (race == Race::INVALID || race == card->GetRace()) &&
            (rarity == Rarity::INVALID || rarity == card->GetRarity());
 }
