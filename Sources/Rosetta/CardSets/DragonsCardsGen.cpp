@@ -40,6 +40,7 @@
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomSpellTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
@@ -3246,6 +3247,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomSpellTask>(
+        CardClass::PLAYER_CLASS, GameTag::COST, 1, 2, RelaSign::EQ));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("DRG_075", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_076] Faceless Corruptor - COST:5 [ATK:4/HP:4]

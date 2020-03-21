@@ -6217,6 +6217,49 @@ TEST_CASE("[Neutral : Minion] - DRG_073 : Evasive Feywing")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_075] Cobalt Spellkin - COST:5 [ATK:3/HP:5]
+// - Race: Dragon, Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add two 1-Cost spells from
+//       your class to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_075 : Cobalt Spellkin")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cobalt Spellkin"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::ROGUE);
+    CHECK_EQ(curHand[0]->card->GetCost(), 1);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::ROGUE);
+    CHECK_EQ(curHand[1]->card->GetCost(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_076] Faceless Corruptor - COST:5 [ATK:4/HP:4]
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
