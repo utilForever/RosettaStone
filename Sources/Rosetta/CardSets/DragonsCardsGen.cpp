@@ -42,6 +42,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomSpellTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -2113,6 +2114,12 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Stealthed until your next turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("DRG_074e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [DRG_610e] Galakrond's Wonder (*) - COST:0
@@ -3236,6 +3243,16 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsRace(Race::MECHANICAL)) }));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_074e", EntityType::STACK, false, false,
+        SelfCondition::HasNotStealth()));
+    cards.emplace("DRG_074", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_075] Cobalt Spellkin - COST:5 [ATK:3/HP:5]

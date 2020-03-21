@@ -6217,6 +6217,95 @@ TEST_CASE("[Neutral : Minion] - DRG_073 : Evasive Feywing")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_074] Camouflaged Dirigible - COST:6 [ATK:6/HP:6]
+// - Race: Mechanical, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your other Mechs
+//       <b>Stealth</b> until your next turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_074 : Camouflaged Dirigible")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Camouflaged Dirigible"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Worgen Infiltrator"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hot Air Balloon"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gyrocopter"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    CHECK_EQ(curField[0]->HasStealth(), true);
+    CHECK_EQ(curField[1]->HasStealth(), true);
+    CHECK_EQ(curField[2]->HasStealth(), true);
+    CHECK_EQ(curField[3]->HasStealth(), false);
+
+    game.Process(curPlayer, AttackTask(card4, card5));
+
+    CHECK_EQ(curField[0]->HasStealth(), true);
+    CHECK_EQ(curField[1]->HasStealth(), true);
+    CHECK_EQ(curField[2]->HasStealth(), false);
+    CHECK_EQ(curField[3]->HasStealth(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->HasStealth(), true);
+    CHECK_EQ(curField[1]->HasStealth(), true);
+    CHECK_EQ(curField[2]->HasStealth(), false);
+    CHECK_EQ(curField[3]->HasStealth(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->HasStealth(), true);
+    CHECK_EQ(curField[1]->HasStealth(), false);
+    CHECK_EQ(curField[2]->HasStealth(), false);
+    CHECK_EQ(curField[3]->HasStealth(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_075] Cobalt Spellkin - COST:5 [ATK:3/HP:5]
 // - Race: Dragon, Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
