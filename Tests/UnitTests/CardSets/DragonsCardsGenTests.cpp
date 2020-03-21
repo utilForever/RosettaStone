@@ -6639,6 +6639,69 @@ TEST_CASE("[Neutral : Minion] - DRG_081 : Scalerider")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_089] Dragonqueen Alexstrasza - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no duplicates,
+//       add 2 other random Dragons to your hand. They cost (0).
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_089 : Dragonqueen Alexstrasza")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 6; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dragonqueen Alexstrasza"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dragonqueen Alexstrasza"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_NE(curHand[5]->card->name, "Dragonqueen Alexstrasza");
+    CHECK_EQ(curHand[5]->card->GetRace(), Race::DRAGON);
+    CHECK_EQ(curHand[5]->GetCost(), 0);
+    CHECK_NE(curHand[6]->card->name, "Dragonqueen Alexstrasza");
+    CHECK_EQ(curHand[6]->card->GetRace(), Race::DRAGON);
+    CHECK_EQ(curHand[6]->GetCost(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_091] Shu'ma - COST:7 [ATK:1/HP:7]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------

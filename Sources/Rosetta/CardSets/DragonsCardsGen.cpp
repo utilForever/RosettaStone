@@ -3430,6 +3430,18 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomMinionTask>(
+                            GameTag::CARDRACE, static_cast<int>(Race::DRAGON),
+                            2, RelaSign::EQ, false, true),
+                        std::make_shared<AddEnchantmentTask>("DRG_089e",
+                                                             EntityType::STACK),
+                        std::make_shared<AddStackToTask>(EntityType::HAND) }));
+    cards.emplace("DRG_089", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_091] Shu'ma - COST:7 [ATK:1/HP:7]
@@ -3702,6 +3714,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
+    cards.emplace("DRG_089e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_091t] Tentacle (*) - COST:1 [ATK:1/HP:1]
