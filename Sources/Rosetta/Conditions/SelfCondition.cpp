@@ -447,6 +447,27 @@ SelfCondition SelfCondition::IsUnspentMana()
     });
 }
 
+SelfCondition SelfCondition::IsNoDuplicateInDeck()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        auto cards = playable->player->GetDeckZone()->GetAll();
+        std::map<std::string, int> result;
+
+        std::for_each(cards.begin(), cards.end(),
+                      [&result](Playable* val) { result[val->card->id]++; });
+
+        for (auto& res : result)
+        {
+            if (res.second >= 2)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
 SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
 {
     return SelfCondition([=](Playable* playable) -> bool {
