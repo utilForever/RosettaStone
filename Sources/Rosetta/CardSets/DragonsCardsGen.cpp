@@ -3027,6 +3027,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_HAND));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_060e", EntityType::SOURCE, true));
+    cards.emplace("DRG_060", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
@@ -3667,6 +3672,16 @@ void DragonsCardsGen::AddNeutralNonCollect(
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DRG_059e"));
     cards.emplace("DRG_059e", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [DRG_060e] Fired Up (*) - COST:0
+    // - Set: Dragons
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("DRG_060e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_063e] Poaching (*) - COST:0

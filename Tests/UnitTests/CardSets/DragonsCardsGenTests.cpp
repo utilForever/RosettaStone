@@ -5766,6 +5766,58 @@ TEST_CASE("[Neutral : Minion] - DRG_059 : Goboglide Tech")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_060] Fire Hawk - COST:3 [ATK:1/HP:3]
+// - Race: Elemental, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Gain +1 Attack for each card
+//       in your opponent's hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_060 : Fire Hawk")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Hawk"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Hawk"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_061] Gyrocopter - COST:6 [ATK:4/HP:5]
 // - Race: Mechanical, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
