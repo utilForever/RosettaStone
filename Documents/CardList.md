@@ -746,39 +746,39 @@ DRAGONS | DRG_050 | Devoted Maniac | O
 DRAGONS | DRG_051 | Strength in Numbers | O
 DRAGONS | DRG_054 | Big Ol' Whelp | O
 DRAGONS | DRG_055 | Hoard Pillager |  
-DRAGONS | DRG_056 | Parachute Brigand |  
+DRAGONS | DRG_056 | Parachute Brigand | O
 DRAGONS | DRG_057 | Hot Air Balloon | O
-DRAGONS | DRG_058 | Wing Commander |  
-DRAGONS | DRG_059 | Goboglide Tech |  
-DRAGONS | DRG_060 | Fire Hawk |  
+DRAGONS | DRG_058 | Wing Commander | O
+DRAGONS | DRG_059 | Goboglide Tech | O
+DRAGONS | DRG_060 | Fire Hawk | O
 DRAGONS | DRG_061 | Gyrocopter | O
-DRAGONS | DRG_062 | Wyrmrest Purifier |  
+DRAGONS | DRG_062 | Wyrmrest Purifier | O
 DRAGONS | DRG_063 | Dragonmaw Poacher | O
-DRAGONS | DRG_064 | Zul'Drak Ritualist |  
+DRAGONS | DRG_064 | Zul'Drak Ritualist | O
 DRAGONS | DRG_065 | Hippogryph | O
 DRAGONS | DRG_066 | Evasive Chimaera | O
-DRAGONS | DRG_067 | Troll Batrider |  
+DRAGONS | DRG_067 | Troll Batrider | O
 DRAGONS | DRG_068 | Living Dragonbreath |  
 DRAGONS | DRG_069 | Platebreaker | O
 DRAGONS | DRG_070 | Dragon Breeder |  
 DRAGONS | DRG_071 | Bad Luck Albatross | O
 DRAGONS | DRG_072 | Skyfin | O
 DRAGONS | DRG_073 | Evasive Feywing | O
-DRAGONS | DRG_074 | Camouflaged Dirigible |  
-DRAGONS | DRG_075 | Cobalt Spellkin |  
-DRAGONS | DRG_076 | Faceless Corruptor |  
-DRAGONS | DRG_077 | Utgarde Grapplesniper |  
-DRAGONS | DRG_078 | Depth Charge |  
+DRAGONS | DRG_074 | Camouflaged Dirigible | O
+DRAGONS | DRG_075 | Cobalt Spellkin | O
+DRAGONS | DRG_076 | Faceless Corruptor | O
+DRAGONS | DRG_077 | Utgarde Grapplesniper | O
+DRAGONS | DRG_078 | Depth Charge | O
 DRAGONS | DRG_079 | Evasive Wyrm | O
 DRAGONS | DRG_081 | Scalerider | O
 DRAGONS | DRG_082 | Kobold Stickyfinger |  
 DRAGONS | DRG_084 | Tentacled Menace |  
 DRAGONS | DRG_086 | Chromatic Egg |  
-DRAGONS | DRG_088 | Dread Raven |  
-DRAGONS | DRG_089 | Dragonqueen Alexstrasza |  
+DRAGONS | DRG_088 | Dread Raven | O
+DRAGONS | DRG_089 | Dragonqueen Alexstrasza | O
 DRAGONS | DRG_090 | Murozond the Infinite |  
-DRAGONS | DRG_091 | Shu'ma |  
-DRAGONS | DRG_092 | Transmogrifier |  
+DRAGONS | DRG_091 | Shu'ma | O
+DRAGONS | DRG_092 | Transmogrifier | O
 DRAGONS | DRG_095 | Veranus | O
 DRAGONS | DRG_096 | Bandersmosh |  
 DRAGONS | DRG_099 | Kronx Dragonhoof |  
@@ -797,7 +797,7 @@ DRAGONS | DRG_207 | Abyssal Summoner |
 DRAGONS | DRG_208 | Valdris Felgorge |  
 DRAGONS | DRG_209 | Zzeraku the Warped | O
 DRAGONS | DRG_211 | Squallhunter | O
-DRAGONS | DRG_213 | Twin Tyrant |  
+DRAGONS | DRG_213 | Twin Tyrant | O
 DRAGONS | DRG_215 | Storm's Wrath | O
 DRAGONS | DRG_216 | Surging Tempest | O
 DRAGONS | DRG_217 | Dragon's Pack | O
@@ -852,7 +852,7 @@ DRAGONS | DRG_322 | Dragoncaster | O
 DRAGONS | DRG_323 | Learn Draconic | O
 DRAGONS | DRG_324 | Elemental Allies | O
 DRAGONS | DRG_401 | Grizzled Wizard |  
-DRAGONS | DRG_402 | Sathrovarr |  
+DRAGONS | DRG_402 | Sathrovarr | O
 DRAGONS | DRG_403 | Blowtorch Saboteur | O
 DRAGONS | DRG_500 | Molten Breath | O
 DRAGONS | DRG_600 | Galakrond, the Wretched | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 70% (98 of 140 Cards)
+- Progress: 82% (116 of 140 Cards)
 
 ## Galakrond's Awakening
 

@@ -23,7 +23,9 @@
 * AttackTask
 * ChanceTask
 * ChangeAttackingTargetTask
+* ChangeEntityTask
 * ChangeHeroPowerTask
+* ClearStackTask
 * ConditionTask
 * ControlTask
 * CopyTask
@@ -65,6 +67,7 @@
 * RandomCardTask
 * RandomEntourageTask
 * RandomMinionTask
+* RandomSpellTask
 * RandomTask
 * RemoveDurabilityTask
 * RemoveEnchantmentTask
