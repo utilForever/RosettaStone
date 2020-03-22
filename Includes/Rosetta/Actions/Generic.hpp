@@ -35,6 +35,15 @@ bool AddCardToHand(Player* player, Playable* entity);
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
                     int num1 = -1, int num2 = -1, int entityID = 0);
 
+//! Changes entity and related data.
+//! \param player The player to change entity.
+//! \param playable The playable to transform.
+//! \param newCard The card that is a target of transformation.
+//! \param removeEnchantments The flag that removes any applied enchantments
+//! during this transformation.
+void ChangeEntity(Player* player, Playable* playable, Card* newCard,
+                  bool removeEnchantments);
+
 //! Shuffles card into deck.
 //! \param player The player to shuffle card into deck.
 //! \param entity A card to shuffle into deck.
