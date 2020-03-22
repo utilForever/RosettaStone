@@ -33,6 +33,11 @@ class CostManager
     //! Queues the update.
     void QueueUpdate();
 
+    //! Applies older entity's cost enchantments to the new one.
+    //! \param newCardCost The cost of new card.
+    //! \return The applied value of the cost.
+    int EntityChanged(int newCardCost);
+
     //! Adds the aura that affects the cost.
     //! \param effectOp The effect operator to affect the cost value.
     //! \param value The value to affect the cost value.
