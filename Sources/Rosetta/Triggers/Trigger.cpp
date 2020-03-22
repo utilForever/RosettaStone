@@ -43,7 +43,8 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 }
 
 Trigger::Trigger(Trigger& prototype, Entity& owner)
-    : triggerSource(prototype.triggerSource),
+    : triggerActivation(prototype.triggerActivation),
+      triggerSource(prototype.triggerSource),
       tasks(prototype.tasks),
       condition(prototype.condition),
       eitherTurn(prototype.eitherTurn),
@@ -51,7 +52,6 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       removeAfterTriggered(prototype.removeAfterTriggered),
       m_owner(dynamic_cast<Playable*>(&owner)),
       m_triggerType(prototype.m_triggerType),
-      m_triggerActivation(prototype.m_triggerActivation),
       m_sequenceType(prototype.m_sequenceType)
 {
     auto triggerFunc = [this](Entity* e) {
@@ -68,9 +68,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                                            TriggerActivation activation,
                                            bool cloning)
 {
-    if (!cloning && activation != m_triggerActivation)
+    if (!cloning && activation != triggerActivation)
     {
-        if (m_triggerActivation != TriggerActivation::HAND_OR_PLAY)
+        if (triggerActivation != TriggerActivation::HAND_OR_PLAY)
         {
             return nullptr;
         }
