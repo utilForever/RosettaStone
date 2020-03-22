@@ -29,18 +29,19 @@ class RandomCardTask : public ITask
                             Rarity rarity = Rarity::INVALID,
                             bool opposite = false);
 
- private:
     //! Returns card list that fits the criteria.
+    //! \param source The source entity.
     //! \param cardType The type of card to filter.
     //! \param cardClass The class of card to filter.
     //! \param race The race of card to filter.
     //! \param rarity The rarity of card to filter.
     //! \return A list of cards that fits the criteria.
-    std::vector<Card*> GetCardList(CardType cardType = CardType::INVALID,
-                                   CardClass cardClass = CardClass::INVALID,
-                                   Race race = Race::INVALID,
-                                   Rarity rarity = Rarity::INVALID) const;
+    static std::vector<Card*> GetCardList(
+        Entity* source, CardType cardType = CardType::INVALID,
+        CardClass cardClass = CardClass::INVALID, Race race = Race::INVALID,
+        Rarity rarity = Rarity::INVALID);
 
+ private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.

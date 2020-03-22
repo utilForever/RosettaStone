@@ -30,12 +30,13 @@ RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
     // Do nothing
 }
 
-std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
+std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
+                                               CardType cardType,
                                                CardClass cardClass, Race race,
-                                               Rarity rarity) const
+                                               Rarity rarity)
 {
     std::vector<Card*> result;
-    const auto cards = m_source->game->GetFormatType() == FormatType::STANDARD
+    const auto cards = source->game->GetFormatType() == FormatType::STANDARD
                            ? Cards::GetAllStandardCards()
                            : Cards::GetAllWildCards();
 
@@ -75,7 +76,8 @@ TaskStatus RandomCardTask::Impl(Player* player)
                 "RandomCardTask::Impl() - Invalid entity type");
     }
 
-    auto cardsList = GetCardList(m_cardType, cardClass, m_race, m_rarity);
+    auto cardsList =
+        GetCardList(m_source, m_cardType, cardClass, m_race, m_rarity);
     if (cardsList.empty())
     {
         return TaskStatus::STOP;
