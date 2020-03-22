@@ -47,6 +47,11 @@ class DeckZone : public LimitedZone<Playable>
 
     //! Shuffles cards in deck.
     void Shuffle() const;
+
+    //! Sets an new entity.
+    //! \param index The position of entity.
+    //! \param newEntity The new entity.
+    void SetEntity(int index, Playable* newEntity);
 };
 }  // namespace RosettaStone
 

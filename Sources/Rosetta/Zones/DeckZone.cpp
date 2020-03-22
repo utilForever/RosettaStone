@@ -74,4 +74,10 @@ void DeckZone::Shuffle() const
 {
     Random::shuffle(m_entities, m_entities + m_count);
 }
+
+void DeckZone::SetEntity(int index, Playable* newEntity)
+{
+    m_entities[index] = newEntity;
+    newEntity->zone = this;
+}
 }  // namespace RosettaStone
