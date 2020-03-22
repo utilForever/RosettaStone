@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Attack.hpp>
+#include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
@@ -3074,6 +3075,25 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
+        auto legendaryCards = RandomCardTask::GetCardList(
+            player->GetHero(), CardType::INVALID, CardClass::PLAYER_CLASS);
+        auto deck = player->GetDeckZone();
+
+        for (auto& card : deck->GetAll())
+        {
+            if (card->card->GetCardClass() != CardClass::NEUTRAL)
+            {
+                continue;
+            }
+
+            const auto idx =
+                Random::get<std::size_t>(0, legendaryCards.size() - 1);
+            Generic::ChangeEntity(player, card, legendaryCards[idx], false);
+        }
+    }));
+    cards.emplace("DRG_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_063] Dragonmaw Poacher - COST:4 [ATK:4/HP:4]

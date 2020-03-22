@@ -5887,6 +5887,52 @@ TEST_CASE("[Neutral : Minion] - DRG_061 : Gyrocopter")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_062] Wyrmrest Purifier - COST:2 [ATK:3/HP:2]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Transform all Neutral cards
+//       in your deck into random cards from your class.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_062 : Wyrmrest Purifier")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = *Cards::FindCardByName("Fireball");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wyrmrest Purifier"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    for (auto& card : curPlayer->GetDeckZone()->GetAll())
+    {
+        CHECK_EQ(card->card->GetCardClass(), CardClass::MAGE);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_063] Dragonmaw Poacher - COST:4 [ATK:4/HP:4]
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
