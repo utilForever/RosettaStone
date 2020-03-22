@@ -2992,6 +2992,22 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Has +2 Attack for each Dragon in your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            int numDragon = 0;
+
+            for (auto& card : playable->player->GetHandZone()->GetAll())
+            {
+                if (card->card->GetRace() == Race::DRAGON)
+                {
+                    ++numDragon;
+                }
+            }
+
+            return 2 * numDragon;
+        }));
+    cards.emplace("DRG_058", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_059] Goboglide Tech - COST:3 [ATK:3/HP:3]
