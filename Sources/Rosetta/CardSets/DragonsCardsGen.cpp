@@ -46,7 +46,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomSpellTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/RemoveFromHandTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -2988,7 +2988,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                                   SelfCondition::IsFieldNotFull()) }),
         std::make_shared<FlagTask>(
             true,
-            TaskList{ std::make_shared<RemoveFromHandTask>(EntityType::SOURCE),
+            TaskList{ std::make_shared<RemoveHandTask>(EntityType::SOURCE),
                       std::make_shared<SummonTask>() })
     };
     cards.emplace("DRG_056", CardDef(power));
