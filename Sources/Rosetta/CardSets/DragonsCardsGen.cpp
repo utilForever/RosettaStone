@@ -45,6 +45,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomSpellTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveFromHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -2974,6 +2975,22 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: After you play a Pirate,
     //       summon this minion from your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::PIRATE));
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                                  SelfCondition::IsFieldNotFull()) }),
+        std::make_shared<FlagTask>(
+            true,
+            TaskList{ std::make_shared<RemoveFromHandTask>(EntityType::SOURCE),
+                      std::make_shared<SummonTask>() })
+    };
+    cards.emplace("DRG_056", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_057] Hot Air Balloon - COST:1 [ATK:1/HP:2]

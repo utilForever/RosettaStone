@@ -5669,6 +5669,68 @@ TEST_CASE("[Neutral : Minion] - DRG_054 : Big Ol' Whelp")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_056] Parachute Brigand - COST:2 [ATK:2/HP:2]
+// - Race: Pirate, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: After you play a Pirate,
+//       summon this minion from your hand.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_056 : Parachute Brigand")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Southsea Deckhand"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Parachute Brigand"));
+    const auto card7 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Parachute Brigand"));
+    const auto card8 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Parachute Brigand"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Parachute Brigand");
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[5]->card->name, "Parachute Brigand");
+    CHECK_EQ(curField[6]->card->name, "Parachute Brigand");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_057] Hot Air Balloon - COST:1 [ATK:1/HP:2]
 // - Race: Mechanical, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
