@@ -15,6 +15,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ClearStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
@@ -3473,6 +3474,13 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever you draw a card,
     //       transform it into a random <b>Legendary</b> minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<ChangeEntityTask>(
+        EntityType::TARGET, CardType::MINION, CardClass::INVALID, Race::INVALID,
+        Rarity::LEGENDARY, true) };
+    cards.emplace("DRG_092", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_099] Kronx Dragonhoof - COST:6 [ATK:6/HP:6]

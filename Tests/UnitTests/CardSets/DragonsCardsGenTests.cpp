@@ -6830,6 +6830,61 @@ TEST_CASE("[Neutral : Minion] - DRG_091 : Shu'ma")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_092] Transmogrifier - COST:2 [ATK:2/HP:3]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: Whenever you draw a card,
+//       transform it into a random <b>Legendary</b> minion.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_092 : Transmogrifier")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Transmogrifier"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[4]->card->GetRarity(), Rarity::LEGENDARY);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[5]->card->GetRarity(), Rarity::LEGENDARY);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_213] Twin Tyrant - COST:8 [ATK:4/HP:10]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
