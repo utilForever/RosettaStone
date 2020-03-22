@@ -3440,6 +3440,22 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            int numDreadRaven = 0;
+
+            for (auto& card : playable->player->GetFieldZone()->GetAll())
+            {
+                if (card->card->id == "DRG_088")
+                {
+                    ++numDreadRaven;
+                }
+            }
+
+            return 3 * (numDreadRaven - 1);
+        }));
+    cards.emplace("DRG_088", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_089] Dragonqueen Alexstrasza - COST:9 [ATK:8/HP:8]
