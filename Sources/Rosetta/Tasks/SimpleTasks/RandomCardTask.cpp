@@ -36,20 +36,58 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                                                Rarity rarity)
 {
     std::vector<Card*> result;
-    const auto cards = source->game->GetFormatType() == FormatType::STANDARD
-                           ? Cards::GetAllStandardCards()
-                           : Cards::GetAllWildCards();
 
-    for (const auto& card : cards)
+    if (cardClass == CardClass::INVALID)
     {
-        if ((cardType == CardType::INVALID ||
-             cardType == card->GetCardType()) &&
-            (cardClass == CardClass::INVALID ||
-             cardClass == card->GetCardClass()) &&
-            (race == Race::INVALID || race == card->GetRace()) &&
-            (rarity == Rarity::INVALID || rarity == card->GetRarity()))
+        const auto cards = source->game->GetFormatType() == FormatType::STANDARD
+                               ? Cards::GetAllStandardCards()
+                               : Cards::GetAllWildCards();
+
+        for (const auto& card : cards)
         {
-            result.emplace_back(card);
+            if ((cardType == CardType::INVALID ||
+                 cardType == card->GetCardType()) &&
+                (race == Race::INVALID || race == card->GetRace()) &&
+                (rarity == Rarity::INVALID || rarity == card->GetRarity()))
+            {
+                result.emplace_back(card);
+            }
+        }
+    }
+    else if (cardClass == CardClass::PLAYER_CLASS)
+    {
+        const auto playerClass =
+            source->player->GetHero()->card->GetCardClass();
+        const auto cards = source->game->GetFormatType() == FormatType::STANDARD
+                               ? Cards::GetStandardCards(playerClass)
+                               : Cards::GetWildCards(playerClass);
+
+        for (const auto& card : cards)
+        {
+            if ((cardType == CardType::INVALID ||
+                 cardType == card->GetCardType()) &&
+                (race == Race::INVALID || race == card->GetRace()) &&
+                (rarity == Rarity::INVALID || rarity == card->GetRarity()))
+            {
+                result.emplace_back(card);
+            }
+        }
+    }
+    else
+    {
+        const auto cards = source->game->GetFormatType() == FormatType::STANDARD
+                               ? Cards::GetStandardCards(cardClass)
+                               : Cards::GetWildCards(cardClass);
+
+        for (const auto& card : cards)
+        {
+            if ((cardType == CardType::INVALID ||
+                 cardType == card->GetCardType()) &&
+                (race == Race::INVALID || race == card->GetRace()) &&
+                (rarity == Rarity::INVALID || rarity == card->GetRarity()))
+            {
+                result.emplace_back(card);
+            }
         }
     }
 
