@@ -2857,6 +2857,7 @@
     {
         "artist": "Jakub Kasper",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 58383,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -3505,10 +3506,11 @@
     },
     {
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59487,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 59186,
-        "health": 4,
+        "health": 3,
         "id": "BGS_001",
         "mechanics": [
             "BATTLECRY"
@@ -3532,7 +3534,8 @@
     },
     {
         "attack": 3,
-        "cardClass": "NEUTRAL",
+        "battlegroundsPremiumDbfId": 59661,
+        "cardClass": "WARLOCK",
         "cost": 3,
         "dbfId": 59660,
         "health": 3,
@@ -3541,7 +3544,6 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Soul Juggler",
-        "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 3,
         "text": "After a friendly Demon dies, deal 3 damage to a random enemy minion.",
@@ -3549,6 +3551,7 @@
     },
     {
         "attack": 1,
+        "battlegroundsPremiumDbfId": 59679,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 59670,
@@ -3575,6 +3578,7 @@
     },
     {
         "attack": 5,
+        "battlegroundsPremiumDbfId": 59683,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 59682,
@@ -3588,12 +3592,13 @@
         "race": "MECHANICAL",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
+        "techLevel": 5,
         "text": "<b>Deathrattle:</b> Summon a random <b>Legendary</b> minion.",
         "type": "MINION"
     },
     {
         "attack": 7,
+        "battlegroundsPremiumDbfId": 58424,
         "cardClass": "PRIEST",
         "cost": 6,
         "dbfId": 59687,
@@ -3611,6 +3616,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59711,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 59707,
@@ -3623,7 +3629,7 @@
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "At the end of your turn,\ngive a random friendly Mech, Murloc, Demon, and Beast +2/+1.",
+        "text": "[x]At the end of your turn,\ngive a random friendly Mech,\nMurloc, Beast, Demon,\nand Dragon +2/+1.",
         "type": "MINION"
     },
     {
@@ -3637,6 +3643,7 @@
     },
     {
         "attack": 3,
+        "battlegroundsPremiumDbfId": 59716,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 59714,
@@ -3664,6 +3671,7 @@
     },
     {
         "attack": 3,
+        "battlegroundsPremiumDbfId": 59976,
         "cardClass": "NEUTRAL",
         "cost": 9,
         "dbfId": 59935,
@@ -3681,6 +3689,7 @@
     },
     {
         "attack": 3,
+        "battlegroundsPremiumDbfId": 60676,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 59937,
@@ -3700,6 +3709,7 @@
     },
     {
         "attack": 3,
+        "battlegroundsPremiumDbfId": 59969,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 59940,
@@ -3726,6 +3736,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsPremiumDbfId": 59956,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 59955,
@@ -3753,7 +3764,26 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 1,
+        "battlegroundsPremiumDbfId": 60642,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 59968,
+        "health": 2,
+        "id": "BGS_019",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Red Whelp",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "[x]<b>Start of Combat:</b> Deal\n1 damage per friendly\nDragon to one random\nenemy minion.",
+        "type": "MINION"
+    },
+    {
         "attack": 3,
+        "battlegroundsPremiumDbfId": 60027,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 60028,
@@ -3772,11 +3802,12 @@
         "type": "MINION"
     },
     {
-        "attack": 4,
+        "attack": 5,
+        "battlegroundsPremiumDbfId": 60038,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 60036,
-        "health": 4,
+        "health": 5,
         "id": "BGS_021",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -3786,7 +3817,7 @@
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
-        "text": "Whenever you summon a Beast, give it +4/+4.",
+        "text": "Whenever you summon a Beast, give it +5/+5.",
         "type": "MINION"
     },
     {
@@ -3795,11 +3826,12 @@
         "id": "BGS_021e",
         "name": "Rampage",
         "set": "BATTLEGROUNDS",
-        "text": "+4/+4.",
+        "text": "+5/+5.",
         "type": "ENCHANTMENT"
     },
     {
         "attack": 7,
+        "battlegroundsPremiumDbfId": 60041,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 60040,
@@ -3817,6 +3849,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsPremiumDbfId": 58381,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 60048,
@@ -3835,6 +3868,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsPremiumDbfId": 58411,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 60049,
@@ -3853,6 +3887,7 @@
     },
     {
         "attack": 3,
+        "battlegroundsPremiumDbfId": 58150,
         "cardClass": "DRUID",
         "cost": 3,
         "dbfId": 60050,
@@ -3871,6 +3906,7 @@
     },
     {
         "attack": 1,
+        "battlegroundsPremiumDbfId": 60056,
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 60055,
@@ -3889,6 +3925,7 @@
     },
     {
         "attack": 1,
+        "battlegroundsPremiumDbfId": 59664,
         "cardClass": "ROGUE",
         "cost": 1,
         "dbfId": 60122,
@@ -3916,6 +3953,7 @@
     },
     {
         "attack": 1,
+        "battlegroundsPremiumDbfId": 60233,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 57742,
@@ -3940,6 +3978,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsPremiumDbfId": 60396,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 60247,
@@ -3969,6 +4008,7 @@
     },
     {
         "attack": 5,
+        "battlegroundsPremiumDbfId": 59828,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 56465,
@@ -3986,6 +4026,396 @@
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
         "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs.",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "battlegroundsPremiumDbfId": 60643,
+        "cardClass": "WARRIOR",
+        "cost": 5,
+        "dbfId": 60498,
+        "health": 6,
+        "id": "BGS_032",
+        "mechanics": [
+            "OVERKILL"
+        ],
+        "name": "Herald of Flame",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "<b>Overkill:</b> Deal 3 damage\nto the left-most enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 60645,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 60552,
+        "health": 4,
+        "id": "BGS_033",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Hangry Dragon",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "[x]At the start of your turn,\ngain +2/+2 if you won\nthe last combat.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60553,
+        "id": "BGS_033e1",
+        "name": "Well Fed",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 60558,
+        "health": 1,
+        "id": "BGS_034",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "REBORN"
+        ],
+        "name": "Bronze Warden",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "battlegroundsPremiumDbfId": 60647,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 60559,
+        "elite": true,
+        "health": 2,
+        "id": "BGS_035",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Waxrider Togwaggle",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "Whenever a friendly Dragon kills an enemy, gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60560,
+        "id": "BGS_035e",
+        "name": "Dragon Wax",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 60649,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 60561,
+        "elite": true,
+        "health": 4,
+        "id": "BGS_036",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Razorgore, the Untamed",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "At the end of your turn, gain +1/+1 for each Dragon you have.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60562,
+        "id": "BGS_036e",
+        "name": "Dragonlust",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 60663,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 60621,
+        "health": 4,
+        "id": "BGS_037",
+        "name": "Steward of Time",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "When you sell this minion, give all minions in Bob's Tavern +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60639,
+        "id": "BGS_037e",
+        "name": "Time Dilation",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 60665,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 60626,
+        "health": 4,
+        "id": "BGS_038",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Twilight Emissary",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Give a friendly Dragon +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60627,
+        "id": "BGS_038e",
+        "name": "Twilight Embrace",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60628,
+        "health": 3,
+        "id": "BGS_039",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Dragonspawn Lieutenant",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 60629,
+        "elite": true,
+        "health": 4,
+        "id": "BGS_040",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Nadina the Red",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Deathrattle:</b> Give your Dragons <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 60667,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 60630,
+        "elite": true,
+        "health": 12,
+        "id": "BGS_041",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Kalecgos, Arcane Aspect",
+        "race": "DRAGON",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "After you play a minion with <b>Battlecry</b>, give your Dragons +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60644,
+        "id": "BGS_041e",
+        "name": "Arcane Aspect",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 5,
+        "battlegroundsPremiumDbfId": 60669,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 60637,
+        "elite": true,
+        "health": 5,
+        "id": "BGS_043",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Murozond",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]<b>Battlecry:</b> Add a minion\nfrom your last opponent's\nwarband to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 61043,
+        "cardClass": "WARLOCK",
+        "cost": 8,
+        "dbfId": 61028,
+        "health": 8,
+        "id": "BGS_044",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Imp Mama",
+        "race": "DEMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "[x]Whenever this minion takes\ndamage, summon a random\nDemon and give it <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 61393,
+        "id": "BGS_044e",
+        "name": "Protect Mama!",
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Taunt</b>",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 61032,
+        "cardClass": "MAGE",
+        "cost": 3,
+        "dbfId": 61029,
+        "health": 4,
+        "id": "BGS_045",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Glyph Guardian",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "Whenever this attacks, double its Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61030,
+        "id": "BGS_045e",
+        "name": "Cold Breath",
+        "set": "BATTLEGROUNDS",
+        "text": "Multiplying Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 61081,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 61059,
+        "health": 6,
+        "id": "BGS_059",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Master Demonologist",
+        "race": "DEMON",
+        "set": "BATTLEGROUNDS",
+        "text": "Whenever you summon a Demon, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61080,
+        "id": "BGS_059e",
+        "name": "Demonic Fury",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 61075,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 61072,
+        "health": 6,
+        "id": "BGS_067",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Drakonid Enforcer",
+        "race": "DRAGON",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "After a friendly minion loses <b>Divine Shield</b>, gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61074,
+        "id": "BGS_067e",
+        "name": "Divinity",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "cardClass": "PALADIN",
+        "cost": 8,
+        "dbfId": 61079,
+        "health": 4,
+        "id": "BGS_068",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Holy Mackerel",
+        "race": "MURLOC",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "[x]After another friendly\nminion loses <b>Divine Shield</b>,\ngain <b>Divine Shield</b>.",
         "type": "MINION"
     },
     {
@@ -4672,6 +5102,7 @@
     {
         "artist": "Adam Byrne",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58392,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 6,
@@ -5499,6 +5930,7 @@
     {
         "artist": "Vladimir Kafanov",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 58376,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -6114,6 +6546,7 @@
     {
         "artist": "Eva Widermann",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 57336,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -6542,6 +6975,7 @@
     {
         "artist": "Hideaki Takamura",
         "attack": 0,
+        "battlegroundsPremiumDbfId": 58387,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 5,
@@ -7184,6 +7618,7 @@
     {
         "artist": "Tyler West Studio",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58369,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -7363,6 +7798,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 60327,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 4,
@@ -9657,6 +10093,7 @@
     {
         "artist": "Steve Prescott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58372,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 3,
@@ -12812,6 +13249,36 @@
     },
     {
         "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 56622,
+        "elite": true,
+        "flavor": "“Descent of Dragons was merely a set back!”",
+        "health": 7,
+        "howToEarnGolden": "Available in Future Content",
+        "id": "BT_255",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Kael'thas Sunstrider",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "Every third spell you cast each turn costs (0).",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62061,
+        "id": "BT_255e",
+        "name": "Sunstrider",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (0).",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "James Ryman",
         "attack": 5,
         "cardClass": "PRIEST",
         "collectible": true,
@@ -12827,7 +13294,7 @@
         "name": "Raza the Chained",
         "rarity": "LEGENDARY",
         "set": "GANGS",
-        "text": "[x]  <b>Battlecry:</b> If your deck has  \nno duplicates, your Hero\n Power costs (1) this game.",
+        "text": "[x]  <b>Battlecry:</b> If your deck has  \nno duplicates, your Hero\n Power costs (0) this game.",
         "type": "MINION"
     },
     {
@@ -12837,7 +13304,7 @@
         "id": "CFM_020e",
         "name": "Raza Enchant",
         "set": "GANGS",
-        "text": "Your <b>Hero Power</b> costs (1).",
+        "text": "Your <b>Hero Power</b> costs (0).",
         "type": "ENCHANTMENT"
     },
     {
@@ -13325,6 +13792,7 @@
     {
         "artist": "Anton Zemskov",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 60053,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 1,
@@ -13346,6 +13814,7 @@
     {
         "artist": "Anton Zemskov",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 60054,
         "cardClass": "HUNTER",
         "cost": 1,
         "dbfId": 40425,
@@ -13360,6 +13829,7 @@
     {
         "artist": "Ozhill Studio",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58367,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -13929,6 +14399,7 @@
     {
         "artist": "Arthur Gimaldinov",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 59504,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 4,
@@ -16667,6 +17138,7 @@
     {
         "artist": "Dany Orizio",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 59512,
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 5,
@@ -19548,6 +20020,27 @@
         "cost": 2,
         "dbfId": 57754,
         "id": "CS2_049_H4",
+        "name": "Totemic Call",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nSummon a random Totem.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 2,
+        "dbfId": 60675,
+        "id": "CS2_049_H4_AT_132",
+        "name": "Totemic Slam",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nSummon a Totem of your choice.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 2,
+        "dbfId": 60674,
+        "id": "CS2_049_H5",
         "name": "Totemic Call",
         "rarity": "FREE",
         "set": "HERO_SKINS",
@@ -23208,7 +23701,7 @@
     },
     {
         "artist": "Rudy Siswanto",
-        "attack": 1,
+        "attack": 2,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 1,
@@ -23731,6 +24224,7 @@
     {
         "artist": "Evgeniy Zagumennyy",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58380,
         "cardClass": "MAGE",
         "collectible": true,
         "cost": 2,
@@ -32912,9 +33406,6 @@
         "cost": 0,
         "dbfId": 57689,
         "id": "DRG_099t1",
-        "mechanics": [
-            "ImmuneToSpellpower"
-        ],
         "name": "Decimation",
         "set": "DRAGONS",
         "text": "Deal 5 damage to the enemy hero. Restore 5 Health to your hero.",
@@ -37865,6 +38356,7 @@
         "cardClass": "MAGE",
         "cost": 0,
         "dbfId": 58361,
+        "hideCost": true,
         "id": "DRGA_BOSS_36p2",
         "name": "Chronomical Distortion",
         "set": "YEAR_OF_THE_DRAGON",
@@ -37985,6 +38477,7 @@
     {
         "artist": "Dan Brereton",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 59499,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 4,
@@ -39164,6 +39657,7 @@
     {
         "artist": "Dan Scott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58382,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -39424,6 +39918,7 @@
     {
         "artist": "Alex Horley Orlandelli",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 57404,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -39555,6 +40050,7 @@
     {
         "artist": "Arthur Gimaldinov",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59491,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -40173,6 +40669,7 @@
     {
         "artist": "John Dickenson",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 60025,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -40588,6 +41085,7 @@
     {
         "artist": "James Ryman",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 58418,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 7,
@@ -42501,6 +42999,7 @@
     {
         "artist": "Dan Scott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 57338,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -42522,6 +43021,7 @@
     },
     {
         "attack": 1,
+        "battlegroundsPremiumDbfId": 57339,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 1078,
@@ -42537,6 +43037,7 @@
     {
         "artist": "Tim McBurnie",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 57403,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -42597,6 +43098,7 @@
     {
         "artist": "Jaemin Kim",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58138,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -42647,6 +43149,7 @@
     {
         "artist": "Jim Nelson",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58395,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 2,
@@ -42694,6 +43197,7 @@
     {
         "artist": "Milivoj Ceran",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 58409,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 6,
@@ -42708,7 +43212,7 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon two 2/2 Hyenas.",
         "type": "MINION"
     },
@@ -42921,6 +43425,7 @@
     {
         "artist": "Brian Despain",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 57401,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -43315,6 +43820,7 @@
     {
         "artist": "Glenn Rane",
         "attack": 9,
+        "battlegroundsPremiumDbfId": 58394,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 6,
@@ -44325,6 +44831,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49075,
+        "hideCost": true,
         "id": "FB_BuildABrawl001a",
         "name": "By the Power of Ragnaros!",
         "set": "TB",
@@ -44344,6 +44851,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49076,
+        "hideCost": true,
         "id": "FB_BuildABrawl001b",
         "name": "Randomonium",
         "set": "TB",
@@ -44363,6 +44871,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49077,
+        "hideCost": true,
         "id": "FB_BuildABrawl001c",
         "name": "Battle of Tol Barad",
         "set": "TB",
@@ -44391,6 +44900,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49130,
+        "hideCost": true,
         "id": "FB_BuildABrawl002a",
         "name": "Summoner Competition",
         "set": "TB",
@@ -44410,6 +44920,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49131,
+        "hideCost": true,
         "id": "FB_BuildABrawl002b",
         "name": "The Masked Ball",
         "set": "TB",
@@ -44429,6 +44940,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49132,
+        "hideCost": true,
         "id": "FB_BuildABrawl002c",
         "name": "Servant of Yogg Tryouts",
         "set": "TB",
@@ -44457,6 +44969,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49139,
+        "hideCost": true,
         "id": "FB_BuildABrawl003b",
         "name": "Clash of the Minions",
         "set": "TB",
@@ -44476,6 +44989,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49141,
+        "hideCost": true,
         "id": "FB_BuildABrawl003c",
         "name": "Blood Magic",
         "set": "TB",
@@ -44504,6 +45018,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49409,
+        "hideCost": true,
         "id": "FB_BuildABrawl_Tools_reset",
         "name": "Build-A-Brawl",
         "set": "TB",
@@ -44670,6 +45185,24 @@
         "set": "TB",
         "text": "Destroy your weapon and deal its damage to all enemies.",
         "type": "SPELL"
+    },
+    {
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 61008,
+        "elite": true,
+        "health": 7,
+        "id": "FB_Champs_DAL_736",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Archivist Elysiana",
+        "rarity": "LEGENDARY",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> <b>Discover</b> 5 cards. Replace your deck with 2 copies of each.",
+        "type": "MINION"
     },
     {
         "attack": 4,
@@ -44931,6 +45464,7 @@
         "name": "Treant",
         "rarity": "COMMON",
         "set": "TB",
+        "text": "<b>Charge</b>",
         "type": "MINION"
     },
     {
@@ -45315,6 +45849,22 @@
         "id": "FB_Champs_skele21",
         "name": "Damaged Golem",
         "set": "TB",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "cost": 7,
+        "dbfId": 61698,
+        "health": 4,
+        "id": "FB_Champs_ULD_169",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Mogu Fleshshaper",
+        "rarity": "RARE",
+        "set": "TB",
+        "text": "[x]<b>Rush</b>. Costs (1) less for each\nminion on the battlefield.",
         "type": "MINION"
     },
     {
@@ -46421,6 +46971,7 @@
         "cardClass": "MAGE",
         "cost": 3,
         "dbfId": 57314,
+        "hideCost": true,
         "id": "FB_RagRaid_DeckRefresh",
         "name": "Unquenching Rage",
         "rarity": "FREE",
@@ -46454,6 +47005,7 @@
         "cardClass": "MAGE",
         "cost": 0,
         "dbfId": 57316,
+        "hideCost": true,
         "id": "FB_RagRaid_Draw",
         "name": "Spreading Flames",
         "rarity": "FREE",
@@ -46474,6 +47026,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 57485,
+        "hideCost": true,
         "id": "FB_RagRaid_InnkeeperReset",
         "name": "TOO SOON!",
         "rarity": "FREE",
@@ -46511,6 +47064,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 52625,
+        "hideCost": true,
         "id": "FB_SPT_AnnoyO_Ench",
         "name": "More Annoying",
         "set": "TB",
@@ -47586,6 +48140,7 @@
     {
         "artist": "Mike Nicholson",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 61077,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -47602,6 +48157,7 @@
         "name": "Unstable Ghoul",
         "rarity": "COMMON",
         "set": "NAXX",
+        "techLevel": 2,
         "text": "<b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage to all minions.",
         "type": "MINION"
     },
@@ -47751,6 +48307,7 @@
     {
         "artist": "Ralph Horsley",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58421,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -50317,6 +50874,7 @@
     {
         "artist": "Evgeniy Dlinnov",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58378,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 5,
@@ -50581,6 +51139,7 @@
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
+        "techLevel": 2,
         "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
         "type": "MINION"
     },
@@ -55268,6 +55827,7 @@
     {
         "artist": "Wayne Reynolds",
         "attack": 9,
+        "battlegroundsPremiumDbfId": 58428,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 9,
@@ -55422,6 +55982,7 @@
     {
         "artist": "Brian Despain",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58397,
         "cardClass": "ROGUE",
         "collectible": true,
         "cost": 3,
@@ -55965,6 +56526,7 @@
     {
         "artist": "Hideaki Takamura",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 59495,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -56120,6 +56682,7 @@
     {
         "artist": "Jesper Ejsing",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59501,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 4,
@@ -56227,7 +56790,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "GVG",
-        "techLevel": 2,
         "text": "<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -57133,6 +57695,7 @@
     {
         "artist": "Todd Lockwood",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 60403,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 5,
@@ -57147,7 +57710,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "GVG",
-        "techLevel": 3,
+        "techLevel": 4,
         "text": "Whenever your hero takes damage on your turn, gain +2/+2.",
         "type": "MINION"
     },
@@ -57293,6 +57856,7 @@
     {
         "artist": "Zoltan Boros",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58402,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -57828,6 +58392,17 @@
         "health": 30,
         "id": "HERO_02d",
         "name": "Warchief Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 60673,
+        "health": 30,
+        "id": "HERO_02e",
+        "name": "Lady Vashj",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -58452,6 +59027,7 @@
     {
         "artist": "Jim Nelson",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 61442,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -58466,6 +59042,7 @@
         "race": "DRAGON",
         "rarity": "COMMON",
         "set": "ICECROWN",
+        "techLevel": 4,
         "text": "At the end of your turn, give another random friendly minion +3 Attack.",
         "type": "MINION"
     },
@@ -60618,6 +61195,7 @@
     {
         "artist": "James Ryman",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59508,
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 4,
@@ -61811,6 +62389,7 @@
     {
         "artist": "Tooth",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58405,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 5,
@@ -62921,6 +63500,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 57340,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 2,
@@ -63754,6 +64334,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 59489,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -63938,6 +64519,7 @@
     {
         "artist": "Garrett Hanna",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 59510,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -66928,6 +67510,7 @@
     {
         "artist": "Sam Nielson",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58400,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -70150,7 +70733,7 @@
         "artist": "Joe Wilson",
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 43363,
         "flavor": "An emerald stone for Tauren hands\nWho sought its strength to save their lands\nTheir tribes now lost, their rage released\nWho’s hunting now? And who’s the beast?",
         "id": "LOOT_080",
@@ -70163,7 +70746,7 @@
     {
         "artist": "Joe Wilson",
         "cardClass": "HUNTER",
-        "cost": 6,
+        "cost": 5,
         "dbfId": 43362,
         "id": "LOOT_080t2",
         "name": "Emerald Spellstone",
@@ -70175,7 +70758,7 @@
     {
         "artist": "Joe Wilson",
         "cardClass": "HUNTER",
-        "cost": 6,
+        "cost": 5,
         "dbfId": 43361,
         "id": "LOOT_080t3",
         "name": "Greater Emerald Spellstone",
@@ -72150,6 +72733,7 @@
     {
         "artist": "Jerry Mascho",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 58427,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 9,
@@ -73256,7 +73840,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 7,
+        "cost": 6,
         "dbfId": 46551,
         "flavor": "Sometimes she'll summon a Doomsayer. Out of spite.",
         "health": 4,
@@ -80886,7 +81470,7 @@
         "artist": "Peter Stapleton",
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 9,
+        "cost": 8,
         "dbfId": 38727,
         "flavor": "\"Hello. Misha, Leokk and Huffer aren't here right now, but if you leave a message we'll get back to you right away.\" BEEP.",
         "id": "OG_211",
@@ -80899,6 +81483,7 @@
     {
         "artist": "E. Guiton & A. Bozonnet",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 58365,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 4,
@@ -80986,6 +81571,7 @@
     {
         "artist": "Rafael Zanchetin",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58143,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 1,
@@ -81266,6 +81852,7 @@
     {
         "artist": "Peter Stapleton",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58168,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -81740,6 +82327,7 @@
     {
         "artist": "Alex Horley Orlandelli",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 58425,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 8,
@@ -82887,6 +83475,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56201,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_BagOfSpells",
         "name": "Bag of Burgled Spells",
         "set": "TB",
@@ -82897,6 +83486,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56199,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_Cloneball",
         "name": "Cloneball!",
         "set": "TB",
@@ -82907,6 +83497,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56196,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_ClonesAttack",
         "name": "When Clones Attack!",
         "set": "TB",
@@ -82917,6 +83508,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56197,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_MaskedBall",
         "name": "The Masked Ball",
         "set": "TB",
@@ -82927,6 +83519,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56200,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_Randomonium",
         "name": "Randomonium",
         "set": "TB",
@@ -82937,6 +83530,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56193,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_TolBarad",
         "name": "Battle of Tol Barad",
         "set": "TB",
@@ -82947,6 +83541,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56195,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_TreasureCatacombs",
         "name": "Catacomb Treasures!",
         "set": "TB",
@@ -82957,6 +83552,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56198,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_VoidSingularity",
         "name": "The Void Singularity",
         "set": "TB",
@@ -82967,6 +83563,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 56194,
         "health": 30,
+        "hideCost": true,
         "id": "TB_207_YellowBrick",
         "name": "Yellow-Brick Brawl",
         "set": "TB",
@@ -83291,11 +83888,23 @@
         "type": "MOVE_MINION_HOVER_TARGET"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57633,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_01",
         "name": "Edwin VanCleef",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 57635,
+        "health": 40,
+        "id": "TB_BaconShop_HERO_02",
+        "name": "Galakrond",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
@@ -83303,6 +83912,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 57891,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_10",
         "name": "Trade Prince Gallywix",
         "set": "BATTLEGROUNDS",
@@ -83312,51 +83922,62 @@
         "cardClass": "NEUTRAL",
         "dbfId": 57892,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_11",
         "name": "Ragnaros the Firelord",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57893,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_12",
         "name": "The Rat King",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57924,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_14",
         "name": "Queen Wagtoggle",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57929,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_15",
         "name": "George the Fallen",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57944,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_16",
         "name": "A. F. Kay",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57946,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_17",
         "name": "Millificent Manastorm",
         "set": "BATTLEGROUNDS",
@@ -83366,6 +83987,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 57947,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_18",
         "name": "Patches the Pirate",
         "set": "BATTLEGROUNDS",
@@ -83375,132 +83997,161 @@
         "cardClass": "NEUTRAL",
         "dbfId": 57956,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_19",
         "name": "Giantfin",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57961,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_20",
         "name": "Professor Putricide",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58021,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_21",
         "name": "The Great Akazamzarak",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58024,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_22",
         "name": "The Lich King",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58027,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_23",
         "name": "Shudderwock",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58044,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_25",
         "name": "Lich Baz'hial",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58435,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_27",
         "name": "Sindragosa",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58534,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_28",
         "name": "Infinite Toki",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58536,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_30",
         "name": "Nefarian",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58546,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_31",
         "name": "Bartendotron",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59203,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_33",
         "name": "The Curator",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59397,
         "health": 50,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_34",
         "name": "Patchwerk",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59805,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_35",
         "name": "Yogg-Saron, Hope's End",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59806,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_36",
         "name": "Dancin' Deryl",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59807,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_37",
         "name": "Lord Jaraxxus",
         "set": "BATTLEGROUNDS",
@@ -83510,42 +84161,51 @@
         "cardClass": "NEUTRAL",
         "dbfId": 59814,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_38",
         "name": "King Mukla",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59831,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_39",
         "name": "Pyramad",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 60211,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_40",
         "name": "Sir Finley Mrrgglton",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 60212,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_41",
-        "name": "Reno the Relicologist",
+        "name": "Reno Jackson",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 60213,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_42",
         "name": "Elise Starseeker",
         "set": "BATTLEGROUNDS",
@@ -83555,8 +84215,9 @@
         "cardClass": "NEUTRAL",
         "dbfId": 60214,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_43",
-        "name": "Brann Bronzebeard",
+        "name": "Dinotamer Brann",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
@@ -83564,15 +84225,18 @@
         "cardClass": "NEUTRAL",
         "dbfId": 60361,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_44",
         "name": "Sylvanas Windrunner",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 60362,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_45",
         "name": "Arch-Villain Rafaam",
         "set": "BATTLEGROUNDS",
@@ -83582,17 +84246,86 @@
         "cardClass": "NEUTRAL",
         "dbfId": 60364,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_47",
         "name": "Tirion Fordring",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 60366,
         "health": 40,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_49",
         "name": "Millhouse Manastorm",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 60369,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_52",
+        "name": "Deathwing",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 60370,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_53",
+        "name": "Ysera",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 60372,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_55",
+        "name": "Fungalmancer Flurgl",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 61488,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_56",
+        "name": "Alexstrasza",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 61489,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_57",
+        "name": "Nozdormu",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 61490,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_58",
+        "name": "Malygos",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
@@ -83600,6 +84333,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 59194,
         "health": 0,
+        "hideCost": true,
         "id": "TB_BaconShop_HERO_KelThuzad",
         "mechanics": [
             "CANT_BE_DESTROYED"
@@ -83643,7 +84377,7 @@
         "id": "TB_BaconShop_HP_008",
         "name": "Smart Savings",
         "set": "BATTLEGROUNDS",
-        "text": "<b>Hero Power</b>\nAdd a Gold Coin\nto your hand.",
+        "text": "[x]<b>Hero Power</b>\nAdd a Gold Coin\nto your hand.",
         "type": "HERO_POWER"
     },
     {
@@ -83661,6 +84395,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 57561,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_009",
         "name": "Skilled Bartender",
         "set": "BATTLEGROUNDS",
@@ -83669,18 +84404,32 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 4,
+        "cost": 3,
         "dbfId": 57562,
         "id": "TB_BaconShop_HP_010",
         "name": "Boon of Light",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
         "set": "BATTLEGROUNDS",
         "text": "<b>Hero Power</b>\nGive a friendly minion <b>Divine Shield</b>.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 57555,
+        "id": "TB_BaconShop_HP_011",
+        "name": "Galakrond's Greed",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nReplace a minion in Bob's\nTavern with a minion from\na higher Tavern Tier.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 57945,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_014",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -83703,10 +84452,11 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 57949,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_015",
         "name": "Tinker",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nMechs in Bob's Tavern\nhave +1 Attack.",
+        "text": "[x]<b>Passive Hero Power</b>\nMechs in Bob's Tavern\nhave +2 Attack.",
         "type": "HERO_POWER"
     },
     {
@@ -83715,7 +84465,7 @@
         "id": "TB_BaconShop_HP_015e",
         "name": "Tinkered",
         "set": "BATTLEGROUNDS",
-        "text": "+1 Attack.",
+        "text": "+2 Attack.",
         "type": "ENCHANTMENT"
     },
     {
@@ -83744,7 +84494,7 @@
         "id": "TB_BaconShop_HP_018",
         "name": "Rage Potion",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAt the start of next combat,\ngive your left-most minion\n+20 Attack.",
+        "text": "[x]<b>Hero Power</b>\nGive a friendly minion\n+10 Attack for the next\ncombat only.",
         "type": "HERO_POWER"
     },
     {
@@ -83756,7 +84506,7 @@
             "POISONOUS"
         ],
         "set": "BATTLEGROUNDS",
-        "text": "+20 Attack.",
+        "text": "+10 Attack.",
         "type": "ENCHANTMENT"
     },
     {
@@ -83766,7 +84516,7 @@
         "id": "TB_BaconShop_HP_019",
         "name": "DIE, INSECTS!",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAt the start of next combat,\ndeal 8 damage to two\n  random enemy minions.",
+        "text": "[x]<b>Hero Power</b>\n<b>Start of Combat:</b>\nDeal 8 damage to two\n  random enemy minions.",
         "type": "HERO_POWER"
     },
     {
@@ -83775,6 +84525,9 @@
         "dbfId": 58022,
         "id": "TB_BaconShop_HP_020",
         "name": "Prestidigitation",
+        "referencedTags": [
+            "DISCOVER"
+        ],
         "set": "BATTLEGROUNDS",
         "text": "<b>Hero Power</b>\n<b>Discover</b> a <b>Secret</b>.\nPut it into the battlefield.",
         "type": "HERO_POWER"
@@ -83785,6 +84538,9 @@
         "dbfId": 58028,
         "id": "TB_BaconShop_HP_022",
         "name": "Burbling",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Hero Power</b>\nYour next <b>Battlecry</b> this\nturn triggers twice.",
         "type": "HERO_POWER"
@@ -83807,8 +84563,11 @@
         "dbfId": 58040,
         "id": "TB_BaconShop_HP_024",
         "name": "Reborn Rites",
+        "referencedTags": [
+            "REBORN"
+        ],
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAt the start of next combat,\ngive your right-most\nminion <b>Reborn</b>.",
+        "text": "[x]<b>Hero Power</b>\nGive a friendly minion\n<b>Reborn</b> for the next\ncombat only.",
         "type": "HERO_POWER"
     },
     {
@@ -83830,7 +84589,7 @@
         "id": "TB_BaconShop_HP_027",
         "name": "Fire the Cannons!",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAt the start of next combat,\ndeal 4 damage to two\n random enemy minions.",
+        "text": "[x]<b>Hero Power</b>\n<b>Start of Combat:</b>\nDeal 4 damage to two\n  random enemy minions.",
         "type": "HERO_POWER"
     },
     {
@@ -83840,13 +84599,14 @@
         "id": "TB_BaconShop_HP_028",
         "name": "Temporal Tavern",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\n<b>Refresh</b> Bob's Tavern.\nInclude a minion from\na higher <b>Tavern Tier</b>.",
+        "text": "[x]<b>Hero Power</b>\n<b>Refresh</b> Bob's Tavern.\nInclude a minion from\na higher Tavern Tier.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59201,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_033",
         "name": "Menagerist",
         "set": "BATTLEGROUNDS",
@@ -83871,6 +84631,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59399,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_035",
         "name": "All Patched Up",
         "set": "BATTLEGROUNDS",
@@ -83903,7 +84664,7 @@
         "id": "TB_BaconShop_HP_037a",
         "name": "Wax Warband",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGive a random friendly\nMech, Demon, Murloc \nand Beast +2 Attack.",
+        "text": "[x]<b>Hero Power</b>\nGive a random friendly Mech,\nMurloc, Beast, Demon,\nand Dragon +2 Attack.",
         "type": "HERO_POWER"
     },
     {
@@ -83914,19 +84675,6 @@
         "set": "BATTLEGROUNDS",
         "text": "Increased Attack.",
         "type": "ENCHANTMENT"
-    },
-    {
-        "cardClass": "NEUTRAL",
-        "cost": 0,
-        "dbfId": 59815,
-        "id": "TB_BaconShop_HP_038",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
-        "name": "Bananarama",
-        "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\nBeast, add a Banana\nto your hand.",
-        "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
@@ -83973,7 +84721,7 @@
         "id": "TB_BaconShop_HP_040",
         "name": "Brick by Brick",
         "set": "BATTLEGROUNDS",
-        "text": "<b>Hero Power</b>\nGive a random friendly minion +3 Health.",
+        "text": "<b>Hero Power</b>\nGive a random friendly minion +4 Health.",
         "type": "HERO_POWER"
     },
     {
@@ -83982,59 +84730,63 @@
         "id": "TB_BaconShop_HP_040e",
         "name": "Built Up",
         "set": "BATTLEGROUNDS",
-        "text": "+3 Health.",
+        "text": "+4 Health.",
         "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59839,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_041a",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
         "name": "King of Beasts",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Beast</b>, give it +1/+1.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Beast</b>, give it +1/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59853,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_041b",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
         "name": "King of Mechs",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Mech</b>, give it +1/+1.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Mech</b>, give it +1/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59852,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_041c",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
         "name": "King of Murlocs",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Murloc</b>, give it +1/+1.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Murloc</b>, give it +1/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59854,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_041d",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
         "name": "King of Demons",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Demon</b>, give it +1/+1.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Demon</b>, give it +1/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -84043,13 +84795,28 @@
         "id": "TB_BaconShop_HP_041e",
         "name": "Rat Follower",
         "set": "BATTLEGROUNDS",
-        "text": "Has +1/+1.",
+        "text": "Has +1/+2.",
         "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
+        "dbfId": 60922,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_041f",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "King of Dragons",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Dragon</b>, give it +1/+2.\nSwaps type each turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
         "dbfId": 59860,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_042",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -84075,13 +84842,14 @@
         "id": "TB_BaconShop_HP_043",
         "name": "Nefarious Fire",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAt the start of next combat,\ndeal 1 damage to all\nenemy minions.",
+        "text": "[x]<b>Hero Power</b>\n<b>Start of Combat:</b>\nDeal 1 damage to all\nenemy minions.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59891,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_044",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -84089,16 +84857,6 @@
         "name": "Procrastinate",
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Passive Hero Power</b>\nSkip your first two turns.\nStart with two minions\nfrom Tavern Tier 3.",
-        "type": "HERO_POWER"
-    },
-    {
-        "cardClass": "NEUTRAL",
-        "cost": 1,
-        "dbfId": 60215,
-        "id": "TB_BaconShop_HP_045",
-        "name": "Power Up!",
-        "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGive a minion +1/+1.\nRefresh this after you\nsell a minion.",
         "type": "HERO_POWER"
     },
     {
@@ -84112,18 +84870,19 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 3,
         "dbfId": 60216,
         "id": "TB_BaconShop_HP_046",
-        "name": "Gatling Wand",
+        "name": "Gonna Be Rich!",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAt the start of next combat,\nIf you have no duplicate\n   minions, fire 10 missiles.",
+        "text": "[x]<b>Hero Power</b>\nMake a friendly minion\nGolden.\n<i>(Once per game.)</i>",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60217,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_047",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -84148,6 +84907,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60218,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_048",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -84216,6 +84976,16 @@
     },
     {
         "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 60378,
+        "id": "TB_BaconShop_HP_052",
+        "name": "Arcane Alteration",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nReplace a minion with a\nrandom one of the same\nTavern Tier.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 60381,
         "id": "TB_BaconShop_HP_053",
@@ -84228,10 +84998,11 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60405,
+        "hideCost": true,
         "id": "TB_BaconShop_HP_054",
         "name": "Manastorm",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nMinions cost 2 Gold.\n<b>Refresh</b> costs 2 Gold.\nStart with 2 Gold.",
+        "text": "[x]<b>Passive Hero Power</b>\nMinions cost 2 Gold.\n<b>Refresh</b> costs 2 Gold.",
         "type": "HERO_POWER"
     },
     {
@@ -84257,6 +85028,97 @@
         "set": "BATTLEGROUNDS",
         "text": "Costs (1) more.",
         "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 60448,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_056",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Gone Fishing",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you sell a Murloc,\nadd a random Murloc to\nBob's Tavern.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 60450,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_057",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Adventure!",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nAt the start of the game,\n<b>Discover</b> a Hero Power.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 61406,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_061",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "ALL Will Burn!",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nALL minions have\n+2 Attack.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61407,
+        "id": "TB_BaconShop_HP_061e",
+        "name": "ALL Will Burn!",
+        "set": "BATTLEGROUNDS",
+        "text": "+2 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 61408,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_062",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Dream Portal",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nAt the start of your turn,\nadd a Dragon to Bob's\nTavern.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 61491,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_063",
+        "name": "Clairvoyance",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nYour first <b>Refresh</b> each\nturn costs (0).",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 61517,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_064",
+        "mechanics": [
+            "DISCOVER",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Queen of Dragons",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you upgrade Bob's\nTavern to Tavern Tier 5,\n<b>Discover</b> two Dragons.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
@@ -84344,7 +85206,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 11,
+        "cost": 10,
         "dbfId": 59565,
         "id": "TB_BaconShopTechUp06_Button",
         "name": "Tavern Tier 6",
@@ -84354,6 +85216,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 48886,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 57336,
@@ -84385,6 +85248,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 976,
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 57338,
@@ -84403,6 +85267,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 1078,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 57339,
@@ -84417,6 +85282,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 39481,
         "cardClass": "HUNTER",
         "cost": 2,
         "dbfId": 57340,
@@ -84448,6 +85314,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 778,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 57401,
@@ -84479,6 +85346,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 1063,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 57403,
@@ -84506,6 +85374,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 763,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 57404,
@@ -84536,6 +85405,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 475,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 58138,
@@ -84563,6 +85433,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 38740,
         "cardClass": "PALADIN",
         "cost": 1,
         "dbfId": 58143,
@@ -84583,6 +85454,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 60050,
         "cardClass": "DRUID",
         "cost": 3,
         "dbfId": 58150,
@@ -84601,6 +85473,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 38797,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 58168,
@@ -84627,6 +85500,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 38734,
         "cardClass": "HUNTER",
         "cost": 4,
         "dbfId": 58365,
@@ -84658,6 +85532,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 40428,
         "cardClass": "HUNTER",
         "cost": 3,
         "dbfId": 58367,
@@ -84689,6 +85564,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 49279,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 58369,
@@ -84707,6 +85583,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 2288,
         "cardClass": "WARLOCK",
         "cost": 3,
         "dbfId": 58372,
@@ -84738,6 +85615,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 41180,
         "cardClass": "PRIEST",
         "cost": 4,
         "dbfId": 58374,
@@ -84765,6 +85643,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 48536,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 58376,
@@ -84809,6 +85688,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 47516,
         "cardClass": "WARRIOR",
         "cost": 5,
         "dbfId": 58378,
@@ -84835,6 +85715,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 52502,
         "cardClass": "MAGE",
         "cost": 2,
         "dbfId": 58380,
@@ -84853,6 +85734,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 60048,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 58381,
@@ -84871,6 +85753,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 736,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 58382,
@@ -84890,6 +85773,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 2518,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 58383,
@@ -84919,6 +85803,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 54153,
         "cardClass": "NEUTRAL",
         "cost": 5,
         "dbfId": 58385,
@@ -84945,6 +85830,7 @@
     },
     {
         "attack": 0,
+        "battlegroundsNormalDbfId": 49169,
         "cardClass": "PALADIN",
         "cost": 5,
         "dbfId": 58387,
@@ -85012,6 +85898,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 48100,
         "cardClass": "WARRIOR",
         "cost": 6,
         "dbfId": 58392,
@@ -85050,6 +85937,7 @@
     },
     {
         "attack": 18,
+        "battlegroundsNormalDbfId": 962,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 58394,
@@ -85069,6 +85957,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 1281,
         "cardClass": "HUNTER",
         "cost": 2,
         "dbfId": 58395,
@@ -85096,6 +85985,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 1992,
         "cardClass": "ROGUE",
         "cost": 3,
         "dbfId": 58397,
@@ -85123,6 +86013,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 2949,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 58400,
@@ -85153,6 +86044,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 2074,
         "cardClass": "NEUTRAL",
         "cost": 5,
         "dbfId": 58402,
@@ -85180,6 +86072,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 45392,
         "cardClass": "PALADIN",
         "cost": 5,
         "dbfId": 58405,
@@ -85208,6 +86101,7 @@
     },
     {
         "attack": 12,
+        "battlegroundsNormalDbfId": 1261,
         "cardClass": "HUNTER",
         "cost": 6,
         "dbfId": 58409,
@@ -85220,7 +86114,7 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon two 4/4 Hyenas.",
         "type": "MINION"
     },
@@ -85239,6 +86133,7 @@
     },
     {
         "attack": 12,
+        "battlegroundsNormalDbfId": 60049,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 58411,
@@ -85257,6 +86152,7 @@
     },
     {
         "attack": 14,
+        "battlegroundsNormalDbfId": 49973,
         "cardClass": "DRUID",
         "cost": 7,
         "dbfId": 58412,
@@ -85288,6 +86184,7 @@
     },
     {
         "attack": 10,
+        "battlegroundsNormalDbfId": 41138,
         "cardClass": "NEUTRAL",
         "cost": 7,
         "dbfId": 58413,
@@ -85319,6 +86216,7 @@
     },
     {
         "attack": 10,
+        "battlegroundsNormalDbfId": 54835,
         "cardClass": "WARLOCK",
         "cost": 7,
         "dbfId": 58418,
@@ -85347,6 +86245,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 1915,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 58421,
@@ -85377,6 +86276,7 @@
     },
     {
         "attack": 14,
+        "battlegroundsNormalDbfId": 52041,
         "cardClass": "PRIEST",
         "cost": 6,
         "dbfId": 58424,
@@ -85394,6 +86294,7 @@
     },
     {
         "attack": 12,
+        "battlegroundsNormalDbfId": 38895,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 58425,
@@ -85421,6 +86322,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 46056,
         "cardClass": "WARLOCK",
         "cost": 9,
         "dbfId": 58427,
@@ -85458,6 +86360,7 @@
     },
     {
         "attack": 18,
+        "battlegroundsNormalDbfId": 1986,
         "cardClass": "WARLOCK",
         "cost": 9,
         "dbfId": 58428,
@@ -85489,6 +86392,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 41245,
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 59485,
@@ -85516,10 +86420,11 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 59186,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 59487,
-        "health": 8,
+        "health": 6,
         "id": "TB_BaconUps_062",
         "mechanics": [
             "BATTLECRY"
@@ -85543,6 +86448,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 39839,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 59489,
@@ -85570,6 +86476,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 453,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 59491,
@@ -85597,6 +86504,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 2016,
         "cardClass": "HUNTER",
         "cost": 3,
         "dbfId": 59495,
@@ -85624,6 +86532,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 1003,
         "cardClass": "HUNTER",
         "cost": 4,
         "dbfId": 59499,
@@ -85653,6 +86562,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 2023,
         "cardClass": "WARRIOR",
         "cost": 4,
         "dbfId": 59501,
@@ -85680,6 +86590,7 @@
     },
     {
         "attack": 10,
+        "battlegroundsNormalDbfId": 40391,
         "cardClass": "WARLOCK",
         "cost": 4,
         "dbfId": 59504,
@@ -85706,6 +86617,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 43022,
         "cardClass": "DRUID",
         "cost": 4,
         "dbfId": 59508,
@@ -85735,6 +86647,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 39269,
         "cardClass": "NEUTRAL",
         "cost": 5,
         "dbfId": 59510,
@@ -85761,6 +86674,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 40641,
         "cardClass": "DRUID",
         "cost": 5,
         "dbfId": 59512,
@@ -85787,7 +86701,8 @@
     },
     {
         "attack": 6,
-        "cardClass": "NEUTRAL",
+        "battlegroundsNormalDbfId": 59660,
+        "cardClass": "WARLOCK",
         "cost": 3,
         "dbfId": 59661,
         "health": 6,
@@ -85796,7 +86711,6 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Soul Juggler",
-        "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 3,
         "text": "After a friendly Demon dies, deal 3 damage to a random enemy minion twice.",
@@ -85804,6 +86718,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 60122,
         "cardClass": "ROGUE",
         "cost": 1,
         "dbfId": 59664,
@@ -85831,6 +86746,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 59670,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 59679,
@@ -85857,6 +86773,7 @@
     },
     {
         "attack": 10,
+        "battlegroundsNormalDbfId": 59682,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 59683,
@@ -85870,12 +86787,13 @@
         "race": "MECHANICAL",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
+        "techLevel": 5,
         "text": "<b>Deathrattle:</b> Summon 2 random <b>Legendary</b> minions.",
         "type": "MINION"
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 59707,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 59711,
@@ -85888,7 +86806,7 @@
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "At the end of your turn,\ngive a random friendly Mech, Murloc, Demon, and Beast +4/+2.",
+        "text": "[x]At the end of your turn,\ngive a random friendly Mech,\nMurloc, Beast, Demon,\nand Dragon +4/+2.",
         "type": "MINION"
     },
     {
@@ -85902,6 +86820,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 59714,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 59716,
@@ -85920,6 +86839,7 @@
     },
     {
         "attack": 10,
+        "battlegroundsNormalDbfId": 56465,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 59828,
@@ -85941,6 +86861,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 59955,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 59956,
@@ -85969,6 +86890,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 59940,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 59969,
@@ -85995,6 +86917,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 59935,
         "cardClass": "NEUTRAL",
         "cost": 9,
         "dbfId": 59976,
@@ -86012,6 +86935,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 985,
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 60025,
@@ -86040,6 +86964,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 60028,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 60027,
@@ -86058,11 +86983,12 @@
         "type": "MINION"
     },
     {
-        "attack": 8,
+        "attack": 10,
+        "battlegroundsNormalDbfId": 60036,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 60038,
-        "health": 8,
+        "health": 10,
         "id": "TB_BaconUps_090",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -86072,7 +86998,7 @@
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
-        "text": "Whenever you summon a Beast, give it +8/+8.",
+        "text": "Whenever you summon a Beast, give it +10/+10.",
         "type": "MINION"
     },
     {
@@ -86081,11 +87007,12 @@
         "id": "TB_BaconUps_090e",
         "name": "Rampage",
         "set": "BATTLEGROUNDS",
-        "text": "+8/+8.",
+        "text": "+10/+10.",
         "type": "ENCHANTMENT"
     },
     {
         "attack": 14,
+        "battlegroundsNormalDbfId": 60040,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 60041,
@@ -86103,6 +87030,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 40426,
         "cardClass": "HUNTER",
         "cost": 1,
         "dbfId": 60053,
@@ -86121,6 +87049,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 40425,
         "cardClass": "HUNTER",
         "cost": 1,
         "dbfId": 60054,
@@ -86134,6 +87063,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 60055,
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 60056,
@@ -86161,6 +87091,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsNormalDbfId": 57742,
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 60233,
@@ -86185,6 +87116,7 @@
     },
     {
         "attack": 4,
+        "battlegroundsNormalDbfId": 48993,
         "cardClass": "PALADIN",
         "cost": 4,
         "dbfId": 60327,
@@ -86217,6 +87149,7 @@
     },
     {
         "attack": 12,
+        "battlegroundsNormalDbfId": 60247,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 60396,
@@ -86246,6 +87179,7 @@
     },
     {
         "attack": 8,
+        "battlegroundsNormalDbfId": 2068,
         "cardClass": "WARLOCK",
         "cost": 5,
         "dbfId": 60403,
@@ -86258,7 +87192,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
+        "techLevel": 4,
         "text": "Whenever your hero takes damage on your turn, gain +4/+4.",
         "type": "MINION"
     },
@@ -86272,7 +87206,228 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 59968,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 60642,
+        "health": 4,
+        "id": "TB_BaconUps_102",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Red Whelp",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "[x]<b>Start of Combat:</b> Deal\n1 damage per friendly\nDragon to one random\nenemy minion twice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 10,
+        "battlegroundsNormalDbfId": 60498,
+        "cardClass": "WARRIOR",
+        "cost": 5,
+        "dbfId": 60643,
+        "health": 12,
+        "id": "TB_BaconUps_103",
+        "mechanics": [
+            "OVERKILL"
+        ],
+        "name": "Herald of Flame",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "<b>Overkill:</b> Deal 6 damage\nto the left-most enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 60552,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 60645,
+        "health": 8,
+        "id": "TB_BaconUps_104",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Hangry Dragon",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "[x]At the start of your turn,\ngain +4/+4 if you won\nthe last combat.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60646,
+        "id": "TB_BaconUps_104e",
+        "name": "Well Fed",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 60559,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 60647,
+        "elite": true,
+        "health": 4,
+        "id": "TB_BaconUps_105",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Waxrider Togwaggle",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "Whenever a friendly Dragon kills an enemy, gain +4/+4.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60648,
+        "id": "TB_BaconUps_105e",
+        "name": "Dragon Wax",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "attack": 4,
+        "battlegroundsNormalDbfId": 60561,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 60649,
+        "elite": true,
+        "health": 8,
+        "id": "TB_BaconUps_106",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Razorgore, the Untamed",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "At the end of your turn, gain +2/+2 for each Dragon you have.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60650,
+        "id": "TB_BaconUps_106e",
+        "name": "Dragonlust",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 60621,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 60663,
+        "health": 8,
+        "id": "TB_BaconUps_107",
+        "name": "Steward of Time",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "When you sell this minion, give all minions in Bob's Tavern +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60664,
+        "id": "TB_BaconUps_107e",
+        "name": "Time Dilation",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 60626,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 60665,
+        "health": 8,
+        "id": "TB_BaconUps_108",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Twilight Emissary",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Give a friendly Dragon +4/+4.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60666,
+        "id": "TB_BaconUps_108e",
+        "name": "Twilight Embrace",
+        "set": "BATTLEGROUNDS",
+        "text": "+4/+4.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 60630,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 60667,
+        "elite": true,
+        "health": 24,
+        "id": "TB_BaconUps_109",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Kalecgos, Arcane Aspect",
+        "race": "DRAGON",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "After you play a minion with <b>Battlecry</b>, give your Dragons +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60668,
+        "id": "TB_BaconUps_109e",
+        "name": "Arcane Aspect",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 10,
+        "battlegroundsNormalDbfId": 60637,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 60669,
+        "elite": true,
+        "health": 10,
+        "id": "TB_BaconUps_110",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Murozond",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]<b>Battlecry:</b> Add a minion\nfrom your last opponent's\nwarband to your hand.\nMake it Golden!",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 56112,
         "cardClass": "WARLOCK",
         "cost": 1,
         "dbfId": 60671,
@@ -86291,6 +87446,7 @@
     },
     {
         "attack": 6,
+        "battlegroundsNormalDbfId": 59937,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 60676,
@@ -86307,6 +87463,157 @@
         "techLevel": 2,
         "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Summon a 2/2 Imp.",
         "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 61029,
+        "cardClass": "MAGE",
+        "cost": 3,
+        "dbfId": 61032,
+        "health": 8,
+        "id": "TB_BaconUps_115",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Glyph Guardian",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "Whenever this attacks, triple its Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61031,
+        "id": "TB_BaconUps_115e",
+        "name": "Cold Breath",
+        "set": "BATTLEGROUNDS",
+        "text": "Multiplying Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 61028,
+        "cardClass": "WARLOCK",
+        "cost": 8,
+        "dbfId": 61043,
+        "health": 16,
+        "id": "TB_BaconUps_116",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Imp Mama",
+        "race": "DEMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "[x]Whenever this minion\ntakes damage, summon\n2 random Demons and\ngive them <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 61072,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 61075,
+        "health": 12,
+        "id": "TB_BaconUps_117",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Drakonid Enforcer",
+        "race": "DRAGON",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "After a friendly minion loses <b>Divine Shield</b>, gain +4/+4.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61076,
+        "id": "TB_BaconUps_117e",
+        "name": "Divinity",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 1808,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 61077,
+        "health": 6,
+        "id": "TB_BaconUps_118",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Unstable Ghoul",
+        "rarity": "COMMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Deal 1 damage to all minions twice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 61059,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 61081,
+        "health": 12,
+        "id": "TB_BaconUps_119",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Master Demonologist",
+        "race": "DEMON",
+        "set": "BATTLEGROUNDS",
+        "text": "Whenever you summon a Demon, gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61082,
+        "id": "TB_BaconUps_119e",
+        "name": "Demonic Fury",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 10,
+        "battlegroundsNormalDbfId": 42442,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 61442,
+        "health": 10,
+        "id": "TB_BaconUps_120",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Cobalt Scalebane",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "At the end of your turn, give another random friendly minion +6 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61443,
+        "id": "TB_BaconUps_120e",
+        "name": "Dragonscales",
+        "set": "BATTLEGROUNDS",
+        "text": "Attack increased.",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
@@ -86746,6 +88053,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 56355,
+        "hideCost": true,
         "id": "TB_Champs_KeepWinnerDeck_IK",
         "name": "Reset Champs Decks",
         "set": "TB",
@@ -86756,6 +88064,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 56322,
+        "hideCost": true,
         "id": "TB_Champs_KeepWinnerDeck_Reset",
         "name": "Reset Decks",
         "set": "TB",
@@ -88406,6 +89715,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 50826,
+        "hideCost": true,
         "id": "TB_Firefest2a",
         "name": "Move Over! (Ahune 1st)",
         "set": "TB",
@@ -88416,6 +89726,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 51665,
+        "hideCost": true,
         "id": "TB_Firefest2b",
         "name": "Move Over! (Ahune to Ragnaros)",
         "set": "TB",
@@ -88426,6 +89737,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 51666,
+        "hideCost": true,
         "id": "TB_Firefest2c",
         "name": "Move Over! (Ragnaros to Ahune)",
         "set": "TB",
@@ -88436,6 +89748,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 51667,
+        "hideCost": true,
         "id": "TB_Firefest2d",
         "name": "Move Over! (Ragnaros fully replaces Ahune)",
         "set": "TB",
@@ -88792,6 +90105,7 @@
         "cardClass": "NEUTRAL",
         "cost": 5,
         "dbfId": 54562,
+        "hideCost": true,
         "id": "TB_GiftReceiptSpell_Start",
         "name": "Happy Winter Veil!",
         "set": "TB",
@@ -89197,6 +90511,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 55311,
+        "hideCost": true,
         "id": "TB_Henchmania_DiscoverA",
         "name": "Work for Hagatha",
         "set": "TB",
@@ -89216,6 +90531,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 55312,
+        "hideCost": true,
         "id": "TB_Henchmania_DiscoverB",
         "name": "Work for Dr. Boom",
         "set": "TB",
@@ -89234,6 +90550,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 55313,
+        "hideCost": true,
         "id": "TB_Henchmania_DiscoverC",
         "name": "Work for Togwaggle",
         "set": "TB",
@@ -89252,6 +90569,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 55636,
+        "hideCost": true,
         "id": "TB_Henchmania_DiscoverD",
         "name": "Work for Madame Lazul",
         "set": "TB",
@@ -89310,6 +90628,109 @@
         "name": "VO Controller - Not Player Facing",
         "set": "TB",
         "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 61476,
+        "durability": 4,
+        "id": "TB_HunterPrince_01",
+        "name": "Warglaives of Azzinoth",
+        "set": "TB",
+        "text": "After attacking a minion, your hero may attack again.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 61477,
+        "id": "TB_HunterPrince_02",
+        "name": "Skull of Gul'dan",
+        "set": "TB",
+        "text": "Draw 3 cards.\n<b>Outcast:</b> Reduce their Cost by (3).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61478,
+        "id": "TB_HunterPrince_02e",
+        "name": "Embrace Power",
+        "set": "TB",
+        "text": "Costs (3) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 61482,
+        "elite": true,
+        "id": "TB_HunterPrince_03",
+        "name": "Metamorphosis",
+        "rarity": "LEGENDARY",
+        "set": "TB",
+        "text": "Swap your Hero Power to \"Deal 5 damage.\" After 2 uses, swap it back.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 61483,
+        "id": "TB_HunterPrince_03a",
+        "name": "Demonic Blast",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nDeal 5 damage.\n<i>(Two uses left!)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 61484,
+        "id": "TB_HunterPrince_03b",
+        "name": "Demonic Blast",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nDeal 5 damage.\n<i>(Last use!)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 61485,
+        "id": "TB_HunterPrince_04",
+        "name": "Demon Claws",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\n+1 Attack this turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61486,
+        "id": "TB_HunterPrince_04ench",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Demon Claws",
+        "set": "TB",
+        "text": "Your hero has +1 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEATHKNIGHT",
+        "dbfId": 59315,
+        "health": 30,
+        "id": "TB_HunterPrince_ArthasH",
+        "name": "Death Knight Arthas",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 61289,
+        "health": 30,
+        "id": "TB_HunterPrince_IllidanH",
+        "name": "Illidan Stormrage",
+        "set": "TB",
+        "type": "HERO"
     },
     {
         "cardClass": "MAGE",
@@ -89419,6 +90840,15 @@
         "set": "TB",
         "text": "<b>Hero Power</b>\nFind a Treasure!",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61470,
+        "id": "TB_Kaelthas_Ench",
+        "name": "Kaelthas Brawl Enchant",
+        "set": "TB",
+        "text": "Every third spell is free",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
@@ -89900,6 +91330,7 @@
         "dbfId": 58613,
         "elite": true,
         "health": 15,
+        "hideCost": true,
         "id": "TB_LEAGUE_REVIVAL_BrannHistory",
         "name": "Brann Bronzebeard",
         "rarity": "LEGENDARY",
@@ -90054,6 +91485,7 @@
         "cardClass": "NEUTRAL",
         "dbfId": 58614,
         "health": 40,
+        "hideCost": true,
         "id": "TB_LEAGUE_REVIVAL_FinleyHistory",
         "name": "Buried Finley",
         "set": "TB",
@@ -90091,6 +91523,7 @@
         "cost": 0,
         "dbfId": 56236,
         "health": 3,
+        "hideCost": true,
         "id": "TB_LEAGUE_REVIVAL_FinleySandPile",
         "mechanics": [
             "CANT_ATTACK",
@@ -90108,6 +91541,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 58506,
+        "hideCost": true,
         "id": "TB_LEAGUE_REVIVAL_FinleySwap",
         "name": "Move Over! (Finley Swaps in) NOT PLAYER FACING",
         "set": "TB",
@@ -90144,6 +91578,7 @@
         "dbfId": 58615,
         "elite": true,
         "health": 15,
+        "hideCost": true,
         "id": "TB_LEAGUE_REVIVAL_RenoHistory",
         "name": "Reno Jackson",
         "rarity": "LEGENDARY",
@@ -90427,6 +91862,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60533,
+        "hideCost": true,
         "id": "TB_Lunar_Dog",
         "name": "Blessing of the Dog",
         "set": "TB",
@@ -90436,6 +91872,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60534,
+        "hideCost": true,
         "id": "TB_Lunar_DogE",
         "name": "Blessing of the Dog",
         "set": "TB",
@@ -90445,6 +91882,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60535,
+        "hideCost": true,
         "id": "TB_Lunar_DogEe",
         "name": "Blessing of the Dog",
         "set": "TB",
@@ -90455,6 +91893,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60517,
+        "hideCost": true,
         "id": "TB_Lunar_Dragon",
         "name": "Blessing of the Dragon",
         "set": "TB",
@@ -90464,6 +91903,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60522,
+        "hideCost": true,
         "id": "TB_Lunar_DragonE",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -90477,6 +91917,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60519,
+        "hideCost": true,
         "id": "TB_Lunar_Horse",
         "name": "Blessing of the Horse",
         "set": "TB",
@@ -90486,6 +91927,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60523,
+        "hideCost": true,
         "id": "TB_Lunar_HorseE",
         "mechanics": [
             "AURA"
@@ -90499,6 +91941,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60510,
+        "hideCost": true,
         "id": "TB_Lunar_Monkey",
         "name": "Blessing of the Monkey",
         "set": "TB",
@@ -90508,6 +91951,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60524,
+        "hideCost": true,
         "id": "TB_Lunar_MonkeyE",
         "name": "Blessing of the Monkey",
         "set": "TB",
@@ -90518,6 +91962,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60514,
+        "hideCost": true,
         "id": "TB_Lunar_Ox",
         "name": "Blessing of the Ox",
         "set": "TB",
@@ -90527,6 +91972,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60525,
+        "hideCost": true,
         "id": "TB_Lunar_OxE",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -90549,6 +91995,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60511,
+        "hideCost": true,
         "id": "TB_Lunar_Pig",
         "name": "Blessing of the Pig",
         "set": "TB",
@@ -90558,6 +92005,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60526,
+        "hideCost": true,
         "id": "TB_Lunar_PigE",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -90571,6 +92019,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60516,
+        "hideCost": true,
         "id": "TB_Lunar_Rabbit",
         "name": "Blessing of the Rabbit",
         "set": "TB",
@@ -90580,6 +92029,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60527,
+        "hideCost": true,
         "id": "TB_Lunar_RabbitE",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -90593,6 +92043,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60513,
+        "hideCost": true,
         "id": "TB_Lunar_Rat",
         "name": "Blessing of the Rat",
         "set": "TB",
@@ -90602,6 +92053,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60528,
+        "hideCost": true,
         "id": "TB_Lunar_RatE",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -90615,6 +92067,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60521,
+        "hideCost": true,
         "id": "TB_Lunar_Rooster",
         "name": "Blessing of the Rooster",
         "set": "TB",
@@ -90624,6 +92077,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60529,
+        "hideCost": true,
         "id": "TB_Lunar_RoosterE",
         "name": "Blessing of the Rooster",
         "set": "TB",
@@ -90634,6 +92088,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60520,
+        "hideCost": true,
         "id": "TB_Lunar_Sheep",
         "name": "Blessing of the Sheep",
         "set": "TB",
@@ -90643,6 +92098,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60530,
+        "hideCost": true,
         "id": "TB_Lunar_SheepE",
         "name": "Blessing of the Sheep",
         "set": "TB",
@@ -90653,6 +92109,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60518,
+        "hideCost": true,
         "id": "TB_Lunar_Snake",
         "name": "Blessing of the Snake",
         "set": "TB",
@@ -90662,6 +92119,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60531,
+        "hideCost": true,
         "id": "TB_Lunar_SnakeE",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -90675,6 +92133,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 60515,
+        "hideCost": true,
         "id": "TB_Lunar_Tiger",
         "name": "Blessing of the Tiger",
         "set": "TB",
@@ -90684,6 +92143,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60532,
+        "hideCost": true,
         "id": "TB_Lunar_TigerE",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -90696,6 +92156,7 @@
     {
         "cardClass": "NEUTRAL",
         "dbfId": 60538,
+        "hideCost": true,
         "id": "TB_Lunar_TigerEe",
         "name": "Blessing of the Tiger",
         "set": "TB",
@@ -92144,6 +93605,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49779,
+        "hideCost": true,
         "id": "TB_SC20_001a",
         "name": "Tech Portals",
         "set": "TB",
@@ -92154,6 +93616,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49797,
+        "hideCost": true,
         "id": "TB_SC20_001b",
         "name": "Swarm Portals",
         "set": "TB",
@@ -92164,6 +93627,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 49799,
+        "hideCost": true,
         "id": "TB_SC20_001c",
         "name": "Mind Portals",
         "set": "TB",
@@ -95256,6 +96720,7 @@
     {
         "artist": "Luca Zontini",
         "attack": 7,
+        "battlegroundsPremiumDbfId": 58412,
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 7,
@@ -99065,6 +100530,7 @@
     {
         "artist": "Jim Nelson",
         "attack": 7,
+        "battlegroundsPremiumDbfId": 58424,
         "cardClass": "PRIEST",
         "cost": 6,
         "dbfId": 52041,
@@ -102961,6 +104427,7 @@
     {
         "artist": "Anton Zemskov",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 58385,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -109843,6 +111310,7 @@
         "cardClass": "PRIEST",
         "cost": 0,
         "dbfId": 57280,
+        "hideCost": true,
         "id": "ULDA_BOSS_51p",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -112005,6 +113473,7 @@
     {
         "artist": "James Ryman",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 58413,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 7,
@@ -112411,6 +113880,7 @@
     {
         "artist": "Garrett Hanna",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58374,
         "cardClass": "PRIEST",
         "collectible": true,
         "cost": 4,
@@ -112785,6 +114255,7 @@
     {
         "artist": "Alex Horley Orlandelli",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59485,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -115830,7 +117301,7 @@
     {
         "artist": "Peter Stapleton",
         "cardClass": "HUNTER",
-        "cost": 9,
+        "cost": 8,
         "dbfId": 59739,
         "flavor": "\"Hello. Misha, Leokk and Huffer aren't here right now, but if you leave a message we'll get back to you right away.\" BEEP.",
         "id": "WE1_027",
@@ -116596,6 +118067,7 @@
     {
         "artist": "Mike Sass",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 60671,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 1,
