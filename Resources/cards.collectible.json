@@ -2236,6 +2236,7 @@
     {
         "artist": "Jakub Kasper",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 58383,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -3002,6 +3003,7 @@
     {
         "artist": "Adam Byrne",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58392,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 6,
@@ -3564,6 +3566,7 @@
     {
         "artist": "Vladimir Kafanov",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 58376,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -4009,6 +4012,7 @@
     {
         "artist": "Eva Widermann",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 57336,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -4366,6 +4370,7 @@
     {
         "artist": "Hideaki Takamura",
         "attack": 0,
+        "battlegroundsPremiumDbfId": 58387,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 5,
@@ -4853,6 +4858,7 @@
     {
         "artist": "Tyler West Studio",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58369,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -4990,6 +4996,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 60327,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 4,
@@ -5156,6 +5163,7 @@
     {
         "artist": "Steve Prescott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58372,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 3,
@@ -5699,6 +5707,27 @@
     },
     {
         "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 56622,
+        "elite": true,
+        "flavor": "“Descent of Dragons was merely a set back!”",
+        "health": 7,
+        "howToEarnGolden": "Available in Future Content",
+        "id": "BT_255",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Kael'thas Sunstrider",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "Every third spell you cast each turn costs (0).",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
         "attack": 5,
         "cardClass": "PRIEST",
         "collectible": true,
@@ -5714,7 +5743,7 @@
         "name": "Raza the Chained",
         "rarity": "LEGENDARY",
         "set": "GANGS",
-        "text": "[x]  <b>Battlecry:</b> If your deck has  \nno duplicates, your Hero\n Power costs (1) this game.",
+        "text": "[x]  <b>Battlecry:</b> If your deck has  \nno duplicates, your Hero\n Power costs (0) this game.",
         "type": "MINION"
     },
     {
@@ -6117,6 +6146,7 @@
     {
         "artist": "Anton Zemskov",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 60053,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 1,
@@ -6138,6 +6168,7 @@
     {
         "artist": "Ozhill Studio",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58367,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -6566,6 +6597,7 @@
     {
         "artist": "Arthur Gimaldinov",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 59504,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 4,
@@ -8079,6 +8111,7 @@
     {
         "artist": "Dany Orizio",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 59512,
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 5,
@@ -11538,7 +11571,7 @@
     },
     {
         "artist": "Rudy Siswanto",
-        "attack": 1,
+        "attack": 2,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 1,
@@ -11959,6 +11992,7 @@
     {
         "artist": "Evgeniy Zagumennyy",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58380,
         "cardClass": "MAGE",
         "collectible": true,
         "cost": 2,
@@ -15655,6 +15689,7 @@
     {
         "artist": "Dan Brereton",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 59499,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 4,
@@ -16532,6 +16567,7 @@
     {
         "artist": "Dan Scott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58382,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -16765,6 +16801,7 @@
     {
         "artist": "Alex Horley Orlandelli",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 57404,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -16887,6 +16924,7 @@
     {
         "artist": "Arthur Gimaldinov",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59491,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -17295,6 +17333,7 @@
     {
         "artist": "John Dickenson",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 60025,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -17547,6 +17586,7 @@
     {
         "artist": "James Ryman",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 58418,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 7,
@@ -19107,6 +19147,7 @@
     {
         "artist": "Dan Scott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 57338,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -19129,6 +19170,7 @@
     {
         "artist": "Tim McBurnie",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 57403,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -19171,6 +19213,7 @@
     {
         "artist": "Jaemin Kim",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58138,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -19212,6 +19255,7 @@
     {
         "artist": "Jim Nelson",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58395,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 2,
@@ -19250,6 +19294,7 @@
     {
         "artist": "Milivoj Ceran",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 58409,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 6,
@@ -19264,7 +19309,7 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon two 2/2 Hyenas.",
         "type": "MINION"
     },
@@ -19413,6 +19458,7 @@
     {
         "artist": "Brian Despain",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 57401,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -19733,6 +19779,7 @@
     {
         "artist": "Glenn Rane",
         "attack": 9,
+        "battlegroundsPremiumDbfId": 58394,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 6,
@@ -20854,6 +20901,7 @@
     {
         "artist": "Mike Nicholson",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 61077,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -20870,6 +20918,7 @@
         "name": "Unstable Ghoul",
         "rarity": "COMMON",
         "set": "NAXX",
+        "techLevel": 2,
         "text": "<b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage to all minions.",
         "type": "MINION"
     },
@@ -21001,6 +21050,7 @@
     {
         "artist": "Ralph Horsley",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58421,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -22766,6 +22816,7 @@
     {
         "artist": "Evgeniy Dlinnov",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58378,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 5,
@@ -22982,6 +23033,7 @@
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
+        "techLevel": 2,
         "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
         "type": "MINION"
     },
@@ -23996,6 +24048,7 @@
     {
         "artist": "Wayne Reynolds",
         "attack": 9,
+        "battlegroundsPremiumDbfId": 58428,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 9,
@@ -24114,6 +24167,7 @@
     {
         "artist": "Brian Despain",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58397,
         "cardClass": "ROGUE",
         "collectible": true,
         "cost": 3,
@@ -24510,6 +24564,7 @@
     {
         "artist": "Hideaki Takamura",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 59495,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -24638,6 +24693,7 @@
     {
         "artist": "Jesper Ejsing",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59501,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 4,
@@ -24709,7 +24765,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "GVG",
-        "techLevel": 2,
         "text": "<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -25521,6 +25576,7 @@
     {
         "artist": "Todd Lockwood",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 60403,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 5,
@@ -25535,7 +25591,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "GVG",
-        "techLevel": 3,
+        "techLevel": 4,
         "text": "Whenever your hero takes damage on your turn, gain +2/+2.",
         "type": "MINION"
     },
@@ -25645,6 +25701,7 @@
     {
         "artist": "Zoltan Boros",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58402,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -26111,6 +26168,17 @@
         "health": 30,
         "id": "HERO_02d",
         "name": "Warchief Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 60673,
+        "health": 30,
+        "id": "HERO_02e",
+        "name": "Lady Vashj",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -26591,6 +26659,7 @@
     {
         "artist": "Jim Nelson",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 61442,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -26605,6 +26674,7 @@
         "race": "DRAGON",
         "rarity": "COMMON",
         "set": "ICECROWN",
+        "techLevel": 4,
         "text": "At the end of your turn, give another random friendly minion +3 Attack.",
         "type": "MINION"
     },
@@ -28220,6 +28290,7 @@
     {
         "artist": "James Ryman",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59508,
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 4,
@@ -28834,6 +28905,7 @@
     {
         "artist": "Tooth",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 58405,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 5,
@@ -29076,6 +29148,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 57340,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 2,
@@ -29758,6 +29831,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 59489,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -29908,6 +29982,7 @@
     {
         "artist": "Garrett Hanna",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 59510,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -30627,6 +30702,7 @@
     {
         "artist": "Sam Nielson",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58400,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -31332,7 +31408,7 @@
         "artist": "Joe Wilson",
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 43363,
         "flavor": "An emerald stone for Tauren hands\nWho sought its strength to save their lands\nTheir tribes now lost, their rage released\nWho’s hunting now? And who’s the beast?",
         "id": "LOOT_080",
@@ -32629,6 +32705,7 @@
     {
         "artist": "Jerry Mascho",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 58427,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 9,
@@ -33391,7 +33468,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 7,
+        "cost": 6,
         "dbfId": 46551,
         "flavor": "Sometimes she'll summon a Doomsayer. Out of spite.",
         "health": 4,
@@ -35339,7 +35416,7 @@
         "artist": "Peter Stapleton",
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 9,
+        "cost": 8,
         "dbfId": 38727,
         "flavor": "\"Hello. Misha, Leokk and Huffer aren't here right now, but if you leave a message we'll get back to you right away.\" BEEP.",
         "id": "OG_211",
@@ -35352,6 +35429,7 @@
     {
         "artist": "E. Guiton & A. Bozonnet",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 58365,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 4,
@@ -35413,6 +35491,7 @@
     {
         "artist": "Rafael Zanchetin",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58143,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 1,
@@ -35642,6 +35721,7 @@
     {
         "artist": "Peter Stapleton",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58168,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -35977,6 +36057,7 @@
     {
         "artist": "Alex Horley Orlandelli",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 58425,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 8,
@@ -37108,6 +37189,7 @@
     {
         "artist": "Luca Zontini",
         "attack": 7,
+        "battlegroundsPremiumDbfId": 58412,
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 7,
@@ -39848,6 +39930,7 @@
     {
         "artist": "Anton Zemskov",
         "attack": 4,
+        "battlegroundsPremiumDbfId": 58385,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -41878,6 +41961,7 @@
     {
         "artist": "James Ryman",
         "attack": 5,
+        "battlegroundsPremiumDbfId": 58413,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 7,
@@ -42209,6 +42293,7 @@
     {
         "artist": "Garrett Hanna",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 58374,
         "cardClass": "PRIEST",
         "collectible": true,
         "cost": 4,
@@ -42479,6 +42564,7 @@
     {
         "artist": "Alex Horley Orlandelli",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 59485,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -44838,6 +44924,7 @@
     {
         "artist": "Mike Sass",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 60671,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 1,
