@@ -52,6 +52,11 @@ class Zone : public IZone
     //! \return The removed entity.
     Playable* Remove(Playable* entity) override = 0;
 
+    //! Replaces an entity in the given position internally.
+    //! \param oldEntity The old entity.
+    //! \param newEntity The new entity.
+    virtual void ChangeEntity(Playable* oldEntity, Playable* newEntity) = 0;
+
     //! Moves the specified entity to a new position.
     //! \param entity The entity to move.
     //! \param zonePos The zone position of entity.
@@ -154,6 +159,25 @@ class UnlimitedZone : public Zone<Playable>
             m_entities.end());
 
         return entity;
+    }
+
+    //! Replaces an entity in the given position internally.
+    //! \param oldEntity The old entity.
+    //! \param newEntity The new entity.
+    void ChangeEntity(Playable* oldEntity, Playable* newEntity) override
+    {
+        std::size_t pos = 0;
+        for (std::size_t i = 0; i < m_entities.size(); ++i)
+        {
+            if (m_entities[i] == oldEntity)
+            {
+                pos = i;
+                break;
+            }
+        }
+
+        m_entities[pos] = newEntity;
+        newEntity->zone = this;
     }
 
     //! Moves the specified entity to a new position.
@@ -306,6 +330,11 @@ class LimitedZone : public Zone<T>
 
         return entity;
     }
+
+    //! Replaces an entity in the given position internally.
+    //! \param oldEntity The old entity.
+    //! \param newEntity The new entity.
+    void ChangeEntity(Playable* oldEntity, Playable* newEntity) override = 0;
 
     //! Moves the specified entity to a new position.
     //! \param entity The entity to move.
@@ -486,6 +515,17 @@ class PositioningZone : public LimitedZone<T>
         }
 
         return entity;
+    }
+
+    //! Replaces an entity in the given position internally.
+    //! \param oldEntity The old entity.
+    //! \param newEntity The new entity.
+    void ChangeEntity(Playable* oldEntity, Playable* newEntity) override
+    {
+        int pos = oldEntity->GetZonePosition();
+        LimitedZone<T>::m_entities[pos] = dynamic_cast<T*>(newEntity);
+        newEntity->SetZonePosition(pos);
+        newEntity->zone = this;
     }
 
     //! Swaps the positions of both entities in this zone.

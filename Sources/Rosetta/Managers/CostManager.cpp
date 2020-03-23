@@ -22,6 +22,32 @@ void CostManager::QueueUpdate()
     m_toBeUpdated = true;
 }
 
+int CostManager::EntityChanged(int newCardCost)
+{
+    for (auto& enchantment : m_costEnchantments)
+    {
+        switch (enchantment.first)
+        {
+            case EffectOperator::ADD:
+                newCardCost += enchantment.second;
+                break;
+            case EffectOperator::SUB:
+                newCardCost -= enchantment.second;
+                break;
+            case EffectOperator::MUL:
+                newCardCost *= enchantment.second;
+                break;
+            case EffectOperator::SET:
+                newCardCost = enchantment.second;
+                break;
+        }
+    }
+
+    newCardCost = GetCostInternal(newCardCost);
+
+    return newCardCost > 0 ? newCardCost : 0;
+}
+
 void CostManager::AddCostAura(EffectOperator effectOp, int value)
 {
     m_costEffects.emplace_back(std::make_pair(effectOp, value));

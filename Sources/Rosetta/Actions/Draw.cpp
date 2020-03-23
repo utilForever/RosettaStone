@@ -5,6 +5,7 @@
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
@@ -32,6 +33,14 @@ Playable* Draw(Player* player, Playable* cardToDraw)
     // Add card to hand
     if (AddCardToHand(player, playable))
     {
+        if (cardToDraw == nullptr)
+        {
+            player->game->taskQueue.StartEvent();
+            player->game->triggerManager.OnDrawCardTrigger(playable);
+            player->game->ProcessTasks();
+            player->game->taskQueue.EndEvent();
+        }
+
         auto tasks = playable->card->power.GetTopdeckTask();
 
         // Process topdeck tasks

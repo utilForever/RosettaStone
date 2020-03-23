@@ -14,12 +14,14 @@ using Random = effolkronium::random_static;
 namespace RosettaStone::SimpleTasks
 {
 RandomMinionTask::RandomMinionTask(GameTag tag, int value, int amount,
-                                   RelaSign relaSign, bool opposite)
+                                   RelaSign relaSign, bool opposite,
+                                   bool excludeSelf)
     : m_gameTag(tag),
       m_value(value),
       m_amount(amount),
       m_relaSign(relaSign),
-      m_opposite(opposite)
+      m_opposite(opposite),
+      m_excludeSelf(excludeSelf)
 {
     // Do nothing
 }
@@ -33,10 +35,31 @@ TaskStatus RandomMinionTask::Impl(Player* player)
     std::vector<Card*> cardsList;
     for (const auto& card : cards)
     {
-        if (m_gameTag == GameTag::CARDRACE && m_relaSign == RelaSign::EQ &&
-            card->GetRace() == static_cast<Race>(m_value))
+        if (m_excludeSelf && card->id == m_source->card->id)
         {
-            cardsList.emplace_back(card);
+            continue;
+        }
+
+        if (m_gameTag == GameTag::CARDRACE && m_relaSign == RelaSign::EQ)
+        {
+            if (card->GetCardType() == CardType::MINION &&
+                card->GetRace() == static_cast<Race>(m_value))
+            {
+                cardsList.emplace_back(card);
+            }
+        }
+        else
+        {
+            if (card->GetCardType() == CardType::MINION &&
+                ((m_relaSign == RelaSign::EQ &&
+                  card->gameTags[m_gameTag] == m_value) ||
+                 (m_relaSign == RelaSign::GEQ &&
+                  card->gameTags[m_gameTag] >= m_value) ||
+                 (m_relaSign == RelaSign::LEQ &&
+                  card->gameTags[m_gameTag] <= m_value)))
+            {
+                cardsList.emplace_back(card);
+            }
         }
     }
 
@@ -79,6 +102,7 @@ TaskStatus RandomMinionTask::Impl(Player* player)
 
 std::unique_ptr<ITask> RandomMinionTask::CloneImpl()
 {
-    return std::make_unique<RandomMinionTask>(m_gameTag, m_value, m_amount);
+    return std::make_unique<RandomMinionTask>(
+        m_gameTag, m_value, m_amount, m_relaSign, m_opposite, m_excludeSelf);
 }
 }  // namespace RosettaStone::SimpleTasks

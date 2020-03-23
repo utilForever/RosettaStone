@@ -63,11 +63,17 @@ class FieldZone : public PositioningZone<Minion>
     //! \return The index of the minion if it is found, -1 otherwise.
     int FindIndex(Minion* minion) const;
 
+    //! Activates a minion's trigger and aura and
+    //! applies it's spell power increment.
+    //! \param entity The entity to activate aura.
+    static void ActivateAura(Minion* entity);
+
     std::vector<AdjacentAura*> adjacentAuras;
 
  private:
-    static void ActivateAura(Minion* entity);
-
+    //! Removes a minion's trigger and aura and
+    //! applies it's spell power increment.
+    //! \param entity The entity to remove aura.
     static void RemoveAura(Minion* entity);
 };
 }  // namespace RosettaStone

@@ -38,6 +38,11 @@ class SecretZone : public LimitedZone<Spell>
     //! \return The entity.
     Playable* Remove(Playable* entity) override;
 
+    //! Replaces an entity in the given position internally.
+    //! \param oldEntity The old entity.
+    //! \param newEntity The new entity.
+    void ChangeEntity(Playable* oldEntity, Playable* newEntity) override;
+
     //! Returns whether the secret card exists in this zone.
     //! \param entity The spell to check whether it exists.
     //! \return The flag that indicates whether the spell exists.

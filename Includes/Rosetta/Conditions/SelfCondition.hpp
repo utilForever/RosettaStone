@@ -91,6 +91,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
 
+    //! SelfCondition wrapper for checking there is the entity
+    //! with \p race in opponent's field zone.
+    //! \param race The race for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOpControllingRace(Race race);
+
     //! SelfCondition wrapper for checking the secret exists
     //! in the owner's secret zone.
     //! \return Generated SelfCondition for intended purpose.
@@ -227,6 +233,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();
+
+    //! SelfCondition wrapper for checking it is no duplicate cards in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNoDuplicateInDeck();
 
     //! SelfCondition wrapper for checking the player has no neutral cards
     //! in deck.

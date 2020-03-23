@@ -71,13 +71,15 @@ TaskStatus HeroPowerTask::Impl(Player* player)
 
     player->game->ProcessDestroyAndUpdateAura();
 
+    power.SetExhausted(true);
+
     // Process use hero power trigger
     player->game->taskQueue.StartEvent();
     player->game->triggerManager.OnUseHeroPowerTrigger(player);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
-    power.SetExhausted(true);
+    player->game->ProcessDestroyAndUpdateAura();
 
     return TaskStatus::COMPLETE;
 }

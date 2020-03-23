@@ -48,8 +48,36 @@ void DeckZone::Add(Playable* entity, int zonePos)
     }
 }
 
+void DeckZone::ChangeEntity(Playable* oldEntity, Playable* newEntity)
+{
+    bool flag = false;
+    for (int i = 0; i < m_count; ++i)
+    {
+        if (m_entities[i] == oldEntity)
+        {
+            m_entities[i] = newEntity;
+            flag = true;
+            break;
+        }
+    }
+
+    if (!flag)
+    {
+        throw std::logic_error(
+            "DeckZone::ChangeEntity() - Can't find old entity");
+    }
+
+    newEntity->zone = this;
+}
+
 void DeckZone::Shuffle() const
 {
     Random::shuffle(m_entities, m_entities + m_count);
+}
+
+void DeckZone::SetEntity(int index, Playable* newEntity)
+{
+    m_entities[index] = newEntity;
+    newEntity->zone = this;
 }
 }  // namespace RosettaStone

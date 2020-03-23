@@ -54,6 +54,12 @@ Playable* SecretZone::Remove(Playable* entity)
     return LimitedZone::Remove(dynamic_cast<Spell*>(entity));
 }
 
+void SecretZone::ChangeEntity([[maybe_unused]] Playable* oldEntity,
+                              [[maybe_unused]] Playable* newEntity)
+{
+    throw std::logic_error("SecretZone::ChangeEntity() - Not implemented!");
+}
+
 bool SecretZone::Exist(Playable* entity) const
 {
     for (int i = 0; i < m_count; ++i)

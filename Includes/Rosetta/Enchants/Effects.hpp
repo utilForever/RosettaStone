@@ -146,6 +146,13 @@ class Effects
     //! action.
     inline static std::shared_ptr<IEffect> Immune =
         std::make_shared<Effect>(GameTag::IMMUNE, EffectOperator::SET, 1);
+
+    //! An ability allowing a minion to attack other minions the same turn it is
+    //! summoned or brought under a new player's control. Unlike Charge, Rush
+    //! cannot be used to attack the enemy hero. Rush is represented by a
+    //! shifting thick green border around the minion.
+    inline static std::shared_ptr<IEffect> Rush =
+        std::make_shared<Effect>(GameTag::RUSH, EffectOperator::SET, 1);
 };
 }  // namespace RosettaStone
 

@@ -56,6 +56,10 @@ void Aura::Activate(Playable* owner, bool cloning)
             owner->game->triggerManager.castSpellTrigger +=
                 instance->m_removeHandler;
             break;
+        case TriggerType::USE_HERO_POWER:
+            owner->game->triggerManager.useHeroPowerTrigger +=
+                instance->m_removeHandler;
+            break;
         default:
             break;
     }
@@ -166,6 +170,10 @@ void Aura::Remove()
             break;
         case TriggerType::CAST_SPELL:
             m_owner->game->triggerManager.castSpellTrigger -= m_removeHandler;
+            break;
+        case TriggerType::USE_HERO_POWER:
+            m_owner->game->triggerManager.useHeroPowerTrigger -=
+                m_removeHandler;
             break;
         default:
             break;
@@ -392,6 +400,11 @@ void Aura::UpdateInternal()
                     Apply(minion);
                 }
             }
+            break;
+        }
+        case AuraType::ENEMY_HERO_POWER:
+        {
+            Apply(m_owner->player->opponent->GetHero()->heroPower);
             break;
         }
         case AuraType::HAND:

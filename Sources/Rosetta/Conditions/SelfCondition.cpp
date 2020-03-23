@@ -154,6 +154,22 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsOpControllingRace(Race race)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& minion :
+             playable->player->opponent->GetFieldZone()->GetAll())
+        {
+            if (minion->card->GetRace() == race)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingSecret()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -428,6 +444,27 @@ SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player->GetRemainingMana();
+    });
+}
+
+SelfCondition SelfCondition::IsNoDuplicateInDeck()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        auto cards = playable->player->GetDeckZone()->GetAll();
+        std::map<std::string, int> result;
+
+        std::for_each(cards.begin(), cards.end(),
+                      [&result](Playable* val) { result[val->card->id]++; });
+
+        for (auto& res : result)
+        {
+            if (res.second >= 2)
+            {
+                return false;
+            }
+        }
+
+        return true;
     });
 }
 

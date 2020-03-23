@@ -55,6 +55,19 @@ TaskStatus AddCardTask::Impl(Player* player)
             }
             break;
         }
+        case EntityType::ENEMY_DECK:
+        {
+            for (int i = 0;
+                 i < m_amount && !player->opponent->GetDeckZone()->IsFull();
+                 ++i)
+            {
+                Card* card = Cards::FindCardByID(m_cardID);
+                Generic::ShuffleIntoDeck(
+                    player->opponent,
+                    Entity::GetFromCard(player->opponent, card));
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "AddCardTask::Impl() - Invalid entity type");

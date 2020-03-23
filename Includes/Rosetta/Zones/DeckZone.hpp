@@ -40,8 +40,18 @@ class DeckZone : public LimitedZone<Playable>
     //! \param zonePos The zone position.
     void Add(Playable* entity, int zonePos = -1) override;
 
+    //! Replaces an entity in the given position internally.
+    //! \param oldEntity The old entity.
+    //! \param newEntity The new entity.
+    void ChangeEntity(Playable* oldEntity, Playable* newEntity) override;
+
     //! Shuffles cards in deck.
     void Shuffle() const;
+
+    //! Sets an new entity.
+    //! \param index The position of entity.
+    //! \param newEntity The new entity.
+    void SetEntity(int index, Playable* newEntity);
 };
 }  // namespace RosettaStone
 

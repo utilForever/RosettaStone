@@ -103,6 +103,183 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
     }
 }
 
+void ChangeEntity(Player* player, Playable* playable, Card* newCard,
+                  bool removeEnchantments)
+{
+    if (removeEnchantments)
+    {
+        if (!playable->appliedEnchantments.empty())
+        {
+            const int enchantSize =
+                static_cast<int>(playable->appliedEnchantments.size());
+            for (int i = enchantSize - 1; i >= 0; --i)
+            {
+                playable->appliedEnchantments[i]->Remove();
+            }
+        }
+
+        playable->ResetCost();
+    }
+
+    if (playable->activatedTrigger)
+    {
+        playable->activatedTrigger->Remove();
+    }
+
+    if (playable->ongoingEffect)
+    {
+        playable->ongoingEffect->Remove();
+    }
+
+    auto hand = dynamic_cast<HandZone*>(playable->zone);
+    auto field = dynamic_cast<FieldZone*>(playable->zone);
+    int id = playable->GetGameTag(GameTag::ENTITY_ID);
+
+    if (hand != nullptr)
+    {
+        for (auto& aura : hand->auras)
+        {
+            aura->Disapply(playable);
+        }
+    }
+    else if (field != nullptr)
+    {
+        for (auto& aura : field->auras)
+        {
+            aura->Disapply(playable);
+        }
+    }
+
+    if (playable->card->GetCardType() == newCard->GetCardType())
+    {
+        playable->card = newCard;
+
+        if (playable->costManager != nullptr)
+        {
+            playable->costManager->EntityChanged(newCard->GetCost());
+        }
+    }
+    else
+    {
+        Playable* entity;
+
+        switch (newCard->GetCardType())
+        {
+            case CardType::HERO:
+                entity =
+                    new Hero(player, newCard, playable->card->gameTags, id);
+                break;
+            case CardType::MINION:
+                entity =
+                    new Minion(player, newCard, playable->card->gameTags, id);
+                break;
+            case CardType::SPELL:
+                entity =
+                    new Spell(player, newCard, playable->card->gameTags, id);
+                break;
+            case CardType::WEAPON:
+                entity =
+                    new Weapon(player, newCard, playable->card->gameTags, id);
+                break;
+            default:
+                throw std::invalid_argument(
+                    "Generic::ChangeEntity() - Invalid card type");
+        }
+
+        if (hand != nullptr)
+        {
+            hand->ChangeEntity(playable, entity);
+        }
+        else if (field != nullptr)
+        {
+            field->ChangeEntity(playable, entity);
+        }
+        else if (auto deck = dynamic_cast<DeckZone*>(playable->zone); deck)
+        {
+            deck->ChangeEntity(playable, entity);
+        }
+
+        player->game->entityList[id] = entity;
+
+        if (playable->costManager != nullptr)
+        {
+            playable->costManager->EntityChanged(newCard->GetCost());
+        }
+
+        entity->costManager = playable->costManager;
+        playable = entity;
+    }
+
+    // Replay auras
+    if (hand != nullptr)
+    {
+        if (auto trigger = playable->card->power.GetTrigger(); trigger)
+        {
+            trigger->Activate(playable, TriggerActivation::HAND);
+        }
+
+        if (auto effect = dynamic_cast<AdaptiveCostEffect*>(
+                playable->card->power.GetAura());
+            effect)
+        {
+            effect->Activate(playable);
+        }
+
+        for (auto& aura : hand->auras)
+        {
+            aura->NotifyEntityAdded(playable);
+        }
+    }
+    else if (field != nullptr)
+    {
+        auto minion = dynamic_cast<Minion*>(playable);
+        if (minion->player == player->game->GetCurrentPlayer())
+        {
+            if (!minion->HasCharge())
+            {
+                if (minion->IsRush())
+                {
+                    minion->SetExhausted(false);
+                    minion->SetAttackableByRush(true);
+                    player->game->rushMinions.emplace_back(
+                        minion->GetGameTag(GameTag::ENTITY_ID));
+                }
+                else
+                {
+                    minion->SetExhausted(true);
+                }
+            }
+            else
+            {
+                minion->SetExhausted(false);
+            }
+        }
+        else
+        {
+            minion->SetExhausted(true);
+        }
+
+        FieldZone::ActivateAura(minion);
+
+        for (auto& aura : field->auras)
+        {
+            aura->NotifyEntityAdded(playable);
+        }
+
+        for (auto& aura : field->adjacentAuras)
+        {
+            aura->SetIsFieldChanged(true);
+        }
+    }
+    else if (auto deck = dynamic_cast<DeckZone*>(playable->zone); deck)
+    {
+        if (auto trigger = playable->card->power.GetTrigger(); trigger)
+        {
+            trigger->Activate(playable, TriggerActivation::DECK);
+        }
+    }
+}
+
 void ShuffleIntoDeck(Player* player, Playable* entity)
 {
     // Add card to graveyard if deck is full

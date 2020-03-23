@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
@@ -10,21 +11,26 @@
 
 namespace RosettaStone::SimpleTasks
 {
+TransformCopyTask::TransformCopyTask(bool toTarget) : m_toTarget(toTarget)
+{
+    // Do nothing
+}
+
 TaskStatus TransformCopyTask::Impl(Player* player)
 {
-    const auto target = dynamic_cast<Minion*>(m_target);
+    const auto target = dynamic_cast<Minion*>(m_toTarget ? m_source : m_target);
     if (target == nullptr)
     {
         return TaskStatus::STOP;
     }
 
-    const auto source = dynamic_cast<Minion*>(m_source);
+    const auto source = dynamic_cast<Minion*>(m_toTarget ? m_target : m_source);
     if (source->GetZoneType() != ZoneType::PLAY)
     {
         return TaskStatus::STOP;
     }
 
-    auto copy = Entity::GetFromCard(player, m_target->card, {});
+    auto copy = Entity::GetFromCard(player, target->card, {});
     IAura* aura = target->ongoingEffect;
 
     source->player->GetFieldZone()->Replace(source,
@@ -69,9 +75,15 @@ TaskStatus TransformCopyTask::Impl(Player* player)
         aura->Clone(copy);
     }
 
-    if (target->GetGameTag(GameTag::CHARGE) == 0)
+    if (target->HasCharge())
     {
-        copy->SetExhausted(true);
+        copy->SetExhausted(false);
+    }
+    else if (target->IsRush())
+    {
+        dynamic_cast<Minion*>(copy)->SetAttackableByRush(true);
+        copy->game->rushMinions.emplace_back(
+            copy->GetGameTag(GameTag::ENTITY_ID));
     }
 
     return TaskStatus::COMPLETE;
@@ -79,6 +91,6 @@ TaskStatus TransformCopyTask::Impl(Player* player)
 
 std::unique_ptr<ITask> TransformCopyTask::CloneImpl()
 {
-    return std::make_unique<TransformCopyTask>();
+    return std::make_unique<TransformCopyTask>(m_toTarget);
 }
 }  // namespace RosettaStone::SimpleTasks

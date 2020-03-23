@@ -61,6 +61,7 @@ class Trigger
     //! \param type The sequence type.
     static void ValidateTriggers(Game* game, Entity* source, SequenceType type);
 
+    TriggerActivation triggerActivation = TriggerActivation::PLAY;
     TriggerSource triggerSource = TriggerSource::NONE;
 
     std::vector<std::shared_ptr<ITask>> tasks;
@@ -90,7 +91,6 @@ class Trigger
     Playable* m_owner = nullptr;
 
     TriggerType m_triggerType = TriggerType::NONE;
-    TriggerActivation m_triggerActivation = TriggerActivation::PLAY;
     SequenceType m_sequenceType = SequenceType::NONE;
 
     bool m_isValidated = false;
