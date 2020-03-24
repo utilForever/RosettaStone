@@ -206,6 +206,13 @@ SelfCondition SelfCondition::IsSpell()
     });
 }
 
+SelfCondition SelfCondition::IsWeapon()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return dynamic_cast<Weapon*>(playable) != nullptr;
+    });
+}
+
 SelfCondition SelfCondition::IsSecret()
 {
     return SelfCondition([=](Playable* playable) -> bool {

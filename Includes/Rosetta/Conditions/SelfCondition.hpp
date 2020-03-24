@@ -116,6 +116,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSpell();
 
+    //! SelfCondition wrapper for checking the entity is weapon.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsWeapon();
+
     //! SelfCondition wrapper for checking the entity is secret.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSecret();
