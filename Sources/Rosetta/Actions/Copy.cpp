@@ -107,18 +107,31 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
         }
         case ZoneType::PLAY:
         {
-            int position = -1;
-
-            if (deathrattle)
+            if (const auto weapon = dynamic_cast<Weapon*>(copiedEntity); weapon)
             {
-                position = dynamic_cast<Minion*>(source)->GetLastBoardPos();
-                if (position > player->GetFieldZone()->GetCount())
+                if (player->GetHero()->HasWeapon())
                 {
-                    position = player->GetFieldZone()->GetCount();
+                    player->GetWeapon().Destroy();
                 }
-            }
 
-            Summon(dynamic_cast<Minion*>(copiedEntity), position, source);
+                player->GetHero()->AddWeapon(*weapon);
+            }
+            else
+            {
+                int position = -1;
+
+                if (deathrattle)
+                {
+                    position = dynamic_cast<Minion*>(source)->GetLastBoardPos();
+
+                    if (position > player->GetFieldZone()->GetCount())
+                    {
+                        position = player->GetFieldZone()->GetCount();
+                    }
+                }
+
+                Summon(dynamic_cast<Minion*>(copiedEntity), position, source);
+            }
             break;
         }
         case ZoneType::SETASIDE:
