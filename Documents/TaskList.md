@@ -34,6 +34,7 @@
 * DamageNumberTask
 * DamageTask
 * DamageWeaponTask
+* DestroyAllTask
 * DestroyTask
 * DiscardTask
 * DiscoverTask

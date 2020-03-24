@@ -737,15 +737,15 @@ DRAGONS | DRG_028 | Dragon's Hoard | O
 DRAGONS | DRG_030 | Praise Galakrond! | O
 DRAGONS | DRG_031 | Necrium Apothecary | O
 DRAGONS | DRG_033 | Candle Breath | O
-DRAGONS | DRG_034 | Stowaway |  
+DRAGONS | DRG_034 | Stowaway | O
 DRAGONS | DRG_035 | Bloodsail Flybooter | O
 DRAGONS | DRG_036 | Waxadred | O
-DRAGONS | DRG_037 | Flik Skyshiv |  
+DRAGONS | DRG_037 | Flik Skyshiv | O
 DRAGONS | DRG_049 | Tasty Flyfish | O
 DRAGONS | DRG_050 | Devoted Maniac | O
 DRAGONS | DRG_051 | Strength in Numbers | O
 DRAGONS | DRG_054 | Big Ol' Whelp | O
-DRAGONS | DRG_055 | Hoard Pillager |  
+DRAGONS | DRG_055 | Hoard Pillager | O
 DRAGONS | DRG_056 | Parachute Brigand | O
 DRAGONS | DRG_057 | Hot Air Balloon | O
 DRAGONS | DRG_058 | Wing Commander | O
@@ -758,9 +758,9 @@ DRAGONS | DRG_064 | Zul'Drak Ritualist | O
 DRAGONS | DRG_065 | Hippogryph | O
 DRAGONS | DRG_066 | Evasive Chimaera | O
 DRAGONS | DRG_067 | Troll Batrider | O
-DRAGONS | DRG_068 | Living Dragonbreath |  
+DRAGONS | DRG_068 | Living Dragonbreath | O
 DRAGONS | DRG_069 | Platebreaker | O
-DRAGONS | DRG_070 | Dragon Breeder |  
+DRAGONS | DRG_070 | Dragon Breeder | O
 DRAGONS | DRG_071 | Bad Luck Albatross | O
 DRAGONS | DRG_072 | Skyfin | O
 DRAGONS | DRG_073 | Evasive Feywing | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 82% (116 of 140 Cards)
+- Progress: 86% (121 of 140 Cards)
 
 ## Galakrond's Awakening
 
