@@ -10,6 +10,7 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
@@ -3876,6 +3877,50 @@ TEST_CASE("[Rogue : Spell] - DRG_033 : Candle Breath")
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 8);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [DRG_034] Stowaway - COST:5 [ATK:4/HP:4]
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If there are cards in your deck
+//       that didn't start there, draw 2 of them.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DRG_034 : Stowaway")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stowaway"));
+
+    game.Process(curPlayer, AddCardTask(EntityType::DECK, "EX1_537", 3));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->name, "Explosive Shot");
+    CHECK_EQ(curHand[5]->card->name, "Explosive Shot");
 }
 
 // ----------------------------------------- MINION - ROGUE

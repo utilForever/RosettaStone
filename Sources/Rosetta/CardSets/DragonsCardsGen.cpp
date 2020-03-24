@@ -1994,6 +1994,12 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNotStartInDeck()) }));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(2));
+    cards.emplace("DRG_034", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DRG_035] Bloodsail Flybooter - COST:1 [ATK:1/HP:1]
