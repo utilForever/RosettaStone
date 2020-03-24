@@ -22,6 +22,8 @@ int PlayerAuraEffects::GetValue(GameTag tag) const
             return m_healingDoesDamage;
         case GameTag::CAN_TARGET_MINION_BY_HERO_POWER:
             return m_canTargetMinionByHeroPower;
+        case GameTag::CANT_BE_FROZEN:
+            return m_cantBeFrozen;
         default:
             throw std::invalid_argument(
                 "PlayerAuraEffects::GetValue() - Invalid game tag!");
@@ -44,6 +46,9 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
             break;
         case GameTag::CAN_TARGET_MINION_BY_HERO_POWER:
             m_canTargetMinionByHeroPower = value;
+            break;
+        case GameTag::CANT_BE_FROZEN:
+            m_cantBeFrozen = value;
             break;
         default:
             throw std::invalid_argument(
