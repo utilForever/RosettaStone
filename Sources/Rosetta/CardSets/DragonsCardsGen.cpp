@@ -2366,6 +2366,10 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Can't be <b>Frozen</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(GameTag::CANT_BE_FROZEN,
+                                               EffectOperator::SET, 1));
+    cards.emplace("DRG_068e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DRG_096e2] Smoshing (*) - COST:0
@@ -3238,6 +3242,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::PLAYER, "DRG_068e"));
+    cards.emplace("DRG_068", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_069] Platebreaker - COST:5 [ATK:5/HP:5]

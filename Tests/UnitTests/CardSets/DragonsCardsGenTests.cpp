@@ -6413,6 +6413,81 @@ TEST_CASE("[Neutral : Minion] - DRG_067 : Troll Batrider")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_068] Living Dragonbreath - COST:3 [ATK:3/HP:4]
+// - Race: Elemental, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: Your minions can't be <b>Frozen</b>.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_068 : Living Dragonbreath")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Living Dragonbreath"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stormwind Knight"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stormwind Knight"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Water Elemental"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, AttackTask(card3, card6));
+    CHECK_EQ(curField[2]->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_069] Platebreaker - COST:5 [ATK:5/HP:5]
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------
