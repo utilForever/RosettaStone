@@ -3270,6 +3270,19 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 24
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::HAND));
+    cards.emplace(
+        "DRG_070",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 24 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_071] Bad Luck Albatross - COST:3 [ATK:4/HP:3]

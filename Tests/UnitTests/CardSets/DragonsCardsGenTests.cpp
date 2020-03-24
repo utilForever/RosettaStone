@@ -6537,6 +6537,62 @@ TEST_CASE("[Neutral : Minion] - DRG_069 : Platebreaker")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_070] Dragon Breeder - COST:2 [ATK:2/HP:3]
+// - Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Choose a friendly Dragon.
+//       Add a copy of it to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_TARGET_WITH_RACE = 24
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_070 : Dragon Breeder")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dragon Breeder"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Herald"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_NE(curHand[0]->card->name, "Bronze Herald");
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Bronze Herald");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_071] Bad Luck Albatross - COST:3 [ATK:4/HP:3]
 // - Race: Beast, Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
