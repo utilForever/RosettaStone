@@ -68,7 +68,10 @@ void Attack(Player* player, Character* source, Character* target,
     // Freeze target if attacker is freezer
     if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        realTarget->SetGameTag(GameTag::FROZEN, 1);
+        if (!realTarget->player->CantBeFrozen())
+        {
+            realTarget->SetGameTag(GameTag::FROZEN, 1);
+        }
     }
 
     // Destroy target if attacker is poisonous
@@ -87,7 +90,10 @@ void Attack(Player* player, Character* source, Character* target,
         // Freeze source if defender is freezer
         if (isSourceDamaged && realTarget->GetGameTag(GameTag::FREEZE) == 1)
         {
-            source->SetGameTag(GameTag::FROZEN, 1);
+            if (!source->player->CantBeFrozen())
+            {
+                source->SetGameTag(GameTag::FROZEN, 1);
+            }
         }
 
         // Destroy source if defender is poisonous
