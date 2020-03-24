@@ -2985,6 +2985,15 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()),
+        std::make_shared<SelfCondition>(SelfCondition::IsWeapon()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY));
+    cards.emplace("DRG_055", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_056] Parachute Brigand - COST:2 [ATK:2/HP:2]

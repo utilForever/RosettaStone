@@ -5794,6 +5794,63 @@ TEST_CASE("[Neutral : Minion] - DRG_054 : Big Ol' Whelp")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_055] Hoard Pillager - COST:4 [ATK:4/HP:2]
+// - Race: Pirate, Set: Dragons, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Equip one of your destroyed weapons.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_055 : Hoard Pillager")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hoard Pillager"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gorehowl"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(curHero->HasWeapon(), true);
+
+    game.Process(curPlayer, AttackTask(curHero, opPlayer->GetHero()));
+    CHECK_EQ(curHero->HasWeapon(), false);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 23);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHero->HasWeapon(), true);
+
+    game.Process(curPlayer, AttackTask(curHero, opPlayer->GetHero()));
+    CHECK_EQ(curHero->HasWeapon(), false);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 16);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_056] Parachute Brigand - COST:2 [ATK:2/HP:2]
 // - Race: Pirate, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
