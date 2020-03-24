@@ -43,6 +43,7 @@ enum class EntityType
     MINIONS_NOSOURCE,
     ENEMY_MINIONS,
     ENEMY_SECRETS,
+    GRAVEYARD,
     STACK,
     PLAYER,
     ENEMY_PLAYER,

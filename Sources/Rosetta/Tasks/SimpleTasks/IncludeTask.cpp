@@ -7,6 +7,7 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
@@ -216,6 +217,12 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             for (auto& secret : player->opponent->GetSecretZone()->GetAll())
             {
                 entities.emplace_back(secret);
+            }
+            break;
+        case EntityType::GRAVEYARD:
+            for (auto& entity : player->GetGraveyardZone()->GetAll())
+            {
+                entities.emplace_back(entity);
             }
             break;
         case EntityType::STACK:
@@ -428,6 +435,12 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             for (auto& secret : player->opponent->GetSecretZone()->GetAll())
             {
                 entities.emplace_back(secret);
+            }
+            break;
+        case EntityType::GRAVEYARD:
+            for (auto& entity : player->GetGraveyardZone()->GetAll())
+            {
+                entities.emplace_back(entity);
             }
             break;
         case EntityType::STACK:
