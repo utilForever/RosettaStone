@@ -112,7 +112,7 @@ class Player : public Entity
 
     //! Returns the value of time out.
     //! \return The value of time out.
-    int GetTimeOut();
+    int GetTimeOut() const;
 
     //! Sets the value of time out.
     //! \param value The value of time out.
@@ -120,9 +120,13 @@ class Player : public Entity
 
     //! Returns whether this player all cards and powers that restore Health
     //! deal damage instead. (e.g. True when Auchenai Soulpriest is in play.)
-    //! \return True if for this player all cards and powers that
-    //! restore Health deal damage instead.
-    bool IsHealingDoesDamage();
+    //! \return true if for this player all cards and powers that
+    //! restore Health deal damage instead, false otherwise.
+    bool IsHealingDoesDamage() const;
+
+    //! Returns whether my minions can't be Frozen.
+    //! \return true if for my minions can't be Frozen, false otherwise.
+    bool CantBeFrozen() const;
 
     //! Returns total amount of mana available.
     //! \return Total amount of mana available.

@@ -133,7 +133,7 @@ void Player::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
-int Player::GetTimeOut()
+int Player::GetTimeOut() const
 {
     return GetGameTag(GameTag::TIMEOUT) +
            playerAuraEffects.GetValue(GameTag::TIMEOUT);
@@ -144,9 +144,14 @@ void Player::SetTimeOut(int value)
     SetGameTag(GameTag::TIMEOUT, value);
 }
 
-bool Player::IsHealingDoesDamage()
+bool Player::IsHealingDoesDamage() const
 {
     return playerAuraEffects.GetValue(GameTag::HEALING_DOES_DAMAGE) > 0;
+}
+
+bool Player::CantBeFrozen() const
+{
+    return playerAuraEffects.GetValue(GameTag::CANT_BE_FROZEN) > 0;
 }
 
 int Player::GetTotalMana() const
