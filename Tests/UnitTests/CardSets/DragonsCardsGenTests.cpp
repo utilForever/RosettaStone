@@ -4022,6 +4022,86 @@ TEST_CASE("[Rogue : Minion] - DRG_036 : Waxadred")
     CHECK_EQ(curField[0]->card->name, "Waxadred");
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DRG_037] Flik Skyshiv - COST:6 [ATK:4/HP:4]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a minion and all copies
+//       of it <i>(wherever they are)</i>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DRG_037 : Flik Skyshiv")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Flik Skyshiv"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 7);
+    CHECK_EQ(opDeck.GetCount(), 25);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card4, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 1);
+    CHECK_EQ(opDeck.GetCount(), 0);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [DRG_247] Seal Fate - COST:3
 // - Set: Dragons, Rarity: Rare
