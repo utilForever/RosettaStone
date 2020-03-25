@@ -8,6 +8,7 @@
 #define ROSETTASTONE_CHOICE_HPP
 
 #include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Models/Entity.hpp>
 
 #include <vector>
 
@@ -16,8 +17,9 @@ namespace RosettaStone
 //! The action type of choice.
 enum class ChoiceAction
 {
-    INVALID = 0,    //!< Invalid action.
-    HAND = 1,       //!< Hand.
+    INVALID = 0,      //!< Invalid action.
+    HAND = 1,         //!< Hand.
+    ENCHANTMENT = 2,  //! < Enchantment.
 };
 
 //!
@@ -30,6 +32,7 @@ struct Choice
     ChoiceType choiceType = ChoiceType::INVALID;
     ChoiceAction choiceAction = ChoiceAction::INVALID;
 
+    Entity* source = nullptr;
     std::vector<std::size_t> choices;
 };
 }  // namespace RosettaStone
