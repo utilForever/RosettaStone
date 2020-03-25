@@ -5,6 +5,8 @@
 
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
@@ -114,9 +116,29 @@ bool ChoicePick(Player* player, std::size_t choice)
             AddCardToHand(player, playable);
             break;
         }
+        case ChoiceAction::ENCHANTMENT:
+        {
+            player->game->taskStack.num[0] = static_cast<int>(choice);
+
+            auto tasks = choiceVal.source->card->power.GetAfterDiscoverTask();
+
+            // Process after discover tasks
+            for (auto& task : tasks)
+            {
+                std::unique_ptr<ITask> clonedTask = task->Clone();
+
+                clonedTask->SetPlayer(player);
+                clonedTask->SetSource(choiceVal.source);
+                clonedTask->SetTarget(nullptr);
+
+                clonedTask->Run();
+            }
+
+            break;
+        }
         default:
             throw std::invalid_argument(
-                "ChoiceMulligan() - Invalid choice action!");
+                "ChoicePick() - Invalid choice action!");
     }
 
     // It's done! - Reset choice
@@ -165,6 +187,7 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
     Choice choice;
     choice.choiceType = type;
     choice.choiceAction = action;
+    choice.source = source;
     choice.choices = choiceIDs;
 
     if (!player->choice.has_value())
