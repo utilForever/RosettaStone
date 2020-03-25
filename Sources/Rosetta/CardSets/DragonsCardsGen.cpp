@@ -51,6 +51,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCapturedMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
@@ -3531,6 +3532,13 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::MINION, CardClass::INVALID, Race::DRAGON, Rarity::INVALID,
+        ChoiceAction::ENCHANTMENT));
+    power.AddAfterDiscoverTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_086e", EntityType::SOURCE, false, true));
+    cards.emplace("DRG_086", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_088] Dread Raven - COST:3 [ATK:3/HP:4]
@@ -3871,6 +3879,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // Text: It's a mystery...@{0} is inside!
     //       <i>(Only you can see this.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<SummonCapturedMinionTask>());
+    cards.emplace("DRG_086e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_088e] Conspiracy of Ravens (*) - COST:0

@@ -7280,6 +7280,67 @@ TEST_CASE("[Neutral : Minion] - DRG_084 : Tentacled Menace")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_086] Chromatic Egg - COST:5 [ATK:0/HP:3]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Secretly <b>Discover</b>
+//       a Dragon to hatch into. <b>Deathrattle:</b> Hatch!
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_086 : Chromatic Egg")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chromatic Egg"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetRace(), Race::DRAGON);
+    }
+
+    Generic::ChoicePick(curPlayer, 27);
+    auto minion = game.entityList[27];
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, minion->card->name);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_088] Dread Raven - COST:3 [ATK:3/HP:4]
 // - Race: Beast, Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
