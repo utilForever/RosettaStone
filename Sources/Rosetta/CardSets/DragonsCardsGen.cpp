@@ -3489,6 +3489,16 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
+        if (player->opponent->GetHero()->HasWeapon())
+        {
+            player->GetHero()->AddWeapon(*player->opponent->GetHero()->weapon);
+            player->GetHero()->weapon->player = player;
+            player->opponent->GetHero()->weapon = nullptr;
+        }
+    }));
+    cards.emplace("DRG_082", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_084] Tentacled Menace - COST:5 [ATK:6/HP:5]
