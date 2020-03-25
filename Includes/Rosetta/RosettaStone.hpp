@@ -73,6 +73,7 @@
 #include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enchants/Power.hpp>
+#include <Rosetta/Enchants/SwapCostEnchant.hpp>
 #include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
