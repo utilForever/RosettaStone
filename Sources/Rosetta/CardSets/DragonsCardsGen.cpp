@@ -9,6 +9,7 @@
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Enchants/SwapCostEnchant.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -3510,6 +3511,12 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(std::make_shared<DrawOpTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_084e", EntityType::STACK));
+    cards.emplace("DRG_084", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_086] Chromatic Egg - COST:5 [ATK:0/HP:3]
@@ -3853,6 +3860,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Cost swapped by Tentacled Menace.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<SwapCostEnchant>());
+    cards.emplace("DRG_084e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_086e] What's in the Egg? (*) - COST:0

@@ -7218,6 +7218,68 @@ TEST_CASE("[Neutral : Minion] - DRG_082 : Kobold Stickyfinger")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_084] Tentacled Menace - COST:5 [ATK:6/HP:5]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Each player draws a card.
+//       Swap their Costs.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_084 : Tentacled Menace")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tentacled Menace"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->GetCost(), 9);
+    CHECK_EQ(opHand.GetCount(), 6);
+    CHECK_EQ(opHand[5]->GetCost(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(opHand[5]));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(curHand[4], opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_088] Dread Raven - COST:3 [ATK:3/HP:4]
 // - Race: Beast, Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
