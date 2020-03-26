@@ -2755,6 +2755,11 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player) { player->GetHandZone()->Expand(12); }));
+    power.AddPowerTask(std::make_shared<DrawTask>(4));
+    cards.emplace("DRG_208", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_209] Zzeraku the Warped - COST:8 [ATK:4/HP:12]

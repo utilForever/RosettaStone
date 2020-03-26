@@ -5211,6 +5211,68 @@ TEST_CASE("[Warlock : Minion] - DRG_207 : Abyssal Summoner")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [DRG_208] Valdris Felgorge - COST:7 [ATK:4/HP:4]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Increase your maximum hand size
+//       to 12. Draw 4 cards.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DRG_208 : Valdris Felgorge")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Valdris Felgorge"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 11);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 12);
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [DRG_209] Zzeraku the Warped - COST:8 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
