@@ -40,6 +40,10 @@ class HandZone : public PositioningZone<Playable>
     //! \return The entity.
     Playable* Remove(Playable* entity) override;
 
+    //! Expands the size of hand.
+    //! \param newSize The size of hand to expand.
+    void Expand(int newSize);
+
     //! Finds the index of the entity.
     //! \param entity The entity to find.
     //! \return The index of the entity if it is found, -1 otherwise.

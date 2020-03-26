@@ -74,6 +74,20 @@ Playable* HandZone::Remove(Playable* entity)
     return PositioningZone::Remove(entity);
 }
 
+void HandZone::Expand(int newSize)
+{
+    const auto entities = new Playable*[newSize];
+
+    for (int i = 0; i < m_count; ++i)
+    {
+        entities[i] = m_entities[i];
+    }
+
+    delete m_entities;
+    m_entities = entities;
+    m_maxSize = newSize;
+}
+
 int HandZone::FindIndex(Entity* entity) const
 {
     for (std::size_t idx = 0; idx < MAX_HAND_SIZE; ++idx)
