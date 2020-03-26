@@ -4,7 +4,11 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Attack.hpp>
+#include <Rosetta/Actions/CastSpell.hpp>
+#include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/PlayCard.hpp>
+#include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
@@ -1737,6 +1741,88 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
+        auto cardsOpPlayedLastTurn = player->opponent->cardsPlayedThisTurn;
+        Random::shuffle(cardsOpPlayedLastTurn.begin(),
+                        cardsOpPlayedLastTurn.end());
+
+        for (auto& card : cardsOpPlayedLastTurn)
+        {
+            auto validTargets = card->GetValidPlayTargets(player);
+            if (card->mustHaveToTargetToPlay && validTargets.empty())
+            {
+                continue;
+            }
+
+            const auto targetIdx =
+                Random::get<std::size_t>(0, validTargets.size() - 1);
+            const auto randTarget =
+                validTargets.empty() ? nullptr : validTargets[targetIdx];
+            const auto chooseOneIdx = Random::get<int>(1, 2);
+
+            Entity* entity = Entity::GetFromCard(player, card);
+
+            switch (card->GetCardType())
+            {
+                case CardType::HERO:
+                {
+                    Generic::PlayHero(player, dynamic_cast<Hero*>(entity),
+                                      randTarget, chooseOneIdx);
+                    break;
+                }
+                case CardType::MINION:
+                {
+                    if (player->GetFieldZone()->IsFull())
+                    {
+                        break;
+                    }
+
+                    Generic::Summon(dynamic_cast<Minion*>(entity), -1, player);
+
+                    player->game->ProcessDestroyAndUpdateAura();
+                    break;
+                }
+                case CardType::SPELL:
+                {
+                    Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
+                                       randTarget, chooseOneIdx);
+
+                    while (player->choice.has_value())
+                    {
+                        const auto choiceIdx =
+                            Random::get<int>(0, player->choice->choices.size());
+                        Generic::ChoicePick(player, choiceIdx);
+                    }
+
+                    player->game->ProcessDestroyAndUpdateAura();
+                    break;
+                }
+                case CardType::WEAPON:
+                {
+                    auto weapon = dynamic_cast<Weapon*>(entity);
+
+                    if (auto aura = weapon->card->power.GetAura(); aura)
+                    {
+                        aura->Activate(weapon);
+                    }
+
+                    if (auto trigger = weapon->card->power.GetTrigger();
+                        trigger)
+                    {
+                        trigger->Activate(weapon);
+                    }
+
+                    player->GetHero()->AddWeapon(*weapon);
+                    break;
+                }
+                default:
+                    throw std::invalid_argument(
+                        "Murozond the Infinite (DRG_090) - Invalid card type!");
+            }
+        }
+    }));
+    cards.emplace("DRG_090", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DRG_246] Time Rip - COST:5
