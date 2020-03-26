@@ -4278,11 +4278,6 @@ TEST_CASE("[Shaman : Minion] - DRG_096 : Bandersmosh")
     CHECK_EQ(curHand[4]->card->GetRarity(), Rarity::LEGENDARY);
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::ATK), 5);
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::HEALTH), 5);
-
-    game.Process(curPlayer, PlayCardTask::Minion(curHand[4]));
-    CHECK_EQ(curField[0]->card->GetRarity(), Rarity::LEGENDARY);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::ATK), 5);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::HEALTH), 5);
 }
 
 // ---------------------------------------- MINION - SHAMAN
