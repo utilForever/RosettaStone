@@ -39,8 +39,8 @@ DiscoverTask::DiscoverTask(CardType cardType, CardClass cardClass, Race race,
 }
 
 DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
-                           ChoiceAction choiceAction)
-    : m_choiceAction(choiceAction)
+                           ChoiceAction choiceAction, int numberOfChoices)
+    : m_choiceAction(choiceAction), m_numberOfChoices(numberOfChoices)
 {
     for (auto& cardID : cardIDs)
     {
@@ -50,10 +50,11 @@ DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
 
 DiscoverTask::DiscoverTask(std::vector<Card*> cards, CardType cardType,
                            CardClass cardClass, Race race, Rarity rarity,
-                           ChoiceAction choiceAction)
+                           ChoiceAction choiceAction, int numberOfChoices)
     : m_cards(std::move(cards)),
       m_discoverCriteria(cardType, cardClass, race, rarity),
-      m_choiceAction(choiceAction)
+      m_choiceAction(choiceAction),
+      m_numberOfChoices(numberOfChoices)
 {
     // Do nothing
 }
@@ -103,7 +104,8 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 {
     return std::make_unique<DiscoverTask>(
         m_cards, m_discoverCriteria.cardType, m_discoverCriteria.cardClass,
-        m_discoverCriteria.race, m_discoverCriteria.rarity, m_choiceAction);
+        m_discoverCriteria.race, m_discoverCriteria.rarity, m_choiceAction,
+        m_numberOfChoices);
 }
 
 std::vector<Card*> DiscoverTask::Discover(FormatType format,

@@ -46,11 +46,13 @@ class DiscoverTask : public ITask
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND);
 
-    //! Constructs task with given \p cardIDs and \p choiceAction.
+    //! Constructs task with given various parameters.
     //! \param cardIDs A list of card IDs to discover.
     //! \param choiceAction The choice action of discover effect.
+    //! \param numberOfChoices The number of choices.
     explicit DiscoverTask(const std::vector<std::string>& cardIDs,
-                          ChoiceAction choiceAction = ChoiceAction::HAND);
+                          ChoiceAction choiceAction = ChoiceAction::HAND,
+                          int numberOfChoices = 3);
 
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.
@@ -59,12 +61,14 @@ class DiscoverTask : public ITask
     //! \param race The race of card to discover.
     //! \param rarity The rarity of card to discover.
     //! \param choiceAction The choice action of discover effect.
+    //! \param numberOfChoices The number of choices.
     explicit DiscoverTask(std::vector<Card*> cards,
                           CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
                           Rarity rarity = Rarity::INVALID,
-                          ChoiceAction choiceAction = ChoiceAction::HAND);
+                          ChoiceAction choiceAction = ChoiceAction::HAND,
+                          int numberOfChoices = 3);
 
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
