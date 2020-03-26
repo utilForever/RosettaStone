@@ -419,6 +419,7 @@ void Game::MainReady()
     const int val = curPlayer->GetNumElementalPlayedThisTurn();
     curPlayer->SetNumElementalPlayedLastTurn(val);
     curPlayer->SetNumElementalPlayedThisTurn(0);
+    curPlayer->cardsPlayedThisTurn.clear();
 
     // Reset combo active
     curPlayer->SetComboActive(false);

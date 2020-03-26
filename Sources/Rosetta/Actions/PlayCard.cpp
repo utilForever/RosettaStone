@@ -64,6 +64,10 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     const int val = player->GetNumCardsPlayedThisTurn();
     player->SetNumCardsPlayedThisTurn(val + 1);
 
+    // Record played cards for effect of cards
+    // (i.e. Obsidian Shard and Lynessa Sunsorrow)
+    player->cardsPlayedThisTurn.emplace_back(source->card);
+
     // Increase the number of cards played this game
     // that didn't start in your deck
     if (source->GetGameTag(GameTag::ENTITY_ID) >

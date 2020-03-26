@@ -265,6 +265,7 @@ class Player : public Entity
     Player* opponent = nullptr;
 
     PlayerAuraEffects playerAuraEffects;
+    std::vector<Card*> cardsPlayedThisTurn;
     int currentSpellPower = 0;
 
  private:
