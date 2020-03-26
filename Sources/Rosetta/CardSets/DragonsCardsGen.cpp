@@ -2723,6 +2723,26 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DRG_207t", SummonSide::RIGHT, true));
+    power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            auto minion = dynamic_cast<Minion*>(playables[0]);
+
+            if (minion)
+            {
+                const auto count = minion->player->GetHandZone()->GetCount();
+                minion->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, count);
+
+                minion->SetAttack(count);
+                minion->SetMaxHealth(count);
+                minion->SetCost(count);
+            }
+
+            return std::vector<Playable*>{};
+        }));
+    cards.emplace("DRG_207", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_208] Valdris Felgorge - COST:7 [ATK:4/HP:4]
@@ -2794,6 +2814,9 @@ void DragonsCardsGen::AddWarlockNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_207t", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DRG_209t] Nether Drake (*) - COST:6 [ATK:6/HP:6]

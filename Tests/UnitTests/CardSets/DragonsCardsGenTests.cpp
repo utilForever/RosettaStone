@@ -5151,6 +5151,66 @@ TEST_CASE("[Warlock : Spell] - DRG_206 : Rain of Fire")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [DRG_207] Abyssal Summoner - COST:6 [ATK:2/HP:2]
+// - Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a Demon with <b>Taunt</b>
+//       and stats equal to your hand size.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DRG_207 : Abyssal Summoner")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Abyssal Summoner"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Spellbreaker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetCost(), 6);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetCost(), 4);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card2, curField[1]));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetCost(), 4);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [DRG_209] Zzeraku the Warped - COST:8 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
