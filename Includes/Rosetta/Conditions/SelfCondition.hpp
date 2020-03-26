@@ -31,6 +31,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotStartInDeck();
 
+    //! SelfCondition wrapper for checking the hero is Galakrond.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsGalakrondHero();
+
     //! SelfCondition wrapper for checking the hero power equals \p cardID.
     //! \param cardID The card ID of hero power.
     //! \return Generated SelfCondition for intended purpose.

@@ -39,6 +39,13 @@ SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
     });
 }
 
+SelfCondition SelfCondition::IsGalakrondHero()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->card->IsGalakrond();
+    });
+}
+
 SelfCondition SelfCondition::IsDead()
 {
     return SelfCondition(
