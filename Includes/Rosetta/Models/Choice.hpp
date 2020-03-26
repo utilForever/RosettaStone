@@ -19,7 +19,8 @@ enum class ChoiceAction
 {
     INVALID = 0,      //!< Invalid action.
     HAND = 1,         //!< Hand.
-    ENCHANTMENT = 2,  //! < Enchantment.
+    ENCHANTMENT = 2,  //!< Enchantment.
+    CAST_SPELL = 3,   //!< Cast spell.
 };
 
 //!

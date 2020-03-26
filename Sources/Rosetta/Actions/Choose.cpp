@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -134,6 +135,15 @@ bool ChoicePick(Player* player, std::size_t choice)
                 clonedTask->Run();
             }
 
+            break;
+        }
+        case ChoiceAction::CAST_SPELL:
+        {
+            player->game->currentEventData = std::make_unique<EventMetaData>(
+                dynamic_cast<Playable*>(choiceVal.source), nullptr);
+            player->GetSetasideZone()->Remove(playable);
+            CastSpell(player, dynamic_cast<Spell*>(playable), nullptr, 0);
+            player->game->currentEventData.reset();
             break;
         }
         default:
