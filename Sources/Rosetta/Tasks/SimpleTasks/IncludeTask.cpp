@@ -190,6 +190,26 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::ALL_MINIONS_NOEVENTSOURCE:
+            for (auto& minion : player->GetFieldZone()->GetAll())
+            {
+                if (player->game->currentEventData->eventSource == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+            {
+                if (player->game->currentEventData->eventSource == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            break;
         case EntityType::MINIONS:
             for (auto& minion : player->GetFieldZone()->GetAll())
             {
@@ -401,6 +421,26 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             for (auto& minion : player->opponent->GetFieldZone()->GetAll())
             {
                 if (source == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            break;
+        case EntityType::ALL_MINIONS_NOEVENTSOURCE:
+            for (auto& minion : player->GetFieldZone()->GetAll())
+            {
+                if (player->game->currentEventData->eventSource == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+            {
+                if (player->game->currentEventData->eventSource == minion)
                 {
                     continue;
                 }
