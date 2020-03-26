@@ -4998,6 +4998,53 @@ TEST_CASE("[Warlock : Minion] - DRG_203 : Veiled Worshipper")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [DRG_204] Dark Skies - COST:3
+// - Faction: Neutral, Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 1 damage to a random minion.
+//       Repeat for each card in your hand.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - DRG_204 : Dark Skies")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dark Skies"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->GetHealth() + opField[0]->GetHealth(), 13);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [DRG_205] Nether Breath - COST:2
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
