@@ -771,17 +771,17 @@ DRAGONS | DRG_077 | Utgarde Grapplesniper | O
 DRAGONS | DRG_078 | Depth Charge | O
 DRAGONS | DRG_079 | Evasive Wyrm | O
 DRAGONS | DRG_081 | Scalerider | O
-DRAGONS | DRG_082 | Kobold Stickyfinger |  
-DRAGONS | DRG_084 | Tentacled Menace |  
-DRAGONS | DRG_086 | Chromatic Egg |  
+DRAGONS | DRG_082 | Kobold Stickyfinger | O
+DRAGONS | DRG_084 | Tentacled Menace | O
+DRAGONS | DRG_086 | Chromatic Egg | O
 DRAGONS | DRG_088 | Dread Raven | O
 DRAGONS | DRG_089 | Dragonqueen Alexstrasza | O
-DRAGONS | DRG_090 | Murozond the Infinite |  
+DRAGONS | DRG_090 | Murozond the Infinite | O
 DRAGONS | DRG_091 | Shu'ma | O
 DRAGONS | DRG_092 | Transmogrifier | O
 DRAGONS | DRG_095 | Veranus | O
-DRAGONS | DRG_096 | Bandersmosh |  
-DRAGONS | DRG_099 | Kronx Dragonhoof |  
+DRAGONS | DRG_096 | Bandersmosh | O
+DRAGONS | DRG_099 | Kronx Dragonhoof | O
 DRAGONS | DRG_102 | Azure Explorer | O
 DRAGONS | DRG_104 | Chenvaala | O
 DRAGONS | DRG_106 | Arcane Breath | O
@@ -790,11 +790,11 @@ DRAGONS | DRG_109 | Mana Giant | O
 DRAGONS | DRG_201 | Crazed Netherwing | O
 DRAGONS | DRG_202 | Dragonblight Cultist | O
 DRAGONS | DRG_203 | Veiled Worshipper | O
-DRAGONS | DRG_204 | Dark Skies |  
+DRAGONS | DRG_204 | Dark Skies | O
 DRAGONS | DRG_205 | Nether Breath | O
 DRAGONS | DRG_206 | Rain of Fire | O
-DRAGONS | DRG_207 | Abyssal Summoner |  
-DRAGONS | DRG_208 | Valdris Felgorge |  
+DRAGONS | DRG_207 | Abyssal Summoner | O
+DRAGONS | DRG_208 | Valdris Felgorge | O
 DRAGONS | DRG_209 | Zzeraku the Warped | O
 DRAGONS | DRG_211 | Squallhunter | O
 DRAGONS | DRG_213 | Twin Tyrant | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 86% (121 of 140 Cards)
+- Progress: 92% (130 of 140 Cards)
 
 ## Galakrond's Awakening
 

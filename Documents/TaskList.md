@@ -79,6 +79,7 @@
 * SetGameTagNumberTask
 * SetGameTagTask
 * SilenceTask
+* SummonCapturedMinionTask
 * SummonCopyTask
 * SummonOpTask
 * SummonStackTask
