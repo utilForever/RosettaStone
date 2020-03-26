@@ -2255,6 +2255,24 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsInZone(ZoneType::HAND)) }),
+        std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<ChangeEntityTask>(
+                                EntityType::SOURCE, CardType::MINION,
+                                CardClass::INVALID, Race::INVALID,
+                                Rarity::LEGENDARY, true),
+                            std::make_shared<AddEnchantmentTask>(
+                                "DRG_096e", EntityType::SOURCE),
+                            std::make_shared<AddEnchantmentTask>(
+                                "DRG_096e2", EntityType::SOURCE) })
+    };
+    cards.emplace("DRG_096", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DRG_211] Squallhunter - COST:4 [ATK:5/HP:7]
@@ -2465,6 +2483,10 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: 5/5.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(
+        EffectList{ Effects::SetAttack(5), Effects::SetMaxHealth(5) }));
+    cards.emplace("DRG_096e2", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DRG_216e] Surging (*) - COST:0
@@ -4043,6 +4065,23 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Transforming into random <b>Legendary</b> minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(GameTag::SHIFTING_MINION,
+                                               EffectOperator::SET, 1));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                                  SelfCondition::IsInZone(ZoneType::HAND)) }),
+        std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<ChangeEntityTask>(
+                                EntityType::TARGET, CardType::MINION,
+                                CardClass::INVALID, Race::INVALID,
+                                Rarity::LEGENDARY, true),
+                            std::make_shared<AddEnchantmentTask>(
+                                "DRG_096e", EntityType::TARGET) })
+    };
+    cards.emplace("DRG_096e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_099t2t] Reanimated Dragon (*) - COST:8 [ATK:8/HP:8]

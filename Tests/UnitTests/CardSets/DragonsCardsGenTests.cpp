@@ -4220,6 +4220,72 @@ TEST_CASE("[Rogue : Spell] - DRG_247 : Seal Fate")
 }
 
 // ---------------------------------------- MINION - SHAMAN
+// [DRG_096] Bandersmosh - COST:5 [ATK:5/HP:5]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Each turn this is in your hand, transform it into a
+//       5/5 copy of a random <b>Legendary</b> minion.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DRG_096 : Bandersmosh")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bandersmosh"));
+
+    CHECK_EQ(card1->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(card1->GetGameTag(GameTag::ATK), 5);
+    CHECK_EQ(card1->GetGameTag(GameTag::HEALTH), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand[4]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::ATK), 5);
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::HEALTH), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand[4]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::ATK), 5);
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::HEALTH), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[4]));
+    CHECK_EQ(curField[0]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::ATK), 5);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::HEALTH), 5);
+}
+
+// ---------------------------------------- MINION - SHAMAN
 // [DRG_211] Squallhunter - COST:4 [ATK:5/HP:7]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
