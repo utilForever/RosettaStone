@@ -173,73 +173,14 @@ bool Playable::IsPlayableByPlayer()
 
 bool Playable::IsPlayableByCardReq() const
 {
-    for (auto& requirement : card->playRequirements)
+    if (!card->IsPlayableByCardReq(player))
     {
-        switch (requirement.first)
-        {
-            case PlayReq::REQ_NUM_MINION_SLOTS:
-                if (player->GetFieldZone()->IsFull())
-                {
-                    return false;
-                }
-                break;
-            case PlayReq::REQ_WEAPON_EQUIPPED:
-                if (!player->GetHero()->HasWeapon())
-                {
-                    return false;
-                }
-                break;
-            case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
-            {
-                const auto opField = player->opponent->GetFieldZone();
-                if (opField->GetCount() < requirement.second)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
-            {
-                auto curField = player->GetFieldZone();
-                auto& entourages = card->entourages;
-                std::size_t entourageCount = 0;
+        return false;
+    }
 
-                for (auto& minion : curField->GetAll())
-                {
-                    for (auto& entourage : entourages)
-                    {
-                        if (minion->card->id == entourage)
-                        {
-                            ++entourageCount;
-                        }
-                    }
-                }
-
-                if (entourageCount == entourages.size())
-                {
-                    return false;
-                }
-
-                break;
-            }
-            case PlayReq::REQ_MINIMUM_TOTAL_MINIONS:
-            {
-                const int fieldCount =
-                    player->GetFieldZone()->GetCount() +
-                    player->opponent->GetFieldZone()->GetCount();
-                if (fieldCount < requirement.second)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_MINION_TARGET:
-            case PlayReq::REQ_ENEMY_TARGET:
-            case PlayReq::REQ_NONSELF_TARGET:
-                break;
-            default:
-                break;
-        }
+    if (card->mustHaveToTargetToPlay && !HasAnyValidPlayTargets())
+    {
+        return false;
     }
 
     return true;
