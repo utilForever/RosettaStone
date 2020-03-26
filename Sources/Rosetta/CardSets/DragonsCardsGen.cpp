@@ -3743,6 +3743,23 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - 676 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsGalakrondHero()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(
+                  std::vector<std::string>{ "DRG_099t1", "DRG_099t2",
+                                            "DRG_099t3", "DRG_099t4" },
+                  ChoiceAction::CAST_SPELL, 4, false) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<IncludeTask>(EntityType::DECK),
+                         std::make_shared<FilterStackTask>(
+                             SelfCondList{ std::make_shared<SelfCondition>(
+                                 SelfCondition::IsGalakrondHero()) }),
+                         std::make_shared<RandomTask>(EntityType::STACK, 1),
+                         std::make_shared<DrawStackTask>(1) }));
+    cards.emplace("DRG_099", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_213] Twin Tyrant - COST:8 [ATK:4/HP:10]
@@ -4027,6 +4044,11 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - ImmuneToSpellpower = 1
     // - 1200 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    cards.emplace("DRG_099t1", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DRG_099t2] Reanimation (*) - COST:0
@@ -4037,6 +4059,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - 1200 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DRG_099t2t"));
+    cards.emplace("DRG_099t2", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DRG_099t3] Domination (*) - COST:0
@@ -4047,6 +4072,10 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - 1200 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_099t3e", EntityType::MINIONS_NOEVENTSOURCE));
+    cards.emplace("DRG_099t3", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DRG_099t4] Annihilation (*) - COST:0
@@ -4058,6 +4087,10 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - ImmuneToSpellpower = 1
     // - 1200 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS_NOEVENTSOURCE, 5, true));
+    cards.emplace("DRG_099t4", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_096e] Smoshing (*) - COST:0
@@ -4092,6 +4125,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_099t2t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_099t3e] Dominating (*) - COST:0
@@ -4099,6 +4135,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_099t3e"));
+    cards.emplace("DRG_099t3e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_215e] Storm's Wrath (*) - COST:0

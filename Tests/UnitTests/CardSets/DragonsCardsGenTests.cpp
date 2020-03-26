@@ -7727,6 +7727,139 @@ TEST_CASE("[Neutral : Minion] - DRG_092 : Transmogrifier")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_099] Kronx Dragonhoof - COST:6 [ATK:6/HP:6]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw Galakrond.
+//       If you're already Galakrond, unleash a Devastation.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - 676 = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DRG_099 : Kronx Dragonhoof")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] =
+            *Cards::FindCardByName("Galakrond, the Unspeakable");
+        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+    opPlayer->GetHero()->SetDamage(15);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kronx Dragonhoof"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kronx Dragonhoof"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kronx Dragonhoof"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kronx Dragonhoof"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kronx Dragonhoof"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), false);
+    CHECK_EQ(curHand.GetCount(), 9);
+    CHECK_EQ(curHand[8]->card->name, "Galakrond, the Unspeakable");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(opHand[0]));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curPlayer->GetHero()->card->IsGalakrond(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(opHand[0]));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 71);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 10);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 76);
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[3]->GetAttack(), 8);
+    CHECK_EQ(curField[3]->GetHealth(), 8);
+    CHECK_EQ(curField[3]->HasTaunt(), true);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 82);
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[1]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+    CHECK_EQ(curField[2]->GetAttack(), 8);
+    CHECK_EQ(curField[2]->GetHealth(), 8);
+    CHECK_EQ(curField[3]->GetAttack(), 10);
+    CHECK_EQ(curField[3]->GetHealth(), 10);
+    CHECK_EQ(curField[4]->GetAttack(), 6);
+    CHECK_EQ(curField[4]->GetHealth(), 6);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 87);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 3);
+    CHECK_EQ(curField[3]->GetHealth(), 5);
+    CHECK_EQ(curField[4]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 10);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_213] Twin Tyrant - COST:8 [ATK:4/HP:10]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
