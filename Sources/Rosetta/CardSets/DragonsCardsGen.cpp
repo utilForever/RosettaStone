@@ -676,6 +676,10 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_319e4", EntityType::PLAYER));
+    cards.emplace("DRG_319", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DRG_320] Ysera, Unleashed - COST:9 [ATK:4/HP:12]
@@ -4509,6 +4513,25 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Your Treants have +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_AND_HAND, "DRG_319e5"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsTreant());
+    }
+    cards.emplace("DRG_319e4", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [DRG_319e5] Tree Power! (*) - COST:0
+    // - Set: Dragons
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_319e5"));
+    cards.emplace("DRG_319e5", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DRG_401d] Grizzled Power Dummy (*) - COST:0

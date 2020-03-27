@@ -1505,6 +1505,110 @@ TEST_CASE("[Druid : Spell] - DRG_318 : Breath of Dreams")
 }
 
 // ----------------------------------------- MINION - DRUID
+// [DRG_319] Goru the Mightree - COST:7 [ATK:5/HP:10]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Battlecry:</b> For the rest of
+//       the game, your Treants have +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DRG_319 : Goru the Mightree")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByID("DAL_256t2");
+        config.player2Deck[i] = Cards::FindCardByID("DAL_256t2");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Goru the Mightree"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Goru the Mightree"));
+
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetHealth(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField[3]->GetAttack(), 4);
+    CHECK_EQ(curField[3]->GetHealth(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetHealth(), 4);
+}
+
+// ----------------------------------------- MINION - DRUID
 // [DRG_320] Ysera, Unleashed - COST:9 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
