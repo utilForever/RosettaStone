@@ -1858,6 +1858,14 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - EMPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::HasInvokedTwice()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DRG_300e", EntityType::HAND) }));
+    cards.emplace("DRG_300", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DRG_301] Whispers of EVIL - COST:0
@@ -1944,12 +1952,17 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void DragonsCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [DRG_300e] Draconic Fate (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("DRG_300e", CardDef(power));
 }
 
 void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
