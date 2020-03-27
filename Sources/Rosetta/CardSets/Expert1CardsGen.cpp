@@ -3087,8 +3087,6 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddDeathrattleTask(
         std::make_shared<CopyTask>(EntityType::SOURCE, ZoneType::PLAY));
-    power.AddDeathrattleTask(
-        std::make_shared<SummonTask>(SummonSide::DEATHRATTLE));
     cards.emplace("CS2_038e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
