@@ -3953,6 +3953,64 @@ TEST_CASE("[Priest : Minion] - DRG_307 : Breath of the Infinite")
     CHECK_EQ(opField[0]->GetHealth(), 3);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [DRG_308] Mindflayer Kaahrj - COST:3 [ATK:3/HP:3]
+// - Set: Dragons, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Choose an enemy minion.
+//       <b>Deathrattle:</b> Summon a new copy of it.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - DRG_308 : Mindflayer Kaahrj")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Mindflayer Kaahrj"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card3, card1));
+    CHECK_EQ(opField[0]->HasDeathrattle(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(opField[0]->card->name, "Malygos");
+    CHECK_EQ(opField[0]->GetAttack(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [DRG_027] Umbral Skulker - COST:4 [ATK:3/HP:3]
 // - Set: Dragons, Rarity: Epic

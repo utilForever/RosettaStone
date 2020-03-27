@@ -1978,6 +1978,21 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::ENTITY_ID));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DRG_308e", EntityType::SOURCE, false, true));
+    cards.emplace(
+        "DRG_308",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 }
 
 void DragonsCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
@@ -4342,6 +4357,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon {0}.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<SummonCapturedMinionTask>());
+    cards.emplace("DRG_308e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_311e] Spore Hardened (*) - COST:0
