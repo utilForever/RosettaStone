@@ -218,7 +218,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
     }
 
     Game game(config);
@@ -279,7 +279,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610t2 : Galakrond, the Apocalypse")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
     }
 
     Game game(config);
@@ -340,7 +340,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610t3 : Galakrond, Azeroth's End")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
     }
 
     Game game(config);
@@ -618,7 +618,7 @@ TEST_CASE("[Warrior : Hero] - DRG_650 : Galakrond, the Unbreakable")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -687,7 +687,7 @@ TEST_CASE("[Warrior : Hero] - DRG_650t2 : Galakrond, the Apocalypse")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -757,7 +757,7 @@ TEST_CASE("[Warrior : Hero] - DRG_650t3 : Galakrond, Azeroth's End")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -836,8 +836,8 @@ TEST_CASE("[Priest : Hero] - DRG_660 : Galakrond, the Unspeakable")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
-        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -907,8 +907,8 @@ TEST_CASE("[Priest : Hero] - DRG_660t2 : Galakrond, the Apocalypse")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
-        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -977,8 +977,8 @@ TEST_CASE("[Priest : Hero] - DRG_660t3 : Galakrond, Azeroth's End")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
-        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -1046,8 +1046,8 @@ TEST_CASE("[Druid : Spell] - DRG_051 : Strength in Numbers")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
-        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -1647,7 +1647,7 @@ TEST_CASE("[Hunter : Minion] - DRG_010 : Diving Gryphon")
 
     for (int i = 0; i < 5; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Restless Mummy");
+        config.player1Deck[i] = Cards::FindCardByName("Restless Mummy");
     }
 
     Game game(config);
@@ -1828,7 +1828,7 @@ TEST_CASE("[Hunter : Minion] - DRG_252 : Phase Stalker")
 
     for (int i = 0; i < 7; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Snake Trap");
+        config.player1Deck[i] = Cards::FindCardByName("Snake Trap");
     }
 
     Game game(config);
@@ -2664,8 +2664,8 @@ TEST_CASE("[Mage : Spell] - DRG_324 : Elemental Allies")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
-        config.player2Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player2Deck[i] = Cards::FindCardByName("Fireball");
     }
 
     Game game(config);
@@ -3054,8 +3054,8 @@ TEST_CASE("[Paladin : Minion] - DRG_231 : Lightforged Crusader")
 
     for (std::size_t i = 0; i < 5; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Leper Gnome");
-        config.player2Deck[i] = *Cards::FindCardByName("Leper Gnome");
+        config.player1Deck[i] = Cards::FindCardByName("Leper Gnome");
+        config.player2Deck[i] = Cards::FindCardByName("Leper Gnome");
     }
 
     Game game(config);
@@ -3114,8 +3114,8 @@ TEST_CASE("[Paladin : Minion] - DRG_232 : Lightforged Zealot")
 
     for (std::size_t i = 0; i < 5; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Leper Gnome");
-        config.player2Deck[i] = *Cards::FindCardByName("Leper Gnome");
+        config.player1Deck[i] = Cards::FindCardByName("Leper Gnome");
+        config.player2Deck[i] = Cards::FindCardByName("Leper Gnome");
     }
 
     Game game(config);
@@ -3517,7 +3517,7 @@ TEST_CASE("[Priest : Spell] - DRG_246 : Time Rip")
     config.autoRun = false;
 
     config.player2Deck[0] =
-        *Cards::FindCardByName("Galakrond, the Unspeakable");
+        Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -3725,7 +3725,7 @@ TEST_CASE("[Priest : Spell] - DRG_303 : Disciple of Galakrond")
     config.autoRun = false;
 
     config.player1Deck[0] =
-        *Cards::FindCardByName("Galakrond, the Unspeakable");
+        Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -4138,7 +4138,7 @@ TEST_CASE("[Rogue : Spell] - DRG_030 : Praise Galakrond!")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Nightmare");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Nightmare");
 
     Game game(config);
     game.Start();
@@ -4193,8 +4193,8 @@ TEST_CASE("[Rogue : Minion] - DRG_031 : Necrium Apothecary")
 
     for (std::size_t i = 0; i < 5; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Leper Gnome");
-        config.player2Deck[i] = *Cards::FindCardByName("Leper Gnome");
+        config.player1Deck[i] = Cards::FindCardByName("Leper Gnome");
+        config.player2Deck[i] = Cards::FindCardByName("Leper Gnome");
     }
 
     Game game(config);
@@ -4462,8 +4462,8 @@ TEST_CASE("[Rogue : Minion] - DRG_037 : Flik Skyshiv")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
-        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -4540,7 +4540,7 @@ TEST_CASE("[Rogue : Spell] - DRG_247 : Seal Fate")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Nightmare");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Nightmare");
 
     Game game(config);
     game.Start();
@@ -4866,7 +4866,7 @@ TEST_CASE("[Shaman : Minion] - DRG_218 : Corrupt Elementalist")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Tempest");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Tempest");
 
     Game game(config);
     game.Start();
@@ -5135,7 +5135,7 @@ TEST_CASE("[Shaman : Spell] - DRG_248 : Corrupt Elementalist")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Tempest");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Tempest");
 
     Game game(config);
     game.Start();
@@ -5257,7 +5257,7 @@ TEST_CASE("[Warlock : Spell] - DRG_202 : Dragonblight Cultist")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Wretched");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Wretched");
 
     Game game(config);
     game.Start();
@@ -5582,8 +5582,8 @@ TEST_CASE("[Warlock : Minion] - DRG_208 : Valdris Felgorge")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Wisp");
-        config.player2Deck[i] = *Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -5704,7 +5704,7 @@ TEST_CASE("[Warlock : Spell] - DRG_250 : Fiendish Rites")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] = *Cards::FindCardByName("Galakrond, the Wretched");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Wretched");
 
     Game game(config);
     game.Start();
@@ -5861,7 +5861,7 @@ TEST_CASE("[Warrior : Weapon] - DRG_021 : Ritual Chopper")
     config.autoRun = false;
 
     config.player1Deck[0] =
-        *Cards::FindCardByName("Galakrond, the Unbreakable");
+        Cards::FindCardByName("Galakrond, the Unbreakable");
 
     Game game(config);
     game.Start();
@@ -6067,11 +6067,11 @@ TEST_CASE("[Warrior : Weapon] - DRG_025 : Ancharrr")
     {
         if (i % 2 == 0)
         {
-            config.player1Deck[i] = *Cards::FindCardByName("Wisp");
+            config.player1Deck[i] = Cards::FindCardByName("Wisp");
         }
         else
         {
-            config.player1Deck[i] = *Cards::FindCardByName("Southsea Deckhand");
+            config.player1Deck[i] = Cards::FindCardByName("Southsea Deckhand");
         }
     }
 
@@ -6187,7 +6187,7 @@ TEST_CASE("[Warrior : Spell] - DRG_249 : Awaken!")
     config.autoRun = false;
 
     config.player2Deck[0] =
-        *Cards::FindCardByName("Galakrond, the Unbreakable");
+        Cards::FindCardByName("Galakrond, the Unbreakable");
 
     Game game(config);
     game.Start();
@@ -6373,7 +6373,7 @@ TEST_CASE("[Neutral : Minion] - DRG_050 : Devoted Maniac")
     config.autoRun = false;
 
     config.player1Deck[0] =
-        *Cards::FindCardByName("Galakrond, the Unspeakable");
+        Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -6795,8 +6795,8 @@ TEST_CASE("[Neutral : Minion] - DRG_062 : Wyrmrest Purifier")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Malygos");
-        config.player2Deck[i] = *Cards::FindCardByName("Fireball");
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Fireball");
     }
 
     Game game(config);
@@ -7607,8 +7607,8 @@ TEST_CASE("[Neutral : Minion] - DRG_077 : Utgarde Grapplesniper")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
-        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
     }
 
     Game game(config);
@@ -7882,8 +7882,8 @@ TEST_CASE("[Neutral : Minion] - DRG_084 : Tentacled Menace")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Fireball");
-        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
     }
 
     Game game(config);
@@ -8073,8 +8073,8 @@ TEST_CASE("[Neutral : Minion] - DRG_089 : Dragonqueen Alexstrasza")
 
     for (int i = 0; i < 6; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Malygos");
-        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
     }
 
     Game game(config);
@@ -8269,8 +8269,8 @@ TEST_CASE("[Shaman : Minion] - DRG_099 : Kronx Dragonhoof")
     for (int i = 0; i < 30; ++i)
     {
         config.player1Deck[i] =
-            *Cards::FindCardByName("Galakrond, the Unspeakable");
-        config.player2Deck[i] = *Cards::FindCardByName("Malygos");
+            Cards::FindCardByName("Galakrond, the Unspeakable");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
     }
 
     Game game(config);
@@ -8473,7 +8473,7 @@ TEST_CASE("[Neutral : Minion] - DRG_242 : Shield of Galakrond")
     config.autoRun = false;
 
     config.player1Deck[0] =
-        *Cards::FindCardByName("Galakrond, the Unspeakable");
+        Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -8521,7 +8521,7 @@ TEST_CASE("[Neutral : Minion] - DRG_257 : Frizz Kindleroost")
 
     for (int i = 0; i < 30; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Malygos");
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
     }
 
     Game game(config);

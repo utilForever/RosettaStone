@@ -286,7 +286,7 @@ TEST_CASE("[Hunter : Minion] - DAL_604 : Ursatron")
 
     for (int i = 0; i < 5; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Harvest Golem");
+        config.player1Deck[i] = Cards::FindCardByName("Harvest Golem");
     }
 
     Game game(config);

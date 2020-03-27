@@ -61,7 +61,7 @@ class Game
 
     //! Gets player's deck.
     //! \param type The player type to get deck.
-    std::array<Card, START_DECK_SIZE> GetPlayerDeck(PlayerType type);
+    std::array<Card*, START_DECK_SIZE> GetPlayerDeck(PlayerType type);
 
     //! Returns the format type of the game.
     //! \return The format type of the game.
