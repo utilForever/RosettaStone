@@ -4062,8 +4062,8 @@ TEST_CASE("[Priest : Minion] - DRG_304 : Chronobreaker")
 TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
 {
     GameConfig config;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::MAGE;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
     config.autoRun = false;
@@ -4071,15 +4071,15 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
 
     for (int i = 0; i < 10; ++i)
     {
-        config.player2Deck[i] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
     }
     for (int i = 10; i < 20; ++i)
     {
-        config.player2Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
     }
     for (int i = 20; i < 30; ++i)
     {
-        config.player2Deck[i] = Cards::FindCardByName("Blizzard");
+        config.player1Deck[i] = Cards::FindCardByName("Blizzard");
     }
 
     Game game(config);
@@ -4093,20 +4093,23 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Envoy of Lazul"));
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Envoy of Lazul"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curPlayer->choice.has_value(), true);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opPlayer->choice.has_value(), true);
 
     auto cards = TestUtils::GetChoiceCards(game);
-    Generic::ChoicePick(curPlayer, 36);
+    Generic::ChoicePick(opPlayer, 36);
 
     const bool check =
-        ((curHand.GetCount() == 0) ||
-         (curHand.GetCount() == 1 && curHand[0]->card->name == "Wisp"));
+        ((opHand.GetCount() == 1) ||
+         (opHand.GetCount() == 2 && opHand[1]->card->name == "Wisp"));
     CHECK_EQ(check, true);
 }
 
