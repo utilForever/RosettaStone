@@ -1926,6 +1926,14 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<FlagTask>(true, TaskList{ std::make_shared<DamageTask>(
+                                             EntityType::ENEMY_MINIONS, 3) }));
+    cards.emplace("DRG_304", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [DRG_306] Envoy of Lazul - COST:2 [ATK:2/HP:2]
