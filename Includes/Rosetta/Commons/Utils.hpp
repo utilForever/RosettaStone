@@ -71,6 +71,52 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
 //! \param list A list of distinct elements to choose.
 //! \param amount The number of elements to choose.
 //! \return A list of N distinct elements.
+template <typename T, int N>
+std::vector<T*> ChooseNElements(const std::array<T*, N>& list, std::size_t amount)
+{
+    if (amount > list.size())
+    {
+        amount = list.size();
+    }
+
+    std::vector<T*> results;
+    results.reserve(amount);
+
+    std::vector<std::size_t> indices;
+    indices.reserve(amount);
+
+    for (std::size_t i = 0; i < amount; ++i)
+    {
+        std::size_t idx;
+        bool flag;
+
+        do
+        {
+            idx = Random::get<std::size_t>(0, list.size() - 1);
+            flag = false;
+
+            for (std::size_t j = 0; j < i; ++j)
+            {
+                if (indices[j] == idx)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+        } while (flag);
+
+        results.emplace_back(list[idx]);
+        indices.emplace_back(idx);
+    }
+
+    return results;
+}
+
+//! Gets N elements from a list of distinct elements by using the default
+//! equality comparer. The source list must not have any repeated elements.
+//! \param list A list of distinct elements to choose.
+//! \param amount The number of elements to choose.
+//! \return A list of N distinct elements.
 template <typename T>
 std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
 {
