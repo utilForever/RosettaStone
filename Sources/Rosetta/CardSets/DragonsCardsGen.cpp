@@ -11,6 +11,7 @@
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/SwapCostEnchant.hpp>
@@ -609,6 +610,25 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give all minions in your deck +2/+2.
     //       They cost (1) more <i>(up to 10)</i>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_315e", EntityType::DECK));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto deckCards = player->GetDeckZone()->GetAll();
+
+            for (auto& card : deckCards)
+            {
+                if (card->GetCost() < 10)
+                {
+                    Generic::AddEnchantment(Cards::FindCardByID("DRG_315e2"),
+                                            dynamic_cast<Playable*>(source),
+                                            card, 0, 0, 0);
+                }
+            }
+        }));
+    cards.emplace("DRG_315", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DRG_317] Secure the Deck - COST:1
@@ -739,6 +759,9 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_315e"));
+    cards.emplace("DRG_315e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [DRG_315e2] Costly Embiggening (*) - COST:0
@@ -746,6 +769,9 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) more.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AddCost(1)));
+    cards.emplace("DRG_315e2", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DRG_320t] Dream Portal (*) - COST:9

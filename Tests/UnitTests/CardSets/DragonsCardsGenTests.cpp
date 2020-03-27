@@ -1310,6 +1310,82 @@ TEST_CASE("[Druid : Spell] - DRG_314 : Aeroponics")
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [DRG_315] Embiggen - COST:0
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: Give all minions in your deck +2/+2.
+//       They cost (1) more <i>(up to 10)</i>.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DRG_315 : Embiggen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Embiggen"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Embiggen"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 12);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetCost(), 9);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 12);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetCost(), 9);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetHealth(), 12);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetCost(), 9);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetHealth(), 12);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[3])->GetCost(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 14);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetCost(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetAttack(), 8);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetHealth(), 16);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetCost(), 10);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [DRG_317] Secure the Deck - COST:1
 // - Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
