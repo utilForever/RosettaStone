@@ -437,6 +437,18 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::FIELD_AND_HAND:
+        {
+            for (auto& card : m_owner->player->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            {
+                Apply(minion);
+            }
+            break;
+        }
         case AuraType::PLAYER:
         {
             for (auto& effect : m_effects)
