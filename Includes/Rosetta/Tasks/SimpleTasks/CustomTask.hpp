@@ -22,7 +22,7 @@ class CustomTask : public ITask
  public:
     //! Constructs task with given \p func.
     //! \param func The function to run custom task.
-    explicit CustomTask(std::function<void(Player*)> func);
+    explicit CustomTask(std::function<void(Player*, Entity*, Playable*)> func);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -34,7 +34,7 @@ class CustomTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    std::function<void(Player*)> m_func;
+    std::function<void(Player*, Entity*, Playable*)> m_func;
 };
 }  // namespace RosettaStone::SimpleTasks
 

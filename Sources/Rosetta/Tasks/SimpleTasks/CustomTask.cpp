@@ -9,7 +9,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-CustomTask::CustomTask(std::function<void(Player*)> func)
+CustomTask::CustomTask(std::function<void(Player*, Entity*, Playable*)> func)
     : m_func(std::move(func))
 {
     // Do nothing
@@ -17,7 +17,7 @@ CustomTask::CustomTask(std::function<void(Player*)> func)
 
 TaskStatus CustomTask::Impl(Player* player)
 {
-    m_func(player);
+    m_func(player, m_source, m_target);
 
     return TaskStatus::COMPLETE;
 }
