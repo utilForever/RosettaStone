@@ -735,16 +735,6 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
                                  { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
-    // ------------------------------------------ SPELL - DRUID
-    // [DRG_311e] Spore Hardened (*) - COST:0
-    // - Set: Dragons
-    // --------------------------------------------------------
-    // Text: +2 Health and <b>Taunt</b>.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("DRG_311e"));
-    cards.emplace("DRG_311e", CardDef(power));
-
     // ----------------------------------------- MINION - DRUID
     // [DRG_311t] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Dragons
@@ -4183,6 +4173,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_058e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_059e] Gobogliding (*) - COST:0
@@ -4249,6 +4242,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3 Attack for each other Dread Raven.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_088e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_089e] A Queen's Discount (*) - COST:0
@@ -4425,6 +4421,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - HIDE_WATERMARK = 1
     // - 1200 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_235d", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_235e] Rider Talritha (*) - COST:0
@@ -4496,6 +4495,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Health and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DRG_311e"));
+    cards.emplace("DRG_311e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_319e4] Treant Powerup (*) - COST:0
@@ -4514,6 +4516,9 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - HIDE_WATERMARK = 1
     // - 1200 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DRG_401d", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_401e] Grizzled Power (*) - COST:0
