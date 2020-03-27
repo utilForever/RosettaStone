@@ -1743,7 +1743,10 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
+    power.AddPowerTask(std::make_shared<
+                       CustomTask>([](Player* player,
+                                      [[maybe_unused]] Entity* source,
+                                      [[maybe_unused]] Playable* target) {
         auto cardsOpPlayedLastTurn = player->opponent->cardsPlayedThisTurn;
         Random::shuffle(cardsOpPlayedLastTurn.begin(),
                         cardsOpPlayedLastTurn.end());
@@ -2826,7 +2829,10 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player) { player->GetHandZone()->Expand(12); }));
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            player->GetHandZone()->Expand(12);
+        }));
     power.AddPowerTask(std::make_shared<DrawTask>(4));
     cards.emplace("DRG_208", CardDef(power));
 
@@ -3063,22 +3069,25 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
-        auto enemyMinions = player->opponent->GetFieldZone()->GetAll();
-        Random::shuffle(enemyMinions.begin(), enemyMinions.end());
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto enemyMinions = player->opponent->GetFieldZone()->GetAll();
+            Random::shuffle(enemyMinions.begin(), enemyMinions.end());
 
-        auto& curField = *(player->GetFieldZone());
-        const auto deathwing = curField[player->GetFieldZone()->GetCount() - 1];
-        for (auto& minion : enemyMinions)
-        {
-            Generic::Attack(player, deathwing, minion, true);
-
-            if (deathwing->isDestroyed)
+            auto& curField = *(player->GetFieldZone());
+            const auto deathwing =
+                curField[player->GetFieldZone()->GetCount() - 1];
+            for (auto& minion : enemyMinions)
             {
-                break;
+                Generic::Attack(player, deathwing, minion, true);
+
+                if (deathwing->isDestroyed)
+                {
+                    break;
+                }
             }
-        }
-    }));
+        }));
     cards.emplace("DRG_026", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -3340,23 +3349,25 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
-        auto legendaryCards = RandomCardTask::GetCardList(
-            player->GetHero(), CardType::INVALID, CardClass::PLAYER_CLASS);
-        auto deck = player->GetDeckZone();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto legendaryCards = RandomCardTask::GetCardList(
+                player->GetHero(), CardType::INVALID, CardClass::PLAYER_CLASS);
+            auto deck = player->GetDeckZone();
 
-        for (auto& card : deck->GetAll())
-        {
-            if (card->card->GetCardClass() != CardClass::NEUTRAL)
+            for (auto& card : deck->GetAll())
             {
-                continue;
-            }
+                if (card->card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    continue;
+                }
 
-            const auto idx =
-                Random::get<std::size_t>(0, legendaryCards.size() - 1);
-            Generic::ChangeEntity(player, card, legendaryCards[idx], false);
-        }
-    }));
+                const auto idx =
+                    Random::get<std::size_t>(0, legendaryCards.size() - 1);
+                Generic::ChangeEntity(player, card, legendaryCards[idx], false);
+            }
+        }));
     cards.emplace("DRG_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3706,14 +3717,17 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
-        if (player->opponent->GetHero()->HasWeapon())
-        {
-            player->GetHero()->AddWeapon(*player->opponent->GetHero()->weapon);
-            player->GetHero()->weapon->player = player;
-            player->opponent->GetHero()->weapon = nullptr;
-        }
-    }));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            if (player->opponent->GetHero()->HasWeapon())
+            {
+                player->GetHero()->AddWeapon(
+                    *player->opponent->GetHero()->weapon);
+                player->GetHero()->weapon->player = player;
+                player->opponent->GetHero()->weapon = nullptr;
+            }
+        }));
     cards.emplace("DRG_082", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
