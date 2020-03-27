@@ -3648,6 +3648,62 @@ TEST_CASE("[Priest : Spell] - DRG_301 : Whispers of EVIL")
     CHECK_EQ(curHand[4]->card->IsLackey(), true);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [DRG_302] Grave Rune - COST:4
+// - Faction: Neutral, Set: Dragons, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion "<b>Deathrattle:</b> Summon 2 copies of this."
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - DRG_302 : Grave Rune")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Grave Rune"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Wolfrider");
+    CHECK_EQ(curField[0]->HasDeathrattle(), false);
+    CHECK_EQ(curField[1]->card->name, "Wolfrider");
+    CHECK_EQ(curField[1]->HasDeathrattle(), false);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [DRG_303] Disciple of Galakrond - COST:1 [ATK:1/HP:2]
 // - Set: Dragons, Rarity: Common

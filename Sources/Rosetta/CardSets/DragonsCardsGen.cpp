@@ -1886,9 +1886,20 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion "<b>Deathrattle:</b> Summon 2 copies of this."
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_302e", EntityType::TARGET));
+    cards.emplace(
+        "DRG_302",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [DRG_303] Disciple of Galakrond - COST:1 [ATK:1/HP:2]
@@ -1963,6 +1974,17 @@ void DragonsCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(1)));
     cards.emplace("DRG_300e", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [DRG_302e] Grave Rune (*) - COST:0
+    // - Set: Dragons
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon 2 copies of this.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<CopyTask>(EntityType::SOURCE, ZoneType::PLAY, 2));
+    cards.emplace("DRG_302e", CardDef(power));
 }
 
 void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
