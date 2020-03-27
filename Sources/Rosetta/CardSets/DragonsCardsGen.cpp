@@ -4156,6 +4156,10 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - MARK_OF_EVIL = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    cards.emplace("DRG_052", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_057e] Up, Up, and Away! (*) - COST:0
