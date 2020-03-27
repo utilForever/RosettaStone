@@ -146,6 +146,19 @@ bool ChoicePick(Player* player, std::size_t choice)
             player->game->currentEventData.reset();
             break;
         }
+        case ChoiceAction::ENVOY_OF_LAZUL:
+        {
+            for (auto& handCard : player->opponent->GetHandZone()->GetAll())
+            {
+                if (handCard->card->id == playable->card->id)
+                {
+                    player->GetSetasideZone()->Remove(playable);
+                    AddCardToHand(player, playable);
+                    break;
+                }
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "ChoicePick() - Invalid choice action!");
