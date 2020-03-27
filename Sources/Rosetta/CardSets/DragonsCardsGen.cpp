@@ -1949,6 +1949,95 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            // Envoy of Lazul attempts to show three cards: one card in the
+            // opponent's hand, and two cards that are in the opponent's current
+            // deck but not in the opponent's hand.
+            auto opHandCards = player->opponent->GetHandZone()->GetAll();
+
+            // If the opponent has no cards in hand,
+            // Envoy of Lazul's Battlecry does nothing.
+            if (opHandCards.empty())
+            {
+                return;
+            }
+
+            std::vector<Card*> result;
+            result.reserve(3);
+
+            // For the one card in the opponent's hand:
+            // The card being shown in the opponent's hand does not have
+            // to be a card that started in the opponent's deck.
+            const auto idx =
+                Random::get<std::size_t>(0, opHandCards.size() - 1);
+            result.emplace_back(opHandCards[idx]->card);
+
+            // For the two cards not in the opponent's hand:
+            std::vector<Card*> opDeckCards;
+            for (auto& deckCard : player->opponent->GetDeckZone()->GetAll())
+            {
+                // Pass if it exists in hand zone
+                bool existInHand = false;
+                for (auto& handCard : opHandCards)
+                {
+                    if (handCard->card->id == deckCard->card->id)
+                    {
+                        existInHand = true;
+                        break;
+                    }
+                }
+
+                if (existInHand)
+                {
+                    continue;
+                }
+
+                // Pass if it exists in opponent deck cards
+                bool existInDeck = false;
+                for (auto& opDeckCard : opDeckCards)
+                {
+                    if (opDeckCard->id == deckCard->card->id)
+                    {
+                        existInDeck = true;
+                        break;
+                    }
+                }
+
+                if (existInDeck)
+                {
+                    continue;
+                }
+
+                opDeckCards.emplace_back(deckCard->card);
+            }
+
+            // If the opponent's current deck is empty, two cards that had
+            // started in the opponent's deck will be picked instead.
+            // If the opponent's current deck has only one card left, the same
+            // thing happens; two cards that had started in the opponent's deck
+            // will be picked instead.
+            if (opDeckCards.size() < 2)
+            {
+                const auto startDeck =
+                    player->game->GetPlayerDeck(player->opponent->playerType);
+                auto twoCards = ChooseNElements(startDeck, 2);
+                result.emplace_back(twoCards[0]);
+                result.emplace_back(twoCards[1]);
+            }
+            else
+            {
+                auto twoCards = ChooseNElements(opDeckCards, 2);
+                result.emplace_back(twoCards[0]);
+                result.emplace_back(twoCards[1]);
+            }
+
+            Random::shuffle(result.begin(), result.end());
+            Generic::CreateChoiceCards(player, source, ChoiceType::GENERAL,
+                                       ChoiceAction::ENVOY_OF_LAZUL, result);
+        }));
+    cards.emplace("DRG_306", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DRG_307] Breath of the Infinite - COST:3

@@ -3868,6 +3868,68 @@ TEST_CASE("[Priest : Minion] - DRG_304 : Chronobreaker")
     CHECK_EQ(opField[1]->GetHealth(), 1);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [DRG_306] Envoy of Lazul - COST:2 [ATK:2/HP:2]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Look at 3 cards.
+//       Guess which one is in your opponent's hand
+//       to get a copy of it.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 10; ++i)
+    {
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
+    }
+    for (int i = 10; i < 20; ++i)
+    {
+        config.player2Deck[i] = Cards::FindCardByName("Fireball");
+    }
+    for (int i = 20; i < 30; ++i)
+    {
+        config.player2Deck[i] = Cards::FindCardByName("Blizzard");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Envoy of Lazul"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    Generic::ChoicePick(curPlayer, 36);
+
+    const bool check =
+        ((curHand.GetCount() == 0) ||
+         (curHand.GetCount() == 1 && curHand[0]->card->name == "Wisp"));
+    CHECK_EQ(check, true);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [DRG_307] Breath of the Infinite - COST:3
 // - Set: Dragons, Rarity: Rare
