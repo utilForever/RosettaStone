@@ -185,6 +185,12 @@ void Game::RefCopyFrom(const Game& rhs)
     m_oopIndex = rhs.m_oopIndex;
 }
 
+std::array<Card, START_DECK_SIZE> Game::GetPlayerDeck(PlayerType type)
+{
+    return type == PlayerType::PLAYER1 ? m_gameConfig.player1Deck
+                                       : m_gameConfig.player2Deck;
+}
+
 FormatType Game::GetFormatType() const
 {
     return m_gameConfig.formatType;
