@@ -828,24 +828,24 @@ DRAGONS | DRG_256 | Dragonbane | O
 DRAGONS | DRG_257 | Frizz Kindleroost | O
 DRAGONS | DRG_258 | Sanctuary | O
 DRAGONS | DRG_270 | Malygos, Aspect of Magic | O
-DRAGONS | DRG_300 | Fate Weaver |  
+DRAGONS | DRG_300 | Fate Weaver | O
 DRAGONS | DRG_301 | Whispers of EVIL | O
-DRAGONS | DRG_302 | Grave Rune |  
+DRAGONS | DRG_302 | Grave Rune | O
 DRAGONS | DRG_303 | Disciple of Galakrond | O
-DRAGONS | DRG_304 | Chronobreaker |  
-DRAGONS | DRG_306 | Envoy of Lazul |  
-DRAGONS | DRG_307 | Breath of the Infinite |  
-DRAGONS | DRG_308 | Mindflayer Kaahrj |  
+DRAGONS | DRG_304 | Chronobreaker | O
+DRAGONS | DRG_306 | Envoy of Lazul | O
+DRAGONS | DRG_307 | Breath of the Infinite | O
+DRAGONS | DRG_308 | Mindflayer Kaahrj | O
 DRAGONS | DRG_309 | Nozdormu the Timeless | O
 DRAGONS | DRG_310 | Evasive Drakonid | O
 DRAGONS | DRG_311 | Treenforcements | O
 DRAGONS | DRG_312 | Shrubadier | O
 DRAGONS | DRG_313 | Emerald Explorer | O
 DRAGONS | DRG_314 | Aeroponics | O
-DRAGONS | DRG_315 | Embiggen |  
+DRAGONS | DRG_315 | Embiggen | O
 DRAGONS | DRG_317 | Secure the Deck | O
 DRAGONS | DRG_318 | Breath of Dreams | O
-DRAGONS | DRG_319 | Goru the Mightree |  
+DRAGONS | DRG_319 | Goru the Mightree | O
 DRAGONS | DRG_320 | Ysera, Unleashed | O
 DRAGONS | DRG_321 | Rolling Fireball |  
 DRAGONS | DRG_322 | Dragoncaster | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 92% (130 of 140 Cards)
+- Progress: 98% (138 of 140 Cards)
 
 ## Galakrond's Awakening
 
