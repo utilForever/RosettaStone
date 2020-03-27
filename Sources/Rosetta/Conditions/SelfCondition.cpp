@@ -139,6 +139,13 @@ SelfCondition SelfCondition::IsWeaponEquipped()
     });
 }
 
+SelfCondition SelfCondition::IsTreant()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->card->name == "Treant";
+    });
+}
+
 SelfCondition SelfCondition::IsRace(Race race)
 {
     return SelfCondition([=](Playable* playable) -> bool {
