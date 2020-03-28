@@ -847,11 +847,11 @@ DRAGONS | DRG_317 | Secure the Deck | O
 DRAGONS | DRG_318 | Breath of Dreams | O
 DRAGONS | DRG_319 | Goru the Mightree | O
 DRAGONS | DRG_320 | Ysera, Unleashed | O
-DRAGONS | DRG_321 | Rolling Fireball |  
+DRAGONS | DRG_321 | Rolling Fireball | O
 DRAGONS | DRG_322 | Dragoncaster | O
 DRAGONS | DRG_323 | Learn Draconic | O
 DRAGONS | DRG_324 | Elemental Allies | O
-DRAGONS | DRG_401 | Grizzled Wizard |  
+DRAGONS | DRG_401 | Grizzled Wizard | O
 DRAGONS | DRG_402 | Sathrovarr | O
 DRAGONS | DRG_403 | Blowtorch Saboteur | O
 DRAGONS | DRG_500 | Molten Breath | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 98% (138 of 140 Cards)
+- Progress: 100% (140 of 140 Cards)
 
 ## Galakrond's Awakening
 

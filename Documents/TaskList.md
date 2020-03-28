@@ -85,6 +85,7 @@
 * SummonStackTask
 * SummonTask
 * SwapAttackHealthTask
+* SwapHeroPowerTask
 * TempManaTask
 * TransformCopyTask
 * TransformTask
