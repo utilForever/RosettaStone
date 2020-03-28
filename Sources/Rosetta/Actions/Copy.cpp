@@ -144,7 +144,7 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
     }
 
     if (copyEnchantments && source->ongoingEffect != nullptr &&
-        copiedEntity->ongoingEffect == nullptr)
+        copiedEntity != nullptr && copiedEntity->ongoingEffect == nullptr)
     {
         source->ongoingEffect->Clone(copiedEntity);
     }
