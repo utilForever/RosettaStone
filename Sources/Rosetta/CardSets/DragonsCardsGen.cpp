@@ -62,6 +62,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SwapHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
@@ -4219,6 +4220,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SwapHeroPowerTask>());
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DRG_401e", EntityType::PLAYER));
+    cards.emplace("DRG_401", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DRG_402] Sathrovarr - COST:9 [ATK:5/HP:5]
@@ -4695,6 +4701,11 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Swap Hero Powers with your opponent next turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<SwapHeroPowerTask>() };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("DRG_401e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DRG_403e] Hot Hot Hot! (*) - COST:0

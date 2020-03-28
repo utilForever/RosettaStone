@@ -8938,6 +8938,64 @@ TEST_CASE("[Neutral : Minion] - DRG_310 : Evasive Drakonid")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DRG_401] Grizzled Wizard - COST:2 [ATK:3/HP:2]
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Swap Hero Powers with your opponent
+//       until your next turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DRG_401 : Grizzled Wizard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto curHand = curPlayer->GetHandZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Grizzled Wizard"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHero->GetHealth(), 28);
+    CHECK_EQ(curHand->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHero->GetHealth(), 28);
+    CHECK_EQ(curHero->GetArmor(), 2);
+    CHECK_EQ(curHand->GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHero->GetHealth(), 28);
+    CHECK_EQ(curHero->GetArmor(), 0);
+    CHECK_EQ(curHand->GetCount(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DRG_402] Sathrovarr - COST:9 [ATK:5/HP:5]
 // - Race: Demon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
