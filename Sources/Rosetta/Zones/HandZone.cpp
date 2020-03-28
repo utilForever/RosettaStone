@@ -83,7 +83,7 @@ void HandZone::Expand(int newSize)
         entities[i] = m_entities[i];
     }
 
-    delete m_entities;
+    delete[] m_entities;
     m_entities = entities;
     m_maxSize = newSize;
 }
