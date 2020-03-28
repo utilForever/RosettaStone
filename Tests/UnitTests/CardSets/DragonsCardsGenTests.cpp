@@ -2681,6 +2681,85 @@ TEST_CASE("[Mage : Minion] - DRG_270 : Malygos, Aspect of Magic")
     CHECK_EQ(curPlayer->choice.has_value(), false);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [DRG_321] Rolling Fireball - COST:5
+// - Set: Dragons, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 8 damage to a minion. Any excess damage
+//       continues to the left or right.
+// --------------------------------------------------------
+// GameTag:
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rolling Fireball"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Archmage"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    opPlayer->SetUsedMana(0);
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    const bool check1 =
+        opField.GetCount() == 4 && opField[0]->card->name == "Oasis Snapjaw" &&
+        opField[0]->GetHealth() == 5 && opField[1]->card->name == "Wisp" &&
+        opField[2]->card->name == "Wisp" &&
+        opField[3]->card->name == "Wolfrider";
+    const bool check2 =
+        opField.GetCount() == 2 && opField[0]->card->name == "Oasis Snapjaw" &&
+        opField[0]->GetHealth() == 7 && opField[1]->card->name == "Wolfrider";
+    const bool check = check1 || check2;
+    CHECK_EQ(check, true);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [DRG_322] Dragoncaster - COST:6 [ATK:4/HP:4]
 // - Set: Dragons, Rarity: Rare

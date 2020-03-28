@@ -1204,6 +1204,148 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
+            auto continueFunc = [](FieldZone* fieldZone, Playable* source,
+                                   Minion* minion, int remainDamage,
+                                   bool isLeft) {
+                while (true)
+                {
+                    const int targetHealth = minion->GetHealth();
+                    minion->TakeDamage(source, remainDamage);
+
+                    if (minion->isDestroyed)
+                    {
+                        remainDamage = remainDamage - targetHealth;
+                        if (remainDamage > 0)
+                        {
+                            const int targetPos = minion->GetZonePosition();
+
+                            if (isLeft && targetPos > 0)
+                            {
+                                minion = (*fieldZone)[targetPos - 1];
+                            }
+                            else if (!isLeft &&
+                                     targetPos < fieldZone->GetCount() - 1)
+                            {
+                                minion = (*fieldZone)[targetPos + 1];
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            };
+
+            const auto realSource = dynamic_cast<Playable*>(source);
+            const auto realTarget = dynamic_cast<Character*>(target);
+
+            const int targetHealth = realTarget->GetHealth();
+            int realDamage =
+                8 + static_cast<int>(source->player->currentSpellPower);
+
+            if (const auto value = source->player->playerAuraEffects.GetValue(
+                    GameTag::SPELLPOWER_DOUBLE);
+                value > 0)
+            {
+                realDamage *= static_cast<int>(std::pow(2.0, value));
+            }
+
+            realTarget->TakeDamage(realSource, realDamage);
+
+            if (realTarget->isDestroyed)
+            {
+                const int remainDamage = realDamage - targetHealth;
+                if (remainDamage > 0)
+                {
+                    FieldZone* fieldZone = realTarget->player->GetFieldZone();
+                    Minion* left = nullptr;
+                    Minion* right = nullptr;
+                    const int targetPos = realTarget->GetZonePosition();
+                    int count = 0;
+                    bool includeLeft = false, includeRight = false;
+
+                    if (targetPos > 0)
+                    {
+                        left = (*fieldZone)[targetPos - 1];
+
+                        if (!left->IsUntouchable())
+                        {
+                            includeLeft = true;
+                            ++count;
+                        }
+
+                        if (targetPos < fieldZone->GetCount() - 1)
+                        {
+                            right = (*fieldZone)[targetPos + 1];
+
+                            if (!right->IsUntouchable())
+                            {
+                                includeRight = true;
+                                ++count;
+                            }
+                        }
+                    }
+                    else if (fieldZone->GetCount() > 1)
+                    {
+                        right = (*fieldZone)[targetPos + 1];
+
+                        if (!right->IsUntouchable())
+                        {
+                            includeRight = true;
+                            ++count;
+                        }
+                    }
+
+                    if (count == 2)
+                    {
+                        const auto direction = Random::get<int>(0, 1);
+                        if (direction == 0)
+                        {
+                            continueFunc(fieldZone, realSource, left,
+                                         remainDamage, true);
+                        }
+                        else
+                        {
+                            continueFunc(fieldZone, realSource, right,
+                                         remainDamage, false);
+                        }
+                    }
+                    else if (count == 1)
+                    {
+                        if (includeLeft)
+                        {
+                            continueFunc(fieldZone, realSource, left,
+                                         remainDamage, true);
+                        }
+                        else if (includeRight)
+                        {
+                            continueFunc(fieldZone, realSource, right,
+                                         remainDamage, false);
+                        }
+                    }
+                }
+            }
+        }));
+    cards.emplace(
+        "DRG_321",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [DRG_322] Dragoncaster - COST:6 [ATK:4/HP:4]
