@@ -853,7 +853,7 @@
             "CHOOSE_ONE"
         ],
         "name": "Living Roots",
-        "rarity": "COMMON",
+        "rarity": "EPIC",
         "set": "TGT",
         "text": "<b>Choose One -</b> Deal $2 damage; or Summon two 1/1 Saplings.",
         "type": "SPELL"
@@ -4291,7 +4291,7 @@
         "cardClass": "WARLOCK",
         "cost": 8,
         "dbfId": 61028,
-        "health": 8,
+        "health": 10,
         "id": "BGS_044",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4417,6 +4417,36 @@
         "techLevel": 6,
         "text": "[x]After another friendly\nminion loses <b>Divine Shield</b>,\ngain <b>Divine Shield</b>.",
         "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 61932,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61930,
+        "health": 2,
+        "id": "BGS_071",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Deflect-o-Bot",
+        "race": "MECHANICAL",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "[x]<b>Divine Shield</b>\nWhenever you summon a Mech\nduring combat, gain +1 Attack\nand <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61931,
+        "id": "BGS_071e",
+        "name": "Deflect-o-Shield",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
     },
     {
         "artist": "Jim Nelson",
@@ -5333,7 +5363,7 @@
         "artist": "Matt Dixon",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 9,
+        "cost": 7,
         "dbfId": 48146,
         "elite": true,
         "flavor": "\"Of course I've gone mad with power. Ever try going mad without it?\"",
@@ -5490,7 +5520,7 @@
         "id": "BOT_243e",
         "name": "Necroalchemy",
         "set": "BOOMSDAY",
-        "text": "Copied Deathrattle from {0}.",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
         "type": "ENCHANTMENT"
     },
     {
@@ -5693,7 +5723,7 @@
         "attack": 2,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 7,
+        "cost": 6,
         "dbfId": 48226,
         "flavor": "\"I shall build a mighty golden paladin! And he will GREET the WORLD!\"",
         "health": 1,
@@ -7415,7 +7445,7 @@
             "DEATHRATTLE"
         ],
         "set": "BOOMSDAY",
-        "text": "[x]<b>Deathrattle</b> minions you\nplay cost (3) less, but die at\nend of turn. <i>(Cost can't be\nreduced below 1.)</i>",
+        "text": "[x]<b>Deathrattle</b> minions you\nplay cost (3) less, but die\nat the end of the turn.",
         "type": "MINION"
     },
     {
@@ -13248,6 +13278,2127 @@
         "type": "MINION"
     },
     {
+        "artist": "David Kegg",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56385,
+        "flavor": "\"Gettin' them discounts in bulk amounts, spells can come, and spells can go, castin' costs drop with my sweet, sweet flow.\"",
+        "id": "BT_002",
+        "name": "Incanter's Flow",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Reduce the Cost of spells in your deck by (1).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 58547,
+        "id": "BT_002e",
+        "name": "Incanter's Flow",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Adam Byrne",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56386,
+        "flavor": "More aromatic than a regular portal.",
+        "id": "BT_003",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Netherwind Portal",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Secret:</b> After your opponent casts a spell, summon a random\n4-Cost minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Melvin Chan",
+        "attack": 4,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56387,
+        "flavor": "Currently serving two turns on charges of aggravated minion slaughter.",
+        "health": 5,
+        "id": "BT_004",
+        "name": "Imprisoned Observer",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens,\ndeal 2 damage to all\nenemy minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Gonzalo Ordonez",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56389,
+        "elite": true,
+        "flavor": "You too could be the winner of the national spelling spree!",
+        "id": "BT_006",
+        "name": "Evocation",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "Fill your hand with random Mage spells.\nAt the end of your turn, discard them.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 56397,
+        "id": "BT_006e",
+        "name": "Evocation",
+        "set": "BLACK_TEMPLE",
+        "text": "Discards at the end of your turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Zero",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56391,
+        "flavor": "The Rusted Legion's training leaves a little to be desired. He hasn't even had a tetanus shot yet!",
+        "health": 2,
+        "id": "BT_008",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Rustsworn Initiate",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Summon a 1/1 Impcaster with\n<b>Spell Damage +1</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zero",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 57906,
+        "health": 1,
+        "id": "BT_008t",
+        "mechanics": [
+            "SPELLPOWER"
+        ],
+        "name": "Impcaster",
+        "race": "DEMON",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sam Nielson",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56392,
+        "flavor": "Imprisoned for ten thousand years! Not because it's a demon. Because of the dancing.",
+        "health": 1,
+        "id": "BT_009",
+        "name": "Imprisoned Sungill",
+        "race": "MURLOC",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens, summon two 1/1\nMurlocs.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sam Nielson",
+        "attack": 1,
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 57920,
+        "health": 1,
+        "id": "BT_009t",
+        "name": "Sungill Streamrunner",
+        "race": "MURLOC",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 61934,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56393,
+        "flavor": "Return my fishes to me, and I myself shall carry you to the gates of Mrrhalla!",
+        "health": 4,
+        "id": "BT_010",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Felfin Navigator",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "techLevel": 3,
+        "text": "<b>Battlecry:</b> Give your other Murlocs +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 59713,
+        "id": "BT_010e",
+        "name": "Felfin Fueled",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Wayne Wu",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 56394,
+        "flavor": "Proper justice. Throw the book at him!",
+        "id": "BT_011",
+        "name": "Libram of Justice",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Equip a 1/4 weapon. Change the Health of all enemy minions to 1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 56405,
+        "id": "BT_011e",
+        "name": "Judgment of Justice",
+        "set": "BLACK_TEMPLE",
+        "text": "Health changed to 1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Wayne Wu",
+        "attack": 1,
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 57738,
+        "durability": 4,
+        "id": "BT_011t",
+        "name": "Overdue Justice",
+        "set": "BLACK_TEMPLE",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56439,
+        "flavor": "Often grieves with the Starsweeper.",
+        "health": 1,
+        "id": "BT_014",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Starscryer",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Draw a spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56443,
+        "durability": 2,
+        "flavor": "\"I said I wanted the ASHbringer not FISHbringer!\"",
+        "id": "BT_018",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Underlight Angling Rod",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "After your Hero attacks, add a random Murloc to your hand.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56444,
+        "elite": true,
+        "flavor": "Murlocs are not native to Outland. When the Sungills arrived, one among them rose to the challenge of this dark world. They call him... Murgurgle. Murgur Murgurgle.",
+        "health": 1,
+        "id": "BT_019",
+        "mechanics": [
+            "DEATHRATTLE",
+            "DIVINE_SHIELD"
+        ],
+        "name": "Murgur Murgurgle",
+        "race": "MURLOC",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Divine Shield</b>\n<b>Deathrattle:</b> Shuffle\n'Murgurgle Prime'\ninto your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 6,
+        "cardClass": "PALADIN",
+        "cost": 8,
+        "dbfId": 57478,
+        "elite": true,
+        "health": 3,
+        "id": "BT_019t",
+        "mechanics": [
+            "BATTLECRY",
+            "DIVINE_SHIELD"
+        ],
+        "name": "Murgurgle Prime",
+        "race": "MURLOC",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Divine Shield</b>\n<b>Battlecry:</b> Summon 4 random Murlocs. Give them <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56445,
+        "flavor": "Will check to make sure you have a valid libramary card.",
+        "health": 3,
+        "id": "BT_020",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Aldor Attendant",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Reduce the Cost of your Librams by (1) this game.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57473,
+        "id": "BT_020e",
+        "name": "Aldor Attendant",
+        "set": "BLACK_TEMPLE",
+        "text": "Reduced Cost.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Jason Kang",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56460,
+        "flavor": "It's Comic Sans.",
+        "id": "BT_021",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Font of Power",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Discover</b> a Mage minion. If your deck has no minions, keep all 3.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 2,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56461,
+        "flavor": "\"S-secrets? I don't have any! Whoa, look, a spell!\"",
+        "health": 3,
+        "id": "BT_022",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Apexis Smuggler",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DISCOVER",
+            "SECRET"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "After you play a <b>Secret</b>, <b>Discover</b> a spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 56554,
+        "flavor": "\"Think you got lethal? Libram of NOPE!\"",
+        "id": "BT_024",
+        "name": "Libram of Hope",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "Restore 8 Health. Summon an 8/8 Guardian with <b>Taunt</b> and <b>Divine Shield</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 8,
+        "cardClass": "PALADIN",
+        "cost": 8,
+        "dbfId": 57471,
+        "health": 8,
+        "id": "BT_024t",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "name": "Ancient Guardian",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Adam Byrne",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56555,
+        "flavor": "The best wisdom is passed on.",
+        "id": "BT_025",
+        "name": "Libram of Wisdom",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Give a minion +1/+1\nand \"<b>Deathrattle:</b> Add\na 'Libram of Wisdom'\nspell to your hand.\"",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 57472,
+        "id": "BT_025e",
+        "name": "Light's Wisdom",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+1. <b>Deathrattle:</b> Add 'Libram of Wisdom' to your hand.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56556,
+        "flavor": "It’s under 'T.'",
+        "health": 6,
+        "id": "BT_026",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Aldor Truthseeker",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> Reduce the Cost of your Librams by (2) this game.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57737,
+        "id": "BT_026e",
+        "name": "Aldor Truthseeker",
+        "set": "BLACK_TEMPLE",
+        "text": "Reduced Cost.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56717,
+        "elite": true,
+        "flavor": "Loyal to Kael'thas Sunstrider, this blood elf mage sought arcane power in the Void. Did she find it... or did IT find her?",
+        "health": 2,
+        "id": "BT_028",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLPOWER"
+        ],
+        "name": "Astromancer Solarian",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 1,
+        "text": "[x]<b>Spell Damage +1</b>\n<b>Deathrattle:</b> Shuffle\n'Solarian Prime'\ninto your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 7,
+        "cardClass": "MAGE",
+        "cost": 7,
+        "dbfId": 56718,
+        "elite": true,
+        "health": 7,
+        "id": "BT_028t",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLPOWER"
+        ],
+        "name": "Solarian Prime",
+        "race": "DEMON",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>\n<b>Battlecry:</b> Cast 5 random Mage spells <i>(targets enemies if possible)</i>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56791,
+        "flavor": "\"What do we want?\" \"CHAOS!\"\n \"When do we want it?\"\n \"WHEN LEAST EXPECTED!\"",
+        "id": "BT_035",
+        "name": "Chaos Strike",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "Give your hero +2 Attack this turn. Draw a card.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 57889,
+        "id": "BT_035e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Chaos Strike",
+        "set": "CORE",
+        "text": "+2 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56792,
+        "flavor": "Undisputed champions of \"Dancing with the Satyrs.\"",
+        "id": "BT_036",
+        "name": "Coordinated Strike",
+        "rarity": "FREE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "CORE",
+        "text": "Summon three 1/1 Illidari with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 1,
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 56927,
+        "health": 1,
+        "id": "BT_036t",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Illidari Initiate",
+        "set": "CORE",
+        "text": "<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Adam Byrne",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 57145,
+        "flavor": "\"WE DO YOU A BAMBOOZLE, HOOMAN!\"",
+        "id": "BT_042",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Bamboozle",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Secret:</b> When one of\nyour minions is attacked,\ntransform it into a random\none that costs (3) more.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 57950,
+        "flavor": "\"Dancing with the Satyrs… on Ice!\"",
+        "id": "BT_072",
+        "mechanics": [
+            "FREEZE"
+        ],
+        "name": "Deep Freeze",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Gustav Schmidt",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56411,
+        "flavor": "This is why you never flush a three-cost minion.",
+        "id": "BT_100",
+        "mechanics": [
+            "OVERLOAD"
+        ],
+        "name": "Serpentshrine Portal",
+        "overload": 1,
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $3 damage.\nSummon a random\n3-Cost minion.\n<b>Overload:</b> (1)",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Max Grecke",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56412,
+        "flavor": "Hey man, I just feel like... death is just a construct of our imaginations, ya know?",
+        "id": "BT_101",
+        "name": "Vivid Spores",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "Give your minions \"<b>Deathrattle:</b> Resummon this minion.\"",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 57684,
+        "id": "BT_101e",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Glowcapped",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Resummon this minion.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Grace Liu",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56413,
+        "durability": 2,
+        "flavor": "I would NOT want to put my hand in there. It's... SQUISHY.",
+        "id": "BT_102",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Boggspine Knuckles",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "After your hero attacks, transform your minions into random ones that cost (1) more.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Luca Zontini",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56417,
+        "flavor": "This clacker's crackers for hacking slackers into whack attackers.",
+        "health": 3,
+        "id": "BT_106",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Bogstrok Clacker",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Transform adjacent minions into random minions that cost (1) more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56420,
+        "elite": true,
+        "flavor": "Personal handmaiden to Queen Azshara turned lieutenant to Illidan Stormrage. Also quite the hair sssstylist.",
+        "health": 3,
+        "id": "BT_109",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLPOWER"
+        ],
+        "name": "Lady Vashj",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 1,
+        "text": "[x]<b>Spell Damage +1</b>\n<b>Deathrattle:</b> Shuffle 'Vashj\nPrime' into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 5,
+        "cardClass": "SHAMAN",
+        "cost": 7,
+        "dbfId": 56626,
+        "elite": true,
+        "health": 4,
+        "id": "BT_109t",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLPOWER"
+        ],
+        "name": "Vashj Prime",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 1,
+        "text": "[x]<b>Spell Damage +1</b>\n<b>Battlecry:</b> Draw 3 spells.\n   Reduce their Cost by (3).   ",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 57554,
+        "id": "BT_109te",
+        "name": "Vashj Prime",
+        "set": "BLACK_TEMPLE",
+        "text": "Cost (3) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Dave Allsop",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56467,
+        "flavor": "Weeks of underwater cross-training have really built up her fourarms.",
+        "id": "BT_110",
+        "name": "Torrent",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Deal $8 damage to a\nminion. Costs (3) less if\nyou cast a spell last turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Daria Tuzova",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56470,
+        "flavor": "\"Upon reflection, I have decided that your board needs more ME.\"",
+        "id": "BT_113",
+        "name": "Totemic Reflection",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Give a minion +2/+2.\nIf it's a Totem, summon a copy of it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57525,
+        "id": "BT_113e",
+        "name": "Totemly Awesome",
+        "set": "BLACK_TEMPLE",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56471,
+        "flavor": "HAPPY BIRTHDAY TO THE GROUND!",
+        "health": 6,
+        "id": "BT_114",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shattered Rumbler",
+        "race": "ELEMENTAL",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> If you cast a spell last turn, deal 2 damage to all other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56472,
+        "flavor": "Hopes to someday promote to Marshsqueen.",
+        "health": 4,
+        "id": "BT_115",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Marshspawn",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> If you cast\na spell last turn,\n<b>Discover</b> a spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56504,
+        "flavor": "Dear minions: \nWoosh, woosh, woosh, woosh, woosh.\nBest regards,\nBladestorm",
+        "id": "BT_117",
+        "name": "Bladestorm",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $1 damage to all minions. Repeat until one dies.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56507,
+        "flavor": "Old gladiator rules: first one to die loses.",
+        "health": 10,
+        "id": "BT_120",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Warmaul Challenger",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Choose a minion to battle.",
+        "text": "<b>Battlecry:</b> Choose\nan enemy minion.\nBattle it to the death!",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56508,
+        "flavor": "Factory Direct Fiery War Axe. Please allow two turns for delivery.",
+        "health": 2,
+        "id": "BT_121",
+        "name": "Imprisoned Gan'arg",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens,\nequip a 3/2 Axe.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56510,
+        "elite": true,
+        "flavor": "He rules the Shattered Hand orc clan with an iron... bladefist.",
+        "health": 4,
+        "id": "BT_123",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Kargath Bladefist",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Shuffle\n'Kargath Prime'\ninto your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 10,
+        "cardClass": "WARRIOR",
+        "cost": 8,
+        "dbfId": 56656,
+        "elite": true,
+        "health": 10,
+        "id": "BT_123t",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Kargath Prime",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>. Whenever this attacks and kills a minion, gain 10 Armor.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ludo Lullabi",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56512,
+        "flavor": "Where's a corsair's favorite place to hide treasure? Under their deck!",
+        "id": "BT_124",
+        "name": "Corsair Cache",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "Draw a weapon.\nGive it +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 57943,
+        "id": "BT_124e",
+        "name": "Void Sharpened",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56660,
+        "elite": true,
+        "flavor": "\"You’re fine, friendly minions! You're fine! Don’t tell Mom!\"",
+        "health": 4,
+        "id": "BT_126",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Teron Gorefiend",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Destroy all friendly minions. <b>Deathrattle:</b> Resummon them with +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57798,
+        "id": "BT_126e",
+        "name": "Shadowy Construct",
+        "set": "BLACK_TEMPLE",
+        "text": "Destroyed {0}.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 58532,
+        "id": "BT_126e2",
+        "name": "Vengeful Spirit",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56676,
+        "flavor": "\"C'mon down to Illhoof's bargain bin! When the satyr's free, he'll lower your fee!\"",
+        "health": 3,
+        "id": "BT_127",
+        "name": "Imprisoned Satyr",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Dormant</b> for 2 turns.\nWhen this awakens, reduce\nthe Cost of a random minion\nin your hand by (5).",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 58993,
+        "id": "BT_127e",
+        "name": "Imprisoned Satyr",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (5) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56677,
+        "flavor": "Far superior to a beanstalk boondoggle.",
+        "id": "BT_128",
+        "name": "Fungal Fortunes",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "Draw 3 cards. Discard any minions drawn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Max Grecke",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56678,
+        "flavor": "I regret asking how sporelings are made.",
+        "id": "BT_129",
+        "name": "Germination",
+        "rarity": "RARE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "Summon a copy of a friendly minion.\nGive the copy <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 56679,
+        "id": "BT_129e",
+        "name": "Mitosis",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Armand Serrano",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56680,
+        "flavor": "Zangarmarsh: it's a fungal out there!",
+        "id": "BT_130",
+        "name": "Overgrowth",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Gain two empty Mana Crystals.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "J. Axer",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 56682,
+        "elite": true,
+        "flavor": "Reach down into your lungs. The wind that resides there is your greatest treasure. It provides the gift of song, which is free. \n*But not less than (1)",
+        "health": 5,
+        "id": "BT_131",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Ysiel Windsinger",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "Your spells cost (1).",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 56683,
+        "id": "BT_131e",
+        "name": "Ysiel Windsinger",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (1).",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56684,
+        "flavor": "\"The important thing, son, is to protect your spores! I have spoken!\"",
+        "id": "BT_132",
+        "name": "Ironbark",
+        "rarity": "RARE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "Give a minion +1/+3 and <b>Taunt</b>.\nCosts (0) if you have at least 7 Mana Crystals.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 57976,
+        "id": "BT_132e",
+        "name": "Ironbark",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+3 and <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 7,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 56685,
+        "flavor": "Three heads of marsh-mashing, bog-bashing, swamp-stomping fury!",
+        "health": 7,
+        "id": "BT_133",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Marsh Hydra",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Rush</b>\nAfter this attacks, add a\nrandom 8-Cost minion\nto your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56686,
+        "flavor": "Some think the mysterious bright lights in the bog are alien invaders, others think they're just swamp gas. Turns out, it's just druids.",
+        "id": "BT_134",
+        "name": "Bogbeam",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $3 damage to a minion.\nCosts (0) if you have at least 7 Mana Crystals.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Max Grecke",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56687,
+        "flavor": "Glowflies are distant relations to spelling bees.",
+        "id": "BT_135",
+        "name": "Glowfly Swarm",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "Summon a 2/2 Glowfly for each spell in your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Max Grecke",
+        "attack": 2,
+        "cardClass": "DRUID",
+        "cost": 2,
+        "dbfId": 56688,
+        "health": 2,
+        "id": "BT_135t",
+        "name": "Glowfly",
+        "race": "BEAST",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56689,
+        "elite": true,
+        "flavor": "Brave leader of the Sporeggar. Guided by the philosophy that one should not mssh with matters that are not one's msshiness.",
+        "health": 4,
+        "id": "BT_136",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Archspore Msshi'fn",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Shuffle\n'Msshi'fn Prime'\ninto your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 9,
+        "cardClass": "DRUID",
+        "cost": 10,
+        "dbfId": 57782,
+        "elite": true,
+        "health": 9,
+        "id": "BT_136t",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Msshi'fn Prime",
+        "referencedTags": [
+            "RUSH",
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>\n<b>Choose One -</b> Summon a 9/9 Fungal Giant with <b>Taunt</b>; or <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 10,
+        "dbfId": 57783,
+        "elite": true,
+        "id": "BT_136ta",
+        "name": "Msshi'fn Pro'tec",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "Summon a 9/9 Guardian with <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 10,
+        "dbfId": 57784,
+        "elite": true,
+        "id": "BT_136tb",
+        "name": "Msshi'fn At'tac",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "Summon a 9/9 Bruiser with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 9,
+        "cardClass": "DRUID",
+        "cost": 10,
+        "dbfId": 57986,
+        "elite": true,
+        "health": 9,
+        "id": "BT_136tt",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Fungal Guardian",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 9,
+        "cardClass": "DRUID",
+        "cost": 10,
+        "dbfId": 57987,
+        "elite": true,
+        "health": 9,
+        "id": "BT_136tt2",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Fungal Bruiser",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 9,
+        "cardClass": "DRUID",
+        "cost": 10,
+        "dbfId": 57988,
+        "elite": true,
+        "health": 9,
+        "id": "BT_136tt3",
+        "mechanics": [
+            "RUSH",
+            "TAUNT"
+        ],
+        "name": "Fungal Gargantuan",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>\n<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 6,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 56732,
+        "flavor": "Call Gurtogg a brute if you like, but no one else cares about the wounded like he does.",
+        "health": 8,
+        "id": "BT_138",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Bloodboil Brute",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>\nCosts (1) less for each damaged minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ware Lee",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56734,
+        "flavor": "And if that minion has a frisbee, LOOK OUT!",
+        "health": 3,
+        "id": "BT_140",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Bonechewer Raider",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> If there is a damaged minion, gain +1/+1 and <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 56748,
+        "id": "BT_140e",
+        "name": "Worg-mounted",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+1 and <b>Rush</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56806,
+        "flavor": "Was a humble Elven Archer before Sargeras got to him.",
+        "health": 1,
+        "id": "BT_142",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shadowhoof Slayer",
+        "race": "DEMON",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Give your hero +1 Attack this turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 56839,
+        "id": "BT_142e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Sharpened Claws",
+        "set": "CORE",
+        "text": "+1 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Steven Prescott",
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 56819,
+        "flavor": "Heap on heapin' on.",
+        "health": 7,
+        "id": "BT_155",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Scrapyard Colossus",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon a \n7/7 Felcracked Colossus\nwith <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Steven Prescott",
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 59820,
+        "health": 7,
+        "id": "BT_155t",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Felcracked Colossus",
+        "race": "ELEMENTAL",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56820,
+        "flavor": "If you do the time, you gotta make up the time.",
+        "health": 5,
+        "id": "BT_156",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Imprisoned Vilefiend",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b> for 2 turns.\n<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56823,
+        "flavor": "Poor guy is terrified, look at his faces.",
+        "health": 7,
+        "id": "BT_159",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Terrorguard Escapee",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Summon three 1/1 Huntresses for your opponent.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 57960,
+        "health": 1,
+        "id": "BT_159t",
+        "name": "Huntress",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56824,
+        "flavor": "\"Rust… I love it. It's all coarse, and rough, and irritating. And it gets everywhere.\"",
+        "health": 3,
+        "id": "BT_160",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Rustsworn Cultist",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Battlecry:</b> Give your\nother minions \"<b>Deathrattle:</b>\nSummon a 1/1 Demon.\"",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 59672,
+        "id": "BT_160e",
+        "name": "Rustsworn Pact",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Summon a 1/1 Demon.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 56851,
+        "health": 1,
+        "id": "BT_160t",
+        "name": "Rusted Devil",
+        "race": "DEMON",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 56827,
+        "flavor": "Come on and slam, and welcome to Nagrand!",
+        "id": "BT_163",
+        "name": "Nagrand Slam",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "Summon four 3/5 Clefthoofs that attack random enemies.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "cost": 4,
+        "dbfId": 57965,
+        "health": 5,
+        "id": "BT_163t",
+        "name": "Clefthoof",
+        "race": "BEAST",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56841,
+        "flavor": "Give me an R! \nGive me a U! \nGive me an S! \nGive me an H! \nYou two, you’re exclamation points!",
+        "id": "BT_173",
+        "name": "Command the Illidari",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Summon six 1/1 Illidari with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 56928,
+        "flavor": "The slice so nice, it'll cut you twice.",
+        "id": "BT_175",
+        "name": "Twin Slice",
+        "rarity": "COMMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Give your hero +1 Attack this turn. Add 'Second Slice' to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 56938,
+        "id": "BT_175e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Twin Slice",
+        "race": "DEMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Your hero has +1 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 56935,
+        "id": "BT_175t",
+        "name": "Second Slice",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Give your hero +1 Attack this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Wayne Reynolds",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58202,
+        "elite": true,
+        "flavor": "\"Armor and heals may slow my zeal, but fel and glaives excite me!\"",
+        "health": 5,
+        "id": "BT_187",
+        "mechanics": [
+            "AURA",
+            "CHARGE"
+        ],
+        "name": "Kayn Sunfury",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Charge</b>\nAll friendly attacks ignore <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60283,
+        "id": "BT_187e",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Death's Dance",
+        "set": "BLACK_TEMPLE",
+        "text": "Your attacks ignore <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60284,
+        "id": "BT_187e2",
+        "name": "Death's Dance",
+        "set": "BLACK_TEMPLE",
+        "text": "Kayn is letting this ignore <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 57979,
+        "elite": true,
+        "flavor": "What is a shadowjeweler? A miserable little pile of secrets.",
+        "health": 5,
+        "id": "BT_188",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Shadowjeweler Hanar",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DISCOVER",
+            "SECRET"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]After you play a <b>Secret</b>,\n<b>Discover</b> a <b>Secret</b> from\na different class.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 57907,
+        "flavor": "According to the Boom Labs sales brochure, it \"impractically makes itself!\"",
+        "health": 3,
+        "id": "BT_190",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Replicat-o-tron",
+        "race": "MECHANICAL",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "At the end of your turn, transform a neighbor into a copy of this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 57326,
+        "elite": true,
+        "flavor": "He calms down a lot if you just give him a turn.",
+        "health": 3,
+        "id": "BT_196",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Keli'dan the Breaker",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Destroy a minion.",
+        "text": "[x]<b>Battlecry:</b> Destroy a minion.\nIf drawn this turn, instead\ndestroy all minions\nexcept this one.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57459,
+        "id": "BT_196e",
+        "mechanics": [
+            "ENCHANTMENT_INVISIBLE",
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Come Closer",
+        "set": "BLACK_TEMPLE",
+        "text": "Drawn this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57166,
+        "elite": true,
+        "flavor": "These three represent Anger, Desire, and Suffering. Much like raid night guild chat.",
+        "health": 3,
+        "id": "BT_197",
+        "mechanics": [
+            "DEATHRATTLE",
+            "LIFESTEAL"
+        ],
+        "name": "Reliquary of Souls",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Lifesteal</b>\n<b>Deathrattle:</b> Shuffle\n'Reliquary Prime'\ninto your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 6,
+        "cardClass": "PRIEST",
+        "cost": 7,
+        "dbfId": 57172,
+        "elite": true,
+        "health": 8,
+        "id": "BT_197t",
+        "mechanics": [
+            "LIFESTEAL",
+            "TAUNT"
+        ],
+        "name": "Reliquary Prime",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b><b>Taunt</b>, Lifesteal</b>\nOnly you can target this with\nspells and Hero Powers.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 57160,
+        "elite": true,
+        "flavor": "It’s a doppelgang-war!",
+        "id": "BT_198",
+        "name": "Soul Mirror",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "Summon copies of enemy minions. They attack their copies.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vlad Botos",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57149,
+        "flavor": "Warning! Your minions are seated in the splash zone.",
+        "id": "BT_199",
+        "name": "Unstable Felbolt",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $3 damage to an enemy minion and a random friendly one.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Charlene Le Scanff",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56398,
+        "flavor": "Pokey-man. Gotta spike 'em all!",
+        "health": 4,
+        "id": "BT_201",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Augmented Porcupine",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Deathrattle</b>: Deal this\nminion's Attack damage\nrandomly split among\nall enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56483,
+        "flavor": "Beasts love Helbacon Strips!",
+        "health": 1,
+        "id": "BT_202",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Helboar",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Give a random Beast in your hand +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 56487,
+        "id": "BT_202e",
+        "name": "Scent of Blood",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56484,
+        "flavor": "\"Just you wait, I’ll go get on my main!\"",
+        "id": "BT_203",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Pack Tactics",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Secret:</b> When a friendly minion is attacked, summon a 3/3 copy.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 61661,
+        "id": "BT_203e",
+        "name": "Packmate",
+        "set": "BLACK_TEMPLE",
+        "text": "Attack and Health set to 3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56697,
+        "flavor": "Make your foe's armor your fauna's fashion!",
+        "id": "BT_205",
+        "name": "Scrap Shot",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $3 damage.\nGive a random Beast in your hand +3/+3.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 58915,
+        "id": "BT_205e",
+        "name": "Scrapmetal Claws",
+        "set": "BLACK_TEMPLE",
+        "text": "+3/+3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Steven Prescott",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56451,
+        "elite": true,
+        "flavor": "A living terror. Teleports at will. Feasts on tainted helboar meat. No head scritches unless you're Leoroxx.",
+        "health": 4,
+        "id": "BT_210",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Zixor, Apex Predator",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Shuffle 'Zixor\nPrime' into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Steven Prescott",
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "cost": 8,
+        "dbfId": 57631,
+        "elite": true,
+        "health": 4,
+        "id": "BT_210t",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Zixor Prime",
+        "race": "BEAST",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Rush</b>\n<b>Battlecry:</b> Summon 3\ncopies of this minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56482,
+        "flavor": "It doesn't care who woke it up, someone's getting bitten.",
+        "health": 4,
+        "id": "BT_211",
+        "name": "Imprisoned Felmaw",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Dormant</b> for 2 turns.\nWhen this awakens,\n  attack a random enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Daren Bader",
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56694,
+        "flavor": "Never underestimate a lioness when her pride is on the line.",
+        "health": 2,
+        "id": "BT_212",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Mok'Nathal Lion",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Choose a friendly minion.",
+        "text": "<b>Rush</b>. <b>Battlecry:</b> Choose a friendly minion. Gain a copy of its <b>Deathrattle</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 59529,
+        "id": "BT_212e",
+        "name": "Stalking",
+        "set": "BLACK_TEMPLE",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Ludo Lullabi",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56703,
+        "flavor": "\"A beast, barely alive. Gentlemen, we can rebuild it! Make it stronger, faster... spikier.\"",
+        "id": "BT_213",
+        "name": "Scavenger's Ingenuity",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Draw a Beast.\nGive it +3/+3.",
+        "type": "SPELL"
+    },
+    {
+        "dbfId": 57621,
+        "id": "BT_213e",
+        "name": "Pack Tactics",
+        "set": "BLACK_TEMPLE",
+        "text": "+3/+3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 56758,
+        "elite": true,
+        "flavor": "Father of Rexxar, Champion of the Horde, and Flexxar, Champion of the Gym.",
+        "health": 5,
+        "id": "BT_214",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Beastmaster Leoroxx",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Summon 3 Beasts from your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 6,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 57619,
+        "elite": true,
+        "flavor": "\"Throw it back! THROW IT BACK!\"",
+        "health": 3,
+        "id": "BT_230",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "The Lurker Below",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Deal 3 damage.",
+        "text": "[x]<b>Battlecry:</b> Deal 3 damage\nto an enemy minion. If it\ndies, repeat on one of\nits neighbors.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57718,
+        "flavor": "Stab and Slab. Charge and Targe. Slash and Bash. You get the idea.",
+        "id": "BT_233",
+        "name": "Sword and Board",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $2 damage to a minion. Gain 2 Armor.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 57847,
+        "flavor": "Illin' Illidan laying down the damage, flinging out the chaos as far as he can manage.",
+        "id": "BT_235",
+        "name": "Chaos Nova",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "Deal $4 damage to all minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 57165,
+        "flavor": "Abuse, reuse, recycle.",
+        "health": 5,
+        "id": "BT_249",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Scrap Golem",
+        "race": "MECHANICAL",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>. <b>Deathrattle</b>: Gain Armor equal to this minion's Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56595,
+        "flavor": "I am rejuvenated, I am renewed, I am my own nightlight!",
+        "id": "BT_252",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Renew",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Restore #3 Health. <b>Discover</b> a spell.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56598,
+        "flavor": "This is how the arakkoa make friends.",
+        "id": "BT_253",
+        "name": "Psyche Split",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "Give a minion +1/+2. Summon a copy of it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 57687,
+        "id": "BT_253e",
+        "name": "Twin Vision",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56603,
+        "flavor": "The Sethekk weren't able to survive this long by being wasteful with their power. Or their wacky hats.",
+        "health": 3,
+        "id": "BT_254",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Sethekk Veilweaver",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]After you cast a spell on\na minion, add a Priest\nspell to your hand.",
+        "type": "MINION"
+    },
+    {
         "artist": "James Ryman",
         "attack": 4,
         "cardClass": "NEUTRAL",
@@ -13276,6 +15427,2092 @@
         "set": "BLACK_TEMPLE",
         "text": "Costs (0).",
         "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56681,
+        "flavor": "Ah, the Booterang... nothing cures peon laziness faster.",
+        "health": 2,
+        "id": "BT_256",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Dragonmaw Overseer",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "At the end of your turn, give another friendly minion +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 56690,
+        "id": "BT_256e",
+        "name": "Booted",
+        "set": "BLACK_TEMPLE",
+        "text": "Stats increased.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Eva Widermann",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56623,
+        "flavor": "Defined as the absolute pinnacle of existence. Plus Lifesteal.",
+        "id": "BT_257",
+        "name": "Apotheosis",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "Give a minion +2/+3 and <b>Lifesteal</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 56670,
+        "id": "BT_257e",
+        "name": "Apotheosis",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "+2/+3 and <b>Lifesteal</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56624,
+        "flavor": "He got a time out for excessive vulgarity.",
+        "health": 5,
+        "id": "BT_258",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Imprisoned Homunculus",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b> for 2 turns.\n<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "David Kegg",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56632,
+        "flavor": "On the side, she's training for the annual Dragonmaw hammer throw tournament.",
+        "health": 4,
+        "id": "BT_262",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Dragonmaw Sentinel",
+        "rarity": "RARE",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> If you're holding a Dragon, gain +1 Attack and <b>Lifesteal</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 60178,
+        "id": "BT_262e",
+        "name": "Nether Sight",
+        "set": "BLACK_TEMPLE",
+        "text": "+1 Attack and <b>Lifesteal</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 56905,
+        "durability": 3,
+        "flavor": "Honestly it sows more flame than it reaps.",
+        "id": "BT_271",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Flamereaper",
+        "rarity": "EPIC",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Also damages the minions next to whomever your hero attacks.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 57217,
+        "flavor": "Lonely mages can still have a blast!",
+        "id": "BT_291",
+        "name": "Apexis Blast",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $5 damage.\nIf your deck has no minions, summon a random 5-Cost minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 57546,
+        "flavor": "When it meets the Hand of Gul'dan, they're SHAKING.",
+        "id": "BT_292",
+        "name": "Hand of A'dal",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Give a minion +2/+2.\nDraw a card.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 57548,
+        "id": "BT_292e",
+        "name": "Hand of A'dal",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 56501,
+        "flavor": "His skull also draws three cards. Imagine how many cards he could draw with HIS ENTIRE BODY!",
+        "id": "BT_300",
+        "mechanics": [
+            "InvisibleDeathrattle"
+        ],
+        "name": "Hand of Gul'dan",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "When you play\nor discard this,\ndraw 3 cards.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 5,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56502,
+        "flavor": "Throws shade at those \"high-cost\" minions.",
+        "health": 5,
+        "id": "BT_301",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Nightshade Matron",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>\n<b>Battlecry:</b> Discard your highest Cost card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56511,
+        "flavor": "Some say it's the source of Azeroth's greatest problems—aside from the gnomes.",
+        "id": "BT_302",
+        "name": "The Dark Portal",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "Draw a minion. If you have at least 8 cards in hand, it costs (5) less.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 58060,
+        "id": "BT_302e",
+        "name": "Dark Portal",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (5) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 5,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 56516,
+        "flavor": "Photo actually taken across the street in the reflection of a doorknob.",
+        "health": 7,
+        "id": "BT_304",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Enhanced Dreadlord",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon a 5/5\nDreadlord with <b>Lifesteal</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 5,
+        "cardClass": "WARLOCK",
+        "cost": 5,
+        "dbfId": 57702,
+        "health": 5,
+        "id": "BT_304t",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Desperate Dreadlord",
+        "race": "DEMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56519,
+        "flavor": "His impish imports imply impressively impetuous impropriety.",
+        "health": 3,
+        "id": "BT_305",
+        "name": "Imprisoned Scrap Imp",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens,\ngive all minions in your hand +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 57954,
+        "id": "BT_305e",
+        "name": "Scrap Weapons",
+        "set": "BLACK_TEMPLE",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Wayne Wu",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56520,
+        "flavor": "Why is everybody in Outland replacing their hands?!",
+        "id": "BT_306",
+        "name": "Shadow Council",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "Replace your hand\nwith random Demons.\nGive them +2/+2.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 56521,
+        "id": "BT_306e",
+        "name": "Ritual Summons",
+        "set": "BLACK_TEMPLE",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Nicola Saviori",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56523,
+        "flavor": "He's got a dark glare, but he sees crystal clear!",
+        "health": 4,
+        "id": "BT_307",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Darkglare",
+        "race": "DEMON",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "After your hero takes damage, refresh 2 Mana Crystals.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56534,
+        "elite": true,
+        "flavor": "After Illidan's downfall, Kanrethad formed the Council of the Black Harvest to study Illidan's fel magic. Some say he was... green with envy.",
+        "health": 2,
+        "id": "BT_309",
+        "mechanics": [
+            "AURA",
+            "DEATHRATTLE"
+        ],
+        "name": "Kanrethad Ebonlocke",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Your Demons cost (1) less.\n<b>Deathrattle:</b> Shuffle\n'Kanrethad Prime'\ninto your deck.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60544,
+        "id": "BT_309e",
+        "name": "Black Harvest",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 7,
+        "cardClass": "WARLOCK",
+        "cost": 8,
+        "dbfId": 57155,
+        "elite": true,
+        "health": 6,
+        "id": "BT_309t",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Kanrethad Prime",
+        "race": "DEMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Summon 3 friendly Demons that died this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56985,
+        "flavor": "You got to Nethercrawl before you can Netherwalk.",
+        "health": 2,
+        "id": "BT_321",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Netherwalker",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a Demon.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56973,
+        "faction": "HORDE",
+        "flavor": "What he lacks in sight, he makes up for in sleight-of-tentacle tricks.",
+        "health": 2,
+        "id": "BT_323",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sightless Watcher",
+        "race": "DEMON",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Look at 3 cards in your deck. Choose one to put on top.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 57476,
+        "elite": true,
+        "flavor": "When it comes to spells, she loves 'em then she librams.",
+        "health": 6,
+        "id": "BT_334",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lady Liadrin",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Battlecry:</b> Add a copy of\neach spell you cast on\nfriendly characters this\ngame to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 57688,
+        "flavor": "I wish to complain about this dragon what I purchased not half an hour ago from this very boutique.",
+        "health": 9,
+        "id": "BT_341",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Skeletal Dragon",
+        "race": "DRAGON",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Taunt</b>\nAt the end of your turn, add\na Dragon to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58487,
+        "flavor": "Say what you like about my hatchet-headed hooligan, he’s my battle-friend.",
+        "health": 2,
+        "id": "BT_351",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Battlefiend",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "After your hero attacks, gain +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 58488,
+        "id": "BT_351e",
+        "name": "Felheartened",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 58489,
+        "flavor": "What he lacks in communication skills, he makes up for with highly responsive staffing allocations.",
+        "health": 2,
+        "id": "BT_352",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Satyr Overseer",
+        "race": "DEMON",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "After your hero attacks, summon a 2/2 Satyr.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "cost": 2,
+        "dbfId": 58496,
+        "health": 2,
+        "id": "BT_352t",
+        "name": "Illidari Satyr",
+        "race": "DEMON",
+        "set": "CORE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 58492,
+        "flavor": "The surest way to clear the dance floor.",
+        "id": "BT_354",
+        "mechanics": [
+            "AFFECTED_BY_SPELL_POWER"
+        ],
+        "name": "Blade Dance",
+        "rarity": "RARE",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Deal damage equal to your hero's Attack to 3 random enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ware Lee",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59710,
+        "flavor": "If throwing glaives is what you crave; \nsummon tokens and make 'em broken.",
+        "health": 1,
+        "id": "BT_355",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wrathscale Naga",
+        "rarity": "EPIC",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "After a friendly minion dies, deal 3 damage to a random enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56739,
+        "flavor": "You face face face face face Jaraxxus!",
+        "health": 1,
+        "id": "BT_407",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Ur'zul Horror",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Deathrattle:</b> Add a 2/1 Lost Soul to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 59518,
+        "health": 1,
+        "id": "BT_407t",
+        "name": "Lost Soul",
+        "set": "DEMON_HUNTER_INITIATE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56765,
+        "flavor": "Screaming loudly will not reduce the cost of non-demonic goods.",
+        "health": 4,
+        "id": "BT_416",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Raging Felscreamer",
+        "rarity": "RARE",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Battlecry:</b> The next Demon you play costs (2) less.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 58171,
+        "id": "BT_416e",
+        "name": "Felscream",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Your next Demon costs (2) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 56860,
+        "flavor": "Demons have destroyed the lives of the Ashtongue draenei. Now he’s got a shoulder-axe to grind.",
+        "health": 5,
+        "id": "BT_423",
+        "mechanics": [
+            "LIFESTEAL",
+            "TAUNT"
+        ],
+        "name": "Ashtongue Battlelord",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>\n<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56873,
+        "flavor": "Nothing fills you up like soul food!",
+        "id": "BT_427",
+        "name": "Feast of Souls",
+        "rarity": "RARE",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Draw a card for each friendly minion that died this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56899,
+        "elite": true,
+        "flavor": "As the humble caterpillar becomes a beautiful butterfly, so too does a demon hunter become a hideous mass of writhing destruction and unfettered chaos.",
+        "id": "BT_429",
+        "name": "Metamorphosis",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "Swap your Hero Power to \"Deal 5 damage.\" After 2 uses, swap it back.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 56877,
+        "id": "BT_429p",
+        "name": "Demonic Blast",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Hero Power</b>\nDeal $5 damage.\n<i>(Two uses left!)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 56876,
+        "id": "BT_429p2",
+        "name": "Demonic Blast",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Hero Power</b>\nDeal $5 damage.\n<i>(Last use!)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "artist": "SARIYA",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56900,
+        "durability": 4,
+        "flavor": "The blades glow green from things unseen, dark dreams whirling in the felfire gleam.",
+        "id": "BT_430",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Warglaives of Azzinoth",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "After attacking a minion, your hero may attack again.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58170,
+        "flavor": "He's not the fastest of the bunch, but he'll take a stab at it anyway.",
+        "health": 1,
+        "id": "BT_480",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Crimson Sigil Runner",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Outcast:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 8,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "collectionText": "-Cost minions.\n<i>(Upgrades each time a\nfriendly minion dies!)</i>",
+        "cost": 9,
+        "dbfId": 58172,
+        "elite": true,
+        "flavor": "Missed the big descent with the other dragons. But better late and nether!",
+        "health": 8,
+        "id": "BT_481",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Nethrandamus",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "[x]<b>Battlecry:</b> Summon two\nrandom",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ludo Lullabi",
+        "attack": 7,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 58243,
+        "flavor": "\"Pit! Do as I say!\"",
+        "health": 9,
+        "id": "BT_486",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Pit Commander",
+        "race": "DEMON",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>\nAt the end of your turn, summon a Demon from your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Bayard Wu",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 58244,
+        "flavor": "To hulk, perhaps, to fiend: ay, there's the rub.",
+        "health": 10,
+        "id": "BT_487",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Hulking Overfiend",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Rush</b>. After this attacks and kills a minion, it may attack again.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58246,
+        "flavor": "Spoiler: they're both the evil twin.",
+        "id": "BT_488",
+        "name": "Soul Split",
+        "rarity": "RARE",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Choose a friendly Demon. Summon a copy of it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ludo Lullabi",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58452,
+        "flavor": "Please be mindful when consuming raw or undercooked magic.",
+        "id": "BT_490",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Consume Magic",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Silence</b> an enemy minion.\n<b>Outcast:</b> Draw a card.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 58453,
+        "flavor": "\"Pick a card, any card! Preferably the left- or right-most card.\"",
+        "id": "BT_491",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Spectral Sight",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Draw a card.\n<b>Outcast:</b> Draw another.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Bayard Wu",
+        "attack": 6,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 58455,
+        "flavor": "Furious that she only has six warglaives. The Sightless Watcher has eight! The fel is always greener on the other side.",
+        "health": 7,
+        "id": "BT_493",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Priestess of Fury",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "At the end of your turn, deal 6 damage randomly split among all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 7,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 58494,
+        "flavor": "\"Initiate, this is your glaive. Think of it as an extension of yourself... Did you just throw it?!\"",
+        "health": 4,
+        "id": "BT_495",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Glaivebound Adept",
+        "rarity": "FREE",
+        "set": "CORE",
+        "targetingArrowText": "Deal 4 damage.",
+        "text": "<b>Battlecry:</b> If your hero attacked this turn,\ndeal 4 damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 58495,
+        "flavor": "Signature moves include Eye Bream, Feast of Soles, and Metamorphofish.",
+        "health": 2,
+        "id": "BT_496",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Furious Felfin",
+        "race": "MURLOC",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Battlecry:</b> If your hero\nattacked this turn, gain\n+1 Attack and <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61164,
+        "id": "BT_496e",
+        "name": "Finned and Furious",
+        "set": "BLACK_TEMPLE",
+        "text": "+1 Attack and <b>Rush</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "David Kegg",
+        "attack": 8,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59864,
+        "flavor": "All's well that ends fel when the fel summoner summons well.",
+        "health": 3,
+        "id": "BT_509",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Fel Summoner",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Summon a random Demon from your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59865,
+        "flavor": "You scratch her back, her back scratches back.",
+        "health": 6,
+        "id": "BT_510",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wrathspike Brute",
+        "race": "DEMON",
+        "rarity": "EPIC",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "[x]<b>Taunt</b>\nAfter this is attacked,\ndeal 1 damage to\nall enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Gonzalo Ordonez",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 59867,
+        "flavor": "Critical component of any tragic backstory.",
+        "id": "BT_512",
+        "name": "Inner Demon",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "Give your hero +8 Attack this turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 57848,
+        "id": "BT_512e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Demon Power",
+        "set": "CORE",
+        "text": "+8 Attack",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59869,
+        "flavor": "If you can't take the heat, stop standing in the fire.",
+        "id": "BT_514",
+        "name": "Immolation Aura",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $1 damage to all minions twice.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 58201,
+        "flavor": "A fellow of evil possessed, of most devious shadow. He hath turned on his kin a thousand times, and now, how abhorred in all imagination he is!",
+        "id": "BT_601",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Skull of Gul'dan",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "Draw 3 cards.\n<b>Outcast:</b> Reduce their Cost by (3).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 58605,
+        "id": "BT_601e",
+        "name": "Embrace Power",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (3) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56377,
+        "flavor": "Spies in Outland must blend into the environment. That means hot-pink gear and bright green hair. It’s a weird place.",
+        "health": 1,
+        "id": "BT_701",
+        "mechanics": [
+            "STEALTH"
+        ],
+        "name": "Spymistress",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Stealth</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56378,
+        "flavor": "Her other hand attachments include a corkscrew and a bottle opener.",
+        "health": 2,
+        "id": "BT_702",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ashtongue Slayer",
+        "rarity": "RARE",
+        "referencedTags": [
+            "IMMUNE",
+            "STEALTH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Give +3 Attack and\nImmune this turn.",
+        "text": "<b>Battlecry:</b> Give a <b><b>Stealth</b>ed</b> minion +3 Attack and <b>Immune</b> this turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 56396,
+        "id": "BT_702e",
+        "name": "Guile of the Ashtongue",
+        "set": "BLACK_TEMPLE",
+        "text": "+3 Attack and <b>Immune</b> this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 7,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 56379,
+        "flavor": "Little did he know… it was really the talbuk leg that was cursed.",
+        "health": 5,
+        "id": "BT_703",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Cursed Vagrant",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Summon a 7/5 Shadow with <b>Stealth</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 7,
+        "cardClass": "ROGUE",
+        "cost": 7,
+        "dbfId": 57498,
+        "health": 5,
+        "id": "BT_703t",
+        "mechanics": [
+            "STEALTH"
+        ],
+        "name": "Cursed Shadow",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Stealth</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56524,
+        "flavor": "Clip-clop clip-clop CLIP-CLOP STAB!",
+        "id": "BT_707",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Ambush",
+        "rarity": "RARE",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Secret:</b> After your\nopponent plays a minion,\nsummon a 2/3 Ambusher\nwith <b>Poisonous</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 57218,
+        "health": 3,
+        "id": "BT_707t",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Broken Ambusher",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "David Kegg",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56526,
+        "flavor": "\"Ahh sand in my eyes! Also, I'm being stabbed.\"",
+        "id": "BT_709",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Dirty Tricks",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Secret:</b> After your\nopponent casts a spell,\ndraw 2 cards.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ursula Dorada",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56527,
+        "flavor": "\"What am I drinking again?\"",
+        "health": 3,
+        "id": "BT_710",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Greyheart Sage",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Battlecry:</b> If you control\na <b><b>Stealth</b>ed</b> minion,\ndraw 2 cards.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 56528,
+        "flavor": "\"I'm about to ruin this 10-cost minion's whole career.\"",
+        "health": 2,
+        "id": "BT_711",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Blackjack Stunner",
+        "rarity": "RARE",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Return a minion to hand.",
+        "text": "[x]<b>Battlecry:</b> If you control a\n<b>Secret</b>, return a minion\nto its owner's hand.\nIt costs (2) more.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 56543,
+        "id": "BT_711e",
+        "name": "Stunned",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (2) more.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56530,
+        "elite": true,
+        "flavor": "\"To many of my people, I am known as a traitor... as Illidan's lapdog. I will remain in the shadows, for now... Actually, maybe I'll just remain in the shadows forever.\"",
+        "health": 4,
+        "id": "BT_713",
+        "mechanics": [
+            "DEATHRATTLE",
+            "STEALTH"
+        ],
+        "name": "Akama",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Stealth</b>\n<b>Deathrattle:</b> Shuffle 'Akama\nPrime' into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 6,
+        "cardClass": "ROGUE",
+        "cost": 6,
+        "dbfId": 57156,
+        "elite": true,
+        "health": 5,
+        "id": "BT_713t",
+        "mechanics": [
+            "STEALTH"
+        ],
+        "name": "Akama Prime",
+        "set": "BLACK_TEMPLE",
+        "text": "Permanently <b><b>Stealth</b>ed</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 57174,
+        "flavor": "She still wears her Frozen Shadoweave set despite the many, many nerfs. She just can't let it go!",
+        "health": 3,
+        "id": "BT_714",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Frozen Shadoweaver",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Freeze an enemy.",
+        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Josh Harris",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 57175,
+        "flavor": "When you get this swole, arrows are basically free acupuncture.",
+        "health": 3,
+        "id": "BT_715",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bonechewer Brawler",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Taunt</b>\nWhenever this minion takes\n damage, gain +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57198,
+        "id": "BT_715e",
+        "name": "Brawling",
+        "set": "BLACK_TEMPLE",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Ben Olson",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 57176,
+        "flavor": "She came here to taunt you and chew on bones, and she's all outta bones.",
+        "health": 10,
+        "id": "BT_716",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bonechewer Vanguard",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Taunt</b>\nWhenever this minion takes\ndamage, gain +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57199,
+        "id": "BT_716e",
+        "name": "Victorious",
+        "set": "BLACK_TEMPLE",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 57177,
+        "flavor": "It's a game of hide and go sting.",
+        "health": 2,
+        "id": "BT_717",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Burrowing Scorpid",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Deal 2 damage.",
+        "text": "[x]<b>Battlecry:</b> Deal 2 damage.\nIf that kills the target,\ngain <b>Stealth</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ware Lee",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 57180,
+        "flavor": "Three-time winner (and sole survivor) of the Crashes of Outland motocross!",
+        "health": 8,
+        "id": "BT_720",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH",
+            "TAUNT"
+        ],
+        "name": "Ruststeed Raider",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>, <b>Rush</b>\n<b>Battlecry:</b> Gain +4 Attack this turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 57202,
+        "id": "BT_720e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Ride Eternal",
+        "set": "BLACK_TEMPLE",
+        "text": "+4 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 57181,
+        "flavor": "Known as 'Fel Gel' to the Illidari, it's excellent protection against harsh Draenic sunshine.",
+        "health": 2,
+        "id": "BT_721",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Blistering Rot",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]At the end of your turn,\nsummon a Rot with stats\nequal to this minion's.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 59650,
+        "health": 1,
+        "id": "BT_721t",
+        "name": "Living Rot",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alexa Rockman",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57182,
+        "flavor": "\"What doesn't kill you makes me money!\"",
+        "health": 1,
+        "id": "BT_722",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Guardian Augmerchant",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Deal 1 damage and give <b>Divine Shield</b>.",
+        "text": "<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57183,
+        "flavor": "\"Don't worry, this won't hurt me a bit.\"",
+        "health": 1,
+        "id": "BT_723",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Rocket Augmerchant",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Deal 1 damage and give <b>Rush</b>.",
+        "text": "<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57184,
+        "flavor": "According to him, undamaged minions just spell problems.",
+        "health": 1,
+        "id": "BT_724",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ethereal Augmerchant",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Deal 1 damage and give <b>Spell Damage +1</b>.",
+        "text": "<b>Battlecry:</b> Deal 1 damage to a minion and give it <b>Spell Damage +1</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 59718,
+        "id": "BT_724e",
+        "name": "Ethereal Augment",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Spell Damage +1</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 57186,
+        "flavor": "\"I will find you, sky!\"",
+        "health": 6,
+        "id": "BT_726",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Dragonmaw Sky Stalker",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Summon a 3/4 Dragonrider.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 57200,
+        "health": 4,
+        "id": "BT_726t",
+        "name": "Dragonrider",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57187,
+        "flavor": "He claims to be \"soulbound,\" but I just think he's clingy.",
+        "health": 4,
+        "id": "BT_727",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Soulbound Ashtongue",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Whenever this minion takes damage, also deal that amount to your hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ben Olson",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 57188,
+        "flavor": "He wanders east... always into the east.",
+        "health": 3,
+        "id": "BT_728",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Disguised Wanderer",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle:</b> Summon a 9/1 Inquisitor.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ben Olson",
+        "attack": 9,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 57903,
+        "health": 1,
+        "id": "BT_728t",
+        "name": "Rustsworn Inquisitor",
+        "race": "DEMON",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eva Widermann",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 57189,
+        "flavor": "Recycle that can, or you get the cuffs!",
+        "health": 3,
+        "id": "BT_729",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Waste Warden",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Deal 3 damage.",
+        "text": "[x]<b>Battlecry:</b> Deal 3 damage to\na minion and all others of\nthe same minion type.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sam Nielson",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 57190,
+        "flavor": "\"I am da powerful! You are da poop!\"",
+        "health": 6,
+        "id": "BT_730",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Overconfident Orc",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>\nWhile at full Health,\nthis has +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 57191,
+        "flavor": "\"The best thing about being me—there’s so many 'me's.\"",
+        "health": 2,
+        "id": "BT_731",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Infectious Sporeling",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "After this damages a minion, turn it into an Infectious Sporeling.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 57192,
+        "flavor": "Say what you want but finding a matching set of six swords takes commitment.",
+        "health": 3,
+        "id": "BT_732",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Scavenging Shivarra",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Deal 6 damage randomly split among all other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 57193,
+        "flavor": "Double-damage. You know the drill.",
+        "health": 4,
+        "id": "BT_733",
+        "name": "Mo'arg Artificer",
+        "race": "DEMON",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "text": "All minions take double damage from spells.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Clint Langley",
+        "attack": 12,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 57194,
+        "flavor": "Yet, you still feel attacked.",
+        "health": 12,
+        "id": "BT_734",
+        "name": "Supreme Abyssal",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Can't attack heroes.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 57195,
+        "elite": true,
+        "flavor": "Week #679: Still no mount...",
+        "health": 3,
+        "id": "BT_735",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Al'ar",
+        "race": "ELEMENTAL",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Deathrattle</b>: Summon a\n 0/3 Ashes of Al'ar that resurrects this minion on your next turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 57982,
+        "elite": true,
+        "health": 3,
+        "id": "BT_735t",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ashes of Al'ar",
+        "set": "BLACK_TEMPLE",
+        "text": "At the start of your turn, transform this into Al'ar.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 57197,
+        "elite": true,
+        "flavor": "Go directly to Demon Jail. Do not attack minions, do not collect mana crystals.",
+        "health": 3,
+        "id": "BT_737",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Maiev Shadowsong",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "targetingArrowText": "Choose a minion.",
+        "text": "<b>Battlecry:</b> Choose a minion.\nIt goes <b>Dormant</b> for 2 turns.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": " |4(turn, turns).",
+        "dbfId": 60595,
+        "id": "BT_737e",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Imprisoned",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b>. Awaken in",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 57732,
+        "flavor": "The way to a demon's soul is through its stomach.",
+        "id": "BT_740",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Soul Cleave",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "<b>Lifesteal</b>\nDeal $2 damage to two random enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 58607,
+        "flavor": "\"What are you trying to tell me? That I can dodge axes?\" \n\"I’m trying to tell you that when you’re a Demon Hunter, you won’t have to.\"",
+        "id": "BT_752",
+        "name": "Blur",
+        "rarity": "COMMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Your hero can't take damage this turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 58606,
+        "id": "BT_752e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Blur",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Immune</b> this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58610,
+        "flavor": "One way to ensure that they are not prepared.",
+        "id": "BT_753",
+        "name": "Mana Burn",
+        "rarity": "COMMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Your opponent has 2 fewer Mana Crystals next turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 58608,
+        "id": "BT_753e",
+        "name": "Mana Burned",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "Start with 2 fewer Mana Crystals this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Kagi",
+        "attack": 9,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 60280,
+        "flavor": "Prepare for the staunch conch launch!",
+        "health": 5,
+        "id": "BT_761",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Coilfang Warlord",
+        "rarity": "RARE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Summon a\n 5/9 Warlord with <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "cost": 8,
+        "dbfId": 60281,
+        "health": 9,
+        "id": "BT_761t",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Conchguard Warlord",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "SARIYA",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 57721,
+        "durability": 4,
+        "elite": true,
+        "flavor": "This plate turned shield you shall wield, praying its powers fel will serve you well.",
+        "id": "BT_781",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bulwark of Azzinoth",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Whenever your hero would\ntake damage, this loses\n 1 Durability instead.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 58183,
+        "flavor": "Sometimes looks CAN kill.",
+        "id": "BT_801",
+        "mechanics": [
+            "LIFESTEAL",
+            "OUTCAST"
+        ],
+        "name": "Eye Beam",
+        "rarity": "EPIC",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Lifesteal</b>. Deal $3 damage to a minion.\n<b>Outcast:</b> This costs (0).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Angelica Alieva",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58524,
+        "flavor": "A whirling dervish of demonic devastation.",
+        "health": 3,
+        "id": "BT_814",
+        "mechanics": [
+            "OUTCAST",
+            "RUSH"
+        ],
+        "name": "Illidari Felblade",
+        "rarity": "RARE",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Rush</b>\n<b>Outcast:</b> Gain <b>Immune</b> this turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 58525,
+        "id": "BT_814e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Nimble",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Immune</b> this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 12,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58549,
+        "elite": true,
+        "flavor": "Came from another world to invade Outland and bend it to his will… only to be overthrown by an elf from another world who invaded Outland and bent it to his will.",
+        "health": 12,
+        "id": "BT_850",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Magtheridon",
+        "race": "DEMON",
+        "rarity": "LEGENDARY",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Dormant</b>. <b>Battlecry:</b> Summon\nthree 1/3 enemy Warders.\nWhen they die, destroy all\nminions and awaken.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": " |4(Warder dies, Warders die).",
+        "dbfId": 60947,
+        "id": "BT_850e",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Imprisoned",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b>. Awaken after",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 58550,
+        "health": 3,
+        "id": "BT_850t",
+        "name": "Hellfire Warder",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<i>(Magtheridon will destroy\nall minions and awaken\nafter 3 Warders die.)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Axer",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56583,
+        "durability": 3,
+        "flavor": "The ancient Aldrachi were the greatest warriors in the universe. Imagine their power if they'd put the handle at the END of the blade.",
+        "id": "BT_921",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Aldrachi Warblades",
+        "rarity": "FREE",
+        "set": "CORE",
+        "text": "<b>Lifesteal</b>",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Kagi",
+        "attack": 1,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 56587,
+        "durability": 2,
+        "flavor": "Demon Hunters refer to these glaives as \"the ol’ flappy-attackys.\"",
+        "id": "BT_922",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Umberwing",
+        "rarity": "COMMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "<b>Battlecry:</b> Summon two 1/1 Felwings.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Martin Sickree",
+        "attack": 1,
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 56592,
+        "health": 1,
+        "id": "BT_922t",
+        "name": "Felwing",
+        "race": "DEMON",
+        "set": "DEMON_HUNTER_INITIATE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 10,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 56649,
+        "flavor": "Can I get a pair of size XXXXXL manacles?",
+        "health": 6,
+        "id": "BT_934",
+        "name": "Imprisoned Antaen",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Dormant</b> for 2 turns.\nWhen this awakens, deal\n10 damage randomly split\namong all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jerry Mascho",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 56652,
+        "elite": true,
+        "flavor": "Altruis betrayed Illidan to forge his own way in Outland. With Blackjack. And Netherdrakes.",
+        "health": 2,
+        "id": "BT_937",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Altruis the Outcast",
+        "rarity": "LEGENDARY",
+        "set": "DEMON_HUNTER_INITIATE",
+        "text": "[x]After you play the left-\nor right-most card in your\nhand, deal 1 damage\nto all enemies.",
+        "type": "MINION"
     },
     {
         "artist": "James Ryman",
@@ -19076,7 +23313,7 @@
         "artist": "Luca Zontini",
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 5,
+        "cost": 4,
         "dbfId": 841,
         "flavor": "If the Holy Light forsakes you, good luck casting this spell.  Also, you're probably a jerk.",
         "howToEarn": "Unlocked at Level 6.",
@@ -19085,7 +23322,7 @@
         "name": "Holy Nova",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $2 damage to all enemies. Restore #2 Health to all friendly characters.",
+        "text": "Deal $2 damage to all enemy minions. Restore #2 Health to all friendly characters.",
         "type": "SPELL"
     },
     {
@@ -19140,7 +23377,7 @@
         "name": "Holy Smite",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $2 damage.",
+        "text": "Deal $3 damage\nto a minion.",
         "type": "SPELL"
     },
     {
@@ -19227,7 +23464,7 @@
         "artist": "Jessica Jung",
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 1,
+        "cost": 0,
         "dbfId": 613,
         "flavor": "Sure the extra protection is nice, but the shield really reduces visibility.",
         "howToEarn": "Unlocked at Level 1.",
@@ -19236,7 +23473,7 @@
         "name": "Power Word: Shield",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give a minion +2 Health.\nDraw a card.",
+        "text": "Give a minion +2 Health.",
         "type": "SPELL"
     },
     {
@@ -22009,8 +26246,8 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Northshire Cleric",
-        "rarity": "FREE",
-        "set": "CORE",
+        "rarity": "COMMON",
+        "set": "HOF",
         "text": "Whenever a minion is healed, draw a card.",
         "type": "MINION"
     },
@@ -22025,8 +26262,8 @@
         "howToEarnGolden": "Unlocked at Level 28.",
         "id": "CS2_236",
         "name": "Divine Spirit",
-        "rarity": "FREE",
-        "set": "CORE",
+        "rarity": "COMMON",
+        "set": "HOF",
         "text": "Double a minion's Health.",
         "type": "SPELL"
     },
@@ -23236,7 +27473,7 @@
         "name": "Lucentbark",
         "rarity": "LEGENDARY",
         "set": "DALARAN",
-        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Go dormant. Restore 5 Health to awaken this minion.",
+        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Go <b>Dormant</b>. Restore 5 Health to awaken this minion.",
         "type": "MINION"
     },
     {
@@ -23254,7 +27491,7 @@
         ],
         "name": "Spirit of Lucentbark",
         "set": "DALARAN",
-        "text": "When you restore 5 Health, awaken this minion.\n<i>(",
+        "text": "<b>Dormant</b>\nWhen you restore 5 Health, awaken this minion.\n<i>(",
         "type": "MINION"
     },
     {
@@ -31882,6 +36119,31 @@
         "type": "SPELL"
     },
     {
+        "cardClass": "WARLOCK",
+        "cost": 3,
+        "dbfId": 62056,
+        "id": "DH_Prologue_CS2_057",
+        "name": "Shadow Bolt",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Deal $4 damage\nto a minion.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 1,
+        "dbfId": 62055,
+        "id": "DH_Prologue_EX1_277",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Arcane Missiles",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Deal $3 damage randomly split among all enemies.",
+        "type": "SPELL"
+    },
+    {
         "attack": 3,
         "cardClass": "DREAM",
         "cost": 3,
@@ -32276,7 +36538,7 @@
         "id": "DRG_031e",
         "name": "Necrium Infusion",
         "set": "DRAGONS",
-        "text": "Copied Deathrattle from {0}.",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
         "type": "ENCHANTMENT"
     },
     {
@@ -36570,11 +40832,11 @@
         "dbfId": 58650,
         "health": 2,
         "id": "DRGA_BOSS_05t3",
-        "name": "Lighterbot",
-        "race": "MECHANICAL",
-        "referencedTags": [
+        "mechanics": [
             "BATTLECRY"
         ],
+        "name": "Lighterbot",
+        "race": "MECHANICAL",
         "set": "YEAR_OF_THE_DRAGON",
         "text": "<b>Battlecry:</b> Deal 2 damage to all other minions.",
         "type": "MINION"
@@ -38946,7 +43208,7 @@
         ],
         "name": "Acolyte of Pain",
         "rarity": "COMMON",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "Whenever this minion takes damage, draw a card.",
         "type": "MINION"
     },
@@ -39503,7 +43765,7 @@
         "referencedTags": [
             "SILENCE"
         ],
-        "set": "EXPERT1",
+        "set": "HOF",
         "targetingArrowText": "<b>Silence</b> a minion.",
         "text": "<b>Battlecry:</b> <b>Silence</b> a minion.",
         "type": "MINION"
@@ -39872,7 +44134,7 @@
         ],
         "name": "Mind Control Tech",
         "rarity": "RARE",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "[x]<b>Battlecry:</b> If your opponent\nhas 4 or more minions, take\n control of one at random.",
         "type": "MINION"
     },
@@ -40091,7 +44353,7 @@
         "name": "Mountain Giant",
         "race": "ELEMENTAL",
         "rarity": "EPIC",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "Costs (1) less for each other card in your hand.",
         "type": "MINION"
     },
@@ -40168,7 +44430,7 @@
         ],
         "name": "Leeroy Jenkins",
         "rarity": "LEGENDARY",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "<b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.",
         "type": "MINION"
     },
@@ -40578,7 +44840,7 @@
         "id": "EX1_158e",
         "name": "Soul of the Forest",
         "set": "EXPERT1",
-        "text": "Deathrattle: Summon a 2/2 Treant.",
+        "text": "<b>Deathrattle:</b> Summon a 2/2 Treant.",
         "type": "ENCHANTMENT"
     },
     {
@@ -41273,6 +45535,150 @@
         "set": "CORE",
         "text": "Restore #5 Health to your hero.",
         "type": "SPELL"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 60066,
+        "flavor": "\"I see... a WISP? Why do you have a wisp?!\"",
+        "health": 1,
+        "id": "EX1_193",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Psychic Conjurer",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Copy a card in your opponent’s deck and add it to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eva Widermann",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 60067,
+        "flavor": "It infuses, it enthuses, it amuses!",
+        "id": "EX1_194",
+        "name": "Power Infusion",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Give a minion +2/+6.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 61897,
+        "id": "EX1_194e",
+        "name": "Power Infusion",
+        "set": "CORE",
+        "text": "+2/+6.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 60068,
+        "flavor": "The maritime Kul Tiran clergy are unique among priests for using holy saltwater.",
+        "health": 3,
+        "id": "EX1_195",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Kul Tiran Chaplain",
+        "rarity": "RARE",
+        "set": "EXPERT1",
+        "targetingArrowText": "Give +2 Health.",
+        "text": "<b>Battlecry:</b> Give a friendly minion +2 Health.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 60072,
+        "id": "EX1_195e",
+        "name": "Aided",
+        "set": "EXPERT1",
+        "text": "+2 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Adam Byrne",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 60069,
+        "flavor": "At the Scarlet Monastery, he learned the sacred art of kicking people when they're up.",
+        "health": 1,
+        "id": "EX1_196",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Scarlet Subjugator",
+        "rarity": "RARE",
+        "set": "EXPERT1",
+        "targetingArrowText": "Give -2 Attack\nuntil next turn.",
+        "text": "<b>Battlecry:</b> Give an enemy minion -2 Attack until your next turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60073,
+        "id": "EX1_196e",
+        "name": "Subjugated",
+        "set": "EXPERT1",
+        "text": "-2 Attack until your next turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Ben Olson",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 60070,
+        "flavor": "Discovered by a worgen priest after a giant spilled a drink on her new white robes.",
+        "id": "EX1_197",
+        "name": "Shadow Word: Ruin",
+        "rarity": "EPIC",
+        "set": "EXPERT1",
+        "text": "Destroy all minions with 5 or more Attack.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 8,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 60071,
+        "elite": true,
+        "flavor": "She discovered Xal'atath, Blade of the Black Empire, a terrible weapon of shadow magic that could both swallow a soul <i>and</i> cut a mean julienne.",
+        "health": 1,
+        "id": "EX1_198",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Natalie Seline",
+        "rarity": "LEGENDARY",
+        "set": "EXPERT1",
+        "targetingArrowText": "Destroy a minion.",
+        "text": "<b>Battlecry:</b> Destroy a minion and gain its Health.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 60075,
+        "id": "EX1_198e",
+        "name": "Forgotten Shadows",
+        "set": "EXPERT1",
+        "text": "Increased Health.",
+        "type": "ENCHANTMENT"
     },
     {
         "artist": "Daarken",
@@ -42177,7 +46583,7 @@
         "artist": "Mark Gibbons",
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 220,
         "flavor": "You can rationalize it all you want, it's still a mean thing to do.",
         "id": "EX1_334",
@@ -42217,7 +46623,7 @@
         "artist": "Alex Garner",
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 30,
         "flavor": "\"What do you get when you cast Thoughtsteal on an Orc?  Nothing!\" - Tauren joke",
         "id": "EX1_339",
@@ -42299,7 +46705,7 @@
         "id": "EX1_350",
         "name": "Prophet Velen",
         "rarity": "LEGENDARY",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "Double the damage and healing of your spells and Hero Power.",
         "type": "MINION"
     },
@@ -44029,7 +48435,7 @@
         "id": "EX1_591",
         "name": "Auchenai Soulpriest",
         "rarity": "RARE",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "Your cards and powers that restore Health now deal damage instead.",
         "type": "MINION"
     },
@@ -44408,17 +48814,17 @@
         "cost": 6,
         "dbfId": 556,
         "elite": true,
-        "flavor": "Illidan's brother, Malfurion, imprisoned him beneath Hyjal for 10,000 years.  Stormrages are not good at letting go of grudges.",
+        "flavor": "Xavius has grand nightmares of summoning Sargeras into this world, but a few Satyr will have to do for now.",
         "health": 5,
         "id": "EX1_614",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
-        "name": "Illidan Stormrage",
+        "name": "Xavius",
         "race": "DEMON",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "Whenever you play a card, summon a 2/1 Flame of Azzinoth.",
+        "text": "After you play a card, summon a 2/1 Satyr.",
         "type": "MINION"
     },
     {
@@ -44428,8 +48834,8 @@
         "dbfId": 1751,
         "health": 1,
         "id": "EX1_614t",
-        "name": "Flame of Azzinoth",
-        "race": "ELEMENTAL",
+        "name": "Xavian Satyr",
+        "race": "DEMON",
         "set": "EXPERT1",
         "type": "MINION"
     },
@@ -44533,7 +48939,7 @@
         "artist": "Raymond Swanland",
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 1363,
         "flavor": "If you miss, it leaves a lightning-bolt-shaped scar on your target.",
         "howToEarn": "Unlocked at Level 8.",
@@ -44547,10 +48953,10 @@
     },
     {
         "artist": "Daren Bader",
-        "attack": 6,
+        "attack": 5,
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 1364,
         "flavor": "He also moonlights Thursday nights as a bouncer at the Pig and Whistle Tavern.",
         "health": 6,
@@ -44584,7 +48990,7 @@
         "id": "EX1_624",
         "name": "Holy Fire",
         "rarity": "RARE",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "Deal $5 damage. Restore #5 Health to your hero.",
         "type": "SPELL"
     },
@@ -44598,7 +49004,7 @@
         "id": "EX1_625",
         "name": "Shadowform",
         "rarity": "EPIC",
-        "set": "EXPERT1",
+        "set": "HOF",
         "text": "Your Hero Power becomes 'Deal 2 damage'. If already in Shadowform: 3 damage.",
         "type": "SPELL"
     },
@@ -47850,7 +52256,7 @@
         "mechanics": [
             "TAUNT"
         ],
-        "name": "Slime",
+        "name": "Putrid Slime",
         "set": "NAXX",
         "text": "<b>Taunt</b>",
         "type": "MINION"
@@ -52016,7 +56422,7 @@
         "id": "GILA_411e",
         "name": "Princess's Bone",
         "set": "GILNEAS",
-        "text": "Copied Deathrattle from {0}.",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
         "type": "ENCHANTMENT"
     },
     {
@@ -58736,6 +63142,75 @@
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 56550,
+        "health": 30,
+        "id": "HERO_10",
+        "name": "Illidan Stormrage",
+        "rarity": "FREE",
+        "set": "CORE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 60238,
+        "health": 30,
+        "id": "HERO_10a",
+        "name": "Demonic Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Virtuos",
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 60224,
+        "id": "HERO_10p",
+        "name": "Demon Claws",
+        "set": "CORE",
+        "text": "[x]<b>Hero Power</b>\n+1 Attack this turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "artist": "Virtuos",
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 60483,
+        "id": "HERO_10p_UP",
+        "name": "Demon's Bite",
+        "set": "CORE",
+        "text": "[x]<b>Hero Power</b>\n+2 Attack this turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 56723,
+        "id": "HERO_10pe",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Demon Claws",
+        "set": "CORE",
+        "text": "Your hero has +1 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 59837,
+        "id": "HERO_10pe_UP",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Demon's Bite",
+        "set": "CORE",
+        "text": "Your hero has +2 Attack this turn.",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
@@ -65510,7 +69985,7 @@
         "cost": 0,
         "dbfId": 39766,
         "id": "KARA_00_11",
-        "name": "Evocation",
+        "name": "Guardian’s Evocation",
         "set": "KARA",
         "text": "Gain 5 Mana Crystals this turn only.",
         "type": "SPELL"
@@ -67057,7 +71532,7 @@
         "id": "LOE_019e",
         "name": "Unearthed Raptor",
         "set": "LOE",
-        "text": "Copied Deathrattle from {0}.",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
         "type": "ENCHANTMENT"
     },
     {
@@ -73579,7 +78054,7 @@
         "id": "LOOT_520e",
         "name": "Albino Chameleon",
         "set": "LOOTAPALOOZA",
-        "text": "Copied Deathrattle from {0}.",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
         "type": "ENCHANTMENT"
     },
     {
@@ -73636,7 +78111,7 @@
         "name": "The Darkness",
         "rarity": "LEGENDARY",
         "set": "LOOTAPALOOZA",
-        "text": "[x]Starts dormant.\n<b>Battlecry:</b> Shuffle 3 Candles\ninto the enemy deck. When\ndrawn, this awakens.",
+        "text": "[x]Starts <b>Dormant</b>.\n<b>Battlecry:</b> Shuffle 3 Candles\ninto the enemy deck. When\ndrawn, this awakens.",
         "type": "MINION"
     },
     {
@@ -73659,6 +78134,20 @@
         "set": "LOOTAPALOOZA",
         "text": "@",
         "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "collectionText": " |4(Candle, Candles).",
+        "dbfId": 61009,
+        "id": "LOOT_526e",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Darkness Awaits",
+        "set": "LOOTAPALOOZA",
+        "text": "<b>Dormant</b>. Awaken when you opponent draws",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
@@ -79337,7 +83826,7 @@
         "dbfId": 1852,
         "id": "NEW1_027e",
         "name": "Yarrr!",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "Southsea Captain is granting +1/+1.",
         "type": "ENCHANTMENT"
     },
@@ -83286,6 +87775,407 @@
         "type": "SPELL"
     },
     {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 60754,
+        "health": 5,
+        "id": "Prologue_Azshara",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Queen Azshara",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Summon Handmaiden Vashj, and 4 Royal Guardians.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 60748,
+        "health": 30,
+        "id": "Prologue_Azzinoth",
+        "name": "Azzinoth",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 60975,
+        "id": "Prologue_AzzinothHP",
+        "name": "Warglaives",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\nEquip the Warglaives of Azzinoth.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 60015,
+        "health": 6,
+        "id": "Prologue_Captain",
+        "name": "Captain Varo'then",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Battlecry:</b> Deal 2 damage to a minion and 1 damage to each adjacent minion.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 60751,
+        "health": 30,
+        "id": "Prologue_Cenarius",
+        "name": "Cenarius",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 2,
+        "dbfId": 60999,
+        "id": "Prologue_CenariusHP",
+        "name": "Nature's Grasp",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\nSummon a 2/2 Treant with <b>Taunt</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 5,
+        "dbfId": 61909,
+        "id": "Prologue_ChaosNova",
+        "name": "Chaos Nova",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Deal $4 damage to all minions.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 2,
+        "dbfId": 61908,
+        "id": "Prologue_ChaosStrike",
+        "name": "Chaos Strike",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "text": "Give your hero +2 Attack this turn. Draw a card.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectionText": " left!)</i>",
+        "cost": 4,
+        "dbfId": 61259,
+        "elite": true,
+        "health": 30,
+        "hideStats": true,
+        "id": "Prologue_DemonicPortal",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Demonic Portal",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Each turn, summons\nUnstable Energy. Destroy\n30 to stabilize the portal\nand win! <i>(",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62033,
+        "health": 1,
+        "id": "Prologue_Felhound",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Felhound",
+        "race": "DEMON",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60013,
+        "faction": "HORDE",
+        "health": 4,
+        "id": "Prologue_Guard",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Royal Guardian",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61315,
+        "health": 30,
+        "id": "Prologue_Illidan_DH",
+        "name": "Illidan Stormrage",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 60756,
+        "health": 5,
+        "id": "Prologue_Jarod",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Jarod Shadowsong",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Battlecry:</b> Reduce the cost\nof cards in your hand by (2).\n<b>Deathrattle:</b> Summon\nPriestess Maiev.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62007,
+        "id": "Prologue_Jarod_Ench",
+        "name": "Might of Nature",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (2) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 60757,
+        "health": 5,
+        "id": "Prologue_Maiev",
+        "name": "Priestess Maiev",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "At the end of your turn, restore #5 Health to all other friendly characters.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 61907,
+        "id": "Prologue_ManaBurn",
+        "name": "Mana Burn",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "text": "Your opponent has 2 fewer Mana Crystals next turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 60750,
+        "health": 40,
+        "id": "Prologue_Mannoroth",
+        "name": "Mannoroth",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 60998,
+        "id": "Prologue_MannorothHP",
+        "name": "Felstorm",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\nDeal $1 damage to\nall non-Demon\nminions.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 6,
+        "dbfId": 62312,
+        "id": "Prologue_MoongladePortal",
+        "name": "Moonglade Portal",
+        "rarity": "RARE",
+        "set": "BLACK_TEMPLE",
+        "text": "Restore #6 Health. Summon a random\n6-Cost minion.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 60753,
+        "elite": true,
+        "faction": "HORDE",
+        "health": 12,
+        "id": "Prologue_Ravencrest",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Kur'talos Ravencrest",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Taunt</b>\nAfter you cast a spell, summon a 4/4 Lancer with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61906,
+        "faction": "HORDE",
+        "health": 4,
+        "id": "Prologue_Ravencrest_Lancer",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Ravencrest Lancer",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 60752,
+        "health": 1,
+        "id": "Prologue_Sargeras",
+        "name": "Sargeras",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "cardClass": "MAGE",
+        "cost": 6,
+        "dbfId": 60014,
+        "health": 3,
+        "id": "Prologue_Sorcerer",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLPOWER"
+        ],
+        "name": "Highborne Sorcerer",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 2,
+        "text": "<b>Spell Damage +2</b>\n<b>Battlecry:</b> Draw 3 spells.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 61469,
+        "faction": "HORDE",
+        "health": 1,
+        "id": "Prologue_UnstableEnergy",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TAUNT"
+        ],
+        "name": "Dark Unstable Energy",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "text": "Can't attack.\n<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 62053,
+        "faction": "HORDE",
+        "health": 5,
+        "id": "Prologue_UnstableEnergy2",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fiery Unstable Energy",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "text": "Can't attack.\nAt the end of each turn,\ndeal 3 damage to\nboth heroes.",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62054,
+        "faction": "HORDE",
+        "health": 3,
+        "id": "Prologue_UnstableEnergy3",
+        "mechanics": [
+            "CANT_ATTACK",
+            "DEATHRATTLE"
+        ],
+        "name": "Fel Unstable Energy",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "text": "Can't attack.\n<b>Deathrattle:</b> Deal 2 damage to ALL minions.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 60755,
+        "health": 2,
+        "id": "Prologue_Vashj",
+        "mechanics": [
+            "AURA",
+            "SPELLPOWER"
+        ],
+        "name": "Handmaiden Vashj",
+        "rarity": "COMMON",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>\nYour spells cost (1) less.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 60749,
+        "health": 30,
+        "id": "Prologue_Xavius",
+        "name": "Xavius",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60997,
+        "id": "Prologue_XaviusHP",
+        "name": "Wither Soul",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\nChange an enemy minion's Health to 1.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62236,
+        "id": "Prologue_XaviusHPe",
+        "name": "Withered Soul",
+        "set": "BLACK_TEMPLE",
+        "text": "This minion has 1 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "attack": 1,
         "cardClass": "NEUTRAL",
         "cost": 1,
@@ -83905,6 +88795,16 @@
         "health": 40,
         "id": "TB_BaconShop_HERO_02",
         "name": "Galakrond",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 57634,
+        "health": 40,
+        "id": "TB_BaconShop_HERO_08",
+        "name": "Illidan Stormrage",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
@@ -84957,7 +89857,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 1,
+        "cost": 2,
         "dbfId": 60376,
         "id": "TB_BaconShop_HP_051",
         "name": "Honorable Warband",
@@ -85118,6 +90018,20 @@
         "name": "Queen of Dragons",
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Passive Hero Power</b>\nAfter you upgrade Bob's\nTavern to Tavern Tier 5,\n<b>Discover</b> two Dragons.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 61851,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_069",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wingmen",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\n<b>Start of Combat:</b> Your left\nand right-most minions\nattack immediately.",
         "type": "HERO_POWER"
     },
     {
@@ -87497,7 +92411,7 @@
         "cardClass": "WARLOCK",
         "cost": 8,
         "dbfId": 61043,
-        "health": 16,
+        "health": 20,
         "id": "TB_BaconUps_116",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -87613,6 +92527,64 @@
         "name": "Dragonscales",
         "set": "BATTLEGROUNDS",
         "text": "Attack increased.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 61930,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61932,
+        "health": 4,
+        "id": "TB_BaconUps_123",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Deflect-o-Bot",
+        "race": "MECHANICAL",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "[x]<b>Divine Shield</b>\nWhenever you summon a Mech\nduring combat, gain +2 Attack\nand <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61933,
+        "id": "TB_BaconUps_123e",
+        "name": "Deflect-o-Shield",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 56393,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61934,
+        "health": 8,
+        "id": "TB_BaconUps_124",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Felfin Navigator",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Battlecry:</b> Give your other Murlocs +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61935,
+        "id": "TB_BaconUps_124e",
+        "name": "Felfin Fueled",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
         "type": "ENCHANTMENT"
     },
     {
@@ -88841,7 +93813,7 @@
         "id": "TB_DeathrattleYog_Copied",
         "name": "Deathrattle Roll",
         "set": "TB",
-        "text": "Copied Deathrattle from {0}.",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
         "type": "ENCHANTMENT"
     },
     {
@@ -89611,6 +94583,15 @@
         "set": "TB",
         "text": "<b>Hero Power</b>\nDeal $3 damage to random enemy, for now...",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60758,
+        "health": 60,
+        "id": "TB_FelFirefest_FelRagnaros",
+        "name": "Fel-Ragnaros the Firelord",
+        "set": "TB",
+        "type": "HERO"
     },
     {
         "cardClass": "NEUTRAL",
@@ -90630,6 +95611,36 @@
         "type": "ENCHANTMENT"
     },
     {
+        "cardClass": "NEUTRAL",
+        "dbfId": 59880,
+        "health": 30,
+        "id": "TB_HERO_ILLIDAN2",
+        "name": "Illidan Stormrage",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 60011,
+        "health": 30,
+        "id": "TB_HERO_MALFURION",
+        "name": "Malfurion Stormrage",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 60012,
+        "health": 30,
+        "id": "TB_HERO_Tyrande",
+        "name": "Tyrande Whisperwind",
+        "rarity": "EPIC",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
         "attack": 3,
         "cardClass": "NEUTRAL",
         "cost": 5,
@@ -90822,6 +95833,25 @@
         "type": "MINION"
     },
     {
+        "cardClass": "WARRIOR",
+        "dbfId": 60790,
+        "health": 30,
+        "id": "TB_Jaraxxus_BoomHero",
+        "name": "Dr. Boom, Mad Re-Animator",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 60789,
+        "health": 30,
+        "id": "TB_Jaraxxus_Hero",
+        "name": "Mecha-Jaraxxus (WIP)",
+        "rarity": "EPIC",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 47472,
         "elite": true,
@@ -90935,6 +95965,103 @@
         "name": "Great Father Kobold Spell",
         "set": "TB",
         "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 60762,
+        "health": 30,
+        "id": "TB_KT_Antonidas",
+        "name": "Archmage Antonidas",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60763,
+        "health": 30,
+        "id": "TB_KT_Anubarak",
+        "name": "Anub'arak",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60788,
+        "id": "TB_KT_AnubarakHP",
+        "name": "Skitter",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nSummon a 4/4 Nerubian.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 60764,
+        "elite": true,
+        "health": 1,
+        "id": "TB_KT_Bigglesworth",
+        "mechanics": [
+            "InvisibleDeathrattle"
+        ],
+        "name": "Assistant Bigglesworth",
+        "set": "TB",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60765,
+        "health": 30,
+        "id": "TB_KT_Faerlina",
+        "name": "Faerlina",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 60761,
+        "health": 30,
+        "id": "TB_KT_Jaina",
+        "name": "Jaina Proudmoore",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 60760,
+        "health": 30,
+        "id": "TB_KT_KelThuzad",
+        "name": "Archmage Kel'Thuzad",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 60792,
+        "health": 30,
+        "id": "TB_KT_KelThuzad2",
+        "name": "Archmage Kel'Thuzad",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 60793,
+        "health": 30,
+        "id": "TB_KT_KelThuzad3",
+        "name": "Kel'Thuzad the Necromancer",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60766,
+        "health": 30,
+        "id": "TB_KT_LichKing",
+        "name": "The Lich King",
+        "set": "TB",
+        "type": "HERO"
     },
     {
         "attack": 5,
@@ -91728,6 +96855,7 @@
         "type": "SPELL"
     },
     {
+        "artist": "Zoltan Boros",
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 46138,
@@ -93310,6 +98438,29 @@
         "type": "SPELL"
     },
     {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 62034,
+        "id": "TB_ReturningPlayer_HoundmastHP",
+        "name": "Fel Whip",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\nSummon a 2/1 Felhound with <b>Rush</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 59881,
+        "health": 30,
+        "id": "TB_ReturningPlayer_Houndmastr2",
+        "name": "Hakkar the Houndmaster",
+        "rarity": "FREE",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 28703,
         "id": "TB_RMC_001",
@@ -94472,6 +99623,16 @@
         "type": "MINION"
     },
     {
+        "cardClass": "MAGE",
+        "dbfId": 60759,
+        "health": 30,
+        "id": "TB_Starseekers_Maliceball",
+        "name": "Malicious Maliceball",
+        "rarity": "EPIC",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 39858,
@@ -95154,6 +100315,15 @@
         "set": "TB",
         "text": "Increased Stats",
         "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 60791,
+        "health": 30,
+        "id": "TB_Thunderdome_Elise",
+        "name": "Elise of the Wasteland",
+        "set": "TB",
+        "type": "HERO"
     },
     {
         "cardClass": "NEUTRAL",
@@ -96535,7 +101705,7 @@
         "artist": "Jim Nelson",
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 50773,
         "flavor": "And a bowl of chips. And some of those little cocktail weenies!",
         "id": "TRL_124",
@@ -103850,7 +109020,7 @@
         "name": "Unseal the Vault",
         "rarity": "LEGENDARY",
         "set": "ULDUM",
-        "text": "<b>Quest:</b> Summon 20 minions.\n<b>Reward:</b> Ramkahen Roar.",
+        "text": "<b>Quest:</b> Summon 20 minions.\n<b>Reward:</b> Pharaoh's Warmask.",
         "type": "SPELL"
     },
     {
@@ -103868,7 +109038,7 @@
         "cost": 2,
         "dbfId": 53925,
         "id": "ULD_155p",
-        "name": "Ramkahen Roar",
+        "name": "Pharaoh's Warmask",
         "set": "ULDUM",
         "text": "<b>Hero Power</b>\nGive your minions +2 Attack.",
         "type": "HERO_POWER"
@@ -114093,7 +119263,7 @@
         "name": "Sherazin, Corpse Flower",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
-        "text": "<b>Deathrattle:</b> Go dormant. Play 4 cards in a turn to revive this minion.",
+        "text": "<b>Deathrattle:</b> Go <b>Dormant</b>. Play 4 cards in a turn to revive this minion.",
         "type": "MINION"
     },
     {
@@ -114110,7 +119280,7 @@
         ],
         "name": "Sherazin, Seed",
         "set": "UNGORO",
-        "text": "When you play 4 cards in a turn, revive this minion.",
+        "text": "[x]<b>Dormant</b>\nWhen you play 4 cards\nin a turn, revive\nthis minion.",
         "type": "MINION"
     },
     {
