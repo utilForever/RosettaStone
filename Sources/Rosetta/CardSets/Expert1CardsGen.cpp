@@ -5495,10 +5495,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_597", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
+    // [EX1_614] Xavius - COST:6 [ATK:7/HP:5]
     // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Whenever you play a card, summon a 2/1 Flame of_Azzinoth.
+    // Text: After you play a card, summon a 2/1 Satyr.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -6139,8 +6139,8 @@ void Expert1CardsGen::AddNeutralNonCollect(
     cards.emplace("EX1_590e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_614t] Flame of Azzinoth (*) - COST:1 [ATK:2/HP:1]
-    // - Race: Elemental, Set: Expert1
+    // [EX1_614t] Xavian Satyr (*) - COST:1 [ATK:2/HP:1]
+    // - Race: Demon, Set: Expert1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);

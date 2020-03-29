@@ -24,30 +24,26 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 9> STANDARD_CARD_SETS = {
+constexpr std::array<CardSet, 7> STANDARD_CARD_SETS = {
     CardSet::CORE,                // Basic, 2014
     CardSet::EXPERT1,             // Classic, 2014
-    CardSet::GILNEAS,             // The Witchwood, 2018
-    CardSet::BOOMSDAY,            // The Boomsday Project, 2018
-    CardSet::TROLL,               // Rastakhan's Rumble, 2018
     CardSet::DALARAN,             // Rise of Shadows, 2019
     CardSet::ULDUM,               // Saviors of Uldum, 2019
     CardSet::DRAGONS,             // Descent of Dragons, 2019
     CardSet::YEAR_OF_THE_DRAGON,  // Galakrond's Awakening, 2020
+    CardSet::BLACK_TEMPLE,        // Ashes of Outland, 2020
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 21> WILD_CARD_SETS = {
+constexpr std::array<CardSet, 22> WILD_CARD_SETS = {
     // Standard
     CardSet::CORE,                // Basic, 2014
     CardSet::EXPERT1,             // Classic, 2014
-    CardSet::GILNEAS,             // The Witchwood, 2018
-    CardSet::BOOMSDAY,            // The Boomsday Project, 2018
-    CardSet::TROLL,               // Rastakhan's Rumble, 2018
     CardSet::DALARAN,             // Rise of Shadows, 2019
     CardSet::ULDUM,               // Saviors of Uldum, 2019
     CardSet::DRAGONS,             // Descent of Dragons, 2019
     CardSet::YEAR_OF_THE_DRAGON,  // Galakrond's Awakening, 2020
+    CardSet::BLACK_TEMPLE,        // Ashes of Outland, 2020
 
     // Wild
     CardSet::NAXX,          // Curse of Naxxramas, 2014
@@ -62,14 +58,18 @@ constexpr std::array<CardSet, 21> WILD_CARD_SETS = {
     CardSet::UNGORO,        // Journey to Un'Goro, 2017
     CardSet::ICECROWN,      // Knights of the Frozen Throne, 2017
     CardSet::LOOTAPALOOZA,  // Kobolds & Catacombs, 2017
+    CardSet::GILNEAS,       // The Witchwood, 2018
+    CardSet::BOOMSDAY,      // The Boomsday Project, 2018
+    CardSet::TROLL,         // Rastakhan's Rumble, 2018
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 8722;
+constexpr int NUM_ALL_CARDS = 9057;
 
 //! The number of player class.
-//! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
-constexpr int NUM_PLAYER_CLASS = 9;
+//! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
+//! Demon Hunter
+constexpr int NUM_PLAYER_CLASS = 10;
 
 //! The number of cards that can be stored in the deck at game start.
 constexpr int START_DECK_SIZE = 30;

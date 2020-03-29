@@ -12398,15 +12398,15 @@ TEST_CASE("[Neutral : Minion] - EX1_597 : Imp Master")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
+// [EX1_614] Xavius - COST:6 [ATK:7/HP:5]
 // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: Whenever you play a card, summon a 2/1 Flame of_Azzinoth.
+// Text: After you play a card, summon a 2/1 Satyr.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
 // --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - EX1_614 : Illidan Stormrage")
+TEST_CASE("[Neutral : Minion] - EX1_614 : Xavius")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -12429,7 +12429,7 @@ TEST_CASE("[Neutral : Minion] - EX1_614 : Illidan Stormrage")
     auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_614"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Xavius"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
     const auto card3 =
@@ -12439,13 +12439,13 @@ TEST_CASE("[Neutral : Minion] - EX1_614 : Illidan Stormrage")
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 3);
-    CHECK_EQ(curField[1]->card->name, "Flame of Azzinoth");
+    CHECK_EQ(curField[1]->card->name, "Xavian Satyr");
     CHECK_EQ(curField[2]->card->name, "Wisp");
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
     CHECK_EQ(curField.GetCount(), 4);
-    CHECK_EQ(curField[1]->card->name, "Flame of Azzinoth");
-    CHECK_EQ(curField[2]->card->name, "Flame of Azzinoth");
+    CHECK_EQ(curField[1]->card->name, "Xavian Satyr");
+    CHECK_EQ(curField[2]->card->name, "Xavian Satyr");
     CHECK_EQ(curField[3]->card->name, "Wisp");
 }
 

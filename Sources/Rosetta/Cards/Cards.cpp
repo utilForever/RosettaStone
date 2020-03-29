@@ -36,7 +36,10 @@ Cards::Cards()
     for (Card* card : m_cards)
     {
         // NOTE: Subtract 2 because of CardClass::DRUID = 2
-        const auto cardClass = static_cast<int>(card->GetCardClass()) - 2;
+        // NOTE: CardClass::DEMONHUNTER = 14
+        const auto cardClass = card->GetCardClass() == CardClass::DEMONHUNTER
+                                   ? static_cast<int>(card->GetCardClass()) - 5
+                                   : static_cast<int>(card->GetCardClass()) - 2;
 
         if (card->IsCollectible() && card->IsStandardSet() &&
             card->GetCardType() != CardType::HERO)

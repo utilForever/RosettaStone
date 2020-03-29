@@ -35,6 +35,7 @@
 #include <Rosetta/Auras/IAura.hpp>
 #include <Rosetta/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
+#include <Rosetta/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
