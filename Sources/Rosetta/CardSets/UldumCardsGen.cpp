@@ -63,7 +63,7 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------ HERO_POWER - HUNTER
-    // [ULD_155p] Ramkahen Roar (*) - COST:2
+    // [ULD_155p] Pharaoh's Warmask (*) - COST:2
     // - Set: Uldum
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Give your minions +2 Attack.

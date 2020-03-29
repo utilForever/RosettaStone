@@ -361,7 +361,7 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
         game.Process(opPlayer, EndTurnTask());
         game.ProcessUntil(Step::MAIN_ACTION);
     }
-    CHECK_EQ(curPlayer->GetHeroPower().card->name, "Ramkahen Roar");
+    CHECK_EQ(curPlayer->GetHeroPower().card->name, "Pharaoh's Warmask");
 
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
