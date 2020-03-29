@@ -68,8 +68,9 @@ constexpr std::array<CardSet, 21> WILD_CARD_SETS = {
 constexpr int NUM_ALL_CARDS = 9057;
 
 //! The number of player class.
-//! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
-constexpr int NUM_PLAYER_CLASS = 9;
+//! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
+//! Demon Hunter
+constexpr int NUM_PLAYER_CLASS = 10;
 
 //! The number of cards that can be stored in the deck at game start.
 constexpr int START_DECK_SIZE = 30;
