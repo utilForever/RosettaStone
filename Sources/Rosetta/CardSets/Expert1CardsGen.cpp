@@ -3087,8 +3087,6 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddDeathrattleTask(
         std::make_shared<CopyTask>(EntityType::SOURCE, ZoneType::PLAY));
-    power.AddDeathrattleTask(
-        std::make_shared<SummonTask>(SummonSide::DEATHRATTLE));
     cards.emplace("CS2_038e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
@@ -5051,50 +5049,52 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>([](Player* player) {
-        const auto field = player->GetFieldZone();
-        if (field->IsFull())
-        {
-            return;
-        }
-
-        const int num = player->GetNumFriendlyMinionsDiedThisTurn();
-        auto& graveyard = *(player->GetGraveyardZone());
-
-        std::vector<int> buffer;
-        buffer.reserve(num);
-        int k = 0;
-
-        for (int i = graveyard.GetCount() - 1, j = 0; j < num; --i)
-        {
-            if (!graveyard[i]->isDestroyed)
-            {
-                continue;
-            }
-
-            if (graveyard[i]->card->GetCardType() != CardType::MINION)
-            {
-                continue;
-            }
-
-            buffer.emplace_back(i);
-
-            ++j;
-            ++k;
-        }
-
-        for (--k; k >= 0; --k)
-        {
-            const auto playable = Entity::GetFromCard(
-                player, graveyard[buffer[k]]->card, std::nullopt, field);
-            field->Add(playable);
-
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const auto field = player->GetFieldZone();
             if (field->IsFull())
             {
                 return;
             }
-        }
-    }));
+
+            const int num = player->GetNumFriendlyMinionsDiedThisTurn();
+            auto& graveyard = *(player->GetGraveyardZone());
+
+            std::vector<int> buffer;
+            buffer.reserve(num);
+            int k = 0;
+
+            for (int i = graveyard.GetCount() - 1, j = 0; j < num; --i)
+            {
+                if (!graveyard[i]->isDestroyed)
+                {
+                    continue;
+                }
+
+                if (graveyard[i]->card->GetCardType() != CardType::MINION)
+                {
+                    continue;
+                }
+
+                buffer.emplace_back(i);
+
+                ++j;
+                ++k;
+            }
+
+            for (--k; k >= 0; --k)
+            {
+                const auto playable = Entity::GetFromCard(
+                    player, graveyard[buffer[k]]->card, std::nullopt, field);
+                field->Add(playable);
+
+                if (field->IsFull())
+                {
+                    return;
+                }
+            }
+        }));
     cards.emplace("EX1_190", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL

@@ -46,11 +46,14 @@ class DiscoverTask : public ITask
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND);
 
-    //! Constructs task with given \p cardIDs and \p choiceAction.
+    //! Constructs task with given various parameters.
     //! \param cardIDs A list of card IDs to discover.
     //! \param choiceAction The choice action of discover effect.
+    //! \param numberOfChoices The number of choices.
+    //! \param doShuffle The flag that indicates it does shuffle.
     explicit DiscoverTask(const std::vector<std::string>& cardIDs,
-                          ChoiceAction choiceAction = ChoiceAction::HAND);
+                          ChoiceAction choiceAction = ChoiceAction::HAND,
+                          int numberOfChoices = 3, bool doShuffle = true);
 
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.
@@ -59,18 +62,21 @@ class DiscoverTask : public ITask
     //! \param race The race of card to discover.
     //! \param rarity The rarity of card to discover.
     //! \param choiceAction The choice action of discover effect.
+    //! \param numberOfChoices The number of choices.
+    //! \param doShuffle The flag that indicates it does shuffle.
     explicit DiscoverTask(std::vector<Card*> cards,
                           CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
                           Rarity rarity = Rarity::INVALID,
-                          ChoiceAction choiceAction = ChoiceAction::HAND);
+                          ChoiceAction choiceAction = ChoiceAction::HAND,
+                          int numberOfChoices = 3, bool doShuffle = true);
 
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
     //! \param numberOfChoices The number of choices.
     std::vector<Card*> GetChoices(std::vector<Card*> cardsToDiscover,
-                                  std::size_t numberOfChoices);
+                                  std::size_t numberOfChoices) const;
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -86,13 +92,15 @@ class DiscoverTask : public ITask
     //! \param format The format type.
     //! \param criteria The discover criteria.
     //! \return A list of cards to discover.
-    std::vector<Card*> Discover(FormatType format, DiscoverCriteria criteria);
+    std::vector<Card*> Discover(FormatType format,
+                                DiscoverCriteria criteria) const;
 
     std::vector<Card*> m_cards;
 
     DiscoverCriteria m_discoverCriteria;
     ChoiceAction m_choiceAction = ChoiceAction::INVALID;
     std::size_t m_numberOfChoices = 3;
+    bool m_doShuffle = true;
 };
 }  // namespace RosettaStone::SimpleTasks
 

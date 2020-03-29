@@ -106,8 +106,8 @@ class Evaluator
 
             for (std::size_t j = 0; j < deck.size(); ++j)
             {
-                gameConfig.player1Deck[j] = *Cards::FindCardByID(deck[j]);
-                gameConfig.player2Deck[j] = *Cards::FindCardByID(deck[j]);
+                gameConfig.player1Deck[j] = Cards::FindCardByID(deck[j]);
+                gameConfig.player2Deck[j] = Cards::FindCardByID(deck[j]);
             }
 
             Game game(gameConfig);

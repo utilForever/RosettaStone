@@ -73,6 +73,7 @@
 #include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/Enchants/Power.hpp>
+#include <Rosetta/Enchants/SwapCostEnchant.hpp>
 #include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
@@ -132,6 +133,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageWeaponTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyAllTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
@@ -176,11 +178,13 @@
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCapturedMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SwapHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>

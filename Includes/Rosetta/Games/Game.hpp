@@ -59,6 +59,10 @@ class Game
     //! \param rhs The source to copy the content.
     void RefCopyFrom(const Game& rhs);
 
+    //! Gets player's deck.
+    //! \param type The player type to get deck.
+    std::array<Card*, START_DECK_SIZE> GetPlayerDeck(PlayerType type);
+
     //! Returns the format type of the game.
     //! \return The format type of the game.
     FormatType GetFormatType() const;

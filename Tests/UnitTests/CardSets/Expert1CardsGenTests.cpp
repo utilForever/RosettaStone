@@ -4104,9 +4104,9 @@ TEST_CASE("[Priest : Spell] - EX1_339 : Thoughtsteal")
 
     for (int i = 0; i < 5; ++i)
     {
-        config.player2Deck[i] = *Cards::FindCardByName("Magma Rager");
+        config.player2Deck[i] = Cards::FindCardByName("Magma Rager");
     }
-    config.player2Deck[5] = *Cards::FindCardByName("Wolfrider");
+    config.player2Deck[5] = Cards::FindCardByName("Wolfrider");
 
     Game game(config);
     game.Start();
@@ -4208,7 +4208,7 @@ TEST_CASE("[Priest : Spell] - EX1_345 : Mindgames")
 
     for (int i = 0; i < 5; ++i)
     {
-        config.player2Deck[i] = *Cards::FindCardByName("Magma Rager");
+        config.player2Deck[i] = Cards::FindCardByName("Magma Rager");
     }
 
     Game game(config);
@@ -6911,7 +6911,7 @@ TEST_CASE("[Warlock : Spell] - EX1_317 : Sense Demons")
 
     for (int i = 0; i < 7; ++i)
     {
-        config.player1Deck[i] = *Cards::FindCardByName("Blood Imp");
+        config.player1Deck[i] = Cards::FindCardByName("Blood Imp");
     }
 
     Game game(config);

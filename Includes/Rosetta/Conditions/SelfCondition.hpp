@@ -31,6 +31,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotStartInDeck();
 
+    //! SelfCondition wrapper for checking the hero is Galakrond.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsGalakrondHero();
+
     //! SelfCondition wrapper for checking the hero power equals \p cardID.
     //! \param cardID The card ID of hero power.
     //! \return Generated SelfCondition for intended purpose.
@@ -80,6 +84,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeaponEquipped();
 
+    //! SelfCondition wrapper for checking it is Treant.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsTreant();
+
     //! SelfCondition wrapper for checking race of entity is \p race.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
@@ -115,6 +123,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the entity is spell.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSpell();
+
+    //! SelfCondition wrapper for checking the entity is weapon.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsWeapon();
 
     //! SelfCondition wrapper for checking the entity is secret.
     //! \return Generated SelfCondition for intended purpose.

@@ -737,15 +737,15 @@ DRAGONS | DRG_028 | Dragon's Hoard | O
 DRAGONS | DRG_030 | Praise Galakrond! | O
 DRAGONS | DRG_031 | Necrium Apothecary | O
 DRAGONS | DRG_033 | Candle Breath | O
-DRAGONS | DRG_034 | Stowaway |  
+DRAGONS | DRG_034 | Stowaway | O
 DRAGONS | DRG_035 | Bloodsail Flybooter | O
 DRAGONS | DRG_036 | Waxadred | O
-DRAGONS | DRG_037 | Flik Skyshiv |  
+DRAGONS | DRG_037 | Flik Skyshiv | O
 DRAGONS | DRG_049 | Tasty Flyfish | O
 DRAGONS | DRG_050 | Devoted Maniac | O
 DRAGONS | DRG_051 | Strength in Numbers | O
 DRAGONS | DRG_054 | Big Ol' Whelp | O
-DRAGONS | DRG_055 | Hoard Pillager |  
+DRAGONS | DRG_055 | Hoard Pillager | O
 DRAGONS | DRG_056 | Parachute Brigand | O
 DRAGONS | DRG_057 | Hot Air Balloon | O
 DRAGONS | DRG_058 | Wing Commander | O
@@ -758,9 +758,9 @@ DRAGONS | DRG_064 | Zul'Drak Ritualist | O
 DRAGONS | DRG_065 | Hippogryph | O
 DRAGONS | DRG_066 | Evasive Chimaera | O
 DRAGONS | DRG_067 | Troll Batrider | O
-DRAGONS | DRG_068 | Living Dragonbreath |  
+DRAGONS | DRG_068 | Living Dragonbreath | O
 DRAGONS | DRG_069 | Platebreaker | O
-DRAGONS | DRG_070 | Dragon Breeder |  
+DRAGONS | DRG_070 | Dragon Breeder | O
 DRAGONS | DRG_071 | Bad Luck Albatross | O
 DRAGONS | DRG_072 | Skyfin | O
 DRAGONS | DRG_073 | Evasive Feywing | O
@@ -771,17 +771,17 @@ DRAGONS | DRG_077 | Utgarde Grapplesniper | O
 DRAGONS | DRG_078 | Depth Charge | O
 DRAGONS | DRG_079 | Evasive Wyrm | O
 DRAGONS | DRG_081 | Scalerider | O
-DRAGONS | DRG_082 | Kobold Stickyfinger |  
-DRAGONS | DRG_084 | Tentacled Menace |  
-DRAGONS | DRG_086 | Chromatic Egg |  
+DRAGONS | DRG_082 | Kobold Stickyfinger | O
+DRAGONS | DRG_084 | Tentacled Menace | O
+DRAGONS | DRG_086 | Chromatic Egg | O
 DRAGONS | DRG_088 | Dread Raven | O
 DRAGONS | DRG_089 | Dragonqueen Alexstrasza | O
-DRAGONS | DRG_090 | Murozond the Infinite |  
+DRAGONS | DRG_090 | Murozond the Infinite | O
 DRAGONS | DRG_091 | Shu'ma | O
 DRAGONS | DRG_092 | Transmogrifier | O
 DRAGONS | DRG_095 | Veranus | O
-DRAGONS | DRG_096 | Bandersmosh |  
-DRAGONS | DRG_099 | Kronx Dragonhoof |  
+DRAGONS | DRG_096 | Bandersmosh | O
+DRAGONS | DRG_099 | Kronx Dragonhoof | O
 DRAGONS | DRG_102 | Azure Explorer | O
 DRAGONS | DRG_104 | Chenvaala | O
 DRAGONS | DRG_106 | Arcane Breath | O
@@ -790,11 +790,11 @@ DRAGONS | DRG_109 | Mana Giant | O
 DRAGONS | DRG_201 | Crazed Netherwing | O
 DRAGONS | DRG_202 | Dragonblight Cultist | O
 DRAGONS | DRG_203 | Veiled Worshipper | O
-DRAGONS | DRG_204 | Dark Skies |  
+DRAGONS | DRG_204 | Dark Skies | O
 DRAGONS | DRG_205 | Nether Breath | O
 DRAGONS | DRG_206 | Rain of Fire | O
-DRAGONS | DRG_207 | Abyssal Summoner |  
-DRAGONS | DRG_208 | Valdris Felgorge |  
+DRAGONS | DRG_207 | Abyssal Summoner | O
+DRAGONS | DRG_208 | Valdris Felgorge | O
 DRAGONS | DRG_209 | Zzeraku the Warped | O
 DRAGONS | DRG_211 | Squallhunter | O
 DRAGONS | DRG_213 | Twin Tyrant | O
@@ -828,30 +828,30 @@ DRAGONS | DRG_256 | Dragonbane | O
 DRAGONS | DRG_257 | Frizz Kindleroost | O
 DRAGONS | DRG_258 | Sanctuary | O
 DRAGONS | DRG_270 | Malygos, Aspect of Magic | O
-DRAGONS | DRG_300 | Fate Weaver |  
+DRAGONS | DRG_300 | Fate Weaver | O
 DRAGONS | DRG_301 | Whispers of EVIL | O
-DRAGONS | DRG_302 | Grave Rune |  
+DRAGONS | DRG_302 | Grave Rune | O
 DRAGONS | DRG_303 | Disciple of Galakrond | O
-DRAGONS | DRG_304 | Chronobreaker |  
-DRAGONS | DRG_306 | Envoy of Lazul |  
-DRAGONS | DRG_307 | Breath of the Infinite |  
-DRAGONS | DRG_308 | Mindflayer Kaahrj |  
+DRAGONS | DRG_304 | Chronobreaker | O
+DRAGONS | DRG_306 | Envoy of Lazul | O
+DRAGONS | DRG_307 | Breath of the Infinite | O
+DRAGONS | DRG_308 | Mindflayer Kaahrj | O
 DRAGONS | DRG_309 | Nozdormu the Timeless | O
 DRAGONS | DRG_310 | Evasive Drakonid | O
 DRAGONS | DRG_311 | Treenforcements | O
 DRAGONS | DRG_312 | Shrubadier | O
 DRAGONS | DRG_313 | Emerald Explorer | O
 DRAGONS | DRG_314 | Aeroponics | O
-DRAGONS | DRG_315 | Embiggen |  
+DRAGONS | DRG_315 | Embiggen | O
 DRAGONS | DRG_317 | Secure the Deck | O
 DRAGONS | DRG_318 | Breath of Dreams | O
-DRAGONS | DRG_319 | Goru the Mightree |  
+DRAGONS | DRG_319 | Goru the Mightree | O
 DRAGONS | DRG_320 | Ysera, Unleashed | O
-DRAGONS | DRG_321 | Rolling Fireball |  
+DRAGONS | DRG_321 | Rolling Fireball | O
 DRAGONS | DRG_322 | Dragoncaster | O
 DRAGONS | DRG_323 | Learn Draconic | O
 DRAGONS | DRG_324 | Elemental Allies | O
-DRAGONS | DRG_401 | Grizzled Wizard |  
+DRAGONS | DRG_401 | Grizzled Wizard | O
 DRAGONS | DRG_402 | Sathrovarr | O
 DRAGONS | DRG_403 | Blowtorch Saboteur | O
 DRAGONS | DRG_500 | Molten Breath | O
@@ -861,7 +861,7 @@ DRAGONS | DRG_620 | Galakrond, the Tempest | O
 DRAGONS | DRG_650 | Galakrond, the Unbreakable | O
 DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 
-- Progress: 82% (116 of 140 Cards)
+- Progress: 100% (140 of 140 Cards)
 
 ## Galakrond's Awakening
 

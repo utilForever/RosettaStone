@@ -64,17 +64,17 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     // Set up decks
     for (auto& card : m_gameConfig.player1Deck)
     {
-        if (card.id.empty())
+        if (card == nullptr || card->id.empty())
         {
             continue;
         }
 
         Playable* playable = Entity::GetFromCard(
-            GetPlayer1(), &card, std::nullopt, GetPlayer1()->GetDeckZone());
+            GetPlayer1(), card, std::nullopt, GetPlayer1()->GetDeckZone());
         GetPlayer1()->GetDeckZone()->Add(playable);
 
         //! Set Galakrond hero card
-        if (card.IsGalakrond())
+        if (card->IsGalakrond())
         {
             GetPlayer1()->galakrond = playable;
         }
@@ -82,17 +82,17 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
     for (auto& card : m_gameConfig.player2Deck)
     {
-        if (card.id.empty())
+        if (card == nullptr || card->id.empty())
         {
             continue;
         }
 
         Playable* playable = Entity::GetFromCard(
-            GetPlayer2(), &card, std::nullopt, GetPlayer2()->GetDeckZone());
+            GetPlayer2(), card, std::nullopt, GetPlayer2()->GetDeckZone());
         GetPlayer2()->GetDeckZone()->Add(playable);
 
         //! Set Galakrond hero card
-        if (card.IsGalakrond())
+        if (card->IsGalakrond())
         {
             GetPlayer2()->galakrond = playable;
         }
@@ -183,6 +183,12 @@ void Game::RefCopyFrom(const Game& rhs)
 
     m_entityID = rhs.m_entityID;
     m_oopIndex = rhs.m_oopIndex;
+}
+
+std::array<Card*, START_DECK_SIZE> Game::GetPlayerDeck(PlayerType type)
+{
+    return type == PlayerType::PLAYER1 ? m_gameConfig.player1Deck
+                                       : m_gameConfig.player2Deck;
 }
 
 FormatType Game::GetFormatType() const
@@ -419,6 +425,7 @@ void Game::MainReady()
     const int val = curPlayer->GetNumElementalPlayedThisTurn();
     curPlayer->SetNumElementalPlayedLastTurn(val);
     curPlayer->SetNumElementalPlayedThisTurn(0);
+    curPlayer->cardsPlayedThisTurn.clear();
 
     // Reset combo active
     curPlayer->SetComboActive(false);

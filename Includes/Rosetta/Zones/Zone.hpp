@@ -204,6 +204,13 @@ class UnlimitedZone : public Zone<Playable>
         return false;
     }
 
+    //! Returns all entities in this zone.
+    //! \return All entities in this zone.
+    std::vector<Playable*> GetAll() const
+    {
+        return m_entities;
+    }
+
     //! Runs \p functor on each entity of the zone.
     //! \param functor A function to run for each entity.
     template <typename Functor>

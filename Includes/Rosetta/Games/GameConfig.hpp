@@ -21,13 +21,23 @@ namespace RosettaStone
 //!
 struct GameConfig
 {
+    //! Default constructor.
+    GameConfig()
+    {
+        for (int i = 0; i < START_DECK_SIZE; ++i)
+        {
+            player1Deck[i] = nullptr;
+            player2Deck[i] = nullptr;
+        }
+    }
+
     FormatType formatType = FormatType::STANDARD;
     PlayerType startPlayer = PlayerType::RANDOM;
     CardClass player1Class = CardClass::INVALID;
     CardClass player2Class = CardClass::INVALID;
 
-    std::array<Card, START_DECK_SIZE> player1Deck;
-    std::array<Card, START_DECK_SIZE> player2Deck;
+    std::array<Card*, START_DECK_SIZE> player1Deck;
+    std::array<Card*, START_DECK_SIZE> player2Deck;
 
     std::array<std::string, NUM_PLAYER_CLASS> fillCardIDs = {
         "UNG_028", "UNG_067", "UNG_116", "UNG_829", "UNG_934",

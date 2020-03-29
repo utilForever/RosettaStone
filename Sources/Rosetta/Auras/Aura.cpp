@@ -437,12 +437,45 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::FIELD_AND_HAND:
+        {
+            for (auto& card : m_owner->player->GetHandZone()->GetAll())
+            {
+                Apply(card);
+            }
+            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            {
+                Apply(minion);
+            }
+            break;
+        }
         case AuraType::PLAYER:
         {
             for (auto& effect : m_effects)
             {
                 const auto effectPtr = dynamic_cast<Effect*>(effect.get());
                 effectPtr->ApplyTo(m_owner->player->playerAuraEffects);
+
+                // NOTE: Living Dragonbreath (DRG_068)
+                // When you summon this minion, it also unfreezes all friendly
+                // minions that were frozen previously.
+                if (effectPtr->GetGameTag() == GameTag::CANT_BE_FROZEN)
+                {
+                    if (auto hero = m_owner->player->GetHero();
+                        hero->IsFrozen())
+                    {
+                        hero->SetGameTag(GameTag::FROZEN, 0);
+                    }
+
+                    for (auto& minion :
+                         m_owner->player->GetFieldZone()->GetAll())
+                    {
+                        if (minion->IsFrozen())
+                        {
+                            minion->SetGameTag(GameTag::FROZEN, 0);
+                        }
+                    }
+                }
             }
             break;
         }

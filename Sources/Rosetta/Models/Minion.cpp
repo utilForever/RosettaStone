@@ -122,20 +122,54 @@ void Minion::Silence()
         }
     }
 
-    SetGameTag(GameTag::ATK, card->gameTags[GameTag::ATK]);
-    if (GetHealth() > card->gameTags[GameTag::HEALTH])
+    // NOTE: Abyssal Destroyer's Attack, Health, and Mana cost are set upon
+    // being summoned and are not changed when targeted by effects that remove
+    // enchantments.
+    if (card->id == "DRG_207t")
     {
-        SetHealth(card->gameTags[GameTag::HEALTH]);
+        SetGameTag(GameTag::ATK, GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+
+        if (GetHealth() > GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
+        {
+            SetHealth(GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+        }
+        else
+        {
+            const int cardBaseHealth =
+                GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+            const int delta = GetGameTag(GameTag::HEALTH) - cardBaseHealth;
+
+            if (delta > 0)
+            {
+                SetDamage(GetDamage() - delta);
+            }
+
+            SetGameTag(GameTag::HEALTH,
+                       GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+        }
+
+        SetGameTag(GameTag::COST, GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
     }
     else
     {
-        const int cardBaseHealth = card->gameTags[GameTag::HEALTH];
-        const int delta = GetGameTag(GameTag::HEALTH) - cardBaseHealth;
-        if (delta > 0)
+        SetGameTag(GameTag::ATK, card->gameTags[GameTag::ATK]);
+
+        if (GetHealth() > card->gameTags[GameTag::HEALTH])
         {
-            SetDamage(GetDamage() - delta);
+            SetHealth(card->gameTags[GameTag::HEALTH]);
         }
-        SetGameTag(GameTag::HEALTH, card->gameTags[GameTag::HEALTH]);
+        else
+        {
+            const int cardBaseHealth = card->gameTags[GameTag::HEALTH];
+            const int delta = GetGameTag(GameTag::HEALTH) - cardBaseHealth;
+
+            if (delta > 0)
+            {
+                SetDamage(GetDamage() - delta);
+            }
+
+            SetGameTag(GameTag::HEALTH, card->gameTags[GameTag::HEALTH]);
+        }
     }
 
     SetGameTag(GameTag::SILENCED, 1);

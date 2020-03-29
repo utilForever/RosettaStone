@@ -34,6 +34,7 @@
 * DamageNumberTask
 * DamageTask
 * DamageWeaponTask
+* DestroyAllTask
 * DestroyTask
 * DiscardTask
 * DiscoverTask
@@ -78,11 +79,13 @@
 * SetGameTagNumberTask
 * SetGameTagTask
 * SilenceTask
+* SummonCapturedMinionTask
 * SummonCopyTask
 * SummonOpTask
 * SummonStackTask
 * SummonTask
 * SwapAttackHealthTask
+* SwapHeroPowerTask
 * TempManaTask
 * TransformCopyTask
 * TransformTask

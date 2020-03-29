@@ -3,26 +3,25 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_CUSTOM_TASK_HPP
-#define ROSETTASTONE_CUSTOM_TASK_HPP
+#ifndef ROSETTASTONE_DESTROY_ALL_TASK_HPP
+#define ROSETTASTONE_DESTROY_ALL_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
-
-#include <functional>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief CustomTask class.
+//! \brief DestroyAllTask class.
 //!
-//! This class represents the task for running custom function.
+//! This class represents the task for destroying something and all copies of it
+//! (wherever they are).
 //!
-class CustomTask : public ITask
+class DestroyAllTask : public ITask
 {
  public:
-    //! Constructs task with given \p func.
-    //! \param func The function to run custom task.
-    explicit CustomTask(std::function<void(Player*, Entity*, Playable*)> func);
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target to destroy.
+    explicit DestroyAllTask(EntityType entityType);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,9 +32,7 @@ class CustomTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
-
-    std::function<void(Player*, Entity*, Playable*)> m_func;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_CUSTOM_TASK_HPP
+#endif  // ROSETTASTONE_DESTROY_ALL_TASK_HPP

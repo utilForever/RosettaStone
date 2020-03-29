@@ -39,8 +39,11 @@ DiscoverTask::DiscoverTask(CardType cardType, CardClass cardClass, Race race,
 }
 
 DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
-                           ChoiceAction choiceAction)
-    : m_choiceAction(choiceAction)
+                           ChoiceAction choiceAction, int numberOfChoices,
+                           bool doShuffle)
+    : m_choiceAction(choiceAction),
+      m_numberOfChoices(numberOfChoices),
+      m_doShuffle(doShuffle)
 {
     for (auto& cardID : cardIDs)
     {
@@ -50,16 +53,19 @@ DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
 
 DiscoverTask::DiscoverTask(std::vector<Card*> cards, CardType cardType,
                            CardClass cardClass, Race race, Rarity rarity,
-                           ChoiceAction choiceAction)
+                           ChoiceAction choiceAction, int numberOfChoices,
+                           bool doShuffle)
     : m_cards(std::move(cards)),
       m_discoverCriteria(cardType, cardClass, race, rarity),
-      m_choiceAction(choiceAction)
+      m_choiceAction(choiceAction),
+      m_numberOfChoices(numberOfChoices),
+      m_doShuffle(doShuffle)
 {
     // Do nothing
 }
 
 std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
-                                            std::size_t numberOfChoices)
+                                            std::size_t numberOfChoices) const
 {
     std::vector<Card*> result;
 
@@ -70,9 +76,20 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
     else
     {
         result.reserve(numberOfChoices);
-        std::sample(cardsToDiscover.begin(), cardsToDiscover.end(),
-                    std::back_inserter(result), numberOfChoices,
-                    Random::get_engine());
+
+        if (m_doShuffle)
+        {
+            std::sample(cardsToDiscover.begin(), cardsToDiscover.end(),
+                        std::back_inserter(result), numberOfChoices,
+                        Random::get_engine());
+        }
+        else
+        {
+            for (std::size_t i = 0; i < numberOfChoices; ++i)
+            {
+                result[i] = cardsToDiscover[i];
+            }
+        }
     }
 
     return result;
@@ -103,11 +120,12 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 {
     return std::make_unique<DiscoverTask>(
         m_cards, m_discoverCriteria.cardType, m_discoverCriteria.cardClass,
-        m_discoverCriteria.race, m_discoverCriteria.rarity, m_choiceAction);
+        m_discoverCriteria.race, m_discoverCriteria.rarity, m_choiceAction,
+        m_numberOfChoices, m_doShuffle);
 }
 
 std::vector<Card*> DiscoverTask::Discover(FormatType format,
-                                          DiscoverCriteria criteria)
+                                          DiscoverCriteria criteria) const
 {
     std::vector<Card*> cards;
 

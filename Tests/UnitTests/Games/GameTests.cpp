@@ -289,8 +289,8 @@ TEST_CASE("[Game] - PerformAction")
 
     for (std::size_t j = 0; j < deck.size(); ++j)
     {
-        config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
-        config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
+        config.player1Deck[j] = Cards::FindCardByID(deck[j]);
+        config.player2Deck[j] = Cards::FindCardByID(deck[j]);
     }
 
     Game game(config);

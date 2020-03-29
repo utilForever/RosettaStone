@@ -44,6 +44,7 @@ void Weapon::SetDurability(int durability)
     // Destroy weapon if durability is 0
     if (GetDurability() <= 0)
     {
+        Destroy();
         player->GetHero()->RemoveWeapon();
     }
 }

@@ -39,6 +39,13 @@ SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
     });
 }
 
+SelfCondition SelfCondition::IsGalakrondHero()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->card->IsGalakrond();
+    });
+}
+
 SelfCondition SelfCondition::IsDead()
 {
     return SelfCondition(
@@ -132,6 +139,13 @@ SelfCondition SelfCondition::IsWeaponEquipped()
     });
 }
 
+SelfCondition SelfCondition::IsTreant()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->card->name == "Treant";
+    });
+}
+
 SelfCondition SelfCondition::IsRace(Race race)
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -203,6 +217,13 @@ SelfCondition SelfCondition::IsSpell()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return dynamic_cast<Spell*>(playable) != nullptr;
+    });
+}
+
+SelfCondition SelfCondition::IsWeapon()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return dynamic_cast<Weapon*>(playable) != nullptr;
     });
 }
 

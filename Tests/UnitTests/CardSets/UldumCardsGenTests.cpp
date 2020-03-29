@@ -95,7 +95,7 @@ TEST_CASE("[Druid : Spell] - ULD_273 : Overflow")
     for (int i = 0; i < 30; ++i)
     {
         config.player1Deck[i] = config.player2Deck[i] =
-            *Cards::FindCardByName("Magma Rager");
+            Cards::FindCardByName("Magma Rager");
     }
 
     Game game(config);
