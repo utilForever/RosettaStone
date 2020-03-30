@@ -4324,7 +4324,7 @@ TEST_CASE("[Priest : Spell] - EX1_621 : Circle of Healing")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6]
+// [EX1_623] Temple Enforcer - COST:5 [ATK:5/HP:6]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
@@ -4365,12 +4365,16 @@ TEST_CASE("[Priest : Minion] - EX1_623 : Temple Enforcer")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 2);
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
 }
 
 // ----------------------------------------- SPELL - PRIEST

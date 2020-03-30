@@ -2251,7 +2251,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_621", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
-    // [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6]
+    // [EX1_623] Temple Enforcer - COST:5 [ATK:5/HP:6]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
