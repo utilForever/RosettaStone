@@ -12,6 +12,16 @@
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+CORE | BT_035 | Chaos Strike |  
+CORE | BT_036 | Coordinated Strike |  
+CORE | BT_142 | Shadowhoof Slayer |  
+CORE | BT_235 | Chaos Nova |  
+CORE | BT_323 | Sightless Watcher |  
+CORE | BT_352 | Satyr Overseer |  
+CORE | BT_495 | Glaivebound Adept |  
+CORE | BT_512 | Inner Demon |  
+CORE | BT_740 | Soul Cleave |  
+CORE | BT_921 | Aldrachi Warblades |  
 CORE | CS1_042 | Goldshire Footman | O
 CORE | CS1_112 | Holy Nova | O
 CORE | CS1_113 | Mind Control | O
@@ -100,8 +110,6 @@ CORE | CS2_222 | Stormwind Champion | O
 CORE | CS2_226 | Frostwolf Warlord | O
 CORE | CS2_232 | Ironbark Protector | O
 CORE | CS2_234 | Shadow Word: Pain | O
-CORE | CS2_235 | Northshire Cleric | O
-CORE | CS2_236 | Divine Spirit | O
 CORE | CS2_237 | Starving Buzzard | O
 CORE | DS1_055 | Darkscale Healer | O
 CORE | DS1_070 | Houndmaster | O
@@ -121,6 +129,8 @@ CORE | EX1_169 | Innervate | O
 CORE | EX1_173 | Starfire | O
 CORE | EX1_191 | Plaguebringer | O
 CORE | EX1_192 | Radiance | O
+CORE | EX1_193 | Psychic Conjurer | O
+CORE | EX1_194 | Power Infusion | O
 CORE | EX1_244 | Totemic Might | O
 CORE | EX1_246 | Hex | O
 CORE | EX1_277 | Arcane Missiles | O
@@ -146,7 +156,7 @@ CORE | NEW1_003 | Sacrificial Pact | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 100% (133 of 133 Cards)
+- Progress: 93% (133 of 143 Cards)
 
 ## Classic
 
@@ -178,7 +188,6 @@ EXPERT1 | EX1_002 | The Black Knight | O
 EXPERT1 | EX1_004 | Young Priestess | O
 EXPERT1 | EX1_005 | Big Game Hunter | O
 EXPERT1 | EX1_006 | Alarm-o-Bot | O
-EXPERT1 | EX1_007 | Acolyte of Pain | O
 EXPERT1 | EX1_008 | Argent Squire | O
 EXPERT1 | EX1_009 | Angry Chicken | O
 EXPERT1 | EX1_010 | Worgen Infiltrator | O
@@ -196,7 +205,6 @@ EXPERT1 | EX1_043 | Twilight Drake | O
 EXPERT1 | EX1_044 | Questing Adventurer | O
 EXPERT1 | EX1_045 | Ancient Watcher | O
 EXPERT1 | EX1_046 | Dark Iron Dwarf | O
-EXPERT1 | EX1_048 | Spellbreaker | O
 EXPERT1 | EX1_049 | Youthful Brewmaster | O
 EXPERT1 | EX1_055 | Mana Addict | O
 EXPERT1 | EX1_057 | Ancient Brewmaster | O
@@ -207,7 +215,6 @@ EXPERT1 | EX1_076 | Pint-Sized Summoner | O
 EXPERT1 | EX1_080 | Secretkeeper | O
 EXPERT1 | EX1_082 | Mad Bomber | O
 EXPERT1 | EX1_083 | Tinkmaster Overspark | O
-EXPERT1 | EX1_085 | Mind Control Tech | O
 EXPERT1 | EX1_089 | Arcane Golem | O
 EXPERT1 | EX1_091 | Cabal Shadow Priest | O
 EXPERT1 | EX1_093 | Defender of Argus | O
@@ -217,9 +224,7 @@ EXPERT1 | EX1_097 | Abomination | O
 EXPERT1 | EX1_100 | Lorewalker Cho | O
 EXPERT1 | EX1_102 | Demolisher | O
 EXPERT1 | EX1_103 | Coldlight Seer | O
-EXPERT1 | EX1_105 | Mountain Giant | O
 EXPERT1 | EX1_110 | Cairne Bloodhoof | O
-EXPERT1 | EX1_116 | Leeroy Jenkins | O
 EXPERT1 | EX1_124 | Eviscerate | O
 EXPERT1 | EX1_126 | Betrayal | O
 EXPERT1 | EX1_130 | Noble Sacrifice | O
@@ -253,6 +258,10 @@ EXPERT1 | EX1_187 | Arcane Devourer | O
 EXPERT1 | EX1_188 | Barrens Stablehand | O
 EXPERT1 | EX1_189 | Brightwing | O
 EXPERT1 | EX1_190 | High Inquisitor Whitemane | O
+EXPERT1 | EX1_195 | Kul Tiran Chaplain | O
+EXPERT1 | EX1_196 | Scarlet Subjugator | O
+EXPERT1 | EX1_197 | Shadow Word: Ruin | O
+EXPERT1 | EX1_198 | Natalie Seline | O
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
 EXPERT1 | EX1_243 | Dust Devil | O
@@ -288,7 +297,6 @@ EXPERT1 | EX1_335 | Lightspawn | O
 EXPERT1 | EX1_339 | Thoughtsteal | O
 EXPERT1 | EX1_341 | Lightwell | O
 EXPERT1 | EX1_345 | Mindgames | O
-EXPERT1 | EX1_350 | Prophet Velen | O
 EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
 EXPERT1 | EX1_362 | Argent Protector | O
@@ -348,7 +356,6 @@ EXPERT1 | EX1_583 | Priestess of Elune | O
 EXPERT1 | EX1_584 | Ancient Mage | O
 EXPERT1 | EX1_586 | Sea Giant | O
 EXPERT1 | EX1_590 | Blood Knight | O
-EXPERT1 | EX1_591 | Auchenai Soulpriest | O
 EXPERT1 | EX1_594 | Vaporize | O
 EXPERT1 | EX1_595 | Cult Master | O
 EXPERT1 | EX1_596 | Demonfire | O
@@ -362,14 +369,12 @@ EXPERT1 | EX1_610 | Explosive Trap | O
 EXPERT1 | EX1_611 | Freezing Trap | O
 EXPERT1 | EX1_612 | Kirin Tor Mage | O
 EXPERT1 | EX1_613 | Edwin VanCleef | O
-EXPERT1 | EX1_614 | Illidan Stormrage | O
+EXPERT1 | EX1_614 | Xavius | O
 EXPERT1 | EX1_616 | Mana Wraith | O
 EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
-EXPERT1 | EX1_624 | Holy Fire | O
-EXPERT1 | EX1_625 | Shadowform | O
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall | O
@@ -398,18 +403,25 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul | O
 EXPERT1 | tt_010 | Spellbender | O
 
-- Progress: 100% (245 of 245 Cards)
+- Progress: 100% (240 of 240 Cards)
 
 ## Hall of Fame
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 HOF | CS2_031 | Ice Lance | O
+HOF | CS2_235 | Northshire Cleric | O
+HOF | CS2_236 | Divine Spirit | O
 HOF | DS1_233 | Mind Blast | O
+HOF | EX1_007 | Acolyte of Pain | O
 HOF | EX1_016 | Sylvanas Windrunner | O
+HOF | EX1_048 | Spellbreaker | O
 HOF | EX1_050 | Coldlight Oracle | O
 HOF | EX1_062 | Old Murk-Eye | O
+HOF | EX1_085 | Mind Control Tech | O
+HOF | EX1_105 | Mountain Giant | O
 HOF | EX1_112 | Gelbin Mekkatorque |  
+HOF | EX1_116 | Leeroy Jenkins | O
 HOF | EX1_128 | Conceal | O
 HOF | EX1_161 | Naturalize | O
 HOF | EX1_284 | Azure Drake | O
@@ -418,7 +430,11 @@ HOF | EX1_298 | Ragnaros the Firelord |
 HOF | EX1_310 | Doomguard | O
 HOF | EX1_316 | Power Overwhelming | O
 HOF | EX1_349 | Divine Favor | O
+HOF | EX1_350 | Prophet Velen | O
+HOF | EX1_591 | Auchenai Soulpriest | O
 HOF | EX1_620 | Molten Giant | O
+HOF | EX1_624 | Holy Fire | O
+HOF | EX1_625 | Shadowform | O
 HOF | GIL_130 | Gloom Stag |  
 HOF | GIL_530 | Murkspark Eel |  
 HOF | GIL_692 | Genn Greymane |  
@@ -429,7 +445,7 @@ HOF | NEW1_004 | Vanish | O
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 54% (13 of 24 Cards)
+- Progress: 68% (24 of 35 Cards)
 
 ## Rise of Shadows
 

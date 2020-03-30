@@ -24,12 +24,10 @@
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -1218,12 +1216,12 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [CS1_112] Holy Nova - COST:5
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 2 damage to all enemies.
-    //       Restore 2 Health to all friendly characters.
+    // Text: Deal 2 damage to all enemy minions.
+    //       Restore 2 Health to all friendly characters.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
     cards.emplace("CS1_112", CardDef(power));
 
@@ -1252,17 +1250,19 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [CS1_130] Holy Smite - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 2 damage.
+    // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cards.emplace(
         "CS1_130",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_003] Mind Vision - COST:1
@@ -1277,11 +1277,10 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_003", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
-    // [CS2_004] Power Word: Shield - COST:1
+    // [CS2_004] Power Word: Shield - COST:0
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion +2 Health.
-    //       Draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1290,7 +1289,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_004e", EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
     cards.emplace(
         "CS2_004",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -1315,42 +1313,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_MAX_ATTACK, 3 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
-    // ---------------------------------------- MINION - PRIEST
-    // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Whenever a minion is healed, draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
-    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("CS2_235", CardDef(power));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [CS2_236] Divine Spirit - COST:2
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Double a minion's Health.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::DAMAGE, 0, 1));
-    power.AddPowerTask(
-        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "CS2_236e", EntityType::TARGET, true));
-    cards.emplace(
-        "CS2_236",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_192] Radiance - COST:1
     // - Set: Core, Rarity: Free
@@ -1361,8 +1323,42 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
     cards.emplace("EX1_192", CardDef(power));
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
+    // - Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Copy a card in your opponent's deck
+    //       and add it to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("EX1_193", CardDef(power));
+
     // ----------------------------------------- SPELL - PRIEST
-    // [EX1_622] Shadow Word: Death - COST:3
+    // [EX1_194] Power Infusion - COST:4
+    // - Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a minion +2/+6.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_194e", EntityType::TARGET));
+    cards.emplace(
+        "EX1_194",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_622] Shadow Word: Death - COST:2
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy a minion with 5 or more Attack.
@@ -1404,6 +1400,16 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(std::make_unique<Enchant>(Enchants::AddHealthScriptTag));
     cards.emplace("CS2_236e", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_194e] Power Infusion (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2/+6.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_194e"));
+    cards.emplace("EX1_194e", CardDef(power));
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)

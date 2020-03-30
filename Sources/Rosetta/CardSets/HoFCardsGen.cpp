@@ -9,6 +9,7 @@
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
@@ -16,14 +17,21 @@
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncPlayableTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
@@ -32,9 +40,13 @@ using namespace RosettaStone::SimpleTasks;
 namespace RosettaStone
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
+using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void HoFCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -154,6 +166,42 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
+    // ---------------------------------------- MINION - PRIEST
+    // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
+    // - Set: HoF, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever a minion is healed, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CS2_235", CardDef(power));
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS2_236] Divine Spirit - COST:2
+    // - Set: HoF, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Double a minion's Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "CS2_236e", EntityType::TARGET, true));
+    cards.emplace(
+        "CS2_236",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: HoF, Rarity: Free
@@ -164,6 +212,80 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
     cards.emplace("DS1_233", CardDef(power));
+
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
+    // - Faction: Neutral, Set: HoF, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Double the damage and healing of your spells and Hero Power.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER_DOUBLE,
+                                             EffectOperator::ADD, 1) }));
+    cards.emplace("EX1_350", CardDef(power));
+
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
+    // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Your cards and powers that restore Health
+    //       now deal damage instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::HEALING_DOES_DAMAGE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("EX1_591", CardDef(power));
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_624] Holy Fire - COST:6
+    // - Faction: Priest, Set: HoF, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 5 damage. Restore 5 Health to your hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    cards.emplace(
+        "EX1_624",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_625] Shadowform - COST:3
+    // - Faction: Priest, Set: HoF, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Your Hero Power becomes 'Deal 2 damage'.
+    //       If already in Shadowform: 3 damage.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHeroPowerCard("EX1_625t")) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<ChangeHeroPowerTask>("EX1_625t2") }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::SOURCE,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<ChangeHeroPowerTask>(
+                                 "EX1_625t") }) }));
+    cards.emplace("EX1_625", CardDef(power));
 }
 
 void HoFCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
@@ -308,6 +430,18 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
+    // - Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("EX1_007", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
     // - Set: HoF, Rarity: Legendary
     // --------------------------------------------------------
@@ -322,6 +456,31 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
     power.AddDeathrattleTask(std::make_shared<ControlTask>(EntityType::STACK));
     cards.emplace("EX1_016", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
+    // - Faction: Horde, Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "EX1_048",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
@@ -380,6 +539,62 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             return addAttackAmount;
         }));
     cards.emplace("EX1_062", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
+    // - Faction: Alliance, Set: HoF, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If your opponent has 4 or
+    //       more minions, take control of one at random.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            return playables.size() > 3 ? playables : std::vector<Playable*>{};
+        }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldFull()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::STACK) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<ControlTask>(EntityType::STACK) }));
+    cards.emplace("EX1_085", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each other card in your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetHandZone()->GetCount() - 1;
+    }));
+    cards.emplace("EX1_105", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
+    // - Faction: Alliance, Set: HoF, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps
+    //       for your opponent.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHARGE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonOpTask>("EX1_116t") }, 2));
+    cards.emplace("EX1_116", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
