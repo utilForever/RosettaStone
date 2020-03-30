@@ -2144,6 +2144,30 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 },
                                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_196] Scarlet Subjugator - COST:1 [ATK:2/HP:1]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give an enemy minion -2 Attack
+    //       until your next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_196e", EntityType::TARGET));
+    cards.emplace(
+        "EX1_196",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_332] Silence - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -2335,6 +2359,20 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_195e"));
     cards.emplace("EX1_195e", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_196e] Subjugated (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: -2 Attack until your next turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_shared<Enchant>(Atk::Effect(EffectOperator::SUB, 2)));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->removeAfterTriggered = true;
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    cards.emplace("EX1_196e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_334e] Shadow Madness (*) - COST:0
