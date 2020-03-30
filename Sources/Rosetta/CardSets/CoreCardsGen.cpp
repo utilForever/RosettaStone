@@ -1340,6 +1340,24 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_193", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
+    // [EX1_194] Power Infusion - COST:4
+    // - Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a minion +2/+6.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_194e", EntityType::TARGET));
+    cards.emplace(
+        "EX1_194",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // ----------------------------------------- SPELL - PRIEST
     // [EX1_622] Shadow Word: Death - COST:2
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1382,6 +1400,16 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(std::make_unique<Enchant>(Enchants::AddHealthScriptTag));
     cards.emplace("CS2_236e", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_194e] Power Infusion (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2/+6.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_194e"));
+    cards.emplace("EX1_194e", CardDef(power));
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
