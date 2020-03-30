@@ -2121,6 +2121,29 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 },
                                  { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_195] Kul Tiran Chaplain - COST:2 [ATK:2/HP:3]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +2 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_195e", EntityType::TARGET));
+    cards.emplace(
+        "EX1_195",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_332] Silence - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -2302,6 +2325,16 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_195e] Aided (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_195e"));
+    cards.emplace("EX1_195e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_334e] Shadow Madness (*) - COST:0
