@@ -2181,7 +2181,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_335", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
-    // [EX1_339] Thoughtsteal - COST:3
+    // [EX1_339] Thoughtsteal - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Copy 2 cards in your opponent's deck and

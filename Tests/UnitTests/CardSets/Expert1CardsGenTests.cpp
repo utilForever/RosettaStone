@@ -4088,7 +4088,7 @@ TEST_CASE("[Priest : Minion] - EX1_335 : Lightspawn")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [EX1_339] Thoughtsteal - COST:3
+// [EX1_339] Thoughtsteal - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Copy 2 cards in your opponent's deck and
@@ -4128,6 +4128,7 @@ TEST_CASE("[Priest : Spell] - EX1_339 : Thoughtsteal")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Thoughtsteal"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ((curHand[0]->card->name == "Magma Rager" ||
               curHand[0]->card->name == "Wolfrider"),
              true);
