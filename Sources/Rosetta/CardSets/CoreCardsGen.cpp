@@ -1250,17 +1250,19 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [CS1_130] Holy Smite - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 2 damage.
+    // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cards.emplace(
         "CS1_130",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_003] Mind Vision - COST:1

@@ -2700,10 +2700,11 @@ TEST_CASE("[Priest : Spell] - CS1_113 : Mind Control")
 // [CS1_130] Holy Smite - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal 2 damage.
+// Text: Deal 3 damage to a minion.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - CS1_130 : Holy Smite")
 {
@@ -2752,18 +2753,18 @@ TEST_CASE("[Priest : Spell] - CS1_130 : Holy Smite")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    CHECK_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
     CHECK_EQ(curField.GetCount(), 0);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
 // ----------------------------------------- SPELL - PRIEST
