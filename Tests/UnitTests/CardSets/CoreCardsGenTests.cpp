@@ -2558,8 +2558,8 @@ TEST_CASE("[Paladin : Spell] - EX1_371 : Hand of Protection")
 // [CS1_112] Holy Nova - COST:5
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal 2 damage to all enemies.
-//       Restore 2 Health to all friendly characters.
+// Text: Deal 2 damage to all enemy minions.
+//       Restore 2 Health to all friendly characters.
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - CS1_112 : Holy Nova")
 {
@@ -2581,6 +2581,7 @@ TEST_CASE("[Priest : Spell] - CS1_112 : Holy Nova")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
     curPlayer->GetHero()->SetDamage(4);
+    opPlayer->GetHero()->SetDamage(4);
 
     auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
@@ -2622,7 +2623,7 @@ TEST_CASE("[Priest : Spell] - CS1_112 : Holy Nova")
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
     CHECK_EQ(curField[0]->GetHealth(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 7);
     CHECK_EQ(opField.GetCount(), 0);

@@ -1216,12 +1216,12 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [CS1_112] Holy Nova - COST:5
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 2 damage to all enemies.
-    //       Restore 2 Health to all friendly characters.
+    // Text: Deal 2 damage to all enemy minions.
+    //       Restore 2 Health to all friendly characters.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
     cards.emplace("CS1_112", CardDef(power));
 
