@@ -2169,6 +2169,20 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
+    // [EX1_197] Shadow Word: Ruin - COST:4
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Destroy all minions with 5 or more Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 5, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("EX1_197", CardDef(power));
+
+    // ----------------------------------------- SPELL - PRIEST
     // [EX1_332] Silence - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
