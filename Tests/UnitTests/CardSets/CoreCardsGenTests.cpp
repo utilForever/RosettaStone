@@ -2971,7 +2971,7 @@ TEST_CASE("[Priest : Spell] - EX1_192 : Radiance")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [EX1_622] Shadow Word: Death - COST:3
+// [EX1_622] Shadow Word: Death - COST:2
 // - Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: Destroy a minion with 5 or more Attack.
@@ -3028,10 +3028,12 @@ TEST_CASE("[Priest : Spell] - EX1_622 : Shadow Word: Death")
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
     CHECK_EQ(opField.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(opField.GetCount(), 1);
 }
 

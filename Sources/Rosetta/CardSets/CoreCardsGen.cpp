@@ -1324,7 +1324,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_192", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
-    // [EX1_622] Shadow Word: Death - COST:3
+    // [EX1_622] Shadow Word: Death - COST:2
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy a minion with 5 or more Attack.
