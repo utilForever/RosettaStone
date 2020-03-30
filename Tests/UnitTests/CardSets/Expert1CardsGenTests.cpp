@@ -3952,7 +3952,7 @@ TEST_CASE("[Priest : Spell] - EX1_332 : Silence")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [EX1_334] Shadow Madness - COST:4
+// [EX1_334] Shadow Madness - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Gain control of an enemy minion with 3 or less Attack
@@ -4008,6 +4008,7 @@ TEST_CASE("[Priest : Spell] - EX1_334 : Shadow Madness")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetAttack(), 3);
@@ -4025,10 +4026,12 @@ TEST_CASE("[Priest : Spell] - EX1_334 : Shadow Madness")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card2));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 10);
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(opField.GetCount(), 0);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card3));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 1);
 

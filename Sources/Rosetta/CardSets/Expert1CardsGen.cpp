@@ -2142,7 +2142,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
-    // [EX1_334] Shadow Madness - COST:4
+    // [EX1_334] Shadow Madness - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Gain control of an enemy minion with 3 or less Attack
