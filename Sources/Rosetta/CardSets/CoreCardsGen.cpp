@@ -1277,11 +1277,10 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_003", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
-    // [CS2_004] Power Word: Shield - COST:1
+    // [CS2_004] Power Word: Shield - COST:0
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion +2 Health.
-    //       Draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1290,7 +1289,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_004e", EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
     cards.emplace(
         "CS2_004",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },

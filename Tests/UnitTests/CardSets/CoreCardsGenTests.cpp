@@ -2816,11 +2816,10 @@ TEST_CASE("[Priest : Spell] - CS2_003 : Mind Vision")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [CS2_004] Power Word: Shield - COST:1
+// [CS2_004] Power Word: Shield - COST:0
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: Give a minion +2 Health.
-//       Draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2846,6 +2845,7 @@ TEST_CASE("[Priest : Spell] - CS2_004 : Power Word: Shield")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
     auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
@@ -2854,11 +2854,13 @@ TEST_CASE("[Priest : Spell] - CS2_004 : Power Word: Shield")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 4);
+    CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 4);
+    CHECK_EQ(curHand.GetCount(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 9);
 }
 
