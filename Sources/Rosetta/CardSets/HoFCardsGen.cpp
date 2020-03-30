@@ -19,7 +19,8 @@
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -153,6 +154,42 @@ void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     Power power;
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
+    // - Set: HoF, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever a minion is healed, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CS2_235", CardDef(power));
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS2_236] Divine Spirit - COST:2
+    // - Set: HoF, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Double a minion's Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "CS2_236e", EntityType::TARGET, true));
+    cards.emplace(
+        "CS2_236",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
