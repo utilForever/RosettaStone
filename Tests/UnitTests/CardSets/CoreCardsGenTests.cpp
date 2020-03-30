@@ -2970,6 +2970,55 @@ TEST_CASE("[Priest : Spell] - EX1_192 : Radiance")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
+// - Set: Core, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Copy a card in your opponent's deck
+//       and add it to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - EX1_193 : Psychic Conjurer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player2Deck[i] = Cards::FindCardByName("Magma Rager");
+    }
+    config.player2Deck[5] = Cards::FindCardByName("Wolfrider");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Psychic Conjurer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ((curHand[0]->card->name == "Magma Rager" ||
+              curHand[0]->card->name == "Wolfrider"),
+             true);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_622] Shadow Word: Death - COST:2
 // - Set: Core, Rarity: Free

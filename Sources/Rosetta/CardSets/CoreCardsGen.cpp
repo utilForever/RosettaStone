@@ -1323,6 +1323,22 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
     cards.emplace("EX1_192", CardDef(power));
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
+    // - Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Copy a card in your opponent's deck
+    //       and add it to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("EX1_193", CardDef(power));
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_622] Shadow Word: Death - COST:2
     // - Set: Core, Rarity: Free
