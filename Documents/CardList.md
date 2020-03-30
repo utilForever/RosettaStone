@@ -129,8 +129,8 @@ CORE | EX1_169 | Innervate | O
 CORE | EX1_173 | Starfire | O
 CORE | EX1_191 | Plaguebringer | O
 CORE | EX1_192 | Radiance | O
-CORE | EX1_193 | Psychic Conjurer |  
-CORE | EX1_194 | Power Infusion |  
+CORE | EX1_193 | Psychic Conjurer | O
+CORE | EX1_194 | Power Infusion | O
 CORE | EX1_244 | Totemic Might | O
 CORE | EX1_246 | Hex | O
 CORE | EX1_277 | Arcane Missiles | O
@@ -156,7 +156,7 @@ CORE | NEW1_003 | Sacrificial Pact | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 91% (131 of 143 Cards)
+- Progress: 93% (133 of 143 Cards)
 
 ## Classic
 
@@ -258,10 +258,10 @@ EXPERT1 | EX1_187 | Arcane Devourer | O
 EXPERT1 | EX1_188 | Barrens Stablehand | O
 EXPERT1 | EX1_189 | Brightwing | O
 EXPERT1 | EX1_190 | High Inquisitor Whitemane | O
-EXPERT1 | EX1_195 | Kul Tiran Chaplain |  
-EXPERT1 | EX1_196 | Scarlet Subjugator |  
-EXPERT1 | EX1_197 | Shadow Word: Ruin |  
-EXPERT1 | EX1_198 | Natalie Seline |  
+EXPERT1 | EX1_195 | Kul Tiran Chaplain | O
+EXPERT1 | EX1_196 | Scarlet Subjugator | O
+EXPERT1 | EX1_197 | Shadow Word: Ruin | O
+EXPERT1 | EX1_198 | Natalie Seline | O
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
 EXPERT1 | EX1_243 | Dust Devil | O
@@ -403,7 +403,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul | O
 EXPERT1 | tt_010 | Spellbender | O
 
-- Progress: 98% (236 of 240 Cards)
+- Progress: 100% (240 of 240 Cards)
 
 ## Hall of Fame
 
