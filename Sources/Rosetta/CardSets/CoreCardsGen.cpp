@@ -2409,6 +2409,22 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
                               ChoiceAction::SIGHTLESS_WATCHER, ids);
     }));
     cards.emplace("BT_323", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_352] Satyr Overseer (*) - COST:3 [ATK:4/HP:2]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: After your hero attacks, summon a 2/2 Satyr.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BT_352t", SummonSide::RIGHT) };
+    cards.emplace("BT_352", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
@@ -2449,6 +2465,14 @@ void CoreCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_142e"));
     cards.emplace("BT_142e", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_352t] Illidari Satyr (*) - COST:2 [ATK:2/HP:2]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_352t", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [HERO_10pe] Demon Claws (*) - COST:0

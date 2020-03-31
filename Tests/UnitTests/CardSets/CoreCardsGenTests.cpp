@@ -5586,6 +5586,52 @@ TEST_CASE("[Demon Hunter : Minion] - BT_323 : Sightless Watcher")
     CHECK_EQ(curDeck.GetCount(), 25);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_352] Satyr Overseer (*) - COST:3 [ATK:4/HP:2]
+// - Race: Demon, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: After your hero attacks, summon a 2/2 Satyr.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_352 : Satyr Overseer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Satyr Overseer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Illidari Satyr");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
 // - Faction: Alliance, Set: Core, Rarity: Free
