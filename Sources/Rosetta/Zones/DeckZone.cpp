@@ -80,4 +80,35 @@ void DeckZone::SetEntity(int index, Playable* newEntity)
     m_entities[index] = newEntity;
     newEntity->zone = this;
 }
+
+void DeckZone::Swap(Playable* entity1, Playable* entity2) const
+{
+    if (entity1->zone->GetType() != entity2->zone->GetType())
+    {
+        throw std::logic_error("Swap not possible because of zone mismatch");
+    }
+
+    int entity1Pos = -1, entity2Pos = -1;
+    for (int i = 0; i < m_count; ++i)
+    {
+        if (m_entities[i] == entity1)
+        {
+            entity1Pos = i;
+        }
+
+        if (m_entities[i] == entity2)
+        {
+            entity2Pos = i;
+        }
+    }
+
+    if (entity1Pos == -1 || entity2Pos == -1 || entity1Pos == entity2Pos)
+    {
+        return;
+    }
+
+    const auto temp = m_entities[entity1Pos];
+    m_entities[entity1Pos] = m_entities[entity2Pos];
+    m_entities[entity2Pos] = temp;
+}
 }  // namespace RosettaStone
