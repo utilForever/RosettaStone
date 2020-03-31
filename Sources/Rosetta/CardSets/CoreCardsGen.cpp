@@ -2356,6 +2356,20 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 3));
     cards.emplace("BT_036", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_142e", EntityType::HERO));
+    cards.emplace("BT_142", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
@@ -2383,6 +2397,19 @@ void CoreCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("BT_036t", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_142e] Sharpened Claws (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_142e"));
+    cards.emplace("BT_142e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [HERO_10pe] Demon Claws (*) - COST:0

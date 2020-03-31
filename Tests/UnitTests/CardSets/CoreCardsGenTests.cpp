@@ -5418,6 +5418,50 @@ TEST_CASE("[Demon Hunter : Spell] - BT_036 : Coordinated Strike")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
+// - Race: Demon, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_142 : Shadowhoof Slayer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowhoof Slayer"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
 // - Faction: Alliance, Set: Core, Rarity: Free
