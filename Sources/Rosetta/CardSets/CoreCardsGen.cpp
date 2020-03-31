@@ -2381,6 +2381,34 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
     cards.emplace("BT_235", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_323] Sightless Watcher (*) - COST:2 [ATK:3/HP:2]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Look at 3 cards in your deck.
+    //       Choose one to put on top.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::DECK, 3));
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        auto playables = playable->game->taskStack.playables;
+
+        std::vector<std::size_t> ids;
+        ids.reserve(3);
+
+        for (auto& p : playables)
+        {
+            ids.emplace_back(p->GetGameTag(GameTag::ENTITY_ID));
+        }
+
+        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
+                              ChoiceAction::SIGHTLESS_WATCHER, ids);
+    }));
+    cards.emplace("BT_323", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
