@@ -159,6 +159,13 @@ bool ChoicePick(Player* player, std::size_t choice)
             }
             break;
         }
+        case ChoiceAction::SIGHTLESS_WATCHER:
+        {
+            auto deckZone = player->GetDeckZone();
+            deckZone->Swap(playable, deckZone->GetTopCard());
+
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "ChoicePick() - Invalid choice action!");
