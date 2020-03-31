@@ -417,6 +417,62 @@ TEST_CASE("[Hunter : Hero Power] - DS1h_292 : Steady Shot")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ------------------------------- HERO_POWER - DEMONHUNTER
+// [HERO_10p] Demon Claws (*) - COST:1
+// - Faction: Neutral, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> +1 Attack this turn.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Hero Power] - HERO_10p : Demon Claws")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Northshire Cleric"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [CS2_005] Claw - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free

@@ -157,6 +157,17 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("HERO_09", CardDef(power));
+
+    // ------------------------------------- HERO - DEMONHUNTER
+    // [HERO_10] Illidan Stormrage - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 60224
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_10", CardDef(power));
 }
 
 void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
@@ -325,6 +336,28 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         "DS1h_292",
         CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
                                  { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
+
+    // ------------------------------- HERO_POWER - DEMONHUNTER
+    // [HERO_10p] Demon Claws (*) - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> +1 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("HERO_10pe", EntityType::HERO));
+    cards.emplace("HERO_10p", CardDef(power));
+
+    // ------------------------------- HERO_POWER - DEMONHUNTER
+    // [HERO_10p_UP] Demon's Bite (*) - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>\ +2 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("HERO_10pe_UP", EntityType::HERO));
+    cards.emplace("HERO_10p_UP", CardDef(power));
 }
 
 void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -2305,6 +2338,33 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 void CoreCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [HERO_10pe] Demon Claws (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Your hero has +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("HERO_10pe"));
+    cards.emplace("HERO_10pe", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [HERO_10pe_UP] Demon's Bite (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Your hero has +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("HERO_10pe_UP"));
+    cards.emplace("HERO_10pe_UP", CardDef(power));
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
