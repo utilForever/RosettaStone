@@ -2448,6 +2448,17 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "BT_495",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_512] Inner Demon - COST:8
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your hero +8 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_512e", EntityType::HERO));
+    cards.emplace("BT_512", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
@@ -2496,6 +2507,19 @@ void CoreCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("BT_352t", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_512e] Demon Power (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +8 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_512e"));
+    cards.emplace("BT_512e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [HERO_10pe] Demon Claws (*) - COST:0
