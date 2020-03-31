@@ -2346,6 +2346,16 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<AddEnchantmentTask>("BT_035e", EntityType::HERO));
     power.AddPowerTask(std::make_shared<DrawTask>(1));
     cards.emplace("BT_035", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_036] Coordinated Strike - COST:3
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 3));
+    cards.emplace("BT_036", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
@@ -2365,6 +2375,14 @@ void CoreCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_035e"));
     cards.emplace("BT_035e", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_036t] Illidari Initiate (*) - COST:1 [ATK:1/HP:1]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_036t", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [HERO_10pe] Demon Claws (*) - COST:0
