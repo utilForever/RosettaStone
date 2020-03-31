@@ -12,16 +12,16 @@
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-CORE | BT_035 | Chaos Strike |  
-CORE | BT_036 | Coordinated Strike |  
-CORE | BT_142 | Shadowhoof Slayer |  
-CORE | BT_235 | Chaos Nova |  
-CORE | BT_323 | Sightless Watcher |  
-CORE | BT_352 | Satyr Overseer |  
-CORE | BT_495 | Glaivebound Adept |  
-CORE | BT_512 | Inner Demon |  
-CORE | BT_740 | Soul Cleave |  
-CORE | BT_921 | Aldrachi Warblades |  
+CORE | BT_035 | Chaos Strike | O
+CORE | BT_036 | Coordinated Strike | O
+CORE | BT_142 | Shadowhoof Slayer | O
+CORE | BT_235 | Chaos Nova | O
+CORE | BT_323 | Sightless Watcher | O
+CORE | BT_352 | Satyr Overseer | O
+CORE | BT_495 | Glaivebound Adept | O
+CORE | BT_512 | Inner Demon | O
+CORE | BT_740 | Soul Cleave | O
+CORE | BT_921 | Aldrachi Warblades | O
 CORE | CS1_042 | Goldshire Footman | O
 CORE | CS1_112 | Holy Nova | O
 CORE | CS1_113 | Mind Control | O
@@ -156,7 +156,7 @@ CORE | NEW1_003 | Sacrificial Pact | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 93% (133 of 143 Cards)
+- Progress: 100% (143 of 143 Cards)
 
 ## Classic
 
