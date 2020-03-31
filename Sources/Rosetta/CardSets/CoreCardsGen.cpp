@@ -2333,12 +2333,38 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_035] Chaos Strike - COST:2
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your hero +2 Attack this turn. Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_035e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BT_035", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
     Power power;
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_035e] Chaos Strike (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_035e"));
+    cards.emplace("BT_035e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [HERO_10pe] Demon Claws (*) - COST:0

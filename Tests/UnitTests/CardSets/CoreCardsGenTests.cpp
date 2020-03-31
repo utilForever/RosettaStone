@@ -5313,6 +5313,50 @@ TEST_CASE("[Warrior : Minion] - NEW1_011 : Kor'kron Elite")
     // Do nothing
 }
 
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_035] Chaos Strike - COST:2
+// - Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: Give your hero +2 Attack this turn. Draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_035 : Chaos Strike")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chaos Strike"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
 // - Faction: Alliance, Set: Core, Rarity: Free
