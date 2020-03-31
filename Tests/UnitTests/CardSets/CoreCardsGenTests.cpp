@@ -5712,8 +5712,6 @@ TEST_CASE("[Demon Hunter : Spell] - BT_512 : Inner Demon")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Inner Demon"));
 
@@ -5727,6 +5725,81 @@ TEST_CASE("[Demon Hunter : Spell] - BT_512 : Inner Demon")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_740] Soul Cleave - COST:8
+// - Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_740 : Soul Cleave")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Soul Cleave"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    int totalHealth = opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    totalHealth += opField[1]->GetHealth();
+    CHECK_EQ(totalHealth, 8);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    totalHealth += opField[2]->GetHealth();
+    CHECK_EQ(totalHealth, 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField.GetCount(), 3);
+    totalHealth = opField[0]->GetHealth();
+    totalHealth += opField[1]->GetHealth();
+    totalHealth += opField[2]->GetHealth();
+    CHECK_EQ(totalHealth, 8);
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -2459,6 +2459,27 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_512e", EntityType::HERO));
     cards.emplace("BT_512", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_740] Soul Cleave - COST:8
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace(
+        "BT_740",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
