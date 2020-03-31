@@ -71,6 +71,10 @@ class Hero : public Character
     //! \p amount The amount to gain armor.
     void GainArmor(int amount);
 
+    //! Returns the flag that indicates whether it has lifesteal.
+    //! \return The flag that indicates whether it has lifesteal.
+    bool HasLifesteal() const override;
+
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
 
