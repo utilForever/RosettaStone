@@ -2425,6 +2425,29 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "BT_352t", SummonSide::RIGHT) };
     cards.emplace("BT_352", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_495] Glaivebound Adept (*) - COST:5 [ATK:7/HP:4]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If your hero attacked this turn,
+    //       deal 4 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsAttackThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4) }));
+    cards.emplace(
+        "BT_495",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(

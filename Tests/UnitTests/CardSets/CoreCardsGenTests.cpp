@@ -5632,6 +5632,60 @@ TEST_CASE("[Demon Hunter : Minion] - BT_352 : Satyr Overseer")
     CHECK_EQ(curField[1]->GetHealth(), 2);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_495] Glaivebound Adept (*) - COST:5 [ATK:7/HP:4]
+// - Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your hero attacked this turn,
+//       deal 4 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_495 : Glaivebound Adept")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Glaivebound Adept"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Glaivebound Adept"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
 // - Faction: Alliance, Set: Core, Rarity: Free
