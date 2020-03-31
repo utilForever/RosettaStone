@@ -2370,6 +2370,17 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_142e", EntityType::HERO));
     cards.emplace("BT_142", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_235] Chaos Nova - COST:5
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal 4 damage to all minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
+    cards.emplace("BT_235", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
