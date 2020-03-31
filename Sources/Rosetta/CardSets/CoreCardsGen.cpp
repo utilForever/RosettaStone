@@ -2298,6 +2298,15 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_084e", CardDef(power));
 }
 
+void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
+{
+}
+
+void CoreCardsGen::AddDemonHunterNonCollect(
+    std::map<std::string, CardDef>& cards)
+{
+}
+
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     Power power;
@@ -3017,6 +3026,9 @@ void CoreCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 
     AddWarrior(cards);
     AddWarriorNonCollect(cards);
+
+    AddDemonHunter(cards);
+    AddDemonHunterNonCollect(cards);
 
     AddNeutral(cards);
     AddNeutralNonCollect(cards);
