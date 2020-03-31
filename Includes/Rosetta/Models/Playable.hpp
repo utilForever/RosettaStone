@@ -89,7 +89,7 @@ class Playable : public Entity
 
     //! Returns the flag that indicates whether it has lifesteal.
     //! \return The flag that indicates whether it has lifesteal.
-    bool HasLifesteal() const;
+    virtual bool HasLifesteal() const;
 
     //! Resets the value of the cost.
     void ResetCost();
