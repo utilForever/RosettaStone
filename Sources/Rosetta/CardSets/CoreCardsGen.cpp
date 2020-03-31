@@ -2480,6 +2480,20 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "BT_740",
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
+
+    // ----------------------------------- WEAPON - DEMONHUNTER
+    // [BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // - DURABILITY = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_921", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(

@@ -5802,6 +5802,59 @@ TEST_CASE("[Demon Hunter : Spell] - BT_740 : Soul Cleave")
     CHECK_EQ(totalHealth, 8);
 }
 
+// ----------------------------------- WEAPON - DEMONHUNTER
+// [BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
+// - Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>
+// --------------------------------------------------------
+// GameTag:
+// - LIFESTEAL = 1
+// - DURABILITY = 3
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Weapon] - BT_921 : Aldrachi Warblades")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Aldrachi Warblades"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 18);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
 // - Faction: Alliance, Set: Core, Rarity: Free
