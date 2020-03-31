@@ -168,6 +168,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOverloadCard();
 
+    //! SelfCondition wrapper for checking the entity attacks this turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsAttackThisTurn();
+
     //! SelfCondition wrapper for checking the number of minion
     //! that played this turn.
     //! \param num The number of minion for checking.

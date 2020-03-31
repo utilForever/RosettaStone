@@ -341,6 +341,13 @@ SelfCondition SelfCondition::IsOverloadCard()
     });
 }
 
+SelfCondition SelfCondition::IsAttackThisTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) > 0;
+    });
+}
+
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
     return SelfCondition([=](Playable* playable) -> bool {
