@@ -38,6 +38,7 @@
 #include <Rosetta/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/CardSets/DemonHunterInitCardsGen.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
