@@ -7,6 +7,7 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone;
@@ -42,6 +43,36 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "BT_175t", 1));
     cards.emplace("BT_175", CardDef(power));
+
+    // ----------------------------------- WEAPON - DEMONHUNTER
+    // [BT_271] Flamereaper - COST:7 [ATK:4/HP:0]
+    // - Set: Demon Hunter Initiate, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Also damages the minions next to whomever your hero attacks.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // - DURABILITY = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<FuncNumberTask>(
+        [](Playable* playable) {
+            const auto target = dynamic_cast<Minion*>(
+                playable->game->currentEventData->eventTarget);
+            if (target == nullptr)
+            {
+                return;
+            }
+
+            for (auto& minion : target->GetAdjacentMinions())
+            {
+                minion->TakeDamage(playable,
+                                   playable->player->GetHero()->GetAttack());
+            }
+        }) };
+    cards.emplace("BT_271", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
