@@ -2,6 +2,7 @@
 
 * [Basic](#basic)
 * [Classic](#classic)
+* [Demon Hunter Initiate](#demon-hunter-initiate)
 * [Hall of Fame](#hall-of-fame)
 * [Rise of Shadows](#rise-of-shadows)
 * [Saviors of Uldum](#saviors-of-uldum)
@@ -404,6 +405,33 @@ EXPERT1 | tt_004 | Flesheating Ghoul | O
 EXPERT1 | tt_010 | Spellbender | O
 
 - Progress: 100% (240 of 240 Cards)
+
+## Demon Hunter Initiate
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+DEMON_HUNTER_INITIATE | BT_173 | Command the Illidari |  
+DEMON_HUNTER_INITIATE | BT_175 | Twin Slice |  
+DEMON_HUNTER_INITIATE | BT_271 | Flamereaper |  
+DEMON_HUNTER_INITIATE | BT_351 | Battlefiend |  
+DEMON_HUNTER_INITIATE | BT_354 | Blade Dance |  
+DEMON_HUNTER_INITIATE | BT_355 | Wrathscale Naga |  
+DEMON_HUNTER_INITIATE | BT_407 | Ur'zul Horror |  
+DEMON_HUNTER_INITIATE | BT_416 | Raging Felscreamer |  
+DEMON_HUNTER_INITIATE | BT_427 | Feast of Souls |  
+DEMON_HUNTER_INITIATE | BT_481 | Nethrandamus |  
+DEMON_HUNTER_INITIATE | BT_487 | Hulking Overfiend |  
+DEMON_HUNTER_INITIATE | BT_488 | Soul Split |  
+DEMON_HUNTER_INITIATE | BT_490 | Consume Magic |  
+DEMON_HUNTER_INITIATE | BT_510 | Wrathspike Brute |  
+DEMON_HUNTER_INITIATE | BT_752 | Blur |  
+DEMON_HUNTER_INITIATE | BT_753 | Mana Burn |  
+DEMON_HUNTER_INITIATE | BT_801 | Eye Beam |  
+DEMON_HUNTER_INITIATE | BT_814 | Illidari Felblade |  
+DEMON_HUNTER_INITIATE | BT_922 | Umberwing |  
+DEMON_HUNTER_INITIATE | BT_937 | Altruis the Outcast |  
+
+- Progress: 0% (0 of 20 Cards)
 
 ## Hall of Fame
 
