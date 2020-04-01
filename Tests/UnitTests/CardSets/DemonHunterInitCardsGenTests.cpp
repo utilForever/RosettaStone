@@ -264,3 +264,74 @@ TEST_CASE("[Demon Hunter : Minion] - BT_351 : Battlefiend")
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
     CHECK_EQ(curField[0]->GetAttack(), 4);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_354] Blade Dance - COST:2
+// - Set: Demon Hunter Initiate, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal damage equal to your hero's Attack
+//       to 3 random enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_354 : Blade Dance")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blade Dance"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    CHECK_EQ(opPlayer->GetHero()->GetAttack(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    bool check1 = curField.GetCount() == 2 && (curField[0]->GetHealth() == 3 ||
+                                               curField[1]->GetHealth() == 3);
+    bool check2 =
+        curField.GetCount() == 3 &&
+        ((curField[0]->GetHealth() == 1 && curField[1]->GetHealth() == 3 &&
+          curField[2]->GetHealth() == 3) ||
+         (curField[0]->GetHealth() == 3 && curField[1]->GetHealth() == 3 &&
+          curField[2]->GetHealth() == 1));
+    bool check = check1 || check2;
+    CHECK_EQ(check, true);
+}

@@ -7,7 +7,10 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone;
@@ -15,6 +18,8 @@ using namespace SimpleTasks;
 
 namespace RosettaStone
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void DemonHunterInitCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
@@ -89,6 +94,30 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "BT_351e", EntityType::SOURCE) };
     cards.emplace("BT_351", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_354] Blade Dance - COST:2
+    // - Set: Demon Hunter Initiate, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal damage equal to your hero's Attack
+    //       to 3 random enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 3));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::STACK, true));
+    cards.emplace(
+        "BT_354",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
