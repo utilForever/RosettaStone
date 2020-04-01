@@ -10,6 +10,7 @@
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <utility>
 
@@ -29,6 +30,49 @@ int Minion::GetLastBoardPos() const
 void Minion::SetLastBoardPos(int value)
 {
     SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, value);
+}
+
+std::vector<Minion*> Minion::GetAdjacentMinions() const
+{
+    std::vector<Minion*> minions;
+    minions.reserve(2);
+
+    if (GetZoneType() == ZoneType::PLAY)
+    {
+        FieldZone* fieldZone = player->GetFieldZone();
+        const int pos = GetZonePosition();
+
+        if (pos > 0)
+        {
+            Minion* left = (*fieldZone)[pos - 1];
+
+            if (!left->IsUntouchable())
+            {
+                minions.emplace_back(left);
+            }
+
+            if (pos < fieldZone->GetCount() - 1)
+            {
+                Minion* right = (*fieldZone)[pos + 1];
+
+                if (!right->IsUntouchable())
+                {
+                    minions.emplace_back(right);
+                }
+            }
+        }
+        else if (fieldZone->GetCount() > 1)
+        {
+            Minion* right = (*fieldZone)[pos + 1];
+
+            if (!right->IsUntouchable())
+            {
+                minions.emplace_back(right);
+            }
+        }
+    }
+
+    return minions;
 }
 
 bool Minion::IsLackey() const
