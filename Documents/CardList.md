@@ -410,11 +410,11 @@ EXPERT1 | tt_010 | Spellbender | O
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-DEMON_HUNTER_INITIATE | BT_173 | Command the Illidari |  
-DEMON_HUNTER_INITIATE | BT_175 | Twin Slice |  
-DEMON_HUNTER_INITIATE | BT_271 | Flamereaper |  
-DEMON_HUNTER_INITIATE | BT_351 | Battlefiend |  
-DEMON_HUNTER_INITIATE | BT_354 | Blade Dance |  
+DEMON_HUNTER_INITIATE | BT_173 | Command the Illidari | O
+DEMON_HUNTER_INITIATE | BT_175 | Twin Slice | O
+DEMON_HUNTER_INITIATE | BT_271 | Flamereaper | O
+DEMON_HUNTER_INITIATE | BT_351 | Battlefiend | O
+DEMON_HUNTER_INITIATE | BT_354 | Blade Dance | O
 DEMON_HUNTER_INITIATE | BT_355 | Wrathscale Naga |  
 DEMON_HUNTER_INITIATE | BT_407 | Ur'zul Horror |  
 DEMON_HUNTER_INITIATE | BT_416 | Raging Felscreamer |  
@@ -431,7 +431,7 @@ DEMON_HUNTER_INITIATE | BT_814 | Illidari Felblade |
 DEMON_HUNTER_INITIATE | BT_922 | Umberwing |  
 DEMON_HUNTER_INITIATE | BT_937 | Altruis the Outcast |  
 
-- Progress: 0% (0 of 20 Cards)
+- Progress: 25% (5 of 20 Cards)
 
 ## Hall of Fame
 
