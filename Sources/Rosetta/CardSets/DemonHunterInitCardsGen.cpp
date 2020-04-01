@@ -73,6 +73,22 @@ void DemonHunterInitCardsGen::AddDemonHunter(
             }
         }) };
     cards.emplace("BT_271", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_351] Battlefiend (*) - COST:1 [ATK:2/HP:2]
+    // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After your hero attacks, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BT_351e", EntityType::SOURCE) };
+    cards.emplace("BT_351", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
@@ -103,6 +119,16 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_175e", EntityType::HERO));
     cards.emplace("BT_175t", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_351e] Felheartened - COST:0
+    // - Set: Demon Hunter Initiate
+    // --------------------------------------------------------
+    // Text: Increased attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("BT_351e", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddAll(std::map<std::string, CardDef>& cards)
