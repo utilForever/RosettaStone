@@ -139,6 +139,20 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         std::make_shared<DamageTask>(EntityType::STACK, 3)
     };
     cards.emplace("BT_355", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_407] Ur'zul Horror (*) - COST:1 [ATK:2/HP:1]
+    // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Add a 2/1 Lost Soul to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "BT_407t"));
+    cards.emplace("BT_407", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
@@ -179,6 +193,14 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
     cards.emplace("BT_351e", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_407t] Lost Soul (*) - COST:1 [ATK:2/HP:1]
+    // - Set: Demon Hunter Initiate
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_407t", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddAll(std::map<std::string, CardDef>& cards)

@@ -400,3 +400,47 @@ TEST_CASE("[Demon Hunter : Minion] - BT_355 : Wrathscale Naga")
                       : curHero->GetHealth() + curField[0]->GetHealth();
     CHECK_EQ(totalHealth, 30);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_407] Ur'zul Horror (*) - COST:1 [ATK:2/HP:1]
+// - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Add a 2/1 Lost Soul to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_407 : Ur'zul Horror")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ur'zul Horror"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Lost Soul");
+}
