@@ -17,6 +17,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone;
@@ -223,6 +224,26 @@ void DemonHunterInitCardsGen::AddDemonHunter(
                                                GameTag::TAG_SCRIPT_DATA_NUM_1),
     };
     cards.emplace("BT_481", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_487] Hulking Overfiend (*) - COST:8 [ATK:5/HP:10]
+    // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. After this attacks and kills a minion,
+    //       it may attack again.
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead());
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::EXHAUSTED, 0) };
+    cards.emplace("BT_487", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(

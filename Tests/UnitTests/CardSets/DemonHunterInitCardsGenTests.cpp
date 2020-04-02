@@ -612,3 +612,57 @@ TEST_CASE("[Demon Hunter : Minion] - BT_481 : Nethrandamus")
     CHECK_EQ(curField[1]->card->name, "Nethrandamus");
     CHECK_EQ(curField[2]->GetCost(), 6);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_487] Hulking Overfiend (*) - COST:8 [ATK:5/HP:10]
+// - Race: Demon, Set: Demon Hunter Initiate, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>. After this attacks and kills a minion,
+//       it may attack again.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_487 : Hulking Overfiend")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Hulking Overfiend"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card3->IsExhausted(), false);
+
+    game.Process(opPlayer, AttackTask(card3, card1));
+    CHECK_EQ(card3->IsExhausted(), false);
+
+    game.Process(opPlayer, AttackTask(card3, card2));
+    CHECK_EQ(card3->IsExhausted(), true);
+}
