@@ -289,6 +289,24 @@ void DemonHunterInitCardsGen::AddDemonHunter(
                   CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 },
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_510] Wrathspike Brute - COST:5 [ATK:2/HP:6]
+    // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b> After this is attacked,
+    //       deal 1 damage to all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACKED));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1, false) };
+    cards.emplace("BT_510", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
