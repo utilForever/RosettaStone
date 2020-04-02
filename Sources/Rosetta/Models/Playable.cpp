@@ -381,6 +381,9 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         case PowerType::COMBO:
             tasks = card->power.GetComboTask();
             break;
+        case PowerType::OUTCAST:
+            tasks = card->power.GetOutcastTask();
+            break;
     }
 
     if (tasks.empty() || tasks[0] == nullptr)

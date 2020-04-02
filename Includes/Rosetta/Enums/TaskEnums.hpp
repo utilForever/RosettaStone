@@ -14,7 +14,8 @@ enum class PowerType
 {
     POWER,
     DEATHRATTLE,
-    COMBO
+    COMBO,
+    OUTCAST
 };
 
 //! \brief An enumerator for identifying entity type.
