@@ -3,12 +3,15 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/CardSets/DemonHunterInitCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
@@ -167,6 +170,25 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_416e", EntityType::SOURCE));
     cards.emplace("BT_416", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_427] Feast of Souls - COST:2
+    // - Set: Demon Hunter Initiate, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw a card for each friendly minion that died this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const int num = player->GetNumFriendlyMinionsDiedThisTurn();
+
+            for (int i = 0; i < num; ++i)
+            {
+                Generic::Draw(player, nullptr);
+            }
+        }));
+    cards.emplace("BT_427", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
