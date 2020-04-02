@@ -18,6 +18,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone;
@@ -244,6 +245,25 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
         EntityType::SOURCE, GameTag::EXHAUSTED, 0) };
     cards.emplace("BT_487", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_488] Soul Split (*) - COST:4
+    // - Set: Demon Hunter Initiate, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Choose a friendly Demon. Summon a copy of it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 15
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    cards.emplace(
+        "BT_488",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 15 } }));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(

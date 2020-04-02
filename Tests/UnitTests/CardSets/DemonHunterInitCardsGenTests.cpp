@@ -666,3 +666,57 @@ TEST_CASE("[Demon Hunter : Minion] - BT_487 : Hulking Overfiend")
     game.Process(opPlayer, AttackTask(card3, card2));
     CHECK_EQ(card3->IsExhausted(), true);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_488] Soul Split (*) - COST:4
+// - Set: Demon Hunter Initiate, Rarity: Rare
+// --------------------------------------------------------
+// Text: Choose a friendly Demon. Summon a copy of it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_TARGET_WITH_RACE = 15
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_488 : Soul Split")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Soul Split"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ur'zul Horror"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Ur'zul Horror");
+}
