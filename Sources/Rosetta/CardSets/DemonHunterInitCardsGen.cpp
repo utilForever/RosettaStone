@@ -11,6 +11,7 @@
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathAddTask.hpp>
@@ -18,6 +19,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -89,7 +91,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_271", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_351] Battlefiend (*) - COST:1 [ATK:2/HP:2]
+    // [BT_351] Battlefiend - COST:1 [ATK:2/HP:2]
     // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
     // Text: After your hero attacks, gain +1 Attack.
@@ -129,7 +131,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_355] Wrathscale Naga (*) - COST:3 [ATK:3/HP:1]
+    // [BT_355] Wrathscale Naga - COST:3 [ATK:3/HP:1]
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
     // Text: After a friendly minion dies,
@@ -148,7 +150,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_355", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_407] Ur'zul Horror (*) - COST:1 [ATK:2/HP:1]
+    // [BT_407] Ur'zul Horror - COST:1 [ATK:2/HP:1]
     // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Add a 2/1 Lost Soul to your hand.
@@ -162,7 +164,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_407", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_416] Raging Felscreamer (*) - COST:4 [ATK:4/HP:4]
+    // [BT_416] Raging Felscreamer - COST:4 [ATK:4/HP:4]
     // - Set: Demon Hunter Initiate, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> The next Demon you play costs (2) less.
@@ -195,7 +197,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_427", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_481] Nethrandamus (*) - COST:9 [ATK:8/HP:8]
+    // [BT_481] Nethrandamus - COST:9 [ATK:8/HP:8]
     // - Race: Dragon, Set: Demon Hunter Initiate, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon two random 0-Cost minions.
@@ -227,7 +229,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_481", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_487] Hulking Overfiend (*) - COST:8 [ATK:5/HP:10]
+    // [BT_487] Hulking Overfiend - COST:8 [ATK:5/HP:10]
     // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>. After this attacks and kills a minion,
@@ -247,7 +249,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_487", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_488] Soul Split (*) - COST:4
+    // [BT_488] Soul Split - COST:4
     // - Set: Demon Hunter Initiate, Rarity: Rare
     // --------------------------------------------------------
     // Text: Choose a friendly Demon. Summon a copy of it.
@@ -264,6 +266,29 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
                                  { PlayReq::REQ_TARGET_WITH_RACE, 15 } }));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_490] Consume Magic - COST:1
+    // - Set: Demon Hunter Initiate, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> an enemy minion.
+    //       <b>Outcast:</b> Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BT_490",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
