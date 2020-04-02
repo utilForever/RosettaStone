@@ -555,3 +555,60 @@ TEST_CASE("[Demon Hunter : Spell] - BT_427 : Feast of Souls")
     game.Process(opPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(opHand.GetCount(), 9);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_481] Nethrandamus (*) - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: Demon Hunter Initiate, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two random 0-Cost minions.
+//       <i>(Upgrades each time a friendly minion dies!)</i>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_481 : Nethrandamus")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nethrandamus"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Command the Illidari"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->GetCost(), 6);
+    CHECK_EQ(curField[1]->card->name, "Nethrandamus");
+    CHECK_EQ(curField[2]->GetCost(), 6);
+}

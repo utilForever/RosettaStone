@@ -11,10 +11,12 @@
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathAddTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone;
@@ -189,6 +191,38 @@ void DemonHunterInitCardsGen::AddDemonHunter(
             }
         }));
     cards.emplace("BT_427", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_481] Nethrandamus (*) - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Set: Demon Hunter Initiate, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon two random 0-Cost minions.
+    //       <i>(Upgrades each time a friendly minion dies!)</i>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1));
+    power.AddPowerTask(std::make_shared<RandomMinionNumberTask>(GameTag::COST));
+    power.AddPowerTask(std::make_shared<SummonTask>(SummonSide::LEFT));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1));
+    power.AddPowerTask(std::make_shared<RandomMinionNumberTask>(GameTag::COST));
+    power.AddPowerTask(std::make_shared<SummonTask>(SummonSide::RIGHT));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_1),
+        std::make_shared<MathAddTask>(1),
+        std::make_shared<SetGameTagNumberTask>(EntityType::SOURCE,
+                                               GameTag::TAG_SCRIPT_DATA_NUM_1),
+    };
+    cards.emplace("BT_481", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
