@@ -1025,3 +1025,70 @@ TEST_CASE("[Demon Hunter : Spell] - BT_801 : Eye Beam")
     CHECK_EQ(opPlayer->GetRemainingMana(), 7);
     CHECK_EQ(opHero->GetHealth(), 21);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_814] Illidari Felblade - COST:4 [ATK:5/HP:3]
+// - Race: Demon, Set: Demon Hunter Initiate, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Outcast:</b> Gain <b>Immune</b> this turn.
+// --------------------------------------------------------
+// GameTag:
+// - OUTCAST = 1
+// - RUSH = 1
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_814 : Illidari Felblade")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(15);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Illidari Felblade"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Illidari Felblade"));
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, AttackTask(card3, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->IsImmune(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opField[0]->IsImmune(), false);
+}

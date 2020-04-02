@@ -366,6 +366,24 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         "BT_801",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_814] Illidari Felblade - COST:4 [ATK:5/HP:3]
+    // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Rush</b> <b>Outcast:</b> Gain <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - OUTCAST = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(
+        std::make_shared<AddEnchantmentTask>("BT_814e", EntityType::SOURCE));
+    cards.emplace("BT_814", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
@@ -468,6 +486,19 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
                                     SelfCondition::IsEnemyTurn()) };
     }
     cards.emplace("BT_753e", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_814e] Nimble (*) - COST:0
+    // - Set: Demon Hunter Initiate
+    // --------------------------------------------------------
+    // Text: <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_814e"));
+    cards.emplace("BT_814e", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddAll(std::map<std::string, CardDef>& cards)
