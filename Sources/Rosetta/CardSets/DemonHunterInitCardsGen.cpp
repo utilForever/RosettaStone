@@ -13,6 +13,8 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
+#include "Rosetta/Tasks/SimpleTasks/DamageTask.hpp"
+
 using namespace RosettaStone;
 using namespace SimpleTasks;
 
@@ -118,6 +120,25 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace(
         "BT_354",
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_355] Wrathscale Naga (*) - COST:3 [ATK:3/HP:1]
+    // - Set: Demon Hunter Initiate, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: After a friendly minion dies,
+    //       deal 3 damage to a random enemy.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 3)
+    };
+    cards.emplace("BT_355", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
