@@ -8,12 +8,11 @@
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
-
-#include "Rosetta/Tasks/SimpleTasks/DamageTask.hpp"
 
 using namespace RosettaStone;
 using namespace SimpleTasks;
@@ -21,6 +20,7 @@ using namespace SimpleTasks;
 namespace RosettaStone
 {
 using PlayReqs = std::map<PlayReq, int>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void DemonHunterInitCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
@@ -153,6 +153,20 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.AddDeathrattleTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "BT_407t"));
     cards.emplace("BT_407", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_416] Raging Felscreamer (*) - COST:4 [ATK:4/HP:4]
+    // - Set: Demon Hunter Initiate, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next Demon you play costs (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_416e", EntityType::SOURCE));
+    cards.emplace("BT_416", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
@@ -201,6 +215,25 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("BT_407t", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_416e] Felscream (*) - COST:0
+    // - Set: Demon Hunter Initiate
+    // --------------------------------------------------------
+    // Text: Your next Demon costs (2) less.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON));
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsRace(Race::DEMON)) };
+    }
+    cards.emplace("BT_416e", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddAll(std::map<std::string, CardDef>& cards)

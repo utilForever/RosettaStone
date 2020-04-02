@@ -444,3 +444,62 @@ TEST_CASE("[Demon Hunter : Minion] - BT_407 : Ur'zul Horror")
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Lost Soul");
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_416] Raging Felscreamer (*) - COST:4 [ATK:4/HP:4]
+// - Set: Demon Hunter Initiate, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> The next Demon you play costs (2) less.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_416 : Raging Felscreamer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Raging Felscreamer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Satyr Overseer"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowhoof Slayer"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Battlefiend"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Glaivebound Adept"));
+
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 1);
+    CHECK_EQ(card5->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(card2->GetCost(), 1);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 1);
+    CHECK_EQ(card5->GetCost(), 5);
+}
