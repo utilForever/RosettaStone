@@ -185,6 +185,8 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         player->SetNumElementalPlayedThisTurn(val + 1);
     }
 
+    const int handPos = minion->GetZonePosition();
+
     // Add minion to field zone
     player->GetFieldZone()->Add(minion, fieldPos);
 
@@ -236,8 +238,7 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
 
     // Process outcast tasks
     if (minion->HasOutcast() &&
-        (minion->GetZonePosition() == 0 ||
-         minion->GetZonePosition() == player->GetHandZone()->GetCount()))
+        (handPos == 0 || handPos == player->GetHandZone()->GetCount()))
     {
         minion->ActivateTask(PowerType::OUTCAST, target);
     }
