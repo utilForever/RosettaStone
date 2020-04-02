@@ -920,3 +920,48 @@ TEST_CASE("[Demon Hunter : Spell] - BT_752 : Blur")
 
     CHECK_EQ(opPlayer->GetHero()->IsImmune(), false);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_753] Mana Burn - COST:1
+// - Set: Demon Hunter Initiate, Rarity: Common
+// --------------------------------------------------------
+// Text: Your opponent has 2 fewer Mana Crystals next turn.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_753 : Mana Burn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Burn"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetRemainingMana(), 8);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetRemainingMana(), 10);
+}

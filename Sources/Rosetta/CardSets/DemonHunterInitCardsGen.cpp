@@ -318,6 +318,17 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_752e", EntityType::HERO));
     cards.emplace("BT_752", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_753] Mana Burn - COST:1
+    // - Set: Demon Hunter Initiate, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your opponent has 2 fewer Mana Crystals next turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BT_753e", EntityType::PLAYER));
+    cards.emplace("BT_753", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
@@ -398,6 +409,28 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_752e"));
     cards.emplace("BT_752e", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_753e] Mana Burned (*) - COST:0
+    // - Set: Demon Hunter Initiate
+    // --------------------------------------------------------
+    // Text: Start with 2 fewer Mana Crystals this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::ENEMY_PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::RESOURCES_USED,
+                                             EffectOperator::ADD, 2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::TURN_END,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsEnemyTurn()) };
+    }
+    cards.emplace("BT_753e", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddAll(std::map<std::string, CardDef>& cards)
