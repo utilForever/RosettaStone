@@ -483,6 +483,16 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::ENEMY_PLAYER:
+        {
+            for (auto& effect : m_effects)
+            {
+                const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+                effectPtr->ApplyTo(
+                    m_owner->player->opponent->playerAuraEffects);
+            }
+            break;
+        }
         case AuraType::PLAYERS:
         {
             for (auto& effect : m_effects)
@@ -508,6 +518,14 @@ void Aura::RemoveInternal()
         {
             const auto effectPtr = dynamic_cast<Effect*>(effect.get());
             effectPtr->RemoveFrom(m_owner->player->playerAuraEffects);
+        }
+    }
+    else if (m_type == AuraType::ENEMY_PLAYER)
+    {
+        for (auto& effect : m_effects)
+        {
+            const auto effectPtr = dynamic_cast<Effect*>(effect.get());
+            effectPtr->RemoveFrom(m_owner->player->opponent->playerAuraEffects);
         }
     }
     else if (m_type == AuraType::PLAYERS)

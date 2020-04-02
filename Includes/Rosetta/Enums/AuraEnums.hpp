@@ -32,9 +32,11 @@ enum class AuraType
             //!< hand.
     FIELD_AND_HAND,  //!< This type of aura affects all friendly minions and
                      //!< entities in the hand of the source's controller.
-    PLAYER,   //!< This type of aura only affects the player of the source of
-              //!< the aura.
-    PLAYERS,  //!< This type of aura affects the both controllers.
+    PLAYER,  //!< This type of aura only affects the player of the source of
+             //!< the aura.
+    ENEMY_PLAYER,  //!< This type of aura only affects the opponent player of
+                   //!< the source of the aura.
+    PLAYERS,       //!< This type of aura affects the both controllers.
 };
 
 //! \brief An enumerator for identifying instruction of aura update.
