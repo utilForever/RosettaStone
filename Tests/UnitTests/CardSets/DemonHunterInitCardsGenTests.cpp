@@ -870,3 +870,53 @@ TEST_CASE("[Demon Hunter : Minion] - BT_510 : Wrathspike Brute")
     CHECK_EQ(opField[0]->GetHealth(), 5);
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_752] Blur - COST:0
+// - Set: Demon Hunter Initiate, Rarity: Common
+// --------------------------------------------------------
+// Text: Your hero can't take damage this turn.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_752 : Blur")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blur"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opPlayer->GetHero()->IsImmune(), true);
+
+    game.Process(opPlayer, HeroPowerTask());
+    game.Process(opPlayer, AttackTask(opPlayer->GetHero(), card1));
+    CHECK_EQ(card1->isDestroyed, true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->IsImmune(), false);
+}

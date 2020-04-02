@@ -307,6 +307,17 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
         EntityType::ENEMIES, 1, false) };
     cards.emplace("BT_510", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_752] Blur - COST:0
+    // - Set: Demon Hunter Initiate, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your hero can't take damage this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_752e", EntityType::HERO));
+    cards.emplace("BT_752", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
@@ -374,6 +385,19 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
                                     SelfCondition::IsRace(Race::DEMON)) };
     }
     cards.emplace("BT_416e", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_752e] Blur (*) - COST:0
+    // - Set: Demon Hunter Initiate
+    // --------------------------------------------------------
+    // Text: <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_752e"));
+    cards.emplace("BT_752e", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddAll(std::map<std::string, CardDef>& cards)
