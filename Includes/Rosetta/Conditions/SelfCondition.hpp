@@ -219,6 +219,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsProposedDefender(CardType cardType);
 
+    //! SelfCondition wrapper for checking the defender is dead.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDefenderDead();
+
     //! SelfCondition wrapper for checking the event target is \p cardType.
     //! \param cardType The type of the card to check.
     //! \return Generated SelfCondition for intended purpose.

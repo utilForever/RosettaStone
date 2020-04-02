@@ -414,6 +414,18 @@ SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
     return IsEventTargetIs(cardType);
 }
 
+SelfCondition SelfCondition::IsDefenderDead()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (playable->game->currentEventData)
+        {
+            return playable->game->currentEventData->eventTarget->isDestroyed;
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
 {
     return SelfCondition([=](Playable* playable) -> bool {
