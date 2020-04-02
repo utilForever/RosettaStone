@@ -22,6 +22,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone;
 using namespace SimpleTasks;
@@ -279,6 +280,9 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
+    // GameTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
@@ -326,9 +330,42 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // Text: Your opponent has 2 fewer Mana Crystals next turn.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "BT_753e", EntityType::PLAYER));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_753e", EntityType::PLAYER));
     cards.emplace("BT_753", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_801] Eye Beam - COST:3
+    // - Set: Demon Hunter Initiate, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
+    //       <b>Outcast:</b> This costs (0).
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->GetZonePosition() == 0 ||
+            playable->GetZonePosition() ==
+                playable->player->GetHandZone()->GetCount() - 1)
+        {
+            return playable->GetGameTag(GameTag::COST);
+        }
+
+        return 0;
+    }));
+    cards.emplace(
+        "BT_801",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
