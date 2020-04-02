@@ -233,6 +233,15 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     {
         minion->ActivateTask(PowerType::POWER, target, chooseOne);
     }
+
+    // Process outcast tasks
+    if (minion->HasOutcast() &&
+        (minion->GetZonePosition() == 0 ||
+         minion->GetZonePosition() == player->GetHandZone()->GetCount()))
+    {
+        minion->ActivateTask(PowerType::OUTCAST, target);
+    }
+
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
