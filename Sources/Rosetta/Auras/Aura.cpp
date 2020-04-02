@@ -56,6 +56,10 @@ void Aura::Activate(Playable* owner, bool cloning)
             owner->game->triggerManager.castSpellTrigger +=
                 instance->m_removeHandler;
             break;
+        case TriggerType::PLAY_MINION:
+            owner->game->triggerManager.playMinionTrigger +=
+                instance->m_removeHandler;
+            break;
         case TriggerType::USE_HERO_POWER:
             owner->game->triggerManager.useHeroPowerTrigger +=
                 instance->m_removeHandler;
