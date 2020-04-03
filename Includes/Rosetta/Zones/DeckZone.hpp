@@ -52,6 +52,12 @@ class DeckZone : public LimitedZone<Playable>
     //! \param index The position of entity.
     //! \param newEntity The new entity.
     void SetEntity(int index, Playable* newEntity);
+
+    //! Swaps the positions of both entities in this zone.
+    //! Both entities must be contained by this zone.
+    //! \param entity1 The one entity.
+    //! \param entity2 The other entity.
+    void Swap(Playable* entity1, Playable* entity2) const;
 };
 }  // namespace RosettaStone
 

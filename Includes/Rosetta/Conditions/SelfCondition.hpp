@@ -168,6 +168,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOverloadCard();
 
+    //! SelfCondition wrapper for checking the entity attacks this turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsAttackThisTurn();
+
     //! SelfCondition wrapper for checking the number of minion
     //! that played this turn.
     //! \param num The number of minion for checking.
@@ -215,6 +219,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsProposedDefender(CardType cardType);
 
+    //! SelfCondition wrapper for checking the defender is dead.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDefenderDead();
+
     //! SelfCondition wrapper for checking the event target is \p cardType.
     //! \param cardType The type of the card to check.
     //! \return Generated SelfCondition for intended purpose.
@@ -254,6 +262,11 @@ class SelfCondition
     //! in deck.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNoNeutralCardsInDeck();
+
+    //! SelfCondition wrapper for checking it is left- or right-most card
+    //! in your hand.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsLeftOrRightMostCardInHand();
 
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.

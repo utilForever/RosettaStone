@@ -2,6 +2,7 @@
 
 * [Basic](#basic)
 * [Classic](#classic)
+* [Demon Hunter Initiate](#demon-hunter-initiate)
 * [Hall of Fame](#hall-of-fame)
 * [Rise of Shadows](#rise-of-shadows)
 * [Saviors of Uldum](#saviors-of-uldum)
@@ -12,16 +13,16 @@
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-CORE | BT_035 | Chaos Strike |  
-CORE | BT_036 | Coordinated Strike |  
-CORE | BT_142 | Shadowhoof Slayer |  
-CORE | BT_235 | Chaos Nova |  
-CORE | BT_323 | Sightless Watcher |  
-CORE | BT_352 | Satyr Overseer |  
-CORE | BT_495 | Glaivebound Adept |  
-CORE | BT_512 | Inner Demon |  
-CORE | BT_740 | Soul Cleave |  
-CORE | BT_921 | Aldrachi Warblades |  
+CORE | BT_035 | Chaos Strike | O
+CORE | BT_036 | Coordinated Strike | O
+CORE | BT_142 | Shadowhoof Slayer | O
+CORE | BT_235 | Chaos Nova | O
+CORE | BT_323 | Sightless Watcher | O
+CORE | BT_352 | Satyr Overseer | O
+CORE | BT_495 | Glaivebound Adept | O
+CORE | BT_512 | Inner Demon | O
+CORE | BT_740 | Soul Cleave | O
+CORE | BT_921 | Aldrachi Warblades | O
 CORE | CS1_042 | Goldshire Footman | O
 CORE | CS1_112 | Holy Nova | O
 CORE | CS1_113 | Mind Control | O
@@ -156,7 +157,7 @@ CORE | NEW1_003 | Sacrificial Pact | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 93% (133 of 143 Cards)
+- Progress: 100% (143 of 143 Cards)
 
 ## Classic
 
@@ -404,6 +405,33 @@ EXPERT1 | tt_004 | Flesheating Ghoul | O
 EXPERT1 | tt_010 | Spellbender | O
 
 - Progress: 100% (240 of 240 Cards)
+
+## Demon Hunter Initiate
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+DEMON_HUNTER_INITIATE | BT_173 | Command the Illidari | O
+DEMON_HUNTER_INITIATE | BT_175 | Twin Slice | O
+DEMON_HUNTER_INITIATE | BT_271 | Flamereaper | O
+DEMON_HUNTER_INITIATE | BT_351 | Battlefiend | O
+DEMON_HUNTER_INITIATE | BT_354 | Blade Dance | O
+DEMON_HUNTER_INITIATE | BT_355 | Wrathscale Naga | O
+DEMON_HUNTER_INITIATE | BT_407 | Ur'zul Horror | O
+DEMON_HUNTER_INITIATE | BT_416 | Raging Felscreamer | O
+DEMON_HUNTER_INITIATE | BT_427 | Feast of Souls | O
+DEMON_HUNTER_INITIATE | BT_481 | Nethrandamus | O
+DEMON_HUNTER_INITIATE | BT_487 | Hulking Overfiend | O
+DEMON_HUNTER_INITIATE | BT_488 | Soul Split | O
+DEMON_HUNTER_INITIATE | BT_490 | Consume Magic | O
+DEMON_HUNTER_INITIATE | BT_510 | Wrathspike Brute | O
+DEMON_HUNTER_INITIATE | BT_752 | Blur | O
+DEMON_HUNTER_INITIATE | BT_753 | Mana Burn | O
+DEMON_HUNTER_INITIATE | BT_801 | Eye Beam | O
+DEMON_HUNTER_INITIATE | BT_814 | Illidari Felblade | O
+DEMON_HUNTER_INITIATE | BT_922 | Umberwing | O
+DEMON_HUNTER_INITIATE | BT_937 | Altruis the Outcast | O
+
+- Progress: 100% (20 of 20 Cards)
 
 ## Hall of Fame
 

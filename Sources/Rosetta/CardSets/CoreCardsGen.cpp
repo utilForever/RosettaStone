@@ -157,6 +157,17 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("HERO_09", CardDef(power));
+
+    // ------------------------------------- HERO - DEMONHUNTER
+    // [HERO_10] Illidan Stormrage - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 60224
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_10", CardDef(power));
 }
 
 void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
@@ -325,6 +336,28 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         "DS1h_292",
         CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
                                  { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
+
+    // ------------------------------- HERO_POWER - DEMONHUNTER
+    // [HERO_10p] Demon Claws (*) - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> +1 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("HERO_10pe", EntityType::HERO));
+    cards.emplace("HERO_10p", CardDef(power));
+
+    // ------------------------------- HERO_POWER - DEMONHUNTER
+    // [HERO_10p_UP] Demon's Bite (*) - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>\ +2 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("HERO_10pe_UP", EntityType::HERO));
+    cards.emplace("HERO_10p_UP", CardDef(power));
 }
 
 void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -2298,6 +2331,258 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_084e", CardDef(power));
 }
 
+void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
+{
+    Power power;
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_035] Chaos Strike - COST:2
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your hero +2 Attack this turn. Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_035e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BT_035", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_036] Coordinated Strike - COST:3
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 3));
+    cards.emplace("BT_036", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_142e", EntityType::HERO));
+    cards.emplace("BT_142", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_235] Chaos Nova - COST:5
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal 4 damage to all minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
+    cards.emplace("BT_235", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_323] Sightless Watcher (*) - COST:2 [ATK:3/HP:2]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Look at 3 cards in your deck.
+    //       Choose one to put on top.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::DECK, 3));
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        auto playables = playable->game->taskStack.playables;
+
+        std::vector<std::size_t> ids;
+        ids.reserve(3);
+
+        for (auto& p : playables)
+        {
+            ids.emplace_back(p->GetGameTag(GameTag::ENTITY_ID));
+        }
+
+        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
+                              ChoiceAction::SIGHTLESS_WATCHER, ids);
+    }));
+    cards.emplace("BT_323", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_352] Satyr Overseer (*) - COST:3 [ATK:4/HP:2]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: After your hero attacks, summon a 2/2 Satyr.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BT_352t", SummonSide::RIGHT) };
+    cards.emplace("BT_352", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_495] Glaivebound Adept (*) - COST:5 [ATK:7/HP:4]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If your hero attacked this turn,
+    //       deal 4 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsAttackThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4) }));
+    cards.emplace(
+        "BT_495",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_512] Inner Demon - COST:8
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your hero +8 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_512e", EntityType::HERO));
+    cards.emplace("BT_512", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [BT_740] Soul Cleave - COST:8
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace(
+        "BT_740",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
+
+    // ----------------------------------- WEAPON - DEMONHUNTER
+    // [BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // - DURABILITY = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_921", CardDef(power));
+}
+
+void CoreCardsGen::AddDemonHunterNonCollect(
+    std::map<std::string, CardDef>& cards)
+{
+    Power power;
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_035e] Chaos Strike (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_035e"));
+    cards.emplace("BT_035e", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_036t] Illidari Initiate (*) - COST:1 [ATK:1/HP:1]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_036t", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_142e] Sharpened Claws (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_142e"));
+    cards.emplace("BT_142e", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_352t] Illidari Satyr (*) - COST:2 [ATK:2/HP:2]
+    // - Race: Demon, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_352t", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [BT_512e] Demon Power (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +8 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_512e"));
+    cards.emplace("BT_512e", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [HERO_10pe] Demon Claws (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Your hero has +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("HERO_10pe"));
+    cards.emplace("HERO_10pe", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [HERO_10pe_UP] Demon's Bite (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Your hero has +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("HERO_10pe_UP"));
+    cards.emplace("HERO_10pe_UP", CardDef(power));
+}
+
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     Power power;
@@ -3017,6 +3302,9 @@ void CoreCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 
     AddWarrior(cards);
     AddWarriorNonCollect(cards);
+
+    AddDemonHunter(cards);
+    AddDemonHunterNonCollect(cards);
 
     AddNeutral(cards);
     AddNeutralNonCollect(cards);

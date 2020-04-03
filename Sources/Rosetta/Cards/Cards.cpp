@@ -348,6 +348,8 @@ Card* Cards::GetHeroCard(CardClass cardClass)
             return FindCardByID("HERO_07");
         case CardClass::WARRIOR:
             return FindCardByID("HERO_01");
+        case CardClass::DEMONHUNTER:
+            return FindCardByID("HERO_10");
         default:
             return &emptyCard;
     }
@@ -375,6 +377,8 @@ Card* Cards::GetDefaultHeroPower(CardClass cardClass)
             return FindCardByID("CS2_056");
         case CardClass::WARRIOR:
             return FindCardByID("CS2_102");
+        case CardClass::DEMONHUNTER:
+            return FindCardByID("HERO_10p");
         default:
             return &emptyCard;
     }

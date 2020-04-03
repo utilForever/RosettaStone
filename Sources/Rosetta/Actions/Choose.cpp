@@ -101,7 +101,7 @@ bool ChoicePick(Player* player, std::size_t choice)
     }
 
     // Get picked card using entity ID
-    Playable* playable = player->GetSetasideZone()->GetEntity(choice);
+    Playable* playable = player->game->entityList[choice];
     // Block it if player tries to pick a card that doesn't exist
     if (playable == nullptr)
     {
@@ -157,6 +157,13 @@ bool ChoicePick(Player* player, std::size_t choice)
                     break;
                 }
             }
+            break;
+        }
+        case ChoiceAction::SIGHTLESS_WATCHER:
+        {
+            const auto deckZone = player->GetDeckZone();
+            deckZone->Swap(playable, deckZone->GetTopCard());
+
             break;
         }
         default:

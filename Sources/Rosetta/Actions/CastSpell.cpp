@@ -52,6 +52,13 @@ void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
             spell->ActivateTask(PowerType::POWER, target, chooseOne);
         }
 
+        // Process outcast tasks
+        if (spell->HasOutcast() && (spell->GetZonePosition() == 0 ||
+            spell->GetZonePosition() == player->GetHandZone()->GetCount()))
+        {
+            spell->ActivateTask(PowerType::OUTCAST, target);
+        }
+
         if (spell->IsTwinspell())
         {
             const auto twinspell = Entity::GetFromCard(

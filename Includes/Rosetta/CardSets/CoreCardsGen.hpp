@@ -122,6 +122,16 @@ class CoreCardsGen
     //! play requirements and entourages.
     static void AddWarriorNonCollect(std::map<std::string, CardDef>& cards);
 
+    //! Adds demon hunter cards that are not collectible to \p cards.
+    //! \param cards A list of cards to store the data such as powers,
+    //! play requirements and entourages.
+    static void AddDemonHunter(std::map<std::string, CardDef>& cards);
+
+    //! Adds demon hunter cards that are not collectible to \p cards.
+    //! \param cards A list of cards to store the data such as powers,
+    //! play requirements and entourages.
+    static void AddDemonHunterNonCollect(std::map<std::string, CardDef>& cards);
+
     //! Adds neutral cards that are not collectible to \p cards.
     //! \param cards A list of cards to store the data such as powers,
     //! play requirements and entourages.

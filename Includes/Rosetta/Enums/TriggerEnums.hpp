@@ -17,6 +17,7 @@ enum class TriggerType
     TURN_END,    //!< The effect will be triggered at the end of turn.
     DRAW_CARD,   //!< The effect will be triggered when a card is drawn.
     PLAY_CARD,   //!< The effect will be triggered when a player plays a card.
+    AFTER_PLAY_CARD,  //!< The effect will be triggered after a card is played.
     CAST_SPELL,  //!< The effect will be triggered when a player plays a Spell
                  //!< card.
     AFTER_CAST,  //!< The effect will be triggered after a spell is played.
@@ -28,6 +29,8 @@ enum class TriggerType
     ATTACK,        //!< The effect will be triggered when characters attack.
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
                    //!< ended.
+    AFTER_ATTACKED,  //!< The effect will be triggered after a character is
+                     //!< attacked.
     SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
     AFTER_SUMMON,  //!< The effect will be triggered after a minion is summoned.
     PLAY_MINION,  //!< The effect will be triggered when a player plays a Minion

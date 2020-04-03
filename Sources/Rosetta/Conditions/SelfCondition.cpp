@@ -341,6 +341,13 @@ SelfCondition SelfCondition::IsOverloadCard()
     });
 }
 
+SelfCondition SelfCondition::IsAttackThisTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) > 0;
+    });
+}
+
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -405,6 +412,18 @@ SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
 {
     return IsEventTargetIs(cardType);
+}
+
+SelfCondition SelfCondition::IsDefenderDead()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (playable->game->currentEventData)
+        {
+            return playable->game->currentEventData->eventTarget->isDestroyed;
+        }
+
+        return false;
+    });
 }
 
 SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
@@ -503,6 +522,14 @@ SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
         }
 
         return true;
+    });
+}
+
+SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetGameTag(GameTag::LEFT_OR_RIGHT_MOST_CARD_IN_HAND) >
+               0;
     });
 }
 

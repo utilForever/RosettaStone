@@ -136,6 +136,12 @@ void Attack(Player* player, Character* source, Character* target,
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
+    // Process after attacked trigger
+    player->game->taskQueue.StartEvent();
+    target->afterAttackedTrigger(target);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+
     // Process destroy and update aura
     player->game->ProcessDestroyAndUpdateAura();
 

@@ -37,6 +37,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnPlayCardTrigger(Entity* sender);
 
+    //! Callback for trigger after player plays a card.
+    //! \param sender An entity that is the source of trigger.
+    void OnAfterPlayCardTrigger(Entity* sender);
+
     //! Callback for trigger when player plays a minion.
     //! \param sender An entity that is the source of trigger.
     void OnPlayMinionTrigger(Entity* sender);
@@ -101,6 +105,7 @@ class TriggerManager
     TriggerEvent endTurnTrigger;
     TriggerEvent drawCardTrigger;
     TriggerEvent playCardTrigger;
+    TriggerEvent afterPlayCardTrigger;
     TriggerEvent playMinionTrigger;
     TriggerEvent afterPlayMinionTrigger;
     TriggerEvent castSpellTrigger;

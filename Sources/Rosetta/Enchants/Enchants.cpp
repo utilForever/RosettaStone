@@ -21,7 +21,8 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     static std::regex attackRegex("\\+([[:digit:]]+) Attack");
     static std::regex healthRegex("\\+([[:digit:]]+) Health");
 
-    const std::string text = Cards::FindCardByID(cardID)->text;
+    const auto card = Cards::FindCardByID(cardID);
+    const std::string text = card->text;
     std::smatch values;
 
     if (std::regex_search(text, values, attackHealthRegex))
@@ -68,7 +69,8 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
         effects.emplace_back(Effects::Rush);
     }
 
-    if (text.find("this turn") != std::string::npos)
+    if (text.find("this turn") != std::string::npos ||
+        card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] > 0)
     {
         isOneTurn = true;
     }

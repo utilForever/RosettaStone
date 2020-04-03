@@ -50,6 +50,10 @@ class Minion : public Character
     //! \param value The value of last board position.
     void SetLastBoardPos(int value);
 
+    //! Gets the minions adjacent to this minion in order from left to right.
+    //! \return The minions adjacent to this minion.
+    std::vector<Minion*> GetAdjacentMinions() const;
+
     //! Returns the flag that indicates whether it is Lackey.
     //! \return The flag that indicates whether it is Lackey.
     bool IsLackey() const;

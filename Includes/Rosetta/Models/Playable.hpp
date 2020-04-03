@@ -83,13 +83,17 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has deathrattle.
     bool HasDeathrattle() const;
 
+    //! Returns the flag that indicates whether it has outcast.
+    //! \return The flag that indicates whether it has outcast.
+    bool HasOutcast() const;
+
     //! Returns the flag that indicates whether it has choose one.
     //! \return The flag that indicates whether it has choose one.
     bool HasChooseOne() const;
 
     //! Returns the flag that indicates whether it has lifesteal.
     //! \return The flag that indicates whether it has lifesteal.
-    bool HasLifesteal() const;
+    virtual bool HasLifesteal() const;
 
     //! Resets the value of the cost.
     void ResetCost();

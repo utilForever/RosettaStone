@@ -110,6 +110,11 @@ bool Playable::HasDeathrattle() const
     return GetGameTag(GameTag::DEATHRATTLE) == 1;
 }
 
+bool Playable::HasOutcast() const
+{
+    return GetGameTag(GameTag::OUTCAST) == 1;
+}
+
 bool Playable::HasChooseOne() const
 {
     return GetGameTag(GameTag::CHOOSE_ONE) == 1;
@@ -375,6 +380,9 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             break;
         case PowerType::COMBO:
             tasks = card->power.GetComboTask();
+            break;
+        case PowerType::OUTCAST:
+            tasks = card->power.GetOutcastTask();
             break;
     }
 

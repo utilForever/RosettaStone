@@ -59,6 +59,10 @@ class Power
     //! \return A list of after discover tasks.
     std::vector<std::shared_ptr<ITask>>& GetAfterDiscoverTask();
 
+    //! Returns a list of outcast tasks.
+    //! \return A list of outcast tasks.
+    std::vector<std::shared_ptr<ITask>>& GetOutcastTask();
+
     //! Clears power task and enchant.
     void ClearData();
 
@@ -94,6 +98,10 @@ class Power
     //! \param task A pointer to after discover task.
     void AddAfterDiscoverTask(std::shared_ptr<ITask> task);
 
+    //! Adds outcast task.
+    //! \param task A pointer to outcast task.
+    void AddOutcastTask(std::shared_ptr<ITask> task);
+
  private:
     std::shared_ptr<IAura> m_aura;
     std::shared_ptr<Enchant> m_enchant;
@@ -104,6 +112,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_comboTask;
     std::vector<std::shared_ptr<ITask>> m_topdeckTask;
     std::vector<std::shared_ptr<ITask>> m_afterDiscoverTask;
+    std::vector<std::shared_ptr<ITask>> m_outcastTask;
 };
 }  // namespace RosettaStone
 

@@ -170,6 +170,7 @@ class Character : public Playable
     TriggerEvent preDamageTrigger;
     TriggerEvent takeDamageTrigger;
     TriggerEvent afterAttackTrigger;
+    TriggerEvent afterAttackedTrigger;
 };
 }  // namespace RosettaStone
 

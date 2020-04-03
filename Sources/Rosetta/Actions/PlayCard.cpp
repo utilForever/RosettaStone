@@ -122,6 +122,13 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
                 "Generic::PlayCard() - Invalid card type!");
     }
 
+    // Process after play card trigger
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAfterPlayCardTrigger(source);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
+
     // Set combo active to true
     if (!player->IsComboActive())
     {
@@ -185,6 +192,8 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         player->SetNumElementalPlayedThisTurn(val + 1);
     }
 
+    const int handPos = minion->GetZonePosition();
+
     // Add minion to field zone
     player->GetFieldZone()->Add(minion, fieldPos);
 
@@ -233,6 +242,14 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     {
         minion->ActivateTask(PowerType::POWER, target, chooseOne);
     }
+
+    // Process outcast tasks
+    if (minion->HasOutcast() &&
+        (handPos == 0 || handPos == player->GetHandZone()->GetCount()))
+    {
+        minion->ActivateTask(PowerType::OUTCAST, target);
+    }
+
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 

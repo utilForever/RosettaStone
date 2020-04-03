@@ -67,6 +67,7 @@
 * QuestProgressTask
 * RandomCardTask
 * RandomEntourageTask
+* RandomMinionNumberTask
 * RandomMinionTask
 * RandomSpellTask
 * RandomTask

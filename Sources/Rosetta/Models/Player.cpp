@@ -166,7 +166,8 @@ void Player::SetTotalMana(int amount)
 
 int Player::GetUsedMana() const
 {
-    return GetGameTag(GameTag::RESOURCES_USED);
+    return GetGameTag(GameTag::RESOURCES_USED) +
+           playerAuraEffects.GetValue(GameTag::RESOURCES_USED);
 }
 
 void Player::SetUsedMana(int amount)

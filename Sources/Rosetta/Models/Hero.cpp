@@ -79,4 +79,14 @@ void Hero::GainArmor(int amount)
 {
     SetArmor(GetArmor() + amount);
 }
+
+bool Hero::HasLifesteal() const
+{
+    if (HasWeapon())
+    {
+        return weapon->HasLifesteal();
+    }
+
+    return false;
+}
 }  // namespace RosettaStone

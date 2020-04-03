@@ -17,11 +17,12 @@ namespace RosettaStone
 //! The action type of choice.
 enum class ChoiceAction
 {
-    INVALID = 0,         //!< Invalid action.
-    HAND = 1,            //!< Hand.
-    ENCHANTMENT = 2,     //!< Enchantment.
-    CAST_SPELL = 3,      //!< Cast spell.
-    ENVOY_OF_LAZUL = 4,  //!< Envoy Of Lazul.
+    INVALID = 0,            //!< Invalid action.
+    HAND = 1,               //!< Hand.
+    ENCHANTMENT = 2,        //!< Enchantment.
+    CAST_SPELL = 3,         //!< Cast spell.
+    ENVOY_OF_LAZUL = 4,     //!< Envoy Of Lazul.
+    SIGHTLESS_WATCHER = 5,  //!< Sightless Watcher.
 };
 
 //!
