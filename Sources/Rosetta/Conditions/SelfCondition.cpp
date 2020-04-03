@@ -525,6 +525,14 @@ SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
     });
 }
 
+SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetGameTag(GameTag::LEFT_OR_RIGHT_MOST_CARD_IN_HAND) >
+               0;
+    });
+}
+
 bool SelfCondition::Evaluate(Playable* owner) const
 {
     return m_func(owner);

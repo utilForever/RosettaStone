@@ -263,6 +263,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNoNeutralCardsInDeck();
 
+    //! SelfCondition wrapper for checking it is left- or right-most card
+    //! in your hand.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsLeftOrRightMostCardInHand();
+
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
