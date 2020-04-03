@@ -71,6 +71,12 @@ Playable* HandZone::Remove(Playable* entity)
         }
     }
 
+    if (entity->GetZonePosition() == 0 ||
+        entity->GetZonePosition() == m_count - 1)
+    {
+        entity->SetGameTag(GameTag::LEFT_OR_RIGHT_MOST_CARD_IN_HAND, 1);
+    }
+
     return PositioningZone::Remove(entity);
 }
 
