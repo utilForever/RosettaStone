@@ -1138,3 +1138,83 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_922 : Umberwing")
     CHECK_EQ(curField[1]->GetAttack(), 1);
     CHECK_EQ(curField[1]->GetHealth(), 1);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_937] Altruis the Outcast - COST:3 [ATK:3/HP:2]
+// - Set: Demon Hunter Initiate, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After you play the left- or right-most card in your hand,
+//       deal 1 damage to all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_937 : Altruis the Outcast")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Altruis the Outcast"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    curPlayer->GetHero()->SetDamage(0);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, PlayCardTask::Spell(opHand[0]));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curField[0]->GetHealth(), 11);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curField[0]->GetHealth(), 11);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+}

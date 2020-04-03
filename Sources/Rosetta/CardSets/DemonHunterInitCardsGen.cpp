@@ -398,6 +398,25 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.ClearData();
     power.AddPowerTask(std::make_shared<SummonTask>("BT_922t", 2));
     cards.emplace("BT_922", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_937] Altruis the Outcast - COST:3 [ATK:3/HP:2]
+    // - Set: Demon Hunter Initiate, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: After you play the left- or right-most card in your hand,
+    //       deal 1 damage to all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsLeftOrRightMostCardInHand());
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1) };
+    cards.emplace("BT_937", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
