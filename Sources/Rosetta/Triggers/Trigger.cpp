@@ -21,6 +21,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
     switch (type)
     {
         case TriggerType::PLAY_CARD:
+        case TriggerType::AFTER_PLAY_CARD:
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
         case TriggerType::PLAY_MINION:
@@ -99,6 +100,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger += instance->handler;
+            break;
+        case TriggerType::AFTER_PLAY_CARD:
+            game->triggerManager.afterPlayCardTrigger += instance->handler;
             break;
         case TriggerType::PLAY_MINION:
             game->triggerManager.playMinionTrigger += instance->handler;
@@ -236,6 +240,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger -= handler;
+            break;
+        case TriggerType::AFTER_PLAY_CARD:
+            game->triggerManager.afterPlayCardTrigger -= handler;
             break;
         case TriggerType::PLAY_MINION:
             game->triggerManager.playMinionTrigger -= handler;
@@ -539,6 +546,7 @@ void Trigger::Validate(Entity* source)
             }
             break;
         case TriggerType::PLAY_CARD:
+        case TriggerType::AFTER_PLAY_CARD:
         case TriggerType::SUMMON:
         case TriggerType::AFTER_SUMMON:
             if (source == m_owner)

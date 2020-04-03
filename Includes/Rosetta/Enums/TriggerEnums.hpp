@@ -17,6 +17,7 @@ enum class TriggerType
     TURN_END,    //!< The effect will be triggered at the end of turn.
     DRAW_CARD,   //!< The effect will be triggered when a card is drawn.
     PLAY_CARD,   //!< The effect will be triggered when a player plays a card.
+    AFTER_PLAY_CARD,  //!< The effect will be triggered after a card is played.
     CAST_SPELL,  //!< The effect will be triggered when a player plays a Spell
                  //!< card.
     AFTER_CAST,  //!< The effect will be triggered after a spell is played.
