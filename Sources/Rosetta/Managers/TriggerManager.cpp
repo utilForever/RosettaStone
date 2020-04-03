@@ -28,6 +28,11 @@ void TriggerManager::OnPlayCardTrigger(Entity* sender)
     playCardTrigger(sender);
 }
 
+void TriggerManager::OnAfterPlayCardTrigger(Entity* sender)
+{
+    afterPlayCardTrigger(sender);
+}
+
 void TriggerManager::OnPlayMinionTrigger(Entity* sender)
 {
     playMinionTrigger(sender);
