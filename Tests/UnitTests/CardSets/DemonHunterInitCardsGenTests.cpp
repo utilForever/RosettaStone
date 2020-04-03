@@ -1092,3 +1092,49 @@ TEST_CASE("[Demon Hunter : Minion] - BT_814 : Illidari Felblade")
 
     CHECK_EQ(opField[0]->IsImmune(), false);
 }
+
+// ----------------------------------- WEAPON - DEMONHUNTER
+// [BT_922] Umberwing - COST:2 [ATK:1/HP:0]
+// - Set: Demon Hunter Initiate, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Felwings.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DURABILITY = 2
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Weapon] - BT_922 : Umberwing")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(15);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Umberwing"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Felwing");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->card->name, "Felwing");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+}

@@ -384,6 +384,20 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.AddOutcastTask(
         std::make_shared<AddEnchantmentTask>("BT_814e", EntityType::SOURCE));
     cards.emplace("BT_814", CardDef(power));
+
+    // ----------------------------------- WEAPON - DEMONHUNTER
+    // [BT_922] Umberwing - COST:2 [ATK:1/HP:0]
+    // - Set: Demon Hunter Initiate, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon two 1/1 Felwings.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("BT_922t", 2));
+    cards.emplace("BT_922", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
@@ -499,6 +513,14 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_814e"));
     cards.emplace("BT_814e", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [BT_922t] Felwing (*) - COST:1 [ATK:1/HP:1]
+    // - Set: Demon Hunter Initiate
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_922t", CardDef(power));
 }
 
 void DemonHunterInitCardsGen::AddAll(std::map<std::string, CardDef>& cards)
