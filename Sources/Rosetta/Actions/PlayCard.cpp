@@ -122,6 +122,13 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
                 "Generic::PlayCard() - Invalid card type!");
     }
 
+    // Process after play card trigger
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAfterPlayCardTrigger(source);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
+
     // Set combo active to true
     if (!player->IsComboActive())
     {
