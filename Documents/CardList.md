@@ -415,23 +415,23 @@ DEMON_HUNTER_INITIATE | BT_175 | Twin Slice | O
 DEMON_HUNTER_INITIATE | BT_271 | Flamereaper | O
 DEMON_HUNTER_INITIATE | BT_351 | Battlefiend | O
 DEMON_HUNTER_INITIATE | BT_354 | Blade Dance | O
-DEMON_HUNTER_INITIATE | BT_355 | Wrathscale Naga |  
-DEMON_HUNTER_INITIATE | BT_407 | Ur'zul Horror |  
-DEMON_HUNTER_INITIATE | BT_416 | Raging Felscreamer |  
-DEMON_HUNTER_INITIATE | BT_427 | Feast of Souls |  
-DEMON_HUNTER_INITIATE | BT_481 | Nethrandamus |  
-DEMON_HUNTER_INITIATE | BT_487 | Hulking Overfiend |  
-DEMON_HUNTER_INITIATE | BT_488 | Soul Split |  
-DEMON_HUNTER_INITIATE | BT_490 | Consume Magic |  
-DEMON_HUNTER_INITIATE | BT_510 | Wrathspike Brute |  
-DEMON_HUNTER_INITIATE | BT_752 | Blur |  
-DEMON_HUNTER_INITIATE | BT_753 | Mana Burn |  
-DEMON_HUNTER_INITIATE | BT_801 | Eye Beam |  
-DEMON_HUNTER_INITIATE | BT_814 | Illidari Felblade |  
-DEMON_HUNTER_INITIATE | BT_922 | Umberwing |  
-DEMON_HUNTER_INITIATE | BT_937 | Altruis the Outcast |  
+DEMON_HUNTER_INITIATE | BT_355 | Wrathscale Naga | O
+DEMON_HUNTER_INITIATE | BT_407 | Ur'zul Horror | O
+DEMON_HUNTER_INITIATE | BT_416 | Raging Felscreamer | O
+DEMON_HUNTER_INITIATE | BT_427 | Feast of Souls | O
+DEMON_HUNTER_INITIATE | BT_481 | Nethrandamus | O
+DEMON_HUNTER_INITIATE | BT_487 | Hulking Overfiend | O
+DEMON_HUNTER_INITIATE | BT_488 | Soul Split | O
+DEMON_HUNTER_INITIATE | BT_490 | Consume Magic | O
+DEMON_HUNTER_INITIATE | BT_510 | Wrathspike Brute | O
+DEMON_HUNTER_INITIATE | BT_752 | Blur | O
+DEMON_HUNTER_INITIATE | BT_753 | Mana Burn | O
+DEMON_HUNTER_INITIATE | BT_801 | Eye Beam | O
+DEMON_HUNTER_INITIATE | BT_814 | Illidari Felblade | O
+DEMON_HUNTER_INITIATE | BT_922 | Umberwing | O
+DEMON_HUNTER_INITIATE | BT_937 | Altruis the Outcast | O
 
-- Progress: 25% (5 of 20 Cards)
+- Progress: 100% (20 of 20 Cards)
 
 ## Hall of Fame
 

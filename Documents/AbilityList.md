@@ -16,6 +16,7 @@
 * [x] Freeze
 * [x] Lifesteal
 * [x] Poisonous
+* [x] Outcast
 * [x] Overload
 * [x] Rush
 * [x] Secret
@@ -28,14 +29,15 @@
 ## Other Keywords
 
 * [ ] Adapt
-* [ ] Casts When Drawn
+* [x] Casts When Drawn
 * [x] Charge
 * [ ] Choose Twice
 * [x] Counter
+* [ ] Dormant
 * [ ] Echo
 * [x] Immune
 * [ ] Inspire
-* [ ] Invoke
+* [x] Invoke
 * [ ] Magnetic
 * [ ] Mega-Windfury
 * [ ] Overkill
@@ -51,47 +53,47 @@
 
 * [ ] Death Knight
 * [ ] Jade Golem
-* [ ] Lackey
+* [x] Lackey
 * [ ] Spare Part
 
 ## Other abilities
 
-* [ ] Can't attack
-* [ ] Can't attack heroes
+* [x] Can't attack
+* [x] Can't attack heroes
 * [x] Card draw effect
 * [x] Cast spell
-* [ ] Copy
+* [x] Copy
 * [x] Deal damage
 * [x] Destroy
 * [ ] Disable Hero Power
 * [x] Discard
-* [ ] Elusive
+* [x] Elusive
 * [x] Enchant
 * [x] Enrage
-* [ ] Equip
+* [x] Equip
 * [ ] Forgetful
 * [x] Gain Armor
-* [ ] Generate
-* [ ] Highlander
+* [x] Generate
+* [x] Highlander
 * [x] Increment attribute
 * [ ] Joust
 * [x] Mind control effect
-* [ ] Modify cost
+* [x] Modify cost
 * [ ] Multiply attribute
 * [ ] No Durability loss
 * [ ] Permanent
 * [ ] Playerbound
 * [ ] Put into battlefield
-* [ ] Put into hand
+* [x] Put into hand
 * [x] Refresh Mana
-* [ ] Remove from deck
-* [ ] Replace
+* [x] Remove from deck
+* [x] Replace
 * [x] Restore Health
 * [x] Return
 * [x] Set attribute
-* [ ] Shuffle into deck
+* [x] Shuffle into deck
 * [x] Spend mana
 * [x] Summon
 * [x] Transform
-* [ ] Transform in hand
+* [x] Transform in hand
 * [ ] Unlimited attacks
