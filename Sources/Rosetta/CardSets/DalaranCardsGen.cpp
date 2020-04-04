@@ -61,6 +61,15 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TWINSPELL_COPY = 52821
     // - TWINSPELL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DAL_256t2", 5, SummonSide::SPELL));
+    cards.emplace(
+        "DAL_256",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350] Crystal Power - COST:1
@@ -219,6 +228,15 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 2/2 Treants.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DAL_256t2", 5, SummonSide::SPELL));
+    cards.emplace(
+        "DAL_256ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350a] Piercing Thorns (*) - COST:1
