@@ -368,9 +368,14 @@ void Character::TakeHeal(Playable* source, int heal)
     SetDamage(GetDamage() - amount);
 
     game->taskQueue.StartEvent();
+    auto tempEventData = std::move(game->currentEventData);
+    game->currentEventData =
+        std::make_unique<EventMetaData>(source, this, amount);
     game->triggerManager.OnTakeHealTrigger(this);
     game->ProcessTasks();
     game->taskQueue.EndEvent();
+    game->currentEventData.reset();
+    game->currentEventData = std::move(tempEventData);
 }
 
 void Character::CopyInternalAttributes(Character* copy) const
