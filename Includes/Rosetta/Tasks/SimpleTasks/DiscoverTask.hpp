@@ -40,11 +40,13 @@ class DiscoverTask : public ITask
     //! \param race The race of card to discover.
     //! \param rarity The rarity of card to discover.
     //! \param choiceAction The choice action of discover effect.
+    //! \param keepAll The flag that indicates it keeps all cards.
     explicit DiscoverTask(CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
                           Rarity rarity = Rarity::INVALID,
-                          ChoiceAction choiceAction = ChoiceAction::HAND);
+                          ChoiceAction choiceAction = ChoiceAction::HAND,
+                          bool keepAll = false);
 
     //! Constructs task with given various parameters.
     //! \param cardIDs A list of card IDs to discover.
@@ -64,13 +66,15 @@ class DiscoverTask : public ITask
     //! \param choiceAction The choice action of discover effect.
     //! \param numberOfChoices The number of choices.
     //! \param doShuffle The flag that indicates it does shuffle.
+    //! \param keepAll The flag that indicates it keeps all cards.
     explicit DiscoverTask(std::vector<Card*> cards,
                           CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND,
-                          int numberOfChoices = 3, bool doShuffle = true);
+                          int numberOfChoices = 3, bool doShuffle = true,
+                          bool keepAll = false);
 
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
@@ -101,6 +105,7 @@ class DiscoverTask : public ITask
     ChoiceAction m_choiceAction = ChoiceAction::INVALID;
     std::size_t m_numberOfChoices = 3;
     bool m_doShuffle = true;
+    bool m_keepAll = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
