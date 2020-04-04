@@ -235,6 +235,12 @@ SelfCondition SelfCondition::IsSecret()
     });
 }
 
+SelfCondition SelfCondition::IsChooseOneCard()
+{
+    return SelfCondition(
+        [=](Playable* playable) -> bool { return playable->HasChooseOne(); });
+}
+
 SelfCondition SelfCondition::IsFrozen()
 {
     return SelfCondition([=](Playable* playable) -> bool {

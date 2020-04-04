@@ -132,6 +132,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSecret();
 
+    //! SelfCondition wrapper for checking the entity is choose one card.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsChooseOneCard();
+
     //! SelfCondition wrapper for checking the entity is frozen.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
