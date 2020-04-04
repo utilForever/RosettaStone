@@ -519,13 +519,13 @@ DALARAN | DAL_173 | Darkest Hour |
 DALARAN | DAL_177 | Conjurer's Calling |  
 DALARAN | DAL_182 | Magic Dart Frog |  
 DALARAN | DAL_185 | Aranasi Broodmother |  
-DALARAN | DAL_256 | The Forest's Aid |  
+DALARAN | DAL_256 | The Forest's Aid | O
 DALARAN | DAL_350 | Crystal Power | O
 DALARAN | DAL_351 | Blessing of the Ancients | O
-DALARAN | DAL_352 | Crystalsong Portal |  
+DALARAN | DAL_352 | Crystalsong Portal | O
 DALARAN | DAL_354 | Acornbearer | O
 DALARAN | DAL_355 | Lifeweaver | O
-DALARAN | DAL_357 | Lucentbark |  
+DALARAN | DAL_357 | Lucentbark | O
 DALARAN | DAL_366 | Unidentified Contract |  
 DALARAN | DAL_371 | Marked Shot |  
 DALARAN | DAL_372 | Arcane Fletcher |  
@@ -593,7 +593,7 @@ DALARAN | DAL_727 | Call to Adventure |
 DALARAN | DAL_728 | Daring Escape |  
 DALARAN | DAL_729 | Madame Lazul |  
 DALARAN | DAL_731 | Duel! |  
-DALARAN | DAL_732 | Keeper Stalladris |  
+DALARAN | DAL_732 | Keeper Stalladris | O
 DALARAN | DAL_733 | Dreamway Guardians | O
 DALARAN | DAL_735 | Dalaran Librarian |  
 DALARAN | DAL_736 | Archivist Elysiana |  
@@ -613,10 +613,10 @@ DALARAN | DAL_771 | Soldier of Fortune |
 DALARAN | DAL_773 | Magic Carpet |  
 DALARAN | DAL_774 | Exotic Mountseller |  
 DALARAN | DAL_775 | Tunnel Blaster |  
-DALARAN | DAL_799 | Crystal Stag |  
+DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 12% (17 of 136 Cards)
+- Progress: 16% (22 of 136 Cards)
 
 ## Saviors of Uldum
 
