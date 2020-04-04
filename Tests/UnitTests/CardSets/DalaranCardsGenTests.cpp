@@ -482,29 +482,24 @@ TEST_CASE("[Druid : Minion] - DAL_357 : Lucentbark")
     CHECK_EQ(curField[0]->card->name, "Lucentbark");
 }
 
-// ---------------------------------------- MINION - HUNTER
-// [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
-// - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
+// ----------------------------------------- MINION - DRUID
+// [DAL_732] Keeper Stalladris - COST:2 [ATK:2/HP:3]
+// - Set: Dalaran, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Draw a Mech from your deck.
+// Text: After you cast a <b>Choose One</b> spell,
+//       add copies of both choices to your hand.
 // --------------------------------------------------------
 // GameTag:
-// - DEATHRATTLE = 1
+// - ELITE = 1
 // --------------------------------------------------------
-TEST_CASE("[Hunter : Minion] - DAL_604 : Ursatron")
+TEST_CASE("[Druid : Minion] - DAL_732 : Keeper Stalladris")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DRUID;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
     config.autoRun = false;
-    config.doShuffle = false;
-
-    for (int i = 0; i < 5; ++i)
-    {
-        config.player1Deck[i] = Cards::FindCardByName("Harvest Golem");
-    }
 
     Game game(config);
     game.Start();
@@ -516,33 +511,33 @@ TEST_CASE("[Hunter : Minion] - DAL_604 : Ursatron")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Keeper Stalladris"));
     const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wrath"));
     const auto card4 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Druid of the Claw"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curHand.GetCount(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-    CHECK_EQ(card1->isDestroyed, true);
-    CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(curHand[4]->card->name, "Harvest Golem");
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
-    CHECK_EQ(card2->isDestroyed, true);
-    CHECK_EQ(curHand.GetCount(), 5);
+    game.Process(opPlayer, PlayCardTask::Minion(card4, 1));
+    CHECK_EQ(opHand.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1, 1));
+    CHECK_EQ(opHand.GetCount(), 3);
+    CHECK_EQ(opHand[1]->card->id, "EX1_154a");
+    CHECK_EQ(opHand[2]->card->id, "EX1_154b");
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -616,6 +611,69 @@ TEST_CASE("[Druid : Spell] - DAL_733 : Dreamway Guardians")
     game.Process(opPlayer, AttackTask(card5, curField[0]));
     CHECK_EQ(curField[0]->GetHealth(), 1);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
+// - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Draw a Mech from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DAL_604 : Ursatron")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Harvest Golem");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ursatron"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(card1->isDestroyed, true);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Harvest Golem");
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(card2->isDestroyed, true);
+    CHECK_EQ(curHand.GetCount(), 5);
 }
 
 // ------------------------------------------ MINION - MAGE

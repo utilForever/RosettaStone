@@ -3,13 +3,16 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
@@ -28,6 +31,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -196,6 +200,27 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsChooseOneCard());
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const std::shared_ptr<IEffect> costEffect =
+                Cost::Effect(EffectOperator::SET, target->card->GetCost());
+
+            for (auto& chooseCardID : target->card->chooseCardIDs)
+            {
+                const auto chooseCard = Entity::GetFromCard(
+                    player, Cards::FindCardByID(chooseCardID), std::nullopt,
+                    player->GetSetasideZone());
+                const auto copy =
+                    Generic::Copy(player, chooseCard, ZoneType::HAND);
+                costEffect->ApplyTo(copy);
+            }
+        }) };
+    cards.emplace("DAL_732", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_733] Dreamway Guardians - COST:2
