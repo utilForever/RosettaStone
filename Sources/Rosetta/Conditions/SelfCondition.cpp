@@ -552,6 +552,35 @@ SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
     });
 }
 
+SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const int thresholdTagID =
+            playable->GetGameTag(GameTag::PLAYER_TAG_THRESHOLD_TAG_ID);
+        const int thresholdValue =
+            playable->GetGameTag(GameTag::PLAYER_TAG_THRESHOLD_VALUE);
+
+        int currentValue = 0;
+        if (thresholdTagID == 958)
+        {
+            currentValue = playable->player->GetAmountHealedThisGame();
+        }
+
+        if (relaSign == RelaSign::GEQ)
+        {
+            return currentValue >= thresholdValue;
+        }
+        else if (relaSign == RelaSign::EQ)
+        {
+            return currentValue == thresholdValue;
+        }
+        else
+        {
+            return currentValue <= thresholdValue;
+        }
+    });
+}
+
 bool SelfCondition::Evaluate(Playable* owner) const
 {
     return m_func(owner);

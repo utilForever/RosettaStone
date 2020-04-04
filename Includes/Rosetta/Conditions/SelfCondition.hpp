@@ -276,6 +276,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsLeftOrRightMostCardInHand();
 
+    //! SelfCondition wrapper for checking the threshold value.
+    //! \param relaSign The comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition CheckThreshold(RelaSign relaSign);
+
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
