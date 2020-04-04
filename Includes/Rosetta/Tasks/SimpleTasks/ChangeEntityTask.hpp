@@ -25,6 +25,24 @@ class ChangeEntityTask : public ITask
     //! \param cardClass The class of card to filter.
     //! \param race The race of card to filter.
     //! \param rarity The rarity of card to filter.
+    //! \param cardID The card ID.
+    //! \param removeEnchantments The flag that removes any applied enchantments
+    //! during this transformation.
+    //! \param useRandomCard The flag that indicates it uses random card.
+    explicit ChangeEntityTask(EntityType entityType, CardType cardType,
+                              CardClass cardClass = CardClass::INVALID,
+                              Race race = Race::INVALID,
+                              Rarity rarity = Rarity::INVALID,
+                              const std::string& cardID = "",
+                              bool removeEnchantments = false,
+                              bool useRandomCard = false);
+
+    //! Constructs task with given various arguments.
+    //! \param entityType The entity type to change.
+    //! \param cardType The type of card to filter.
+    //! \param cardClass The class of card to filter.
+    //! \param race The race of card to filter.
+    //! \param rarity The rarity of card to filter.
     //! \param removeEnchantments The flag that removes any applied enchantments
     //! during this transformation.
     explicit ChangeEntityTask(EntityType entityType, CardType cardType,
@@ -32,6 +50,12 @@ class ChangeEntityTask : public ITask
                               Race race = Race::INVALID,
                               Rarity rarity = Rarity::INVALID,
                               bool removeEnchantments = false);
+
+    //! Constructs task with given \p cardID and \p entityType.
+    //! \param cardID The card ID.
+    //! \param entityType The entity type to change.
+    explicit ChangeEntityTask(const std::string& cardID,
+                              EntityType entityType = EntityType::SOURCE);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -47,7 +71,9 @@ class ChangeEntityTask : public ITask
     CardClass m_cardClass = CardClass::INVALID;
     Race m_race = Race::INVALID;
     Rarity m_rarity = Rarity::INVALID;
+    Card* m_card = nullptr;
     bool m_removeEnchantments = false;
+    bool m_useRandomCard = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
