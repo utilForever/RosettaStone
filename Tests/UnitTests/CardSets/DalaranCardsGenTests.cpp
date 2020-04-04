@@ -243,6 +243,64 @@ TEST_CASE("[Druid : Spell] - DAL_351 : Blessing of the Ancients")
     CHECK_EQ(curField[2]->GetHealth(), 3);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [DAL_352] Crystalsong Portal - COST:2
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Discover</b> a Druid minion.
+//       If your hand has no minions, keep all 3.
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DAL_352 : Crystalsong Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Crystalsong Portal"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Crystalsong Portal"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::DRUID);
+    CHECK_EQ(curHand[2]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[2]->card->GetCardClass(), CardClass::DRUID);
+    CHECK_EQ(curHand[3]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[3]->card->GetCardClass(), CardClass::DRUID);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+    CHECK_EQ(curPlayer->choice.value().choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetCardClass(), CardClass::DRUID);
+    }
+}
+
 // ----------------------------------------- MINION - DRUID
 // [DAL_354] Acornbearer - COST:1 [ATK:2/HP:1]
 // - Set: Dalaran, Rarity: Common

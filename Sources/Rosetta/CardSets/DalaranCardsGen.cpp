@@ -9,7 +9,6 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
@@ -120,6 +119,18 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasMinionInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(CardType::MINION,
+                                                       CardClass::DRUID) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DiscoverTask>(
+                   CardType::MINION, CardClass::DRUID, Race::INVALID,
+                   Rarity::INVALID, ChoiceAction::HAND, true) }));
+    cards.emplace("DAL_352", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_354] Acornbearer - COST:1 [ATK:2/HP:1]
