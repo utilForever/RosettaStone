@@ -23,6 +23,17 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] =
             cardDef.questProgressTotal;
         card->gameTags[GameTag::HERO_POWER] = cardDef.heroPowerDbfID;
+
+        // NOTE: Load some game tag data
+        // GameTag::PLAYER_TAG_THRESHOLD_TAG_ID
+        // GameTag::PLAYER_TAG_THRESHOLD_VALUE
+
+        // Crystal Stag (DAL_799)
+        if (card->dbfID == 53179)
+        {
+            card->gameTags[GameTag::PLAYER_TAG_THRESHOLD_TAG_ID] = 958;
+            card->gameTags[GameTag::PLAYER_TAG_THRESHOLD_VALUE] = 5;
+        }
     }
 }
 }  // namespace RosettaStone
