@@ -223,6 +223,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDefenderDead();
 
+    //! SelfCondition wrapper for checking the event source is friendly.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEventSourceFriendly();
+
     //! SelfCondition wrapper for checking the event target is \p cardType.
     //! \param cardType The type of the card to check.
     //! \return Generated SelfCondition for intended purpose.

@@ -426,6 +426,19 @@ SelfCondition SelfCondition::IsDefenderDead()
     });
 }
 
+SelfCondition SelfCondition::IsEventSourceFriendly()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
+        {
+            return eventData->eventSource->player == playable->player;
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
 {
     return SelfCondition([=](Playable* playable) -> bool {
