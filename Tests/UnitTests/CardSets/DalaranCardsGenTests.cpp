@@ -613,6 +613,66 @@ TEST_CASE("[Druid : Spell] - DAL_733 : Dreamway Guardians")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
+// - Race: Beast, Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Rush</b>. <b>Battlecry:</b> If you've restored
+//       5 Health this game, summon a copy of this.
+//       @ <i>({0} left!)</i>@ <i>(Ready!)</i>
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - RUSH = 1
+// - PLAYER_TAG_THRESHOLD_TAG_ID = 958
+// - PLAYER_TAG_THRESHOLD_VALUE = 5
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DAL_799 : Crystal Stag")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crystal Stag"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crystal Stag"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Healing Touch"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 3);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
 // - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common

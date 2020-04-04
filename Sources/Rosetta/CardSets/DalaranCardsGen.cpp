@@ -30,6 +30,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
@@ -131,7 +132,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::HasMinionInHand()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DiscoverTask>(CardType::MINION,
@@ -254,6 +255,15 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - PLAYER_TAG_THRESHOLD_TAG_ID = 958
     // - PLAYER_TAG_THRESHOLD_VALUE = 5
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::CheckThreshold(RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonCopyTask>(
+                  EntityType::SOURCE, false, false, SummonSide::RIGHT) }));
+    cards.emplace("DAL_799", CardDef(power));
 }
 
 void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
