@@ -367,6 +367,9 @@ void Character::TakeHeal(Playable* source, int heal)
     const int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
+    const int value = player->GetAmountHealedThisGame();
+    player->SetAmountHealedThisGame(value + amount);
+
     game->taskQueue.StartEvent();
     auto tempEventData = std::move(game->currentEventData);
     game->currentEventData =
