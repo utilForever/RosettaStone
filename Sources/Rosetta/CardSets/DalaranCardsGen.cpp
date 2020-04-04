@@ -8,6 +8,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
@@ -15,11 +16,16 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -175,6 +181,10 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DAL_357t", SummonSide::DEATHRATTLE));
+    cards.emplace("DAL_357", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_732] Keeper Stalladris - COST:2 [ATK:2/HP:3]
@@ -319,6 +329,23 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - UNTOUCHABLE = 1
     // - SCORE_VALUE_1 = 5
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsEventSourceFriendly());
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetEventNumberTask>(),
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_2, 0, 1),
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::ADD),
+        std::make_shared<NumberConditionTask>(5, RelaSign::GEQ),
+        std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<ChangeEntityTask>("DAL_357") }),
+        std::make_shared<FlagTask>(
+            false, TaskList{ std::make_shared<SetGameTagNumberTask>(
+                       EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_2) })
+    };
+    cards.emplace("DAL_357t", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_733t] Crystal Dryad (*) - COST:1 [ATK:1/HP:2]
