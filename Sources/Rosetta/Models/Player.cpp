@@ -282,6 +282,16 @@ void Player::IncreaseNumSpellsPlayedThisGame()
     SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME, val + 1);
 }
 
+int Player::GetAmountHealedThisGame() const
+{
+    return GetGameTag(GameTag::AMOUNT_HEALED_THIS_GAME);
+}
+
+void Player::SetAmountHealedThisGame(int value)
+{
+    SetGameTag(GameTag::AMOUNT_HEALED_THIS_GAME, value);
+}
+
 int Player::GetNumCardsPlayedThisGameNotStartInDeck() const
 {
     return GetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_GAME_NOT_START_IN_DECK);
