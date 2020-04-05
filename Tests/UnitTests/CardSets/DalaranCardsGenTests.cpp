@@ -849,6 +849,69 @@ TEST_CASE("[Hunter : Spell] - DAL_373 : Rapid Fire")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [DAL_376] Oblivitron - COST:6 [ATK:3/HP:4]
+// - Race: Mechanical, Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a Mech from your hand
+//       and trigger its <b>Deathrattle</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DAL_376 : Oblivitron")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Ursatron");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oblivitron"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand[3]->card->name, card2->card->name);
+    CHECK_EQ(curHand[4]->card->name, "Ursatron");
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
 // - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
