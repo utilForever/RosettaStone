@@ -551,11 +551,15 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Add a random Hunter spell to your hand.
     // --------------------------------------------------------
-    // Entourage: NEW1_032, NEW1_033, NEW1_034
-    // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::HUNTER));
+    power.AddDeathrattleTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("DAL_587", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_589] Hunting Party - COST:5
