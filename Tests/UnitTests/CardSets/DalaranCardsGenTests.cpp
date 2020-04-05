@@ -976,6 +976,62 @@ TEST_CASE("[Hunter : Spell] - DAL_378 : Unleash the Beast")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [DAL_379] Vereesa Windrunner - COST:7 [ATK:5/HP:6]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Equip Thori'dal, the Stars' Fury.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DAL_379 : Vereesa Windrunner")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Vereesa Windrunner"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHero->HasWeapon(), true);
+    CHECK_EQ(curHero->weapon->card->name, "Thori'dal, the Stars' Fury");
+    CHECK_EQ(curHero->GetSpellPower(), 0);
+
+    game.Process(curPlayer, AttackTask(curHero, opPlayer->GetHero()));
+    CHECK_EQ(curHero->GetSpellPower(), 2);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 23);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHero->GetSpellPower(), 0);
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
 // - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

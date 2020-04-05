@@ -34,6 +34,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -540,6 +541,9 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("DAL_379t"));
+    cards.emplace("DAL_379", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_587] Shimmerfly - COST:1 [ATK:1/HP:1]
@@ -643,6 +647,11 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_shared<Enchant>(GameTag::SPELLPOWER, EffectOperator::ADD, 2));
+    power.GetEnchant()->isOneTurnEffect = true;
+    cards.emplace("DAL_379e", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [DAL_379t] Thori'dal, the Stars' Fury (*) - COST:3 [ATK:2/HP:0]
@@ -657,6 +666,12 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DAL_379e", EntityType::HERO) };
+    cards.emplace("DAL_379t", CardDef(power));
 }
 
 void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
