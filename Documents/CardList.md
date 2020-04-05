@@ -527,13 +527,13 @@ DALARAN | DAL_354 | Acornbearer | O
 DALARAN | DAL_355 | Lifeweaver | O
 DALARAN | DAL_357 | Lucentbark | O
 DALARAN | DAL_366 | Unidentified Contract |  
-DALARAN | DAL_371 | Marked Shot |  
-DALARAN | DAL_372 | Arcane Fletcher |  
-DALARAN | DAL_373 | Rapid Fire |  
-DALARAN | DAL_376 | Oblivitron |  
+DALARAN | DAL_371 | Marked Shot | O
+DALARAN | DAL_372 | Arcane Fletcher | O
+DALARAN | DAL_373 | Rapid Fire | O
+DALARAN | DAL_376 | Oblivitron | O
 DALARAN | DAL_377 | Nine Lives |  
-DALARAN | DAL_378 | Unleash the Beast |  
-DALARAN | DAL_379 | Vereesa Windrunner |  
+DALARAN | DAL_378 | Unleash the Beast | O
+DALARAN | DAL_379 | Vereesa Windrunner | O
 DALARAN | DAL_400 | EVIL Cable Rat |  
 DALARAN | DAL_413 | EVIL Conscripter |  
 DALARAN | DAL_415 | EVIL Miscreant |  
@@ -569,8 +569,8 @@ DALARAN | DAL_577 | Ray of Frost | O
 DALARAN | DAL_578 | Power of Creation |  
 DALARAN | DAL_581 | Nozari | O
 DALARAN | DAL_582 | Portal Keeper |  
-DALARAN | DAL_587 | Shimmerfly |  
-DALARAN | DAL_589 | Hunting Party |  
+DALARAN | DAL_587 | Shimmerfly | O
+DALARAN | DAL_589 | Hunting Party | O
 DALARAN | DAL_592 | Batterhead |  
 DALARAN | DAL_602 | Plot Twist |  
 DALARAN | DAL_603 | Mana Cyclone |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 16% (22 of 136 Cards)
+- Progress: 22% (30 of 136 Cards)
 
 ## Saviors of Uldum
 
