@@ -434,6 +434,19 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Whenever you play a 1-Cost minion,
     //       draw a spell from your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(1));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::DECK),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DrawStackTask>(1)
+    };
+    cards.emplace("DAL_372", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_373] Rapid Fire - COST:1

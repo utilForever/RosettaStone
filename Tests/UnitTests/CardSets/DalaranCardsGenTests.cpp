@@ -736,6 +736,65 @@ TEST_CASE("[Hunter : Spell] - DAL_371 : Marked Shot")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [DAL_372] Arcane Fletcher - COST:4 [ATK:3/HP:3]
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: Whenever you play a 1-Cost minion,
+//       draw a spell from your deck.
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DAL_372 : Arcane Fletcher")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Marked Shot");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Fletcher"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Fletcher"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curDeck.GetCount(), 24);
+    CHECK_EQ(curHand[4]->card->name, "Marked Shot");
+    CHECK_EQ(curHand[5]->card->name, "Marked Shot");
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
 // - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
