@@ -461,6 +461,12 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    cards.emplace(
+        "DAL_373",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_376] Oblivitron - COST:6 [ATK:3/HP:4]
@@ -558,6 +564,8 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_373ts] Rapid Fire (*) - COST:1
     // - Set: Dalaran, Rarity: Common
@@ -567,6 +575,12 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    cards.emplace(
+        "DAL_373ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_378t1] Wyvern (*) - COST:5 [ATK:5/HP:5]

@@ -711,7 +711,6 @@ TEST_CASE("[Hunter : Spell] - DAL_371 : Marked Shot")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opHand = *(opPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
@@ -792,6 +791,61 @@ TEST_CASE("[Hunter : Spell] - DAL_372 : Arcane Fletcher")
     CHECK_EQ(curDeck.GetCount(), 24);
     CHECK_EQ(curHand[4]->card->name, "Marked Shot");
     CHECK_EQ(curHand[5]->card->name, "Marked Shot");
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [DAL_373] Rapid Fire - COST:1
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> Deal 1 damage.
+// --------------------------------------------------------
+// GameTag:
+// - TWINSPELL_COPY = 54143
+// - TWINSPELL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DAL_373 : Rapid Fire")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_373"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->id, "DAL_373ts");
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(curHand[4], opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 }
 
 // ---------------------------------------- MINION - HUNTER
