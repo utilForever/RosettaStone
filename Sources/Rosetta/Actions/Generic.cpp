@@ -22,8 +22,6 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
 {
     if (isSpellDamage)
     {
-        amount += source->player->GetCurrentSpellPower();
-
         if (const auto value = source->player->playerAuraEffects.GetValue(
                 GameTag::SPELLPOWER_DOUBLE);
             value > 0)
