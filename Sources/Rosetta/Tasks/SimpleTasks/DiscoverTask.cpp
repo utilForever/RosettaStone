@@ -151,6 +151,7 @@ std::vector<Card*> DiscoverTask::Discover(FormatType format,
     std::vector<Card*> cards;
 
     if (criteria.cardClass == CardClass::INVALID ||
+        criteria.cardClass == CardClass::PLAYER_CLASS ||
         criteria.cardClass == CardClass::ANOTHER_CLASS)
     {
         auto allCards = (format == FormatType::STANDARD)
@@ -167,6 +168,15 @@ std::vector<Card*> DiscoverTask::Discover(FormatType format,
             if (criteria.cardClass == CardClass::INVALID)
             {
                 cards.emplace_back(card);
+            }
+            else if (criteria.cardClass == CardClass::PLAYER_CLASS)
+            {
+                if (card->GetCardClass() ==
+                        m_player->GetHero()->card->GetCardClass() &&
+                    card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    cards.emplace_back(card);
+                }
             }
             else
             {
