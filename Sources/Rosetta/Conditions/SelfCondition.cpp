@@ -368,6 +368,17 @@ SelfCondition SelfCondition::IsNotPlayElementalMinionThisTurn()
     });
 }
 
+SelfCondition SelfCondition::IsCost(int value, RelaSign relaSign)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const int val = playable->GetCost();
+
+        return (relaSign == RelaSign::EQ && val == value) ||
+               (relaSign == RelaSign::GEQ && val >= value) ||
+               (relaSign == RelaSign::LEQ && val <= value);
+    });
+}
+
 SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
                                         RelaSign relaSign)
 {

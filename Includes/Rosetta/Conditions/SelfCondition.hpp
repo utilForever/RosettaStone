@@ -187,6 +187,13 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotPlayElementalMinionThisTurn();
 
+    //! SelfCondition wrapper for checking the cost satisfies condition with
+    //! \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsCost(int value, RelaSign relaSign = RelaSign::EQ);
+
     //! SelfCondition wrapper for checking there is the entity that satisfies
     //! condition with \p tag, \p value and \p relaSign.
     //! \param tag The game tag to check condition.
