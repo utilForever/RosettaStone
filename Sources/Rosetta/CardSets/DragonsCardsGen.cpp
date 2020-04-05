@@ -1257,8 +1257,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
             const auto realTarget = dynamic_cast<Character*>(target);
 
             const int targetHealth = realTarget->GetHealth();
-            int realDamage =
-                8 + static_cast<int>(source->player->currentSpellPower);
+            int realDamage = 8 + source->player->GetCurrentSpellPower();
 
             if (const auto value = source->player->playerAuraEffects.GetValue(
                     GameTag::SPELLPOWER_DOUBLE);

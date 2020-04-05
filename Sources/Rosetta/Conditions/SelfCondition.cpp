@@ -309,7 +309,7 @@ SelfCondition SelfCondition::HasReborn()
 SelfCondition SelfCondition::HasSpellPower()
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        return playable->player->currentSpellPower > 0;
+        return playable->player->GetCurrentSpellPower() > 0;
     });
 }
 

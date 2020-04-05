@@ -25,7 +25,8 @@ TaskStatus EnqueueNumberTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    const int times = m_isSpellDamage ? num + player->currentSpellPower : num;
+    const int times =
+        m_isSpellDamage ? num + player->GetCurrentSpellPower() : num;
 
     for (int i = 0; i < times; ++i)
     {

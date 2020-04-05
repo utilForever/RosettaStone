@@ -20,7 +20,7 @@ EnqueueTask::EnqueueTask(std::vector<std::shared_ptr<ITask>> tasks, int num,
 TaskStatus EnqueueTask::Impl(Player* player)
 {
     const int times =
-        m_isSpellDamage ? m_num + player->currentSpellPower : m_num;
+        m_isSpellDamage ? m_num + player->GetCurrentSpellPower() : m_num;
 
     for (int i = 0; i < times; ++i)
     {
