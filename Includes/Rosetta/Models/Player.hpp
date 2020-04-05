@@ -100,6 +100,10 @@ class Player : public Entity
     //! \return Player's hero weapon.
     Weapon& GetWeapon() const;
 
+    //! Returns the value of current spell power.
+    //! \return The value of current spell power.
+    int GetCurrentSpellPower() const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -274,7 +278,6 @@ class Player : public Entity
 
     PlayerAuraEffects playerAuraEffects;
     std::vector<Card*> cardsPlayedThisTurn;
-    int currentSpellPower = 0;
 
  private:
     Hero* m_hero = nullptr;

@@ -65,7 +65,6 @@ void Player::RefCopy(const Player& rhs)
     m_setasideZone->RefCopy(rhs.m_setasideZone.get());
 
     m_gameTags = rhs.m_gameTags;
-    currentSpellPower = rhs.currentSpellPower;
 }
 
 FieldZone* Player::GetFieldZone() const
@@ -116,6 +115,21 @@ HeroPower& Player::GetHeroPower() const
 Weapon& Player::GetWeapon() const
 {
     return *m_hero->weapon;
+}
+
+int Player::GetCurrentSpellPower() const
+{
+    int value = 0;
+
+    for (auto& minion : GetFieldZone()->GetAll())
+    {
+        value += minion->GetSpellPower();
+    }
+
+    value += GetHero()->GetSpellPower();
+    value += GetGameTag(GameTag::SPELLPOWER);
+
+    return value;
 }
 
 int Player::GetGameTag(GameTag tag) const
