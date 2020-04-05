@@ -673,6 +673,68 @@ TEST_CASE("[Druid : Minion] - DAL_799 : Crystal Stag")
     CHECK_EQ(curField.GetCount(), 3);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [DAL_371] Marked Shot - COST:4
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 4 damage to a minion. <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DAL_371 : Marked Shot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Marked Shot"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(opPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetCardClass(), CardClass::PALADIN);
+    }
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
 // - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common

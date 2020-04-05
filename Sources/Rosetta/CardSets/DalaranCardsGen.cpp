@@ -417,6 +417,15 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(CardType::SPELL,
+                                                      CardClass::PLAYER_CLASS));
+    cards.emplace(
+        "DAL_371",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_372] Arcane Fletcher - COST:4 [ATK:3/HP:3]
