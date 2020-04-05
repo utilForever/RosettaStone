@@ -524,6 +524,11 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_378t1"));
+    cards.emplace(
+        "DAL_378",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_379] Vereesa Windrunner - COST:7 [ATK:5/HP:6]
@@ -604,6 +609,9 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_378t1", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_378ts] Unleash the Beast (*) - COST:6
@@ -620,6 +628,11 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_378t1"));
+    cards.emplace(
+        "DAL_378ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DAL_379e] Stars' Fury (*) - COST:0
