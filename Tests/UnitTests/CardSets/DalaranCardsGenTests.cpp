@@ -1077,6 +1077,54 @@ TEST_CASE("[Hunter : Minion] - DAL_587 : Shimmerfly")
     CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::HUNTER);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [DAL_589] Hunting Party - COST:5
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Copy all Beasts in your hand.
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DAL_589 : Hunting Party")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hunting Party"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[3]->card->name, card2->card->name);
+    CHECK_EQ(curHand[4]->card->name, card4->card->name);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 4);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
 // - Race: Mechanical, Faction: Neutral, Set: Dalaran, Rarity: Common
