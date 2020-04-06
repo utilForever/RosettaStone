@@ -13,7 +13,8 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-RandomMinionNumberTask::RandomMinionNumberTask(GameTag tag) : m_gameTag(tag)
+RandomMinionNumberTask::RandomMinionNumberTask(GameTag tag, bool toOpponent)
+    : m_gameTag(tag), m_toOpponent(toOpponent)
 {
     // Do nothing
 }
@@ -45,7 +46,8 @@ TaskStatus RandomMinionNumberTask::Impl(Player* player)
     randomMinions.reserve(1);
 
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
-    auto card = Entity::GetFromCard(player, cardsList.at(idx));
+    auto card = Entity::GetFromCard(m_toOpponent ? player->opponent : player,
+                                    cardsList.at(idx));
     randomMinions.emplace_back(card);
 
     player->game->taskStack.playables = randomMinions;
@@ -55,6 +57,6 @@ TaskStatus RandomMinionNumberTask::Impl(Player* player)
 
 std::unique_ptr<ITask> RandomMinionNumberTask::CloneImpl()
 {
-    return std::make_unique<RandomMinionNumberTask>(m_gameTag);
+    return std::make_unique<RandomMinionNumberTask>(m_gameTag, m_toOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks
