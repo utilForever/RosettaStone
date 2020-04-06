@@ -18,9 +18,10 @@ namespace RosettaStone::SimpleTasks
 class DestroyTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType.
+    //! Constructs task with given \p entityType and \p forceDeathPhase.
     //! \param entityType The entity type of target to destroy.
-    explicit DestroyTask(EntityType entityType);
+    //! \param forceDeathPhase The flag that indicates it forces death phase.
+    explicit DestroyTask(EntityType entityType, bool forceDeathPhase = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -31,6 +32,8 @@ class DestroyTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
+
+    bool m_forceDeathPhase = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

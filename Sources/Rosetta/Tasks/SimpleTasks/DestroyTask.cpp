@@ -3,12 +3,14 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-DestroyTask::DestroyTask(EntityType entityType) : ITask(entityType)
+DestroyTask::DestroyTask(EntityType entityType, bool forceDeathPhase)
+    : ITask(entityType), m_forceDeathPhase(forceDeathPhase)
 {
     // Do nothing
 }
@@ -23,11 +25,16 @@ TaskStatus DestroyTask::Impl(Player* player)
         playable->Destroy();
     }
 
+    if (m_forceDeathPhase)
+    {
+        player->game->ProcessDestroyAndUpdateAura();
+    }
+
     return TaskStatus::COMPLETE;
 }
 
 std::unique_ptr<ITask> DestroyTask::CloneImpl()
 {
-    return std::make_unique<DestroyTask>(m_entityType);
+    return std::make_unique<DestroyTask>(m_entityType, m_forceDeathPhase);
 }
 }  // namespace RosettaStone::SimpleTasks
