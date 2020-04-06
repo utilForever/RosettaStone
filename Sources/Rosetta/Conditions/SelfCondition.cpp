@@ -21,6 +21,13 @@ SelfCondition::SelfCondition(std::function<bool(Playable*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsCurrentPlayer()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->game->GetCurrentPlayer() == playable->player;
+    });
+}
+
 SelfCondition SelfCondition::IsNotStartInDeck()
 {
     return SelfCondition([=](Playable* playable) -> bool {
