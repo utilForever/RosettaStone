@@ -1235,6 +1235,78 @@ TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [DAL_177] Conjurer's Calling - COST:3
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> Destroy a minion.
+//       Summon 2 minions of the same Cost to replace it.
+// --------------------------------------------------------
+// GameTag:
+// - TWINSPELL_COPY = 52637
+// - TWINSPELL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DAL_177 : Conjurer's Calling")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_177"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->id, "DAL_177ts");
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetCost(), 9);
+    CHECK_EQ(curField[1]->GetCost(), 9);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(curHand[0], card3));
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->GetCost(), 3);
+    CHECK_EQ(opField[1]->GetCost(), 3);
+}
+
+// ------------------------------------------- SPELL - MAGE
 // [DAL_577] Ray of Frost - COST:1
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

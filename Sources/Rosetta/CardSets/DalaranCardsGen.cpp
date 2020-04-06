@@ -16,9 +16,11 @@
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
@@ -29,10 +31,12 @@
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
@@ -722,6 +726,28 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::COST));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::TARGET,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsCurrentPlayer()) }),
+                  std::make_shared<FlagTask>(
+                      true, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                          GameTag::COST),
+                                      std::make_shared<SummonTask>() }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                           GameTag::COST, true),
+                                       std::make_shared<SummonOpTask>() }) },
+        2));
+    cards.emplace(
+        "DAL_177",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_182] Magic Dart Frog - COST:2 [ATK:1/HP:3]
@@ -847,6 +873,28 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::COST));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::TARGET,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsCurrentPlayer()) }),
+                  std::make_shared<FlagTask>(
+                      true, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                          GameTag::COST),
+                                      std::make_shared<SummonTask>() }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                           GameTag::COST, true),
+                                       std::make_shared<SummonOpTask>() }) },
+        2));
+    cards.emplace(
+        "DAL_177ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577ts] Ray of Frost (*) - COST:1
