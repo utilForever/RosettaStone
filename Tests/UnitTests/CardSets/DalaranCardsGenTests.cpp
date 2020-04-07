@@ -1249,7 +1249,7 @@ TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST_CASE("[Mage : Minion] - DAL_177 : Conjurer's Calling")
+TEST_CASE("[Mage : Spell] - DAL_177 : Conjurer's Calling")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1304,6 +1304,57 @@ TEST_CASE("[Mage : Minion] - DAL_177 : Conjurer's Calling")
     CHECK_EQ(opField.GetCount(), 2);
     CHECK_EQ(opField[0]->GetCost(), 3);
     CHECK_EQ(opField[1]->GetCost(), 3);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [DAL_182] Magic Dart Frog - COST:2 [ATK:1/HP:3]
+// - Race: Beast, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: After you cast a spell, deal 1 damage to a random enemy minion.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DAL_182 : Magic Dart Frog")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Magic Dart Frog"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
 // ------------------------------------------- SPELL - MAGE
