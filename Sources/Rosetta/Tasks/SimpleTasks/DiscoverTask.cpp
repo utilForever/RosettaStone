@@ -55,11 +55,18 @@ DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
     }
 }
 
-DiscoverTask::DiscoverTask(std::vector<Card*> cards, CardType cardType,
-                           CardClass cardClass, Race race, Rarity rarity,
-                           ChoiceAction choiceAction, int numberOfChoices,
-                           bool doShuffle, bool keepAll)
+DiscoverTask::DiscoverTask(DiscoverType discoverType)
+    : m_discoverType(discoverType)
+{
+    // Do nothing
+}
+
+DiscoverTask::DiscoverTask(std::vector<Card*> cards, DiscoverType discoverType,
+                           CardType cardType, CardClass cardClass, Race race,
+                           Rarity rarity, ChoiceAction choiceAction,
+                           int numberOfChoices, bool doShuffle, bool keepAll)
     : m_cards(std::move(cards)),
+      m_discoverType(discoverType),
       m_discoverCriteria(cardType, cardClass, race, rarity),
       m_choiceAction(choiceAction),
       m_numberOfChoices(numberOfChoices),
@@ -140,9 +147,10 @@ TaskStatus DiscoverTask::Impl(Player* player)
 std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 {
     return std::make_unique<DiscoverTask>(
-        m_cards, m_discoverCriteria.cardType, m_discoverCriteria.cardClass,
-        m_discoverCriteria.race, m_discoverCriteria.rarity, m_choiceAction,
-        m_numberOfChoices, m_doShuffle, m_keepAll);
+        m_cards, m_discoverType, m_discoverCriteria.cardType,
+        m_discoverCriteria.cardClass, m_discoverCriteria.race,
+        m_discoverCriteria.rarity, m_choiceAction, m_numberOfChoices,
+        m_doShuffle, m_keepAll);
 }
 
 std::vector<Card*> DiscoverTask::Discover(FormatType format,

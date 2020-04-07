@@ -10,6 +10,12 @@
 
 namespace RosettaStone::SimpleTasks
 {
+//! The type of discover.
+enum class DiscoverType
+{
+    INVALID,
+};
+
 class DiscoverCriteria
 {
  public:
@@ -57,8 +63,13 @@ class DiscoverTask : public ITask
                           ChoiceAction choiceAction = ChoiceAction::HAND,
                           int numberOfChoices = 3, bool doShuffle = true);
 
+    //! Constructs task with given \p discoverType.
+    //! \param discoverType The type of discover.
+    explicit DiscoverTask(DiscoverType discoverType);
+
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.
+    //! \param discoverType The type of discover.
     //! \param cardType The type of card to discover.
     //! \param cardClass The class of card to discover.
     //! \param race The race of card to discover.
@@ -68,6 +79,7 @@ class DiscoverTask : public ITask
     //! \param doShuffle The flag that indicates it does shuffle.
     //! \param keepAll The flag that indicates it keeps all cards.
     explicit DiscoverTask(std::vector<Card*> cards,
+                          DiscoverType discoverType = DiscoverType::INVALID,
                           CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
@@ -101,6 +113,7 @@ class DiscoverTask : public ITask
 
     std::vector<Card*> m_cards;
 
+    DiscoverType m_discoverType = DiscoverType::INVALID;
     DiscoverCriteria m_discoverCriteria;
     ChoiceAction m_choiceAction = ChoiceAction::INVALID;
     std::size_t m_numberOfChoices = 3;
