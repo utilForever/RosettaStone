@@ -787,6 +787,14 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SPELLPOWER = 3
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "DAL_576e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("DAL_576", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577] Ray of Frost - COST:1
@@ -2540,6 +2548,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) more.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AddCost(1)));
+    cards.emplace("DAL_576e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DAL_582t] Felhound Portal (*) - COST:2

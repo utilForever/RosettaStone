@@ -1357,6 +1357,56 @@ TEST_CASE("[Mage : Minion] - DAL_182 : Magic Dart Frog")
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DAL_576] Kirin Tor Tricaster - COST:4 [ATK:3/HP:3]
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Spell Damage +3</b> Your spells cost (1) more.
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 3
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DAL_576 : Kirin Tor Tricaster")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kirin Tor Tricaster"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 3);
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 5);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 21);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [DAL_577] Ray of Frost - COST:1
 // - Set: Dalaran, Rarity: Common
