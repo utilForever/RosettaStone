@@ -975,6 +975,10 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DAL_146t", 2));
+    cards.emplace("DAL_146", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_147] Dragon Speaker - COST:5 [ATK:3/HP:5]
@@ -1078,6 +1082,8 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void DalaranCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_141ts] Desperate Measures (*) - COST:1
     // - Set: Dalaran, Rarity: Rare
@@ -1095,6 +1101,9 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // [DAL_146t] Bronze Dragon (*) - COST:4 [ATK:4/HP:4]
     // - Race: Dragon, Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_146t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DAL_568e] Lightforged Blessing (*) - COST:0
