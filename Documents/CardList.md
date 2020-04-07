@@ -512,12 +512,12 @@ DALARAN | DAL_092 | Arcane Servant | O
 DALARAN | DAL_095 | Violet Spellsword |  
 DALARAN | DAL_096 | Violet Warden |  
 DALARAN | DAL_141 | Desperate Measures |  
-DALARAN | DAL_146 | Bronze Herald |  
+DALARAN | DAL_146 | Bronze Herald | O
 DALARAN | DAL_147 | Dragon Speaker |  
 DALARAN | DAL_163 | Messenger Raven | O
 DALARAN | DAL_173 | Darkest Hour |  
-DALARAN | DAL_177 | Conjurer's Calling |  
-DALARAN | DAL_182 | Magic Dart Frog |  
+DALARAN | DAL_177 | Conjurer's Calling | O
+DALARAN | DAL_182 | Magic Dart Frog | O
 DALARAN | DAL_185 | Aranasi Broodmother |  
 DALARAN | DAL_256 | The Forest's Aid | O
 DALARAN | DAL_350 | Crystal Power | O
@@ -564,7 +564,7 @@ DALARAN | DAL_570 | Never Surrender! |
 DALARAN | DAL_571 | Mysterious Blade |  
 DALARAN | DAL_573 | Commander Rhyssa |  
 DALARAN | DAL_575 | Khadgar |  
-DALARAN | DAL_576 | Kirin Tor Tricaster |  
+DALARAN | DAL_576 | Kirin Tor Tricaster | O
 DALARAN | DAL_577 | Ray of Frost | O
 DALARAN | DAL_578 | Power of Creation |  
 DALARAN | DAL_581 | Nozari | O
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 22% (30 of 136 Cards)
+- Progress: 25% (34 of 136 Cards)
 
 ## Saviors of Uldum
 
