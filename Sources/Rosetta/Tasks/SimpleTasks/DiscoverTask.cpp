@@ -154,6 +154,17 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 }
 
 std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
+                                          DiscoverType discoverType) const
+{
+    switch (discoverType)
+    {
+        default:
+            throw std::out_of_range(
+                "DiscoverTask::Discover() - Invalid discover type");
+    }
+}
+
+std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                                           DiscoverCriteria criteria) const
 {
     const FormatType format = game->GetFormatType();
