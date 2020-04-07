@@ -104,11 +104,12 @@ class DiscoverTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    //! Evaluates a list of cards by the format type and the discover criteria.
-    //! \param format The format type.
+    //! Evaluates a list of cards by the discover criteria.
+    //! \param game The game context.
+    //! \param player The player context.
     //! \param criteria The discover criteria.
     //! \return A list of cards to discover.
-    std::vector<Card*> Discover(FormatType format,
+    std::vector<Card*> Discover(Game* game, Player* player,
                                 DiscoverCriteria criteria) const;
 
     std::vector<Card*> m_cards;

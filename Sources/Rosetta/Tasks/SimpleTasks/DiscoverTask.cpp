@@ -118,7 +118,7 @@ TaskStatus DiscoverTask::Impl(Player* player)
     else
     {
         const auto cardsToDiscover =
-            Discover(player->game->GetFormatType(), m_discoverCriteria);
+            Discover(player->game, player, m_discoverCriteria);
         result = GetChoices(cardsToDiscover, m_numberOfChoices);
     }
 
@@ -153,9 +153,10 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
         m_doShuffle, m_keepAll);
 }
 
-std::vector<Card*> DiscoverTask::Discover(FormatType format,
+std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                                           DiscoverCriteria criteria) const
 {
+    const FormatType format = game->GetFormatType();
     std::vector<Card*> cards;
 
     if (criteria.cardClass == CardClass::INVALID ||
@@ -180,7 +181,7 @@ std::vector<Card*> DiscoverTask::Discover(FormatType format,
             else if (criteria.cardClass == CardClass::PLAYER_CLASS)
             {
                 if (card->GetCardClass() ==
-                        m_player->GetHero()->card->GetCardClass() &&
+                        player->GetHero()->card->GetCardClass() &&
                     card->GetCardClass() != CardClass::NEUTRAL)
                 {
                     cards.emplace_back(card);
@@ -189,7 +190,7 @@ std::vector<Card*> DiscoverTask::Discover(FormatType format,
             else
             {
                 if (card->GetCardClass() !=
-                        m_player->GetHero()->card->GetCardClass() &&
+                        player->GetHero()->card->GetCardClass() &&
                     card->GetCardClass() != CardClass::NEUTRAL)
                 {
                     cards.emplace_back(card);
