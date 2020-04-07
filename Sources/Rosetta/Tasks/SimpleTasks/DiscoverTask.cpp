@@ -115,6 +115,12 @@ TaskStatus DiscoverTask::Impl(Player* player)
     {
         result = GetChoices(m_cards, m_numberOfChoices);
     }
+    else if (m_discoverType != DiscoverType::INVALID)
+    {
+        const auto cardsToDiscover =
+            Discover(player->game, player, m_discoverType);
+        result = GetChoices(cardsToDiscover, m_numberOfChoices);
+    }
     else
     {
         const auto cardsToDiscover =
