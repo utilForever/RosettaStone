@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Copy.hpp>
+#include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
@@ -40,6 +41,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -776,6 +778,31 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY_EVENT_SOURCE;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
+            return playable->game->currentEventData->eventSource != playable &&
+                   playable->GetGameTag(GameTag::COPIED_BY_KHADGAR) != 1;
+        });
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
+           Playable* target) {
+            if (target->player->GetFieldZone()->IsFull())
+            {
+                return;
+            }
+
+            std::map<GameTag, int> gameTags;
+            gameTags.emplace(GameTag::COPIED_BY_KHADGAR, 1);
+
+            const auto entity = Entity::GetFromCard(
+                target->player, target->card, gameTags, player->GetFieldZone());
+            Generic::Summon(dynamic_cast<Minion*>(entity),
+                            target->GetZonePosition() + 1, source);
+        }) };
+    cards.emplace("DAL_575", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_576] Kirin Tor Tricaster - COST:4 [ATK:3/HP:3]

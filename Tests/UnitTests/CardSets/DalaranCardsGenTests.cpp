@@ -1358,6 +1358,55 @@ TEST_CASE("[Mage : Minion] - DAL_182 : Magic Dart Frog")
 }
 
 // ------------------------------------------ MINION - MAGE
+// [DAL_575] Khadgar - COST:2 [ATK:2/HP:2]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your cards that summon minions summon twice as many.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DAL_575 : Khadgar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Khadgar"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Harvest Golem"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Damaged Golem");
+    CHECK_EQ(curField[1]->card->name, "Damaged Golem");
+    CHECK_EQ(curField[2]->card->name, "Khadgar");
+}
+
+// ------------------------------------------ MINION - MAGE
 // [DAL_576] Kirin Tor Tricaster - COST:4 [ATK:3/HP:3]
 // - Set: Dalaran, Rarity: Rare
 // --------------------------------------------------------
