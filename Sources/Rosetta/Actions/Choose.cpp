@@ -6,9 +6,11 @@
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
@@ -144,6 +146,19 @@ bool ChoicePick(Player* player, std::size_t choice)
             player->GetSetasideZone()->Remove(playable);
             CastSpell(player, dynamic_cast<Spell*>(playable), nullptr, 0);
             player->game->currentEventData.reset();
+            break;
+        }
+        case ChoiceAction::SUMMON:
+        {
+            if (!player->GetFieldZone()->IsFull())
+            {
+                player->GetSetasideZone()->Remove(playable);
+
+                const int sourceID =
+                    player->choice->source->GetGameTag(GameTag::ENTITY_ID);
+                Summon(dynamic_cast<Minion*>(playable), -1,
+                       player->game->entityList[sourceID]);
+            }
             break;
         }
         case ChoiceAction::ENVOY_OF_LAZUL:
