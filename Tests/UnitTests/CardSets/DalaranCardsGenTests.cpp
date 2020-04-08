@@ -7,6 +7,7 @@
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
+#include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
@@ -1535,6 +1536,60 @@ TEST_CASE("[Mage : Spell] - DAL_577 : Ray of Frost")
     game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card3));
     CHECK_EQ(card3->isDestroyed, true);
     CHECK_EQ(opHand.GetCount(), 1);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [DAL_578] Power of Creation - COST:8
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Discover</b> a 6-Cost minion. Summon two copies of it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - DAL_578 : Power of Creation")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Power of Creation"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetCost(), 6);
+    }
+
+    Generic::ChoicePick(curPlayer, 24);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetCost(), 6);
+    CHECK_EQ(curField[1]->GetCost(), 6);
+    CHECK_EQ(curField[0]->card->name, curField[1]->card->name);
 }
 
 // --------------------------------------- MINION - PALADIN

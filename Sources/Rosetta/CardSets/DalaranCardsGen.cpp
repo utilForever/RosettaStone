@@ -868,6 +868,14 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SIX_COST_SUMMON));
+    power.AddAfterDiscoverTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY));
+    cards.emplace(
+        "DAL_578",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_603] Mana Cyclone - COST:2 [ATK:2/HP:2]
