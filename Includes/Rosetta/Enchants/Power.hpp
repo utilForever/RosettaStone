@@ -55,9 +55,9 @@ class Power
     //! \return A list of topdeck tasks.
     std::vector<std::shared_ptr<ITask>>& GetTopdeckTask();
 
-    //! Returns a list of after discover tasks.
-    //! \return A list of after discover tasks.
-    std::vector<std::shared_ptr<ITask>>& GetAfterDiscoverTask();
+    //! Returns a list of after choose tasks.
+    //! \return A list of after choose tasks.
+    std::vector<std::shared_ptr<ITask>>& GetAfterChooseTask();
 
     //! Returns a list of outcast tasks.
     //! \return A list of outcast tasks.
@@ -94,9 +94,9 @@ class Power
     //! \param task A pointer to topdeck task.
     void AddTopdeckTask(std::shared_ptr<ITask> task);
 
-    //! Adds after discover task.
-    //! \param task A pointer to after discover task.
-    void AddAfterDiscoverTask(std::shared_ptr<ITask> task);
+    //! Adds after choose task.
+    //! \param task A pointer to after choose task.
+    void AddAfterChooseTask(std::shared_ptr<ITask> task);
 
     //! Adds outcast task.
     //! \param task A pointer to outcast task.
@@ -111,7 +111,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_deathrattleTask;
     std::vector<std::shared_ptr<ITask>> m_comboTask;
     std::vector<std::shared_ptr<ITask>> m_topdeckTask;
-    std::vector<std::shared_ptr<ITask>> m_afterDiscoverTask;
+    std::vector<std::shared_ptr<ITask>> m_afterChooseTask;
     std::vector<std::shared_ptr<ITask>> m_outcastTask;
 };
 }  // namespace RosettaStone

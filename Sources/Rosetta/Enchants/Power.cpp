@@ -45,9 +45,9 @@ std::vector<std::shared_ptr<ITask>>& Power::GetTopdeckTask()
     return m_topdeckTask;
 }
 
-std::vector<std::shared_ptr<ITask>>& Power::GetAfterDiscoverTask()
+std::vector<std::shared_ptr<ITask>>& Power::GetAfterChooseTask()
 {
-    return m_afterDiscoverTask;
+    return m_afterChooseTask;
 }
 
 std::vector<std::shared_ptr<ITask>>& Power::GetOutcastTask()
@@ -65,7 +65,7 @@ void Power::ClearData()
     m_deathrattleTask.clear();
     m_comboTask.clear();
     m_topdeckTask.clear();
-    m_afterDiscoverTask.clear();
+    m_afterChooseTask.clear();
     m_outcastTask.clear();
 }
 
@@ -104,9 +104,9 @@ void Power::AddTopdeckTask(std::shared_ptr<ITask> task)
     m_topdeckTask.emplace_back(task);
 }
 
-void Power::AddAfterDiscoverTask(std::shared_ptr<ITask> task)
+void Power::AddAfterChooseTask(std::shared_ptr<ITask> task)
 {
-    m_afterDiscoverTask.emplace_back(task);
+    m_afterChooseTask.emplace_back(task);
 }
 
 void Power::AddOutcastTask(std::shared_ptr<ITask> task)
