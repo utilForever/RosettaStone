@@ -118,7 +118,7 @@ TaskStatus DiscoverTask::Impl(Player* player)
     else if (m_discoverType != DiscoverType::INVALID)
     {
         const auto cardsToDiscover =
-            Discover(player->game, player, m_discoverType);
+            Discover(player->game, player, m_discoverType, m_choiceAction);
         result = GetChoices(cardsToDiscover, m_numberOfChoices);
     }
     else
@@ -159,8 +159,10 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
         m_doShuffle, m_keepAll);
 }
 
-std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
-                                          DiscoverType discoverType) const
+std::vector<Card*> DiscoverTask::Discover(Game* game,
+                                          [[maybe_unused]] Player* player,
+                                          DiscoverType discoverType,
+                                          ChoiceAction& choiceAction) const
 {
     const FormatType format = game->GetFormatType();
     auto allCards = (format == FormatType::STANDARD)
@@ -168,10 +170,12 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                         : Cards::GetAllWildCards();
 
     std::vector<Card*> cards;
+    choiceAction = ChoiceAction::INVALID;
 
     switch (discoverType)
     {
         case DiscoverType::SIX_COST_SUMMON:
+            choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)
             {
                 if (card->GetCardType() == CardType::MINION &&

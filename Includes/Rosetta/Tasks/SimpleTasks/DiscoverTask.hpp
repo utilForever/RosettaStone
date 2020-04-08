@@ -109,9 +109,11 @@ class DiscoverTask : public ITask
     //! \param game The game context.
     //! \param player The player context.
     //! \param discoverType The type of discover.
+    //! \param choiceAction The choice action of discover effect.
     //! \return A list of cards to discover.
     std::vector<Card*> Discover(Game* game, Player* player,
-                                DiscoverType discoverType) const;
+                                DiscoverType discoverType,
+                                ChoiceAction& choiceAction) const;
 
     //! Evaluates a list of cards by the discover criteria.
     //! \param game The game context.
