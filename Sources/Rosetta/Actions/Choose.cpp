@@ -122,21 +122,6 @@ bool ChoicePick(Player* player, std::size_t choice)
         case ChoiceAction::ENCHANTMENT:
         {
             player->game->taskStack.num[0] = static_cast<int>(choice);
-
-            auto tasks = choiceVal.source->card->power.GetAfterDiscoverTask();
-
-            // Process after discover tasks
-            for (auto& task : tasks)
-            {
-                std::unique_ptr<ITask> clonedTask = task->Clone();
-
-                clonedTask->SetPlayer(player);
-                clonedTask->SetSource(choiceVal.source);
-                clonedTask->SetTarget(nullptr);
-
-                clonedTask->Run();
-            }
-
             break;
         }
         case ChoiceAction::CAST_SPELL:
@@ -184,6 +169,23 @@ bool ChoicePick(Player* player, std::size_t choice)
         default:
             throw std::invalid_argument(
                 "ChoicePick() - Invalid choice action!");
+    }
+
+    // Process after discover tasks
+    if (choiceVal.source != nullptr)
+    {
+        auto tasks = choiceVal.source->card->power.GetAfterDiscoverTask();
+
+        for (auto& task : tasks)
+        {
+            std::unique_ptr<ITask> clonedTask = task->Clone();
+
+            clonedTask->SetPlayer(player);
+            clonedTask->SetSource(choiceVal.source);
+            clonedTask->SetTarget(playable);
+
+            clonedTask->Run();
+        }
     }
 
     // It's done! - Reset choice
