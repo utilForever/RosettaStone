@@ -4015,7 +4015,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DiscoverTask>(
         CardType::MINION, CardClass::INVALID, Race::DRAGON, Rarity::INVALID,
         ChoiceAction::ENCHANTMENT));
-    power.AddAfterDiscoverTask(std::make_shared<AddEnchantmentTask>(
+    power.AddAfterChooseTask(std::make_shared<AddEnchantmentTask>(
         "DRG_086e", EntityType::SOURCE, false, true));
     cards.emplace("DRG_086", CardDef(power));
 

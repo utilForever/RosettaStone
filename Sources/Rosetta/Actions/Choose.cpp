@@ -171,10 +171,10 @@ bool ChoicePick(Player* player, std::size_t choice)
                 "ChoicePick() - Invalid choice action!");
     }
 
-    // Process after discover tasks
+    // Process after choose tasks
     if (choiceVal.source != nullptr)
     {
-        auto tasks = choiceVal.source->card->power.GetAfterDiscoverTask();
+        auto tasks = choiceVal.source->card->power.GetAfterChooseTask();
 
         for (auto& task : tasks)
         {
