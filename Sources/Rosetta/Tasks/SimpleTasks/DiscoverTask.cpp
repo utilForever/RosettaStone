@@ -162,12 +162,31 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
 std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                                           DiscoverType discoverType) const
 {
+    const FormatType format = game->GetFormatType();
+    auto allCards = (format == FormatType::STANDARD)
+                        ? Cards::GetAllStandardCards()
+                        : Cards::GetAllWildCards();
+
+    std::vector<Card*> cards;
+
     switch (discoverType)
     {
+        case DiscoverType::SIX_COST_SUMMON:
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->GetCost() == 6)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         default:
             throw std::out_of_range(
                 "DiscoverTask::Discover() - Invalid discover type");
     }
+
+    return cards;
 }
 
 std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,

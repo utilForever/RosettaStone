@@ -14,6 +14,7 @@ namespace RosettaStone::SimpleTasks
 enum class DiscoverType
 {
     INVALID,
+    SIX_COST_SUMMON,
 };
 
 class DiscoverCriteria
