@@ -14,6 +14,7 @@ namespace RosettaStone::SimpleTasks
 enum class DiscoverType
 {
     INVALID,
+    SPELL,
     SIX_COST_SUMMON,
 };
 

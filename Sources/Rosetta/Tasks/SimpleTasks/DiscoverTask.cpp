@@ -165,15 +165,48 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                                           ChoiceAction& choiceAction) const
 {
     const FormatType format = game->GetFormatType();
-    auto allCards = (format == FormatType::STANDARD)
-                        ? Cards::GetAllStandardCards()
-                        : Cards::GetAllWildCards();
+
+    std::vector<Card*> allCards;
+    if (format == FormatType::STANDARD)
+    {
+        for (auto& card : Cards::GetAllStandardCards())
+        {
+            if ((card->GetCardClass() == player->baseClass &&
+                 card->IsQuest()) ||
+                card->GetCardClass() == CardClass::NEUTRAL)
+            {
+                allCards.emplace_back(card);
+            }
+        }
+    }
+    else
+    {
+        for (auto& card : Cards::GetAllWildCards())
+        {
+            if ((card->GetCardClass() == player->baseClass &&
+                 card->IsQuest()) ||
+                card->GetCardClass() == CardClass::NEUTRAL)
+            {
+                allCards.emplace_back(card);
+            }
+        }
+    }
 
     std::vector<Card*> cards;
     choiceAction = ChoiceAction::INVALID;
 
     switch (discoverType)
     {
+        case DiscoverType::SPELL:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::SIX_COST_SUMMON:
             choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)
