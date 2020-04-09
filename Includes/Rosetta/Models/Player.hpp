@@ -269,6 +269,7 @@ class Player : public Entity
     PlayerType playerType = PlayerType::PLAYER1;
     std::size_t playerID = 0;
 
+    CardClass baseClass = CardClass::INVALID;
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
