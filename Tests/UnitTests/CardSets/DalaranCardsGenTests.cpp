@@ -1592,6 +1592,67 @@ TEST_CASE("[Mage : Spell] - DAL_578 : Power of Creation")
     CHECK_EQ(curField[0]->card->name, curField[1]->card->name);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DAL_603] Mana Cyclone - COST:2 [ATK:2/HP:2]
+// - Race: Elemental, Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> For each spell you've cast this turn,
+//       add a random Mage spell to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DAL_603 : Mana Cyclone")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Cyclone"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mirror Image"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Explosion"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::MAGE);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::MAGE);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[2]->card->GetCardClass(), CardClass::MAGE);
+    CHECK_EQ(curHand[2]->card->GetCardType(), CardType::SPELL);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dalaran, Rarity: Common

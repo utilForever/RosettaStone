@@ -21,9 +21,11 @@
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
@@ -886,6 +888,24 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        int count = 0;
+
+        for (auto& card : playable->player->cardsPlayedThisTurn)
+        {
+            if (card->GetCardType() == CardType::SPELL)
+            {
+                ++count;
+            }
+        }
+
+        return count;
+    }));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE),
+        std::make_shared<AddStackToTask>(EntityType::HAND) }));
+    cards.emplace("DAL_603", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_608] Magic Trick - COST:1
