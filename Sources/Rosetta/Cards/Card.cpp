@@ -176,6 +176,11 @@ bool Card::HasGameTag(GameTag gameTag) const
     return gameTags.find(gameTag) != gameTags.end();
 }
 
+bool Card::IsQuest() const
+{
+    return HasGameTag(GameTag::QUEST);
+}
+
 bool Card::IsLackey() const
 {
     if (id == "DAL_613" ||  // DAL_613: Faceless Lackey
