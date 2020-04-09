@@ -15,6 +15,7 @@ enum class DiscoverType
 {
     INVALID,
     SPELL,
+    DRAGON,
     SIX_COST_SUMMON,
 };
 

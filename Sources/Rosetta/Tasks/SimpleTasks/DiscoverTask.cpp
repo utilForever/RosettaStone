@@ -207,6 +207,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                 }
             }
             break;
+        case DiscoverType::DRAGON:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetRace() == Race::DRAGON)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::SIX_COST_SUMMON:
             choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)
