@@ -430,8 +430,7 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
-    power.AddPowerTask(std::make_shared<DiscoverTask>(CardType::SPELL,
-                                                      CardClass::PLAYER_CLASS));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
     cards.emplace(
         "DAL_371",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
