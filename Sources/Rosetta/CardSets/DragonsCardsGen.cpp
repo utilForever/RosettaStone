@@ -575,8 +575,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_313", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
@@ -974,8 +973,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_254", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1061,8 +1059,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_102", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
@@ -1710,8 +1707,7 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_229", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
@@ -4308,8 +4304,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_052", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
