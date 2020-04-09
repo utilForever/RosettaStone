@@ -1126,8 +1126,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsHoldingRace(Race::DRAGON)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<DiscoverTask>(CardType::SPELL,
-                                                       CardClass::MAGE) }));
+        true, TaskList{ std::make_shared<DiscoverTask>(DiscoverType::SPELL) }));
     cards.emplace(
         "DRG_106",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
