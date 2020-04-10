@@ -1175,6 +1175,14 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DAL_571e", EntityType::SOURCE) }));
+    cards.emplace("DAL_571", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_573] Commander Rhyssa - COST:3 [ATK:4/HP:3]
@@ -1328,6 +1336,9 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_571e"));
+    cards.emplace("DAL_571e", CardDef(power));
 }
 
 void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
