@@ -1131,6 +1131,14 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_568e", EntityType::TARGET));
+    cards.emplace(
+        "DAL_568",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_570] Never Surrender! - COST:1
@@ -1277,6 +1285,9 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_568e"));
+    cards.emplace("DAL_568e", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568ts] Lightforged Blessing (*) - COST:2
@@ -1292,6 +1303,14 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_568e", EntityType::TARGET));
+    cards.emplace(
+        "DAL_568ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DAL_571e] Mysterious (*) - COST:0

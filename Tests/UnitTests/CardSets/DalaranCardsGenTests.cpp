@@ -1779,7 +1779,7 @@ TEST_CASE("[Mage : Minion] - DAL_609 : Kalecgos")
 TEST_CASE("[Paladin : Spell] - DAL_141 : Desperate Measures")
 {
     GameConfig config;
-    config.player1Class = CardClass::DRUID;
+    config.player1Class = CardClass::PALADIN;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
@@ -1932,6 +1932,73 @@ TEST_CASE("[Paladin : Minion] - DAL_147 : Dragon Speaker")
     CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 1);
     CHECK_EQ(dynamic_cast<Minion*>(card5)->GetAttack(), 1);
     CHECK_EQ(dynamic_cast<Minion*>(card5)->GetHealth(), 1);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [DAL_568] Lightforged Blessing - COST:2
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> Give a friendly minion <b>Lifesteal</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TWINSPELL_COPY = 54189
+// - TWINSPELL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - DAL_568 : Lightforged Blessing")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_568"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
+    CHECK_EQ(curField[1]->HasLifesteal(), false);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->id, "DAL_568ts");
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(curHand[4], card3));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curField[1]->HasLifesteal(), true);
+
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 18);
 }
 
 // --------------------------------------- MINION - PALADIN
