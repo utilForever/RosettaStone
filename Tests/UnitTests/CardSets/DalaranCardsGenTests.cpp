@@ -2001,6 +2001,65 @@ TEST_CASE("[Paladin : Spell] - DAL_568 : Lightforged Blessing")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 18);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [DAL_570] Never Surrender! - COST:1
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When your opponent casts a spell,
+//       give your minions +2 Health.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - DAL_570 : Never Surrender!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Never Surrender!"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightforged Blessing"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sen'jin Shieldmasta"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card3));
+    CHECK_EQ(curSecret.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DAL_581] Nozari - COST:10 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dalaran, Rarity: Legendary
