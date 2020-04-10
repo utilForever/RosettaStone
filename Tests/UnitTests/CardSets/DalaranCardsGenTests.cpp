@@ -1875,6 +1875,66 @@ TEST_CASE("[Paladin : Minion] - DAL_146 : Bronze Herald")
 }
 
 // --------------------------------------- MINION - PALADIN
+// [DAL_147] Dragon Speaker - COST:5 [ATK:3/HP:5]
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give all Dragons in your hand +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DAL_147 : Dragon Speaker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dragon Speaker"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Herald"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 12);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card5)->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card5)->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 7);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 15);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card5)->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card5)->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - PALADIN
 // [DAL_581] Nozari - COST:10 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dalaran, Rarity: Legendary
 // --------------------------------------------------------

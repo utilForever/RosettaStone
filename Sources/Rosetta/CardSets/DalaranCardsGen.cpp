@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
@@ -45,11 +46,8 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
-
-
-#include "Rosetta/Actions/CastSpell.hpp"
-#include "Rosetta/Zones/SecretZone.hpp"
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -1106,6 +1104,14 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_147e", EntityType::STACK));
+    cards.emplace("DAL_147", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568] Lightforged Blessing - COST:2
@@ -2655,6 +2661,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_147e"));
+    cards.emplace("DAL_147e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_351e] Ancient Blessings (*) - COST:0
