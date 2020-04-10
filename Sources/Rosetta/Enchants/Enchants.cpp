@@ -59,6 +59,11 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
         effects.emplace_back(Effects::Windfury);
     }
 
+    if (text.find("<b>Lifesteal</b>") != std::string::npos)
+    {
+        effects.emplace_back(Effects::Lifesteal);
+    }
+
     if (text.find("<b>Immune</b>") != std::string::npos)
     {
         effects.emplace_back(Effects::Immune);
