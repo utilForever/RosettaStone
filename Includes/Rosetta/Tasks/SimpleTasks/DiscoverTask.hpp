@@ -17,6 +17,7 @@ enum class DiscoverType
     SPELL,
     DRAGON,
     SIX_COST_SUMMON,
+    SPELL_THREE_COST_OR_LESS,
 };
 
 class DiscoverCriteria

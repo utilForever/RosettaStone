@@ -228,6 +228,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                 }
             }
             break;
+        case DiscoverType::SPELL_THREE_COST_OR_LESS:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL &&
+                    card->GetCost() <= 3)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         default:
             throw std::out_of_range(
                 "DiscoverTask::Discover() - Invalid discover type");
