@@ -1760,6 +1760,69 @@ TEST_CASE("[Mage : Minion] - DAL_609 : Kalecgos")
     CHECK_EQ(card3->GetCost(), 4);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [DAL_141] Desperate Measures - COST:1
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> Cast a random Paladin <b>Secret</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TWINSPELL_COPY = 54129
+// - TWINSPELL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 0
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - DAL_141 : Desperate Measures")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_141"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+
+    CHECK_EQ(curSecret.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->id, "DAL_141ts");
+    CHECK_EQ(curSecret.GetCount(), 2);
+    CHECK_NE(curSecret[0]->card->id, curSecret[1]->card->id);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curSecret.GetCount(), 3);
+    CHECK_NE(curSecret[0]->card->id, curSecret[1]->card->id);
+    CHECK_NE(curSecret[0]->card->id, curSecret[2]->card->id);
+    CHECK_NE(curSecret[1]->card->id, curSecret[2]->card->id);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dalaran, Rarity: Common

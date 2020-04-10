@@ -47,6 +47,10 @@
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
+
+#include "Rosetta/Actions/CastSpell.hpp"
+#include "Rosetta/Zones/SecretZone.hpp"
+
 using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
@@ -1035,6 +1039,49 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto activeSecrets = player->GetSecretZone()->GetAll();
+
+            auto allCards =
+                player->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetAllStandardCards()
+                    : Cards::GetAllWildCards();
+
+            std::vector<Card*> secrets;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardClass() == CardClass::PALADIN &&
+                    card->IsSecret())
+                {
+                    bool isExist = false;
+                    for (auto& secret : activeSecrets)
+                    {
+                        if (card->id == secret->card->id)
+                        {
+                            isExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExist)
+                    {
+                        secrets.emplace_back(card);
+                    }
+                }
+            }
+
+            const auto idx = Random::get<std::size_t>(0, secrets.size() - 1);
+            Playable* playable = Entity::GetFromCard(player, secrets.at(idx));
+            Generic::CastSpell(player, dynamic_cast<Spell*>(playable), nullptr,
+                               0);
+        }));
+    cards.emplace(
+        "DAL_141",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_SECRET_ZONE_CAP_FOR_NON_SECRET,
+                                   0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2]
@@ -1166,6 +1213,49 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto activeSecrets = player->GetSecretZone()->GetAll();
+
+            auto allCards =
+                player->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetAllStandardCards()
+                    : Cards::GetAllWildCards();
+
+            std::vector<Card*> secrets;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardClass() == CardClass::PALADIN &&
+                    card->IsSecret())
+                {
+                    bool isExist = false;
+                    for (auto& secret : activeSecrets)
+                    {
+                        if (card->id == secret->card->id)
+                        {
+                            isExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExist)
+                    {
+                        secrets.emplace_back(card);
+                    }
+                }
+            }
+
+            const auto idx = Random::get<std::size_t>(0, secrets.size() - 1);
+            Playable* playable = Entity::GetFromCard(player, secrets.at(idx));
+            Generic::CastSpell(player, dynamic_cast<Spell*>(playable), nullptr,
+                               0);
+        }));
+    cards.emplace(
+        "DAL_141ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_SECRET_ZONE_CAP_FOR_NON_SECRET,
+                                   0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_146t] Bronze Dragon (*) - COST:4 [ATK:4/HP:4]
