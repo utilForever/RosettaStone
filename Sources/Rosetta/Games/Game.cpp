@@ -401,6 +401,7 @@ void Game::MainReady()
         // Player
         player.SetNumCardsPlayedThisTurn(0);
         player.SetNumMinionsPlayedThisTurn(0);
+        player.SetNumSpellsPlayedThisTurn(0);
         player.SetNumFriendlyMinionsDiedThisTurn(0);
     }
 
