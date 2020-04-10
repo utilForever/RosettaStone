@@ -180,11 +180,17 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsAttackThisTurn();
 
-    //! SelfCondition wrapper for checking the number of minion
+    //! SelfCondition wrapper for checking the number of minions
     //! that played this turn.
-    //! \param num The number of minion for checking.
+    //! \param num The number of minions for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition MinionsPlayedThisTurn(int num);
+
+    //! SelfCondition wrapper for checking the number of spells
+    //! that played this turn.
+    //! \param num The number of spells for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition SpellsPlayedThisTurn(int num);
 
     //! SelfCondition wrapper for checking the player don't play
     //! elemental minion in this turn.
