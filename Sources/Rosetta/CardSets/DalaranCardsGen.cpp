@@ -5,6 +5,7 @@
 
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Actions/Summon.hpp>
+#include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
@@ -934,6 +935,17 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - AURA = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::SpellsPlayedThisTurn(0),
+        TriggerType::CAST_SPELL, EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("DAL_609", CardDef(power));
 }
 
 void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)

@@ -1697,6 +1697,69 @@ TEST_CASE("[Mage : Spell] - DAL_608 : Magic Trick")
     }
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DAL_609] Kalecgos - COST:10 [ATK:4/HP:12]
+// - Race: Dragon, Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your first spell each turn costs (0).
+//       <b>Battlecry:</b> <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - AURA = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DAL_609 : Kalecgos")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kalecgos"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+    }
+
+    Generic::ChoicePick(curPlayer, 26);
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(curHand[6]->GetCost(), 0);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(card3->GetCost(), 4);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dalaran, Rarity: Common
