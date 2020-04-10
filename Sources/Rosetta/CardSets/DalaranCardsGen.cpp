@@ -916,6 +916,10 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL_THREE_COST_OR_LESS));
+    cards.emplace("DAL_608", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_609] Kalecgos - COST:10 [ATK:4/HP:12]

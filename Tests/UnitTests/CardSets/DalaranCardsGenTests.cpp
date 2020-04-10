@@ -1653,6 +1653,50 @@ TEST_CASE("[Mage : Minion] - DAL_603 : Mana Cyclone")
     CHECK_EQ(curHand[2]->card->GetCardType(), CardType::SPELL);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [DAL_608] Magic Trick - COST:1
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Discover</b> a spell that costs (3) or less.
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - DAL_608 : Magic Trick")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Magic Trick"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+        CHECK_LE(card->GetCost(), 3);
+    }
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dalaran, Rarity: Common
