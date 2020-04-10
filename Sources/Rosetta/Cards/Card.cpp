@@ -8,6 +8,7 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 #include <iostream>
 
@@ -321,6 +322,14 @@ bool Card::IsPlayableByCardReq(Player* player) const
                     player->GetFieldZone()->GetCount() +
                     player->opponent->GetFieldZone()->GetCount();
                 if (fieldCount < requirement.second)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_SECRET_ZONE_CAP_FOR_NON_SECRET:
+            {
+                if (player->GetSecretZone()->IsFull())
                 {
                     return false;
                 }
