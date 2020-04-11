@@ -2172,6 +2172,51 @@ TEST_CASE("[Paladin : Minion] - DAL_581 : Nozari")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [DAL_727] Call to Adventure - COST:3
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw the lowest Cost minion from your deck. Give it +2/+2.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - DAL_727 : Call to Adventure")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Never Surrender!");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Nozari!");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Call to Adventure"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Wisp");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 3);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common

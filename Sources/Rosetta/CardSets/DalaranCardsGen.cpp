@@ -21,6 +21,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
@@ -1219,6 +1220,11 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw the lowest Cost minion from your deck. Give it +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(true, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_727e", EntityType::STACK));
+    cards.emplace("DAL_727", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_731] Duel! - COST:5
@@ -2874,6 +2880,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_727e"));
+    cards.emplace("DAL_727e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_739] Goblin Lackey (*) - COST:1 [ATK:1/HP:1]
