@@ -21,7 +21,7 @@ class ActivateDeathrattleTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The type of entity.
-    ActivateDeathrattleTask(EntityType entityType);
+    explicit ActivateDeathrattleTask(EntityType entityType);
 
  private:
     //! Processes task logic internally and returns meta data.

@@ -18,11 +18,10 @@ FuncNumberTask::FuncNumberTask(std::function<int(Playable*)> func)
 
 TaskStatus FuncNumberTask::Impl(Player* player)
 {
-    auto& taskStack = player->game->taskStack;
-
     if (m_func != nullptr)
     {
-        taskStack.num[0] = m_func(dynamic_cast<Playable*>(m_source));
+        player->game->taskStack.num[0] =
+            m_func(dynamic_cast<Playable*>(m_source));
     }
 
     return TaskStatus::COMPLETE;
