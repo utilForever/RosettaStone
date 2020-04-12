@@ -48,6 +48,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
@@ -1407,6 +1408,17 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TransformCopyTask>(false, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_030e", EntityType::STACK));
+    cards.emplace(
+        "DAL_030",
+        CardDef(power,
+                PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                          { PlayReq::REQ_MINION_TARGET, 0 },
+                          { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                          { PlayReq::REQ_TARGET_WITH_DEATHRATTLE, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [DAL_039] Convincing Infiltrator - COST:5 [ATK:2/HP:6]
@@ -1512,12 +1524,17 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [DAL_030e] Shade (*) - COST:0
     // - Set: Dalaran
     // --------------------------------------------------------
     // Text: 2/2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_030e"));
+    cards.emplace("DAL_030e", CardDef(power));
 }
 
 void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
