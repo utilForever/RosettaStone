@@ -22,7 +22,8 @@ class TransformCopyTask : public ITask
     //! Constructs task with given \p fromTarget.
     //! \param toTarget true if it transforms to target,
     //! false if it transforms from target.
-    TransformCopyTask(bool toTarget = false);
+    //! \param addToStack A flag to store transformed card to stack.
+    TransformCopyTask(bool toTarget = false, bool addToStack = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -35,6 +36,7 @@ class TransformCopyTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     bool m_toTarget = false;
+    bool m_addToStack = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

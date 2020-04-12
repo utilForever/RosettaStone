@@ -11,7 +11,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-TransformCopyTask::TransformCopyTask(bool toTarget) : m_toTarget(toTarget)
+TransformCopyTask::TransformCopyTask(bool toTarget, bool addToStack)
+    : m_toTarget(toTarget), m_addToStack(addToStack)
 {
     // Do nothing
 }
@@ -86,11 +87,16 @@ TaskStatus TransformCopyTask::Impl(Player* player)
             copy->GetGameTag(GameTag::ENTITY_ID));
     }
 
+    if (m_addToStack)
+    {
+        player->game->taskStack.AddPlayables({ copy });
+    }
+
     return TaskStatus::COMPLETE;
 }
 
 std::unique_ptr<ITask> TransformCopyTask::CloneImpl()
 {
-    return std::make_unique<TransformCopyTask>(m_toTarget);
+    return std::make_unique<TransformCopyTask>(m_toTarget, m_addToStack);
 }
 }  // namespace RosettaStone::SimpleTasks
