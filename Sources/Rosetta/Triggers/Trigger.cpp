@@ -533,7 +533,7 @@ void Trigger::Validate(Entity* source)
         }
         case TriggerSource::FRIENDLY_EVENT_SOURCE:
         {
-            if (source->game == nullptr ||
+            if (source == nullptr || source->game == nullptr ||
                 source->game->currentEventData == nullptr ||
                 source->game->currentEventData->eventSource->player !=
                     m_owner->player)
