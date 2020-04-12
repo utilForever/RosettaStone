@@ -74,6 +74,11 @@ class TargetingPredicates
     static TargetingPredicate ReqTargetWithRace(Race race);
 
     //! Predicate wrapper for checking the target requires that
+    //! it has deathrattle.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqTargetWithDeathrattle();
+
+    //! Predicate wrapper for checking the target requires that
     //! it is damaged.
     //! \return Generated TargetingPredicate for intended purpose.
     static TargetingPredicate ReqDamagedTarget();

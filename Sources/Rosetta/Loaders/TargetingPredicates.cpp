@@ -82,6 +82,11 @@ TargetingPredicate TargetingPredicates::ReqTargetWithRace(Race race)
     }
 }
 
+TargetingPredicate TargetingPredicates::ReqTargetWithDeathrattle()
+{
+    return [=](Character* character) { return character->HasDeathrattle(); };
+}
+
 TargetingPredicate TargetingPredicates::ReqDamagedTarget()
 {
     return [=](Character* character) { return character->GetDamage() > 0; };
