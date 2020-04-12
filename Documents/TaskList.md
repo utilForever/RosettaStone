@@ -39,6 +39,7 @@
 * DestroyTask
 * DiscardTask
 * DiscoverTask
+* DrawMinionTask
 * DrawNumberTask
 * DrawOpTask
 * DrawStackTask

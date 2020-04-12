@@ -483,8 +483,8 @@ DALARAN | DAL_007 | Rafaam's Scheme |
 DALARAN | DAL_008 | Dr. Boom's Scheme |  
 DALARAN | DAL_009 | Hagatha's Scheme |  
 DALARAN | DAL_010 | Togwaggle's Scheme |  
-DALARAN | DAL_011 | Lazul's Scheme |  
-DALARAN | DAL_030 | Shadowy Figure |  
+DALARAN | DAL_011 | Lazul's Scheme | O
+DALARAN | DAL_030 | Shadowy Figure | O
 DALARAN | DAL_039 | Convincing Infiltrator |  
 DALARAN | DAL_040 | Hench-Clan Shadequill |  
 DALARAN | DAL_047 | Walking Fountain | O
@@ -511,9 +511,9 @@ DALARAN | DAL_090 | Hench-Clan Sneak | O
 DALARAN | DAL_092 | Arcane Servant | O
 DALARAN | DAL_095 | Violet Spellsword |  
 DALARAN | DAL_096 | Violet Warden |  
-DALARAN | DAL_141 | Desperate Measures |  
+DALARAN | DAL_141 | Desperate Measures | O
 DALARAN | DAL_146 | Bronze Herald | O
-DALARAN | DAL_147 | Dragon Speaker |  
+DALARAN | DAL_147 | Dragon Speaker | O
 DALARAN | DAL_163 | Messenger Raven | O
 DALARAN | DAL_173 | Darkest Hour |  
 DALARAN | DAL_177 | Conjurer's Calling | O
@@ -559,27 +559,27 @@ DALARAN | DAL_561 | Jumbo Imp |
 DALARAN | DAL_563 | Eager Underling |  
 DALARAN | DAL_565 | Portal Overfiend |  
 DALARAN | DAL_566 | Eccentric Scribe |  
-DALARAN | DAL_568 | Lightforged Blessing |  
-DALARAN | DAL_570 | Never Surrender! |  
-DALARAN | DAL_571 | Mysterious Blade |  
+DALARAN | DAL_568 | Lightforged Blessing | O
+DALARAN | DAL_570 | Never Surrender! | O
+DALARAN | DAL_571 | Mysterious Blade | O
 DALARAN | DAL_573 | Commander Rhyssa |  
-DALARAN | DAL_575 | Khadgar |  
+DALARAN | DAL_575 | Khadgar | O
 DALARAN | DAL_576 | Kirin Tor Tricaster | O
 DALARAN | DAL_577 | Ray of Frost | O
-DALARAN | DAL_578 | Power of Creation |  
+DALARAN | DAL_578 | Power of Creation | O
 DALARAN | DAL_581 | Nozari | O
 DALARAN | DAL_582 | Portal Keeper |  
 DALARAN | DAL_587 | Shimmerfly | O
 DALARAN | DAL_589 | Hunting Party | O
 DALARAN | DAL_592 | Batterhead |  
 DALARAN | DAL_602 | Plot Twist |  
-DALARAN | DAL_603 | Mana Cyclone |  
+DALARAN | DAL_603 | Mana Cyclone | O
 DALARAN | DAL_604 | Ursatron | O
 DALARAN | DAL_605 | Impferno |  
 DALARAN | DAL_606 | EVIL Genius |  
 DALARAN | DAL_607 | Fel Lord Betrug |  
-DALARAN | DAL_608 | Magic Trick |  
-DALARAN | DAL_609 | Kalecgos |  
+DALARAN | DAL_608 | Magic Trick | O
+DALARAN | DAL_609 | Kalecgos | O
 DALARAN | DAL_710 | Soul of the Murloc |  
 DALARAN | DAL_714 | Underbelly Fence |  
 DALARAN | DAL_716 | Vendetta |  
@@ -589,7 +589,7 @@ DALARAN | DAL_721 | Catrina Muerte |
 DALARAN | DAL_723 | Forbidden Words |  
 DALARAN | DAL_724 | Mass Resurrection |  
 DALARAN | DAL_726 | Scargil |  
-DALARAN | DAL_727 | Call to Adventure |  
+DALARAN | DAL_727 | Call to Adventure | O
 DALARAN | DAL_728 | Daring Escape |  
 DALARAN | DAL_729 | Madame Lazul |  
 DALARAN | DAL_731 | Duel! |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 25% (34 of 136 Cards)
+- Progress: 34% (47 of 136 Cards)
 
 ## Saviors of Uldum
 
