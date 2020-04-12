@@ -25,8 +25,18 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::HERO_POWER] = cardDef.heroPowerDbfID;
 
         // NOTE: Load some game tag data
-        // GameTag::PLAYER_TAG_THRESHOLD_TAG_ID
-        // GameTag::PLAYER_TAG_THRESHOLD_VALUE
+        // Scheme series
+        // Rafaam's Scheme (DAL_007)
+        // Dr. Boom's Scheme (DAL_008)
+        // Hagatha's Scheme (DAL_009)
+        // Togwaggle's Scheme (DAL_010)
+        // Lazul's Scheme (DAL_011)
+        if (card->dbfID == 51371 || card->dbfID == 51372 ||
+            card->dbfID == 51373 || card->dbfID == 51375 ||
+            card->dbfID == 51376)
+        {
+            card->gameTags[GameTag::TAG_SCRIPT_DATA_NUM_1] = 1;
+        }
 
         // Crystal Stag (DAL_799)
         if (card->dbfID == 53179)
