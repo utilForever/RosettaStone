@@ -1156,6 +1156,7 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
     power.GetTrigger()->tasks = {
         std::make_shared<AddEnchantmentTask>("DAL_570e", EntityType::MINIONS),
         std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
