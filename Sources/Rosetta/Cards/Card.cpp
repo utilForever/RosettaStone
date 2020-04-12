@@ -91,6 +91,10 @@ void Card::Initialize()
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqMustTargetTaunter());
                 break;
+            case PlayReq::REQ_TARGET_WITH_DEATHRATTLE:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetWithDeathrattle());
+                break;
             default:
                 continue;
         }
