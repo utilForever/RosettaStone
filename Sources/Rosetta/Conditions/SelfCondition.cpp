@@ -21,6 +21,13 @@ SelfCondition::SelfCondition(std::function<bool(Playable*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsCurrentPlayer()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->game->GetCurrentPlayer() == playable->player;
+    });
+}
+
 SelfCondition SelfCondition::IsNotStartInDeck()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -235,6 +242,12 @@ SelfCondition SelfCondition::IsSecret()
     });
 }
 
+SelfCondition SelfCondition::IsChooseOneCard()
+{
+    return SelfCondition(
+        [=](Playable* playable) -> bool { return playable->HasChooseOne(); });
+}
+
 SelfCondition SelfCondition::IsFrozen()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -303,7 +316,7 @@ SelfCondition SelfCondition::HasReborn()
 SelfCondition SelfCondition::HasSpellPower()
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        return playable->player->currentSpellPower > 0;
+        return playable->player->GetCurrentSpellPower() > 0;
     });
 }
 
@@ -355,10 +368,28 @@ SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
     });
 }
 
+SelfCondition SelfCondition::SpellsPlayedThisTurn(int num)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetNumSpellsPlayedThisTurn() == num;
+    });
+}
+
 SelfCondition SelfCondition::IsNotPlayElementalMinionThisTurn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player->GetNumElementalPlayedThisTurn() == 0;
+    });
+}
+
+SelfCondition SelfCondition::IsCost(int value, RelaSign relaSign)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const int val = playable->GetCost();
+
+        return (relaSign == RelaSign::EQ && val == value) ||
+               (relaSign == RelaSign::GEQ && val >= value) ||
+               (relaSign == RelaSign::LEQ && val <= value);
     });
 }
 
@@ -420,6 +451,19 @@ SelfCondition SelfCondition::IsDefenderDead()
         if (playable->game->currentEventData)
         {
             return playable->game->currentEventData->eventTarget->isDestroyed;
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::IsEventSourceFriendly()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
+        {
+            return eventData->eventSource->player == playable->player;
         }
 
         return false;
@@ -530,6 +574,35 @@ SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->GetGameTag(GameTag::LEFT_OR_RIGHT_MOST_CARD_IN_HAND) >
                0;
+    });
+}
+
+SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const int thresholdTagID =
+            playable->GetGameTag(GameTag::PLAYER_TAG_THRESHOLD_TAG_ID);
+        const int thresholdValue =
+            playable->GetGameTag(GameTag::PLAYER_TAG_THRESHOLD_VALUE);
+
+        int currentValue = 0;
+        if (thresholdTagID == 958)
+        {
+            currentValue = playable->player->GetAmountHealedThisGame();
+        }
+
+        if (relaSign == RelaSign::GEQ)
+        {
+            return currentValue >= thresholdValue;
+        }
+        else if (relaSign == RelaSign::EQ)
+        {
+            return currentValue == thresholdValue;
+        }
+        else
+        {
+            return currentValue <= thresholdValue;
+        }
     });
 }
 

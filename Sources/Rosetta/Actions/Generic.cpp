@@ -22,8 +22,6 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
 {
     if (isSpellDamage)
     {
-        amount += static_cast<int>(source->player->currentSpellPower);
-
         if (const auto value = source->player->playerAuraEffects.GetValue(
                 GameTag::SPELLPOWER_DOUBLE);
             value > 0)
@@ -77,8 +75,8 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
     {
         // Create Enchantment instance Only when it is needed.
         // As an owner entity for auras, triggers or deathrattle tasks.
-        auto enchantment =
-            Enchantment::GetInstance(creator->player, enchantmentCard, target);
+        auto enchantment = Enchantment::GetInstance(
+            creator->player, enchantmentCard, target, num1, num2);
 
         if (auto aura = power.GetAura(); aura)
         {

@@ -18,7 +18,14 @@ DamageNumberTask::DamageNumberTask(EntityType entityType, bool isSpellDamage)
 
 TaskStatus DamageNumberTask::Impl(Player* player)
 {
-    const int damage = m_source->game->taskStack.num[0];
+    const int spellPower = m_source->player->GetCurrentSpellPower();
+
+    int damage = m_source->game->taskStack.num[0];
+    if (m_isSpellDamage)
+    {
+        damage += spellPower;
+    }
+
     auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 

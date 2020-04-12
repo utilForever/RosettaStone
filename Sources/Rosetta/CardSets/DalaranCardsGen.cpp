@@ -3,26 +3,56 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/CastSpell.hpp>
+#include <Rosetta/Actions/Copy.hpp>
+#include <Rosetta/Actions/Summon.hpp>
+#include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ActivateDeathrattleTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathAddTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -61,6 +91,15 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TWINSPELL_COPY = 52821
     // - TWINSPELL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DAL_256t2", 5, SummonSide::SPELL));
+    cards.emplace(
+        "DAL_256",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350] Crystal Power - COST:1
@@ -111,6 +150,18 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasMinionInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(CardType::MINION,
+                                                       CardClass::DRUID) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DiscoverTask>(
+                   CardType::MINION, CardClass::DRUID, Race::INVALID,
+                   Rarity::INVALID, ChoiceAction::HAND, true) }));
+    cards.emplace("DAL_352", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_354] Acornbearer - COST:1 [ATK:2/HP:1]
@@ -155,6 +206,10 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DAL_357t", SummonSide::DEATHRATTLE));
+    cards.emplace("DAL_357", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_732] Keeper Stalladris - COST:2 [ATK:2/HP:3]
@@ -166,6 +221,27 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsChooseOneCard());
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const std::shared_ptr<IEffect> costEffect =
+                Cost::Effect(EffectOperator::SET, target->card->GetCost());
+
+            for (auto& chooseCardID : target->card->chooseCardIDs)
+            {
+                const auto chooseCard = Entity::GetFromCard(
+                    player, Cards::FindCardByID(chooseCardID), std::nullopt,
+                    player->GetSetasideZone());
+                const auto copy =
+                    Generic::Copy(player, chooseCard, ZoneType::HAND);
+                costEffect->ApplyTo(copy);
+            }
+        }) };
+    cards.emplace("DAL_732", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_733] Dreamway Guardians - COST:2
@@ -199,6 +275,15 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - PLAYER_TAG_THRESHOLD_TAG_ID = 958
     // - PLAYER_TAG_THRESHOLD_VALUE = 5
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::CheckThreshold(RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonCopyTask>(
+                  EntityType::SOURCE, false, false, SummonSide::RIGHT) }));
+    cards.emplace("DAL_799", CardDef(power));
 }
 
 void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
@@ -219,6 +304,15 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 2/2 Treants.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DAL_256t2", 5, SummonSide::SPELL));
+    cards.emplace(
+        "DAL_256ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350a] Piercing Thorns (*) - COST:1
@@ -290,6 +384,23 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - UNTOUCHABLE = 1
     // - SCORE_VALUE_1 = 5
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsEventSourceFriendly());
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetEventNumberTask>(),
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_2, 0, 1),
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::ADD),
+        std::make_shared<NumberConditionTask>(5, RelaSign::GEQ),
+        std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<ChangeEntityTask>("DAL_357") }),
+        std::make_shared<FlagTask>(
+            false, TaskList{ std::make_shared<SetGameTagNumberTask>(
+                       EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_2) })
+    };
+    cards.emplace("DAL_357t", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DAL_733t] Crystal Dryad (*) - COST:1 [ATK:1/HP:2]
@@ -326,6 +437,14 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace(
+        "DAL_371",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_372] Arcane Fletcher - COST:4 [ATK:3/HP:3]
@@ -334,6 +453,19 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Whenever you play a 1-Cost minion,
     //       draw a spell from your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(1));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::DECK),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DrawStackTask>(1)
+    };
+    cards.emplace("DAL_372", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_373] Rapid Fire - COST:1
@@ -348,6 +480,12 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    cards.emplace(
+        "DAL_373",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_376] Oblivitron - COST:6 [ATK:3/HP:4]
@@ -360,6 +498,17 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MECHANICAL)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
+    power.AddDeathrattleTask(
+        std::make_shared<ActivateDeathrattleTask>(EntityType::STACK));
+    cards.emplace("DAL_376", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_377] Nine Lives - COST:3
@@ -392,6 +541,11 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_378t1"));
+    cards.emplace(
+        "DAL_378",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_379] Vereesa Windrunner - COST:7 [ATK:5/HP:6]
@@ -403,6 +557,9 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("DAL_379t"));
+    cards.emplace("DAL_379", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_587] Shimmerfly - COST:1 [ATK:1/HP:1]
@@ -410,11 +567,15 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Add a random Hunter spell to your hand.
     // --------------------------------------------------------
-    // Entourage: NEW1_032, NEW1_033, NEW1_034
-    // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::HUNTER));
+    power.AddDeathrattleTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("DAL_587", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_589] Hunting Party - COST:5
@@ -422,6 +583,13 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Copy all Beasts in your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("DAL_589", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
@@ -445,6 +613,8 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_373ts] Rapid Fire (*) - COST:1
     // - Set: Dalaran, Rarity: Common
@@ -454,6 +624,12 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    cards.emplace(
+        "DAL_373ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DAL_378t1] Wyvern (*) - COST:5 [ATK:5/HP:5]
@@ -464,6 +640,9 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_378t1", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_378ts] Unleash the Beast (*) - COST:6
@@ -480,6 +659,11 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_378t1"));
+    cards.emplace(
+        "DAL_378ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DAL_379e] Stars' Fury (*) - COST:0
@@ -490,6 +674,11 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_shared<Enchant>(GameTag::SPELLPOWER, EffectOperator::ADD, 2));
+    power.GetEnchant()->isOneTurnEffect = true;
+    cards.emplace("DAL_379e", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [DAL_379t] Thori'dal, the Stars' Fury (*) - COST:3 [ATK:2/HP:0]
@@ -504,6 +693,12 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DAL_379e", EntityType::HERO) };
+    cards.emplace("DAL_379t", CardDef(power));
 }
 
 void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
@@ -542,6 +737,28 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::COST));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::TARGET,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsCurrentPlayer()) }),
+                  std::make_shared<FlagTask>(
+                      true, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                          GameTag::COST),
+                                      std::make_shared<SummonTask>() }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                           GameTag::COST, true),
+                                       std::make_shared<SummonOpTask>() }) },
+        2));
+    cards.emplace(
+        "DAL_177",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_182] Magic Dart Frog - COST:2 [ATK:1/HP:3]
@@ -549,6 +766,17 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: After you cast a spell, deal 1 damage to a random enemy minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 1)
+    };
+    cards.emplace("DAL_182", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_575] Khadgar - COST:2 [ATK:2/HP:2]
@@ -559,6 +787,31 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY_EVENT_SOURCE;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
+            return playable->game->currentEventData->eventSource != playable &&
+                   playable->GetGameTag(GameTag::COPIED_BY_KHADGAR) != 1;
+        });
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
+           Playable* target) {
+            if (target->player->GetFieldZone()->IsFull())
+            {
+                return;
+            }
+
+            std::map<GameTag, int> gameTags;
+            gameTags.emplace(GameTag::COPIED_BY_KHADGAR, 1);
+
+            const auto entity = Entity::GetFromCard(
+                target->player, target->card, gameTags, player->GetFieldZone());
+            Generic::Summon(dynamic_cast<Minion*>(entity),
+                            target->GetZonePosition() + 1, source);
+        }) };
+    cards.emplace("DAL_575", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_576] Kirin Tor Tricaster - COST:4 [ATK:3/HP:3]
@@ -570,6 +823,14 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SPELLPOWER = 3
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "DAL_576e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("DAL_576", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577] Ray of Frost - COST:1
@@ -616,6 +877,14 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SIX_COST_SUMMON));
+    power.AddAfterChooseTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY));
+    cards.emplace(
+        "DAL_578",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_603] Mana Cyclone - COST:2 [ATK:2/HP:2]
@@ -627,6 +896,24 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        int count = 0;
+
+        for (auto& card : playable->player->cardsPlayedThisTurn)
+        {
+            if (card->GetCardType() == CardType::SPELL)
+            {
+                ++count;
+            }
+        }
+
+        return count;
+    }));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE),
+        std::make_shared<AddStackToTask>(EntityType::HAND) }));
+    cards.emplace("DAL_603", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_608] Magic Trick - COST:1
@@ -637,6 +924,10 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL_THREE_COST_OR_LESS));
+    cards.emplace("DAL_608", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DAL_609] Kalecgos - COST:10 [ATK:4/HP:12]
@@ -651,6 +942,17 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - AURA = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::SpellsPlayedThisTurn(0),
+        TriggerType::CAST_SPELL, EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("DAL_609", CardDef(power));
 }
 
 void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
@@ -667,6 +969,28 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::COST));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::TARGET,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsCurrentPlayer()) }),
+                  std::make_shared<FlagTask>(
+                      true, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                          GameTag::COST),
+                                      std::make_shared<SummonTask>() }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<RandomMinionNumberTask>(
+                                           GameTag::COST, true),
+                                       std::make_shared<SummonOpTask>() }) },
+        2));
+    cards.emplace(
+        "DAL_177ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577ts] Ray of Frost (*) - COST:1
@@ -718,6 +1042,49 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto activeSecrets = player->GetSecretZone()->GetAll();
+
+            auto allCards =
+                player->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetAllStandardCards()
+                    : Cards::GetAllWildCards();
+
+            std::vector<Card*> secrets;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardClass() == CardClass::PALADIN &&
+                    card->IsSecret())
+                {
+                    bool isExist = false;
+                    for (auto& secret : activeSecrets)
+                    {
+                        if (card->id == secret->card->id)
+                        {
+                            isExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExist)
+                    {
+                        secrets.emplace_back(card);
+                    }
+                }
+            }
+
+            const auto idx = Random::get<std::size_t>(0, secrets.size() - 1);
+            Playable* playable = Entity::GetFromCard(player, secrets.at(idx));
+            Generic::CastSpell(player, dynamic_cast<Spell*>(playable), nullptr,
+                               0);
+        }));
+    cards.emplace(
+        "DAL_141",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_SECRET_ZONE_CAP_FOR_NON_SECRET,
+                                   0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2]
@@ -728,6 +1095,10 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DAL_146t", 2));
+    cards.emplace("DAL_146", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_147] Dragon Speaker - COST:5 [ATK:3/HP:5]
@@ -738,6 +1109,14 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_147e", EntityType::STACK));
+    cards.emplace("DAL_147", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568] Lightforged Blessing - COST:2
@@ -757,6 +1136,14 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_568e", EntityType::TARGET));
+    cards.emplace(
+        "DAL_568",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_570] Never Surrender! - COST:1
@@ -768,6 +1155,16 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<AddEnchantmentTask>("DAL_570e", EntityType::MINIONS),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
+                                         1),
+        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
+    };
+    cards.emplace("DAL_570", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [DAL_571] Mysterious Blade - COST:2 [ATK:2/HP:0]
@@ -783,6 +1180,14 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DAL_571e", EntityType::SOURCE) }));
+    cards.emplace("DAL_571", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_573] Commander Rhyssa - COST:3 [ATK:4/HP:3]
@@ -819,6 +1224,11 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw the lowest Cost minion from your deck. Give it +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(true, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_727e", EntityType::STACK));
+    cards.emplace("DAL_727", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_731] Duel! - COST:5
@@ -831,6 +1241,8 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void DalaranCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_141ts] Desperate Measures (*) - COST:1
     // - Set: Dalaran, Rarity: Rare
@@ -843,11 +1255,57 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto activeSecrets = player->GetSecretZone()->GetAll();
+
+            auto allCards =
+                player->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetAllStandardCards()
+                    : Cards::GetAllWildCards();
+
+            std::vector<Card*> secrets;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardClass() == CardClass::PALADIN &&
+                    card->IsSecret())
+                {
+                    bool isExist = false;
+                    for (auto& secret : activeSecrets)
+                    {
+                        if (card->id == secret->card->id)
+                        {
+                            isExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExist)
+                    {
+                        secrets.emplace_back(card);
+                    }
+                }
+            }
+
+            const auto idx = Random::get<std::size_t>(0, secrets.size() - 1);
+            Playable* playable = Entity::GetFromCard(player, secrets.at(idx));
+            Generic::CastSpell(player, dynamic_cast<Spell*>(playable), nullptr,
+                               0);
+        }));
+    cards.emplace(
+        "DAL_141ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_SECRET_ZONE_CAP_FOR_NON_SECRET,
+                                   0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_146t] Bronze Dragon (*) - COST:4 [ATK:4/HP:4]
     // - Race: Dragon, Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_146t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DAL_568e] Lightforged Blessing (*) - COST:0
@@ -855,6 +1313,9 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_568e"));
+    cards.emplace("DAL_568e", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568ts] Lightforged Blessing (*) - COST:2
@@ -870,6 +1331,14 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_568e", EntityType::TARGET));
+    cards.emplace(
+        "DAL_568ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DAL_571e] Mysterious (*) - COST:0
@@ -877,10 +1346,15 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_571e"));
+    cards.emplace("DAL_571e", CardDef(power));
 }
 
 void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_011] Lazul's Scheme - COST:0
     // - Set: Dalaran, Rarity: Epic
@@ -896,6 +1370,24 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DAL_011e", EntityType::TARGET, true));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_1),
+        std::make_shared<MathAddTask>(1),
+        std::make_shared<SetGameTagNumberTask>(EntityType::SOURCE,
+                                               GameTag::TAG_SCRIPT_DATA_NUM_1)
+    };
+    cards.emplace("DAL_011",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [DAL_030] Shadowy Figure - COST:2 [ATK:2/HP:2]
@@ -916,6 +1408,17 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TransformCopyTask>(false, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_030e", EntityType::STACK));
+    cards.emplace(
+        "DAL_030",
+        CardDef(power,
+                PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                          { PlayReq::REQ_MINION_TARGET, 0 },
+                          { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                          { PlayReq::REQ_TARGET_WITH_DEATHRATTLE, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [DAL_039] Convincing Infiltrator - COST:5 [ATK:2/HP:6]
@@ -1021,12 +1524,17 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [DAL_030e] Shade (*) - COST:0
     // - Set: Dalaran
     // --------------------------------------------------------
     // Text: 2/2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_030e"));
+    cards.emplace("DAL_030e", CardDef(power));
 }
 
 void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
@@ -2175,6 +2683,13 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Reduced Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_unique<Enchant>(Atk::Effect(EffectOperator::SUB, 0)));
+    power.GetEnchant()->useScriptTag = true;
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    cards.emplace("DAL_011e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_052e] Muckmorphing (*) - COST:0
@@ -2239,6 +2754,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_147e"));
+    cards.emplace("DAL_147e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_351e] Ancient Blessings (*) - COST:0
@@ -2294,6 +2812,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_570e"));
+    cards.emplace("DAL_570e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_576e] Kirin Tor's Curse (*) - COST:0
@@ -2301,6 +2822,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) more.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AddCost(1)));
+    cards.emplace("DAL_576e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DAL_582t] Felhound Portal (*) - COST:2
@@ -2403,6 +2927,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_727e"));
+    cards.emplace("DAL_727e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_739] Goblin Lackey (*) - COST:1 [ATK:1/HP:1]

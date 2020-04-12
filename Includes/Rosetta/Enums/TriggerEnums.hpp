@@ -64,6 +64,7 @@ enum class TriggerSource
     ENCHANTMENT_TARGET,
     ENEMY_SPELLS,
     FRIENDLY,
+    FRIENDLY_EVENT_SOURCE,
 };
 
 //! \brief An enumerator for identifying trigger activation.

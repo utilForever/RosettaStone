@@ -141,6 +141,11 @@ class Effects
     inline static std::shared_ptr<IEffect> Stealth =
         std::make_shared<Effect>(GameTag::STEALTH, EffectOperator::SET, 1);
 
+    //! An ability which causes damage dealt by a card to also restore that much
+    //! health to the controlling player's hero.
+    inline static std::shared_ptr<IEffect> Lifesteal =
+        std::make_shared<Effect>(GameTag::LIFESTEAL, EffectOperator::SET, 1);
+
     //! An ability that prevents characters from receiving any damage, and
     //! prevents the opponent from specifically targeting them with any type of
     //! action.

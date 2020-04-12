@@ -575,8 +575,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_313", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
@@ -974,8 +973,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_254", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1061,8 +1059,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_102", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
@@ -1129,8 +1126,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsHoldingRace(Race::DRAGON)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<DiscoverTask>(CardType::SPELL,
-                                                       CardClass::MAGE) }));
+        true, TaskList{ std::make_shared<DiscoverTask>(DiscoverType::SPELL) }));
     cards.emplace(
         "DRG_106",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -1257,8 +1253,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
             const auto realTarget = dynamic_cast<Character*>(target);
 
             const int targetHealth = realTarget->GetHealth();
-            int realDamage =
-                8 + static_cast<int>(source->player->currentSpellPower);
+            int realDamage = 8 + source->player->GetCurrentSpellPower();
 
             if (const auto value = source->player->playerAuraEffects.GetValue(
                     GameTag::SPELLPOWER_DOUBLE);
@@ -1711,8 +1706,7 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_229", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
@@ -4016,7 +4010,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DiscoverTask>(
         CardType::MINION, CardClass::INVALID, Race::DRAGON, Rarity::INVALID,
         ChoiceAction::ENCHANTMENT));
-    power.AddAfterDiscoverTask(std::make_shared<AddEnchantmentTask>(
+    power.AddAfterChooseTask(std::make_shared<AddEnchantmentTask>(
         "DRG_086e", EntityType::SOURCE, false, true));
     cards.emplace("DRG_086", CardDef(power));
 
@@ -4309,8 +4303,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(
-        CardType::MINION, CardClass::INVALID, Race::DRAGON));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
     cards.emplace("DRG_052", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL

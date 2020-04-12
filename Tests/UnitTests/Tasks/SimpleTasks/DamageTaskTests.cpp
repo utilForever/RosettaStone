@@ -92,7 +92,7 @@ TEST_CASE("[DamageTask] - SpellPower")
         CHECK_EQ(p1Field[i]->GetHealth(), 4);
     }
 
-    player1->currentSpellPower = 1;
+    player1->SetGameTag(GameTag::SPELLPOWER, 1);
 
     DamageTask damage2(EntityType::FRIENDS, 1, true);
     damage2.SetPlayer(player1);

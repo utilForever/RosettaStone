@@ -52,6 +52,10 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Cards::GetHeroCard(gameConfig.player2Class),
         Cards::GetDefaultHeroPower(gameConfig.player2Class));
 
+    // Set base class
+    GetPlayer1()->baseClass = gameConfig.player1Class;
+    GetPlayer2()->baseClass = gameConfig.player2Class;
+
     // Reverse card order in deck
     if (!m_gameConfig.doShuffle)
     {
@@ -397,6 +401,7 @@ void Game::MainReady()
         // Player
         player.SetNumCardsPlayedThisTurn(0);
         player.SetNumMinionsPlayedThisTurn(0);
+        player.SetNumSpellsPlayedThisTurn(0);
         player.SetNumFriendlyMinionsDiedThisTurn(0);
     }
 

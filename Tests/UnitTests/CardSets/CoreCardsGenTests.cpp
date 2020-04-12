@@ -3603,7 +3603,7 @@ TEST_CASE("[Rogue : Spell] - EX1_278 : Shiv")
     CHECK_EQ(opField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curPlayer->currentSpellPower, 1);
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 1);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));

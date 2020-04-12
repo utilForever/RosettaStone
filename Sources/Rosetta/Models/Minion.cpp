@@ -131,13 +131,7 @@ void Minion::Silence()
     SetGameTag(GameTag::CANT_ATTACK, 0);
     SetGameTag(GameTag::RUSH, 0);
     SetGameTag(GameTag::REBORN, 0);
-
-    const int spellPower = GetGameTag(GameTag::SPELLPOWER);
-    if (spellPower > 0)
-    {
-        player->currentSpellPower -= spellPower;
-        SetGameTag(GameTag::SPELLPOWER, 0);
-    }
+    SetGameTag(GameTag::SPELLPOWER, 0);
 
     if (ongoingEffect != nullptr)
     {

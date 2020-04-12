@@ -18,6 +18,7 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     bool isOneTurn = false;
 
     static std::regex attackHealthRegex("\\+([[:digit:]]+)/\\+([[:digit:]]+)");
+    static std::regex setAttackHealthRegex("([[:digit:]]+)/([[:digit:]]+)");
     static std::regex attackRegex("\\+([[:digit:]]+) Attack");
     static std::regex healthRegex("\\+([[:digit:]]+) Health");
 
@@ -29,6 +30,11 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     {
         effects.emplace_back(Effects::AttackN(std::stoi(values[1].str())));
         effects.emplace_back(Effects::HealthN(std::stoi(values[2].str())));
+    }
+    else if (std::regex_search(text, values, setAttackHealthRegex))
+    {
+        effects.emplace_back(Effects::SetAttack(std::stoi(values[1].str())));
+        effects.emplace_back(Effects::SetMaxHealth(std::stoi(values[2].str())));
     }
     else if (std::regex_search(text, values, attackRegex))
     {
@@ -57,6 +63,11 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     if (text.find("<b>Windfury</b>") != std::string::npos)
     {
         effects.emplace_back(Effects::Windfury);
+    }
+
+    if (text.find("<b>Lifesteal</b>") != std::string::npos)
+    {
+        effects.emplace_back(Effects::Lifesteal);
     }
 
     if (text.find("<b>Immune</b>") != std::string::npos)

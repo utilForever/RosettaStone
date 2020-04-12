@@ -32,6 +32,16 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
     tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] = static_cast<int>(ZoneType::SETASIDE);
 
+    if (num1 > 0)
+    {
+        tags[GameTag::TAG_SCRIPT_DATA_NUM_1] = num1;
+
+        if (num2 > 0)
+        {
+            tags[GameTag::TAG_SCRIPT_DATA_NUM_2] = num2;
+        }
+    }
+
     auto instance =
         std::make_shared<Enchantment>(player, card, tags, target, id);
 
@@ -48,16 +58,6 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
     if (!card->power.GetDeathrattleTask().empty())
     {
         dynamic_cast<Playable*>(target)->SetGameTag(GameTag::DEATHRATTLE, 1);
-    }
-
-    if (num1 > 0)
-    {
-        tags[GameTag::TAG_SCRIPT_DATA_NUM_1] = num1;
-
-        if (num2 > 0)
-        {
-            tags[GameTag::TAG_SCRIPT_DATA_NUM_2] = num2;
-        }
     }
 
     return instance;

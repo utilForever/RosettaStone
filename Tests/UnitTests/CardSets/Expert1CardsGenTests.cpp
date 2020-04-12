@@ -438,13 +438,13 @@ TEST_CASE("[Druid : Minion] - EX1_166 : Keeper of the Grove")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(opPlayer->currentSpellPower, 1);
+    CHECK_EQ(opPlayer->GetCurrentSpellPower(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3, 2));
-    CHECK_EQ(opPlayer->currentSpellPower, 0);
+    CHECK_EQ(opPlayer->GetCurrentSpellPower(), 0);
 }
 
 // ----------------------------------------- MINION - DRUID
@@ -8903,7 +8903,7 @@ TEST_CASE("[Neutral : Minion] - EX1_012 : Bloodmage Thalnos")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curPlayer->currentSpellPower, 1);
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(opField.GetCount(), 1);
@@ -8916,7 +8916,7 @@ TEST_CASE("[Neutral : Minion] - EX1_012 : Bloodmage Thalnos")
     game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, AttackTask(card5, card1));
     CHECK_EQ(curField.GetCount(), 0);
-    CHECK_EQ(curPlayer->currentSpellPower, 0);
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 0);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 

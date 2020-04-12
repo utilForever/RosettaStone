@@ -14,9 +14,10 @@ namespace RosettaStone::SimpleTasks
 class RandomMinionNumberTask : public ITask
 {
  public:
-    //! Constructs task with given \p tag.
+    //! Constructs task with given \p tag and \p toOpponent.
     //! \param tag The game tag.
-    explicit RandomMinionNumberTask(GameTag tag);
+    //! \param toOpponent The flag that indicates the owner of random minion.
+    explicit RandomMinionNumberTask(GameTag tag, bool toOpponent = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -29,6 +30,7 @@ class RandomMinionNumberTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     GameTag m_gameTag = GameTag::INVALID;
+    bool m_toOpponent = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

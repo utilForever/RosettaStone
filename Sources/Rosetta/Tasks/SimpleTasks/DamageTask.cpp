@@ -14,15 +14,14 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-DamageTask::DamageTask(EntityType entityType, std::size_t damage,
-                       bool isSpellDamage)
+DamageTask::DamageTask(EntityType entityType, int damage, bool isSpellDamage)
     : ITask(entityType), m_damage(damage), m_isSpellDamage(isSpellDamage)
 {
     // Do nothing
 }
 
-DamageTask::DamageTask(EntityType entityType, std::size_t damage,
-                       std::size_t randomDamage, bool isSpellDamage)
+DamageTask::DamageTask(EntityType entityType, int damage, int randomDamage,
+                       bool isSpellDamage)
     : ITask(entityType),
       m_damage(damage),
       m_randomDamage(randomDamage),
@@ -33,6 +32,7 @@ DamageTask::DamageTask(EntityType entityType, std::size_t damage,
 
 TaskStatus DamageTask::Impl(Player* player)
 {
+    const int spellPower = m_source->player->GetCurrentSpellPower();
     auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
@@ -41,16 +41,20 @@ TaskStatus DamageTask::Impl(Player* player)
         const auto source = dynamic_cast<Playable*>(m_source);
         const auto character = dynamic_cast<Character*>(playable);
 
-        std::size_t randomDamage = 0;
+        int randomDamage = 0;
         if (m_randomDamage > 0)
         {
-            randomDamage = Random::get<std::size_t>(0, m_randomDamage);
+            randomDamage = Random::get<int>(0, m_randomDamage);
         }
 
-        const std::size_t damage = m_damage + randomDamage;
+        int damage = m_damage + randomDamage;
+        if (m_isSpellDamage)
+        {
+            damage += spellPower;
+        }
 
-        Generic::TakeDamageToCharacter(
-            source, character, static_cast<int>(damage), m_isSpellDamage);
+        Generic::TakeDamageToCharacter(source, character, damage,
+                                       m_isSpellDamage);
     }
 
     return TaskStatus::COMPLETE;

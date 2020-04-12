@@ -27,6 +27,10 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Playable*)> func);
 
+    //! SelfCondition wrapper for checking it is current player.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsCurrentPlayer();
+
     //! SelfCondition wrapper for checking the entity is not start in deck.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotStartInDeck();
@@ -132,6 +136,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSecret();
 
+    //! SelfCondition wrapper for checking the entity is choose one card.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsChooseOneCard();
+
     //! SelfCondition wrapper for checking the entity is frozen.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
@@ -172,16 +180,29 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsAttackThisTurn();
 
-    //! SelfCondition wrapper for checking the number of minion
+    //! SelfCondition wrapper for checking the number of minions
     //! that played this turn.
-    //! \param num The number of minion for checking.
+    //! \param num The number of minions for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition MinionsPlayedThisTurn(int num);
+
+    //! SelfCondition wrapper for checking the number of spells
+    //! that played this turn.
+    //! \param num The number of spells for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition SpellsPlayedThisTurn(int num);
 
     //! SelfCondition wrapper for checking the player don't play
     //! elemental minion in this turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotPlayElementalMinionThisTurn();
+
+    //! SelfCondition wrapper for checking the cost satisfies condition with
+    //! \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsCost(int value, RelaSign relaSign = RelaSign::EQ);
 
     //! SelfCondition wrapper for checking there is the entity that satisfies
     //! condition with \p tag, \p value and \p relaSign.
@@ -222,6 +243,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the defender is dead.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDefenderDead();
+
+    //! SelfCondition wrapper for checking the event source is friendly.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEventSourceFriendly();
 
     //! SelfCondition wrapper for checking the event target is \p cardType.
     //! \param cardType The type of the card to check.
@@ -267,6 +292,11 @@ class SelfCondition
     //! in your hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsLeftOrRightMostCardInHand();
+
+    //! SelfCondition wrapper for checking the threshold value.
+    //! \param relaSign The comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition CheckThreshold(RelaSign relaSign);
 
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.

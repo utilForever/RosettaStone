@@ -14,6 +14,7 @@
 ## Basic tasks
 
 * ActivateCapturedDeathrattleTask
+* ActivateDeathrattleTask
 * AddAuraEffectTask
 * AddCardTask
 * AddEnchantmentTask
@@ -38,6 +39,7 @@
 * DestroyTask
 * DiscardTask
 * DiscoverTask
+* DrawMinionTask
 * DrawNumberTask
 * DrawOpTask
 * DrawStackTask

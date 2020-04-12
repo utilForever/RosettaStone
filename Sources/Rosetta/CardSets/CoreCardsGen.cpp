@@ -255,13 +255,15 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
         if (totemCards.empty())
         {
-            return;
+            return 0;
         }
 
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
         Playable* totem =
             Entity::GetFromCard(playable->player, totemCards[idx]);
         playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));
+
+        return 0;
     }));
     cards.emplace(
         "CS2_049",
@@ -695,7 +697,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
         DeckZone* deck = playable->player->GetDeckZone();
         if (deck->IsEmpty())
         {
-            return;
+            return 0;
         }
 
         std::vector<std::size_t> ids;
@@ -711,6 +713,8 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
         Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
                               ChoiceAction::HAND, ids);
+
+        return 0;
     }));
     cards.emplace("DS1_184", CardDef(power));
 
@@ -2407,6 +2411,8 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
         Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
                               ChoiceAction::SIGHTLESS_WATCHER, ids);
+
+        return 0;
     }));
     cards.emplace("BT_323", CardDef(power));
 

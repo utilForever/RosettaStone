@@ -74,21 +74,25 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { std::make_shared<FuncNumberTask>(
-        [](Playable* playable) {
+    power.GetTrigger()->tasks = {
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
             const auto target = dynamic_cast<Minion*>(
                 playable->game->currentEventData->eventTarget);
             if (target == nullptr)
             {
-                return;
+                return 0;
             }
 
+            auto& taskStack = playable->game->taskStack;
             for (auto& minion : target->GetAdjacentMinions())
             {
-                minion->TakeDamage(playable,
-                                   playable->player->GetHero()->GetAttack());
+                taskStack.playables.emplace_back(minion);
             }
-        }) };
+
+            return playable->player->GetHero()->GetAttack();
+        }),
+        std::make_shared<DamageNumberTask>(EntityType::STACK)
+    };
     cards.emplace("BT_271", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER

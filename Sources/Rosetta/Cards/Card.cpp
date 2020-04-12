@@ -8,6 +8,7 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 #include <iostream>
 
@@ -89,6 +90,10 @@ void Card::Initialize()
             case PlayReq::REQ_MUST_TARGET_TAUNTER:
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqMustTargetTaunter());
+                break;
+            case PlayReq::REQ_TARGET_WITH_DEATHRATTLE:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetWithDeathrattle());
                 break;
             default:
                 continue;
@@ -174,6 +179,11 @@ int Card::GetCost() const
 bool Card::HasGameTag(GameTag gameTag) const
 {
     return gameTags.find(gameTag) != gameTags.end();
+}
+
+bool Card::IsQuest() const
+{
+    return HasGameTag(GameTag::QUEST);
 }
 
 bool Card::IsLackey() const
@@ -316,6 +326,14 @@ bool Card::IsPlayableByCardReq(Player* player) const
                     player->GetFieldZone()->GetCount() +
                     player->opponent->GetFieldZone()->GetCount();
                 if (fieldCount < requirement.second)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_SECRET_ZONE_CAP_FOR_NON_SECRET:
+            {
+                if (player->GetSecretZone()->IsFull())
                 {
                     return false;
                 }

@@ -3,7 +3,6 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
@@ -15,6 +14,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
@@ -146,14 +146,12 @@ void HoFCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
-        for (auto handNum =
-                 playable->player->opponent->GetHandZone()->GetCount() -
-                 playable->player->GetHandZone()->GetCount();
-             handNum > 0; --handNum)
-        {
-            Generic::Draw(playable->player);
-        }
+        const int diffHands =
+            playable->player->opponent->GetHandZone()->GetCount() -
+            playable->player->GetHandZone()->GetCount();
+        return diffHands > 0 ? diffHands : 0;
     }));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
     cards.emplace("EX1_349", CardDef(power));
 }
 

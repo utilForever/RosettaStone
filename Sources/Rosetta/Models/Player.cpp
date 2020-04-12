@@ -65,7 +65,6 @@ void Player::RefCopy(const Player& rhs)
     m_setasideZone->RefCopy(rhs.m_setasideZone.get());
 
     m_gameTags = rhs.m_gameTags;
-    currentSpellPower = rhs.currentSpellPower;
 }
 
 FieldZone* Player::GetFieldZone() const
@@ -116,6 +115,21 @@ HeroPower& Player::GetHeroPower() const
 Weapon& Player::GetWeapon() const
 {
     return *m_hero->weapon;
+}
+
+int Player::GetCurrentSpellPower() const
+{
+    int value = 0;
+
+    for (auto& minion : GetFieldZone()->GetAll())
+    {
+        value += minion->GetSpellPower();
+    }
+
+    value += GetHero()->GetSpellPower();
+    value += GetGameTag(GameTag::SPELLPOWER);
+
+    return value;
 }
 
 int Player::GetGameTag(GameTag tag) const
@@ -271,6 +285,16 @@ void Player::SetNumElementalPlayedLastTurn(int value)
     SetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_LAST_TURN, value);
 }
 
+int Player::GetNumSpellsPlayedThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_TURN);
+}
+
+void Player::SetNumSpellsPlayedThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_TURN, value);
+}
+
 int Player::GetNumSpellsPlayedThisGame() const
 {
     return GetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME);
@@ -280,6 +304,16 @@ void Player::IncreaseNumSpellsPlayedThisGame()
 {
     const int val = GetNumSpellsPlayedThisGame();
     SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME, val + 1);
+}
+
+int Player::GetAmountHealedThisGame() const
+{
+    return GetGameTag(GameTag::AMOUNT_HEALED_THIS_GAME);
+}
+
+void Player::SetAmountHealedThisGame(int value)
+{
+    SetGameTag(GameTag::AMOUNT_HEALED_THIS_GAME, value);
 }
 
 int Player::GetNumCardsPlayedThisGameNotStartInDeck() const

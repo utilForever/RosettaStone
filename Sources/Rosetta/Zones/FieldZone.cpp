@@ -156,12 +156,6 @@ void FieldZone::ActivateAura(Minion* entity)
     {
         entity->card->power.GetAura()->Activate(entity);
     }
-
-    const int spellPower = entity->GetGameTag(GameTag::SPELLPOWER);
-    if (spellPower > 0)
-    {
-        entity->player->currentSpellPower += spellPower;
-    }
 }
 
 void FieldZone::RemoveAura(Minion* entity)
@@ -169,12 +163,6 @@ void FieldZone::RemoveAura(Minion* entity)
     if (entity->ongoingEffect != nullptr)
     {
         entity->ongoingEffect->Remove();
-    }
-
-    const int spellPower = entity->GetGameTag(GameTag::SPELLPOWER);
-    if (entity->player->currentSpellPower > 0 && spellPower > 0)
-    {
-        entity->player->currentSpellPower -= spellPower;
     }
 }
 }  // namespace RosettaStone

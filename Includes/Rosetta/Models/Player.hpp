@@ -100,6 +100,10 @@ class Player : public Entity
     //! \return Player's hero weapon.
     Weapon& GetWeapon() const;
 
+    //! Returns the value of current spell power.
+    //! \return The value of current spell power.
+    int GetCurrentSpellPower() const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -221,12 +225,28 @@ class Player : public Entity
     //! \param value The number of elemental minions that played this turn.
     void SetNumElementalPlayedLastTurn(int value);
 
+    //! Returns the number of spells that played this turn.
+    //! \return The number of spells that played this turn.
+    int GetNumSpellsPlayedThisTurn() const;
+
+    //! Sets the number of spells that played this turn.
+    //! \param value The number of spells that played this turn.
+    void SetNumSpellsPlayedThisTurn(int value);
+
     //! Returns the number of spells that played this game.
     //! \return The number of spells that played this game.
     int GetNumSpellsPlayedThisGame() const;
 
     //! Increases the number of spells that played this game.
     void IncreaseNumSpellsPlayedThisGame();
+
+    //! Returns the amount of health that healed this game.
+    //! \return The amount of health that healed this game.
+    int GetAmountHealedThisGame() const;
+
+    //! Sets the amount of health that healed this game.
+    //! \param value The amount of health that healed this game.
+    void SetAmountHealedThisGame(int value);
 
     //! Returns the number of cards that played this game that
     //! didn't start in your deck.
@@ -257,6 +277,7 @@ class Player : public Entity
     PlayerType playerType = PlayerType::PLAYER1;
     std::size_t playerID = 0;
 
+    CardClass baseClass = CardClass::INVALID;
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
@@ -266,7 +287,6 @@ class Player : public Entity
 
     PlayerAuraEffects playerAuraEffects;
     std::vector<Card*> cardsPlayedThisTurn;
-    int currentSpellPower = 0;
 
  private:
     Hero* m_hero = nullptr;

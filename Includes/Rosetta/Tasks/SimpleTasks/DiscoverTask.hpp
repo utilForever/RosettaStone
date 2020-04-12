@@ -10,6 +10,16 @@
 
 namespace RosettaStone::SimpleTasks
 {
+//! The type of discover.
+enum class DiscoverType
+{
+    INVALID,
+    SPELL,
+    DRAGON,
+    SIX_COST_SUMMON,
+    SPELL_THREE_COST_OR_LESS,
+};
+
 class DiscoverCriteria
 {
  public:
@@ -40,11 +50,13 @@ class DiscoverTask : public ITask
     //! \param race The race of card to discover.
     //! \param rarity The rarity of card to discover.
     //! \param choiceAction The choice action of discover effect.
+    //! \param keepAll The flag that indicates it keeps all cards.
     explicit DiscoverTask(CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
                           Rarity rarity = Rarity::INVALID,
-                          ChoiceAction choiceAction = ChoiceAction::HAND);
+                          ChoiceAction choiceAction = ChoiceAction::HAND,
+                          bool keepAll = false);
 
     //! Constructs task with given various parameters.
     //! \param cardIDs A list of card IDs to discover.
@@ -55,8 +67,13 @@ class DiscoverTask : public ITask
                           ChoiceAction choiceAction = ChoiceAction::HAND,
                           int numberOfChoices = 3, bool doShuffle = true);
 
+    //! Constructs task with given \p discoverType.
+    //! \param discoverType The type of discover.
+    explicit DiscoverTask(DiscoverType discoverType);
+
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.
+    //! \param discoverType The type of discover.
     //! \param cardType The type of card to discover.
     //! \param cardClass The class of card to discover.
     //! \param race The race of card to discover.
@@ -64,13 +81,16 @@ class DiscoverTask : public ITask
     //! \param choiceAction The choice action of discover effect.
     //! \param numberOfChoices The number of choices.
     //! \param doShuffle The flag that indicates it does shuffle.
+    //! \param keepAll The flag that indicates it keeps all cards.
     explicit DiscoverTask(std::vector<Card*> cards,
+                          DiscoverType discoverType = DiscoverType::INVALID,
                           CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND,
-                          int numberOfChoices = 3, bool doShuffle = true);
+                          int numberOfChoices = 3, bool doShuffle = true,
+                          bool keepAll = false);
 
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
@@ -88,19 +108,32 @@ class DiscoverTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    //! Evaluates a list of cards by the format type and the discover criteria.
-    //! \param format The format type.
+    //! Evaluates a list of cards by the discover type.
+    //! \param game The game context.
+    //! \param player The player context.
+    //! \param discoverType The type of discover.
+    //! \param choiceAction The choice action of discover effect.
+    //! \return A list of cards to discover.
+    std::vector<Card*> Discover(Game* game, Player* player,
+                                DiscoverType discoverType,
+                                ChoiceAction& choiceAction) const;
+
+    //! Evaluates a list of cards by the discover criteria.
+    //! \param game The game context.
+    //! \param player The player context.
     //! \param criteria The discover criteria.
     //! \return A list of cards to discover.
-    std::vector<Card*> Discover(FormatType format,
+    std::vector<Card*> Discover(Game* game, Player* player,
                                 DiscoverCriteria criteria) const;
 
     std::vector<Card*> m_cards;
 
+    DiscoverType m_discoverType = DiscoverType::INVALID;
     DiscoverCriteria m_discoverCriteria;
     ChoiceAction m_choiceAction = ChoiceAction::INVALID;
     std::size_t m_numberOfChoices = 3;
     bool m_doShuffle = true;
+    bool m_keepAll = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

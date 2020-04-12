@@ -3,27 +3,26 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_TRANSFORM_COPY_TASK_HPP
-#define ROSETTASTONE_TRANSFORM_COPY_TASK_HPP
+#ifndef ROSETTASTONE_DRAW_MINION_TASK_HPP
+#define ROSETTASTONE_DRAW_MINION_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief TransformCopyTask class.
+//! \brief DrawMinionTask class.
 //!
-//! This class represents the task for transforming minion to another and coping
-//! data such as attack/health, enchantment and so on.
+//! This class represents the task for drawing minion card(s) from the deck.
 //!
-class TransformCopyTask : public ITask
+class DrawMinionTask : public ITask
 {
  public:
-    //! Constructs task with given \p fromTarget.
-    //! \param toTarget true if it transforms to target,
-    //! false if it transforms from target.
-    //! \param addToStack A flag to store transformed card to stack.
-    TransformCopyTask(bool toTarget = false, bool addToStack = false);
+    //! Constructs task with given \p lowestCost, \p amount and \p addToStack.
+    //! \param lowestCost A flag to draw lowest cost card(s).
+    //! \param amount The amount to draw minion card(s).
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawMinionTask(bool lowestCost, int amount, bool addToStack);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -35,9 +34,10 @@ class TransformCopyTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    bool m_toTarget = false;
+    int m_amount = 0;
+    bool m_lowestCost = false;
     bool m_addToStack = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_TRANSFORM_COPY_TASK_HPP
+#endif  // ROSETTASTONE_DRAW_MINION_TASK_HPP

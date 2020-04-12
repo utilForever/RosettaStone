@@ -115,6 +115,7 @@
 #include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ActivateDeathrattleTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -139,6 +140,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
