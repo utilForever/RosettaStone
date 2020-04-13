@@ -1563,6 +1563,18 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 3));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY));
+    cards.emplace(
+        "DAL_724",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                                 { PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_GAME,
+                                   0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [DAL_729] Madame Lazul - COST:3 [ATK:3/HP:2]

@@ -2698,6 +2698,85 @@ TEST_CASE("[Priest : Spell] - DAL_723 : Forbidden Words")
     CHECK_EQ(opPlayer->GetRemainingMana(), 0);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [DAL_724] Mass Resurrection - COST:9
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon 3 friendly minions that died this game.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - DAL_724 : Mass Resurrection")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mass Resurrection"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curField.GetCount(), 3);
+    const bool check1 = (curField[0]->card->name == "Wolfrider") ||
+                        (curField[0]->card->name == "Wisp") ||
+                        (curField[0]->card->name == "Bloodfen Raptor");
+    const bool check2 = (curField[1]->card->name == "Wolfrider") ||
+                        (curField[1]->card->name == "Wisp") ||
+                        (curField[1]->card->name == "Bloodfen Raptor");
+    const bool check3 = (curField[2]->card->name == "Wolfrider") ||
+                        (curField[2]->card->name == "Wisp") ||
+                        (curField[2]->card->name == "Bloodfen Raptor");
+    const bool check = check1 && check2 && check3;
+    CHECK_EQ(check, true);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
