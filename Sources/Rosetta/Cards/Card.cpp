@@ -8,6 +8,7 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
 #include <iostream>
@@ -326,6 +327,25 @@ bool Card::IsPlayableByCardReq(Player* player) const
                     player->GetFieldZone()->GetCount() +
                     player->opponent->GetFieldZone()->GetCount();
                 if (fieldCount < requirement.second)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_GAME:
+            {
+                bool isExist = false;
+                for (auto& playable : player->GetGraveyardZone()->GetAll())
+                {
+                    if (const auto minion = dynamic_cast<Minion*>(playable);
+                        minion && minion->isDestroyed)
+                    {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if (!isExist)
                 {
                     return false;
                 }
