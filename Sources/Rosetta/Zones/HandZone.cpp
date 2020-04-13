@@ -57,6 +57,8 @@ void HandZone::Add(Playable* entity, int zonePos)
             aura->Apply(entity);
         }
     }
+
+    entity->game->triggerManager.OnZoneTrigger(entity);
 }
 
 Playable* HandZone::Remove(Playable* entity)
