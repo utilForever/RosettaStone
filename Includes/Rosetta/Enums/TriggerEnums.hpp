@@ -23,8 +23,10 @@ enum class TriggerType
     AFTER_CAST,  //!< The effect will be triggered after a spell is played.
     SECRET_REVEALED,  //!< The effect will be triggered when a secret is
                       //!< activated.
-    GIVE_HEAL,        //!< The effect will be triggered when a playable heals a
-                      //!< character.
+    ZONE,  //!< The effect will be triggered when an entity enters any types of
+           //!< zone.
+    GIVE_HEAL,     //!< The effect will be triggered when a playable heals a
+                   //!< character.
     TAKE_HEAL,     //!< The effect will be triggered when a character is healed.
     ATTACK,        //!< The effect will be triggered when characters attack.
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
