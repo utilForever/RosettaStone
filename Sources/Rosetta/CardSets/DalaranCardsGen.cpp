@@ -1507,6 +1507,16 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::GRAVEYARD),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDead()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY)
+    };
+    cards.emplace("DAL_721", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_723] Forbidden Words - COST:0
