@@ -482,11 +482,11 @@ Set | ID | Name | Implemented
 DALARAN | DAL_007 | Rafaam's Scheme |  
 DALARAN | DAL_008 | Dr. Boom's Scheme |  
 DALARAN | DAL_009 | Hagatha's Scheme |  
-DALARAN | DAL_010 | Togwaggle's Scheme |  
+DALARAN | DAL_010 | Togwaggle's Scheme | O
 DALARAN | DAL_011 | Lazul's Scheme | O
 DALARAN | DAL_030 | Shadowy Figure | O
-DALARAN | DAL_039 | Convincing Infiltrator |  
-DALARAN | DAL_040 | Hench-Clan Shadequill |  
+DALARAN | DAL_039 | Convincing Infiltrator | O
+DALARAN | DAL_040 | Hench-Clan Shadequill | O
 DALARAN | DAL_047 | Walking Fountain | O
 DALARAN | DAL_049 | Underbelly Angler |  
 DALARAN | DAL_052 | Muckmorpher |  
@@ -496,7 +496,7 @@ DALARAN | DAL_060 | Clockwork Goblin |
 DALARAN | DAL_062 | Sweeping Strikes |  
 DALARAN | DAL_063 | Wrenchcalibur |  
 DALARAN | DAL_064 | Blastmaster Boom |  
-DALARAN | DAL_065 | Unsleeping Soul |  
+DALARAN | DAL_065 | Unsleeping Soul | O
 DALARAN | DAL_070 | The Boom Reaver |  
 DALARAN | DAL_071 | Mutate |  
 DALARAN | DAL_077 | Toxfin |  
@@ -526,7 +526,7 @@ DALARAN | DAL_352 | Crystalsong Portal | O
 DALARAN | DAL_354 | Acornbearer | O
 DALARAN | DAL_355 | Lifeweaver | O
 DALARAN | DAL_357 | Lucentbark | O
-DALARAN | DAL_366 | Unidentified Contract |  
+DALARAN | DAL_366 | Unidentified Contract | O
 DALARAN | DAL_371 | Marked Shot | O
 DALARAN | DAL_372 | Arcane Fletcher | O
 DALARAN | DAL_373 | Rapid Fire | O
@@ -535,8 +535,8 @@ DALARAN | DAL_377 | Nine Lives |
 DALARAN | DAL_378 | Unleash the Beast | O
 DALARAN | DAL_379 | Vereesa Windrunner | O
 DALARAN | DAL_400 | EVIL Cable Rat |  
-DALARAN | DAL_413 | EVIL Conscripter |  
-DALARAN | DAL_415 | EVIL Miscreant |  
+DALARAN | DAL_413 | EVIL Conscripter | O
+DALARAN | DAL_415 | EVIL Miscreant | O
 DALARAN | DAL_416 | Hench-Clan Burglar |  
 DALARAN | DAL_417 | Heistbaron Togwaggle |  
 DALARAN | DAL_422 | Arch-Villain Rafaam |  
@@ -585,9 +585,9 @@ DALARAN | DAL_714 | Underbelly Fence |
 DALARAN | DAL_716 | Vendetta |  
 DALARAN | DAL_719 | Tak Nozwhisker |  
 DALARAN | DAL_720 | Waggle Pick |  
-DALARAN | DAL_721 | Catrina Muerte |  
-DALARAN | DAL_723 | Forbidden Words |  
-DALARAN | DAL_724 | Mass Resurrection |  
+DALARAN | DAL_721 | Catrina Muerte | O
+DALARAN | DAL_723 | Forbidden Words | O
+DALARAN | DAL_724 | Mass Resurrection | O
 DALARAN | DAL_726 | Scargil |  
 DALARAN | DAL_727 | Call to Adventure | O
 DALARAN | DAL_728 | Daring Escape |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 34% (47 of 136 Cards)
+- Progress: 41% (57 of 136 Cards)
 
 ## Saviors of Uldum
 

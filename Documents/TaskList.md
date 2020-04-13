@@ -26,6 +26,7 @@
 * ChangeAttackingTargetTask
 * ChangeEntityTask
 * ChangeHeroPowerTask
+* ChangeUnidentifiedTask
 * ClearStackTask
 * ConditionTask
 * ControlTask
@@ -53,6 +54,7 @@
 * GetEventNumberTask
 * GetGameTagTask
 * GetPlayerGameTagTask
+* GetPlayerManaTask
 * HealFullTask
 * HealTask
 * IncludeAdjacentTask
