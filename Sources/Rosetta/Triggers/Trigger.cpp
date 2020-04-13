@@ -119,6 +119,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::SECRET_REVEALED:
             game->triggerManager.secretRevealedTrigger += instance->handler;
             break;
+        case TriggerType::ZONE:
+            game->triggerManager.zoneTrigger += instance->handler;
+            break;
         case TriggerType::GIVE_HEAL:
             game->triggerManager.giveHealTrigger += instance->handler;
             break;
@@ -258,6 +261,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::SECRET_REVEALED:
             game->triggerManager.secretRevealedTrigger -= handler;
+            break;
+        case TriggerType::ZONE:
+            game->triggerManager.zoneTrigger -= handler;
             break;
         case TriggerType::GIVE_HEAL:
             game->triggerManager.giveHealTrigger -= handler;
