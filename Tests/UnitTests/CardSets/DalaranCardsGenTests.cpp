@@ -2836,6 +2836,85 @@ TEST_CASE("[Rogue : Spell] - DAL_010 : Togwaggle's Scheme")
     CHECK_EQ(curDeck.GetCount(), 2);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [DAL_366] Unidentified Contract - COST:6
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: Destroy a minion. Gains a bonus effect in your hand.
+// --------------------------------------------------------
+// Entourage: DAL_366t1, DAL_366t2, DAL_366t3, DAL_366t4
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - DAL_366 : Unidentified Contract")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Unidentified Contract"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    if (card4->card->id == "DAL_366t1")
+    {
+        CHECK_EQ(opField.GetCount(), 1);
+        CHECK_EQ(opField[0]->card->name, "Patient Assassin");
+    }
+    else if (card4->card->id == "DAL_366t2")
+    {
+        CHECK_EQ(opHand.GetCount(), 2);
+        CHECK_EQ(opHand[1]->card->name, "Wolfrider");
+    }
+    else if (card4->card->id == "DAL_366t3")
+    {
+        CHECK_EQ(opHand.GetCount(), 3);
+        CHECK_EQ(opHand[1]->card->name, "The Coin");
+        CHECK_EQ(opHand[2]->card->name, "The Coin");
+    }
+    else
+    {
+        CHECK_EQ(curField[0]->GetHealth(), 1);
+        CHECK_EQ(curField[1]->GetHealth(), 1);
+    }
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
