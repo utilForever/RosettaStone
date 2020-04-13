@@ -24,6 +24,10 @@ class NumberConditionTask : public ITask
     //! \param relaSign The relation sign to compare.
     explicit NumberConditionTask(int referenceValue, RelaSign relaSign);
 
+    //! Constructs task with given \p relaSign.
+    //! \param relaSign The relation sign to compare.
+    explicit NumberConditionTask(RelaSign relaSign);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

@@ -14,21 +14,45 @@ NumberConditionTask::NumberConditionTask(int referenceValue, RelaSign relaSign)
     // Do nothing
 }
 
+NumberConditionTask::NumberConditionTask(RelaSign relaSign)
+    : m_referenceValue(std::numeric_limits<int>::min()), m_relaSign(relaSign)
+{
+    // Do nothing
+}
+
 TaskStatus NumberConditionTask::Impl(Player* player)
 {
     auto& taskStack = player->game->taskStack;
 
-    if (m_relaSign == RelaSign::GEQ)
+    if (m_referenceValue == std::numeric_limits<int>::min())
     {
-        taskStack.flag = taskStack.num[0] >= m_referenceValue;
-    }
-    else if (m_relaSign == RelaSign::LEQ)
-    {
-        taskStack.flag = taskStack.num[0] <= m_referenceValue;
+        if (m_relaSign == RelaSign::GEQ)
+        {
+            taskStack.flag = taskStack.num[0] >= taskStack.num[1];
+        }
+        else if (m_relaSign == RelaSign::LEQ)
+        {
+            taskStack.flag = taskStack.num[0] <= taskStack.num[1];
+        }
+        else
+        {
+            taskStack.flag = taskStack.num[0] == taskStack.num[1];
+        }
     }
     else
     {
-        taskStack.flag = taskStack.num[0] == m_referenceValue;
+        if (m_relaSign == RelaSign::GEQ)
+        {
+            taskStack.flag = taskStack.num[0] >= m_referenceValue;
+        }
+        else if (m_relaSign == RelaSign::LEQ)
+        {
+            taskStack.flag = taskStack.num[0] <= m_referenceValue;
+        }
+        else
+        {
+            taskStack.flag = taskStack.num[0] == m_referenceValue;
+        }
     }
 
     return TaskStatus::COMPLETE;
