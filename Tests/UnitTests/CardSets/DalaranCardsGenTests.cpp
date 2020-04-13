@@ -2453,6 +2453,69 @@ TEST_CASE("[Priest : Minion] - DAL_040 : Hench-Clan Shadequill")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [DAL_065] Unsleeping Soul - COST:4
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Silence</b> a friendly minion, then summon a copy of it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - DAL_065 : Unsleeping Soul")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unsleeping Soul"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Loot Hoarder"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Power Infusion"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasDeathrattle(), false);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasDeathrattle(), false);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common

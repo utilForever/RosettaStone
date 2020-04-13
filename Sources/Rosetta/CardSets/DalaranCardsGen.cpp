@@ -44,6 +44,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
@@ -1470,6 +1471,14 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    cards.emplace(
+        "DAL_065",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [DAL_413] EVIL Conscripter - COST:2 [ATK:2/HP:2]
