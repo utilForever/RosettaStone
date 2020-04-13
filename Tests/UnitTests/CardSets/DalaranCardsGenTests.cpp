@@ -2407,6 +2407,52 @@ TEST_CASE("[Priest : Minion] - DAL_039 : Convincing Infiltrator")
     CHECK_EQ(opField.GetCount(), 1);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [DAL_040] Hench-Clan Shadequill - COST:4 [ATK:4/HP:7]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Restore 5 Health to the enemy hero.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - DAL_040 : Hench-Clan Shadequill")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(15);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Hench-Clan Shadequill"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common

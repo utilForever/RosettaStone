@@ -1451,6 +1451,10 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::ENEMY_HERO, 5));
+    cards.emplace("DAL_040", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_065] Unsleeping Soul - COST:4
