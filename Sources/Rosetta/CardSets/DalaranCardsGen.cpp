@@ -30,8 +30,10 @@
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncPlayableTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetPlayerManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -1527,9 +1529,29 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINION_TARGET = 0
-    // - REQ85 = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetPlayerManaTask>());
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::ATK, 0, 1));
+    power.AddPowerTask(std::make_shared<NumberConditionTask>(RelaSign::GEQ));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            playables[0]->player->SetUsedMana(
+                playables[0]->player->GetTotalMana() +
+                playables[0]->player->GetTemporaryMana() -
+                playables[0]->player->GetOverloadLocked());
+
+            return std::vector<Playable*>{};
+        }));
+    cards.emplace(
+        "DAL_723",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_724] Mass Resurrection - COST:9
