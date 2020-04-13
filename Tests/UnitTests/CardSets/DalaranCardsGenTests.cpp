@@ -2915,6 +2915,54 @@ TEST_CASE("[Rogue : Spell] - DAL_366 : Unidentified Contract")
     }
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DAL_415] EVIL Miscreant - COST:3 [ATK:1/HP:5]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Add two random <b>Lackeys</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DAL_415 : EVIL Miscreant")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("EVIL Miscreant"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("EVIL Miscreant"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->IsLackey(), true);
+    CHECK_EQ(curHand[1]->card->IsLackey(), true);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common

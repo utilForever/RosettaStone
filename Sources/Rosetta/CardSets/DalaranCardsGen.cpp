@@ -1682,6 +1682,9 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<AddLackeyTask>(2));
+    cards.emplace("DAL_415", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:3]
