@@ -1431,6 +1431,15 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("DAL_039", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [DAL_040] Hench-Clan Shadequill - COST:4 [ATK:4/HP:7]
