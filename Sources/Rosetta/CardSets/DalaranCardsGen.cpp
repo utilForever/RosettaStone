@@ -1609,6 +1609,8 @@ void DalaranCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [DAL_010] Togwaggle's Scheme - COST:1
     // - Set: Dalaran, Rarity: Rare
@@ -1623,6 +1625,24 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::DECK) }));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_1),
+        std::make_shared<MathAddTask>(1),
+        std::make_shared<SetGameTagNumberTask>(EntityType::SOURCE,
+                                               GameTag::TAG_SCRIPT_DATA_NUM_1)
+    };
+    cards.emplace(
+        "DAL_010",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DAL_366] Unidentified Contract - COST:6

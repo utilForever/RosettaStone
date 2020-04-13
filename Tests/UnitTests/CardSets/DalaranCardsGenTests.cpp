@@ -2777,6 +2777,65 @@ TEST_CASE("[Priest : Spell] - DAL_724 : Mass Resurrection")
     CHECK_EQ(check, true);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [DAL_010] Togwaggle's Scheme - COST:1
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Choose a minion. Shuffle @ (copy, copies) of it into your deck.
+//       <i>(Upgrades each turn!)</i>
+// --------------------------------------------------------
+// GameTag:
+// - TAG_SCRIPT_DATA_NUM_1 = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - DAL_010 : Togwaggle's Scheme")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Togwaggle's Scheme"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    CHECK_EQ(card1->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curDeck.GetCount(), 2);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
