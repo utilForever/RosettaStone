@@ -58,6 +58,11 @@ void TriggerManager::OnSecretRevealedTrigger(Entity* sender)
     secretRevealedTrigger(sender);
 }
 
+void TriggerManager::OnZoneTrigger(Entity* sender)
+{
+    zoneTrigger(sender);
+}
+
 void TriggerManager::OnGiveHealTrigger(Entity* sender)
 {
     giveHealTrigger(sender);
