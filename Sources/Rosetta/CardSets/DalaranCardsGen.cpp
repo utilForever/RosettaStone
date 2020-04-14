@@ -1698,6 +1698,10 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::SPELL, CardClass::ANOTHER_CLASS));
+    cards.emplace("DAL_416", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DAL_417] Heistbaron Togwaggle - COST:6 [ATK:5/HP:5]
