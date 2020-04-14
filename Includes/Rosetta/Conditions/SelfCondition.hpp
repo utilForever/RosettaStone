@@ -114,6 +114,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingSecret();
 
+    //! SelfCondition wrapper for checking there is the entity
+    //! with Lackey in field zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingLackey();
+
     //! SelfCondition wrapper for checking the player has entity
     //! with \p race in hand zone.
     //! \param race The race for checking.

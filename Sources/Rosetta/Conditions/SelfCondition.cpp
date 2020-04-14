@@ -198,6 +198,21 @@ SelfCondition SelfCondition::IsControllingSecret()
     });
 }
 
+SelfCondition SelfCondition::IsControllingLackey()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& minion : playable->player->GetFieldZone()->GetAll())
+        {
+            if (minion->card->IsLackey())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHoldingRace(Race race)
 {
     return SelfCondition([=](Playable* playable) -> bool {
