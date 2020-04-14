@@ -18,6 +18,7 @@ enum class DiscoverType
     DRAGON,
     SIX_COST_SUMMON,
     SPELL_THREE_COST_OR_LESS,
+    HEISTBARON_TOGWAGGLE,
 };
 
 class DiscoverCriteria
