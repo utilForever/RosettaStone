@@ -42,6 +42,7 @@
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/Cards/Card.hpp>
