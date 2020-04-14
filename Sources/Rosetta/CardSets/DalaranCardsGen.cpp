@@ -1707,7 +1707,7 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [DAL_417] Heistbaron Togwaggle - COST:6 [ATK:5/HP:5]
     // - Set: Dalaran, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> If you control a_<b>Lackey</b>,
+    // Text: <b>Battlecry:</b> If you control a <b>Lackey</b>,
     //       choose a fantastic treasure.
     // --------------------------------------------------------
     // Entourage: LOOT_998h, LOOT_998j, LOOT_998l, LOOT_998k
@@ -1720,6 +1720,14 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsControllingLackey()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(
+                  DiscoverType::HEISTBARON_TOGWAGGLE, 4) }));
+    cards.emplace("DAL_417", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DAL_714] Underbelly Fence - COST:2 [ATK:2/HP:3]
