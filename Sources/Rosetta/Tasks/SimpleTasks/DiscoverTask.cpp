@@ -217,6 +217,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                 }
             }
             break;
+        case DiscoverType::LEGENDARY_MINION_SUMMON:
+            choiceAction = ChoiceAction::SUMMON;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->GetRarity() == Rarity::LEGENDARY)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::SIX_COST_SUMMON:
             choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)
