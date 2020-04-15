@@ -3164,6 +3164,61 @@ TEST_CASE("[Rogue : Minion] - DAL_417 : Heistbaron Togwaggle")
     }
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DAL_714] Underbelly Fence - COST:2 [ATK:2/HP:3]
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a card from
+//       another class, gain +1/+1 and <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DAL_714 : Underbelly Fence")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Underbelly Fence"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Underbelly Fence"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->IsRush(), true);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->IsRush(), false);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common

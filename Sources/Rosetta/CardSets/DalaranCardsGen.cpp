@@ -1742,6 +1742,16 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHoldingAnotherClassCard()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                            "DAL_714e", EntityType::SOURCE),
+                        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::RUSH, 1) }));
+    cards.emplace("DAL_714", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DAL_716] Vendetta - COST:4
@@ -3067,6 +3077,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_714e"));
+    cards.emplace("DAL_714e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_726e] Scargil's Blessing (*) - COST:0
