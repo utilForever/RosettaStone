@@ -228,6 +228,23 @@ SelfCondition SelfCondition::IsHoldingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsHoldingAnotherClassCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardClass() != CardClass::NEUTRAL &&
+                handCard->card->GetCardClass() !=
+                    playable->player->GetHero()->card->GetCardClass())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsMinion()
 {
     return SelfCondition([=](Playable* playable) -> bool {
