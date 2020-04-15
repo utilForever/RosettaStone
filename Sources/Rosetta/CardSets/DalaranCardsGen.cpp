@@ -58,6 +58,7 @@
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
@@ -1764,6 +1765,16 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>(
+        [](Playable* playable) { return 0; }, EffectOperator::SET,
+        SelfCondition::IsHoldingAnotherClassCard()));
+    cards.emplace(
+        "DAL_716",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [DAL_719] Tak Nozwhisker - COST:7 [ATK:6/HP:6]

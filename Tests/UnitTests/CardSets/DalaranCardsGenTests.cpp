@@ -3219,6 +3219,49 @@ TEST_CASE("[Rogue : Minion] - DAL_714 : Underbelly Fence")
     CHECK_EQ(curField[1]->IsRush(), false);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [DAL_716] Vendetta - COST:4
+// - Faction: Neutral, Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 4 damage to a minion. Costs (0) if you're
+//       holding a card from another class.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - DAL_716 : Vendetta")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vendetta"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card1->GetCost(), 0);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(card1->GetCost(), 4);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
