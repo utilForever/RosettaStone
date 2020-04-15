@@ -3104,6 +3104,14 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_739e", EntityType::TARGET));
+    cards.emplace(
+        "DAL_739",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_739e] Short Fuse (*) - COST:0
@@ -3111,6 +3119,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Rush</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_739e"));
+    cards.emplace("DAL_739e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_741] Ethereal Lackey (*) - COST:1 [ATK:1/HP:1]
