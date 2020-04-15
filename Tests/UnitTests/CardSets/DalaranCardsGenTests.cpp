@@ -3009,6 +3009,161 @@ TEST_CASE("[Rogue : Minion] - DAL_416 : Hench-Clan Burglar")
     }
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DAL_417] Heistbaron Togwaggle - COST:6 [ATK:5/HP:5]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Lackey</b>,
+//       choose a fantastic treasure.
+// --------------------------------------------------------
+// Entourage: LOOT_998h, LOOT_998j, LOOT_998l, LOOT_998k
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - MULTIPLY_BUFF_VALUE = 1
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DAL_417 : Heistbaron Togwaggle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
+        config.player2Deck[i] = Cards::FindCardByName("Fireball");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_739"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heistbaron Togwaggle"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->choice.has_value(), false);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    curPlayer->SetUsedMana(0);
+
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heistbaron Togwaggle"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heistbaron Togwaggle"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heistbaron Togwaggle"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heistbaron Togwaggle"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Twisting Nether"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 72);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 77);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 82);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    Generic::ChoicePick(curPlayer, 87);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card7));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    curPlayer->SetUsedMana(0);
+
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curHand[4]->card->name, "Tolin's Goblet");
+    CHECK_EQ(curHand[5]->card->name, "Zarog's Crown");
+    CHECK_EQ(curHand[6]->card->name, "Wondrous Wand");
+    CHECK_EQ(curHand[7]->card->name, "Golden Kobold");
+
+    // Wondrous Wand (LOOT_998l)
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[6]));
+    CHECK_EQ(curHand.GetCount(), 10);
+    CHECK_EQ(curHand[7]->card->name, "Wolfrider");
+    CHECK_EQ(curHand[7]->GetCost(), 0);
+    CHECK_EQ(curHand[8]->card->name, "Wolfrider");
+    CHECK_EQ(curHand[8]->GetCost(), 0);
+    CHECK_EQ(curHand[9]->card->name, "Wolfrider");
+    CHECK_EQ(curHand[9]->GetCost(), 0);
+
+    // Zarog's Crown (LOOT_998j)
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[5]));
+    CHECK_EQ(curPlayer->choice.has_value(), true);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetRarity(), Rarity::LEGENDARY);
+    }
+
+    Generic::ChoicePick(curPlayer, 88);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curField[0]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curField[1]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curField[1]->card->GetRarity(), Rarity::LEGENDARY);
+
+    curPlayer->SetUsedMana(0);
+
+    // Tolin's Goblet (LOOT_998h)
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 10);
+    CHECK_EQ(curHand[8]->card->name, "Wolfrider");
+    CHECK_EQ(curHand[8]->GetCost(), 3);
+    CHECK_EQ(curHand[9]->card->name, "Wolfrider");
+    CHECK_EQ(curHand[9]->GetCost(), 3);
+
+    // Golden Kobold (LOOT_998k)
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 9);
+    for (int i = 0; i < 9; ++i)
+    {
+        CHECK_EQ(curHand[i]->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(curHand[i]->card->GetRarity(), Rarity::LEGENDARY);
+    }
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
