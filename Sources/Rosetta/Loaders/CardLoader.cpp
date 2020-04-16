@@ -93,14 +93,15 @@ void CardLoader::Load(std::vector<Card*>& cards)
         std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])
         {
-            gameTags.emplace(StrToEnum<GameTag>(mechanic.get<std::string>()),
-                             1);
-        }
+            GameTag gameTag = StrToEnum<GameTag>(mechanic.get<std::string>());
 
-        // NOTE: Erase invalid mechanics 'FREEZE' of Frost Elemental (EX1_283)
-        if (name == "Frost Elemental")
-        {
-            gameTags[GameTag::FREEZE] = 0;
+            // NOTE: Erase mechanics 'FREEZE' of Frost Elemental (EX1_283)
+            if (name == "Frost Elemental" && gameTag == GameTag::FREEZE)
+            {
+                continue;
+            }
+
+            gameTags.emplace(gameTag, 1);
         }
 
         Card* card = new Card();
