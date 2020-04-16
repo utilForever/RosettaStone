@@ -112,4 +112,9 @@ void TriggerManager::OnUseHeroPowerTrigger(Entity* sender)
 {
     useHeroPowerTrigger(sender);
 }
+
+void TriggerManager::OnShuffleIntoDeckTrigger(Entity* sender)
+{
+    shuffleIntoDeckTrigger(sender);
+}
 }  // namespace RosettaStone

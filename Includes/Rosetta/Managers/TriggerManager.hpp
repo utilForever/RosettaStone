@@ -105,6 +105,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnUseHeroPowerTrigger(Entity* sender);
 
+    //! Callback for trigger when a card is shuffled into a deck.
+    //! \param sender An entity that is the source of trigger.
+    void OnShuffleIntoDeckTrigger(Entity* sender);
+
     TriggerEvent startTurnTrigger;
     TriggerEvent endTurnTrigger;
     TriggerEvent drawCardTrigger;
@@ -126,6 +130,7 @@ class TriggerManager
     TriggerEvent targetTrigger;
     TriggerEvent deathTrigger;
     TriggerEvent useHeroPowerTrigger;
+    TriggerEvent shuffleIntoDeckTrigger;
 };
 }  // namespace RosettaStone
 
