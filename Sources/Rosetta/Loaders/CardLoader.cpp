@@ -124,8 +124,15 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::ARMOR] = armor;
         card->gameTags[GameTag::HEALTH] = health;
         card->gameTags[GameTag::RARITY] = rarity;
-        card->gameTags[GameTag::SPELLPOWER] = spellPower;
-        card->gameTags[GameTag::OVERLOAD] = overload;
+
+        if (spellPower > 0)
+        {
+            card->gameTags[GameTag::SPELLPOWER] = spellPower;
+        }
+        if (overload > 0)
+        {
+            card->gameTags[GameTag::OVERLOAD] = overload;
+        }
 
         cards.emplace_back(card);
     }
