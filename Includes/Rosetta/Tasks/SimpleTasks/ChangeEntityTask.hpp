@@ -21,6 +21,7 @@ class ChangeEntityTask : public ITask
  public:
     //! Constructs task with given various arguments.
     //! \param entityType The entity type to change.
+    //! \param protoType The another entity type to change.
     //! \param cardType The type of card to filter.
     //! \param cardClass The class of card to filter.
     //! \param race The race of card to filter.
@@ -29,13 +30,11 @@ class ChangeEntityTask : public ITask
     //! \param removeEnchantments The flag that removes any applied enchantments
     //! during this transformation.
     //! \param useRandomCard The flag that indicates it uses random card.
-    explicit ChangeEntityTask(EntityType entityType, CardType cardType,
-                              CardClass cardClass = CardClass::INVALID,
-                              Race race = Race::INVALID,
-                              Rarity rarity = Rarity::INVALID,
-                              const std::string& cardID = "",
-                              bool removeEnchantments = false,
-                              bool useRandomCard = false);
+    explicit ChangeEntityTask(
+        EntityType entityType, EntityType protoType, CardType cardType,
+        CardClass cardClass = CardClass::INVALID, Race race = Race::INVALID,
+        Rarity rarity = Rarity::INVALID, const std::string& cardID = "",
+        bool removeEnchantments = false, bool useRandomCard = false);
 
     //! Constructs task with given various arguments.
     //! \param entityType The entity type to change.
@@ -57,6 +56,11 @@ class ChangeEntityTask : public ITask
     explicit ChangeEntityTask(const std::string& cardID,
                               EntityType entityType = EntityType::SOURCE);
 
+    //! Constructs task with given \p sourceType and \p protoType.
+    //! \param sourceType The entity type to change.
+    //! \param protoType The another entity type to change.
+    explicit ChangeEntityTask(EntityType sourceType, EntityType protoType);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -67,6 +71,7 @@ class ChangeEntityTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
+    EntityType m_protoType = EntityType::INVALID;
     CardType m_cardType = CardType::INVALID;
     CardClass m_cardClass = CardClass::INVALID;
     Race m_race = Race::INVALID;
