@@ -20,6 +20,7 @@
 * AddEnchantmentTask
 * AddLackeyTask
 * AddStackToTask
+* ApplyEffectTask
 * ArmorTask
 * AttackTask
 * ChanceTask

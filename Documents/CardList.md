@@ -481,15 +481,15 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 DALARAN | DAL_007 | Rafaam's Scheme |  
 DALARAN | DAL_008 | Dr. Boom's Scheme |  
-DALARAN | DAL_009 | Hagatha's Scheme |  
+DALARAN | DAL_009 | Hagatha's Scheme | O
 DALARAN | DAL_010 | Togwaggle's Scheme | O
 DALARAN | DAL_011 | Lazul's Scheme | O
 DALARAN | DAL_030 | Shadowy Figure | O
 DALARAN | DAL_039 | Convincing Infiltrator | O
 DALARAN | DAL_040 | Hench-Clan Shadequill | O
 DALARAN | DAL_047 | Walking Fountain | O
-DALARAN | DAL_049 | Underbelly Angler |  
-DALARAN | DAL_052 | Muckmorpher |  
+DALARAN | DAL_049 | Underbelly Angler | O
+DALARAN | DAL_052 | Muckmorpher | O
 DALARAN | DAL_058 | Hecklebot |  
 DALARAN | DAL_059 | Dimensional Ripper |  
 DALARAN | DAL_060 | Clockwork Goblin |  
@@ -537,8 +537,8 @@ DALARAN | DAL_379 | Vereesa Windrunner | O
 DALARAN | DAL_400 | EVIL Cable Rat |  
 DALARAN | DAL_413 | EVIL Conscripter | O
 DALARAN | DAL_415 | EVIL Miscreant | O
-DALARAN | DAL_416 | Hench-Clan Burglar |  
-DALARAN | DAL_417 | Heistbaron Togwaggle |  
+DALARAN | DAL_416 | Hench-Clan Burglar | O
+DALARAN | DAL_417 | Heistbaron Togwaggle | O
 DALARAN | DAL_422 | Arch-Villain Rafaam |  
 DALARAN | DAL_431 | Swampqueen Hagatha |  
 DALARAN | DAL_432 | Witch's Brew |  
@@ -581,16 +581,16 @@ DALARAN | DAL_607 | Fel Lord Betrug |
 DALARAN | DAL_608 | Magic Trick | O
 DALARAN | DAL_609 | Kalecgos | O
 DALARAN | DAL_710 | Soul of the Murloc |  
-DALARAN | DAL_714 | Underbelly Fence |  
-DALARAN | DAL_716 | Vendetta |  
-DALARAN | DAL_719 | Tak Nozwhisker |  
-DALARAN | DAL_720 | Waggle Pick |  
+DALARAN | DAL_714 | Underbelly Fence | O
+DALARAN | DAL_716 | Vendetta | O
+DALARAN | DAL_719 | Tak Nozwhisker | O
+DALARAN | DAL_720 | Waggle Pick | O
 DALARAN | DAL_721 | Catrina Muerte | O
 DALARAN | DAL_723 | Forbidden Words | O
 DALARAN | DAL_724 | Mass Resurrection | O
 DALARAN | DAL_726 | Scargil |  
 DALARAN | DAL_727 | Call to Adventure | O
-DALARAN | DAL_728 | Daring Escape |  
+DALARAN | DAL_728 | Daring Escape | O
 DALARAN | DAL_729 | Madame Lazul |  
 DALARAN | DAL_731 | Duel! |  
 DALARAN | DAL_732 | Keeper Stalladris | O
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 41% (57 of 136 Cards)
+- Progress: 49% (67 of 136 Cards)
 
 ## Saviors of Uldum
 
