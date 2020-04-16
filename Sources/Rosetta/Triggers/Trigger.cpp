@@ -219,6 +219,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::USE_HERO_POWER:
             game->triggerManager.useHeroPowerTrigger += instance->handler;
             break;
+        case TriggerType::SHUFFLE_INTO_DECK:
+            game->triggerManager.shuffleIntoDeckTrigger += instance->handler;
+            break;
         default:
             break;
     }
@@ -359,6 +362,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::USE_HERO_POWER:
             game->triggerManager.useHeroPowerTrigger -= handler;
+            break;
+        case TriggerType::SHUFFLE_INTO_DECK:
+            game->triggerManager.shuffleIntoDeckTrigger -= handler;
             break;
         default:
             break;
