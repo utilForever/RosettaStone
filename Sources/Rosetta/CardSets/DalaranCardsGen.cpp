@@ -1980,6 +1980,16 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<ChangeEntityTask>(EntityType::SOURCE,
+                                                          EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_052e", EntityType::SOURCE));
+    cards.emplace("DAL_052", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_071] Mutate - COST:0
@@ -2915,6 +2925,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: 4/4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_052e"));
+    cards.emplace("DAL_052e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_077e] Toxic Fin (*) - COST:0
