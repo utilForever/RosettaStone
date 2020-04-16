@@ -1922,6 +1922,21 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_SCRIPT_DATA_NUM_1 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::ALL_MINIONS, true));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_1),
+        std::make_shared<MathAddTask>(1),
+        std::make_shared<SetGameTagNumberTask>(EntityType::SOURCE,
+                                               GameTag::TAG_SCRIPT_DATA_NUM_1)
+    };
+    cards.emplace("DAL_009", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
