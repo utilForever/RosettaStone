@@ -3262,6 +3262,54 @@ TEST_CASE("[Rogue : Spell] - DAL_716 : Vendetta")
     CHECK_EQ(card1->GetCost(), 4);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DAL_719] Tak Nozwhisker - COST:7 [ATK:6/HP:6]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you shuffle a card into your deck,
+//       add a copy to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DAL_719 : Tak Nozwhisker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tak Nozwhisker"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Togwaggle's Scheme"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Tak Nozwhisker");
+    CHECK_EQ(curDeck[0]->card->name, "Tak Nozwhisker");
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Dalaran, Rarity: Common

@@ -1786,6 +1786,11 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SHUFFLE_INTO_DECK));
+    power.GetTrigger()->tasks = { std::make_shared<CopyTask>(EntityType::TARGET,
+                                                             ZoneType::HAND) };
+    cards.emplace("DAL_719", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [DAL_720] Waggle Pick - COST:4 [ATK:4/HP:0]
