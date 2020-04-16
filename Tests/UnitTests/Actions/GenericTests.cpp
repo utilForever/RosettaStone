@@ -37,7 +37,7 @@ TEST_CASE("[Generic] - ShuffleIntoDeck")
         Entity::GetFromCard(curPlayer, Cards::FindCardByID("GAME_005"),
                             std::nullopt, curPlayer->GetHandZone());
 
-    Generic::ShuffleIntoDeck(curPlayer, coinCard);
+    Generic::ShuffleIntoDeck(curPlayer, curPlayer->GetHero(), coinCard);
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 1);
     CHECK_EQ((*curPlayer->GetDeckZone())[0]->card->id, "GAME_005");
 }
@@ -68,7 +68,7 @@ TEST_CASE("[Generic] - ShuffleIntoDeck_Full")
         curPlayer->GetDeckZone()->Add(tempCard);
     }
 
-    Generic::ShuffleIntoDeck(curPlayer, coinCard);
+    Generic::ShuffleIntoDeck(curPlayer, curPlayer->GetHero(), coinCard);
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), MAX_DECK_SIZE);
 }
 
@@ -88,17 +88,17 @@ TEST_CASE("[Generic] - GetZone")
     Player* curPlayer = game.GetCurrentPlayer();
 
     CHECK_EQ(curPlayer->GetDeckZone(),
-              Generic::GetZone(curPlayer, ZoneType::DECK));
+             Generic::GetZone(curPlayer, ZoneType::DECK));
     CHECK_EQ(curPlayer->GetFieldZone(),
-              Generic::GetZone(curPlayer, ZoneType::PLAY));
+             Generic::GetZone(curPlayer, ZoneType::PLAY));
     CHECK_EQ(curPlayer->GetGraveyardZone(),
-              Generic::GetZone(curPlayer, ZoneType::GRAVEYARD));
+             Generic::GetZone(curPlayer, ZoneType::GRAVEYARD));
     CHECK_EQ(curPlayer->GetHandZone(),
-              Generic::GetZone(curPlayer, ZoneType::HAND));
+             Generic::GetZone(curPlayer, ZoneType::HAND));
     CHECK_EQ(curPlayer->GetSecretZone(),
-              Generic::GetZone(curPlayer, ZoneType::SECRET));
+             Generic::GetZone(curPlayer, ZoneType::SECRET));
     CHECK_EQ(curPlayer->GetSetasideZone(),
-              Generic::GetZone(curPlayer, ZoneType::SETASIDE));
+             Generic::GetZone(curPlayer, ZoneType::SETASIDE));
     CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::INVALID));
     CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::REMOVEDFROMGAME));
 }

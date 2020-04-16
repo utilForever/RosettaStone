@@ -102,7 +102,7 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
         }
         case ZoneType::DECK:
         {
-            ShuffleIntoDeck(player, copiedEntity);
+            ShuffleIntoDeck(player, source, copiedEntity);
             break;
         }
         case ZoneType::PLAY:
