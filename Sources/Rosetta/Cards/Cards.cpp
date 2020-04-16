@@ -296,6 +296,11 @@ std::vector<Card*> Cards::FindCardBySpellPower(int minVal, int maxVal)
 
     for (Card* card : m_cards)
     {
+        if (card->gameTags.find(GameTag::SPELLPOWER) == card->gameTags.end())
+        {
+            continue;
+        }
+
         if (card->gameTags.at(GameTag::SPELLPOWER) >= minVal &&
             card->gameTags.at(GameTag::SPELLPOWER) <= maxVal)
         {
