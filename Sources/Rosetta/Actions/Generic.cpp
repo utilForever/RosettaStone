@@ -278,7 +278,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     }
 }
 
-void ShuffleIntoDeck(Player* player, Playable* entity)
+void ShuffleIntoDeck(Player* player, Entity* sender, Playable* playable)
 {
     // Add card to graveyard if deck is full
     if (player->GetDeckZone()->IsFull())
@@ -287,7 +287,7 @@ void ShuffleIntoDeck(Player* player, Playable* entity)
     }
 
     // Add card into deck and shuffle it
-    player->GetDeckZone()->Add(entity);
+    player->GetDeckZone()->Add(playable);
     player->GetDeckZone()->Shuffle();
 }
 
