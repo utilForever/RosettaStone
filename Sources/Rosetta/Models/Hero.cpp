@@ -63,6 +63,12 @@ void Hero::RemoveWeapon()
         return;
     }
 
+    if (weapon->HasDeathrattle())
+    {
+        weapon->ActivateTask(PowerType::DEATHRATTLE);
+    }
+    game->ProcessTasks();
+
     game->triggerManager.OnDeathTrigger(weapon);
 
     player->GetGraveyardZone()->Add(weapon);
