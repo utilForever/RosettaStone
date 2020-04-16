@@ -3440,7 +3440,7 @@ TEST_CASE("[Rogue : Spell] - DAL_728 : Daring Escape")
 TEST_CASE("[Shaman : Spell] - DAL_009 : Hagatha's Scheme")
 {
     GameConfig config;
-    config.player1Class = CardClass::ROGUE;
+    config.player1Class = CardClass::SHAMAN;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -3500,6 +3500,50 @@ TEST_CASE("[Shaman : Spell] - DAL_009 : Hagatha's Scheme")
 TEST_CASE("[Shaman : Minion] - DAL_047 : Walking Fountain")
 {
     // Do nothing
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [DAL_049] Underbelly Angler - COST:2 [ATK:2/HP:3]
+// - Race: Murloc, Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you play a Murloc, add a random Murloc to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DAL_049 : Underbelly Angler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Underbelly Angler"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Murloc Tidehunter"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[1]->card->GetRace(), Race::MURLOC);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL

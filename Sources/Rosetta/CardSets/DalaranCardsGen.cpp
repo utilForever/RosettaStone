@@ -1959,6 +1959,16 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: After you play a Murloc, add a random Murloc to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
+                                         Race::MURLOC),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("DAL_049", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_052] Muckmorpher - COST:5 [ATK:4/HP:4]
