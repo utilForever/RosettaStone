@@ -1820,6 +1820,9 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Return all friendly minions to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::MINIONS));
+    cards.emplace("DAL_728", CardDef(power));
 }
 
 void DalaranCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
