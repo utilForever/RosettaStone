@@ -15,6 +15,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeUnidentifiedTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
@@ -48,6 +49,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
@@ -1803,6 +1805,14 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<ReturnHandTask>(EntityType::STACK));
+    power.AddDeathrattleTask(std::make_shared<ApplyEffectTask>(
+        EntityType::STACK, EffectList{ Effects::ReduceCost(2) }));
+    cards.emplace("DAL_720", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DAL_728] Daring Escape - COST:1
