@@ -289,6 +289,16 @@ void ShuffleIntoDeck(Player* player, Entity* sender, Playable* playable)
     // Add card into deck and shuffle it
     player->GetDeckZone()->Add(playable);
     player->GetDeckZone()->Shuffle();
+
+    if (auto p = dynamic_cast<Playable*>(sender); playable)
+    {
+        std::unique_ptr<EventMetaData> temp =
+            std::move(player->game->currentEventData);
+        player->game->currentEventData =
+            std::make_unique<EventMetaData>(p, playable);
+        player->game->triggerManager.OnShuffleIntoDeckTrigger(playable);
+        player->game->currentEventData = std::move(temp);
+    }
 }
 
 void ChangeManaCrystal(Player* player, int amount, bool fill)
