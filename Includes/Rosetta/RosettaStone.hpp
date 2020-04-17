@@ -196,6 +196,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SwapHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
