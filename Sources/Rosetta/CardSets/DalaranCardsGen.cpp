@@ -2054,6 +2054,9 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddLackeyTask>(1));
+    cards.emplace("DAL_433", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_710] Soul of the Murloc - COST:2

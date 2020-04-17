@@ -3644,6 +3644,60 @@ TEST_CASE("[Shaman : Spell] - DAL_071 : Mutate")
     CHECK_EQ(curField[0]->GetCost(), 5);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DAL_433] Sludge Slurper - COST:1 [ATK:2/HP:1]
+// - Race: Murloc, Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a <b>Lackey</b> to your hand.
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DAL_433 : Sludge Slurper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sludge Slurper"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->IsLackey(), true);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
