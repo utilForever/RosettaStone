@@ -3698,6 +3698,70 @@ TEST_CASE("[Shaman : Minion] - DAL_433 : Sludge Slurper")
     CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [DAL_710] Soul of the Murloc - COST:2
+// - Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your minions "<b>Deathrattle:</b> Summon a 1/1 Murloc."
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - DAL_710 : Soul of the Murloc")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Soul of the Murloc"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[0]->HasDeathrattle(), false);
+    CHECK_EQ(curField[1]->HasDeathrattle(), false);
+    CHECK_EQ(curField[2]->HasDeathrattle(), false);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+    CHECK_EQ(curField[1]->HasDeathrattle(), true);
+    CHECK_EQ(curField[2]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Murloc Scout");
+    CHECK_EQ(curField[1]->card->name, "Murloc Scout");
+    CHECK_EQ(curField[2]->card->name, "Chillwind Yeti");
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common

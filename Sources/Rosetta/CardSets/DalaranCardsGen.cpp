@@ -2067,6 +2067,10 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_710e", EntityType::MINIONS));
+    cards.emplace("DAL_710", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_726] Scargil - COST:4 [ATK:4/HP:4]
@@ -2082,6 +2086,8 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void DalaranCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_431t] Drustvar Horror (*) - COST:5 [ATK:5/HP:5]
     // - Set: Dalaran
@@ -2098,6 +2104,10 @@ void DalaranCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon a 1/1 Murloc.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_506a", SummonSide::DEATHRATTLE));
+    cards.emplace("DAL_710e", CardDef(power));
 }
 
 void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
