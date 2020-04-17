@@ -2082,6 +2082,14 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "DAL_726e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC));
+    }
+    cards.emplace("DAL_726", CardDef(power));
 }
 
 void DalaranCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
@@ -3176,6 +3184,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    cards.emplace("DAL_726e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_727e] Heroic (*) - COST:0

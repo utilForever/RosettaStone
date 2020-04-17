@@ -3762,6 +3762,70 @@ TEST_CASE("[Shaman : Spell] - DAL_710 : Soul of the Murloc")
     CHECK_EQ(curField[2]->card->name, "Chillwind Yeti");
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DAL_726] Scargil - COST:4 [ATK:4/HP:4]
+// - Race: Murloc, Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your Murlocs cost (1).
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DAL_726 : Scargil")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scargil"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Warleader"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bluegill Warrior"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 1);
+    CHECK_EQ(card5->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 1);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 1);
+    CHECK_EQ(card5->GetCost(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card1));
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 1);
+    CHECK_EQ(card5->GetCost(), 3);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
