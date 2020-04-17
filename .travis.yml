@@ -37,27 +37,6 @@ matrix:
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh
-    - name: Test Docker based on Ubuntu 19.04 LTS + gcc
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco disco
-    - name: Test Docker based on Ubuntu 19.04 LTS + gcc-latest
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.gcc-latest disco-gcc-latest
-    - name: Test Docker based on Ubuntu 19.04 LTS + clang-latest
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest
     - name: Test Docker based on Ubuntu 20.04 LTS + gcc
       os: linux
       dist: trusty
