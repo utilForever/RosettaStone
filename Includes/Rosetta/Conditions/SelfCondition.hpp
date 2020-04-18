@@ -245,6 +245,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHealth(int value, RelaSign relaSign);
 
+    //! SelfCondition wrapper for checking the entity has target.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasTarget();
+
     //! SelfCondition wrapper for checking it is proposed defender.
     //! \param cardType The type of the card to check.
     //! \return Generated SelfCondition for intended purpose.
