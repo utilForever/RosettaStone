@@ -2191,7 +2191,7 @@ TEST_CASE("[Paladin : Spell] - DAL_727 : Call to Adventure")
     {
         config.player1Deck[i] = Cards::FindCardByName("Wisp");
         config.player1Deck[i + 1] = Cards::FindCardByName("Never Surrender!");
-        config.player1Deck[i + 2] = Cards::FindCardByName("Nozari!");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Nozari");
     }
 
     Game game(config);
@@ -3877,6 +3877,69 @@ TEST_CASE("[Warlock : Spell] - DAL_007 : Rafaam's Scheme")
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[0]->card->name, "Imp");
     CHECK_EQ(curField[1]->card->name, "Imp");
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [DAL_173] Darkest Hour - COST:6
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: Destroy all friendly minions.
+//       For each one, summon a random minion from your deck.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - DAL_173 : Darkest Hour")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Rafaam's Scheme");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Siegebreaker");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Darkest Hour"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    const bool check1 = (curField[0]->card->name == "Wolfrider" ||
+                         curField[0]->card->name == "Siegebreaker");
+    const bool check2 = (curField[1]->card->name == "Wolfrider" ||
+                         curField[1]->card->name == "Siegebreaker");
+    const bool check3 = (curField[2]->card->name == "Wolfrider" ||
+                         curField[2]->card->name == "Siegebreaker");
+    const bool check = check1 && check2 && check3;
+    CHECK_EQ(check, true);
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -20,6 +20,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ChangeUnidentifiedTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
@@ -2159,6 +2160,17 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Destroy all friendly minions.
     //       For each one, summon a random minion from your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK, true));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<IncludeTask>(EntityType::DECK),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<SummonStackTask>(true) }));
+    cards.emplace("DAL_173", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DAL_185] Aranasi Broodmother - COST:6 [ATK:4/HP:6]
