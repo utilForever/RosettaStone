@@ -3991,6 +3991,57 @@ TEST_CASE("[Warlock : Minion] - DAL_185 : Aranasi Broodmother")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DAL_422] Arch-Villain Rafaam - COST:7 [ATK:7/HP:8]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Battlecry:</b> Replace your hand
+//       and deck with <b>Legendary</b> minions.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DAL_422 : Arch-Villain Rafaam")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Arch-Villain Rafaam"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    for (auto& handCard : curHand.GetAll())
+    {
+        CHECK_EQ(handCard->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(handCard->card->GetRarity(), Rarity::LEGENDARY);
+    }
+    for (auto& deckCard : curDeck.GetAll())
+    {
+        CHECK_EQ(deckCard->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(deckCard->card->GetRarity(), Rarity::LEGENDARY);
+    }
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common

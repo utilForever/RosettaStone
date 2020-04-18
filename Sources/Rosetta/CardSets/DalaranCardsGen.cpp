@@ -2199,6 +2199,14 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::DECK, std::vector<EntityType>(), true));
+    power.AddPowerTask(std::make_shared<ChangeEntityTask>(
+        EntityType::STACK, CardType::MINION, CardClass::INVALID, Race::INVALID,
+        Rarity::LEGENDARY));
+    cards.emplace("DAL_422", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DAL_561] Jumbo Imp - COST:10 [ATK:8/HP:8]
