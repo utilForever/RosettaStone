@@ -66,6 +66,7 @@
 * MathMultiplyTask
 * MathNumberIndexTask
 * MathSubtractTask
+* MoveToDeckTask
 * MoveToGraveyardTask
 * MoveToSetasideTask
 * NumberConditionTask
@@ -87,6 +88,7 @@
 * SilenceTask
 * SummonCapturedMinionTask
 * SummonCopyTask
+* SummonNumberTask
 * SummonOpTask
 * SummonStackTask
 * SummonTask
@@ -94,5 +96,6 @@
 * SwapHeroPowerTask
 * TempManaTask
 * TransformCopyTask
+* TransformMinionTask
 * TransformTask
 * WeaponTask
