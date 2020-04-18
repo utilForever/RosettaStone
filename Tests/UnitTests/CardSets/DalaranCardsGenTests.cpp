@@ -4095,6 +4095,73 @@ TEST_CASE("[Warlock : Minion] - DAL_561 : Jumbo Imp")
     CHECK_EQ(card1->GetCost(), 9);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DAL_563] Eager Underling - COST:4 [ATK:2/HP:2]
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give two random friendly minions +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DAL_563 : Eager Underling")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eager Underling"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    const bool check1 =
+        curField[0]->GetAttack() == 5 && curField[0]->GetHealth() == 4 &&
+        curField[1]->GetAttack() == 3 && curField[1]->GetHealth() == 3 &&
+        curField[2]->GetAttack() == 3 && curField[2]->GetHealth() == 1;
+    const bool check2 =
+        curField[0]->GetAttack() == 5 && curField[0]->GetHealth() == 4 &&
+        curField[1]->GetAttack() == 1 && curField[1]->GetHealth() == 1 &&
+        curField[2]->GetAttack() == 5 && curField[2]->GetHealth() == 3;
+    const bool check3 =
+        curField[0]->GetAttack() == 3 && curField[0]->GetHealth() == 2 &&
+        curField[1]->GetAttack() == 3 && curField[1]->GetHealth() == 3 &&
+        curField[2]->GetAttack() == 5 && curField[2]->GetHealth() == 3;
+    const bool check = check1 || check2 || check3;
+    CHECK_EQ(check, true);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common

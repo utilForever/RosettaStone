@@ -2235,6 +2235,12 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS, 2));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("DAL_563e", EntityType::STACK));
+    cards.emplace("DAL_563", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DAL_602] Plot Twist - COST:2
@@ -3125,6 +3131,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_563e"));
+    cards.emplace("DAL_563e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_570e] Never Surrender! (*) - COST:0
