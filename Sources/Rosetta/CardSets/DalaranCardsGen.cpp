@@ -2264,10 +2264,15 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Give your Demons +1 Attack.
     //       Deal 1 damage to all enemy minions.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_MINION_TARGET = 0
-    // - REQ_TARGET_WITH_RACE = 15
-    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_605e", EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    cards.emplace("DAL_605", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DAL_606] EVIL Genius - COST:2 [ATK:2/HP:2]
@@ -2306,12 +2311,17 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void DalaranCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [DAL_605e] Imptastic (*) - COST:2
     // - Set: Dalaran, Rarity: Rare
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_605e"));
+    cards.emplace("DAL_605e", CardDef(power));
 }
 
 void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
