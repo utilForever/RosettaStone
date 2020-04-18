@@ -60,7 +60,11 @@ Playable* Draw(Player* player, Playable* cardToDraw)
                 clonedTask->Run();
             }
 
-            Draw(player, cardToDraw);
+            const std::string text = playable->card->text;
+            if (text.find("<b>Casts When Drawn</b>") != std::string::npos)
+            {
+                Draw(player, cardToDraw);
+            }
         }
     }
 
