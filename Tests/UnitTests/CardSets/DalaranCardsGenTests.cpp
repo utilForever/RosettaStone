@@ -4274,6 +4274,63 @@ TEST_CASE("[Warlock : Spell] - DAL_605 : Impferno")
     CHECK_EQ(opField[1]->GetHealth(), 3);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DAL_606] EVIL Genius - COST:2 [ATK:2/HP:2]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a friendly minion
+//       to add 2 random <b>Lackeys</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DAL_606 : EVIL Genius")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("EVIL Genius"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("EVIL Genius"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->IsLackey(), true);
+    CHECK_EQ(curHand[5]->card->IsLackey(), true);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
