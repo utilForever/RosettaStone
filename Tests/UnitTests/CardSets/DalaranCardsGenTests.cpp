@@ -4162,6 +4162,49 @@ TEST_CASE("[Warlock : Minion] - DAL_563 : Eager Underling")
     CHECK_EQ(check, true);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [DAL_602] Plot Twist - COST:2
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Shuffle your hand into your deck. Draw that many cards.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - DAL_602 : Plot Twist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Aranasi Broodmother");
+        config.player2Deck[i] = Cards::FindCardByName("Wolfrider");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(25);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plot Twist"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 21);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
