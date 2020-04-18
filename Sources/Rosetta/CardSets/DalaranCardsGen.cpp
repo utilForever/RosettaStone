@@ -2183,6 +2183,9 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<HealTask>(EntityType::HERO, 4));
+    cards.emplace("DAL_185", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DAL_422] Arch-Villain Rafaam - COST:7 [ATK:7/HP:8]

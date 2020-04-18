@@ -3942,6 +3942,55 @@ TEST_CASE("[Warlock : Spell] - DAL_173 : Darkest Hour")
     CHECK_EQ(check, true);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DAL_185] Aranasi Broodmother - COST:6 [ATK:4/HP:6]
+// - Race: Demon, Faction: Neutral, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> When you draw this,
+//       restore 4 Health to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - TOPDECK = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DAL_185 : Aranasi Broodmother")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Aranasi Broodmother");
+        config.player2Deck[i] = Cards::FindCardByName("Wolfrider");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    curPlayer->GetHero()->SetDamage(15);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
