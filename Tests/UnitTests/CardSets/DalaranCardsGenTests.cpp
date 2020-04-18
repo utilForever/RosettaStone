@@ -4042,6 +4042,59 @@ TEST_CASE("[Warlock : Minion] - DAL_422 : Arch-Villain Rafaam")
     }
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DAL_561] Jumbo Imp - COST:10 [ATK:8/HP:8]
+// - Race: Demon, Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: Costs (1) less whenever a friendly Demon dies
+//       while this is in your hand.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DAL_561 : Jumbo Imp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Jumbo Imp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Shadowhoof Slayer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card1->GetCost(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(card1->GetCost(), 9);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, HeroPowerTask(card5));
+    CHECK_EQ(card1->GetCost(), 9);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common

@@ -10,6 +10,7 @@
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ActivateDeathrattleTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -2215,6 +2216,15 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Costs (1) less whenever a friendly Demon dies
     //       while this is in your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DAL_561e", EntityType::SOURCE) };
+    cards.emplace("DAL_561", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DAL_563] Eager Underling - COST:4 [ATK:2/HP:2]
@@ -3104,6 +3114,10 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_shared<OngoingEnchant>(EffectList{ Effects::ReduceCost(1) }));
+    cards.emplace("DAL_561e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_563e] Power of EVIL (*) - COST:0
