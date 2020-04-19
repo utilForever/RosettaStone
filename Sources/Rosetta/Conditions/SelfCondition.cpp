@@ -570,6 +570,13 @@ SelfCondition SelfCondition::IsOverloaded()
     });
 }
 
+SelfCondition SelfCondition::IsManaCrystalFull()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetTotalMana() == 10;
+    });
+}
+
 SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {

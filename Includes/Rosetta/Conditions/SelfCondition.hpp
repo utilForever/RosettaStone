@@ -294,6 +294,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOverloaded();
 
+    //! SelfCondition wrapper for checking the player's total mana is full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsManaCrystalFull();
+
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();
