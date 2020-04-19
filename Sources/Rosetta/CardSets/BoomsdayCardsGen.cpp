@@ -112,6 +112,22 @@ void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void BoomsdayCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [BOT_511t] Bomb (*) - COST:5
+    // - Set: Boomsday
+    // --------------------------------------------------------
+    // Text: <b>Casts When Drawn</b>\nYou take 5 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // - TOPDECK = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cards.emplace("BOT_511t", CardDef(power));
 }
 
 void BoomsdayCardsGen::AddAll(std::map<std::string, CardDef>& cards)

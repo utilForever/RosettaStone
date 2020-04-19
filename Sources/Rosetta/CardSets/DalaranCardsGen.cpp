@@ -2405,6 +2405,10 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_DECK, "BOT_511t"));
+    cards.emplace("DAL_060", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [DAL_062] Sweeping Strikes - COST:2
