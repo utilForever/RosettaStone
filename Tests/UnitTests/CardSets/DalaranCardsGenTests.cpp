@@ -4445,6 +4445,54 @@ TEST_CASE("[Warrior : Spell] - DAL_008 : Dr. Boom's Scheme")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [DAL_059] Dimensional Ripper - COST:10
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon 2 copies of a minion in your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - DAL_059 : Dimensional Ripper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wolfrider");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dimensional Ripper"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Wisp");
+    CHECK_EQ(curField[1]->card->name, "Wisp");
+    CHECK_EQ(curDeck.GetCount(), 26);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
