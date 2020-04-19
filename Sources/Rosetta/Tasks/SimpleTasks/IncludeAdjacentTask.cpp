@@ -21,7 +21,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
 {
     Minion* left = nullptr;
     Minion* right = nullptr;
-    Minion* center;
+    Minion* center = nullptr;
 
     std::vector<Playable*> minions;
 
@@ -32,6 +32,13 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
             break;
         case EntityType::TARGET:
             center = dynamic_cast<Minion*>(m_target);
+            break;
+        case EntityType::EVENT_TARGET:
+            if (const auto eventData = player->game->currentEventData.get();
+                eventData)
+            {
+                center = dynamic_cast<Minion*>(eventData->eventTarget);
+            }
             break;
         default:
             throw std::invalid_argument(
