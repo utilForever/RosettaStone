@@ -130,6 +130,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHoldingAnotherClassCard();
 
+    //! SelfCondition wrapper for checking it's card ID is \p cardID.
+    //! \param cardID The card ID.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsCardID(std::string_view cardID);
+
     //! SelfCondition wrapper for checking the entity is minion.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMinion();

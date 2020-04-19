@@ -245,6 +245,13 @@ SelfCondition SelfCondition::IsHoldingAnotherClassCard()
     });
 }
 
+SelfCondition SelfCondition::IsCardID(std::string_view cardID)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->card->id == cardID;
+    });
+}
+
 SelfCondition SelfCondition::IsMinion()
 {
     return SelfCondition([=](Playable* playable) -> bool {
