@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/CardSets/BoomsdayCardsGen.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/CardSets/DemonHunterInitCardsGen.hpp>
@@ -26,6 +27,7 @@ CardDefs::CardDefs()
     DemonHunterInitCardsGen::AddAll(m_data);
     HoFCardsGen::AddAll(m_data);
     LootapaloozaCardsGen::AddAll(m_data);
+    BoomsdayCardsGen::AddAll(m_data);
     DalaranCardsGen::AddAll(m_data);
     UldumCardsGen::AddAll(m_data);
     DragonsCardsGen::AddAll(m_data);
