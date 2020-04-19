@@ -31,8 +31,9 @@ TaskStatus SummonCapturedMinionTask::Impl(Player* player)
 
     const auto minion =
         dynamic_cast<Minion*>(Entity::GetFromCard(player, card));
-    const int summonPos =
-        SummonTask::GetPosition(m_source, SummonSide::DEATHRATTLE);
+    int alternateCount = 0;
+    const int summonPos = SummonTask::GetPosition(
+        m_source, SummonSide::DEATHRATTLE, m_target, alternateCount);
 
     Generic::Summon(minion, summonPos, m_source);
 

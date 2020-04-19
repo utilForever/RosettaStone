@@ -72,6 +72,8 @@ void FieldZone::Add(Playable* entity, int zonePos)
     {
         adjacentAuras[i]->SetIsFieldChanged(true);
     }
+
+    entity->game->triggerManager.OnZoneTrigger(entity);
 }
 
 Playable* FieldZone::Remove(Playable* entity)

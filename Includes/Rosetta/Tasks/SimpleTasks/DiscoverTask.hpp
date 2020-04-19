@@ -16,8 +16,10 @@ enum class DiscoverType
     INVALID,
     SPELL,
     DRAGON,
+    LEGENDARY_MINION_SUMMON,
     SIX_COST_SUMMON,
     SPELL_THREE_COST_OR_LESS,
+    HEISTBARON_TOGWAGGLE,
 };
 
 class DiscoverCriteria
@@ -67,9 +69,10 @@ class DiscoverTask : public ITask
                           ChoiceAction choiceAction = ChoiceAction::HAND,
                           int numberOfChoices = 3, bool doShuffle = true);
 
-    //! Constructs task with given \p discoverType.
+    //! Constructs task with given \p discoverType and \p numberOfChoices.
     //! \param discoverType The type of discover.
-    explicit DiscoverTask(DiscoverType discoverType);
+    //! \param numberOfChoices The number of choices.
+    explicit DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3);
 
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.

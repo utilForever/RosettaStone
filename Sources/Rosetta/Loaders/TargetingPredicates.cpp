@@ -7,6 +7,8 @@
 #include <Rosetta/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone
 {
 TargetingPredicate TargetingPredicates::ReqMurlocTarget()

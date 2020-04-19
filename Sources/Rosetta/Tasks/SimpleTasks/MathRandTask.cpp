@@ -4,26 +4,27 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathRandTask.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-ArmorTask::ArmorTask(int amount, bool useNumber)
-    : m_amount(amount), m_useNumber(useNumber)
+MathRandTask::MathRandTask(int min, int max) : m_min(min), m_max(max)
 {
     // Do nothing
 }
 
-TaskStatus ArmorTask::Impl(Player* player)
+TaskStatus MathRandTask::Impl(Player* player)
 {
-    const int amount = m_useNumber ? player->game->taskStack.num[0] : m_amount;
-    player->GetHero()->GainArmor(amount);
-
+    player->game->taskStack.num[0] = Random::get<int>(m_min, m_max);
     return TaskStatus::COMPLETE;
 }
 
-std::unique_ptr<ITask> ArmorTask::CloneImpl()
+std::unique_ptr<ITask> MathRandTask::CloneImpl()
 {
-    return std::make_unique<ArmorTask>(m_amount, m_useNumber);
+    return std::make_unique<MathRandTask>(m_min, m_max);
 }
 }  // namespace RosettaStone::SimpleTasks

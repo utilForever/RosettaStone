@@ -15,11 +15,13 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-ChangeEntityTask::ChangeEntityTask(EntityType entityType, CardType cardType,
-                                   CardClass cardClass, Race race,
-                                   Rarity rarity, const std::string& cardID,
+ChangeEntityTask::ChangeEntityTask(EntityType entityType, EntityType protoType,
+                                   CardType cardType, CardClass cardClass,
+                                   Race race, Rarity rarity,
+                                   const std::string& cardID,
                                    bool removeEnchantments, bool useRandomCard)
     : ITask(entityType),
+      m_protoType(protoType),
       m_cardType(cardType),
       m_cardClass(cardClass),
       m_race(race),
@@ -52,6 +54,12 @@ ChangeEntityTask::ChangeEntityTask(const std::string& cardID,
     // Do nothing
 }
 
+ChangeEntityTask::ChangeEntityTask(EntityType sourceType, EntityType protoType)
+    : ITask(sourceType), m_protoType(protoType)
+{
+    // Do nothing
+}
+
 TaskStatus ChangeEntityTask::Impl(Player* player)
 {
     const auto playables =
@@ -73,9 +81,21 @@ TaskStatus ChangeEntityTask::Impl(Player* player)
         return TaskStatus::COMPLETE;
     }
 
+    Card* card;
+    if (m_protoType != EntityType::INVALID)
+    {
+        auto playablesForProtoType =
+            IncludeTask::GetEntities(m_protoType, player, m_source, m_target);
+        card = playablesForProtoType[0]->card;
+    }
+    else
+    {
+        card = m_card;
+    }
+
     for (auto& playable : playables)
     {
-        Generic::ChangeEntity(player, playable, m_card, m_removeEnchantments);
+        Generic::ChangeEntity(player, playable, card, m_removeEnchantments);
     }
 
     return TaskStatus::COMPLETE;
@@ -84,7 +104,7 @@ TaskStatus ChangeEntityTask::Impl(Player* player)
 std::unique_ptr<ITask> ChangeEntityTask::CloneImpl()
 {
     return std::make_unique<ChangeEntityTask>(
-        m_entityType, m_cardType, m_cardClass, m_race, m_rarity,
+        m_entityType, m_protoType, m_cardType, m_cardClass, m_race, m_rarity,
         m_card != nullptr ? m_card->id : "", m_removeEnchantments,
         m_useRandomCard);
 }

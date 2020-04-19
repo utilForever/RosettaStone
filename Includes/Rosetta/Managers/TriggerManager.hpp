@@ -61,6 +61,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnSecretRevealedTrigger(Entity* sender);
 
+    //! Callback for trigger when the entity enters any types of zone.
+    //! \param sender An entity that is the source of trigger.
+    void OnZoneTrigger(Entity* sender);
+
     //! Callback for trigger when playable heals character.
     //! \param sender An entity that is the source of trigger.
     void OnGiveHealTrigger(Entity* sender);
@@ -101,6 +105,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnUseHeroPowerTrigger(Entity* sender);
 
+    //! Callback for trigger when a card is shuffled into a deck.
+    //! \param sender An entity that is the source of trigger.
+    void OnShuffleIntoDeckTrigger(Entity* sender);
+
     TriggerEvent startTurnTrigger;
     TriggerEvent endTurnTrigger;
     TriggerEvent drawCardTrigger;
@@ -111,6 +119,7 @@ class TriggerManager
     TriggerEvent castSpellTrigger;
     TriggerEvent afterCastTrigger;
     TriggerEvent secretRevealedTrigger;
+    TriggerEvent zoneTrigger;
     TriggerEvent giveHealTrigger;
     TriggerEvent takeHealTrigger;
     TriggerEvent attackTrigger;
@@ -121,6 +130,7 @@ class TriggerManager
     TriggerEvent targetTrigger;
     TriggerEvent deathTrigger;
     TriggerEvent useHeroPowerTrigger;
+    TriggerEvent shuffleIntoDeckTrigger;
 };
 }  // namespace RosettaStone
 

@@ -46,8 +46,9 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
 
 //! Shuffles card into deck.
 //! \param player The player to shuffle card into deck.
-//! \param entity A card to shuffle into deck.
-void ShuffleIntoDeck(Player* player, Playable* entity);
+//! \param sender The entity to call function to shuffle into deck.
+//! \param playable The playable to shuffle into deck.
+void ShuffleIntoDeck(Player* player, Entity* sender, Playable* playable);
 
 //! Changes mana crystal of the player.
 //! \param player The player to change mana crystal.

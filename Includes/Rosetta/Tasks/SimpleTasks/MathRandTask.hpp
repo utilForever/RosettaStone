@@ -3,26 +3,25 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_ARMOR_TASK_HPP
-#define ROSETTASTONE_ARMOR_TASK_HPP
+#ifndef ROSETTASTONE_MATH_RAND_TASK_HPP
+#define ROSETTASTONE_MATH_RAND_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief ArmorTask class.
+//! \brief MathRandTask class.
 //!
-//! This class represents the task for gaining armor to hero.
+//! This class represents the task for getting the number at random.
 //!
-class ArmorTask : public ITask
+class MathRandTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount and \p useNumber.
-    //! \param amount The amount to gain armor.
-    //! \param useNumber The flag that indicates it adds the value
-    //! contained in task stack as armor.
-    explicit ArmorTask(int amount, bool useNumber = false);
+    //! Constructs task with given \p min and \p max.
+    //! \param min The minimum value.
+    //! \param max The maximum value.
+    explicit MathRandTask(int min, int max);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -34,9 +33,9 @@ class ArmorTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    int m_amount;
-    bool m_useNumber = false;
+    int m_min = 0;
+    int m_max = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_ARMOR_TASK_HPP
+#endif  // ROSETTASTONE_MATH_RAND_TASK_HPP

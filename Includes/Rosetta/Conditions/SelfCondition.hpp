@@ -114,11 +114,26 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingSecret();
 
+    //! SelfCondition wrapper for checking there is the entity
+    //! with Lackey in field zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingLackey();
+
     //! SelfCondition wrapper for checking the player has entity
     //! with \p race in hand zone.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHoldingRace(Race race);
+
+    //! SelfCondition wrapper for checking the player has entity
+    //! with another class in hand zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHoldingAnotherClassCard();
+
+    //! SelfCondition wrapper for checking it's card ID is \p cardID.
+    //! \param cardID The card ID.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsCardID(std::string_view cardID);
 
     //! SelfCondition wrapper for checking the entity is minion.
     //! \return Generated SelfCondition for intended purpose.
@@ -235,6 +250,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHealth(int value, RelaSign relaSign);
 
+    //! SelfCondition wrapper for checking the entity has target.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasTarget();
+
     //! SelfCondition wrapper for checking it is proposed defender.
     //! \param cardType The type of the card to check.
     //! \return Generated SelfCondition for intended purpose.
@@ -274,6 +293,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the player is overloaded.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOverloaded();
+
+    //! SelfCondition wrapper for checking the player's total mana is full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsManaCrystalFull();
 
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.

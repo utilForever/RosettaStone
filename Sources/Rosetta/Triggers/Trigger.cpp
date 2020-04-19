@@ -119,6 +119,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::SECRET_REVEALED:
             game->triggerManager.secretRevealedTrigger += instance->handler;
             break;
+        case TriggerType::ZONE:
+            game->triggerManager.zoneTrigger += instance->handler;
+            break;
         case TriggerType::GIVE_HEAL:
             game->triggerManager.giveHealTrigger += instance->handler;
             break;
@@ -216,6 +219,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::USE_HERO_POWER:
             game->triggerManager.useHeroPowerTrigger += instance->handler;
             break;
+        case TriggerType::SHUFFLE_INTO_DECK:
+            game->triggerManager.shuffleIntoDeckTrigger += instance->handler;
+            break;
         default:
             break;
     }
@@ -258,6 +264,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::SECRET_REVEALED:
             game->triggerManager.secretRevealedTrigger -= handler;
+            break;
+        case TriggerType::ZONE:
+            game->triggerManager.zoneTrigger -= handler;
             break;
         case TriggerType::GIVE_HEAL:
             game->triggerManager.giveHealTrigger -= handler;
@@ -353,6 +362,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::USE_HERO_POWER:
             game->triggerManager.useHeroPowerTrigger -= handler;
+            break;
+        case TriggerType::SHUFFLE_INTO_DECK:
+            game->triggerManager.shuffleIntoDeckTrigger -= handler;
             break;
         default:
             break;

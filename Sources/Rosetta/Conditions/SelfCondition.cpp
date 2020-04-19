@@ -198,6 +198,21 @@ SelfCondition SelfCondition::IsControllingSecret()
     });
 }
 
+SelfCondition SelfCondition::IsControllingLackey()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& minion : playable->player->GetFieldZone()->GetAll())
+        {
+            if (minion->card->IsLackey())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHoldingRace(Race race)
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -210,6 +225,30 @@ SelfCondition SelfCondition::IsHoldingRace(Race race)
         }
 
         return false;
+    });
+}
+
+SelfCondition SelfCondition::IsHoldingAnotherClassCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardClass() != CardClass::NEUTRAL &&
+                handCard->card->GetCardClass() !=
+                    playable->player->GetHero()->card->GetCardClass())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::IsCardID(std::string_view cardID)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->card->id == cardID;
     });
 }
 
@@ -440,6 +479,13 @@ SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
     });
 }
 
+SelfCondition SelfCondition::HasTarget()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetCardTarget() > 0;
+    });
+}
+
 SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
 {
     return IsEventTargetIs(cardType);
@@ -521,6 +567,13 @@ SelfCondition SelfCondition::IsOverloaded()
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player->GetOverloadLocked() > 0 ||
                playable->player->GetOverloadOwed() > 0;
+    });
+}
+
+SelfCondition SelfCondition::IsManaCrystalFull()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetTotalMana() == 10;
     });
 }
 

@@ -53,6 +53,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
     const auto field = player->GetFieldZone();
     int space = MAX_FIELD_SIZE - field->GetCount();
+    int alternateCount = 0;
 
     auto playablesSize = static_cast<int>(playables.size());
     space = playablesSize > space ? space : playablesSize;
@@ -71,7 +72,8 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 Entity::GetFromCard(player, playables[i]->card));
 
             Generic::Summon(minion,
-                            SummonTask::GetPosition(m_source, m_side, m_target),
+                            SummonTask::GetPosition(m_source, m_side, m_target,
+                                                    alternateCount),
                             m_source);
 
             if (m_addToStack)
@@ -96,8 +98,8 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 minion->SetGameTag(GameTag::CONTROLLER, player->playerID);
             }
 
-            const int zonePos =
-                SummonTask::GetPosition(m_source, m_side, m_target);
+            const int zonePos = SummonTask::GetPosition(
+                m_source, m_side, m_target, alternateCount);
 
             const auto copy = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, minion->card, minion->GetGameTags(),

@@ -39,7 +39,9 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
 
 void SummonReborn(Minion* minion)
 {
-    const int zonePos = SummonTask::GetPosition(minion, SummonSide::RIGHT);
+    int alternateCount = 0;
+    const int zonePos = SummonTask::GetPosition(minion, SummonSide::RIGHT,
+                                                nullptr, alternateCount);
     const auto copy = dynamic_cast<Minion*>(
         Entity::GetFromCard(minion->player, minion->card, minion->GetGameTags(),
                             minion->player->GetFieldZone()));

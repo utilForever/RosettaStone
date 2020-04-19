@@ -36,12 +36,15 @@
 #include <Rosetta/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/CardSets/BoomsdayCardsGen.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/CardSets/DemonHunterInitCardsGen.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/Cards/Card.hpp>
@@ -121,12 +124,14 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeAttackingTargetTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeUnidentifiedTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ClearStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
@@ -154,6 +159,7 @@
 #include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetPlayerGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetPlayerManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
@@ -163,7 +169,9 @@
 #include <Rosetta/Tasks/SimpleTasks/MathAddTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathMultiplyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathRandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubtractTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
@@ -185,6 +193,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCapturedMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
@@ -192,6 +201,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SwapHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>

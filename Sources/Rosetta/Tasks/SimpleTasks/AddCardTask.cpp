@@ -50,7 +50,7 @@ TaskStatus AddCardTask::Impl(Player* player)
                  ++i)
             {
                 Card* card = Cards::FindCardByID(m_cardID);
-                Generic::ShuffleIntoDeck(player,
+                Generic::ShuffleIntoDeck(player, m_source,
                                          Entity::GetFromCard(player, card));
             }
             break;
@@ -63,7 +63,7 @@ TaskStatus AddCardTask::Impl(Player* player)
             {
                 Card* card = Cards::FindCardByID(m_cardID);
                 Generic::ShuffleIntoDeck(
-                    player->opponent,
+                    player->opponent, m_source,
                     Entity::GetFromCard(player->opponent, card));
             }
             break;

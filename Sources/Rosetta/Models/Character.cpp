@@ -387,6 +387,7 @@ void Character::CopyInternalAttributes(Character* copy) const
     copy->SetMaxHealth(GetMaxHealth());
     copy->SetDamage(GetDamage());
     copy->SetNumAttacksThisTurn(GetNumAttacksThisTurn());
+    copy->SetGameTag(GameTag::DEATHRATTLE, GetGameTag(GameTag::DEATHRATTLE));
     copy->SetGameTag(GameTag::STEALTH, GetGameTag(GameTag::STEALTH));
     copy->SetGameTag(GameTag::IMMUNE, GetGameTag(GameTag::IMMUNE));
     copy->SetGameTag(GameTag::TAUNT, GetGameTag(GameTag::TAUNT));

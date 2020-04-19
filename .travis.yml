@@ -37,27 +37,6 @@ matrix:
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh
-    - name: Test Docker based on Ubuntu 19.04 LTS + gcc
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco disco
-    - name: Test Docker based on Ubuntu 19.04 LTS + gcc-latest
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.gcc-latest disco-gcc-latest
-    - name: Test Docker based on Ubuntu 19.04 LTS + clang-latest
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest
     - name: Test Docker based on Ubuntu 20.04 LTS + gcc
       os: linux
       dist: trusty
@@ -65,6 +44,20 @@ matrix:
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal focal
+    - name: Test Docker based on Ubuntu 20.04 LTS + gcc-latest
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal.gcc-latest focal-gcc-latest
+    - name: Test Docker based on Ubuntu 20.04 LTS + clang-latest
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal.clang-latest focal-clang-latest
     - name: Test OS X 10.14 + Xcode 10.2 + clang
       os: osx
       osx_image: xcode10.2

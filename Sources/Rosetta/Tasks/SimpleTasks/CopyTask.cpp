@@ -44,21 +44,24 @@ TaskStatus CopyTask::Impl(Player* player)
 
         for (auto& entity : player->game->taskStack.playables)
         {
-            Playable* copied = Generic::Copy(owner, entity, m_zoneType);
-
-            if (m_addToStack)
+            for (int i = 0; i < m_amount; ++i)
             {
-                result.emplace_back(copied);
-            }
+                Playable* copied = Generic::Copy(owner, entity, m_zoneType);
 
-            if (targetZone->IsFull())
-            {
                 if (m_addToStack)
                 {
-                    player->game->taskStack.playables = result;
+                    result.emplace_back(copied);
                 }
 
-                return TaskStatus::COMPLETE;
+                if (targetZone->IsFull())
+                {
+                    if (m_addToStack)
+                    {
+                        player->game->taskStack.playables = result;
+                    }
+
+                    return TaskStatus::COMPLETE;
+                }
             }
         }
     }

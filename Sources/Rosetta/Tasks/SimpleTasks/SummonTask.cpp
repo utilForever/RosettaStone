@@ -43,7 +43,8 @@ SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side,
     // Do nothing
 }
 
-int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target)
+int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
+                            int& alternateCount)
 {
     int summonPos;
 
@@ -127,6 +128,20 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target)
             }
             break;
         }
+        case SummonSide::ALTERNATE:
+        {
+            const auto src = dynamic_cast<Playable*>(source);
+            if (alternateCount % 2 == 0)
+            {
+                summonPos = src->GetZonePosition() - alternateCount / 2;
+            }
+            else
+            {
+                summonPos = src->GetZonePosition() + alternateCount / 2 + 1;
+            }
+            alternateCount++;
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "SummonTask::Impl() - Invalid summon side");
@@ -143,6 +158,8 @@ TaskStatus SummonTask::Impl(Player* player)
     {
         return TaskStatus::COMPLETE;
     }
+
+    int alternateCount = 0;
 
     for (int i = 0; i < m_amount; ++i)
     {
@@ -190,7 +207,7 @@ TaskStatus SummonTask::Impl(Player* player)
             return TaskStatus::STOP;
         }
 
-        int summonPos = GetPosition(m_source, m_side);
+        int summonPos = GetPosition(m_source, m_side, m_target, alternateCount);
         if (summonPos > player->GetFieldZone()->GetCount())
         {
             summonPos = player->GetFieldZone()->GetCount();

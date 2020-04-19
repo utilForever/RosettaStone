@@ -1,24 +1,23 @@
-FROM ubuntu:19.04
+FROM ubuntu:20.04
 LABEL maintainer "Chris Ohk <utilforever@gmail.com>"
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
     build-essential \
-    python-dev \
-    python-pip \
     python3-dev \
     python3-pip \
     python3-venv \
     python3-setuptools \
     cmake \
-    gcc-8 \
-    g++-8 \
+    clang-10 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
 
 WORKDIR /app/build
-RUN cmake .. -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 && \
+RUN cmake .. -DCMAKE_C_COMPILER=clang-10 -DCMAKE_CXX_COMPILER=clang++-10 && \
     make -j "$(nproc)" && \
     make install && \
     bin/UnitTests

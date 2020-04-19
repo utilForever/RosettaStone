@@ -20,12 +20,14 @@
 * AddEnchantmentTask
 * AddLackeyTask
 * AddStackToTask
+* ApplyEffectTask
 * ArmorTask
 * AttackTask
 * ChanceTask
 * ChangeAttackingTargetTask
 * ChangeEntityTask
 * ChangeHeroPowerTask
+* ChangeUnidentifiedTask
 * ClearStackTask
 * ConditionTask
 * ControlTask
@@ -53,6 +55,7 @@
 * GetEventNumberTask
 * GetGameTagTask
 * GetPlayerGameTagTask
+* GetPlayerManaTask
 * HealFullTask
 * HealTask
 * IncludeAdjacentTask
@@ -62,7 +65,9 @@
 * MathAddTask
 * MathMultiplyTask
 * MathNumberIndexTask
+* MathRandTask
 * MathSubtractTask
+* MoveToDeckTask
 * MoveToGraveyardTask
 * MoveToSetasideTask
 * NumberConditionTask
@@ -84,6 +89,7 @@
 * SilenceTask
 * SummonCapturedMinionTask
 * SummonCopyTask
+* SummonNumberTask
 * SummonOpTask
 * SummonStackTask
 * SummonTask
@@ -91,5 +97,6 @@
 * SwapHeroPowerTask
 * TempManaTask
 * TransformCopyTask
+* TransformMinionTask
 * TransformTask
 * WeaponTask

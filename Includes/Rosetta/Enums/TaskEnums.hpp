@@ -50,7 +50,8 @@ enum class EntityType
     STACK,
     PLAYER,
     ENEMY_PLAYER,
-    EVENT_SOURCE
+    EVENT_SOURCE,
+    EVENT_TARGET,
 };
 
 //! \brief An enumerator for evaluating the relation between primitive values

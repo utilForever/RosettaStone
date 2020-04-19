@@ -479,26 +479,26 @@ HOF | PRO_001 | Elite Tauren Chieftain |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-DALARAN | DAL_007 | Rafaam's Scheme |  
-DALARAN | DAL_008 | Dr. Boom's Scheme |  
-DALARAN | DAL_009 | Hagatha's Scheme |  
-DALARAN | DAL_010 | Togwaggle's Scheme |  
+DALARAN | DAL_007 | Rafaam's Scheme | O
+DALARAN | DAL_008 | Dr. Boom's Scheme | O
+DALARAN | DAL_009 | Hagatha's Scheme | O
+DALARAN | DAL_010 | Togwaggle's Scheme | O
 DALARAN | DAL_011 | Lazul's Scheme | O
 DALARAN | DAL_030 | Shadowy Figure | O
-DALARAN | DAL_039 | Convincing Infiltrator |  
-DALARAN | DAL_040 | Hench-Clan Shadequill |  
+DALARAN | DAL_039 | Convincing Infiltrator | O
+DALARAN | DAL_040 | Hench-Clan Shadequill | O
 DALARAN | DAL_047 | Walking Fountain | O
-DALARAN | DAL_049 | Underbelly Angler |  
-DALARAN | DAL_052 | Muckmorpher |  
+DALARAN | DAL_049 | Underbelly Angler | O
+DALARAN | DAL_052 | Muckmorpher | O
 DALARAN | DAL_058 | Hecklebot |  
-DALARAN | DAL_059 | Dimensional Ripper |  
-DALARAN | DAL_060 | Clockwork Goblin |  
-DALARAN | DAL_062 | Sweeping Strikes |  
-DALARAN | DAL_063 | Wrenchcalibur |  
-DALARAN | DAL_064 | Blastmaster Boom |  
-DALARAN | DAL_065 | Unsleeping Soul |  
-DALARAN | DAL_070 | The Boom Reaver |  
-DALARAN | DAL_071 | Mutate |  
+DALARAN | DAL_059 | Dimensional Ripper | O
+DALARAN | DAL_060 | Clockwork Goblin | O
+DALARAN | DAL_062 | Sweeping Strikes | O
+DALARAN | DAL_063 | Wrenchcalibur | O
+DALARAN | DAL_064 | Blastmaster Boom | O
+DALARAN | DAL_065 | Unsleeping Soul | O
+DALARAN | DAL_070 | The Boom Reaver | O
+DALARAN | DAL_071 | Mutate | O
 DALARAN | DAL_077 | Toxfin |  
 DALARAN | DAL_078 | Traveling Healer | O
 DALARAN | DAL_081 | Spellward Jeweler |  
@@ -515,10 +515,10 @@ DALARAN | DAL_141 | Desperate Measures | O
 DALARAN | DAL_146 | Bronze Herald | O
 DALARAN | DAL_147 | Dragon Speaker | O
 DALARAN | DAL_163 | Messenger Raven | O
-DALARAN | DAL_173 | Darkest Hour |  
+DALARAN | DAL_173 | Darkest Hour | O
 DALARAN | DAL_177 | Conjurer's Calling | O
 DALARAN | DAL_182 | Magic Dart Frog | O
-DALARAN | DAL_185 | Aranasi Broodmother |  
+DALARAN | DAL_185 | Aranasi Broodmother | O
 DALARAN | DAL_256 | The Forest's Aid | O
 DALARAN | DAL_350 | Crystal Power | O
 DALARAN | DAL_351 | Blessing of the Ancients | O
@@ -526,7 +526,7 @@ DALARAN | DAL_352 | Crystalsong Portal | O
 DALARAN | DAL_354 | Acornbearer | O
 DALARAN | DAL_355 | Lifeweaver | O
 DALARAN | DAL_357 | Lucentbark | O
-DALARAN | DAL_366 | Unidentified Contract |  
+DALARAN | DAL_366 | Unidentified Contract | O
 DALARAN | DAL_371 | Marked Shot | O
 DALARAN | DAL_372 | Arcane Fletcher | O
 DALARAN | DAL_373 | Rapid Fire | O
@@ -535,14 +535,14 @@ DALARAN | DAL_377 | Nine Lives |
 DALARAN | DAL_378 | Unleash the Beast | O
 DALARAN | DAL_379 | Vereesa Windrunner | O
 DALARAN | DAL_400 | EVIL Cable Rat |  
-DALARAN | DAL_413 | EVIL Conscripter |  
-DALARAN | DAL_415 | EVIL Miscreant |  
-DALARAN | DAL_416 | Hench-Clan Burglar |  
-DALARAN | DAL_417 | Heistbaron Togwaggle |  
-DALARAN | DAL_422 | Arch-Villain Rafaam |  
+DALARAN | DAL_413 | EVIL Conscripter | O
+DALARAN | DAL_415 | EVIL Miscreant | O
+DALARAN | DAL_416 | Hench-Clan Burglar | O
+DALARAN | DAL_417 | Heistbaron Togwaggle | O
+DALARAN | DAL_422 | Arch-Villain Rafaam | O
 DALARAN | DAL_431 | Swampqueen Hagatha |  
 DALARAN | DAL_432 | Witch's Brew |  
-DALARAN | DAL_433 | Sludge Slurper |  
+DALARAN | DAL_433 | Sludge Slurper | O
 DALARAN | DAL_434 | Arcane Watcher |  
 DALARAN | DAL_538 | Unseen Saboteur |  
 DALARAN | DAL_539 | Sunreaver Warmage |  
@@ -555,8 +555,8 @@ DALARAN | DAL_553 | Big Bad Archmage |
 DALARAN | DAL_554 | Chef Nomi |  
 DALARAN | DAL_558 | Archmage Vargoth |  
 DALARAN | DAL_560 | Heroic Innkeeper |  
-DALARAN | DAL_561 | Jumbo Imp |  
-DALARAN | DAL_563 | Eager Underling |  
+DALARAN | DAL_561 | Jumbo Imp | O
+DALARAN | DAL_563 | Eager Underling | O
 DALARAN | DAL_565 | Portal Overfiend |  
 DALARAN | DAL_566 | Eccentric Scribe |  
 DALARAN | DAL_568 | Lightforged Blessing | O
@@ -572,25 +572,25 @@ DALARAN | DAL_582 | Portal Keeper |
 DALARAN | DAL_587 | Shimmerfly | O
 DALARAN | DAL_589 | Hunting Party | O
 DALARAN | DAL_592 | Batterhead |  
-DALARAN | DAL_602 | Plot Twist |  
+DALARAN | DAL_602 | Plot Twist | O
 DALARAN | DAL_603 | Mana Cyclone | O
 DALARAN | DAL_604 | Ursatron | O
-DALARAN | DAL_605 | Impferno |  
-DALARAN | DAL_606 | EVIL Genius |  
-DALARAN | DAL_607 | Fel Lord Betrug |  
+DALARAN | DAL_605 | Impferno | O
+DALARAN | DAL_606 | EVIL Genius | O
+DALARAN | DAL_607 | Fel Lord Betrug | O
 DALARAN | DAL_608 | Magic Trick | O
 DALARAN | DAL_609 | Kalecgos | O
-DALARAN | DAL_710 | Soul of the Murloc |  
-DALARAN | DAL_714 | Underbelly Fence |  
-DALARAN | DAL_716 | Vendetta |  
-DALARAN | DAL_719 | Tak Nozwhisker |  
-DALARAN | DAL_720 | Waggle Pick |  
-DALARAN | DAL_721 | Catrina Muerte |  
-DALARAN | DAL_723 | Forbidden Words |  
-DALARAN | DAL_724 | Mass Resurrection |  
-DALARAN | DAL_726 | Scargil |  
+DALARAN | DAL_710 | Soul of the Murloc | O
+DALARAN | DAL_714 | Underbelly Fence | O
+DALARAN | DAL_716 | Vendetta | O
+DALARAN | DAL_719 | Tak Nozwhisker | O
+DALARAN | DAL_720 | Waggle Pick | O
+DALARAN | DAL_721 | Catrina Muerte | O
+DALARAN | DAL_723 | Forbidden Words | O
+DALARAN | DAL_724 | Mass Resurrection | O
+DALARAN | DAL_726 | Scargil | O
 DALARAN | DAL_727 | Call to Adventure | O
-DALARAN | DAL_728 | Daring Escape |  
+DALARAN | DAL_728 | Daring Escape | O
 DALARAN | DAL_729 | Madame Lazul |  
 DALARAN | DAL_731 | Duel! |  
 DALARAN | DAL_732 | Keeper Stalladris | O
@@ -605,10 +605,10 @@ DALARAN | DAL_748 | Mana Reservoir | O
 DALARAN | DAL_749 | Recurring Villain |  
 DALARAN | DAL_751 | Mad Summoner |  
 DALARAN | DAL_752 | Jepetto Joybuzz |  
-DALARAN | DAL_759 | Vicious Scraphound |  
+DALARAN | DAL_759 | Vicious Scraphound | O
 DALARAN | DAL_760 | Burly Shovelfist | O
-DALARAN | DAL_769 | Improve Morale |  
-DALARAN | DAL_770 | Omega Devastator |  
+DALARAN | DAL_769 | Improve Morale | O
+DALARAN | DAL_770 | Omega Devastator | O
 DALARAN | DAL_771 | Soldier of Fortune |  
 DALARAN | DAL_773 | Magic Carpet |  
 DALARAN | DAL_774 | Exotic Mountseller |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 34% (47 of 136 Cards)
+- Progress: 66% (91 of 136 Cards)
 
 ## Saviors of Uldum
 

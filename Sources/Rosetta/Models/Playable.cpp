@@ -128,7 +128,11 @@ bool Playable::HasLifesteal() const
 void Playable::ResetCost()
 {
     costManager = nullptr;
-    SetCost(card->gameTags[GameTag::COST]);
+    if (const auto iter = m_gameTags.find(GameTag::COST);
+        iter != m_gameTags.end())
+    {
+        m_gameTags.erase(iter);
+    }
 
     if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(ongoingEffect);
         effect != nullptr)

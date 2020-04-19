@@ -12,8 +12,11 @@
 namespace RosettaStone
 {
 AdaptiveCostEffect::AdaptiveCostEffect(std::function<int(Playable*)> costFunc,
-                                       EffectOperator effectOp)
-    : m_costFunc(std::move(costFunc)), m_effectOp(effectOp)
+                                       EffectOperator effectOp,
+                                       std::optional<SelfCondition> condition)
+    : m_costFunc(std::move(costFunc)),
+      m_effectOp(effectOp),
+      m_condition(std::move(condition))
 {
     // Do nothing
 }
@@ -39,7 +42,8 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
 
 int AdaptiveCostEffect::Apply(int value) const
 {
-    if (m_costFunc != nullptr)
+    if (m_costFunc != nullptr &&
+        (m_condition == std::nullopt || m_condition->Evaluate(m_owner)))
     {
         if (m_effectOp == EffectOperator::ADD)
         {
@@ -94,5 +98,6 @@ AdaptiveCostEffect::AdaptiveCostEffect(AdaptiveCostEffect& prototype,
 
     m_costFunc = prototype.m_costFunc;
     m_effectOp = prototype.m_effectOp;
+    m_condition = prototype.m_condition;
 }
 }  // namespace RosettaStone

@@ -55,8 +55,8 @@ DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
     }
 }
 
-DiscoverTask::DiscoverTask(DiscoverType discoverType)
-    : m_discoverType(discoverType)
+DiscoverTask::DiscoverTask(DiscoverType discoverType, int numberOfChoices)
+    : m_discoverType(discoverType), m_numberOfChoices(numberOfChoices)
 {
     // Do nothing
 }
@@ -217,6 +217,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                 }
             }
             break;
+        case DiscoverType::LEGENDARY_MINION_SUMMON:
+            choiceAction = ChoiceAction::SUMMON;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->GetRarity() == Rarity::LEGENDARY)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::SIX_COST_SUMMON:
             choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)
@@ -238,6 +249,13 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                     cards.emplace_back(card);
                 }
             }
+            break;
+        case DiscoverType::HEISTBARON_TOGWAGGLE:
+            choiceAction = ChoiceAction::HAND;
+            cards = { Cards::FindCardByID("LOOT_998h"),
+                      Cards::FindCardByID("LOOT_998j"),
+                      Cards::FindCardByID("LOOT_998l"),
+                      Cards::FindCardByID("LOOT_998k") };
             break;
         default:
             throw std::out_of_range(

@@ -46,9 +46,6 @@ Playable* Draw(Player* player, Playable* cardToDraw)
         // Process topdeck tasks
         if (!tasks.empty())
         {
-            player->GetSetasideZone()->Add(
-                player->GetHandZone()->Remove(playable));
-
             for (auto& task : tasks)
             {
                 std::unique_ptr<ITask> clonedTask = task->Clone();
@@ -60,7 +57,15 @@ Playable* Draw(Player* player, Playable* cardToDraw)
                 clonedTask->Run();
             }
 
-            Draw(player, cardToDraw);
+            // If the text of card contains 'Casts When Drawn',
+            // removes it from hand zone and adds to setaside zone
+            const std::string text = playable->card->text;
+            if (text.find("<b>Casts When Drawn</b>") != std::string::npos)
+            {
+                player->GetSetasideZone()->Add(
+                    player->GetHandZone()->Remove(playable));
+                Draw(player, cardToDraw);
+            }
         }
     }
 

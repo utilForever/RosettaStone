@@ -278,7 +278,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     }
 }
 
-void ShuffleIntoDeck(Player* player, Playable* entity)
+void ShuffleIntoDeck(Player* player, Entity* sender, Playable* playable)
 {
     // Add card to graveyard if deck is full
     if (player->GetDeckZone()->IsFull())
@@ -287,8 +287,18 @@ void ShuffleIntoDeck(Player* player, Playable* entity)
     }
 
     // Add card into deck and shuffle it
-    player->GetDeckZone()->Add(entity);
+    player->GetDeckZone()->Add(playable);
     player->GetDeckZone()->Shuffle();
+
+    if (auto p = dynamic_cast<Playable*>(sender); playable)
+    {
+        std::unique_ptr<EventMetaData> temp =
+            std::move(player->game->currentEventData);
+        player->game->currentEventData =
+            std::make_unique<EventMetaData>(p, playable);
+        player->game->triggerManager.OnShuffleIntoDeckTrigger(playable);
+        player->game->currentEventData = std::move(temp);
+    }
 }
 
 void ChangeManaCrystal(Player* player, int amount, bool fill)

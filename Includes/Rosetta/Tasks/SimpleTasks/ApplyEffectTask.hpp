@@ -3,26 +3,26 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_ARMOR_TASK_HPP
-#define ROSETTASTONE_ARMOR_TASK_HPP
+#ifndef ROSETTASTONE_APPLY_EFFECT_TASK_HPP
+#define ROSETTASTONE_APPLY_EFFECT_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief ArmorTask class.
+//! \brief ApplyEffectTask class.
 //!
-//! This class represents the task for gaining armor to hero.
+//! This class represents the task for applying effect to something.
 //!
-class ArmorTask : public ITask
+class ApplyEffectTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount and \p useNumber.
-    //! \param amount The amount to gain armor.
-    //! \param useNumber The flag that indicates it adds the value
-    //! contained in task stack as armor.
-    explicit ArmorTask(int amount, bool useNumber = false);
+    //! Constructs task with given \p entityType and \p effects.
+    //! \param entityType The entity type to apply effect.
+    //! \param effects A list of effects to apply.
+    explicit ApplyEffectTask(EntityType entityType,
+                             std::vector<std::shared_ptr<IEffect>> effects);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -34,9 +34,8 @@ class ArmorTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    int m_amount;
-    bool m_useNumber = false;
+    std::vector<std::shared_ptr<IEffect>> m_effects;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_ARMOR_TASK_HPP
+#endif  // ROSETTASTONE_APPLY_EFFECT_TASK_HPP

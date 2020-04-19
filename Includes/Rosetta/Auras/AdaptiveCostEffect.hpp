@@ -8,6 +8,8 @@
 
 #include <Rosetta/Auras/Aura.hpp>
 
+#include <optional>
+
 namespace RosettaStone
 {
 //!
@@ -21,8 +23,11 @@ class AdaptiveCostEffect : public IAura
     //! Constructs adaptive cost effect with given \p costFunc and \p effectOp.
     //! \param costFunc The function to vary cost.
     //! \param effectOp The operator to vary cost.
-    explicit AdaptiveCostEffect(std::function<int(Playable*)> costFunc,
-                                EffectOperator effectOp = EffectOperator::SUB);
+    //! \param condition The necessary condition for this effect.
+    explicit AdaptiveCostEffect(
+        std::function<int(Playable*)> costFunc,
+        EffectOperator effectOp = EffectOperator::SUB,
+        std::optional<SelfCondition> condition = std::nullopt);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive cost effect.
@@ -54,6 +59,7 @@ class AdaptiveCostEffect : public IAura
 
     std::function<int(Playable*)> m_costFunc;
     EffectOperator m_effectOp;
+    std::optional<SelfCondition> m_condition;
 };
 }  // namespace RosettaStone
 

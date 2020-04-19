@@ -58,6 +58,11 @@ void TriggerManager::OnSecretRevealedTrigger(Entity* sender)
     secretRevealedTrigger(sender);
 }
 
+void TriggerManager::OnZoneTrigger(Entity* sender)
+{
+    zoneTrigger(sender);
+}
+
 void TriggerManager::OnGiveHealTrigger(Entity* sender)
 {
     giveHealTrigger(sender);
@@ -106,5 +111,10 @@ void TriggerManager::OnDeathTrigger(Entity* sender)
 void TriggerManager::OnUseHeroPowerTrigger(Entity* sender)
 {
     useHeroPowerTrigger(sender);
+}
+
+void TriggerManager::OnShuffleIntoDeckTrigger(Entity* sender)
+{
+    shuffleIntoDeckTrigger(sender);
 }
 }  // namespace RosettaStone

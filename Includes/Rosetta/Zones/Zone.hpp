@@ -380,6 +380,13 @@ class LimitedZone : public Zone<T>
         return m_count;
     }
 
+    //! Returns the free space of this zone.
+    //! \return The free space of this zone.
+    int GetFreeSpace() const
+    {
+        return m_maxSize - m_count;
+    }
+
     //! Returns a value indicating whether this zone is full.
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const override
