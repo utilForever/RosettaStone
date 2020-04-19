@@ -2456,6 +2456,19 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsCardID("BOT_511t")) }));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<NumberConditionTask>(4, RelaSign::GEQ));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<FuncNumberTask>(
+                  []([[maybe_unused]] Playable* playable) { return 3; }) }));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("GVG_110t", 2, SummonSide::ALTERNATE) }));
+    cards.emplace("DAL_064", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [DAL_070] The Boom Reaver - COST:10 [ATK:7/HP:9]

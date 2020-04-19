@@ -4,6 +4,9 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/GvgCardsGen.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathRandTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -103,6 +106,24 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [GVG_110t] Boom Bot (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Mechanical, Set: Gvg
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Deal 1-4 damage to a random enemy.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
+    power.AddDeathrattleTask(std::make_shared<MathRandTask>(1, 4));
+    power.AddDeathrattleTask(
+        std::make_shared<DamageNumberTask>(EntityType::STACK));
+    cards.emplace("GVG_110t", CardDef(power));
 }
 
 void GvgCardsGen::AddAll(std::map<std::string, CardDef>& cards)

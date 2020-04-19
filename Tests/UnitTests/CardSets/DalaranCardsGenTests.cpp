@@ -4654,6 +4654,76 @@ TEST_CASE("[Warrior : Weapon] - DAL_063 : Wrenchcalibur")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 7);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [DAL_064] Blastmaster Boom - COST:7 [ATK:7/HP:7]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Boom Bots
+//       for each Bomb in your opponent's deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DAL_064 : Blastmaster Boom")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Blastmaster Boom"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Clockwork Goblin"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Clockwork Goblin"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opDeck.GetCount(), 2);
+    CHECK_EQ(opDeck[0]->card->name, "Bomb");
+    CHECK_EQ(opDeck[1]->card->name, "Bomb");
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[2]->card->name, "Boom Bot");
+    CHECK_EQ(curField[3]->card->name, "Boom Bot");
+    CHECK_EQ(curField[4]->card->name, "Blastmaster Boom");
+    CHECK_EQ(curField[5]->card->name, "Boom Bot");
+    CHECK_EQ(curField[6]->card->name, "Boom Bot");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opDeck.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 5);
+
+    game.Process(opPlayer, HeroPowerTask(curField[2]));
+    const int opHeroHealth = opPlayer->GetHero()->GetHealth();
+    const bool check = (opHeroHealth == 1) || (opHeroHealth == 2) ||
+                       (opHeroHealth == 3) || (opHeroHealth == 4);
+    CHECK_EQ(check, true);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
