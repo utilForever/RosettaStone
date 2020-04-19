@@ -17,6 +17,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddLackeyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ApplyEffectTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeUnidentifiedTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
@@ -2348,6 +2349,8 @@ void DalaranCardsGen::AddWarlockNonCollect(
 
 void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [DAL_008] Dr. Boom's Scheme - COST:4
     // - Set: Dalaran, Rarity: Common
@@ -2357,6 +2360,20 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_SCRIPT_DATA_NUM_1 = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1));
+    power.AddPowerTask(std::make_shared<ArmorTask>(0, true));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::TAG_SCRIPT_DATA_NUM_1),
+        std::make_shared<MathAddTask>(1),
+        std::make_shared<SetGameTagNumberTask>(EntityType::SOURCE,
+                                               GameTag::TAG_SCRIPT_DATA_NUM_1)
+    };
+    cards.emplace("DAL_008", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [DAL_059] Dimensional Ripper - COST:10
