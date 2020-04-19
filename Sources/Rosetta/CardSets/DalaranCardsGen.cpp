@@ -2546,9 +2546,20 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_MINION_TARGET = 0
-    // - REQ_MANA_CRYSTAL = 10
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsManaCrystalFull()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 10) }));
+    cards.emplace(
+        "DAL_770",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void DalaranCardsGen::AddWarriorNonCollect(
