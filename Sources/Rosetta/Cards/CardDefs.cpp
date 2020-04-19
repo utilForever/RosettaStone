@@ -10,6 +10,7 @@
 #include <Rosetta/CardSets/DemonHunterInitCardsGen.hpp>
 #include <Rosetta/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
@@ -26,6 +27,7 @@ CardDefs::CardDefs()
     Expert1CardsGen::AddAll(m_data);
     DemonHunterInitCardsGen::AddAll(m_data);
     HoFCardsGen::AddAll(m_data);
+    GvgCardsGen::AddAll(m_data);
     LootapaloozaCardsGen::AddAll(m_data);
     BoomsdayCardsGen::AddAll(m_data);
     DalaranCardsGen::AddAll(m_data);
