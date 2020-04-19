@@ -169,6 +169,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MathAddTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathMultiplyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathRandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubtractTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
