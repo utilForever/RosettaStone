@@ -2484,6 +2484,16 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_070e", EntityType::STACK));
+    cards.emplace("DAL_070", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [DAL_759] Vicious Scraphound - COST:2 [ATK:2/HP:2]
@@ -2552,6 +2562,9 @@ void DalaranCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Has <b>Rush</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_070e"));
+    cards.emplace("DAL_070e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DAL_742e] Whirling (*) - COST:0
