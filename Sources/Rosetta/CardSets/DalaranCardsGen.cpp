@@ -2501,6 +2501,12 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever this minion deals damage, gain that much Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEAL_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<GetEventNumberTask>(),
+                                  std::make_shared<ArmorTask>(0, true) };
+    cards.emplace("DAL_759", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [DAL_769] Improve Morale - COST:1
