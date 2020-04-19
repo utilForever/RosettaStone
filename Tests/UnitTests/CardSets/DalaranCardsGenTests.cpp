@@ -4331,6 +4331,74 @@ TEST_CASE("[Warlock : Minion] - DAL_606 : EVIL Genius")
     CHECK_EQ(curHand[5]->card->IsLackey(), true);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DAL_607] Fel Lord Betrug - COST:8 [ATK:5/HP:7]
+// - Race: Demon, Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you draw a minion, summon a copy
+//       with <b>Rush</b> that dies at end of turn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DAL_607 : Fel Lord Betrug")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wolfrider");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fel Lord Betrug"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Wisp");
+    CHECK_EQ(curField[1]->IsRush(), true);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[4]));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Wisp");
+    CHECK_EQ(curField[2]->IsRush(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Fel Lord Betrug");
+    CHECK_EQ(curField[1]->card->name, "Wisp");
+    CHECK_EQ(curField[1]->IsRush(), false);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common

@@ -2318,6 +2318,16 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion());
+    power.GetTrigger()->tasks = {
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
+        std::make_shared<AddEnchantmentTask>("DAL_607e", EntityType::STACK)
+    };
+    cards.emplace("DAL_607", CardDef(power));
 }
 
 void DalaranCardsGen::AddWarlockNonCollect(
@@ -3223,6 +3233,13 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Rush</b>. Dies at end of turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::Rush));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<DestroyTask>(EntityType::TARGET),
+    };
+    cards.emplace("DAL_607e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_613] Faceless Lackey (*) - COST:1 [ATK:1/HP:1]
