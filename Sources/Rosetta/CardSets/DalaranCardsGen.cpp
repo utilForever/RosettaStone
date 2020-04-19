@@ -2438,6 +2438,12 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddCardTask>(
+        EntityType::ENEMY_DECK, "BOT_511t") };
+    cards.emplace("DAL_063", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [DAL_064] Blastmaster Boom - COST:7 [ATK:7/HP:7]

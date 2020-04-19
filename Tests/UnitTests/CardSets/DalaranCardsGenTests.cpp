@@ -4601,6 +4601,59 @@ TEST_CASE("[Warrior : Spell] - DAL_062 : Sweeping Strikes")
     CHECK_EQ(curField[2]->GetHealth(), 3);
 }
 
+// --------------------------------------- WEAPON - WARRIOR
+// [DAL_063] Wrenchcalibur - COST:4 [ATK:3/HP:0]
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: After your hero attacks, shuffle a Bomb
+//       into your opponent's deck.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - DAL_063 : Wrenchcalibur")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wrenchcalibur"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 17);
+    CHECK_EQ(opDeck.GetCount(), 1);
+    CHECK_EQ(opDeck[0]->card->name, "Bomb");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opDeck.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 7);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
