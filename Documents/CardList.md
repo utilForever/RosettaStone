@@ -480,7 +480,7 @@ HOF | PRO_001 | Elite Tauren Chieftain |
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 DALARAN | DAL_007 | Rafaam's Scheme | O
-DALARAN | DAL_008 | Dr. Boom's Scheme |  
+DALARAN | DAL_008 | Dr. Boom's Scheme | O
 DALARAN | DAL_009 | Hagatha's Scheme | O
 DALARAN | DAL_010 | Togwaggle's Scheme | O
 DALARAN | DAL_011 | Lazul's Scheme | O
@@ -491,13 +491,13 @@ DALARAN | DAL_047 | Walking Fountain | O
 DALARAN | DAL_049 | Underbelly Angler | O
 DALARAN | DAL_052 | Muckmorpher | O
 DALARAN | DAL_058 | Hecklebot |  
-DALARAN | DAL_059 | Dimensional Ripper |  
-DALARAN | DAL_060 | Clockwork Goblin |  
-DALARAN | DAL_062 | Sweeping Strikes |  
-DALARAN | DAL_063 | Wrenchcalibur |  
-DALARAN | DAL_064 | Blastmaster Boom |  
+DALARAN | DAL_059 | Dimensional Ripper | O
+DALARAN | DAL_060 | Clockwork Goblin | O
+DALARAN | DAL_062 | Sweeping Strikes | O
+DALARAN | DAL_063 | Wrenchcalibur | O
+DALARAN | DAL_064 | Blastmaster Boom | O
 DALARAN | DAL_065 | Unsleeping Soul | O
-DALARAN | DAL_070 | The Boom Reaver |  
+DALARAN | DAL_070 | The Boom Reaver | O
 DALARAN | DAL_071 | Mutate | O
 DALARAN | DAL_077 | Toxfin |  
 DALARAN | DAL_078 | Traveling Healer | O
@@ -577,7 +577,7 @@ DALARAN | DAL_603 | Mana Cyclone | O
 DALARAN | DAL_604 | Ursatron | O
 DALARAN | DAL_605 | Impferno | O
 DALARAN | DAL_606 | EVIL Genius | O
-DALARAN | DAL_607 | Fel Lord Betrug |  
+DALARAN | DAL_607 | Fel Lord Betrug | O
 DALARAN | DAL_608 | Magic Trick | O
 DALARAN | DAL_609 | Kalecgos | O
 DALARAN | DAL_710 | Soul of the Murloc | O
@@ -605,10 +605,10 @@ DALARAN | DAL_748 | Mana Reservoir | O
 DALARAN | DAL_749 | Recurring Villain |  
 DALARAN | DAL_751 | Mad Summoner |  
 DALARAN | DAL_752 | Jepetto Joybuzz |  
-DALARAN | DAL_759 | Vicious Scraphound |  
+DALARAN | DAL_759 | Vicious Scraphound | O
 DALARAN | DAL_760 | Burly Shovelfist | O
-DALARAN | DAL_769 | Improve Morale |  
-DALARAN | DAL_770 | Omega Devastator |  
+DALARAN | DAL_769 | Improve Morale | O
+DALARAN | DAL_770 | Omega Devastator | O
 DALARAN | DAL_771 | Soldier of Fortune |  
 DALARAN | DAL_773 | Magic Carpet |  
 DALARAN | DAL_774 | Exotic Mountseller |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 58% (80 of 136 Cards)
+- Progress: 66% (91 of 136 Cards)
 
 ## Saviors of Uldum
 

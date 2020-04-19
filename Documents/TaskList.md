@@ -65,6 +65,7 @@
 * MathAddTask
 * MathMultiplyTask
 * MathNumberIndexTask
+* MathRandTask
 * MathSubtractTask
 * MoveToDeckTask
 * MoveToGraveyardTask
