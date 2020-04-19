@@ -20,6 +20,7 @@ enum class SummonSide
     NUMBER,       //!< Summoning at a given position in the stack number.
     SPELL,        //!< Summoning by spell, currently like default.
     TARGET,       //!< Summoning right of the target.
+    ALTERNATE,    //!< Summoning on the right side and left side alternately.
 };
 
 //!
@@ -66,9 +67,10 @@ class SummonTask : public ITask
     //! \param source The source entity.
     //! \param side The side of summoned minion.
     //! \param target The target entity.
+    //! \param alternateCount The count for SummonSide::ALTERNATE.
     //! \return The position of minion to summon.
-    static int GetPosition(Entity* source, SummonSide side,
-                           Entity* target = nullptr);
+    static int GetPosition(Entity* source, SummonSide side, Entity* target,
+                           int& alternateCount);
 
  private:
     //! Processes task logic internally and returns meta data.
