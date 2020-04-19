@@ -3,24 +3,27 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-ArmorTask::ArmorTask(int amount) : m_amount(amount)
+ArmorTask::ArmorTask(int amount, bool useNumber)
+    : m_amount(amount), m_useNumber(useNumber)
 {
     // Do nothing
 }
 
 TaskStatus ArmorTask::Impl(Player* player)
 {
-    player->GetHero()->GainArmor(m_amount);
+    const int amount = m_useNumber ? player->game->taskStack.num[0] : m_amount;
+    player->GetHero()->GainArmor(amount);
 
     return TaskStatus::COMPLETE;
 }
 
 std::unique_ptr<ITask> ArmorTask::CloneImpl()
 {
-    return std::make_unique<ArmorTask>(m_amount);
+    return std::make_unique<ArmorTask>(m_amount, m_useNumber);
 }
 }  // namespace RosettaStone::SimpleTasks

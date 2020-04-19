@@ -18,9 +18,11 @@ namespace RosettaStone::SimpleTasks
 class ArmorTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount.
+    //! Constructs task with given \p amount and \p useNumber.
     //! \param amount The amount to gain armor.
-    explicit ArmorTask(int amount);
+    //! \param useNumber The flag that indicates it adds the value
+    //! contained in task stack as armor.
+    explicit ArmorTask(int amount, bool useNumber = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,6 +35,7 @@ class ArmorTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     int m_amount;
+    bool m_useNumber = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
