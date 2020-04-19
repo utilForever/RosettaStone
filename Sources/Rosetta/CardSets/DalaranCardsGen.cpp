@@ -2420,6 +2420,13 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_062e", EntityType::TARGET));
+    cards.emplace(
+        "DAL_062",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [DAL_063] Wrenchcalibur - COST:4 [ATK:3/HP:0]
@@ -2500,12 +2507,25 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void DalaranCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DAL_062e] Sweeping Strikes (*) - COST:0
     // - Set: Dalaran
     // --------------------------------------------------------
     // Text: Damages minions adjacent to defender.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsEventTargetIs(CardType::MINION));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeAdjacentTask>(EntityType::EVENT_TARGET),
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK),
+        std::make_shared<DamageNumberTask>(EntityType::STACK)
+    };
+    cards.emplace("DAL_062e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DAL_070e] Reaving (*) - COST:0
