@@ -5134,6 +5134,64 @@ TEST_CASE("[Neutral : Minion] - DAL_078 : Travelling Healer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_081] Spellward Jeweler - COST:3 [ATK:3/HP:4]
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Your hero can't be targeted by
+//       spells or Hero Powers until your next turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_081 : Spellward Jeweler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Spellward Jeweler"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHero->GetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS), 1);
+    CHECK_EQ(curHero->GetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(curHero));
+    CHECK_EQ(curHero->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHero->GetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS), 0);
+    CHECK_EQ(curHero->GetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(curHero));
+    CHECK_EQ(curHero->GetHealth(), 29);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_085] Dalaran Crusader - COST:5 [ATK:5/HP:4]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

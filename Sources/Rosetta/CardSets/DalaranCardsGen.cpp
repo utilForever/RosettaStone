@@ -2683,6 +2683,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_081e", EntityType::HERO));
+    cards.emplace("DAL_081", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_085] Dalaran Crusader - COST:5 [ATK:5/HP:4]
@@ -3211,6 +3215,12 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(
+        Effects::CantBeTargetedBySpellsAndHeroPowers()));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    cards.emplace("DAL_081e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_086e] Stolen Secrets (*) - COST:0
