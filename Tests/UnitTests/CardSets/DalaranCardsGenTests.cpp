@@ -5591,6 +5591,69 @@ TEST_CASE("[Neutral : Minion] - DAL_434 : Arcane Watcher")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_538] Unseen Saboteur - COST:6 [ATK:5/HP:6]
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Your opponent casts a random spell
+//       from their hand <i>(targets chosen randomly)</i>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_538 : Unseen Saboteur")
+{
+    for (int i = 0; i < 1000; ++i)
+    {
+        GameConfig config;
+        config.player1Class = CardClass::PALADIN;
+        config.player2Class = CardClass::MAGE;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curHand = *(curPlayer->GetHandZone());
+        auto& opField = *(opPlayer->GetFieldZone());
+
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+        const auto card2 = Generic::DrawCard(
+            opPlayer, Cards::FindCardByName("Unseen Saboteur"));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        curPlayer->GetHero()->SetDamage(0);
+        opPlayer->GetHero()->SetDamage(0);
+
+        game.Process(opPlayer, PlayCardTask::Minion(card2));
+        CHECK_EQ(curHand.GetCount(), 0);
+
+        const bool check1 = curPlayer->GetHero()->GetHealth() == 24 &&
+                            opField.GetCount() == 1 &&
+                            opPlayer->GetHero()->GetHealth() == 30;
+        const bool check2 = curPlayer->GetHero()->GetHealth() == 30 &&
+                            opField.GetCount() == 0 &&
+                            opPlayer->GetHero()->GetHealth() == 30;
+        const bool check3 = curPlayer->GetHero()->GetHealth() == 30 &&
+                            opField.GetCount() == 1 &&
+                            opPlayer->GetHero()->GetHealth() == 24;
+        const bool check = check1 || check2 || check3;
+        CHECK_EQ(check, true);   
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

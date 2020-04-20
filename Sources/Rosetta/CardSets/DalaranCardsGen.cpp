@@ -51,6 +51,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/PlayTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
@@ -2871,6 +2872,13 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<PlayTask>(PlayType::SPELL, true));
+    cards.emplace("DAL_538", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_539] Sunreaver Warmage - COST:5 [ATK:4/HP:4]
