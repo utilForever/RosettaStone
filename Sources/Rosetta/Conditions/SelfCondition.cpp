@@ -630,6 +630,13 @@ SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
     });
 }
 
+SelfCondition SelfCondition::HasNotSpellDamageOnHero()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetCurrentSpellPower() == 0;
+    });
+}
+
 SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
 {
     return SelfCondition([=](Playable* playable) -> bool {

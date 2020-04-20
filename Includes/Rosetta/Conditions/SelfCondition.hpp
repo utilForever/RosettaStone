@@ -316,6 +316,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsLeftOrRightMostCardInHand();
 
+    //! SelfCondition wrapper for checking the hero don't have spell damage.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasNotSpellDamageOnHero();
+
     //! SelfCondition wrapper for checking the threshold value.
     //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.
