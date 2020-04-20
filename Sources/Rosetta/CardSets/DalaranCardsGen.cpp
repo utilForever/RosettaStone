@@ -6,6 +6,7 @@
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Actions/Summon.hpp>
+#include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -2853,6 +2854,12 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(
+            SelfCondition::HasNotSpellDamageOnHero()),
+        GameTag::CANT_ATTACK));
+    cards.emplace("DAL_434", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_538] Unseen Saboteur - COST:6 [ATK:5/HP:6]
