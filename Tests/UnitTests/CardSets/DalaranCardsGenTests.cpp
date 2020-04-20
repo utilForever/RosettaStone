@@ -5299,6 +5299,56 @@ TEST_CASE("[Neutral : Minion] - DAL_087 : Hench-Clan Hag")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_088] Safeguard - COST:6 [ATK:4/HP:5]
+// - Race: Mechanical, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Deathrattle:</b> Summon a 0/5
+//       Vault Safe with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_088 : Safeguard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Safeguard"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Safeguard");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Vault Safe");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_089] Spellbook Binder - COST:2 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

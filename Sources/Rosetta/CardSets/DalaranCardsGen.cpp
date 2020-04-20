@@ -2748,6 +2748,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DAL_088t2", SummonSide::DEATHRATTLE));
+    cards.emplace("DAL_088", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_089] Spellbook Binder - COST:2 [ATK:3/HP:2]
@@ -3264,6 +3268,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_088t2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_095e] Pizzazz (*) - COST:0
