@@ -2618,6 +2618,13 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("DAL_058", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_077] Toxfin - COST:1 [ATK:1/HP:2]

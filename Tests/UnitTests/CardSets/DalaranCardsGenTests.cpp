@@ -4963,6 +4963,57 @@ TEST_CASE("[Warrior : Spell] - DAL_770 : Omega Devastator")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_058] Hecklebot - COST:4 [ATK:3/HP:8]
+// - Race: Mechanical, Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Battlecry:</b> Your opponent
+//       summons a minion from their deck.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_058 : Hecklebot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
+        config.player2Deck[i] = Cards::FindCardByName("Onyxia");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hecklebot"));
+
+    CHECK_EQ(opDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Onyxia");
+    CHECK_EQ(opDeck.GetCount(), 25);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_078] Traveling Healer - COST:4 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
