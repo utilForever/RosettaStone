@@ -2732,6 +2732,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DAL_087t", 2, SummonSide::ALTERNATE));
+    cards.emplace("DAL_087", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_088] Safeguard - COST:6 [ATK:4/HP:5]
@@ -3247,6 +3251,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // Text: <i>This is an Elemental, Mech, Demon, Murloc, Dragon,
     //       Beast, Pirate and Totem.</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_087t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_088t2] Vault Safe (*) - COST:2 [ATK:0/HP:5]

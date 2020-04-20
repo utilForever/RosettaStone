@@ -5257,6 +5257,48 @@ TEST_CASE("[Neutral : Minion] - DAL_086 : Sunreaver Spy")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_087] Hench-Clan Hag - COST:4 [ATK:3/HP:3]
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Amalgams
+//       with all minion types.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_087 : Hench-Clan Hag")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hench-Clan Hag"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Amalgam");
+    CHECK_EQ(curField[1]->card->name, "Hench-Clan Hag");
+    CHECK_EQ(curField[2]->card->name, "Amalgam");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_089] Spellbook Binder - COST:2 [ATK:3/HP:2]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
