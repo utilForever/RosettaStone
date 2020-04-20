@@ -75,7 +75,7 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Destroy target if attacker is poisonous
-    if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
+    if (isTargetDamaged && source->HasPoisonous())
     {
         realTarget->Destroy();
     }
@@ -97,7 +97,7 @@ void Attack(Player* player, Character* source, Character* target,
         }
 
         // Destroy source if defender is poisonous
-        if (isSourceDamaged && realTarget->GetGameTag(GameTag::POISONOUS) == 1)
+        if (isSourceDamaged && realTarget->HasPoisonous())
         {
             source->Destroy();
         }
