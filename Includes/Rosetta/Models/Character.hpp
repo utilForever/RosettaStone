@@ -125,6 +125,10 @@ class Character : public Playable
     //! \return The flag that indicates whether it has divine shield.
     bool HasDivineShield() const;
 
+    //! Returns the flag that indicates whether it has poisonous.
+    //! \return The flag that indicates whether it has poisonous.
+    bool HasPoisonous() const;
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack() const;

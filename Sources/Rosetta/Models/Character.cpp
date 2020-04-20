@@ -139,6 +139,11 @@ bool Character::HasDivineShield() const
     return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
 }
 
+bool Character::HasPoisonous() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
+}
+
 bool Character::CanAttack() const
 {
     //! If the current player is opponent, returns false
