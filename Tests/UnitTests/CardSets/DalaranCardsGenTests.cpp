@@ -5471,6 +5471,21 @@ TEST_CASE("[Neutral : Minion] - DAL_095 : Violet Spellsword")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_096] Violet Warden - COST:6 [ATK:4/HP:7]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_096 : Violet Warden")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

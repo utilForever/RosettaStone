@@ -2824,6 +2824,9 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_096", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_400] EVIL Cable Rat - COST:2 [ATK:1/HP:1]
