@@ -490,7 +490,7 @@ DALARAN | DAL_040 | Hench-Clan Shadequill | O
 DALARAN | DAL_047 | Walking Fountain | O
 DALARAN | DAL_049 | Underbelly Angler | O
 DALARAN | DAL_052 | Muckmorpher | O
-DALARAN | DAL_058 | Hecklebot |  
+DALARAN | DAL_058 | Hecklebot | O
 DALARAN | DAL_059 | Dimensional Ripper | O
 DALARAN | DAL_060 | Clockwork Goblin | O
 DALARAN | DAL_062 | Sweeping Strikes | O
@@ -499,18 +499,18 @@ DALARAN | DAL_064 | Blastmaster Boom | O
 DALARAN | DAL_065 | Unsleeping Soul | O
 DALARAN | DAL_070 | The Boom Reaver | O
 DALARAN | DAL_071 | Mutate | O
-DALARAN | DAL_077 | Toxfin |  
+DALARAN | DAL_077 | Toxfin | O
 DALARAN | DAL_078 | Traveling Healer | O
-DALARAN | DAL_081 | Spellward Jeweler |  
+DALARAN | DAL_081 | Spellward Jeweler | O
 DALARAN | DAL_085 | Dalaran Crusader | O
-DALARAN | DAL_086 | Sunreaver Spy |  
-DALARAN | DAL_087 | Hench-Clan Hag |  
-DALARAN | DAL_088 | Safeguard |  
+DALARAN | DAL_086 | Sunreaver Spy | O
+DALARAN | DAL_087 | Hench-Clan Hag | O
+DALARAN | DAL_088 | Safeguard | O
 DALARAN | DAL_089 | Spellbook Binder | O
 DALARAN | DAL_090 | Hench-Clan Sneak | O
 DALARAN | DAL_092 | Arcane Servant | O
-DALARAN | DAL_095 | Violet Spellsword |  
-DALARAN | DAL_096 | Violet Warden |  
+DALARAN | DAL_095 | Violet Spellsword | O
+DALARAN | DAL_096 | Violet Warden | O
 DALARAN | DAL_141 | Desperate Measures | O
 DALARAN | DAL_146 | Bronze Herald | O
 DALARAN | DAL_147 | Dragon Speaker | O
@@ -534,7 +534,7 @@ DALARAN | DAL_376 | Oblivitron | O
 DALARAN | DAL_377 | Nine Lives |  
 DALARAN | DAL_378 | Unleash the Beast | O
 DALARAN | DAL_379 | Vereesa Windrunner | O
-DALARAN | DAL_400 | EVIL Cable Rat |  
+DALARAN | DAL_400 | EVIL Cable Rat | O
 DALARAN | DAL_413 | EVIL Conscripter | O
 DALARAN | DAL_415 | EVIL Miscreant | O
 DALARAN | DAL_416 | Hench-Clan Burglar | O
@@ -543,8 +543,8 @@ DALARAN | DAL_422 | Arch-Villain Rafaam | O
 DALARAN | DAL_431 | Swampqueen Hagatha |  
 DALARAN | DAL_432 | Witch's Brew |  
 DALARAN | DAL_433 | Sludge Slurper | O
-DALARAN | DAL_434 | Arcane Watcher |  
-DALARAN | DAL_538 | Unseen Saboteur |  
+DALARAN | DAL_434 | Arcane Watcher | O
+DALARAN | DAL_538 | Unseen Saboteur | O
 DALARAN | DAL_539 | Sunreaver Warmage |  
 DALARAN | DAL_544 | Potion Vendor |  
 DALARAN | DAL_546 | Barista Lynchen |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 66% (91 of 136 Cards)
+- Progress: 75% (102 of 136 Cards)
 
 ## Saviors of Uldum
 

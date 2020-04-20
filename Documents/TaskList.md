@@ -71,6 +71,7 @@
 * MoveToGraveyardTask
 * MoveToSetasideTask
 * NumberConditionTask
+* PlayTask
 * QuestProgressTask
 * RandomCardTask
 * RandomEntourageTask
