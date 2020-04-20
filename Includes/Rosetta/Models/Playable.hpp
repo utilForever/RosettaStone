@@ -131,6 +131,10 @@ class Playable : public Entity
     //! \return A list of valid play targets.
     std::vector<Character*> GetValidPlayTargets() const;
 
+    //! Gets a random valid target in valid play targets.
+    //! \return A randomly selected valid target.
+    Character* GetRandomValidTarget();
+
     //! Determines whether the specified character is a valid target.
     //! \param target The proposed target.
     //! \return true if the specified target is valid, false otherwise.

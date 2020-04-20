@@ -12,7 +12,11 @@
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
+#include <effolkronium/random.hpp>
+
 #include <utility>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone
 {
@@ -198,6 +202,21 @@ bool Playable::IsPlayableByCardReq() const
 std::vector<Character*> Playable::GetValidPlayTargets() const
 {
     return card->GetValidPlayTargets(player);
+}
+
+Character* Playable::GetRandomValidTarget()
+{
+    std::vector<Character*> validTargets = GetValidPlayTargets();
+    if (validTargets.empty())
+    {
+        return nullptr;
+    }
+
+    const auto idx = Random::get<std::size_t>(0, validTargets.size() - 1);
+    Character* randTarget = validTargets[idx];
+    SetCardTarget(randTarget->GetGameTag(GameTag::ENTITY_ID));
+
+    return randTarget;
 }
 
 bool Playable::IsValidPlayTarget(Character* target)
