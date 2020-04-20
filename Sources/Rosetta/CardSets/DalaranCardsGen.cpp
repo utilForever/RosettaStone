@@ -2840,6 +2840,9 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddLackeyTask>(1));
+    cards.emplace("DAL_400", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_434] Arcane Watcher - COST:3 [ATK:5/HP:6]
