@@ -2713,6 +2713,14 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DAL_086e", EntityType::SOURCE) }));
+    cards.emplace("DAL_086", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_087] Hench-Clan Hag - COST:4 [ATK:3/HP:3]
@@ -3228,6 +3236,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_086e"));
+    cards.emplace("DAL_086e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_087t] Amalgam (*) - COST:1 [ATK:1/HP:1]
