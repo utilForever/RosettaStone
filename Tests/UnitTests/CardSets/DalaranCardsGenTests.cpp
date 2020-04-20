@@ -3640,8 +3640,11 @@ TEST_CASE("[Shaman : Spell] - DAL_071 : Mutate")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
     CHECK_EQ(curField[0]->GetCost(), 4);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    CHECK_EQ(curField[0]->GetCost(), 5);
+    if (curField[0]->GetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS) == 0)
+    {
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+        CHECK_EQ(curField[0]->GetCost(), 5);
+    }
 }
 
 // ---------------------------------------- MINION - SHAMAN
