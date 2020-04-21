@@ -2944,6 +2944,11 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DAL_548e", EntityType::SOURCE) };
+    cards.emplace("DAL_548", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_550] Underbelly Ooze - COST:7 [ATK:3/HP:5]
@@ -3356,6 +3361,11 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased <b>Spell Damage</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<OngoingEnchant>(
+        std::vector<std::shared_ptr<IEffect>>{ std::make_shared<Effect>(
+            GameTag::SPELLPOWER, EffectOperator::ADD, 2) }));
+    cards.emplace("DAL_548e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_554t] Greasefire Elemental (*) - COST:6 [ATK:6/HP:6]
