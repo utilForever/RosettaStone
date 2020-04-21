@@ -2893,6 +2893,14 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_DRAG_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::Has5MoreCostSpellInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4) }));
+    cards.emplace("DAL_539",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_DRAG_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_544] Potion Vendor - COST:1 [ATK:1/HP:1]
