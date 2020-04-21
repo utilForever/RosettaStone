@@ -44,6 +44,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHeroPowerCard(const std::string& cardID);
 
+    //! SelfCondition wrapper for checking the card has Battlecry.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsBattlecryCard();
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();

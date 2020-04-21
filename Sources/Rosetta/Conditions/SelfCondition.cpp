@@ -46,6 +46,13 @@ SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
     });
 }
 
+SelfCondition SelfCondition::IsBattlecryCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetGameTag(GameTag::BATTLECRY) == 1;
+    });
+}
+
 SelfCondition SelfCondition::IsGalakrondHero()
 {
     return SelfCondition([=](Playable* playable) -> bool {
