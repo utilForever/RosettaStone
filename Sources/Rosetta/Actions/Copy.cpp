@@ -59,6 +59,12 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
 
     if (copyEnchantments)
     {
+        if (const auto character = dynamic_cast<Character*>(copiedEntity);
+            character)
+        {
+            dynamic_cast<Character*>(source)->CopyInternalAttributes(character);
+        }
+
         if (!source->appliedEnchantments.empty())
         {
             for (auto& e : source->appliedEnchantments)
