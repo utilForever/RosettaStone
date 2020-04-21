@@ -637,6 +637,22 @@ SelfCondition SelfCondition::HasNotSpellDamageOnHero()
     });
 }
 
+SelfCondition SelfCondition::Has5MoreCostSpellInHand()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardType() == CardType::SPELL &&
+                handCard->GetCost() >= 5)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
 {
     return SelfCondition([=](Playable* playable) -> bool {
