@@ -5775,6 +5775,59 @@ TEST_CASE("[Neutral : Minion] - DAL_544 : Potion Vendor")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_546] Barista Lynchen - COST:5 [ATK:4/HP:5]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a copy of each of your other
+//       <b>Battlecry</b> minions to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_546 : Barista Lynchen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Barista Lynchen"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hench-Clan Sneak"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Potion Vendor"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Toxfin"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Potion Vendor");
+    CHECK_EQ(curHand[1]->card->name, "Toxfin");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

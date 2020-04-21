@@ -2926,6 +2926,14 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard()) }));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("DAL_546", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_548] Azerite Elemental - COST:5 [ATK:2/HP:7]
