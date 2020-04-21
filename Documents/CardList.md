@@ -545,11 +545,11 @@ DALARAN | DAL_432 | Witch's Brew |
 DALARAN | DAL_433 | Sludge Slurper | O
 DALARAN | DAL_434 | Arcane Watcher | O
 DALARAN | DAL_538 | Unseen Saboteur | O
-DALARAN | DAL_539 | Sunreaver Warmage |  
-DALARAN | DAL_544 | Potion Vendor |  
-DALARAN | DAL_546 | Barista Lynchen |  
-DALARAN | DAL_548 | Azerite Elemental |  
-DALARAN | DAL_550 | Underbelly Ooze |  
+DALARAN | DAL_539 | Sunreaver Warmage | O
+DALARAN | DAL_544 | Potion Vendor | O
+DALARAN | DAL_546 | Barista Lynchen | O
+DALARAN | DAL_548 | Azerite Elemental | O
+DALARAN | DAL_550 | Underbelly Ooze | O
 DALARAN | DAL_551 | Proud Defender |  
 DALARAN | DAL_553 | Big Bad Archmage |  
 DALARAN | DAL_554 | Chef Nomi |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 75% (102 of 136 Cards)
+- Progress: 78% (107 of 136 Cards)
 
 ## Saviors of Uldum
 
