@@ -2911,6 +2911,9 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
+    cards.emplace("DAL_544", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_546] Barista Lynchen - COST:5 [ATK:4/HP:5]

@@ -5714,6 +5714,67 @@ TEST_CASE("[Neutral : Minion] - DAL_539 : Sunreaver Warmage")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_544] Potion Vendor - COST:1 [ATK:1/HP:1]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_544 : Potion Vendor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Potion Vendor"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
