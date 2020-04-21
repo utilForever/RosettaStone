@@ -34,6 +34,7 @@ void Card::Initialize()
                 break;
             case PlayReq::REQ_NONSELF_TARGET:
             case PlayReq::REQ_TARGET_IF_AVAILABLE:
+            case PlayReq::REQ_DRAG_TO_PLAY:
                 needsTarget = true;
                 break;
             case PlayReq::REQ_MINION_TARGET:
