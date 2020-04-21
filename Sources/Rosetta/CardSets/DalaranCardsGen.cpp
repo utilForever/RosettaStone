@@ -2956,6 +2956,14 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: After this minion survives damage, summon a copy of it.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsNotDead());
+    power.GetTrigger()->tasks = { std::make_shared<CopyTask>(EntityType::SOURCE,
+                                                             ZoneType::PLAY) };
+    cards.emplace("DAL_550", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_551] Proud Defender - COST:4 [ATK:2/HP:6]
