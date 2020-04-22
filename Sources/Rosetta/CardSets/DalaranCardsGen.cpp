@@ -54,6 +54,7 @@
 #include <Rosetta/Tasks/SimpleTasks/PlayTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -2989,6 +2990,12 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn, summon a random
     //       6-Cost minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(
+                                      GameTag::COST, 6),
+                                  std::make_shared<SummonTask>() };
+    cards.emplace("DAL_553", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_554] Chef Nomi - COST:7 [ATK:6/HP:6]

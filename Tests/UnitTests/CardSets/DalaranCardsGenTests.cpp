@@ -5994,6 +5994,48 @@ TEST_CASE("[Neutral : Minion] - DAL_551 : Proud Defender")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_553] Big Bad Archmage - COST:10 [ATK:6/HP:6]
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: At the end of your turn, summon a random
+//       6-Cost minion.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_553 : Big Bad Archmage")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Big Bad Archmage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->GetCost(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
