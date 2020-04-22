@@ -6098,6 +6098,65 @@ TEST_CASE("[Neutral : Minion] - DAL_554 : Big Bad Archmage")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_558] Archmage Vargoth - COST:4 [ATK:2/HP:6]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the end of your turn, cast a spell
+//       you've cast this turn <i>(targets are random)</i>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_558 : Archmage Vargoth")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Archmage Vargoth"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const bool check1 = (curHero->GetHealth() == 27) &&
+                        (curField[0]->GetHealth() == 6) &&
+                        (opHero->GetHealth() == 27);
+    const bool check2 = (curHero->GetHealth() == 30) &&
+                        (curField[0]->GetHealth() == 3) &&
+                        (opHero->GetHealth() == 27);
+    const bool check3 = (curHero->GetHealth() == 30) &&
+                        (curField[0]->GetHealth() == 6) &&
+                        (opHero->GetHealth() == 24);
+    const bool check = check1 || check2 || check3;
+    CHECK_EQ(check, true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

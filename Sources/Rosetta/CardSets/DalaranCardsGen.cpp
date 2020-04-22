@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/CastSpell.hpp>
+#include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
@@ -3027,6 +3028,71 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            std::vector<Card*> spellsPlayedThisTurn;
+
+            for (auto& card : player->cardsPlayedThisTurn)
+            {
+                if (card->GetCardType() == CardType::SPELL)
+                {
+                    spellsPlayedThisTurn.emplace_back(card);
+                }
+            }
+
+            if (spellsPlayedThisTurn.empty())
+            {
+                return;
+            }
+
+            auto idx =
+                Random::get<std::size_t>(0, spellsPlayedThisTurn.size() - 1);
+            Card* randSpellCard = spellsPlayedThisTurn[idx];
+
+            if (!randSpellCard->IsPlayableByCardReq(player) ||
+                (randSpellCard->IsSecret() &&
+                 player->GetSecretZone()->IsFull()) ||
+                (randSpellCard->IsQuest() &&
+                 player->GetSecretZone()->quest != nullptr))
+            {
+                return;
+            }
+
+            Character* randTarget;
+            std::vector<Character*> validTargets =
+                randSpellCard->GetValidPlayTargets(player);
+            if (validTargets.empty())
+            {
+                randTarget = nullptr;
+            }
+            else
+            {
+                idx = Random::get<std::size_t>(0, validTargets.size() - 1);
+                randTarget = validTargets[idx];
+            }
+
+            if (randSpellCard->mustHaveToTargetToPlay && randTarget == nullptr)
+            {
+                return;
+            }
+
+            Spell* spellToCast = dynamic_cast<Spell*>(
+                Entity::GetFromCard(player, randSpellCard));
+            const int randChooseOne = Random::get<int>(1, 2);
+
+            Generic::CastSpell(player, spellToCast, randTarget, randChooseOne);
+
+            while (player->choice.has_value())
+            {
+                idx = Random::get<std::size_t>(
+                    0, player->choice.value().choices.size() - 1);
+                Generic::ChoicePick(player, idx);
+            }
+        }) };
+    cards.emplace("DAL_558", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_560] Heroic Innkeeper - COST:8 [ATK:4/HP:4]
