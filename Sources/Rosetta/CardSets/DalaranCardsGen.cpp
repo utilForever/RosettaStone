@@ -3140,6 +3140,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DAL_566t", 4, SummonSide::DEATHRATTLE));
+    cards.emplace("DAL_566", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_582] Portal Keeper - COST:4 [ATK:5/HP:2]
@@ -3485,6 +3489,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // [DAL_566t] Vengeful Scroll (*) - COST:1 [ATK:1/HP:1]
     // - Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_566t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_560e2] Protect the Brews! (*) - COST:0
