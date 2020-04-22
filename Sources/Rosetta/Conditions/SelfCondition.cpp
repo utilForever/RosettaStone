@@ -39,6 +39,13 @@ SelfCondition SelfCondition::IsNotStartInDeck()
     });
 }
 
+SelfCondition SelfCondition::IsDeckEmpty()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetDeckZone()->IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 {
     return SelfCondition([=](Playable* playable) -> bool {

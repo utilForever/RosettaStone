@@ -35,6 +35,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotStartInDeck();
 
+    //! SelfCondition wrapper for checking the deck zone is empty.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDeckEmpty();
+
     //! SelfCondition wrapper for checking the hero is Galakrond.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsGalakrondHero();
