@@ -3105,6 +3105,13 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        return 2 * (playable->player->GetFieldZone()->GetCount() - 1);
+    }));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DAL_560e2", EntityType::SOURCE, true));
+    cards.emplace("DAL_560", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_565] Portal Overfiend - COST:6 [ATK:5/HP:6]
@@ -3481,6 +3488,10 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_unique<Enchant>(Enchants::AddAttackHealthScriptTag));
+    cards.emplace("DAL_560e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_561e] Imp-onomical (*) - COST:0
