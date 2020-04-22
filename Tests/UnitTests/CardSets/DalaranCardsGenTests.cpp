@@ -5944,6 +5944,56 @@ TEST_CASE("[Neutral : Minion] - DAL_550 : Underbelly Ooze")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_551] Proud Defender - COST:4 [ATK:2/HP:6]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Has +2 Attack while you have no other minions.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_551 : Proud Defender")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Proud Defender"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

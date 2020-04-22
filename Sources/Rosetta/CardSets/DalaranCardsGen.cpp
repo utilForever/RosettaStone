@@ -2975,6 +2975,12 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            return playable->player->GetFieldZone()->GetCount() == 1 ? 2 : 0;
+        }));
+    cards.emplace("DAL_551", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_553] Big Bad Archmage - COST:10 [ATK:6/HP:6]
