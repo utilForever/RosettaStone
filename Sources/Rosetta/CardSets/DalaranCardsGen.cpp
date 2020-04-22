@@ -3158,6 +3158,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "DAL_582t", 3));
+    cards.emplace("DAL_582", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_592] Batterhead - COST:8 [ATK:3/HP:12]
