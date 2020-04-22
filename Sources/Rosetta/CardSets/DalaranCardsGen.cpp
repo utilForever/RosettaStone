@@ -3008,6 +3008,14 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDeckEmpty()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("DAL_554t", 6,
+                                                     SummonSide::ALTERNATE) }));
+    cards.emplace("DAL_554", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_558] Archmage Vargoth - COST:4 [ATK:2/HP:6]
@@ -3392,6 +3400,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // [DAL_554t] Greasefire Elemental (*) - COST:6 [ATK:6/HP:6]
     // - Race: Elemental, Faction: Neutral, Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_554t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_566t] Vengeful Scroll (*) - COST:1 [ATK:1/HP:1]

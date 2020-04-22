@@ -6036,6 +6036,68 @@ TEST_CASE("[Neutral : Minion] - DAL_553 : Big Bad Archmage")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_554] Chef Nomi - COST:7 [ATK:6/HP:6]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck is empty,
+//       summon six 6/6 Greasefire Elementals.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_554 : Big Bad Archmage")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Marked Shot");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chef Nomi"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chef Nomi"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Chef Nomi");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 7);
+    CHECK_EQ(opField[0]->card->name, "Greasefire Elemental");
+    CHECK_EQ(opField[1]->card->name, "Greasefire Elemental");
+    CHECK_EQ(opField[2]->card->name, "Greasefire Elemental");
+    CHECK_EQ(opField[3]->card->name, "Chef Nomi");
+    CHECK_EQ(opField[4]->card->name, "Greasefire Elemental");
+    CHECK_EQ(opField[5]->card->name, "Greasefire Elemental");
+    CHECK_EQ(opField[6]->card->name, "Greasefire Elemental");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
