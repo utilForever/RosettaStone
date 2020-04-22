@@ -3126,6 +3126,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "DAL_582t", 3));
+    cards.emplace("DAL_565", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_566] Eccentric Scribe - COST:6 [ATK:6/HP:4]
@@ -3548,6 +3552,10 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // - RUSH = 1
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<SummonTask>("DAL_582t2"));
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_582t2"));
+    cards.emplace("DAL_582t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_582t2] Felhound (*) - COST:2 [ATK:2/HP:2]
@@ -3558,6 +3566,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_582t2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_589e] Hunting Party (*) - COST:0
