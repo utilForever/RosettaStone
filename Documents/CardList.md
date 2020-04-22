@@ -550,15 +550,15 @@ DALARAN | DAL_544 | Potion Vendor | O
 DALARAN | DAL_546 | Barista Lynchen | O
 DALARAN | DAL_548 | Azerite Elemental | O
 DALARAN | DAL_550 | Underbelly Ooze | O
-DALARAN | DAL_551 | Proud Defender |  
-DALARAN | DAL_553 | Big Bad Archmage |  
-DALARAN | DAL_554 | Chef Nomi |  
-DALARAN | DAL_558 | Archmage Vargoth |  
-DALARAN | DAL_560 | Heroic Innkeeper |  
+DALARAN | DAL_551 | Proud Defender | O
+DALARAN | DAL_553 | Big Bad Archmage | O
+DALARAN | DAL_554 | Chef Nomi | O
+DALARAN | DAL_558 | Archmage Vargoth | O
+DALARAN | DAL_560 | Heroic Innkeeper | O
 DALARAN | DAL_561 | Jumbo Imp | O
 DALARAN | DAL_563 | Eager Underling | O
-DALARAN | DAL_565 | Portal Overfiend |  
-DALARAN | DAL_566 | Eccentric Scribe |  
+DALARAN | DAL_565 | Portal Overfiend | O
+DALARAN | DAL_566 | Eccentric Scribe | O
 DALARAN | DAL_568 | Lightforged Blessing | O
 DALARAN | DAL_570 | Never Surrender! | O
 DALARAN | DAL_571 | Mysterious Blade | O
@@ -568,7 +568,7 @@ DALARAN | DAL_576 | Kirin Tor Tricaster | O
 DALARAN | DAL_577 | Ray of Frost | O
 DALARAN | DAL_578 | Power of Creation | O
 DALARAN | DAL_581 | Nozari | O
-DALARAN | DAL_582 | Portal Keeper |  
+DALARAN | DAL_582 | Portal Keeper | O
 DALARAN | DAL_587 | Shimmerfly | O
 DALARAN | DAL_589 | Hunting Party | O
 DALARAN | DAL_592 | Batterhead |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 78% (107 of 136 Cards)
+- Progress: 84% (115 of 136 Cards)
 
 ## Saviors of Uldum
 
