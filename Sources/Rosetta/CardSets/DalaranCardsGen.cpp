@@ -3241,6 +3241,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DAL_743t", SummonSide::DEATHRATTLE));
+    cards.emplace("DAL_743", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_744] Faceless Rager - COST:3 [ATK:5/HP:1]
@@ -3745,6 +3749,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // [DAL_743t] Hench-Clan Squire (*) - COST:1 [ATK:1/HP:1]
     // - Race: Murloc, Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_743t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_744e] Familiar Faces (*) - COST:0
