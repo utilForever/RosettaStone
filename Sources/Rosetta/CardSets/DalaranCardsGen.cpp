@@ -3173,6 +3173,16 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead());
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+                                      EntityType::SOURCE, GameTag::EXHAUSTED,
+                                      0),
+                                  std::make_shared<SummonTask>() };
+    cards.emplace("DAL_592", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_735] Dalaran Librarian - COST:2 [ATK:2/HP:3]
