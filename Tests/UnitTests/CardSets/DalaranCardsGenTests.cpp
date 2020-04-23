@@ -6555,6 +6555,48 @@ TEST_CASE("[Neutral : Minion] - DAL_743 : Hench-Clan Hogsteed")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_747] Flight Master - COST:3 [ATK:3/HP:4]
+// - Faction: Alliance, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 2/2 Gryphon for each player.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_747 : Flight Master")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flight Master"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Gryphon");
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Gryphon");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 // - Race: Elemental, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

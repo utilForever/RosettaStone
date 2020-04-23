@@ -3270,6 +3270,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DAL_747t"));
+    power.AddPowerTask(std::make_shared<SummonOpTask>("DAL_747t"));
+    cards.emplace("DAL_747", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
@@ -3764,6 +3768,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // [DAL_747t] Gryphon (*) - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Faction: Alliance, Set: Dalaran
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_747t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_751t] Imp (*) - COST:1 [ATK:1/HP:1]
