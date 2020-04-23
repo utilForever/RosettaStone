@@ -3196,6 +3196,11 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::STACK));
+    cards.emplace("DAL_735", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_736] Archivist Elysiana - COST:8 [ATK:7/HP:7]
