@@ -191,6 +191,18 @@ bool ChoicePick(Player* player, int choice)
     {
         auto tasks = choiceVal->source->card->power.GetAfterChooseTask();
 
+        if (!choiceVal->entityStack.empty())
+        {
+            std::vector<Playable*> playables;
+
+            for (auto& entityID : choiceVal->entityStack)
+            {
+                playables.emplace_back(player->game->entityList[entityID]);
+            }
+
+            player->game->taskStack.playables = playables;
+        }
+
         for (auto& task : tasks)
         {
             std::unique_ptr<ITask> clonedTask = task->Clone();
