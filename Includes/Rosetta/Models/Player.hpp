@@ -280,8 +280,8 @@ class Player : public Entity
     CardClass baseClass = CardClass::INVALID;
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
-    std::optional<Choice> choice = std::nullopt;
 
+    Choice* choice = nullptr;
     Playable* galakrond = nullptr;
     Player* opponent = nullptr;
 
