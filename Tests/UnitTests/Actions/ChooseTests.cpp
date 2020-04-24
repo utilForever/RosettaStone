@@ -29,14 +29,14 @@ TEST_CASE("[Choose] - ChoiceMulligan")
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    const std::vector<std::size_t> curChoices, opChoices;
+    const std::vector<int> curChoices, opChoices;
 
-    curPlayer->choice = new Choice();
+    curPlayer->choice = new Choice(curPlayer);
     curPlayer->choice->choiceAction = ChoiceAction::HAND;
     curPlayer->choice->choices = curChoices;
     curPlayer->choice->choiceType = ChoiceType::MULLIGAN;
     
-    opPlayer->choice = new Choice();
+    opPlayer->choice = new Choice(opPlayer);
     opPlayer->choice->choiceAction = ChoiceAction::HAND;
     opPlayer->choice->choices = opChoices;
     opPlayer->choice->choiceType = ChoiceType::MULLIGAN;

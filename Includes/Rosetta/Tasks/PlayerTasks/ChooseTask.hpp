@@ -22,20 +22,19 @@ class ChooseTask : public ITask
  public:
     //! Construct task with given \p choices.
     //! \param choices A container of card to choose.
-    explicit ChooseTask(std::vector<std::size_t> choices);
+    explicit ChooseTask(std::vector<int> choices);
 
     //! ChooseTask wrapper for mulligan.
     //! \param player The player to run task.
     //! \param choices A container of card to choose.
     //! \return Generated PlayCardTask for intended purpose.
-    static ChooseTask Mulligan(Player* player,
-                               std::vector<std::size_t> choices);
+    static ChooseTask Mulligan(Player* player, std::vector<int> choices);
 
     //! ChooseTask wrapper for pick.
     //! \param player The player to run task.
     //! \param choice A card to choose.
     //! \return Generated PlayCardTask for intended purpose.
-    static ChooseTask Pick(Player* player, std::size_t choice);
+    static ChooseTask Pick(Player* player, int choice);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -47,7 +46,7 @@ class ChooseTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    std::vector<std::size_t> m_choices;
+    std::vector<int> m_choices;
 };
 }  // namespace RosettaStone::PlayerTasks
 

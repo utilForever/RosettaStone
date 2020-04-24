@@ -18,7 +18,7 @@
 
 namespace RosettaStone::Generic
 {
-void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices)
+void ChoiceMulligan(Player* player, const std::vector<int>& choices)
 {
     Choice* choice = player->choice;
     if (choice == nullptr)
@@ -91,7 +91,7 @@ void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices)
     }
 }
 
-bool ChoicePick(Player* player, std::size_t choice)
+bool ChoicePick(Player* player, int choice)
 {
     Choice* choiceVal = player->choice;
     if (choiceVal == nullptr)
@@ -206,7 +206,7 @@ bool ChoicePick(Player* player, std::size_t choice)
 }
 
 void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
-                  const std::vector<std::size_t>& choices)
+                  const std::vector<int>& choices)
 {
     // Block it if choice is exist
     if (player->choice != nullptr)
@@ -215,7 +215,7 @@ void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
     }
 
     // Create a choice for player
-    player->choice = new Choice();
+    player->choice = new Choice(player);
     player->choice->choiceType = type;
     player->choice->choiceAction = action;
     player->choice->choices = choices;
@@ -224,7 +224,7 @@ void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
 void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
                        ChoiceAction action, const std::vector<Card*>& choices)
 {
-    std::vector<std::size_t> choiceIDs;
+    std::vector<int> choiceIDs;
 
     for (auto& card : choices)
     {
@@ -242,7 +242,7 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
 
     if (player->choice == nullptr)
     {
-        player->choice = new Choice();
+        player->choice = new Choice(player);
         player->choice->choiceType = type;
         player->choice->choiceAction = action;
         player->choice->source = source;

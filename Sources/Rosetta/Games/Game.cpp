@@ -354,7 +354,7 @@ void Game::BeginMulligan()
     GetPlayer2()->mulliganState = Mulligan::INPUT;
 
     // Collect cards that can redraw
-    std::vector<std::size_t> p1HandIDs, p2HandIDs;
+    std::vector<int> p1HandIDs, p2HandIDs;
     for (auto& entity : GetPlayer1()->GetHandZone()->GetAll())
     {
         p1HandIDs.emplace_back(entity->GetGameTag(GameTag::ENTITY_ID));
