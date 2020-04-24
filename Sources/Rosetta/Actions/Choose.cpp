@@ -215,6 +215,18 @@ bool ChoicePick(Player* player, int choice)
         }
     }
 
+    Choice* nextChoice = choiceVal->TryPopNextChoice(choice);
+    if (nextChoice == nullptr)
+    {
+        // It's done! - Reset choice
+        delete player->choice;
+        player->choice = nullptr;
+    }
+    else
+    {
+        player->choice = nextChoice;
+    }
+
     // It's done! - Reset choice
     delete player->choice;
     player->choice = nullptr;
