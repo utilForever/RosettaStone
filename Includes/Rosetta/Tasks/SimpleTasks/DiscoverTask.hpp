@@ -89,8 +89,10 @@ class DiscoverTask : public ITask
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
     //! \param numberOfChoices The number of choices.
-    std::vector<Card*> GetChoices(std::vector<Card*> cardsToDiscover,
-                                  int numberOfChoices);
+    //! \param doShuffle The flag that indicates it does shuffle.
+    static std::vector<Card*> GetChoices(std::vector<Card*> cardsToDiscover,
+                                         int numberOfChoices,
+                                         bool doShuffle = true);
 
  private:
     //! Processes task logic internally and returns meta data.

@@ -80,7 +80,7 @@ DiscoverTask::DiscoverTask(std::vector<Card*> cards, DiscoverType discoverType,
 }
 
 std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
-                                            int numberOfChoices)
+                                            int numberOfChoices, bool doShuffle)
 {
     std::vector<Card*> result;
 
@@ -92,7 +92,7 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
     {
         result.reserve(numberOfChoices);
 
-        if (m_doShuffle)
+        if (doShuffle)
         {
             std::sample(cardsToDiscover.begin(), cardsToDiscover.end(),
                         std::back_inserter(result), numberOfChoices,
