@@ -23,6 +23,7 @@ void PlayEnchantmentCard(Player* player, Card* card, Entity* target);
 
 void ExpectCardEqual(const Card& card1, const Card& card2);
 
+Playable* ChooseNthChoice(Game& game, std::size_t n);
 std::vector<Card*> GetChoiceCards(Game& game);
 }  // namespace TestUtils
 

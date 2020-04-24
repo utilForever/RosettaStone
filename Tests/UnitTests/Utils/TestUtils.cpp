@@ -11,8 +11,11 @@
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
+
+using namespace PlayerTasks;
 
 namespace TestUtils
 {
@@ -101,18 +104,33 @@ void ExpectCardEqual(const Card& card1, const Card& card2)
     CHECK_EQ(card1.GetRace(), card2.GetRace());
     CHECK_EQ(card1.GetRarity(), card2.GetRarity());
     CHECK_EQ(card1.gameTags.at(GameTag::COLLECTIBLE),
-              card2.gameTags.at(GameTag::COLLECTIBLE));
+             card2.gameTags.at(GameTag::COLLECTIBLE));
     CHECK_EQ(card1.gameTags.at(GameTag::COST),
-              card2.gameTags.at(GameTag::COST));
+             card2.gameTags.at(GameTag::COST));
     CHECK_EQ(card1.gameTags.at(GameTag::ATK), card2.gameTags.at(GameTag::ATK));
     CHECK_EQ(card1.gameTags.at(GameTag::HEALTH),
-              card2.gameTags.at(GameTag::HEALTH));
+             card2.gameTags.at(GameTag::HEALTH));
     CHECK_EQ(card1.gameTags.at(GameTag::DURABILITY),
-              card2.gameTags.at(GameTag::DURABILITY));
+             card2.gameTags.at(GameTag::DURABILITY));
     CHECK_EQ(card1.gameTags, card2.gameTags);
     CHECK_EQ(card1.playRequirements, card2.playRequirements);
     CHECK_EQ(card1.entourages, card2.entourages);
     CHECK_EQ(card1.maxAllowedInDeck, card2.maxAllowedInDeck);
+}
+
+Playable* ChooseNthChoice(Game& game, std::size_t n)
+{
+    if (n > game.GetCurrentPlayer()->choice->choices.size())
+    {
+        throw std::out_of_range(
+            "ChooseNthChoice() - n is greater than the size of choices");
+    }
+
+    const int pick = game.GetCurrentPlayer()->choice->choices[n - 1];
+    game.Process(game.GetCurrentPlayer(),
+                 ChooseTask::Pick(game.GetCurrentPlayer(), pick));
+
+    return game.entityList[pick];
 }
 
 std::vector<Card*> GetChoiceCards(Game& game)
@@ -122,12 +140,12 @@ std::vector<Card*> GetChoiceCards(Game& game)
         throw std::logic_error("There is no active choices.");
     }
 
-    std::vector<std::size_t> choices = game.GetCurrentPlayer()->choice->choices;
+    std::vector<int> choices = game.GetCurrentPlayer()->choice->choices;
 
     std::vector<Card*> result;
     result.reserve(choices.size());
 
-    for (std::size_t choice : choices)
+    for (int choice : choices)
     {
         result.emplace_back(game.entityList[choice]->card);
     }
