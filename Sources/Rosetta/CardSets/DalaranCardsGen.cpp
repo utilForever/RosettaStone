@@ -51,6 +51,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/PlayTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
@@ -3089,7 +3090,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             {
                 idx = Random::get<std::size_t>(
                     0, player->choice->choices.size() - 1);
-                Generic::ChoicePick(player, idx);
+                Generic::ChoicePick(player, static_cast<int>(idx));
             }
         }) };
     cards.emplace("DAL_558", CardDef(power));
@@ -3216,6 +3217,15 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::INVALID, CardClass::INVALID, Race::INVALID, Rarity::INVALID,
+        ChoiceAction::STACK, 5));
+    power.AddAfterChooseTask(
+        std::make_shared<MoveToSetasideTask>(EntityType::DECK));
+    power.AddAfterChooseTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::DECK, 2));
+    cards.emplace("DAL_736", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_742] Whirlwind Tempest - COST:8 [ATK:6/HP:6]

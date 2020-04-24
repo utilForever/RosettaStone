@@ -6509,6 +6509,70 @@ TEST_CASE("[Neutral : Minion] - DAL_735 : Dalaran Librarian")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_736] Archivist Elysiana - COST:8 [ATK:7/HP:7]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> 5 cards.
+//       Replace your deck with 2 copies of each.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_736 : Archivist Elysiana")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Archivist Elysiana"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    std::vector<int> chosenCards;
+    chosenCards.reserve(5);
+    for (int i = 0; i < 5; ++i)
+    {
+        const int dbfID = TestUtils::ChooseNthChoice(game, 1)->card->dbfID;
+        chosenCards.emplace_back(dbfID);
+    }
+    std::sort(chosenCards.begin(), chosenCards.end());
+
+    CHECK_EQ(curDeck.GetCount(), 10);
+
+    std::vector<int> deckCards;
+    for (auto& deckCard : curDeck.GetAll())
+    {
+        deckCards.emplace_back(deckCard->card->dbfID);
+    }
+    std::sort(deckCards.begin(), deckCards.end());
+    const auto last = std::unique(deckCards.begin(), deckCards.end());
+    deckCards.erase(last, deckCards.end());
+
+    CHECK_EQ(chosenCards, deckCards);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_743] Hench-Clan Hogsteed - COST:2 [ATK:2/HP:1]
 // - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
