@@ -571,7 +571,7 @@ DALARAN | DAL_581 | Nozari | O
 DALARAN | DAL_582 | Portal Keeper | O
 DALARAN | DAL_587 | Shimmerfly | O
 DALARAN | DAL_589 | Hunting Party | O
-DALARAN | DAL_592 | Batterhead |  
+DALARAN | DAL_592 | Batterhead | O
 DALARAN | DAL_602 | Plot Twist | O
 DALARAN | DAL_603 | Mana Cyclone | O
 DALARAN | DAL_604 | Ursatron | O
@@ -595,12 +595,12 @@ DALARAN | DAL_729 | Madame Lazul |
 DALARAN | DAL_731 | Duel! |  
 DALARAN | DAL_732 | Keeper Stalladris | O
 DALARAN | DAL_733 | Dreamway Guardians | O
-DALARAN | DAL_735 | Dalaran Librarian |  
-DALARAN | DAL_736 | Archivist Elysiana |  
+DALARAN | DAL_735 | Dalaran Librarian | O
+DALARAN | DAL_736 | Archivist Elysiana | O
 DALARAN | DAL_742 | Whirlwind Tempest |  
-DALARAN | DAL_743 | Hench-Clan Hogsteed |  
+DALARAN | DAL_743 | Hench-Clan Hogsteed | O
 DALARAN | DAL_744 | Faceless Rager |  
-DALARAN | DAL_747 | Flight Master |  
+DALARAN | DAL_747 | Flight Master | O
 DALARAN | DAL_748 | Mana Reservoir | O
 DALARAN | DAL_749 | Recurring Villain |  
 DALARAN | DAL_751 | Mad Summoner |  
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster |
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 84% (115 of 136 Cards)
+- Progress: 88% (120 of 136 Cards)
 
 ## Saviors of Uldum
 
