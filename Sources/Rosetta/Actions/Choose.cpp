@@ -227,10 +227,6 @@ bool ChoicePick(Player* player, int choice)
         player->choice = nextChoice;
     }
 
-    // It's done! - Reset choice
-    delete player->choice;
-    player->choice = nullptr;
-
     return true;
 }
 
