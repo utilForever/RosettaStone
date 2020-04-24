@@ -20,25 +20,30 @@ namespace RosettaStone::Generic
 {
 void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices)
 {
+    Choice* choice = player->choice;
+    if (choice == nullptr)
+    {
+        return;
+    }
+
     // Block it if player tries to mulligan in a non-mulligan choice
-    if (player->choice.value().choiceType != ChoiceType::MULLIGAN)
+    if (choice->choiceType != ChoiceType::MULLIGAN)
     {
         return;
     }
 
     // Block it if player tries to mulligan a card that doesn't exist
-    Choice& choice = player->choice.value();
     for (const auto chooseID : choices)
     {
-        if (std::find(choice.choices.begin(), choice.choices.end(), chooseID) ==
-            choice.choices.end())
+        if (std::find(choice->choices.begin(), choice->choices.end(),
+                      chooseID) == choice->choices.end())
         {
             return;
         }
     }
 
     // Process mulligan by choice action
-    switch (choice.choiceAction)
+    switch (choice->choiceAction)
     {
         case ChoiceAction::HAND:
         {
@@ -75,7 +80,8 @@ void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices)
             }
 
             // It's done! - Reset choice
-            player->choice = std::nullopt;
+            delete player->choice;
+            player->choice = nullptr;
 
             break;
         }
@@ -87,17 +93,21 @@ void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices)
 
 bool ChoicePick(Player* player, std::size_t choice)
 {
-    Choice choiceVal = player->choice.value();
+    Choice* choiceVal = player->choice;
+    if (choiceVal == nullptr)
+    {
+        return false;
+    }
 
     // Block it if player tries to pick in a non-general choice
-    if (choiceVal.choiceType != ChoiceType::GENERAL)
+    if (choiceVal->choiceType != ChoiceType::GENERAL)
     {
         return false;
     }
 
     // Block it if player tries to pick a card that doesn't exist
-    if (std::find(choiceVal.choices.begin(), choiceVal.choices.end(), choice) ==
-        choiceVal.choices.end())
+    if (std::find(choiceVal->choices.begin(), choiceVal->choices.end(),
+                  choice) == choiceVal->choices.end())
     {
         return false;
     }
@@ -111,7 +121,7 @@ bool ChoicePick(Player* player, std::size_t choice)
     }
 
     // Process pick by choice action
-    switch (choiceVal.choiceAction)
+    switch (choiceVal->choiceAction)
     {
         case ChoiceAction::HAND:
         {
@@ -127,7 +137,7 @@ bool ChoicePick(Player* player, std::size_t choice)
         case ChoiceAction::CAST_SPELL:
         {
             player->game->currentEventData = std::make_unique<EventMetaData>(
-                dynamic_cast<Playable*>(choiceVal.source), nullptr);
+                dynamic_cast<Playable*>(choiceVal->source), nullptr);
             player->GetSetasideZone()->Remove(playable);
             CastSpell(player, dynamic_cast<Spell*>(playable), nullptr, 0);
             player->game->currentEventData.reset();
@@ -172,16 +182,16 @@ bool ChoicePick(Player* player, std::size_t choice)
     }
 
     // Process after choose tasks
-    if (choiceVal.source != nullptr)
+    if (choiceVal->source != nullptr)
     {
-        auto tasks = choiceVal.source->card->power.GetAfterChooseTask();
+        auto tasks = choiceVal->source->card->power.GetAfterChooseTask();
 
         for (auto& task : tasks)
         {
             std::unique_ptr<ITask> clonedTask = task->Clone();
 
             clonedTask->SetPlayer(player);
-            clonedTask->SetSource(choiceVal.source);
+            clonedTask->SetSource(choiceVal->source);
             clonedTask->SetTarget(playable);
 
             clonedTask->Run();
@@ -189,7 +199,8 @@ bool ChoicePick(Player* player, std::size_t choice)
     }
 
     // It's done! - Reset choice
-    player->choice = std::nullopt;
+    delete player->choice;
+    player->choice = nullptr;
 
     return true;
 }
@@ -198,18 +209,16 @@ void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
                   const std::vector<std::size_t>& choices)
 {
     // Block it if choice is exist
-    if (player->choice != std::nullopt)
+    if (player->choice != nullptr)
     {
         return;
     }
 
     // Create a choice for player
-    Choice choice;
-    choice.choiceType = type;
-    choice.choiceAction = action;
-    choice.choices = choices;
-
-    player->choice = choice;
+    player->choice = new Choice();
+    player->choice->choiceType = type;
+    player->choice->choiceAction = action;
+    player->choice->choices = choices;
 }
 
 void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
@@ -231,15 +240,13 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
         choiceIDs.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
     }
 
-    Choice choice;
-    choice.choiceType = type;
-    choice.choiceAction = action;
-    choice.source = source;
-    choice.choices = choiceIDs;
-
-    if (!player->choice.has_value())
+    if (player->choice == nullptr)
     {
-        player->choice = choice;
+        player->choice = new Choice();
+        player->choice->choiceType = type;
+        player->choice->choiceAction = action;
+        player->choice->source = source;
+        player->choice->choices = choiceIDs;
     }
 }
 }  // namespace RosettaStone::Generic

@@ -181,7 +181,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<DiscoverTask>(
                    CardType::MINION, CardClass::DRUID, Race::INVALID,
-                   Rarity::INVALID, ChoiceAction::HAND, true) }));
+                   Rarity::INVALID, ChoiceAction::HAND, 1, true) }));
     cards.emplace("DAL_352", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
@@ -3085,10 +3085,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
             Generic::CastSpell(player, spellToCast, randTarget, randChooseOne);
 
-            while (player->choice.has_value())
+            while (player->choice != nullptr)
             {
                 idx = Random::get<std::size_t>(
-                    0, player->choice.value().choices.size() - 1);
+                    0, player->choice->choices.size() - 1);
                 Generic::ChoicePick(player, idx);
             }
         }) };

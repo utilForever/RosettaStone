@@ -29,7 +29,7 @@ ChooseTask ChooseTask::Pick(Player*, std::size_t choice)
 
 TaskStatus ChooseTask::Impl(Player* player)
 {
-    switch (player->choice.value().choiceType)
+    switch (player->choice->choiceType)
     {
         case ChoiceType::MULLIGAN:
         {

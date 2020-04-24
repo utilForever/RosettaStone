@@ -117,7 +117,7 @@ void ExpectCardEqual(const Card& card1, const Card& card2)
 
 std::vector<Card*> GetChoiceCards(Game& game)
 {
-    if (!game.GetCurrentPlayer()->choice.has_value())
+    if (game.GetCurrentPlayer()->choice == nullptr)
     {
         throw std::logic_error("There is no active choices.");
     }

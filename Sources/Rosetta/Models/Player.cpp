@@ -52,8 +52,8 @@ void Player::RefCopy(const Player& rhs)
 
     playState = rhs.playState;
     mulliganState = rhs.mulliganState;
-    choice = rhs.choice;
 
+    choice = rhs.choice;
     m_hero = rhs.m_hero;
     opponent = rhs.opponent;
 

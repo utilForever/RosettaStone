@@ -31,18 +31,15 @@ TEST_CASE("[Choose] - ChoiceMulligan")
 
     const std::vector<std::size_t> curChoices, opChoices;
 
-    Choice curChoice, opChoice;
-
-    curChoice.choiceAction = ChoiceAction::HAND;
-    curChoice.choices = curChoices;
-    curChoice.choiceType = ChoiceType::MULLIGAN;
-
-    opChoice.choiceAction = ChoiceAction::HAND;
-    opChoice.choices = opChoices;
-    opChoice.choiceType = ChoiceType::MULLIGAN;
-
-    curPlayer->choice = curChoice;
-    opPlayer->choice = opChoice;
+    curPlayer->choice = new Choice();
+    curPlayer->choice->choiceAction = ChoiceAction::HAND;
+    curPlayer->choice->choices = curChoices;
+    curPlayer->choice->choiceType = ChoiceType::MULLIGAN;
+    
+    opPlayer->choice = new Choice();
+    opPlayer->choice->choiceAction = ChoiceAction::HAND;
+    opPlayer->choice->choices = opChoices;
+    opPlayer->choice->choiceType = ChoiceType::MULLIGAN;
 
     int curHandCount = curPlayer->GetHandZone()->GetCount();
     int opHandCount = opPlayer->GetHandZone()->GetCount();
@@ -53,6 +50,6 @@ TEST_CASE("[Choose] - ChoiceMulligan")
     CHECK_EQ(curHandCount, curPlayer->GetHandZone()->GetCount());
     CHECK_EQ(opHandCount, opPlayer->GetHandZone()->GetCount());
 
-    CHECK_EQ(curPlayer->choice, std::nullopt);
-    CHECK_EQ(opPlayer->choice, std::nullopt);
+    CHECK_EQ(curPlayer->choice, nullptr);
+    CHECK_EQ(opPlayer->choice, nullptr);
 }

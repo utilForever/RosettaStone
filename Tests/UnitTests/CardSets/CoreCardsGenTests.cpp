@@ -1383,12 +1383,11 @@ TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice.has_value());
-    CHECK_EQ(curPlayer->choice.value().choices.size(), 3u);
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
-    game.Process(
-        curPlayer,
-        ChooseTask::Pick(curPlayer, curPlayer->choice.value().choices[0]));
+    game.Process(curPlayer,
+                 ChooseTask::Pick(curPlayer, curPlayer->choice->choices[0]));
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 2);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
@@ -5564,14 +5563,13 @@ TEST_CASE("[Demon Hunter : Minion] - BT_323 : Sightless Watcher")
     CHECK_EQ(curDeck.GetCount(), 26);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->choice.has_value(), true);
-    CHECK_EQ(curPlayer->choice.value().choices.size(), 3u);
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto pickedCardID =
-        game.entityList[curPlayer->choice.value().choices[0]]->card->id;
-    game.Process(
-        curPlayer,
-        ChooseTask::Pick(curPlayer, curPlayer->choice.value().choices[0]));
+        game.entityList[curPlayer->choice->choices[0]]->card->id;
+    game.Process(curPlayer,
+                 ChooseTask::Pick(curPlayer, curPlayer->choice->choices[0]));
 
     CHECK_EQ(curHand.GetCount(), 4);
     CHECK_EQ(curDeck.GetCount(), 26);

@@ -60,7 +60,7 @@ TaskStatus PlayTask::Impl(Player* player)
                 Generic::CastSpell(spellPlayer, spell, spellTarget, 0);
             }
 
-            while (spellPlayer->choice.has_value())
+            while (spellPlayer->choice != nullptr)
             {
                 auto choices = spellPlayer->choice->choices;
                 const auto idx =
