@@ -156,6 +156,11 @@ bool ChoicePick(Player* player, int choice)
             }
             break;
         }
+        case ChoiceAction::STACK:
+        {
+            player->choice->AddToStack(choice);
+            break;
+        }
         case ChoiceAction::ENVOY_OF_LAZUL:
         {
             for (auto& handCard : player->opponent->GetHandZone()->GetAll())
