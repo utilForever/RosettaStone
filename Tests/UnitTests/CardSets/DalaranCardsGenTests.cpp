@@ -6915,3 +6915,48 @@ TEST_CASE("[Neutral : Minion] - DAL_760 : Burly Shovelfist")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_771] Soldier of Fortune - COST:4 [ATK:5/HP:6]
+// - Race: Elemental, Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever this minion attacks, give your opponent a Coin.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_771 : Soldier of Fortune")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Soldier of Fortune"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opHand.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(opHand[1]->card->name, "The Coin");
+}

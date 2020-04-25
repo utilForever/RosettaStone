@@ -3389,6 +3389,12 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever this minion attacks, give your opponent a Coin.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddCardTask>(
+        EntityType::ENEMY_HAND, "GAME_005") };
+    cards.emplace("DAL_771", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_773] Magic Carpet - COST:3 [ATK:1/HP:6]
