@@ -3362,6 +3362,13 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(false, 2, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_752e", EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DAL_752e2", EntityType::STACK));
+    cards.emplace("DAL_752", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9]
@@ -3831,6 +3838,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Jepetto Joybuzz made this 1/1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_752e"));
+    cards.emplace("DAL_752e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_752e2] On Sale (*) - COST:0
@@ -3838,6 +3848,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    cards.emplace("DAL_752e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_773e] Flying High (*) - COST:0

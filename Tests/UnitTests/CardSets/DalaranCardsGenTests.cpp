@@ -6842,6 +6842,67 @@ TEST_CASE("[Neutral : Minion] - DAL_751 : Mad Summoner")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_752] Jepetto Joybuzz - COST:8 [ATK:6/HP:6]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw 2 minions from your deck.
+//       Set their Attack, Health, and Cost to 1.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_752 : Jepetto Joybuzz")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Never Surrender!");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Nozari");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Jepetto Joybuzz"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    const bool check = (curHand[4]->card->name == "Malygos" ||
+                        curHand[4]->card->name == "Nozari") &&
+                       (curHand[5]->card->name == "Malygos" ||
+                        curHand[5]->card->name == "Nozari");
+    CHECK_EQ(check, true);
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::ATK), 1);
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::HEALTH), 1);
+    CHECK_EQ(curHand[4]->GetCost(), 1);
+    CHECK_EQ(curHand[5]->GetGameTag(GameTag::ATK), 1);
+    CHECK_EQ(curHand[5]->GetGameTag(GameTag::HEALTH), 1);
+    CHECK_EQ(curHand[5]->GetCost(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
