@@ -11,14 +11,16 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonOpTask::SummonOpTask(std::optional<Card*> card, int amount)
-    : m_card(card), m_amount(amount)
+SummonOpTask::SummonOpTask(std::optional<Card*> card, int amount,
+                           SummonSide side)
+    : m_card(card), m_amount(amount), m_side(side)
 {
     // Do nothing
 }
 
-SummonOpTask::SummonOpTask(const std::string& cardID, int amount)
-    : m_card(Cards::FindCardByID(cardID)), m_amount(amount)
+SummonOpTask::SummonOpTask(const std::string& cardID, int amount,
+                           SummonSide side)
+    : m_card(Cards::FindCardByID(cardID)), m_amount(amount), m_side(side)
 {
     // Do nothing
 }
@@ -40,6 +42,7 @@ TaskStatus SummonOpTask::Impl(Player* player)
         }
 
         Minion* summonEntity;
+        int alternateCount = 0;
 
         if (!m_card.has_value())
         {
@@ -51,7 +54,21 @@ TaskStatus SummonOpTask::Impl(Player* player)
                 Entity::GetFromCard(player->opponent, m_card.value()));
         }
 
-        Generic::Summon(summonEntity, -1, m_source);
+        int summonPos =
+            SummonTask::GetPosition(m_source, m_side, m_target, alternateCount);
+        if (summonPos > player->opponent->GetFieldZone()->GetCount())
+        {
+            summonPos = player->opponent->GetFieldZone()->GetCount();
+        }
+
+        if (summonEntity->IsUntouchable())
+        {
+            player->opponent->GetFieldZone()->Add(summonEntity, summonPos);
+        }
+        else
+        {
+            Generic::Summon(summonEntity, summonPos, m_source);
+        }
     }
 
     return TaskStatus::COMPLETE;
@@ -59,6 +76,6 @@ TaskStatus SummonOpTask::Impl(Player* player)
 
 std::unique_ptr<ITask> SummonOpTask::CloneImpl()
 {
-    return std::make_unique<SummonOpTask>(m_card, m_amount);
+    return std::make_unique<SummonOpTask>(m_card, m_amount, m_side);
 }
 }  // namespace RosettaStone::SimpleTasks
