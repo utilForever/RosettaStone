@@ -3422,6 +3422,17 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you cast a spell, summon a random 3-Cost Beast.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomMinionTask>(
+            TagValues{ { GameTag::COST, 3, RelaSign::EQ },
+                       { GameTag::CARDRACE, static_cast<int>(Race::BEAST),
+                         RelaSign::EQ } }),
+        std::make_shared<SummonTask>()
+    };
+    cards.emplace("DAL_774", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_775] Tunnel Blaster - COST:7 [ATK:3/HP:7]

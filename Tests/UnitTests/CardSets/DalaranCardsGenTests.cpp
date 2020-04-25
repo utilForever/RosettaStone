@@ -7010,3 +7010,52 @@ TEST_CASE("[Neutral : Minion] - DAL_773 : Magic Carpet")
     CHECK_EQ(curField[2]->GetAttack(), 3);
     CHECK_EQ(curField[2]->IsRush(), true);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_774] Exotic Mountseller - COST:7 [ATK:5/HP:8]
+// - Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you cast a spell, summon a random 3-Cost Beast.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_774 : Exotic Mountseller")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Exotic Mountseller"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Innervate"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetCost(), 3);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::BEAST);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->GetCost(), 3);
+    CHECK_EQ(curField[2]->card->GetRace(), Race::BEAST);
+}
