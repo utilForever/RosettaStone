@@ -21,6 +21,8 @@ enum class SummonSide
     SPELL,        //!< Summoning by spell, currently like default.
     TARGET,       //!< Summoning right of the target.
     ALTERNATE,    //!< Summoning on the right side and left side alternately.
+    ALTERNATE_ENEMY,  //!< Summoning on the right side and left side
+                      //!< alternately for opponent.
 };
 
 //!

@@ -142,6 +142,20 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
             alternateCount++;
             break;
         }
+        case SummonSide::ALTERNATE_ENEMY:
+        {
+            if (alternateCount % 2 == 0)
+            {
+                summonPos = 0;
+            }
+            else
+            {
+                summonPos =
+                    source->player->opponent->GetFieldZone()->GetCount();
+            }
+            alternateCount++;
+            break;    
+        }
         default:
             throw std::invalid_argument(
                 "SummonTask::Impl() - Invalid summon side");
