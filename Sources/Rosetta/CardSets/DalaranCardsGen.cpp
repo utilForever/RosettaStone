@@ -3270,6 +3270,20 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "DAL_744e", EntityType::SOURCE, true));
+    cards.emplace(
+        "DAL_744",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_747] Flight Master - COST:3 [ATK:3/HP:4]
@@ -3773,6 +3787,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Copied health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Enchants::SetHealthScriptTag));
+    cards.emplace("DAL_744e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_747t] Gryphon (*) - COST:2 [ATK:2/HP:2]

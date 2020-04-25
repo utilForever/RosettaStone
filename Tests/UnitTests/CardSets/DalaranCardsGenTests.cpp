@@ -6621,6 +6621,59 @@ TEST_CASE("[Neutral : Minion] - DAL_743 : Hench-Clan Hogsteed")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_744] Faceless Rager - COST:3 [ATK:5/HP:1]
+// - Set: Dalaran, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Copy a friendly minion's Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_744 : Faceless Rager")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faceless Rager"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_747] Flight Master - COST:3 [ATK:3/HP:4]
 // - Faction: Alliance, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
