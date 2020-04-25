@@ -3406,6 +3406,14 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsTagValue(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, 1));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DAL_773e", EntityType::TARGET) };
+    cards.emplace("DAL_773", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_774] Exotic Mountseller - COST:7 [ATK:5/HP:8]
@@ -3864,6 +3872,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Rush</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DAL_773e"));
+    cards.emplace("DAL_773e", CardDef(power));
 }
 
 void DalaranCardsGen::AddAll(std::map<std::string, CardDef>& cards)
