@@ -599,24 +599,24 @@ DALARAN | DAL_735 | Dalaran Librarian | O
 DALARAN | DAL_736 | Archivist Elysiana | O
 DALARAN | DAL_742 | Whirlwind Tempest |  
 DALARAN | DAL_743 | Hench-Clan Hogsteed | O
-DALARAN | DAL_744 | Faceless Rager |  
+DALARAN | DAL_744 | Faceless Rager | O
 DALARAN | DAL_747 | Flight Master | O
 DALARAN | DAL_748 | Mana Reservoir | O
-DALARAN | DAL_749 | Recurring Villain |  
-DALARAN | DAL_751 | Mad Summoner |  
-DALARAN | DAL_752 | Jepetto Joybuzz |  
+DALARAN | DAL_749 | Recurring Villain | O
+DALARAN | DAL_751 | Mad Summoner | O
+DALARAN | DAL_752 | Jepetto Joybuzz | O
 DALARAN | DAL_759 | Vicious Scraphound | O
 DALARAN | DAL_760 | Burly Shovelfist | O
 DALARAN | DAL_769 | Improve Morale | O
 DALARAN | DAL_770 | Omega Devastator | O
-DALARAN | DAL_771 | Soldier of Fortune |  
-DALARAN | DAL_773 | Magic Carpet |  
-DALARAN | DAL_774 | Exotic Mountseller |  
-DALARAN | DAL_775 | Tunnel Blaster |  
+DALARAN | DAL_771 | Soldier of Fortune | O
+DALARAN | DAL_773 | Magic Carpet | O
+DALARAN | DAL_774 | Exotic Mountseller | O
+DALARAN | DAL_775 | Tunnel Blaster | O
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak |  
 
-- Progress: 88% (120 of 136 Cards)
+- Progress: 94% (128 of 136 Cards)
 
 ## Saviors of Uldum
 
