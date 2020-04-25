@@ -6788,6 +6788,60 @@ TEST_CASE("[Neutral : Minion] - DAL_749 : Recurring Villain")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_751] Mad Summoner - COST:6 [ATK:4/HP:4]
+// - Race: Demon, Faction: Alliance, Set: Dalaran, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Fill each player's board with 1/1 Imps.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_751 : Mad Summoner")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mad Summoner"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[0]->card->name, "Imp");
+    CHECK_EQ(curField[1]->card->name, "Imp");
+    CHECK_EQ(curField[2]->card->name, "Imp");
+    CHECK_EQ(curField[3]->card->name, "Mad Summoner");
+    CHECK_EQ(curField[4]->card->name, "Imp");
+    CHECK_EQ(curField[5]->card->name, "Imp");
+    CHECK_EQ(curField[6]->card->name, "Imp");
+    CHECK_EQ(opField.GetCount(), 7);
+    CHECK_EQ(opField[0]->card->name, "Imp");
+    CHECK_EQ(opField[1]->card->name, "Imp");
+    CHECK_EQ(opField[2]->card->name, "Imp");
+    CHECK_EQ(opField[3]->card->name, "Imp");
+    CHECK_EQ(opField[4]->card->name, "Imp");
+    CHECK_EQ(opField[5]->card->name, "Imp");
+    CHECK_EQ(opField[6]->card->name, "Imp");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9]
 // - Set: Dalaran, Rarity: Common
 // --------------------------------------------------------

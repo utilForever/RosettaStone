@@ -3341,6 +3341,15 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<CountTask>(ZoneType::PLAY, true, false));
+    power.AddPowerTask(std::make_shared<SummonNumberTask>(
+        "DAL_751t", false, SummonSide::ALTERNATE));
+    power.AddPowerTask(std::make_shared<CountTask>(ZoneType::PLAY, true, true));
+    power.AddPowerTask(std::make_shared<SummonNumberTask>(
+        "DAL_751t", true, SummonSide::ALTERNATE_ENEMY));
+    cards.emplace("DAL_751", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_752] Jepetto Joybuzz - COST:8 [ATK:6/HP:6]
