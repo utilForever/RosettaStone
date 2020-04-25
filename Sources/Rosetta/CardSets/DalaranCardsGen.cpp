@@ -80,6 +80,7 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
@@ -2994,8 +2995,8 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(
-                                      GameTag::COST, 6),
+    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(TagValues{
+                                      { GameTag::COST, 6, RelaSign::EQ } }),
                                   std::make_shared<SummonTask>() };
     cards.emplace("DAL_553", CardDef(power));
 

@@ -79,6 +79,7 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
@@ -4961,8 +4962,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomMinionTask>(
-        GameTag::CARDRACE, static_cast<int>(Race::BEAST)));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
     power.AddPowerTask(std::make_shared<SummonTask>());
     cards.emplace("EX1_188", CardDef(power));
 
