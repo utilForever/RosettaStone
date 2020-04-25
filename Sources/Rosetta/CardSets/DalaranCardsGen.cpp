@@ -3322,6 +3322,15 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 4, RelaSign::GEQ)) }));
+    power.AddDeathrattleTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>(
+                  "DAL_749", 1, SummonSide::DEATHRATTLE) }));
+    cards.emplace("DAL_749", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_751] Mad Summoner - COST:6 [ATK:4/HP:4]
