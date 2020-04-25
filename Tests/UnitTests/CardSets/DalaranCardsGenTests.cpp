@@ -6557,6 +6557,8 @@ TEST_CASE("[Neutral : Minion] - DAL_736 : Archivist Elysiana")
         chosenCards.emplace_back(dbfID);
     }
     std::sort(chosenCards.begin(), chosenCards.end());
+    auto last = std::unique(chosenCards.begin(), chosenCards.end());
+    chosenCards.erase(last, chosenCards.end());
 
     CHECK_EQ(curDeck.GetCount(), 10);
 
@@ -6566,7 +6568,7 @@ TEST_CASE("[Neutral : Minion] - DAL_736 : Archivist Elysiana")
         deckCards.emplace_back(deckCard->card->dbfID);
     }
     std::sort(deckCards.begin(), deckCards.end());
-    const auto last = std::unique(deckCards.begin(), deckCards.end());
+    last = std::unique(deckCards.begin(), deckCards.end());
     deckCards.erase(last, deckCards.end());
 
     CHECK_EQ(chosenCards, deckCards);
