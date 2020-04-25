@@ -7,6 +7,7 @@
 #define ROSETTASTONE_SUMMON_NUMBER_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -19,10 +20,12 @@ namespace RosettaStone::SimpleTasks
 class SummonNumberTask : public ITask
 {
  public:
-    //! Constructs task with given \p cardID and \p opponent.
+    //! Constructs task with given \p cardID, \p opponent and \p side.
     //! \param cardID The card ID to summon.
     //! \param opponent The flag to summon for the opponent player.
-    explicit SummonNumberTask(const std::string& cardID, bool opponent);
+    //! \param side The side of summoned minion.
+    explicit SummonNumberTask(const std::string& cardID, bool opponent,
+                              SummonSide side = SummonSide::DEFAULT);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -36,6 +39,7 @@ class SummonNumberTask : public ITask
 
     Card* m_card = nullptr;
     bool m_opponent = false;
+    SummonSide m_side = SummonSide::DEFAULT;
 };
 }  // namespace RosettaStone::SimpleTasks
 
