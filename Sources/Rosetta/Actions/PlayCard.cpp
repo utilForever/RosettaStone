@@ -48,8 +48,11 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Spend mana to play cards
-    if (source->GetCost() > 0)
+    const int cost = source->GetCost();
+    if (cost > 0)
     {
+        source->SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, cost);
+
         const int tempUsed =
             std::min(player->GetTemporaryMana(), source->GetCost());
         player->SetTemporaryMana(player->GetTemporaryMana() - tempUsed);
