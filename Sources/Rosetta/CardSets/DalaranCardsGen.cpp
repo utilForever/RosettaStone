@@ -3445,6 +3445,10 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3));
+    cards.emplace("DAL_775", CardDef(power));
 }
 
 void DalaranCardsGen::AddNeutralNonCollect(
