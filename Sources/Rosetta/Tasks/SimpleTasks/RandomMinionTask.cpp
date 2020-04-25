@@ -9,17 +9,16 @@
 
 #include <effolkronium/random.hpp>
 
+#include <utility>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-RandomMinionTask::RandomMinionTask(GameTag tag, int value, int amount,
-                                   RelaSign relaSign, bool opposite,
-                                   bool excludeSelf)
-    : m_gameTag(tag),
-      m_value(value),
+RandomMinionTask::RandomMinionTask(std::vector<TagValue> tagValues, int amount,
+                                   bool opposite, bool excludeSelf)
+    : m_tagValues(std::move(tagValues)),
       m_amount(amount),
-      m_relaSign(relaSign),
       m_opposite(opposite),
       m_excludeSelf(excludeSelf)
 {
@@ -40,26 +39,39 @@ TaskStatus RandomMinionTask::Impl(Player* player)
             continue;
         }
 
-        if (m_gameTag == GameTag::CARDRACE && m_relaSign == RelaSign::EQ)
+        bool check = true;
+
+        for (auto& tagValue : m_tagValues)
         {
-            if (card->GetCardType() == CardType::MINION &&
-                card->GetRace() == static_cast<Race>(m_value))
+            auto& [gameTag, value, relaSign] = tagValue;
+            if (gameTag == GameTag::CARDRACE && relaSign == RelaSign::EQ)
             {
-                cardsList.emplace_back(card);
+                if (card->GetCardType() != CardType::MINION ||
+                    card->GetRace() != static_cast<Race>(std::get<1>(tagValue)))
+                {
+                    check = false;
+                    break;
+                }
+            }
+            else
+            {
+                if (card->GetCardType() != CardType::MINION ||
+                    ((relaSign == RelaSign::EQ &&
+                      card->gameTags[gameTag] != value) ||
+                     (relaSign == RelaSign::GEQ &&
+                      card->gameTags[gameTag] <= value) ||
+                     (relaSign == RelaSign::LEQ &&
+                      card->gameTags[gameTag] >= value)))
+                {
+                    check = false;
+                    break;
+                }
             }
         }
-        else
+
+        if (check)
         {
-            if (card->GetCardType() == CardType::MINION &&
-                ((m_relaSign == RelaSign::EQ &&
-                  card->gameTags[m_gameTag] == m_value) ||
-                 (m_relaSign == RelaSign::GEQ &&
-                  card->gameTags[m_gameTag] >= m_value) ||
-                 (m_relaSign == RelaSign::LEQ &&
-                  card->gameTags[m_gameTag] <= m_value)))
-            {
-                cardsList.emplace_back(card);
-            }
+            cardsList.emplace_back(card);
         }
     }
 
@@ -102,7 +114,7 @@ TaskStatus RandomMinionTask::Impl(Player* player)
 
 std::unique_ptr<ITask> RandomMinionTask::CloneImpl()
 {
-    return std::make_unique<RandomMinionTask>(
-        m_gameTag, m_value, m_amount, m_relaSign, m_opposite, m_excludeSelf);
+    return std::make_unique<RandomMinionTask>(m_tagValues, m_amount, m_opposite,
+                                              m_excludeSelf);
 }
 }  // namespace RosettaStone::SimpleTasks

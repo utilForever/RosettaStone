@@ -5,6 +5,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
+using TagValue = std::tuple<GameTag, int, RelaSign>;
+
 //!
 //! \brief RandomMinionTask class.
 //!
@@ -14,15 +16,12 @@ class RandomMinionTask : public ITask
 {
  public:
     //! Constructs task with given various arguments.
-    //! \param tag The game tag.
-    //! \param value The value of the game tag to filter.
+    //! \param tagValues A list of game tags, values and relation sign.
     //! \param amount The amount of minions to pick.
-    //! \param relaSign The relation sign to filter.
     //! \param opposite The flag that indicates the card is for the opponent.
     //! \param excludeSelf The flag that indicates whether to exclude self
     //! from the list.
-    explicit RandomMinionTask(GameTag tag, int value, int amount = 1,
-                              RelaSign relaSign = RelaSign::EQ,
+    explicit RandomMinionTask(std::vector<TagValue> tagValues, int amount = 1,
                               bool opposite = false, bool excludeSelf = false);
 
  private:
@@ -35,10 +34,8 @@ class RandomMinionTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    GameTag m_gameTag = GameTag::INVALID;
-    int m_value = 0;
+    std::vector<TagValue> m_tagValues;
     int m_amount = 0;
-    RelaSign m_relaSign = RelaSign::EQ;
     bool m_opposite = false;
     bool m_excludeSelf = false;
 };
