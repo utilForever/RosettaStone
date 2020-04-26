@@ -2607,6 +2607,10 @@ void DalaranCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: <b>Mega-Windfury</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(GameTag::MEGA_WINDFURY,
+                                               EffectOperator::SET, 1));
+    cards.emplace("DAL_742e", CardDef(power));
 }
 
 void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -3241,6 +3245,14 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - WINDFURY = 1
     // - MEGA_WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "DAL_742e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::HasWindfury());
+    }
+    cards.emplace("DAL_742", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_743] Hench-Clan Hogsteed - COST:2 [ATK:2/HP:1]

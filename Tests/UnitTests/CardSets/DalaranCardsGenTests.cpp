@@ -6575,6 +6575,83 @@ TEST_CASE("[Neutral : Minion] - DAL_736 : Archivist Elysiana")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DAL_742] Whirlwind Tempest - COST:8 [ATK:6/HP:6]
+// - Race: Elemental, Faction: Neutral, Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - WINDFURY = 1
+// - MEGA_WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_742 : Whirlwind Tempest")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Whirlwind Tempest"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Thrallmar Farseer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+    CHECK_EQ(curField[0]->HasMegaWindfury(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->IsExhausted(), false);
+
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->IsExhausted(), true);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+    CHECK_EQ(curField[0]->HasMegaWindfury(), true);
+    CHECK_EQ(curField[0]->IsExhausted(), false);
+
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->IsExhausted(), false);
+
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->IsExhausted(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+    CHECK_EQ(curField[0]->HasMegaWindfury(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DAL_743] Hench-Clan Hogsteed - COST:2 [ATK:2/HP:1]
 // - Race: Beast, Faction: Neutral, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
