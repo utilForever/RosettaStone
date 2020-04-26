@@ -7275,3 +7275,17 @@ TEST_CASE("[Neutral : Minion] - DAL_775 : Tunnel Blaster")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DAL_800] Zayle, Shadow Cloak - COST:2 [ATK:3/HP:2]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: You start the game with one of Zayle's EVIL Decks!
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DAL_800 : Zayle, Shadow Cloak")
+{
+    // Do nothing
+}

@@ -3472,6 +3472,19 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddDeathrattleTask(
         std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3));
     cards.emplace("DAL_775", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [DAL_800] Zayle, Shadow Cloak - COST:2 [ATK:3/HP:2]
+    // - Set: Dalaran, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: You start the game with one of Zayle's EVIL Decks!
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DAL_800", CardDef(power));
 }
 
 void DalaranCardsGen::AddNeutralNonCollect(
