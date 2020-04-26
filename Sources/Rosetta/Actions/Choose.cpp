@@ -129,6 +129,13 @@ bool ChoicePick(Player* player, int choice)
             AddCardToHand(player, playable);
             break;
         }
+        case ChoiceAction::HAND_AND_STACK:
+        {
+            player->GetSetasideZone()->Remove(playable);
+            AddCardToHand(player, playable);
+            player->choice->AddToStack(choice);
+            break;    
+        }
         case ChoiceAction::ENCHANTMENT:
         {
             player->game->taskStack.num[0] = static_cast<int>(choice);

@@ -26,6 +26,7 @@ enum class ChoiceAction
 {
     INVALID,            //!< Invalid action.
     HAND,               //!< Hand.
+    HAND_AND_STACK,     //!< Hand and stack.
     ENCHANTMENT,        //!< Enchantment.
     CAST_SPELL,         //!< Cast spell.
     SUMMON,             //!< Summon.
