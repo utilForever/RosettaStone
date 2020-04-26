@@ -102,6 +102,24 @@ void Effect::ApplyAuraTo(Entity* entity) const
                 {
                     minion->SetGameTag(GameTag::HEALTH_MINIMUM, m_value);
                 }
+                else if (m_gameTag == GameTag::MEGA_WINDFURY)
+                {
+                    // A minion can't attack at first turn in play.
+                    if (minion->GetNumAttacksThisTurn() == 0 &&
+                        minion->IsExhausted() == true)
+                    {
+                        break;
+                    }
+
+                    // A minion can't attack if it already attacked four times
+                    // by having 'GameTag::MEGA_WINDFURY'.
+                    if (minion->GetNumAttacksThisTurn() >= 4)
+                    {
+                        break;
+                    }
+
+                    minion->SetExhausted(false);
+                }
             }
 
             break;
