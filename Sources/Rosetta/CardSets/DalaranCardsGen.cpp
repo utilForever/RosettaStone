@@ -3714,6 +3714,11 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // - BATTLECRY = 1
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 2, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("DAL_613", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_614] Kobold Lackey (*) - COST:1 [ATK:1/HP:1]
