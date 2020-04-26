@@ -144,6 +144,11 @@ bool Character::HasPoisonous() const
     return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
 }
 
+bool Character::HasWindfury() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::WINDFURY));
+}
+
 bool Character::CanAttack() const
 {
     //! If the current player is opponent, returns false
