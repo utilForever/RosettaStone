@@ -424,6 +424,68 @@ TEST_CASE("[AttackTask] - Windfury")
     CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
 }
 
+TEST_CASE("[AttackTask] - Mega-Windfury")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    auto card = GenerateMinionCard("minion", 1, 10);
+
+    PlayMinionCard(curPlayer, &card);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    PlayMinionCard(opPlayer, &card);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    curField[0]->SetGameTag(GameTag::MEGA_WINDFURY, 1);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 3);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 4);
+
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 4);
+}
+
 TEST_CASE("[AttackTask] - DivineShield")
 {
     GameConfig config;
