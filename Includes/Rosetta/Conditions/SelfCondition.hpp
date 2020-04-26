@@ -179,6 +179,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNotStealth();
 
+    //! SelfCondition wrapper for checking the entity has windfury.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasWindfury();
+
     //! SelfCondition wrapper for checking the entity has reborn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasReborn();

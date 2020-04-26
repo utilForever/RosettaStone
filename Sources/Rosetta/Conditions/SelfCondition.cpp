@@ -353,6 +353,19 @@ SelfCondition SelfCondition::HasNotStealth()
     });
 }
 
+SelfCondition SelfCondition::HasWindfury()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto character = dynamic_cast<Character*>(playable);
+        if (!character)
+        {
+            return false;
+        }
+
+        return character->HasWindfury();
+    });
+}
+
 SelfCondition SelfCondition::HasReborn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
