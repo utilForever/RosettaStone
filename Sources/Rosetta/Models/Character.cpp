@@ -149,6 +149,11 @@ bool Character::HasWindfury() const
     return static_cast<bool>(GetGameTag(GameTag::WINDFURY));
 }
 
+bool Character::HasMegaWindfury() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::MEGA_WINDFURY));
+}
+
 bool Character::CanAttack() const
 {
     //! If the current player is opponent, returns false
