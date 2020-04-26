@@ -547,6 +547,17 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::DEATHRATTLE_MINION_DIED));
+    power.AddAfterChooseTask(
+        std::make_shared<ActivateDeathrattleTask>(EntityType::STACK));
+    cards.emplace(
+        "DAL_377",
+        CardDef(
+            power,
+            PlayReqs{ { PlayReq::REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME,
+                        0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DAL_378] Unleash the Beast - COST:6

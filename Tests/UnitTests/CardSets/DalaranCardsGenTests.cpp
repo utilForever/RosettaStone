@@ -913,6 +913,81 @@ TEST_CASE("[Hunter : Minion] - DAL_376 : Oblivitron")
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [DAL_377] Nine Lives - COST:3
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Discover</b> a friendly <b>Deathrattle</b> minion that
+//       died this game. Also trigger its <b>Deathrattle</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME = 0
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DAL_377 : Nine Lives")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nine Lives"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Safeguard"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice == nullptr);
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Vault Safe");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    CHECK_EQ(cards.size(), 1u);
+    CHECK_EQ(cards[0]->name, "Safeguard");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Safeguard");
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Vault Safe");
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [DAL_378] Unleash the Beast - COST:6
 // - Set: Dalaran, Rarity: Rare
 // --------------------------------------------------------
