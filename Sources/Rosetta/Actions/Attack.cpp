@@ -122,8 +122,11 @@ void Attack(Player* player, Character* source, Character* target,
     source->SetNumAttacksThisTurn(val + 1);
 
     // Check source is exhausted
-    if ((source->GetNumAttacksThisTurn() >= 1 && !source->HasWindfury()) ||
-        (source->GetNumAttacksThisTurn() >= 2 && source->HasWindfury()))
+    if ((source->GetNumAttacksThisTurn() >= 4 && source->HasMegaWindfury()) ||
+        (source->GetNumAttacksThisTurn() >= 2 &&
+         (!source->HasMegaWindfury() && source->HasWindfury())) ||
+        (source->GetNumAttacksThisTurn() >= 1 &&
+         (!source->HasWindfury() && !source->HasMegaWindfury())))
     {
         source->SetExhausted(true);
     }
