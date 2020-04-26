@@ -3755,6 +3755,14 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformMinionTask>(EntityType::TARGET, 1));
+    cards.emplace(
+        "DAL_615",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DAL_714e] Street Smarts (*) - COST:0
