@@ -3786,7 +3786,7 @@ TEST_CASE("[Shaman : Spell] - CS2_039 : Windfury")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Windfury"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -3799,7 +3799,7 @@ TEST_CASE("[Shaman : Spell] - CS2_039 : Windfury")
     CHECK_EQ(curField[0]->IsExhausted(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    CHECK_EQ(curField[0]->HasWindfury(), true);
     CHECK_EQ(curField[0]->IsExhausted(), false);
 
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
@@ -4326,24 +4326,24 @@ TEST_CASE("[Shaman : Minion] - EX1_587 : Windspeaker")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(opField[0]->HasWindfury(), false);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    CHECK_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(opField[0]->HasWindfury(), false);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    CHECK_EQ(curField[0]->HasWindfury(), true);
 }
 
 // ---------------------------------------- SPELL - WARLOCK

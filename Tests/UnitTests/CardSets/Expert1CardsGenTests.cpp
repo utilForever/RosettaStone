@@ -11005,7 +11005,7 @@ TEST_CASE("[Neutral : Minion] - EX1_412 : Raging Worgen")
         curPlayer, Cards::FindCardByName("Circle of Healing"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 
@@ -11017,19 +11017,19 @@ TEST_CASE("[Neutral : Minion] - EX1_412 : Raging Worgen")
 
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
     CHECK_FALSE(curField[0]->CanAttack());
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, HeroPowerTask(card1));
     CHECK(curField[0]->CanAttack());
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    CHECK_EQ(curField[0]->HasWindfury(), true);
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_FALSE(curField[0]->CanAttack());
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }
