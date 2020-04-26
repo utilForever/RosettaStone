@@ -8,6 +8,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -178,8 +179,7 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
         m_doShuffle, m_repeat, m_keepAll);
 }
 
-std::vector<Card*> DiscoverTask::Discover(Game* game,
-                                          [[maybe_unused]] Player* player,
+std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                                           DiscoverType discoverType,
                                           ChoiceAction& choiceAction) const
 {
@@ -244,6 +244,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                     card->GetRarity() == Rarity::LEGENDARY)
                 {
                     cards.emplace_back(card);
+                }
+            }
+            break;
+        case DiscoverType::DEATHRATTLE_MINION_DIED:
+            choiceAction = ChoiceAction::HAND_AND_STACK;
+            for (auto& playable : player->GetGraveyardZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->HasDeathrattle() && playable->isDestroyed)
+                {
+                    cards.emplace_back(playable->card);
                 }
             }
             break;
