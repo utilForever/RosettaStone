@@ -3845,6 +3845,9 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("DAL_741", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_743t] Hench-Clan Squire (*) - COST:1 [ATK:1/HP:1]
