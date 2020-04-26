@@ -531,7 +531,7 @@ DALARAN | DAL_371 | Marked Shot | O
 DALARAN | DAL_372 | Arcane Fletcher | O
 DALARAN | DAL_373 | Rapid Fire | O
 DALARAN | DAL_376 | Oblivitron | O
-DALARAN | DAL_377 | Nine Lives |  
+DALARAN | DAL_377 | Nine Lives | O
 DALARAN | DAL_378 | Unleash the Beast | O
 DALARAN | DAL_379 | Vereesa Windrunner | O
 DALARAN | DAL_400 | EVIL Cable Rat | O
@@ -597,7 +597,7 @@ DALARAN | DAL_732 | Keeper Stalladris | O
 DALARAN | DAL_733 | Dreamway Guardians | O
 DALARAN | DAL_735 | Dalaran Librarian | O
 DALARAN | DAL_736 | Archivist Elysiana | O
-DALARAN | DAL_742 | Whirlwind Tempest |  
+DALARAN | DAL_742 | Whirlwind Tempest | O
 DALARAN | DAL_743 | Hench-Clan Hogsteed | O
 DALARAN | DAL_744 | Faceless Rager | O
 DALARAN | DAL_747 | Flight Master | O
@@ -614,9 +614,9 @@ DALARAN | DAL_773 | Magic Carpet | O
 DALARAN | DAL_774 | Exotic Mountseller | O
 DALARAN | DAL_775 | Tunnel Blaster | O
 DALARAN | DAL_799 | Crystal Stag | O
-DALARAN | DAL_800 | Zayle, Shadow Cloak |  
+DALARAN | DAL_800 | Zayle, Shadow Cloak | O
 
-- Progress: 94% (128 of 136 Cards)
+- Progress: 96% (131 of 136 Cards)
 
 ## Saviors of Uldum
 

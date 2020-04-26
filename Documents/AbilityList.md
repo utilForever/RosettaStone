@@ -39,7 +39,7 @@
 * [ ] Inspire
 * [x] Invoke
 * [ ] Magnetic
-* [ ] Mega-Windfury
+* [x] Mega-Windfury
 * [ ] Overkill
 * [ ] Passive
 * [x] Quest
