@@ -3733,6 +3733,11 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "DAL_614",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DAL_615] Witchy Lackey (*) - COST:1 [ATK:1/HP:1]
