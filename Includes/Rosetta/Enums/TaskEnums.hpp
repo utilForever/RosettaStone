@@ -48,6 +48,8 @@ enum class EntityType
     ENEMY_SECRETS,
     GRAVEYARD,
     STACK,
+    STACK_NUM0,
+    STACK_NUM1,
     PLAYER,
     ENEMY_PLAYER,
     EVENT_SOURCE,
