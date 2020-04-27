@@ -3241,8 +3241,8 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(
-        std::make_shared<AttackTask>(EntityType::TARGET, EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AttackTask>(EntityType::TARGET,
+                                                    EntityType::STACK, true));
     cards.emplace(
         "DRG_022",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
