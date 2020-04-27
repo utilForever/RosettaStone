@@ -413,6 +413,19 @@ void Trigger::ProcessInternal(Entity* source)
         Remove();
     }
 
+    ProcessTasks(source);
+
+    if (const auto spell = dynamic_cast<Spell*>(m_owner);
+        spell && spell->IsSecret() && spell->player->ExtraTriggerSecret())
+    {
+        ProcessTasks(source);
+    }
+
+    m_isValidated = false;
+}
+
+void Trigger::ProcessTasks(Entity* source)
+{
     for (auto& task : tasks)
     {
         std::unique_ptr<ITask> clonedTask = task->Clone();
@@ -457,8 +470,6 @@ void Trigger::ProcessInternal(Entity* source)
             m_owner->game->taskQueue.Enqueue(std::move(clonedTask));
         }
     }
-
-    m_isValidated = false;
 }
 
 void Trigger::Validate(Entity* source)
