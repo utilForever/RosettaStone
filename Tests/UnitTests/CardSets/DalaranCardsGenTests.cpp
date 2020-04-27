@@ -2852,6 +2852,64 @@ TEST_CASE("[Priest : Spell] - DAL_724 : Mass Resurrection")
     CHECK_EQ(check, true);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [DAL_729] Madame Lazul - COST:3 [ATK:3/HP:2]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a
+//       copy of a card in your opponent's hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - DAL_729 : Madame Lazul")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Madame Lazul"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    const bool check1 = (cards[0]->name == "The Coin") ||
+                        (cards[0]->name == "Wolfrider") ||
+                        (cards[0]->name == "Wisp");
+    const bool check2 = (cards[1]->name == "The Coin") ||
+                        (cards[1]->name == "Wolfrider") ||
+                        (cards[1]->name == "Wisp");
+    const bool check3 = (cards[2]->name == "The Coin") ||
+                        (cards[2]->name == "Wolfrider") ||
+                        (cards[2]->name == "Wisp");
+    const bool check = check1 && check2 && check3;
+    CHECK_EQ(check, true);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [DAL_010] Togwaggle's Scheme - COST:1
 // - Set: Dalaran, Rarity: Rare

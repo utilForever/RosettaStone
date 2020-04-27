@@ -1620,6 +1620,10 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::MADAME_LAZUL));
+    cards.emplace("DAL_729", CardDef(power));
 }
 
 void DalaranCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
