@@ -2292,6 +2292,54 @@ TEST_CASE("[Paladin : Spell] - DAL_727 : Call to Adventure")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 3);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [DAL_731] Duel! - COST:5
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: Summon a minion from each player's deck. They fight!
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - DAL_731 : Duel!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Ysera");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 26);
+    CHECK_EQ(opPlayer->GetDeckZone()->GetCount(), 26);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Duel!"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 25);
+    CHECK_EQ(opField[0]->GetHealth(), 8);
+    CHECK_EQ(opPlayer->GetDeckZone()->GetCount(), 25);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [DAL_011] Lazul's Scheme - COST:0
 // - Set: Dalaran, Rarity: Epic

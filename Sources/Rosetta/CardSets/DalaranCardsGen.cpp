@@ -20,6 +20,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeUnidentifiedTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
@@ -1270,6 +1271,24 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a minion from each player's deck. They fight!
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ENTITY_ID));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::ENTITY_ID, 0, 1));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    power.AddPowerTask(std::make_shared<AttackTask>(EntityType::STACK_NUM0,
+                                                    EntityType::STACK_NUM1));
+    cards.emplace("DAL_731", CardDef(power));
 }
 
 void DalaranCardsGen::AddPaladinNonCollect(
