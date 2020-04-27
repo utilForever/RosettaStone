@@ -287,6 +287,13 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                       Cards::FindCardByID("LOOT_998l"),
                       Cards::FindCardByID("LOOT_998k") };
             break;
+        case DiscoverType::MADAME_LAZUL:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& playable : player->opponent->GetHandZone()->GetAll())
+            {
+                cards.emplace_back(playable->card);
+            }
+            break;
         default:
             throw std::out_of_range(
                 "DiscoverTask::Discover() - Invalid discover type");

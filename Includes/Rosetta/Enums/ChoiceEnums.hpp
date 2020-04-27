@@ -20,6 +20,7 @@ enum class DiscoverType
     SIX_COST_SUMMON,
     SPELL_THREE_COST_OR_LESS,
     HEISTBARON_TOGWAGGLE,
+    MADAME_LAZUL,
 };
 
 //! The action type of choice.
