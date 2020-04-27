@@ -26,6 +26,8 @@ int PlayerAuraEffects::GetValue(GameTag tag) const
             return m_cantBeFrozen;
         case GameTag::RESOURCES_USED:
             return m_resourcesUsed;
+        case GameTag::EXTRA_TRIGGER_SECRET:
+            return m_extraTriggerSecret;
         default:
             throw std::invalid_argument(
                 "PlayerAuraEffects::GetValue() - Invalid game tag!");
@@ -53,7 +55,10 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
             m_cantBeFrozen = value;
             break;
         case GameTag::RESOURCES_USED:
-        m_resourcesUsed = value;
+            m_resourcesUsed = value;
+            break;
+        case GameTag::EXTRA_TRIGGER_SECRET:
+            m_extraTriggerSecret = value;
             break;
         default:
             throw std::invalid_argument(

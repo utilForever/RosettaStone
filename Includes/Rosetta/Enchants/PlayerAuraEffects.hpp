@@ -54,6 +54,7 @@ class PlayerAuraEffects
     int m_canTargetMinionByHeroPower = 0;
     int m_cantBeFrozen = 0;
     int m_resourcesUsed = 0;
+    int m_extraTriggerSecret = 0;
 };
 }  // namespace RosettaStone
 
