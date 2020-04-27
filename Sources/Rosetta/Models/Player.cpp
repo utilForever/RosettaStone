@@ -168,6 +168,11 @@ bool Player::CantBeFrozen() const
     return playerAuraEffects.GetValue(GameTag::CANT_BE_FROZEN) > 0;
 }
 
+bool Player::ExtraTriggerSecret() const
+{
+    return playerAuraEffects.GetValue(GameTag::EXTRA_TRIGGER_SECRET) > 0;
+}
+
 int Player::GetTotalMana() const
 {
     return GetGameTag(GameTag::RESOURCES);

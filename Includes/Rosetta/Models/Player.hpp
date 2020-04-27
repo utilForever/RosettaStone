@@ -132,6 +132,10 @@ class Player : public Entity
     //! \return true if for my minions can't be Frozen, false otherwise.
     bool CantBeFrozen() const;
 
+    //! Returns whether this player triggers secret twice.
+    //! \return true if for this player triggers secret twice, false otherwise.
+    bool ExtraTriggerSecret() const;
+
     //! Returns total amount of mana available.
     //! \return Total amount of mana available.
     int GetTotalMana() const;
