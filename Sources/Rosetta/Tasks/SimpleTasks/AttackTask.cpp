@@ -10,8 +10,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-AttackTask::AttackTask(EntityType attacker, EntityType defender)
-    : m_attackerType(attacker), m_defenderType(defender)
+AttackTask::AttackTask(EntityType attacker, EntityType defender, bool force)
+    : m_attackerType(attacker), m_defenderType(defender), m_force(force)
 {
     // Do nothing
 }
@@ -22,6 +22,11 @@ TaskStatus AttackTask::Impl(Player* player)
         m_attackerType, player, m_source, m_target)[0]);
     const auto defender = dynamic_cast<Character*>(IncludeTask::GetEntities(
         m_defenderType, player, m_source, m_target)[0]);
+
+    if (!m_force && attacker->CantAttack())
+    {
+        return TaskStatus::STOP;
+    }
 
     if (defender->card->IsUntouchable())
     {
@@ -38,6 +43,7 @@ TaskStatus AttackTask::Impl(Player* player)
 
 std::unique_ptr<ITask> AttackTask::CloneImpl()
 {
-    return std::make_unique<AttackTask>(m_attackerType, m_defenderType);
+    return std::make_unique<AttackTask>(m_attackerType, m_defenderType,
+                                        m_force);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -18,10 +18,12 @@ namespace RosettaStone::SimpleTasks
 class AttackTask : public ITask
 {
  public:
-    //! Constructs task with given \p attacker and \p defender.
+    //! Constructs task with given \p attacker, \p defender and \p force.
     //! \param attacker The entity type of attacker.
     //! \param defender The entity type of defender.
-    explicit AttackTask(EntityType attacker, EntityType defender);
+    //! \param force The flag that indicates it is forced attack.
+    explicit AttackTask(EntityType attacker, EntityType defender,
+                        bool force = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,8 +35,9 @@ class AttackTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    EntityType m_attackerType;
-    EntityType m_defenderType;
+    EntityType m_attackerType = EntityType::INVALID;
+    EntityType m_defenderType = EntityType::INVALID;
+    bool m_force = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
