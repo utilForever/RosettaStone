@@ -2191,6 +2191,89 @@ TEST_CASE("[Paladin : Weapon] - DAL_571 : Mysterious Blade")
 }
 
 // --------------------------------------- MINION - PALADIN
+// [DAL_573] Commander Rhyssa - COST:3 [ATK:4/HP:3]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your <b>Secrets</b> trigger twice.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DAL_573 : Commander Rhyssa")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Commander Rhyssa"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, AttackTask(card4, curPlayer->GetHero()));
+    CHECK_EQ(curSecret.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Defender");
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, AttackTask(card5, curPlayer->GetHero()));
+    CHECK_EQ(curSecret.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - PALADIN
 // [DAL_581] Nozari - COST:10 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dalaran, Rarity: Legendary
 // --------------------------------------------------------

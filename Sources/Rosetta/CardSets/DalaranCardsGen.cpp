@@ -1237,6 +1237,12 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_TRIGGER_SECRET,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("DAL_573", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DAL_581] Nozari - COST:10 [ATK:4/HP:12]
@@ -3637,8 +3643,8 @@ void DalaranCardsGen::AddNeutralNonCollect(
     // Text: Increased <b>Spell Damage</b>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<OngoingEnchant>(
-        std::vector<std::shared_ptr<IEffect>>{ std::make_shared<Effect>(
+    power.AddEnchant(
+        std::make_shared<OngoingEnchant>(EffectList{ std::make_shared<Effect>(
             GameTag::SPELLPOWER, EffectOperator::ADD, 2) }));
     cards.emplace("DAL_548e", CardDef(power));
 
