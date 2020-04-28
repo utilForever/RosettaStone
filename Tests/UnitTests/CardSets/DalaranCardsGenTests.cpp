@@ -3911,6 +3911,65 @@ TEST_CASE("[Shaman : Spell] - DAL_071 : Mutate")
     }
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [DAL_432] Witch's Brew - COST:2
+// - Set: Dalaran, Rarity: Epic
+// --------------------------------------------------------
+// Text: Restore 4 Health. Repeatable this turn.
+// --------------------------------------------------------
+// GameTag:
+// - NON_KEYWORD_ECHO = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DAL_432 : Witch's Brew")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+    opPlayer->GetHero()->SetDamage(15);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Witch's Brew"));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curHero));
+    CHECK_EQ(curHero->GetHealth(), 19);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Witch's Brew");
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::GHOSTLY), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(curHand[4], opHero));
+    CHECK_EQ(opHero->GetHealth(), 19);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Witch's Brew");
+    CHECK_EQ(curHand[4]->GetGameTag(GameTag::GHOSTLY), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 4);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [DAL_433] Sludge Slurper - COST:1 [ATK:2/HP:1]
 // - Race: Murloc, Set: Dalaran, Rarity: Rare

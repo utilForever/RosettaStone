@@ -6,6 +6,7 @@
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Copy.hpp>
+#include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
@@ -2091,6 +2092,24 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 4));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            std::map<GameTag, int> tags;
+            tags.emplace(GameTag::GHOSTLY, 1);
+
+            Playable* playable = Entity::GetFromCard(player, source->card, tags,
+                                                     player->GetHandZone());
+            Generic::AddCardToHand(player, playable);
+
+            player->game->UpdateAura();
+            player->game->ghostlyCards.emplace_back(
+                playable->GetGameTag(GameTag::ENTITY_ID));
+        }));
+    cards.emplace(
+        "DAL_432",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DAL_433] Sludge Slurper - COST:1 [ATK:2/HP:1]
