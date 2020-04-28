@@ -214,7 +214,10 @@ class Game
     Step nextStep = Step::INVALID;
 
     std::map<int, Playable*> entityList;
+    std::vector<Minion*> summonedMinions;
+    std::map<std::size_t, Minion*> deadMinions;
     std::vector<int> rushMinions;
+    std::vector<int> ghostlyCards;
 
     TaskQueue taskQueue;
     TaskStack taskStack;
@@ -225,8 +228,6 @@ class Game
     std::vector<std::shared_ptr<Trigger>> triggers;
     std::vector<std::pair<Entity*, IEffect*>> oneTurnEffects;
     std::vector<std::shared_ptr<Enchantment>> oneTurnEffectEnchantments;
-    std::vector<Minion*> summonedMinions;
-    std::map<std::size_t, Minion*> deadMinions;
 
  private:
     //! Checks whether the game is over.
