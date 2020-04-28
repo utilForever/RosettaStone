@@ -129,6 +129,11 @@ bool Playable::HasLifesteal() const
     return GetGameTag(GameTag::LIFESTEAL) == 1;
 }
 
+bool Playable::IsEcho() const
+{
+    return GetGameTag(GameTag::ECHO) == 1;
+}
+
 void Playable::ResetCost()
 {
     costManager = nullptr;

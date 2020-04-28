@@ -95,6 +95,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has lifesteal.
     virtual bool HasLifesteal() const;
 
+    //! Returns the flag that indicates whether it is echo.
+    //! \return The flag that indicates whether it is echo.
+    bool IsEcho() const;
+
     //! Resets the value of the cost.
     void ResetCost();
 
