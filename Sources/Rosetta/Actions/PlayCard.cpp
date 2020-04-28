@@ -60,6 +60,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
                             tempUsed);
     }
 
+    const bool isEcho = source->IsEcho();
+
     // Erase from player's hand
     player->GetHandZone()->Remove(source);
 
@@ -131,6 +133,22 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
+
+    if (isEcho)
+    {
+        if (const auto spell = dynamic_cast<Spell*>(source);
+            spell == nullptr || !spell->IsCountered())
+        {
+            std::map<GameTag, int> tags;
+            tags.emplace(GameTag::GHOSTLY, 1);
+
+            Playable* playable = Entity::GetFromCard(player, source->card, tags,
+                                                     player->GetHandZone());
+            player->game->UpdateAura();
+            player->game->ghostlyCards.emplace_back(
+                playable->GetGameTag(GameTag::ENTITY_ID));
+        }
+    }
 
     // Set combo active to true
     if (!player->IsComboActive())
