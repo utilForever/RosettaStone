@@ -2376,7 +2376,7 @@ TEST_CASE("[Mage : Spell] - EX1_287 : Counterspell")
     CHECK_EQ(curSecret->GetCount(), 0);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(opPlayer->GetRemainingMana(), 9);
-    CHECK_EQ(opPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(opPlayer->GetOverloadOwed(), 0);
 
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
