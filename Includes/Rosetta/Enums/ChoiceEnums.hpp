@@ -21,6 +21,7 @@ enum class DiscoverType
     SPELL_THREE_COST_OR_LESS,
     HEISTBARON_TOGWAGGLE,
     MADAME_LAZUL,
+    SWAMPQUEEN_HAGATHA,
 };
 
 //! The action type of choice.

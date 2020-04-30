@@ -297,6 +297,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 cards.emplace_back(playable->card);
             }
             break;
+        case DiscoverType::SWAMPQUEEN_HAGATHA:
+            choiceAction = ChoiceAction::SWAMPQUEEN_HAGATHA;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL &&
+                    card->GetCardClass() == CardClass::SHAMAN)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         default:
             throw std::out_of_range(
                 "DiscoverTask::Discover() - Invalid discover type");
