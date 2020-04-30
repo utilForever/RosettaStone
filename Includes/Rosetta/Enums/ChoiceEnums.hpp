@@ -27,15 +27,16 @@ enum class DiscoverType
 //! The action type of choice.
 enum class ChoiceAction
 {
-    INVALID,            //!< Invalid action.
-    HAND,               //!< Hand.
-    HAND_AND_STACK,     //!< Hand and stack.
-    ENCHANTMENT,        //!< Enchantment.
-    CAST_SPELL,         //!< Cast spell.
-    SUMMON,             //!< Summon.
-    STACK,              //!< Stack.
-    ENVOY_OF_LAZUL,     //!< Envoy Of Lazul.
-    SIGHTLESS_WATCHER,  //!< Sightless Watcher.
+    INVALID,             //!< Invalid action.
+    HAND,                //!< Hand.
+    HAND_AND_STACK,      //!< Hand and stack.
+    ENCHANTMENT,         //!< Enchantment.
+    CAST_SPELL,          //!< Cast spell.
+    SUMMON,              //!< Summon.
+    STACK,               //!< Stack.
+    ENVOY_OF_LAZUL,      //!< Envoy Of Lazul.
+    SIGHTLESS_WATCHER,   //!< Sightless Watcher.
+    SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
 };
 }  // namespace RosettaStone
 
