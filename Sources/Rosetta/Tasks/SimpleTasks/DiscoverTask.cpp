@@ -57,8 +57,11 @@ DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
     }
 }
 
-DiscoverTask::DiscoverTask(DiscoverType discoverType, int numberOfChoices)
-    : m_discoverType(discoverType), m_numberOfChoices(numberOfChoices)
+DiscoverTask::DiscoverTask(DiscoverType discoverType, int numberOfChoices,
+                           int repeat)
+    : m_discoverType(discoverType),
+      m_numberOfChoices(numberOfChoices),
+      m_repeat(repeat)
 {
     // Do nothing
 }

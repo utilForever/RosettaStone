@@ -62,7 +62,9 @@ class DiscoverTask : public ITask
     //! Constructs task with given \p discoverType and \p numberOfChoices.
     //! \param discoverType The type of discover.
     //! \param numberOfChoices The number of choices.
-    explicit DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3);
+    //! \param repeat The number to repeat this task.
+    explicit DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3,
+                          int repeat = 1);
 
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.
