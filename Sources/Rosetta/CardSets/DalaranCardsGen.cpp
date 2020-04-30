@@ -2079,6 +2079,27 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SWAMPQUEEN_HAGATHA, 3, 2));
+    power.AddAfterChooseTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            if (player->game->taskStack.num[0] == 2)
+            {
+                std::map<GameTag, int> tags;
+                tags.emplace(GameTag::TAG_SCRIPT_DATA_NUM_1,
+                             player->game->taskStack.num[1]);
+                tags.emplace(GameTag::TAG_SCRIPT_DATA_NUM_2,
+                             player->game->taskStack.num[2]);
+
+                Playable* horror =
+                    Entity::GetFromCard(player, Cards::FindCardByID("DAL_431t"),
+                                        tags, player->GetHandZone());
+                Generic::AddCardToHand(player, horror);
+            }
+        }));
+    cards.emplace("DAL_431", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_432] Witch's Brew - COST:2
@@ -2176,6 +2197,24 @@ void DalaranCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source, Playable* target) {
+            const int dbfID1 =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+            Playable* playable1 =
+                Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID1));
+            Generic::CastSpell(player, dynamic_cast<Spell*>(playable1),
+                               dynamic_cast<Character*>(target), 0);
+
+            const int dbfID2 =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
+            Playable* playable2 =
+                Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID2));
+            Generic::CastSpell(player, dynamic_cast<Spell*>(playable2),
+                               dynamic_cast<Character*>(target), 0);
+        }));
+    cards.emplace("DAL_431t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DAL_710e] Soul of the Murloc (*) - COST:0

@@ -3911,6 +3911,58 @@ TEST_CASE("[Shaman : Spell] - DAL_071 : Mutate")
     }
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DAL_431] Swampqueen Hagatha - COST:7 [ATK:5/HP:5]
+// - Set: Dalaran, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a 5/5 Horror to your hand.
+//       Teach it two Shaman spells.
+// --------------------------------------------------------
+// Entourage: DAL_431t
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+//TEST_CASE("[Shaman : Minion] - DAL_431 : Swampqueen Hagatha")
+//{
+//    GameConfig config;
+//    config.player1Class = CardClass::SHAMAN;
+//    config.player2Class = CardClass::WARRIOR;
+//    config.startPlayer = PlayerType::PLAYER1;
+//    config.doFillDecks = false;
+//    config.autoRun = false;
+//
+//    Game game(config);
+//    game.Start();
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    Player* curPlayer = game.GetCurrentPlayer();
+//    Player* opPlayer = game.GetOpponentPlayer();
+//    curPlayer->SetTotalMana(10);
+//    curPlayer->SetUsedMana(0);
+//    opPlayer->SetTotalMana(10);
+//    opPlayer->SetUsedMana(0);
+//
+//    auto& curHand = *(curPlayer->GetHandZone());
+//
+//    const auto card1 = Generic::DrawCard(
+//        curPlayer, Cards::FindCardByName("Swampqueen Hagatha"));
+//
+//    game.Process(curPlayer, PlayCardTask::Minion(card1));
+//    CHECK(curPlayer->choice != nullptr);
+//
+//    TestUtils::ChooseNthChoice(game, 1);
+//    TestUtils::ChooseNthChoice(game, 1);
+//    CHECK_EQ(curHand.GetCount(), 1);
+//    CHECK_EQ(curHand[0]->card->name, "Drustvar Horror");
+//
+//    const int dbfID1 = curHand[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+//    const int dbfID2 = curHand[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
+//    CHECK(dbfID1 > 0);
+//    CHECK(dbfID2 > 0);
+//}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_432] Witch's Brew - COST:2
 // - Set: Dalaran, Rarity: Epic
