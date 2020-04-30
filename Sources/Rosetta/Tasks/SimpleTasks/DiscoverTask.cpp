@@ -194,7 +194,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
         for (auto& card : Cards::GetAllStandardCards())
         {
             if ((card->GetCardClass() == player->baseClass &&
-                 card->IsQuest()) ||
+                 !card->IsQuest()) ||
                 card->GetCardClass() == CardClass::NEUTRAL)
             {
                 allCards.emplace_back(card);
@@ -206,7 +206,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
         for (auto& card : Cards::GetAllWildCards())
         {
             if ((card->GetCardClass() == player->baseClass &&
-                 card->IsQuest()) ||
+                 !card->IsQuest()) ||
                 card->GetCardClass() == CardClass::NEUTRAL)
             {
                 allCards.emplace_back(card);
