@@ -40,13 +40,6 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->currentEventData =
         std::make_unique<EventMetaData>(source, target);
 
-    // Check card has overload
-    if (source->HasOverload())
-    {
-        const int amount = source->GetOverload();
-        player->SetOverloadOwed(player->GetOverloadOwed() + amount);
-    }
-
     // Spend mana to play cards
     const int cost = source->GetCost();
     if (cost > 0)
@@ -271,6 +264,13 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         minion->ActivateTask(PowerType::OUTCAST, target);
     }
 
+    // Check card has overload
+    if (minion->HasOverload())
+    {
+        const int amount = minion->GetOverload();
+        player->SetOverloadOwed(player->GetOverloadOwed() + amount);
+    }
+
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
@@ -378,8 +378,9 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
         }
     }
 
-    // Process power tasks
     player->game->taskQueue.StartEvent();
+
+    // Process power tasks
     if (weapon->HasCombo() && player->IsComboActive())
     {
         weapon->ActivateTask(PowerType::COMBO, target);
@@ -388,6 +389,14 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
     {
         weapon->ActivateTask(PowerType::POWER, target);
     }
+
+    // Check card has overload
+    if (weapon->HasOverload())
+    {
+        const int amount = weapon->GetOverload();
+        player->SetOverloadOwed(player->GetOverloadOwed() + amount);
+    }
+
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
