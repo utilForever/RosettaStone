@@ -3345,7 +3345,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - MEGA_WINDFURY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "DAL_742e"));
+    power.AddAura(std::make_shared<Aura>(AuraType::PLAYER, "DAL_742e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition =
