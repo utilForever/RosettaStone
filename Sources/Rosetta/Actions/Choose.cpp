@@ -238,38 +238,6 @@ bool ChoicePick(Player* player, int choice)
     else
     {
         player->choice = nextChoice;
-
-        if (nextChoice->choiceAction == ChoiceAction::SWAMPQUEEN_HAGATHA)
-        {
-            bool isTargetingCard = false;
-            for (auto& playReq : playable->card->playRequirements)
-            {
-                if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
-                    playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
-                {
-                    isTargetingCard = true;
-                    break;
-                }
-            }
-
-            if (isTargetingCard)
-            {
-                std::vector<Card*> cards;
-
-                for (auto& card : nextChoice->cardSets)
-                {
-                    if (card->GetCardType() == CardType::SPELL &&
-                        card->GetCardClass() == CardClass::SHAMAN &&
-                        card->mustHaveToTargetToPlay == false &&
-                        card->targetingType == TargetingType::NONE)
-                    {
-                        cards.emplace_back(card);
-                    }
-                }
-
-                nextChoice->cardSets = cards;
-            }
-        }
     }
 
     return true;

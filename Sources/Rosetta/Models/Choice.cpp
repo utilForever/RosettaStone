@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
@@ -31,6 +32,54 @@ void Choice::TryPrepare()
     if (cardSets.empty())
     {
         return;
+    }
+
+    if (choiceAction == ChoiceAction::SWAMPQUEEN_HAGATHA)
+    {
+        auto playable = player->game->entityList[lastChoice];
+        bool isTargetingCard = false;
+
+        for (auto& playReq : playable->card->playRequirements)
+        {
+            if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
+                playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
+            {
+                isTargetingCard = true;
+                break;
+            }
+        }
+
+        if (isTargetingCard)
+        {
+            std::vector<Card*> cards;
+
+            for (auto& card : cardSets)
+            {
+                if (card->GetCardType() != CardType::SPELL ||
+                    card->GetCardClass() != CardClass::SHAMAN)
+                {
+                    continue;
+                }
+
+                bool isValid = true;
+                for (auto& playReq : card->playRequirements)
+                {
+                    if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
+                        playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                if (isValid)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+
+            cardSets = cards;
+        }
     }
 
     auto cards = SimpleTasks::DiscoverTask::GetChoices(cardSets, 3);
