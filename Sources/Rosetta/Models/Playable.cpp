@@ -160,7 +160,7 @@ bool Playable::IsPlayable()
     return IsPlayableByPlayer() && IsPlayableByCardReq();
 }
 
-bool Playable::TargetingRequirements(Character* target) const
+bool Playable::TargetingRequirements(Card* card, Character* target) const
 {
     return card->TargetingRequirements(player, target);
 }
@@ -191,12 +191,36 @@ bool Playable::IsPlayableByPlayer()
 
 bool Playable::IsPlayableByCardReq() const
 {
+    // NOTE: Card 'Drustvar Horror' (DAL_431t) has two generated spells.
+    // These cards can be targeting or non-targeting.
+    if (card->dbfID == 52812)
+    {
+        const auto card1 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
+        const auto card2 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
+
+        if (!card1->IsPlayableByCardReq(player) ||
+            !card2->IsPlayableByCardReq(player))
+        {
+            return false;
+        }
+
+        if ((card1->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card1)) ||
+            (card2->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card2)))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     if (!card->IsPlayableByCardReq(player))
     {
         return false;
     }
 
-    if (card->mustHaveToTargetToPlay && !HasAnyValidPlayTargets())
+    if (card->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card))
     {
         return false;
     }
@@ -206,6 +230,33 @@ bool Playable::IsPlayableByCardReq() const
 
 std::vector<Character*> Playable::GetValidPlayTargets() const
 {
+    // NOTE: Card 'Drustvar Horror' (DAL_431t) has two generated spells.
+    // These cards can be targeting or non-targeting.
+    if (card->dbfID == 52812)
+    {
+        const auto card1 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
+        const auto card2 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
+
+        auto targets1 = card1->GetValidPlayTargets(player);
+        auto targets2 = card2->GetValidPlayTargets(player);
+
+        std::vector<Character*> targets;
+        targets.reserve(targets1.size() + targets2.size());
+
+        for (auto& target : targets1)
+        {
+            targets.emplace_back(target);
+        }
+        for (auto& target : targets2)
+        {
+            targets.emplace_back(target);
+        }
+
+        return targets;
+    }
+
     return card->GetValidPlayTargets(player);
 }
 
@@ -228,24 +279,171 @@ bool Playable::IsValidPlayTarget(Character* target)
 {
     if (target == nullptr)
     {
-        if (card->mustHaveToTargetToPlay)
+        // NOTE: Card 'Drustvar Horror' (DAL_431t) has two generated spells.
+        // These cards can be targeting or non-targeting.
+        if (card->dbfID == 52812)
         {
-            return false;
-        }
+            const auto card1 = Cards::FindCardByDbfID(
+                GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
+            const auto card2 = Cards::FindCardByDbfID(
+                GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
 
-        if (card->targetingType == TargetingType::NONE)
-        {
-            return true;
-        }
+            if (card1->mustHaveToTargetToPlay || card2->mustHaveToTargetToPlay)
+            {
+                return false;
+            }
 
-        if (!HasAnyValidPlayTargets())
+            if (card1->targetingType == TargetingType::NONE &&
+                card2->targetingType == TargetingType::NONE)
+            {
+                return true;
+            }
+
+            if (!HasAnyValidPlayTargets(card1) &&
+                !HasAnyValidPlayTargets(card2))
+            {
+                return true;
+            }
+        }
+        else
         {
-            return true;
+            if (card->mustHaveToTargetToPlay)
+            {
+                return false;
+            }
+
+            if (card->targetingType == TargetingType::NONE)
+            {
+                return true;
+            }
+
+            if (!HasAnyValidPlayTargets(card))
+            {
+                return true;
+            }
         }
 
         return false;
     }
 
+    // NOTE: Card 'Drustvar Horror' (DAL_431t) has two generated spells.
+    // These cards can be targeting or non-targeting.
+    if (card->dbfID == 52812)
+    {
+        const auto card1 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
+        const auto card2 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
+
+        if (!CheckTargetingType(card1, target) &&
+            !CheckTargetingType(card2, target))
+        {
+            return false;
+        }
+
+        if (TargetingRequirements(card1, target) &&
+            TargetingRequirements(card2, target))
+        {
+            return true;
+        }
+    }
+    else
+    {
+        if (!CheckTargetingType(card, target))
+        {
+            return false;
+        }
+
+        if (TargetingRequirements(card, target))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Playable::HasAnyValidPlayTargets(Card* card) const
+{
+    bool friendlyMinions = false, enemyMinions = false;
+    bool hero = false, enemyHero = false;
+
+    switch (card->targetingType)
+    {
+        case TargetingType::NONE:
+            return false;
+        case TargetingType::ALL:
+            friendlyMinions = true;
+            enemyMinions = true;
+            hero = true;
+            enemyHero = true;
+            break;
+        case TargetingType::CHARACTERS_EXCEPT_HERO:
+            friendlyMinions = true;
+            enemyMinions = true;
+            enemyHero = true;
+            break;
+        case TargetingType::FRIENDLY_CHARACTERS:
+            friendlyMinions = true;
+            hero = true;
+            break;
+        case TargetingType::ENEMY_CHARACTERS:
+            enemyMinions = true;
+            enemyHero = true;
+            break;
+        case TargetingType::ALL_MINIONS:
+            friendlyMinions = true;
+            enemyMinions = true;
+            break;
+        case TargetingType::FRIENDLY_MINIONS:
+            friendlyMinions = true;
+            break;
+        case TargetingType::ENEMY_MINIONS:
+            enemyMinions = true;
+            break;
+        case TargetingType::HEROES:
+            hero = true;
+            enemyHero = true;
+            break;
+    }
+
+    if (friendlyMinions)
+    {
+        for (auto& minion : player->GetFieldZone()->GetAll())
+        {
+            if (TargetingRequirements(card, minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    if (enemyMinions)
+    {
+        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+        {
+            if (TargetingRequirements(card, minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    if (hero && TargetingRequirements(card, player->GetHero()))
+    {
+        return true;
+    }
+
+    if (enemyHero && TargetingRequirements(card, player->opponent->GetHero()))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Playable::CheckTargetingType(Card* card, Character* target)
+{
     switch (card->targetingType)
     {
         case TargetingType::NONE:
@@ -299,91 +497,7 @@ bool Playable::IsValidPlayTarget(Character* target)
             break;
     }
 
-    if (TargetingRequirements(target))
-    {
-        return true;
-    }
-
-    return false;
-}
-
-bool Playable::HasAnyValidPlayTargets() const
-{
-    bool friendlyMinions = false, enemyMinions = false;
-    bool hero = false, enemyHero = false;
-
-    switch (card->targetingType)
-    {
-        case TargetingType::NONE:
-            return false;
-        case TargetingType::ALL:
-            friendlyMinions = true;
-            enemyMinions = true;
-            hero = true;
-            enemyHero = true;
-            break;
-        case TargetingType::CHARACTERS_EXCEPT_HERO:
-            friendlyMinions = true;
-            enemyMinions = true;
-            enemyHero = true;
-            break;            
-        case TargetingType::FRIENDLY_CHARACTERS:
-            friendlyMinions = true;
-            hero = true;
-            break;
-        case TargetingType::ENEMY_CHARACTERS:
-            enemyMinions = true;
-            enemyHero = true;
-            break;
-        case TargetingType::ALL_MINIONS:
-            friendlyMinions = true;
-            enemyMinions = true;
-            break;
-        case TargetingType::FRIENDLY_MINIONS:
-            friendlyMinions = true;
-            break;
-        case TargetingType::ENEMY_MINIONS:
-            enemyMinions = true;
-            break;
-        case TargetingType::HEROES:
-            hero = true;
-            enemyHero = true;
-            break;
-    }
-
-    if (friendlyMinions)
-    {
-        for (auto& minion : player->GetFieldZone()->GetAll())
-        {
-            if (TargetingRequirements(minion))
-            {
-                return true;
-            }
-        }
-    }
-
-    if (enemyMinions)
-    {
-        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
-        {
-            if (TargetingRequirements(minion))
-            {
-                return true;
-            }
-        }
-    }
-
-    if (hero && TargetingRequirements(player->GetHero()))
-    {
-        return true;
-    }
-
-    if (enemyHero && TargetingRequirements(player->opponent->GetHero()))
-    {
-        return true;
-    }
-
-    return false;
+    return true;
 }
 
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,

@@ -114,9 +114,10 @@ class Playable : public Entity
 
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
+    //! \param card A card to check targeting requirements.
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
-    virtual bool TargetingRequirements(Character* target) const;
+    virtual bool TargetingRequirements(Card* card, Character* target) const;
 
     //! Gets a value indicating whether source entity is playable by player.
     //! Dynamic requirements are checked, eg: If a spell costs health instead of
@@ -146,9 +147,17 @@ class Playable : public Entity
 
     //! Gets whether the current field has any valid play targets
     //! for this playable.
+    //! \param card A card to check the current field has any valid play
+    //! targets.
     //! \return true if the current field has any valid play targets,
     //! false otherwise.
-    bool HasAnyValidPlayTargets() const;
+    bool HasAnyValidPlayTargets(Card* card) const;
+
+    //! Checks the targeting type of a card.
+    //! \param card A card to check the targeting type.
+    //! \param target The proposed target.
+    //! \return true if the targeting type is valid, false otherwise.
+    bool CheckTargetingType(Card* card, Character* target);
 
     //! Activates the task.
     //! \param type The type of power.
