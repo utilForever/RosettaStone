@@ -540,8 +540,8 @@ DALARAN | DAL_415 | EVIL Miscreant | O
 DALARAN | DAL_416 | Hench-Clan Burglar | O
 DALARAN | DAL_417 | Heistbaron Togwaggle | O
 DALARAN | DAL_422 | Arch-Villain Rafaam | O
-DALARAN | DAL_431 | Swampqueen Hagatha |  
-DALARAN | DAL_432 | Witch's Brew |  
+DALARAN | DAL_431 | Swampqueen Hagatha | O
+DALARAN | DAL_432 | Witch's Brew | O
 DALARAN | DAL_433 | Sludge Slurper | O
 DALARAN | DAL_434 | Arcane Watcher | O
 DALARAN | DAL_538 | Unseen Saboteur | O
@@ -562,7 +562,7 @@ DALARAN | DAL_566 | Eccentric Scribe | O
 DALARAN | DAL_568 | Lightforged Blessing | O
 DALARAN | DAL_570 | Never Surrender! | O
 DALARAN | DAL_571 | Mysterious Blade | O
-DALARAN | DAL_573 | Commander Rhyssa |  
+DALARAN | DAL_573 | Commander Rhyssa | O
 DALARAN | DAL_575 | Khadgar | O
 DALARAN | DAL_576 | Kirin Tor Tricaster | O
 DALARAN | DAL_577 | Ray of Frost | O
@@ -591,8 +591,8 @@ DALARAN | DAL_724 | Mass Resurrection | O
 DALARAN | DAL_726 | Scargil | O
 DALARAN | DAL_727 | Call to Adventure | O
 DALARAN | DAL_728 | Daring Escape | O
-DALARAN | DAL_729 | Madame Lazul |  
-DALARAN | DAL_731 | Duel! |  
+DALARAN | DAL_729 | Madame Lazul | O
+DALARAN | DAL_731 | Duel! | O
 DALARAN | DAL_732 | Keeper Stalladris | O
 DALARAN | DAL_733 | Dreamway Guardians | O
 DALARAN | DAL_735 | Dalaran Librarian | O
@@ -616,7 +616,7 @@ DALARAN | DAL_775 | Tunnel Blaster | O
 DALARAN | DAL_799 | Crystal Stag | O
 DALARAN | DAL_800 | Zayle, Shadow Cloak | O
 
-- Progress: 96% (131 of 136 Cards)
+- Progress: 100% (136 of 136 Cards)
 
 ## Saviors of Uldum
 
