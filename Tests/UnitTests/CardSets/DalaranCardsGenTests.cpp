@@ -3924,44 +3924,122 @@ TEST_CASE("[Shaman : Spell] - DAL_071 : Mutate")
 // - ELITE = 1
 // - BATTLECRY = 1
 // --------------------------------------------------------
-//TEST_CASE("[Shaman : Minion] - DAL_431 : Swampqueen Hagatha")
-//{
-//    GameConfig config;
-//    config.player1Class = CardClass::SHAMAN;
-//    config.player2Class = CardClass::WARRIOR;
-//    config.startPlayer = PlayerType::PLAYER1;
-//    config.doFillDecks = false;
-//    config.autoRun = false;
-//
-//    Game game(config);
-//    game.Start();
-//    game.ProcessUntil(Step::MAIN_ACTION);
-//
-//    Player* curPlayer = game.GetCurrentPlayer();
-//    Player* opPlayer = game.GetOpponentPlayer();
-//    curPlayer->SetTotalMana(10);
-//    curPlayer->SetUsedMana(0);
-//    opPlayer->SetTotalMana(10);
-//    opPlayer->SetUsedMana(0);
-//
-//    auto& curHand = *(curPlayer->GetHandZone());
-//
-//    const auto card1 = Generic::DrawCard(
-//        curPlayer, Cards::FindCardByName("Swampqueen Hagatha"));
-//
-//    game.Process(curPlayer, PlayCardTask::Minion(card1));
-//    CHECK(curPlayer->choice != nullptr);
-//
-//    TestUtils::ChooseNthChoice(game, 1);
-//    TestUtils::ChooseNthChoice(game, 1);
-//    CHECK_EQ(curHand.GetCount(), 1);
-//    CHECK_EQ(curHand[0]->card->name, "Drustvar Horror");
-//
-//    const int dbfID1 = curHand[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
-//    const int dbfID2 = curHand[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
-//    CHECK(dbfID1 > 0);
-//    CHECK(dbfID2 > 0);
-//}
+TEST_CASE("[Shaman : Minion] - DAL_431 : Swampqueen Hagatha")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Swampqueen Hagatha"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Drustvar Horror");
+
+    const int dbfID1 = curHand[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
+    const int dbfID2 = curHand[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2);
+    CHECK(dbfID1 > 0);
+    CHECK(dbfID2 > 0);
+
+    auto spell1 = Cards::FindCardByDbfID(dbfID1);
+    auto spell2 = Cards::FindCardByDbfID(dbfID2);
+    bool isSpell1TargetingCard = false;
+    bool isSpell2TargetingCard = false;
+
+    for (auto& playReq : spell1->playRequirements)
+    {
+        if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
+            playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
+        {
+            isSpell1TargetingCard = true;
+            break;
+        }
+    }
+
+    for (auto& playReq : spell2->playRequirements)
+    {
+        if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
+            playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
+        {
+            isSpell2TargetingCard = true;
+            break;
+        }
+    }
+
+    const bool check = isSpell1TargetingCard && isSpell2TargetingCard;
+    CHECK_EQ(check, false);
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [DAL_431t] Drustvar Horror (*) - COST:5 [ATK:5/HP:5]
+// - Set: Dalaran
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Cast {0} and {1}.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DAL_431t : Drustvar Horror")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Wolfrider");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_431t"));
+    card1->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1, 505);
+    card1->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2, 818);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->GetCost(), 6);
+}
 
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_432] Witch's Brew - COST:2

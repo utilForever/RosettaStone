@@ -2083,15 +2083,16 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<DiscoverTask>(DiscoverType::SWAMPQUEEN_HAGATHA, 3, 2));
     power.AddAfterChooseTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
-           [[maybe_unused]] Playable* target) {
-            if (player->game->taskStack.num[0] == 2)
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            if (source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2) > 0)
             {
                 std::map<GameTag, int> tags;
-                tags.emplace(GameTag::TAG_SCRIPT_DATA_NUM_1,
-                             player->game->taskStack.num[1]);
-                tags.emplace(GameTag::TAG_SCRIPT_DATA_NUM_2,
-                             player->game->taskStack.num[2]);
+                tags.emplace(
+                    GameTag::TAG_SCRIPT_DATA_ENT_1,
+                    source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
+                tags.emplace(
+                    GameTag::TAG_SCRIPT_DATA_ENT_2,
+                    source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
 
                 Playable* horror =
                     Entity::GetFromCard(player, Cards::FindCardByID("DAL_431t"),
@@ -2199,16 +2200,16 @@ void DalaranCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source, Playable* target) {
+        [](Player* player, Entity* source, Playable* target) {
             const int dbfID1 =
-                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
             Playable* playable1 =
                 Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID1));
             Generic::CastSpell(player, dynamic_cast<Spell*>(playable1),
                                dynamic_cast<Character*>(target), 0);
 
             const int dbfID2 =
-                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2);
             Playable* playable2 =
                 Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID2));
             Generic::CastSpell(player, dynamic_cast<Spell*>(playable2),
