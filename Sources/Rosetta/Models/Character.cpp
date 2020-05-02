@@ -151,7 +151,8 @@ bool Character::HasWindfury() const
 
 bool Character::HasMegaWindfury() const
 {
-    return static_cast<bool>(GetGameTag(GameTag::MEGA_WINDFURY));
+    return static_cast<bool>(GetGameTag(GameTag::MEGA_WINDFURY)) ||
+           player->playerAuraEffects.GetValue(GameTag::MEGA_WINDFURY) > 0;
 }
 
 bool Character::CanAttack() const
