@@ -23,11 +23,9 @@ PlayTask::PlayTask(PlayType playType, bool randTarget)
 
 TaskStatus PlayTask::Impl(Player* player)
 {
-    TaskStack& taskStack = player->game->taskStack;
-
     if (m_playType == PlayType::SPELL)
     {
-        for (auto& playable : taskStack.playables)
+        for (auto& playable : player->game->taskStack.playables)
         {
             auto spell = dynamic_cast<Spell*>(playable);
             if (spell == nullptr)

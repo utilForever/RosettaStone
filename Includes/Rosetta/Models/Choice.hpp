@@ -24,12 +24,12 @@ struct Choice
 {
     //! Constructs task with given \p _player.
     //! \param _player The player context.
-    Choice(Player* _player);
+    explicit Choice(Player* _player);
 
     //! Constructs task with given \p _player and \p _cardSets.
     //! \param _player The player context.
     //! \param _cardSets A list of cards to discover.
-    Choice(Player* _player, std::vector<Card*> _cardSets);
+    explicit Choice(Player* _player, std::vector<Card*> _cardSets);
 
     // Adds entity ID to stack.
     //! \param entityID The entity ID to add to stack.
