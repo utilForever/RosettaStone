@@ -480,6 +480,28 @@ void Aura::UpdateInternal()
                         }
                     }
                 }
+                else if (effectPtr->GetGameTag() == GameTag::MEGA_WINDFURY)
+                {
+                    for (auto& minion :
+                         m_owner->player->GetFieldZone()->GetAll())
+                    {
+                        // A minion can't attack at first turn in play.
+                        if (minion->GetNumAttacksThisTurn() == 0 &&
+                            minion->IsExhausted() == true)
+                        {
+                            break;
+                        }
+
+                        // A minion can't attack if it already attacked four
+                        // times by having 'GameTag::MEGA_WINDFURY'.
+                        if (minion->GetNumAttacksThisTurn() >= 4)
+                        {
+                            break;
+                        }
+
+                        minion->SetExhausted(false);
+                    }
+                }
             }
             break;
         }
