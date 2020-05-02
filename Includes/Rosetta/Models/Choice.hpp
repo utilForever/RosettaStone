@@ -52,6 +52,7 @@ struct Choice
     std::vector<int> choices;
     std::vector<int> entityStack;
 
+    int depth = 1;
     int lastChoice = 0;
     Choice* nextChoice = nullptr;
 };

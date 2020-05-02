@@ -189,9 +189,16 @@ bool ChoicePick(Player* player, int choice)
         }
         case ChoiceAction::SWAMPQUEEN_HAGATHA:
         {
-            player->game->taskStack.num[0]++;
-            const int idx = player->game->taskStack.num[0];
-            player->game->taskStack.num[idx] = playable->card->dbfID;
+            if (choiceVal->depth == 1)
+            {
+                choiceVal->source->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1,
+                                              playable->card->dbfID);
+            }
+            else
+            {
+                choiceVal->source->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2,
+                                              playable->card->dbfID);
+            }
             break;
         }
         default:
@@ -257,6 +264,7 @@ void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
     player->choice->choiceType = type;
     player->choice->choiceAction = action;
     player->choice->choices = choices;
+    player->choice->depth = 1;
 }
 
 void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
@@ -285,6 +293,7 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
         player->choice->choiceAction = action;
         player->choice->source = source;
         player->choice->choices = choiceIDs;
+        player->choice->depth = 1;
     }
 }
 }  // namespace RosettaStone::Generic

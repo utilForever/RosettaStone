@@ -164,6 +164,7 @@ TaskStatus DiscoverTask::Impl(Player* player)
             choice->choiceType = ChoiceType::GENERAL;
             choice->choiceAction = m_choiceAction;
             choice->source = m_source;
+            choice->depth = i + 1;
 
             currentChoice->nextChoice = choice;
             currentChoice = choice;
