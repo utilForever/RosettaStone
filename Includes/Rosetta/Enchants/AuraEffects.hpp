@@ -16,7 +16,7 @@ constexpr int AURA_EFFECT_CARD_SIZE = 0;
 constexpr int AURA_EFFECT_WEAPON_SIZE = AURA_EFFECT_CARD_SIZE + 1;
 constexpr int AURA_EFFECT_CHARACTER_SIZE = AURA_EFFECT_CARD_SIZE + 2;
 constexpr int AURA_EFFECT_HERO_SIZE = AURA_EFFECT_CHARACTER_SIZE + 3;
-constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 6;
+constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 5;
 
 //!
 //! \brief AuraEffects class.
@@ -140,14 +140,6 @@ class AuraEffects
     //! \param value The value of GameTag::CANT_ATTACK to set.
     void SetCantAttack(int value);
 
-    //! Returns the value of GameTag::MEGA_WINDFURY.
-    //! \return The value of GameTag::MEGA_WINDFURY.
-    int GetMegaWindfury() const;
-
-    //! Sets the value of GameTag::MEGA_WINDFURY.
-    //! \param value The value of GameTag::MEGA_WINDFURY to set.
-    void SetMegaWindfury(int value);
-
  private:
     CardType m_type = CardType::INVALID;
 
@@ -169,7 +161,6 @@ class AuraEffects
     // 5 : TAUNT
     // 6 : LIFESTEAL
     // 7 : CANT_ATTACK
-    // 8 : MEGA_WINDFURY
     int* m_data = nullptr;
 };
 }  // namespace RosettaStone

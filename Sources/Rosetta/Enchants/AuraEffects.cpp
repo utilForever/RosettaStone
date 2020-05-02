@@ -68,8 +68,6 @@ int AuraEffects::GetGameTag(GameTag tag) const
             return GetLifesteal();
         case GameTag::CANT_ATTACK:
             return GetCantAttack();
-        case GameTag::MEGA_WINDFURY:
-            return GetMegaWindfury();
         default:
             return 0;
     }
@@ -109,9 +107,6 @@ void AuraEffects::SetGameTag(GameTag tag, int value)
             break;
         case GameTag::CANT_ATTACK:
             SetCantAttack(value);
-            break;
-        case GameTag::MEGA_WINDFURY:
-            SetMegaWindfury(value);
             break;
         default:
             return;
@@ -238,15 +233,5 @@ int AuraEffects::GetCantAttack() const
 void AuraEffects::SetCantAttack(int value)
 {
     m_data[7] = value;
-}
-
-int AuraEffects::GetMegaWindfury() const
-{
-    return m_data[8];
-}
-
-void AuraEffects::SetMegaWindfury(int value)
-{
-    m_data[8] = value;
 }
 }  // namespace RosettaStone
