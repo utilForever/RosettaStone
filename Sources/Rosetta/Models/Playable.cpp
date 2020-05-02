@@ -451,40 +451,40 @@ bool Playable::CheckTargetingType(Card* card, Character* target)
         case TargetingType::ALL:
             break;
         case TargetingType::CHARACTERS_EXCEPT_HERO:
-            if (dynamic_cast<Hero*>(target) != nullptr &&
-                target->player == player)
+            if (const auto hero = dynamic_cast<Hero*>(target);
+                hero && hero->player == player)
             {
                 return false;
             }
             break;
         case TargetingType::FRIENDLY_CHARACTERS:
-            if (target->player != player)
+            if (target && target->player != player)
             {
                 return false;
             }
             break;
         case TargetingType::ENEMY_CHARACTERS:
-            if (target->player == player)
+            if (target && target->player == player)
             {
                 return false;
             }
             break;
         case TargetingType::ALL_MINIONS:
-            if (dynamic_cast<Hero*>(target) != nullptr)
+            if (const auto hero = dynamic_cast<Hero*>(target); hero)
             {
                 return false;
             }
             break;
         case TargetingType::FRIENDLY_MINIONS:
             if (dynamic_cast<Hero*>(target) != nullptr ||
-                target->player != player)
+                (target && target->player != player))
             {
                 return false;
             }
             break;
         case TargetingType::ENEMY_MINIONS:
             if (dynamic_cast<Hero*>(target) != nullptr ||
-                target->player == player)
+                (target && target->player == player))
             {
                 return false;
             }
