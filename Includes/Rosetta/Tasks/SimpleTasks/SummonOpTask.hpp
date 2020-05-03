@@ -7,6 +7,7 @@
 #define ROSETTASTONE_SUMMON_OP_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -22,13 +23,17 @@ class SummonOpTask : public ITask
     //! Constructs task with given \p card and \p amount.
     //! \param card The card to summon.
     //! \param amount The number of minions to summon.
+    //! \param side The side of summoned minion.
     explicit SummonOpTask(std::optional<Card*> card = std::nullopt,
-                          int amount = 1);
+                          int amount = 1,
+                          SummonSide side = SummonSide::DEFAULT);
 
     //! Constructs task with given \p cardID and \p amount.
     //! \param cardID The card ID to summon.
     //! \param amount The number of minions to summon.
-    explicit SummonOpTask(const std::string& cardID, int amount = 1);
+    //! \param side The side of summoned minion.
+    explicit SummonOpTask(const std::string& cardID, int amount = 1,
+                          SummonSide side = SummonSide::DEFAULT);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -42,6 +47,7 @@ class SummonOpTask : public ITask
 
     std::optional<Card*> m_card = std::nullopt;
     int m_amount = 1;
+    SummonSide m_side = SummonSide::DEFAULT;
 };
 }  // namespace RosettaStone::SimpleTasks
 

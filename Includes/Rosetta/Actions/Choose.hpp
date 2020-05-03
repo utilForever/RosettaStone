@@ -15,13 +15,13 @@ namespace RosettaStone::Generic
 //! Choices cards in mulligan state.
 //! \param player The player to create choice cards.
 //! \param choices A container of card to choose.
-void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices);
+void ChoiceMulligan(Player* player, const std::vector<int>& choices);
 
 //! Choices a card in choose task state.
 //! \param player The player to create a choice card.
 //! \param choice A card to choose.
 //! \return true if a card is successfully choose, false otherwise.
-bool ChoicePick(Player* player, std::size_t choice);
+bool ChoicePick(Player* player, int choice);
 
 //! Creates a choice for player.
 //! \param player The player to create a choice.
@@ -29,7 +29,7 @@ bool ChoicePick(Player* player, std::size_t choice);
 //! \param action A choice action.
 //! \param choices A container of card to choose.
 void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
-                  const std::vector<std::size_t>& choices);
+                  const std::vector<int>& choices);
 
 //! Creates choice cards for player.
 //! \param player The player to create choice cards.

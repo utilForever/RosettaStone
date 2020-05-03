@@ -700,7 +700,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
             return 0;
         }
 
-        std::vector<std::size_t> ids;
+        std::vector<int> ids;
         ids.reserve(3);
 
         for (int i = 0; i < 3 && deck->GetCount() != 0; ++i)
@@ -2401,7 +2401,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
         auto playables = playable->game->taskStack.playables;
 
-        std::vector<std::size_t> ids;
+        std::vector<int> ids;
         ids.reserve(3);
 
         for (auto& p : playables)

@@ -75,7 +75,7 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Destroy target if attacker is poisonous
-    if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
+    if (isTargetDamaged && source->HasPoisonous())
     {
         realTarget->Destroy();
     }
@@ -97,7 +97,7 @@ void Attack(Player* player, Character* source, Character* target,
         }
 
         // Destroy source if defender is poisonous
-        if (isSourceDamaged && realTarget->GetGameTag(GameTag::POISONOUS) == 1)
+        if (isSourceDamaged && realTarget->HasPoisonous())
         {
             source->Destroy();
         }
@@ -122,10 +122,11 @@ void Attack(Player* player, Character* source, Character* target,
     source->SetNumAttacksThisTurn(val + 1);
 
     // Check source is exhausted
-    if ((source->GetNumAttacksThisTurn() >= 1 &&
-         source->GetGameTag(GameTag::WINDFURY) == 0) ||
+    if ((source->GetNumAttacksThisTurn() >= 4 && source->HasMegaWindfury()) ||
         (source->GetNumAttacksThisTurn() >= 2 &&
-         source->GetGameTag(GameTag::WINDFURY) == 1))
+         (!source->HasMegaWindfury() && source->HasWindfury())) ||
+        (source->GetNumAttacksThisTurn() >= 1 &&
+         (!source->HasWindfury() && !source->HasMegaWindfury())))
     {
         source->SetExhausted(true);
     }

@@ -83,6 +83,10 @@ class Trigger
     //! \param source The source of trigger.
     void ProcessInternal(Entity* source);
 
+    //! Processes a list of tasks.
+    //! \param source The source of trigger.
+    void ProcessTasks(Entity* source);
+
     //! Validates triggers related to the current sequence at once before the
     //! sequence starts.
     //! \param source The source of trigger.

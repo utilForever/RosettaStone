@@ -132,6 +132,10 @@ class Player : public Entity
     //! \return true if for my minions can't be Frozen, false otherwise.
     bool CantBeFrozen() const;
 
+    //! Returns whether this player triggers secret twice.
+    //! \return true if for this player triggers secret twice, false otherwise.
+    bool ExtraTriggerSecret() const;
+
     //! Returns total amount of mana available.
     //! \return Total amount of mana available.
     int GetTotalMana() const;
@@ -280,8 +284,8 @@ class Player : public Entity
     CardClass baseClass = CardClass::INVALID;
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
-    std::optional<Choice> choice = std::nullopt;
 
+    Choice* choice = nullptr;
     Playable* galakrond = nullptr;
     Player* opponent = nullptr;
 

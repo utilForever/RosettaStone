@@ -11,25 +11,25 @@
 
 namespace RosettaStone::PlayerTasks
 {
-ChooseTask::ChooseTask(std::vector<std::size_t> choices)
+ChooseTask::ChooseTask(std::vector<int> choices)
     : m_choices(std::move(choices))
 {
     // Do nothing
 }
 
-ChooseTask ChooseTask::Mulligan(Player*, std::vector<std::size_t> choices)
+ChooseTask ChooseTask::Mulligan(Player*, std::vector<int> choices)
 {
     return ChooseTask(std::move(choices));
 }
 
-ChooseTask ChooseTask::Pick(Player*, std::size_t choice)
+ChooseTask ChooseTask::Pick(Player*, int choice)
 {
     return ChooseTask({ choice });
 }
 
 TaskStatus ChooseTask::Impl(Player* player)
 {
-    switch (player->choice.value().choiceType)
+    switch (player->choice->choiceType)
     {
         case ChoiceType::MULLIGAN:
         {

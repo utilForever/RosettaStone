@@ -6,22 +6,11 @@
 #ifndef ROSETTASTONE_DISCOVER_TASK_HPP
 #define ROSETTASTONE_DISCOVER_TASK_HPP
 
+#include <Rosetta/Enums/ChoiceEnums.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-//! The type of discover.
-enum class DiscoverType
-{
-    INVALID,
-    SPELL,
-    DRAGON,
-    LEGENDARY_MINION_SUMMON,
-    SIX_COST_SUMMON,
-    SPELL_THREE_COST_OR_LESS,
-    HEISTBARON_TOGWAGGLE,
-};
-
 class DiscoverCriteria
 {
  public:
@@ -52,13 +41,14 @@ class DiscoverTask : public ITask
     //! \param race The race of card to discover.
     //! \param rarity The rarity of card to discover.
     //! \param choiceAction The choice action of discover effect.
+    //! \param repeat The number to repeat this task.
     //! \param keepAll The flag that indicates it keeps all cards.
     explicit DiscoverTask(CardType cardType = CardType::INVALID,
                           CardClass cardClass = CardClass::INVALID,
                           Race race = Race::INVALID,
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND,
-                          bool keepAll = false);
+                          int repeat = 1, bool keepAll = false);
 
     //! Constructs task with given various parameters.
     //! \param cardIDs A list of card IDs to discover.
@@ -72,7 +62,9 @@ class DiscoverTask : public ITask
     //! Constructs task with given \p discoverType and \p numberOfChoices.
     //! \param discoverType The type of discover.
     //! \param numberOfChoices The number of choices.
-    explicit DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3);
+    //! \param repeat The number to repeat this task.
+    explicit DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3,
+                          int repeat = 1);
 
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.
@@ -84,6 +76,7 @@ class DiscoverTask : public ITask
     //! \param choiceAction The choice action of discover effect.
     //! \param numberOfChoices The number of choices.
     //! \param doShuffle The flag that indicates it does shuffle.
+    //! \param repeat The number to repeat this task.
     //! \param keepAll The flag that indicates it keeps all cards.
     explicit DiscoverTask(std::vector<Card*> cards,
                           DiscoverType discoverType = DiscoverType::INVALID,
@@ -93,13 +86,15 @@ class DiscoverTask : public ITask
                           Rarity rarity = Rarity::INVALID,
                           ChoiceAction choiceAction = ChoiceAction::HAND,
                           int numberOfChoices = 3, bool doShuffle = true,
-                          bool keepAll = false);
+                          int repeat = 1, bool keepAll = false);
 
     //! Gets cards to choose from the sets.
     //! \param cardsToDiscover A list of cards to discover.
     //! \param numberOfChoices The number of choices.
-    std::vector<Card*> GetChoices(std::vector<Card*> cardsToDiscover,
-                                  std::size_t numberOfChoices) const;
+    //! \param doShuffle The flag that indicates it does shuffle.
+    static std::vector<Card*> GetChoices(std::vector<Card*> cardsToDiscover,
+                                         int numberOfChoices,
+                                         bool doShuffle = true);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -130,11 +125,11 @@ class DiscoverTask : public ITask
                                 DiscoverCriteria criteria) const;
 
     std::vector<Card*> m_cards;
-
     DiscoverType m_discoverType = DiscoverType::INVALID;
     DiscoverCriteria m_discoverCriteria;
     ChoiceAction m_choiceAction = ChoiceAction::INVALID;
-    std::size_t m_numberOfChoices = 3;
+    int m_numberOfChoices = 3;
+    int m_repeat = 1;
     bool m_doShuffle = true;
     bool m_keepAll = false;
 };

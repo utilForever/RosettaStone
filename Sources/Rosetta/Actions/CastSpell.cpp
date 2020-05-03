@@ -66,10 +66,18 @@ void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
             player->GetHandZone()->Add(twinspell);
         }
 
+        // Check card has overload
+        if (spell->HasOverload())
+        {
+            const int amount = spell->GetOverload();
+            player->SetOverloadOwed(player->GetOverloadOwed() + amount);
+        }
+
+        player->game->ProcessTasks();
+
         player->GetGraveyardZone()->Add(spell);
     }
 
-    player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone::Generic

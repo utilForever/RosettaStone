@@ -7,12 +7,12 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-SummonNumberTask::SummonNumberTask(const std::string& cardID, bool opponent)
-    : m_card(Cards::FindCardByID(cardID)), m_opponent(opponent)
+SummonNumberTask::SummonNumberTask(const std::string& cardID, bool opponent,
+                                   SummonSide side)
+    : m_card(Cards::FindCardByID(cardID)), m_opponent(opponent), m_side(side)
 {
     // Do nothing
 }
@@ -24,11 +24,11 @@ TaskStatus SummonNumberTask::Impl(Player* player)
 
     if (m_opponent)
     {
-        task = std::make_unique<SummonOpTask>(m_card->id, stack.num[0]);
+        task = std::make_unique<SummonOpTask>(m_card->id, stack.num[0], m_side);
     }
     else
     {
-        task = std::make_unique<SummonTask>(m_card->id, stack.num[0]);
+        task = std::make_unique<SummonTask>(m_card->id, stack.num[0], m_side);
     }
 
     task->SetPlayer(player);
@@ -40,6 +40,6 @@ TaskStatus SummonNumberTask::Impl(Player* player)
 
 std::unique_ptr<ITask> SummonNumberTask::CloneImpl()
 {
-    return std::make_unique<SummonNumberTask>(m_card->id, m_opponent);
+    return std::make_unique<SummonNumberTask>(m_card->id, m_opponent, m_side);
 }
 }  // namespace RosettaStone::SimpleTasks

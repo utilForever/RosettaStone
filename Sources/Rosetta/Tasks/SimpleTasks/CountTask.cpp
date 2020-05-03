@@ -6,21 +6,56 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
+CountTask::CountTask(EntityType entityType, int numIndex,
+                     std::vector<SelfCondition> conditions)
+    : ITask(entityType),
+      m_conditions(std::move(conditions)),
+      m_numIndex(numIndex)
+{
+    // Do nothing
+}
 
-CountTask::CountTask(EntityType entityType, int numIndex, std::vector<SelfCondition> conditions)
-    : ITask(entityType), m_numIndex(numIndex), m_conditions(std::move(conditions))
+CountTask::CountTask(ZoneType zoneType, bool getFreeSpace, bool opponent)
+    : m_zoneType(zoneType), m_getFreeSpace(getFreeSpace), m_opponent(opponent)
+{
+    // Do nothing
+}
+
+CountTask::CountTask(EntityType entityType, int numIndex,
+                     std::vector<SelfCondition> conditions, ZoneType zoneType,
+                     bool getFreeSpace, bool opponent)
+    : ITask(entityType),
+      m_zoneType(zoneType),
+      m_conditions(std::move(conditions)),
+      m_numIndex(numIndex),
+      m_getFreeSpace(getFreeSpace),
+      m_opponent(opponent)
 {
     // Do nothing
 }
 
 TaskStatus CountTask::Impl(Player* player)
 {
+    if (m_zoneType != ZoneType::INVALID)
+    {
+        if (m_zoneType == ZoneType::PLAY)
+        {
+            FieldZone* zone = m_opponent ? player->opponent->GetFieldZone()
+                                         : player->GetFieldZone();
+            player->game->taskStack.num[0] =
+                m_getFreeSpace ? zone->GetFreeSpace() : zone->GetCount();
+        }
+
+        return TaskStatus::COMPLETE;
+    }
+
     const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    
+
     int count;
     if (m_conditions.empty())
     {
@@ -46,6 +81,7 @@ TaskStatus CountTask::Impl(Player* player)
                 filtered.push_back(playable);
             }
         }
+
         count = static_cast<int>(filtered.size());
     }
 
@@ -66,6 +102,7 @@ TaskStatus CountTask::Impl(Player* player)
 
 std::unique_ptr<ITask> CountTask::CloneImpl()
 {
-    return std::make_unique<CountTask>(m_entityType, m_numIndex, m_conditions);
+    return std::make_unique<CountTask>(m_entityType, m_numIndex, m_conditions,
+                                       m_zoneType, m_getFreeSpace, m_opponent);
 }
 }  // namespace RosettaStone::SimpleTasks

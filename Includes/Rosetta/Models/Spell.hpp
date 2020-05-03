@@ -74,9 +74,10 @@ class Spell : public Playable
 
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
+    //! \param card A card to check targeting requirements.
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
-    bool TargetingRequirements(Character* target) const override;
+    bool TargetingRequirements(Card* card, Character* target) const override;
 
     //! Gets a value indicating whether source entity is playable by player.
     //! Dynamic requirements are checked, eg: If a spell costs health instead of

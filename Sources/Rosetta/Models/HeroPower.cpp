@@ -18,9 +18,9 @@ HeroPower::HeroPower(Player* player, Card* card, std::map<GameTag, int> tags,
     // Do nothing
 }
 
-bool HeroPower::TargetingRequirements(Character* target) const
+bool HeroPower::TargetingRequirements(Card* card, Character* target) const
 {
     return !target->GetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS) &&
-           Playable::TargetingRequirements(target);
+           Playable::TargetingRequirements(card, target);
 }
 }  // namespace RosettaStone

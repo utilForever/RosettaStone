@@ -113,6 +113,19 @@ class Effects
         return Cost::Effect(EffectOperator::SET, n);
     }
 
+    //! Creates effect that sets it is can't be targeted by spells
+    //! and hero powers.
+    //! \return A dynamically allocated Effects instance.
+    static std::vector<std::shared_ptr<IEffect>>
+    CantBeTargetedBySpellsAndHeroPowers()
+    {
+        return { std::make_shared<Effect>(GameTag::CANT_BE_TARGETED_BY_SPELLS,
+                                          EffectOperator::SET, 1),
+                 std::make_shared<Effect>(
+                     GameTag::CANT_BE_TARGETED_BY_HERO_POWERS,
+                     EffectOperator::SET, 1) };
+    }
+
     //! A minion ability which forces the opposing player to direct any
     //! melee attacks toward enemy targets with this ability.
     inline static std::shared_ptr<IEffect> Taunt =

@@ -80,6 +80,7 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
@@ -780,11 +781,11 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTopdeckTask(std::make_shared<RandomMinionTask>(
-        GameTag::CARDRACE, static_cast<int>(Race::DRAGON)));
+    power.AddTopdeckTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::CARDRACE, static_cast<int>(Race::DRAGON), RelaSign::EQ } }));
     power.AddTopdeckTask(std::make_shared<SummonTask>());
-    power.AddPowerTask(std::make_shared<RandomMinionTask>(
-        GameTag::CARDRACE, static_cast<int>(Race::DRAGON)));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::CARDRACE, static_cast<int>(Race::DRAGON), RelaSign::EQ } }));
     power.AddPowerTask(std::make_shared<SummonTask>());
     cards.emplace("DRG_320t", CardDef(power));
 }
@@ -1949,7 +1950,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                     Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
                                        randTarget, chooseOneIdx);
 
-                    while (player->choice.has_value())
+                    while (player->choice != nullptr)
                     {
                         const auto choiceIdx =
                             Random::get<int>(0, player->choice->choices.size());
@@ -3240,8 +3241,8 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(
-        std::make_shared<AttackTask>(EntityType::TARGET, EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AttackTask>(EntityType::TARGET,
+                                                    EntityType::STACK, true));
     cards.emplace(
         "DRG_022",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -3652,8 +3653,8 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<RandomMinionTask>(GameTag::COST, 1, 1,
-                                                     RelaSign::EQ, true),
+        TaskList{ std::make_shared<RandomMinionTask>(
+                      TagValues{ { GameTag::COST, 1, RelaSign::EQ } }, 1, true),
                   std::make_shared<SummonOpTask>() },
         3));
     cards.emplace("DRG_064", CardDef(power));
@@ -4056,12 +4057,14 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsNoDuplicateInDeck()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<RandomMinionTask>(
-                            GameTag::CARDRACE, static_cast<int>(Race::DRAGON),
-                            2, RelaSign::EQ, false, true),
-                        std::make_shared<AddEnchantmentTask>("DRG_089e",
-                                                             EntityType::STACK),
-                        std::make_shared<AddStackToTask>(EntityType::HAND) }));
+        true,
+        TaskList{
+            std::make_shared<RandomMinionTask>(
+                TagValues{ { GameTag::CARDRACE, static_cast<int>(Race::DRAGON),
+                             RelaSign::EQ } },
+                2, false, true),
+            std::make_shared<AddEnchantmentTask>("DRG_089e", EntityType::STACK),
+            std::make_shared<AddStackToTask>(EntityType::HAND) }));
     cards.emplace("DRG_089", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL

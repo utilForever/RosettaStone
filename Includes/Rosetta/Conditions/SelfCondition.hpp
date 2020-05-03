@@ -35,6 +35,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotStartInDeck();
 
+    //! SelfCondition wrapper for checking the deck zone is empty.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDeckEmpty();
+
     //! SelfCondition wrapper for checking the hero is Galakrond.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsGalakrondHero();
@@ -43,6 +47,10 @@ class SelfCondition
     //! \param cardID The card ID of hero power.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHeroPowerCard(const std::string& cardID);
+
+    //! SelfCondition wrapper for checking the card has Battlecry.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsBattlecryCard();
 
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
@@ -170,6 +178,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the entity has not stealth.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNotStealth();
+
+    //! SelfCondition wrapper for checking the entity has windfury.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasWindfury();
 
     //! SelfCondition wrapper for checking the entity has reborn.
     //! \return Generated SelfCondition for intended purpose.
@@ -315,6 +327,15 @@ class SelfCondition
     //! in your hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsLeftOrRightMostCardInHand();
+
+    //! SelfCondition wrapper for checking the hero don't have spell damage.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasNotSpellDamageOnHero();
+
+    //! SelfCondition wrapper for checking the hero has spell card
+    //! that costs 5 or more in hand.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition Has5MoreCostSpellInHand();
 
     //! SelfCondition wrapper for checking the threshold value.
     //! \param relaSign The comparer to check condition.

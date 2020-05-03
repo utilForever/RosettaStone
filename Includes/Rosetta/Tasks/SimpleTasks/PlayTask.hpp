@@ -3,27 +3,32 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_ATTACK_TASK_HPP
-#define ROSETTASTONE_ATTACK_TASK_HPP
+#ifndef ROSETTASTONE_PLAY_TASK_HPP
+#define ROSETTASTONE_PLAY_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
+//! The type of playable.
+enum class PlayType
+{
+    SPELL
+};
+
 //!
-//! \brief AttackTask class.
+//! \brief PlayTask class.
 //!
-//! This class represents the task for attacking the target.
+//! This class represents the task for allowing to have a playable
+//! played out in a task.
 //!
-class AttackTask : public ITask
+class PlayTask : public ITask
 {
  public:
-    //! Constructs task with given \p attacker, \p defender and \p force.
-    //! \param attacker The entity type of attacker.
-    //! \param defender The entity type of defender.
-    //! \param force The flag that indicates it is forced attack.
-    explicit AttackTask(EntityType attacker, EntityType defender,
-                        bool force = false);
+    //! Constructs task with given \p playType and \p randTarget.
+    //! \param playType The type of playable.
+    //! \param randTarget True if the target of the playable is chosen randomly.
+    explicit PlayTask(PlayType playType, bool randTarget = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -35,10 +40,9 @@ class AttackTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    EntityType m_attackerType = EntityType::INVALID;
-    EntityType m_defenderType = EntityType::INVALID;
-    bool m_force = false;
+    PlayType m_playType;
+    bool m_randTarget = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_ATTACK_TASK_HPP
+#endif  // ROSETTASTONE_PLAY_TASK_HPP

@@ -1383,12 +1383,11 @@ TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice.has_value());
-    CHECK_EQ(curPlayer->choice.value().choices.size(), 3u);
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
-    game.Process(
-        curPlayer,
-        ChooseTask::Pick(curPlayer, curPlayer->choice.value().choices[0]));
+    game.Process(curPlayer,
+                 ChooseTask::Pick(curPlayer, curPlayer->choice->choices[0]));
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 2);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
@@ -3787,7 +3786,7 @@ TEST_CASE("[Shaman : Spell] - CS2_039 : Windfury")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Windfury"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -3800,7 +3799,7 @@ TEST_CASE("[Shaman : Spell] - CS2_039 : Windfury")
     CHECK_EQ(curField[0]->IsExhausted(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    CHECK_EQ(curField[0]->HasWindfury(), true);
     CHECK_EQ(curField[0]->IsExhausted(), false);
 
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
@@ -4327,24 +4326,24 @@ TEST_CASE("[Shaman : Minion] - EX1_587 : Windspeaker")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(opField[0]->HasWindfury(), false);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    CHECK_EQ(opField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    CHECK_EQ(opField[0]->HasWindfury(), false);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    CHECK_EQ(curField[0]->HasWindfury(), true);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -5564,14 +5563,13 @@ TEST_CASE("[Demon Hunter : Minion] - BT_323 : Sightless Watcher")
     CHECK_EQ(curDeck.GetCount(), 26);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->choice.has_value(), true);
-    CHECK_EQ(curPlayer->choice.value().choices.size(), 3u);
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto pickedCardID =
-        game.entityList[curPlayer->choice.value().choices[0]]->card->id;
-    game.Process(
-        curPlayer,
-        ChooseTask::Pick(curPlayer, curPlayer->choice.value().choices[0]));
+        game.entityList[curPlayer->choice->choices[0]]->card->id;
+    game.Process(curPlayer,
+                 ChooseTask::Pick(curPlayer, curPlayer->choice->choices[0]));
 
     CHECK_EQ(curHand.GetCount(), 4);
     CHECK_EQ(curDeck.GetCount(), 26);

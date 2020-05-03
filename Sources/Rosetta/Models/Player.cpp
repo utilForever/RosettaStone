@@ -52,8 +52,8 @@ void Player::RefCopy(const Player& rhs)
 
     playState = rhs.playState;
     mulliganState = rhs.mulliganState;
-    choice = rhs.choice;
 
+    choice = rhs.choice;
     m_hero = rhs.m_hero;
     opponent = rhs.opponent;
 
@@ -166,6 +166,11 @@ bool Player::IsHealingDoesDamage() const
 bool Player::CantBeFrozen() const
 {
     return playerAuraEffects.GetValue(GameTag::CANT_BE_FROZEN) > 0;
+}
+
+bool Player::ExtraTriggerSecret() const
+{
+    return playerAuraEffects.GetValue(GameTag::EXTRA_TRIGGER_SECRET) > 0;
 }
 
 int Player::GetTotalMana() const

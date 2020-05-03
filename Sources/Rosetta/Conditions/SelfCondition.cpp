@@ -39,10 +39,24 @@ SelfCondition SelfCondition::IsNotStartInDeck()
     });
 }
 
+SelfCondition SelfCondition::IsDeckEmpty()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetDeckZone()->IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 {
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->player->GetHero()->heroPower->card->id == cardID;
+    });
+}
+
+SelfCondition SelfCondition::IsBattlecryCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->GetGameTag(GameTag::BATTLECRY) == 1;
     });
 }
 
@@ -339,6 +353,19 @@ SelfCondition SelfCondition::HasNotStealth()
     });
 }
 
+SelfCondition SelfCondition::HasWindfury()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        const auto character = dynamic_cast<Character*>(playable);
+        if (!character)
+        {
+            return false;
+        }
+
+        return character->HasWindfury();
+    });
+}
+
 SelfCondition SelfCondition::HasReborn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -627,6 +654,29 @@ SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
     return SelfCondition([=](Playable* playable) -> bool {
         return playable->GetGameTag(GameTag::LEFT_OR_RIGHT_MOST_CARD_IN_HAND) >
                0;
+    });
+}
+
+SelfCondition SelfCondition::HasNotSpellDamageOnHero()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetCurrentSpellPower() == 0;
+    });
+}
+
+SelfCondition SelfCondition::Has5MoreCostSpellInHand()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardType() == CardType::SPELL &&
+                handCard->GetCost() >= 5)
+            {
+                return true;
+            }
+        }
+
+        return false;
     });
 }
 

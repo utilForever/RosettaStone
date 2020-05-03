@@ -125,6 +125,18 @@ class Character : public Playable
     //! \return The flag that indicates whether it has divine shield.
     bool HasDivineShield() const;
 
+    //! Returns the flag that indicates whether it has poisonous.
+    //! \return The flag that indicates whether it has poisonous.
+    bool HasPoisonous() const;
+
+    //! Returns the flag that indicates whether it has windfury.
+    //! \return The flag that indicates whether it has windfury.
+    bool HasWindfury() const;
+
+    //! Returns the flag that indicates whether it has mega-windfury.
+    //! \return The flag that indicates whether it has mega-windfury.
+    bool HasMegaWindfury() const;
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack() const;

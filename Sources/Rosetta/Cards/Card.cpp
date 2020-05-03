@@ -34,6 +34,7 @@ void Card::Initialize()
                 break;
             case PlayReq::REQ_NONSELF_TARGET:
             case PlayReq::REQ_TARGET_IF_AVAILABLE:
+            case PlayReq::REQ_DRAG_TO_PLAY:
                 needsTarget = true;
                 break;
             case PlayReq::REQ_MINION_TARGET:
@@ -358,6 +359,27 @@ bool Card::IsPlayableByCardReq(Player* player) const
                     return false;
                 }
                 break;
+            }
+            case PlayReq::REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME:
+            {
+                bool isExist = false;
+
+                for (auto& playable : player->GetGraveyardZone()->GetAll())
+                {
+                    if (playable->card->GetCardType() == CardType::MINION &&
+                        playable->HasDeathrattle() == true &&
+                        playable->isDestroyed)
+                    {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if (!isExist)
+                {
+                    return false;
+                }
+                break;    
             }
             case PlayReq::REQ_MINION_TARGET:
             case PlayReq::REQ_ENEMY_TARGET:

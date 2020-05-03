@@ -21,6 +21,7 @@
 #include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -354,7 +355,7 @@ void Game::BeginMulligan()
     GetPlayer2()->mulliganState = Mulligan::INPUT;
 
     // Collect cards that can redraw
-    std::vector<std::size_t> p1HandIDs, p2HandIDs;
+    std::vector<int> p1HandIDs, p2HandIDs;
     for (auto& entity : GetPlayer1()->GetHandZone()->GetAll())
     {
         p1HandIDs.emplace_back(entity->GetGameTag(GameTag::ENTITY_ID));
@@ -542,6 +543,20 @@ void Game::MainEnd()
 void Game::MainCleanUp()
 {
     const auto curPlayer = GetCurrentPlayer();
+
+    // Remove ghostly cards
+    for (auto& id : ghostlyCards)
+    {
+        Playable* playable = entityList[id];
+
+        if (playable->GetZoneType() != ZoneType::HAND)
+        {
+            continue;
+        }
+
+        playable->player->GetSetasideZone()->Add(
+            playable->zone->Remove(playable));
+    }
 
     // Remove one-turn effects
     if (const auto enchantments = oneTurnEffectEnchantments;

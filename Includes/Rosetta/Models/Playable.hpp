@@ -95,6 +95,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has lifesteal.
     virtual bool HasLifesteal() const;
 
+    //! Returns the flag that indicates whether it is echo.
+    //! \return The flag that indicates whether it is echo.
+    bool IsEcho() const;
+
     //! Resets the value of the cost.
     void ResetCost();
 
@@ -110,9 +114,10 @@ class Playable : public Entity
 
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
+    //! \param card A card to check targeting requirements.
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
-    virtual bool TargetingRequirements(Character* target) const;
+    virtual bool TargetingRequirements(Card* card, Character* target) const;
 
     //! Gets a value indicating whether source entity is playable by player.
     //! Dynamic requirements are checked, eg: If a spell costs health instead of
@@ -131,6 +136,10 @@ class Playable : public Entity
     //! \return A list of valid play targets.
     std::vector<Character*> GetValidPlayTargets() const;
 
+    //! Gets a random valid target in valid play targets.
+    //! \return A randomly selected valid target.
+    Character* GetRandomValidTarget();
+
     //! Determines whether the specified character is a valid target.
     //! \param target The proposed target.
     //! \return true if the specified target is valid, false otherwise.
@@ -138,9 +147,17 @@ class Playable : public Entity
 
     //! Gets whether the current field has any valid play targets
     //! for this playable.
+    //! \param card A card to check the current field has any valid play
+    //! targets.
     //! \return true if the current field has any valid play targets,
     //! false otherwise.
-    bool HasAnyValidPlayTargets() const;
+    bool HasAnyValidPlayTargets(Card* card) const;
+
+    //! Checks the targeting type of a card.
+    //! \param card A card to check the targeting type.
+    //! \param target The proposed target.
+    //! \return true if the targeting type is valid, false otherwise.
+    bool CheckTargetingType(Card* card, Character* target);
 
     //! Activates the task.
     //! \param type The type of power.

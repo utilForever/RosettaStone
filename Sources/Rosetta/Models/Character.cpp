@@ -139,6 +139,22 @@ bool Character::HasDivineShield() const
     return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
 }
 
+bool Character::HasPoisonous() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
+}
+
+bool Character::HasWindfury() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::WINDFURY));
+}
+
+bool Character::HasMegaWindfury() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::MEGA_WINDFURY)) ||
+           player->playerAuraEffects.GetValue(GameTag::MEGA_WINDFURY) > 0;
+}
+
 bool Character::CanAttack() const
 {
     //! If the current player is opponent, returns false

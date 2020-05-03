@@ -8,6 +8,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -33,10 +34,11 @@ bool DiscoverCriteria::Evaluate(Card* card) const
 }
 
 DiscoverTask::DiscoverTask(CardType cardType, CardClass cardClass, Race race,
-                           Rarity rarity, ChoiceAction choiceAction,
+                           Rarity rarity, ChoiceAction choiceAction, int repeat,
                            bool keepAll)
     : m_discoverCriteria(cardType, cardClass, race, rarity),
       m_choiceAction(choiceAction),
+      m_repeat(repeat),
       m_keepAll(keepAll)
 {
     // Do nothing
@@ -55,8 +57,11 @@ DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
     }
 }
 
-DiscoverTask::DiscoverTask(DiscoverType discoverType, int numberOfChoices)
-    : m_discoverType(discoverType), m_numberOfChoices(numberOfChoices)
+DiscoverTask::DiscoverTask(DiscoverType discoverType, int numberOfChoices,
+                           int repeat)
+    : m_discoverType(discoverType),
+      m_numberOfChoices(numberOfChoices),
+      m_repeat(repeat)
 {
     // Do nothing
 }
@@ -64,12 +69,14 @@ DiscoverTask::DiscoverTask(DiscoverType discoverType, int numberOfChoices)
 DiscoverTask::DiscoverTask(std::vector<Card*> cards, DiscoverType discoverType,
                            CardType cardType, CardClass cardClass, Race race,
                            Rarity rarity, ChoiceAction choiceAction,
-                           int numberOfChoices, bool doShuffle, bool keepAll)
+                           int numberOfChoices, bool doShuffle, int repeat,
+                           bool keepAll)
     : m_cards(std::move(cards)),
       m_discoverType(discoverType),
       m_discoverCriteria(cardType, cardClass, race, rarity),
       m_choiceAction(choiceAction),
       m_numberOfChoices(numberOfChoices),
+      m_repeat(repeat),
       m_doShuffle(doShuffle),
       m_keepAll(keepAll)
 {
@@ -77,11 +84,11 @@ DiscoverTask::DiscoverTask(std::vector<Card*> cards, DiscoverType discoverType,
 }
 
 std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
-                                            std::size_t numberOfChoices) const
+                                            int numberOfChoices, bool doShuffle)
 {
     std::vector<Card*> result;
 
-    if (numberOfChoices >= cardsToDiscover.size())
+    if (numberOfChoices >= static_cast<int>(cardsToDiscover.size()))
     {
         result = cardsToDiscover;
     }
@@ -89,7 +96,7 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
     {
         result.reserve(numberOfChoices);
 
-        if (m_doShuffle)
+        if (doShuffle)
         {
             std::sample(cardsToDiscover.begin(), cardsToDiscover.end(),
                         std::back_inserter(result), numberOfChoices,
@@ -97,7 +104,7 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
         }
         else
         {
-            for (std::size_t i = 0; i < numberOfChoices; ++i)
+            for (int i = 0; i < numberOfChoices; ++i)
             {
                 result[i] = cardsToDiscover[i];
             }
@@ -110,6 +117,7 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
 TaskStatus DiscoverTask::Impl(Player* player)
 {
     std::vector<Card*> result;
+    std::vector<Card*> cardsToDiscover;
 
     if (!m_cards.empty())
     {
@@ -117,14 +125,13 @@ TaskStatus DiscoverTask::Impl(Player* player)
     }
     else if (m_discoverType != DiscoverType::INVALID)
     {
-        const auto cardsToDiscover =
+        cardsToDiscover =
             Discover(player->game, player, m_discoverType, m_choiceAction);
         result = GetChoices(cardsToDiscover, m_numberOfChoices);
     }
     else
     {
-        const auto cardsToDiscover =
-            Discover(player->game, player, m_discoverCriteria);
+        cardsToDiscover = Discover(player->game, player, m_discoverCriteria);
         result = GetChoices(cardsToDiscover, m_numberOfChoices);
     }
 
@@ -147,6 +154,23 @@ TaskStatus DiscoverTask::Impl(Player* player)
     Generic::CreateChoiceCards(player, m_source, ChoiceType::GENERAL,
                                m_choiceAction, result);
 
+    if (m_repeat > 1)
+    {
+        Choice* currentChoice = player->choice;
+
+        for (int i = 1; i < m_repeat; ++i)
+        {
+            auto choice = new Choice(player, cardsToDiscover);
+            choice->choiceType = ChoiceType::GENERAL;
+            choice->choiceAction = m_choiceAction;
+            choice->source = m_source;
+            choice->depth = i + 1;
+
+            currentChoice->nextChoice = choice;
+            currentChoice = choice;
+        }
+    }
+
     return TaskStatus::COMPLETE;
 }
 
@@ -156,11 +180,10 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
         m_cards, m_discoverType, m_discoverCriteria.cardType,
         m_discoverCriteria.cardClass, m_discoverCriteria.race,
         m_discoverCriteria.rarity, m_choiceAction, m_numberOfChoices,
-        m_doShuffle, m_keepAll);
+        m_doShuffle, m_repeat, m_keepAll);
 }
 
-std::vector<Card*> DiscoverTask::Discover(Game* game,
-                                          [[maybe_unused]] Player* player,
+std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                                           DiscoverType discoverType,
                                           ChoiceAction& choiceAction) const
 {
@@ -172,7 +195,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
         for (auto& card : Cards::GetAllStandardCards())
         {
             if ((card->GetCardClass() == player->baseClass &&
-                 card->IsQuest()) ||
+                 !card->IsQuest()) ||
                 card->GetCardClass() == CardClass::NEUTRAL)
             {
                 allCards.emplace_back(card);
@@ -184,7 +207,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
         for (auto& card : Cards::GetAllWildCards())
         {
             if ((card->GetCardClass() == player->baseClass &&
-                 card->IsQuest()) ||
+                 !card->IsQuest()) ||
                 card->GetCardClass() == CardClass::NEUTRAL)
             {
                 allCards.emplace_back(card);
@@ -228,6 +251,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                 }
             }
             break;
+        case DiscoverType::DEATHRATTLE_MINION_DIED:
+            choiceAction = ChoiceAction::HAND_AND_STACK;
+            for (auto& playable : player->GetGraveyardZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->HasDeathrattle() && playable->isDestroyed)
+                {
+                    cards.emplace_back(playable->card);
+                }
+            }
+            break;
         case DiscoverType::SIX_COST_SUMMON:
             choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)
@@ -256,6 +290,24 @@ std::vector<Card*> DiscoverTask::Discover(Game* game,
                       Cards::FindCardByID("LOOT_998j"),
                       Cards::FindCardByID("LOOT_998l"),
                       Cards::FindCardByID("LOOT_998k") };
+            break;
+        case DiscoverType::MADAME_LAZUL:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& playable : player->opponent->GetHandZone()->GetAll())
+            {
+                cards.emplace_back(playable->card);
+            }
+            break;
+        case DiscoverType::SWAMPQUEEN_HAGATHA:
+            choiceAction = ChoiceAction::SWAMPQUEEN_HAGATHA;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL &&
+                    card->GetCardClass() == CardClass::SHAMAN)
+                {
+                    cards.emplace_back(card);
+                }
+            }
             break;
         default:
             throw std::out_of_range(
