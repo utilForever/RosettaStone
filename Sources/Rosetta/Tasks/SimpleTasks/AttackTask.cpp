@@ -18,25 +18,34 @@ AttackTask::AttackTask(EntityType attacker, EntityType defender, bool force)
 
 TaskStatus AttackTask::Impl(Player* player)
 {
-    const auto attacker = dynamic_cast<Character*>(IncludeTask::GetEntities(
-        m_attackerType, player, m_source, m_target)[0]);
+    auto playables =
+        IncludeTask::GetEntities(m_attackerType, player, m_source, m_target);
     const auto defender = dynamic_cast<Character*>(IncludeTask::GetEntities(
         m_defenderType, player, m_source, m_target)[0]);
 
-    if (!m_force && attacker->CantAttack())
+    for (auto& playable : playables)
     {
-        return TaskStatus::STOP;
-    }
+        const auto attacker = dynamic_cast<Character*>(playable);
+        if (attacker == nullptr)
+        {
+            continue;
+        }
 
-    if (defender->card->IsUntouchable())
-    {
-        return TaskStatus::STOP;
-    }
+        if (!m_force && attacker->CantAttack())
+        {
+            continue;
+        }
 
-    std::unique_ptr<EventMetaData> temp =
-        std::move(player->game->currentEventData);
-    Generic::Attack(attacker->player, attacker, defender, true);
-    player->game->currentEventData = std::move(temp);
+        if (defender->card->IsUntouchable())
+        {
+            continue;
+        }
+
+        std::unique_ptr<EventMetaData> temp =
+            std::move(player->game->currentEventData);
+        Generic::Attack(attacker->player, attacker, defender, true);
+        player->game->currentEventData = std::move(temp);
+    }
 
     return TaskStatus::COMPLETE;
 }
