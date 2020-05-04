@@ -505,7 +505,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
 {
     if (HasChooseOne())
     {
-        if (player->ChooseBoth())
+        if (player->ChooseBoth() && !card->IsTransformMinion())
         {
             Playable* playable0 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[0]),
