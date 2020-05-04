@@ -623,11 +623,11 @@ DALARAN | DAL_800 | Zayle, Shadow Cloak | O
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 ULDUM | ULD_003 | Zephrys the Great |  
-ULDUM | ULD_131 | Untapped Potential |  
+ULDUM | ULD_131 | Untapped Potential | O
 ULDUM | ULD_133 | Crystal Merchant | O
-ULDUM | ULD_134 | BEEEES!!! |  
-ULDUM | ULD_135 | Hidden Oasis |  
-ULDUM | ULD_136 | Worthy Expedition |  
+ULDUM | ULD_134 | BEEEES!!! | O
+ULDUM | ULD_135 | Hidden Oasis | O
+ULDUM | ULD_136 | Worthy Expedition | O
 ULDUM | ULD_137 | Garden Gnome |  
 ULDUM | ULD_138 | Anubisath Defender |  
 ULDUM | ULD_139 | Elise the Enlightened |  
@@ -758,7 +758,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 18% (25 of 135 Cards)
+- Progress: 21% (29 of 135 Cards)
 
 ## Descent of Dragons
 
