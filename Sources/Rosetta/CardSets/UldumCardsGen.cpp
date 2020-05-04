@@ -29,6 +29,7 @@ using namespace RosettaStone::SimpleTasks;
 namespace RosettaStone
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
@@ -237,6 +238,11 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_135",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } },
+                          ChooseCardIDs{ "ULD_135a", "ULD_135b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_136] Worthy Expedition - COST:1
@@ -331,6 +337,12 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ULD_135at", SummonSide::SPELL));
+    cards.emplace(
+        "ULD_135a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_135at] Vir'naal Ancient (*) - COST:6 [ATK:6/HP:6]
@@ -341,6 +353,9 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_135at", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135b] Drink the Water (*) - COST:0
@@ -351,6 +366,11 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 12));
+    cards.emplace(
+        "ULD_135b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_137t] Treant (*) - COST:2 [ATK:2/HP:2]

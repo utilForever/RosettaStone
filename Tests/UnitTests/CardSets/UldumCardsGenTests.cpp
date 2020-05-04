@@ -200,7 +200,7 @@ TEST_CASE("[Druid : Minion] - ULD_133 : Crystal Merchant")
 // - REQ_MINION_TARGET = 0
 // - REQ_NUM_MINION_SLOTS = 1
 // --------------------------------------------------------
-TEST_CASE("[Druid : Minion] - ULD_134 : BEEEES!!!")
+TEST_CASE("[Druid : Spell] - ULD_134 : BEEEES!!!")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -241,6 +241,66 @@ TEST_CASE("[Druid : Minion] - ULD_134 : BEEEES!!!")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->card->name, "Bee");
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [ULD_135] Hidden Oasis - COST:6
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One</b> - Summon a 6/6 Ancient with <b>Taunt</b>;
+//       or Restore 12 Health.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - ULD_135 : Hidden Oasis")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hidden Oasis"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hidden Oasis"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero(), 1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Vir'naal Ancient");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer->GetHero(), 2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
 }
 
 // ------------------------------------------ SPELL - DRUID
