@@ -140,7 +140,7 @@ TEST_CASE("[Druid : Spell] - ULD_131 : Untapped Potential")
 TEST_CASE("[Druid : Minion] - ULD_133 : Crystal Merchant")
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -187,6 +187,60 @@ TEST_CASE("[Druid : Minion] - ULD_133 : Crystal Merchant")
     game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(opHand.GetCount(), 7);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [ULD_134] BEEEES!!! - COST:3 [ATK:1/HP:4]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Choose a minion. Summon four 1/1 Bees that attack it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - ULD_134 : BEEEES!!!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostwolf Grunt"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("River Crocolisk"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("BEEEES!!!"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Bee");
 }
 
 // ------------------------------------------ SPELL - DRUID
