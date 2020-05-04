@@ -17,6 +17,116 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------ SPELL - DRUID
+// [ULD_131] Untapped Potential - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> End 4 turns with any unspent Mana.
+//       <b>Reward:</b> Ossirian Tear.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 4
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 53499
+// --------------------------------------------------------
+//TEST_CASE("[Druid : Spell] - ULD_131 : Untapped Potential")
+//{
+//    GameConfig config;
+//    config.player1Class = CardClass::DRUID;
+//    config.player2Class = CardClass::WARRIOR;
+//    config.startPlayer = PlayerType::PLAYER1;
+//    config.doFillDecks = true;
+//    config.autoRun = false;
+//
+//    Game game(config);
+//    game.Start();
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    Player* curPlayer = game.GetCurrentPlayer();
+//    Player* opPlayer = game.GetOpponentPlayer();
+//    curPlayer->SetTotalMana(1);
+//    curPlayer->SetUsedMana(0);
+//    opPlayer->SetTotalMana(10);
+//    opPlayer->SetUsedMana(0);
+//
+//    auto& curField = *(curPlayer->GetFieldZone());
+//    auto& opField = *(opPlayer->GetFieldZone());
+//    const auto curSecret = curPlayer->GetSecretZone();
+//
+//    const auto card1 = Generic::DrawCard(
+//        curPlayer, Cards::FindCardByName("Untapped Potential"));
+//    const auto card2 = Generic::DrawCard(
+//        curPlayer, Cards::FindCardByName("Druid of the Claw"));
+//    const auto card3 =
+//        Generic::DrawCard(curPlayer, Cards::FindCardByName("Starfall"));
+//    const auto card4 =
+//        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+//
+//    auto quest = dynamic_cast<Spell*>(card1);
+//
+//    game.Process(curPlayer, PlayCardTask::Spell(card1));
+//    CHECK(curSecret->quest != nullptr);
+//    CHECK_EQ(quest->GetQuestProgress(), 0);
+//    CHECK_EQ(quest->GetQuestProgressTotal(), 4);
+//
+//    game.Process(curPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    CHECK_EQ(quest->GetQuestProgress(), 0);
+//
+//    game.Process(opPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    game.Process(curPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    CHECK_EQ(quest->GetQuestProgress(), 1);
+//
+//    game.Process(opPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    game.Process(curPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    CHECK_EQ(quest->GetQuestProgress(), 2);
+//
+//    game.Process(opPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    game.Process(curPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    CHECK_EQ(quest->GetQuestProgress(), 3);
+//
+//    game.Process(opPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    game.Process(curPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    CHECK(curSecret->quest == nullptr);
+//    CHECK_EQ(quest->GetQuestProgress(), 4);
+//    CHECK_EQ(curPlayer->GetHero()->heroPower->card->id, "ULD_131p");
+//
+//    game.Process(opPlayer, PlayCardTask::Minion(card4));
+//
+//    game.Process(opPlayer, EndTurnTask());
+//    game.ProcessUntil(Step::MAIN_ACTION);
+//
+//    game.Process(curPlayer, PlayCardTask::Minion(card2));
+//    CHECK_EQ(curField.GetCount(), 1);
+//    CHECK_EQ(curField[0]->GetAttack(), 4);
+//    CHECK_EQ(curField[0]->GetHealth(), 6);
+//    CHECK_EQ(curField[0]->HasCharge(), true);
+//    CHECK_EQ(curField[0]->HasTaunt(), true);
+//
+//    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card4));
+//    CHECK_EQ(opField[0]->GetHealth(), 5);
+//}
+
 // ----------------------------------------- MINION - DRUID
 // [ULD_133] Crystal Merchant - COST:2 [ATK:1/HP:4]
 // - Set: Uldum, Rarity: Epic

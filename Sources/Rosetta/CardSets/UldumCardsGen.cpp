@@ -54,6 +54,11 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HIDE_STATS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::CHOOSE_BOTH, EffectOperator::SET, 1) }));
+    cards.emplace("ULD_131p", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [ULD_140p] Tome of Origination (*) - COST:2
@@ -172,6 +177,13 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53499
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_131p") };
+    cards.emplace("ULD_131", CardDef(power, 4, 0));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_133] Crystal Merchant - COST:2 [ATK:1/HP:4]
