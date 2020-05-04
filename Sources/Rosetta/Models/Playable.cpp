@@ -503,12 +503,29 @@ bool Playable::CheckTargetingType(Card* card, Character* target)
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
-    if (HasChooseOne() && chooseOne > 0)
+    if (HasChooseOne())
     {
-        Playable* playable = GetFromCard(
-            player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
-            std::nullopt, player->GetSetasideZone());
-        playable->ActivateTask(type, target, chooseOne, this);
+        if (player->ChooseBoth())
+        {
+            Playable* playable0 =
+                GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[0]),
+                            std::nullopt, player->GetSetasideZone());
+            playable0->ActivateTask(type, target, chooseOne, this);
+            Playable* playable1 =
+                GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[1]),
+                            std::nullopt, player->GetSetasideZone());
+            playable1->ActivateTask(type, target, chooseOne, this);
+            return;
+        }
+
+        if (!player->ChooseBoth() && chooseOne > 0)
+        {
+            Playable* playable = GetFromCard(
+                player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
+                std::nullopt, player->GetSetasideZone());
+            playable->ActivateTask(type, target, chooseOne, this);
+            return;
+        }
     }
 
     std::vector<std::shared_ptr<ITask>> tasks;
