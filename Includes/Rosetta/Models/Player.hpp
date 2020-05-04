@@ -136,6 +136,10 @@ class Player : public Entity
     //! \return true if for this player triggers secret twice, false otherwise.
     bool ExtraTriggerSecret() const;
 
+    //! Returns whether this player chooses both cards.
+    //! \return true if for this player chooses both cards, false otherwise.
+    bool ChooseBoth() const;
+
     //! Returns total amount of mana available.
     //! \return Total amount of mana available.
     int GetTotalMana() const;
