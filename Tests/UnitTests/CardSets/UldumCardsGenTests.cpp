@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -301,6 +302,49 @@ TEST_CASE("[Druid : Spell] - ULD_135 : Hidden Oasis")
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, curPlayer->GetHero(), 2));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [ULD_136] Worthy Expedition - COST:1
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Discover</b> a <b>Choose One</b> card.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - ULD_136 : Worthy Expedition")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Worthy Expedition"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->HasGameTag(GameTag::CHOOSE_ONE), true);
+    }
 }
 
 // ------------------------------------------ SPELL - DRUID

@@ -13,6 +13,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
@@ -254,6 +255,9 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::CHOOSE_ONE));
+    cards.emplace("ULD_136", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_137] Garden Gnome - COST:4 [ATK:2/HP:3]
