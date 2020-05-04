@@ -80,6 +80,12 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             {
                 delete player->GetHero()->heroPower;
                 player->GetHero()->heroPower = heroPower;
+
+                // Process aura
+                if (heroPower->card->power.GetAura())
+                {
+                    heroPower->card->power.GetAura()->Activate(heroPower);
+                }
             }
             else
             {
