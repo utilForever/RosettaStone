@@ -14,6 +14,7 @@ enum class DiscoverType
 {
     INVALID,
     SPELL,
+    CHOOSE_ONE,
     DRAGON,
     LEGENDARY_MINION_SUMMON,
     DEATHRATTLE_MINION_DIED,
