@@ -30,6 +30,8 @@ int PlayerAuraEffects::GetValue(GameTag tag) const
             return m_extraTriggerSecret;
         case GameTag::MEGA_WINDFURY:
             return m_megaWindfury;
+        case GameTag::CHOOSE_BOTH:
+            return m_chooseBoth;
         default:
             throw std::invalid_argument(
                 "PlayerAuraEffects::GetValue() - Invalid game tag!");
@@ -64,6 +66,9 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
             break;
         case GameTag::MEGA_WINDFURY:
             m_megaWindfury = value;
+            break;
+        case GameTag::CHOOSE_BOTH:
+            m_chooseBoth = value;
             break;
         default:
             throw std::invalid_argument(
