@@ -204,6 +204,27 @@ bool Card::IsLackey() const
     return false;
 }
 
+bool Card::IsTransformMinion() const
+{
+    // NOTE: Transformed minions list
+    // EX1_165: Druid of the Claw -> OG_044a
+    // BRM_010: Druid of the Flame -> OG_044b
+    // AT_042: Druid of the Saber -> OG_044c
+    // UNG_101: Shellshifter -> UNG_101t3
+    // ICC_051: Druid of the Swarm -> ICC_051t3
+    // GIL_188: Druid of the Scythe -> GIL_188t3
+    // TRL_343: Wardruid Loti -> TRL_343et1
+    // BT_136: Msshi'fn Prime -> BT_136tt3
+    if (id == "EX1_165" || id == "BRM_010" || id == "AT_042" ||
+        id == "UNG_101" || id == "ICC_051" || id == "GIL_188" ||
+        id == "TRL_343" || id == "BT_136")
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Card::IsGalakrond() const
 {
     // NOTE: Galakrond hero card list
