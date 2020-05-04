@@ -607,7 +607,7 @@ SelfCondition SelfCondition::IsManaCrystalFull()
 SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        return playable->player->GetRemainingMana();
+        return playable->player->GetRemainingMana() > 0;
     });
 }
 
