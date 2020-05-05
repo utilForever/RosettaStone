@@ -288,6 +288,11 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>(
+        [](Playable* playable) { return 0; }, EffectOperator::SET,
+        SelfCondition::Cast5MoreCostSpellInThisTurn()));
+    cards.emplace("ULD_138", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_139] Elise the Enlightened - COST:5 [ATK:5/HP:5]

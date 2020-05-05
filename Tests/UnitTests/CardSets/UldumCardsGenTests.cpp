@@ -405,6 +405,56 @@ TEST_CASE("[Druid : Minion] - ULD_137 : Garden Gnome")
     CHECK_EQ(curField[3]->card->name, "Garden Gnome");
 }
 
+// ----------------------------------------- MINION - DRUID
+// [ULD_138] Anubisath Defender - COST:5 [ATK:3/HP:5]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>. Costs (0) if you've cast a spell that
+//       costs (5) or more this turn.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - ULD_138 : Anubisath Defender")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Anubisath Defender"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Starfire"));
+
+    CHECK_EQ(card1->GetCost(), 5);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(card1->GetCost(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 5);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [ULD_273] Overflow - COST:7
 // - Set: Uldum, Rarity: Rare
