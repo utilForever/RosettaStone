@@ -532,6 +532,57 @@ TEST_CASE("[Druid : Spell] - ULD_273 : Overflow")
     CHECK_EQ(opHand.GetCount(), 6);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [ULD_292] Oasis Surger - COST:5 [ATK:3/HP:3]
+// - Race: Elemental, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Choose One -</b> Gain +2/+2;
+//       or Summon a copy of this minion.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - ULD_292 : Oasis Surger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Surger"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Surger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 3);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [ULD_152] Pressure Plate - COST:2
 // - Set: Uldum, Rarity: Common

@@ -328,6 +328,10 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHOOSE_ONE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_292", CardDef(power, PlayReqs{},
+                                     ChooseCardIDs{ "ULD_292a", "ULD_292b" }));
 }
 
 void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
@@ -410,6 +414,10 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_292ae", EntityType::SOURCE));
+    cards.emplace("ULD_292a", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [ULD_292ae] Focused (*) - COST:0
@@ -417,6 +425,9 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_292ae"));
+    cards.emplace("ULD_292ae", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_292b] Divide and Conquer (*) - COST:0
@@ -427,6 +438,11 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::SOURCE));
+    cards.emplace(
+        "ULD_292b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 2 } }));
 }
 
 void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
