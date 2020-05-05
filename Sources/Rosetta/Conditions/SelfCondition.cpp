@@ -680,6 +680,21 @@ SelfCondition SelfCondition::Has5MoreCostSpellInHand()
     });
 }
 
+SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& card : playable->player->cardsPlayedThisTurn)
+        {
+            if (card->GetCardType() == CardType::SPELL && card->GetCost() >= 5)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
 {
     return SelfCondition([=](Playable* playable) -> bool {
