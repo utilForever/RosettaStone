@@ -650,7 +650,7 @@ TEST_CASE("[Druid : Minion] - ULD_292 : Oasis Surger")
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[Hunter : Spell] - ULD_151 : Ramkahen Wildtamer")
+TEST_CASE("[Hunter : Minion] - ULD_151 : Ramkahen Wildtamer")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -928,6 +928,69 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(opField[0]->GetAttack(), 1);
     CHECK_EQ(opField[0]->GetAttack(), 1);
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no duplicates,
+//       summon King Krush.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - ULD_156 : Dinotamer Brann")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 6; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dinotamer Brann"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dinotamer Brann"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask(card2, nullptr, 0));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Dinotamer Brann");
+    CHECK_EQ(curField[1]->card->name, "King Krush");
+    CHECK_EQ(curField[1]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+    CHECK_EQ(curField[1]->HasCharge(), true);
+    CHECK_EQ(curField[2]->card->name, "Dinotamer Brann");
 }
 
 // ---------------------------------------- WEAPON - HUNTER

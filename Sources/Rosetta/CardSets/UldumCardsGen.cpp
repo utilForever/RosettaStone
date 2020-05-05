@@ -573,6 +573,14 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("ULD_156t3",
+                                                     SummonSide::RIGHT) }));
+    cards.emplace("ULD_156", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_212] Wild Bloodstinger - COST:6 [ATK:6/HP:9]
@@ -698,6 +706,9 @@ void UldumCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_156t3", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [ULD_410e] Weaved (*) - COST:0
