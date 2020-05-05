@@ -347,6 +347,64 @@ TEST_CASE("[Druid : Spell] - ULD_136 : Worthy Expedition")
     }
 }
 
+// ----------------------------------------- MINION - DRUID
+// [ULD_137] Garden Gnome - COST:4 [ATK:2/HP:3]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a spell that
+//       costs (5) or more, summon two 2/2 Treants.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - ULD_137 : Garden Gnome")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Garden Gnome"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Garden Gnome"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Starfire"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Treant");
+    CHECK_EQ(curField[1]->card->name, "Garden Gnome");
+    CHECK_EQ(curField[2]->card->name, "Treant");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[3]->card->name, "Garden Gnome");
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [ULD_273] Overflow - COST:7
 // - Set: Uldum, Rarity: Rare

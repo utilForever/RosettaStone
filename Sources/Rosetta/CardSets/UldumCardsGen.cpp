@@ -269,6 +269,14 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::Has5MoreCostSpellInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("ULD_137t", 2,
+                                                     SummonSide::ALTERNATE) }));
+    cards.emplace("ULD_137", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_138] Anubisath Defender - COST:5 [ATK:3/HP:5]
@@ -380,6 +388,9 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // [ULD_137t] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_137t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [ULD_288e] Buried (*) - COST:0
