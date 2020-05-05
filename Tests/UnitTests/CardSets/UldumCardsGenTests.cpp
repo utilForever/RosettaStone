@@ -641,6 +641,55 @@ TEST_CASE("[Druid : Minion] - ULD_292 : Oasis Surger")
     CHECK_EQ(curField[2]->GetHealth(), 3);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [ULD_151] Ramkahen Wildtamer - COST:3 [ATK:4/HP:3]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Copy a random Beast in your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - ULD_151 : Ramkahen Wildtamer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ramkahen Wildtamer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("River Crocolisk"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Young Dragonhawk"));
+
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    const bool check = curHand[3]->card->name == "River Crocolisk" ||
+                       curHand[3]->card->name == "Young Dragonhawk";
+    CHECK_EQ(check, true);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [ULD_152] Pressure Plate - COST:2
 // - Set: Uldum, Rarity: Common
@@ -654,7 +703,7 @@ TEST_CASE("[Druid : Minion] - ULD_292 : Oasis Surger")
 TEST_CASE("[Hunter : Spell] - ULD_152 : Pressure Plate")
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -671,9 +720,8 @@ TEST_CASE("[Hunter : Spell] - ULD_152 : Pressure Plate")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
-
     auto& curSecret = *(curPlayer->GetSecretZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pressure Plate"));
