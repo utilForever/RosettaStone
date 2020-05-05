@@ -455,6 +455,64 @@ TEST_CASE("[Druid : Minion] - ULD_138 : Anubisath Defender")
     CHECK_EQ(card1->GetCost(), 5);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [ULD_139] Elise the Enlightened - COST:5 [ATK:5/HP:5]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no duplicates,
+//       duplicate your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - ULD_139 : Elise the Enlightened")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Elise the Enlightened"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wrath"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Acornbearer"));
+    const auto card7 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ironbark Protector"));
+
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 10);
+    CHECK_EQ(curHand[6]->card->name, "Wisp");
+    CHECK_EQ(curHand[7]->card->name, "Wolfrider");
+    CHECK_EQ(curHand[8]->card->name, "Moonfire");
+    CHECK_EQ(curHand[9]->card->name, "Wrath");
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [ULD_273] Overflow - COST:7
 // - Set: Uldum, Rarity: Rare

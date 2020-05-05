@@ -25,6 +25,10 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
+#include "Rosetta/Tasks/SimpleTasks/CustomTask.hpp"
+#include "Rosetta/Zones/HandZone.hpp"
+#include <Rosetta/Actions/Copy.hpp>
+
 using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
@@ -305,6 +309,25 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<CustomTask>(
+                  [](Player* player, [[maybe_unused]] Entity* source,
+                     [[maybe_unused]] Playable* target) {
+                      for (auto& handCard : player->GetHandZone()->GetAll())
+                      {
+                          if (player->GetHandZone()->IsFull())
+                          {
+                              break;
+                          }
+
+                          Generic::Copy(player, handCard, ZoneType::HAND);
+                      }
+                  }) }));
+    cards.emplace("ULD_139", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_273] Overflow - COST:7
