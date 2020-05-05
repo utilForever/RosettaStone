@@ -628,17 +628,17 @@ ULDUM | ULD_133 | Crystal Merchant | O
 ULDUM | ULD_134 | BEEEES!!! | O
 ULDUM | ULD_135 | Hidden Oasis | O
 ULDUM | ULD_136 | Worthy Expedition | O
-ULDUM | ULD_137 | Garden Gnome |  
-ULDUM | ULD_138 | Anubisath Defender |  
-ULDUM | ULD_139 | Elise the Enlightened |  
+ULDUM | ULD_137 | Garden Gnome | O
+ULDUM | ULD_138 | Anubisath Defender | O
+ULDUM | ULD_139 | Elise the Enlightened | O
 ULDUM | ULD_140 | Supreme Archaeology |  
 ULDUM | ULD_143 | Pharaoh's Blessing |  
 ULDUM | ULD_145 | Brazen Zealot |  
-ULDUM | ULD_151 | Ramkahen Wildtamer |  
+ULDUM | ULD_151 | Ramkahen Wildtamer | O
 ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha | O
 ULDUM | ULD_155 | Unseal the Vault | O
-ULDUM | ULD_156 | Dinotamer Brann |  
+ULDUM | ULD_156 | Dinotamer Brann | O
 ULDUM | ULD_157 | Questing Explorer |  
 ULDUM | ULD_158 | Sandstorm Elemental |  
 ULDUM | ULD_160 | Sinister Deal |  
@@ -714,7 +714,7 @@ ULDUM | ULD_288 | Anka, the Buried |
 ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
 ULDUM | ULD_291 | Corrupt the Waters |  
-ULDUM | ULD_292 | Oasis Surger |  
+ULDUM | ULD_292 | Oasis Surger | O
 ULDUM | ULD_293 | Cloud Prince |  
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
@@ -758,7 +758,7 @@ ULDUM | ULD_726 | Ancient Mysteries |
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 21% (29 of 135 Cards)
+- Progress: 25% (35 of 135 Cards)
 
 ## Descent of Dragons
 
