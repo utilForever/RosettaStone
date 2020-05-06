@@ -28,6 +28,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
@@ -262,7 +263,8 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::CHOOSE_ONE));
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::CHOOSE_ONE));
     cards.emplace("ULD_136", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
@@ -592,6 +594,15 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    power.AddPowerTask(std::make_shared<AttackTask>(EntityType::SOURCE,
+                                                    EntityType::STACK, true));
+    cards.emplace("ULD_212", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_410] Scarlet Webweaver - COST:6 [ATK:5/HP:5]

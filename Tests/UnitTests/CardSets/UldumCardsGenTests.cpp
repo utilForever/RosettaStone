@@ -993,6 +993,55 @@ TEST_CASE("[Hunter : Minion] - ULD_156 : Dinotamer Brann")
     CHECK_EQ(curField[2]->card->name, "Dinotamer Brann");
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [ULD_212] Wild Bloodstinger - COST:6 [ATK:6/HP:9]
+// - Race: Beast, Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a minion from
+//       your opponent's hand. Attack it.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - ULD_212 : Wild Bloodstinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 6; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wild Bloodstinger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+}
+
 // ---------------------------------------- WEAPON - HUNTER
 // [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
 // - Set: Uldum, Rarity: Common
