@@ -36,6 +36,7 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using GameTags = std::map<GameTag, int>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
@@ -633,6 +634,18 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::HUNTER, Race::BEAST));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::HUNTER,
+                                         GameTags{ { GameTag::SECRET, 1 } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::WEAPON, CardClass::HUNTER));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("ULD_429", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
@@ -2279,9 +2292,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<RandomCardTask>(
         CardType::MINION, CardClass::INVALID, Race::MURLOC));
     power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    power.AddPowerTask(
-        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
-                                         Race::MURLOC, Rarity::INVALID, true));
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::MURLOC, Rarity::INVALID,
+        GameTags{}, true));
     power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     cards.emplace("ULD_289", CardDef(power));
 

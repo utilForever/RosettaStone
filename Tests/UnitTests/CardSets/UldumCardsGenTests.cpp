@@ -1084,6 +1084,53 @@ TEST_CASE("[Hunter : Minion] - ULD_410 : Scarlet Webweaver")
     CHECK_EQ(card3->GetCost(), 9);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [ULD_429] Hunter's Pack - COST:3
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Add a random Hunter Beast, <b>Secret</b>,
+//       and weapon to your hand.
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - ULD_429 : Hunter's Pack")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hunter's Pack"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::HUNTER);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->GetRace(), Race::BEAST);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::HUNTER);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[1]->card->IsSecret(), true);
+    CHECK_EQ(curHand[2]->card->GetCardClass(), CardClass::HUNTER);
+    CHECK_EQ(curHand[2]->card->GetCardType(), CardType::WEAPON);
+}
+
 // ---------------------------------------- WEAPON - HUNTER
 // [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
 // - Set: Uldum, Rarity: Common
