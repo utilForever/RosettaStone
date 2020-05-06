@@ -1042,6 +1042,48 @@ TEST_CASE("[Hunter : Minion] - ULD_212 : Wild Bloodstinger")
     CHECK_EQ(opField[0]->GetHealth(), 6);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [ULD_410] Scarlet Webweaver - COST:6 [ATK:5/HP:5]
+// - Race: Beast, Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Reduce the Cost of a random Beast
+//       in your hand by (5).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - ULD_410 : Scarlet Webweaver")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Scarlet Webweaver"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("King Krush"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 4);
+    CHECK_EQ(card3->GetCost(), 9);
+}
+
 // ---------------------------------------- WEAPON - HUNTER
 // [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
 // - Set: Uldum, Rarity: Common

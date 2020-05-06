@@ -614,6 +614,14 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_410e", EntityType::STACK));
+    cards.emplace("ULD_410", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_429] Hunter's Pack - COST:3
@@ -727,6 +735,9 @@ void UldumCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (5) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(5)));
+    cards.emplace("ULD_410e", CardDef(power));
 }
 
 void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
