@@ -21,12 +21,22 @@ class RandomCardTask : public ITask
     //! Constructs task with various arguments.
     //! \param cardType The type of card to filter.
     //! \param cardClass The class of card to filter.
+    //! \param tags A list of game tags to filter.
+    //! \param opposite The flag that indicates the card is for the opponent.
+    explicit RandomCardTask(CardType cardType, CardClass cardClass,
+                            std::map<GameTag, int> tags, bool opposite = false);
+
+    //! Constructs task with various arguments.
+    //! \param cardType The type of card to filter.
+    //! \param cardClass The class of card to filter.
     //! \param race The race of card to filter.
     //! \param rarity The rarity of card to filter.
+    //! \param tags A list of game tags to filter.
     //! \param opposite The flag that indicates the card is for the opponent.
     explicit RandomCardTask(CardType cardType, CardClass cardClass,
                             Race race = Race::INVALID,
                             Rarity rarity = Rarity::INVALID,
+                            std::map<GameTag, int> tags = {},
                             bool opposite = false);
 
     //! Returns card list that fits the criteria.
@@ -35,11 +45,12 @@ class RandomCardTask : public ITask
     //! \param cardClass The class of card to filter.
     //! \param race The race of card to filter.
     //! \param rarity The rarity of card to filter.
+    //! \param tags A list of game tags to filter.
     //! \return A list of cards that fits the criteria.
     static std::vector<Card*> GetCardList(
         Entity* source, CardType cardType = CardType::INVALID,
         CardClass cardClass = CardClass::INVALID, Race race = Race::INVALID,
-        Rarity rarity = Rarity::INVALID);
+        Rarity rarity = Rarity::INVALID, std::map<GameTag, int> tags = {});
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -55,6 +66,7 @@ class RandomCardTask : public ITask
     CardClass m_cardClass = CardClass::INVALID;
     Race m_race = Race::INVALID;
     Rarity m_rarity = Rarity::INVALID;
+    std::map<GameTag, int> m_tags;
     bool m_opposite = false;
 };
 }  // namespace RosettaStone::SimpleTasks
