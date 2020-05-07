@@ -47,9 +47,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
 
     if (center == nullptr)
     {
-        throw std::logic_error(
-            "IncludeAdjacentTask::Impl() - Can't obtain adjacent minions of "
-            "non-minion.");
+        return TaskStatus::STOP;
     }
 
     if (center->GetZoneType() == ZoneType::PLAY)

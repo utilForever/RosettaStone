@@ -20,8 +20,15 @@ TaskStatus AttackTask::Impl(Player* player)
 {
     auto playables =
         IncludeTask::GetEntities(m_attackerType, player, m_source, m_target);
-    const auto defender = dynamic_cast<Character*>(IncludeTask::GetEntities(
-        m_defenderType, player, m_source, m_target)[0]);
+    auto defenders =
+        IncludeTask::GetEntities(m_defenderType, player, m_source, m_target);
+
+    if (defenders.empty())
+    {
+        return TaskStatus::STOP;
+    }
+
+    const auto defender = dynamic_cast<Character*>(defenders[0]);
 
     for (auto& playable : playables)
     {
