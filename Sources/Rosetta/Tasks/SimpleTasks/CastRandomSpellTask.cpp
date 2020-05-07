@@ -52,6 +52,7 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
     if (spellToCast->IsSecret() && player->GetSecretZone()->IsFull())
     {
         player->GetGraveyardZone()->Add(spellToCast);
+        player->SetGameTag(GameTag::CAST_RANDOM_SPELLS, 0);
         return TaskStatus::COMPLETE;
     }
 
@@ -81,7 +82,6 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
     player->choice = choiceTemp;
 
     player->SetGameTag(GameTag::CAST_RANDOM_SPELLS, 0);
-
     return TaskStatus::COMPLETE;
 }
 
