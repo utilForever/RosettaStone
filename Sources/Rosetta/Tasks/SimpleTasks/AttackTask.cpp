@@ -29,6 +29,10 @@ TaskStatus AttackTask::Impl(Player* player)
     }
 
     const auto defender = dynamic_cast<Character*>(defenders[0]);
+    if (defender == nullptr)
+    {
+        return TaskStatus::STOP;
+    }
 
     for (auto& playable : playables)
     {
