@@ -38,6 +38,11 @@ QuestProgressTask::QuestProgressTask(
 
 TaskStatus QuestProgressTask::Impl(Player* player)
 {
+    if (player->GetGameTag(GameTag::CAST_RANDOM_SPELLS) == 1)
+    {
+        return TaskStatus::STOP;
+    }
+
     auto spell = dynamic_cast<Spell*>(m_source);
     if (spell == nullptr)
     {
