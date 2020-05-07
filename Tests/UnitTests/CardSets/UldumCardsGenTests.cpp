@@ -1246,6 +1246,43 @@ TEST_CASE("[Hunter : Spell] - ULD_713 : Swarm of Locusts")
     }
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [ULD_216] Puzzle Box of Yogg-Saron - COST:10
+// - Faction: Neutral, Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Cast 10 random spells <i>(targets chosen randomly).</i>
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - ULD_216 : Puzzle Box of Yogg-Saron")
+{
+    for (int i = 0; i < 100; ++i)
+    {
+        GameConfig config;
+        config.player1Class = CardClass::MAGE;
+        config.player2Class = CardClass::PALADIN;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = true;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Puzzle Box of Yogg-Saron"));
+
+        game.Process(curPlayer, PlayCardTask::Spell(card1));
+        CHECK_EQ(curPlayer->GetGameTag(GameTag::CAST_RANDOM_SPELLS), 0);
+        CHECK_EQ(curPlayer->GetNumSpellsPlayedThisTurn(), 1);
+    }
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common

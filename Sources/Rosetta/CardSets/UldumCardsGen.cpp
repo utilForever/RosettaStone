@@ -11,6 +11,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
@@ -18,6 +19,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
@@ -755,12 +757,18 @@ void UldumCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [ULD_216] Puzzle Box of Yogg-Saron - COST:10
     // - Faction: Neutral, Set: Uldum, Rarity: Epic
     // --------------------------------------------------------
     // Text: Cast 10 random spells <i>(targets chosen randomly).</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<CastRandomSpellTask>() }, 10, true));
+    cards.emplace("ULD_216", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_236] Tortollan Pilgrim - COST:8 [ATK:5/HP:5]
