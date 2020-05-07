@@ -8,6 +8,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
@@ -319,6 +320,31 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::TORTOLLAN_PILGRIM:
+        {
+            choiceAction = ChoiceAction::TORTOLLAN_PILGRIM;
+
+            std::vector<int> list;
+            for (auto& playable : player->GetDeckZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::SPELL)
+                {
+                    list.emplace_back(playable->card->dbfID);
+                }
+            }
+
+            std::sort(list.begin(), list.end());
+            const auto last = std::unique(list.begin(), list.end());
+            list.erase(last, list.end());
+            Random::shuffle(list.begin(), list.end());
+
+            for (auto& dbfID : list)
+            {
+                cards.emplace_back(Cards::FindCardByDbfID(dbfID));
+            }
+
+            break;
+        }
         default:
             throw std::out_of_range(
                 "DiscoverTask::Discover() - Invalid discover type");

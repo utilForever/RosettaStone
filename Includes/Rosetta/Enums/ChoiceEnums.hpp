@@ -23,6 +23,7 @@ enum class DiscoverType
     HEISTBARON_TOGWAGGLE,
     MADAME_LAZUL,
     SWAMPQUEEN_HAGATHA,
+    TORTOLLAN_PILGRIM,
 };
 
 //! The action type of choice.
