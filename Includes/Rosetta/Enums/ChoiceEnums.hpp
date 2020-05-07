@@ -39,6 +39,7 @@ enum class ChoiceAction
     ENVOY_OF_LAZUL,      //!< Envoy Of Lazul.
     SIGHTLESS_WATCHER,   //!< Sightless Watcher.
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
+    TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
 };
 }  // namespace RosettaStone
 
