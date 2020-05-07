@@ -782,6 +782,10 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::TORTOLLAN_PILGRIM));
+    cards.emplace("ULD_236", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_238] Reno the Relicologist - COST:6 [ATK:4/HP:6]
