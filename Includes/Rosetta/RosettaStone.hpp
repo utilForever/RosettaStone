@@ -128,6 +128,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeAttackingTargetTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeEntityTask.hpp>
