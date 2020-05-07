@@ -612,20 +612,27 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     //       They cost (1) more <i>(up to 10)</i>.
     // --------------------------------------------------------
     power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
     power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("DRG_315e", EntityType::DECK));
+        std::make_shared<AddEnchantmentTask>("DRG_315e", EntityType::STACK));
     power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source,
-           [[maybe_unused]] Playable* target) {
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
             auto deckCards = player->GetDeckZone()->GetAll();
 
-            for (auto& card : deckCards)
+            for (auto& deckCard : deckCards)
             {
-                if (card->GetCost() < 10)
+                if (deckCard->card->GetCardType() != CardType::MINION)
+                {
+                    continue;
+                }
+
+                if (deckCard->GetCost() < 10)
                 {
                     Generic::AddEnchantment(Cards::FindCardByID("DRG_315e2"),
                                             dynamic_cast<Playable*>(source),
-                                            card, 0, 0, 0);
+                                            deckCard, 0, 0, 0);
                 }
             }
         }));
@@ -1209,6 +1216,11 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<CustomTask>(
         []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
+            if (target == nullptr)
+            {
+                return;
+            }
+
             auto continueFunc = [](FieldZone* fieldZone, Playable* source,
                                    Minion* minion, int remainDamage,
                                    bool isLeft) {
