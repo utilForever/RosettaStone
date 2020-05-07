@@ -21,6 +21,8 @@ RandomEntourageTask::RandomEntourageTask(int count, bool isOpponent)
 
 TaskStatus RandomEntourageTask::Impl(Player* player)
 {
+    std::vector<Playable*> list;
+
     if (m_source == nullptr || m_source->card->entourages.empty())
     {
         return TaskStatus::STOP;
@@ -40,8 +42,10 @@ TaskStatus RandomEntourageTask::Impl(Player* player)
 
         Playable* entouragePlayable =
             Entity::GetFromCard(player, entourageCard);
-        player->game->taskStack.playables.emplace_back(entouragePlayable);
+        list.emplace_back(entouragePlayable);
     }
+
+    player->game->taskStack.playables = list;
 
     return TaskStatus::COMPLETE;
 }

@@ -28,6 +28,11 @@ TaskStatus DrawMinionTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
+    if (m_addToStack)
+    {
+        player->game->taskStack.playables.clear();
+    }
+
     std::vector<Playable*> cards;
     cards.reserve(m_amount);
 
@@ -65,6 +70,11 @@ TaskStatus DrawMinionTask::Impl(Player* player)
                 cards.emplace_back(deckCard);
             }
         }
+    }
+
+    if (cards.empty())
+    {
+        return TaskStatus::STOP;
     }
 
     if (static_cast<int>(cards.size()) <= m_amount)
