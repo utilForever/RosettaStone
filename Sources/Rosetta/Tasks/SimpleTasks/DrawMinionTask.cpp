@@ -22,15 +22,15 @@ DrawMinionTask::DrawMinionTask(bool lowestCost, int amount, bool addToStack)
 
 TaskStatus DrawMinionTask::Impl(Player* player)
 {
+    if (m_addToStack)
+    {
+        player->game->taskStack.playables.clear();
+    }
+
     auto deck = player->GetDeckZone()->GetAll();
     if (deck.empty())
     {
         return TaskStatus::STOP;
-    }
-
-    if (m_addToStack)
-    {
-        player->game->taskStack.playables.clear();
     }
 
     std::vector<Playable*> cards;
