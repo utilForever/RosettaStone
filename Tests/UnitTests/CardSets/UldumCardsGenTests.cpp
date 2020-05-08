@@ -1398,6 +1398,76 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
     }
 }
 
+// ------------------------------------------ MINION - MAGE
+// [ULD_238] Reno the Relicologist - COST:6 [ATK:4/HP:6]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no duplicates,
+//       deal 10 damage randomly split among all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - ULD_238 : Reno the Relicologist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 7; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Reno the Relicologist"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Reno the Relicologist"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+    CHECK_EQ(curField[1]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    const int totalHealth = curField[0]->GetHealth() + curField[1]->GetHealth();
+    CHECK_EQ(totalHealth, 14);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common

@@ -798,6 +798,21 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<EnqueueTask>(
+            TaskList{
+                std::make_shared<FilterStackTask>(
+                    SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsNotDead()) }),
+                std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+                std::make_shared<DamageTask>(EntityType::STACK, 1) },
+            10) }));
+    cards.emplace("ULD_238", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [ULD_239] Flame Ward - COST:3
