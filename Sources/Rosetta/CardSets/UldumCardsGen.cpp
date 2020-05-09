@@ -824,6 +824,16 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACKED));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
+                                         1),
+        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
+    };
+    cards.emplace("ULD_239", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_240] Arcane Flakmage - COST:2 [ATK:3/HP:2]

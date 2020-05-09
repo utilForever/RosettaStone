@@ -1468,6 +1468,80 @@ TEST_CASE("[Mage : Minion] - ULD_238 : Reno the Relicologist")
     CHECK_EQ(totalHealth, 14);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [ULD_239] Flame Ward - COST:3
+// - Faction: Neutral, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After a minion attacks your hero,
+//       deal 3 damage to all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - ULD_239 : Flame Ward")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curSecret = *(curPlayer->GetSecretZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Ward"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, AttackTask(card3, card2));
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(card1->GetGameTag(GameTag::REVEALED), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, AttackTask(card4, curPlayer->GetHero()));
+    CHECK_EQ(curSecret.GetCount(), 0);
+    CHECK_EQ(card1->GetGameTag(GameTag::REVEALED), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
