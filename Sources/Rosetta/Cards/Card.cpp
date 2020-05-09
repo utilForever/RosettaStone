@@ -97,6 +97,12 @@ void Card::Initialize()
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqTargetWithDeathrattle());
                 break;
+            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::MinimumFriendlySecrets(
+                        requirement.second));
+                break;
             default:
                 continue;
         }
@@ -405,6 +411,8 @@ bool Card::IsPlayableByCardReq(Player* player) const
             case PlayReq::REQ_MINION_TARGET:
             case PlayReq::REQ_ENEMY_TARGET:
             case PlayReq::REQ_NONSELF_TARGET:
+            case PlayReq::
+                REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
                 break;
             default:
                 break;
