@@ -147,6 +147,15 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_HAND_NOT_FULL = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_433e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace(
+        "ULD_433p",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_HAND_NOT_FULL, 0 } }));
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [ULD_711p3] Anraphet's Core (*) - COST:2
@@ -917,6 +926,12 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53946
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_433p") };
+    cards.emplace("ULD_433", CardDef(power, 10, 0));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_435] Naga Sand Witch - COST:5 [ATK:5/HP:5]
@@ -1613,6 +1628,8 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [ULD_171e] Big Surge (*) - COST:0
     // - Set: Uldum
@@ -1636,6 +1653,9 @@ void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("ULD_433e", CardDef(power));
 }
 
 void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)

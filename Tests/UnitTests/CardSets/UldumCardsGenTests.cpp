@@ -1707,6 +1707,122 @@ TEST_CASE("[Mage : Minion] - ULD_329 : Dune Sculptor")
     CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::MAGE);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [ULD_433] Raid the Sky Temple - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Cast 10 spells.
+//       <b>Reward: </b>Ascendant Scroll.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 10
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 53946
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - ULD_433 : Raid the Sky Temple")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto& curHand = *(curPlayer->GetHandZone());
+    const auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Raid the Sky Temple"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curSecret->quest != nullptr);
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(quest->GetQuestProgress(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(quest->GetQuestProgress(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(quest->GetQuestProgress(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card6));
+    CHECK_EQ(quest->GetQuestProgress(), 5);
+
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card9 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card10 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card11 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card7));
+    CHECK_EQ(quest->GetQuestProgress(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card8));
+    CHECK_EQ(quest->GetQuestProgress(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card9));
+    CHECK_EQ(quest->GetQuestProgress(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card10));
+    CHECK_EQ(quest->GetQuestProgress(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card11));
+    CHECK(curSecret->quest == nullptr);
+    CHECK_EQ(quest->GetQuestProgress(), 10);
+    CHECK_EQ(curHero->heroPower->card->id, "ULD_433p");
+    CHECK_EQ(curHand.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHand.GetCount(), 1);
+    const int originalCost = curHand[0]->card->GetCost();
+    const int reducedCost = curHand[0]->GetCost();
+    CHECK_LE(originalCost - reducedCost, 2);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [ULD_435] Naga Sand Witch - COST:5 [ATK:5/HP:5]
 // - Set: Uldum, Rarity: Rare
