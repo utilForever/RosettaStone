@@ -845,6 +845,15 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2),
+    };
+    cards.emplace("ULD_240", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_293] Cloud Prince - COST:5 [ATK:4/HP:4]
