@@ -6,6 +6,7 @@
 
 #include <Rosetta/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 #include <stdexcept>
 
@@ -122,4 +123,12 @@ TargetingPredicate TargetingPredicates::ReqMustTargetTaunter()
 {
     return [=](Character* character) { return character->HasTaunt(); };
 }
+
+AvailabilityPredicate TargetingPredicates::MinimumFriendlySecrets(int value)
+{
+    return [=](Player* player, [[maybe_unused]] Card* card) {
+        return player->GetSecretZone()->GetCount() >= value;
+    };
+}
+
 }  // namespace RosettaStone

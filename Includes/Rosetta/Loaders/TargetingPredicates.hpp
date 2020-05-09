@@ -107,6 +107,11 @@ class TargetingPredicates
     //! Predicate wrapper for checking the target requires that it has taunt.
     //! \return Generated TargetingPredicate for intended purpose.
     static TargetingPredicate ReqMustTargetTaunter();
+
+    //! Predicate wrapper for checking the player has at least \p value secrets.
+    //! \param value The number of minimum secrets.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static AvailabilityPredicate MinimumFriendlySecrets(int value);
 };
 }  // namespace RosettaStone
 
