@@ -871,6 +871,20 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6) }));
+    cards.emplace(
+        "ULD_293",
+        CardDef(
+            power,
+            PlayReqs{
+                { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS,
+                  1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3]

@@ -1600,6 +1600,65 @@ TEST_CASE("[Mage : Minion] - ULD_240 : Arcane Flakmage")
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [ULD_293] Cloud Prince - COST:5 [ATK:4/HP:4]
+// - Race: Elemental, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+//       deal 6 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - ULD_293 : Cloud Prince")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cloud Prince"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cloud Prince"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Ward"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
