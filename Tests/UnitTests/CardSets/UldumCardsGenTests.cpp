@@ -490,17 +490,17 @@ TEST_CASE("[Druid : Minion] - ULD_139 : Elise the Enlightened")
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Elise the Enlightened"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card4 =
+    [[maybe_unused]] const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
-    const auto card5 =
+    [[maybe_unused]] const auto card5 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wrath"));
-    const auto card6 =
+    [[maybe_unused]] const auto card6 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Acornbearer"));
-    const auto card7 = Generic::DrawCard(
+    [[maybe_unused]] const auto card7 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Ironbark Protector"));
 
     CHECK_EQ(curHand.GetCount(), 7);
@@ -674,11 +674,11 @@ TEST_CASE("[Hunter : Minion] - ULD_151 : Ramkahen Wildtamer")
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Ramkahen Wildtamer"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("River Crocolisk"));
-    const auto card4 =
+    [[maybe_unused]] const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Young Dragonhawk"));
 
     CHECK_EQ(curHand.GetCount(), 4);
