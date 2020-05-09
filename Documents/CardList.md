@@ -679,17 +679,17 @@ ULDUM | ULD_206 | Restless Mummy | O
 ULDUM | ULD_207 | Ancestral Guardian | O
 ULDUM | ULD_208 | Khartut Defender |  
 ULDUM | ULD_209 | Vulpera Scoundrel |  
-ULDUM | ULD_212 | Wild Bloodstinger |  
+ULDUM | ULD_212 | Wild Bloodstinger | O
 ULDUM | ULD_214 | Generous Mummy |  
 ULDUM | ULD_215 | Wrapped Golem |  
-ULDUM | ULD_216 | Puzzle Box of Yogg-Saron |  
+ULDUM | ULD_216 | Puzzle Box of Yogg-Saron | O
 ULDUM | ULD_217 | Micro Mummy |  
 ULDUM | ULD_229 | Mischief Maker |  
 ULDUM | ULD_231 | Whirlkick Master |  
-ULDUM | ULD_236 | Tortollan Pilgrim |  
-ULDUM | ULD_238 | Reno the Relicologist |  
-ULDUM | ULD_239 | Flame Ward |  
-ULDUM | ULD_240 | Arcane Flakmage |  
+ULDUM | ULD_236 | Tortollan Pilgrim | O
+ULDUM | ULD_238 | Reno the Relicologist | O
+ULDUM | ULD_239 | Flame Ward | O
+ULDUM | ULD_240 | Arcane Flakmage | O
 ULDUM | ULD_250 | Infested Goblin |  
 ULDUM | ULD_253 | Tomb Warden |  
 ULDUM | ULD_256 | Into the Fray |  
@@ -715,21 +715,21 @@ ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
 ULDUM | ULD_291 | Corrupt the Waters |  
 ULDUM | ULD_292 | Oasis Surger | O
-ULDUM | ULD_293 | Cloud Prince |  
+ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
 ULDUM | ULD_324 | Impbalming |  
 ULDUM | ULD_326 | Bazaar Burglary |  
 ULDUM | ULD_327 | Bazaar Mugger |  
 ULDUM | ULD_328 | Clever Disguise |  
-ULDUM | ULD_329 | Dune Sculptor |  
-ULDUM | ULD_410 | Scarlet Webweaver |  
+ULDUM | ULD_329 | Dune Sculptor | O
+ULDUM | ULD_410 | Scarlet Webweaver | O
 ULDUM | ULD_413 | Splitting Axe |  
-ULDUM | ULD_429 | Hunter's Pack |  
+ULDUM | ULD_429 | Hunter's Pack | O
 ULDUM | ULD_430 | Desert Spear | O
 ULDUM | ULD_431 | Making Mummies | O
-ULDUM | ULD_433 | Raid the Sky Temple |  
-ULDUM | ULD_435 | Naga Sand Witch |  
+ULDUM | ULD_433 | Raid the Sky Temple | O
+ULDUM | ULD_435 | Naga Sand Witch | O
 ULDUM | ULD_438 | Salhet's Pride |  
 ULDUM | ULD_439 | Sandwasp Queen |  
 ULDUM | ULD_450 | Vilefiend | O
@@ -754,11 +754,11 @@ ULDUM | ULD_720 | Bloodsworn Mercenary |
 ULDUM | ULD_721 | Colossus of the Moon | O
 ULDUM | ULD_723 | Murmy | O
 ULDUM | ULD_724 | Activate the Obelisk |  
-ULDUM | ULD_726 | Ancient Mysteries |  
+ULDUM | ULD_726 | Ancient Mysteries | O
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 25% (35 of 135 Cards)
+- Progress: 35% (48 of 135 Cards)
 
 ## Descent of Dragons
 

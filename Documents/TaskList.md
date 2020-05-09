@@ -23,6 +23,7 @@
 * ApplyEffectTask
 * ArmorTask
 * AttackTask
+* CastRandomSpellTask
 * ChanceTask
 * ChangeAttackingTargetTask
 * ChangeEntityTask
