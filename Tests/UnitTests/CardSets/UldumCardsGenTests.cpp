@@ -1707,6 +1707,55 @@ TEST_CASE("[Mage : Minion] - ULD_329 : Dune Sculptor")
     CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::MAGE);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [ULD_435] Naga Sand Witch - COST:5 [ATK:5/HP:5]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Change the Cost of spells
+//       in your hand to (5).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - ULD_435 : Naga Sand Witch")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Naga Sand Witch"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
+
+    CHECK_EQ(card2->GetCost(), 4);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 5);
+    CHECK_EQ(card3->GetCost(), 5);
+    CHECK_EQ(card4->GetCost(), 5);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [ULD_726] Ancient Mysteries - COST:2
 // - Set: Uldum, Rarity: Common

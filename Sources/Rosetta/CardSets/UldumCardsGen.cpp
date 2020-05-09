@@ -928,6 +928,13 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_435e", EntityType::STACK));
+    cards.emplace("ULD_435", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [ULD_726] Ancient Mysteries - COST:2
@@ -959,6 +966,9 @@ void UldumCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (5).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(5)));
+    cards.emplace("ULD_435e", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [ULD_726e] Translated (*) - COST:0
