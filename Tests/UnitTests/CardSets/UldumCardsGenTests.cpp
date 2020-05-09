@@ -1659,6 +1659,54 @@ TEST_CASE("[Mage : Minion] - ULD_293 : Cloud Prince")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you cast a spell, add a random Mage
+//       minion to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - ULD_329 : Dune Sculptor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dune Sculptor"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::MAGE);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common

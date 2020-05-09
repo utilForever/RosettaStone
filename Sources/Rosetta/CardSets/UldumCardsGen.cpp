@@ -893,6 +893,13 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: After you cast a spell, add a random Mage
     //       minion to your hand.
     // --------------------------------------------------------
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::MAGE),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("ULD_329", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [ULD_433] Raid the Sky Temple - COST:1
