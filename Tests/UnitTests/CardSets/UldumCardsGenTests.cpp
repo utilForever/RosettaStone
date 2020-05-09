@@ -1707,6 +1707,57 @@ TEST_CASE("[Mage : Minion] - ULD_329 : Dune Sculptor")
     CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::MAGE);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [ULD_726] Ancient Mysteries - COST:2
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw a <b>Secret</b> from your deck. It costs (0).
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - ULD_726 : Ancient Mysteries")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 2)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Flame Ward");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ancient Mysteries"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->IsSecret(), true);
+    CHECK_EQ(curHand[4]->GetCost(), 0);
+    CHECK_EQ(curDeck.GetCount(), 25);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 // - Set: Uldum, Rarity: Common
