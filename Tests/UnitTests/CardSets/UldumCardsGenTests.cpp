@@ -2362,6 +2362,58 @@ TEST_CASE("[Neutral : Minion] - ULD_275 : Bone Wraith")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_282] Jar Dealer - COST:1 [ATK:1/HP:1]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Add a random 1-Cost minion
+//       to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_282 : Jar Dealer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Jar Dealer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+	
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, curField[0]));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->GetCost(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_289] Fishflinger - COST:2 [ATK:3/HP:2]
 // - Race: Murloc, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
