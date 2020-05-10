@@ -135,7 +135,7 @@ class UnlimitedZone : public Zone<Playable>
     //! \param zonePos The zone position of entity.
     void Add(Playable* entity, int zonePos = -1) override
     {
-        if (entity->player != m_player)
+        if (const auto player = entity->player; player && player != m_player)
         {
             throw std::logic_error(
                 "Can't add an opponent's entity to own zones");

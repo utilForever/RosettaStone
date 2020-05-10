@@ -32,6 +32,11 @@ TaskStatus DamageNumberTask::Impl(Player* player)
     for (auto& playable : playables)
     {
         const auto character = dynamic_cast<Character*>(playable);
+        if (character == nullptr)
+        {
+            continue;
+        }
+
         Generic::TakeDamageToCharacter(dynamic_cast<Playable*>(m_source),
                                        character, damage, m_isSpellDamage);
     }

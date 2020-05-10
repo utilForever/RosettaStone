@@ -3,32 +3,45 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using GameTags = std::map<GameTag, int>;
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
@@ -54,6 +67,11 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HIDE_STATS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::CHOOSE_BOTH, EffectOperator::SET, 1) }));
+    cards.emplace("ULD_131p", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [ULD_140p] Tome of Origination (*) - COST:2
@@ -129,6 +147,15 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_HAND_NOT_FULL = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_433e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace(
+        "ULD_433p",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_HAND_NOT_FULL, 0 } }));
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [ULD_711p3] Anraphet's Core (*) - COST:2
@@ -172,6 +199,13 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53499
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_131p") };
+    cards.emplace("ULD_131", CardDef(power, 4, 0));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_133] Crystal Merchant - COST:2 [ATK:1/HP:4]
@@ -198,6 +232,16 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ULD_134t", 4, SummonSide::SPELL, true));
+    power.AddPowerTask(std::make_shared<AttackTask>(EntityType::STACK,
+                                                    EntityType::TARGET, true));
+    cards.emplace(
+        "ULD_134",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135] Hidden Oasis - COST:6
@@ -215,6 +259,11 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_135",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } },
+                          ChooseCardIDs{ "ULD_135a", "ULD_135b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_136] Worthy Expedition - COST:1
@@ -226,6 +275,10 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::CHOOSE_ONE));
+    cards.emplace("ULD_136", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_137] Garden Gnome - COST:4 [ATK:2/HP:3]
@@ -237,6 +290,14 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::Has5MoreCostSpellInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("ULD_137t", 2,
+                                                     SummonSide::ALTERNATE) }));
+    cards.emplace("ULD_137", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_138] Anubisath Defender - COST:5 [ATK:3/HP:5]
@@ -248,6 +309,11 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>(
+        [](Playable* playable) { return 0; }, EffectOperator::SET,
+        SelfCondition::Cast5MoreCostSpellInThisTurn()));
+    cards.emplace("ULD_138", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_139] Elise the Enlightened - COST:5 [ATK:5/HP:5]
@@ -260,6 +326,25 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<CustomTask>(
+                  [](Player* player, [[maybe_unused]] Entity* source,
+                     [[maybe_unused]] Playable* target) {
+                      for (auto& handCard : player->GetHandZone()->GetAll())
+                      {
+                          if (player->GetHandZone()->IsFull())
+                          {
+                              break;
+                          }
+
+                          Generic::Copy(player, handCard, ZoneType::HAND);
+                      }
+                  }) }));
+    cards.emplace("ULD_139", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_273] Overflow - COST:7
@@ -283,14 +368,23 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHOOSE_ONE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_292", CardDef(power, PlayReqs{},
+                                     ChooseCardIDs{ "ULD_292a", "ULD_292b" }));
 }
 
 void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [ULD_134t] Bee (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_134t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135a] Befriend the Ancient (*) - COST:0
@@ -304,6 +398,12 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ULD_135at", SummonSide::SPELL));
+    cards.emplace(
+        "ULD_135a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_135at] Vir'naal Ancient (*) - COST:6 [ATK:6/HP:6]
@@ -314,6 +414,9 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_135at", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135b] Drink the Water (*) - COST:0
@@ -324,11 +427,19 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 12));
+    cards.emplace(
+        "ULD_135b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [ULD_137t] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_137t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [ULD_288e] Buried (*) - COST:0
@@ -343,6 +454,10 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_292ae", EntityType::SOURCE));
+    cards.emplace("ULD_292a", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [ULD_292ae] Focused (*) - COST:0
@@ -350,6 +465,9 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_292ae"));
+    cards.emplace("ULD_292ae", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_292b] Divide and Conquer (*) - COST:0
@@ -360,6 +478,11 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::SOURCE));
+    cards.emplace(
+        "ULD_292b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 2 } }));
 }
 
 void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -375,6 +498,14 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("ULD_151", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_152] Pressure Plate - COST:2
@@ -457,6 +588,14 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("ULD_156t3",
+                                                     SummonSide::RIGHT) }));
+    cards.emplace("ULD_156", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_212] Wild Bloodstinger - COST:6 [ATK:6/HP:9]
@@ -468,6 +607,15 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    power.AddPowerTask(std::make_shared<AttackTask>(EntityType::SOURCE,
+                                                    EntityType::STACK, true));
+    cards.emplace("ULD_212", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [ULD_410] Scarlet Webweaver - COST:6 [ATK:5/HP:5]
@@ -479,6 +627,14 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_410e", EntityType::STACK));
+    cards.emplace("ULD_410", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [ULD_429] Hunter's Pack - COST:3
@@ -490,6 +646,18 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::HUNTER, Race::BEAST));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::HUNTER,
+                                         GameTags{ { GameTag::SECRET, 1 } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::WEAPON, CardClass::HUNTER));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("ULD_429", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
@@ -582,6 +750,9 @@ void UldumCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_156t3", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [ULD_410e] Weaved (*) - COST:0
@@ -589,16 +760,25 @@ void UldumCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (5) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(5)));
+    cards.emplace("ULD_410e", CardDef(power));
 }
 
 void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [ULD_216] Puzzle Box of Yogg-Saron - COST:10
     // - Faction: Neutral, Set: Uldum, Rarity: Epic
     // --------------------------------------------------------
     // Text: Cast 10 random spells <i>(targets chosen randomly).</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<CastRandomSpellTask>() }, 10, true));
+    cards.emplace("ULD_216", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_236] Tortollan Pilgrim - COST:8 [ATK:5/HP:5]
@@ -612,6 +792,10 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::TORTOLLAN_PILGRIM));
+    cards.emplace("ULD_236", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_238] Reno the Relicologist - COST:6 [ATK:4/HP:6]
@@ -624,6 +808,21 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<EnqueueTask>(
+            TaskList{
+                std::make_shared<FilterStackTask>(
+                    SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsNotDead()) }),
+                std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+                std::make_shared<DamageTask>(EntityType::STACK, 1) },
+            10) }));
+    cards.emplace("ULD_238", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [ULD_239] Flame Ward - COST:3
@@ -635,6 +834,16 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACKED));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
+                                         1),
+        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
+    };
+    cards.emplace("ULD_239", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_240] Arcane Flakmage - COST:2 [ATK:3/HP:2]
@@ -646,6 +855,15 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2),
+    };
+    cards.emplace("ULD_240", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_293] Cloud Prince - COST:5 [ATK:4/HP:4]
@@ -663,6 +881,20 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6) }));
+    cards.emplace(
+        "ULD_293",
+        CardDef(
+            power,
+            PlayReqs{
+                { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS,
+                  1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3]
@@ -671,6 +903,13 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: After you cast a spell, add a random Mage
     //       minion to your hand.
     // --------------------------------------------------------
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::MAGE),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("ULD_329", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [ULD_433] Raid the Sky Temple - COST:1
@@ -687,6 +926,12 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53946
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_433p") };
+    cards.emplace("ULD_433", CardDef(power, 10, 0));
 
     // ------------------------------------------ MINION - MAGE
     // [ULD_435] Naga Sand Witch - COST:5 [ATK:5/HP:5]
@@ -698,6 +943,13 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_435e", EntityType::STACK));
+    cards.emplace("ULD_435", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [ULD_726] Ancient Mysteries - COST:2
@@ -708,16 +960,30 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_726e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("ULD_726", CardDef(power));
 }
 
 void UldumCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- ENCHANTMENT - MAGE
     // [ULD_435e] Sandwitched (*) - COST:0
     // - Set: Uldum
     // --------------------------------------------------------
     // Text: Costs (5).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(5)));
+    cards.emplace("ULD_435e", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [ULD_726e] Translated (*) - COST:0
@@ -725,6 +991,9 @@ void UldumCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
+    cards.emplace("ULD_726e", CardDef(power));
 }
 
 void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
@@ -1359,6 +1628,8 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [ULD_171e] Big Surge (*) - COST:0
     // - Set: Uldum
@@ -1382,6 +1653,9 @@ void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("ULD_433e", CardDef(power));
 }
 
 void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
@@ -2130,9 +2404,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<RandomCardTask>(
         CardType::MINION, CardClass::INVALID, Race::MURLOC));
     power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    power.AddPowerTask(
-        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
-                                         Race::MURLOC, Rarity::INVALID, true));
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::MURLOC, Rarity::INVALID,
+        GameTags{}, true));
     power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     cards.emplace("ULD_289", CardDef(power));
 

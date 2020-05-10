@@ -38,6 +38,11 @@ QuestProgressTask::QuestProgressTask(
 
 TaskStatus QuestProgressTask::Impl(Player* player)
 {
+    if (player->GetGameTag(GameTag::CAST_RANDOM_SPELLS) == 1)
+    {
+        return TaskStatus::STOP;
+    }
+
     auto spell = dynamic_cast<Spell*>(m_source);
     if (spell == nullptr)
     {
@@ -80,6 +85,12 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             {
                 delete player->GetHero()->heroPower;
                 player->GetHero()->heroPower = heroPower;
+
+                // Process aura
+                if (heroPower->card->power.GetAura())
+                {
+                    heroPower->card->power.GetAura()->Activate(heroPower);
+                }
             }
             else
             {

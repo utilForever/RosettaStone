@@ -73,6 +73,14 @@ class Card
     //! \return The flag that indicates whether it is Lackey.
     bool IsLackey() const;
 
+    //! Returns the flag that indicates whether it is a card with two Choose One
+    //! options involving transform or specific summon effects is played while
+    //! controlling Ossirian Tear.
+    //! \return The flag that indicates whether it is a card with two Choose One
+    //! options involving transform or specific summon effects is played while
+    //! controlling Ossirian Tear, false otherwise.
+    bool IsTransformMinion() const;
+
     //! Returns the flag that indicates whether it is Galakrond.
     //! \return The flag that indicates whether it is Galakrond.
     bool IsGalakrond() const;

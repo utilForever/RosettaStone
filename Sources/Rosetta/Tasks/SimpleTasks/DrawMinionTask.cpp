@@ -22,6 +22,11 @@ DrawMinionTask::DrawMinionTask(bool lowestCost, int amount, bool addToStack)
 
 TaskStatus DrawMinionTask::Impl(Player* player)
 {
+    if (m_addToStack)
+    {
+        player->game->taskStack.playables.clear();
+    }
+
     auto deck = player->GetDeckZone()->GetAll();
     if (deck.empty())
     {
@@ -65,6 +70,11 @@ TaskStatus DrawMinionTask::Impl(Player* player)
                 cards.emplace_back(deckCard);
             }
         }
+    }
+
+    if (cards.empty())
+    {
+        return TaskStatus::STOP;
     }
 
     if (static_cast<int>(cards.size()) <= m_amount)

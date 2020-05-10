@@ -9,6 +9,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <utility>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
@@ -20,11 +22,23 @@ RandomCardTask::RandomCardTask(EntityType entityType, bool opposite)
 }
 
 RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
-                               Race race, Rarity rarity, bool opposite)
+                               std::map<GameTag, int> tags, bool opposite)
+    : m_cardType(cardType),
+      m_cardClass(cardClass),
+      m_tags(std::move(tags)),
+      m_opposite(opposite)
+{
+    // Do nothing
+}
+
+RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
+                               Race race, Rarity rarity,
+                               std::map<GameTag, int> tags, bool opposite)
     : m_cardType(cardType),
       m_cardClass(cardClass),
       m_race(race),
       m_rarity(rarity),
+      m_tags(std::move(tags)),
       m_opposite(opposite)
 {
     // Do nothing
@@ -33,7 +47,8 @@ RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
 std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                                                CardType cardType,
                                                CardClass cardClass, Race race,
-                                               Rarity rarity)
+                                               Rarity rarity,
+                                               std::map<GameTag, int> tags)
 {
     std::vector<Card*> result;
 
@@ -50,7 +65,22 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                 (race == Race::INVALID || race == card->GetRace()) &&
                 (rarity == Rarity::INVALID || rarity == card->GetRarity()))
             {
-                result.emplace_back(card);
+                bool check = true;
+
+                for (auto& tag : tags)
+                {
+                    if (!card->HasGameTag(tag.first) ||
+                        card->gameTags[tag.first] != tag.second)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+
+                if (check)
+                {
+                    result.emplace_back(card);
+                }
             }
         }
     }
@@ -69,7 +99,22 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                 (race == Race::INVALID || race == card->GetRace()) &&
                 (rarity == Rarity::INVALID || rarity == card->GetRarity()))
             {
-                result.emplace_back(card);
+                bool check = true;
+
+                for (auto& tag : tags)
+                {
+                    if (!card->HasGameTag(tag.first) ||
+                        card->gameTags[tag.first] != tag.second)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+
+                if (check)
+                {
+                    result.emplace_back(card);
+                }
             }
         }
     }
@@ -86,7 +131,22 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                 (race == Race::INVALID || race == card->GetRace()) &&
                 (rarity == Rarity::INVALID || rarity == card->GetRarity()))
             {
-                result.emplace_back(card);
+                bool check = true;
+
+                for (auto& tag : tags)
+                {
+                    if (!card->HasGameTag(tag.first) ||
+                        card->gameTags[tag.first] != tag.second)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+
+                if (check)
+                {
+                    result.emplace_back(card);
+                }
             }
         }
     }
@@ -115,7 +175,7 @@ TaskStatus RandomCardTask::Impl(Player* player)
     }
 
     auto cardsList =
-        GetCardList(m_source, m_cardType, cardClass, m_race, m_rarity);
+        GetCardList(m_source, m_cardType, cardClass, m_race, m_rarity, m_tags);
     if (cardsList.empty())
     {
         return TaskStatus::STOP;
@@ -133,7 +193,7 @@ TaskStatus RandomCardTask::Impl(Player* player)
 std::unique_ptr<ITask> RandomCardTask::CloneImpl()
 {
     auto clonedTask = std::make_unique<RandomCardTask>(
-        m_cardType, m_cardClass, m_race, m_rarity, m_opposite);
+        m_cardType, m_cardClass, m_race, m_rarity, m_tags, m_opposite);
     clonedTask->m_entityType = m_entityType;
 
     return clonedTask;

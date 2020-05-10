@@ -607,7 +607,7 @@ SelfCondition SelfCondition::IsManaCrystalFull()
 SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        return playable->player->GetRemainingMana();
+        return playable->player->GetRemainingMana() > 0;
     });
 }
 
@@ -671,6 +671,21 @@ SelfCondition SelfCondition::Has5MoreCostSpellInHand()
         {
             if (handCard->card->GetCardType() == CardType::SPELL &&
                 handCard->GetCost() >= 5)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        for (auto& card : playable->player->cardsPlayedThisTurn)
+        {
+            if (card->GetCardType() == CardType::SPELL && card->GetCost() >= 5)
             {
                 return true;
             }

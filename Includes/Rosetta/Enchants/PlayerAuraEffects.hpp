@@ -56,6 +56,7 @@ class PlayerAuraEffects
     int m_resourcesUsed = 0;
     int m_extraTriggerSecret = 0;
     int m_megaWindfury = 0;
+    int m_chooseBoth = 0;
 };
 }  // namespace RosettaStone
 

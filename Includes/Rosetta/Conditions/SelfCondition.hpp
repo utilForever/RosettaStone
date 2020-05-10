@@ -332,10 +332,15 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNotSpellDamageOnHero();
 
-    //! SelfCondition wrapper for checking the hero has spell card
+    //! SelfCondition wrapper for checking the player has spell card
     //! that costs 5 or more in hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition Has5MoreCostSpellInHand();
+
+    //! SelfCondition wrapper for checking the player casts a spell
+    //! that costs (5) or more this turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition Cast5MoreCostSpellInThisTurn();
 
     //! SelfCondition wrapper for checking the threshold value.
     //! \param relaSign The comparer to check condition.

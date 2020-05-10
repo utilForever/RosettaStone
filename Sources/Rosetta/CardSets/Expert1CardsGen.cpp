@@ -264,7 +264,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(nullptr);
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044a"));
     cards.emplace("EX1_165",
                   CardDef(power, ChooseCardIDs{ "EX1_165a", "EX1_165b" }));
 

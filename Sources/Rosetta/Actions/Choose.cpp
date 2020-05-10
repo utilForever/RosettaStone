@@ -201,6 +201,37 @@ bool ChoicePick(Player* player, int choice)
             }
             break;
         }
+        case ChoiceAction::TORTOLLAN_PILGRIM:
+        {
+            auto spellToCast = dynamic_cast<Spell*>(
+                Entity::GetFromCard(player, playable->card));
+            const auto randTarget = spellToCast->GetRandomValidTarget();
+            const int randChooseOne = Random::get<int>(1, 2);
+
+            const auto choiceTemp = player->choice;
+            player->choice = nullptr;
+
+            player->game->taskQueue.StartEvent();
+            CastSpell(player, spellToCast, randTarget, randChooseOne);
+            player->game->ProcessDestroyAndUpdateAura();
+            player->game->taskQueue.EndEvent();
+
+            while (player->choice != nullptr)
+            {
+                const auto idx = Random::get<std::size_t>(
+                    0, player->choice->choices.size() - 1);
+
+                player->game->taskQueue.StartEvent();
+                ChoicePick(player, player->choice->choices[idx]);
+                player->game->ProcessTasks();
+                player->game->taskQueue.EndEvent();
+                player->game->ProcessDestroyAndUpdateAura();
+            }
+
+            player->choice = choiceTemp;
+
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "ChoicePick() - Invalid choice action!");

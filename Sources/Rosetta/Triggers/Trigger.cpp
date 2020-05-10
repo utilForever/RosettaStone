@@ -161,6 +161,12 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::AFTER_ATTACKED:
             switch (triggerSource)
             {
+                case TriggerSource::HERO:
+                {
+                    source->player->GetHero()->afterAttackedTrigger +=
+                        instance->handler;
+                    break;
+                }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(source);
@@ -306,6 +312,11 @@ void Trigger::Remove() const
         case TriggerType::AFTER_ATTACKED:
             switch (triggerSource)
             {
+                case TriggerSource::HERO:
+                {
+                    m_owner->player->GetHero()->afterAttackedTrigger -= handler;
+                    break;
+                }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(m_owner);

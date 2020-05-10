@@ -14,6 +14,7 @@ enum class DiscoverType
 {
     INVALID,
     SPELL,
+    CHOOSE_ONE,
     DRAGON,
     LEGENDARY_MINION_SUMMON,
     DEATHRATTLE_MINION_DIED,
@@ -22,6 +23,7 @@ enum class DiscoverType
     HEISTBARON_TOGWAGGLE,
     MADAME_LAZUL,
     SWAMPQUEEN_HAGATHA,
+    TORTOLLAN_PILGRIM,
 };
 
 //! The action type of choice.
@@ -37,6 +39,7 @@ enum class ChoiceAction
     ENVOY_OF_LAZUL,      //!< Envoy Of Lazul.
     SIGHTLESS_WATCHER,   //!< Sightless Watcher.
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
+    TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
 };
 }  // namespace RosettaStone
 

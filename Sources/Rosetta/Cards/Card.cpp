@@ -9,6 +9,7 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
 #include <iostream>
@@ -96,6 +97,12 @@ void Card::Initialize()
             case PlayReq::REQ_TARGET_WITH_DEATHRATTLE:
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqTargetWithDeathrattle());
+                break;
+            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::MinimumFriendlySecrets(
+                        requirement.second));
                 break;
             default:
                 continue;
@@ -197,6 +204,27 @@ bool Card::IsLackey() const
         id == "DAL_741" ||  // DAL_741: Ethereal Lackey
         id == "ULD_616" ||  // ULD_616: Titanic Lackey
         id == "DRG_052")    // DRG_052: Draconic Lackey
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Card::IsTransformMinion() const
+{
+    // NOTE: Transformed minions list
+    // EX1_165: Druid of the Claw -> OG_044a
+    // BRM_010: Druid of the Flame -> OG_044b
+    // AT_042: Druid of the Saber -> OG_044c
+    // UNG_101: Shellshifter -> UNG_101t3
+    // ICC_051: Druid of the Swarm -> ICC_051t3
+    // GIL_188: Druid of the Scythe -> GIL_188t3
+    // TRL_343: Wardruid Loti -> TRL_343et1
+    // BT_136: Msshi'fn Prime -> BT_136tt3
+    if (id == "EX1_165" || id == "BRM_010" || id == "AT_042" ||
+        id == "UNG_101" || id == "ICC_051" || id == "GIL_188" ||
+        id == "TRL_343" || id == "BT_136")
     {
         return true;
     }
@@ -360,6 +388,14 @@ bool Card::IsPlayableByCardReq(Player* player) const
                 }
                 break;
             }
+            case PlayReq::REQ_HAND_NOT_FULL:
+            {
+                if (player->GetHandZone()->IsFull())
+                {
+                    return false;
+                }
+                break;
+            }
             case PlayReq::REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME:
             {
                 bool isExist = false;
@@ -384,6 +420,8 @@ bool Card::IsPlayableByCardReq(Player* player) const
             case PlayReq::REQ_MINION_TARGET:
             case PlayReq::REQ_ENEMY_TARGET:
             case PlayReq::REQ_NONSELF_TARGET:
+            case PlayReq::
+                REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
                 break;
             default:
                 break;
