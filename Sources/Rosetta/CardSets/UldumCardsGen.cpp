@@ -28,6 +28,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -39,6 +40,7 @@ using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
+using TagValues = std::vector<TagValue>;
 using GameTags = std::map<GameTag, int>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
@@ -2389,6 +2391,11 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::COST, 1, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("ULD_282", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_289] Fishflinger - COST:2 [ATK:3/HP:2]
