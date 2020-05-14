@@ -7,11 +7,11 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameConfig.hpp>
-#include <Rosetta/Views/BoardRefView.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Games/GameConfig.hpp>
+#include <Rosetta/PlayMode/Views/BoardRefView.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace TestUtils;
 
 TEST_CASE("[BoardRefView] - GetSide")

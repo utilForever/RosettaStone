@@ -7,18 +7,18 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/Draw.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameConfig.hpp>
-#include <Rosetta/Models/Weapon.hpp>
-#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include "Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp"
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Games/GameConfig.hpp>
+#include <Rosetta/PlayMode/Models/Weapon.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Utils/Constants.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace PlayerTasks;
 using namespace TestUtils;
 

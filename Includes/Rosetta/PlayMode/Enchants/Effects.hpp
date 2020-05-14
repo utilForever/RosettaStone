@@ -1,0 +1,177 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+#ifndef ROSETTASTONE_PLAYMODE_EFFECTS_HPP
+#define ROSETTASTONE_PLAYMODE_EFFECTS_HPP
+
+#include <Rosetta/PlayMode/Enchants/Attrs/Atk.hpp>
+#include <Rosetta/PlayMode/Enchants/Attrs/Cost.hpp>
+#include <Rosetta/PlayMode/Enchants/Attrs/Health.hpp>
+#include <Rosetta/PlayMode/Enchants/Effect.hpp>
+
+#include <memory>
+
+namespace RosettaStone::PlayMode
+{
+//!
+//! \brief Effects class.
+//!
+//! This class lists specific effects such as Taunt, Poisonous and Stealth.
+//!
+class Effects
+{
+ public:
+    //! Creates effect that increases attack by \p n.
+    //! \param n A value indicating how much increases.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> AttackN(int n)
+    {
+        return Atk::Effect(EffectOperator::ADD, n);
+    }
+
+    //! Creates effect that increases health by \p n.
+    //! \param n A value indicating how much increases.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> HealthN(int n)
+    {
+        return Health::Effect(EffectOperator::ADD, n);
+    }
+
+    //! Creates effect that increases durability by \p n.
+    //! \param n A value indicating how much increases.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> DurabilityN(int n)
+    {
+        return std::make_shared<Effect>(GameTag::DURABILITY,
+                                        EffectOperator::ADD, n);
+    }
+
+    //! Creates effect that increases spell power by \p n.
+    //! \param n A value indicating how much increases.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> SpellPowerN(int n)
+    {
+        return std::make_shared<Effect>(GameTag::SPELLPOWER,
+                                        EffectOperator::ADD, n);
+    }
+
+    //! Creates effect that increases attack and health by \p n.
+    //! \param n A value indicating how much increases.
+    //! \return A dynamically allocated Effects instance.
+    static std::vector<std::shared_ptr<IEffect>> AttackHealthN(int n)
+    {
+        return { AttackN(n), HealthN(n) };
+    }
+
+    //! Creates effect that sets attack to \p n.
+    //! \param n The value to set.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> SetAttack(int n)
+    {
+        return Atk::Effect(EffectOperator::SET, n);
+    }
+
+    //! Creates effect that sets max health to \p n.
+    //! \param n The value to set.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> SetMaxHealth(int n)
+    {
+        return Health::Effect(EffectOperator::SET, n);
+    }
+
+    //! Creates effect that sets attack and health to \p n.
+    //! \param n The value to set.
+    //! \return A dynamically allocated Effects instance.
+    static std::vector<std::shared_ptr<IEffect>> SetAttackHealth(int n)
+    {
+        return { SetAttack(n), SetMaxHealth(n) };
+    }
+
+    //! Creates effect that adds cost by \p n.
+    //! \param n A value indicating how much add.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> AddCost(int n)
+    {
+        return Cost::Effect(EffectOperator::ADD, n);
+    }
+
+    //! Creates effect that reduces cost by \p n.
+    //! \param n A value indicating how much reduce.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> ReduceCost(int n)
+    {
+        return Cost::Effect(EffectOperator::SUB, n);
+    }
+
+    //! Creates effect that sets cost to \p n.
+    //! \param n A value indicating how much set.
+    //! \return A dynamically allocated Effect instance.
+    static std::shared_ptr<IEffect> SetCost(int n)
+    {
+        return Cost::Effect(EffectOperator::SET, n);
+    }
+
+    //! Creates effect that sets it is can't be targeted by spells
+    //! and hero powers.
+    //! \return A dynamically allocated Effects instance.
+    static std::vector<std::shared_ptr<IEffect>>
+    CantBeTargetedBySpellsAndHeroPowers()
+    {
+        return { std::make_shared<Effect>(GameTag::CANT_BE_TARGETED_BY_SPELLS,
+                                          EffectOperator::SET, 1),
+                 std::make_shared<Effect>(
+                     GameTag::CANT_BE_TARGETED_BY_HERO_POWERS,
+                     EffectOperator::SET, 1) };
+    }
+
+    //! A minion ability which forces the opposing player to direct any
+    //! melee attacks toward enemy targets with this ability.
+    inline static std::shared_ptr<IEffect> Taunt =
+        std::make_shared<Effect>(GameTag::TAUNT, EffectOperator::SET, 1);
+
+    //! A minion ability that causes any minion damaged by them to be destroyed.
+    inline static std::shared_ptr<IEffect> Poisonous =
+        std::make_shared<Effect>(GameTag::POISONOUS, EffectOperator::SET, 1);
+
+    //! An ability which causes a minion to ignore the next damage it receives.
+    inline static std::shared_ptr<IEffect> DivineShield =
+        std::make_shared<Effect>(GameTag::DIVINE_SHIELD, EffectOperator::SET,
+                                 1);
+
+    //! An ability which allows a character to attack twice per turn.
+    inline static std::shared_ptr<IEffect> Windfury =
+        std::make_shared<Effect>(GameTag::WINDFURY, EffectOperator::SET, 1);
+
+    //! An ability allowing a minion to attack the same turn it is summoned or
+    //! brought under a new player's control.
+    inline static std::shared_ptr<IEffect> Charge =
+        std::make_shared<Effect>(GameTag::CHARGE, EffectOperator::SET, 1);
+
+    //! A minion ability which prevents that minion from being the target of
+    //! enemy attacks, spells and effects until they attack.
+    inline static std::shared_ptr<IEffect> Stealth =
+        std::make_shared<Effect>(GameTag::STEALTH, EffectOperator::SET, 1);
+
+    //! An ability which causes damage dealt by a card to also restore that much
+    //! health to the controlling player's hero.
+    inline static std::shared_ptr<IEffect> Lifesteal =
+        std::make_shared<Effect>(GameTag::LIFESTEAL, EffectOperator::SET, 1);
+
+    //! An ability that prevents characters from receiving any damage, and
+    //! prevents the opponent from specifically targeting them with any type of
+    //! action.
+    inline static std::shared_ptr<IEffect> Immune =
+        std::make_shared<Effect>(GameTag::IMMUNE, EffectOperator::SET, 1);
+
+    //! An ability allowing a minion to attack other minions the same turn it is
+    //! summoned or brought under a new player's control. Unlike Charge, Rush
+    //! cannot be used to attack the enemy hero. Rush is represented by a
+    //! shifting thick green border around the minion.
+    inline static std::shared_ptr<IEffect> Rush =
+        std::make_shared<Effect>(GameTag::RUSH, EffectOperator::SET, 1);
+};
+}  // namespace RosettaStone::PlayMode
+
+#endif  // ROSETTASTONE_PLAYMODE_EFFECTS_HPP

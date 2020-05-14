@@ -13,8 +13,8 @@
 #include <MCTS/Selection/BoardNodeMap.hpp>
 #include <MCTS/Selection/EdgeAddon.hpp>
 
-#include <Rosetta/Commons/SpinLocks.hpp>
-#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Common/SpinLocks.hpp>
+#include <Rosetta/Common/Utils.hpp>
 
 #include <mutex>
 
@@ -76,7 +76,7 @@ class LeadingNodes
     template <typename Functor>
     void ForEachLeadingNode(Functor&& functor)
     {
-        std::shared_lock<SharedSpinLock> lock(m_mutex);
+        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mutex);
         for (const auto& item : m_items)
         {
             if (!functor(item.node, item.edgeAddon))
@@ -87,7 +87,7 @@ class LeadingNodes
     }
 
  private:
-    mutable SharedSpinLock m_mutex;
+    mutable RosettaStone::SharedSpinLock m_mutex;
     std::vector<LeadingNodesItem> m_items;
 };
 }  // namespace RosettaTorch::MCTS

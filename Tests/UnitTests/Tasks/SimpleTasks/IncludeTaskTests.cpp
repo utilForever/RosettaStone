@@ -7,13 +7,13 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
 using namespace TestUtils;
 

@@ -32,7 +32,7 @@ bool LeadingNodesItem::operator!=(const LeadingNodesItem& rhs) const
 
 void LeadingNodes::AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon)
 {
-    std::lock_guard<SharedSpinLock> lock(m_mutex);
+    std::lock_guard<RosettaStone::SharedSpinLock> lock(m_mutex);
     for (const auto& item : m_items)
     {
         if (item.node == node && item.edgeAddon == edgeAddon)

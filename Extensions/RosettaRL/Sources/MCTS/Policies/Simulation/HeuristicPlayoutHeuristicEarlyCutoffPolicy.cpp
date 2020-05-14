@@ -9,7 +9,7 @@
 
 #include <MCTS/Policies/Simulation/HeuristicPlayoutHeuristicEarlyCutoffPolicy.hpp>
 
-#include <Rosetta/Actions/ActionParams.hpp>
+#include <Rosetta/PlayMode/Actions/ActionParams.hpp>
 
 #include <effolkronium/random.hpp>
 

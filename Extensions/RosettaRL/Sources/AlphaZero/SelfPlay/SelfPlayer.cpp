@@ -9,7 +9,7 @@
 
 #include <AlphaZero/SelfPlay/SelfPlayer.hpp>
 
-#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Common/Macros.hpp>
 
 #include <fstream>
 
@@ -26,7 +26,8 @@ AgentCallback::AgentCallback(ILogger& logger)
     // Do nothing
 }
 
-void AgentCallback::BeforeThink(const RosettaStone::BoardRefView& view)
+void AgentCallback::BeforeThink(
+    const RosettaStone::PlayMode::BoardRefView& view)
 {
     m_logger.Info([&](auto& stream) {
         stream << "Start think... Turn: " << view.GetTurn() << ". ";
@@ -36,7 +37,7 @@ void AgentCallback::BeforeThink(const RosettaStone::BoardRefView& view)
 }
 
 void AgentCallback::Think(
-    [[maybe_unused]] const RosettaStone::BoardRefView& view,
+    [[maybe_unused]] const RosettaStone::PlayMode::BoardRefView& view,
     std::uint64_t iteration)
 {
     const auto now = std::chrono::steady_clock::now();

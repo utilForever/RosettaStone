@@ -6,12 +6,12 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace PlayerTasks;
 
 TEST_CASE("[HandZone] - FindIndex")

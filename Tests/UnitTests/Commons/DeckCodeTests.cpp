@@ -6,9 +6,9 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Commons/DeckCode.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 TEST_CASE("[DeckString] - Decode")
 {

@@ -6,15 +6,15 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/ActionParams.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/PlayMode/Actions/ActionParams.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
 
 #include <effolkronium/random.hpp>
 
 using Random = effolkronium::random_static;
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 class TestActionParams : public ActionParams
 {

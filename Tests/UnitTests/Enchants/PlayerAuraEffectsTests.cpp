@@ -7,12 +7,12 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/Draw.hpp>
-#include <Rosetta/Enchants/PlayerAuraEffects.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Enchants/PlayerAuraEffects.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace TestUtils;
 
 using EffectList = std::vector<std::shared_ptr<IEffect>>;

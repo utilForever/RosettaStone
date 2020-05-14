@@ -7,13 +7,13 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Minion.hpp>
-#include <Rosetta/Models/Weapon.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Minion.hpp>
+#include <Rosetta/PlayMode/Models/Weapon.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
 using namespace TestUtils;
 

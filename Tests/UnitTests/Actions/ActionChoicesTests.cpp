@@ -6,11 +6,11 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/ActionChoices.hpp>
+#include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
 
 #include <stdexcept>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 TEST_CASE("[ActionChoices] - InvalidChoice")
 {

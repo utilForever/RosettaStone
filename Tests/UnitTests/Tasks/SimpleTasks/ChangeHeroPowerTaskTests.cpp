@@ -6,11 +6,11 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
 
 TEST_CASE("[ChangeHeroPowerTask] - Run")

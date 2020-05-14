@@ -6,18 +6,18 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/Generic.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Zones/DeckZone.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/GraveyardZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
-#include <Rosetta/Zones/SecretZone.hpp>
-#include <Rosetta/Zones/SetasideZone.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
+#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 TEST_CASE("[Generic] - ShuffleIntoDeck")
 {

@@ -7,7 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Common/Utils.hpp>
 
 #include <random>
 

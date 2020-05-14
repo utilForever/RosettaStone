@@ -6,12 +6,12 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/Choose.hpp>
-#include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 TEST_CASE("[Choose] - ChoiceMulligan")
 {

@@ -7,14 +7,14 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameConfig.hpp>
-#include <Rosetta/Triggers/Trigger.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Games/GameConfig.hpp>
+#include <Rosetta/PlayMode/Triggers/Trigger.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace TestUtils;
 
 TEST_CASE("[Trigger] - None")

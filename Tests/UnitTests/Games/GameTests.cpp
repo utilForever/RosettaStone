@@ -7,23 +7,23 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/ActionParams.hpp>
-#include <Rosetta/Actions/Draw.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/DeckCode.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameConfig.hpp>
-#include <Rosetta/Managers/GameManager.hpp>
-#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/PlayMode/Actions/ActionParams.hpp>
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Games/GameConfig.hpp>
+#include <Rosetta/PlayMode/Managers/GameManager.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
 
 #include <effolkronium/random.hpp>
 
 using Random = effolkronium::random_static;
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace PlayerTasks;
 
 class TestActionParams : public ActionParams

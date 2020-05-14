@@ -12,9 +12,9 @@
 
 #include <MCTS/Selection/BoardNodeMap.hpp>
 
-#include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Commons/SpinLocks.hpp>
-#include <Rosetta/Enums/ActionEnums.hpp>
+#include <Rosetta/Common/SpinLocks.hpp>
+#include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
+#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 
 #include <mutex>
 
@@ -40,7 +40,7 @@ class ConsistencyCheckAddon
     bool LockAndCheckActionTypeAndChoices(ActionType actionType,
                                           const ActionChoices& choices)
     {
-        std::lock_guard<SpinLock> lock(m_mutex);
+        std::lock_guard<RosettaStone::SpinLock> lock(m_mutex);
         return CheckActionTypeAndChoices(actionType, choices);
     }
 
@@ -126,7 +126,7 @@ class ConsistencyCheckAddon
     //! \return The flag indicates board is consistent.
     bool CheckBoard(const ReducedBoardView& view);
 
-    mutable SpinLock m_mutex{};
+    mutable RosettaStone::SpinLock m_mutex{};
     std::unique_ptr<ReducedBoardView> m_boardView;
     ActionType m_actionType{};
     ActionChoices m_actionChoices;

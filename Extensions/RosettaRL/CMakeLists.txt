@@ -2,7 +2,7 @@
 set(target RosettaRL)
 
 # Add prefix path to identify Libtorch
-list(APPEND CMAKE_PREFIX_PATH "C:/Libtorch")
+# list(APPEND CMAKE_PREFIX_PATH "C:/Libtorch")
 
 # Machine Learning library options
 include(CMake/MLLibraryOptions.cmake)

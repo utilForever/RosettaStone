@@ -12,7 +12,7 @@
 
 #include <NeuralNet/IInputGetter.hpp>
 
-#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 
 namespace RosettaTorch::NeuralNet
 {
@@ -27,7 +27,7 @@ class GameDataBridge : public IInputGetter
  public:
     //! Clears and initializes member variables.
     //! \param game The game context.
-    void Reset(const RosettaStone::Game& game);
+    void Reset(const RosettaStone::PlayMode::Game& game);
 
     //! Returns the value of the field.
     //! Note that boolean value is 1 for true, 0 for false.
@@ -44,11 +44,11 @@ class GameDataBridge : public IInputGetter
     //! \param arg The argument such as the index of minion in field zone.
     //! \return The value of the field.
     double GetSideField(FieldType fieldType, int arg,
-                        const RosettaStone::Player* player) const;
+                        const RosettaStone::PlayMode::Player* player) const;
 
  private:
-    const RosettaStone::Game* m_game = nullptr;
-    std::vector<RosettaStone::Entity*> m_playableCards;
+    const RosettaStone::PlayMode::Game* m_game = nullptr;
+    std::vector<RosettaStone::PlayMode::Entity*> m_playableCards;
     bool m_canUseHeroPower = false;
 };
 }  // namespace RosettaTorch::NeuralNet

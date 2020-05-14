@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Common/Macros.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 
 #include <lyra/cli_parser.hpp>
 #include <lyra/help.hpp>
@@ -27,7 +27,7 @@ namespace filesystem = std::filesystem;
 namespace filesystem = std::experimental::filesystem;
 #endif
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {

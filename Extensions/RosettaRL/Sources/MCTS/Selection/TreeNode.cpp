@@ -34,14 +34,14 @@ std::tuple<bool, EdgeAddon*, TreeNode*> ChildNodeMap::GetOrCreateRedirectNode(
 
 bool ChildNodeMap::HasChild(int choice) const
 {
-    std::shared_lock<SharedSpinLock> lock(m_mapMutex);
+    std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
 
     return (m_map.find(choice) != m_map.end());
 }
 
 std::pair<const EdgeAddon*, TreeNode*> ChildNodeMap::Get(int choice) const
 {
-    std::shared_lock<SharedSpinLock> lock(m_mapMutex);
+    std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
 
     const auto it = m_map.find(choice);
     if (it == m_map.end())
@@ -59,7 +59,7 @@ std::tuple<bool, EdgeAddon*, TreeNode*> ChildNodeMap::GetOrCreate(
     int choice, CreateFunctor&& createChildFunctor)
 {
     {
-        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
+        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
 
         auto it = m_map.find(choice);
         if (it != m_map.end())
@@ -69,7 +69,7 @@ std::tuple<bool, EdgeAddon*, TreeNode*> ChildNodeMap::GetOrCreate(
     }
 
     {
-        std::lock_guard<SharedSpinLock> writeLock(m_mapMutex);
+        std::lock_guard<RosettaStone::SharedSpinLock> writeLock(m_mapMutex);
 
         auto it = m_map.find(choice);
         if (it != m_map.end())

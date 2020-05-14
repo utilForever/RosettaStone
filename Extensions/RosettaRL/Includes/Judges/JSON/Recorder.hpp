@@ -10,10 +10,10 @@
 #ifndef ROSETTASTONE_TORCH_JUDGES_RECORDER_HPP
 #define ROSETTASTONE_TORCH_JUDGES_RECORDER_HPP
 
-#include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Commons/JSONSerializer.hpp>
-#include <Rosetta/Enums/ActionEnums.hpp>
-#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
+#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Utils/JSONSerializer.hpp>
 
 namespace RosettaTorch::Judges::JSON
 {
@@ -35,8 +35,8 @@ class Recorder
     //! Records the main action data to JSON object.
     //! \param game The game context.
     //! \param op The main operation type.
-    void RecordMainAction(RosettaStone::Game& game,
-                          RosettaStone::MainOpType op);
+    void RecordMainAction(RosettaStone::PlayMode::Game& game,
+                          RosettaStone::PlayMode::MainOpType op);
 
     //! Records the randomly selected action to JSON object.
     //! \param maxValue The number of available actions.
@@ -47,30 +47,34 @@ class Recorder
     //! \param actionType The selected action type.
     //! \param choices The type of action choices.
     //! \param action The index of available choices selected manually.
-    void RecordManualAction(RosettaStone::ActionType actionType,
-                            RosettaStone::ActionChoices choices, int action);
+    void RecordManualAction(RosettaStone::PlayMode::ActionType actionType,
+                            RosettaStone::PlayMode::ActionChoices choices,
+                            int action);
 
     //! Records the game end data to JSON object.
     //! \param result The result of the game (player1 and player2).
-    void End(
-        std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result);
+    void End(std::tuple<RosettaStone::PlayMode::PlayState,
+                        RosettaStone::PlayMode::PlayState>
+                 result);
 
  private:
     //! Converts the action type to string.
     //! \param type The action type to convert.
     //! \return The converted string of the action type.
-    std::string GetActionTypeString(RosettaStone::ActionType type);
+    std::string GetActionTypeString(RosettaStone::PlayMode::ActionType type);
 
     //! Converts the choice type to string.
     //! \param choices The choice type to convert.
     //! \return The converted string of the choice type.
-    std::string GetChoiceTypeString(const RosettaStone::ActionChoices& choices);
+    std::string GetChoiceTypeString(
+        const RosettaStone::PlayMode::ActionChoices& choices);
 
     //! Converts the game result to string.
     //! \param result The result of the game (player1 and player2).
     //! \return The converted string of the game result.
-    std::string GetResultString(
-        std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result) const;
+    std::string GetResultString(std::tuple<RosettaStone::PlayMode::PlayState,
+                                           RosettaStone::PlayMode::PlayState>
+                                    result) const;
 
     nlohmann::json m_json;
 };

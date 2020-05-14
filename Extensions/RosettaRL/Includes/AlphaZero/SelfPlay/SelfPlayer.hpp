@@ -19,7 +19,7 @@
 #include <Judges/Judger.hpp>
 #include <NeuralNet/NeuralNetwork.hpp>
 
-#include <Rosetta/Commons/DeckCode.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <chrono>
 
@@ -39,12 +39,13 @@ class AgentCallback
 
     //! Processes something before calling Think() method.
     //! \param view The board ref view.
-    void BeforeThink(const RosettaStone::BoardRefView& view);
+    void BeforeThink(const RosettaStone::PlayMode::BoardRefView& view);
 
     //! Processes something related to agent.
     //! \param view The board ref view.
     //! \param iteration The number of iteration.
-    void Think(const RosettaStone::BoardRefView& view, std::uint64_t iteration);
+    void Think(const RosettaStone::PlayMode::BoardRefView& view,
+               std::uint64_t iteration);
 
     //! Processes something after calling Think() method.
     //! \param iteration The number of iteration.

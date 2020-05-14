@@ -6,17 +6,17 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Actions/Copy.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Enchantment.hpp>
-#include <Rosetta/Zones/DeckZone.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/GraveyardZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Actions/Copy.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 TEST_CASE("[Copy] - Copy")
 {

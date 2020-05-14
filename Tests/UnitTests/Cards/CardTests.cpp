@@ -6,10 +6,10 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Cards/Card.hpp>
-#include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/PlayMode/Cards/Card.hpp>
+#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 TEST_CASE("[Card] - Constructer")
 {

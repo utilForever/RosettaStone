@@ -6,14 +6,14 @@
 
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Utils.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
-#include <Rosetta/Zones/DeckZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Common/Utils.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
 
 TEST_CASE("[DrawTask] - Run")
@@ -58,8 +58,7 @@ TEST_CASE("[DrawTask] - Run")
 
     for (std::size_t i = 0; i < 3; ++i)
     {
-        CHECK_EQ(playerHand[i]->card->id,
-                  id + static_cast<char>(2 - i + 0x30));
+        CHECK_EQ(playerHand[i]->card->id, id + static_cast<char>(2 - i + 0x30));
     }
 
     for (Card* card : cards)

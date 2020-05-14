@@ -7,13 +7,13 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Enchantment.hpp>
-#include <Rosetta/Models/Minion.hpp>
-#include <Rosetta/Models/Player.hpp>
-#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Models/Minion.hpp>
+#include <Rosetta/PlayMode/Models/Player.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/ChooseTask.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 
 using namespace PlayerTasks;
 

@@ -7,11 +7,11 @@
 #include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameConfig.hpp>
-#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Games/GameConfig.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 TEST_CASE("[Board] - RefCopyFrom")
 {

@@ -13,7 +13,7 @@
 #include <MCTS/Selection/EdgeAddon.hpp>
 #include <MCTS/Selection/TreeNodeAddon.hpp>
 
-#include <Rosetta/Commons/SpinLocks.hpp>
+#include <Rosetta/Common/SpinLocks.hpp>
 
 #include <functional>
 #include <memory>
@@ -71,7 +71,7 @@ class ChildNodeMap
     template <typename Functor>
     void ForEach(Functor&& functor) const
     {
-        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
+        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
 
         for (const auto& kv : m_map)
         {
@@ -87,7 +87,7 @@ class ChildNodeMap
     template <typename Functor>
     void ForEach(Functor&& functor)
     {
-        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
+        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
 
         for (auto& kv : m_map)
         {
@@ -121,7 +121,7 @@ class ChildNodeMap
         std::unique_ptr<TreeNode> node;
     };
 
-    mutable SharedSpinLock m_mapMutex;
+    mutable RosettaStone::SharedSpinLock m_mapMutex;
     std::unordered_map<int, ChildType> m_map;
 };
 

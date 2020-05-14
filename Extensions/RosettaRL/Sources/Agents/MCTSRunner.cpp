@@ -9,10 +9,10 @@
 
 #include <Agents/MCTSRunner.hpp>
 
-#include <Rosetta/Commons/DeckCode.hpp>
-#include <Rosetta/Games/GameRestorer.hpp>
-#include <Rosetta/Views/BoardView.hpp>
-#include <Rosetta/Views/Types/UnknownCards.hpp>
+#include <Rosetta/PlayMode/Games/GameRestorer.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
+#include <Rosetta/PlayMode/Views/BoardView.hpp>
+#include <Rosetta/PlayMode/Views/Types/UnknownCards.hpp>
 
 namespace RosettaTorch::Agents
 {

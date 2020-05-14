@@ -6,12 +6,12 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-#include <Rosetta/Actions/Draw.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
