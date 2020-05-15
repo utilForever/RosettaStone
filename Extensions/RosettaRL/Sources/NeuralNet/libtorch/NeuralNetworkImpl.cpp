@@ -10,7 +10,7 @@
 #include <NeuralNet/libtorch/InputDataConverter.hpp>
 #include <NeuralNet/libtorch/NeuralNetworkImpl.hpp>
 
-#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Common/Macros.hpp>
 
 #include <torch/torch.h>
 #include <effolkronium/random.hpp>

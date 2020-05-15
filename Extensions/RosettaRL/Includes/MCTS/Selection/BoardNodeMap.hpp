@@ -47,7 +47,7 @@ class BoardNodeMap
     template <typename Functor>
     void ForEach(Functor&& functor) const
     {
-        std::shared_lock<SharedSpinLock> lock(m_mutex);
+        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mutex);
 
         if (!m_map)
         {
