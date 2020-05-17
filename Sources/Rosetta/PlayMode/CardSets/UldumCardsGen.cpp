@@ -26,6 +26,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
@@ -2240,6 +2241,10 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "ULD_197e", EntityType::ENEMY_MINIONS));
+    cards.emplace("ULD_197", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_198] Conjured Mirage - COST:4 [ATK:3/HP:10]
@@ -2251,6 +2256,11 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<MoveToDeckTask>(
+        EntityType::SOURCE) };
+    cards.emplace("ULD_198", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_205] Candletaker - COST:3 [ATK:3/HP:2]
@@ -2277,6 +2287,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cards.emplace("ULD_208", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3]
@@ -2397,8 +2410,8 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
-        { GameTag::COST, 1, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }));
     power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     cards.emplace("ULD_282", CardDef(power));
 
@@ -2706,6 +2719,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_197e"));
+    cards.emplace("ULD_197e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_209t] Mystery Choice! (*) - COST:0
