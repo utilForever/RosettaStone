@@ -27,6 +27,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
@@ -2251,6 +2252,11 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<MoveToDeckTask>(
+        EntityType::SOURCE) };
+    cards.emplace("ULD_198", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_205] Candletaker - COST:3 [ATK:3/HP:2]
