@@ -21,6 +21,8 @@ class GameManager
 {
  public:
     //! Invokes method when a state is changed.
+    //! \param game The game context.
+    //! \param step The next step.
     static void ProcessNextStep(Game& game, Step step);
 };
 }  // namespace RosettaStone::PlayMode
