@@ -2292,6 +2292,63 @@ TEST_CASE("[Neutral : Minion] - ULD_205 : Candletaker")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_208] Khartut Defender - COST:6 [ATK:3/HP:4]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>, <b>Reborn</b> <b>Deathrattle:</b>
+//       Restore 3 Health to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DEATHRATTLE = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_208 : Khartut Defender")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(6);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Khartut Defender"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Walking Fountain"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, curField[0]));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+
+    game.Process(opPlayer, AttackTask(card2, curField[0]));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_250] Infested Goblin - COST:3 [ATK:2/HP:3]
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
