@@ -17,10 +17,11 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     std::vector<std::shared_ptr<IEffect>> effects;
     bool isOneTurn = false;
 
-    static std::regex attackHealthRegex("\\+([[:digit:]]+)/\\+([[:digit:]]+)");
+    static std::regex attackHealthRegex(
+        "([\\+\\-][[:digit:]]+)/([\\+\\-][[:digit:]]+)");
     static std::regex setAttackHealthRegex("([[:digit:]]+)/([[:digit:]]+)");
-    static std::regex attackRegex("\\+([[:digit:]]+) Attack");
-    static std::regex healthRegex("\\+([[:digit:]]+) Health");
+    static std::regex attackRegex("([\\+\\-][[:digit:]]+) Attack");
+    static std::regex healthRegex("([\\+\\-][[:digit:]]+) Health");
 
     const auto card = Cards::FindCardByID(cardID);
     const std::string text = card->text;
