@@ -15,7 +15,8 @@ enum class Phase
     INVALID,
     SELECT_HERO,
     RECRUIT,
-    COMBAT
+    COMBAT,
+    GAMEOVER
 };
 }  // namespace RosettaStone::Battlegrounds
 
