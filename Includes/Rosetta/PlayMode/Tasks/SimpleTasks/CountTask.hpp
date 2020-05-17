@@ -23,14 +23,14 @@ class CountTask : public ITask
     //! \param entityType The type of entity.
     //! \param numIndex An index of number.
     //! \param conditions SelfConditions to check.
-    CountTask(EntityType entityType, int numIndex = 0,
-              std::vector<SelfCondition> conditions = {});
+    explicit CountTask(EntityType entityType, int numIndex = 0,
+                       std::vector<SelfCondition> conditions = {});
 
     //! Constructs task with given \p zoneType, \p getFreeSpace and \p opponent.
     //! \param zoneType The type of zone.
     //! \param getFreeSpace The flag to count the free space of zone.
     //! \param opponent The flag to count for the opponent player.
-    CountTask(ZoneType zoneType, bool getFreeSpace, bool opponent);
+    explicit CountTask(ZoneType zoneType, bool getFreeSpace, bool opponent);
 
     //! Constructs task with given various arguments.
     //! \param entityType The type of entity.
@@ -39,9 +39,9 @@ class CountTask : public ITask
     //! \param zoneType The type of zone.
     //! \param getFreeSpace The flag to count the free space of zone.
     //! \param opponent The flag to count for the opponent player.
-    CountTask(EntityType entityType, int numIndex,
-              std::vector<SelfCondition> conditions, ZoneType zoneType,
-              bool getFreeSpace, bool opponent);
+    explicit CountTask(EntityType entityType, int numIndex,
+                       std::vector<SelfCondition> conditions, ZoneType zoneType,
+                       bool getFreeSpace, bool opponent);
 
  private:
     //! Processes task logic internally and returns meta data.

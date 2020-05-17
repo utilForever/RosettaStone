@@ -24,8 +24,8 @@ class PlayCardTask : public ITask
     //! \param target A pointer to target entity to receive power.
     //! \param fieldPos A value indicating where to place card.
     //! \param chooseOne The index of chosen card from two cards.
-    PlayCardTask(Entity* source, Playable* target = nullptr, int fieldPos = -1,
-                 int chooseOne = 0);
+    explicit PlayCardTask(Entity* source, Playable* target = nullptr,
+                          int fieldPos = -1, int chooseOne = 0);
 
     //! PlayCardTask wrapper for minion without target and field position.
     //! \param source A pointer to source entity to play card.

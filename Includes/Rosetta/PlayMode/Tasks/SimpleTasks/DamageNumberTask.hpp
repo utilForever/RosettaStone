@@ -21,7 +21,8 @@ class DamageNumberTask : public ITask
     //! Constructs task with given \p character and \p damage.
     //! \param entityType The entity type of target to take damage.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.
-    DamageNumberTask(EntityType entityType, bool isSpellDamage = false);
+    explicit DamageNumberTask(EntityType entityType,
+                              bool isSpellDamage = false);
 
  private:
     //! Processes task logic internally and returns meta data.

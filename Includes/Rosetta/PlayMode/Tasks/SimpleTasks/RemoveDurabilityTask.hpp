@@ -16,7 +16,7 @@ class RemoveDurabilityTask : public ITask
     //! Constructs task with given \p amount and \p isOpponent.
     //! \param amount The amount of durability to remove.
     //! \param isOpponent A flag to owner indicating opponent player.
-    RemoveDurabilityTask(int amount, bool isOpponent = false);
+    explicit RemoveDurabilityTask(int amount, bool isOpponent = false);
 
  private:
     //! Processes task logic internally and returns meta data.
