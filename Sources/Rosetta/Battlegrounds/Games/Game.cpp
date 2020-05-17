@@ -18,12 +18,10 @@ void Game::Start()
 
 void Game::SelectHero()
 {
-
 }
 
 void Game::Recruit()
 {
-
 }
 
 void Game::Combat()
@@ -35,6 +33,5 @@ void Game::Combat()
 
 void Game::GameOver()
 {
-    
 }
 }  // namespace RosettaStone::Battlegrounds
