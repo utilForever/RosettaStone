@@ -2332,9 +2332,9 @@ TEST_CASE("[Neutral : Minion] - ULD_197 : Quicksand Elemental")
     CHECK_EQ(curField[1]->GetAttack(), 0);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    game.Process(opPlayer, AttackTask(card3, curField[0]));
+    game.Process(opPlayer, AttackTask(card4, curField[0]));
     CHECK_EQ(opField[1]->GetHealth(), 8);
-    game.Process(opPlayer, AttackTask(card3, curField[1]));
+    game.Process(opPlayer, AttackTask(card4, curField[1]));
     CHECK_EQ(opField[1]->GetHealth(), 8);
 }
 
@@ -2384,6 +2384,7 @@ TEST_CASE("[Neutral : Minion] - ULD_198 : Conjured Mirage")
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, curField[0]));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -2448,6 +2449,7 @@ TEST_CASE("[Neutral : Minion] - ULD_208 : Khartut Defender")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->HasReborn(),true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -2456,6 +2458,7 @@ TEST_CASE("[Neutral : Minion] - ULD_208 : Khartut Defender")
     game.Process(opPlayer, AttackTask(card2, curField[0]));
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasReborn(), false);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
 
     game.Process(opPlayer, AttackTask(card2, curField[0]));
