@@ -7,7 +7,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
-#include <iostream>
+
 #include <regex>
 
 namespace RosettaStone
@@ -38,10 +38,6 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     }
     else if (std::regex_search(text, values, attackRegex))
     {
-        for (auto& sm : values)
-        {
-            std::cout << sm << std::endl;
-        }
         effects.emplace_back(Effects::AttackN(std::stoi(values[1].str())));
     }
     else if (std::regex_search(text, values, healthRegex))
