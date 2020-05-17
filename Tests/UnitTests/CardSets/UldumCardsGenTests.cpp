@@ -2278,6 +2278,67 @@ TEST_CASE("[Neutral : Minion] - ULD_194 : Wasteland Scorpid")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_197] Quicksand Elemental - COST:2 [ATK:3/HP:2]
+// - Race: Elemental, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give all enemy minions -2 Attack
+//       this turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_197 : Quicksand Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Infested Goblin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Jar Dealer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Quicksand Elemental"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Walking Fountain"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[1]->GetAttack(), 0);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, AttackTask(card3, curField[0]));
+    CHECK_EQ(opField[1]->GetHealth(), 8);
+    game.Process(opPlayer, AttackTask(card3, curField[1]));
+    CHECK_EQ(opField[1]->GetHealth(), 8);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_198] Conjured Mirage - COST:4 [ATK:3/HP:10]
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
