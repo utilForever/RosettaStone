@@ -7,6 +7,7 @@
 #ifndef ROSSETASTONE_ROSETTA_HPP
 #define ROSSETASTONE_ROSETTA_HPP
 
+#include <Rosetta/Battlegrounds/Enums/GameEnums.hpp>
 #include <Rosetta/Common/Macros.hpp>
 #include <Rosetta/Common/PriorityQueue.hpp>
 #include <Rosetta/Common/SpinLocks.hpp>
