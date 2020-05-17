@@ -2278,6 +2278,59 @@ TEST_CASE("[Neutral : Minion] - ULD_194 : Wasteland Scorpid")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_198] Conjured Mirage - COST:4 [ATK:3/HP:10]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b> At the start of your turn,
+//       shuffle this minion into your deck.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_198 : Conjured Mirage")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Conjured Mirage"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Walking Fountain"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, curField[0]));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_205] Candletaker - COST:3 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
