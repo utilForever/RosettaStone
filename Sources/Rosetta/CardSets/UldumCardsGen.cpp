@@ -2241,6 +2241,10 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_197e", EntityType::ENEMY_MINIONS));
+    cards.emplace("ULD_197", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_198] Conjured Mirage - COST:4 [ATK:3/HP:10]
@@ -2715,6 +2719,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_197e"));
+    cards.emplace("ULD_197e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_209t] Mystery Choice! (*) - COST:0
