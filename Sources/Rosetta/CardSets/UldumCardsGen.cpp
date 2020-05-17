@@ -2277,6 +2277,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cards.emplace("ULD_208", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3]
