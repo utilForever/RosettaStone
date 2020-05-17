@@ -8,6 +8,7 @@
 #define ROSSETASTONE_ROSETTA_HPP
 
 #include <Rosetta/Battlegrounds/Enums/GameEnums.hpp>
+#include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Common/Macros.hpp>
