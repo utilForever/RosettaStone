@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_PLAYER_CONTROLLER_HPP
 #define ROSETTASTONE_TORCH_MCTS_PLAYER_CONTROLLER_HPP
 
-#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
 
 #include <memory>
 
@@ -34,7 +34,7 @@ class PlayerController
      public:
         //! Constructs player with given \p playerType.
         //! \param playerType The type of player.
-        explicit Player(RosettaStone::PlayerType playerType);
+        explicit Player(RosettaStone::PlayMode::PlayerType playerType);
 
         //! Operator overloading: operator==.
         bool operator==(const Player& rhs) const;
@@ -64,10 +64,10 @@ class PlayerController
 
         //! Returns the type of player.
         //! \return The type of player.
-        RosettaStone::PlayerType GetPlayerType() const;
+        RosettaStone::PlayMode::PlayerType GetPlayerType() const;
 
      private:
-        RosettaStone::PlayerType m_playerType;
+        RosettaStone::PlayMode::PlayerType m_playerType;
     };
 
     //! Returns the player.
@@ -77,7 +77,7 @@ class PlayerController
     //! Returns the board of the player.
     //! \param player The player to get board.
     //! \return The board of the player.
-    RosettaStone::Board GetPlayerBoard(Player player) const;
+    RosettaStone::PlayMode::Board GetPlayerBoard(Player player) const;
 
     //! Starts the game.
     template <class StartBoardGetter>
@@ -87,7 +87,7 @@ class PlayerController
     }
 
  private:
-    std::unique_ptr<RosettaStone::Game> m_game;
+    std::unique_ptr<RosettaStone::PlayMode::Game> m_game;
 };
 }  // namespace RosettaTorch::MCTS
 

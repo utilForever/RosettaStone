@@ -12,7 +12,7 @@
 
 #include <NeuralNet/IInputGetter.hpp>
 
-#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Common/Macros.hpp>
 
 #define CNN_SINGLE_THREAD
 

@@ -15,7 +15,7 @@
 #include <MCTS/Selection/TreeNode.hpp>
 #include <MCTS/Statistics/Statistics.hpp>
 
-#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 
 #include <thread>
 

@@ -6,14 +6,14 @@
 
 #include "Console.hpp"
 
-#include <Rosetta/Cards/Card.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Commons/Macros.hpp>
-#include <Rosetta/Commons/Utils.hpp>
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Loaders/AccountLoader.hpp>
-#include <Rosetta/Loaders/CardLoader.hpp>
+#include <Rosetta/Common/Macros.hpp>
+#include <Rosetta/Common/Utils.hpp>
+#include <Rosetta/PlayMode/Cards/Card.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Loaders/AccountLoader.hpp>
+#include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
+#include <Rosetta/PlayMode/Utils/Constants.hpp>
 
 #include <lyra/cli_parser.hpp>
 #include <lyra/help.hpp>
@@ -37,7 +37,7 @@ namespace filesystem = std::filesystem;
 namespace filesystem = std::experimental::filesystem;
 #endif
 
-namespace RosettaStone
+namespace RosettaStone::PlayMode
 {
 void Console::SignIn()
 {
@@ -698,4 +698,4 @@ std::vector<std::string> Console::SplitString(
 
     return tokens;
 }
-}  // namespace RosettaStone
+}  // namespace RosettaStone::PlayMode

@@ -16,7 +16,7 @@
 #include <Judges/Judger.hpp>
 #include <NeuralNet/NeuralNetwork.hpp>
 
-#include <Rosetta/Commons/DeckCode.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <effolkronium/random.hpp>
 

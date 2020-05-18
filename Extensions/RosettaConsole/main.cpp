@@ -6,7 +6,7 @@
 
 #include "Console.hpp"
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 int main()
 {

@@ -9,8 +9,8 @@
 #include <Judges/JSON/Recorder.hpp>
 #include <Judges/Judger.hpp>
 
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/DeckCode.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <effolkronium/random.hpp>
 

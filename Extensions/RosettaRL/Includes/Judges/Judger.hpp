@@ -12,10 +12,10 @@
 
 #include <Judges/IAgent.hpp>
 
-#include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Actions/ActionParams.hpp>
-#include <Rosetta/Enums/ActionEnums.hpp>
-#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
+#include <Rosetta/PlayMode/Actions/ActionParams.hpp>
+#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 
 #include <effolkronium/random.hpp>
 

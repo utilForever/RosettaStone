@@ -11,7 +11,7 @@
 
 namespace RosettaTorch::MCTS
 {
-PlayerController::Player::Player(RosettaStone::PlayerType playerType)
+PlayerController::Player::Player(RosettaStone::PlayMode::PlayerType playerType)
     : m_playerType(playerType)
 {
     // Do nothing
@@ -19,12 +19,12 @@ PlayerController::Player::Player(RosettaStone::PlayerType playerType)
 
 PlayerController::Player PlayerController::Player::Player1()
 {
-    return Player(RosettaStone::PlayerType::PLAYER1);
+    return Player(RosettaStone::PlayMode::PlayerType::PLAYER1);
 }
 
 PlayerController::Player PlayerController::Player::Player2()
 {
-    return Player(RosettaStone::PlayerType::PLAYER2);
+    return Player(RosettaStone::PlayMode::PlayerType::PLAYER2);
 }
 
 bool PlayerController::Player::operator==(const Player& rhs) const
@@ -39,22 +39,23 @@ bool PlayerController::Player::operator!=(const Player& rhs) const
 
 PlayerController::Player PlayerController::Player::Opponent() const
 {
-    return Player(m_playerType == RosettaStone::PlayerType::PLAYER1
-                      ? RosettaStone::PlayerType::PLAYER2
-                      : RosettaStone::PlayerType::PLAYER1);
+    return Player(m_playerType == RosettaStone::PlayMode::PlayerType::PLAYER1
+                      ? RosettaStone::PlayMode::PlayerType::PLAYER2
+                      : RosettaStone::PlayMode::PlayerType::PLAYER1);
 }
 
 bool PlayerController::Player::IsPlayer1() const
 {
-    return m_playerType == RosettaStone::PlayerType::PLAYER1;
+    return m_playerType == RosettaStone::PlayMode::PlayerType::PLAYER1;
 }
 
 bool PlayerController::Player::IsPlayer2() const
 {
-    return m_playerType == RosettaStone::PlayerType::PLAYER2;
+    return m_playerType == RosettaStone::PlayMode::PlayerType::PLAYER2;
 }
 
-RosettaStone::PlayerType PlayerController::Player::GetPlayerType() const
+RosettaStone::PlayMode::PlayerType PlayerController::Player::GetPlayerType()
+    const
 {
     return m_playerType;
 }
@@ -64,8 +65,9 @@ PlayerController::Player PlayerController::GetPlayer() const
     return Player(m_game->GetCurrentPlayer()->playerType);
 }
 
-RosettaStone::Board PlayerController::GetPlayerBoard(Player player) const
+RosettaStone::PlayMode::Board PlayerController::GetPlayerBoard(
+    Player player) const
 {
-    return RosettaStone::Board(*m_game, player.GetPlayerType());
+    return RosettaStone::PlayMode::Board(*m_game, player.GetPlayerType());
 }
 }  // namespace RosettaTorch::MCTS

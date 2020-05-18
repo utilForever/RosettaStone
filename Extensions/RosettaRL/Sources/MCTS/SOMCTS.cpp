@@ -120,7 +120,7 @@ SOMCTS::ActionParams::ActionParams(SOMCTS& callback)
 void SOMCTS::ActionParams::Init(const Board& board)
 {
     m_board = &board;
-    RosettaStone::ActionParams::Initialize(
+    RosettaStone::PlayMode::ActionParams::Initialize(
         m_board->GetCurPlayerStateRefView().GetActionValidGetter());
 }
 

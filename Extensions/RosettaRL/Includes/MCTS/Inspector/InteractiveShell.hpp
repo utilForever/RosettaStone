@@ -13,8 +13,8 @@
 #include <Agents/MCTSRunner.hpp>
 #include <MCTS/Policies/NeuralNetworkStateValue.hpp>
 
-#include <Rosetta/Actions/ActionApplyHelper.hpp>
-#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/PlayMode/Actions/ActionApplyHelper.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 
 #include <functional>
 

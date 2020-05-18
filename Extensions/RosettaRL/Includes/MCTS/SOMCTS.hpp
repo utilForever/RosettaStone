@@ -14,8 +14,8 @@
 #include <MCTS/Simulation/Simulation.hpp>
 #include <MCTS/Statistics/Statistics.hpp>
 
-#include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Actions/ActionParams.hpp>
+#include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
+#include <Rosetta/PlayMode/Actions/ActionParams.hpp>
 
 namespace RosettaTorch::MCTS
 {
@@ -88,7 +88,7 @@ class SOMCTS
     //!
     //! This class contains parameters to use when the game performs action.
     //!
-    class ActionParams : public RosettaStone::ActionParams
+    class ActionParams : public RosettaStone::PlayMode::ActionParams
     {
      public:
         //! Constructs ActionParams with given \p callback.

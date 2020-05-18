@@ -9,7 +9,7 @@
 
 #include <MCTS/Inspector/InteractiveShell.hpp>
 
-#include <Rosetta/Actions/ActionApplyHelper.hpp>
+#include <Rosetta/PlayMode/Actions/ActionApplyHelper.hpp>
 
 #include <tuple>
 

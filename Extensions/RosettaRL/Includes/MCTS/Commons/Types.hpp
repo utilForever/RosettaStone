@@ -10,10 +10,10 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TYPES_HPP
 #define ROSETTASTONE_TORCH_MCTS_TYPES_HPP
 
-#include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Enums/GameEnums.hpp>
+#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/PlayMode/Enums/GameEnums.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 namespace RosettaTorch::MCTS
 {

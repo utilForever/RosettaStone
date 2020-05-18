@@ -7,9 +7,9 @@
 #ifndef UNIT_TESTS_TEST_UTILS_HPP
 #define UNIT_TESTS_TEST_UTILS_HPP
 
-#include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/PlayMode/Cards/Card.hpp>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 namespace TestUtils
 {

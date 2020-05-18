@@ -13,7 +13,7 @@
 #include <NeuralNet/tiny-dnn/NeuralNetworkInputImpl.hpp>
 #include <NeuralNet/tiny-dnn/NeuralNetworkOutputImpl.hpp>
 
-#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Common/Macros.hpp>
 
 #define CNN_SINGLE_THREAD
 

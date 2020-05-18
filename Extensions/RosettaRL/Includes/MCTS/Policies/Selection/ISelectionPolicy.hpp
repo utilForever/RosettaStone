@@ -13,8 +13,8 @@
 #include <MCTS/Selection/EdgeAddon.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
-#include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Enums/ActionEnums.hpp>
+#include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
+#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {

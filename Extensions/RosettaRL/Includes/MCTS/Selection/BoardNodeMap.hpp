@@ -10,16 +10,16 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_HPP
 #define ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_HPP
 
-#include <Rosetta/Commons/SpinLocks.hpp>
-#include <Rosetta/Views/Board.hpp>
-#include <Rosetta/Views/ReducedBoardView.hpp>
+#include <Rosetta/Common/SpinLocks.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
+#include <Rosetta/PlayMode/Views/ReducedBoardView.hpp>
 
 #include <functional>
 #include <memory>
 #include <shared_mutex>
 #include <unordered_map>
 
-using namespace RosettaStone;
+using namespace RosettaStone::PlayMode;
 
 namespace RosettaTorch::MCTS
 {
@@ -47,7 +47,7 @@ class BoardNodeMap
     template <typename Functor>
     void ForEach(Functor&& functor) const
     {
-        std::shared_lock<SharedSpinLock> lock(m_mutex);
+        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mutex);
 
         if (!m_map)
         {
@@ -68,7 +68,7 @@ class BoardNodeMap
     //! \return The map that stores several boards.
     MapType& GetLockedMap();
 
-    mutable SharedSpinLock m_mutex;
+    mutable RosettaStone::SharedSpinLock m_mutex;
     std::unique_ptr<MapType> m_map;
 };
 }  // namespace RosettaTorch::MCTS

@@ -20,7 +20,7 @@ TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
     const auto boardView = board.CreateView();
 
     {
-        std::shared_lock<SharedSpinLock> lock(m_mutex);
+        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mutex);
 
         if (m_map)
         {
@@ -33,7 +33,7 @@ TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
     }
 
     {
-        std::lock_guard<SharedSpinLock> lock(m_mutex);
+        std::lock_guard<RosettaStone::SharedSpinLock> lock(m_mutex);
         auto& item = GetLockedMap()[boardView];
         if (!item)
         {

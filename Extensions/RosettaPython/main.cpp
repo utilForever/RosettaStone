@@ -4,26 +4,26 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Python/Accounts/AccountInfo.hpp>
-#include <Python/Accounts/DeckInfo.hpp>
+#include <Python/PlayMode/Accounts/AccountInfo.hpp>
+#include <Python/PlayMode/Accounts/DeckInfo.hpp>
 
-#include <Python/Cards/Card.hpp>
-#include <Python/Cards/Cards.hpp>
+#include <Python/PlayMode/Cards/Card.hpp>
+#include <Python/PlayMode/Cards/Cards.hpp>
 
-#include <Python/Commons/Constants.hpp>
-#include <Python/Commons/DeckCode.hpp>
+#include <Python/PlayMode/Enums/ActionEnums.hpp>
+#include <Python/PlayMode/Enums/AuraEnums.hpp>
+#include <Python/PlayMode/Enums/CardEnums.hpp>
+#include <Python/PlayMode/Enums/GameEnums.hpp>
+#include <Python/PlayMode/Enums/TargetingEnums.hpp>
+#include <Python/PlayMode/Enums/TaskEnums.hpp>
+#include <Python/PlayMode/Enums/TriggerEnums.hpp>
 
-#include <Python/Enums/ActionEnums.hpp>
-#include <Python/Enums/AuraEnums.hpp>
-#include <Python/Enums/CardEnums.hpp>
-#include <Python/Enums/GameEnums.hpp>
-#include <Python/Enums/TargetingEnums.hpp>
-#include <Python/Enums/TaskEnums.hpp>
-#include <Python/Enums/TriggerEnums.hpp>
+#include <Python/PlayMode/Loaders/AccountLoader.hpp>
+#include <Python/PlayMode/Loaders/InternalCardLoader.hpp>
+#include <Python/PlayMode/Loaders/TargetingPredicates.hpp>
 
-#include <Python/Loaders/AccountLoader.hpp>
-#include <Python/Loaders/InternalCardLoader.hpp>
-#include <Python/Loaders/TargetingPredicates.hpp>
+#include <Python/PlayMode/Utils/Constants.hpp>
+#include <Python/PlayMode/Utils/DeckCode.hpp>
 
 #include <pybind11/pybind11.h>
 
@@ -40,10 +40,6 @@ PYBIND11_MODULE(pyRosetta, m)
     AddCard(m);
     AddCards(m);
 
-    // Commons
-    AddConstants(m);
-    AddDeckCode(m);
-
     // Enums
     AddActionEnums(m);
     AddAuraEnums(m);
@@ -57,4 +53,8 @@ PYBIND11_MODULE(pyRosetta, m)
     AddAccountLoader(m);
     AddInternalCardLoader(m);
     AddTargetingPredicates(m);
+
+    // Utils
+    AddConstants(m);
+    AddDeckCode(m);
 }

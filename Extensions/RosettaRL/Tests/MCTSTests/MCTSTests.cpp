@@ -11,7 +11,7 @@
 #include <Agents/MCTSRunner.hpp>
 #include <MCTS/Inspector/InteractiveShell.hpp>
 
-#include <Rosetta/Commons/DeckCode.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <iostream>
 #include <sstream>

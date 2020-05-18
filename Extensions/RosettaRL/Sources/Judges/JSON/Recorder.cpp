@@ -26,13 +26,13 @@ const nlohmann::json& Recorder::GetJSON() const
     return m_json;
 }
 
-void Recorder::RecordMainAction(RosettaStone::Game& game,
-                                RosettaStone::MainOpType op)
+void Recorder::RecordMainAction(RosettaStone::PlayMode::Game& game,
+                                RosettaStone::PlayMode::MainOpType op)
 {
     nlohmann::json obj;
 
     obj["type"] = "MAIN_ACTION";
-    obj["field"] = RosettaStone::JSONSerializer::Serialize(game);
+    obj["field"] = RosettaStone::PlayMode::JSONSerializer::Serialize(game);
     obj["choice"] = GetMainOpString(op);
 
     m_json.emplace_back(obj);
@@ -49,8 +49,8 @@ void Recorder::RecordRandomAction(int maxValue, int action)
     m_json.emplace_back(obj);
 }
 
-void Recorder::RecordManualAction(RosettaStone::ActionType actionType,
-                                  RosettaStone::ActionChoices choices,
+void Recorder::RecordManualAction(RosettaStone::PlayMode::ActionType actionType,
+                                  RosettaStone::PlayMode::ActionChoices choices,
                                   int action)
 {
     nlohmann::json obj;
@@ -72,8 +72,9 @@ void Recorder::RecordManualAction(RosettaStone::ActionType actionType,
     m_json.emplace_back(obj);
 }
 
-void Recorder::End(
-    std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result)
+void Recorder::End(std::tuple<RosettaStone::PlayMode::PlayState,
+                              RosettaStone::PlayMode::PlayState>
+                       result)
 {
     nlohmann::json obj;
 
@@ -83,9 +84,10 @@ void Recorder::End(
     m_json.emplace_back(obj);
 }
 
-std::string Recorder::GetActionTypeString(RosettaStone::ActionType type)
+std::string Recorder::GetActionTypeString(
+    RosettaStone::PlayMode::ActionType type)
 {
-    using RosettaStone::ActionType;
+    using RosettaStone::PlayMode::ActionType;
 
     switch (type)
     {
@@ -111,14 +113,14 @@ std::string Recorder::GetActionTypeString(RosettaStone::ActionType type)
 }
 
 std::string Recorder::GetChoiceTypeString(
-    const RosettaStone::ActionChoices& choices)
+    const RosettaStone::PlayMode::ActionChoices& choices)
 {
-    if (choices.CheckType<RosettaStone::ChooseFromNumbers>())
+    if (choices.CheckType<RosettaStone::PlayMode::ChooseFromNumbers>())
     {
         return "CHOOSE_FROM_NUMBERS";
     }
 
-    if (choices.CheckType<RosettaStone::ChooseFromCardIDs>())
+    if (choices.CheckType<RosettaStone::PlayMode::ChooseFromCardIDs>())
     {
         return "CHOOSE_FROM_CARD_IDS";
     }
@@ -127,24 +129,26 @@ std::string Recorder::GetChoiceTypeString(
 }
 
 std::string Recorder::GetResultString(
-    std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result) const
+    std::tuple<RosettaStone::PlayMode::PlayState,
+               RosettaStone::PlayMode::PlayState>
+        result) const
 {
     auto& [p1Result, p2Result] = result;
 
-    if (p1Result == RosettaStone::PlayState::WON &&
-        p2Result == RosettaStone::PlayState::LOST)
+    if (p1Result == RosettaStone::PlayMode::PlayState::WON &&
+        p2Result == RosettaStone::PlayMode::PlayState::LOST)
     {
         return "PLAYER1_WIN";
     }
 
-    if (p1Result == RosettaStone::PlayState::LOST &&
-        p2Result == RosettaStone::PlayState::WON)
+    if (p1Result == RosettaStone::PlayMode::PlayState::LOST &&
+        p2Result == RosettaStone::PlayMode::PlayState::WON)
     {
         return "PLAYER2_WIN";
     }
 
-    if (p1Result == RosettaStone::PlayState::TIED &&
-        p2Result == RosettaStone::PlayState::TIED)
+    if (p1Result == RosettaStone::PlayMode::PlayState::TIED &&
+        p2Result == RosettaStone::PlayMode::PlayState::TIED)
     {
         return "DRAW";
     }

@@ -10,7 +10,7 @@
 #include <NeuralNet/tiny-dnn/InputDataConverter.hpp>
 #include <NeuralNet/tiny-dnn/NeuralNetworkImpl.hpp>
 
-#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Common/Macros.hpp>
 
 #include <effolkronium/random.hpp>
 

@@ -12,9 +12,9 @@
 
 #include <MCTS/Commons/Types.hpp>
 
-#include <Rosetta/Actions/ActionValidChecker.hpp>
-#include <Rosetta/Enums/ActionEnums.hpp>
-#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/PlayMode/Actions/ActionValidChecker.hpp>
+#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
 {

@@ -9,18 +9,18 @@
 
 #include <NeuralNet/GameDataBridge.hpp>
 
-#include <Rosetta/Actions/ActionValidGetter.hpp>
+#include <Rosetta/PlayMode/Actions/ActionValidGetter.hpp>
 
 namespace RosettaTorch::NeuralNet
 {
-void GameDataBridge::Reset(const RosettaStone::Game& game)
+void GameDataBridge::Reset(const RosettaStone::PlayMode::Game& game)
 {
     m_game = &game;
 
-    RosettaStone::ActionValidGetter getter(*m_game);
+    RosettaStone::PlayMode::ActionValidGetter getter(*m_game);
 
     m_playableCards.clear();
-    getter.ForEachPlayableCard([this](RosettaStone::Entity* card) {
+    getter.ForEachPlayableCard([this](RosettaStone::PlayMode::Entity* card) {
         m_playableCards.push_back(card);
         return true;
     });
@@ -44,8 +44,9 @@ double GameDataBridge::GetField(FieldSide fieldSide, FieldType fieldType,
     throw std::runtime_error("Invalid field side");
 }
 
-double GameDataBridge::GetSideField(FieldType fieldType, int arg,
-                                    const RosettaStone::Player* player) const
+double GameDataBridge::GetSideField(
+    FieldType fieldType, int arg,
+    const RosettaStone::PlayMode::Player* player) const
 {
     auto& handZone = *(player->GetHandZone());
     auto& fieldZone = *(player->GetFieldZone());
@@ -75,12 +76,14 @@ double GameDataBridge::GetSideField(FieldType fieldType, int arg,
         case FieldType::MINION_ATTACKABLE:
             return fieldZone[arg]->CanAttack();
         case FieldType::MINION_TAUNT:
-            return fieldZone[arg]->GetGameTag(RosettaStone::GameTag::TAUNT);
+            return fieldZone[arg]->GetGameTag(
+                RosettaStone::PlayMode::GameTag::TAUNT);
         case FieldType::MINION_DIVINE_SHIELD:
             return fieldZone[arg]->GetGameTag(
-                RosettaStone::GameTag::DIVINE_SHIELD);
+                RosettaStone::PlayMode::GameTag::DIVINE_SHIELD);
         case FieldType::MINION_STEALTH:
-            return fieldZone[arg]->GetGameTag(RosettaStone::GameTag::STEALTH);
+            return fieldZone[arg]->GetGameTag(
+                RosettaStone::PlayMode::GameTag::STEALTH);
         case FieldType::HAND_COUNT:
             return handZone.GetCount();
         case FieldType::HAND_PLAYABLE:

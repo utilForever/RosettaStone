@@ -7,10 +7,10 @@
 #ifndef ROSETTASTONE_CONSOLE_HPP
 #define ROSETTASTONE_CONSOLE_HPP
 
-#include <Rosetta/Accounts/AccountInfo.hpp>
-#include <Rosetta/Accounts/DeckInfo.hpp>
-#include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/PlayMode/Accounts/AccountInfo.hpp>
+#include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Utils/Constants.hpp>
 
 #include <array>
 #include <cctype>
@@ -82,7 +82,7 @@ inline std::tuple<int, int> ParseValueRangeFromString(const std::string& str,
     return std::make_tuple(minValue, maxValue);
 }
 
-namespace RosettaStone
+namespace RosettaStone::PlayMode
 {
 class Console
 {
@@ -161,6 +161,6 @@ class Console
 
     AccountInfo* m_account = nullptr;
 };
-}  // namespace RosettaStone
+}  // namespace RosettaStone::PlayMode
 
 #endif  // ROSETTASTONE_CONSOLE_HPP

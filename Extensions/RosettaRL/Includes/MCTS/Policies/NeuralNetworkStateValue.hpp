@@ -15,7 +15,7 @@
 #include <NeuralNet/GameDataBridge.hpp>
 #include <NeuralNet/NeuralNetwork.hpp>
 
-#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
 {

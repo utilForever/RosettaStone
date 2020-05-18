@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_IMPL_HPP
 #define ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_IMPL_HPP
 
-#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Common/Macros.hpp>
 
 #define CNN_SINGLE_THREAD
 

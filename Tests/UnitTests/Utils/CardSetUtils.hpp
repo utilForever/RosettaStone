@@ -9,13 +9,13 @@
 
 #include <doctest.h>
 
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/ChooseTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/HeroPowerTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 
 #include <future>
 

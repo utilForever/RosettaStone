@@ -12,7 +12,7 @@
 
 #include <MCTS/Commons/Types.hpp>
 
-#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/PlayMode/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
 {
