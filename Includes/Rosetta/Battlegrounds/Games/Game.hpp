@@ -7,20 +7,16 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_GAME_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_GAME_HPP
 
-#include <Rosetta/Battlegrounds/Enums/GameEnums.hpp>
-#include <Rosetta/Battlegrounds/Models/Player.hpp>
-
-#include <array>
+#include <Rosetta/Battlegrounds/Games/GameState.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
 //!
 //! \brief Game class.
 //!
-//! This class stores Battlegrounds related states which consists of information
-//! of 8 players. Battlegrounds is a game mode where eight players face off in
-//! 1v1 rounds, with the goal to be the last player standing. Each round
-//! consists of two phases.
+//! This class processes the game, Hearthstone: Battlegrounds. Battlegrounds is
+//! a game mode where eight players face off in 1v1 rounds, with the goal to be
+//! the last player standing. Each round consists of two phases.
 //!
 class Game
 {
@@ -40,11 +36,8 @@ class Game
     //! Processes the game over phase.
     void GameOver();
 
-    Phase phase = Phase::INVALID;
-    Phase nextPhase = Phase::INVALID;
-
  private:
-    std::array<Player, 8> players;
+    GameState m_gameState;
 };
 }  // namespace RosettaStone::Battlegrounds
 

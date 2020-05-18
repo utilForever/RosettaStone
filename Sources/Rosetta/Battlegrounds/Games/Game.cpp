@@ -12,8 +12,8 @@ namespace RosettaStone::Battlegrounds
 void Game::Start()
 {
     // Set next phase
-    nextPhase = Phase::SELECT_HERO;
-    GameManager::ProcessNextPhase(*this, nextPhase);
+    m_gameState.nextPhase = Phase::SELECT_HERO;
+    GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
 }
 
 void Game::SelectHero()
@@ -27,8 +27,8 @@ void Game::Recruit()
 void Game::Combat()
 {
     // Set next phase
-    nextPhase = Phase::RECRUIT;
-    GameManager::ProcessNextPhase(*this, nextPhase);
+    m_gameState.nextPhase = Phase::RECRUIT;
+    GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
 }
 
 void Game::GameOver()
