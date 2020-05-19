@@ -12,6 +12,20 @@
 
 namespace RosettaStone::Battlegrounds
 {
+//! \brief An enumerator for identifying the set of the card.
+enum class CardSet
+{
+#define X(a) a,
+#include "Rosetta/Common/Enums/CardSet.def"
+#undef X
+};
+
+const std::string CARD_SET_STR[] = {
+#define X(a) #a,
+#include "Rosetta/Common/Enums/CardSet.def"
+#undef X
+};
+
 //! \brief An enumerator for identifying the game tag of the card.
 enum class GameTag
 {
@@ -57,6 +71,7 @@ std::string_view EnumToStr(T);
     STR2ENUM(TYPE, ARRAY)         \
     ENUM2STR(TYPE, ARRAY)
 
+ENUM_AND_STR(CardSet, CARD_SET_STR)
 ENUM_AND_STR(GameTag, GAME_TAG_STR)
 }  // namespace RosettaStone::Battlegrounds
 
