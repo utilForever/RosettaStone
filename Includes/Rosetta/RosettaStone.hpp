@@ -9,6 +9,7 @@
 
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Battlegrounds/Enums/CardEnums.hpp>
 #include <Rosetta/Battlegrounds/Enums/GameEnums.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
