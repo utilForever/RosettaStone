@@ -10,7 +10,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-void CardLoader::Load(std::array<Card, 360>& cards)
+void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -79,11 +79,15 @@ void CardLoader::Load(std::array<Card, 360>& cards)
             gameTags.emplace(gameTag, 1);
         }
 
+        const bool isBattlegroundsHero =
+            cardData["battlegroundsHero"].is_null() ? false : true;
+
         Card card;
         card.id = id;
         card.dbfID = dbfID;
         card.name = name;
         card.text = text;
+        card.isCurHero = isBattlegroundsHero;
 
         card.gameTags = gameTags;
         card.gameTags[GameTag::CARD_SET] = static_cast<int>(cardSet);
