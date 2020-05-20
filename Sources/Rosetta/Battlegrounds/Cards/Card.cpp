@@ -8,4 +8,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+CardType Card::GetCardType() const
+{
+    return static_cast<CardType>(gameTags.at(GameTag::CARDTYPE));
+}
 }  // namespace RosettaStone::Battlegrounds

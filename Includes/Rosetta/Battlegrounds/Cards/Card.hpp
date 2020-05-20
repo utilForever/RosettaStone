@@ -22,12 +22,19 @@ namespace RosettaStone::Battlegrounds
 class Card
 {
  public:
+    //! Returns the value of card type.
+    //! \return The value of card type.
+    CardType GetCardType() const;
+
     std::string id;
     int dbfID;
+
     std::string name;
     std::string text;
 
     std::map<GameTag, int> gameTags;
+
+    bool isCurHero;
 };
 }  // namespace RosettaStone::Battlegrounds
 
