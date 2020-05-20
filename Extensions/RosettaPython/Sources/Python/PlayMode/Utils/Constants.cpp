@@ -9,7 +9,7 @@
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddConstants(pybind11::module& m)
 {

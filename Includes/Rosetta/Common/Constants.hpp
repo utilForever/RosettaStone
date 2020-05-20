@@ -12,7 +12,7 @@
 #include <array>
 #include <string>
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! RosettaStone version.
 constexpr float VERSION = 0.4f;
