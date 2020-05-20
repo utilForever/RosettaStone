@@ -7,6 +7,11 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_CARDS_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_CARDS_HPP
 
+#include <Rosetta/Battlegrounds/Cards/Card.hpp>
+#include <Rosetta/Common/Constants.hpp>
+
+#include <array>
+
 namespace RosettaStone::Battlegrounds
 {
 //!
@@ -16,6 +21,26 @@ namespace RosettaStone::Battlegrounds
 //!
 class Cards
 {
+ public:
+    //! Returns an instance of Cards class.
+    //! \return An instance of Cards class.
+    static Cards& GetInstance();
+
+    //! Returns a list of all cards.
+    //! \return A list of all cards.
+    static const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& GetAllCards();
+
+    //! Returns a list of current hero cards.
+    //! \return A list of current hero cards.
+    static const std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS>&
+    GetCurrentHeroCards();
+
+ private:
+    //! Constructor: Loads card data.
+    Cards();
+
+    static std::array<Card, NUM_BATTLEGROUNDS_CARDS> m_cards;
+    static std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS> m_curHeroes;
 };
 }  // namespace RosettaStone::Battlegrounds
 
