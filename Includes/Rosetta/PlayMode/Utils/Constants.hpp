@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_CONSTANTS_HPP
 #define ROSETTASTONE_PLAYMODE_CONSTANTS_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 
 #include <array>
 #include <string>

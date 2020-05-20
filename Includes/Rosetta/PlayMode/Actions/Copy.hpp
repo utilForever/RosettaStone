@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_COPY_HPP
 #define ROSETTASTONE_PLAYMODE_COPY_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Models/Playable.hpp>
 
 namespace RosettaStone::PlayMode::Generic

@@ -5,11 +5,11 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Enums/ActionEnums.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddActionEnums(pybind11::module& m)
 {

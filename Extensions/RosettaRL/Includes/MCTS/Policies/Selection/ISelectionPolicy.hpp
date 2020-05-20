@@ -13,8 +13,8 @@
 #include <MCTS/Selection/EdgeAddon.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {
@@ -71,7 +71,7 @@ class ISelectionPolicy
     //! \param actionType The type of action.
     //! \param choiceIter An iterator for action choices.
     //! \return The index of choice.
-    virtual int SelectChoice(ActionType actionType,
+    virtual int SelectChoice(RosettaStone::ActionType actionType,
                              ChoiceIterator choiceIter) = 0;
 };
 }  // namespace RosettaTorch::MCTS

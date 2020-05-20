@@ -5,11 +5,11 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Enums/TargetingEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TargetingEnums.hpp>
+#include <Rosetta/Common/Enums/TargetingEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddTargetingEnums(pybind11::module& m)
 {

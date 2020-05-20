@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_ACTION_VALID_CHECKER_HPP
 #define ROSETTASTONE_PLAYMODE_ACTION_VALID_CHECKER_HPP
 
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/PlayMode/Actions/ActionTargets.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 
 namespace RosettaStone::PlayMode

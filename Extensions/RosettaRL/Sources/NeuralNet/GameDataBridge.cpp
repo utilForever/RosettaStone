@@ -76,14 +76,12 @@ double GameDataBridge::GetSideField(
         case FieldType::MINION_ATTACKABLE:
             return fieldZone[arg]->CanAttack();
         case FieldType::MINION_TAUNT:
-            return fieldZone[arg]->GetGameTag(
-                RosettaStone::PlayMode::GameTag::TAUNT);
+            return fieldZone[arg]->GetGameTag(RosettaStone::GameTag::TAUNT);
         case FieldType::MINION_DIVINE_SHIELD:
             return fieldZone[arg]->GetGameTag(
-                RosettaStone::PlayMode::GameTag::DIVINE_SHIELD);
+                RosettaStone::GameTag::DIVINE_SHIELD);
         case FieldType::MINION_STEALTH:
-            return fieldZone[arg]->GetGameTag(
-                RosettaStone::PlayMode::GameTag::STEALTH);
+            return fieldZone[arg]->GetGameTag(RosettaStone::GameTag::STEALTH);
         case FieldType::HAND_COUNT:
             return handZone.GetCount();
         case FieldType::HAND_PLAYABLE:

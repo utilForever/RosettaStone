@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_GAME_MANAGER_HPP
 #define ROSETTASTONE_PLAYMODE_GAME_MANAGER_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 
 namespace RosettaStone::PlayMode

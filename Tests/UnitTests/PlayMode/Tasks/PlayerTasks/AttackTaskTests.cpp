@@ -15,10 +15,10 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace TestUtils;
 

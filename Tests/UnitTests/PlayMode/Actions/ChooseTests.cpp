@@ -6,12 +6,13 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 TEST_CASE("[Choose] - ChoiceMulligan")
 {
@@ -35,7 +36,7 @@ TEST_CASE("[Choose] - ChoiceMulligan")
     curPlayer->choice->choiceAction = ChoiceAction::HAND;
     curPlayer->choice->choices = curChoices;
     curPlayer->choice->choiceType = ChoiceType::MULLIGAN;
-    
+
     opPlayer->choice = new Choice(opPlayer);
     opPlayer->choice->choiceAction = ChoiceAction::HAND;
     opPlayer->choice->choices = opChoices;

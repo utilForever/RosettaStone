@@ -26,7 +26,7 @@ class RandomPolicy : public ISelectionPolicy
     //! \param actionType The type of action.
     //! \param choiceIter An iterator for action choices.
     //! \return The index of choice.
-    int SelectChoice([[maybe_unused]] ActionType actionType,
+    int SelectChoice([[maybe_unused]] RosettaStone::ActionType actionType,
                      ChoiceIterator choiceIter) override;
 };
 }  // namespace RosettaTorch::MCTS

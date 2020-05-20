@@ -6,9 +6,9 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Actions/Copy.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
@@ -16,7 +16,8 @@
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 TEST_CASE("[Copy] - Copy")
 {

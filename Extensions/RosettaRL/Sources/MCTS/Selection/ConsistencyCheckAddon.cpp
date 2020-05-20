@@ -11,7 +11,8 @@
 
 namespace RosettaTorch::MCTS
 {
-bool ConsistencyCheckAddon::LockAndCheckActionType(ActionType actionType) const
+bool ConsistencyCheckAddon::LockAndCheckActionType(
+    RosettaStone::ActionType actionType) const
 {
     std::lock_guard<RosettaStone::SpinLock> lock(m_mutex);
     return CheckActionType(actionType);
@@ -23,7 +24,7 @@ bool ConsistencyCheckAddon::LockAndCheckBoard(const ReducedBoardView& view)
     return CheckBoard(view);
 }
 
-ActionType ConsistencyCheckAddon::GetActionType() const
+RosettaStone::ActionType ConsistencyCheckAddon::GetActionType() const
 {
     std::lock_guard<RosettaStone::SpinLock> lock(m_mutex);
     return m_actionType;
@@ -35,9 +36,10 @@ ReducedBoardView* ConsistencyCheckAddon::GetBoard() const
     return m_boardView.get();
 }
 
-bool ConsistencyCheckAddon::CheckActionType(ActionType actionType) const
+bool ConsistencyCheckAddon::CheckActionType(
+    RosettaStone::ActionType actionType) const
 {
-    if (m_actionType == ActionType::INVALID)
+    if (m_actionType == RosettaStone::ActionType::INVALID)
     {
         return true;
     }

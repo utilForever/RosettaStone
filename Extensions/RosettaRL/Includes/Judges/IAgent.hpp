@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_JUDGES_IAGENT_HPP
 #define ROSETTASTONE_TORCH_JUDGES_IAGENT_HPP
 
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::Judges
 {

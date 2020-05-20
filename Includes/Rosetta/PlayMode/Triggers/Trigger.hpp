@@ -6,8 +6,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_TRIGGER_HPP
 #define ROSETTASTONE_PLAYMODE_TRIGGER_HPP
 
+#include <Rosetta/Common/Enums/TriggerEnums.hpp>
 #include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
-#include <Rosetta/PlayMode/Enums/TriggerEnums.hpp>
 #include <Rosetta/PlayMode/Managers/TriggerEventHandler.hpp>
 
 #include <memory>

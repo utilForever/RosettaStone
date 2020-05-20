@@ -8,7 +8,8 @@
 
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 TEST_CASE("[DeckString] - Decode")
 {

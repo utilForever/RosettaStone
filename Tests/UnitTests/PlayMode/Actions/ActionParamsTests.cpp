@@ -16,7 +16,8 @@
 
 using Random = effolkronium::random_static;
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 class TestActionParams : public ActionParams
 {

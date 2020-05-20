@@ -7,8 +7,8 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_GAME_STATE_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_GAME_STATE_HPP
 
-#include <Rosetta/Battlegrounds/Enums/GameEnums.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
+#include <Rosetta/Common/Enums/GameEnums.hpp>
 
 #include <array>
 

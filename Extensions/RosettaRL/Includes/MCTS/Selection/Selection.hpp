@@ -15,8 +15,8 @@
 #include <MCTS/Selection/TraversedNodesInfo.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {

@@ -11,7 +11,8 @@
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
 #include <Rosetta/PlayMode/Views/Board.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 TEST_CASE("[Board] - RefCopyFrom")
 {

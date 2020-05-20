@@ -6,9 +6,9 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
@@ -17,7 +17,8 @@
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 TEST_CASE("[Generic] - ShuffleIntoDeck")
 {

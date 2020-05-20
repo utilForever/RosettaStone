@@ -6,9 +6,9 @@
 #ifndef ROSETTASTONE_PLAYMODE_EFFECT_HPP
 #define ROSETTASTONE_PLAYMODE_EFFECT_HPP
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Enchants/IEffect.hpp>
 #include <Rosetta/PlayMode/Enchants/PlayerAuraEffects.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 
 namespace RosettaStone::PlayMode
 {

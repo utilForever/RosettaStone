@@ -4,12 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Common/Utils.hpp>
-
-#include <random>
 
 TEST_CASE("[Base64] - Decode")
 {

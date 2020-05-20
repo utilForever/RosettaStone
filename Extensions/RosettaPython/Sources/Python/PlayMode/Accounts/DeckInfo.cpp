@@ -10,7 +10,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 void AddDeckInfo(pybind11::module& m)
 {

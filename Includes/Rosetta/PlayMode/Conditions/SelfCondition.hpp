@@ -6,8 +6,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_SELF_CONDITION_HPP
 #define ROSETTASTONE_PLAYMODE_SELF_CONDITION_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TaskEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
 
 #include <functional>
 

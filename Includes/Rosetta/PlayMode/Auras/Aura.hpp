@@ -6,12 +6,13 @@
 #ifndef ROSETTASTONE_PLAYMODE_AURA_HPP
 #define ROSETTASTONE_PLAYMODE_AURA_HPP
 
+#include <Rosetta/Common/Enums/AuraEnums.hpp>
+#include <Rosetta/Common/Enums/TriggerEnums.hpp>
 #include <Rosetta/Common/PriorityQueue.hpp>
 #include <Rosetta/PlayMode/Auras/AuraUpdateInstruction.hpp>
 #include <Rosetta/PlayMode/Auras/IAura.hpp>
 #include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchant.hpp>
-#include <Rosetta/PlayMode/Enums/AuraEnums.hpp>
 #include <Rosetta/PlayMode/Triggers/Trigger.hpp>
 
 #include <memory>

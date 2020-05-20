@@ -12,7 +12,7 @@
 
 #include <MCTS/Policies/Selection/ISelectionPolicy.hpp>
 
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {
@@ -34,7 +34,8 @@ class UCBPolicy : public ISelectionPolicy
     //! \param actionType The type of action.
     //! \param choiceIter An iterator for action choices.
     //! \return The index of choice.
-    int SelectChoice(ActionType actionType, ChoiceIterator choiceIter) override;
+    int SelectChoice(RosettaStone::ActionType actionType,
+                     ChoiceIterator choiceIter) override;
 };
 }  // namespace RosettaTorch::MCTS
 

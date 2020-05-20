@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_AURA_UPDATE_INSTRUCTION_HPP
 #define ROSETTASTONE_PLAYMODE_AURA_UPDATE_INSTRUCTION_HPP
 
-#include <Rosetta/PlayMode/Enums/AuraEnums.hpp>
+#include <Rosetta/Common/Enums/AuraEnums.hpp>
 
 namespace RosettaStone::PlayMode
 {

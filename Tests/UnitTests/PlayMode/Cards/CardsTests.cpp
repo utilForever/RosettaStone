@@ -6,11 +6,12 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Utils/Constants.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 TEST_CASE("[Cards] - GetAllCards")
 {
@@ -252,23 +253,23 @@ TEST_CASE("[Cards] - GetHeroCard")
     Cards& instance = Cards::GetInstance();
 
     CHECK_EQ(instance.FindCardByID("HERO_06")->id,
-              instance.GetHeroCard(CardClass::DRUID)->id);
+             instance.GetHeroCard(CardClass::DRUID)->id);
     CHECK_EQ(instance.FindCardByID("HERO_05")->id,
-              instance.GetHeroCard(CardClass::HUNTER)->id);
+             instance.GetHeroCard(CardClass::HUNTER)->id);
     CHECK_EQ(instance.FindCardByID("HERO_08")->id,
-              instance.GetHeroCard(CardClass::MAGE)->id);
+             instance.GetHeroCard(CardClass::MAGE)->id);
     CHECK_EQ(instance.FindCardByID("HERO_04")->id,
-              instance.GetHeroCard(CardClass::PALADIN)->id);
+             instance.GetHeroCard(CardClass::PALADIN)->id);
     CHECK_EQ(instance.FindCardByID("HERO_09")->id,
-              instance.GetHeroCard(CardClass::PRIEST)->id);
+             instance.GetHeroCard(CardClass::PRIEST)->id);
     CHECK_EQ(instance.FindCardByID("HERO_03")->id,
-              instance.GetHeroCard(CardClass::ROGUE)->id);
+             instance.GetHeroCard(CardClass::ROGUE)->id);
     CHECK_EQ(instance.FindCardByID("HERO_02")->id,
-              instance.GetHeroCard(CardClass::SHAMAN)->id);
+             instance.GetHeroCard(CardClass::SHAMAN)->id);
     CHECK_EQ(instance.FindCardByID("HERO_07")->id,
-              instance.GetHeroCard(CardClass::WARLOCK)->id);
+             instance.GetHeroCard(CardClass::WARLOCK)->id);
     CHECK_EQ(instance.FindCardByID("HERO_01")->id,
-              instance.GetHeroCard(CardClass::WARRIOR)->id);
+             instance.GetHeroCard(CardClass::WARRIOR)->id);
     CHECK_EQ(instance.GetHeroCard(CardClass::DEATHKNIGHT)->id, "");
 }
 
@@ -277,23 +278,23 @@ TEST_CASE("[Cards] - GetDefaultHeroPower")
     Cards& instance = Cards::GetInstance();
 
     CHECK_EQ(instance.FindCardByID("CS2_017")->id,
-              instance.GetDefaultHeroPower(CardClass::DRUID)->id);
+             instance.GetDefaultHeroPower(CardClass::DRUID)->id);
     CHECK_EQ(instance.FindCardByID("DS1h_292")->id,
-              instance.GetDefaultHeroPower(CardClass::HUNTER)->id);
+             instance.GetDefaultHeroPower(CardClass::HUNTER)->id);
     CHECK_EQ(instance.FindCardByID("CS2_034")->id,
-              instance.GetDefaultHeroPower(CardClass::MAGE)->id);
+             instance.GetDefaultHeroPower(CardClass::MAGE)->id);
     CHECK_EQ(instance.FindCardByID("CS2_101")->id,
-              instance.GetDefaultHeroPower(CardClass::PALADIN)->id);
+             instance.GetDefaultHeroPower(CardClass::PALADIN)->id);
     CHECK_EQ(instance.FindCardByID("CS1h_001")->id,
-              instance.GetDefaultHeroPower(CardClass::PRIEST)->id);
+             instance.GetDefaultHeroPower(CardClass::PRIEST)->id);
     CHECK_EQ(instance.FindCardByID("CS2_083b")->id,
-              instance.GetDefaultHeroPower(CardClass::ROGUE)->id);
+             instance.GetDefaultHeroPower(CardClass::ROGUE)->id);
     CHECK_EQ(instance.FindCardByID("CS2_049")->id,
-              instance.GetDefaultHeroPower(CardClass::SHAMAN)->id);
+             instance.GetDefaultHeroPower(CardClass::SHAMAN)->id);
     CHECK_EQ(instance.FindCardByID("CS2_056")->id,
-              instance.GetDefaultHeroPower(CardClass::WARLOCK)->id);
+             instance.GetDefaultHeroPower(CardClass::WARLOCK)->id);
     CHECK_EQ(instance.FindCardByID("CS2_102")->id,
-              instance.GetDefaultHeroPower(CardClass::WARRIOR)->id);
+             instance.GetDefaultHeroPower(CardClass::WARRIOR)->id);
     CHECK_EQ(instance.GetDefaultHeroPower(CardClass::DEATHKNIGHT)->id, "");
 }
 

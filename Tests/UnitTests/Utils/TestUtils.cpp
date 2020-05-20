@@ -15,6 +15,7 @@
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 
+using namespace RosettaStone;
 using namespace PlayerTasks;
 
 namespace TestUtils

@@ -10,7 +10,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 using CardListCasterBase =
     pybind11::detail::list_caster<std::vector<Card*>, Card*>;

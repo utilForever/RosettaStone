@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_DISCOVER_TASK_HPP
 #define ROSETTASTONE_PLAYMODE_DISCOVER_TASK_HPP
 
-#include <Rosetta/PlayMode/Enums/ChoiceEnums.hpp>
+#include <Rosetta/Common/Enums/ChoiceEnums.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks

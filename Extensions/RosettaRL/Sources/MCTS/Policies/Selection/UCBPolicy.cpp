@@ -13,7 +13,8 @@
 
 namespace RosettaTorch::MCTS
 {
-int UCBPolicy::SelectChoice(ActionType actionType, ChoiceIterator choiceIter)
+int UCBPolicy::SelectChoice(RosettaStone::ActionType actionType,
+                            ChoiceIterator choiceIter)
 {
     constexpr std::size_t MAX_CHOICES = 16;
     std::array<ChoiceIterator::Item, MAX_CHOICES> choices{};
@@ -54,13 +55,13 @@ int UCBPolicy::SelectChoice(ActionType actionType, ChoiceIterator choiceIter)
     }
 
     // Phase 2: use UCB to make a choice
-    const auto getScore = [totalChosenTimes](ActionType actionType,
-                                             std::size_t choiceIdx,
-                                             std::size_t choiceCount,
-                                             const ChoiceIterator::Item& item) {
+    const auto getScore = [totalChosenTimes](
+                              RosettaStone::ActionType actionType,
+                              std::size_t choiceIdx, std::size_t choiceCount,
+                              const ChoiceIterator::Item& item) {
         double exploreWeight = EXPLORE_WEIGHT;
 
-        if (actionType == ActionType::MAIN_ACTION)
+        if (actionType == RosettaStone::ActionType::MAIN_ACTION)
         {
             if (choiceIdx == choiceCount - 1)
             {
