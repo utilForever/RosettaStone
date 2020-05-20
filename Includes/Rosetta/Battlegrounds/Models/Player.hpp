@@ -7,9 +7,9 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_PLAYER_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_PLAYER_HPP
 
-#include <Rosetta/Battlegrounds/Models/Hero.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 
+#include <array>
 #include <optional>
 #include <vector>
 
@@ -22,9 +22,10 @@ namespace RosettaStone::Battlegrounds
 //!
 class Player
 {
- private:
-    Hero m_hero;
-    std::vector<std::optional<Minion>> m_minions;
+ public:
+    std::vector<std::optional<Minion>> minions;
+
+    std::array<int, 4> heroChoices{};
 };
 }  // namespace RosettaStone::Battlegrounds
 
