@@ -21,6 +21,10 @@ namespace RosettaStone::Battlegrounds
 class Game
 {
  public:
+    //! Gets the game state.
+    //! \return The game state.
+    const GameState& GetGameState() const;
+
     //! Starts the game.
     void Start();
 
@@ -37,7 +41,7 @@ class Game
     void GameOver();
 
  private:
-    GameState m_gameState;
+    GameState m_gameState{};
 };
 }  // namespace RosettaStone::Battlegrounds
 

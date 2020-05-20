@@ -14,6 +14,11 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::Battlegrounds
 {
+const GameState& Game::GetGameState() const
+{
+    return m_gameState;
+}
+
 void Game::Start()
 {
     // Set next phase
