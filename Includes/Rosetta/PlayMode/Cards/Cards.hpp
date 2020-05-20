@@ -7,8 +7,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_CARDS_HPP
 #define ROSETTASTONE_PLAYMODE_CARDS_HPP
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 
 #include <vector>
 

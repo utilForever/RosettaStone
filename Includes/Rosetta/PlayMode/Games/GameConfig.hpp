@@ -6,9 +6,9 @@
 #ifndef ROSETTASTONE_PLAYMODE_GAME_CONFIG_HPP
 #define ROSETTASTONE_PLAYMODE_GAME_CONFIG_HPP
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 
 #include <array>
 

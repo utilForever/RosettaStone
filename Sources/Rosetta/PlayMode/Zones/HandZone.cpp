@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 namespace RosettaStone::PlayMode

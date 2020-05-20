@@ -6,9 +6,9 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;

@@ -7,6 +7,11 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
+
+#include <map>
+#include <string>
+
 namespace RosettaStone::Battlegrounds
 {
 //!
@@ -16,6 +21,13 @@ namespace RosettaStone::Battlegrounds
 //!
 class Card
 {
+ public:
+    std::string id;
+    int dbfID;
+    std::string name;
+    std::string text;
+
+    std::map<GameTag, int> gameTags;
 };
 }  // namespace RosettaStone::Battlegrounds
 

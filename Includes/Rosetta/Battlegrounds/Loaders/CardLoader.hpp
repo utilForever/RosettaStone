@@ -7,7 +7,13 @@
 #ifndef ROSETTASTONE_PLAYMODE_CARD_LOADER_HPP
 #define ROSETTASTONE_PLAYMODE_CARD_LOADER_HPP
 
-namespace RosettaStone::PlayMode
+#include <Rosetta/Battlegrounds/Cards/Card.hpp>
+
+#include <json/json.hpp>
+
+#include <array>
+
+namespace RosettaStone::Battlegrounds
 {
 //!
 //! \brief CardLoader class.
@@ -16,7 +22,11 @@ namespace RosettaStone::PlayMode
 //!
 class CardLoader
 {
+ public:
+    //! Loads card data from cards.json.
+    //! \param cards Data storage to store added cards with power.
+    static void Load(std::array<Card, 360>& cards);
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone::Battlegrounds
 
 #endif  // ROSETTASTONE_PLAYMODE_CARD_LOADER_HPP
