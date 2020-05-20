@@ -4,8 +4,13 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::Battlegrounds
 {
@@ -18,6 +23,9 @@ void Game::Start()
 
 void Game::SelectHero()
 {
+    // Shuffle current heroes
+    auto currentHeroes = Cards::GetInstance().GetCurrentHeroCards();
+    Random::shuffle(currentHeroes.begin(), currentHeroes.end());
 }
 
 void Game::Recruit()
