@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_CONSTANTS_HPP
-#define ROSETTASTONE_PLAYMODE_CONSTANTS_HPP
+#ifndef ROSETTASTONE_CONSTANTS_HPP
+#define ROSETTASTONE_CONSTANTS_HPP
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 
@@ -103,4 +103,4 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int GAME_MAIN_MENU_SIZE = 3;
 }  // namespace RosettaStone::PlayMode
 
-#endif  // ROSETTASTONE_PLAYMODE_CONSTANTS_HPP
+#endif  // ROSETTASTONE_CONSTANTS_HPP
