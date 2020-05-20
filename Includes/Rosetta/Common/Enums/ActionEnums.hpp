@@ -7,12 +7,12 @@
 //// It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_PLAYMODE_ACTION_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_ACTION_ENUMS_HPP
+#ifndef ROSETTASTONE_ACTION_ENUMS_HPP
+#define ROSETTASTONE_ACTION_ENUMS_HPP
 
 #include <string>
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! \brief An enumerator for identifying main operation type.
 enum class MainOpType
@@ -58,6 +58,6 @@ inline std::string GetMainOpString(MainOpType op)
             return "UNKNOWN";
     }
 }
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_ACTION_ENUMS_HPP
+#endif  // ROSETTASTONE_ACTION_ENUMS_HPP

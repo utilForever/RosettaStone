@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_TARGETING_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_TARGETING_ENUMS_HPP
+#ifndef ROSETTASTONE_TARGETING_ENUMS_HPP
+#define ROSETTASTONE_TARGETING_ENUMS_HPP
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! \brief An enumerator for identifying targeting type.
 enum class TargetingType
@@ -39,6 +39,6 @@ enum class FriendlyType
     FRIENDLY,
     ENEMY
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_TARGETING_ENUMS_HPP
+#endif  // ROSETTASTONE_TARGETING_ENUMS_HPP

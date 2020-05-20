@@ -9,8 +9,6 @@
 
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
-#include <Rosetta/Battlegrounds/Enums/CardEnums.hpp>
-#include <Rosetta/Battlegrounds/Enums/GameEnums.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
 #include <Rosetta/Battlegrounds/Loaders/CardLoader.hpp>
@@ -18,6 +16,14 @@
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
+#include <Rosetta/Common/Enums/AuraEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/ChoiceEnums.hpp>
+#include <Rosetta/Common/Enums/GameEnums.hpp>
+#include <Rosetta/Common/Enums/TargetingEnums.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
+#include <Rosetta/Common/Enums/TriggerEnums.hpp>
 #include <Rosetta/Common/Macros.hpp>
 #include <Rosetta/Common/PriorityQueue.hpp>
 #include <Rosetta/Common/SpinLocks.hpp>
@@ -87,14 +93,6 @@
 #include <Rosetta/PlayMode/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/PlayMode/Enchants/Power.hpp>
 #include <Rosetta/PlayMode/Enchants/SwapCostEnchant.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
-#include <Rosetta/PlayMode/Enums/AuraEnums.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
-#include <Rosetta/PlayMode/Enums/ChoiceEnums.hpp>
-#include <Rosetta/PlayMode/Enums/GameEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TargetingEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TaskEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TriggerEnums.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
 #include <Rosetta/PlayMode/Games/GameRestorer.hpp>

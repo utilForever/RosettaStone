@@ -4,13 +4,13 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_CARD_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_CARD_ENUMS_HPP
+#ifndef ROSETTASTONE_CARD_ENUMS_HPP
+#define ROSETTASTONE_CARD_ENUMS_HPP
 
 #include <string>
 #include <string_view>
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! \brief An enumerator for identifying the class of the card.
 enum class CardClass
@@ -72,15 +72,15 @@ const std::string FACTION_STR[] = {
 enum class GameTag
 {
 #define X(a) a,
-#include "Rosetta/Common/Enums/GameTag.def"
 #include "GameTagCustom.def"
+#include "Rosetta/Common/Enums/GameTag.def"
 #undef X
 };
 
 const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
-#include "Rosetta/Common/Enums/GameTag.def"
 #include "GameTagCustom.def"
+#include "Rosetta/Common/Enums/GameTag.def"
 #undef X
 };
 
@@ -272,6 +272,6 @@ ENUM_AND_STR(GameTag, GAME_TAG_STR)
 ENUM_AND_STR(PlayReq, PLAY_REQ_STR)
 ENUM_AND_STR(Race, RACE_STR)
 ENUM_AND_STR(Rarity, RARITY_STR)
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_CARD_ENUMS_HPP
+#endif  // ROSETTASTONE_CARD_ENUMS_HPP

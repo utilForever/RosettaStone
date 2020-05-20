@@ -4,10 +4,12 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_GAME_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_GAME_ENUMS_HPP
+#ifndef ROSETTASTONE_GAME_ENUMS_HPP
+#define ROSETTASTONE_GAME_ENUMS_HPP
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
+{
+namespace PlayMode
 {
 //! \brief An enumerator for identifying the player.
 enum class PlayerType
@@ -17,6 +19,20 @@ enum class PlayerType
     PLAYER1,  //!< The first player.
     PLAYER2,  //!< The second player.
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace PlayMode
 
-#endif  // ROSETTASTONE_PLAYMODE_GAME_ENUMS_HPP
+namespace Battlegrounds
+{
+//! \brief An enumerator for identifying the phase.
+enum class Phase
+{
+    INVALID,
+    SELECT_HERO,
+    RECRUIT,
+    COMBAT,
+    GAMEOVER
+};
+}  // namespace Battlegrounds
+}  // namespace RosettaStone
+
+#endif  // ROSETTASTONE_GAME_ENUMS_HPP
