@@ -26,6 +26,18 @@ void Game::SelectHero()
     // Shuffle current heroes
     auto currentHeroes = Cards::GetInstance().GetCurrentHeroCards();
     Random::shuffle(currentHeroes.begin(), currentHeroes.end());
+
+    // Assign 4 heroes to each player
+    std::size_t heroIdx = 0;
+    for (auto& player : m_gameState.players)
+    {
+        for (std::size_t i = 0; i < 4; ++i)
+        {
+            player.heroChoices.at(i) = currentHeroes.at(heroIdx + i).dbfID;
+        }
+
+        heroIdx += 4;
+    }
 }
 
 void Game::Recruit()
