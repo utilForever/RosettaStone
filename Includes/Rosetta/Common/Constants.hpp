@@ -66,10 +66,16 @@ constexpr std::array<CardSet, 22> WILD_CARD_SETS = {
 //! The number of all cards.
 constexpr int NUM_ALL_CARDS = 9057;
 
+//! The number of Battlegrounds cards.
+constexpr int NUM_BATTLEGROUNDS_CARDS = 360;
+
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
 //! Demon Hunter
 constexpr int NUM_PLAYER_CLASS = 10;
+
+//! The number of heroes in Battlegrounds.
+constexpr int NUM_HEROES_IN_BATTLEGROUNDS = 34;
 
 //! The number of cards that can be stored in the deck at game start.
 constexpr int START_DECK_SIZE = 30;
