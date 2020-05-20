@@ -14,4 +14,9 @@ TEST_CASE("[Game] - Basic")
 {
     Game game;
     game.Start();
+
+    for (const auto& player : game.GetGameState().players)
+    {
+        CHECK_EQ(player.heroChoices.size(), 4u);
+    }
 }
