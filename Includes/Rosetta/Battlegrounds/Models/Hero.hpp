@@ -7,6 +7,8 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_HERO_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_HERO_HPP
 
+#include <Rosetta/Battlegrounds/Cards/Card.hpp>
+
 namespace RosettaStone::Battlegrounds
 {
 //!
@@ -16,6 +18,13 @@ namespace RosettaStone::Battlegrounds
 //!
 class Hero
 {
+ public:
+    //! Initializes a Hero instance and assigns the information.
+    //! \param heroCard The card of a Hero instance.
+    void Initialize(const Card& heroCard);
+
+    Card card;
+    int health = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 

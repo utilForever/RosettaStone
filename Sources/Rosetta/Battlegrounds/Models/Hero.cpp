@@ -8,4 +8,9 @@
 
 namespace RosettaStone::Battlegrounds
 {
+void Hero::Initialize(const Card& heroCard)
+{
+    card = heroCard;
+    health = heroCard.gameTags.at(GameTag::HEALTH);
+}
 }  // namespace RosettaStone::Battlegrounds
