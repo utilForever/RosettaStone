@@ -23,7 +23,7 @@ class Game
  public:
     //! Gets the game state.
     //! \return The game state.
-    const GameState& GetGameState() const;
+    GameState& GetGameState();
 
     //! Starts the game.
     void Start();
