@@ -6,17 +6,24 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 
-using namespace RosettaStone::Battlegrounds;
+using namespace RosettaStone;
+using namespace Battlegrounds;
 
 TEST_CASE("[Game] - Basic")
 {
     Game game;
     game.Start();
 
-    for (const auto& player : game.GetGameState().players)
+    for (auto& player : game.GetGameState().players)
     {
-        CHECK_EQ(player.heroChoices.size(), 4u);
+        for (const auto& hero : player.heroChoices)
+        {
+            auto heroCard = Cards::FindCardByDbfID(hero);
+            CHECK_EQ(heroCard.GetCardType(), CardType::HERO);
+            CHECK_EQ(heroCard.isCurHero, true);
+        }
     }
 }
