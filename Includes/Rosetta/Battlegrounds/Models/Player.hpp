@@ -25,7 +25,7 @@ class Player
  public:
     std::vector<std::optional<Minion>> minions;
 
-    std::array<int, 4> heroChoices{};
+    std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
 };
 }  // namespace RosettaStone::Battlegrounds
 
