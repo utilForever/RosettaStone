@@ -4,8 +4,14 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
+void Player::SelectHero(std::size_t idx)
+{
+    const auto heroCard = Cards::FindCardByDbfID(heroChoices.at(idx));
+    hero.Initialize(heroCard);
+}
 }  // namespace RosettaStone::Battlegrounds
