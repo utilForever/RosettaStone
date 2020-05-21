@@ -30,6 +30,11 @@ class Cards
     //! \return A list of all cards.
     static const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& GetAllCards();
 
+    //! Returns a card that matches \p dbfID.
+    //! \param dbfID The dbfID of the card.
+    //! \return A card that matches \p dbfID.
+    static Card FindCardByDbfID(int dbfID);
+
     //! Returns a list of current hero cards.
     //! \return A list of current hero cards.
     static const std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS>&

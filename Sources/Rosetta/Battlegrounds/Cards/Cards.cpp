@@ -39,6 +39,19 @@ const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& Cards::GetAllCards()
     return m_cards;
 }
 
+Card Cards::FindCardByDbfID(int dbfID)
+{
+    for (auto& card : m_cards)
+    {
+        if (card.dbfID == dbfID)
+        {
+            return card;
+        }
+    }
+
+    return Card{};
+}
+
 const std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS>&
 Cards::GetCurrentHeroCards()
 {
