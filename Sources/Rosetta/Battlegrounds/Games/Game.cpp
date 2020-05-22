@@ -32,6 +32,19 @@ void Game::SelectHero()
     auto currentHeroes = Cards::GetInstance().GetCurrentHeroCards();
     Random::shuffle(currentHeroes.begin(), currentHeroes.end());
 
+    // Create callback to increase player count and process next phase
+    auto selectHeroCallback = [this]()
+    {
+        ++m_playerCount;
+
+        if (m_playerCount >= 8)
+        {
+            // Set next phase
+            m_gameState.nextPhase = Phase::RECRUIT;
+            GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);            
+        }
+    };
+
     // Assign 4 heroes to each player
     std::size_t heroIdx = 0;
     for (auto& player : m_gameState.players)
@@ -39,6 +52,7 @@ void Game::SelectHero()
         for (std::size_t i = 0; i < 4; ++i)
         {
             player.heroChoices.at(i) = currentHeroes.at(heroIdx + i).dbfID;
+            player.selectHeroCallback = selectHeroCallback;
         }
 
         heroIdx += 4;

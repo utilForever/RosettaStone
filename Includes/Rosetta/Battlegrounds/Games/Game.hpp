@@ -9,6 +9,8 @@
 
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
 
+#include <atomic>
+
 namespace RosettaStone::Battlegrounds
 {
 //!
@@ -42,6 +44,7 @@ class Game
 
  private:
     GameState m_gameState{};
+    std::atomic<int> m_playerCount = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 
