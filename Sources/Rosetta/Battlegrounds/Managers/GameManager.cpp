@@ -10,6 +10,8 @@ namespace RosettaStone::Battlegrounds
 {
 void GameManager::ProcessNextPhase(Game& game, Phase phase)
 {
+    game.GetGameState().phase = phase;
+
     switch (phase)
     {
         case Phase::SELECT_HERO:
