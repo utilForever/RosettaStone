@@ -12,4 +12,14 @@ CardType Card::GetCardType() const
 {
     return static_cast<CardType>(gameTags.at(GameTag::CARDTYPE));
 }
+
+int Card::GetTier() const
+{
+    if (gameTags.find(GameTag::TECH_LEVEL) == gameTags.end())
+    {
+        return 0;
+    }
+
+    return gameTags.at(GameTag::TECH_LEVEL);
+}
 }  // namespace RosettaStone::Battlegrounds
