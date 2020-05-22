@@ -46,6 +46,12 @@ class Cards
 
     static std::array<Card, NUM_BATTLEGROUNDS_CARDS> m_cards;
     static std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS> m_curHeroes;
+    static std::array<Card, NUM_TIER1_MINIONS_IN_BATTLEGROUNDS> m_tier1Minions;
+    static std::array<Card, NUM_TIER2_MINIONS_IN_BATTLEGROUNDS> m_tier2Minions;
+    static std::array<Card, NUM_TIER3_MINIONS_IN_BATTLEGROUNDS> m_tier3Minions;
+    static std::array<Card, NUM_TIER4_MINIONS_IN_BATTLEGROUNDS> m_tier4Minions;
+    static std::array<Card, NUM_TIER5_MINIONS_IN_BATTLEGROUNDS> m_tier5Minions;
+    static std::array<Card, NUM_TIER6_MINIONS_IN_BATTLEGROUNDS> m_tier6Minions;
 };
 }  // namespace RosettaStone::Battlegrounds
 
