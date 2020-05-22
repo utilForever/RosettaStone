@@ -17,6 +17,8 @@ TEST_CASE("[Game] - Basic")
     Game game;
     game.Start();
 
+    CHECK_EQ(game.GetGameState().phase, Phase::SELECT_HERO);
+
     for (auto& player : game.GetGameState().players)
     {
         for (const auto& hero : player.heroChoices)
@@ -25,5 +27,9 @@ TEST_CASE("[Game] - Basic")
             CHECK_EQ(heroCard.GetCardType(), CardType::HERO);
             CHECK_EQ(heroCard.isCurHero, true);
         }
+
+        player.SelectHero(1);
     }
+
+    CHECK_EQ(game.GetGameState().phase, Phase::RECRUIT);
 }
