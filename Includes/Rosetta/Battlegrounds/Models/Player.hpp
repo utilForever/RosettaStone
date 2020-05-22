@@ -11,6 +11,7 @@
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 
 #include <array>
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -32,6 +33,7 @@ class Player
     std::vector<std::optional<Minion>> minions;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
+    std::function<void()> selectHeroCallback;
 };
 }  // namespace RosettaStone::Battlegrounds
 
