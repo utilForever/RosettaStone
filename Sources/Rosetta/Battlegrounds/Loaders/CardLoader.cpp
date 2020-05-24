@@ -41,7 +41,8 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
                 ? CardSet::INVALID
                 : StrToEnum<CardSet>(cardData["set"].get<std::string>());
         // Check the card set is 'BATTLEGROUNDS'
-        if (cardSet != CardSet::BATTLEGROUNDS)
+        if (cardSet != CardSet::BATTLEGROUNDS &&
+            cardData["techLevel"].is_null())
         {
             continue;
         }
