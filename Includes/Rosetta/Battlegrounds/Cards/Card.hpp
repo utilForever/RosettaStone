@@ -56,6 +56,8 @@ class Card
 
     std::string id;
     int dbfID;
+    int normalDbfID;
+    int premiumDbfID;
 
     std::string name;
     std::string text;
