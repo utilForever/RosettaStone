@@ -77,6 +77,24 @@ constexpr int NUM_PLAYER_CLASS = 10;
 //! The number of heroes in Battlegrounds.
 constexpr int NUM_HEROES_IN_BATTLEGROUNDS = 34;
 
+//! The number of copies of each tier 1 minion.
+constexpr int NUM_COPIES_OF_EACH_TIER1_MINIONS = 16;
+
+//! The number of copies of each tier 2 minion.
+constexpr int NUM_COPIES_OF_EACH_TIER2_MINIONS = 15;
+
+//! The number of copies of each tier 3 minion.
+constexpr int NUM_COPIES_OF_EACH_TIER3_MINIONS = 13;
+
+//! The number of copies of each tier 4 minion.
+constexpr int NUM_COPIES_OF_EACH_TIER4_MINIONS = 11;
+
+//! The number of copies of each tier 5 minion.
+constexpr int NUM_COPIES_OF_EACH_TIER5_MINIONS = 9;
+
+//! The number of copies of each tier 6 minion.
+constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
+
 //! The number of tier 1 minions in Battlegrounds.
 constexpr int NUM_TIER1_MINIONS = 14;
 
