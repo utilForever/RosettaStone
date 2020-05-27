@@ -11,12 +11,12 @@ namespace RosettaStone::Battlegrounds
 {
 std::array<Card, NUM_BATTLEGROUNDS_CARDS> Cards::m_cards;
 std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS> Cards::m_curHeroes;
-std::array<Card, NUM_TIER1_MINIONS_IN_BATTLEGROUNDS> Cards::m_tier1Minions;
-std::array<Card, NUM_TIER2_MINIONS_IN_BATTLEGROUNDS> Cards::m_tier2Minions;
-std::array<Card, NUM_TIER3_MINIONS_IN_BATTLEGROUNDS> Cards::m_tier3Minions;
-std::array<Card, NUM_TIER4_MINIONS_IN_BATTLEGROUNDS> Cards::m_tier4Minions;
-std::array<Card, NUM_TIER5_MINIONS_IN_BATTLEGROUNDS> Cards::m_tier5Minions;
-std::array<Card, NUM_TIER6_MINIONS_IN_BATTLEGROUNDS> Cards::m_tier6Minions;
+std::array<Card, NUM_TIER1_MINIONS> Cards::m_tier1Minions;
+std::array<Card, NUM_TIER2_MINIONS> Cards::m_tier2Minions;
+std::array<Card, NUM_TIER3_MINIONS> Cards::m_tier3Minions;
+std::array<Card, NUM_TIER4_MINIONS> Cards::m_tier4Minions;
+std::array<Card, NUM_TIER5_MINIONS> Cards::m_tier5Minions;
+std::array<Card, NUM_TIER6_MINIONS> Cards::m_tier6Minions;
 
 Cards::Cards()
 {

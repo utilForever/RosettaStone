@@ -78,22 +78,22 @@ constexpr int NUM_PLAYER_CLASS = 10;
 constexpr int NUM_HEROES_IN_BATTLEGROUNDS = 34;
 
 //! The number of tier 1 minions in Battlegrounds.
-constexpr int NUM_TIER1_MINIONS_IN_BATTLEGROUNDS = 14;
+constexpr int NUM_TIER1_MINIONS = 14;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS_IN_BATTLEGROUNDS = 17;
+constexpr int NUM_TIER2_MINIONS = 17;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS_IN_BATTLEGROUNDS = 19;
+constexpr int NUM_TIER3_MINIONS = 19;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS_IN_BATTLEGROUNDS = 16;
+constexpr int NUM_TIER4_MINIONS = 16;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS_IN_BATTLEGROUNDS = 15;
+constexpr int NUM_TIER5_MINIONS = 15;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS_IN_BATTLEGROUNDS = 11;
+constexpr int NUM_TIER6_MINIONS = 11;
 
 //! The number of cards that can be stored in the deck at game start.
 constexpr int START_DECK_SIZE = 30;
