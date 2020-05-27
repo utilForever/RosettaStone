@@ -10,7 +10,7 @@
 namespace RosettaStone::Battlegrounds
 {
 std::array<Card, NUM_BATTLEGROUNDS_CARDS> Cards::m_cards;
-std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS> Cards::m_curHeroes;
+std::array<Card, NUM_BATTLEGROUNDS_HEROES> Cards::m_curHeroes;
 std::array<Card, NUM_TIER1_MINIONS> Cards::m_tier1Minions;
 std::array<Card, NUM_TIER2_MINIONS> Cards::m_tier2Minions;
 std::array<Card, NUM_TIER3_MINIONS> Cards::m_tier3Minions;
@@ -91,8 +91,7 @@ Card Cards::FindCardByDbfID(int dbfID)
     return Card{};
 }
 
-const std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS>&
-Cards::GetCurrentHeroCards()
+const std::array<Card, NUM_BATTLEGROUNDS_HEROES>& Cards::GetCurrentHeroes()
 {
     return m_curHeroes;
 }

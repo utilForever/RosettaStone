@@ -29,7 +29,7 @@ void Game::Start()
 void Game::SelectHero()
 {
     // Shuffle current heroes
-    auto currentHeroes = Cards::GetInstance().GetCurrentHeroCards();
+    auto currentHeroes = Cards::GetInstance().GetCurrentHeroes();
     Random::shuffle(currentHeroes.begin(), currentHeroes.end());
 
     // Create callback to increase player count and process next phase

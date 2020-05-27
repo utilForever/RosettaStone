@@ -75,7 +75,7 @@ constexpr int NUM_BATTLEGROUNDS_CARDS = 447;
 constexpr int NUM_PLAYER_CLASS = 10;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_HEROES_IN_BATTLEGROUNDS = 34;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 34;
 
 //! The number of copies of each tier 1 minion.
 constexpr int NUM_COPIES_OF_EACH_TIER1_MINIONS = 16;

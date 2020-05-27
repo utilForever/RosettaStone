@@ -35,17 +35,16 @@ class Cards
     //! \return A card that matches \p dbfID.
     static Card FindCardByDbfID(int dbfID);
 
-    //! Returns a list of current hero cards.
-    //! \return A list of current hero cards.
-    static const std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS>&
-    GetCurrentHeroCards();
+    //! Returns a list of current heroes.
+    //! \return A list of current heroes.
+    static const std::array<Card, NUM_BATTLEGROUNDS_HEROES>& GetCurrentHeroes();
 
  private:
     //! Constructor: Loads card data.
     Cards();
 
     static std::array<Card, NUM_BATTLEGROUNDS_CARDS> m_cards;
-    static std::array<Card, NUM_HEROES_IN_BATTLEGROUNDS> m_curHeroes;
+    static std::array<Card, NUM_BATTLEGROUNDS_HEROES> m_curHeroes;
     static std::array<Card, NUM_TIER1_MINIONS> m_tier1Minions;
     static std::array<Card, NUM_TIER2_MINIONS> m_tier2Minions;
     static std::array<Card, NUM_TIER3_MINIONS> m_tier3Minions;
