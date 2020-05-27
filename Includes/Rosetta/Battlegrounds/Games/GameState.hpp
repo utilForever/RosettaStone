@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_GAME_STATE_HPP
 
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Enums/GameEnums.hpp>
 
 #include <array>
@@ -23,6 +24,8 @@ struct GameState
 {
     Phase phase = Phase::INVALID;
     Phase nextPhase = Phase::INVALID;
+
+    std::array<Minion, NUM_TOTAL_MINIONS_IN_TAVERN> minionPool;
 
     std::array<Player, 8> players;
 };
