@@ -113,6 +113,15 @@ constexpr int NUM_TIER5_MINIONS = 15;
 //! The number of tier 6 minions in Battlegrounds.
 constexpr int NUM_TIER6_MINIONS = 11;
 
+//! The total number of tier minions in Battlegrounds Tavern.
+constexpr int NUM_TOTAL_MINIONS_IN_TAVERN =
+    NUM_TIER1_MINIONS * NUM_COPIES_OF_EACH_TIER1_MINIONS +
+    NUM_TIER2_MINIONS * NUM_COPIES_OF_EACH_TIER2_MINIONS +
+    NUM_TIER3_MINIONS * NUM_COPIES_OF_EACH_TIER3_MINIONS +
+    NUM_TIER4_MINIONS * NUM_COPIES_OF_EACH_TIER4_MINIONS +
+    NUM_TIER5_MINIONS * NUM_COPIES_OF_EACH_TIER5_MINIONS +
+    NUM_TIER6_MINIONS * NUM_COPIES_OF_EACH_TIER6_MINIONS;
+
 //! The number of cards that can be stored in the deck at game start.
 constexpr int START_DECK_SIZE = 30;
 
@@ -143,6 +152,6 @@ constexpr int MAX_SECERT_SIZE = 5;
 //! The number of menus in main phase.
 //! \note We will refactor it soon.
 constexpr int GAME_MAIN_MENU_SIZE = 3;
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_CONSTANTS_HPP
