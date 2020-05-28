@@ -39,6 +39,30 @@ class Cards
     //! \return A list of current heroes.
     static const std::array<Card, NUM_BATTLEGROUNDS_HEROES>& GetCurrentHeroes();
 
+    //! Returns a list of tier 1 minions in Battlegrounds Tavern.
+    //! \return A list of tier 1 minions in Battlegrounds Tavern.
+    static const std::array<Card, NUM_TIER1_MINIONS>& GetTier1Minions();
+
+    //! Returns a list of tier 2 minions in Battlegrounds Tavern.
+    //! \return A list of tier 2 minions in Battlegrounds Tavern.
+    static const std::array<Card, NUM_TIER2_MINIONS>& GetTier2Minions();
+
+    //! Returns a list of tier 3 minions in Battlegrounds Tavern.
+    //! \return A list of tier 3 minions in Battlegrounds Tavern.
+    static const std::array<Card, NUM_TIER3_MINIONS>& GetTier3Minions();
+
+    //! Returns a list of tier 4 minions in Battlegrounds Tavern.
+    //! \return A list of tier 4 minions in Battlegrounds Tavern.
+    static const std::array<Card, NUM_TIER4_MINIONS>& GetTier4Minions();
+
+    //! Returns a list of tier 5 minions in Battlegrounds Tavern.
+    //! \return A list of tier 5 minions in Battlegrounds Tavern.
+    static const std::array<Card, NUM_TIER5_MINIONS>& GetTier5Minions();
+
+    //! Returns a list of tier 6 minions in Battlegrounds Tavern.
+    //! \return A list of tier 6 minions in Battlegrounds Tavern.
+    static const std::array<Card, NUM_TIER6_MINIONS>& GetTier6Minions();
+
  private:
     //! Constructor: Loads card data.
     Cards();

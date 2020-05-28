@@ -95,4 +95,34 @@ const std::array<Card, NUM_BATTLEGROUNDS_HEROES>& Cards::GetCurrentHeroes()
 {
     return m_curHeroes;
 }
+
+const std::array<Card, NUM_TIER1_MINIONS>& Cards::GetTier1Minions()
+{
+    return m_tier1Minions;
+}
+
+const std::array<Card, NUM_TIER2_MINIONS>& Cards::GetTier2Minions()
+{
+    return m_tier2Minions;
+}
+
+const std::array<Card, NUM_TIER3_MINIONS>& Cards::GetTier3Minions()
+{
+    return m_tier3Minions;
+}
+
+const std::array<Card, NUM_TIER4_MINIONS>& Cards::GetTier4Minions()
+{
+    return m_tier4Minions;
+}
+
+const std::array<Card, NUM_TIER5_MINIONS>& Cards::GetTier5Minions()
+{
+    return m_tier5Minions;
+}
+
+const std::array<Card, NUM_TIER6_MINIONS>& Cards::GetTier6Minions()
+{
+    return m_tier6Minions;
+}
 }  // namespace RosettaStone::Battlegrounds
