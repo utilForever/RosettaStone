@@ -63,7 +63,7 @@ bool Card::IsTier2MinionInPool() const
     // Murloc Warleader (1063)
     // Nathrezim Overseer (59186)
     // Old Murk-Eye (736)
-    // Pogo-Hopper (48471)
+    // Pogo-Hopper (60122)
     // Rat Pack (40428)
     // Scavenging Hyena (1281)
     // Spawn of N'Zoth (38797)
@@ -73,7 +73,7 @@ bool Card::IsTier2MinionInPool() const
     // Zoobot (39839)
     if (dbfID == 61029 || dbfID == 778 || dbfID == 59937 || dbfID == 49279 ||
         dbfID == 39481 || dbfID == 2016 || dbfID == 1063 || dbfID == 59186 ||
-        dbfID == 736 || dbfID == 48471 || dbfID == 40428 || dbfID == 1281 ||
+        dbfID == 736 || dbfID == 60122 || dbfID == 40428 || dbfID == 1281 ||
         dbfID == 38797 || dbfID == 60621 || dbfID == 1808 || dbfID == 60559 ||
         dbfID == 39839)
     {
@@ -94,21 +94,21 @@ bool Card::IsTier3MinionInPool() const
     // Felfin Navigator (56393)
     // Hangry Dragon (60552)
     // Houndmaster (1003)
-    // Imp Gang Boss (58582)
+    // Imp Gang Boss (2288)
     // Infested Wolf (38734)
     // Khadgar (52502)
     // Pack Leader (59940)
     // Piloted Shredder (60048)
     // Replicating Menace (48536)
     // Screwjank Clunker (2023)
-    // Shifter Zerus (38475)
+    // Shifter Zerus (57742)
     // Soul Juggler (59660)
     // The Beast (962)
     // Twilight Emissary (60626)
     if (dbfID == 60558 || dbfID == 453 || dbfID == 40391 || dbfID == 2518 ||
         dbfID == 61930 || dbfID == 56393 || dbfID == 60552 || dbfID == 1003 ||
-        dbfID == 58582 || dbfID == 38734 || dbfID == 52502 || dbfID == 59940 ||
-        dbfID == 60048 || dbfID == 48536 || dbfID == 2023 || dbfID == 38475 ||
+        dbfID == 2288 || dbfID == 38734 || dbfID == 52502 || dbfID == 59940 ||
+        dbfID == 60048 || dbfID == 48536 || dbfID == 2023 || dbfID == 57742 ||
         dbfID == 59660 || dbfID == 962 || dbfID == 60626)
     {
         return true;
@@ -159,16 +159,16 @@ bool Card::IsTier5MinionInPool() const
     // King Bagurgle (60247)
     // Lightfang Enforcer (59707)
     // Mal'Ganis (1986)
-    // Murozond (51108)
-    // Primalfin Lookout (41478)
+    // Murozond (60637)
+    // Primalfin Lookout (60028)
     // Razorgore, the Untamed (60561)
-    // Sneed's Old Shredder (2082)
+    // Sneed's Old Shredder (59682)
     // Strongshell Scavenger (43022)
     // Voidlord (46056)
     if (dbfID == 59714 || dbfID == 1915 || dbfID == 2949 || dbfID == 59955 ||
         dbfID == 49973 || dbfID == 2074 || dbfID == 60247 || dbfID == 59707 ||
-        dbfID == 1986 || dbfID == 51108 || dbfID == 41478 || dbfID == 60561 ||
-        dbfID == 2082 || dbfID == 43022 || dbfID == 46056)
+        dbfID == 1986 || dbfID == 60637 || dbfID == 60028 || dbfID == 60561 ||
+        dbfID == 59682 || dbfID == 43022 || dbfID == 46056)
     {
         return true;
     }
