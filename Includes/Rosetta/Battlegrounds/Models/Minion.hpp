@@ -29,6 +29,9 @@ class Minion
     //! \param card A card that contains the minion data.
     Minion(Card card);
 
+    //! Returns the tier of the minion.
+    int GetTier() const;
+
  private:
     Card m_card;
 };

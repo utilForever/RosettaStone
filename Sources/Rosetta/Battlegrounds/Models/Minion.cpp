@@ -14,4 +14,9 @@ Minion::Minion(Card card) : m_card(std::move(card))
 {
     // Do nothing
 }
+
+int Minion::GetTier() const
+{
+    return m_card.GetTier();
+}
 }  // namespace RosettaStone::Battlegrounds
