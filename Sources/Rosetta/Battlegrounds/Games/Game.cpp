@@ -21,6 +21,64 @@ GameState& Game::GetGameState()
 
 void Game::Start()
 {
+    // Assign minion pool in Tavern
+    std::size_t idx = 0;
+
+    // Tier 1
+    for (const auto& card : Cards::GetTier1Minions())
+    {
+        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER1_MINIONS; ++i)
+        {
+            m_gameState.minionPool.at(idx) = { Minion(card), true };
+            ++idx;
+        }
+    }
+    // Tier 2
+    for (const auto& card : Cards::GetTier2Minions())
+    {
+        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER2_MINIONS; ++i)
+        {
+            m_gameState.minionPool.at(idx) = { Minion(card), true };
+            ++idx;
+        }
+    }
+    // Tier 3
+    for (const auto& card : Cards::GetTier3Minions())
+    {
+        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER3_MINIONS; ++i)
+        {
+            m_gameState.minionPool.at(idx) = { Minion(card), true };
+            ++idx;
+        }
+    }
+    // Tier 4
+    for (const auto& card : Cards::GetTier4Minions())
+    {
+        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER4_MINIONS; ++i)
+        {
+            m_gameState.minionPool.at(idx) = { Minion(card), true };
+            ++idx;
+        }
+    }
+    // Tier 5
+    for (const auto& card : Cards::GetTier5Minions())
+    {
+        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER5_MINIONS; ++i)
+        {
+            m_gameState.minionPool.at(idx) = { Minion(card), true };
+            ++idx;
+        }
+    }
+    // Tier 6
+    for (const auto& card : Cards::GetTier6Minions())
+    {
+        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER6_MINIONS; ++i)
+        {
+            m_gameState.minionPool.at(idx) = { Minion(card), true };
+            ++idx;
+        }
+    }
+
     // Set next phase
     m_gameState.nextPhase = Phase::SELECT_HERO;
     GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
@@ -33,15 +91,14 @@ void Game::SelectHero()
     Random::shuffle(currentHeroes.begin(), currentHeroes.end());
 
     // Create callback to increase player count and process next phase
-    auto selectHeroCallback = [this]()
-    {
+    auto selectHeroCallback = [this]() {
         ++m_playerCount;
 
         if (m_playerCount >= 8)
         {
             // Set next phase
             m_gameState.nextPhase = Phase::RECRUIT;
-            GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);            
+            GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
         }
     };
 
