@@ -7,6 +7,8 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_MINION_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_MINION_HPP
 
+#include <Rosetta/Battlegrounds/Cards/Card.hpp>
+
 namespace RosettaStone::Battlegrounds
 {
 //!
@@ -19,6 +21,16 @@ namespace RosettaStone::Battlegrounds
 //!
 class Minion
 {
+ public:
+    //! Default constructor.
+    Minion() = default;
+
+    //! Constructs Minion instance with given \p card.
+    //! \param card A card that contains the minion data.
+    Minion(Card card);
+
+ private:
+    Card m_card;
 };
 }  // namespace RosettaStone::Battlegrounds
 

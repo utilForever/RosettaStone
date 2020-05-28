@@ -6,6 +6,12 @@
 
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 
+#include <utility>
+
 namespace RosettaStone::Battlegrounds
 {
+Minion::Minion(Card card) : m_card(std::move(card))
+{
+    // Do nothing
+}
 }  // namespace RosettaStone::Battlegrounds
