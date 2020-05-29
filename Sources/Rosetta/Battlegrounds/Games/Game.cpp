@@ -7,6 +7,7 @@
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
+#include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -118,6 +119,38 @@ void Game::SelectHero()
 
 void Game::Recruit()
 {
+    // Create callback to prepare a list of minions for purchase
+    auto prepareMinionCallback = [this](Player& player) {
+        const std::size_t numMinions = GetNumMinionsCanPurchase(player.currentTier);
+
+        // Shuffle a list of minions in pool
+        Random::shuffle(m_gameState.minionPool.begin(),
+                        m_gameState.minionPool.end());
+
+        std::size_t idx = 0;
+        for (auto& minion : m_gameState.minionPool)
+        {
+            if (std::get<0>(minion).GetTier() <= player.currentTier &&
+                std::get<1>(minion) == true)
+            {
+                player.minionsInTavern.at(idx) = std::get<0>(minion);
+                std::get<1>(minion) = false;
+                ++idx;
+            }
+
+            if (idx == numMinions)
+            {
+                break;
+            }
+        }
+    };
+
+    // Assign a list of minions to each player for purchase
+    for (auto& player : m_gameState.players)
+    {
+        player.PrepareMinionsForPurchase();
+        player.prepareMinionCallback = prepareMinionCallback;
+    }
 }
 
 void Game::Combat()
