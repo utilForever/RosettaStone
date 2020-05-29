@@ -16,6 +16,7 @@
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
+#include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
 #include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/Common/Enums/AuraEnums.hpp>
