@@ -30,7 +30,11 @@ class Player
     void SelectHero(std::size_t idx);
 
     Hero hero;
+    int currentTier = 1;
+
     std::vector<std::optional<Minion>> minions;
+    std::array<std::optional<Minion>, 6> minionsInTavern;
+    std::function<void(Player&)> prepareMinionCallback;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
     std::function<void()> selectHeroCallback;
