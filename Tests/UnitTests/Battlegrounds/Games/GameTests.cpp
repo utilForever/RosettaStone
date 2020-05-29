@@ -8,6 +8,7 @@
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
+#include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
 
 using namespace RosettaStone;
 using namespace Battlegrounds;
@@ -77,4 +78,16 @@ TEST_CASE("[Game] - Basic")
     }
 
     CHECK_EQ(game.GetGameState().phase, Phase::RECRUIT);
+
+    for (auto& player : game.GetGameState().players)
+    {
+        const std::size_t numMinions =
+            GetNumMinionsCanPurchase(player.currentTier);
+
+        for (std::size_t i = 0; i < numMinions; ++i)
+        {
+            CHECK_EQ(player.minionsInTavern.at(i).has_value(), true);
+            CHECK_EQ(player.minionsInTavern.at(i).value().GetTier(), 1);
+        }
+    }
 }
