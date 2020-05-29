@@ -80,17 +80,6 @@ void Game::Start()
         }
     }
 
-    // Set next phase
-    m_gameState.nextPhase = Phase::SELECT_HERO;
-    GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
-}
-
-void Game::SelectHero()
-{
-    // Shuffle current heroes
-    auto currentHeroes = Cards::GetInstance().GetCurrentHeroes();
-    Random::shuffle(currentHeroes.begin(), currentHeroes.end());
-
     // Create callback to increase player count and process next phase
     auto selectHeroCallback = [this]() {
         ++m_playerCount;
@@ -103,25 +92,10 @@ void Game::SelectHero()
         }
     };
 
-    // Assign 4 heroes to each player
-    std::size_t heroIdx = 0;
-    for (auto& player : m_gameState.players)
-    {
-        for (std::size_t i = 0; i < 4; ++i)
-        {
-            player.heroChoices.at(i) = currentHeroes.at(heroIdx + i).dbfID;
-            player.selectHeroCallback = selectHeroCallback;
-        }
-
-        heroIdx += 4;
-    }
-}
-
-void Game::Recruit()
-{
     // Create callback to prepare a list of minions for purchase
     auto prepareMinionCallback = [this](Player& player) {
-        const std::size_t numMinions = GetNumMinionsCanPurchase(player.currentTier);
+        const std::size_t numMinions =
+            GetNumMinionsCanPurchase(player.currentTier);
 
         // Shuffle a list of minions in pool
         Random::shuffle(m_gameState.minionPool.begin(),
@@ -145,11 +119,42 @@ void Game::Recruit()
         }
     };
 
+    for (auto& player : m_gameState.players)
+    {
+        player.selectHeroCallback = selectHeroCallback;
+        player.prepareMinionCallback = prepareMinionCallback;
+    }
+
+    // Set next phase
+    m_gameState.nextPhase = Phase::SELECT_HERO;
+    GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
+}
+
+void Game::SelectHero()
+{
+    // Shuffle current heroes
+    auto currentHeroes = Cards::GetInstance().GetCurrentHeroes();
+    Random::shuffle(currentHeroes.begin(), currentHeroes.end());
+
+    // Assign 4 heroes to each player
+    std::size_t heroIdx = 0;
+    for (auto& player : m_gameState.players)
+    {
+        for (std::size_t i = 0; i < 4; ++i)
+        {
+            player.heroChoices.at(i) = currentHeroes.at(heroIdx + i).dbfID;
+        }
+
+        heroIdx += 4;
+    }
+}
+
+void Game::Recruit()
+{
     // Assign a list of minions to each player for purchase
     for (auto& player : m_gameState.players)
     {
         player.PrepareMinionsForPurchase();
-        player.prepareMinionCallback = prepareMinionCallback;
     }
 }
 
