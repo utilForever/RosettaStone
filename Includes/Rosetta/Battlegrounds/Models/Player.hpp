@@ -29,6 +29,9 @@ class Player
     //! \param idx The index of hero choices.
     void SelectHero(std::size_t idx);
 
+    //! Prepares a list of minions for purchase.
+    void PrepareMinionsForPurchase();
+
     Hero hero;
     int currentTier = 1;
 

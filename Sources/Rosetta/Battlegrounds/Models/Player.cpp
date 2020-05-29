@@ -16,4 +16,9 @@ void Player::SelectHero(std::size_t idx)
 
     selectHeroCallback();
 }
+
+void Player::PrepareMinionsForPurchase()
+{
+    prepareMinionCallback(*this);
+}
 }  // namespace RosettaStone::Battlegrounds
