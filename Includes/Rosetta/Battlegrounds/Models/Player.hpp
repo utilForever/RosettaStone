@@ -9,6 +9,7 @@
 
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
+#include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 
 #include <array>
 #include <functional>
@@ -38,6 +39,8 @@ class Player
 
     Hero hero;
     int currentTier = 1;
+
+    HandZone handZone{};
 
     std::vector<std::optional<Minion>> minions;
     std::array<std::optional<Minion>, 6> minionsInTavern;
