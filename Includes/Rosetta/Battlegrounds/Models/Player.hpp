@@ -38,7 +38,8 @@ class Player
     void PurchaseMinion(std::size_t idx);
 
     Hero hero;
-    int currentTier = 1;
+    int cost = 0;
+    int currentTier = 0;
 
     HandZone handZone{};
 

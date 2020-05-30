@@ -119,8 +119,12 @@ void Game::Start()
         }
     };
 
+    // Initialize variables and callbacks
     for (auto& player : m_gameState.players)
     {
+        player.cost = 0;
+        player.currentTier = 1;
+
         player.selectHeroCallback = selectHeroCallback;
         player.prepareMinionCallback = prepareMinionCallback;
     }
