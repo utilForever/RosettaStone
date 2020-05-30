@@ -28,8 +28,23 @@ using CardData = std::optional<std::variant<Minion, Spell>>;
 //!
 class HandZone
 {
+ public:
+    //! Adds the specified card into this zone, at the given position.
+    //! \param card The card context.
+    //! \param zonePos The zone position.
+    void Add(const std::variant<Minion, Spell>& card, int zonePos = -1);
+
+    //! Returns the number of entities in this zone.
+    //! \return The number of entities in this zone.
+    int GetCount() const;
+
+    //! Returns a value indicating whether this zone is full.
+    //! \return true if this zone is full, false otherwise.
+    bool IsFull() const;
+
  private:
     std::array<CardData, MAX_HAND_SIZE> m_cards;
+    int m_count = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 
