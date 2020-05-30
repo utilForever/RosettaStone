@@ -24,6 +24,6 @@ void Player::PrepareMinionsForPurchase()
 
 void Player::PurchaseMinion(std::size_t idx)
 {
-    (void)idx;
+    handZone.Add(minionsInTavern.at(idx).value(), -1);
 }
 }  // namespace RosettaStone::Battlegrounds
