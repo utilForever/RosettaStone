@@ -21,4 +21,9 @@ void Player::PrepareMinionsForPurchase()
 {
     prepareMinionCallback(*this);
 }
+
+void Player::PurchaseMinion(std::size_t idx)
+{
+    (void)idx;
+}
 }  // namespace RosettaStone::Battlegrounds

@@ -32,6 +32,10 @@ class Player
     //! Prepares a list of minions for purchase.
     void PrepareMinionsForPurchase();
 
+    //! Purchases a minion in Tavern.
+    //! \param idx The index of a list of minions in Tavern.
+    void PurchaseMinion(std::size_t idx);
+
     Hero hero;
     int currentTier = 1;
 
