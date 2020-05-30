@@ -90,4 +90,8 @@ TEST_CASE("[Game] - Basic")
             CHECK_EQ(player.minionsInTavern.at(i).value().GetTier(), 1);
         }
     }
+
+    Player& player1 = game.GetGameState().players.at(0);
+    player1.PurchaseMinion(0);
+    CHECK_EQ(player1.handZone.GetCount(), 1);
 }
