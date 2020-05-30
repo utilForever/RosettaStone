@@ -19,6 +19,7 @@
 #include <Rosetta/Battlegrounds/Models/Spell.hpp>
 #include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
+#include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 #include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/Common/Enums/AuraEnums.hpp>
