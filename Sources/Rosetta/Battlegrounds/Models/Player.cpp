@@ -17,9 +17,9 @@ void Player::SelectHero(std::size_t idx)
     selectHeroCallback();
 }
 
-void Player::PrepareMinionsForPurchase()
+void Player::FillTavernMinions()
 {
-    prepareMinionCallback(*this);
+    fillTavernMinionCallback(*this);
 }
 
 void Player::PurchaseMinion(std::size_t idx)
@@ -29,7 +29,7 @@ void Player::PurchaseMinion(std::size_t idx)
         return;
     }
 
-    handZone.Add(minionsInTavern.at(idx).value(), -1);
+    handZone.Add(tavernMinions.at(idx).value(), -1);
     remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
 }  // namespace RosettaStone::Battlegrounds

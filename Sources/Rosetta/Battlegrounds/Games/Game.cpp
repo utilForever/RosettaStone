@@ -107,7 +107,7 @@ void Game::Start()
             if (std::get<0>(minion).GetTier() <= player.currentTier &&
                 std::get<1>(minion) == true)
             {
-                player.minionsInTavern.at(idx) = std::get<0>(minion);
+                player.tavernMinions.at(idx) = std::get<0>(minion);
                 std::get<1>(minion) = false;
                 ++idx;
             }
@@ -127,7 +127,7 @@ void Game::Start()
         player.currentTier = 1;
 
         player.selectHeroCallback = selectHeroCallback;
-        player.prepareMinionCallback = prepareMinionCallback;
+        player.fillTavernMinionCallback = prepareMinionCallback;
     }
 
     // Set next phase
@@ -166,7 +166,7 @@ void Game::Recruit()
         player.remainCoin = player.totalCoin;
 
         // Assign a list of minions to each player for purchase
-        player.PrepareMinionsForPurchase();
+        player.FillTavernMinions();
     }
 }
 

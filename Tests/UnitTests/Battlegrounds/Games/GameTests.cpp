@@ -90,8 +90,8 @@ TEST_CASE("[Game] - Basic")
 
         for (std::size_t i = 0; i < numMinions; ++i)
         {
-            CHECK_EQ(player.minionsInTavern.at(i).has_value(), true);
-            CHECK_EQ(player.minionsInTavern.at(i).value().GetTier(), 1);
+            CHECK_EQ(player.tavernMinions.at(i).has_value(), true);
+            CHECK_EQ(player.tavernMinions.at(i).value().GetTier(), 1);
         }
     }
 
