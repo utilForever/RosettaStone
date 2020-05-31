@@ -81,6 +81,10 @@ TEST_CASE("[Game] - Basic")
 
     for (auto& player : game.GetGameState().players)
     {
+        CHECK_EQ(player.remainCoin, 3);
+        CHECK_EQ(player.totalCoin, 3);
+        CHECK_EQ(player.currentTier, 1);
+
         const std::size_t numMinions =
             GetNumMinionsCanPurchase(player.currentTier);
 
@@ -91,7 +95,8 @@ TEST_CASE("[Game] - Basic")
         }
     }
 
-    Player& player1 = game.GetGameState().players.at(0);
-    player1.PurchaseMinion(0);
-    CHECK_EQ(player1.handZone.GetCount(), 1);
+    Player& player = game.GetGameState().players.at(0);
+    player.PurchaseMinion(0);
+    CHECK_EQ(player.handZone.GetCount(), 1);
+    CHECK_EQ(player.remainCoin, 0);
 }
