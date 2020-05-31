@@ -123,7 +123,7 @@ void Game::Start()
     for (auto& player : m_gameState.players)
     {
         player.remainCoin = 0;
-        player.totalCoin = 0;
+        player.totalCoin = 2;
         player.currentTier = 1;
 
         player.selectHeroCallback = selectHeroCallback;
