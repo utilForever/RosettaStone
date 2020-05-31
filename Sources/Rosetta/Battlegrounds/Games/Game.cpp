@@ -122,7 +122,8 @@ void Game::Start()
     // Initialize variables and callbacks
     for (auto& player : m_gameState.players)
     {
-        player.cost = 0;
+        player.remainCoin = 0;
+        player.totalCoin = 0;
         player.currentTier = 1;
 
         player.selectHeroCallback = selectHeroCallback;
@@ -155,9 +156,16 @@ void Game::SelectHero()
 
 void Game::Recruit()
 {
-    // Assign a list of minions to each player for purchase
     for (auto& player : m_gameState.players)
     {
+        // Set the value of coin (remain/total)
+        if (player.totalCoin < COIN_UPPER_LIMIT)
+        {
+            ++player.totalCoin;
+        }
+        player.remainCoin = player.totalCoin;
+
+        // Assign a list of minions to each player for purchase
         player.PrepareMinionsForPurchase();
     }
 }
