@@ -152,6 +152,9 @@ constexpr int NUM_TOTAL_MINIONS_IN_TAVERN =
 //! The number of coin to purchase a minion.
 constexpr int NUM_COIN_PURCHASE_MINION = 3;
 
+//! The maximum number of coin.
+constexpr int COIN_UPPER_LIMIT = 10;
+
 //! The number of menus in main phase.
 //! \note We will refactor it soon.
 constexpr int GAME_MAIN_MENU_SIZE = 3;
