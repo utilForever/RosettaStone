@@ -38,7 +38,9 @@ class Player
     void PurchaseMinion(std::size_t idx);
 
     Hero hero;
-    int cost = 0;
+
+    int remainCoin = 0;
+    int totalCoin = 0;
     int currentTier = 0;
 
     HandZone handZone{};
