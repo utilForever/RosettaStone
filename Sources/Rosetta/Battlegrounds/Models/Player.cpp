@@ -24,6 +24,12 @@ void Player::PrepareMinionsForPurchase()
 
 void Player::PurchaseMinion(std::size_t idx)
 {
+    if (remainCoin < NUM_COIN_PURCHASE_MINION)
+    {
+        return;
+    }
+
     handZone.Add(minionsInTavern.at(idx).value(), -1);
+    remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
 }  // namespace RosettaStone::Battlegrounds
