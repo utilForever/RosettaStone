@@ -74,6 +74,33 @@ constexpr int NUM_BATTLEGROUNDS_CARDS = 447;
 //! Demon Hunter
 constexpr int NUM_PLAYER_CLASS = 10;
 
+//! The number of cards that can be stored in the deck at game start.
+constexpr int START_DECK_SIZE = 30;
+
+//! The maximum number of cards that can be stored in the deck during game.
+constexpr int MAX_DECK_SIZE = 60;
+
+//! The maximum number of minions that can be placed in the field.
+constexpr int MAX_FIELD_SIZE = 7;
+
+//! The number of cards that the player going first will be given.
+constexpr int NUM_DRAW_CARDS_AT_START_FIRST = 3;
+
+//! The number of cards that the player going second will be given.
+constexpr int NUM_DRAW_CARDS_AT_START_SECOND = 4;
+
+//! The minimum number of available/maximum mana.
+constexpr int MANA_LOWER_LIMIT = 0;
+
+//! The maximum number of available/maximum mana.
+constexpr int MANA_UPPER_LIMIT = 10;
+
+//! The maximum number of cards in your hand.
+constexpr int MAX_HAND_SIZE = 10;
+
+//! The maximum number of secrets in secret zone.
+constexpr int MAX_SECERT_SIZE = 5;
+
 //! The number of heroes in Battlegrounds.
 constexpr int NUM_BATTLEGROUNDS_HEROES = 34;
 
@@ -122,32 +149,8 @@ constexpr int NUM_TOTAL_MINIONS_IN_TAVERN =
     NUM_TIER5_MINIONS * NUM_COPIES_OF_EACH_TIER5_MINIONS +
     NUM_TIER6_MINIONS * NUM_COPIES_OF_EACH_TIER6_MINIONS;
 
-//! The number of cards that can be stored in the deck at game start.
-constexpr int START_DECK_SIZE = 30;
-
-//! The maximum number of cards that can be stored in the deck during game.
-constexpr int MAX_DECK_SIZE = 60;
-
-//! The maximum number of minions that can be placed in the field.
-constexpr int MAX_FIELD_SIZE = 7;
-
-//! The number of cards that the player going first will be given.
-constexpr int NUM_DRAW_CARDS_AT_START_FIRST = 3;
-
-//! The number of cards that the player going second will be given.
-constexpr int NUM_DRAW_CARDS_AT_START_SECOND = 4;
-
-//! The minimum number of available/maximum mana.
-constexpr int MANA_LOWER_LIMIT = 0;
-
-//! The maximum number of available/maximum mana.
-constexpr int MANA_UPPER_LIMIT = 10;
-
-//! The maximum number of cards in your hand.
-constexpr int MAX_HAND_SIZE = 10;
-
-//! The maximum number of secrets in secret zone.
-constexpr int MAX_SECERT_SIZE = 5;
+//! The number of coin to purchase a minion.
+constexpr int NUM_COIN_PURCHASE_MINION = 3;
 
 //! The number of menus in main phase.
 //! \note We will refactor it soon.
