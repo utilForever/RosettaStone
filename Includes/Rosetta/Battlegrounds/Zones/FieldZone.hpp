@@ -30,8 +30,24 @@ using MinionData = std::optional<Minion>;
 //!
 class FieldZone
 {
+ public:
+    //! Operator overloading for operator[].
+    //! \param zonePos The zone position of minion.
+    //! \return The minion at \p zonePos.
+    Minion& operator[](int zonePos);
+
+    //! Adds the specified minion into this zone, at the given position.
+    //! \param minion The minion to add.
+    //! \param zonePos The zone position.
+    void Add(const Minion& minion, int zonePos = -1);
+
+    //! Returns a value indicating whether this zone is full.
+    //! \return true if this zone is full, false otherwise.
+    bool IsFull() const;
+
  private:
     std::array<MinionData, MAX_FIELD_SIZE> m_minions;
+    int m_count = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 
