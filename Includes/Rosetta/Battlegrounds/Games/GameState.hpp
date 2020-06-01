@@ -15,8 +15,6 @@
 
 namespace RosettaStone::Battlegrounds
 {
-using MinionData = std::tuple<Minion, bool>;
-
 //!
 //! \brief GameState struct.
 //!
@@ -27,7 +25,7 @@ struct GameState
     Phase phase = Phase::INVALID;
     Phase nextPhase = Phase::INVALID;
 
-    std::array<MinionData, NUM_TOTAL_MINIONS_IN_TAVERN> minionPool;
+    std::array<std::tuple<Minion, bool>, NUM_TOTAL_TAVERN_MINIONS> minionPool;
 
     std::array<Player, 8> players;
 };
