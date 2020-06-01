@@ -107,7 +107,7 @@ void Game::Start()
             if (std::get<0>(minion).GetTier() <= player.currentTier &&
                 std::get<1>(minion) == true)
             {
-                player.tavernMinions.at(idx) = std::get<0>(minion);
+                player.tavernMinions.Add(std::get<0>(minion));
                 std::get<1>(minion) = false;
                 ++idx;
             }
