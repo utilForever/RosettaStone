@@ -14,4 +14,14 @@ Spell::Spell(Card card) : m_card(std::move(card))
 {
     // Do nothing
 }
+
+ZoneType Spell::GetZoneType() const
+{
+    return m_zoneType;
+}
+
+void Spell::SetZoneType(ZoneType type)
+{
+    m_zoneType = type;
+}
 }  // namespace RosettaStone::Battlegrounds

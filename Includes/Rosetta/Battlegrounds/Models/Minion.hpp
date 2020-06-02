@@ -29,11 +29,20 @@ class Minion
     //! \param card A card that contains the minion data.
     Minion(Card card);
 
+    //! Returns the value of zone type.
+    //! \return The value of zone type.
+    ZoneType GetZoneType() const;
+
+    //! Sets the value of zone type.
+    //! \param type The value of zone type.
+    void SetZoneType(ZoneType type);
+
     //! Returns the tier of the minion.
     int GetTier() const;
 
  private:
     Card m_card;
+    ZoneType m_zoneType = ZoneType::INVALID;
 };
 }  // namespace RosettaStone::Battlegrounds
 

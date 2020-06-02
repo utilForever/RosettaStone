@@ -15,6 +15,16 @@ Minion::Minion(Card card) : m_card(std::move(card))
     // Do nothing
 }
 
+ZoneType Minion::GetZoneType() const
+{
+    return m_zoneType;
+}
+
+void Minion::SetZoneType(ZoneType type)
+{
+    m_zoneType = type;
+}
+
 int Minion::GetTier() const
 {
     return m_card.GetTier();
