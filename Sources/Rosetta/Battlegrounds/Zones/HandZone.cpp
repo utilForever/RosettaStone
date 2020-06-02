@@ -41,6 +41,25 @@ void HandZone::Add(std::variant<Minion, Spell> card, int zonePos)
     ++m_count;
 
     std::visit([&](auto&& _card) { return _card.SetZoneType(m_type); }, card);
+
+    Reposition(pos);
+}
+
+void HandZone::Reposition(int zonePos)
+{
+    if (zonePos < 0)
+    {
+        std::visit(
+            [&](auto&& _card) { return _card.SetZonePosition(m_count - 1); },
+            m_cards[m_count - 1].value());
+        return;
+    }
+
+    for (int i = m_count - 1; i >= zonePos; --i)
+    {
+        std::visit([&](auto&& _card) { return _card.SetZonePosition(i); },
+                   m_cards[i].value());
+    }
 }
 
 int HandZone::GetCount() const

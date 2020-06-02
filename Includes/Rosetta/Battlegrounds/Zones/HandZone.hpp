@@ -34,8 +34,12 @@ class HandZone
     //! \param zonePos The zone position.
     void Add(std::variant<Minion, Spell> card, int zonePos = -1);
 
-    //! Returns the number of entities in this zone.
-    //! \return The number of entities in this zone.
+    //! Repositions all cards by \p zonePos.
+    //! \param zonePos The position of card to add or remove.
+    void Reposition(int zonePos = 0);
+
+    //! Returns the number of cards in this zone.
+    //! \return The number of cards in this zone.
     int GetCount() const;
 
     //! Returns a value indicating whether this zone is full.
