@@ -39,13 +39,15 @@ class FieldZone
     //! Adds the specified minion into this zone, at the given position.
     //! \param minion The minion to add.
     //! \param zonePos The zone position.
-    void Add(const Minion& minion, int zonePos = -1);
+    void Add(Minion& minion, int zonePos = -1);
 
     //! Returns a value indicating whether this zone is full.
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;
 
  private:
+    const ZoneType m_type = ZoneType::PLAY;
+
     std::array<MinionData, MAX_FIELD_SIZE> m_minions;
     int m_count = 0;
 };
