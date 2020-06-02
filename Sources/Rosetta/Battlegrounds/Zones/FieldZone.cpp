@@ -91,6 +91,11 @@ void FieldZone::Reposition(int zonePos)
     }
 }
 
+int FieldZone::GetCount() const
+{
+    return m_count;
+}
+
 bool FieldZone::IsFull() const
 {
     return m_count == MAX_FIELD_SIZE;

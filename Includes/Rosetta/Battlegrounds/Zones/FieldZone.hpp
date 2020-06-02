@@ -50,6 +50,10 @@ class FieldZone
     //! \param zonePos The position of minion to add or remove.
     void Reposition(int zonePos = 0);
 
+    //! Returns the number of minions in this zone.
+    //! \return The number of minions in this zone.
+    int GetCount() const;
+
     //! Returns a value indicating whether this zone is full.
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;
