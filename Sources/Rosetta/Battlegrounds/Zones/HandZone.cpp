@@ -10,33 +10,37 @@
 
 namespace RosettaStone::Battlegrounds
 {
-void HandZone::Add(const std::variant<Minion, Spell>& card, int zonePos)
+void HandZone::Add(std::variant<Minion, Spell> card, int zonePos)
 {
     if (zonePos > m_count)
     {
         throw std::invalid_argument("Zone position isn't in a valid range.");
     }
 
+    const int pos = zonePos < 0 ? m_count : zonePos;
+
     if (IsFull())
     {
         return;
     }
 
-    if (zonePos < 0 || zonePos == m_count)
+    if (pos < 0 || pos == m_count)
     {
         m_cards[m_count] = card;
     }
     else
     {
-        for (int i = m_count - 1; i >= zonePos; --i)
+        for (int i = m_count - 1; i >= pos; --i)
         {
             m_cards[i + 1] = m_cards[i];
         }
 
-        m_cards[zonePos] = card;
+        m_cards[pos] = card;
     }
 
     ++m_count;
+
+    std::visit([&](auto&& _card) { return _card.SetZoneType(m_type); }, card);
 }
 
 int HandZone::GetCount() const

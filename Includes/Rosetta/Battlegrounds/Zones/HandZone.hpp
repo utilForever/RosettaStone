@@ -30,9 +30,9 @@ class HandZone
 {
  public:
     //! Adds the specified card into this zone, at the given position.
-    //! \param card The card context.
+    //! \param card The card context to add.
     //! \param zonePos The zone position.
-    void Add(const std::variant<Minion, Spell>& card, int zonePos = -1);
+    void Add(std::variant<Minion, Spell> card, int zonePos = -1);
 
     //! Returns the number of entities in this zone.
     //! \return The number of entities in this zone.
@@ -43,6 +43,8 @@ class HandZone
     bool IsFull() const;
 
  private:
+    const ZoneType m_type = ZoneType::HAND;
+
     std::array<CardData, MAX_HAND_SIZE> m_cards;
     int m_count = 0;
 };
