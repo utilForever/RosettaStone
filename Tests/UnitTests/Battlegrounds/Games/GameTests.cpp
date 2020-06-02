@@ -97,5 +97,6 @@ TEST_CASE("[Game] - Basic")
     Player& player = game.GetGameState().players.at(0);
     player.PurchaseMinion(0);
     CHECK_EQ(player.handZone.GetCount(), 1);
+    CHECK_EQ(player.tavernMinions.GetCount(), 2);
     CHECK_EQ(player.remainCoin, 0);
 }
