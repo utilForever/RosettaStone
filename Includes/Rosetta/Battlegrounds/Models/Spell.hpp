@@ -39,9 +39,19 @@ class Spell
     //! \param type The value of zone type.
     void SetZoneType(ZoneType type);
 
+    //! Returns the value of zone position.
+    //! \return The value of zone position.
+    int GetZonePosition() const;
+
+    //! Sets the value of zone position.
+    //! \param pos The value of zone position.
+    void SetZonePosition(int pos);
+
  private:
     Card m_card;
+
     ZoneType m_zoneType = ZoneType::INVALID;
+    int m_zonePos = -1;
 };
 }  // namespace RosettaStone::Battlegrounds
 

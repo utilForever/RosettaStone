@@ -25,6 +25,16 @@ void Minion::SetZoneType(ZoneType type)
     m_zoneType = type;
 }
 
+int Minion::GetZonePosition() const
+{
+    return m_zonePos;
+}
+
+void Minion::SetZonePosition(int pos)
+{
+    m_zonePos = pos;
+}
+
 int Minion::GetTier() const
 {
     return m_card.GetTier();

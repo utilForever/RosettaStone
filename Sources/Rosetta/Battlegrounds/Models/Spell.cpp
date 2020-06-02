@@ -24,4 +24,14 @@ void Spell::SetZoneType(ZoneType type)
 {
     m_zoneType = type;
 }
+
+int Spell::GetZonePosition() const
+{
+    return m_zonePos;
+}
+
+void Spell::SetZonePosition(int pos)
+{
+    m_zonePos = pos;
+}
 }  // namespace RosettaStone::Battlegrounds
