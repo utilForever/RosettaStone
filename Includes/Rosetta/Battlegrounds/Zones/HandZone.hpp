@@ -39,6 +39,12 @@ class HandZone
     //! \param zonePos The zone position.
     void Add(std::variant<Minion, Spell> card, int zonePos = -1);
 
+    //! Removes the specified card from this zone.
+    //! \param card The card context to remove.
+    //! \return The removed card.
+    const std::variant<Minion, Spell>& Remove(
+        std::variant<Minion, Spell>& card);
+
     //! Repositions all cards by \p zonePos.
     //! \param zonePos The position of card to add or remove.
     void Reposition(int zonePos = 0);

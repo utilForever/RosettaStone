@@ -50,6 +50,37 @@ void HandZone::Add(std::variant<Minion, Spell> card, int zonePos)
     Reposition(pos);
 }
 
+const std::variant<Minion, Spell>& HandZone::Remove(
+    std::variant<Minion, Spell>& card)
+{
+    const ZoneType cardZone = std::visit(
+        [&](auto&& _card) -> ZoneType { return _card.GetZoneType(); }, card);
+    if (cardZone != m_type)
+    {
+        throw std::logic_error("Couldn't remove entity from zone.");
+    }
+
+    const int cardPos = std::visit(
+        [&](auto&& _card) -> int { return _card.GetZonePosition(); }, card);
+    int count = m_count;
+
+    if (cardPos < --count)
+    {
+        for (int i = cardPos + 1; i < MAX_HAND_SIZE; ++i)
+        {
+            m_cards[i - 1] = m_cards[i];
+        }
+
+        m_cards[MAX_HAND_SIZE - 1] = std::nullopt;
+    }
+
+    m_count = count;
+
+    Reposition(cardPos);
+
+    return card;
+}
+
 void HandZone::Reposition(int zonePos)
 {
     if (zonePos < 0)
