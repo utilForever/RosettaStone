@@ -41,6 +41,10 @@ class FieldZone
     //! \param zonePos The zone position.
     void Add(Minion& minion, int zonePos = -1);
 
+    //! Repositions all minions by \p zonePos.
+    //! \param zonePos The position of minion to add or remove.
+    void Reposition(int zonePos = 0);
+
     //! Returns a value indicating whether this zone is full.
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;

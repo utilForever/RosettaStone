@@ -46,6 +46,22 @@ void FieldZone::Add(Minion& minion, int zonePos)
     ++m_count;
 
     m_minions[pos].value().SetZoneType(m_type);
+
+    Reposition(pos);
+}
+
+void FieldZone::Reposition(int zonePos)
+{
+    if (zonePos < 0)
+    {
+        m_minions[m_count - 1].value().SetZonePosition(m_count - 1);
+        return;
+    }
+
+    for (int i = m_count - 1; i >= zonePos; --i)
+    {
+        m_minions[i].value().SetZonePosition(i);
+    }
 }
 
 bool FieldZone::IsFull() const
