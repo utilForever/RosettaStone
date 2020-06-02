@@ -50,6 +50,33 @@ void FieldZone::Add(Minion& minion, int zonePos)
     Reposition(pos);
 }
 
+const Minion& FieldZone::Remove(Minion& minion)
+{
+    if (minion.GetZoneType() != m_type)
+    {
+        throw std::logic_error("Couldn't remove entity from zone.");
+    }
+
+    const int pos = minion.GetZonePosition();
+    int count = m_count;
+
+    if (pos < --count)
+    {
+        for (int i = pos + 1; i < MAX_FIELD_SIZE; ++i)
+        {
+            m_minions[i - 1] = m_minions[i];
+        }
+
+        m_minions[MAX_FIELD_SIZE - 1] = std::nullopt;
+    }
+
+    m_count = count;
+
+    Reposition(pos);
+
+    return minion;
+}
+
 void FieldZone::Reposition(int zonePos)
 {
     if (zonePos < 0)

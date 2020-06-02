@@ -41,6 +41,11 @@ class FieldZone
     //! \param zonePos The zone position.
     void Add(Minion& minion, int zonePos = -1);
 
+    //! Removes the specified minion from this zone.
+    //! \param minion The minion context to remove.
+    //! \return The removed minion.
+    const Minion& Remove(Minion& minion);
+
     //! Repositions all minions by \p zonePos.
     //! \param zonePos The position of minion to add or remove.
     void Reposition(int zonePos = 0);
