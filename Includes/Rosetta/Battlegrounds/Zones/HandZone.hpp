@@ -17,7 +17,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-using CardData = std::optional<std::variant<Minion, Spell>>;
+using CardData = std::variant<Minion, Spell>;
 
 //!
 //! \brief HandZone class.
@@ -32,18 +32,17 @@ class HandZone
     //! Operator overloading for operator[].
     //! \param zonePos The zone position of card.
     //! \return The card at \p zonePos.
-    std::variant<Minion, Spell>& operator[](int zonePos);
+    CardData& operator[](int zonePos);
 
     //! Adds the specified card into this zone, at the given position.
     //! \param card The card context to add.
     //! \param zonePos The zone position.
-    void Add(std::variant<Minion, Spell> card, int zonePos = -1);
+    void Add(CardData card, int zonePos = -1);
 
     //! Removes the specified card from this zone.
     //! \param card The card context to remove.
     //! \return The removed card.
-    const std::variant<Minion, Spell>& Remove(
-        std::variant<Minion, Spell>& card);
+    const CardData& Remove(CardData& card);
 
     //! Repositions all cards by \p zonePos.
     //! \param zonePos The position of card to add or remove.
@@ -60,7 +59,7 @@ class HandZone
  private:
     const ZoneType m_type = ZoneType::HAND;
 
-    std::array<CardData, MAX_HAND_SIZE> m_cards;
+    std::array<std::optional<CardData>, MAX_HAND_SIZE> m_cards;
     int m_count = 0;
 };
 }  // namespace RosettaStone::Battlegrounds

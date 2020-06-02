@@ -10,12 +10,12 @@
 
 namespace RosettaStone::Battlegrounds
 {
-std::variant<Minion, Spell>& HandZone::operator[](int zonePos)
+CardData& HandZone::operator[](int zonePos)
 {
     return m_cards.at(zonePos).value();
 }
 
-void HandZone::Add(std::variant<Minion, Spell> card, int zonePos)
+void HandZone::Add(CardData card, int zonePos)
 {
     if (zonePos > m_count)
     {
@@ -50,8 +50,7 @@ void HandZone::Add(std::variant<Minion, Spell> card, int zonePos)
     Reposition(pos);
 }
 
-const std::variant<Minion, Spell>& HandZone::Remove(
-    std::variant<Minion, Spell>& card)
+const CardData& HandZone::Remove(CardData& card)
 {
     const ZoneType cardZone = std::visit(
         [&](auto&& _card) -> ZoneType { return _card.GetZoneType(); }, card);
