@@ -22,63 +22,8 @@ GameState& Game::GetGameState()
 
 void Game::Start()
 {
-    // Assign minion pool in Tavern
-    std::size_t idx = 0;
-
-    // Tier 1
-    for (const auto& card : Cards::GetTier1Minions())
-    {
-        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER1_MINIONS; ++i)
-        {
-            m_gameState.minionPool.at(idx) = { Minion(card), true };
-            ++idx;
-        }
-    }
-    // Tier 2
-    for (const auto& card : Cards::GetTier2Minions())
-    {
-        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER2_MINIONS; ++i)
-        {
-            m_gameState.minionPool.at(idx) = { Minion(card), true };
-            ++idx;
-        }
-    }
-    // Tier 3
-    for (const auto& card : Cards::GetTier3Minions())
-    {
-        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER3_MINIONS; ++i)
-        {
-            m_gameState.minionPool.at(idx) = { Minion(card), true };
-            ++idx;
-        }
-    }
-    // Tier 4
-    for (const auto& card : Cards::GetTier4Minions())
-    {
-        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER4_MINIONS; ++i)
-        {
-            m_gameState.minionPool.at(idx) = { Minion(card), true };
-            ++idx;
-        }
-    }
-    // Tier 5
-    for (const auto& card : Cards::GetTier5Minions())
-    {
-        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER5_MINIONS; ++i)
-        {
-            m_gameState.minionPool.at(idx) = { Minion(card), true };
-            ++idx;
-        }
-    }
-    // Tier 6
-    for (const auto& card : Cards::GetTier6Minions())
-    {
-        for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER6_MINIONS; ++i)
-        {
-            m_gameState.minionPool.at(idx) = { Minion(card), true };
-            ++idx;
-        }
-    }
+    // Initialize the minion pool
+    m_gameState.minionPool.Initialize();
 
     // Create callback to increase player count and process next phase
     auto selectHeroCallback = [this]() {
@@ -94,29 +39,30 @@ void Game::Start()
 
     // Create callback to prepare a list of minions for purchase
     auto prepareMinionCallback = [this](Player& player) {
-        const std::size_t numMinions =
-            GetNumMinionsCanPurchase(player.currentTier);
+        (void)player;
+        //const std::size_t numMinions =
+        //    GetNumMinionsCanPurchase(player.currentTier);
 
         // Shuffle a list of minions in pool
-        Random::shuffle(m_gameState.minionPool.begin(),
-                        m_gameState.minionPool.end());
+        //Random::shuffle(m_gameState.minionPool.begin(),
+        //                m_gameState.minionPool.end());
 
-        std::size_t idx = 0;
-        for (auto& minion : m_gameState.minionPool)
-        {
-            if (std::get<0>(minion).GetTier() <= player.currentTier &&
-                std::get<1>(minion) == true)
-            {
-                player.tavernMinions.Add(std::get<0>(minion));
-                std::get<1>(minion) = false;
-                ++idx;
-            }
+        //std::size_t idx = 0;
+        //for (auto& minion : m_gameState.minionPool)
+        //{
+        //    if (std::get<0>(minion).GetTier() <= player.currentTier &&
+        //        std::get<1>(minion) == true)
+        //    {
+        //        player.tavernMinions.Add(std::get<0>(minion));
+        //        std::get<1>(minion) = false;
+        //        ++idx;
+        //    }
 
-            if (idx == numMinions)
-            {
-                break;
-            }
-        }
+        //    if (idx == numMinions)
+        //    {
+        //        break;
+        //    }
+        //}
     };
 
     // Initialize variables and callbacks
