@@ -15,6 +15,7 @@
 #include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
+#include <Rosetta/Battlegrounds/Models/MinionPool.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Battlegrounds/Models/Spell.hpp>
 #include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
