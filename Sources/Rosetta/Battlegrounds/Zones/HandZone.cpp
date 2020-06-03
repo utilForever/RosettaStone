@@ -45,7 +45,8 @@ void HandZone::Add(CardData card, int zonePos)
 
     ++m_count;
 
-    std::visit([&](auto&& _card) { return _card.SetZoneType(m_type); }, card);
+    std::visit([&](auto&& _card) { return _card.SetZoneType(m_type); },
+               m_cards[pos].value());
 
     Reposition(pos);
 }
