@@ -34,9 +34,13 @@ class Player
     //! Fill a list of minions in Tavern for purchase.
     void FillTavernMinions();
 
-    //! Purchases a minion in Tavern.
-    //! \param idx The index of a list of minions in Tavern.
+    //! Purchases a minion from Tavern's field.
+    //! \param idx The index of a list of minions in Tavern's field.
     void PurchaseMinion(std::size_t idx);
+
+    //! Sells a minion to Tavern.
+    //! \param idx The index of a list of minions in player's field.
+    void SellMinion(std::size_t idx);
 
     Hero hero;
 

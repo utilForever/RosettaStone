@@ -32,4 +32,10 @@ void Player::PurchaseMinion(std::size_t idx)
     handZone.Add(tavernMinions.Remove(tavernMinions[idx]), -1);
     remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
+
+void Player::SellMinion(std::size_t idx)
+{
+    handZone.Remove(handZone[idx]);
+    remainCoin += 1;
+}
 }  // namespace RosettaStone::Battlegrounds
