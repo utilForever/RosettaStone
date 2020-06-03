@@ -23,6 +23,10 @@ using MinionPoolData = std::tuple<Minion, int, bool>;
 //!
 class MinionPool
 {
+ public:
+    //! Initializes the pool to add a list of minions.
+    void Initialize();
+
  private:
     std::array<MinionPoolData, NUM_TOTAL_TAVERN_MINIONS> m_minions;
 };
