@@ -7,8 +7,8 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_GAME_STATE_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_GAME_STATE_HPP
 
+#include <Rosetta/Battlegrounds/Models/MinionPool.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
-#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Enums/GameEnums.hpp>
 
 #include <array>
@@ -25,7 +25,7 @@ struct GameState
     Phase phase = Phase::INVALID;
     Phase nextPhase = Phase::INVALID;
 
-    std::array<std::tuple<Minion, bool>, NUM_TOTAL_TAVERN_MINIONS> minionPool;
+    MinionPool minionPool;
 
     std::array<Player, 8> players;
 };
