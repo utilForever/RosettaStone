@@ -10,9 +10,15 @@
 
 namespace RosettaStone::Battlegrounds
 {
-Minion::Minion(Card card) : m_card(std::move(card))
+Minion::Minion(Card card, int poolIdx)
+    : m_card(std::move(card)), m_poolIdx(poolIdx)
 {
     // Do nothing
+}
+
+int Minion::GetPoolIndex() const
+{
+    return m_poolIdx;
 }
 
 ZoneType Minion::GetZoneType() const

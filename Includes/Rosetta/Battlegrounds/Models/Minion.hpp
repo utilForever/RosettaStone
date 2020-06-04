@@ -25,9 +25,14 @@ class Minion
     //! Default constructor.
     Minion() = default;
 
-    //! Constructs Minion instance with given \p card.
+    //! Constructs Minion instance with given \p card and \p poolIdx.
     //! \param card A card that contains the minion data.
-    Minion(Card card);
+    //! \param poolIdx The index of minion pool.
+    Minion(Card card, int poolIdx = -1);
+
+    //! Returns the value of pool index.
+    //! \return The value of pool index.
+    int GetPoolIndex() const;
 
     //! Returns the value of zone type.
     //! \return The value of zone type.
@@ -50,6 +55,7 @@ class Minion
 
  private:
     Card m_card;
+    int m_poolIdx = -1;
 
     ZoneType m_zoneType = ZoneType::INVALID;
     int m_zonePos = -1;
