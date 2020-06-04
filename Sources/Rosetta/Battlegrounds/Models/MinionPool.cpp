@@ -94,8 +94,8 @@ void MinionPool::AddMinionsToTavern(Player& player)
     std::size_t idx = 0;
     for (auto& minion : minions)
     {
-        player.tavernMinions.Add(std::get<0>(minion));
-        std::get<2>(minion) = false;
+        player.tavernMinions.Add(minion);
+        std::get<2>(m_minions.at(minion.GetPoolIndex())) = false;
         ++idx;
 
         if (idx == numMinions)
@@ -115,10 +115,10 @@ void MinionPool::ReturnMinion(int idx)
     std::get<2>(m_minions.at(idx)) = true;
 }
 
-std::vector<MinionPoolData> MinionPool::GetMinions(int minTier, int maxTier,
-                                                   bool isInPoolOnly)
+std::vector<Minion> MinionPool::GetMinions(int minTier, int maxTier,
+                                           bool isInPoolOnly)
 {
-    std::vector<MinionPoolData> result;
+    std::vector<Minion> result;
 
     for (auto& minion : m_minions)
     {
@@ -131,7 +131,7 @@ std::vector<MinionPoolData> MinionPool::GetMinions(int minTier, int maxTier,
                 continue;
             }
 
-            result.emplace_back(minion);
+            result.emplace_back(std::get<0>(minion));
         }
     }
 

@@ -44,8 +44,8 @@ class MinionPool
     //! \param maxTier The maximum number of tier.
     //! \param isInPoolOnly The flag indicating whether
     //! to return only minions in the pool.
-    std::vector<MinionPoolData> GetMinions(int minTier, int maxTier,
-                                           bool isInPoolOnly);
+    //! \return A list of minions that matches various conditions.
+    std::vector<Minion> GetMinions(int minTier, int maxTier, bool isInPoolOnly);
 
  private:
     std::array<MinionPoolData, NUM_TOTAL_TAVERN_MINIONS> m_minions;
