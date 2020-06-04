@@ -87,17 +87,16 @@ void MinionPool::Shuffle()
 void MinionPool::AddMinionsToTavern(Player& player)
 {
     const std::size_t numMinions = GetNumMinionsCanPurchase(player.currentTier);
+    auto minions = GetMinions(1, player.currentTier, true);
+
+    Random::shuffle(minions.begin(), minions.end());
 
     std::size_t idx = 0;
-    for (auto& minion : m_minions)
+    for (auto& minion : minions)
     {
-        if (std::get<0>(minion).GetTier() <= player.currentTier &&
-            std::get<2>(minion) == true)
-        {
-            player.tavernMinions.Add(std::get<0>(minion));
-            std::get<2>(minion) = false;
-            ++idx;
-        }
+        player.tavernMinions.Add(std::get<0>(minion));
+        std::get<2>(minion) = false;
+        ++idx;
 
         if (idx == numMinions)
         {

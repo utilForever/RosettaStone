@@ -38,9 +38,6 @@ void Game::Start()
 
     // Create callback to prepare a list of minions for purchase
     auto prepareMinionCallback = [this](Player& player) {
-        // Shuffle the minion pool
-        m_gameState.minionPool.Shuffle();
-
         // Add minions to player's Tavern
         m_gameState.minionPool.AddMinionsToTavern(player);
     };
