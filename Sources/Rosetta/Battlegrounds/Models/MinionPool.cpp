@@ -23,7 +23,7 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER1_MINIONS; ++i)
         {
-            m_minions.at(idx) = { Minion(card), idx, true };
+            m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
     }
@@ -33,7 +33,7 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER2_MINIONS; ++i)
         {
-            m_minions.at(idx) = { Minion(card), idx, true };
+            m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
     }
@@ -43,7 +43,7 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER3_MINIONS; ++i)
         {
-            m_minions.at(idx) = { Minion(card), idx, true };
+            m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
     }
@@ -53,7 +53,7 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER4_MINIONS; ++i)
         {
-            m_minions.at(idx) = { Minion(card), idx, true };
+            m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
     }
@@ -63,7 +63,7 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER5_MINIONS; ++i)
         {
-            m_minions.at(idx) = { Minion(card), idx, true };
+            m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
     }
@@ -73,7 +73,7 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER6_MINIONS; ++i)
         {
-            m_minions.at(idx) = { Minion(card), idx, true };
+            m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
     }
