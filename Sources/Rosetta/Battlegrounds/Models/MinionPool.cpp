@@ -105,4 +105,27 @@ void MinionPool::AddMinionsToTavern(Player& player)
         }
     }
 }
+
+std::vector<MinionPoolData> MinionPool::GetMinions(int minTier, int maxTier,
+                                                   bool isInPoolOnly)
+{
+    std::vector<MinionPoolData> result;
+
+    for (auto& minion : m_minions)
+    {
+        const int tier = std::get<0>(minion).GetTier();
+
+        if (tier >= minTier && tier <= maxTier)
+        {
+            if (isInPoolOnly && std::get<2>(minion) == false)
+            {
+                continue;
+            }
+
+            result.emplace_back(minion);
+        }
+    }
+
+    return result;
+}
 }  // namespace RosettaStone::Battlegrounds

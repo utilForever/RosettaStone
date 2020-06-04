@@ -35,6 +35,14 @@ class MinionPool
     //! \param player The player context.
     void AddMinionsToTavern(Player& player);
 
+    //! Gets a list of minions according various conditions.
+    //! \param minTier The minimum number of tier.
+    //! \param maxTier The maximum number of tier.
+    //! \param isInPoolOnly The flag indicating whether
+    //! to return only minions in the pool.
+    std::vector<MinionPoolData> GetMinions(int minTier, int maxTier,
+                                           bool isInPoolOnly);
+
  private:
     std::array<MinionPoolData, NUM_TOTAL_TAVERN_MINIONS> m_minions;
 };
