@@ -6,6 +6,7 @@
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Models/MinionPool.hpp>
+#include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -81,5 +82,27 @@ void MinionPool::Initialize()
 void MinionPool::Shuffle()
 {
     Random::shuffle(m_minions.begin(), m_minions.end());
+}
+
+void MinionPool::AddMinionsToTavern(Player& player)
+{
+    const std::size_t numMinions = GetNumMinionsCanPurchase(player.currentTier);
+
+    std::size_t idx = 0;
+    for (auto& minion : m_minions)
+    {
+        if (std::get<0>(minion).GetTier() <= player.currentTier &&
+            std::get<1>(minion) == true)
+        {
+            player.tavernMinions.Add(std::get<0>(minion));
+            std::get<1>(minion) = false;
+            ++idx;
+        }
+
+        if (idx == numMinions)
+        {
+            break;
+        }
+    }
 }
 }  // namespace RosettaStone::Battlegrounds

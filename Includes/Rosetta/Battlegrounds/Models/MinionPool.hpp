@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_MINION_POOL_HPP
 
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
+#include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Common/Constants.hpp>
 
 #include <array>
@@ -29,6 +30,10 @@ class MinionPool
 
     //! Shuffles a list of minions in the pool.
     void Shuffle();
+
+    //! Add minions to player's Tavern according to current tier.
+    //! \param player The player context.
+    void AddMinionsToTavern(Player& player);
 
  private:
     std::array<MinionPoolData, NUM_TOTAL_TAVERN_MINIONS> m_minions;
