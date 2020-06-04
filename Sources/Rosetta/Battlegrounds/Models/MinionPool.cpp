@@ -105,6 +105,16 @@ void MinionPool::AddMinionsToTavern(Player& player)
     }
 }
 
+void MinionPool::ReturnMinion(int idx)
+{
+    if (idx < 0 || idx >= NUM_TOTAL_TAVERN_MINIONS)
+    {
+        throw std::invalid_argument("Invalid pool index");
+    }
+
+    std::get<2>(m_minions.at(idx)) = true;
+}
+
 std::vector<MinionPoolData> MinionPool::GetMinions(int minTier, int maxTier,
                                                    bool isInPoolOnly)
 {

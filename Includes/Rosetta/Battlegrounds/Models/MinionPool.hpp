@@ -35,6 +35,10 @@ class MinionPool
     //! \param player The player context.
     void AddMinionsToTavern(Player& player);
 
+    //! Returns a minion to the pool.
+    //! \param idx The pool index of a minion.
+    void ReturnMinion(int idx);
+
     //! Gets a list of minions according various conditions.
     //! \param minTier The minimum number of tier.
     //! \param maxTier The maximum number of tier.
