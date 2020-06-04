@@ -39,13 +39,11 @@ void Game::Start()
 
     // Create callback to prepare a list of minions for purchase
     auto prepareMinionCallback = [this](Player& player) {
-        (void)player;
-        //const std::size_t numMinions =
-        //    GetNumMinionsCanPurchase(player.currentTier);
+        const std::size_t numMinions =
+            GetNumMinionsCanPurchase(player.currentTier);
 
-        // Shuffle a list of minions in pool
-        //Random::shuffle(m_gameState.minionPool.begin(),
-        //                m_gameState.minionPool.end());
+        // Shuffle the minion pool
+        m_gameState.minionPool.Shuffle();
 
         //std::size_t idx = 0;
         //for (auto& minion : m_gameState.minionPool)
