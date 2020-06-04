@@ -38,8 +38,12 @@ void Game::Start()
 
     // Create callback to prepare a list of minions for purchase
     auto prepareMinionCallback = [this](Player& player) {
-        // Add minions to player's Tavern
         m_gameState.minionPool.AddMinionsToTavern(player);
+    };
+
+    // Create callback to return a minion to the minion pool
+    auto returnMinionCallback = [this](int poolIdx) {
+        m_gameState.minionPool.ReturnMinion(poolIdx);
     };
 
     // Initialize variables and callbacks
@@ -51,6 +55,7 @@ void Game::Start()
 
         player.selectHeroCallback = selectHeroCallback;
         player.fillTavernMinionCallback = prepareMinionCallback;
+        player.returnMinionCallback = returnMinionCallback;
     }
 
     // Set next phase

@@ -56,6 +56,7 @@ class Player
 
     std::function<void()> selectHeroCallback;
     std::function<void(Player&)> fillTavernMinionCallback;
+    std::function<void(int)> returnMinionCallback;
 };
 }  // namespace RosettaStone::Battlegrounds
 
