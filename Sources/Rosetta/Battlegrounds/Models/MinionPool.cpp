@@ -92,10 +92,10 @@ void MinionPool::AddMinionsToTavern(Player& player)
     for (auto& minion : m_minions)
     {
         if (std::get<0>(minion).GetTier() <= player.currentTier &&
-            std::get<1>(minion) == true)
+            std::get<2>(minion) == true)
         {
             player.tavernMinions.Add(std::get<0>(minion));
-            std::get<1>(minion) = false;
+            std::get<2>(minion) = false;
             ++idx;
         }
 
