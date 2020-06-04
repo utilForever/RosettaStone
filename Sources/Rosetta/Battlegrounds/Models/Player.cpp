@@ -35,7 +35,9 @@ void Player::PurchaseMinion(std::size_t idx)
 
 void Player::SellMinion(std::size_t idx)
 {
-    handZone.Remove(handZone[idx]);
+    auto minion = handZone.Remove(handZone[idx]);
+    returnMinionCallback(std::get<Minion>(minion).GetPoolIndex());
+
     remainCoin += 1;
 }
 }  // namespace RosettaStone::Battlegrounds
