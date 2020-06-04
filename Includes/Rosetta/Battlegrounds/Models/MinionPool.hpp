@@ -27,6 +27,9 @@ class MinionPool
     //! Initializes the pool to add a list of minions.
     void Initialize();
 
+    //! Shuffles a list of minions in the pool.
+    void Shuffle();
+
  private:
     std::array<MinionPoolData, NUM_TOTAL_TAVERN_MINIONS> m_minions;
 };

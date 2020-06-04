@@ -7,6 +7,10 @@
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Models/MinionPool.hpp>
 
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
+
 namespace RosettaStone::Battlegrounds
 {
 void MinionPool::Initialize()
@@ -72,5 +76,10 @@ void MinionPool::Initialize()
             ++idx;
         }
     }
+}
+
+void MinionPool::Shuffle()
+{
+    Random::shuffle(m_minions.begin(), m_minions.end());
 }
 }  // namespace RosettaStone::Battlegrounds
