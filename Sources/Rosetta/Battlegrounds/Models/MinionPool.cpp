@@ -79,11 +79,6 @@ void MinionPool::Initialize()
     }
 }
 
-void MinionPool::Shuffle()
-{
-    Random::shuffle(m_minions.begin(), m_minions.end());
-}
-
 void MinionPool::AddMinionsToTavern(Player& player)
 {
     const std::size_t numMinions = GetNumMinionsCanPurchase(player.currentTier);

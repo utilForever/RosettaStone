@@ -28,9 +28,6 @@ class MinionPool
     //! Initializes the pool to add a list of minions.
     void Initialize();
 
-    //! Shuffles a list of minions in the pool.
-    void Shuffle();
-
     //! Add minions to player's Tavern according to current tier.
     //! \param player The player context.
     void AddMinionsToTavern(Player& player);
