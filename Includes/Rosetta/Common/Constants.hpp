@@ -152,6 +152,9 @@ constexpr int NUM_TOTAL_TAVERN_MINIONS =
 //! The number of coin to purchase a minion.
 constexpr int NUM_COIN_PURCHASE_MINION = 3;
 
+//! The number of coin to refresh Tavern's field.
+constexpr int NUM_COIN_REFRESH_TAVERN = 1;
+
 //! The maximum number of coin.
 constexpr int COIN_UPPER_LIMIT = 10;
 
