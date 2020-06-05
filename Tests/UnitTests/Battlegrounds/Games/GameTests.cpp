@@ -71,4 +71,13 @@ TEST_CASE("[Game] - Basic")
     minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
     CHECK_EQ(static_cast<int>(minions.size()),
              NUM_TOTAL_TAVERN_MINIONS - 3 * 8 + 1);
+
+    player.RefreshTavern();
+    CHECK_EQ(player.handZone.GetCount(), 0);
+    CHECK_EQ(player.tavernMinions.GetCount(), 3);
+    CHECK_EQ(player.remainCoin, 0);
+
+    minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
+    CHECK_EQ(static_cast<int>(minions.size()),
+             NUM_TOTAL_TAVERN_MINIONS - 3 * 8);
 }
