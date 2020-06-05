@@ -96,6 +96,11 @@ int FieldZone::GetCount() const
     return m_count;
 }
 
+bool FieldZone::IsEmpty() const
+{
+    return m_count == 0;
+}
+
 bool FieldZone::IsFull() const
 {
     return m_count == MAX_FIELD_SIZE;

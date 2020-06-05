@@ -54,6 +54,10 @@ class FieldZone
     //! \return The number of minions in this zone.
     int GetCount() const;
 
+    //! Returns a value indicating whether this zone is empty.
+    //! \return true if this zone is empty, false otherwise.
+    bool IsEmpty() const;
+
     //! Returns a value indicating whether this zone is full.
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;
