@@ -46,6 +46,15 @@ void Game::Start()
         m_gameState.minionPool.ReturnMinion(poolIdx);
     };
 
+    // Create callback to refresh a list of minions in Tavern's field
+    auto refreshTavernCallback = [this](FieldZone& tavernMinions) {
+        while (!tavernMinions.IsEmpty())
+        {
+            Minion minion = tavernMinions.Remove(tavernMinions[0]);
+            m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
+        }
+    };
+
     // Initialize variables and callbacks
     for (auto& player : m_gameState.players)
     {
@@ -56,6 +65,7 @@ void Game::Start()
         player.selectHeroCallback = selectHeroCallback;
         player.fillTavernMinionCallback = prepareMinionCallback;
         player.returnMinionCallback = returnMinionCallback;
+        player.refreshTavernCallback = refreshTavernCallback;
     }
 
     // Set next phase
