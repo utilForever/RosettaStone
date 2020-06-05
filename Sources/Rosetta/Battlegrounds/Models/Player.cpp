@@ -40,4 +40,17 @@ void Player::SellMinion(std::size_t idx)
 
     remainCoin += 1;
 }
+
+void Player::RefreshTavern()
+{
+    if (remainCoin < NUM_COIN_REFRESH_TAVERN)
+    {
+        return;
+    }
+
+    refreshTavernCallback(tavernMinions);
+    remainCoin -= NUM_COIN_REFRESH_TAVERN;
+
+    fillTavernMinionCallback(*this);
+}
 }  // namespace RosettaStone::Battlegrounds
