@@ -50,7 +50,7 @@ void FieldZone::Add(Minion& minion, int zonePos)
     Reposition(pos);
 }
 
-const Minion& FieldZone::Remove(Minion& minion)
+const Minion FieldZone::Remove(Minion& minion)
 {
     if (minion.GetZoneType() != m_type)
     {
@@ -59,6 +59,8 @@ const Minion& FieldZone::Remove(Minion& minion)
 
     const int pos = minion.GetZonePosition();
     int count = m_count;
+
+    Minion result = m_minions.at(pos).value();
 
     if (pos < --count)
     {
@@ -74,7 +76,7 @@ const Minion& FieldZone::Remove(Minion& minion)
 
     Reposition(pos);
 
-    return minion;
+    return result;
 }
 
 void FieldZone::Reposition(int zonePos)
