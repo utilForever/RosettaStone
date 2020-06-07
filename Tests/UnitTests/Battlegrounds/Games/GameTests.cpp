@@ -63,8 +63,12 @@ TEST_CASE("[Game] - Basic")
     CHECK_EQ(static_cast<int>(minions.size()),
              NUM_TOTAL_TAVERN_MINIONS - 3 * 8);
 
-    player.SellMinion(0);
+    player.PlayCard(0, 0);
     CHECK_EQ(player.handZone.GetCount(), 0);
+    CHECK_EQ(player.minions.GetCount(), 1);
+
+    player.SellMinion(0);
+    CHECK_EQ(player.minions.GetCount(), 0);
     CHECK_EQ(player.tavernMinions.GetCount(), 2);
     CHECK_EQ(player.remainCoin, 1);
 
