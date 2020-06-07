@@ -37,7 +37,7 @@ void Game::Start()
     };
 
     // Create callback to prepare a list of minions for purchase
-    auto prepareMinionCallback = [this](Player& player) {
+    auto prepareTavernMinionsCallback = [this](Player& player) {
         m_gameState.minionPool.AddMinionsToTavern(player);
     };
 
@@ -46,11 +46,11 @@ void Game::Start()
         m_gameState.minionPool.ReturnMinion(poolIdx);
     };
 
-    // Create callback to refresh a list of minions in Tavern's field
-    auto refreshTavernCallback = [this](FieldZone& tavernMinions) {
-        while (!tavernMinions.IsEmpty())
+    // Create callback to clear a list of minions in Tavern's field
+    auto clearTavernMinionsCallback = [this](FieldZone& minions) {
+        while (!minions.IsEmpty())
         {
-            Minion minion = tavernMinions.Remove(tavernMinions[0]);
+            Minion minion = minions.Remove(minions[0]);
             m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
         }
     };
@@ -88,9 +88,9 @@ void Game::Start()
         player.coinToUpgradeTavern = NUM_COIN_UPGRADE_TAVERN_TIER_2 + 1;
 
         player.selectHeroCallback = selectHeroCallback;
-        player.fillTavernMinionCallback = prepareMinionCallback;
+        player.prepareTavernMinionsCallback = prepareTavernMinionsCallback;
         player.returnMinionCallback = returnMinionCallback;
-        player.refreshTavernCallback = refreshTavernCallback;
+        player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
     }
 
@@ -135,8 +135,8 @@ void Game::Recruit()
             --player.coinToUpgradeTavern;
         }
 
-        // Assign a list of minions to each player for purchase
-        player.FillTavernMinions();
+        // Prepare a list of minions to each player for purchase
+        player.PrepareTavern();
     }
 }
 

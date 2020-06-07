@@ -31,8 +31,8 @@ class Player
     //! \param idx The index of hero choices.
     void SelectHero(std::size_t idx);
 
-    //! Fill a list of minions in Tavern for purchase.
-    void FillTavernMinions();
+    //! Prepare a list of minions in Tavern for purchase.
+    void PrepareTavern();
 
     //! Purchases a minion from Tavern's field.
     //! \param idx The index of a list of minions in Tavern's field.
@@ -72,9 +72,9 @@ class Player
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
 
     std::function<void()> selectHeroCallback;
-    std::function<void(Player&)> fillTavernMinionCallback;
+    std::function<void(Player&)> prepareTavernMinionsCallback;
     std::function<void(int)> returnMinionCallback;
-    std::function<void(FieldZone&)> refreshTavernCallback;
+    std::function<void(FieldZone&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
 };
 }  // namespace RosettaStone::Battlegrounds

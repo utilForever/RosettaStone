@@ -17,9 +17,9 @@ void Player::SelectHero(std::size_t idx)
     selectHeroCallback();
 }
 
-void Player::FillTavernMinions()
+void Player::PrepareTavern()
 {
-    fillTavernMinionCallback(*this);
+    prepareTavernMinionsCallback(*this);
 }
 
 void Player::PurchaseMinion(std::size_t idx)
@@ -74,10 +74,10 @@ void Player::RefreshTavern()
         return;
     }
 
-    refreshTavernCallback(tavernMinions);
+    clearTavernMinionsCallback(tavernMinions);
     remainCoin -= NUM_COIN_REFRESH_TAVERN;
 
-    fillTavernMinionCallback(*this);
+    prepareTavernMinionsCallback(*this);
 }
 
 void Player::RearrangeMinion(std::size_t curIdx, std::size_t newIdx)
