@@ -85,11 +85,13 @@ void Game::Start()
         player.remainCoin = 0;
         player.totalCoin = 2;
         player.currentTier = 1;
+        player.coinToUpgradeTavern = NUM_COIN_UPGRADE_TAVERN_TIER_2 + 1;
 
         player.selectHeroCallback = selectHeroCallback;
         player.fillTavernMinionCallback = prepareMinionCallback;
         player.returnMinionCallback = returnMinionCallback;
         player.refreshTavernCallback = refreshTavernCallback;
+        player.upgradeTavernCallback = upgradeTavernCallback;
     }
 
     // Set next phase
