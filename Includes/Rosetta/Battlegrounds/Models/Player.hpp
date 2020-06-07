@@ -38,6 +38,11 @@ class Player
     //! \param idx The index of a list of minions in Tavern's field.
     void PurchaseMinion(std::size_t idx);
 
+    //! Plays a minion or spell card.
+    //! \param handIdx The index of a list of cards in player's hand.
+    //! \param fieldIdx The index of a list of cards in player's field.
+    void PlayCard(std::size_t handIdx, std::size_t fieldIdx);
+
     //! Sells a minion to Tavern.
     //! \param idx The index of a list of minions in player's field.
     void SellMinion(std::size_t idx);

@@ -33,6 +33,21 @@ void Player::PurchaseMinion(std::size_t idx)
     remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
 
+void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx)
+{
+    auto card = handZone.Remove(handZone[handIdx]);
+
+    if (std::holds_alternative<Minion>(card))
+    {
+        auto minion = std::get<Minion>(card);
+        minions.Add(minion, fieldIdx);
+    }
+    else
+    {
+        // TODO: Cast spell
+    }
+}
+
 void Player::SellMinion(std::size_t idx)
 {
     auto minion = handZone.Remove(handZone[idx]);
