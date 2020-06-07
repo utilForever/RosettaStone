@@ -8,14 +8,11 @@
 #define ROSETTASTONE_BATTLEGROUNDS_PLAYER_HPP
 
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
-#include <Rosetta/Battlegrounds/Models/Minion.hpp>
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
 #include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 
 #include <array>
 #include <functional>
-#include <optional>
-#include <vector>
 
 namespace RosettaStone::Battlegrounds
 {
