@@ -47,6 +47,9 @@ class Player
     //! \param idx The index of a list of minions in player's field.
     void SellMinion(std::size_t idx);
 
+    //! Upgrades your Tavern to the next tier.
+    void UpgradeTavern();
+
     //! Refreshes a list of minions in Tavern's field.
     void RefreshTavern();
 
@@ -60,8 +63,9 @@ class Player
     int remainCoin = 0;
     int totalCoin = 0;
     int currentTier = 0;
+    int coinToUpgradeTavern = 0;
 
-    HandZone handZone{};
+    HandZone handZone;
     FieldZone minions;
     FieldZone tavernMinions;
 
@@ -71,6 +75,7 @@ class Player
     std::function<void(Player&)> fillTavernMinionCallback;
     std::function<void(int)> returnMinionCallback;
     std::function<void(FieldZone&)> refreshTavernCallback;
+    std::function<void(Player&)> upgradeTavernCallback;
 };
 }  // namespace RosettaStone::Battlegrounds
 

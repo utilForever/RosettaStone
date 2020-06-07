@@ -56,6 +56,17 @@ void Player::SellMinion(std::size_t idx)
     remainCoin += 1;
 }
 
+void Player::UpgradeTavern()
+{
+    if (currentTier == 6 || remainCoin < coinToUpgradeTavern)
+    {
+        return;
+    }
+
+    remainCoin -= coinToUpgradeTavern;
+    upgradeTavernCallback(*this);
+}
+
 void Player::RefreshTavern()
 {
     if (remainCoin < NUM_COIN_REFRESH_TAVERN)
