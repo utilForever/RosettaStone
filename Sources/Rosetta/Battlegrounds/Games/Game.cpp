@@ -129,6 +129,12 @@ void Game::Recruit()
         }
         player.remainCoin = player.totalCoin;
 
+        // Decrease the value of coin to upgrade player's Tavern to next tier
+        if (player.currentTier < 6)
+        {
+            --player.coinToUpgradeTavern;
+        }
+
         // Assign a list of minions to each player for purchase
         player.FillTavernMinions();
     }
