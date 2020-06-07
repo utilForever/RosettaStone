@@ -55,6 +55,30 @@ void Game::Start()
         }
     };
 
+    // Create callback to upgrade player's Tavern to the next tier
+    auto upgradeTavernCallback = [this](Player& player) {
+        ++player.currentTier;
+
+        // Set the value of coin to upgrade player's Tavern to the next tier
+        switch (player.currentTier)
+        {
+            case 2:
+                player.coinToUpgradeTavern = NUM_COIN_UPGRADE_TAVERN_TIER_3;
+                break;
+            case 3:
+                player.coinToUpgradeTavern = NUM_COIN_UPGRADE_TAVERN_TIER_4;
+                break;
+            case 4:
+                player.coinToUpgradeTavern = NUM_COIN_UPGRADE_TAVERN_TIER_5;
+                break;
+            case 5:
+                player.coinToUpgradeTavern = NUM_COIN_UPGRADE_TAVERN_TIER_6;
+                break;
+            default:
+                throw std::logic_error("Invalid player's current tier");
+        }
+    };
+
     // Initialize variables and callbacks
     for (auto& player : m_gameState.players)
     {
