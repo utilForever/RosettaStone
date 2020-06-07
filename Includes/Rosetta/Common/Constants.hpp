@@ -101,8 +101,14 @@ constexpr int MAX_HAND_SIZE = 10;
 //! The maximum number of secrets in secret zone.
 constexpr int MAX_SECERT_SIZE = 5;
 
+//! The number of players in Battlegrounds.
+constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
+
 //! The number of heroes in Battlegrounds.
 constexpr int NUM_BATTLEGROUNDS_HEROES = 34;
+
+//! The number of heroes on the selection list in Battlegrounds.
+constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
 
 //! The number of copies of each tier 1 minion.
 constexpr int NUM_COPIES_OF_EACH_TIER1_MINIONS = 16;
@@ -169,6 +175,9 @@ constexpr int NUM_COIN_UPGRADE_TAVERN_TIER_6 = 10;
 
 //! The number of coin to refresh Tavern's field.
 constexpr int NUM_COIN_REFRESH_TAVERN = 1;
+
+//! The maximum number of tier.
+constexpr int TIER_UPPER_LIMIT = 6;
 
 //! The maximum number of coin.
 constexpr int COIN_UPPER_LIMIT = 10;

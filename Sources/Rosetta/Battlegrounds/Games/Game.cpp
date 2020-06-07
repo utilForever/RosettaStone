@@ -28,7 +28,7 @@ void Game::Start()
     auto selectHeroCallback = [this]() {
         ++m_playerCount;
 
-        if (m_playerCount >= 8)
+        if (m_playerCount >= NUM_BATTLEGROUNDS_PLAYERS)
         {
             // Set next phase
             m_gameState.nextPhase = Phase::RECRUIT;
@@ -109,12 +109,12 @@ void Game::SelectHero()
     std::size_t heroIdx = 0;
     for (auto& player : m_gameState.players)
     {
-        for (std::size_t i = 0; i < 4; ++i)
+        for (std::size_t i = 0; i < NUM_HEROES_ON_SELECTION_LIST; ++i)
         {
             player.heroChoices.at(i) = currentHeroes.at(heroIdx + i).dbfID;
         }
 
-        heroIdx += 4;
+        heroIdx += NUM_HEROES_ON_SELECTION_LIST;
     }
 }
 
@@ -130,7 +130,7 @@ void Game::Recruit()
         player.remainCoin = player.totalCoin;
 
         // Decrease the value of coin to upgrade player's Tavern to next tier
-        if (player.currentTier < 6)
+        if (player.currentTier < TIER_UPPER_LIMIT)
         {
             --player.coinToUpgradeTavern;
         }

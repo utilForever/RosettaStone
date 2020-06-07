@@ -27,7 +27,7 @@ struct GameState
 
     MinionPool minionPool;
 
-    std::array<Player, 8> players;
+    std::array<Player, NUM_BATTLEGROUNDS_PLAYERS> players;
 };
 }  // namespace RosettaStone::Battlegrounds
 

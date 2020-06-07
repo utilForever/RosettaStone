@@ -58,7 +58,7 @@ void Player::SellMinion(std::size_t idx)
 
 void Player::UpgradeTavern()
 {
-    if (currentTier == 6 || remainCoin < coinToUpgradeTavern)
+    if (currentTier == TIER_UPPER_LIMIT || remainCoin < coinToUpgradeTavern)
     {
         return;
     }
