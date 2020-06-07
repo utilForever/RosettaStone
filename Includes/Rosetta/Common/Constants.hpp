@@ -152,6 +152,21 @@ constexpr int NUM_TOTAL_TAVERN_MINIONS =
 //! The number of coin to purchase a minion.
 constexpr int NUM_COIN_PURCHASE_MINION = 3;
 
+//! The initial number of coin to upgrade Tavern to Tier 2.
+constexpr int NUM_COIN_UPGRADE_TAVERN_TIER_2 = 5;
+
+//! The initial number of coin to upgrade Tavern to Tier 3.
+constexpr int NUM_COIN_UPGRADE_TAVERN_TIER_3 = 7;
+
+//! The initial number of coin to upgrade Tavern to Tier 4.
+constexpr int NUM_COIN_UPGRADE_TAVERN_TIER_4 = 8;
+
+//! The initial number of coin to upgrade Tavern to Tier 5.
+constexpr int NUM_COIN_UPGRADE_TAVERN_TIER_5 = 9;
+
+//! The initial number of coin to upgrade Tavern to Tier 6.
+constexpr int NUM_COIN_UPGRADE_TAVERN_TIER_6 = 10;
+
 //! The number of coin to refresh Tavern's field.
 constexpr int NUM_COIN_REFRESH_TAVERN = 1;
 
