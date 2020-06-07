@@ -50,8 +50,8 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx)
 
 void Player::SellMinion(std::size_t idx)
 {
-    auto minion = handZone.Remove(handZone[idx]);
-    returnMinionCallback(std::get<Minion>(minion).GetPoolIndex());
+    const auto minion = minions.Remove(minions[idx]);
+    returnMinionCallback(minion.GetPoolIndex());
 
     remainCoin += 1;
 }
