@@ -45,6 +45,11 @@ class Player
     //! Refreshes a list of minions in Tavern's field.
     void RefreshTavern();
 
+    //! Rearranges a minion to another position on player's field.
+    //! \param curIdx The current index of minion.
+    //! \param newIdx The new index of minion.
+    void RearrangeMinion(std::size_t curIdx, std::size_t newIdx);
+
     Hero hero;
 
     int remainCoin = 0;

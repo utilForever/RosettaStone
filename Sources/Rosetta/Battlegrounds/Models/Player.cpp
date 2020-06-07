@@ -53,4 +53,15 @@ void Player::RefreshTavern()
 
     fillTavernMinionCallback(*this);
 }
+
+void Player::RearrangeMinion(std::size_t curIdx, std::size_t newIdx)
+{
+    if (curIdx == newIdx || static_cast<int>(curIdx) >= minions.GetCount() ||
+        static_cast<int>(newIdx) >= minions.GetCount())
+    {
+        return;
+    }
+
+    minions.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
+}
 }  // namespace RosettaStone::Battlegrounds
