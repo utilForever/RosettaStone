@@ -56,7 +56,7 @@ void Game::Start()
     };
 
     // Create callback to upgrade player's Tavern to the next tier
-    auto upgradeTavernCallback = [this](Player& player) {
+    auto upgradeTavernCallback = [](Player& player) {
         ++player.currentTier;
 
         // Set the value of coin to upgrade player's Tavern to the next tier
