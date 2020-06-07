@@ -50,6 +50,11 @@ class FieldZone
     //! \param zonePos The position of minion to add or remove.
     void Reposition(int zonePos = 0);
 
+    //! Moves the specified minion to another position.
+    //! \param curPos The current position of minion.
+    //! \param newPos The new position of minion.
+    void Move(int curPos, int newPos);
+
     //! Returns the number of minions in this zone.
     //! \return The number of minions in this zone.
     int GetCount() const;

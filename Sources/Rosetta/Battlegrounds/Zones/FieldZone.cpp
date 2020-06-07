@@ -93,6 +93,20 @@ void FieldZone::Reposition(int zonePos)
     }
 }
 
+void FieldZone::Move(int curPos, int newPos)
+{
+    Minion minion = m_minions.at(curPos).value();
+
+    for (int i = curPos + 1; i < MAX_FIELD_SIZE; ++i)
+    {
+        m_minions[i - 1] = m_minions[i];
+    }
+
+    m_minions[MAX_FIELD_SIZE - 1] = std::nullopt;
+
+    Add(minion, newPos);
+}
+
 int FieldZone::GetCount() const
 {
     return m_count;
