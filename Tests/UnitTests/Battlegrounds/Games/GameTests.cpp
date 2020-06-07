@@ -42,6 +42,7 @@ TEST_CASE("[Game] - Basic")
         CHECK_EQ(player.remainCoin, 3);
         CHECK_EQ(player.totalCoin, 3);
         CHECK_EQ(player.currentTier, 1);
+        CHECK_EQ(player.coinToUpgradeTavern, 5);
 
         const std::size_t numMinions =
             GetNumMinionsCanPurchase(player.currentTier);
@@ -106,4 +107,27 @@ TEST_CASE("[Game] - Basic")
     player.RearrangeMinion(0, 1);
     CHECK_EQ(poolIdx1, player.minions[1].GetPoolIndex());
     CHECK_EQ(poolIdx2, player.minions[0].GetPoolIndex());
+
+    player.UpgradeTavern();
+    CHECK_EQ(player.currentTier, 1);
+    CHECK_EQ(player.remainCoin, 4);
+
+    player.remainCoin = 10;
+
+    player.UpgradeTavern();
+    CHECK_EQ(player.currentTier, 2);
+    CHECK_EQ(player.remainCoin, 5);
+
+    player.RefreshTavern();
+    CHECK_EQ(player.handZone.GetCount(), 0);
+    CHECK_EQ(player.tavernMinions.GetCount(), 4);
+    CHECK_EQ(player.remainCoin, 4);
+
+    const std::size_t numMinions = GetNumMinionsCanPurchase(player.currentTier);
+    for (std::size_t i = 0; i < numMinions; ++i)
+    {
+        bool check = player.tavernMinions[i].GetTier() == 1 ||
+                     player.tavernMinions[i].GetTier() == 2;
+        CHECK_EQ(check, true);
+    }
 }
