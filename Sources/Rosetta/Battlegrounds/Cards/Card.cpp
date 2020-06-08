@@ -7,6 +7,8 @@
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Common/Constants.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone::Battlegrounds
 {
 CardType Card::GetCardType() const
