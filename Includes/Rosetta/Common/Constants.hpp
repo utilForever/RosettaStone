@@ -146,6 +146,133 @@ constexpr int NUM_TIER5_MINIONS = 15;
 //! The number of tier 6 minions in Battlegrounds.
 constexpr int NUM_TIER6_MINIONS = 11;
 
+//! A list of Tier 1 minion dbfIDs in Battlegrounds.
+// Alleycat (40426)
+// Dire Wolf Alpha (985)
+// Dragonspawn Lieutenant (60628)
+// Fiendish Servant (56112)
+// Mecharoo (48886)
+// Micro Machine (60055)
+// Murloc Tidecaller (475)
+// Murloc Tidehunter (976)
+// Righteous Protector (42467)
+// Red Whelp (59968)
+// Rockpool Hunter (41245)
+// Selfless Hero (38740)
+// Vulgar Homunculus (43121)
+// Wrath Weaver (59670)
+constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
+    40426, 985,   60628, 56112, 48886, 60055, 475,
+    976,   42467, 59968, 41245, 38740, 43121, 59670
+};
+
+//! A list of Tier 2 minion dbfIDs in Battlegrounds.
+// Glyph Guardian (61029)
+// Harvest Golem (778)
+// Imprisoner (59937)
+// Kaboom Bot (49279)
+// Kindly Grandmother (39481)
+// Metaltooth Leaper (2016)
+// Murloc Warleader (1063)
+// Nathrezim Overseer (59186)
+// Old Murk-Eye (736)
+// Pogo-Hopper (60122)
+// Rat Pack (40428)
+// Scavenging Hyena (1281)
+// Spawn of N'Zoth (38797)
+// Steward of Time (60621)
+// Unstable Ghoul (1808)
+// Waxrider Togwaggle (60559)
+// Zoobot (39839)
+constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
+    61029, 778,   59937, 49279, 39481, 2016, 1063,  59186, 736,
+    60122, 40428, 1281,  38797, 60621, 1808, 60559, 39839
+};
+
+//! A list of Tier 3 minion dbfIDs in Battlegrounds.
+// Bronze Warden (60558)
+// Coldlight Seer (453)
+// Crystalweaver (40391)
+// Crowd Favorite (2518)
+// Deflect-o-Bot (61930)
+// Felfin Navigator (56393)
+// Hangry Dragon (60552)
+// Houndmaster (1003)
+// Imp Gang Boss (2288)
+// Infested Wolf (38734)
+// Khadgar (52502)
+// Pack Leader (59940)
+// Piloted Shredder (60048)
+// Replicating Menace (48536)
+// Screwjank Clunker (2023)
+// Shifter Zerus (57742)
+// Soul Juggler (59660)
+// The Beast (962)
+// Twilight Emissary (60626)
+constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
+    60558, 453,   40391, 2518,  61930, 56393, 60552, 1003, 2288, 38734,
+    52502, 59940, 60048, 48536, 2023,  57742, 59660, 962,  60626
+};
+
+//! A list of Tier 4 minion dbfIDs in Battlegrounds.
+// Annoy-o-Module (48993)
+// Bolvar, Fireblood (45392)
+// Cave Hydra (43358)
+// Cobalt Scalebane (42442)
+// Defender of Argus (763)
+// Drakonid Enforcer (61072)
+// Floating Watcher (2068)
+// Herald of Flame (60498)
+// Iron Sensei (1992)
+// Mechano-Egg (49169)
+// Menagerie Magician (39269)
+// Savannah Highmane (1261)
+// Security Rover (48100)
+// Siegebreaker (54835)
+// Toxfin (52277)
+// Virmen Sensei (40641)
+constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
+    48993, 45392, 43358, 42442, 763,   61072, 2068,  60498,
+    1992,  49169, 39269, 1261,  48100, 54835, 52277, 40641
+};
+
+//! A list of Tier 5 minion dbfIDs in Battlegrounds.
+// Annihilan Battlemaster (59714)
+// Baron Rivendare (1915)
+// Brann Bronzebeard (2949)
+// Goldrinn, the Great Wolf (59955)
+// Ironhide Direhorn (49973)
+// Junkbot (2074)
+// King Bagurgle (60247)
+// Lightfang Enforcer (59707)
+// Mal'Ganis (1986)
+// Murozond (60637)
+// Primalfin Lookout (60028)
+// Razorgore, the Untamed (60561)
+// Sneed's Old Shredder (59682)
+// Strongshell Scavenger (43022)
+// Voidlord (46056)
+constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
+    59714, 1915,  2949,  59955, 49973, 2074,  60247, 59707,
+    1986,  60637, 60028, 60561, 59682, 43022, 46056
+};
+
+//! A list of Tier 6 minion dbfIDs in Battlegrounds.
+// Foe Reaper 4000 (2081)
+// Kangor's Apprentice (59935)
+// Gentle Megasaur (56465)
+// Ghastcoiler (52041)
+// Holy Mackerel (61079)
+// Imp Mama (61028)
+// Kalecgos, Arcane Aspect (60630)
+// Maexxna (1791)
+// Mama Bear (60036)
+// Nadina the Red (60629)
+// Zapp Slywick (60040)
+constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
+    2081, 59935, 56465, 52041, 61079, 61028, 60630, 1791, 60036, 60629, 60040
+};
+
 //! The total number of tier minions in Battlegrounds Tavern.
 constexpr int NUM_TOTAL_TAVERN_MINIONS =
     NUM_TIER1_MINIONS * NUM_COPIES_OF_EACH_TIER1_MINIONS +
