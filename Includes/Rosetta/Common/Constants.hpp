@@ -64,10 +64,10 @@ constexpr std::array<CardSet, 22> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 9057;
+constexpr int NUM_ALL_CARDS = 9156;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 447;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 461;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -105,7 +105,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 34;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 37;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
