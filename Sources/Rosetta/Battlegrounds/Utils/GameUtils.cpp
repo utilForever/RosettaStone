@@ -10,7 +10,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-const std::size_t GetNumMinionsCanPurchase(int tier)
+std::size_t GetNumMinionsCanPurchase(int tier)
 {
     if (tier == 1)
     {
