@@ -365,25 +365,25 @@ Card* Cards::GetDefaultHeroPower(CardClass cardClass)
     switch (cardClass)
     {
         case CardClass::DRUID:
-            return FindCardByID("CS2_017");
+            return FindCardByID("HERO_06bp");
         case CardClass::HUNTER:
-            return FindCardByID("DS1h_292");
+            return FindCardByID("HERO_05bp");
         case CardClass::MAGE:
-            return FindCardByID("CS2_034");
+            return FindCardByID("HERO_08bp");
         case CardClass::PALADIN:
-            return FindCardByID("CS2_101");
+            return FindCardByID("HERO_04bp");
         case CardClass::PRIEST:
-            return FindCardByID("CS1h_001");
+            return FindCardByID("HERO_09bp");
         case CardClass::ROGUE:
-            return FindCardByID("CS2_083b");
+            return FindCardByID("HERO_03bp");
         case CardClass::SHAMAN:
-            return FindCardByID("CS2_049");
+            return FindCardByID("HERO_02bp");
         case CardClass::WARLOCK:
-            return FindCardByID("CS2_056");
+            return FindCardByID("HERO_07bp");
         case CardClass::WARRIOR:
-            return FindCardByID("CS2_102");
+            return FindCardByID("HERO_01bp");
         case CardClass::DEMONHUNTER:
-            return FindCardByID("HERO_10p");
+            return FindCardByID("HERO_10bp");
         default:
             return &emptyCard;
     }

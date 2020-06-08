@@ -18,9 +18,9 @@ TaskStatus HeroPowerTask::Impl(Player* player)
 {
     HeroPower& power = player->GetHeroPower();
 
-    // NOTE: 'Steady Shot' (DS1h_292) can target by some cards
+    // NOTE: 'Steady Shot' (HERO_05bp) can target by some cards
     // e.g. Steamwheedle Sniper, Dwarven Sharpshooter
-    if (power.card->id == "DS1h_292")
+    if (power.card->id == "HERO_05bp")
     {
         if (const auto& auraEffects = player->playerAuraEffects;
             auraEffects.GetValue(GameTag::CAN_TARGET_MINION_BY_HERO_POWER) == 1)
