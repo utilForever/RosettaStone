@@ -175,7 +175,8 @@ TEST_CASE("[Cards] - FindCardByType")
     CHECK(cards6.empty());
     CHECK(cards8.empty());
     CHECK(cards10.empty());
-    CHECK(cards11.empty());
+    // NOTE: It is temporary code and will be modified.
+    CHECK(cards11.size() == 4);
 }
 
 TEST_CASE("[Cards] - FindCardByRace")
