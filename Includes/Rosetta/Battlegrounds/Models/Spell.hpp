@@ -29,7 +29,7 @@ class Spell
 
     //! Constructs Minion instance with given \p card.
     //! \param card A card that contains the spell data.
-    Spell(Card card);
+    explicit Spell(Card card);
 
     //! Returns the value of zone type.
     //! \return The value of zone type.

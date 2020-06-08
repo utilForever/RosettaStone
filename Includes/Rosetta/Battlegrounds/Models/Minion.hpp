@@ -28,7 +28,7 @@ class Minion
     //! Constructs Minion instance with given \p card and \p poolIdx.
     //! \param card A card that contains the minion data.
     //! \param poolIdx The index of minion pool.
-    Minion(Card card, int poolIdx = -1);
+    explicit Minion(Card card, int poolIdx = -1);
 
     //! Returns the value of pool index.
     //! \return The value of pool index.
