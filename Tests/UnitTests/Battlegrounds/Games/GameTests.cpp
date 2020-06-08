@@ -10,6 +10,8 @@
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
 
+#include <vector>
+
 using namespace RosettaStone;
 using namespace Battlegrounds;
 
