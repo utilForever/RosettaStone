@@ -65,9 +65,9 @@ class TraversedNodesInfo
     //! \param redirectNodeMap The board node map to get the next node.
     //! \param board The game board.
     //! \param result The result of the game (player1 and player2).
-    void ConstructRedirectNode(BoardNodeMap* redirectNodeMap,
-                               const Board& board,
-                               std::tuple<PlayState, PlayState> result);
+    void ConstructRedirectNode(
+        BoardNodeMap* redirectNodeMap, const Board& board,
+        std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result);
 
     //! Jumps current node to next node.
     //! \param board The game board.

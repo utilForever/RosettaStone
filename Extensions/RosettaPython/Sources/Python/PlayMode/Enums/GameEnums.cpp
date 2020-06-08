@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Enums/GameEnums.hpp>
-#include <Rosetta/PlayMode/Enums/GameEnums.hpp>
+#include <Rosetta/Common/Enums/GameEnums.hpp>
 
 #include <pybind11/pybind11.h>
 

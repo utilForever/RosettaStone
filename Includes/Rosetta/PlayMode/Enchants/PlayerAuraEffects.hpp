@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_PLAYER_AURA_EFFECTS_HPP
 #define ROSETTASTONE_PLAYMODE_PLAYER_AURA_EFFECTS_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 
 namespace RosettaStone::PlayMode
 {

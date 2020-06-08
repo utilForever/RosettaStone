@@ -5,11 +5,11 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Enums/AuraEnums.hpp>
-#include <Rosetta/PlayMode/Enums/AuraEnums.hpp>
+#include <Rosetta/Common/Enums/AuraEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddAuraEnums(pybind11::module& m)
 {

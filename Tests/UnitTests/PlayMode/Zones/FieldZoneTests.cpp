@@ -11,7 +11,8 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 using namespace PlayerTasks;
 
 TEST_CASE("[FieldZone] - GetAll")

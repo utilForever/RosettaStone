@@ -15,8 +15,9 @@ using Random = effolkronium::random_static;
 
 namespace RosettaTorch::MCTS
 {
-int RandomPolicy::SelectChoice([[maybe_unused]] ActionType actionType,
-                               ChoiceIterator choiceIter)
+int RandomPolicy::SelectChoice(
+    [[maybe_unused]] RosettaStone::ActionType actionType,
+    ChoiceIterator choiceIter)
 {
     constexpr std::size_t MAX_CHOICES = 16;
     std::array<ChoiceIterator::Item, MAX_CHOICES> choices{};

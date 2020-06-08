@@ -7,8 +7,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_PLAYER_HPP
 #define ROSETTASTONE_PLAYMODE_PLAYER_HPP
 
+#include <Rosetta/Common/Enums/GameEnums.hpp>
 #include <Rosetta/PlayMode/Enchants/PlayerAuraEffects.hpp>
-#include <Rosetta/PlayMode/Enums/GameEnums.hpp>
 #include <Rosetta/PlayMode/Models/Choice.hpp>
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 #include <Rosetta/PlayMode/Models/Hero.hpp>

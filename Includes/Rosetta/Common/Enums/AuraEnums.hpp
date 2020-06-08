@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_AURA_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_AURA_ENUMS_HPP
+#ifndef ROSETTASTONE_AURA_ENUMS_HPP
+#define ROSETTASTONE_AURA_ENUMS_HPP
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! \brief An enumerator for identifying aura type.
 enum class AuraType
@@ -48,6 +48,6 @@ enum class AuraInstruction
     REMOVE,
     REMOVE_ALL
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_AURA_ENUMS_HPP
+#endif  // ROSETTASTONE_AURA_ENUMS_HPP

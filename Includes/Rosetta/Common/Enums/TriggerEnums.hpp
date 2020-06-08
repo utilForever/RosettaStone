@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_TRIGGER_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_TRIGGER_ENUMS_HPP
+#ifndef ROSETTASTONE_TRIGGER_ENUMS_HPP
+#define ROSETTASTONE_TRIGGER_ENUMS_HPP
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! \brief An enumerator for identifying trigger type.
 enum class TriggerType
@@ -89,6 +89,6 @@ enum class SequenceType
     PLAY_SPELL,
     TARGET
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_TRIGGER_ENUMS_HPP
+#endif  // ROSETTASTONE_TRIGGER_ENUMS_HPP

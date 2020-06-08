@@ -7,10 +7,10 @@
 #ifndef ROSETTASTONE_CONSOLE_HPP
 #define ROSETTASTONE_CONSOLE_HPP
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/PlayMode/Accounts/AccountInfo.hpp>
 #include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 
 #include <array>
 #include <cctype>

@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_CHOICE_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_CHOICE_ENUMS_HPP
+#ifndef ROSETTASTONE_CHOICE_ENUMS_HPP
+#define ROSETTASTONE_CHOICE_ENUMS_HPP
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! The type of discover.
 enum class DiscoverType
@@ -41,6 +41,6 @@ enum class ChoiceAction
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
     TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_CHOICE_ENUMS_HPP
+#endif  // ROSETTASTONE_CHOICE_ENUMS_HPP

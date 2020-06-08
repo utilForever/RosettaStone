@@ -4,25 +4,25 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_CARD_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_CARD_ENUMS_HPP
+#ifndef ROSETTASTONE_CARD_ENUMS_HPP
+#define ROSETTASTONE_CARD_ENUMS_HPP
 
 #include <string>
 #include <string_view>
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! \brief An enumerator for identifying the class of the card.
 enum class CardClass
 {
 #define X(a) a,
-#include "CardClass.def"
+#include "Rosetta/Common/Enums/CardClass.def"
 #undef X
 };
 
 const std::string CARD_CLASS_STR[] = {
 #define X(a) #a,
-#include "CardClass.def"
+#include "Rosetta/Common/Enums/CardClass.def"
 #undef X
 };
 
@@ -30,13 +30,13 @@ const std::string CARD_CLASS_STR[] = {
 enum class CardSet
 {
 #define X(a) a,
-#include "CardSet.def"
+#include "Rosetta/Common/Enums/CardSet.def"
 #undef X
 };
 
 const std::string CARD_SET_STR[] = {
 #define X(a) #a,
-#include "CardSet.def"
+#include "Rosetta/Common/Enums/CardSet.def"
 #undef X
 };
 
@@ -44,13 +44,13 @@ const std::string CARD_SET_STR[] = {
 enum class CardType
 {
 #define X(a) a,
-#include "CardType.def"
+#include "Rosetta/Common/Enums/CardType.def"
 #undef X
 };
 
 const std::string CARD_TYPE_STR[] = {
 #define X(a) #a,
-#include "CardType.def"
+#include "Rosetta/Common/Enums/CardType.def"
 #undef X
 };
 
@@ -58,13 +58,13 @@ const std::string CARD_TYPE_STR[] = {
 enum class Faction
 {
 #define X(a) a,
-#include "Faction.def"
+#include "Rosetta/Common/Enums/Faction.def"
 #undef X
 };
 
 const std::string FACTION_STR[] = {
 #define X(a) #a,
-#include "Faction.def"
+#include "Rosetta/Common/Enums/Faction.def"
 #undef X
 };
 
@@ -72,15 +72,15 @@ const std::string FACTION_STR[] = {
 enum class GameTag
 {
 #define X(a) a,
-#include "GameTag.def"
 #include "GameTagCustom.def"
+#include "Rosetta/Common/Enums/GameTag.def"
 #undef X
 };
 
 const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
-#include "GameTag.def"
 #include "GameTagCustom.def"
+#include "Rosetta/Common/Enums/GameTag.def"
 #undef X
 };
 
@@ -88,13 +88,13 @@ const std::string GAME_TAG_STR[] = {
 enum class PlayReq
 {
 #define X(a) a,
-#include "PlayReq.def"
+#include "Rosetta/Common/Enums/PlayReq.def"
 #undef X
 };
 
 const std::string PLAY_REQ_STR[] = {
 #define X(a) #a,
-#include "PlayReq.def"
+#include "Rosetta/Common/Enums/PlayReq.def"
 #undef X
 };
 
@@ -102,13 +102,13 @@ const std::string PLAY_REQ_STR[] = {
 enum class Race
 {
 #define X(a) a,
-#include "Race.def"
+#include "Rosetta/Common/Enums/Race.def"
 #undef X
 };
 
 const std::string RACE_STR[] = {
 #define X(a) #a,
-#include "Race.def"
+#include "Rosetta/Common/Enums/Race.def"
 #undef X
 };
 
@@ -116,13 +116,13 @@ const std::string RACE_STR[] = {
 enum class Rarity
 {
 #define X(a) a,
-#include "Rarity.def"
+#include "Rosetta/Common/Enums/Rarity.def"
 #undef X
 };
 
 const std::string RARITY_STR[] = {
 #define X(a) #a,
-#include "Rarity.def"
+#include "Rosetta/Common/Enums/Rarity.def"
 #undef X
 };
 
@@ -272,6 +272,6 @@ ENUM_AND_STR(GameTag, GAME_TAG_STR)
 ENUM_AND_STR(PlayReq, PLAY_REQ_STR)
 ENUM_AND_STR(Race, RACE_STR)
 ENUM_AND_STR(Rarity, RARITY_STR)
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_CARD_ENUMS_HPP
+#endif  // ROSETTASTONE_CARD_ENUMS_HPP

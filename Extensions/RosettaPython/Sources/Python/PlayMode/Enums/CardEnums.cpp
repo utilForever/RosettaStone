@@ -5,11 +5,11 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Enums/CardEnums.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddCardEnums(pybind11::module& m)
 {
@@ -17,7 +17,7 @@ void AddCardEnums(pybind11::module& m)
         m, "CardClass",
         R"pbdoc(An enumerator for identifying the class of the card.)pbdoc")
 #define X(a) .value(#a, CardClass::a)
-#include "Rosetta/PlayMode/Enums/CardClass.def"
+#include "Rosetta/Common/Enums/CardClass.def"
 #undef X
         ;
 
@@ -25,7 +25,7 @@ void AddCardEnums(pybind11::module& m)
         m, "CardSet",
         R"pbdoc(An enumerator for identifying the set of the card.)pbdoc")
 #define X(a) .value(#a, CardSet::a)
-#include "Rosetta/PlayMode/Enums/CardSet.def"
+#include "Rosetta/Common/Enums/CardSet.def"
 #undef X
         ;
 
@@ -33,7 +33,7 @@ void AddCardEnums(pybind11::module& m)
         m, "CardType",
         R"pbdoc(An enumerator for identifying the type of the card.)pbdoc")
 #define X(a) .value(#a, CardType::a)
-#include "Rosetta/PlayMode/Enums/CardType.def"
+#include "Rosetta/Common/Enums/CardType.def"
 #undef X
         ;
 
@@ -41,7 +41,7 @@ void AddCardEnums(pybind11::module& m)
         m, "Faction",
         R"pbdoc(An enumerator for identifying the faction of the card.)pbdoc")
 #define X(a) .value(#a, Faction::a)
-#include "Rosetta/PlayMode/Enums/Faction.def"
+#include "Rosetta/Common/Enums/Faction.def"
 #undef X
         ;
 
@@ -49,7 +49,7 @@ void AddCardEnums(pybind11::module& m)
         m, "GameTag",
         R"pbdoc(An enumerator for identifying the game tag of the card.)pbdoc")
 #define X(a) .value(#a, GameTag::a)
-#include "Rosetta/PlayMode/Enums/GameTag.def"
+#include "Rosetta/Common/Enums/GameTag.def"
 #undef X
         ;
 
@@ -57,7 +57,7 @@ void AddCardEnums(pybind11::module& m)
         m, "PlayReq",
         R"pbdoc(An enumerator for identifying the play requirement of the card.)pbdoc")
 #define X(a) .value(#a, PlayReq::a)
-#include "Rosetta/PlayMode/Enums/PlayReq.def"
+#include "Rosetta/Common/Enums/PlayReq.def"
 #undef X
         ;
 
@@ -65,7 +65,7 @@ void AddCardEnums(pybind11::module& m)
         m, "Race",
         R"pbdoc(An enumerator for identifying the race of the card.)pbdoc")
 #define X(a) .value(#a, Race::a)
-#include "Rosetta/PlayMode/Enums/Race.def"
+#include "Rosetta/Common/Enums/Race.def"
 #undef X
         ;
 
@@ -73,7 +73,7 @@ void AddCardEnums(pybind11::module& m)
         m, "Rarity",
         R"pbdoc(An enumerator for identifying the rarity of the card.)pbdoc")
 #define X(a) .value(#a, Rarity::a)
-#include "Rosetta/PlayMode/Enums/Rarity.def"
+#include "Rosetta/Common/Enums/Rarity.def"
 #undef X
         ;
 

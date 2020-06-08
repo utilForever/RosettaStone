@@ -27,7 +27,7 @@ const nlohmann::json& Recorder::GetJSON() const
 }
 
 void Recorder::RecordMainAction(RosettaStone::PlayMode::Game& game,
-                                RosettaStone::PlayMode::MainOpType op)
+                                RosettaStone::MainOpType op)
 {
     nlohmann::json obj;
 
@@ -49,7 +49,7 @@ void Recorder::RecordRandomAction(int maxValue, int action)
     m_json.emplace_back(obj);
 }
 
-void Recorder::RecordManualAction(RosettaStone::PlayMode::ActionType actionType,
+void Recorder::RecordManualAction(RosettaStone::ActionType actionType,
                                   RosettaStone::PlayMode::ActionChoices choices,
                                   int action)
 {
@@ -72,9 +72,8 @@ void Recorder::RecordManualAction(RosettaStone::PlayMode::ActionType actionType,
     m_json.emplace_back(obj);
 }
 
-void Recorder::End(std::tuple<RosettaStone::PlayMode::PlayState,
-                              RosettaStone::PlayMode::PlayState>
-                       result)
+void Recorder::End(
+    std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result)
 {
     nlohmann::json obj;
 
@@ -84,10 +83,9 @@ void Recorder::End(std::tuple<RosettaStone::PlayMode::PlayState,
     m_json.emplace_back(obj);
 }
 
-std::string Recorder::GetActionTypeString(
-    RosettaStone::PlayMode::ActionType type)
+std::string Recorder::GetActionTypeString(RosettaStone::ActionType type)
 {
-    using RosettaStone::PlayMode::ActionType;
+    using RosettaStone::ActionType;
 
     switch (type)
     {
@@ -129,26 +127,24 @@ std::string Recorder::GetChoiceTypeString(
 }
 
 std::string Recorder::GetResultString(
-    std::tuple<RosettaStone::PlayMode::PlayState,
-               RosettaStone::PlayMode::PlayState>
-        result) const
+    std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result) const
 {
     auto& [p1Result, p2Result] = result;
 
-    if (p1Result == RosettaStone::PlayMode::PlayState::WON &&
-        p2Result == RosettaStone::PlayMode::PlayState::LOST)
+    if (p1Result == RosettaStone::PlayState::WON &&
+        p2Result == RosettaStone::PlayState::LOST)
     {
         return "PLAYER1_WIN";
     }
 
-    if (p1Result == RosettaStone::PlayMode::PlayState::LOST &&
-        p2Result == RosettaStone::PlayMode::PlayState::WON)
+    if (p1Result == RosettaStone::PlayState::LOST &&
+        p2Result == RosettaStone::PlayState::WON)
     {
         return "PLAYER2_WIN";
     }
 
-    if (p1Result == RosettaStone::PlayMode::PlayState::TIED &&
-        p2Result == RosettaStone::PlayMode::PlayState::TIED)
+    if (p1Result == RosettaStone::PlayState::TIED &&
+        p2Result == RosettaStone::PlayState::TIED)
     {
         return "DRAW";
     }

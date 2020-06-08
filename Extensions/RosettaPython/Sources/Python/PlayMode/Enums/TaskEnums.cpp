@@ -5,11 +5,11 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Enums/TaskEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TaskEnums.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddTaskEnums(pybind11::module& m)
 {

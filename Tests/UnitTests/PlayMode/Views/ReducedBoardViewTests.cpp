@@ -11,7 +11,8 @@
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
 #include <Rosetta/PlayMode/Views/BoardRefView.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 using namespace TestUtils;
 
 TEST_CASE("[ReducedBoardView] - All")

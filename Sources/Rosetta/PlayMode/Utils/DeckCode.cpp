@@ -4,9 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <stdexcept>

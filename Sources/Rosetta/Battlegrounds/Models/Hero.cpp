@@ -4,20 +4,13 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_BATTLEGROUNDS_GAME_ENUMS_HPP
-#define ROSETTASTONE_BATTLEGROUNDS_GAME_ENUMS_HPP
+#include <Rosetta/Battlegrounds/Models/Hero.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
-//! \brief An enumerator for identifying the phase.
-enum class Phase
+void Hero::Initialize(const Card& heroCard)
 {
-    INVALID,
-    SELECT_HERO,
-    RECRUIT,
-    COMBAT,
-    GAMEOVER
-};
+    card = heroCard;
+    health = heroCard.gameTags.at(GameTag::HEALTH);
+}
 }  // namespace RosettaStone::Battlegrounds
-
-#endif  // ROSETTASTONE_BATTLEGROUNDS_GAME_ENUMS_HPP

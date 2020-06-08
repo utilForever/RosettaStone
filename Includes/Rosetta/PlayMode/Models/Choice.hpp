@@ -7,8 +7,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_CHOICE_HPP
 #define ROSETTASTONE_PLAYMODE_CHOICE_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
-#include <Rosetta/PlayMode/Enums/ChoiceEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/ChoiceEnums.hpp>
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 
 #include <vector>

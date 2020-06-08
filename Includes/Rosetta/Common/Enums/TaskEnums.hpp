@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_TASK_ENUMS_HPP
-#define ROSETTASTONE_PLAYMODE_TASK_ENUMS_HPP
+#ifndef ROSETTASTONE_TASK_ENUMS_HPP
+#define ROSETTASTONE_TASK_ENUMS_HPP
 
-namespace RosettaStone::PlayMode
+namespace RosettaStone
 {
 //! \breif An enumerator for identifying power type.
 enum class PowerType
@@ -64,6 +64,6 @@ enum class RelaSign
     GEQ,  //!< Greater equal.
     LEQ   //!< Lesser equal.
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PLAYMODE_TASK_ENUMS_HPP
+#endif  // ROSETTASTONE_TASK_ENUMS_HPP

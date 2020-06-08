@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/PlayMode/Enums/TaskEnums.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 

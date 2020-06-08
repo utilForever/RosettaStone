@@ -10,9 +10,9 @@
 #ifndef ROSETTASTONE_PLAYMODE_ACTION_PARAMS_HPP
 #define ROSETTASTONE_PLAYMODE_ACTION_PARAMS_HPP
 
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
 #include <Rosetta/PlayMode/Actions/ActionValidChecker.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 
 namespace RosettaStone::PlayMode
 {

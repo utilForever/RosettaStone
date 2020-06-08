@@ -6,11 +6,12 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Accounts/AccountInfo.hpp>
 #include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 TEST_CASE("[AccountInfo] - Constructors")
 {

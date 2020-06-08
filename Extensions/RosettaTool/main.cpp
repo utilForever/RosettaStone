@@ -27,7 +27,8 @@ namespace filesystem = std::filesystem;
 namespace filesystem = std::experimental::filesystem;
 #endif
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 
 inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {

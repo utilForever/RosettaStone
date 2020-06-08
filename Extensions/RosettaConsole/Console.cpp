@@ -6,6 +6,7 @@
 
 #include "Console.hpp"
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Macros.hpp>
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
@@ -13,7 +14,6 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Loaders/AccountLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
 
 #include <lyra/cli_parser.hpp>
 #include <lyra/help.hpp>

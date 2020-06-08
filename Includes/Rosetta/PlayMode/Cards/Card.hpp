@@ -7,9 +7,9 @@
 #ifndef ROSETTASTONE_PLAYMODE_CARD_HPP
 #define ROSETTASTONE_PLAYMODE_CARD_HPP
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/TargetingEnums.hpp>
 #include <Rosetta/PlayMode/Enchants/Power.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TargetingEnums.hpp>
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>
 
 #include <map>

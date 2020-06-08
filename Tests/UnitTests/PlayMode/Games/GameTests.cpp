@@ -12,7 +12,6 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
-#include <Rosetta/PlayMode/Managers/GameManager.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
@@ -23,7 +22,8 @@
 
 using Random = effolkronium::random_static;
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 using namespace PlayerTasks;
 
 class TestActionParams : public ActionParams

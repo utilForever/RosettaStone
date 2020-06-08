@@ -5,11 +5,11 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Enums/TriggerEnums.hpp>
-#include <Rosetta/PlayMode/Enums/TriggerEnums.hpp>
+#include <Rosetta/Common/Enums/TriggerEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddTriggerEnums(pybind11::module& m)
 {

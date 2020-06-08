@@ -14,7 +14,8 @@
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 using namespace TestUtils;
 
 TEST_CASE("[Trigger] - None")

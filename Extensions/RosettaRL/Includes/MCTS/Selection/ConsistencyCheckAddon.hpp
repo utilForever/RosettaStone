@@ -12,9 +12,9 @@
 
 #include <MCTS/Selection/BoardNodeMap.hpp>
 
+#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/Common/SpinLocks.hpp>
 #include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
-#include <Rosetta/PlayMode/Enums/ActionEnums.hpp>
 
 #include <mutex>
 
@@ -31,13 +31,13 @@ class ConsistencyCheckAddon
     //! Sets spin lock and checks action type.
     //! \param actionType The type of action.
     //! \return The flag indicates action type is consistent.
-    bool LockAndCheckActionType(ActionType actionType) const;
+    bool LockAndCheckActionType(RosettaStone::ActionType actionType) const;
 
     //! Sets spin lock and checks action type and choices.
     //! \param actionType The type of action.
     //! \param choices The choices of action.
     //! \return The flag indicates action type and choices are consistent.
-    bool LockAndCheckActionTypeAndChoices(ActionType actionType,
+    bool LockAndCheckActionTypeAndChoices(RosettaStone::ActionType actionType,
                                           const ActionChoices& choices)
     {
         std::lock_guard<RosettaStone::SpinLock> lock(m_mutex);
@@ -51,7 +51,7 @@ class ConsistencyCheckAddon
 
     //! Returns the type of action.
     //! \return The type of action.
-    ActionType GetActionType() const;
+    RosettaStone::ActionType GetActionType() const;
 
     //! Returns the reduced board view.
     //! \return The reduced board view.
@@ -60,17 +60,17 @@ class ConsistencyCheckAddon
     //! Checks action type.
     //! \param actionType The type of action.
     //! \return The flag indicates action type is consistent.
-    bool CheckActionType(ActionType actionType) const;
+    bool CheckActionType(RosettaStone::ActionType actionType) const;
 
  private:
     //! Checks action type and choices.
     //! \param actionType The type of action.
     //! \param choices The choices of action.
     //! \return The flag indicates action type and choices are consistent.
-    bool CheckActionTypeAndChoices(ActionType actionType,
+    bool CheckActionTypeAndChoices(RosettaStone::ActionType actionType,
                                    const ActionChoices& choices)
     {
-        if (m_actionType == ActionType::INVALID)
+        if (m_actionType == RosettaStone::ActionType::INVALID)
         {
             m_actionType = actionType;
             m_actionChoices = choices;
@@ -128,7 +128,7 @@ class ConsistencyCheckAddon
 
     mutable RosettaStone::SpinLock m_mutex{};
     std::unique_ptr<ReducedBoardView> m_boardView;
-    ActionType m_actionType{};
+    RosettaStone::ActionType m_actionType{};
     ActionChoices m_actionChoices;
 };
 }  // namespace RosettaTorch::MCTS

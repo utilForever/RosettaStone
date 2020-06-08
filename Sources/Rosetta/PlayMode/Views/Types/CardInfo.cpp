@@ -7,7 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 //
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/PlayMode/Views/Types/CardInfo.hpp>
 
 namespace RosettaStone::PlayMode::Views::Types

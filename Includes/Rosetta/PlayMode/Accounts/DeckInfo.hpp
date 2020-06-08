@@ -7,8 +7,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
 #define ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
 
 #include <string>
 

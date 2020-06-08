@@ -5,11 +5,11 @@
 // property of any third parties.
 
 #include <Python/PlayMode/Utils/Constants.hpp>
-#include <Rosetta/PlayMode/Utils/Constants.hpp>
+#include <Rosetta/Common/Constants.hpp>
 
 #include <pybind11/pybind11.h>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
 
 void AddConstants(pybind11::module& m)
 {

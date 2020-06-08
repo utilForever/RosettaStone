@@ -12,7 +12,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 using namespace SimpleTasks;
 using namespace TestUtils;
 

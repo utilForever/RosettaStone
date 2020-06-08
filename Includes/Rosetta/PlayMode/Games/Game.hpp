@@ -6,7 +6,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_GAME_HPP
 #define ROSETTASTONE_PLAYMODE_GAME_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/GameEnums.hpp>
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
 #include <Rosetta/PlayMode/Managers/TriggerManager.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>

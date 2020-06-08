@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_TARGETING_PREDICATES_HPP
 #define ROSETTASTONE_PLAYMODE_TARGETING_PREDICATES_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 
 #include <functional>
 

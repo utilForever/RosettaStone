@@ -12,7 +12,8 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
-using namespace RosettaStone::PlayMode;
+using namespace RosettaStone;
+using namespace PlayMode;
 using namespace PlayerTasks;
 
 TEST_CASE("[SecretZone] - Exist")

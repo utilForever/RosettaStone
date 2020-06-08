@@ -58,7 +58,7 @@ void TraversedNodesInfo::ConstructNode()
 
 void TraversedNodesInfo::ConstructRedirectNode(
     BoardNodeMap* redirectNodeMap, const Board& board,
-    std::tuple<PlayState, PlayState> result)
+    std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result)
 {
     const auto& [newNodeCreated, edgeAddon, node] =
         m_currentNode->children.GetOrCreateRedirectNode(m_pendingChoice);
@@ -69,7 +69,8 @@ void TraversedNodesInfo::ConstructRedirectNode(
     }
 
     auto& [p1Result, p2Result] = result;
-    if (p1Result != PlayState::PLAYING && p2Result != PlayState::PLAYING)
+    if (p1Result != RosettaStone::PlayState::PLAYING &&
+        p2Result != RosettaStone::PlayState::PLAYING)
     {
         // Don't need to construct a node for leaf nodes.
         // We only need the edge to record win-rate, which is already

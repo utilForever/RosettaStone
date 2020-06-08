@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_IZONE_HPP
 #define ROSETTASTONE_PLAYMODE_IZONE_HPP
 
-#include <Rosetta/PlayMode/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 
 namespace RosettaStone::PlayMode
 {
