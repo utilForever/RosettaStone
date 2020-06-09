@@ -17,19 +17,16 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-// ------------------------------------ HERO_POWER - PRIEST
-// [CS1h_001] Lesser Heal (*) - COST:2
+// ----------------------------------- HERO_POWER - WARRIOR
+// [HERO_01bp] Armor Up! (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Hero Power</b> Restore 2 Health.
+// Text: <b>Hero Power</b> Gain 2 Armor.
 // --------------------------------------------------------
-// PlayReq:
-// - REQ_TARGET_TO_PLAY = 0
-// --------------------------------------------------------
-TEST_CASE("[Priest : Hero Power] - CS1h_001 : Lesser Heal")
+TEST_CASE("[Warrior : Hero Power] - HERO_01bp : Armor Up!")
 {
     GameConfig config;
-    config.player1Class = CardClass::PRIEST;
+    config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -46,130 +43,15 @@ TEST_CASE("[Priest : Hero Power] - CS1h_001 : Lesser Heal")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
-
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
-}
-
-// ------------------------------------- HERO_POWER - DRUID
-// [CS2_017] Shapeshift (*) - COST:2
-// - Faction: Neutral, Set: Core, Rarity: Free
-// --------------------------------------------------------
-// Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
-// --------------------------------------------------------
-TEST_CASE("[Druid : Hero Power] - CS2_017 : Shapeshift")
-{
-    GameConfig config;
-    config.player1Class = CardClass::DRUID;
-    config.player2Class = CardClass::PRIEST;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Northshire Cleric"));
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card1));
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
-    CHECK_EQ(opField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, HeroPowerTask());
 
-    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
-    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 1);
-
-    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card1));
-    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
-    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
-    CHECK_EQ(opField[0]->GetHealth(), 2);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
-    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
-}
-
-// -------------------------------------- HERO_POWER - MAGE
-// [CS2_034] Fireblast (*) - COST:2
-// - Faction: Neutral, Set: Core, Rarity: Free
-// --------------------------------------------------------
-// Text: <b>Hero Power</b> Deal 1 damage.
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_TARGET_TO_PLAY = 0
-// --------------------------------------------------------
-TEST_CASE("[Mage : Hero Power] - CS2_034 : Fireblast")
-{
-    GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::PRIEST;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Northshire Cleric"));
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(opField[0]->GetHealth(), 3);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask(card1));
-
-    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 }
 
 // ------------------------------------ HERO_POWER - SHAMAN
-// [CS2_049] Totemic Call (*) - COST:2
+// [HERO_02bp] Totemic Call (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Summon a random Totem.
@@ -180,7 +62,7 @@ TEST_CASE("[Mage : Hero Power] - CS2_034 : Fireblast")
 // - REQ_NUM_MINION_SLOTS = 1
 // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
 // --------------------------------------------------------
-TEST_CASE("[Shaman : Hero Power] - CS2_049 : Totemic Call")
+TEST_CASE("[Shaman : Hero Power] - HERO_02bp : Totemic Call")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -239,47 +121,13 @@ TEST_CASE("[Shaman : Hero Power] - CS2_049 : Totemic Call")
     CHECK_EQ(opField.GetCount(), 4);
 }
 
-// ----------------------------------- HERO_POWER - WARLOCK
-// [CS2_056] Life Tap (*) - COST:2
-// - Faction: Neutral, Set: Core, Rarity: Free
-// --------------------------------------------------------
-// Text: <b>Hero Power</b> Draw a card and take 2 damage.
-// --------------------------------------------------------
-TEST_CASE("[Warlock : Hero Power] - CS2_056 : Life Tap")
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARLOCK;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
-
-    game.Process(curPlayer, HeroPowerTask());
-
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
-}
-
 // ------------------------------------- HERO_POWER - ROGUE
-// [CS2_083b] Dagger Mastery (*) - COST:2
+// [HERO_03bp] Dagger Mastery (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
 // --------------------------------------------------------
-TEST_CASE("[Rogue : Hero Power] - CS2_083b : Dagger Mastery")
+TEST_CASE("[Rogue : Hero Power] - HERO_03bp : Dagger Mastery")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -313,7 +161,7 @@ TEST_CASE("[Rogue : Hero Power] - CS2_083b : Dagger Mastery")
 }
 
 // ----------------------------------- HERO_POWER - PALADIN
-// [CS2_101] Reinforce (*) - COST:2
+// [HERO_04bp] Reinforce (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
@@ -321,7 +169,7 @@ TEST_CASE("[Rogue : Hero Power] - CS2_083b : Dagger Mastery")
 // PlayReq:
 // - REQ_NUM_MINION_SLOTS = 1
 // --------------------------------------------------------
-TEST_CASE("[Paladin : Hero Power] - CS2_101 : Reinforce")
+TEST_CASE("[Paladin : Hero Power] - HERO_04bp : Reinforce")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -350,41 +198,8 @@ TEST_CASE("[Paladin : Hero Power] - CS2_101 : Reinforce")
     CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
-// ----------------------------------- HERO_POWER - WARRIOR
-// [CS2_102] Armor Up! (*) - COST:2
-// - Faction: Neutral, Set: Core, Rarity: Free
-// --------------------------------------------------------
-// Text: <b>Hero Power</b> Gain 2 Armor.
-// --------------------------------------------------------
-TEST_CASE("[Warrior : Hero Power] - CS2_102 : Armor Up!")
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
-
-    game.Process(curPlayer, HeroPowerTask());
-
-    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
-}
-
 // ------------------------------------ HERO_POWER - HUNTER
-// [DS1h_292] Steady Shot (*) - COST:2
+// [HERO_05bp] Steady Shot (*) - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
@@ -393,7 +208,7 @@ TEST_CASE("[Warrior : Hero Power] - CS2_102 : Armor Up!")
 // - REQ_STEADY_SHOT = 0
 // - REQ_MINION_OR_ENEMY_HERO = 0
 // --------------------------------------------------------
-TEST_CASE("[Hunter : Hero Power] - DS1h_292 : Steady Shot")
+TEST_CASE("[Hunter : Hero Power] - HERO_05bp : Steady Shot")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -418,13 +233,198 @@ TEST_CASE("[Hunter : Hero Power] - DS1h_292 : Steady Shot")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ------------------------------------- HERO_POWER - DRUID
+// [HERO_06bp] Shapeshift (*) - COST:2
+// - Faction: Neutral, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Hero Power] - HERO_06bp : Shapeshift")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Northshire Cleric"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 1);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+}
+
+// ----------------------------------- HERO_POWER - WARLOCK
+// [HERO_07bp] Life Tap (*) - COST:2
+// - Faction: Neutral, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Draw a card and take 2 damage.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Hero Power] - HERO_07bp : Life Tap")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+}
+
+// -------------------------------------- HERO_POWER - MAGE
+// [HERO_08bp] Fireblast (*) - COST:2
+// - Faction: Neutral, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Deal 1 damage.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Hero Power] - HERO_08bp : Fireblast")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Northshire Cleric"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+}
+
+// ------------------------------------ HERO_POWER - PRIEST
+// [HERO_09bp] Lesser Heal (*) - COST:2
+// - Faction: Neutral, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Restore 2 Health.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Hero Power] - HERO_09bp : Lesser Heal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
 // ------------------------------- HERO_POWER - DEMONHUNTER
-// [HERO_10p] Demon Claws (*) - COST:1
+// [HERO_10bp] Demon Claws (*) - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> +1 Attack this turn.
 // --------------------------------------------------------
-TEST_CASE("[Demon Hunter : Hero Power] - HERO_10p : Demon Claws")
+TEST_CASE("[Demon Hunter : Hero Power] - HERO_10bp : Demon Claws")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -4799,10 +4799,11 @@ TEST_CASE("[Warlock : Spell] - EX1_308 : Soulfire")
 // [NEW1_003] Sacrificial Pact - COST:0
 // - Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Destroy a Demon. Restore 5 Health to your hero.
+// Text: Destroy a friendly Demon. Restore 5 Health to your hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
+// - REQ_FRIENDLY_TARGET = 0
 // - REQ_TARGET_WITH_RACE = 15
 // --------------------------------------------------------
 TEST_CASE("[Warlock : Spell] - NEW1_003 : Sacrificial Pact")
@@ -5632,7 +5633,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_352 : Satyr Overseer")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_495] Glaivebound Adept (*) - COST:5 [ATK:7/HP:4]
+// [BT_495] Glaivebound Adept (*) - COST:5 [ATK:6/HP:4]
 // - Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If your hero attacked this turn,
@@ -5838,7 +5839,7 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_921 : Aldrachi Warblades")
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
     CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
@@ -5846,7 +5847,7 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_921 : Aldrachi Warblades")
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 18);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

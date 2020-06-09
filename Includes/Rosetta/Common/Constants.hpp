@@ -64,10 +64,10 @@ constexpr std::array<CardSet, 22> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 9057;
+constexpr int NUM_ALL_CARDS = 9156;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 447;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 461;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -105,7 +105,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 34;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 37;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -148,22 +148,22 @@ constexpr int NUM_TIER6_MINIONS = 11;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Alleycat (40426)
-// Dire Wolf Alpha (985)
 // Dragonspawn Lieutenant (60628)
 // Fiendish Servant (56112)
 // Mecharoo (48886)
 // Micro Machine (60055)
 // Murloc Tidecaller (475)
 // Murloc Tidehunter (976)
-// Righteous Protector (42467)
+// Rabid Saurolisk (62162)
 // Red Whelp (59968)
+// Righteous Protector (42467)
 // Rockpool Hunter (41245)
 // Selfless Hero (38740)
 // Vulgar Homunculus (43121)
 // Wrath Weaver (59670)
 constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
-    40426, 985,   60628, 56112, 48886, 60055, 475,
-    976,   42467, 59968, 41245, 38740, 43121, 59670
+    40426, 60628, 56112, 48886, 60055, 475,   976,
+    62162, 59968, 42467, 41245, 38740, 43121, 59670
 };
 
 //! A list of Tier 2 minion dbfIDs in Battlegrounds.

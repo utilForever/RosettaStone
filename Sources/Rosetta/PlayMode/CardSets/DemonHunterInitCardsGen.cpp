@@ -96,7 +96,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_271", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_351] Battlefiend - COST:1 [ATK:2/HP:2]
+    // [BT_351] Battlefiend - COST:1 [ATK:1/HP:2]
     // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
     // Text: After your hero attacks, gain +1 Attack.
@@ -343,7 +343,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
-    //       <b>Outcast:</b> This costs (0).
+    //       <b>Outcast:</b> This costs (1).
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
@@ -361,7 +361,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
             playable->GetZonePosition() ==
                 playable->player->GetHandZone()->GetCount() - 1)
         {
-            return playable->GetGameTag(GameTag::COST);
+            return playable->GetGameTag(GameTag::COST) - 1;
         }
 
         return 0;
@@ -404,7 +404,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_922", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_937] Altruis the Outcast - COST:3 [ATK:3/HP:2]
+    // [BT_937] Altruis the Outcast - COST:4 [ATK:4/HP:2]
     // - Set: Demon Hunter Initiate, Rarity: Legendary
     // --------------------------------------------------------
     // Text: After you play the left- or right-most card in your hand,

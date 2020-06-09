@@ -70,7 +70,7 @@ TEST_CASE("[ReducedBoardView] - All")
     CHECK_EQ(reducedBoard1.GetSide(), PlayerType::PLAYER1);
 
     CHECK_EQ(reducedBoard1.GetMyHero().attack, 3);
-    CHECK_EQ(reducedBoard1.GetMyHeroPower().cardID, "CS2_102");
+    CHECK_EQ(reducedBoard1.GetMyHeroPower().cardID, "HERO_01bp");
     CHECK_EQ(reducedBoard1.GetMyWeapon().durability, 2);
     CHECK_EQ(reducedBoard1.GetMyManaCrystal().total, 4);
     CHECK_EQ(reducedBoard1.GetMyManaCrystal().remaining, 0);
@@ -82,7 +82,7 @@ TEST_CASE("[ReducedBoardView] - All")
     CHECK_EQ(reducedBoard1.GetMyDeck().count, 5);
 
     CHECK_EQ(reducedBoard1.GetOpHero().attack, 4);
-    CHECK_EQ(reducedBoard1.GetOpHeroPower().cardID, "CS2_083b");
+    CHECK_EQ(reducedBoard1.GetOpHeroPower().cardID, "HERO_03bp");
     CHECK_EQ(reducedBoard1.GetOpWeapon().durability, 1);
     CHECK_EQ(reducedBoard1.GetOpManaCrystal().total, 7);
     CHECK_EQ(reducedBoard1.GetOpManaCrystal().remaining, 4);

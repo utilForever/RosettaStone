@@ -659,7 +659,7 @@
             "CHOOSE_ONE"
         ],
         "name": "Living Roots",
-        "rarity": "EPIC",
+        "rarity": "COMMON",
         "set": "TGT",
         "text": "<b>Choose One -</b> Deal $2 damage; or Summon two 1/1 Saplings.",
         "type": "SPELL"
@@ -5833,7 +5833,7 @@
         "artist": "Wayne Wu",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 56394,
         "flavor": "Proper justice. Throw the book at him!",
         "id": "BT_011",
@@ -5905,10 +5905,10 @@
     },
     {
         "artist": "Anton Zemskov",
-        "attack": 2,
+        "attack": 1,
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 56445,
         "flavor": "Will check to make sure you have a valid libramary card.",
         "health": 3,
@@ -6203,7 +6203,7 @@
         "artist": "Dave Allsop",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "cost": 5,
+        "cost": 4,
         "dbfId": 56467,
         "flavor": "Weeks of underwater cross-training have really built up her fourarms.",
         "id": "BT_110",
@@ -6229,7 +6229,7 @@
     },
     {
         "artist": "Konstantin Turovec",
-        "attack": 4,
+        "attack": 5,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 5,
@@ -6373,7 +6373,7 @@
         "name": "Teron Gorefiend",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Battlecry:</b> Destroy all friendly minions. <b>Deathrattle:</b> Resummon them with +1/+1.",
+        "text": "[x]<b>Battlecry:</b> Destroy all\nother friendly minions.\n<b>Deathrattle:</b> Resummon\nthem with +1/+1.",
         "type": "MINION"
     },
     {
@@ -6547,7 +6547,7 @@
     },
     {
         "artist": "Ivan Fomin",
-        "attack": 6,
+        "attack": 5,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 7,
@@ -6764,7 +6764,7 @@
         "dbfId": 57979,
         "elite": true,
         "flavor": "What is a shadowjeweler? A miserable little pile of secrets.",
-        "health": 5,
+        "health": 4,
         "id": "BT_188",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -7016,7 +7016,7 @@
         "name": "Scavenger's Ingenuity",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "Draw a Beast.\nGive it +3/+3.",
+        "text": "Draw a Beast.\nGive it +2/+2.",
         "type": "SPELL"
     },
     {
@@ -7048,12 +7048,13 @@
         "dbfId": 57619,
         "elite": true,
         "flavor": "\"Throw it back! THROW IT BACK!\"",
-        "health": 3,
+        "health": 5,
         "id": "BT_230",
         "mechanics": [
             "BATTLECRY"
         ],
         "name": "The Lurker Below",
+        "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
         "targetingArrowText": "Deal 3 damage.",
@@ -7164,7 +7165,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 6,
+        "cost": 7,
         "dbfId": 56622,
         "elite": true,
         "flavor": "“Descent of Dragons was merely a set back!”",
@@ -7395,7 +7396,7 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens,\ngive all minions in your hand +2/+2.",
+        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens,\ngive all minions in your hand +2/+1.",
         "type": "MINION"
     },
     {
@@ -7537,7 +7538,7 @@
     },
     {
         "artist": "Andrew Hou",
-        "attack": 2,
+        "attack": 1,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 1,
@@ -7720,7 +7721,7 @@
     },
     {
         "artist": "Arthur Bozonnet",
-        "attack": 2,
+        "attack": 1,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 1,
@@ -7860,7 +7861,7 @@
         "cost": 7,
         "dbfId": 58455,
         "flavor": "Furious that she only has six warglaives. The Sightless Watcher has eight! The fel is always greener on the other side.",
-        "health": 7,
+        "health": 5,
         "id": "BT_493",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -7874,7 +7875,7 @@
     },
     {
         "artist": "Paul Mafayon",
-        "attack": 7,
+        "attack": 6,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 5,
@@ -7987,7 +7988,7 @@
         "artist": "Slawomir Maniak",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 58201,
         "flavor": "A fellow of evil possessed, of most devious shadow. He hath turned on his kin a thousand times, and now, how abhorred in all imagination he is!",
         "id": "BT_601",
@@ -8144,7 +8145,7 @@
         ],
         "set": "BLACK_TEMPLE",
         "targetingArrowText": "Return a minion to hand.",
-        "text": "[x]<b>Battlecry:</b> If you control a\n<b>Secret</b>, return a minion\nto its owner's hand.\nIt costs (2) more.",
+        "text": "[x]<b>Battlecry:</b> If you control a\n<b>Secret</b>, return a minion\nto its owner's hand.\nIt costs (1) more.",
         "type": "MINION"
     },
     {
@@ -8424,7 +8425,7 @@
         "type": "MINION"
     },
     {
-        "artist": "Eva Widermann",
+        "artist": "Evgeniy Dlinnov",
         "attack": 3,
         "cardClass": "NEUTRAL",
         "collectible": true,
@@ -8680,7 +8681,7 @@
         "name": "Eye Beam",
         "rarity": "EPIC",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "<b>Lifesteal</b>. Deal $3 damage to a minion.\n<b>Outcast:</b> This costs (0).",
+        "text": "<b>Lifesteal</b>. Deal $3 damage to a minion.\n<b>Outcast:</b> This costs (1).",
         "type": "SPELL"
     },
     {
@@ -8734,7 +8735,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 56583,
-        "durability": 3,
+        "durability": 2,
         "flavor": "The ancient Aldrachi were the greatest warriors in the universe. Imagine their power if they'd put the handle at the END of the blade.",
         "id": "BT_921",
         "mechanics": [
@@ -8770,7 +8771,7 @@
         "attack": 10,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 56649,
         "flavor": "Can I get a pair of size XXXXXL manacles?",
         "health": 6,
@@ -8784,10 +8785,10 @@
     },
     {
         "artist": "Jerry Mascho",
-        "attack": 3,
+        "attack": 4,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 56652,
         "elite": true,
         "flavor": "Altruis betrayed Illidan to forge his own way in Outland. With Blackjack. And Netherdrakes.",
@@ -16851,7 +16852,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 55421,
         "flavor": "Legend holds that it's bad luck to harm it. So maybe just pat it on the head, okay?",
         "health": 3,
@@ -20835,7 +20836,7 @@
             "BATTLECRY"
         ],
         "name": "Psychic Conjurer",
-        "rarity": "COMMON",
+        "rarity": "FREE",
         "set": "CORE",
         "text": "<b>Battlecry:</b> Copy a card in your opponent’s deck and add it to your hand.",
         "type": "MINION"
@@ -20849,7 +20850,7 @@
         "flavor": "It infuses, it enthuses, it amuses!",
         "id": "EX1_194",
         "name": "Power Infusion",
-        "rarity": "COMMON",
+        "rarity": "FREE",
         "set": "CORE",
         "text": "Give a minion +2/+6.",
         "type": "SPELL"
@@ -36551,20 +36552,6 @@
         "type": "MINION"
     },
     {
-        "cardClass": "NEUTRAL",
-        "collectible": true,
-        "collectionText": " |4(Candle, Candles).",
-        "dbfId": 61009,
-        "id": "LOOT_526e",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
-        "name": "Darkness Awaits",
-        "set": "LOOTAPALOOZA",
-        "text": "<b>Dormant</b>. Awaken when you opponent draws",
-        "type": "ENCHANTMENT"
-    },
-    {
         "artist": "Tooth",
         "attack": 2,
         "cardClass": "PRIEST",
@@ -36779,7 +36766,7 @@
         "name": "Sacrificial Pact",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Destroy a Demon. Restore #5 Health to your hero.",
+        "text": "Destroy a friendly Demon. Restore #5 Health to your hero.",
         "type": "SPELL"
     },
     {
@@ -42144,6 +42131,7 @@
         "health": 8,
         "id": "TRL_535",
         "mechanics": [
+            "ADJACENT_BUFF",
             "TRIGGER_VISUAL"
         ],
         "name": "Snapjaw Shellfighter",
@@ -44968,13 +44956,13 @@
     },
     {
         "artist": "James Ryman",
-        "attack": 3,
+        "attack": 2,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 3,
         "dbfId": 54492,
         "flavor": "You look really hurt. You could use a friend!",
-        "health": 3,
+        "health": 2,
         "id": "ULD_720",
         "mechanics": [
             "BATTLECRY"
@@ -45417,7 +45405,7 @@
         "questReward": "UNG_028t",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
-        "text": "[x]<b>Quest:</b> Cast 6 spells that\ndidn't start in your deck.\n<b>Reward:</b> Time Warp.",
+        "text": "[x]<b>Quest:</b> Cast 8 spells that\ndidn't start in your deck.\n<b>Reward:</b> Time Warp.",
         "type": "SPELL"
     },
     {
@@ -46692,7 +46680,7 @@
         "artist": "Tyler Walpole",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 2,
+        "cost": 4,
         "dbfId": 41872,
         "flavor": "Help save mana.  Donate blood today!",
         "id": "UNG_832",
@@ -48256,7 +48244,7 @@
         "cost": 4,
         "dbfId": 56122,
         "flavor": "Not to be confused with the \"friendsy” felwing.",
-        "health": 3,
+        "health": 2,
         "id": "YOD_032",
         "name": "Frenzied Felwing",
         "race": "DEMON",
