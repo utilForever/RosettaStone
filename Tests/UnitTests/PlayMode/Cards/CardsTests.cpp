@@ -271,6 +271,8 @@ TEST_CASE("[Cards] - GetHeroCard")
              instance.GetHeroCard(CardClass::WARLOCK)->id);
     CHECK_EQ(instance.FindCardByID("HERO_01")->id,
              instance.GetHeroCard(CardClass::WARRIOR)->id);
+    CHECK_EQ(instance.FindCardByID("HERO_10")->id,
+             instance.GetHeroCard(CardClass::DEMONHUNTER)->id);
     CHECK_EQ(instance.GetHeroCard(CardClass::DEATHKNIGHT)->id, "");
 }
 
@@ -296,6 +298,8 @@ TEST_CASE("[Cards] - GetDefaultHeroPower")
              instance.GetDefaultHeroPower(CardClass::WARLOCK)->id);
     CHECK_EQ(instance.FindCardByID("HERO_01bp")->id,
              instance.GetDefaultHeroPower(CardClass::WARRIOR)->id);
+    CHECK_EQ(instance.FindCardByID("HERO_10bp")->id,
+             instance.GetDefaultHeroPower(CardClass::DEMONHUNTER)->id);
     CHECK_EQ(instance.GetDefaultHeroPower(CardClass::DEATHKNIGHT)->id, "");
 }
 

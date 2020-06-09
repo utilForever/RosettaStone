@@ -201,6 +201,7 @@ def test_hero_card():
 	assert pyRosetta.Cards.find_card_by_id('HERO_02').id == pyRosetta.Cards.hero_card(pyRosetta.CardClass.SHAMAN).id
 	assert pyRosetta.Cards.find_card_by_id('HERO_07').id == pyRosetta.Cards.hero_card(pyRosetta.CardClass.WARLOCK).id
 	assert pyRosetta.Cards.find_card_by_id('HERO_01').id == pyRosetta.Cards.hero_card(pyRosetta.CardClass.WARRIOR).id
+	assert pyRosetta.Cards.find_card_by_id('HERO_10').id == pyRosetta.Cards.hero_card(pyRosetta.CardClass.DEMONHUNTER).id
 	assert pyRosetta.Cards.hero_card(pyRosetta.CardClass.DEATHKNIGHT).id == ''
 
 def test_default_hero_power():
@@ -213,4 +214,5 @@ def test_default_hero_power():
 	assert pyRosetta.Cards.find_card_by_id('HERO_02bp').id == pyRosetta.Cards.default_hero_power(pyRosetta.CardClass.SHAMAN).id
 	assert pyRosetta.Cards.find_card_by_id('HERO_07bp').id == pyRosetta.Cards.default_hero_power(pyRosetta.CardClass.WARLOCK).id
 	assert pyRosetta.Cards.find_card_by_id('HERO_01bp').id == pyRosetta.Cards.default_hero_power(pyRosetta.CardClass.WARRIOR).id
+	assert pyRosetta.Cards.find_card_by_id('HERO_10bp').id == pyRosetta.Cards.default_hero_power(pyRosetta.CardClass.DEMONHUNTER).id
 	assert pyRosetta.Cards.default_hero_power(pyRosetta.CardClass.DEATHKNIGHT).id == ''
