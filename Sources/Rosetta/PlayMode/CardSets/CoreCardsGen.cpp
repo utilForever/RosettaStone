@@ -2098,10 +2098,11 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // [NEW1_003] Sacrificial Pact - COST:0
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Destroy a Demon. Restore 5 Health to your hero.
+    // Text: Destroy a friendly Demon. Restore 5 Health to your hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
     // - REQ_TARGET_WITH_RACE = 15
     // --------------------------------------------------------
     power.ClearData();
@@ -2110,6 +2111,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "NEW1_003",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
                                  { PlayReq::REQ_TARGET_WITH_RACE, 15 } }));
 }
 
@@ -2433,7 +2435,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_352", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_495] Glaivebound Adept (*) - COST:5 [ATK:7/HP:4]
+    // [BT_495] Glaivebound Adept (*) - COST:5 [ATK:6/HP:4]
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your hero attacked this turn,

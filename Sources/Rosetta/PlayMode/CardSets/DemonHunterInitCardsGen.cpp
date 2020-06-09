@@ -96,7 +96,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_271", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_351] Battlefiend - COST:1 [ATK:2/HP:2]
+    // [BT_351] Battlefiend - COST:1 [ATK:1/HP:2]
     // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
     // Text: After your hero attacks, gain +1 Attack.
@@ -404,7 +404,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_922", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_937] Altruis the Outcast - COST:3 [ATK:3/HP:2]
+    // [BT_937] Altruis the Outcast - COST:4 [ATK:4/HP:2]
     // - Set: Demon Hunter Initiate, Rarity: Legendary
     // --------------------------------------------------------
     // Text: After you play the left- or right-most card in your hand,

@@ -213,7 +213,7 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_271 : Flamereaper")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_351] Battlefiend (*) - COST:1 [ATK:2/HP:2]
+// [BT_351] Battlefiend (*) - COST:1 [ATK:1/HP:2]
 // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Common
 // --------------------------------------------------------
 // Text: After your hero attacks, gain +1 Attack.
@@ -247,12 +247,12 @@ TEST_CASE("[Demon Hunter : Minion] - BT_351 : Battlefiend")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Battlefiend"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
 
     game.Process(curPlayer, HeroPowerTask());
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -263,7 +263,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_351 : Battlefiend")
     game.Process(curPlayer, HeroPowerTask());
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
@@ -1141,7 +1141,7 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_922 : Umberwing")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_937] Altruis the Outcast - COST:3 [ATK:3/HP:2]
+// [BT_937] Altruis the Outcast - COST:4 [ATK:4/HP:2]
 // - Set: Demon Hunter Initiate, Rarity: Legendary
 // --------------------------------------------------------
 // Text: After you play the left- or right-most card in your hand,
