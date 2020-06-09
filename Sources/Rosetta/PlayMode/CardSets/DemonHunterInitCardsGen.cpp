@@ -343,7 +343,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
-    //       <b>Outcast:</b> This costs (0).
+    //       <b>Outcast:</b> This costs (1).
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
@@ -361,7 +361,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
             playable->GetZonePosition() ==
                 playable->player->GetHandZone()->GetCount() - 1)
         {
-            return playable->GetGameTag(GameTag::COST);
+            return playable->GetGameTag(GameTag::COST) - 1;
         }
 
         return 0;

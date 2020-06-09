@@ -5839,7 +5839,7 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_921 : Aldrachi Warblades")
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
     CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
@@ -5847,7 +5847,7 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_921 : Aldrachi Warblades")
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 18);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

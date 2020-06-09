@@ -2497,7 +2497,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
-    // - DURABILITY = 3
+    // - DURABILITY = 2
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);

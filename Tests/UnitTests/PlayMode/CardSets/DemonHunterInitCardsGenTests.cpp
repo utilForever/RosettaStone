@@ -972,7 +972,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_753 : Mana Burn")
 // - Set: Demon Hunter Initiate, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
-//       <b>Outcast:</b> This costs (0).
+//       <b>Outcast:</b> This costs (1).
 // --------------------------------------------------------
 // GameTag:
 // - LIFESTEAL = 1
@@ -1023,7 +1023,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_801 : Eye Beam")
     CHECK_EQ(opHero->GetHealth(), 18);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
     CHECK_EQ(opHero->GetHealth(), 21);
 }
 
