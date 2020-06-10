@@ -3538,7 +3538,7 @@
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "[x]At the end of your turn,\ngive a random friendly Mech,\nMurloc, Beast, Demon,\nand Dragon +2/+1.",
+        "text": "[x]At the end of your turn,\ngive a friendly minion\nof each minion type\n+2/+1.",
         "type": "MINION"
     },
     {
@@ -3747,10 +3747,10 @@
         "elite": true,
         "health": 10,
         "id": "BGS_022",
-        "mechanics": [
+        "name": "Zapp Slywick",
+        "referencedTags": [
             "WINDFURY"
         ],
-        "name": "Zapp Slywick",
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
         "text": "[x]<b>Windfury</b>\nThis minion always attacks\nthe enemy minion with\nthe lowest Attack.",
@@ -4252,6 +4252,184 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 8,
+        "battlegroundsPremiumDbfId": 62217,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 61046,
+        "elite": true,
+        "health": 5,
+        "id": "BGS_046",
+        "name": "Nat Pagle, Extreme Angler",
+        "race": "PIRATE",
+        "referencedTags": [
+            "OVERKILL"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "<b>Overkill:</b> Summon a 0/2 Treasure Chest.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62216,
+        "health": 2,
+        "id": "BGS_046t",
+        "name": "Treasure Chest",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Deathrattle:</b> Summon a random Golden minion.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 62228,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 61047,
+        "elite": true,
+        "health": 7,
+        "id": "BGS_047",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Dread Admiral Eliza",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "Whenever a friendly Pirate attacks, give all friendly minions +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62227,
+        "id": "BGS_047e",
+        "name": "Yaharr!!",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 5,
+        "battlegroundsPremiumDbfId": 62259,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 61048,
+        "health": 4,
+        "id": "BGS_048",
+        "name": "Southsea Strongarm",
+        "race": "PIRATE",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "targetingArrowText": "Give +1/+1 for each Pirate you bought this turn.",
+        "techLevel": 4,
+        "text": "<b>Battlecry:</b> Give a friendly Pirate +1/+1 for each Pirate you bought this turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62261,
+        "id": "BGS_048e",
+        "name": "Pirate Tattoos",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 62187,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 61049,
+        "health": 3,
+        "id": "BGS_049",
+        "name": "Freedealing Gambler",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "This minion sells for\n3 Gold.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 62254,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61053,
+        "health": 2,
+        "id": "BGS_053",
+        "name": "Bloodsail Cannoneer",
+        "race": "PIRATE",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Battlecry</b>: Give your other Pirates +3 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62253,
+        "id": "BGS_053e",
+        "name": "Pirate Life!",
+        "set": "BATTLEGROUNDS",
+        "text": "+3 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 62186,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 61055,
+        "health": 2,
+        "id": "BGS_055",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Deck Swabbie",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Battlecry:</b> Reduce the cost of upgrading Bob's\nTavern by (1).",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 62257,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61056,
+        "health": 4,
+        "id": "BGS_056",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ripsnarl Captain",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "Whenever another friendly Pirate attacks, give it +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62256,
+        "id": "BGS_056e",
+        "name": "Snarled",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "attack": 4,
         "battlegroundsPremiumDbfId": 61081,
         "cardClass": "NEUTRAL",
@@ -4273,6 +4451,84 @@
         "dbfId": 61080,
         "id": "BGS_059e",
         "name": "Demonic Fury",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 61060,
+        "health": 8,
+        "id": "BGS_060",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Yo-Ho-Ogre",
+        "race": "PIRATE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "[x]<b>Taunt</b>\nAfter this minion survives\nbeing attacked,\nattack immediately.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 62262,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 61061,
+        "health": 1,
+        "id": "BGS_061",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Scallywag",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Deathrattle:</b> Summon a 1/1 Pirate. It attacks immediately.",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 62213,
+        "health": 1,
+        "id": "BGS_061t",
+        "name": "Sky Pirate",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 62194,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 61066,
+        "health": 2,
+        "id": "BGS_066",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Goldgrubber",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "At the end of your turn, gain +2/+2 for each friendly Golden minion.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62193,
+        "id": "BGS_066e",
+        "name": "Gold Grubbing",
         "set": "BATTLEGROUNDS",
         "text": "Increased stats.",
         "type": "ENCHANTMENT"
@@ -4358,6 +4614,25 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 62224,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 61989,
+        "elite": true,
+        "health": 6,
+        "id": "BGS_072",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Cap'n Hoggarr",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "After you buy a Pirate,\ngain 1 Gold this turn\nonly.",
+        "type": "MINION"
+    },
+    {
         "attack": 3,
         "battlegroundsPremiumDbfId": 62165,
         "cardClass": "HUNTER",
@@ -4383,6 +4658,119 @@
         "dbfId": 62164,
         "id": "BGS_075e",
         "name": "Rabid",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 62189,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62188,
+        "health": 2,
+        "id": "BGS_077",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Arcane Cannon",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "[x]Can't attack.\nAfter an adjacent minion\nattacks, deal 2 damage\nto an enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 62231,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62230,
+        "health": 2,
+        "id": "BGS_078",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Monstrous Macaw",
+        "race": "BEAST",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "[x]After this attacks,\ntrigger a random friendly\nminion's <b>Deathrattle</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 62251,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 62232,
+        "health": 4,
+        "id": "BGS_079",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "The Tide Razor",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Deathrattle</b>: Summon 3 random Pirates.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 62460,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 62458,
+        "health": 7,
+        "id": "BGS_080",
+        "mechanics": [
+            "OVERKILL"
+        ],
+        "name": "Seabreaker Goliath",
+        "race": "PIRATE",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "<b>Windfury</b>\n<b>Overkill:</b> Give your other Pirates +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62459,
+        "id": "BGS_080e",
+        "name": "Broken Seas",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 62739,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 62734,
+        "health": 3,
+        "id": "BGS_081",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Salty Looter",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "Whenever you play a Pirate, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62738,
+        "id": "BGS_081e",
+        "name": "Loot!",
         "set": "BATTLEGROUNDS",
         "text": "+1/+1.",
         "type": "ENCHANTMENT"
@@ -5538,6 +5926,9 @@
         "id": "BOT_254",
         "name": "Unexpected Results",
         "rarity": "EPIC",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
         "set": "BOOMSDAY",
         "text": "[x]Summon two random\n$2-Cost minions <i>(improved\nby <b>Spell Damage</b>)</i>.",
         "type": "SPELL"
@@ -15349,7 +15740,7 @@
         "elite": true,
         "flavor": "“Descent of Dragons was merely a set back!”",
         "health": 7,
-        "howToEarnGolden": "Available in Future Content",
+        "howToEarnGolden": "Earnable through Trial by Felfire Challenges.",
         "id": "BT_255",
         "mechanics": [
             "AURA"
@@ -17474,13 +17865,28 @@
         "type": "HERO"
     },
     {
-        "cardClass": "NEUTRAL",
-        "cost": 0,
+        "cardClass": "HUNTER",
+        "cost": 2,
         "dbfId": 62009,
         "id": "BTA_01p",
+        "mechanics": [
+            "DISCOVER"
+        ],
         "name": "The Right Tool",
         "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\n<b>Discover</b> a card from your deck.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 62272,
+        "health": 30,
+        "id": "BTA_01s",
+        "name": "Natural Leader",
+        "set": "BLACK_TEMPLE",
+        "text": "Gather your outcasts and prepare for battle!",
+        "type": "SPELL"
     },
     {
         "cardClass": "DEMONHUNTER",
@@ -17492,102 +17898,219 @@
         "type": "HERO"
     },
     {
-        "cardClass": "NEUTRAL",
-        "cost": 0,
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
         "dbfId": 62010,
         "id": "BTA_02p",
-        "name": "Slice and Dice",
+        "name": "Combination Strike",
         "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Hero Power</b>\n+1 Attack this turn. If a\nfriendly minion attacked,\n+2 Attack instead.",
         "type": "HERO_POWER"
     },
     {
-        "attack": 2,
-        "cardClass": "ROGUE",
-        "cost": 3,
-        "dbfId": 60080,
-        "health": 5,
-        "id": "BTA_03",
-        "name": "Baduu, Outcast",
-        "set": "BLACK_TEMPLE",
-        "text": "<b>Battlecry:</b> Draw 2 cards. <b>Outcast:</b> Instead, draw 3 cards.",
-        "type": "MINION"
-    },
-    {
-        "attack": 3,
-        "cardClass": "DRUID",
-        "cost": 3,
-        "dbfId": 60083,
-        "health": 3,
-        "id": "BTA_05",
-        "name": "Sklibb, Outcast",
-        "set": "BLACK_TEMPLE",
-        "text": "Gain 1 Mana Crystal.<b>\nOutcast:</b> Gain another Mana Crystal.",
-        "type": "MINION"
-    },
-    {
-        "attack": 4,
         "cardClass": "DEMONHUNTER",
-        "cost": 3,
-        "dbfId": 60084,
-        "health": 5,
-        "id": "BTA_06",
-        "name": "Sklibb, Demon Hunter",
+        "dbfId": 62089,
+        "id": "BTA_02pe",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Combination Attack",
         "set": "BLACK_TEMPLE",
-        "text": "Gain 2 Mana Crystals . <b>Outcast:</b> Also destroy 2 of your opponent's Mana Crystals.",
-        "type": "MINION"
+        "text": "Your hero has +1 Attack this turn.",
+        "type": "ENCHANTMENT"
     },
     {
-        "attack": 2,
-        "cardClass": "PRIEST",
-        "cost": 3,
-        "dbfId": 60087,
-        "health": 5,
-        "id": "BTA_07",
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 62724,
+        "id": "BTA_02pe2",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Combination Attack",
+        "set": "BLACK_TEMPLE",
+        "text": "Your hero has +2 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 62274,
+        "health": 30,
+        "id": "BTA_02s",
+        "name": "Natural Leader",
+        "set": "BLACK_TEMPLE",
+        "text": "Gather your Demon Hunters… for WAR!",
+        "type": "SPELL"
+    },
+    {
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "cost": 5,
+        "dbfId": 60080,
+        "health": 6,
+        "id": "BTA_03",
         "mechanics": [
             "BATTLECRY",
             "OUTCAST"
         ],
+        "name": "Baduu, Outcast",
+        "referencedTags": [
+            "POISONOUS",
+            "STEALTH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Battlecry:</b> Destroy\nan enemy minion.\n<b>Outcast:</b> Gain <b>Stealth</b>\nand <b>Poisonous</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62077,
+        "id": "BTA_03e",
+        "name": "Twilight Deception",
+        "set": "BLACK_TEMPLE",
+        "text": "Has <b>Stealth</b> and <b>Poisonous</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "DRUID",
+        "cost": 4,
+        "dbfId": 60083,
+        "health": 6,
+        "id": "BTA_05",
+        "mechanics": [
+            "AURA",
+            "OUTCAST"
+        ],
+        "name": "Sklibb, Outcast",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Adjacent minions have\n+1 Attack and <b>Taunt</b>.\n<b>Outcast:</b> Summon two 0/6\nGlowcap Mushrooms.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 62078,
+        "id": "BTA_05e",
+        "name": "Nature's Guise",
+        "set": "BLACK_TEMPLE",
+        "text": "+1 Attack and <b>Taunt</b> from Sklibb.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "cost": 4,
+        "dbfId": 60084,
+        "health": 6,
+        "id": "BTA_06",
+        "mechanics": [
+            "AURA",
+            "OUTCAST"
+        ],
+        "name": "Sklibb, Demon Hunter",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Your other minions\nhave +2 Attack.\n<b>Outcast:</b> Summon three\n 1/1 Illidari with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 62080,
+        "id": "BTA_06e",
+        "name": "Sklibb's Empowerment",
+        "set": "BLACK_TEMPLE",
+        "text": "Sklibb is granting this minion +2 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "cost": 5,
+        "dbfId": 60087,
+        "health": 7,
+        "id": "BTA_07",
+        "mechanics": [
+            "AURA",
+            "LIFESTEAL",
+            "OUTCAST"
+        ],
         "name": "Karnuk, Outcast",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Battlecry:</b> Restore 5 Health.\n<b>Outcast:</b> Addtionally restore 5 Health to all friendly minions.",
+        "text": "<b>Lifesteal</b>\nYour healing is doubled.\n<b>Outcast:</b> Summon a 2/5\nImprisoned Homunculus.",
         "type": "MINION"
     },
     {
         "attack": 4,
         "cardClass": "DEMONHUNTER",
-        "cost": 3,
+        "cost": 5,
         "dbfId": 60088,
         "health": 8,
         "id": "BTA_08",
+        "mechanics": [
+            "AURA",
+            "LIFESTEAL",
+            "OUTCAST"
+        ],
         "name": "Karnuk, Demon Hunter",
         "set": "BLACK_TEMPLE",
-        "type": "MINION"
-    },
-    {
-        "attack": 2,
-        "cardClass": "SHAMAN",
-        "cost": 3,
-        "dbfId": 60089,
-        "health": 4,
-        "id": "BTA_09",
-        "name": "Shal'ja, Outcast",
-        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Lifesteal</b>\nYour healing is doubled.\n<b>Outcast:</b> Summon a 10/6\nImprisoned Antaen.",
         "type": "MINION"
     },
     {
         "attack": 3,
-        "cardClass": "DEMONHUNTER",
-        "cost": 3,
-        "dbfId": 60091,
-        "health": 5,
-        "id": "BTA_10",
-        "name": "Shal'ja, Demon Hunter",
+        "cardClass": "SHAMAN",
+        "cost": 6,
+        "dbfId": 60089,
+        "health": 9,
+        "id": "BTA_09",
+        "mechanics": [
+            "OUTCAST",
+            "RUSH",
+            "WINDFURY"
+        ],
+        "name": "Shalja, Outcast",
         "set": "BLACK_TEMPLE",
+        "text": "<b>Windfury</b>, <b>Rush</b>\n<b>Outcast: </b>Add 3 Shaman spells to your hand.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": " |4(Demon dies, Demons die).",
+        "dbfId": 62103,
+        "id": "BTA_09e",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Dormant Shalja",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b>. Awakens after",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "cost": 6,
+        "dbfId": 60091,
+        "health": 9,
+        "id": "BTA_10",
+        "mechanics": [
+            "OUTCAST",
+            "RUSH",
+            "WINDFURY"
+        ],
+        "name": "Shalja, Demon Hunter",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Windfury</b>, <b>Rush</b>\n<b>Outcast: </b>Equip a random\nweapon and add 3 more\nto your hand.",
         "type": "MINION"
     },
     {
         "attack": 5,
-        "cardClass": "NEUTRAL",
+        "cardClass": "WARLOCK",
         "cost": 6,
         "dbfId": 60119,
         "health": 7,
@@ -17597,13 +18120,23 @@
             "CHARGE"
         ],
         "name": "Rustsworn Champion",
+        "race": "DEMON",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Charge</b>. <b>Battlecry:</b> Your opponent discards a random card.",
+        "text": "[x]<b>Charge</b>. <b>Battlecry:</b> Corrupt\na playable card in your\nopponent's hand. They\nhave 1 turn to play it!",
         "type": "MINION"
     },
     {
+        "cardClass": "WARLOCK",
+        "dbfId": 62430,
+        "id": "BTA_11e",
+        "name": "Rusting Away",
+        "set": "BLACK_TEMPLE",
+        "text": "Discard this at the end\nof your turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "attack": 3,
-        "cardClass": "NEUTRAL",
+        "cardClass": "WARLOCK",
         "cost": 4,
         "dbfId": 60133,
         "health": 5,
@@ -17612,6 +18145,7 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Rusted Legion Gan'arg",
+        "race": "DEMON",
         "set": "BLACK_TEMPLE",
         "text": "At the end of your turn, reduce the Cost of a random card in your hand by (3).",
         "type": "MINION"
@@ -17632,15 +18166,15 @@
         "id": "BTA_13",
         "name": "Deteriorate",
         "set": "BLACK_TEMPLE",
-        "text": "Deal $3 Damage. If that kills it, summon a 4/4 Imprisoned Scrap Imp.",
+        "text": "[x]Deal $3 damage to a minion.\nIf it dies, summon a 3/3\nImprisoned Scrap Imp.",
         "type": "SPELL"
     },
     {
-        "attack": 4,
+        "attack": 2,
         "cardClass": "NEUTRAL",
-        "cost": 4,
+        "cost": 3,
         "dbfId": 60298,
-        "health": 6,
+        "health": 5,
         "id": "BTA_14",
         "mechanics": [
             "POISONOUS",
@@ -17649,7 +18183,7 @@
         "name": "Rusted Basilisk",
         "race": "BEAST",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Poisonous</b>\nAt the start of your turn, deal 1 damage to a random enemy.",
+        "text": "[x]<b>Poisonous</b>\nAt the start of your turn,\ndeal 1 damage to a\nrandom enemy.",
         "type": "MINION"
     },
     {
@@ -17659,15 +18193,15 @@
         "id": "BTA_15",
         "name": "Endless Legion",
         "set": "BLACK_TEMPLE",
-        "text": "Draw 3 cards. Summon any minions drawn and cast any spells drawn at random.",
+        "text": "Draw 3 cards. Summon any minions drawn.",
         "type": "SPELL"
     },
     {
         "attack": 8,
         "cardClass": "NEUTRAL",
-        "cost": 8,
+        "cost": 6,
         "dbfId": 60316,
-        "health": 8,
+        "health": 4,
         "id": "BTA_16",
         "mechanics": [
             "DEATHRATTLE"
@@ -17679,7 +18213,7 @@
     },
     {
         "attack": 1,
-        "cardClass": "NEUTRAL",
+        "cardClass": "WARLOCK",
         "cost": 2,
         "dbfId": 60321,
         "health": 4,
@@ -17704,6 +18238,26 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 62275,
+        "health": 30,
+        "id": "BTA_18s",
+        "name": "Natural Leader",
+        "set": "BLACK_TEMPLE",
+        "text": "Gather your Demon Hunters… for WAR!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62143,
+        "id": "BTA_BOSS_01e",
+        "name": "Word of Dakrel",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs 2 less.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "cardClass": "WARLOCK",
         "dbfId": 59774,
         "health": 30,
@@ -17714,13 +18268,25 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 59791,
         "id": "BTA_BOSS_01p",
         "name": "Spread the Word",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b> \nDestroy a friendly minion to add a random Demon or Mech to your hand.",
+        "text": "[x]<b>Hero Power</b>\nDestroy a friendly minion\nand trigger its <b>Deathrattle</b>\ntwice.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 62867,
+        "id": "BTA_BOSS_02e",
+        "name": "Rusting Away",
+        "set": "YEAR_OF_THE_DRAGON",
+        "text": "Discard this at the end of your turn.",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "WARLOCK",
@@ -17733,12 +18299,15 @@
     },
     {
         "cardClass": "WARLOCK",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 60059,
         "id": "BTA_BOSS_02p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
         "name": "Rusted Gaze",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b> \nYour <b>Dormant</b> minions cost (2) less but take 1 additional turn to spawn whenever a friendly minion dies.",
+        "text": "[x]<b>Hero Power</b>\nCorrupt a card in your\nopponent's hand. They\nhave 1 turn to play it!",
         "type": "HERO_POWER"
     },
     {
@@ -17750,13 +18319,14 @@
         ],
         "name": "Ravage",
         "set": "BLACK_TEMPLE",
-        "text": "+3 Attack this turn.",
+        "text": "+4 Attack this turn.",
         "type": "ENCHANTMENT"
     },
     {
         "cardClass": "HUNTER",
+        "cost": 1,
         "dbfId": 60060,
-        "health": 30,
+        "health": 40,
         "id": "BTA_BOSS_03h",
         "name": "Zixor, Apex Predator",
         "set": "BLACK_TEMPLE",
@@ -17764,27 +18334,26 @@
     },
     {
         "cardClass": "HUNTER",
-        "cost": 1,
+        "cost": 0,
         "dbfId": 60061,
         "id": "BTA_BOSS_03p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
         "name": "Ravenous Omnivore",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b> \nGain +3 Attack this turn.",
+        "text": "<b>Hero Power</b>\nGain +4 Attack this turn.",
         "type": "HERO_POWER"
     },
     {
         "attack": 0,
         "cardClass": "DRUID",
-        "cost": 1,
+        "cost": 0,
         "dbfId": 60065,
         "health": 6,
         "id": "BTA_BOSS_03t",
-        "mechanics": [
-            "TAUNT"
-        ],
         "name": "Glowcap Mushroom",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Taunt</b>",
         "type": "MINION"
     },
     {
@@ -17806,32 +18375,47 @@
         ],
         "name": "All Shall Serve",
         "set": "BLACK_TEMPLE",
-        "text": "Passive Hero Power: Whenever a Demon dies, draw a card and restore 10 Health to your hero.",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter a Demon dies,\ndraw a card and restore\n10 Health to your hero.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 1,
+        "dbfId": 62348,
+        "elite": true,
+        "id": "BTA_BOSS_04s",
+        "name": "Entombed in Rust",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Baltharak is corrupting\nan Outcast to join the\nRusted Legion. Free Karnuk\nand he will join you!",
+        "type": "SPELL"
     },
     {
         "cardClass": "WARLOCK",
         "dbfId": 60149,
-        "health": 30,
+        "health": 40,
         "id": "BTA_BOSS_05h",
         "name": "Kanrethad Prime",
         "set": "BLACK_TEMPLE",
         "type": "HERO"
     },
     {
-        "cardClass": "NEUTRAL",
-        "cost": 3,
+        "cardClass": "WARLOCK",
+        "cost": 10,
         "dbfId": 60150,
         "id": "BTA_BOSS_05p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
         "name": "Rebuild from Scrap",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b> Resurrect a friendly minion that has died this game.",
+        "text": "<b>Hero Power</b>\nSummon 3 friendly Demons that died this game. Destroy 4 of your Mana Crystals.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "WARRIOR",
         "dbfId": 60155,
-        "health": 30,
+        "health": 50,
+        "hideStats": true,
         "id": "BTA_BOSS_06h",
         "name": "Burgrak Cruelchain",
         "set": "BLACK_TEMPLE",
@@ -17846,17 +18430,45 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Grease Monkey",
+        "referencedTags": [
+            "SPARE_PART"
+        ],
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b> Each time a Mech dies, give both players a <b>Spare Part</b>.",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter ANY Mech dies,\ngive both players a\n<b>Spare Part</b>.",
         "type": "HERO_POWER"
     },
     {
+        "attack": 0,
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 62011,
+        "elite": true,
+        "health": 12,
         "id": "BTA_BOSS_06t",
         "name": "Broken Demolisher",
-        "set": "BLACK_TEMPLE"
+        "set": "BLACK_TEMPLE",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": " |4(Spare Part, Spare Parts) to Repair",
+        "dbfId": 62144,
+        "elite": true,
+        "health": 20,
+        "id": "BTA_BOSS_06te",
+        "name": "Repairs Required",
+        "set": "BLACK_TEMPLE",
+        "text": "Play",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62865,
+        "id": "BTA_BOSS_07e",
+        "name": "Felstorm Run Storm Effect",
+        "set": "BLACK_TEMPLE",
+        "text": "Holds the FX for playing Felstorm Spell.",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "WARLOCK",
@@ -17881,9 +18493,12 @@
         "cost": 0,
         "dbfId": 62012,
         "id": "BTA_BOSS_07p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Felstorm Tornado",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b>\nMinions are falling out of the Felstorm! <20 turns remaining to escape!>",
+        "text": "<b>Passive Hero Power</b>\nAngry minions are falling out of the Felstorm!",
         "type": "HERO_POWER"
     },
     {
@@ -17893,7 +18508,7 @@
         "id": "BTA_BOSS_07p2",
         "name": "Reroute Power",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b>\n The next spell you play this turn casts twice.",
+        "text": "[x]<b>Hero Power</b>\nFor each card in your\nhand, fire a missile\nthat deals $1 damage.",
         "type": "HERO_POWER"
     },
     {
@@ -17910,11 +18525,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 0,
+        "cost": 4,
         "dbfId": 62013,
         "id": "BTA_BOSS_07s",
         "name": "Turbo Boost!",
         "set": "BLACK_TEMPLE",
+        "text": "Get 2 turns closer to escaping!",
         "type": "SPELL"
     },
     {
@@ -17927,25 +18543,25 @@
         ],
         "name": "Exhaust Backfire",
         "set": "BLACK_TEMPLE",
-        "text": "Deal $2 damage to all minions.",
+        "text": "Deal $2 damage to all enemy minions.",
         "type": "SPELL"
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 3,
         "dbfId": 60170,
         "id": "BTA_BOSS_07s3",
         "mechanics": [
             "AFFECTED_BY_SPELL_POWER"
         ],
-        "name": "Fel Cannons",
+        "name": "Infernal Cannon",
         "set": "BLACK_TEMPLE",
-        "text": "Blast a random minion for $8 damage.",
+        "text": "Blast a random enemy minion for $8 damage and convince another to switch sides!",
         "type": "SPELL"
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 3,
         "dbfId": 60173,
         "id": "BTA_BOSS_07s4",
         "name": "Self Repairs",
@@ -17955,11 +18571,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 0,
+        "cost": 2,
         "dbfId": 62014,
         "id": "BTA_BOSS_07s5",
         "name": "Refueling",
         "set": "BLACK_TEMPLE",
+        "text": "Stop to refuel and draw 3 cards. Add 2 turns to your escape.",
         "type": "SPELL"
     },
     {
@@ -17972,13 +18589,16 @@
         "type": "HERO"
     },
     {
-        "cardClass": "NEUTRAL",
+        "cardClass": "WARRIOR",
         "cost": 0,
         "dbfId": 60163,
         "id": "BTA_BOSS_08p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Parry and Riposte",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b>\nThe first time you are attacked each turn, prevent it and deal that damage back to the attacker.",
+        "text": "<b>Passive Hero Power</b>\nThe first time you are damaged each turn, prevent it and counterattack!",
         "type": "HERO_POWER"
     },
     {
@@ -17986,19 +18606,43 @@
         "dbfId": 61900,
         "health": 30,
         "id": "BTA_BOSS_09h",
-        "name": "Shal'ja, Outcast",
+        "name": "Shalja, Outcast",
         "set": "BLACK_TEMPLE",
         "type": "HERO"
     },
     {
-        "cardClass": "DEMONHUNTER",
-        "cost": 2,
+        "cardClass": "SHAMAN",
+        "dbfId": 63137,
+        "health": 30,
+        "id": "BTA_BOSS_09h2",
+        "name": "Shalja, Demon Hunter",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
         "dbfId": 60175,
         "id": "BTA_BOSS_09p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Fel Lightning",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
         "set": "BLACK_TEMPLE",
-        "text": "[x]<b>Hero Power:</b>\nDeal 1 damage to all \nenemy minions and then \ndeal 3 damage to the \nenemy hero.",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you play a card with\n<b>Overload</b>, cast a random \nLightning spell!",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 62296,
+        "id": "BTA_BOSS_10e",
+        "name": "Felspored",
+        "set": "BLACK_TEMPLE",
+        "text": "+1/+1",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "PRIEST",
@@ -18019,41 +18663,56 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PRIEST",
+        "dbfId": 63139,
+        "health": 30,
+        "id": "BTA_BOSS_10h3",
+        "name": "Karnuk, Demon Hunter",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 63138,
+        "health": 30,
+        "id": "BTA_BOSS_10h4",
+        "name": "Sklibb, Demon Hunter",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 60236,
         "id": "BTA_BOSS_10p",
-        "mechanics": [
-            "LIFESTEAL"
-        ],
         "name": "Demonic Light",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b>\n <b>Lifesteal</b>. \nDeal 2 damage.",
+        "text": "[x]<b>Hero Power</b>\nDeal $2 damage to a minion.\nIf it dies, restore #4 Health\nto your hero.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 60241,
         "id": "BTA_BOSS_10p2",
         "name": "Felspores",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b>\nSummon a 0/3 Felcap Mushroom with <b>Taunt</b>.",
+        "text": "<b>Hero Power</b>\nDestroy a Glowcap Mushroom to give your minions +1/+1 and draw a card.",
         "type": "HERO_POWER"
     },
     {
-        "attack": 0,
-        "cardClass": "NEUTRAL",
-        "cost": 2,
-        "dbfId": 60242,
-        "health": 3,
+        "attack": 1,
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 62297,
+        "health": 6,
         "id": "BTA_BOSS_10t",
         "mechanics": [
-            "TAUNT"
+            "DEATHRATTLE"
         ],
-        "name": "Felcap Mushroom",
+        "name": "Glowcap Mushroom",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Taunt</b>",
+        "text": "<b>Deathrattle:</b> Shuffle a\n copy of this minion into your deck.",
         "type": "MINION"
     },
     {
@@ -18075,30 +18734,38 @@
         "type": "HERO"
     },
     {
-        "cardClass": "NEUTRAL",
+        "cardClass": "WARRIOR",
         "cost": 0,
         "dbfId": 60244,
+        "hideStats": true,
         "id": "BTA_BOSS_11p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Rocket Wings",
+        "referencedTags": [
+            "RUSH",
+            "WINDFURY"
+        ],
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b>\nYour minions have <b>Rush</b> and <b>Windfury</b>.",
+        "text": "<b>Passive Hero Power</b>\nYour minions have <b>Rush</b> and <b>Windfury</b>.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 0,
         "dbfId": 60245,
         "id": "BTA_BOSS_11pe",
         "mechanics": [
             "AURA"
         ],
         "name": "Rocket Wings Player Enchant",
-        "set": "BLACK_TEMPLE"
+        "set": "BLACK_TEMPLE",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "WARLOCK",
         "dbfId": 60271,
-        "health": 30,
+        "health": 40,
         "id": "BTA_BOSS_12h",
         "name": "Magtheridon Prime",
         "set": "BLACK_TEMPLE",
@@ -18114,12 +18781,12 @@
         ],
         "name": "From My Oil Comes Rust",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b> \nWhenever your hero takes damage, summon a \n2/2 Rusted Fel Orc.",
+        "text": "<b>Passive Hero Power</b>\nAfter your hero takes damage on your turn, summon a 2/2 Rusted Fel Orc.",
         "type": "HERO_POWER"
     },
     {
         "attack": 2,
-        "cardClass": "NEUTRAL",
+        "cardClass": "WARRIOR",
         "cost": 2,
         "dbfId": 60273,
         "health": 2,
@@ -18129,7 +18796,7 @@
         ],
         "name": "Rusted Fel Orc",
         "set": "BLACK_TEMPLE",
-        "text": "Whenever this minion attacks, give all Rusted Fel Orcs +1 Attack.",
+        "text": "After this minion attacks, give all other Rusted Fel Orcs +1 Attack.",
         "type": "MINION"
     },
     {
@@ -18152,18 +18819,21 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 60275,
         "id": "BTA_BOSS_13p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
         "name": "Second Opinion",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b>\nCast a random Warlock or Mage spell.",
+        "text": "<b>Hero Power</b>\nRandomly cast an Outland spell or summon a member of the Rusted Legion.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "WARLOCK",
         "dbfId": 61902,
-        "health": 15,
+        "health": 25,
         "id": "BTA_BOSS_14h",
         "name": "Flikk",
         "set": "BLACK_TEMPLE",
@@ -18183,19 +18853,26 @@
         "cost": 1,
         "dbfId": 61904,
         "id": "BTA_BOSS_14p",
-        "name": "Summon Scrap Imp",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Unlikely Challenger",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b> \nSummon a Mecha-Imp.",
+        "text": "<b>Hero Power</b>\nSummon a 1/1 Worthless Imp.",
         "type": "HERO_POWER"
     },
     {
-        "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cardClass": "WARRIOR",
+        "cost": 0,
         "dbfId": 60292,
+        "hideStats": true,
         "id": "BTA_BOSS_14p2",
+        "mechanics": [
+            "AURA"
+        ],
         "name": "Hulking Monstrosity",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b>\nGive a friendly minion +5 Attack.",
+        "text": "<b>Passive Hero Power</b>\nYour minions have +2 Attack. Fel Reavers have +10 Attack instead.",
         "type": "HERO_POWER"
     },
     {
@@ -18204,35 +18881,86 @@
         "id": "BTA_BOSS_14p2e",
         "name": "Fueled by Fel",
         "set": "BLACK_TEMPLE",
-        "text": "Has +5 Attack.",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62612,
+        "id": "BTA_BOSS_14p2e2",
+        "name": "Fueled by Fel",
+        "set": "BLACK_TEMPLE",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 62987,
+        "id": "BTA_BOSS_15e",
+        "name": "Corroded Touch",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Poisonous</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 62986,
+        "id": "BTA_BOSS_15e2",
+        "name": "Guile of Rust",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Stealth</b>.",
         "type": "ENCHANTMENT"
     },
     {
         "cardClass": "ROGUE",
         "dbfId": 59824,
-        "health": 30,
+        "health": 40,
         "id": "BTA_BOSS_15h",
-        "name": "Baduu, Corrupted",
+        "name": "Baduu Prime",
         "set": "BLACK_TEMPLE",
         "type": "HERO"
     },
     {
-        "cardClass": "NEUTRAL",
+        "cardClass": "ROGUE",
         "cost": 0,
         "dbfId": 59825,
+        "hideStats": true,
         "id": "BTA_BOSS_15p",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
         "name": "Corrupted by Rust",
+        "referencedTags": [
+            "POISONOUS",
+            "STEALTH"
+        ],
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b>\n Whenever a friendly minion with <b>Stealth</b> attacks, add a random Demon to your hand.",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you play a minion,\ngive it <b>Stealth</b> or <b>Poisonous</b>.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 62641,
+        "id": "BTA_BOSS_15s",
+        "mechanics": [
+            "START_OF_GAME"
+        ],
+        "name": "Baduu's Final Gift",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Start of Game:</b> Draw this.\nDestroy ALL Demons.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62808,
+        "id": "BTA_BOSS_16e",
+        "name": "Fel and Hatred",
+        "set": "BLACK_TEMPLE",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "WARLOCK",
         "dbfId": 60289,
-        "health": 50,
+        "health": 40,
         "id": "BTA_BOSS_16h",
         "name": "Mecha-Jaraxxus",
         "set": "BLACK_TEMPLE",
@@ -18242,49 +18970,150 @@
         "cardClass": "WARLOCK",
         "cost": 0,
         "dbfId": 61920,
+        "hideStats": true,
         "id": "BTA_BOSS_16p",
-        "name": "Powered by Fel and Hatred",
+        "name": "Of Fel and Hatred",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Hero Power:</b>\nActivate whichever Generator has more power. If they are equal, disable this for two turns.",
+        "text": "<b>Passive Hero Power</b>\nAt the end of your turn, increase the power of your Reactors.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 0,
+        "cost": 4,
         "dbfId": 60287,
         "id": "BTA_BOSS_16s",
         "name": "Demonic Forging",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
         "set": "BLACK_TEMPLE",
-        "text": "<b>Discover</b> a Demon and summon 2 Dormant copies of it.",
+        "text": "Summon two random $1-Cost Demons that start <b>Dormant</b> for 2 turns. <i>(Improved by <b>Spell Damage</b>)</i>",
         "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": " |4(turn, turns).",
+        "dbfId": 62951,
+        "hideStats": true,
+        "id": "BTA_BOSS_16se",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Demonic Forging",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Dormant</b>. Awaken in",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 0,
+        "cardClass": "WARLOCK",
+        "collectionText": "</b>\n<b>Deathrattle:</b> Go <b>Dormant</b> for 3 turns.",
+        "cost": 0,
+        "dbfId": 61921,
+        "health": 3,
+        "id": "BTA_BOSS_16t",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLPOWER"
+        ],
+        "name": "Fel Reactor",
+        "race": "MECHANICAL",
+        "set": "BLACK_TEMPLE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "WARLOCK",
+        "collectionText": "[x]After you summon\na minion, give it +",
+        "cost": 0,
+        "dbfId": 61922,
+        "health": 2,
+        "id": "BTA_BOSS_16t2",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Hatred Reactor",
+        "race": "MECHANICAL",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]After you summon\na minion, give it +@/+@.\n<b>Deathrattle:</b> Go <b>Dormant</b>\nfor 3 turns.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62601,
+        "id": "BTA_BOSS_16t2e",
+        "name": "Fel Spell Damage",
+        "set": "BLACK_TEMPLE",
+        "text": "Increased <b>Spell Damage</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62903,
+        "id": "BTA_BOSS_16t2e2",
+        "name": "Power of Hatred",
+        "set": "BLACK_TEMPLE",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62600,
+        "id": "BTA_BOSS_16te",
+        "name": "Fel Power",
+        "set": "BLACK_TEMPLE",
+        "text": "+5 Attack from Fel Reactor.",
+        "type": "ENCHANTMENT"
     },
     {
         "attack": 0,
         "cardClass": "NEUTRAL",
         "cost": 0,
-        "dbfId": 61921,
+        "dbfId": 62885,
         "health": 0,
-        "id": "BTA_BOSS_16t",
+        "hideStats": true,
+        "id": "BTA_BOSS_16te2",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Fel Reactor",
         "set": "BLACK_TEMPLE",
+        "text": "<b>Spell Damage +1</b>\n<b>Deathrattle:</b> Go <b>Dormant</b> for 3 turns.",
         "type": "MINION"
     },
     {
         "attack": 0,
         "cardClass": "NEUTRAL",
         "cost": 0,
-        "dbfId": 61922,
+        "dbfId": 62886,
         "health": 0,
-        "id": "BTA_BOSS_16t2",
+        "hideStats": true,
+        "id": "BTA_BOSS_16te3",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Hatred Reactor",
         "set": "BLACK_TEMPLE",
+        "text": "After you summon a minion, give it +1/+1.\n<b>Deathrattle:</b> Go <b>Dormant</b> for 3 turns.",
         "type": "MINION"
     },
     {
         "cardClass": "DEMONHUNTER",
         "dbfId": 60290,
-        "health": 30,
+        "health": 100,
         "id": "BTA_BOSS_17h",
+        "name": "Illidan Stormrage",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 63572,
+        "health": 100,
+        "id": "BTA_BOSS_17h2",
         "name": "Illidan Stormrage",
         "set": "BLACK_TEMPLE",
         "type": "HERO"
@@ -18299,13 +19128,13 @@
         ],
         "name": "Burning Rage",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b>\nWhenever your hero attacks, deal 1 damage to all enemies.",
+        "text": "<b>Passive Hero Power</b>\nAfter your hero attacks, deal 1 damage to all enemies.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "WARLOCK",
         "dbfId": 60325,
-        "health": 30,
+        "health": 50,
         "id": "BTA_BOSS_18h",
         "name": "Doom Lord Kazzak",
         "set": "BLACK_TEMPLE",
@@ -18321,24 +19150,341 @@
         ],
         "name": "Twisted Reflection",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Passive Hero Power:</b>\n Whenever an enemy minion dies, restore 5 Health to your hero.",
+        "text": "<b>Passive Hero Power</b>\nAfter an enemy minion dies, restore 5 Health to your hero.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60333,
+        "health": 50,
+        "id": "BTA_BOSS_19h",
+        "name": "Gruul the Dragonkiller",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62522,
+        "id": "BTA_BOSS_19p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Shatter",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Hero Power</b>\nDeal 3 damage\nrandomly split among\nall enemies.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62528,
+        "id": "BTA_BOSS_19s",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Slayer of the Mighty",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Lifesteal</b>. Deal 4 damage\nto an enemy minion.\nDeals triple damage\nto Dragons.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 62500,
+        "health": 60,
+        "id": "BTA_BOSS_20h",
+        "name": "Magtheridon",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 60334,
+        "id": "BTA_BOSS_20p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Blast Nova",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\nSummon a Manticron Cube. If you have 3 or more, deal $10 damage to enemy hero instead.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62598,
+        "health": 5,
+        "id": "BTA_BOSS_20t",
+        "mechanics": [
+            "CANT_ATTACK",
+            "DEATHRATTLE"
+        ],
+        "name": "Manticron Cube",
+        "set": "BLACK_TEMPLE",
+        "text": "Can't attack.\n<b>Deathrattle:</b> Deal 3 damage to your hero.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62502,
+        "health": 60,
+        "id": "BTA_BOSS_21h",
+        "name": "Supremus",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 62613,
+        "hideStats": true,
+        "id": "BTA_BOSS_21p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Volcanic Geyser",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Hero Power</b>\nDeal $1 damage to all enemies.\nFor each minion that dies,\nsummon a 6/6 Abyssal.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62504,
+        "health": 60,
+        "id": "BTA_BOSS_22h",
+        "name": "Teron Gorefiend",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 62614,
+        "id": "BTA_BOSS_22p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Shadow of Death",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Hero Power</b>\nSummon a 4/4 Shadowy Construct.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
-        "dbfId": 60333,
-        "id": "BTA_BOSS_19h",
-        "name": "Magtheridon",
-        "set": "BLACK_TEMPLE"
+        "dbfId": 62616,
+        "id": "BTA_BOSS_22s",
+        "name": "Vengeful Spirit",
+        "set": "BLACK_TEMPLE",
+        "text": "Destroy all Shadowy Constructs.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62615,
+        "health": 4,
+        "id": "BTA_BOSS_22t",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Shadowy Construct",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]After an enemy minion\ndies, deal 2 damage\nto the enemy hero.",
+        "type": "MINION"
     },
     {
         "cardClass": "NEUTRAL",
+        "dbfId": 62508,
+        "health": 60,
+        "id": "BTA_BOSS_23h",
+        "name": "Mother Shahraz",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
         "cost": 0,
-        "dbfId": 60334,
-        "id": "BTA_BOSS_19p",
-        "name": "Blast Nova",
-        "set": "BLACK_TEMPLE"
+        "dbfId": 62617,
+        "id": "BTA_BOSS_23p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Parry and Riposte",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Passive Hero Power</b>\nThe first time you are damaged each turn, prevent it and counterattack!",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62514,
+        "health": 60,
+        "id": "BTA_BOSS_24h",
+        "name": "Lady Vashj",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 1,
+        "dbfId": 62618,
+        "id": "BTA_BOSS_24p",
+        "name": "Shock Blast",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Hero Power</b>\nDeal $3 damage to an\nenemy minion. If it\nsurvives, draw a card.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 6,
+        "cardClass": "SHAMAN",
+        "cost": 6,
+        "dbfId": 62619,
+        "health": 8,
+        "id": "BTA_BOSS_24t",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Coilfang Elite",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Rush</b>\nAfter this attacks, summon a Neutral Murloc.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62517,
+        "health": 60,
+        "id": "BTA_BOSS_25h",
+        "name": "Kael'thas Sunstrider",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 62620,
+        "hideStats": true,
+        "id": "BTA_BOSS_25p",
+        "name": "Pyromancy",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Passive Hero Power</b>\n  After you cast a spell,\nadd a Pyroblast to your\n deck. It costs (5) less.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62902,
+        "hideStats": true,
+        "id": "BTA_BOSS_25p2",
+        "name": "Gravity Lapse",
+        "set": "BLACK_TEMPLE",
+        "text": "<b>Passive Hero Power</b>\n You can't be attacked.",
+        "type": "HERO_POWER"
+    },
+    {
+        "dbfId": 62621,
+        "id": "BTA_BOSS_25pe",
+        "name": "Pyromancy Enchantment",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (5) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62622,
+        "id": "BTA_BOSS_25s",
+        "name": "Gravity Lapse",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Return all enemy minions\nto your opponent's hand.\nThey cost (3) more.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62918,
+        "id": "BTA_BOSS_25se",
+        "name": "Gravity Lapse Enchantment",
+        "set": "BLACK_TEMPLE",
+        "text": "Costs (3) more.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 62519,
+        "health": 60,
+        "id": "BTA_BOSS_26h",
+        "name": "Illidan Stormrage",
+        "set": "BLACK_TEMPLE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 62623,
+        "hideStats": true,
+        "id": "BTA_BOSS_26p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Burning Rage",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter your hero attacks,\ndeal $1 damage to all\nenemies.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 4,
+        "dbfId": 62624,
+        "id": "BTA_BOSS_26s",
+        "name": "You Are Not Prepared",
+        "set": "BLACK_TEMPLE",
+        "text": "[x]Give your hero +2 Attack\nand <b>Lifesteal</b> this turn, \nthen attack all enemy\ncharacters.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 62625,
+        "id": "BTA_BOSS_26se",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Prepared",
+        "set": "BLACK_TEMPLE",
+        "text": "Has +2 Attack and <b>Lifesteal</b> this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62122,
+        "id": "BTA_Prevent_First_turn_Attack",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Exhausted",
+        "set": "BLACK_TEMPLE",
+        "text": "Can't attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 63095,
+        "id": "Bucket_DemonHunter_01",
+        "name": "Demon Crusher",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 63096,
+        "id": "Bucket_DemonHunter_02",
+        "name": "Glaives of Fury",
+        "set": "TB",
+        "type": "SPELL"
     },
     {
         "artist": "James Ryman",
@@ -33538,6 +34684,9 @@
         "hideStats": true,
         "id": "DALA_BOSS_26p",
         "name": "Cold Water",
+        "referencedTags": [
+            "FREEZE"
+        ],
         "set": "DALARAN",
         "text": "<b>Passive Hero Power</b>\n<b>Freeze</b> the first minion that attacks you each turn.",
         "type": "HERO_POWER"
@@ -33549,6 +34698,9 @@
         "hideStats": true,
         "id": "DALA_BOSS_26px",
         "name": "Cold Water",
+        "referencedTags": [
+            "FREEZE"
+        ],
         "set": "DALARAN",
         "text": "<b>Passive Hero Power</b>\nAfter a minion attacks you, <b>Freeze</b> it.",
         "type": "HERO_POWER"
@@ -64106,6 +65258,37 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 62491,
+        "health": 30,
+        "id": "HERO_10b",
+        "name": "Aranna Starseeker",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 62493,
+        "id": "HERO_10bbp",
+        "name": "Demon Claws",
+        "set": "HERO_SKINS",
+        "text": "[x]<b>Hero Power</b>\n+1 Attack this turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 62495,
+        "id": "HERO_10bbp2",
+        "name": "Demon's Bite",
+        "set": "HERO_SKINS",
+        "text": "[x]<b>Hero Power</b>\n+2 Attack this turn.",
+        "type": "HERO_POWER"
+    },
+    {
         "artist": "Virtuos",
         "cardClass": "DEMONHUNTER",
         "cost": 1,
@@ -84742,6 +85925,7 @@
     {
         "artist": "Ken Steacy",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 62237,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -84756,6 +85940,7 @@
         "race": "PIRATE",
         "rarity": "EPIC",
         "set": "EXPERT1",
+        "techLevel": 2,
         "text": "Your other Pirates have +1/+1.",
         "type": "MINION"
     },
@@ -88898,6 +90083,9 @@
         "dbfId": 60757,
         "health": 5,
         "id": "Prologue_Maiev",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Priestess Maiev",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
@@ -89822,6 +91010,7 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57947,
         "health": 40,
@@ -89842,7 +91031,6 @@
         "type": "HERO"
     },
     {
-        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57961,
         "health": 40,
@@ -90168,6 +91356,26 @@
         "type": "HERO"
     },
     {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61910,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_59",
+        "name": "Aranna Starseeker",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61911,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_59t",
+        "name": "Aranna, Unleashed",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
         "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 61912,
@@ -90197,6 +91405,39 @@
         "hideCost": true,
         "id": "TB_BaconShop_HERO_62",
         "name": "Maiev Shadowsong",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 62242,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_64",
+        "name": "Captain Eudora",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 62266,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_67",
+        "name": "Captain Hooktusk",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 62268,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_68",
+        "name": "Skycap'n Kragg",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
@@ -90535,7 +91776,7 @@
         "id": "TB_BaconShop_HP_037a",
         "name": "Wax Warband",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGive a random friendly Mech,\nMurloc, Beast, Demon,\nand Dragon +2 Attack.",
+        "text": "[x]<b>Hero Power</b>\nGive a friendly minion\nof each minion type\n+2 Attack.",
         "type": "HERO_POWER"
     },
     {
@@ -90573,7 +91814,7 @@
         "id": "TB_BaconShop_HP_039",
         "name": "Puzzle Box",
         "set": "BATTLEGROUNDS",
-        "text": "<b>Hero Power</b>\nHire a random minion in Bob's Tavern and give it +1/+1.",
+        "text": "[x]<b>Hero Power</b>\nAdd a random minion in\nBob's Tavern to your hand.\nGive it +1/+1.",
         "type": "HERO_POWER"
     },
     {
@@ -90603,6 +91844,17 @@
         "set": "BATTLEGROUNDS",
         "text": "+4 Health.",
         "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63127,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_041",
+        "name": "A Tale of Kings",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a minion of\na specific type, give it +1/+2.\nSwaps type each turn.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
@@ -90681,6 +91933,20 @@
         "name": "King of Dragons",
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Dragon</b>, give it +1/+2.\nSwaps type each turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 62277,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_041g",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "King of Pirates",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Pirate</b>, give it +1/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -90993,6 +92259,29 @@
     },
     {
         "cardClass": "NEUTRAL",
+        "collectionText": " left!)</i>",
+        "cost": 0,
+        "dbfId": 61915,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_065",
+        "name": "Demon Hunter Training",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you <b>Refresh</b> 7 times,\nBob always has 7 minions.\n<i>(",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 62035,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_065t2",
+        "name": "Spectral Sight",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nBob's Tavern refreshes\nwith 7 minions.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 61917,
         "hideCost": true,
@@ -91080,6 +92369,59 @@
         "name": "Wingmen",
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Passive Hero Power</b>\n<b>Start of Combat:</b> Your left\nand right-most minions\nattack immediately.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 63161,
+        "id": "TB_BaconShop_HP_069e",
+        "name": "Wingmen",
+        "set": "BATTLEGROUNDS",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 62243,
+        "id": "TB_BaconShop_HP_072",
+        "name": "Pirate Parrrrty!",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nGet a Pirate. After you buy\na Pirate, your next Hero\nPower costs (1) less.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": " |4(Dig, Digs) left.)</i>",
+        "cost": 1,
+        "dbfId": 62250,
+        "id": "TB_BaconShop_HP_074",
+        "name": "Buried Treasure",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\n Dig for a Golden minion!\n<i>(",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 62267,
+        "id": "TB_BaconShop_HP_075",
+        "name": "Trash for Treasure",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nRemove a friendly minion.\n <b>Discover</b> one from a\nTavern Tier lower.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": " Gold this turn.\nIncreases each turn.\n<i>(Once per game.)</i>",
+        "cost": 0,
+        "dbfId": 62269,
+        "id": "TB_BaconShop_HP_076",
+        "name": "Piggy Bank",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nGain",
         "type": "HERO_POWER"
     },
     {
@@ -92768,7 +94110,7 @@
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "[x]At the end of your turn,\ngive a random friendly Mech,\nMurloc, Beast, Demon,\nand Dragon +4/+2.",
+        "text": "[x]At the end of your turn,\ngive a friendly minion\nof each minion type\n+4/+2.",
         "type": "MINION"
     },
     {
@@ -93666,6 +95008,402 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 61055,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62186,
+        "health": 4,
+        "id": "TB_BaconUps_126",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Deck Swabbie",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Battlecry:</b> Reduce the cost of upgrading Bob's\nTavern by (2).",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 61049,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62187,
+        "health": 6,
+        "id": "TB_BaconUps_127",
+        "name": "Freedealing Gambler",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "This minion sells for\n6 Gold.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 62188,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62189,
+        "health": 4,
+        "id": "TB_BaconUps_128",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Arcane Cannon",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "[x]Can't attack.\nAfter an adjacent minion\nattacks, deal 2 damage to\n   an enemy minion twice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 61066,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 62194,
+        "health": 4,
+        "id": "TB_BaconUps_130",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Goldgrubber",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "At the end of your turn, gain +4/+4 for each friendly Golden minion.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62195,
+        "id": "TB_BaconUps_130e",
+        "name": "Gold Grubbing",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 16,
+        "battlegroundsNormalDbfId": 61046,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 62217,
+        "elite": true,
+        "health": 10,
+        "id": "TB_BaconUps_132",
+        "name": "Nat Pagle, Extreme Angler",
+        "race": "PIRATE",
+        "referencedTags": [
+            "OVERKILL"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "<b>Overkill:</b> Summon a 0/2 Golden Treasure Chest.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62218,
+        "health": 2,
+        "id": "TB_BaconUps_132t",
+        "name": "Treasure Chest",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Deathrattle:</b> Summon 2 random Golden minions.",
+        "type": "MINION"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 61989,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 62224,
+        "elite": true,
+        "health": 12,
+        "id": "TB_BaconUps_133",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Cap'n Hoggarr",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "After you buy a Pirate,\ngain 2 Gold this turn\nonly.",
+        "type": "MINION"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 61047,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 62228,
+        "elite": true,
+        "health": 14,
+        "id": "TB_BaconUps_134",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Dread Admiral Eliza",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "Whenever a friendly Pirate attacks, give all friendly minions +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62229,
+        "id": "TB_BaconUps_134e",
+        "name": "Yaharr!!",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 62230,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62231,
+        "health": 4,
+        "id": "TB_BaconUps_135",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Monstrous Macaw",
+        "race": "BEAST",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "[x]After this attacks, trigger\na random friendly minion's\n<b>Deathrattle</b> twice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 680,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62237,
+        "health": 6,
+        "id": "TB_BaconUps_136",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Southsea Captain",
+        "race": "PIRATE",
+        "rarity": "EPIC",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "Your other Pirates have +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62238,
+        "id": "TB_BaconUps_136e",
+        "name": "Yarrr!",
+        "set": "BATTLEGROUNDS",
+        "text": "Southsea Captain is granting +2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 62232,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 62251,
+        "health": 8,
+        "id": "TB_BaconUps_137",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "The Tide Razor",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Deathrattle</b>: Summon 6 random Pirates.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 61053,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 62254,
+        "health": 4,
+        "id": "TB_BaconUps_138",
+        "name": "Bloodsail Cannoneer",
+        "race": "PIRATE",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Battlecry</b>: Give your other Pirates +6 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62255,
+        "id": "TB_BaconUps_138e",
+        "name": "Pirate Life!",
+        "set": "BATTLEGROUNDS",
+        "text": "+6 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 61056,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 62257,
+        "health": 8,
+        "id": "TB_BaconUps_139",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ripsnarl Captain",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "Whenever another friendly Pirate attacks, give it +4/+4.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62258,
+        "id": "TB_BaconUps_139e",
+        "name": "Snarled",
+        "set": "BATTLEGROUNDS",
+        "text": "+4/+4.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 10,
+        "battlegroundsNormalDbfId": 61048,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 62259,
+        "health": 8,
+        "id": "TB_BaconUps_140",
+        "name": "Southsea Strongarm",
+        "race": "PIRATE",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "targetingArrowText": "Give +2/+2 for each Pirate you bought this turn.",
+        "techLevel": 4,
+        "text": "<b>Battlecry:</b> Give a friendly Pirate +2/+2 for each Pirate you bought this turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62260,
+        "id": "TB_BaconUps_140e",
+        "name": "Pirate Tattoos",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 61061,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 62262,
+        "health": 2,
+        "id": "TB_BaconUps_141",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Scallywag",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Deathrattle:</b> Summon a 2/2 Pirate. It attacks immediately.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 62215,
+        "health": 2,
+        "id": "TB_BaconUps_141t",
+        "name": "Sky Pirate",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "type": "MINION"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 62458,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 62460,
+        "health": 14,
+        "id": "TB_BaconUps_142",
+        "mechanics": [
+            "OVERKILL"
+        ],
+        "name": "Seabreaker Goliath",
+        "race": "PIRATE",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "<b>Windfury</b>\n<b>Overkill:</b> Give your other Pirates +4/+4.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62461,
+        "id": "TB_BaconUps_142e",
+        "name": "Broken Seas",
+        "set": "BATTLEGROUNDS",
+        "text": "+4/+4.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 62734,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 62739,
+        "health": 6,
+        "id": "TB_BaconUps_143",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Salty Looter",
+        "race": "PIRATE",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "Whenever you play a Pirate, gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62740,
+        "id": "TB_BaconUps_143e",
+        "name": "Loot!",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 38977,
         "id": "TB_BlingBrawl_Blade1e",
@@ -93980,6 +95718,46 @@
         "set": "TB",
         "text": "<b>Hero Power</b>\nDeal 1 damage to all minions.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63140,
+        "id": "TB_BuildDeck_HeroPower",
+        "name": "Give me a Hero Power Please!",
+        "set": "TB",
+        "text": "Build a Deck!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63135,
+        "id": "TB_BuildDeck_Passive",
+        "name": "Give me a Passive Treasure Please!",
+        "set": "TB",
+        "text": "Build a Deck!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63034,
+        "id": "TB_BuildDeck_Subset",
+        "name": "Build a Subset Deck Please!",
+        "set": "TB",
+        "text": "Build a Deck!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63143,
+        "id": "TB_BuildDeck_Treasure",
+        "name": "Give me a Treasure Please!",
+        "set": "TB",
+        "text": "Build a Deck!",
+        "type": "SPELL"
     },
     {
         "cardClass": "NEUTRAL",
@@ -101395,13 +103173,254 @@
         "type": "ENCHANTMENT"
     },
     {
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "HUNTER",
+            "DEMONHUNTER"
+        ],
+        "dbfId": 62419,
+        "health": 30,
+        "id": "TB_Thunderdome_Aranna",
+        "name": "Aranna Starseeker",
+        "set": "TB",
+        "text": "A natural leader always comes out on top!",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62426,
+        "id": "TB_Thunderdome_Discover",
+        "name": "Thunderdome Discover",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
         "cardClass": "DRUID",
+        "classes": [
+            "DRUID",
+            "PRIEST"
+        ],
         "dbfId": 60791,
         "health": 30,
         "id": "TB_Thunderdome_Elise",
         "name": "Elise of the Wasteland",
         "set": "TB",
+        "text": "Has some serious questions about her sister's recent activities.",
         "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "NEUTRAL",
+            "DEMONHUNTER"
+        ],
+        "dbfId": 62421,
+        "health": 30,
+        "id": "TB_Thunderdome_Illidan",
+        "name": "Illidan Stormrage",
+        "set": "TB",
+        "text": "The Lord of Outland is looking forward to a rematch!",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "PRIEST",
+            "DEMONHUNTER"
+        ],
+        "dbfId": 62424,
+        "health": 30,
+        "id": "TB_Thunderdome_Karnuk",
+        "name": "Karnuk",
+        "set": "TB",
+        "text": "As a priest turned demon hunter, he's basically capable of anything.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "classes": [
+            "PRIEST",
+            "WARLOCK"
+        ],
+        "dbfId": 62425,
+        "health": 30,
+        "id": "TB_Thunderdome_Kriziki",
+        "name": "Kriziki",
+        "set": "TB",
+        "text": "Sought peace and quiet in Outland, but instead found demon hunters. LOTS of demon hunters.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "classes": [
+            "WARLOCK",
+            "NEUTRAL"
+        ],
+        "dbfId": 62420,
+        "health": 30,
+        "id": "TB_Thunderdome_MechaJaraxxus",
+        "name": "Mecha-Jaraxxus",
+        "set": "TB",
+        "text": "With rage and rust, he has been rebuilt!",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "SHAMAN",
+            "DEMONHUNTER"
+        ],
+        "dbfId": 62423,
+        "health": 30,
+        "id": "TB_Thunderdome_Shalja",
+        "name": "Shalja",
+        "set": "TB",
+        "text": "Even in the middle of a desert, she'll ensure her foes are all washed up.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "DRUID",
+            "DEMONHUNTER"
+        ],
+        "dbfId": 62422,
+        "health": 30,
+        "id": "TB_Thunderdome_Sklibb",
+        "name": "Sklibb",
+        "set": "TB",
+        "text": "He's proof that in Zangarmarsh, the mushrooms hunt YOU!",
+        "type": "HERO"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 62411,
+        "durability": 2,
+        "id": "TB_ThunderdomeWeaponA",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Board with a Nail in It",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Deal 5 damage to your hero.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 62412,
+        "durability": 4,
+        "id": "TB_ThunderdomeWeaponB",
+        "name": "Whizzing Buzzer",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "TB",
+        "text": "<b>Windfury</b>",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 62413,
+        "durability": 4,
+        "id": "TB_ThunderdomeWeaponC",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Augmented Auto-Mace",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Give a random friendly minion +5 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62727,
+        "id": "TB_ThunderdomeWeaponCe",
+        "name": "Augmented Auto-Mace",
+        "set": "TB",
+        "text": "+5 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62414,
+        "durability": 3,
+        "id": "TB_ThunderdomeWeaponD",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Felfire Flamberge",
+        "set": "TB",
+        "text": "After your Hero attacks, add a random Demon to your hand.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62415,
+        "durability": 2,
+        "id": "TB_ThunderdomeWeaponE",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Improvised Flamethrower",
+        "set": "TB",
+        "text": "<b>Battlecry and Deathrattle:</b>\nDeal 2 damage to all minions.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62416,
+        "durability": 2,
+        "id": "TB_ThunderdomeWeaponF",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Scrapmetal Battleaxe",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Gain 5 Armor.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 62417,
+        "durability": 2,
+        "id": "TB_ThunderdomeWeaponG",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Electrified Spear",
+        "set": "TB",
+        "text": "Also damages the minions next to whomever your hero attacks.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 62418,
+        "durability": 4,
+        "id": "TB_ThunderdomeWeaponH",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Snake on a Stick",
+        "set": "TB",
+        "text": "[x]After your hero attacks,\nsummon a 1/1 Snake.",
+        "type": "WEAPON"
     },
     {
         "cardClass": "NEUTRAL",
