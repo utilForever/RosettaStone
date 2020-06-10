@@ -299,6 +299,12 @@ constexpr int NUM_TOTAL_TAVERN_MINIONS =
     NUM_TIER5_MINIONS * NUM_COPIES_OF_EACH_TIER5_MINIONS +
     NUM_TIER6_MINIONS * NUM_COPIES_OF_EACH_TIER6_MINIONS;
 
+//! A list of races in Battlegrounds.
+constexpr std::array<Race, 6> RACES_IN_BATTLEGROUNDS = {
+    Race::BEAST,  Race::MECHANICAL, Race::DEMON,
+    Race::DRAGON, Race::MURLOC,     Race::PIRATE
+};
+
 //! The number of coin to purchase a minion.
 constexpr int NUM_COIN_PURCHASE_MINION = 3;
 
