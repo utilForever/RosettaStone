@@ -3276,6 +3276,9 @@
         "id": "BOT_254",
         "name": "Unexpected Results",
         "rarity": "EPIC",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
         "set": "BOOMSDAY",
         "text": "[x]Summon two random\n$2-Cost minions <i>(improved\nby <b>Spell Damage</b>)</i>.",
         "type": "SPELL"
@@ -7170,7 +7173,7 @@
         "elite": true,
         "flavor": "“Descent of Dragons was merely a set back!”",
         "health": 7,
-        "howToEarnGolden": "Available in Future Content",
+        "howToEarnGolden": "Earnable through Trial by Felfire Challenges.",
         "id": "BT_255",
         "mechanics": [
             "AURA"
@@ -29712,6 +29715,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 62491,
+        "health": 30,
+        "id": "HERO_10b",
+        "name": "Aranna Starseeker",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "James Ryman",
         "attack": 3,
         "cardClass": "NEUTRAL",
@@ -37151,6 +37165,7 @@
     {
         "artist": "Ken Steacy",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 62237,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -37165,6 +37180,7 @@
         "race": "PIRATE",
         "rarity": "EPIC",
         "set": "EXPERT1",
+        "techLevel": 2,
         "text": "Your other Pirates have +1/+1.",
         "type": "MINION"
     },

@@ -137,7 +137,7 @@ def test_find_card_by_type():
 	assert not cards6
 	assert not cards8
 	assert not cards10
-	assert len(cards11) == 4
+	assert not cards11
 
 def test_find_card_by_race():
 	cards = pyRosetta.Cards.find_card_by_race(pyRosetta.Race.INVALID)

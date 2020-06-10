@@ -64,10 +64,10 @@ constexpr std::array<CardSet, 22> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 9156;
+constexpr int NUM_ALL_CARDS = 9304;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 461;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 527;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -105,7 +105,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 37;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 40;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -129,25 +129,26 @@ constexpr int NUM_COPIES_OF_EACH_TIER5_MINIONS = 9;
 constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 
 //! The number of tier 1 minions in Battlegrounds.
-constexpr int NUM_TIER1_MINIONS = 14;
+constexpr int NUM_TIER1_MINIONS = 16;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 17;
+constexpr int NUM_TIER2_MINIONS = 21;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 19;
+constexpr int NUM_TIER3_MINIONS = 22;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 16;
+constexpr int NUM_TIER4_MINIONS = 19;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 15;
+constexpr int NUM_TIER5_MINIONS = 18;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 11;
+constexpr int NUM_TIER6_MINIONS = 12;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Alleycat (40426)
+// Deck Swabbie (61055)
 // Dragonspawn Lieutenant (60628)
 // Fiendish Servant (56112)
 // Mecharoo (48886)
@@ -158,38 +159,44 @@ constexpr int NUM_TIER6_MINIONS = 11;
 // Red Whelp (59968)
 // Righteous Protector (42467)
 // Rockpool Hunter (41245)
+// Scallywag (61061)
 // Selfless Hero (38740)
 // Vulgar Homunculus (43121)
 // Wrath Weaver (59670)
 constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
-    40426, 60628, 56112, 48886, 60055, 475,   976,
-    62162, 59968, 42467, 41245, 38740, 43121, 59670
+    40426, 61055, 60628, 56112, 48886, 60055, 475,   976,
+    62162, 59968, 42467, 41245, 61061, 38740, 43121, 59670
 };
 
 //! A list of Tier 2 minion dbfIDs in Battlegrounds.
+// Arcane Cannon (62188)
+// Freedealing Gambler (61049)
 // Glyph Guardian (61029)
 // Harvest Golem (778)
 // Imprisoner (59937)
 // Kaboom Bot (49279)
 // Kindly Grandmother (39481)
 // Metaltooth Leaper (2016)
+// Monstrous Macaw (62230)
 // Murloc Warleader (1063)
 // Nathrezim Overseer (59186)
 // Old Murk-Eye (736)
 // Pogo-Hopper (60122)
 // Rat Pack (40428)
 // Scavenging Hyena (1281)
+// Southsea Captain (680)
 // Spawn of N'Zoth (38797)
 // Steward of Time (60621)
 // Unstable Ghoul (1808)
 // Waxrider Togwaggle (60559)
 // Zoobot (39839)
 constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
-    61029, 778,   59937, 49279, 39481, 2016, 1063,  59186, 736,
-    60122, 40428, 1281,  38797, 60621, 1808, 60559, 39839
+    62188, 61049, 61029, 778,  59937, 49279, 39481, 2016, 62230, 1063, 59186,
+    736,   60122, 40428, 1281, 680,   38797, 60621, 1808, 60559, 39839
 };
 
 //! A list of Tier 3 minion dbfIDs in Battlegrounds.
+// Bloodsail Cannoneer (61053)
 // Bronze Warden (60558)
 // Coldlight Seer (453)
 // Crystalweaver (40391)
@@ -204,14 +211,16 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Pack Leader (59940)
 // Piloted Shredder (60048)
 // Replicating Menace (48536)
+// Salty Looter (62734)
 // Screwjank Clunker (2023)
 // Shifter Zerus (57742)
 // Soul Juggler (59660)
 // The Beast (962)
 // Twilight Emissary (60626)
+// Yo-Ho-Ogre (61060)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
-    60558, 453,   40391, 2518,  61930, 56393, 60552, 1003, 2288, 38734,
-    52502, 59940, 60048, 48536, 2023,  57742, 59660, 962,  60626
+    61053, 60558, 453,   40391, 2518,  61930, 56393, 60552, 1003, 2288,  38734,
+    52502, 59940, 60048, 48536, 62734, 2023,  57742, 59660, 962,  60626, 61060
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.
@@ -222,24 +231,28 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Defender of Argus (763)
 // Drakonid Enforcer (61072)
 // Floating Watcher (2068)
+// Goldgrubber (61066)
 // Herald of Flame (60498)
 // Iron Sensei (1992)
 // Mechano-Egg (49169)
 // Menagerie Magician (39269)
+// Ripsnarl Captain (61056)
 // Savannah Highmane (1261)
 // Security Rover (48100)
 // Siegebreaker (54835)
+// Southsea Strongarm (61048)
 // Toxfin (52277)
 // Virmen Sensei (40641)
 constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
-    48993, 45392, 43358, 42442, 763,   61072, 2068,  60498,
-    1992,  49169, 39269, 1261,  48100, 54835, 52277, 40641
+    48993, 45392, 43358, 42442, 763,   61072, 2068,  61066, 60498, 1992,
+    49169, 39269, 61056, 1261,  48100, 54835, 61048, 52277, 40641
 };
 
 //! A list of Tier 5 minion dbfIDs in Battlegrounds.
 // Annihilan Battlemaster (59714)
 // Baron Rivendare (1915)
 // Brann Bronzebeard (2949)
+// Cap'n Hoggarr (61989)
 // Goldrinn, the Great Wolf (59955)
 // Ironhide Direhorn (49973)
 // Junkbot (2074)
@@ -247,30 +260,34 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Lightfang Enforcer (59707)
 // Mal'Ganis (1986)
 // Murozond (60637)
+// Nat Pagle, Extreme Angler (61046)
 // Primalfin Lookout (60028)
 // Razorgore, the Untamed (60561)
+// Seabreaker Goliath (62458)
 // Sneed's Old Shredder (59682)
 // Strongshell Scavenger (43022)
 // Voidlord (46056)
 constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
-    59714, 1915,  2949,  59955, 49973, 2074,  60247, 59707,
-    1986,  60637, 60028, 60561, 59682, 43022, 46056
+    59714, 1915,  2949,  61989, 59955, 49973, 2074,  60247, 59707,
+    1986,  60637, 61046, 60028, 60561, 62458, 59682, 43022, 46056
 };
 
 //! A list of Tier 6 minion dbfIDs in Battlegrounds.
+// Dread Admiral Eliza (61047)
 // Foe Reaper 4000 (2081)
 // Kangor's Apprentice (59935)
 // Gentle Megasaur (56465)
 // Ghastcoiler (52041)
-// Holy Mackerel (61079)
 // Imp Mama (61028)
 // Kalecgos, Arcane Aspect (60630)
 // Maexxna (1791)
 // Mama Bear (60036)
 // Nadina the Red (60629)
+// The Tide Razor (62232)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    2081, 59935, 56465, 52041, 61079, 61028, 60630, 1791, 60036, 60629, 60040
+    61047, 2081, 59935, 56465, 52041, 61028,
+    60630, 1791, 60036, 60629, 62232, 60040
 };
 
 //! The total number of tier minions in Battlegrounds Tavern.
