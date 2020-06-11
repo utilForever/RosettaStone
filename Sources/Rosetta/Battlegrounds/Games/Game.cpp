@@ -27,7 +27,7 @@ void Game::Start()
     m_excludeRace = RACES_IN_BATTLEGROUNDS.at(raceIdx);
 
     // Initialize the minion pool
-    m_gameState.minionPool.Initialize();
+    m_gameState.minionPool.Initialize(m_excludeRace);
 
     // Create callback to increase player count and process next phase
     auto selectHeroCallback = [this]() {

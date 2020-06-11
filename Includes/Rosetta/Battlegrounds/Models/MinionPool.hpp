@@ -26,7 +26,8 @@ class MinionPool
 {
  public:
     //! Initializes the pool to add a list of minions.
-    void Initialize();
+    //! \param excludeRace The race to exclude from the pool.
+    void Initialize(Race excludeRace);
 
     //! Add minions to player's Tavern according to current tier.
     //! \param player The player context.

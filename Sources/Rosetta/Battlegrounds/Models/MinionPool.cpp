@@ -14,7 +14,7 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::Battlegrounds
 {
-void MinionPool::Initialize()
+void MinionPool::Initialize(Race excludeRace)
 {
     std::size_t idx = 0;
 
@@ -23,6 +23,11 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER1_MINIONS; ++i)
         {
+            if (card.GetRace() == excludeRace)
+            {
+                continue;
+            }
+
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -33,6 +38,11 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER2_MINIONS; ++i)
         {
+            if (card.GetRace() == excludeRace)
+            {
+                continue;
+            }
+
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -43,6 +53,11 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER3_MINIONS; ++i)
         {
+            if (card.GetRace() == excludeRace)
+            {
+                continue;
+            }
+
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -53,6 +68,11 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER4_MINIONS; ++i)
         {
+            if (card.GetRace() == excludeRace)
+            {
+                continue;
+            }
+
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -63,6 +83,11 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER5_MINIONS; ++i)
         {
+            if (card.GetRace() == excludeRace)
+            {
+                continue;
+            }
+
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -73,6 +98,11 @@ void MinionPool::Initialize()
     {
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER6_MINIONS; ++i)
         {
+            if (card.GetRace() == excludeRace)
+            {
+                continue;
+            }
+
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
