@@ -55,6 +55,9 @@ class Player
     //! \param newIdx The new index of minion.
     void RearrangeMinion(std::size_t curIdx, std::size_t newIdx);
 
+    //! Completes recruit phase.
+    void CompleteRecruit() const;
+
     Hero hero;
 
     int remainCoin = 0;
@@ -73,6 +76,7 @@ class Player
     std::function<void(int)> returnMinionCallback;
     std::function<void(FieldZone&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
+    std::function<void()> completeRecruitCallback;
 };
 }  // namespace RosettaStone::Battlegrounds
 

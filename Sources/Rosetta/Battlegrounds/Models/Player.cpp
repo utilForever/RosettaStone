@@ -90,4 +90,9 @@ void Player::RearrangeMinion(std::size_t curIdx, std::size_t newIdx)
 
     minions.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
 }
+
+void Player::CompleteRecruit() const
+{
+    completeRecruitCallback();
+}
 }  // namespace RosettaStone::Battlegrounds
