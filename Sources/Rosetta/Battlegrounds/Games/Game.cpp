@@ -160,9 +160,6 @@ void Game::Recruit()
 
 void Game::Combat()
 {
-    // Set next phase
-    m_gameState.nextPhase = Phase::RECRUIT;
-    GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
 }
 
 void Game::GameOver()
