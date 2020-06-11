@@ -16,6 +16,16 @@ CardType Card::GetCardType() const
     return static_cast<CardType>(gameTags.at(GameTag::CARDTYPE));
 }
 
+Race Card::GetRace() const
+{
+    if (gameTags.find(GameTag::CARDRACE) == gameTags.end())
+    {
+        return Race::INVALID;
+    }
+
+    return static_cast<Race>(gameTags.at(GameTag::CARDRACE));
+}
+
 int Card::GetTier() const
 {
     if (gameTags.find(GameTag::TECH_LEVEL) == gameTags.end())

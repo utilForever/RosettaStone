@@ -21,6 +21,11 @@ int Minion::GetPoolIndex() const
     return m_poolIdx;
 }
 
+Race Minion::GetRace() const
+{
+    return m_card.GetRace();
+}
+
 ZoneType Minion::GetZoneType() const
 {
     return m_zoneType;

@@ -34,6 +34,10 @@ class Minion
     //! \return The value of pool index.
     int GetPoolIndex() const;
 
+    //! Returns the value of race.
+    //! \return The value of race.
+    Race GetRace() const;
+
     //! Returns the value of zone type.
     //! \return The value of zone type.
     ZoneType GetZoneType() const;
