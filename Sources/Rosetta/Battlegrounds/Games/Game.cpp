@@ -84,6 +84,18 @@ void Game::Start()
         }
     };
 
+    // Create callback to complete recruit and process next phase
+    auto completeRecruitCallback = [this]() {
+        ++m_playerCount;
+
+        if (m_playerCount >= NUM_BATTLEGROUNDS_PLAYERS)
+        {
+            // Set next phase
+            m_gameState.nextPhase = Phase::COMBAT;
+            GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
+        }
+    };
+
     // Initialize variables and callbacks
     for (auto& player : m_gameState.players)
     {
@@ -97,6 +109,7 @@ void Game::Start()
         player.returnMinionCallback = returnMinionCallback;
         player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
+        player.completeRecruitCallback = completeRecruitCallback;
     }
 
     // Set next phase
