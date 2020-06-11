@@ -126,7 +126,7 @@ void MinionPool::AddMinionsToTavern(Player& player)
     std::size_t idx = 0;
     for (auto& minion : minions)
     {
-        player.tavernMinions.Add(minion);
+        player.tavernFieldZone.Add(minion);
         std::get<2>(m_minions.at(minion.GetPoolIndex())) = false;
         ++idx;
 

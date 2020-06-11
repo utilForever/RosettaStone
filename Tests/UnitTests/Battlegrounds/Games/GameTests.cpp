@@ -52,7 +52,7 @@ TEST_CASE("[Game] - Basic")
 
         for (std::size_t i = 0; i < numMinions; ++i)
         {
-            CHECK_EQ(player.tavernMinions[i].GetTier(), 1);
+            CHECK_EQ(player.tavernFieldZone[i].GetTier(), 1);
         }
     }
 
@@ -60,7 +60,7 @@ TEST_CASE("[Game] - Basic")
 
     player1.PurchaseMinion(0);
     CHECK_EQ(player1.handZone.GetCount(), 1);
-    CHECK_EQ(player1.tavernMinions.GetCount(), 2);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 0);
 
     minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
@@ -69,11 +69,11 @@ TEST_CASE("[Game] - Basic")
 
     player1.PlayCard(0, 0);
     CHECK_EQ(player1.handZone.GetCount(), 0);
-    CHECK_EQ(player1.minions.GetCount(), 1);
+    CHECK_EQ(player1.recruitFieldZone.GetCount(), 1);
 
     player1.SellMinion(0);
-    CHECK_EQ(player1.minions.GetCount(), 0);
-    CHECK_EQ(player1.tavernMinions.GetCount(), 2);
+    CHECK_EQ(player1.recruitFieldZone.GetCount(), 0);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 1);
 
     minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
@@ -82,7 +82,7 @@ TEST_CASE("[Game] - Basic")
 
     player1.RefreshTavern();
     CHECK_EQ(player1.handZone.GetCount(), 0);
-    CHECK_EQ(player1.tavernMinions.GetCount(), 3);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 3);
     CHECK_EQ(player1.remainCoin, 0);
 
     minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
@@ -93,23 +93,23 @@ TEST_CASE("[Game] - Basic")
 
     player1.PurchaseMinion(0);
     CHECK_EQ(player1.handZone.GetCount(), 1);
-    CHECK_EQ(player1.tavernMinions.GetCount(), 2);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 7);
 
     player1.PurchaseMinion(0);
     CHECK_EQ(player1.handZone.GetCount(), 2);
-    CHECK_EQ(player1.tavernMinions.GetCount(), 1);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 1);
     CHECK_EQ(player1.remainCoin, 4);
 
     player1.PlayCard(0, 0);
     player1.PlayCard(0, 1);
 
-    const int poolIdx1 = player1.minions[0].GetPoolIndex();
-    const int poolIdx2 = player1.minions[1].GetPoolIndex();
+    const int poolIdx1 = player1.recruitFieldZone[0].GetPoolIndex();
+    const int poolIdx2 = player1.recruitFieldZone[1].GetPoolIndex();
 
     player1.RearrangeMinion(0, 1);
-    CHECK_EQ(poolIdx1, player1.minions[1].GetPoolIndex());
-    CHECK_EQ(poolIdx2, player1.minions[0].GetPoolIndex());
+    CHECK_EQ(poolIdx1, player1.recruitFieldZone[1].GetPoolIndex());
+    CHECK_EQ(poolIdx2, player1.recruitFieldZone[0].GetPoolIndex());
 
     player1.UpgradeTavern();
     CHECK_EQ(player1.currentTier, 1);
@@ -123,15 +123,15 @@ TEST_CASE("[Game] - Basic")
 
     player1.RefreshTavern();
     CHECK_EQ(player1.handZone.GetCount(), 0);
-    CHECK_EQ(player1.tavernMinions.GetCount(), 4);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 4);
     CHECK_EQ(player1.remainCoin, 4);
 
     const std::size_t numMinions =
         GetNumMinionsCanPurchase(player1.currentTier);
     for (std::size_t i = 0; i < numMinions; ++i)
     {
-        bool check = player1.tavernMinions[i].GetTier() == 1 ||
-                     player1.tavernMinions[i].GetTier() == 2;
+        bool check = player1.tavernFieldZone[i].GetTier() == 1 ||
+                     player1.tavernFieldZone[i].GetTier() == 2;
         CHECK_EQ(check, true);
     }
 

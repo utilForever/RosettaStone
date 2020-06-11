@@ -66,8 +66,8 @@ class Player
     int coinToUpgradeTavern = 0;
 
     HandZone handZone;
-    FieldZone minions;
-    FieldZone tavernMinions;
+    FieldZone recruitFieldZone;
+    FieldZone tavernFieldZone;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
 
