@@ -29,6 +29,10 @@ class MinionPool
     //! \param excludeRace The race to exclude from the pool.
     void Initialize(Race excludeRace);
 
+    //! Returns the count of minions in the pool.
+    //! \return The count of minions in the pool.
+    std::size_t GetCount() const;
+
     //! Add minions to player's Tavern according to current tier.
     //! \param player The player context.
     void AddMinionsToTavern(Player& player);
@@ -47,6 +51,7 @@ class MinionPool
 
  private:
     std::array<MinionPoolData, NUM_TOTAL_TAVERN_MINIONS> m_minions;
+    std::size_t m_count = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 

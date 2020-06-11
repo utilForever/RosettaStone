@@ -107,6 +107,13 @@ void MinionPool::Initialize(Race excludeRace)
             ++idx;
         }
     }
+
+    m_count = idx;
+}
+
+std::size_t MinionPool::GetCount() const
+{
+    return m_count;
 }
 
 void MinionPool::AddMinionsToTavern(Player& player)
