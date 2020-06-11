@@ -23,7 +23,8 @@ TEST_CASE("[Game] - Basic")
     CHECK_EQ(game.GetGameState().phase, Phase::SELECT_HERO);
 
     auto minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
-    CHECK_EQ(static_cast<int>(minions.size()), NUM_TOTAL_TAVERN_MINIONS);
+    CHECK_EQ(static_cast<int>(minions.size()),
+             game.GetGameState().minionPool.GetCount());
 
     for (auto& player : game.GetGameState().players)
     {
@@ -64,7 +65,7 @@ TEST_CASE("[Game] - Basic")
 
     minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
     CHECK_EQ(static_cast<int>(minions.size()),
-             NUM_TOTAL_TAVERN_MINIONS - 3 * 8);
+             game.GetGameState().minionPool.GetCount() - 3 * 8);
 
     player.PlayCard(0, 0);
     CHECK_EQ(player.handZone.GetCount(), 0);
@@ -77,7 +78,7 @@ TEST_CASE("[Game] - Basic")
 
     minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
     CHECK_EQ(static_cast<int>(minions.size()),
-             NUM_TOTAL_TAVERN_MINIONS - 3 * 8 + 1);
+             game.GetGameState().minionPool.GetCount() - 3 * 8 + 1);
 
     player.RefreshTavern();
     CHECK_EQ(player.handZone.GetCount(), 0);
@@ -86,7 +87,7 @@ TEST_CASE("[Game] - Basic")
 
     minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
     CHECK_EQ(static_cast<int>(minions.size()),
-             NUM_TOTAL_TAVERN_MINIONS - 3 * 8);
+             game.GetGameState().minionPool.GetCount() - 3 * 8);
 
     player.remainCoin = 10;
 
