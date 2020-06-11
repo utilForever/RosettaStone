@@ -44,6 +44,8 @@ class Game
 
  private:
     GameState m_gameState{};
+
+    Race m_excludeRace = Race::INVALID;
     std::atomic<int> m_playerCount = 0;
 };
 }  // namespace RosettaStone::Battlegrounds

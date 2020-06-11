@@ -21,6 +21,11 @@ GameState& Game::GetGameState()
 
 void Game::Start()
 {
+    // Choose a race to exclude from the minion pool at random
+    const auto raceIdx =
+        Random::get<std::size_t>(0, RACES_IN_BATTLEGROUNDS.size() - 1);
+    m_excludeRace = RACES_IN_BATTLEGROUNDS.at(raceIdx);
+
     // Initialize the minion pool
     m_gameState.minionPool.Initialize();
 
