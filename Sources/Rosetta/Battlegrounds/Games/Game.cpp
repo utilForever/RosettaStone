@@ -99,6 +99,8 @@ void Game::Start()
     // Initialize variables and callbacks
     for (auto& player : m_gameState.players)
     {
+        player.playState = PlayState::PLAYING;
+
         player.remainCoin = 0;
         player.totalCoin = 2;
         player.currentTier = 1;
@@ -140,6 +142,11 @@ void Game::Recruit()
 {
     for (auto& player : m_gameState.players)
     {
+        if (player.playState != PlayState::PLAYING)
+        {
+            continue;
+        }
+
         // Set the value of coin (remain/total)
         if (player.totalCoin < COIN_UPPER_LIMIT)
         {
