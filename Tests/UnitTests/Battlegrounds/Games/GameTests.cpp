@@ -42,6 +42,8 @@ TEST_CASE("[Game] - Basic")
 
     for (auto& player : game.GetGameState().players)
     {
+        CHECK_EQ(player.hero.health, player.hero.card.GetHealth());
+
         CHECK_EQ(player.remainCoin, 3);
         CHECK_EQ(player.totalCoin, 3);
         CHECK_EQ(player.currentTier, 1);
