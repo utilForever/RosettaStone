@@ -58,6 +58,8 @@ class Player
     //! Completes recruit phase.
     void CompleteRecruit() const;
 
+    PlayState playState = PlayState::INVALID;
+
     Hero hero;
 
     int remainCoin = 0;
