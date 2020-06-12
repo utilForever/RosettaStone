@@ -26,6 +26,16 @@ Race Card::GetRace() const
     return static_cast<Race>(gameTags.at(GameTag::CARDRACE));
 }
 
+int Card::GetHealth() const
+{
+    if (gameTags.find(GameTag::HEALTH) == gameTags.end())
+    {
+        return 0;
+    }
+
+    return gameTags.at(GameTag::HEALTH);
+}
+
 int Card::GetTier() const
 {
     if (gameTags.find(GameTag::TECH_LEVEL) == gameTags.end())
