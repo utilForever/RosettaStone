@@ -30,8 +30,10 @@ void Game::Start()
     m_gameState.minionPool.Initialize(m_excludeRace);
 
     // Create callback to increase player count and process next phase
-    auto selectHeroCallback = [this]() {
+    auto selectHeroCallback = [this](Player& player) {
         ++m_playerCount;
+
+        player.hero.health = player.hero.card.GetHealth();
 
         if (m_playerCount >= NUM_BATTLEGROUNDS_PLAYERS)
         {

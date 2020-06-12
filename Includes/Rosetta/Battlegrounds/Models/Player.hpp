@@ -73,7 +73,7 @@ class Player
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
 
-    std::function<void()> selectHeroCallback;
+    std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
     std::function<void(int)> returnMinionCallback;
     std::function<void(FieldZone&)> clearTavernMinionsCallback;

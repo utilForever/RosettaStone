@@ -14,7 +14,7 @@ void Player::SelectHero(std::size_t idx)
     const auto heroCard = Cards::FindCardByDbfID(heroChoices.at(idx));
     hero.Initialize(heroCard);
 
-    selectHeroCallback();
+    selectHeroCallback(*this);
 }
 
 void Player::PrepareTavern()
