@@ -98,10 +98,13 @@ void Game::Start()
         }
     };
 
+    std::size_t playerIdx = 0;
+
     // Initialize variables and callbacks
     for (auto& player : m_gameState.players)
     {
         player.playState = PlayState::PLAYING;
+        player.idx = playerIdx;
 
         player.remainCoin = 0;
         player.totalCoin = 2;
@@ -114,6 +117,8 @@ void Game::Start()
         player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
         player.completeRecruitCallback = completeRecruitCallback;
+
+        ++playerIdx;
     }
 
     // Set next phase

@@ -59,6 +59,7 @@ class Player
     void CompleteRecruit() const;
 
     PlayState playState = PlayState::INVALID;
+    std::size_t idx = 0;
 
     Hero hero;
 
