@@ -174,9 +174,15 @@ void Game::Recruit()
 
 void Game::Combat()
 {
+    // Determine each player's opponent
+    DetermineOpponent();
 }
 
 void Game::GameOver()
+{
+}
+
+void Game::DetermineOpponent()
 {
 }
 }  // namespace RosettaStone::Battlegrounds

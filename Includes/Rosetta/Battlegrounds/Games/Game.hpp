@@ -42,6 +42,9 @@ class Game
     //! Processes the game over phase.
     void GameOver();
 
+    //! Determines each player's opponent.
+    void DetermineOpponent();
+
  private:
     GameState m_gameState{};
 
