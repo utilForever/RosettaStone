@@ -13,6 +13,7 @@
 
 #include <array>
 #include <functional>
+#include <limits>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -71,6 +72,10 @@ class Player
     HandZone handZone;
     FieldZone recruitFieldZone;
     FieldZone tavernFieldZone;
+
+    std::size_t playerIdxFoughtLastTurn =
+        std::numeric_limits<std::size_t>::max();
+    bool isFoughtGhostLastTurn = false;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
 
