@@ -184,11 +184,6 @@ void Game::GameOver()
 
 void Game::DetermineOpponent()
 {
-    // NOTE: Random player that you didn't fight. If there is an odd number of
-    // players alive, bottom 3 have a chance to play the ghost. Can't fight a
-    // ghost 2 turns in a row. Ghost is the 1 of the most recent players to die.
-    auto playerData = CalculateRank();
-    (void)playerData;
 }
 
 std::vector<std::tuple<int, int>> Game::CalculateRank()
@@ -213,5 +208,37 @@ std::vector<std::tuple<int, int>> Game::CalculateRank()
               });
 
     return playerData;
+}
+
+std::size_t Game::DeterminePlayerToFightGhost(
+    std::vector<std::tuple<int, int>>& playerData)
+{
+    // Bottom 3 have a chance to play the ghost
+    std::vector<int> ghostCandidates;
+
+    for (std::size_t i = playerData.size() - 3; i < playerData.size(); ++i)
+    {
+        // Can't fight a ghost 2 turns in a row
+        if (m_gameState.players.at(i).isFoughtGhostLastTurn)
+        {
+            continue;
+        }
+
+        ghostCandidates.emplace_back(i);
+    }
+
+    // Fight randomly selected player and the ghost
+    const std::size_t idx =
+        Random::get<std::size_t>(0, ghostCandidates.size() - 1);
+
+    // Remove the index of randomly selected player from player data
+    playerData.erase(std::remove_if(playerData.begin(), playerData.end(),
+                                    [&](std::tuple<int, int> data) {
+                                        return std::get<0>(data) ==
+                                               static_cast<int>(idx);
+                                    }),
+                     playerData.end());
+
+    return idx;
 }
 }  // namespace RosettaStone::Battlegrounds

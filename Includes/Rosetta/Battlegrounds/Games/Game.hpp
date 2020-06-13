@@ -49,6 +49,12 @@ class Game
     //! \return A container that stores the player index and the rank.
     std::vector<std::tuple<int, int>> CalculateRank();
 
+    //! Determines the player to fight the ghost.
+    //! \param playerData The player data that stores index and rank.
+    //! \return The index of player to fight the ghost.
+    std::size_t DeterminePlayerToFightGhost(
+        std::vector<std::tuple<int, int>>& playerData);
+
  private:
     GameState m_gameState{};
 
