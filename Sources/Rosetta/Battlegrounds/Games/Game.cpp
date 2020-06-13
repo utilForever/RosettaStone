@@ -241,4 +241,49 @@ std::size_t Game::DeterminePlayerToFightGhost(
 
     return idx;
 }
+
+void Game::PairPlayers(
+    std::vector<std::tuple<int, int>>& playerData,
+    std::vector<std::tuple<std::size_t, std::size_t>>& playerFightPair)
+{
+    // Shuffle indefinitely until the conditions are met
+    while (true)
+    {
+        bool isSucceed = true;
+        Random::shuffle(playerData.begin(), playerData.end());
+
+        for (std::size_t i = 0; i < playerData.size(); i += 2)
+        {
+            const int player1Idx = std::get<0>(playerData.at(i));
+            const int player2Idx = std::get<0>(playerData.at(i + 1));
+
+            // Check this player is the player you've been playing against
+            // before
+            if (m_gameState.players.at(player1Idx).playerIdxFoughtLastTurn ==
+                static_cast<std::size_t>(player2Idx))
+            {
+                isSucceed = false;
+                break;
+            }
+        }
+
+        // If the conditions are not met, repeat while statement again
+        if (!isSucceed)
+        {
+            continue;
+        }
+
+        // If the conditions are met, save the player's index pair
+        for (std::size_t i = 0; i < playerData.size(); i += 2)
+        {
+            const int player1Idx = std::get<0>(playerData.at(i));
+            const int player2Idx = std::get<0>(playerData.at(i + 1));
+
+            playerFightPair.emplace_back(
+                std::make_tuple(player1Idx, player2Idx));
+        }
+
+        break;
+    }
+}
 }  // namespace RosettaStone::Battlegrounds

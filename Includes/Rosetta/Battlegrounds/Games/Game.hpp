@@ -55,6 +55,13 @@ class Game
     std::size_t DeterminePlayerToFightGhost(
         std::vector<std::tuple<int, int>>& playerData);
 
+    //! Pairs a list of players.
+    //! \param playerData The player data that stores index and rank.
+    //! \param playerFightPair A pair list of players to fight.
+    void PairPlayers(
+        std::vector<std::tuple<int, int>>& playerData,
+        std::vector<std::tuple<std::size_t, std::size_t>>& playerFightPair);
+
  private:
     GameState m_gameState{};
 
