@@ -43,7 +43,7 @@ class Game
     void GameOver();
 
     //! Determines each player's opponent.
-    void DetermineOpponent();
+    std::vector<std::tuple<std::size_t, std::size_t>> DetermineOpponent();
 
     //! Calculates the rank of players according to their health.
     //! \return A container that stores the player index and the rank.

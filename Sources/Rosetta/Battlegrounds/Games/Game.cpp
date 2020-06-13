@@ -182,8 +182,32 @@ void Game::GameOver()
 {
 }
 
-void Game::DetermineOpponent()
+std::vector<std::tuple<std::size_t, std::size_t>> Game::DetermineOpponent()
 {
+    // NOTE: Random player that you didn't fight. If there is an odd number of
+    // players alive, bottom 3 have a chance to play the ghost. Can't fight a
+    // ghost 2 turns in a row. Ghost is the 1 of the most recent players to die.
+    std::vector<std::tuple<std::size_t, std::size_t>> playerFightPair;
+    auto playerData = CalculateRank();
+
+    // Check there is an odd number of players alive
+    if (playerData.size() % 2 == 1)
+    {
+        // Determine player to fight the ghost
+        const std::size_t playerIdx = DeterminePlayerToFightGhost(playerData);
+        playerFightPair.emplace_back(
+            std::make_tuple(playerIdx, m_gameState.ghostPlayerIdx));
+
+        // Pair a list of players
+        PairPlayers(playerData, playerFightPair);
+    }
+    else
+    {
+        // Pair a list of players
+        PairPlayers(playerData, playerFightPair);
+    }
+
+    return playerFightPair;
 }
 
 std::vector<std::tuple<int, int>> Game::CalculateRank()
