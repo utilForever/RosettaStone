@@ -184,5 +184,34 @@ void Game::GameOver()
 
 void Game::DetermineOpponent()
 {
+    // NOTE: Random player that you didn't fight. If there is an odd number of
+    // players alive, bottom 3 have a chance to play the ghost. Can't fight a
+    // ghost 2 turns in a row. Ghost is the 1 of the most recent players to die.
+    auto playerData = CalculateRank();
+    (void)playerData;
+}
+
+std::vector<std::tuple<int, int>> Game::CalculateRank()
+{
+    std::vector<std::tuple<int, int>> playerData;
+    playerData.reserve(NUM_BATTLEGROUNDS_PLAYERS);
+
+    for (const auto& player : m_gameState.players)
+    {
+        if (player.playState != PlayState::PLAYING)
+        {
+            continue;
+        }
+
+        playerData.emplace_back(
+            std::make_tuple(player.idx, player.hero.health));
+    }
+
+    std::sort(playerData.begin(), playerData.end(),
+              [](std::tuple<int, int> a, std::tuple<int, int> b) {
+                  return std::get<1>(a) > std::get<1>(b);
+              });
+
+    return playerData;
 }
 }  // namespace RosettaStone::Battlegrounds

@@ -45,6 +45,10 @@ class Game
     //! Determines each player's opponent.
     void DetermineOpponent();
 
+    //! Calculates the rank of players according to their health.
+    //! \return A container that stores the player index and the rank.
+    std::vector<std::tuple<int, int>> CalculateRank();
+
  private:
     GameState m_gameState{};
 
