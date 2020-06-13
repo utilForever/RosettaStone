@@ -144,3 +144,36 @@ TEST_CASE("[Game] - Basic")
 
     CHECK_EQ(game.GetGameState().phase, Phase::COMBAT);
 }
+
+TEST_CASE("[Game] - CalculateRank")
+{
+    Game game;
+    game.Start();
+
+    auto& players = game.GetGameState().players;
+    players.at(0).hero.health = 30;
+    players.at(1).hero.health = 0;
+    players.at(2).hero.health = 15;
+    players.at(3).hero.health = 40;
+    players.at(4).hero.health = 20;
+    players.at(5).hero.health = 0;
+    players.at(6).hero.health = 5;
+    players.at(7).hero.health = 0;
+
+    players.at(1).playState = PlayState::LOST;
+    players.at(5).playState = PlayState::LOST;
+    players.at(7).playState = PlayState::LOST;
+
+    const auto result = game.CalculateRank();
+    CHECK_EQ(result.size(), 5);
+    CHECK_EQ(std::get<0>(result[0]), 3);
+    CHECK_EQ(std::get<1>(result[0]), 40);
+    CHECK_EQ(std::get<0>(result[1]), 0);
+    CHECK_EQ(std::get<1>(result[1]), 30);
+    CHECK_EQ(std::get<0>(result[2]), 4);
+    CHECK_EQ(std::get<1>(result[2]), 20);
+    CHECK_EQ(std::get<0>(result[3]), 2);
+    CHECK_EQ(std::get<1>(result[3]), 15);
+    CHECK_EQ(std::get<0>(result[4]), 6);
+    CHECK_EQ(std::get<1>(result[4]), 5);
+}
