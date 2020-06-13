@@ -177,3 +177,37 @@ TEST_CASE("[Game] - CalculateRank")
     CHECK_EQ(std::get<0>(result[4]), 6);
     CHECK_EQ(std::get<1>(result[4]), 5);
 }
+
+TEST_CASE("[Game] - DetermineOpponent")
+{
+    Game game;
+    game.Start();
+
+    auto& players = game.GetGameState().players;
+    players.at(0).hero.health = 30;
+    players.at(1).hero.health = 20;
+    players.at(2).hero.health = 15;
+    players.at(3).hero.health = 40;
+    players.at(4).hero.health = 20;
+    players.at(5).hero.health = 10;
+    players.at(6).hero.health = 5;
+    players.at(7).hero.health = 35;
+
+    players.at(0).playerIdxFoughtLastTurn = 1;
+    players.at(1).playerIdxFoughtLastTurn = 0;
+    players.at(2).playerIdxFoughtLastTurn = 7;
+    players.at(3).playerIdxFoughtLastTurn = 5;
+    players.at(4).playerIdxFoughtLastTurn = 6;
+    players.at(5).playerIdxFoughtLastTurn = 3;
+    players.at(6).playerIdxFoughtLastTurn = 4;
+    players.at(7).playerIdxFoughtLastTurn = 2;
+
+    auto result = game.DetermineOpponent();
+    for (const auto& pair : result)
+    {
+        const std::size_t player1Idx = std::get<0>(pair);
+        const std::size_t player2Idx = std::get<1>(pair);
+
+        CHECK_NE(players.at(player1Idx).playerIdxFoughtLastTurn, player2Idx);
+    }
+}
