@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_BATTLE_HPP
 
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
+#include <Rosetta/Common/Enums/GameEnums.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -26,12 +27,18 @@ class Battle
     //! \param player2 The second player.
     Battle(Player& player1, Player& player2);
 
+    //! Initializes something before simulating a battle.
+    //! i.e. decide who goes first, run hero powers
+    void Initialize();
+
     //! Simulates a battle.
     void Run();
 
  private:
     Player& m_player1;
     Player& m_player2;
+
+    Turn m_turn = Turn::DONE;
 };
 }  // namespace RosettaStone::Battlegrounds
 
