@@ -34,6 +34,10 @@ class Battle
     //! Simulates a battle.
     void Run();
 
+    //! Checks it is done.
+    //! \return true if it is done, false otherwise.
+    bool IsDone() const;
+
  private:
     Player& m_player1;
     Player& m_player2;

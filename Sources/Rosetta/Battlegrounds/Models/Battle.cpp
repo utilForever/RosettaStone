@@ -48,4 +48,9 @@ void Battle::Run()
 {
     Initialize();
 }
+
+bool Battle::IsDone() const
+{
+    return m_p1Field.IsEmpty() || m_p2Field.IsEmpty() || m_turn == Turn::DONE;
+}
 }  // namespace RosettaStone::Battlegrounds
