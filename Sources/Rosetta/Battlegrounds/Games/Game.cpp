@@ -7,6 +7,7 @@
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
+#include <Rosetta/Battlegrounds/Models/Battle.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -175,7 +176,15 @@ void Game::Recruit()
 void Game::Combat()
 {
     // Determine each player's opponent
-    DetermineOpponent();
+    auto playerFightPair = DetermineOpponent();
+
+    // Simulates a battle for each pair
+    for (const auto& pair : playerFightPair)
+    {
+        Battle battle(m_gameState.players.at(std::get<0>(pair)),
+                      m_gameState.players.at(std::get<1>(pair)));
+        battle.Run();
+    }
 }
 
 void Game::GameOver()
