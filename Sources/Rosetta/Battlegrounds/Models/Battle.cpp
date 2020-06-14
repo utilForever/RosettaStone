@@ -13,23 +13,22 @@ using Random = effolkronium::random_static;
 namespace RosettaStone::Battlegrounds
 {
 Battle::Battle(Player& player1, Player& player2)
-    : m_player1(player1), m_player2(player2)
+    : m_player1(player1),
+      m_player2(player2),
+      m_p1Field(m_player1.recruitFieldZone),
+      m_p2Field(m_player2.recruitFieldZone)
 {
     // Do nothing
 }
 
 void Battle::Initialize()
 {
-    // Copy a list of minions from each player's field
-    const auto p1Field = m_player1.recruitFieldZone;
-    const auto p2Field = m_player2.recruitFieldZone;
-
     // Determine the player attacks first
     // NOTE: The player with the greater number of minions attacks first.
     // If the number of minions is equal for both players, one of the players
     // is randomly selected to attack first.
-    const int p1NumMinions = p1Field.GetCount();
-    const int p2NumMinions = p2Field.GetCount();
+    const int p1NumMinions = m_p1Field.GetCount();
+    const int p2NumMinions = m_p2Field.GetCount();
 
     if (p1NumMinions > p2NumMinions)
     {

@@ -37,6 +37,8 @@ class Battle
  private:
     Player& m_player1;
     Player& m_player2;
+    FieldZone m_p1Field;
+    FieldZone m_p2Field;
 
     Turn m_turn = Turn::DONE;
 };
