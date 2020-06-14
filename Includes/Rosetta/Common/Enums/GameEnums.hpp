@@ -32,6 +32,14 @@ enum class Phase
     COMBAT,
     GAMEOVER
 };
+
+//! \brief An enumerator for identifying the turn in battle.
+enum class Turn
+{
+    PLAYER1,  //!< The first player.
+    PLAYER2,  //!< The second player.
+    DONE,     //!< The battle is done.
+};
 }  // namespace Battlegrounds
 }  // namespace RosettaStone
 
