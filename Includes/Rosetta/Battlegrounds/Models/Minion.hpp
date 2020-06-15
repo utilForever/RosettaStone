@@ -54,8 +54,13 @@ class Minion
     //! \param pos The value of zone position.
     void SetZonePosition(int pos);
 
-    //! Returns the tier of the minion.
+    //! Returns the value of tier.
+    //! \return The value of tier.
     int GetTier() const;
+
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    int GetAttack() const;
 
  private:
     Card m_card;
@@ -63,6 +68,8 @@ class Minion
 
     ZoneType m_zoneType = ZoneType::INVALID;
     int m_zonePos = -1;
+
+    int m_attack = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 

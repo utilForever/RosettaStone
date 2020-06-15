@@ -50,4 +50,9 @@ int Minion::GetTier() const
 {
     return m_card.GetTier();
 }
+
+int Minion::GetAttack() const
+{
+    return m_attack;
+}
 }  // namespace RosettaStone::Battlegrounds
