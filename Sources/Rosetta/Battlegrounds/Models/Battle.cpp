@@ -59,22 +59,41 @@ void Battle::Run()
 
 bool Battle::Attack()
 {
-    Minion& attacker = (m_turn == Turn::PLAYER1)
-                           ? m_p1Field[m_p1NextAttackerIdx]
-                           : m_p2Field[m_p2NextAttackerIdx];
+    const int attacker = FindAttacker();
 
     // No minions that can attack, switch players
-    if (attacker.GetAttack() <= 0)
+    if (attacker == -1)
     {
         m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
         return false;
     }
 
-    Minion& target = GetProperTarget(attacker);
+    Minion& target = GetProperTarget(
+        (m_turn == Turn::PLAYER1) ? m_p1Field[attacker] : m_p2Field[attacker]);
     (void)target;
 
     m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
     return true;
+}
+
+int Battle::FindAttacker()
+{
+    FieldZone& fieldZone = (m_turn == Turn::PLAYER1) ? m_p1Field : m_p2Field;
+    std::size_t nextAttackerIdx =
+        (m_turn == Turn::PLAYER1) ? m_p1NextAttackerIdx : m_p2NextAttackerIdx;
+
+    for (int i = 0; i < fieldZone.GetCount(); ++i)
+    {
+        if (fieldZone[nextAttackerIdx].GetAttack() > 0)
+        {
+            return static_cast<int>(nextAttackerIdx);
+        }
+
+        nextAttackerIdx =
+            ++nextAttackerIdx % static_cast<std::size_t>(fieldZone.GetCount());
+    }
+
+    return -1;
 }
 
 Minion& Battle::GetProperTarget([[maybe_unused]] Minion& attacker)

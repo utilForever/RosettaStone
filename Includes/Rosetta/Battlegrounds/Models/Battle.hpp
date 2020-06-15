@@ -38,6 +38,10 @@ class Battle
     //! \return The flag that indicates the attacker does attack.
     bool Attack();
 
+    //! Finds the attacker.
+    //! \return The positive index if the attacker is found, -1 otherwise.
+    int FindAttacker();
+
     //! Gets a proper target according to \p attacker.
     //! \param attacker The attacker.
     //! \return A proper target.
