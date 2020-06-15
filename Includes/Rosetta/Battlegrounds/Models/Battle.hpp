@@ -34,6 +34,10 @@ class Battle
     //! Simulates a battle.
     void Run();
 
+    //! Attacks one of the opponent minions.
+    //! \return The flag that indicates the attacker does attack.
+    bool Attack();
+
     //! Checks it is done.
     //! \return true if it is done, false otherwise.
     bool IsDone() const;

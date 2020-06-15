@@ -53,8 +53,23 @@ void Battle::Run()
 
     while (!IsDone())
     {
-        //Attack();
+        Attack();
     }
+}
+
+bool Battle::Attack()
+{
+    Minion& attacker = (m_turn == Turn::PLAYER1)
+                           ? m_p1Field[m_p1NextAttackerIdx]
+                           : m_p2Field[m_p2NextAttackerIdx];
+    if (attacker.GetAttack() <= 0)
+    {
+        m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
+        return false;
+    }
+
+    m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
+    return true;
 }
 
 bool Battle::IsDone() const
