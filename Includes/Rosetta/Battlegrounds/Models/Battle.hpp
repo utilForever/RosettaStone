@@ -38,6 +38,11 @@ class Battle
     //! \return The flag that indicates the attacker does attack.
     bool Attack();
 
+    //! Gets a proper target according to \p attacker.
+    //! \param attacker The attacker.
+    //! \return A proper target.
+    Minion& GetProperTarget(Minion& attacker);
+
     //! Checks it is done.
     //! \return true if it is done, false otherwise.
     bool IsDone() const;

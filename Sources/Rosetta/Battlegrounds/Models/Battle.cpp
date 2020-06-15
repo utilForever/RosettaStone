@@ -62,14 +62,46 @@ bool Battle::Attack()
     Minion& attacker = (m_turn == Turn::PLAYER1)
                            ? m_p1Field[m_p1NextAttackerIdx]
                            : m_p2Field[m_p2NextAttackerIdx];
+
+    // No minions that can attack, switch players
     if (attacker.GetAttack() <= 0)
     {
         m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
         return false;
     }
 
+    Minion& target = GetProperTarget(attacker);
+    (void)target;
+
     m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
     return true;
+}
+
+Minion& Battle::GetProperTarget([[maybe_unused]] Minion& attacker)
+{
+    auto& minions = (m_turn == Turn::PLAYER1) ? m_p2Field : m_p1Field;
+
+    std::vector<std::size_t> tauntMinions;
+    tauntMinions.reserve(MAX_FIELD_SIZE);
+
+    std::size_t minionIdx = 0;
+    minions.ForEach([&](const MinionData& minion) {
+        if (minion.value().HasTaunt())
+        {
+            tauntMinions.emplace_back(minionIdx);
+        }
+
+        ++minionIdx;
+    });
+
+    if (!tauntMinions.empty())
+    {
+        const auto idx = Random::get<std::size_t>(0, tauntMinions.size());
+        return minions[tauntMinions[idx]];
+    }
+
+    const auto idx = Random::get<int>(0, minions.GetCount());
+    return minions[idx];
 }
 
 bool Battle::IsDone() const
