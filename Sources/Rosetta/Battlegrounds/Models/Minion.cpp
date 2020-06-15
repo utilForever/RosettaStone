@@ -55,4 +55,15 @@ int Minion::GetAttack() const
 {
     return m_attack;
 }
+
+bool Minion::HasTaunt() const
+{
+    if (const auto iter = m_card.gameTags.find(GameTag::TAUNT);
+        iter != m_card.gameTags.end())
+    {
+        return iter->second;
+    }
+
+    return false;
+}
 }  // namespace RosettaStone::Battlegrounds

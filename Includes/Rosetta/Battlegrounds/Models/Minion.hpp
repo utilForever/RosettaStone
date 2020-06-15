@@ -62,6 +62,10 @@ class Minion
     //! \return The value of attack.
     int GetAttack() const;
 
+    //! Returns the flag that indicates whether it has taunt.
+    //! \return The flag that indicates whether it has taunt.
+    bool HasTaunt() const;
+
  private:
     Card m_card;
     int m_poolIdx = -1;
