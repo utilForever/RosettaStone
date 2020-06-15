@@ -44,6 +44,9 @@ class Battle
     FieldZone m_p1Field;
     FieldZone m_p2Field;
 
+    std::size_t m_p1NextAttackerIdx = 0;
+    std::size_t m_p2NextAttackerIdx = 0;
+
     Turn m_turn = Turn::DONE;
 };
 }  // namespace RosettaStone::Battlegrounds

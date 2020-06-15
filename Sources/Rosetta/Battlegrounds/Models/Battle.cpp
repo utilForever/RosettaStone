@@ -42,11 +42,19 @@ void Battle::Initialize()
     {
         m_turn = static_cast<Turn>(Random::get<std::size_t>(0, 1));
     }
+
+    m_p1NextAttackerIdx = 0;
+    m_p2NextAttackerIdx = 0;
 }
 
 void Battle::Run()
 {
     Initialize();
+
+    while (!IsDone())
+    {
+        //Attack();
+    }
 }
 
 bool Battle::IsDone() const
