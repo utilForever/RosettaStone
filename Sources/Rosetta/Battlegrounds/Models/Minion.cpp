@@ -72,6 +72,10 @@ bool Minion::HasTaunt() const
 
 void Minion::TakeDamage(Minion& source)
 {
-    (void)source;
+    m_health -= source.GetAttack();
+    if (m_health <= 0)
+    {
+        m_isDestroyed = true;
+    }
 }
 }  // namespace RosettaStone::Battlegrounds
