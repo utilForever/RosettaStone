@@ -70,7 +70,7 @@ bool Battle::Attack()
     Minion& attacker = (m_turn == Turn::PLAYER1) ? m_p1Field[attackerIdx]
                                                  : m_p2Field[attackerIdx];
     Minion& target = GetProperTarget(attacker);
-    (void)target;
+    target.TakeDamage(attacker);
 
     m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
     return true;

@@ -66,6 +66,10 @@ class Minion
     //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;
 
+    //! Takes damage from a certain other minion.
+    //! \param source A minion to give damage.
+    void TakeDamage(Minion& source);
+
  private:
     Card m_card;
     int m_poolIdx = -1;

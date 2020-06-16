@@ -66,4 +66,9 @@ bool Minion::HasTaunt() const
 
     return false;
 }
+
+void Minion::TakeDamage(Minion& source)
+{
+    (void)source;
+}
 }  // namespace RosettaStone::Battlegrounds
