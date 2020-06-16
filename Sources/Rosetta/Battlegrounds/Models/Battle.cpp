@@ -51,9 +51,18 @@ void Battle::Run()
 {
     Initialize();
 
+    bool prevAttackSuccess = false;
+
     while (!IsDone())
     {
-        Attack();
+        const bool curAttackSuccess = Attack();
+        if (!prevAttackSuccess && !curAttackSuccess)
+        {
+            m_turn = Turn::DONE;
+            break;
+        }
+
+        prevAttackSuccess = curAttackSuccess;
     }
 }
 
@@ -71,6 +80,7 @@ bool Battle::Attack()
                                                  : m_p2Field[attackerIdx];
     Minion& target = GetProperTarget(attacker);
     target.TakeDamage(attacker);
+    attacker.TakeDamage(target);
 
     m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
     return true;
