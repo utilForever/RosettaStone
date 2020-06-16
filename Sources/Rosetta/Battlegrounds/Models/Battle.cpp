@@ -66,6 +66,24 @@ void Battle::Run()
     }
 
     ProcessResult();
+
+    const int damage = CalculateDamage();
+    if (m_result == BattleResult::PLAYER1_WIN)
+    {
+        m_player2.hero.health -= damage;
+        if (m_player2.hero.health <= 0)
+        {
+            // TODO: Process destroy
+        }
+    }
+    else if (m_result == BattleResult::PLAYER2_WIN)
+    {
+        m_player1.hero.health -= damage;
+        if (m_player1.hero.health <= 0)
+        {
+            // TODO: Process destroy
+        }
+    }
 }
 
 bool Battle::Attack()
