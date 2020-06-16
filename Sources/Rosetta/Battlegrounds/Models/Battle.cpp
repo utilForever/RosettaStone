@@ -162,4 +162,9 @@ void Battle::ProcessResult()
         m_result = BattleResult::DRAW;
     }
 }
+
+BattleResult Battle::GetResult() const
+{
+    return m_result;
+}
 }  // namespace RosettaStone::Battlegrounds

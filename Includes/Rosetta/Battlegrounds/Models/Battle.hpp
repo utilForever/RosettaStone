@@ -54,6 +54,10 @@ class Battle
     //! Processes the result.
     void ProcessResult();
 
+    //! Returns the result of battle.
+    //! \return The result of battle.
+    BattleResult GetResult() const;
+
  private:
     Player& m_player1;
     Player& m_player2;
