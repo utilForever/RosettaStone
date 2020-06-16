@@ -89,8 +89,11 @@ int Battle::FindAttacker()
             return static_cast<int>(nextAttackerIdx);
         }
 
-        nextAttackerIdx =
-            ++nextAttackerIdx % static_cast<std::size_t>(fieldZone.GetCount());
+        ++nextAttackerIdx;
+        if (nextAttackerIdx == static_cast<std::size_t>(fieldZone.GetCount()))
+        {
+            nextAttackerIdx = 0;
+        }
     }
 
     return -1;
