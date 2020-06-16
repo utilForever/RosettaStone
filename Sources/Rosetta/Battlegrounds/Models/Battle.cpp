@@ -59,17 +59,17 @@ void Battle::Run()
 
 bool Battle::Attack()
 {
-    const int attacker = FindAttacker();
-
+    const int attackerIdx = FindAttacker();
     // No minions that can attack, switch players
-    if (attacker == -1)
+    if (attackerIdx == -1)
     {
         m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
         return false;
     }
 
-    Minion& target = GetProperTarget(
-        (m_turn == Turn::PLAYER1) ? m_p1Field[attacker] : m_p2Field[attacker]);
+    Minion& attacker = (m_turn == Turn::PLAYER1) ? m_p1Field[attackerIdx]
+                                                 : m_p2Field[attackerIdx];
+    Minion& target = GetProperTarget(attacker);
     (void)target;
 
     m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
