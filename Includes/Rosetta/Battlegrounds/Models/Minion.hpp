@@ -78,6 +78,7 @@ class Minion
     int m_zonePos = -1;
 
     int m_attack = 0;
+    int m_health = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 

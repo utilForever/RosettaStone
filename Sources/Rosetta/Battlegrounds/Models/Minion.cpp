@@ -11,7 +11,10 @@
 namespace RosettaStone::Battlegrounds
 {
 Minion::Minion(Card card, int poolIdx)
-    : m_card(std::move(card)), m_poolIdx(poolIdx)
+    : m_card(std::move(card)),
+      m_poolIdx(poolIdx),
+      m_attack(m_card.GetAttack()),
+      m_health(m_card.GetHealth())
 {
     // Do nothing
 }
