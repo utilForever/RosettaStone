@@ -40,6 +40,14 @@ enum class Turn
     PLAYER2,  //!< The second player.
     DONE,     //!< The battle is done.
 };
+
+//! \brief An enumerator for identifying the result of battle.
+enum class BattleResult
+{
+    PLAYER1_WIN,  //!< Player 1 win.
+    PLAYER2_WIN,  //!< Player 2 win.
+    DRAW,         //!< Draw.
+};
 }  // namespace Battlegrounds
 }  // namespace RosettaStone
 
