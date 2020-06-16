@@ -64,6 +64,8 @@ void Battle::Run()
 
         prevAttackSuccess = curAttackSuccess;
     }
+
+    ProcessResult();
 }
 
 bool Battle::Attack()
@@ -139,5 +141,25 @@ Minion& Battle::GetProperTarget([[maybe_unused]] Minion& attacker)
 bool Battle::IsDone() const
 {
     return m_p1Field.IsEmpty() || m_p2Field.IsEmpty() || m_turn == Turn::DONE;
+}
+
+void Battle::ProcessResult()
+{
+    if (m_p1Field.IsEmpty() && m_p2Field.IsEmpty())
+    {
+        m_result = BattleResult::DRAW;
+    }
+    else if (m_p1Field.IsEmpty())
+    {
+        m_result = BattleResult::PLAYER2_WIN;
+    }
+    else if (m_p2Field.IsEmpty())
+    {
+        m_result = BattleResult::PLAYER1_WIN;
+    }
+    else
+    {
+        m_result = BattleResult::DRAW;
+    }
 }
 }  // namespace RosettaStone::Battlegrounds

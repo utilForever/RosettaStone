@@ -51,6 +51,9 @@ class Battle
     //! \return true if it is done, false otherwise.
     bool IsDone() const;
 
+    //! Processes the result.
+    void ProcessResult();
+
  private:
     Player& m_player1;
     Player& m_player2;
@@ -61,6 +64,7 @@ class Battle
     std::size_t m_p2NextAttackerIdx = 0;
 
     Turn m_turn = Turn::DONE;
+    BattleResult m_result = BattleResult::DRAW;
 };
 }  // namespace RosettaStone::Battlegrounds
 
