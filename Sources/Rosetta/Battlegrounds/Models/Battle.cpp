@@ -163,6 +163,30 @@ void Battle::ProcessResult()
     }
 }
 
+int Battle::CalculateDamage()
+{
+    int totalDamage = 0;
+
+    if (m_result == BattleResult::PLAYER1_WIN)
+    {
+        m_p1Field.ForEach([&](const MinionData& minion) {
+            totalDamage += minion.value().GetTier();
+        });
+
+        totalDamage += m_player1.currentTier;
+    }
+    else
+    {
+        m_p2Field.ForEach([&](const MinionData& minion) {
+            totalDamage += minion.value().GetTier();
+        });
+
+        totalDamage += m_player2.currentTier;        
+    }
+
+    return totalDamage;
+}
+
 BattleResult Battle::GetResult() const
 {
     return m_result;

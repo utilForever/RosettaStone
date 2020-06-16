@@ -54,6 +54,10 @@ class Battle
     //! Processes the result.
     void ProcessResult();
 
+    //! Calculates the total damage according to the result.
+    //! \return The total damage according to the result.
+    int CalculateDamage();
+
     //! Returns the result of battle.
     //! \return The result of battle.
     BattleResult GetResult() const;
