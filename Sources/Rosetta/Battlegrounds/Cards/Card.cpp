@@ -26,6 +26,16 @@ Race Card::GetRace() const
     return static_cast<Race>(gameTags.at(GameTag::CARDRACE));
 }
 
+int Card::GetAttack() const
+{
+    if (gameTags.find(GameTag::ATK) == gameTags.end())
+    {
+        return 0;
+    }
+
+    return gameTags.at(GameTag::ATK);
+}
+
 int Card::GetHealth() const
 {
     if (gameTags.find(GameTag::HEALTH) == gameTags.end())
