@@ -80,6 +80,11 @@ void Player::RefreshTavern()
     prepareTavernMinionsCallback(*this);
 }
 
+void Player::FreezeTavern()
+{
+    freezeTavern = !freezeTavern;
+}
+
 void Player::RearrangeMinion(std::size_t curIdx, std::size_t newIdx)
 {
     if (curIdx == newIdx ||

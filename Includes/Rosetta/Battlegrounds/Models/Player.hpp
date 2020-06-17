@@ -51,6 +51,9 @@ class Player
     //! Refreshes a list of minions in Tavern's field.
     void RefreshTavern();
 
+    //! Freezes a list of minions in Tavern's field.
+    void FreezeTavern();
+
     //! Rearranges a minion to another position on player's field.
     //! \param curIdx The current index of minion.
     //! \param newIdx The new index of minion.
@@ -76,6 +79,7 @@ class Player
     std::size_t playerIdxFoughtLastTurn =
         std::numeric_limits<std::size_t>::max();
     bool isFoughtGhostLastTurn = false;
+    bool freezeTavern = false;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
 
