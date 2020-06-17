@@ -141,8 +141,6 @@ TEST_CASE("[Game] - Basic")
     {
         player.CompleteRecruit();
     }
-
-    CHECK_EQ(game.GetGameState().phase, Phase::COMBAT);
 }
 
 TEST_CASE("[Game] - CalculateRank")
@@ -210,4 +208,50 @@ TEST_CASE("[Game] - DetermineOpponent")
 
         CHECK_NE(players.at(player1Idx).playerIdxFoughtLastTurn, player2Idx);
     }
+}
+
+TEST_CASE("[Game] - Freeze")
+{
+    Game game;
+    game.Start();
+
+    CHECK_EQ(game.GetGameState().phase, Phase::SELECT_HERO);
+
+    for (auto& player : game.GetGameState().players)
+    {
+        player.SelectHero(1);
+    }
+
+    CHECK_EQ(game.GetGameState().phase, Phase::RECRUIT);
+
+    Player& player1 = game.GetGameState().players.at(0);
+
+    player1.PurchaseMinion(0);
+    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 2);
+    CHECK_EQ(player1.remainCoin, 0);
+
+    player1.FreezeTavern();
+
+    for (auto& player : game.GetGameState().players)
+    {
+        player.CompleteRecruit();
+    }
+
+    CHECK_EQ(game.GetGameState().phase, Phase::RECRUIT);
+
+    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 2);
+    CHECK_EQ(player1.remainCoin, 4);
+
+    for (auto& player : game.GetGameState().players)
+    {
+        player.CompleteRecruit();
+    }
+
+    CHECK_EQ(game.GetGameState().phase, Phase::RECRUIT);
+
+    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.tavernFieldZone.GetCount(), 3);
+    CHECK_EQ(player1.remainCoin, 5);
 }
