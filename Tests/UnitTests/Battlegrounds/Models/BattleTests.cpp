@@ -27,6 +27,9 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
     battle.Run();
 
     CHECK_EQ(battle.IsDone(), true);
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 0);
+
     CHECK_EQ(battle.GetResult(), BattleResult::PLAYER1_WIN);
     CHECK_EQ(player1.hero.health, 40);
     CHECK_EQ(player2.hero.health, 32);
@@ -48,6 +51,9 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
     battle.Run();
 
     CHECK_EQ(battle.IsDone(), true);
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+
     CHECK_EQ(battle.GetResult(), BattleResult::DRAW);
     CHECK_EQ(player1.hero.health, 40);
     CHECK_EQ(player2.hero.health, 40);
