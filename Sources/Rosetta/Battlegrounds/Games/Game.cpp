@@ -190,6 +190,10 @@ void Game::Combat()
                       m_gameState.players.at(std::get<1>(pair)));
         battle.Run();
     }
+
+    // Set next phase
+    m_gameState.nextPhase = Phase::RECRUIT;
+    GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
 }
 
 void Game::GameOver()
