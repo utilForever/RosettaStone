@@ -205,6 +205,16 @@ int Battle::CalculateDamage()
     return totalDamage;
 }
 
+const FieldZone& Battle::GetPlayer1Field() const
+{
+    return m_p1Field;
+}
+
+const FieldZone& Battle::GetPlayer2Field() const
+{
+    return m_p2Field;
+}
+
 BattleResult Battle::GetResult() const
 {
     return m_result;

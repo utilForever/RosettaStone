@@ -58,6 +58,14 @@ class Battle
     //! \return The total damage according to the result.
     int CalculateDamage();
 
+    //! Returns the field zone of player 1.
+    //! \return The field zone of player 1.
+    const FieldZone& GetPlayer1Field() const;
+
+    //! Returns the field zone of player 2.
+    //! \return The field zone of player 2.
+    const FieldZone& GetPlayer2Field() const;
+
     //! Returns the result of battle.
     //! \return The result of battle.
     BattleResult GetResult() const;
