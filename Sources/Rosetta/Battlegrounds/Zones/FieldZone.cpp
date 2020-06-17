@@ -15,6 +15,11 @@ Minion& FieldZone::operator[](int zonePos)
     return m_minions.at(zonePos).value();
 }
 
+const Minion& FieldZone::operator[](int zonePos) const
+{
+    return m_minions.at(zonePos).value();
+}
+
 void FieldZone::Add(Minion& minion, int zonePos)
 {
     if (zonePos > m_count)
