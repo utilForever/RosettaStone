@@ -148,6 +148,9 @@ void Game::SelectHero()
 
 void Game::Recruit()
 {
+    // Initialize player count for callback
+    m_playerCount = 0;
+
     for (auto& player : m_gameState.players)
     {
         if (player.playState != PlayState::PLAYING)
