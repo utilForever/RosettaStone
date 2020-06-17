@@ -173,6 +173,14 @@ void Game::Recruit()
 
         if (!player.freezeTavern)
         {
+            // Clear a list of minions in Tavern
+            while (!player.tavernFieldZone.IsEmpty())
+            {
+                Minion minion =
+                    player.tavernFieldZone.Remove(player.tavernFieldZone[0]);
+                m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
+            }
+
             // Prepare a list of minions to each player for purchase
             player.PrepareTavern();
         }
