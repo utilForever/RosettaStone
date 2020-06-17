@@ -62,6 +62,10 @@ class Minion
     //! \return The value of attack.
     int GetAttack() const;
 
+    //! Returns the value of health.
+    //! \return The value of health.
+    int GetHealth() const;
+
     //! Returns the flag that indicates whether it has taunt.
     //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;

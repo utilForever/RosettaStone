@@ -59,6 +59,11 @@ int Minion::GetAttack() const
     return m_attack;
 }
 
+int Minion::GetHealth() const
+{
+    return m_health;
+}
+
 bool Minion::HasTaunt() const
 {
     if (const auto iter = m_card.gameTags.find(GameTag::TAUNT);
