@@ -168,8 +168,13 @@ void Game::Recruit()
             --player.coinToUpgradeTavern;
         }
 
-        // Prepare a list of minions to each player for purchase
-        player.PrepareTavern();
+        if (!player.freezeTavern)
+        {
+            // Prepare a list of minions to each player for purchase
+            player.PrepareTavern();
+        }
+
+        player.freezeTavern = false;
     }
 }
 
