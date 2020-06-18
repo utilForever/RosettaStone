@@ -150,11 +150,11 @@ Minion& Battle::GetProperTarget([[maybe_unused]] Minion& attacker)
 
     if (!tauntMinions.empty())
     {
-        const auto idx = Random::get<std::size_t>(0, tauntMinions.size());
+        const auto idx = Random::get<std::size_t>(0, tauntMinions.size() - 1);
         return minions[tauntMinions[idx]];
     }
 
-    const auto idx = Random::get<int>(0, minions.GetCount());
+    const auto idx = Random::get<int>(0, minions.GetCount() - 1);
     return minions[idx];
 }
 
