@@ -99,6 +99,15 @@ void Game::Start()
         }
     };
 
+    // Create callback to process the tasks related to defeat
+    auto processDefeatCallback = [this](Player& player) {
+        player.recruitFieldZone.ForEach([&](MinionData& minion) {
+            player.playState = PlayState::LOST;
+
+            m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
+        });
+    };
+
     std::size_t playerIdx = 0;
 
     // Initialize variables and callbacks
@@ -118,6 +127,7 @@ void Game::Start()
         player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
         player.completeRecruitCallback = completeRecruitCallback;
+        player.processDefeatCallback = processDefeatCallback;
 
         ++playerIdx;
     }
