@@ -70,6 +70,10 @@ class Minion
     //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;
 
+    //! Returns the flag that indicates whether it has divine shield.
+    //! \return The flag that indicates whether it has divine shield.
+    bool HasDivineShield() const;
+
     //! Takes damage from a certain other minion.
     //! \param source A minion to give damage.
     void TakeDamage(Minion& source);
@@ -87,6 +91,8 @@ class Minion
 
     int m_attack = 0;
     int m_health = 0;
+
+    bool m_hasDivineShield = false;
     bool m_isDestroyed = false;
 };
 }  // namespace RosettaStone::Battlegrounds

@@ -75,6 +75,11 @@ bool Minion::HasTaunt() const
     return false;
 }
 
+bool Minion::HasDivineShield() const
+{
+    return m_hasDivineShield;
+}
+
 void Minion::TakeDamage(Minion& source)
 {
     m_health -= source.GetAttack();
