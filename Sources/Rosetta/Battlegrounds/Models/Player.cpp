@@ -101,4 +101,9 @@ void Player::CompleteRecruit() const
 {
     completeRecruitCallback();
 }
+
+void Player::ProcessDefeat()
+{
+    processDefeatCallback(*this);
+}
 }  // namespace RosettaStone::Battlegrounds

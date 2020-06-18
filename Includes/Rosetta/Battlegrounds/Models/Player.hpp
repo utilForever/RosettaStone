@@ -62,6 +62,9 @@ class Player
     //! Completes recruit phase.
     void CompleteRecruit() const;
 
+    //! Processes the tasks related to defeat.
+    void ProcessDefeat();
+
     PlayState playState = PlayState::INVALID;
     std::size_t idx = 0;
 
@@ -89,6 +92,7 @@ class Player
     std::function<void(FieldZone&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
     std::function<void()> completeRecruitCallback;
+    std::function<void(Player&)> processDefeatCallback;
 };
 }  // namespace RosettaStone::Battlegrounds
 
