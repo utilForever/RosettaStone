@@ -83,4 +83,9 @@ void Minion::TakeDamage(Minion& source)
         m_isDestroyed = true;
     }
 }
+
+bool Minion::IsDestroyed() const
+{
+    return m_isDestroyed;
+}
 }  // namespace RosettaStone::Battlegrounds

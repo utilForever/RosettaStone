@@ -74,6 +74,10 @@ class Minion
     //! \param source A minion to give damage.
     void TakeDamage(Minion& source);
 
+    //! Returns the flag that indicates whether it is destroyed.
+    //! \return The flag that indicates whether it is destroyed.
+    bool IsDestroyed() const;
+
  private:
     Card m_card;
     int m_poolIdx = -1;
