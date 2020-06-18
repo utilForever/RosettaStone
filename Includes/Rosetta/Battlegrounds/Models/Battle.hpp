@@ -47,6 +47,9 @@ class Battle
     //! \return A proper target.
     Minion& GetProperTarget(Minion& attacker);
 
+    //! Processes a list of minions that are destroyed.
+    void ProcessDestroy();
+
     //! Checks it is done.
     //! \return true if it is done, false otherwise.
     bool IsDone() const;

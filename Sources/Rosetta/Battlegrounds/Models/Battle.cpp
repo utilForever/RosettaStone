@@ -102,6 +102,8 @@ bool Battle::Attack()
     target.TakeDamage(attacker);
     attacker.TakeDamage(target);
 
+    ProcessDestroy();
+
     m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
     return true;
 }
@@ -156,6 +158,60 @@ Minion& Battle::GetProperTarget([[maybe_unused]] Minion& attacker)
     return minions[idx];
 }
 
+void Battle::ProcessDestroy()
+{
+    std::vector<std::tuple<int, Minion&>> deadMinions;
+
+    if (m_turn == Turn::PLAYER1)
+    {
+        m_p2Field.ForEach([&](MinionData& minion) {
+            if (minion.value().IsDestroyed())
+            {
+                deadMinions.emplace_back(
+                    std::make_tuple(2, std::ref(minion.value())));
+            }
+        });
+
+        m_p1Field.ForEach([&](MinionData& minion) {
+            if (minion.value().IsDestroyed())
+            {
+                deadMinions.emplace_back(
+                    std::make_tuple(1, std::ref(minion.value())));
+            }
+        });
+    }
+    else
+    {
+        m_p1Field.ForEach([&](MinionData& minion) {
+            if (minion.value().IsDestroyed())
+            {
+                deadMinions.emplace_back(
+                    std::make_tuple(1, std::ref(minion.value())));
+            }
+        });
+
+        m_p2Field.ForEach([&](MinionData& minion) {
+            if (minion.value().IsDestroyed())
+            {
+                deadMinions.emplace_back(
+                    std::make_tuple(2, std::ref(minion.value())));
+            }
+        });
+    }
+
+    for (auto& deadMinion : deadMinions)
+    {
+        if (std::get<0>(deadMinion) == 1)
+        {
+            m_p1Field.Remove(std::get<1>(deadMinion));
+        }
+        else
+        {
+            m_p2Field.Remove(std::get<1>(deadMinion));
+        }
+    }
+}
+
 bool Battle::IsDone() const
 {
     return m_p1Field.IsEmpty() || m_p2Field.IsEmpty() || m_turn == Turn::DONE;
@@ -199,7 +255,7 @@ int Battle::CalculateDamage()
             totalDamage += minion.value().GetTier();
         });
 
-        totalDamage += m_player2.currentTier;        
+        totalDamage += m_player2.currentTier;
     }
 
     return totalDamage;
