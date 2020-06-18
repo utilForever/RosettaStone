@@ -73,7 +73,7 @@ void Battle::Run()
         m_player2.hero.health -= damage;
         if (m_player2.hero.health <= 0)
         {
-            // TODO: Process destroy
+            m_player2.ProcessDefeat();
         }
     }
     else if (m_result == BattleResult::PLAYER2_WIN)
@@ -81,7 +81,7 @@ void Battle::Run()
         m_player1.hero.health -= damage;
         if (m_player1.hero.health <= 0)
         {
-            // TODO: Process destroy
+            m_player1.ProcessDefeat();
         }
     }
 }
