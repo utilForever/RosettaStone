@@ -16,7 +16,13 @@ Minion::Minion(Card card, int poolIdx)
       m_attack(m_card.GetAttack()),
       m_health(m_card.GetHealth())
 {
-    // Do nothing
+    for (const auto& tag : m_card.gameTags)
+    {
+        if (tag.first == GameTag::DIVINE_SHIELD)
+        {
+            m_hasDivineShield = true;
+        }
+    }
 }
 
 int Minion::GetPoolIndex() const
