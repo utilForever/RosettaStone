@@ -88,6 +88,12 @@ bool Minion::HasDivineShield() const
 
 void Minion::TakeDamage(Minion& source)
 {
+    if (HasDivineShield())
+    {
+        m_hasDivineShield = false;
+        return;
+    }
+
     m_health -= source.GetAttack();
     if (m_health <= 0)
     {
