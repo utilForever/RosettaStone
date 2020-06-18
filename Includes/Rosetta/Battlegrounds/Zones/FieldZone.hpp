@@ -75,6 +75,20 @@ class FieldZone
     //! Runs \p functor on each minion.
     //! \param functor A function to run for each minion.
     template <typename Functor>
+    void ForEach(Functor&& functor)
+    {
+        for (auto& minion : m_minions)
+        {
+            if (minion.has_value())
+            {
+                functor(minion);
+            }
+        }
+    }
+
+    //! Runs \p functor on each minion.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
     void ForEach(Functor&& functor) const
     {
         for (const auto& minion : m_minions)
