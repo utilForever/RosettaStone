@@ -35,6 +35,34 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
     CHECK_EQ(player2.hero.health, 32);
 }
 
+TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
+{
+    Player player1, player2;
+
+    Minion minion1(Cards::FindCardByDbfID(42467));
+    Minion minion2(Cards::FindCardByDbfID(60628));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.recruitFieldZone.Add(minion1);
+    player2.recruitFieldZone.Add(minion2);
+    player2.currentTier = 3;
+
+    Battle battle(player1, player2);
+    battle.Run();
+
+    CHECK_EQ(battle.IsDone(), true);
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 0);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+
+    auto& p2Field = battle.GetPlayer2Field();
+    CHECK_EQ(p2Field[0].GetHealth(), 1);
+
+    CHECK_EQ(battle.GetResult(), BattleResult::PLAYER2_WIN);
+    CHECK_EQ(player1.hero.health, 36);
+    CHECK_EQ(player2.hero.health, 40);
+}
+
 TEST_CASE("[Battle] - Draw (0 attack minions only)")
 {
     Player player1, player2;
