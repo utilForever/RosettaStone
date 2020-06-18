@@ -92,6 +92,7 @@ class Minion
     int m_attack = 0;
     int m_health = 0;
 
+    bool m_hasTaunt = false;
     bool m_hasDivineShield = false;
     bool m_isDestroyed = false;
 };

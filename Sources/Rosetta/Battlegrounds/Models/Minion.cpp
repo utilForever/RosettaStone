@@ -18,9 +18,16 @@ Minion::Minion(Card card, int poolIdx)
 {
     for (const auto& tag : m_card.gameTags)
     {
-        if (tag.first == GameTag::DIVINE_SHIELD)
+        switch (tag.first)
         {
-            m_hasDivineShield = true;
+            case GameTag::TAUNT:
+                m_hasTaunt = true;
+                break;
+            case GameTag::DIVINE_SHIELD:
+                m_hasDivineShield = true;
+                break;
+            default:
+                break;
         }
     }
 }
@@ -72,13 +79,7 @@ int Minion::GetHealth() const
 
 bool Minion::HasTaunt() const
 {
-    if (const auto iter = m_card.gameTags.find(GameTag::TAUNT);
-        iter != m_card.gameTags.end())
-    {
-        return iter->second;
-    }
-
-    return false;
+    return m_hasTaunt;
 }
 
 bool Minion::HasDivineShield() const
