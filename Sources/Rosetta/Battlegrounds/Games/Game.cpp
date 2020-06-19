@@ -232,6 +232,8 @@ void Game::DetermineOpponent()
     // NOTE: Random player that you didn't fight. If there is an odd number of
     // players alive, bottom 3 have a chance to play the ghost. Can't fight a
     // ghost 2 turns in a row. Ghost is the 1 of the most recent players to die.
+    m_playerFightPair.clear();
+
     auto playerData = CalculateRank();
 
     // Check there is an odd number of players alive
