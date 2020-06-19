@@ -102,12 +102,13 @@ void Game::Start()
 
     // Create callback to process the tasks related to defeat
     auto processDefeatCallback = [this](Player& player) {
-        player.recruitFieldZone.ForEach([&](MinionData& minion) {
-            player.playState = PlayState::LOST;
+        player.playState = PlayState::LOST;
 
-            m_gameState.ghostPlayerIdx = player.idx;
+        player.recruitFieldZone.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
+
+        m_gameState.ghostPlayerIdx = player.idx;
     };
 
     std::size_t playerIdx = 0;
