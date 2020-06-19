@@ -59,6 +59,11 @@ class Game
     //! \param playerData The player data that stores index and rank.
     void PairPlayers(std::vector<std::tuple<int, int>>& playerData);
 
+    //! Finds the index of the opponent player to fight next.
+    //! \param playerIdx The index of the player to find opponent.
+    //! \return The index of the opponent player to fight next.
+    std::size_t FindPlayerNextFight(std::size_t playerIdx);
+
  private:
     GameState m_gameState{};
 

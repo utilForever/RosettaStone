@@ -345,4 +345,22 @@ void Game::PairPlayers(std::vector<std::tuple<int, int>>& playerData)
         break;
     }
 }
+
+std::size_t Game::FindPlayerNextFight(std::size_t playerIdx)
+{
+    for (const auto& fightPair : m_playerFightPair)
+    {
+        if (std::get<0>(fightPair) == playerIdx)
+        {
+            return std::get<1>(fightPair);
+        }
+
+        if (std::get<1>(fightPair) == playerIdx)
+        {
+            return std::get<0>(fightPair);
+        }
+    }
+
+    return std::numeric_limits<std::size_t>::max();
+}
 }  // namespace RosettaStone::Battlegrounds
