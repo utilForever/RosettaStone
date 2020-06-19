@@ -29,6 +29,7 @@ void Game::Start()
 
     // Initialize the minion pool
     m_gameState.minionPool.Initialize(m_excludeRace);
+    m_playerFightPair.reserve(NUM_BATTLEGROUNDS_PLAYERS / 2);
 
     // Create callback to increase player count and process next phase
     auto selectHeroCallback = [this](Player& player) {
