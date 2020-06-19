@@ -161,6 +161,9 @@ void Game::Recruit()
     // Initialize player count for callback
     m_playerCount = 0;
 
+    // Determine each player's opponent
+    DetermineOpponent();
+
     for (auto& player : m_gameState.players)
     {
         if (player.playState != PlayState::PLAYING)
@@ -201,9 +204,6 @@ void Game::Recruit()
 
 void Game::Combat()
 {
-    // Determine each player's opponent
-    DetermineOpponent();
-
     // Simulates a battle for each pair
     for (const auto& pair : m_playerFightPair)
     {
