@@ -43,7 +43,7 @@ class Game
     void GameOver();
 
     //! Determines each player's opponent.
-    std::vector<std::tuple<std::size_t, std::size_t>> DetermineOpponent();
+    void DetermineOpponent();
 
     //! Calculates the rank of players according to their health.
     //! \return A container that stores the player index and the rank.
@@ -57,15 +57,13 @@ class Game
 
     //! Pairs a list of players.
     //! \param playerData The player data that stores index and rank.
-    //! \param playerFightPair A pair list of players to fight.
-    void PairPlayers(
-        std::vector<std::tuple<int, int>>& playerData,
-        std::vector<std::tuple<std::size_t, std::size_t>>& playerFightPair);
+    void PairPlayers(std::vector<std::tuple<int, int>>& playerData);
 
  private:
     GameState m_gameState{};
 
     Race m_excludeRace = Race::INVALID;
+    std::vector<std::tuple<std::size_t, std::size_t>> m_playerFightPair;
     std::atomic<int> m_playerCount = 0;
 };
 }  // namespace RosettaStone::Battlegrounds

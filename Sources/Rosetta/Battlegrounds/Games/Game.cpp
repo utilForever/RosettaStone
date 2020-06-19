@@ -202,10 +202,10 @@ void Game::Recruit()
 void Game::Combat()
 {
     // Determine each player's opponent
-    auto playerFightPair = DetermineOpponent();
+    DetermineOpponent();
 
     // Simulates a battle for each pair
-    for (const auto& pair : playerFightPair)
+    for (const auto& pair : m_playerFightPair)
     {
         Battle battle(m_gameState.players.at(std::get<0>(pair)),
                       m_gameState.players.at(std::get<1>(pair)));
@@ -221,12 +221,11 @@ void Game::GameOver()
 {
 }
 
-std::vector<std::tuple<std::size_t, std::size_t>> Game::DetermineOpponent()
+void Game::DetermineOpponent()
 {
     // NOTE: Random player that you didn't fight. If there is an odd number of
     // players alive, bottom 3 have a chance to play the ghost. Can't fight a
     // ghost 2 turns in a row. Ghost is the 1 of the most recent players to die.
-    std::vector<std::tuple<std::size_t, std::size_t>> playerFightPair;
     auto playerData = CalculateRank();
 
     // Check there is an odd number of players alive
@@ -234,19 +233,17 @@ std::vector<std::tuple<std::size_t, std::size_t>> Game::DetermineOpponent()
     {
         // Determine player to fight the ghost
         const std::size_t playerIdx = DeterminePlayerToFightGhost(playerData);
-        playerFightPair.emplace_back(
+        m_playerFightPair.emplace_back(
             std::make_tuple(playerIdx, m_gameState.ghostPlayerIdx));
 
         // Pair a list of players
-        PairPlayers(playerData, playerFightPair);
+        PairPlayers(playerData);
     }
     else
     {
         // Pair a list of players
-        PairPlayers(playerData, playerFightPair);
+        PairPlayers(playerData);
     }
-
-    return playerFightPair;
 }
 
 std::vector<std::tuple<int, int>> Game::CalculateRank()
@@ -305,9 +302,7 @@ std::size_t Game::DeterminePlayerToFightGhost(
     return idx;
 }
 
-void Game::PairPlayers(
-    std::vector<std::tuple<int, int>>& playerData,
-    std::vector<std::tuple<std::size_t, std::size_t>>& playerFightPair)
+void Game::PairPlayers(std::vector<std::tuple<int, int>>& playerData)
 {
     // Shuffle indefinitely until the conditions are met
     while (true)
@@ -342,7 +337,7 @@ void Game::PairPlayers(
             const int player1Idx = std::get<0>(playerData.at(i));
             const int player2Idx = std::get<0>(playerData.at(i + 1));
 
-            playerFightPair.emplace_back(
+            m_playerFightPair.emplace_back(
                 std::make_tuple(player1Idx, player2Idx));
         }
 
