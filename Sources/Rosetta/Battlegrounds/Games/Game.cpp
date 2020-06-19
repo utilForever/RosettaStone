@@ -105,6 +105,7 @@ void Game::Start()
         player.recruitFieldZone.ForEach([&](MinionData& minion) {
             player.playState = PlayState::LOST;
 
+            m_gameState.ghostPlayerIdx = player.idx;
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
     };
