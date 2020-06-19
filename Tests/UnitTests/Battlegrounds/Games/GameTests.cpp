@@ -200,13 +200,11 @@ TEST_CASE("[Game] - DetermineOpponent")
     players.at(6).playerIdxFoughtLastTurn = 4;
     players.at(7).playerIdxFoughtLastTurn = 2;
 
-    auto result = game.DetermineOpponent();
-    for (const auto& pair : result)
+    game.DetermineOpponent();
+    for (auto& player : game.GetGameState().players)
     {
-        const std::size_t player1Idx = std::get<0>(pair);
-        const std::size_t player2Idx = std::get<1>(pair);
-
-        CHECK_NE(players.at(player1Idx).playerIdxFoughtLastTurn, player2Idx);
+        CHECK_NE(game.FindPlayerNextFight(player.idx),
+                 player.playerIdxFoughtLastTurn);
     }
 }
 
