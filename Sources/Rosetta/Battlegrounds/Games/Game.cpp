@@ -172,6 +172,9 @@ void Game::Recruit()
             continue;
         }
 
+        // Assign the index of the player to fight next.
+        player.playerIdxNextFight = FindPlayerNextFight(player.idx);
+
         // Set the value of coin (remain/total)
         if (player.totalCoin < COIN_UPPER_LIMIT)
         {

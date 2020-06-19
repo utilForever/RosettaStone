@@ -79,13 +79,6 @@ class Player
     FieldZone recruitFieldZone;
     FieldZone tavernFieldZone;
 
-    std::size_t playerIdxFoughtLastTurn =
-        std::numeric_limits<std::size_t>::max();
-    bool isFoughtGhostLastTurn = false;
-    bool freezeTavern = false;
-
-    std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
-
     std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
     std::function<void(int)> returnMinionCallback;
@@ -93,6 +86,15 @@ class Player
     std::function<void(Player&)> upgradeTavernCallback;
     std::function<void()> completeRecruitCallback;
     std::function<void(Player&)> processDefeatCallback;
+
+    std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
+
+    std::size_t playerIdxNextFight = std::numeric_limits<std::size_t>::max();
+    std::size_t playerIdxFoughtLastTurn =
+        std::numeric_limits<std::size_t>::max();
+
+    bool isFoughtGhostLastTurn = false;
+    bool freezeTavern = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 
