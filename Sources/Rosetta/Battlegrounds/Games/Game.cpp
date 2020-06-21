@@ -104,6 +104,10 @@ void Game::Start()
     auto processDefeatCallback = [this](Player& player) {
         player.playState = PlayState::LOST;
 
+        player.tavernFieldZone.ForEach([&](MinionData& minion) {
+            m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
+        });
+
         player.recruitFieldZone.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
@@ -323,8 +327,8 @@ void Game::PairPlayers(std::vector<std::tuple<int, int>>& playerData)
             const int player1Idx = std::get<0>(playerData.at(i));
             const int player2Idx = std::get<0>(playerData.at(i + 1));
 
-            // Check this player is the player you've been playing against
-            // before
+            // Check this player is the player you've been playing
+            // against before
             if (m_gameState.players.at(player1Idx).playerIdxFoughtLastTurn ==
                 static_cast<std::size_t>(player2Idx))
             {
