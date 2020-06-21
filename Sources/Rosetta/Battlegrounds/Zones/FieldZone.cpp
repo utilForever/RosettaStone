@@ -52,7 +52,7 @@ void FieldZone::Add(Minion& minion, int zonePos)
 
     m_minions[pos].value().SetZoneType(m_type);
 
-    Reposition(pos);
+    Reposition(zonePos);
 }
 
 const Minion FieldZone::Remove(Minion& minion)
