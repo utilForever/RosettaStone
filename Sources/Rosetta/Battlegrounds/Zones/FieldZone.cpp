@@ -67,14 +67,14 @@ const Minion FieldZone::Remove(Minion& minion)
 
     Minion result = m_minions.at(pos).value();
 
-    if (pos < --count)
+    if (pos < count--)
     {
         for (int i = pos + 1; i < MAX_FIELD_SIZE; ++i)
         {
             m_minions[i - 1] = m_minions[i];
         }
 
-        m_minions[MAX_FIELD_SIZE - 1] = std::nullopt;
+        m_minions[MAX_FIELD_SIZE - 1].reset();
     }
 
     m_count = count;
