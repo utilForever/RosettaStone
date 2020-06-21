@@ -253,3 +253,108 @@ TEST_CASE("[Game] - Freeze")
     CHECK_EQ(player1.tavernFieldZone.GetCount(), 3);
     CHECK_EQ(player1.remainCoin, 5);
 }
+
+TEST_CASE("[Game] - Ghost")
+{
+    Game game;
+    game.Start();
+
+    for (auto& player : game.GetGameState().players)
+    {
+        for (const auto& hero : player.heroChoices)
+        {
+            auto heroCard = Cards::FindCardByDbfID(hero);
+            CHECK_EQ(heroCard.GetCardType(), CardType::HERO);
+            CHECK_EQ(heroCard.isCurHero, true);
+        }
+
+        player.SelectHero(1);
+    }
+
+    auto minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
+    CHECK_EQ(static_cast<int>(minions.size()),
+             game.GetGameState().minionPool.GetCount() - 3 * 8);
+
+    auto& players = game.GetGameState().players;
+    players.at(0).hero.health = 40;
+    players.at(1).hero.health = 40;
+    players.at(2).hero.health = 40;
+    players.at(3).hero.health = 1;
+    players.at(4).hero.health = 0;
+    players.at(5).hero.health = 0;
+    players.at(6).hero.health = 0;
+    players.at(7).hero.health = 0;
+
+    players.at(4).playState = PlayState::LOST;
+    players.at(5).playState = PlayState::LOST;
+    players.at(6).playState = PlayState::LOST;
+    players.at(7).playState = PlayState::LOST;
+
+    players.at(4).ProcessDefeat();
+    players.at(5).ProcessDefeat();
+    players.at(6).ProcessDefeat();
+    players.at(7).ProcessDefeat();
+
+    players.at(0).remainCoin = 10;
+    players.at(1).remainCoin = 10;
+    players.at(2).remainCoin = 10;
+
+    players.at(0).PurchaseMinion(0);
+    players.at(0).PlayCard(0, 0);
+    players.at(0).PurchaseMinion(0);
+    players.at(0).PlayCard(0, 0);
+    players.at(0).PurchaseMinion(0);
+    players.at(0).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(2).PurchaseMinion(0);
+    players.at(2).PlayCard(0, 0);
+    players.at(2).PurchaseMinion(0);
+    players.at(2).PlayCard(0, 0);
+    players.at(2).PurchaseMinion(0);
+    players.at(2).PlayCard(0, 0);
+    players.at(3).PurchaseMinion(0);
+    players.at(3).PlayCard(0, 0);
+
+    players.at(0).remainCoin = 10;
+    players.at(1).remainCoin = 10;
+    players.at(2).remainCoin = 10;
+
+    players.at(0).RefreshTavern();
+    players.at(1).RefreshTavern();
+    players.at(2).RefreshTavern();
+
+    players.at(0).PurchaseMinion(0);
+    players.at(0).PlayCard(0, 0);
+    players.at(0).PurchaseMinion(0);
+    players.at(0).PlayCard(0, 0);
+    players.at(0).PurchaseMinion(0);
+    players.at(0).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(2).PurchaseMinion(0);
+    players.at(2).PlayCard(0, 0);
+    players.at(2).PurchaseMinion(0);
+    players.at(2).PlayCard(0, 0);
+
+    game.DetermineOpponent();
+
+    for (auto& player : game.GetGameState().players)
+    {
+        player.CompleteRecruit();
+    }
+
+    minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
+    CHECK_EQ(static_cast<int>(minions.size()),
+             game.GetGameState().minionPool.GetCount() - 3 * 9 + 1);
+
+    CHECK_EQ(game.GetGameState().ghostPlayerIdx, 3);
+}
