@@ -86,3 +86,58 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
     CHECK_EQ(player1.hero.health, 40);
     CHECK_EQ(player2.hero.health, 40);
 }
+
+TEST_CASE("[Battle] - Next Attacker")
+{
+    Player player1, player2;
+
+    Minion minion1(Cards::FindCardByDbfID(1915));
+    Minion minion2(Cards::FindCardByDbfID(1915));
+    Minion minion3(Cards::FindCardByDbfID(1915));
+    Minion minion4(Cards::FindCardByDbfID(1915));
+    Minion minion5(Cards::FindCardByDbfID(1915));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.recruitFieldZone.Add(minion1);
+    player1.recruitFieldZone.Add(minion2);
+    player1.recruitFieldZone.Add(minion3);
+    player2.recruitFieldZone.Add(minion4);
+    player2.recruitFieldZone.Add(minion5);
+
+    Battle battle(player1, player2);
+    battle.Initialize();
+
+    CHECK_EQ(battle.GetPlayer1NextAttacker(), 0);
+    CHECK_EQ(battle.GetPlayer2NextAttacker(), 0);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1NextAttacker(), 1);
+    CHECK_EQ(battle.GetPlayer2NextAttacker(), 0);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1NextAttacker(), 1);
+    CHECK_EQ(battle.GetPlayer2NextAttacker(), 1);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1NextAttacker(), 2);
+    CHECK_EQ(battle.GetPlayer2NextAttacker(), 1);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1NextAttacker(), 2);
+    CHECK_EQ(battle.GetPlayer2NextAttacker(), 0);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1NextAttacker(), 0);
+    CHECK_EQ(battle.GetPlayer2NextAttacker(), 0);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1NextAttacker(), 0);
+    CHECK_EQ(battle.GetPlayer2NextAttacker(), 1);
+}
