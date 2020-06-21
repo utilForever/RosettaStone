@@ -69,6 +69,14 @@ class Battle
     //! \return The field zone of player 2.
     const FieldZone& GetPlayer2Field() const;
 
+    //! Returns the index of next attacker of player 1.
+    //! \return The index of next attacker of player 1.
+    const int GetPlayer1NextAttacker() const;
+
+    //! Returns the index of next attacker of player 2.
+    //! \return The index of next attacker of player 2.
+    const int GetPlayer2NextAttacker() const;
+
     //! Returns the result of battle.
     //! \return The result of battle.
     BattleResult GetResult() const;
@@ -79,8 +87,8 @@ class Battle
     FieldZone m_p1Field;
     FieldZone m_p2Field;
 
-    std::size_t m_p1NextAttackerIdx = 0;
-    std::size_t m_p2NextAttackerIdx = 0;
+    int m_p1NextAttackerIdx = 0;
+    int m_p2NextAttackerIdx = 0;
 
     Turn m_turn = Turn::DONE;
     BattleResult m_result = BattleResult::DRAW;

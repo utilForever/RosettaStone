@@ -111,18 +111,18 @@ bool Battle::Attack()
 int Battle::FindAttacker()
 {
     FieldZone& fieldZone = (m_turn == Turn::PLAYER1) ? m_p1Field : m_p2Field;
-    std::size_t nextAttackerIdx =
+    int nextAttackerIdx =
         (m_turn == Turn::PLAYER1) ? m_p1NextAttackerIdx : m_p2NextAttackerIdx;
 
     for (int i = 0; i < fieldZone.GetCount(); ++i)
     {
         if (fieldZone[nextAttackerIdx].GetAttack() > 0)
         {
-            return static_cast<int>(nextAttackerIdx);
+            return nextAttackerIdx;
         }
 
         ++nextAttackerIdx;
-        if (nextAttackerIdx == static_cast<std::size_t>(fieldZone.GetCount()))
+        if (nextAttackerIdx == fieldZone.GetCount())
         {
             nextAttackerIdx = 0;
         }
@@ -269,6 +269,16 @@ const FieldZone& Battle::GetPlayer1Field() const
 const FieldZone& Battle::GetPlayer2Field() const
 {
     return m_p2Field;
+}
+
+const int Battle::GetPlayer1NextAttacker() const
+{
+    return m_p1NextAttackerIdx;
+}
+
+const int Battle::GetPlayer2NextAttacker() const
+{
+    return m_p2NextAttackerIdx;
 }
 
 BattleResult Battle::GetResult() const
