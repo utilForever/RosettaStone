@@ -30,7 +30,24 @@ enum class Phase
     SELECT_HERO,
     RECRUIT,
     COMBAT,
-    GAMEOVER
+    GAMEOVER,
+    COMPLETE
+};
+
+//! \brief An enumerator for identifying the turn in battle.
+enum class Turn
+{
+    PLAYER1,  //!< The first player.
+    PLAYER2,  //!< The second player.
+    DONE,     //!< The battle is done.
+};
+
+//! \brief An enumerator for identifying the result of battle.
+enum class BattleResult
+{
+    PLAYER1_WIN,  //!< Player 1 win.
+    PLAYER2_WIN,  //!< Player 2 win.
+    DRAW,         //!< Draw.
 };
 }  // namespace Battlegrounds
 }  // namespace RosettaStone

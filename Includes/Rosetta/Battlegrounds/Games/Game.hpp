@@ -10,6 +10,8 @@
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
 
 #include <atomic>
+#include <tuple>
+#include <vector>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -42,8 +44,33 @@ class Game
     //! Processes the game over phase.
     void GameOver();
 
+    //! Determines each player's opponent.
+    void DetermineOpponent();
+
+    //! Calculates the rank of players according to their health.
+    //! \return A container that stores the player index and the rank.
+    std::vector<std::tuple<int, int>> CalculateRank();
+
+    //! Determines the player to fight the ghost.
+    //! \param playerData The player data that stores index and rank.
+    //! \return The index of player to fight the ghost.
+    std::size_t DeterminePlayerToFightGhost(
+        std::vector<std::tuple<int, int>>& playerData);
+
+    //! Pairs a list of players.
+    //! \param playerData The player data that stores index and rank.
+    void PairPlayers(std::vector<std::tuple<int, int>>& playerData);
+
+    //! Finds the index of the opponent player to fight next.
+    //! \param playerIdx The index of the player to find opponent.
+    //! \return The index of the opponent player to fight next.
+    std::size_t FindPlayerNextFight(std::size_t playerIdx);
+
  private:
     GameState m_gameState{};
+
+    Race m_excludeRace = Race::INVALID;
+    std::vector<std::tuple<std::size_t, std::size_t>> m_playerFightPair;
     std::atomic<int> m_playerCount = 0;
 };
 }  // namespace RosettaStone::Battlegrounds

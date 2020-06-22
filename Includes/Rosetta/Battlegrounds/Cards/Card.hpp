@@ -26,6 +26,18 @@ class Card
     //! \return The value of card type.
     CardType GetCardType() const;
 
+    //! Returns the value of race.
+    //! \return The value of race.
+    Race GetRace() const;
+
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    int GetAttack() const;
+
+    //! Returns the value of health.
+    //! \return The value of health.
+    int GetHealth() const;
+
     //! Returns the value of tier.
     //! \return The value of tier.
     int GetTier() const;

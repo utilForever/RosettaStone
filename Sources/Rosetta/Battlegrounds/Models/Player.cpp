@@ -14,7 +14,7 @@ void Player::SelectHero(std::size_t idx)
     const auto heroCard = Cards::FindCardByDbfID(heroChoices.at(idx));
     hero.Initialize(heroCard);
 
-    selectHeroCallback();
+    selectHeroCallback(*this);
 }
 
 void Player::PrepareTavern()
@@ -29,7 +29,7 @@ void Player::PurchaseMinion(std::size_t idx)
         return;
     }
 
-    handZone.Add(tavernMinions.Remove(tavernMinions[idx]), -1);
+    handZone.Add(tavernFieldZone.Remove(tavernFieldZone[idx]), -1);
     remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
 
@@ -40,7 +40,7 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx)
     if (std::holds_alternative<Minion>(card))
     {
         auto minion = std::get<Minion>(card);
-        minions.Add(minion, fieldIdx);
+        recruitFieldZone.Add(minion, fieldIdx);
     }
     else
     {
@@ -50,7 +50,7 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx)
 
 void Player::SellMinion(std::size_t idx)
 {
-    const auto minion = minions.Remove(minions[idx]);
+    const auto minion = recruitFieldZone.Remove(recruitFieldZone[idx]);
     returnMinionCallback(minion.GetPoolIndex());
 
     remainCoin += 1;
@@ -74,20 +74,36 @@ void Player::RefreshTavern()
         return;
     }
 
-    clearTavernMinionsCallback(tavernMinions);
+    clearTavernMinionsCallback(tavernFieldZone);
     remainCoin -= NUM_COIN_REFRESH_TAVERN;
 
     prepareTavernMinionsCallback(*this);
 }
 
+void Player::FreezeTavern()
+{
+    freezeTavern = !freezeTavern;
+}
+
 void Player::RearrangeMinion(std::size_t curIdx, std::size_t newIdx)
 {
-    if (curIdx == newIdx || static_cast<int>(curIdx) >= minions.GetCount() ||
-        static_cast<int>(newIdx) >= minions.GetCount())
+    if (curIdx == newIdx ||
+        static_cast<int>(curIdx) >= recruitFieldZone.GetCount() ||
+        static_cast<int>(newIdx) >= recruitFieldZone.GetCount())
     {
         return;
     }
 
-    minions.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
+    recruitFieldZone.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
+}
+
+void Player::CompleteRecruit() const
+{
+    completeRecruitCallback();
+}
+
+void Player::ProcessDefeat()
+{
+    processDefeatCallback(*this);
 }
 }  // namespace RosettaStone::Battlegrounds

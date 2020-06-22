@@ -13,6 +13,7 @@
 
 #include <array>
 #include <functional>
+#include <limits>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -50,10 +51,23 @@ class Player
     //! Refreshes a list of minions in Tavern's field.
     void RefreshTavern();
 
+    //! Freezes a list of minions in Tavern's field.
+    void FreezeTavern();
+
     //! Rearranges a minion to another position on player's field.
     //! \param curIdx The current index of minion.
     //! \param newIdx The new index of minion.
     void RearrangeMinion(std::size_t curIdx, std::size_t newIdx);
+
+    //! Completes recruit phase.
+    void CompleteRecruit() const;
+
+    //! Processes the tasks related to defeat.
+    void ProcessDefeat();
+
+    PlayState playState = PlayState::INVALID;
+    std::size_t idx = 0;
+    std::size_t rank = 1;
 
     Hero hero;
 
@@ -63,16 +77,25 @@ class Player
     int coinToUpgradeTavern = 0;
 
     HandZone handZone;
-    FieldZone minions;
-    FieldZone tavernMinions;
+    FieldZone recruitFieldZone;
+    FieldZone tavernFieldZone;
 
-    std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
-
-    std::function<void()> selectHeroCallback;
+    std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
     std::function<void(int)> returnMinionCallback;
     std::function<void(FieldZone&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
+    std::function<void()> completeRecruitCallback;
+    std::function<void(Player&)> processDefeatCallback;
+
+    std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
+
+    std::size_t playerIdxNextFight = std::numeric_limits<std::size_t>::max();
+    std::size_t playerIdxFoughtLastTurn =
+        std::numeric_limits<std::size_t>::max();
+
+    bool isFoughtGhostLastTurn = false;
+    bool freezeTavern = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 

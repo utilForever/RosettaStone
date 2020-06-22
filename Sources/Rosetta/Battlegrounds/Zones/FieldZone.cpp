@@ -15,6 +15,11 @@ Minion& FieldZone::operator[](int zonePos)
     return m_minions.at(zonePos).value();
 }
 
+const Minion& FieldZone::operator[](int zonePos) const
+{
+    return m_minions.at(zonePos).value();
+}
+
 void FieldZone::Add(Minion& minion, int zonePos)
 {
     if (zonePos > m_count)
@@ -47,7 +52,7 @@ void FieldZone::Add(Minion& minion, int zonePos)
 
     m_minions[pos].value().SetZoneType(m_type);
 
-    Reposition(pos);
+    Reposition(zonePos);
 }
 
 const Minion FieldZone::Remove(Minion& minion)
@@ -62,14 +67,14 @@ const Minion FieldZone::Remove(Minion& minion)
 
     Minion result = m_minions.at(pos).value();
 
-    if (pos < --count)
+    if (pos < count--)
     {
         for (int i = pos + 1; i < MAX_FIELD_SIZE; ++i)
         {
             m_minions[i - 1] = m_minions[i];
         }
 
-        m_minions[MAX_FIELD_SIZE - 1] = std::nullopt;
+        m_minions[MAX_FIELD_SIZE - 1].reset();
     }
 
     m_count = count;

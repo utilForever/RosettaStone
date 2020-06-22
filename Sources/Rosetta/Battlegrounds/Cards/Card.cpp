@@ -16,6 +16,36 @@ CardType Card::GetCardType() const
     return static_cast<CardType>(gameTags.at(GameTag::CARDTYPE));
 }
 
+Race Card::GetRace() const
+{
+    if (gameTags.find(GameTag::CARDRACE) == gameTags.end())
+    {
+        return Race::INVALID;
+    }
+
+    return static_cast<Race>(gameTags.at(GameTag::CARDRACE));
+}
+
+int Card::GetAttack() const
+{
+    if (gameTags.find(GameTag::ATK) == gameTags.end())
+    {
+        return 0;
+    }
+
+    return gameTags.at(GameTag::ATK);
+}
+
+int Card::GetHealth() const
+{
+    if (gameTags.find(GameTag::HEALTH) == gameTags.end())
+    {
+        return 0;
+    }
+
+    return gameTags.at(GameTag::HEALTH);
+}
+
 int Card::GetTier() const
 {
     if (gameTags.find(GameTag::TECH_LEVEL) == gameTags.end())

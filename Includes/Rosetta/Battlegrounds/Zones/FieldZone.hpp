@@ -36,6 +36,11 @@ class FieldZone
     //! \return The minion at \p zonePos.
     Minion& operator[](int zonePos);
 
+    //! Operator overloading for operator[].
+    //! \param zonePos The zone position of minion.
+    //! \return The minion at \p zonePos.
+    const Minion& operator[](int zonePos) const;
+
     //! Adds the specified minion into this zone, at the given position.
     //! \param minion The minion to add.
     //! \param zonePos The zone position.
@@ -66,6 +71,34 @@ class FieldZone
     //! Returns a value indicating whether this zone is full.
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;
+
+    //! Runs \p functor on each minion.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEach(Functor&& functor)
+    {
+        for (auto& minion : m_minions)
+        {
+            if (minion.has_value())
+            {
+                functor(minion);
+            }
+        }
+    }
+
+    //! Runs \p functor on each minion.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEach(Functor&& functor) const
+    {
+        for (const auto& minion : m_minions)
+        {
+            if (minion.has_value())
+            {
+                functor(minion);
+            }
+        }
+    }
 
  private:
     const ZoneType m_type = ZoneType::PLAY;

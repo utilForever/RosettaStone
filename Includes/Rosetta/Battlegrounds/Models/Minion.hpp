@@ -34,6 +34,10 @@ class Minion
     //! \return The value of pool index.
     int GetPoolIndex() const;
 
+    //! Returns the value of race.
+    //! \return The value of race.
+    Race GetRace() const;
+
     //! Returns the value of zone type.
     //! \return The value of zone type.
     ZoneType GetZoneType() const;
@@ -50,8 +54,33 @@ class Minion
     //! \param pos The value of zone position.
     void SetZonePosition(int pos);
 
-    //! Returns the tier of the minion.
+    //! Returns the value of tier.
+    //! \return The value of tier.
     int GetTier() const;
+
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    int GetAttack() const;
+
+    //! Returns the value of health.
+    //! \return The value of health.
+    int GetHealth() const;
+
+    //! Returns the flag that indicates whether it has taunt.
+    //! \return The flag that indicates whether it has taunt.
+    bool HasTaunt() const;
+
+    //! Returns the flag that indicates whether it has divine shield.
+    //! \return The flag that indicates whether it has divine shield.
+    bool HasDivineShield() const;
+
+    //! Takes damage from a certain other minion.
+    //! \param source A minion to give damage.
+    void TakeDamage(Minion& source);
+
+    //! Returns the flag that indicates whether it is destroyed.
+    //! \return The flag that indicates whether it is destroyed.
+    bool IsDestroyed() const;
 
  private:
     Card m_card;
@@ -59,6 +88,13 @@ class Minion
 
     ZoneType m_zoneType = ZoneType::INVALID;
     int m_zonePos = -1;
+
+    int m_attack = 0;
+    int m_health = 0;
+
+    bool m_hasTaunt = false;
+    bool m_hasDivineShield = false;
+    bool m_isDestroyed = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 
