@@ -56,6 +56,34 @@ class HandZone
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;
 
+    //! Runs \p functor on each card.
+    //! \param functor A function to run for each card.
+    template <typename Functor>
+    void ForEach(Functor&& functor)
+    {
+        for (auto& card : m_cards)
+        {
+            if (card.has_value())
+            {
+                functor(card);
+            }
+        }
+    }
+
+    //! Runs \p functor on each card.
+    //! \param functor A function to run for each card.
+    template <typename Functor>
+    void ForEach(Functor&& functor) const
+    {
+        for (const auto& card : m_cards)
+        {
+            if (card.has_value())
+            {
+                functor(card);
+            }
+        }
+    }
+
  private:
     const ZoneType m_type = ZoneType::HAND;
 
