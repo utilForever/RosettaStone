@@ -67,6 +67,7 @@ class Player
 
     PlayState playState = PlayState::INVALID;
     std::size_t idx = 0;
+    std::size_t rank = 1;
 
     Hero hero;
 
