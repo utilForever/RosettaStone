@@ -71,11 +71,11 @@ class Battle
 
     //! Returns the index of next attacker of player 1.
     //! \return The index of next attacker of player 1.
-    const int GetPlayer1NextAttacker() const;
+    int GetPlayer1NextAttacker() const;
 
     //! Returns the index of next attacker of player 2.
     //! \return The index of next attacker of player 2.
-    const int GetPlayer2NextAttacker() const;
+    int GetPlayer2NextAttacker() const;
 
     //! Returns the result of battle.
     //! \return The result of battle.

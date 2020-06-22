@@ -326,12 +326,12 @@ const FieldZone& Battle::GetPlayer2Field() const
     return m_p2Field;
 }
 
-const int Battle::GetPlayer1NextAttacker() const
+int Battle::GetPlayer1NextAttacker() const
 {
     return m_p1NextAttackerIdx;
 }
 
-const int Battle::GetPlayer2NextAttacker() const
+int Battle::GetPlayer2NextAttacker() const
 {
     return m_p2NextAttackerIdx;
 }
