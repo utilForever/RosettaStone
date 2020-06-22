@@ -250,6 +250,7 @@ void Game::Combat()
 
 void Game::GameOver()
 {
+    m_gameState.phase = Phase::COMPLETE;
 }
 
 void Game::DetermineOpponent()

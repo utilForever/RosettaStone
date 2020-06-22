@@ -30,7 +30,8 @@ enum class Phase
     SELECT_HERO,
     RECRUIT,
     COMBAT,
-    GAMEOVER
+    GAMEOVER,
+    COMPLETE
 };
 
 //! \brief An enumerator for identifying the turn in battle.
