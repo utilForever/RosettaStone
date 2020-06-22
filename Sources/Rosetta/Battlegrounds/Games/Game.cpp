@@ -108,6 +108,14 @@ void Game::Start()
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 
+        player.handZone.ForEach([&](std::optional<CardData>& card) {
+            if (std::holds_alternative<Minion>(card.value()))
+            {
+                const auto minion = std::get<Minion>(card.value());
+                m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
+            }
+        });
+
         player.recruitFieldZone.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
