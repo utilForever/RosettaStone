@@ -104,6 +104,10 @@ void Game::Start()
     auto processDefeatCallback = [this](Player& player) {
         player.playState = PlayState::LOST;
 
+        // Determine player's rank
+        player.rank = m_gameState.numRemainPlayer;
+        --m_gameState.numRemainPlayer;
+
         player.tavernFieldZone.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
