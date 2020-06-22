@@ -10,6 +10,8 @@
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
 
 #include <atomic>
+#include <tuple>
+#include <vector>
 
 namespace RosettaStone::Battlegrounds
 {
