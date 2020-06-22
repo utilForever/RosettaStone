@@ -177,6 +177,15 @@ void Game::SelectHero()
 
 void Game::Recruit()
 {
+    // Check this game is over
+    if (m_gameState.numRemainPlayer == 1)
+    {
+        // Set next phase
+        m_gameState.nextPhase = Phase::GAMEOVER;
+        GameManager::ProcessNextPhase(*this, m_gameState.nextPhase);
+        return;
+    }
+
     // Initialize player count for callback
     m_playerCount = 0;
 
