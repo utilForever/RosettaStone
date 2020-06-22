@@ -285,11 +285,6 @@ TEST_CASE("[Game] - Ghost")
     players.at(6).hero.health = 0;
     players.at(7).hero.health = 0;
 
-    players.at(4).playState = PlayState::LOST;
-    players.at(5).playState = PlayState::LOST;
-    players.at(6).playState = PlayState::LOST;
-    players.at(7).playState = PlayState::LOST;
-
     players.at(4).ProcessDefeat();
     players.at(5).ProcessDefeat();
     players.at(6).ProcessDefeat();
@@ -357,4 +352,70 @@ TEST_CASE("[Game] - Ghost")
              game.GetGameState().minionPool.GetCount() - 3 * 9 + 1);
 
     CHECK_EQ(game.GetGameState().ghostPlayerIdx, 3);
+}
+
+TEST_CASE("[Game] - Rank")
+{
+    Game game;
+    game.Start();
+
+    for (auto& player : game.GetGameState().players)
+    {
+        for (const auto& hero : player.heroChoices)
+        {
+            auto heroCard = Cards::FindCardByDbfID(hero);
+            CHECK_EQ(heroCard.GetCardType(), CardType::HERO);
+            CHECK_EQ(heroCard.isCurHero, true);
+        }
+
+        player.SelectHero(1);
+    }
+
+    auto minions = game.GetGameState().minionPool.GetMinions(1, 6, true);
+    CHECK_EQ(static_cast<int>(minions.size()),
+             game.GetGameState().minionPool.GetCount() - 3 * 8);
+
+    auto& players = game.GetGameState().players;
+    players.at(0).hero.health = 1;
+    players.at(1).hero.health = 1;
+    players.at(2).hero.health = 0;
+    players.at(3).hero.health = 0;
+    players.at(4).hero.health = 0;
+    players.at(5).hero.health = 0;
+    players.at(6).hero.health = 0;
+    players.at(7).hero.health = 0;
+
+    players.at(2).ProcessDefeat();
+    players.at(3).ProcessDefeat();
+    players.at(4).ProcessDefeat();
+    players.at(5).ProcessDefeat();
+    players.at(6).ProcessDefeat();
+    players.at(7).ProcessDefeat();
+
+    players.at(1).remainCoin = 10;
+
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+    players.at(1).PurchaseMinion(0);
+    players.at(1).PlayCard(0, 0);
+
+    game.DetermineOpponent();
+
+    for (auto& player : game.GetGameState().players)
+    {
+        player.CompleteRecruit();
+    }
+
+    CHECK_EQ(game.GetGameState().phase, Phase::COMPLETE);
+
+    CHECK_EQ(players.at(0).rank, 2);
+    CHECK_EQ(players.at(1).rank, 1);
+    CHECK_EQ(players.at(2).rank, 8);
+    CHECK_EQ(players.at(3).rank, 7);
+    CHECK_EQ(players.at(4).rank, 6);
+    CHECK_EQ(players.at(5).rank, 5);
+    CHECK_EQ(players.at(6).rank, 4);
+    CHECK_EQ(players.at(7).rank, 3);
 }
