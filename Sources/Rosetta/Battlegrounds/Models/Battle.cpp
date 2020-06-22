@@ -278,15 +278,11 @@ bool Battle::IsDone() const
 
 void Battle::ProcessResult()
 {
-    if (m_p1Field.IsEmpty() && m_p2Field.IsEmpty())
-    {
-        m_result = BattleResult::DRAW;
-    }
-    else if (m_p1Field.IsEmpty())
+    if (m_p1Field.IsEmpty() && !m_p2Field.IsEmpty())
     {
         m_result = BattleResult::PLAYER2_WIN;
     }
-    else if (m_p2Field.IsEmpty())
+    else if (!m_p1Field.IsEmpty() && m_p2Field.IsEmpty())
     {
         m_result = BattleResult::PLAYER1_WIN;
     }
