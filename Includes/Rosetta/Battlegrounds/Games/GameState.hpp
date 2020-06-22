@@ -29,6 +29,7 @@ struct GameState
     MinionPool minionPool;
 
     std::array<Player, NUM_BATTLEGROUNDS_PLAYERS> players;
+    std::size_t numRemainPlayer = NUM_BATTLEGROUNDS_PLAYERS;
     std::size_t ghostPlayerIdx = std::numeric_limits<std::size_t>::max();
 };
 }  // namespace RosettaStone::Battlegrounds
