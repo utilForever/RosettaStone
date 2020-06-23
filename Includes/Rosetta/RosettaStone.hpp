@@ -9,6 +9,7 @@
 
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
 #include <Rosetta/Battlegrounds/Loaders/CardLoader.hpp>
