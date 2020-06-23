@@ -94,10 +94,10 @@ TEST_CASE("[Demon Hunter : Spell] - BT_173 : Command the Illidari")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
-// [BT_175] Twin Slice - COST:0
+// [BT_175] Twin Slice - COST:1
 // - Set: Demon Hunter Initiate, Rarity: Common
 // --------------------------------------------------------
-// Text: Give your hero +1 Attack this turn.
+// Text: Give your hero +2 Attack this turn.
 //       Add 'Second Slice' to your hand.
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Spell] - BT_175 : Twin Slice")
@@ -129,12 +129,14 @@ TEST_CASE("[Demon Hunter : Spell] - BT_175 : Twin Slice")
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Second Slice");
 
     game.Process(curPlayer, PlayCardTask::Spell(curHand[4]));
-    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

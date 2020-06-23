@@ -48,10 +48,10 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_173", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_175] Twin Slice - COST:0
+    // [BT_175] Twin Slice - COST:1
     // - Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your hero +1 Attack this turn.
+    // Text: Give your hero +2 Attack this turn.
     //       Add 'Second Slice' to your hand.
     // --------------------------------------------------------
     power.ClearData();
@@ -432,7 +432,7 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     // [BT_175e] Twin Slice (*) - COST:0
     // - Set: Demon Hunter Initiate
     // --------------------------------------------------------
-    // Text: Your hero has +1 Attack this turn.
+    // Text: Your hero has +2 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
@@ -442,10 +442,10 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     cards.emplace("BT_175e", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_175t] Second Slice - COST:0
+    // [BT_175t] Second Slice - COST:1
     // - Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your hero +1 Attack this turn.
+    // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
