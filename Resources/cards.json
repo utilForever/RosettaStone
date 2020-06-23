@@ -4638,7 +4638,7 @@
         "cardClass": "HUNTER",
         "cost": 3,
         "dbfId": 62162,
-        "health": 1,
+        "health": 2,
         "id": "BGS_075",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4649,7 +4649,7 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
+        "techLevel": 2,
         "text": "After you play a minion with <b>Deathrattle</b>, gain +1/+1.",
         "type": "MINION"
     },
@@ -4697,7 +4697,7 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
+        "techLevel": 3,
         "text": "[x]After this attacks,\ntrigger a random friendly\nminion's <b>Deathrattle</b>.",
         "type": "MINION"
     },
@@ -15145,14 +15145,14 @@
         "artist": "Maria Trepalina",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 0,
+        "cost": 1,
         "dbfId": 56928,
         "flavor": "The slice so nice, it'll cut you twice.",
         "id": "BT_175",
         "name": "Twin Slice",
         "rarity": "COMMON",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "Give your hero +1 Attack this turn. Add 'Second Slice' to your hand.",
+        "text": "Give your hero +2 Attack this turn. Add 'Second Slice' to your hand.",
         "type": "SPELL"
     },
     {
@@ -15165,18 +15165,18 @@
         "name": "Twin Slice",
         "race": "DEMON",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "Your hero has +1 Attack this turn.",
+        "text": "Your hero has +2 Attack this turn.",
         "type": "ENCHANTMENT"
     },
     {
         "artist": "Maria Trepalina",
         "cardClass": "DEMONHUNTER",
-        "cost": 0,
+        "cost": 1,
         "dbfId": 56935,
         "id": "BT_175t",
         "name": "Second Slice",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "Give your hero +1 Attack this turn.",
+        "text": "Give your hero +2 Attack this turn.",
         "type": "SPELL"
     },
     {
@@ -17532,7 +17532,6 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(turn, turns).",
         "dbfId": 60595,
         "id": "BT_737e",
         "mechanics": [
@@ -17540,7 +17539,7 @@
         ],
         "name": "Imprisoned",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Dormant</b>. Awaken in",
+        "text": "<b>Dormant</b>. Awaken in 2 turns.",
         "type": "ENCHANTMENT"
     },
     {
@@ -17744,7 +17743,6 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(Warder dies, Warders die).",
         "dbfId": 60947,
         "id": "BT_850e",
         "mechanics": [
@@ -17752,7 +17750,7 @@
         ],
         "name": "Imprisoned",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Dormant</b>. Awaken after",
+        "text": "<b>Dormant</b>. Awaken after 3 Warders die.",
         "type": "ENCHANTMENT"
     },
     {
@@ -18080,7 +18078,6 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(Demon dies, Demons die).",
         "dbfId": 62103,
         "id": "BTA_09e",
         "mechanics": [
@@ -18088,7 +18085,7 @@
         ],
         "name": "Dormant Shalja",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Dormant</b>. Awakens after",
+        "text": "<b>Dormant</b>. Awakens after 4 Demons die.",
         "type": "ENCHANTMENT"
     },
     {
@@ -18451,14 +18448,13 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(Spare Part, Spare Parts) to Repair",
         "dbfId": 62144,
         "elite": true,
         "health": 20,
         "id": "BTA_BOSS_06te",
         "name": "Repairs Required",
         "set": "BLACK_TEMPLE",
-        "text": "Play",
+        "text": "Play 12 Spare Parts to Repair",
         "type": "ENCHANTMENT"
     },
     {
@@ -18992,7 +18988,6 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(turn, turns).",
         "dbfId": 62951,
         "hideStats": true,
         "id": "BTA_BOSS_16se",
@@ -19001,13 +18996,12 @@
         ],
         "name": "Demonic Forging",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Dormant</b>. Awaken in",
+        "text": "<b>Dormant</b>. Awaken in 2 turns.",
         "type": "ENCHANTMENT"
     },
     {
         "attack": 0,
         "cardClass": "WARLOCK",
-        "collectionText": "</b>\n<b>Deathrattle:</b> Go <b>Dormant</b> for 3 turns.",
         "cost": 0,
         "dbfId": 61921,
         "health": 3,
@@ -19020,13 +19014,12 @@
         "race": "MECHANICAL",
         "set": "BLACK_TEMPLE",
         "spellDamage": 1,
-        "text": "<b>Spell Damage +",
+        "text": "<b>Spell Damage +1</b>\n<b>Deathrattle:</b> Go <b>Dormant</b> for 3 turns.",
         "type": "MINION"
     },
     {
         "attack": 0,
         "cardClass": "WARLOCK",
-        "collectionText": "[x]After you summon\na minion, give it +",
         "cost": 0,
         "dbfId": 61922,
         "health": 2,
@@ -19038,7 +19031,7 @@
         "name": "Hatred Reactor",
         "race": "MECHANICAL",
         "set": "BLACK_TEMPLE",
-        "text": "[x]After you summon\na minion, give it +@/+@.\n<b>Deathrattle:</b> Go <b>Dormant</b>\nfor 3 turns.",
+        "text": "[x]After you summon\na minion, give it +1/+1.\n<b>Deathrattle:</b> Go <b>Dormant</b>\nfor 3 turns.",
         "type": "MINION"
     },
     {
@@ -21044,13 +21037,12 @@
     {
         "artist": "Konstantin Turovec",
         "cardClass": "NEUTRAL",
-        "collectionText": "Polymorph a random enemy minion.",
         "cost": 5,
         "dbfId": 41617,
         "id": "CFM_621t21",
         "name": "Mystic Wool",
         "set": "GANGS",
-        "text": "Transform a random enemy minion into a 1/1 Sheep.",
+        "text": "Transform a random enemy minion into a 1/1 Sheep.1Polymorph a random enemy minion.",
         "type": "SPELL"
     },
     {
@@ -28249,7 +28241,6 @@
         "artist": "Jim Nelson",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "collectionText": "Summon 1 1/1 |4(Imp, Imps). <i>(Upgrades each turn!)</i>",
         "cost": 3,
         "dbfId": 51371,
         "flavor": "\"When your first plan fails... imp-rovise.\"",
@@ -28257,14 +28248,13 @@
         "name": "Rafaam's Scheme",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "Summon @ 1/1 |4(Imp, Imps). <i>(Upgrades each turn!)</i>",
+        "text": "Summon 1 1/1 Imp. <i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "Konstantin Turovec",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "collectionText": "Gain 1 Armor.\n<i>(Upgrades each turn!)</i>",
         "cost": 4,
         "dbfId": 51372,
         "flavor": "“We did it! We blew up the vault!”\n“You mean the vault door?”\n“Oh. The doooor…”",
@@ -28272,14 +28262,13 @@
         "name": "Dr. Boom's Scheme",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "Gain @ Armor.\n<i>(Upgrades each turn!)</i>",
+        "text": "Gain 1 Armor.\n<i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "Arthur Gimaldinov",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": "Deal $1 damage\nto all minions.\n<i>(Upgrades each turn!)</i>",
         "cost": 5,
         "dbfId": 51373,
         "flavor": "\"All shall suffer!\"\n\"But Hagatha, those are your minions...\"\n\"I said ALL!!!\"",
@@ -28287,14 +28276,13 @@
         "name": "Hagatha's Scheme",
         "rarity": "RARE",
         "set": "DALARAN",
-        "text": "Deal $@ damage\nto all minions.\n<i>(Upgrades each turn!)</i>",
+        "text": "Deal $1 damage\nto all minions.\n<i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "Konstantin Turovec",
         "cardClass": "ROGUE",
         "collectible": true,
-        "collectionText": "Choose a minion. Shuffle 1 |4(copy, copies) of it into your deck.\n<i>(Upgrades each turn!)</i>",
         "cost": 1,
         "dbfId": 51375,
         "flavor": "\"Many minions equals many treasures for king. Kobold arithmetic!\"",
@@ -28302,14 +28290,13 @@
         "name": "Togwaggle's Scheme",
         "rarity": "RARE",
         "set": "DALARAN",
-        "text": "Choose a minion. Shuffle @ |4(copy, copies) of it into your deck.\n<i>(Upgrades each turn!)</i>",
+        "text": "Choose a minion. Shuffle 1 copy of it into your deck.\n<i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "J. Axer",
         "cardClass": "PRIEST",
         "collectible": true,
-        "collectionText": "Reduce the Attack of an enemy minion by\n1 until your next turn. <i>(Upgrades each turn!)</i>",
         "cost": 0,
         "dbfId": 51376,
         "flavor": "\"What's that you're dreaming?\nYou're weak and you're screaming!\nIt must be my scheming...\"",
@@ -28317,7 +28304,7 @@
         "name": "Lazul's Scheme",
         "rarity": "EPIC",
         "set": "DALARAN",
-        "text": "Reduce the Attack of an enemy minion by\n@ until your next turn. <i>(Upgrades each turn!)</i>",
+        "text": "Reduce the Attack of an enemy minion by\n1 until your next turn. <i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
@@ -29384,7 +29371,6 @@
     {
         "attack": 0,
         "cardClass": "DRUID",
-        "collectionText": " left!)</i>",
         "cost": 11,
         "dbfId": 51796,
         "health": 1,
@@ -29396,7 +29382,7 @@
         ],
         "name": "Spirit of Lucentbark",
         "set": "DALARAN",
-        "text": "<b>Dormant</b>\nWhen you restore 5 Health, awaken this minion.\n<i>(",
+        "text": "<b>Dormant</b>\nWhen you restore 5 Health, awaken this minion.\n<i>(5 left!)</i>",
         "type": "MINION"
     },
     {
@@ -32226,13 +32212,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": "[x]Deal $",
         "cost": 3,
         "dbfId": 55348,
         "id": "DALA_726",
         "name": "Master Scheme",
         "set": "DALARAN",
-        "text": "[x]Deal $@ damage. Draw\n@ |4(card, cards). Gain @ Armor.\nSummon @ <b>Boom |4(Bot, Bots)</b>.\n<i>(Upgrades each turn!)</i>",
+        "text": "[x]Deal $1 damage. Draw\n1 card. Gain 1 Armor.\nSummon 1 <b>Boom |4(Bot, Bots)</b>.\n<i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
@@ -34008,26 +33993,24 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " damage remaining)</i>",
         "cost": 0,
         "dbfId": 54078,
         "hideStats": true,
         "id": "DALA_BOSS_07p",
         "name": "Take Flight!",
         "set": "DALARAN",
-        "text": "[x]<b>Passive Hero Power</b>\nAfter taking 15 damage,\nBelnaara will take flight.\n<i>(",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter taking 15 damage,\nBelnaara will take flight.\n<i>(15 damage remaining)</i>",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " turns remaining)</i>",
         "cost": 0,
         "dbfId": 56700,
         "hideStats": true,
         "id": "DALA_BOSS_07p2",
         "name": "Flying!",
         "set": "DALARAN",
-        "text": "[x]<b>Passive Hero Power</b>\nBelnaara will land in 2 turns.\n<i>(",
+        "text": "[x]<b>Passive Hero Power</b>\nBelnaara will land in 2 turns.\n<i>(2 turns remaining)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -35318,24 +35301,22 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " damage to\nthe enemy hero.\n<i>(increases each use)</i>",
         "cost": 3,
         "dbfId": 54294,
         "id": "DALA_BOSS_45p",
         "name": "Ray of Suffering",
         "set": "DALARAN",
-        "text": "[x]<b>Hero Power</b>\nDeal",
+        "text": "[x]<b>Hero Power</b>\nDeal 1 damage to\nthe enemy hero.\n<i>(increases each use)</i>",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " damage to\nthe enemy hero.\n<i>(increases each use)</i>",
         "cost": 2,
         "dbfId": 56025,
         "id": "DALA_BOSS_45px",
         "name": "Ray of Suffering",
         "set": "DALARAN",
-        "text": "[x]<b>Hero Power</b>\nDeal",
+        "text": "[x]<b>Hero Power</b>\nDeal 1 damage to\nthe enemy hero.\n<i>(increases each use)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -42898,7 +42879,6 @@
     },
     {
         "cardClass": "WARLOCK",
-        "collectionText": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.",
         "cost": 2,
         "dbfId": 60507,
         "id": "DRGA_BOSS_07p2",
@@ -42907,12 +42887,11 @@
         ],
         "name": "Summon Galakrond",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.@ <i>({0} left!)</i>@",
+        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.5 <i>({0} left!)</i>5",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "WARLOCK",
-        "collectionText": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.",
         "cost": 2,
         "dbfId": 60565,
         "id": "DRGA_BOSS_07p3",
@@ -42921,7 +42900,7 @@
         ],
         "name": "Summon Galakrond",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.@ <i>({0} left!)</i>@",
+        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.5 <i>({0} left!)</i>5",
         "type": "HERO_POWER"
     },
     {
@@ -44353,7 +44332,6 @@
     {
         "attack": 0,
         "cardClass": "NEUTRAL",
-        "collectionText": "\ndamage to enemies\nopposite this minion.\n<i>(Increases each turn!)</i>",
         "cost": 4,
         "dbfId": 58668,
         "health": 8,
@@ -44364,7 +44342,7 @@
             "AUTOATTACK"
         ],
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "[x]<b>Auto-Attack:</b> Deal",
+        "text": "[x]<b>Auto-Attack:</b> Deal 1\ndamage to enemies\nopposite this minion.\n<i>(Increases each turn!)</i>",
         "type": "MINION"
     },
     {
@@ -49469,7 +49447,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "techLevel": 2,
+        "techLevel": 1,
         "text": "Whenever a friendly Beast dies, gain +2/+1.",
         "type": "MINION"
     },
@@ -58972,7 +58950,6 @@
         "artist": "Arthur Bozonnet",
         "attack": 0,
         "cardClass": "NEUTRAL",
-        "collectionText": " damage to the enemies opposite of this minion.",
         "cost": 0,
         "dbfId": 47639,
         "health": 3,
@@ -58983,7 +58960,7 @@
         ],
         "name": "Cannon",
         "set": "GILNEAS",
-        "text": "Deal",
+        "text": "Deal 1 damage to the enemies opposite of this minion.",
         "type": "MINION"
     },
     {
@@ -69931,7 +69908,6 @@
     },
     {
         "cardClass": "DEATHKNIGHT",
-        "collectionText": " damage to the enemy hero. +1 Damage each time.",
         "cost": 0,
         "dbfId": 45698,
         "id": "ICCA08_030p",
@@ -69940,7 +69916,7 @@
         ],
         "name": "Remorseless Winter",
         "set": "ICECROWN",
-        "text": "<b>Hero Power</b>\nDeal",
+        "text": "<b>Hero Power</b>\nDeal 1 damage to the enemy hero. +1 Damage each time.",
         "type": "HERO_POWER"
     },
     {
@@ -77039,7 +77015,6 @@
         "artist": "Jim Nelson",
         "cardClass": "DRUID",
         "collectible": true,
-        "collectionText": "Deal $2 damage to a minion. <i>(Gain 3 Armor to upgrade.)</i>",
         "cost": 1,
         "dbfId": 43288,
         "flavor": "In ancient woods, elves fought the curse\nThe demon’s shadow to disperse\nBut hatred raged and frail souls turned\nNow horned and hooved their forests burned.",
@@ -77047,7 +77022,7 @@
         "name": "Lesser Jasper Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Deal $2 damage to a minion. @<i>(Gain 3 Armor to upgrade.)</i>",
+        "text": "Deal $2 damage to a minion. <i>(Gain 3 Armor to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -77191,7 +77166,6 @@
         "artist": "Jason Kang",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": "Summon 1 copy of a friendly minion. <i>(<b>Overload</b> 3 Mana Crystals to upgrade.)</i>",
         "cost": 7,
         "dbfId": 43331,
         "flavor": "A stone of blue, embraced with glee\nBy murloc lords beneath the sea\nSoon numberless they swarmed the shore\nFirst two, then four, then more...and more...",
@@ -77202,7 +77176,7 @@
             "OVERLOAD"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Summon 1 copy of a friendly minion. @<i>(<b>Overload</b> 3 Mana Crystals to upgrade.)</i>",
+        "text": "Summon 1 copy of a friendly minion. <i>(<b>Overload</b> 3 Mana Crystals to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -77405,7 +77379,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "PALADIN",
         "collectible": true,
-        "collectionText": "Summon a 2/2 Spirit with <b>Taunt</b>. <i>(Restore 3 Health to upgrade.)</i>",
         "cost": 2,
         "dbfId": 43382,
         "flavor": "In ages old, when Ancients broke\nAzari of the Legion spoke\nTo tempt the mortals: gems of power\n The weak succumbed, their souls devoured.",
@@ -77416,7 +77389,7 @@
             "TAUNT"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Summon a 2/2 Spirit with <b>Taunt</b>. @<i>(Restore 3 Health to upgrade.)</i>",
+        "text": "Summon a 2/2 Spirit with <b>Taunt</b>. <i>(Restore 3 Health to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -77536,7 +77509,6 @@
         "artist": "Zoltan Boros",
         "cardClass": "MAGE",
         "collectible": true,
-        "collectionText": "Add 1 random Mage spell to your hand. <i>(Play 2 Elementals to upgrade.)</i>",
         "cost": 2,
         "dbfId": 43414,
         "flavor": "The final stone undid its master\nSpun into wards by nameless caster\nAzari wailed a savage roar\nNow sealed in nether, evermore.",
@@ -77544,7 +77516,7 @@
         "name": "Lesser Ruby Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Add 1 random Mage spell to your hand. @<i>(Play 2 Elementals to upgrade.)</i>",
+        "text": "Add 1 random Mage spell to your hand. <i>(Play 2 Elementals to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -79898,7 +79870,6 @@
         "artist": "Arthur Bozonnet",
         "cardClass": "ROGUE",
         "collectible": true,
-        "collectionText": "Destroy 1 random enemy minion.\n<i>(Play 3 <b>Deathrattle</b> cards to upgrade.)</i>",
         "cost": 5,
         "dbfId": 46296,
         "flavor": "The trolls of old embraced the gift\nA jewel of black for daggers swift\nNo party lasts who finds the stone\nThose wielding it soon stand alone.",
@@ -79909,7 +79880,7 @@
             "DEATHRATTLE"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Destroy 1 random enemy minion.\n@<i>(Play 3 <b>Deathrattle</b> cards to upgrade.)</i>",
+        "text": "Destroy 1 random enemy minion.\n<i>(Play 3 <b>Deathrattle</b> cards to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -79989,7 +79960,6 @@
         "artist": "Tyler West Studio",
         "cardClass": "PRIEST",
         "collectible": true,
-        "collectionText": "Resurrect 2 different friendly minions. <i>(Cast 4 spells to upgrade.)</i>",
         "cost": 7,
         "dbfId": 46307,
         "flavor": "A diamond, white, this stone the eighth\nA precious jewel for those of faith\nA whispered prayer restores the lost\nBut none among them know the cost.",
@@ -79997,7 +79967,7 @@
         "name": "Lesser Diamond Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Resurrect 2 different friendly minions. @<i>(Cast 4 spells to upgrade.)</i>",
+        "text": "Resurrect 2 different friendly minions. <i>(Cast 4 spells to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -80254,12 +80224,10 @@
         "name": "The Darkness",
         "rarity": "LEGENDARY",
         "set": "LOOTAPALOOZA",
-        "text": "@",
         "type": "MINION"
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(Candle, Candles).",
         "dbfId": 61009,
         "id": "LOOT_526e",
         "mechanics": [
@@ -80267,7 +80235,7 @@
         ],
         "name": "Darkness Awaits",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Dormant</b>. Awaken when you opponent draws",
+        "text": "<b>Dormant</b>. Awaken when you opponent draws 3 Candles.",
         "type": "ENCHANTMENT"
     },
     {
@@ -80910,7 +80878,7 @@
     {
         "artist": "Clint Langley",
         "cardClass": "NEUTRAL",
-        "collectionText": "<b>Adapt</b> a friendly minion {0} |4(time, times).",
+        "collectionText": "<b>Adapt</b> a friendly minion {0} times.",
         "cost": 4,
         "dbfId": 46421,
         "id": "LOOTA_817",
@@ -89992,7 +89960,6 @@
     {
         "attack": 0,
         "cardClass": "NEUTRAL",
-        "collectionText": " left!)</i>",
         "cost": 4,
         "dbfId": 61259,
         "elite": true,
@@ -90005,7 +89972,7 @@
         ],
         "name": "Demonic Portal",
         "set": "BLACK_TEMPLE",
-        "text": "[x]Each turn, summons\nUnstable Energy. Destroy\n30 to stabilize the portal\nand win! <i>(",
+        "text": "[x]Each turn, summons\nUnstable Energy. Destroy\n30 to stabilize the portal\nand win! <i>(30 left!)</i>",
         "type": "MINION"
     },
     {
@@ -91356,6 +91323,7 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 61910,
         "health": 40,
@@ -91568,7 +91536,7 @@
         "id": "TB_BaconShop_HP_015",
         "name": "Tinker",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nMechs in Bob's Tavern\nhave +2 Attack.",
+        "text": "[x]<b>Passive Hero Power</b>\nMechs in Bob's Tavern\nhave +1/+1.",
         "type": "HERO_POWER"
     },
     {
@@ -91577,7 +91545,7 @@
         "id": "TB_BaconShop_HP_015e",
         "name": "Tinkered",
         "set": "BATTLEGROUNDS",
-        "text": "+2 Attack.",
+        "text": "+1/+1.",
         "type": "ENCHANTMENT"
     },
     {
@@ -91752,7 +91720,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 59808,
         "id": "TB_BaconShop_HP_036",
         "name": "Bloodfury",
@@ -92007,7 +91975,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 3,
+        "cost": 2,
         "dbfId": 60216,
         "id": "TB_BaconShop_HP_046",
         "name": "Gonna Be Rich!",
@@ -92259,14 +92227,13 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " left!)</i>",
         "cost": 0,
         "dbfId": 61915,
         "hideCost": true,
         "id": "TB_BaconShop_HP_065",
         "name": "Demon Hunter Training",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nAfter you <b>Refresh</b> 7 times,\nBob always has 7 minions.\n<i>(",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you <b>Refresh</b> 7 times,\nBob always has 7 minions.\n<i>(7 left!)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -92326,7 +92293,6 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(turn, turns).",
         "dbfId": 61936,
         "id": "TB_BaconShop_HP_068e",
         "mechanics": [
@@ -92334,7 +92300,7 @@
         ],
         "name": "Imprisoned",
         "set": "BATTLEGROUNDS",
-        "text": "<b>Dormant</b>. Awaken in",
+        "text": "<b>Dormant</b>. Awaken in 2 turns.",
         "type": "ENCHANTMENT"
     },
     {
@@ -92391,13 +92357,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " |4(Dig, Digs) left.)</i>",
         "cost": 1,
         "dbfId": 62250,
         "id": "TB_BaconShop_HP_074",
         "name": "Buried Treasure",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\n Dig for a Golden minion!\n<i>(",
+        "text": "[x]<b>Hero Power</b>\n Dig for a Golden minion!\n<i>(4 Digs left.)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -92415,13 +92380,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " Gold this turn.\nIncreases each turn.\n<i>(Once per game.)</i>",
         "cost": 0,
         "dbfId": 62269,
         "id": "TB_BaconShop_HP_076",
         "name": "Piggy Bank",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGain",
+        "text": "[x]<b>Hero Power</b>\nGain 1 Gold this turn.\nIncreases each turn.\n<i>(Once per game.)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -93274,7 +93238,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
+        "techLevel": 1,
         "text": "Whenever a friendly Beast dies, gain +4/+2.",
         "type": "MINION"
     },
@@ -94983,7 +94947,7 @@
         "cardClass": "HUNTER",
         "cost": 3,
         "dbfId": 62165,
-        "health": 2,
+        "health": 4,
         "id": "TB_BaconUps_125",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -94994,7 +94958,7 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
+        "techLevel": 2,
         "text": "After you play a minion with <b>Deathrattle</b>, gain +2/+2.",
         "type": "MINION"
     },
@@ -95184,7 +95148,7 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
+        "techLevel": 3,
         "text": "[x]After this attacks, trigger\na random friendly minion's\n<b>Deathrattle</b> twice.",
         "type": "MINION"
     },
@@ -99544,7 +99508,6 @@
     },
     {
         "cardClass": "MAGE",
-        "collectionText": " damage. (Increases Each Turn!)",
         "cost": 1,
         "dbfId": 57864,
         "id": "TB_LEAGUE_REVIVAL_RenoAIHp",
@@ -99553,7 +99516,7 @@
         ],
         "name": "Gatling Wand",
         "set": "TB",
-        "text": "<b>Hero Power</b>\nRandomly deal",
+        "text": "<b>Hero Power</b>\nRandomly deal 3 damage. (Increases Each Turn!)",
         "type": "HERO_POWER"
     },
     {
@@ -100208,7 +100171,7 @@
         "id": "TB_MammothParty_hp001",
         "name": "Decorate",
         "set": "TB",
-        "text": "<b>Hero Power</b>\nCreate *{0}* |4(decoration, decorations) for the Tavern.\nProgress: {1}/25",
+        "text": "<b>Hero Power</b>\nCreate *{0}* decorations for the Tavern.\nProgress: {1}/25",
         "type": "HERO_POWER"
     },
     {
@@ -103914,6 +103877,7 @@
             "RUSH"
         ],
         "set": "TAVERNS_OF_TIME",
+        "text": "2",
         "type": "MINION"
     },
     {
@@ -116368,7 +116332,6 @@
     },
     {
         "cardClass": "ROGUE",
-        "collectionText": " damage.\n<b>Combo:</b> Shuffle a copy of this card into your deck that deals 2 more damage.",
         "cost": 2,
         "dbfId": 57613,
         "flavor": "A handy torch used by explorers and empowered with magical might.",
@@ -116378,7 +116341,7 @@
             "COMBO"
         ],
         "set": "ULDUM",
-        "text": "Deal $",
+        "text": "Deal $4 damage.\n<b>Combo:</b> Shuffle a copy of this card into your deck that deals 2 more damage.",
         "type": "SPELL"
     },
     {
@@ -116440,7 +116403,6 @@
     },
     {
         "cardClass": "MAGE",
-        "collectionText": " damage split\nrandomly among all enemies\n<i>(improves for each spell\nyou've cast this game)</i>.",
         "cost": 5,
         "dbfId": 57609,
         "flavor": "The mightiest, mysticalest, fully automatic spellcasting tool the world has ever seen.",
@@ -116450,7 +116412,7 @@
         ],
         "name": "The Gatling Wand",
         "set": "ULDUM",
-        "text": "[x]Deal $",
+        "text": "[x]Deal $3 damage split\nrandomly among all enemies\n<i>(improves for each spell\nyou've cast this game)</i>.",
         "type": "SPELL"
     },
     {
@@ -116512,7 +116474,6 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": "<b>Discover</b> {0} |4(card, cards).\nGain {0} Mana |4(Crystal, Crystals).",
         "cost": 0,
         "dbfId": 57005,
         "id": "ULDA_301",
@@ -116521,12 +116482,11 @@
             "DISCOVER"
         ],
         "set": "ULDUM",
-        "text": "<b>Discover</b> a card and gain a Mana Crystal for each <b>Boss</b> you've defeated this run.",
+        "text": "<b>Discover</b> a card and gain a Mana Crystal for each <b>Boss</b> you've defeated this run.1<b>Discover</b> {0} card.\nGain {0} Mana |4(Crystal, Crystals).",
         "type": "SPELL"
     },
     {
         "cardClass": "DRUID",
-        "collectionText": " Mana |4(Crystal, Crystals).\n<i>(Upgrades each time\na friendly minion dies)</i>.",
         "cost": 0,
         "dbfId": 57008,
         "flavor": "The other explorers underestimate the power of careful study and historical research.",
@@ -116536,7 +116496,7 @@
         ],
         "name": "Academic Research",
         "set": "ULDUM",
-        "text": "[x]<b>Start of Game:</b> Draw this.\nGain",
+        "text": "[x]<b>Start of Game:</b> Draw this.\nGain 1 Mana Crystal.\n<i>(Upgrades each time\na friendly minion dies)</i>.",
         "type": "SPELL"
     },
     {
@@ -117621,7 +117581,6 @@
     {
         "attack": 0,
         "cardClass": "NEUTRAL",
-        "collectionText": " friendly minions die, summon a random minion.",
         "cost": 0,
         "dbfId": 56206,
         "health": 0,
@@ -117633,7 +117592,7 @@
         ],
         "name": "Eternal Tomb",
         "set": "ULDUM",
-        "text": "When",
+        "text": "When 3 friendly minions die, summon a random minion.",
         "type": "MINION"
     },
     {
@@ -117810,7 +117769,6 @@
     },
     {
         "cardClass": "WARRIOR",
-        "collectionText": "[x]<b>Passive Hero Power</b>\nAfter you play a <b>Lackey</b>, give it\n+",
         "cost": 2,
         "dbfId": 57089,
         "id": "ULDA_BOSS_03p",
@@ -117819,7 +117777,7 @@
         ],
         "name": "E.V.I.L. Promotion",
         "set": "ULDUM",
-        "text": "[x]<b>Passive Hero Power</b>\nAfter you play a <b>Lackey</b>, give it\n+@/+@ <i>(upgrades each time\nyou play a <b>Lackey</b>)</i>.",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you play a <b>Lackey</b>, give it\n+1/+1 <i>(upgrades each time\nyou play a <b>Lackey</b>)</i>.",
         "type": "HERO_POWER"
     },
     {
@@ -119601,13 +119559,12 @@
     },
     {
         "cardClass": "MAGE",
-        "collectionText": " Health to your\nHero. Reduce by 1 for every\n  friendly minion that dies.",
         "cost": 0,
         "dbfId": 57281,
         "id": "ULDA_BOSS_52p1",
         "name": "Lich's Phylactery",
         "set": "ULDUM",
-        "text": "[x]<b>Hero Power</b>\nRestore $",
+        "text": "[x]<b>Hero Power</b>\nRestore $20 Health to your\nHero. Reduce by 1 for every\n  friendly minion that dies.",
         "type": "HERO_POWER"
     },
     {
@@ -119852,24 +119809,22 @@
     },
     {
         "cardClass": "WARLOCK",
-        "collectionText": " damage to a random\nenemy <i>(upgrades whenever a\nfriendly minion dies)</i>.",
         "cost": 4,
         "dbfId": 57291,
         "id": "ULDA_BOSS_60p",
         "name": "Forbidden Power",
         "set": "ULDUM",
-        "text": "[x]<b>Hero Power</b>\nDeal $",
+        "text": "[x]<b>Hero Power</b>\nDeal $1 damage to a random\nenemy <i>(upgrades whenever a\nfriendly minion dies)</i>.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "WARLOCK",
-        "collectionText": " damage to a random\nenemy <i>(upgrades whenever a\nfriendly minion dies)</i>.",
         "cost": 2,
         "dbfId": 59069,
         "id": "ULDA_BOSS_60px",
         "name": "Forbidden Power",
         "set": "ULDUM",
-        "text": "[x]<b>Hero Power</b>\nDeal $",
+        "text": "[x]<b>Hero Power</b>\nDeal $1 damage to a random\nenemy <i>(upgrades whenever a\nfriendly minion dies)</i>.",
         "type": "HERO_POWER"
     },
     {
@@ -120361,24 +120316,22 @@
     },
     {
         "cardClass": "HUNTER",
-        "collectionText": " damage to a minion and\ngain 1 bonus damage. If it dies,\nlose all bonus damage.",
         "cost": 2,
         "dbfId": 57308,
         "id": "ULDA_BOSS_75p",
         "name": "Hunt the Weak",
         "set": "ULDUM",
-        "text": "[x]<b>Hero Power</b>\nDeal $",
+        "text": "[x]<b>Hero Power</b>\nDeal $1 damage to a minion and\ngain 1 bonus damage. If it dies,\nlose all bonus damage.",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "HUNTER",
-        "collectionText": " damage to a minion and\ngain 2 bonus damage. If it dies,\nlose all bonus damage.",
         "cost": 1,
         "dbfId": 59079,
         "id": "ULDA_BOSS_75px",
         "name": "Hunt the Weak",
         "set": "ULDUM",
-        "text": "[x]<b>Hero Power</b>\nDeal $",
+        "text": "[x]<b>Hero Power</b>\nDeal $2 damage to a minion and\ngain 2 bonus damage. If it dies,\nlose all bonus damage.",
         "type": "HERO_POWER"
     },
     {

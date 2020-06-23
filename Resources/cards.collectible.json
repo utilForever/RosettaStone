@@ -6727,14 +6727,14 @@
         "artist": "Maria Trepalina",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 0,
+        "cost": 1,
         "dbfId": 56928,
         "flavor": "The slice so nice, it'll cut you twice.",
         "id": "BT_175",
         "name": "Twin Slice",
         "rarity": "COMMON",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "Give your hero +1 Attack this turn. Add 'Second Slice' to your hand.",
+        "text": "Give your hero +2 Attack this turn. Add 'Second Slice' to your hand.",
         "type": "SPELL"
     },
     {
@@ -13467,7 +13467,6 @@
         "artist": "Jim Nelson",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "collectionText": "Summon 1 1/1 |4(Imp, Imps). <i>(Upgrades each turn!)</i>",
         "cost": 3,
         "dbfId": 51371,
         "flavor": "\"When your first plan fails... imp-rovise.\"",
@@ -13475,14 +13474,13 @@
         "name": "Rafaam's Scheme",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "Summon @ 1/1 |4(Imp, Imps). <i>(Upgrades each turn!)</i>",
+        "text": "Summon 1 1/1 Imp. <i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "Konstantin Turovec",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "collectionText": "Gain 1 Armor.\n<i>(Upgrades each turn!)</i>",
         "cost": 4,
         "dbfId": 51372,
         "flavor": "“We did it! We blew up the vault!”\n“You mean the vault door?”\n“Oh. The doooor…”",
@@ -13490,14 +13488,13 @@
         "name": "Dr. Boom's Scheme",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "Gain @ Armor.\n<i>(Upgrades each turn!)</i>",
+        "text": "Gain 1 Armor.\n<i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "Arthur Gimaldinov",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": "Deal $1 damage\nto all minions.\n<i>(Upgrades each turn!)</i>",
         "cost": 5,
         "dbfId": 51373,
         "flavor": "\"All shall suffer!\"\n\"But Hagatha, those are your minions...\"\n\"I said ALL!!!\"",
@@ -13505,14 +13502,13 @@
         "name": "Hagatha's Scheme",
         "rarity": "RARE",
         "set": "DALARAN",
-        "text": "Deal $@ damage\nto all minions.\n<i>(Upgrades each turn!)</i>",
+        "text": "Deal $1 damage\nto all minions.\n<i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "Konstantin Turovec",
         "cardClass": "ROGUE",
         "collectible": true,
-        "collectionText": "Choose a minion. Shuffle 1 |4(copy, copies) of it into your deck.\n<i>(Upgrades each turn!)</i>",
         "cost": 1,
         "dbfId": 51375,
         "flavor": "\"Many minions equals many treasures for king. Kobold arithmetic!\"",
@@ -13520,14 +13516,13 @@
         "name": "Togwaggle's Scheme",
         "rarity": "RARE",
         "set": "DALARAN",
-        "text": "Choose a minion. Shuffle @ |4(copy, copies) of it into your deck.\n<i>(Upgrades each turn!)</i>",
+        "text": "Choose a minion. Shuffle 1 copy of it into your deck.\n<i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
         "artist": "J. Axer",
         "cardClass": "PRIEST",
         "collectible": true,
-        "collectionText": "Reduce the Attack of an enemy minion by\n1 until your next turn. <i>(Upgrades each turn!)</i>",
         "cost": 0,
         "dbfId": 51376,
         "flavor": "\"What's that you're dreaming?\nYou're weak and you're screaming!\nIt must be my scheming...\"",
@@ -13535,7 +13530,7 @@
         "name": "Lazul's Scheme",
         "rarity": "EPIC",
         "set": "DALARAN",
-        "text": "Reduce the Attack of an enemy minion by\n@ until your next turn. <i>(Upgrades each turn!)</i>",
+        "text": "Reduce the Attack of an enemy minion by\n1 until your next turn. <i>(Upgrades each turn!)</i>",
         "type": "SPELL"
     },
     {
@@ -22458,7 +22453,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "techLevel": 2,
+        "techLevel": 1,
         "text": "Whenever a friendly Beast dies, gain +2/+1.",
         "type": "MINION"
     },
@@ -34459,7 +34454,6 @@
         "artist": "Jim Nelson",
         "cardClass": "DRUID",
         "collectible": true,
-        "collectionText": "Deal $2 damage to a minion. <i>(Gain 3 Armor to upgrade.)</i>",
         "cost": 1,
         "dbfId": 43288,
         "flavor": "In ancient woods, elves fought the curse\nThe demon’s shadow to disperse\nBut hatred raged and frail souls turned\nNow horned and hooved their forests burned.",
@@ -34467,7 +34461,7 @@
         "name": "Lesser Jasper Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Deal $2 damage to a minion. @<i>(Gain 3 Armor to upgrade.)</i>",
+        "text": "Deal $2 damage to a minion. <i>(Gain 3 Armor to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -34544,7 +34538,6 @@
         "artist": "Jason Kang",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": "Summon 1 copy of a friendly minion. <i>(<b>Overload</b> 3 Mana Crystals to upgrade.)</i>",
         "cost": 7,
         "dbfId": 43331,
         "flavor": "A stone of blue, embraced with glee\nBy murloc lords beneath the sea\nSoon numberless they swarmed the shore\nFirst two, then four, then more...and more...",
@@ -34555,7 +34548,7 @@
             "OVERLOAD"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Summon 1 copy of a friendly minion. @<i>(<b>Overload</b> 3 Mana Crystals to upgrade.)</i>",
+        "text": "Summon 1 copy of a friendly minion. <i>(<b>Overload</b> 3 Mana Crystals to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -34681,7 +34674,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "PALADIN",
         "collectible": true,
-        "collectionText": "Summon a 2/2 Spirit with <b>Taunt</b>. <i>(Restore 3 Health to upgrade.)</i>",
         "cost": 2,
         "dbfId": 43382,
         "flavor": "In ages old, when Ancients broke\nAzari of the Legion spoke\nTo tempt the mortals: gems of power\n The weak succumbed, their souls devoured.",
@@ -34692,7 +34684,7 @@
             "TAUNT"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Summon a 2/2 Spirit with <b>Taunt</b>. @<i>(Restore 3 Health to upgrade.)</i>",
+        "text": "Summon a 2/2 Spirit with <b>Taunt</b>. <i>(Restore 3 Health to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -34734,7 +34726,6 @@
         "artist": "Zoltan Boros",
         "cardClass": "MAGE",
         "collectible": true,
-        "collectionText": "Add 1 random Mage spell to your hand. <i>(Play 2 Elementals to upgrade.)</i>",
         "cost": 2,
         "dbfId": 43414,
         "flavor": "The final stone undid its master\nSpun into wards by nameless caster\nAzari wailed a savage roar\nNow sealed in nether, evermore.",
@@ -34742,7 +34733,7 @@
         "name": "Lesser Ruby Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Add 1 random Mage spell to your hand. @<i>(Play 2 Elementals to upgrade.)</i>",
+        "text": "Add 1 random Mage spell to your hand. <i>(Play 2 Elementals to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -36318,7 +36309,6 @@
         "artist": "Arthur Bozonnet",
         "cardClass": "ROGUE",
         "collectible": true,
-        "collectionText": "Destroy 1 random enemy minion.\n<i>(Play 3 <b>Deathrattle</b> cards to upgrade.)</i>",
         "cost": 5,
         "dbfId": 46296,
         "flavor": "The trolls of old embraced the gift\nA jewel of black for daggers swift\nNo party lasts who finds the stone\nThose wielding it soon stand alone.",
@@ -36329,7 +36319,7 @@
             "DEATHRATTLE"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Destroy 1 random enemy minion.\n@<i>(Play 3 <b>Deathrattle</b> cards to upgrade.)</i>",
+        "text": "Destroy 1 random enemy minion.\n<i>(Play 3 <b>Deathrattle</b> cards to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -36371,7 +36361,6 @@
         "artist": "Tyler West Studio",
         "cardClass": "PRIEST",
         "collectible": true,
-        "collectionText": "Resurrect 2 different friendly minions. <i>(Cast 4 spells to upgrade.)</i>",
         "cost": 7,
         "dbfId": 46307,
         "flavor": "A diamond, white, this stone the eighth\nA precious jewel for those of faith\nA whispered prayer restores the lost\nBut none among them know the cost.",
@@ -36379,7 +36368,7 @@
         "name": "Lesser Diamond Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Resurrect 2 different friendly minions. @<i>(Cast 4 spells to upgrade.)</i>",
+        "text": "Resurrect 2 different friendly minions. <i>(Cast 4 spells to upgrade.)</i>",
         "type": "SPELL"
     },
     {
