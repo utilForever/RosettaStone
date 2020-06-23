@@ -105,7 +105,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 40;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 41;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -132,10 +132,10 @@ constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 constexpr int NUM_TIER1_MINIONS = 16;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 21;
+constexpr int NUM_TIER2_MINIONS = 20;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 22;
+constexpr int NUM_TIER3_MINIONS = 23;
 
 //! The number of tier 4 minions in Battlegrounds.
 constexpr int NUM_TIER4_MINIONS = 19;
@@ -155,17 +155,17 @@ constexpr int NUM_TIER6_MINIONS = 12;
 // Micro Machine (60055)
 // Murloc Tidecaller (475)
 // Murloc Tidehunter (976)
-// Rabid Saurolisk (62162)
 // Red Whelp (59968)
 // Righteous Protector (42467)
 // Rockpool Hunter (41245)
 // Scallywag (61061)
+// Scavenging Hyena (1281)
 // Selfless Hero (38740)
 // Vulgar Homunculus (43121)
 // Wrath Weaver (59670)
 constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
     40426, 61055, 60628, 56112, 48886, 60055, 475,   976,
-    62162, 59968, 42467, 41245, 61061, 38740, 43121, 59670
+    59968, 42467, 41245, 61061, 1281,  38740, 43121, 59670
 };
 
 //! A list of Tier 2 minion dbfIDs in Battlegrounds.
@@ -177,13 +177,12 @@ constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
 // Kaboom Bot (49279)
 // Kindly Grandmother (39481)
 // Metaltooth Leaper (2016)
-// Monstrous Macaw (62230)
 // Murloc Warleader (1063)
 // Nathrezim Overseer (59186)
 // Old Murk-Eye (736)
 // Pogo-Hopper (60122)
+// Rabid Saurolisk (62162)
 // Rat Pack (40428)
-// Scavenging Hyena (1281)
 // Southsea Captain (680)
 // Spawn of N'Zoth (38797)
 // Steward of Time (60621)
@@ -191,8 +190,8 @@ constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
 // Waxrider Togwaggle (60559)
 // Zoobot (39839)
 constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
-    62188, 61049, 61029, 778,  59937, 49279, 39481, 2016, 62230, 1063, 59186,
-    736,   60122, 40428, 1281, 680,   38797, 60621, 1808, 60559, 39839
+    62188, 61049, 61029, 778,   59937, 49279, 39481, 2016, 1063,  59186,
+    736,   60122, 62162, 40428, 680,   38797, 60621, 1808, 60559, 39839
 };
 
 //! A list of Tier 3 minion dbfIDs in Battlegrounds.
@@ -208,6 +207,7 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Imp Gang Boss (2288)
 // Infested Wolf (38734)
 // Khadgar (52502)
+// Monstrous Macaw (62230)
 // Pack Leader (59940)
 // Piloted Shredder (60048)
 // Replicating Menace (48536)
@@ -219,8 +219,9 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Twilight Emissary (60626)
 // Yo-Ho-Ogre (61060)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
-    61053, 60558, 453,   40391, 2518,  61930, 56393, 60552, 1003, 2288,  38734,
-    52502, 59940, 60048, 48536, 62734, 2023,  57742, 59660, 962,  60626, 61060
+    61053, 60558, 453,   40391, 2518,  61930, 56393, 60552,
+    1003,  2288,  38734, 52502, 62230, 59940, 60048, 48536,
+    62734, 2023,  57742, 59660, 962,   60626, 61060
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.
