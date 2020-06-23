@@ -7,6 +7,7 @@
 #ifndef ROSSETASTONE_ROSETTA_HPP
 #define ROSSETASTONE_ROSETTA_HPP
 
+#include <Rosetta/Battlegrounds/CardSets/BattlegroundsCardsGen.hpp>
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Battlegrounds/Cards/CardDef.hpp>
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
