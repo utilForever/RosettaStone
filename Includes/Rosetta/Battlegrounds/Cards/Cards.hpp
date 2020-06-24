@@ -35,6 +35,11 @@ class Cards
     //! \return A card that matches \p dbfID.
     static Card FindCardByDbfID(int dbfID);
 
+    //! Returns a card that matches \p name.
+    //! \param name The name of the card.
+    //! \return A card that matches \p name.
+    static Card FindCardByName(const std::string_view& name);
+
     //! Returns a list of current heroes.
     //! \return A list of current heroes.
     static const std::array<Card, NUM_BATTLEGROUNDS_HEROES>& GetCurrentHeroes();

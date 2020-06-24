@@ -91,6 +91,19 @@ Card Cards::FindCardByDbfID(int dbfID)
     return Card{};
 }
 
+Card Cards::FindCardByName(const std::string_view& name)
+{
+    for (auto& card : m_cards)
+    {
+        if (card.name == name)
+        {
+            return card;
+        }
+    }
+
+    return Card{};
+}
+
 const std::array<Card, NUM_BATTLEGROUNDS_HEROES>& Cards::GetCurrentHeroes()
 {
     return m_curHeroes;
