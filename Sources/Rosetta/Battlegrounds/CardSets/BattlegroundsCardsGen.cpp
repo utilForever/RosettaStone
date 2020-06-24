@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Battlegrounds/CardSets/BattlegroundsCardsGen.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -18,6 +19,20 @@ void BattlegroundsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 void BattlegroundsCardsGen::AddTier1Minions(
     std::map<std::string, CardDef>& cards)
 {
+    //Power power;
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [CFM_315] Alleycat - TIER:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: Gangs, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 1/1 Cat.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    //power.ClearData();
+    //power.AddBattlecryTask(SimpleTasks::SummonTask("CFM_315t"));
+    //cards.emplace("CFM_315", CardDef(power));
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
@@ -48,6 +63,10 @@ void BattlegroundsCardsGen::AddTier6Minions(
 void BattlegroundsCardsGen::AddMinionsNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [CFM_315t] Tabbycat (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: Gangs
+    // --------------------------------------------------------
 }
 
 void BattlegroundsCardsGen::AddSpellsNonCollect(
