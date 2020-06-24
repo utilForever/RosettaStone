@@ -34,6 +34,10 @@ class Minion
     //! \return The value of pool index.
     int GetPoolIndex() const;
 
+    //! Returns the value of name.
+    //! \return The value of name.
+    std::string_view GetName() const;
+
     //! Returns the value of race.
     //! \return The value of race.
     Race GetRace() const;

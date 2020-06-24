@@ -37,6 +37,11 @@ int Minion::GetPoolIndex() const
     return m_poolIdx;
 }
 
+std::string_view Minion::GetName() const
+{
+    return m_card.name;
+}
+
 Race Minion::GetRace() const
 {
     return m_card.GetRace();
