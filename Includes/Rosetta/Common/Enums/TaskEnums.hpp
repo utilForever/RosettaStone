@@ -9,7 +9,17 @@
 
 namespace RosettaStone
 {
-//! \breif An enumerator for identifying power type.
+//! \brief An enumerator for identifying the result of the task.
+enum class TaskStatus : unsigned int
+{
+    INVALID,
+    STOP,
+    COMPLETE,
+
+    NUM_TASK_STATUS
+};
+
+//! \brief An enumerator for identifying power type.
 enum class PowerType
 {
     POWER,
