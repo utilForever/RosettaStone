@@ -7,8 +7,16 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_POWER_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_POWER_HPP
 
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
+
+#include <variant>
+#include <vector>
+
 namespace RosettaStone::Battlegrounds
 {
+using namespace SimpleTasks;
+using TaskType = std::variant<SummonTask>;
+
 //!
 //! \brief Power class.
 //!
@@ -16,6 +24,13 @@ namespace RosettaStone::Battlegrounds
 //!
 class Power
 {
+ public:
+    //! Adds battlecry task.
+    //! \param task A battlecry task to add.
+    void AddBattlecryTask(TaskType&& task);
+
+ private:
+    std::vector<TaskType> m_battlecryTask;
 };
 }  // namespace RosettaStone::Battlegrounds
 

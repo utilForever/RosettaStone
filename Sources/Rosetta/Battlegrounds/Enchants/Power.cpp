@@ -8,4 +8,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+void Power::AddBattlecryTask(TaskType&& task)
+{
+    m_battlecryTask.emplace_back(task);
+}
 }  // namespace RosettaStone::Battlegrounds
