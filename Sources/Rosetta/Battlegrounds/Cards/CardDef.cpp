@@ -8,4 +8,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+CardDef::CardDef(Power&& _power) : power(_power)
+{
+    // Do nothing
+}
 }  // namespace RosettaStone::Battlegrounds

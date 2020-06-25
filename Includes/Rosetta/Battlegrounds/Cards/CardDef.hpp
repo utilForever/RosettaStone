@@ -21,6 +21,10 @@ namespace RosettaStone::Battlegrounds
 class CardDef
 {
  public:
+    //! Constructs card def with given \p _power.
+    //! \param _power The power data.
+    explicit CardDef(Power&& _power);
+
     Power power;
     std::map<PlayReq, int> playReqs;
 };
