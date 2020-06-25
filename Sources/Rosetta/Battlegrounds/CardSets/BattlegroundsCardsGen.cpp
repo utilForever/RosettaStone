@@ -19,7 +19,7 @@ void BattlegroundsCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 void BattlegroundsCardsGen::AddTier1Minions(
     std::map<std::string, CardDef>& cards)
 {
-    //Power power;
+    Power power;
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [CFM_315] Alleycat - TIER:1 [ATK:1/HP:1]
@@ -30,9 +30,9 @@ void BattlegroundsCardsGen::AddTier1Minions(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    //power.ClearData();
-    //power.AddBattlecryTask(SimpleTasks::SummonTask("CFM_315t"));
-    //cards.emplace("CFM_315", CardDef(power));
+    power.ClearData();
+    power.AddBattlecryTask(SummonTask{ "CFM_315t", 1 });
+    cards.emplace("CFM_315", CardDef{ std::move(power) });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
