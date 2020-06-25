@@ -11,6 +11,15 @@
 
 namespace RosettaStone::Battlegrounds::SimpleTasks
 {
+//! The side of summoned minion.
+enum class SummonSide
+{
+    DEFAULT,      //!< Summoning on the last position on the right side.
+    LEFT,         //!< Summoning left of the minion.
+    RIGHT,        //!< Summoning right of the minion.
+    DEATHRATTLE,  //!< Summoning at the last position of the source.
+};
+
 //!
 //! \brief SummonTask class.
 //!
