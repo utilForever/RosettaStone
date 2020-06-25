@@ -27,11 +27,23 @@ enum class SummonSide
 //!
 class SummonTask
 {
+ public:
+    //! Constructs task with given \p cardID, \p amount and \p side.
+    //! \param cardID The card ID to summon.
+    //! \param amount The number of minions to summon.
+    //! \param side The side of summoned minion.
+    explicit SummonTask(const std::string_view& cardID, int amount,
+                        SummonSide side = SummonSide::DEFAULT);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player);
+
+    Card m_card;
+    SummonSide m_side = SummonSide::DEFAULT;
+    int m_amount = 1;
 };
 }  // namespace RosettaStone::Battlegrounds::SimpleTasks
 
