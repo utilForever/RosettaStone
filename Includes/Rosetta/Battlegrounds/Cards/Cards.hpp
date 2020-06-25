@@ -30,6 +30,11 @@ class Cards
     //! \return A list of all cards.
     static const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& GetAllCards();
 
+    //! Returns a card that matches \p id.
+    //! \param id The ID of the card.
+    //! \return A card that matches \p id.
+    static Card FindCardByID(const std::string_view& id);
+
     //! Returns a card that matches \p dbfID.
     //! \param dbfID The dbfID of the card.
     //! \return A card that matches \p dbfID.

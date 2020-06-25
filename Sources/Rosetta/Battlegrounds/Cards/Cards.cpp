@@ -78,6 +78,19 @@ const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& Cards::GetAllCards()
     return m_cards;
 }
 
+Card Cards::FindCardByID(const std::string_view& id)
+{
+    for (auto& card : m_cards)
+    {
+        if (card.id == id)
+        {
+            return card;
+        }
+    }
+
+    return Card{};
+}
+
 Card Cards::FindCardByDbfID(int dbfID)
 {
     for (auto& card : m_cards)
