@@ -25,6 +25,9 @@ using TaskType = std::variant<SummonTask>;
 class Power
 {
  public:
+    //! Clears a list of tasks and aura/enchant/trigger.
+    void ClearData();
+
     //! Adds battlecry task.
     //! \param task A battlecry task to add.
     void AddBattlecryTask(TaskType&& task);

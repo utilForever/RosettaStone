@@ -8,6 +8,11 @@
 
 namespace RosettaStone::Battlegrounds
 {
+void Power::ClearData()
+{
+    m_battlecryTask.clear();
+}
+
 void Power::AddBattlecryTask(TaskType&& task)
 {
     m_battlecryTask.emplace_back(task);
