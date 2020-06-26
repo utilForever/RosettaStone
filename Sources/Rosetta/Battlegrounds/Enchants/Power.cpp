@@ -13,6 +13,11 @@ void Power::ClearData()
     m_battlecryTask.clear();
 }
 
+std::vector<TaskType>& Power::GetBattlecryTask()
+{
+    return m_battlecryTask;
+}
+
 void Power::AddBattlecryTask(TaskType&& task)
 {
     m_battlecryTask.emplace_back(task);

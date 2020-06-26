@@ -28,6 +28,10 @@ class Power
     //! Clears a list of tasks and aura/enchant/trigger.
     void ClearData();
 
+    //! Returns a list of battlecry tasks.
+    //! \return A list of battlecry tasks.
+    std::vector<TaskType>& GetBattlecryTask();
+
     //! Adds battlecry task.
     //! \param task A battlecry task to add.
     void AddBattlecryTask(TaskType&& task);
