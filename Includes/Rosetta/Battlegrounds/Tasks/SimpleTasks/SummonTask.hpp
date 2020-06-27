@@ -6,10 +6,17 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_SUMMON_TASK_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_SUMMON_TASK_HPP
 
-#include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Common/Enums/TaskEnums.hpp>
 
-namespace RosettaStone::Battlegrounds::SimpleTasks
+#include <string_view>
+
+namespace RosettaStone::Battlegrounds
+{
+class Card;
+class Minion;
+class Player;
+
+namespace SimpleTasks
 {
 //! The side of summoned minion.
 enum class SummonSide
@@ -35,16 +42,30 @@ class SummonTask
     explicit SummonTask(const std::string_view& cardID, int amount,
                         SummonSide side = SummonSide::DEFAULT);
 
- private:
-    //! Processes task logic internally and returns meta data.
-    //! \param player The player to run task.
-    //! \return The result of task processing.
-    TaskStatus Impl(Player& player);
+    //! Returns the position of minion to summon.
+    //! \param source The source minion.
+    //! \param side The side of summoned minion.
+    //! \return The position of minion to summon.
+    static int GetPosition(Minion& source, SummonSide side);
 
-    Card m_card;
+    //! Runs task logic internally and returns meta data.
+    //! \param player The player to run task.
+    //! \param source The source minion.
+    //! \return The result of task processing.
+    TaskStatus Run(Player& player, Minion& source);
+
+    //! Runs task logic internally and returns meta data.
+    //! \param player The player to run task.
+    //! \param source The source minion.
+    //! \param target The target minion.
+    //! \return The result of task processing.
+    TaskStatus Run(Player& player, Minion& source, Minion& target);
+
+    std::string_view m_cardID;
     SummonSide m_side = SummonSide::DEFAULT;
     int m_amount = 1;
 };
-}  // namespace RosettaStone::Battlegrounds::SimpleTasks
+}  // namespace SimpleTasks
+}  // namespace RosettaStone::Battlegrounds
 
 #endif  // ROSETTASTONE_BATTLEGROUNDS_SUMMON_TASK_HPP
