@@ -10,6 +10,7 @@
 #include <Rosetta/Battlegrounds/CardSets/BattlegroundsCardsGen.hpp>
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Battlegrounds/Cards/CardDef.hpp>
+#include <Rosetta/Battlegrounds/Cards/CardDefs.hpp>
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
