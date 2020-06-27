@@ -13,8 +13,7 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
 {
     for (auto& card : cards)
     {
-        const auto cardDef =
-            CardDefs::GetInstance().FindCardDefByCardID(card->id);
+        const auto cardDef = CardDefs::GetInstance().FindCardDefByID(card->id);
 
         card->power = cardDef.power;
         card->playRequirements = cardDef.playReqs;
