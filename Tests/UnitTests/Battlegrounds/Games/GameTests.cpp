@@ -70,11 +70,15 @@ TEST_CASE("[Game] - Basic")
              game.GetGameState().minionPool.GetCount() - 3 * 8);
 
     player1.PlayCard(0, 0);
+    bool checkCount = (player1.recruitFieldZone.GetCount() == 1 ||
+                       player1.recruitFieldZone.GetCount() == 2);
     CHECK_EQ(player1.handZone.GetCount(), 0);
-    CHECK_EQ(player1.recruitFieldZone.GetCount(), 1);
+    CHECK(checkCount);
 
     player1.SellMinion(0);
-    CHECK_EQ(player1.recruitFieldZone.GetCount(), 0);
+    checkCount = (player1.recruitFieldZone.GetCount() == 0 ||
+                  player1.recruitFieldZone.GetCount() == 1);
+    CHECK(checkCount);
     CHECK_EQ(player1.tavernFieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 1);
 
