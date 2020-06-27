@@ -16,6 +16,7 @@
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
 #include <Rosetta/Battlegrounds/Loaders/CardLoader.hpp>
+#include <Rosetta/Battlegrounds/Loaders/InternalCardLoader.hpp>
 #include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
 #include <Rosetta/Battlegrounds/Models/Battle.hpp>
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
