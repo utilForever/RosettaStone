@@ -21,6 +21,9 @@ namespace RosettaStone::Battlegrounds
 class CardDef
 {
  public:
+    //! Default constructor.
+    CardDef() = default;
+
     //! Constructs card def with given \p _power.
     //! \param _power The power data.
     explicit CardDef(Power&& _power);
