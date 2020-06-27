@@ -6,6 +6,7 @@
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Loaders/CardLoader.hpp>
+#include <Rosetta/Battlegrounds/Loaders/InternalCardLoader.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -21,6 +22,7 @@ std::array<Card, NUM_TIER6_MINIONS> Cards::m_tier6Minions;
 Cards::Cards()
 {
     CardLoader::Load(m_cards);
+    InternalCardLoader::Load(m_cards);
 
     std::size_t heroIdx = 0;
     std::size_t tier1Idx = 0, tier2Idx = 0, tier3Idx = 0, tier4Idx = 0,
