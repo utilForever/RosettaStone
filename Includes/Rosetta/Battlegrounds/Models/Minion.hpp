@@ -107,6 +107,11 @@ class Minion
     void ActivateTask(PowerType type, Player& player, Minion& target);
 
  private:
+    //! Gets a list of tasks according to the power type.
+    //! \param type The type of power.
+    //! \return A list of tasks according to the power type.
+    std::vector<TaskType> GetTasks(PowerType type);
+
     Card m_card;
     int m_poolIdx = -1;
 

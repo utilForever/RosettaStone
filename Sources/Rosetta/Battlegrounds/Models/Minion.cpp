@@ -126,16 +126,7 @@ bool Minion::IsDestroyed() const
 
 void Minion::ActivateTask(PowerType type, Player& player)
 {
-    std::vector<TaskType> tasks;
-    switch (type)
-    {
-        case PowerType::POWER:
-            tasks = m_card.power.GetBattlecryTask();
-            break;
-        default:
-            break;
-    }
-
+    auto tasks = GetTasks(type);
     if (tasks.empty())
     {
         return;
@@ -149,16 +140,7 @@ void Minion::ActivateTask(PowerType type, Player& player)
 
 void Minion::ActivateTask(PowerType type, Player& player, Minion& target)
 {
-    std::vector<TaskType> tasks;
-    switch (type)
-    {
-        case PowerType::POWER:
-            tasks = m_card.power.GetBattlecryTask();
-            break;
-        default:
-            break;
-    }
-
+    auto tasks = GetTasks(type);
     if (tasks.empty())
     {
         return;
@@ -168,6 +150,17 @@ void Minion::ActivateTask(PowerType type, Player& player, Minion& target)
     {
         std::visit([&](auto&& _task) { _task.Run(player, *this, target); },
                    task);
+    }
+}
+
+std::vector<TaskType> Minion::GetTasks(PowerType type)
+{
+    switch (type)
+    {
+        case PowerType::POWER:
+            return m_card.power.GetBattlecryTask();
+        default:
+            return std::vector<TaskType>{};
     }
 }
 }  // namespace RosettaStone::Battlegrounds
