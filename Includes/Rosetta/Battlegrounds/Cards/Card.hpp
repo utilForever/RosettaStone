@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 
+#include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 
 #include <map>
@@ -75,6 +76,8 @@ class Card
     std::string text;
 
     std::map<GameTag, int> gameTags;
+
+    Power power;
 
     bool isCurHero;
 };
