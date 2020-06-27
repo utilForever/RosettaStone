@@ -22,6 +22,18 @@ namespace RosettaStone::Battlegrounds
 class Cards
 {
  public:
+    //! Deleted copy constructor.
+    Cards(const Cards& cards) = delete;
+
+    //! Deleted move constructor.
+    Cards(Cards&& cards) = delete;
+
+    //! Deleted copy assignment operator.
+    Cards& operator=(const Cards& cards) = delete;
+
+    //! Deleted move assignment operator.
+    Cards& operator=(Cards&& cards) = delete;
+
     //! Returns an instance of Cards class.
     //! \return An instance of Cards class.
     static Cards& GetInstance();
