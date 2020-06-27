@@ -25,7 +25,7 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
 {
     Player player1, player2;
 
-    Minion minion1(Cards::FindCardByName("Alleycat"));
+    Minion minion1(Cards::GetInstance().FindCardByName("Alleycat"));
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
