@@ -33,14 +33,25 @@ void Player::PurchaseMinion(std::size_t idx)
     remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
 
-void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx)
+void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
 {
     auto card = handZone.Remove(handZone[handIdx]);
 
     if (std::holds_alternative<Minion>(card))
     {
         auto minion = std::get<Minion>(card);
-        recruitFieldZone.Add(minion, fieldIdx);
+
+        if (targetIdx == -1)
+        {
+            recruitFieldZone.Add(minion, fieldIdx);
+            minion.ActivateTask(PowerType::POWER, *this);
+        }
+        else
+        {
+            Minion& target = recruitFieldZone[targetIdx];
+            recruitFieldZone.Add(minion, fieldIdx);
+            minion.ActivateTask(PowerType::POWER, *this, target);
+        }
     }
     else
     {
