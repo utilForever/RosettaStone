@@ -141,7 +141,7 @@ void MinionPool::ReturnMinion(int idx)
 {
     if (idx < 0 || idx >= NUM_TOTAL_TAVERN_MINIONS)
     {
-        throw std::invalid_argument("Invalid pool index");
+        return;
     }
 
     std::get<2>(m_minions.at(idx)) = true;
