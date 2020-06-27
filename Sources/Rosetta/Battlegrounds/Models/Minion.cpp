@@ -4,9 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 
 #include <utility>
+#include <vector>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -120,5 +122,52 @@ void Minion::TakeDamage(Minion& source)
 bool Minion::IsDestroyed() const
 {
     return m_isDestroyed;
+}
+
+void Minion::ActivateTask(PowerType type, Player& player)
+{
+    std::vector<TaskType> tasks;
+    switch (type)
+    {
+        case PowerType::POWER:
+            tasks = m_card.power.GetBattlecryTask();
+            break;
+        default:
+            break;
+    }
+
+    if (tasks.empty())
+    {
+        return;
+    }
+
+    for (auto& task : tasks)
+    {
+        std::visit([&](auto&& _task) { _task.Run(player, *this); }, task);
+    }
+}
+
+void Minion::ActivateTask(PowerType type, Player& player, Minion& target)
+{
+    std::vector<TaskType> tasks;
+    switch (type)
+    {
+        case PowerType::POWER:
+            tasks = m_card.power.GetBattlecryTask();
+            break;
+        default:
+            break;
+    }
+
+    if (tasks.empty())
+    {
+        return;
+    }
+
+    for (auto& task : tasks)
+    {
+        std::visit([&](auto&& _task) { _task.Run(player, *this, target); },
+                   task);
+    }
 }
 }  // namespace RosettaStone::Battlegrounds

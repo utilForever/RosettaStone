@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_MINION_HPP
 
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -93,6 +94,17 @@ class Minion
     //! Returns the flag that indicates whether it is destroyed.
     //! \return The flag that indicates whether it is destroyed.
     bool IsDestroyed() const;
+
+    //! Activates the task.
+    //! \param type The type of power.
+    //! \param player The owner of the minion.
+    void ActivateTask(PowerType type, Player& player);
+
+    //! Activates the task.
+    //! \param type The type of power.
+    //! \param player The owner of the minion.
+    //! \param target The target.
+    void ActivateTask(PowerType type, Player& player, Minion& target);
 
  private:
     Card m_card;
