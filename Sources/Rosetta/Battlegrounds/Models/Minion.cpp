@@ -67,6 +67,16 @@ void Minion::SetZonePosition(int pos)
     m_zonePos = pos;
 }
 
+int Minion::GetLastFieldPos() const
+{
+    return m_lastFieldPos;
+}
+
+void Minion::SetLastFieldPos(int pos)
+{
+    m_lastFieldPos = pos;
+}
+
 int Minion::GetTier() const
 {
     return m_card.GetTier();

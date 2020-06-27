@@ -58,6 +58,14 @@ class Minion
     //! \param pos The value of zone position.
     void SetZonePosition(int pos);
 
+    //! Returns the value of last field position.
+    //! \return The value of last field position.
+    int GetLastFieldPos() const;
+
+    //! Sets the value of last field position.
+    //! \param pos The value of last field position.
+    void SetLastFieldPos(int pos);
+
     //! Returns the value of tier.
     //! \return The value of tier.
     int GetTier() const;
@@ -92,6 +100,7 @@ class Minion
 
     ZoneType m_zoneType = ZoneType::INVALID;
     int m_zonePos = -1;
+    int m_lastFieldPos = -1;
 
     int m_attack = 0;
     int m_health = 0;
