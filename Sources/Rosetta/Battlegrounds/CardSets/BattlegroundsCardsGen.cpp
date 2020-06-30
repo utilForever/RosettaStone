@@ -32,7 +32,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
     // --------------------------------------------------------
     power.ClearData();
     power.AddBattlecryTask(SummonTask{ "CFM_315t", 1 });
-    cards.emplace("CFM_315", CardDef{ std::move(power) });
+    cards.emplace("CFM_315", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
