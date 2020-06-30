@@ -22,4 +22,9 @@ void Power::AddBattlecryTask(TaskType&& task)
 {
     m_battlecryTask.emplace_back(task);
 }
+
+void Power::AddTrigger(Trigger&& trigger)
+{
+    m_trigger = trigger;
+}
 }  // namespace RosettaStone::Battlegrounds

@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_POWER_HPP
 
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 
 #include <variant>
 #include <vector>
@@ -36,8 +37,13 @@ class Power
     //! \param task A battlecry task to add.
     void AddBattlecryTask(TaskType&& task);
 
+    //! Adds trigger.
+    //! \param trigger An trigger to add.
+    void AddTrigger(Trigger&& trigger);
+
  private:
     std::vector<TaskType> m_battlecryTask;
+    Trigger m_trigger;
 };
 }  // namespace RosettaStone::Battlegrounds
 
