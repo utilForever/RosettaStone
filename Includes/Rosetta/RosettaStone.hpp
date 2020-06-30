@@ -25,6 +25,7 @@
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Battlegrounds/Models/Spell.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 #include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
 #include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
