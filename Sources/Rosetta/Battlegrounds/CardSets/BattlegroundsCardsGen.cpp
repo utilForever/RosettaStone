@@ -33,6 +33,16 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.ClearData();
     power.AddBattlecryTask(SummonTask{ "CFM_315t", 1 });
     cards.emplace("CFM_315", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [EX1_531] Scavenging Hyena - TIER:1 [ATK:2/HP:2]
+    // - Race: Beast, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever a friendly Beast dies, gain +2/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger{ TriggerType::DEATH });
+    cards.emplace("EX1_531", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
