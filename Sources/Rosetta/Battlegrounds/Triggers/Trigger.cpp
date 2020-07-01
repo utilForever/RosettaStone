@@ -5,6 +5,8 @@
 
 #include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 
+#include <utility>
+
 namespace RosettaStone::Battlegrounds
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
@@ -15,6 +17,11 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 void Trigger::SetTriggerSource(TriggerSource val)
 {
     m_triggerSource = val;
+}
+
+void Trigger::SetTasks(std::vector<TaskType> tasks)
+{
+    m_tasks = std::move(tasks);
 }
 
 void Trigger::SetCondition(SelfCondition&& condition)
