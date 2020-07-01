@@ -9,6 +9,11 @@ namespace RosettaStone::Battlegrounds
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
 {
-	// Do nothing
+    // Do nothing
+}
+
+void Trigger::SetTriggerSource(TriggerSource val)
+{
+    m_triggerSource = val;
 }
 }  // namespace RosettaStone::Battlegrounds

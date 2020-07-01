@@ -26,8 +26,13 @@ class Trigger
     //! \param type The trigger type.
     explicit Trigger(TriggerType type);
 
+    //! Sets the value of trigger source.
+    //! \param val The value of trigger source.
+    void SetTriggerSource(TriggerSource val);
+
  private:
     TriggerType m_triggerType = TriggerType::NONE;
+    TriggerSource m_triggerSource = TriggerSource::NONE;
 };
 }  // namespace RosettaStone::Battlegrounds
 
