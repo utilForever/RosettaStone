@@ -7,17 +7,13 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_POWER_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_POWER_HPP
 
-#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>
 #include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 
-#include <variant>
 #include <vector>
 
 namespace RosettaStone::Battlegrounds
 {
-using namespace SimpleTasks;
-using TaskType = std::variant<SummonTask>;
-
 //!
 //! \brief Power class.
 //!
