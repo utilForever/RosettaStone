@@ -33,6 +33,10 @@ class Power
     //! \return A list of battlecry tasks.
     std::vector<TaskType>& GetBattlecryTask();
 
+    //! Returns trigger.
+    //! \return A reference to trigger.
+    Trigger& GetTrigger();
+
     //! Adds battlecry task.
     //! \param task A battlecry task to add.
     void AddBattlecryTask(TaskType&& task);

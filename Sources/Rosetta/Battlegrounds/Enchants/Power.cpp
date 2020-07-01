@@ -18,6 +18,11 @@ std::vector<TaskType>& Power::GetBattlecryTask()
     return m_battlecryTask;
 }
 
+Trigger& Power::GetTrigger()
+{
+    return m_trigger;
+}
+
 void Power::AddBattlecryTask(TaskType&& task)
 {
     m_battlecryTask.emplace_back(task);
