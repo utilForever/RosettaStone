@@ -13,4 +13,10 @@ SelfCondition::SelfCondition(std::function<bool(Minion&)> func)
 {
     // Do nothing
 }
+
+SelfCondition SelfCondition::IsRace(Race race)
+{
+    return SelfCondition(
+        [=](Minion& minion) -> bool { return minion.GetRace() == race; });
+}
 }  // namespace RosettaStone::Battlegrounds

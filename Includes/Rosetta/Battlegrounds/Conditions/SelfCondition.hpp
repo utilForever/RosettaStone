@@ -30,6 +30,11 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Minion&)> func);
 
+    //! SelfCondition wrapper for checking race of entity is \p race.
+    //! \param race The race for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsRace(Race race);
+
  private:
     std::function<bool(Minion&)> m_func;
 };
