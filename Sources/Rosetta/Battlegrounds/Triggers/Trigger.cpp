@@ -16,4 +16,9 @@ void Trigger::SetTriggerSource(TriggerSource val)
 {
     m_triggerSource = val;
 }
+
+void Trigger::SetCondition(SelfCondition&& condition)
+{
+    m_condition = condition;
+}
 }  // namespace RosettaStone::Battlegrounds

@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_TRIGGER_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_TRIGGER_HPP
 
+#include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
 #include <Rosetta/Common/Enums/TriggerEnums.hpp>
 
 namespace RosettaStone::Battlegrounds
@@ -30,9 +31,15 @@ class Trigger
     //! \param val The value of trigger source.
     void SetTriggerSource(TriggerSource val);
 
+    //! Sets the condition of the trigger.
+    //! \param condition the condition of the trigger.
+    void SetCondition(SelfCondition&& condition);
+
  private:
     TriggerType m_triggerType = TriggerType::NONE;
     TriggerSource m_triggerSource = TriggerSource::NONE;
+
+    SelfCondition m_condition;
 };
 }  // namespace RosettaStone::Battlegrounds
 
