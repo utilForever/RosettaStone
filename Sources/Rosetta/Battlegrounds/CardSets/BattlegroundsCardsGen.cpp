@@ -4,6 +4,8 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Battlegrounds/CardSets/BattlegroundsCardsGen.hpp>
+#include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::Battlegrounds
@@ -42,6 +44,11 @@ void BattlegroundsCardsGen::AddTier1Minions(
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger{ TriggerType::DEATH });
+    power.GetTrigger().SetTriggerSource(TriggerSource::FRIENDLY);
+    power.GetTrigger().SetTasks(std::vector<TaskType>{
+        AddEnchantmentTask{ "EX1_531e", EntityType::SOURCE } });
+    power.GetTrigger().SetCondition(
+        SelfCondition{ SelfCondition::IsRace(Race::BEAST) });
     cards.emplace("EX1_531", CardDef{ power });
 }
 

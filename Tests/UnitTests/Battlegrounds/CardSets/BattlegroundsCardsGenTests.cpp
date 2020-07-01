@@ -40,3 +40,44 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
     CHECK_EQ(player1.recruitFieldZone[0].GetName(), "Alleycat");
     CHECK_EQ(player1.recruitFieldZone[1].GetName(), "Tabbycat");
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [EX1_531] Scavenging Hyena - TIER:1 [ATK:2/HP:2]
+// - Race: Beast, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever a friendly Beast dies, gain +2/+1.
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
+{
+    //Player player1, player2;
+
+    //Minion minion1(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
+    //Minion minion2(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
+    //Minion minion3(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
+
+    //player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    //player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    //player1.handZone.Add(minion1);
+    //player1.handZone.Add(minion2);
+    //player1.PlayCard(0, 0);
+    //player1.PlayCard(0, 0);
+
+    //player2.handZone.Add(minion3);
+    //player2.PlayCard(0, 0);
+
+    //Battle battle(player1, player2);
+    //battle.Initialize();
+
+    //CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
+    //CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 2);
+    //CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 2);
+    //CHECK_EQ(battle.GetPlayer1Field()[1].GetAttack(), 2);
+    //CHECK_EQ(battle.GetPlayer1Field()[1].GetHealth(), 2);
+
+    //battle.Attack();
+
+    //CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    //CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 4);
+    //CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 3);
+}
