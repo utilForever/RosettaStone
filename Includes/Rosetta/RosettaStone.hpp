@@ -25,6 +25,7 @@
 #include <Rosetta/Battlegrounds/Models/MinionPool.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Battlegrounds/Models/Spell.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>
 #include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
