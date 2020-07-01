@@ -21,6 +21,7 @@
 #include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
 #include <Rosetta/Battlegrounds/Managers/TriggerEvent.hpp>
 #include <Rosetta/Battlegrounds/Managers/TriggerEventHandler.hpp>
+#include <Rosetta/Battlegrounds/Managers/TriggerManager.hpp>
 #include <Rosetta/Battlegrounds/Models/Battle.hpp>
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
