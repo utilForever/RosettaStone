@@ -224,6 +224,7 @@ void Battle::ProcessDestroy()
                 isAttackerDestroyed = true;
             }
 
+            m_game.GetTriggerManager().OnDeathTrigger(minion);
             m_p1Field.Remove(minion);
         }
         else
@@ -243,6 +244,7 @@ void Battle::ProcessDestroy()
                 isAttackerDestroyed = true;
             }
 
+            m_game.GetTriggerManager().OnDeathTrigger(minion);
             m_p2Field.Remove(minion);
         }
     }
