@@ -7,6 +7,7 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Models/Battle.hpp>
 
 using namespace RosettaStone;
@@ -23,7 +24,11 @@ using namespace Battlegrounds;
 // --------------------------------------------------------
 TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::GetInstance().FindCardByName("Alleycat"));
 
@@ -49,35 +54,39 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
 // --------------------------------------------------------
 TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
 {
-    //Player player1, player2;
+    // Game game;
+    // game.Start();
 
-    //Minion minion1(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
-    //Minion minion2(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
-    //Minion minion3(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
+    // Player& player1 = game.GetGameState().players[0];
+    // Player& player2 = game.GetGameState().players[1];
 
-    //player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    //player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    // Minion minion1(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
+    // Minion minion2(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
+    // Minion minion3(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
 
-    //player1.handZone.Add(minion1);
-    //player1.handZone.Add(minion2);
-    //player1.PlayCard(0, 0);
-    //player1.PlayCard(0, 0);
+    // player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    // player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
-    //player2.handZone.Add(minion3);
-    //player2.PlayCard(0, 0);
+    // player1.handZone.Add(minion1);
+    // player1.handZone.Add(minion2);
+    // player1.PlayCard(0, 0);
+    // player1.PlayCard(0, 0);
 
-    //Battle battle(player1, player2);
-    //battle.Initialize();
+    // player2.handZone.Add(minion3);
+    // player2.PlayCard(0, 0);
 
-    //CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
-    //CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 2);
-    //CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 2);
-    //CHECK_EQ(battle.GetPlayer1Field()[1].GetAttack(), 2);
-    //CHECK_EQ(battle.GetPlayer1Field()[1].GetHealth(), 2);
+    // Battle battle(player1, player2);
+    // battle.Initialize();
 
-    //battle.Attack();
+    // CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
+    // CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 2);
+    // CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 2);
+    // CHECK_EQ(battle.GetPlayer1Field()[1].GetAttack(), 2);
+    // CHECK_EQ(battle.GetPlayer1Field()[1].GetHealth(), 2);
 
-    //CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
-    //CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 4);
-    //CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 3);
+    // battle.Attack();
+
+    // CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    // CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 4);
+    // CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 3);
 }
