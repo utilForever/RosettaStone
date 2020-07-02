@@ -44,10 +44,10 @@ void BattlegroundsCardsGen::AddTier1Minions(
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger{ TriggerType::DEATH });
-    power.GetTrigger().SetTriggerSource(TriggerSource::FRIENDLY);
-    power.GetTrigger().SetTasks(std::vector<TaskType>{
+    power.GetTrigger().value().SetTriggerSource(TriggerSource::FRIENDLY);
+    power.GetTrigger().value().SetTasks(std::vector<TaskType>{
         AddEnchantmentTask{ "EX1_531e", EntityType::SOURCE } });
-    power.GetTrigger().SetCondition(
+    power.GetTrigger().value().SetCondition(
         SelfCondition{ SelfCondition::IsRace(Race::BEAST) });
     cards.emplace("EX1_531", CardDef{ power });
 }
