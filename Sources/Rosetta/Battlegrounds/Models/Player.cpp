@@ -44,12 +44,14 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
         if (targetIdx == -1)
         {
             recruitFieldZone.Add(minion, fieldIdx);
+            minion.ActivateTrigger(*this);
             minion.ActivateTask(PowerType::POWER, *this);
         }
         else
         {
             Minion& target = recruitFieldZone[targetIdx];
             recruitFieldZone.Add(minion, fieldIdx);
+            minion.ActivateTrigger(*this);
             minion.ActivateTask(PowerType::POWER, *this, target);
         }
     }
