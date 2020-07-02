@@ -252,7 +252,7 @@ void Game::Combat()
     // Simulates a battle for each pair
     for (const auto& pair : m_playerFightPair)
     {
-        Battle battle(m_gameState.players.at(std::get<0>(pair)),
+        Battle battle(*this, m_gameState.players.at(std::get<0>(pair)),
                       m_gameState.players.at(std::get<1>(pair)));
         battle.Run();
     }

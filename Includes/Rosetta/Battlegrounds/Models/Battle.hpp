@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_BATTLE_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_BATTLE_HPP
 
+#include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Common/Enums/GameEnums.hpp>
 
@@ -22,10 +23,11 @@ namespace RosettaStone::Battlegrounds
 class Battle
 {
  public:
-    //! Constructs Battle instance with given \p player1 and \p player2.
+    //! Constructs Battle instance with given game context and players.
+    //! \param game The game context.
     //! \param player1 The first player.
     //! \param player2 The second player.
-    Battle(Player& player1, Player& player2);
+    Battle(Game& game, Player& player1, Player& player2);
 
     //! Initializes something before simulating a battle.
     //! i.e. decide who goes first, run hero powers
@@ -82,6 +84,7 @@ class Battle
     BattleResult GetResult() const;
 
  private:
+    Game& m_game;
     Player& m_player1;
     Player& m_player2;
     FieldZone m_p1Field;
