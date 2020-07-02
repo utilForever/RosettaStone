@@ -7,8 +7,11 @@
 #define ROSETTASTONE_BATTLEGROUNDS_TRIGGER_HPP
 
 #include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
+#include <Rosetta/Battlegrounds/Managers/TriggerEventHandler.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>
 #include <Rosetta/Common/Enums/TriggerEnums.hpp>
+
+#include <vector>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -28,6 +31,11 @@ class Trigger
     //! \param type The trigger type.
     explicit Trigger(TriggerType type);
 
+    //! Constructs trigger with given \p prototype and \p owner.
+    //! \param prototype The trigger for prototype.
+    //! \param owner The owner of trigger.
+    Trigger(Trigger& prototype, Minion& owner);
+
     //! Sets the value of trigger source.
     //! \param val The value of trigger source.
     void SetTriggerSource(TriggerSource val);
@@ -40,12 +48,28 @@ class Trigger
     //! \param condition the condition of the trigger.
     void SetCondition(SelfCondition&& condition);
 
+    //! Creates a new instance of Trigger object in source's game.
+    //! \param source The source of trigger.
+    //! \param activation The activation of trigger.
+    //! \param cloning The flag to indicate that it is cloned.
+    //! \return A new instance of Trigger object.
+    void Activate(Player& player, Minion& source,
+                  TriggerActivation activation = TriggerActivation::PLAY,
+                  bool cloning = false);
+
  private:
+    //! Processes trigger to apply the effect.
+    //! \param source The source of trigger.
+    void Process(Minion& source);
+
     TriggerType m_triggerType = TriggerType::NONE;
+    TriggerActivation m_triggerActivation = TriggerActivation::PLAY;
     TriggerSource m_triggerSource = TriggerSource::NONE;
 
     std::vector<TaskType> m_tasks;
     SelfCondition m_condition;
+
+    TriggerEventHandler handler;
 };
 }  // namespace RosettaStone::Battlegrounds
 
