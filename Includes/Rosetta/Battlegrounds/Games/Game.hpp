@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_GAME_HPP
 
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
+#include <Rosetta/Battlegrounds/Managers/TriggerManager.hpp>
 
 #include <atomic>
 #include <tuple>
@@ -68,6 +69,7 @@ class Game
 
  private:
     GameState m_gameState{};
+    TriggerManager m_triggerManager;
 
     Race m_excludeRace = Race::INVALID;
     std::vector<std::tuple<std::size_t, std::size_t>> m_playerFightPair;
