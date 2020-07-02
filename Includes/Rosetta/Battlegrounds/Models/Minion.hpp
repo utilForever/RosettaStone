@@ -95,6 +95,10 @@ class Minion
     //! \return The flag that indicates whether it is destroyed.
     bool IsDestroyed() const;
 
+    //! Activates the trigger.
+    //! \param player The owner of the minion.
+    void ActivateTrigger(Player& player);
+
     //! Activates the task.
     //! \param type The type of power.
     //! \param player The owner of the minion.

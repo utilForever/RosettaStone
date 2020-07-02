@@ -124,6 +124,14 @@ bool Minion::IsDestroyed() const
     return m_isDestroyed;
 }
 
+void Minion::ActivateTrigger(Player& player)
+{
+    if (m_card.power.GetTrigger().has_value())
+    {
+        m_card.power.GetTrigger().value().Activate(player, *this);
+    }
+}
+
 void Minion::ActivateTask(PowerType type, Player& player)
 {
     auto tasks = GetTasks(type);
