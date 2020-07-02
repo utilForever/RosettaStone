@@ -127,6 +127,19 @@ void Game::Start()
         m_gameState.ghostPlayerIdx = player.idx;
     };
 
+    // Create callback to activate the trigger of the minion
+    auto activateTriggerCallback = [this](TriggerType type,
+                                          const TriggerEventHandler& handler) {
+        switch (type)
+        {
+            case TriggerType::DEATH:
+                m_triggerManager.deathTrigger += handler;
+                break;
+            default:
+                break;
+        }
+    };
+
     std::size_t playerIdx = 0;
 
     // Initialize variables and callbacks
@@ -147,6 +160,7 @@ void Game::Start()
         player.upgradeTavernCallback = upgradeTavernCallback;
         player.completeRecruitCallback = completeRecruitCallback;
         player.processDefeatCallback = processDefeatCallback;
+        player.activateTriggerCallback = activateTriggerCallback;
 
         ++playerIdx;
     }
