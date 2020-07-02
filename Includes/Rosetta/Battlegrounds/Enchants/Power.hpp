@@ -10,6 +10,7 @@
 #include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>
 #include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 
+#include <optional>
 #include <vector>
 
 namespace RosettaStone::Battlegrounds
@@ -31,7 +32,7 @@ class Power
 
     //! Returns trigger.
     //! \return A reference to trigger.
-    Trigger& GetTrigger();
+    std::optional<Trigger> GetTrigger() const;
 
     //! Adds battlecry task.
     //! \param task A battlecry task to add.
@@ -43,7 +44,7 @@ class Power
 
  private:
     std::vector<TaskType> m_battlecryTask;
-    Trigger m_trigger;
+    std::optional<Trigger> m_trigger;
 };
 }  // namespace RosettaStone::Battlegrounds
 
