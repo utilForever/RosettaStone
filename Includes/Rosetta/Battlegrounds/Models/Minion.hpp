@@ -110,6 +110,8 @@ class Minion
     //! \param target The target.
     void ActivateTask(PowerType type, Player& player, Minion& target);
 
+    Trigger activatedTrigger;
+
  private:
     //! Gets a list of tasks according to the power type.
     //! \param type The type of power.
