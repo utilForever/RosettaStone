@@ -30,6 +30,10 @@ class Game
     //! \return The game state.
     GameState& GetGameState();
 
+    //! Gets the trigger manager.
+    //! \return The trigger manager.
+    TriggerManager& GetTriggerManager();
+
     //! Starts the game.
     void Start();
 
