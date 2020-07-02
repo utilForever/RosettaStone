@@ -14,7 +14,11 @@ using namespace Battlegrounds;
 
 TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(49169));
 
@@ -23,7 +27,7 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
     player1.recruitFieldZone.Add(minion1);
     player1.currentTier = 4;
 
-    Battle battle(player1, player2);
+    Battle battle(game, player1, player2);
     battle.Run();
 
     CHECK_EQ(battle.IsDone(), true);
@@ -37,7 +41,11 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
 
 TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(42467));
     Minion minion2(Cards::FindCardByDbfID(60628));
@@ -48,7 +56,7 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
     player2.recruitFieldZone.Add(minion2);
     player2.currentTier = 3;
 
-    Battle battle(player1, player2);
+    Battle battle(game, player1, player2);
     battle.Run();
 
     CHECK_EQ(battle.IsDone(), true);
@@ -65,7 +73,11 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
 
 TEST_CASE("[Battle] - Draw (0 attack minions only)")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(49169));
     Minion minion2(Cards::FindCardByDbfID(49169));
@@ -75,7 +87,7 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
     player1.recruitFieldZone.Add(minion1);
     player2.recruitFieldZone.Add(minion2);
 
-    Battle battle(player1, player2);
+    Battle battle(game, player1, player2);
     battle.Run();
 
     CHECK_EQ(battle.IsDone(), true);
@@ -89,7 +101,11 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
 
 TEST_CASE("[Battle] - Next Attacker")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(1915));
     Minion minion2(Cards::FindCardByDbfID(1915));
@@ -105,7 +121,7 @@ TEST_CASE("[Battle] - Next Attacker")
     player2.recruitFieldZone.Add(minion4);
     player2.recruitFieldZone.Add(minion5);
 
-    Battle battle(player1, player2);
+    Battle battle(game, player1, player2);
     battle.Initialize();
 
     CHECK_EQ(battle.GetPlayer1NextAttacker(), 0);

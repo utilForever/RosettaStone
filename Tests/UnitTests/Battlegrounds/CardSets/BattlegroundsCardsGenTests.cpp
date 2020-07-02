@@ -75,7 +75,7 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
     // player2.handZone.Add(minion3);
     // player2.PlayCard(0, 0);
 
-    // Battle battle(player1, player2);
+    // Battle battle(game, player1, player2);
     // battle.Initialize();
 
     // CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
