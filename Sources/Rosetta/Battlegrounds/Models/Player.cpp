@@ -29,7 +29,8 @@ void Player::PurchaseMinion(std::size_t idx)
         return;
     }
 
-    handZone.Add(tavernFieldZone.Remove(tavernFieldZone[idx]), -1);
+    purchaseMinionCallback(*this, idx);
+
     remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
 
@@ -87,7 +88,7 @@ void Player::RefreshTavern()
         return;
     }
 
-    clearTavernMinionsCallback(tavernFieldZone);
+    clearTavernMinionsCallback(*this);
     remainCoin -= NUM_COIN_REFRESH_TAVERN;
 
     prepareTavernMinionsCallback(*this);

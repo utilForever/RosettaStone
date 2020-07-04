@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_PLAYER_HPP
 
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
+#include <Rosetta/Battlegrounds/Models/Tavern.hpp>
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
 #include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 
@@ -78,14 +79,15 @@ class Player
     int currentTier = 0;
     int coinToUpgradeTavern = 0;
 
+    Tavern tavern;
     HandZone handZone;
     FieldZone recruitFieldZone;
-    FieldZone tavernFieldZone;
 
     std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
+    std::function<void(Player&, std::size_t)> purchaseMinionCallback;
     std::function<void(int)> returnMinionCallback;
-    std::function<void(FieldZone&)> clearTavernMinionsCallback;
+    std::function<void(Player&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
     std::function<void()> completeRecruitCallback;
     std::function<void(Player&)> processDefeatCallback;

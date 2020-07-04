@@ -52,7 +52,15 @@ void Game::Start()
 
     // Create callback to prepare a list of minions for purchase
     auto prepareTavernMinionsCallback = [this](Player& player) {
-        m_gameState.minionPool.AddMinionsToTavern(player);
+        m_gameState.minionPool.AddMinionsToTavern(player, player.tavern);
+    };
+
+    // Create callback to purchase a minion in Tavern
+    auto purchaseMinionCallback = [this](Player& player,
+                                         std::size_t tavernIdx) {
+        player.handZone.Add(
+            player.tavern.fieldZone.Remove(player.tavern.fieldZone[tavernIdx]),
+            -1);
     };
 
     // Create callback to return a minion to the minion pool
@@ -61,10 +69,11 @@ void Game::Start()
     };
 
     // Create callback to clear a list of minions in Tavern's field
-    auto clearTavernMinionsCallback = [this](FieldZone& minions) {
-        while (!minions.IsEmpty())
+    auto clearTavernMinionsCallback = [this](Player& player) {
+        while (!player.tavern.fieldZone.IsEmpty())
         {
-            Minion minion = minions.Remove(minions[0]);
+            Minion minion =
+                player.tavern.fieldZone.Remove(player.tavern.fieldZone[0]);
             m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
         }
     };
@@ -113,7 +122,7 @@ void Game::Start()
         player.rank = m_gameState.numRemainPlayer;
         --m_gameState.numRemainPlayer;
 
-        player.tavernFieldZone.ForEach([&](MinionData& minion) {
+        player.tavern.fieldZone.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 
@@ -160,6 +169,7 @@ void Game::Start()
 
         player.selectHeroCallback = selectHeroCallback;
         player.prepareTavernMinionsCallback = prepareTavernMinionsCallback;
+        player.purchaseMinionCallback = purchaseMinionCallback;
         player.returnMinionCallback = returnMinionCallback;
         player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
@@ -237,10 +247,10 @@ void Game::Recruit()
         if (!player.freezeTavern)
         {
             // Clear a list of minions in Tavern
-            while (!player.tavernFieldZone.IsEmpty())
+            while (!player.tavern.fieldZone.IsEmpty())
             {
                 Minion minion =
-                    player.tavernFieldZone.Remove(player.tavernFieldZone[0]);
+                    player.tavern.fieldZone.Remove(player.tavern.fieldZone[0]);
                 m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
             }
 
