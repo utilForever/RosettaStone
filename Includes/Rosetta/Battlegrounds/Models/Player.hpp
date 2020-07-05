@@ -81,7 +81,7 @@ class Player
 
     Tavern tavern;
     HandZone handZone;
-    FieldZone recruitFieldZone;
+    FieldZone fieldZone;
 
     std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;

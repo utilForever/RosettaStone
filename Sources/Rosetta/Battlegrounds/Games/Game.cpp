@@ -134,7 +134,7 @@ void Game::Start()
             }
         });
 
-        player.recruitFieldZone.ForEach([&](MinionData& minion) {
+        player.fieldZone.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 

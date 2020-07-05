@@ -70,14 +70,14 @@ TEST_CASE("[Game] - Basic")
              game.GetGameState().minionPool.GetCount() - 3 * 8);
 
     player1.PlayCard(0, 0);
-    bool checkCount = (player1.recruitFieldZone.GetCount() == 1 ||
-                       player1.recruitFieldZone.GetCount() == 2);
+    bool checkCount = (player1.fieldZone.GetCount() == 1 ||
+                       player1.fieldZone.GetCount() == 2);
     CHECK_EQ(player1.handZone.GetCount(), 0);
     CHECK(checkCount);
 
     player1.SellMinion(0);
-    checkCount = (player1.recruitFieldZone.GetCount() == 0 ||
-                  player1.recruitFieldZone.GetCount() == 1);
+    checkCount = (player1.fieldZone.GetCount() == 0 ||
+                  player1.fieldZone.GetCount() == 1);
     CHECK(checkCount);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 1);
@@ -110,12 +110,12 @@ TEST_CASE("[Game] - Basic")
     player1.PlayCard(0, 0);
     player1.PlayCard(0, 1);
 
-    const int poolIdx1 = player1.recruitFieldZone[0].GetPoolIndex();
-    const int poolIdx2 = player1.recruitFieldZone[1].GetPoolIndex();
+    const int poolIdx1 = player1.fieldZone[0].GetPoolIndex();
+    const int poolIdx2 = player1.fieldZone[1].GetPoolIndex();
 
     player1.RearrangeMinion(0, 1);
-    CHECK_EQ(poolIdx1, player1.recruitFieldZone[1].GetPoolIndex());
-    CHECK_EQ(poolIdx2, player1.recruitFieldZone[0].GetPoolIndex());
+    CHECK_EQ(poolIdx1, player1.fieldZone[1].GetPoolIndex());
+    CHECK_EQ(poolIdx2, player1.fieldZone[0].GetPoolIndex());
 
     player1.UpgradeTavern();
     CHECK_EQ(player1.currentTier, 1);

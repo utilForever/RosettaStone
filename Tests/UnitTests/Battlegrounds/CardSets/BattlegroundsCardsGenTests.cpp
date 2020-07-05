@@ -30,20 +30,20 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
     Player& player1 = game.GetGameState().players[0];
     Player& player2 = game.GetGameState().players[1];
 
-    Minion minion1(Cards::GetInstance().FindCardByName("Alleycat"));
+    Minion minion1(Cards::FindCardByName("Alleycat"));
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
     player1.handZone.Add(minion1);
     CHECK_EQ(player1.handZone.GetCount(), 1);
-    CHECK_EQ(player1.recruitFieldZone.GetCount(), 0);
+    CHECK_EQ(player1.fieldZone.GetCount(), 0);
 
     player1.PlayCard(0, 0);
     CHECK_EQ(player1.handZone.GetCount(), 0);
-    CHECK_EQ(player1.recruitFieldZone.GetCount(), 2);
-    CHECK_EQ(player1.recruitFieldZone[0].GetName(), "Alleycat");
-    CHECK_EQ(player1.recruitFieldZone[1].GetName(), "Tabbycat");
+    CHECK_EQ(player1.fieldZone.GetCount(), 2);
+    CHECK_EQ(player1.fieldZone[0].GetName(), "Alleycat");
+    CHECK_EQ(player1.fieldZone[1].GetName(), "Tabbycat");
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
@@ -60,9 +60,9 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
     // Player& player1 = game.GetGameState().players[0];
     // Player& player2 = game.GetGameState().players[1];
 
-    // Minion minion1(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
-    // Minion minion2(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
-    // Minion minion3(Cards::GetInstance().FindCardByName("Scavenging Hyena"));
+    // Minion minion1(Cards::FindCardByName("Scavenging Hyena"));
+    // Minion minion2(Cards::FindCardByName("Scavenging Hyena"));
+    // Minion minion3(Cards::FindCardByName("Scavenging Hyena"));
 
     // player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     // player2.hero.Initialize(Cards::FindCardByDbfID(58536));

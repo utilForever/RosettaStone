@@ -16,8 +16,8 @@ Battle::Battle(Game& game, Player& player1, Player& player2)
     : m_game(game),
       m_player1(player1),
       m_player2(player2),
-      m_p1Field(m_player1.recruitFieldZone),
-      m_p2Field(m_player2.recruitFieldZone)
+      m_p1Field(m_player1.fieldZone),
+      m_p2Field(m_player2.fieldZone)
 {
     // Do nothing
 }
