@@ -100,6 +100,34 @@ class FieldZone
         }
     }
 
+    //! Runs \p functor on each minion that is alive.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEachAlive(Functor&& functor)
+    {
+        for (auto& minion : m_minions)
+        {
+            if (minion.has_value() && !minion.value().IsDestroyed())
+            {
+                functor(minion);
+            }
+        }
+    }
+
+    //! Runs \p functor on each minion that is alive.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEachAlive(Functor&& functor) const
+    {
+        for (const auto& minion : m_minions)
+        {
+            if (minion.has_value() && !minion.value().IsDestroyed())
+            {
+                functor(minion);
+            }
+        }
+    }
+
  private:
     const ZoneType m_type = ZoneType::PLAY;
 
