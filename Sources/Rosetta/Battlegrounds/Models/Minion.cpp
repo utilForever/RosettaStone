@@ -99,6 +99,11 @@ int Minion::GetHealth() const
     return m_health;
 }
 
+void Minion::AddHealth(int val)
+{
+    m_health += val;
+}
+
 bool Minion::HasTaunt() const
 {
     return m_hasTaunt;
