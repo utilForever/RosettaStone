@@ -1267,7 +1267,12 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal $1 damage to all enemies. Restore 1 Health
     //       to all friendly characters.
     // --------------------------------------------------------
-
+	power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES, 1, true));
+    power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::FRIENDS, 1));
+    cards.emplace("ULD_272", CardDef(power));
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_714] Penance - COST:2
     // - Set: Uldum, Rarity: Common
