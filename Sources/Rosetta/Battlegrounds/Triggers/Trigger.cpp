@@ -7,8 +7,6 @@
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 
-#include <utility>
-
 namespace RosettaStone::Battlegrounds
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
@@ -16,25 +14,14 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
     // Do nothing
 }
 
-Trigger::Trigger(Trigger& prototype, Minion& owner)
-    : m_triggerType(prototype.m_triggerType),
-      m_triggerActivation(prototype.m_triggerActivation),
-      m_triggerSource(prototype.m_triggerSource),
-      m_tasks(prototype.m_tasks),
-      m_condition(prototype.m_condition)
-{
-    auto triggerFunc = [this](Minion& e) { Process(e); };
-    handler = TriggerEventHandler(triggerFunc);
-}
-
 void Trigger::SetTriggerSource(TriggerSource val)
 {
     m_triggerSource = val;
 }
 
-void Trigger::SetTasks(std::vector<TaskType> tasks)
+void Trigger::SetTasks(std::vector<TaskType>&& tasks)
 {
-    m_tasks = std::move(tasks);
+    m_tasks = tasks;
 }
 
 void Trigger::SetCondition(SelfCondition&& condition)
@@ -42,25 +29,11 @@ void Trigger::SetCondition(SelfCondition&& condition)
     m_condition = condition;
 }
 
-void Trigger::Activate(Player& player, Minion& source,
-                       TriggerActivation activation, bool cloning)
+void Trigger::Run(Player& player, Minion& source)
 {
-    if (!cloning && activation != m_triggerActivation)
+    for (auto& task : m_tasks)
     {
-        if (m_triggerActivation != TriggerActivation::HAND_OR_PLAY)
-        {
-            return;
-        }
+        std::visit([&](auto&& _task) { _task.Run(player, source); }, task);
     }
-
-    auto instance = Trigger(*this, source);
-    source.activatedTrigger = std::move(instance);
-
-    player.activateTriggerCallback(m_triggerType,
-                                   source.activatedTrigger.handler);
-}
-
-void Trigger::Process(Minion& source)
-{
 }
 }  // namespace RosettaStone::Battlegrounds
