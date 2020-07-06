@@ -96,8 +96,11 @@ class Minion
     bool IsDestroyed() const;
 
     //! Activates the trigger.
+    //! \param type The type of trigger.
+    //! \param source The source of trigger.
     //! \param player The owner of the minion.
-    void ActivateTrigger(Player& player);
+    void ActivateTrigger(TriggerType type, TriggerSource source,
+                         Player& player);
 
     //! Activates the task.
     //! \param type The type of power.
