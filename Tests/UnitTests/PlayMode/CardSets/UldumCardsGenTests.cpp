@@ -2032,6 +2032,61 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [ULD_272] Holy Ripple - COST:2
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal $1 damage to all enemies. Restore 1 Health
+//       to all friendly characters.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - ULD_272 : Holy Ripple")
+{
+	GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(1);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+	const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Ripple"));
+	const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Blademaster"));
+	const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Servant"));
+
+	game.Process(curPlayer, PlayCardTask::Minion(card2));
+	
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+	
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+	game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [ULD_714] Penance - COST:2
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
