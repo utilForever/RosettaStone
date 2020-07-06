@@ -2031,6 +2031,47 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
     CHECK_EQ(curField[2]->HasReborn(), true);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [ULD_270] Sandhoof Waterbearer - COST:5 [ATK:5/HP:5]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: At the end of your turn, restore 5 Health
+//       to a damaged friendly character.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - ULD_270 : Sandhoof Waterbearer")
+{
+	GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(5);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+	const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sandhoof Waterbearer"));
+
+	game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+	
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
 // ----------------------------------------- SPELL - PRIEST
 // [ULD_272] Holy Ripple - COST:2
 // - Set: Uldum, Rarity: Rare
