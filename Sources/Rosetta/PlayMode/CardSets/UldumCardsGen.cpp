@@ -1183,6 +1183,7 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+	Power power;
     // ---------------------------------------- MINION - PRIEST
     // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
     // - Set: Uldum, Rarity: Legendary
@@ -1279,7 +1280,13 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-
+	power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "ULD_714",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_718] Plague of Death - COST:9
     // - Set: Uldum, Rarity: Epic
