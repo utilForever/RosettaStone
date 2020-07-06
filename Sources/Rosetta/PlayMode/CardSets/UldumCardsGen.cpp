@@ -1259,6 +1259,16 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn, restore 5 Health
     //       to a damaged friendly character.
     // --------------------------------------------------------
+	power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::FRIENDS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<HealTask>(EntityType::STACK, 5)
+    };
+    cards.emplace("ULD_270", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_272] Holy Ripple - COST:2
