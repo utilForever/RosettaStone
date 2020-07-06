@@ -32,7 +32,7 @@ class Power
 
     //! Returns trigger.
     //! \return A reference to trigger.
-    std::optional<Trigger> GetTrigger() const;
+    std::optional<Trigger>& GetTrigger();
 
     //! Adds battlecry task.
     //! \param task A battlecry task to add.

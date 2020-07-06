@@ -18,7 +18,7 @@ std::vector<TaskType>& Power::GetBattlecryTask()
     return m_battlecryTask;
 }
 
-std::optional<Trigger> Power::GetTrigger() const
+std::optional<Trigger>& Power::GetTrigger()
 {
     return m_trigger;
 }
