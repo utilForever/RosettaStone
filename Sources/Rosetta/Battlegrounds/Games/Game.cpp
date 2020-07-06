@@ -20,11 +20,6 @@ GameState& Game::GetGameState()
     return m_gameState;
 }
 
-TriggerManager& Game::GetTriggerManager()
-{
-    return m_triggerManager;
-}
-
 void Game::Start()
 {
     // Choose a race to exclude from the minion pool at random
