@@ -35,6 +35,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRace(Race race);
 
+    //! Evaluates condition using checking function.
+    //! \param owner The owner entity.
+    //! \return true if the condition is satisfied, false otherwise.
+    bool Evaluate(Minion& owner) const;
+
  private:
     std::function<bool(Minion&)> m_func;
 };

@@ -19,4 +19,9 @@ SelfCondition SelfCondition::IsRace(Race race)
     return SelfCondition(
         [=](Minion& minion) -> bool { return minion.GetRace() == race; });
 }
+
+bool SelfCondition::Evaluate(Minion& owner) const
+{
+    return m_func(owner);
+}
 }  // namespace RosettaStone::Battlegrounds
