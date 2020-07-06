@@ -200,6 +200,7 @@ void Battle::ProcessDestroy()
         });
     }
 
+    Player& curPlayer = m_turn == Turn::PLAYER1 ? m_player1 : m_player2;
     // A variable to check a minion at the index of next attacker is destroyed
     bool isAttackerDestroyed = false;
 
@@ -224,7 +225,16 @@ void Battle::ProcessDestroy()
                 isAttackerDestroyed = true;
             }
 
-            m_game.GetTriggerManager().OnDeathTrigger(minion);
+            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, TriggerSource::FRIENDLY, curPlayer);
+            });
+
+            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, TriggerSource::ENEMY, curPlayer);
+            });
+
             m_p1Field.Remove(minion);
         }
         else
@@ -244,7 +254,16 @@ void Battle::ProcessDestroy()
                 isAttackerDestroyed = true;
             }
 
-            m_game.GetTriggerManager().OnDeathTrigger(minion);
+            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, TriggerSource::ENEMY, curPlayer);
+            });
+
+            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, TriggerSource::FRIENDLY, curPlayer);
+            });
+
             m_p2Field.Remove(minion);
         }
     }
