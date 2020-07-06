@@ -19,6 +19,11 @@ TriggerType Trigger::GetTriggerType() const
     return m_triggerType;
 }
 
+TriggerSource Trigger::GetTriggerSource() const
+{
+    return m_triggerSource;
+}
+
 void Trigger::SetTriggerSource(TriggerSource val)
 {
     m_triggerSource = val;

@@ -35,6 +35,10 @@ class Trigger
     //! \return The type of the trigger.
     TriggerType GetTriggerType() const;
 
+    //! Returns the source of the trigger.
+    //! \return The source of the trigger.
+    TriggerSource GetTriggerSource() const;
+
     //! Sets the value of trigger source.
     //! \param val The value of trigger source.
     void SetTriggerSource(TriggerSource val);
