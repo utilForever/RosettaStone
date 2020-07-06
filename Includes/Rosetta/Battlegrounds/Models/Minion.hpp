@@ -75,6 +75,10 @@ class Minion
     //! \return The value of attack.
     int GetAttack() const;
 
+    //! Adds the value of attack.
+    //! \param val The value of attack to add.
+    void AddAttack(int val);
+
     //! Returns the value of health.
     //! \return The value of health.
     int GetHealth() const;

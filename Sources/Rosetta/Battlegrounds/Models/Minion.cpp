@@ -89,6 +89,11 @@ int Minion::GetAttack() const
     return m_attack;
 }
 
+void Minion::AddAttack(int val)
+{
+    m_attack += val;
+}
+
 int Minion::GetHealth() const
 {
     return m_health;
