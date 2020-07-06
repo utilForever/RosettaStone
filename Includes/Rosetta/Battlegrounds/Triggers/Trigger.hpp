@@ -31,6 +31,10 @@ class Trigger
     //! \param type The trigger type.
     explicit Trigger(TriggerType type);
 
+    //! Returns the type of the trigger.
+    //! \return The type of the trigger.
+    TriggerType GetTriggerType() const;
+
     //! Sets the value of trigger source.
     //! \param val The value of trigger source.
     void SetTriggerSource(TriggerSource val);
