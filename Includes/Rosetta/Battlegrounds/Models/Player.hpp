@@ -91,8 +91,6 @@ class Player
     std::function<void(Player&)> upgradeTavernCallback;
     std::function<void()> completeRecruitCallback;
     std::function<void(Player&)> processDefeatCallback;
-    std::function<void(TriggerType, const TriggerEventHandler&)>
-        activateTriggerCallback;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
 
