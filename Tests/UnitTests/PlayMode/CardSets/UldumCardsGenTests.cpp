@@ -2078,6 +2078,60 @@ TEST_CASE("[Priest : Spell] - ULD_714 : Penance")
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [ULD_718] Plague of Death - COST:9
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Silence</b> and destroy all minions.
+// --------------------------------------------------------
+// GameTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - ULD_718 : Plague of Death")
+{
+	GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+	
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plague of Death"));
+	const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Serpent Egg"));
+	const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Serpent Egg"));
+	
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+	
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+	
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+	
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common
