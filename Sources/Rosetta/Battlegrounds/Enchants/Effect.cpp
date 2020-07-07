@@ -8,4 +8,9 @@
 
 namespace RosettaStone::Battlegrounds
 {
+Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
+    : m_gameTag(gameTag), m_effectOperator(effectOperator), m_value(value)
+{
+    // Do nothing
+}
 }  // namespace RosettaStone::Battlegrounds

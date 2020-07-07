@@ -6,6 +6,8 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_EFFECT_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_EFFECT_HPP
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
+
 namespace RosettaStone::Battlegrounds
 {
 //! Effect operator to change card value such as attack and health.
@@ -24,6 +26,17 @@ enum class EffectOperator
 //!
 class Effect
 {
+ public:
+    //! Constructs effect with given \p gameTag, \p effectOperator and \p value.
+    //! \param gameTag The game tag of the card.
+    //! \param effectOperator The effect operator to change card value.
+    //! \param value The value to change.
+    Effect(GameTag gameTag, EffectOperator effectOperator, int value);
+
+ private:
+    GameTag m_gameTag = GameTag::INVALID;
+    EffectOperator m_effectOperator = EffectOperator::SET;
+    int m_value = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 
