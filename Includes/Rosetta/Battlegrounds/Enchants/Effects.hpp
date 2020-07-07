@@ -6,7 +6,9 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_EFFECTS_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_EFFECTS_HPP
 
-namespace RosettaStone::PlayMode
+#include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
+
+namespace RosettaStone::Battlegrounds
 {
 //!
 //! \brief Effects class.
@@ -15,7 +17,23 @@ namespace RosettaStone::PlayMode
 //!
 class Effects
 {
+ public:
+    //! Creates effect that increases attack by \p n.
+    //! \param n A value indicating how much increases.
+    //! \return A dynamically allocated Effect instance.
+    static Effect AttackN(int n)
+    {
+        return Effect{ GameTag::ATK, EffectOperator::ADD, n };
+    }
+
+    //! Creates effect that increases health by \p n.
+    //! \param n A value indicating how much increases.
+    //! \return A dynamically allocated Effect instance.
+    static Effect HealthN(int n)
+    {
+        return Effect{ GameTag::HEALTH, EffectOperator::ADD, n };
+    }
 };
-}  // namespace RosettaStone::PlayMode
+}  // namespace RosettaStone::Battlegrounds
 
 #endif  // ROSETTASTONE_BATTLEGROUNDS_EFFECTS_HPP
