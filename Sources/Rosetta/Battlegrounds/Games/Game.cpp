@@ -51,8 +51,7 @@ void Game::Start()
     };
 
     // Create callback to purchase a minion in Tavern
-    auto purchaseMinionCallback = [this](Player& player,
-                                         std::size_t tavernIdx) {
+    auto purchaseMinionCallback = [](Player& player, std::size_t tavernIdx) {
         player.handZone.Add(
             player.tavern.fieldZone.Remove(player.tavern.fieldZone[tavernIdx]),
             -1);
