@@ -5,6 +5,8 @@
 
 #include <Rosetta/Battlegrounds/CardSets/BattlegroundsCardsGen.hpp>
 #include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
+#include <Rosetta/Battlegrounds/Enchants/Effects.hpp>
+#include <Rosetta/Battlegrounds/Enchants/Enchant.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -50,6 +52,17 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.GetTrigger().value().SetCondition(
         SelfCondition{ SelfCondition::IsRace(Race::BEAST) });
     cards.emplace("EX1_531", CardDef{ power });
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [EX1_531e] Well Fed (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack and Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{
+        std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(1) } });
+    cards.emplace("EX1_531e", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
