@@ -14,6 +14,7 @@
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
+#include <Rosetta/Battlegrounds/Enchants/Effects.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Enchant.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
