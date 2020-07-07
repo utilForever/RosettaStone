@@ -7,6 +7,10 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_ENCHANT_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_ENCHANT_HPP
 
+#include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
+
+#include <vector>
+
 namespace RosettaStone::Battlegrounds
 {
 //!
@@ -17,6 +21,13 @@ namespace RosettaStone::Battlegrounds
 //!
 class Enchant
 {
+ public:
+    //! Constructs enchant with given \p effects.
+    //! \param effects A list of effect.
+    explicit Enchant(std::vector<Effect> effects);
+
+ private:
+    std::vector<Effect> m_effects;
 };
 }  // namespace RosettaStone::Battlegrounds
 

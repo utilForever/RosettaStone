@@ -8,4 +8,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+Enchant::Enchant(std::vector<Effect> effects) : m_effects(std::move(effects))
+{
+    // Do nothing
+}
 }  // namespace RosettaStone::Battlegrounds
