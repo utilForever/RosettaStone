@@ -28,6 +28,11 @@ void Power::AddBattlecryTask(TaskType&& task)
     m_battlecryTask.emplace_back(task);
 }
 
+void Power::AddEnchant(Enchant&& enchant)
+{
+    m_enchant = enchant;
+}
+
 void Power::AddTrigger(Trigger&& trigger)
 {
     m_trigger = trigger;

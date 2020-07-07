@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_POWER_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_POWER_HPP
 
+#include <Rosetta/Battlegrounds/Enchants/Enchant.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>
 #include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 
@@ -38,12 +39,17 @@ class Power
     //! \param task A battlecry task to add.
     void AddBattlecryTask(TaskType&& task);
 
+    //! Adds enchant.
+    //! \param enchant An enchant to add.
+    void AddEnchant(Enchant&& enchant);
+
     //! Adds trigger.
     //! \param trigger An trigger to add.
     void AddTrigger(Trigger&& trigger);
 
  private:
     std::vector<TaskType> m_battlecryTask;
+    std::optional<Enchant> m_enchant;
     std::optional<Trigger> m_trigger;
 };
 }  // namespace RosettaStone::Battlegrounds
