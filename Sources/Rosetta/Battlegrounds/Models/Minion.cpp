@@ -89,9 +89,9 @@ int Minion::GetAttack() const
     return m_attack;
 }
 
-void Minion::AddAttack(int val)
+void Minion::SetAttack(int val)
 {
-    m_attack += val;
+    m_attack = val;
 }
 
 int Minion::GetHealth() const
@@ -99,9 +99,9 @@ int Minion::GetHealth() const
     return m_health;
 }
 
-void Minion::AddHealth(int val)
+void Minion::SetHealth(int val)
 {
-    m_health += val;
+    m_health = val;
 }
 
 bool Minion::HasTaunt() const

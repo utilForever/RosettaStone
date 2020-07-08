@@ -75,17 +75,17 @@ class Minion
     //! \return The value of attack.
     int GetAttack() const;
 
-    //! Adds the value of attack.
-    //! \param val The value of attack to add.
-    void AddAttack(int val);
+    //! Sets the value of attack.
+    //! \param val The value of attack to set.
+    void SetAttack(int val);
 
     //! Returns the value of health.
     //! \return The value of health.
     int GetHealth() const;
 
-    //! Adds the value of health.
-    //! \param val The value of attack to health.
-    void AddHealth(int val);
+    //! Sets the value of health.
+    //! \param val The value of health to set.
+    void SetHealth(int val);
 
     //! Returns the flag that indicates whether it has taunt.
     //! \return The flag that indicates whether it has taunt.
