@@ -27,4 +27,19 @@ int Effect::GetValue(Minion& minion) const
             return 0;
     }
 }
+
+void Effect::SetValue(Minion& minion, int value) const
+{
+    switch (m_gameTag)
+    {
+        case GameTag::ATK:
+            minion.SetAttack(value);
+            break;
+        case GameTag::HEALTH:
+            minion.SetHealth(value);
+            break;
+        default:
+            break;
+    }
+}
 }  // namespace RosettaStone::Battlegrounds

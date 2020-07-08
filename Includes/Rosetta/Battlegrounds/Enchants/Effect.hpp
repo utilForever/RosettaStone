@@ -40,6 +40,11 @@ class Effect
     //! \return The value according to game tag.
     int GetValue(Minion& minion) const;
 
+    //! Sets the value according to game tag.
+    //! \param minion A minion to set the value.
+    //! \param value The value according to game tag.
+    void SetValue(Minion& minion, int value) const;
+
  private:
     GameTag m_gameTag = GameTag::INVALID;
     EffectOperator m_effectOperator = EffectOperator::SET;
