@@ -9,7 +9,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-void InternalCardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
+void InternalCardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
 {
     for (auto& card : cards)
     {

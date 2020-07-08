@@ -10,7 +10,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-std::array<Card, NUM_BATTLEGROUNDS_CARDS> Cards::m_cards;
+std::array<Card, NUM_ALL_CARDS> Cards::m_cards;
 std::array<Card, NUM_BATTLEGROUNDS_HEROES> Cards::m_curHeroes;
 std::array<Card, NUM_TIER1_MINIONS> Cards::m_tier1Minions;
 std::array<Card, NUM_TIER2_MINIONS> Cards::m_tier2Minions;
@@ -75,7 +75,7 @@ Cards& Cards::GetInstance()
     return instance;
 }
 
-const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& Cards::GetAllCards()
+const std::array<Card, NUM_ALL_CARDS>& Cards::GetAllCards()
 {
     return m_cards;
 }

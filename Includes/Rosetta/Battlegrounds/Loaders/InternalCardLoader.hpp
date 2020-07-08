@@ -26,7 +26,7 @@ class InternalCardLoader
     //! Loads internal card data from card data generators.
     //! \param cards The data storage to store added cards with power
     //! and play requirements.
-    static void Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards);
+    static void Load(std::array<Card, NUM_ALL_CARDS>& cards);
 };
 }  // namespace RosettaStone::Battlegrounds
 
