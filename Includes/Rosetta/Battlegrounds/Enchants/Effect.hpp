@@ -45,6 +45,10 @@ class Effect
     //! \param value The value according to game tag.
     void SetValue(Minion& minion, int value) const;
 
+    //! Applies effect to the target minion.
+    //! \param minion A minion to which effect is applied.
+    void ApplyTo(Minion& minion) const;
+
  private:
     GameTag m_gameTag = GameTag::INVALID;
     EffectOperator m_effectOperator = EffectOperator::SET;

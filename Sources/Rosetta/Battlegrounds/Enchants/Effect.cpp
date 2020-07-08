@@ -7,6 +7,8 @@
 #include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::Battlegrounds
 {
 Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
@@ -40,6 +42,21 @@ void Effect::SetValue(Minion& minion, int value) const
             break;
         default:
             break;
+    }
+}
+
+void Effect::ApplyTo(Minion& minion) const
+{
+    const int prevValue = GetValue(minion);
+
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+            SetValue(minion, prevValue + m_value);
+            break;
+        default:
+            throw std::invalid_argument(
+                "Effect::ApplyTo() - Invalid effect operator!");
     }
 }
 }  // namespace RosettaStone::Battlegrounds
