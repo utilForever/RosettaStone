@@ -12,4 +12,12 @@ Enchant::Enchant(std::vector<Effect> effects) : m_effects(std::move(effects))
 {
     // Do nothing
 }
+
+void Enchant::ActivateTo(Minion& minion)
+{
+    for (auto& effect : m_effects)
+    {
+        effect.ApplyTo(minion);
+    }
+}
 }  // namespace RosettaStone::Battlegrounds

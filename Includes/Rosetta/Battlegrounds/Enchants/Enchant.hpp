@@ -13,6 +13,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+class Minion;
+
 //!
 //! \brief Enchant class.
 //!
@@ -25,6 +27,10 @@ class Enchant
     //! Constructs enchant with given \p effects.
     //! \param effects A list of effect.
     explicit Enchant(std::vector<Effect> effects);
+
+    //! Activates enchant to \p minion.
+    //! \param minion A minion to which enchant is activated.
+    void ActivateTo(Minion& minion);
 
  private:
     std::vector<Effect> m_effects;
