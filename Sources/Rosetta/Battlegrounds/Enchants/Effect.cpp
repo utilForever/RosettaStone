@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
+#include <Rosetta/Battlegrounds/Models/Minion.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -12,5 +13,18 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     : m_gameTag(gameTag), m_effectOperator(effectOperator), m_value(value)
 {
     // Do nothing
+}
+
+int Effect::GetValue(Minion& minion) const
+{
+    switch (m_gameTag)
+    {
+        case GameTag::ATK:
+            return minion.GetAttack();
+        case GameTag::HEALTH:
+            return minion.GetHealth();
+        default:
+            return 0;
+    }
 }
 }  // namespace RosettaStone::Battlegrounds

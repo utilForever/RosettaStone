@@ -10,6 +10,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+class Minion;
+
 //! Effect operator to change card value such as attack and health.
 enum class EffectOperator
 {
@@ -32,6 +34,11 @@ class Effect
     //! \param effectOperator The effect operator to change card value.
     //! \param value The value to change.
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
+
+    //! Gets the value according to game tag.
+    //! \param minion A minion to get the value.
+    //! \return The value according to game tag.
+    int GetValue(Minion& minion) const;
 
  private:
     GameTag m_gameTag = GameTag::INVALID;
