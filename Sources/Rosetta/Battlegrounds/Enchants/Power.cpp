@@ -18,6 +18,11 @@ std::vector<TaskType>& Power::GetBattlecryTask()
     return m_battlecryTask;
 }
 
+std::optional<Enchant>& Power::GetEnchant()
+{
+    return m_enchant;
+}
+
 std::optional<Trigger>& Power::GetTrigger()
 {
     return m_trigger;

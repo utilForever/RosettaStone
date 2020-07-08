@@ -31,6 +31,10 @@ class Power
     //! \return A list of battlecry tasks.
     std::vector<TaskType>& GetBattlecryTask();
 
+    //! Returns enchant.
+    //! \return A reference to enchant.
+    std::optional<Enchant>& GetEnchant();
+
     //! Returns trigger.
     //! \return A reference to trigger.
     std::optional<Trigger>& GetTrigger();
