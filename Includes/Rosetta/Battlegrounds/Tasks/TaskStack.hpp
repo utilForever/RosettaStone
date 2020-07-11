@@ -9,6 +9,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+class Minion;
+
 //!
 //! \brief TaskStack struct.
 //!
@@ -19,9 +21,11 @@ struct TaskStack
     //! Resets all variables.
     void Reset()
     {
+        minions.clear();
         num = 0;
     }
 
+    std::vector<std::reference_wrapper<Minion>> minions;
     int num = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
