@@ -2032,13 +2032,67 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
 }
 
 // ---------------------------------------- MINION - PRIEST
+// [ULD_269] Wretched Reclaimer - COST:3 [ATK:3/HP:3]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a friendly minion,
+//       then return it to life with full Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - ULD_269 : Wretched Reclaimer")
+{
+	GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+	const auto card1 =
+		Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Blademaster"));
+	const auto card2 =
+		Generic::DrawCard(curPlayer, Cards::FindCardByName("Shattered Sun Cleric"));
+	const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wretched Reclaimer"));
+	
+	game.Process(curPlayer, PlayCardTask::Minion(card1));
+	game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+	CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
+	CHECK_EQ(curField.GetCount(), 3);
+	CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+}
+
+// ---------------------------------------- MINION - PRIEST
 // [ULD_270] Sandhoof Waterbearer - COST:5 [ATK:5/HP:5]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
 // Text: At the end of your turn, restore 5 Health
 //       to a damaged friendly character.
 // --------------------------------------------------------
-TEST_CASE("[Priest : Spell] - ULD_270 : Sandhoof Waterbearer")
+TEST_CASE("[Priest : Minion] - ULD_270 : Sandhoof Waterbearer")
 {
 	GameConfig config;
     config.player1Class = CardClass::PRIEST;
