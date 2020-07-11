@@ -53,7 +53,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
         SelfCondition{ SelfCondition::IsRace(Race::BEAST) });
     cards.emplace("EX1_531", CardDef{ power });
 
-    // ----------------------------------- ENCHANTMENT - HUNTER
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
     // [EX1_531e] Well Fed (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
