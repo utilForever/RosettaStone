@@ -33,6 +33,7 @@
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/TaskStack.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>
 #include <Rosetta/Battlegrounds/Triggers/Trigger.hpp>
 #include <Rosetta/Battlegrounds/Utils/GameUtils.hpp>
