@@ -86,6 +86,9 @@ TaskStatus CopyTask::Impl(Player* player)
             case EntityType::TARGET:
             {
                 toBeCopied = m_target;
+				if (toBeCopied != nullptr && toBeCopied->zone != nullptr && toBeCopied->zone->GetType() == ZoneType::GRAVEYARD) {
+					deathrattle = true;
+				}
                 break;
             }
             default:
