@@ -13,20 +13,26 @@
 namespace RosettaStone::Battlegrounds::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(const std::string_view& cardID,
-                                       EntityType entityType)
-    : m_cardID(cardID), m_entityType(entityType)
+                                       EntityType entityType, bool useScriptTag)
+    : m_cardID(cardID), m_entityType(entityType), m_useScriptTag(useScriptTag)
 {
     // Do nothing
 }
 
 TaskStatus AddEnchantmentTask::Run(Player& player, Minion& source)
 {
+    int num = 0;
+    if (m_useScriptTag)
+    {
+        num = player.taskStack.num;
+    }
+
     auto minions = IncludeTask::GetMinions(m_entityType, player, source);
     Card enchantmentCard = Cards::FindCardByID(m_cardID);
 
     for (auto& minion : minions)
     {
-        Generic::AddEnchantment(enchantmentCard, minion);
+        Generic::AddEnchantment(enchantmentCard, minion, num);
     }
 
     return TaskStatus::COMPLETE;
