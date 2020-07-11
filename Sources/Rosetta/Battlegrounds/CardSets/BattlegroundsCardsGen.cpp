@@ -63,6 +63,21 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.AddEnchant(Enchant{
         std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(1) } });
     cards.emplace("EX1_531e", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [YOD_026] Fiendish Servant - TIER:1 [ATK:2/HP:1]
+    // - Race: Demon, Set: YoD, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Give this minion's Attack
+    //       to a random friendly minion.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        GetGameTagTask{ EntityType::SOURCE, GameTag::ATK });
+    power.AddDeathrattleTask(RandomTask{ EntityType::MINIONS_NOSOURCE, 1 });
+    power.AddDeathrattleTask(
+        AddEnchantmentTask{ "YOD_026e", EntityType::STACK, true });
+    cards.emplace("YOD_026", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
