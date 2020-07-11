@@ -44,6 +44,17 @@ std::string_view Minion::GetName() const
     return m_card.name;
 }
 
+int Minion::GetGameTag(GameTag tag) const
+{
+    switch (tag)
+    {
+        case GameTag::ATK:
+            return GetAttack();
+        default:
+            return 0;
+    }
+}
+
 Race Minion::GetRace() const
 {
     return m_card.GetRace();

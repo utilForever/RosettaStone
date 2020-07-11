@@ -39,6 +39,11 @@ class Minion
     //! \return The value of name.
     std::string_view GetName() const;
 
+    //! Returns the value of game tag.
+    //! \param tag The game tag of card.
+    //! \return The value of game tag.
+    int GetGameTag(GameTag tag) const;
+
     //! Returns the value of race.
     //! \return The value of race.
     Race GetRace() const;
