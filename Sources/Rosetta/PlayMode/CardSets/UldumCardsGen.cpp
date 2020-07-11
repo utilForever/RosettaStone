@@ -1251,6 +1251,14 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
+	power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+	power.AddPowerTask(std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1));
+	cards.emplace(
+		"ULD_269",
+		CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+								 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+								 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_270] Sandhoof Waterbearer - COST:5 [ATK:5/HP:5]
