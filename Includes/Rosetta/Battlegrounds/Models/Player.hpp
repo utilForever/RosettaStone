@@ -9,6 +9,7 @@
 
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
 #include <Rosetta/Battlegrounds/Models/Tavern.hpp>
+#include <Rosetta/Battlegrounds/Tasks/TaskStack.hpp>
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
 #include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 
@@ -82,6 +83,8 @@ class Player
     Tavern tavern;
     HandZone handZone;
     FieldZone fieldZone;
+
+    TaskStack taskStack;
 
     std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
