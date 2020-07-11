@@ -8,7 +8,6 @@
 
 #include <Rosetta/Common/Enums/TaskEnums.hpp>
 
-#include <optional>
 #include <vector>
 
 namespace RosettaStone::Battlegrounds

@@ -21,6 +21,14 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
         case EntityType::SOURCE:
             minions.emplace_back(source);
             break;
+        case EntityType::MINIONS_NOSOURCE:
+            player.fieldZone.ForEachAlive([&](MinionData& minion) {
+                if (&source != &minion.value())
+                {
+                    minions.emplace_back(minion.value());
+                }
+            });
+            break;
         default:
             throw std::invalid_argument(
                 "IncludeTask::GetEntities() - Invalid entity type");
