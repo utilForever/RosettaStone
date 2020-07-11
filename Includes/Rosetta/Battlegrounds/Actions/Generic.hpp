@@ -13,7 +13,8 @@ namespace RosettaStone::Battlegrounds::Generic
 //! Creates a new enchantment and attaches it to the given target.
 //! \param enchantmentCard The base card for the enchantment.
 //! \param target The target minion.
-void AddEnchantment(Card& enchantmentCard, Minion& target);
+//! \param num The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+void AddEnchantment(Card& enchantmentCard, Minion& target, int num = -1);
 }  // namespace RosettaStone::Battlegrounds::Generic
 
 #endif  // ROSETTASTONE_BATTLEGROUNDS_GENERIC_HPP

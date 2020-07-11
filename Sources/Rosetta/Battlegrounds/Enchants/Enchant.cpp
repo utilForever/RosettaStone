@@ -13,7 +13,7 @@ Enchant::Enchant(std::vector<Effect> effects) : m_effects(std::move(effects))
     // Do nothing
 }
 
-void Enchant::ActivateTo(Minion& minion)
+void Enchant::ActivateTo(Minion& minion, int num)
 {
     for (auto& effect : m_effects)
     {

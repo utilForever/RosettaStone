@@ -7,13 +7,13 @@
 
 namespace RosettaStone::Battlegrounds::Generic
 {
-void AddEnchantment(Card& enchantmentCard, Minion& target)
+void AddEnchantment(Card& enchantmentCard, Minion& target, int num)
 {
     Power& power = enchantmentCard.power;
 
     if (auto& enchant = power.GetEnchant(); enchant.has_value())
     {
-        enchant.value().ActivateTo(target);
+        enchant.value().ActivateTo(target, num);
     }
 }
 }  // namespace RosettaStone::Battlegrounds::Generic

@@ -30,7 +30,8 @@ class Enchant
 
     //! Activates enchant to \p minion.
     //! \param minion A minion to which enchant is activated.
-    void ActivateTo(Minion& minion);
+    //! \param num The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    void ActivateTo(Minion& minion, int num = 0);
 
  private:
     std::vector<Effect> m_effects;
