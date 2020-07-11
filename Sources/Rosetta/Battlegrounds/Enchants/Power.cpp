@@ -33,6 +33,11 @@ void Power::AddBattlecryTask(TaskType&& task)
     m_battlecryTask.emplace_back(task);
 }
 
+void Power::AddDeathrattleTask(TaskType&& task)
+{
+    m_deathrattleTask.emplace_back(task);
+}
+
 void Power::AddEnchant(Enchant&& enchant)
 {
     m_enchant = enchant;

@@ -43,6 +43,10 @@ class Power
     //! \param task A battlecry task to add.
     void AddBattlecryTask(TaskType&& task);
 
+    //! Adds deathrattle task.
+    //! \param task A deathrattle task to add.
+    void AddDeathrattleTask(TaskType&& task);
+
     //! Adds enchant.
     //! \param enchant An enchant to add.
     void AddEnchant(Enchant&& enchant);
@@ -53,6 +57,7 @@ class Power
 
  private:
     std::vector<TaskType> m_battlecryTask;
+    std::vector<TaskType> m_deathrattleTask;
     std::optional<Enchant> m_enchant;
     std::optional<Trigger> m_trigger;
 };
