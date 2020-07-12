@@ -7,6 +7,7 @@
 #include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Effects.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Enchant.hpp>
+#include <Rosetta/Battlegrounds/Enchants/Enchants.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -78,6 +79,16 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.AddDeathrattleTask(
         AddEnchantmentTask{ "YOD_026e", EntityType::STACK, true });
     cards.emplace("YOD_026", CardDef{ power });
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [YOD_026e] Servant's Sacrifice (*) - COST:0
+    // - Set: YoD
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{ Enchants::AddAttackScriptTag });
+    cards.emplace("YOD_026e", CardDef(power));
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
