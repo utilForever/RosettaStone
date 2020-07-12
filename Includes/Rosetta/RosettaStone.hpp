@@ -17,6 +17,7 @@
 #include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Effects.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Enchant.hpp>
+#include <Rosetta/Battlegrounds/Enchants/Enchants.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Games/GameState.hpp>
