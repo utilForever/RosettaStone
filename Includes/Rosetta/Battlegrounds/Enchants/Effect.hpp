@@ -49,6 +49,11 @@ class Effect
     //! \param minion A minion to which effect is applied.
     void ApplyTo(Minion& minion) const;
 
+    //! Creates a new Effect having changed amount of \p newValue.
+    //! \param newValue A value to change.
+    //! \return A new Effect having changed amount.
+    Effect ChangeValue(int newValue) const;
+
  private:
     GameTag m_gameTag = GameTag::INVALID;
     EffectOperator m_effectOperator = EffectOperator::SET;

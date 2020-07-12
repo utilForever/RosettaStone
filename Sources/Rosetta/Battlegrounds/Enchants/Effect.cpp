@@ -59,4 +59,9 @@ void Effect::ApplyTo(Minion& minion) const
                 "Effect::ApplyTo() - Invalid effect operator!");
     }
 }
+
+Effect Effect::ChangeValue(int newValue) const
+{
+    return Effect{ m_gameTag, m_effectOperator, newValue };
+}
 }  // namespace RosettaStone::Battlegrounds
