@@ -22,9 +22,16 @@ Enchant::Enchant(std::vector<Effect> effects, bool useScriptTag)
 
 void Enchant::ActivateTo(Minion& minion, int num)
 {
-    for (auto& effect : m_effects)
+    if (!m_useScriptTag)
     {
-        effect.ApplyTo(minion);
+        for (auto& effect : m_effects)
+        {
+            effect.ApplyTo(minion);
+        }
+    }
+    else
+    {
+        m_effects[0].ChangeValue(num).ApplyTo(minion);
     }
 }
 }  // namespace RosettaStone::Battlegrounds
