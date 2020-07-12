@@ -90,3 +90,51 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
     CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 4);
     CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 3);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [YOD_026] Fiendish Servant - TIER:1 [ATK:2/HP:1]
+// - Race: Demon, Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give this minion's Attack
+//       to a random friendly minion.
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("YOD_026"));
+    Minion minion2(Cards::FindCardByID("YOD_026"));
+    Minion minion3(Cards::FindCardByID("YOD_026"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    player1.handZone.Add(minion1);
+    player1.handZone.Add(minion2);
+    player1.PlayCard(0, 0);
+    player1.PlayCard(0, 0);
+
+    player2.handZone.Add(minion3);
+    player2.PlayCard(0, 0);
+
+    player1.fieldZone[0].SetAttack(10);
+
+    Battle battle(game, player1, player2);
+    battle.Initialize();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 10);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 1);
+    CHECK_EQ(battle.GetPlayer1Field()[1].GetAttack(), 2);
+    CHECK_EQ(battle.GetPlayer1Field()[1].GetHealth(), 1);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    //CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 12);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 1);
+}
