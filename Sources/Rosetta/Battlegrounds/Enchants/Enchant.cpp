@@ -8,7 +8,14 @@
 
 namespace RosettaStone::Battlegrounds
 {
-Enchant::Enchant(std::vector<Effect> effects) : m_effects(std::move(effects))
+Enchant::Enchant(Effect effect, bool useScriptTag)
+    : m_useScriptTag(useScriptTag)
+{
+    m_effects.emplace_back(effect);
+}
+
+Enchant::Enchant(std::vector<Effect> effects, bool useScriptTag)
+    : m_effects(std::move(effects)), m_useScriptTag(useScriptTag)
 {
     // Do nothing
 }

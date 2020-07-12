@@ -24,9 +24,15 @@ class Minion;
 class Enchant
 {
  public:
-    //! Constructs enchant with given \p effects.
+    //! Constructs enchant with given \p effect and \p useScriptTag.
+    //! \param effect The effect of the card.
+    //! \param useScriptTag A flag to use script tag.
+    explicit Enchant(Effect effect, bool useScriptTag = false);
+
+    //! Constructs enchant with given \p effects and \p useScriptTag.
     //! \param effects A list of effect.
-    explicit Enchant(std::vector<Effect> effects);
+    //! \param useScriptTag A flag to use script tag.
+    explicit Enchant(std::vector<Effect> effects, bool useScriptTag = false);
 
     //! Activates enchant to \p minion.
     //! \param minion A minion to which enchant is activated.
@@ -35,6 +41,7 @@ class Enchant
 
  private:
     std::vector<Effect> m_effects;
+    bool m_useScriptTag = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 
