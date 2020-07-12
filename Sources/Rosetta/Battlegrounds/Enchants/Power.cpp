@@ -11,6 +11,9 @@ namespace RosettaStone::Battlegrounds
 void Power::ClearData()
 {
     m_battlecryTask.clear();
+    m_deathrattleTask.clear();
+    m_enchant.reset();
+    m_trigger.reset();
 }
 
 std::vector<TaskType>& Power::GetBattlecryTask()
