@@ -29,6 +29,9 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
                 }
             });
             break;
+        case EntityType::STACK:
+            minions = player.taskStack.minions;
+            break;
         default:
             throw std::invalid_argument(
                 "IncludeTask::GetEntities() - Invalid entity type");
