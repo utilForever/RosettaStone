@@ -22,6 +22,9 @@ Minion::Minion(Card card, int poolIdx)
     {
         switch (tag.first)
         {
+            case GameTag::DEATHRATTLE:
+                m_hasDeathrattle = true;
+                break;
             case GameTag::TAUNT:
                 m_hasTaunt = true;
                 break;
@@ -113,6 +116,11 @@ int Minion::GetHealth() const
 void Minion::SetHealth(int val)
 {
     m_health = val;
+}
+
+bool Minion::HasDeathrattle() const
+{
+    return m_hasDeathrattle;
 }
 
 bool Minion::HasTaunt() const

@@ -92,6 +92,10 @@ class Minion
     //! \param val The value of health to set.
     void SetHealth(int val);
 
+    //! Returns the flag that indicates whether it has deathrattle.
+    //! \return The flag that indicates whether it has deathrattle.
+    bool HasDeathrattle() const;
+
     //! Returns the flag that indicates whether it has taunt.
     //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;
@@ -144,6 +148,7 @@ class Minion
     int m_attack = 0;
     int m_health = 0;
 
+    bool m_hasDeathrattle = false;
     bool m_hasTaunt = false;
     bool m_hasDivineShield = false;
     bool m_isDestroyed = false;
