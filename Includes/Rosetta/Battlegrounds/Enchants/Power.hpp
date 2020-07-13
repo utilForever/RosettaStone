@@ -31,6 +31,10 @@ class Power
     //! \return A list of battlecry tasks.
     std::vector<TaskType>& GetBattlecryTask();
 
+    //! Returns a list of deathrattle tasks.
+    //! \return A list of deathrattle tasks.
+    std::vector<TaskType>& GetDeathrattleTask();
+
     //! Returns enchant.
     //! \return A reference to enchant.
     std::optional<Enchant>& GetEnchant();
