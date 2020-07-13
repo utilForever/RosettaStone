@@ -206,6 +206,8 @@ std::vector<TaskType> Minion::GetTasks(PowerType type)
     {
         case PowerType::POWER:
             return m_card.power.GetBattlecryTask();
+        case PowerType::DEATHRATTLE:
+            return m_card.power.GetDeathrattleTask();
         default:
             return std::vector<TaskType>{};
     }
