@@ -266,6 +266,14 @@ void Battle::ProcessDestroy()
 
             m_p2Field.Remove(minion);
         }
+
+        // Process deathrattle tasks
+        if (minion.HasDeathrattle())
+        {
+            minion.ActivateTask(
+                PowerType::DEATHRATTLE,
+                std::get<0>(deadMinion) == 1 ? m_player1 : m_player2);
+        }
     }
 
     // If the zone position of minion that is destroyed not equals
