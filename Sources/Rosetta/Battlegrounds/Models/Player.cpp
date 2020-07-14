@@ -44,13 +44,13 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
 
         if (targetIdx == -1)
         {
-            fieldZone.Add(minion, fieldIdx);
+            recruitField.Add(minion, fieldIdx);
             minion.ActivateTask(PowerType::POWER, *this);
         }
         else
         {
-            Minion& target = fieldZone[targetIdx];
-            fieldZone.Add(minion, fieldIdx);
+            Minion& target = recruitField[targetIdx];
+            recruitField.Add(minion, fieldIdx);
             minion.ActivateTask(PowerType::POWER, *this, target);
         }
     }
@@ -62,7 +62,7 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
 
 void Player::SellMinion(std::size_t idx)
 {
-    const auto minion = fieldZone.Remove(fieldZone[idx]);
+    const auto minion = recruitField.Remove(recruitField[idx]);
     returnMinionCallback(minion.GetPoolIndex());
 
     remainCoin += 1;
@@ -99,13 +99,14 @@ void Player::FreezeTavern()
 
 void Player::RearrangeMinion(std::size_t curIdx, std::size_t newIdx)
 {
-    if (curIdx == newIdx || static_cast<int>(curIdx) >= fieldZone.GetCount() ||
-        static_cast<int>(newIdx) >= fieldZone.GetCount())
+    if (curIdx == newIdx ||
+        static_cast<int>(curIdx) >= recruitField.GetCount() ||
+        static_cast<int>(newIdx) >= recruitField.GetCount())
     {
         return;
     }
 
-    fieldZone.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
+    recruitField.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
 }
 
 void Player::CompleteRecruit() const

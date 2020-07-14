@@ -22,7 +22,7 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
             minions.emplace_back(source);
             break;
         case EntityType::MINIONS_NOSOURCE:
-            player.fieldZone.ForEachAlive([&](MinionData& minion) {
+            player.recruitField.ForEachAlive([&](MinionData& minion) {
                 if (&source != &minion.value())
                 {
                     minions.emplace_back(minion.value());

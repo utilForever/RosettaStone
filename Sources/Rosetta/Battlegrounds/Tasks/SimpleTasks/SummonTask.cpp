@@ -68,7 +68,7 @@ TaskStatus SummonTask::Run(Player& player, Minion& source)
 
     for (int i = 0; i < m_amount; ++i)
     {
-        if (player.fieldZone.IsFull())
+        if (player.recruitField.IsFull())
         {
             return TaskStatus::STOP;
         }
@@ -77,12 +77,12 @@ TaskStatus SummonTask::Run(Player& player, Minion& source)
     Minion summonMinion{ card };
 
     int summonPos = GetPosition(source, m_side);
-    if (summonPos > player.fieldZone.GetCount())
+    if (summonPos > player.recruitField.GetCount())
     {
-        summonPos = player.fieldZone.GetCount();
+        summonPos = player.recruitField.GetCount();
     }
 
-    player.fieldZone.Add(summonMinion, summonPos);
+    player.recruitField.Add(summonMinion, summonPos);
 
     return TaskStatus::COMPLETE;
 }
@@ -94,7 +94,7 @@ TaskStatus SummonTask::Run(Player& player, Minion& source,
 
     for (int i = 0; i < m_amount; ++i)
     {
-        if (player.fieldZone.IsFull())
+        if (player.recruitField.IsFull())
         {
             return TaskStatus::STOP;
         }
@@ -103,12 +103,12 @@ TaskStatus SummonTask::Run(Player& player, Minion& source,
     Minion summonMinion{ card };
 
     int summonPos = GetPosition(source, m_side);
-    if (summonPos > player.fieldZone.GetCount())
+    if (summonPos > player.recruitField.GetCount())
     {
-        summonPos = player.fieldZone.GetCount();
+        summonPos = player.recruitField.GetCount();
     }
 
-    player.fieldZone.Add(summonMinion, summonPos);
+    player.recruitField.Add(summonMinion, summonPos);
 
     return TaskStatus::COMPLETE;
 }

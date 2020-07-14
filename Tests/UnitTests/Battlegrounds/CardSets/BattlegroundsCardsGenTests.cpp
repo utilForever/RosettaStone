@@ -37,13 +37,13 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
 
     player1.hand.Add(minion1);
     CHECK_EQ(player1.hand.GetCount(), 1);
-    CHECK_EQ(player1.fieldZone.GetCount(), 0);
+    CHECK_EQ(player1.recruitField.GetCount(), 0);
 
     player1.PlayCard(0, 0);
     CHECK_EQ(player1.hand.GetCount(), 0);
-    CHECK_EQ(player1.fieldZone.GetCount(), 2);
-    CHECK_EQ(player1.fieldZone[0].GetName(), "Alleycat");
-    CHECK_EQ(player1.fieldZone[1].GetName(), "Tabbycat");
+    CHECK_EQ(player1.recruitField.GetCount(), 2);
+    CHECK_EQ(player1.recruitField[0].GetName(), "Alleycat");
+    CHECK_EQ(player1.recruitField[1].GetName(), "Tabbycat");
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
@@ -121,7 +121,7 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
     player2.hand.Add(minion3);
     player2.PlayCard(0, 0);
 
-    player1.fieldZone[0].SetAttack(10);
+    player1.recruitField[0].SetAttack(10);
 
     Battle battle(player1, player2);
     battle.Initialize();

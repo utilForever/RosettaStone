@@ -82,7 +82,7 @@ class Player
 
     Tavern tavern;
     HandZone hand;
-    FieldZone fieldZone;
+    FieldZone recruitField;
 
     TaskStack taskStack;
 
