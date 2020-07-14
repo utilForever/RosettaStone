@@ -81,7 +81,7 @@ class Player
     int coinToUpgradeTavern = 0;
 
     Tavern tavern;
-    HandZone handZone;
+    HandZone hand;
     FieldZone fieldZone;
 
     TaskStack taskStack;

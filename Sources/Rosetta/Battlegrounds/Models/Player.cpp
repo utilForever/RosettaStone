@@ -36,7 +36,7 @@ void Player::PurchaseMinion(std::size_t idx)
 
 void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
 {
-    auto card = handZone.Remove(handZone[handIdx]);
+    auto card = hand.Remove(hand[handIdx]);
 
     if (std::holds_alternative<Minion>(card))
     {

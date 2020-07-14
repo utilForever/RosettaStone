@@ -61,7 +61,7 @@ TEST_CASE("[Game] - Basic")
     Player& player1 = game.GetGameState().players.at(0);
 
     player1.PurchaseMinion(0);
-    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.hand.GetCount(), 1);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 0);
 
@@ -72,7 +72,7 @@ TEST_CASE("[Game] - Basic")
     player1.PlayCard(0, 0);
     bool checkCount = (player1.fieldZone.GetCount() == 1 ||
                        player1.fieldZone.GetCount() == 2);
-    CHECK_EQ(player1.handZone.GetCount(), 0);
+    CHECK_EQ(player1.hand.GetCount(), 0);
     CHECK(checkCount);
 
     player1.SellMinion(0);
@@ -87,7 +87,7 @@ TEST_CASE("[Game] - Basic")
              game.GetGameState().minionPool.GetCount() - 3 * 8 + 1);
 
     player1.RefreshTavern();
-    CHECK_EQ(player1.handZone.GetCount(), 0);
+    CHECK_EQ(player1.hand.GetCount(), 0);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 3);
     CHECK_EQ(player1.remainCoin, 0);
 
@@ -98,12 +98,12 @@ TEST_CASE("[Game] - Basic")
     player1.remainCoin = 10;
 
     player1.PurchaseMinion(0);
-    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.hand.GetCount(), 1);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 7);
 
     player1.PurchaseMinion(0);
-    CHECK_EQ(player1.handZone.GetCount(), 2);
+    CHECK_EQ(player1.hand.GetCount(), 2);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 1);
     CHECK_EQ(player1.remainCoin, 4);
 
@@ -128,7 +128,7 @@ TEST_CASE("[Game] - Basic")
     CHECK_EQ(player1.remainCoin, 5);
 
     player1.RefreshTavern();
-    CHECK_EQ(player1.handZone.GetCount(), 0);
+    CHECK_EQ(player1.hand.GetCount(), 0);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 4);
     CHECK_EQ(player1.remainCoin, 4);
 
@@ -229,7 +229,7 @@ TEST_CASE("[Game] - Freeze")
     Player& player1 = game.GetGameState().players.at(0);
 
     player1.PurchaseMinion(0);
-    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.hand.GetCount(), 1);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 0);
 
@@ -242,7 +242,7 @@ TEST_CASE("[Game] - Freeze")
 
     CHECK_EQ(game.GetGameState().phase, Phase::RECRUIT);
 
-    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.hand.GetCount(), 1);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 2);
     CHECK_EQ(player1.remainCoin, 4);
 
@@ -253,7 +253,7 @@ TEST_CASE("[Game] - Freeze")
 
     CHECK_EQ(game.GetGameState().phase, Phase::RECRUIT);
 
-    CHECK_EQ(player1.handZone.GetCount(), 1);
+    CHECK_EQ(player1.hand.GetCount(), 1);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 3);
     CHECK_EQ(player1.remainCoin, 5);
 }

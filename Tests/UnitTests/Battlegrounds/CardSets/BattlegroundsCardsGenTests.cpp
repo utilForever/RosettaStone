@@ -35,12 +35,12 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
-    player1.handZone.Add(minion1);
-    CHECK_EQ(player1.handZone.GetCount(), 1);
+    player1.hand.Add(minion1);
+    CHECK_EQ(player1.hand.GetCount(), 1);
     CHECK_EQ(player1.fieldZone.GetCount(), 0);
 
     player1.PlayCard(0, 0);
-    CHECK_EQ(player1.handZone.GetCount(), 0);
+    CHECK_EQ(player1.hand.GetCount(), 0);
     CHECK_EQ(player1.fieldZone.GetCount(), 2);
     CHECK_EQ(player1.fieldZone[0].GetName(), "Alleycat");
     CHECK_EQ(player1.fieldZone[1].GetName(), "Tabbycat");
@@ -67,12 +67,12 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
-    player1.handZone.Add(minion1);
-    player1.handZone.Add(minion2);
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
     player1.PlayCard(0, 0);
     player1.PlayCard(0, 0);
 
-    player2.handZone.Add(minion3);
+    player2.hand.Add(minion3);
     player2.PlayCard(0, 0);
 
     Battle battle(player1, player2);
@@ -113,12 +113,12 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
-    player1.handZone.Add(minion1);
-    player1.handZone.Add(minion2);
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
     player1.PlayCard(0, 0);
     player1.PlayCard(0, 0);
 
-    player2.handZone.Add(minion3);
+    player2.hand.Add(minion3);
     player2.PlayCard(0, 0);
 
     player1.fieldZone[0].SetAttack(10);

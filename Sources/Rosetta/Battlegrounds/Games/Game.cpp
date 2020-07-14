@@ -52,7 +52,7 @@ void Game::Start()
 
     // Create callback to purchase a minion in Tavern
     auto purchaseMinionCallback = [](Player& player, std::size_t tavernIdx) {
-        player.handZone.Add(
+        player.hand.Add(
             player.tavern.fieldZone.Remove(player.tavern.fieldZone[tavernIdx]),
             -1);
     };
@@ -120,7 +120,7 @@ void Game::Start()
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 
-        player.handZone.ForEach([&](std::optional<CardData>& card) {
+        player.hand.ForEach([&](std::optional<CardData>& card) {
             if (std::holds_alternative<Minion>(card.value()))
             {
                 const auto minion = std::get<Minion>(card.value());
