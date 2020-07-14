@@ -27,7 +27,7 @@ class Battle
     //! \param game The game context.
     //! \param player1 The first player.
     //! \param player2 The second player.
-    Battle(Game& game, Player& player1, Player& player2);
+    Battle(Player& player1, Player& player2);
 
     //! Initializes something before simulating a battle.
     //! i.e. decide who goes first, run hero powers
@@ -84,7 +84,6 @@ class Battle
     BattleResult GetResult() const;
 
  private:
-    Game& m_game;
     Player& m_player1;
     Player& m_player2;
     FieldZone m_p1Field;

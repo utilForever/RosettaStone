@@ -75,7 +75,7 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
     player2.handZone.Add(minion3);
     player2.PlayCard(0, 0);
 
-    Battle battle(game, player1, player2);
+    Battle battle(player1, player2);
     battle.Initialize();
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
@@ -123,7 +123,7 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
 
     player1.fieldZone[0].SetAttack(10);
 
-    Battle battle(game, player1, player2);
+    Battle battle(player1, player2);
     battle.Initialize();
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
@@ -135,6 +135,6 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
     battle.Attack();
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
-    //CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 12);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 12);
     CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 1);
 }

@@ -12,9 +12,8 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::Battlegrounds
 {
-Battle::Battle(Game& game, Player& player1, Player& player2)
-    : m_game(game),
-      m_player1(player1),
+Battle::Battle(Player& player1, Player& player2)
+    : m_player1(player1),
       m_player2(player2),
       m_p1Field(m_player1.fieldZone),
       m_p2Field(m_player2.fieldZone)
@@ -207,6 +206,7 @@ void Battle::ProcessDestroy()
     for (auto& deadMinion : deadMinions)
     {
         Minion& minion = std::get<1>(deadMinion);
+        Minion removedMinion;
 
         if (std::get<0>(deadMinion) == 1)
         {
@@ -235,7 +235,7 @@ void Battle::ProcessDestroy()
                     TriggerType::DEATH, TriggerSource::ENEMY, curPlayer);
             });
 
-            m_p1Field.Remove(minion);
+            removedMinion = m_p1Field.Remove(minion);
         }
         else
         {
@@ -264,13 +264,13 @@ void Battle::ProcessDestroy()
                     TriggerType::DEATH, TriggerSource::FRIENDLY, curPlayer);
             });
 
-            m_p2Field.Remove(minion);
+            removedMinion = m_p2Field.Remove(minion);
         }
 
         // Process deathrattle tasks
-        if (minion.HasDeathrattle())
+        if (removedMinion.HasDeathrattle())
         {
-            minion.ActivateTask(
+            removedMinion.ActivateTask(
                 PowerType::DEATHRATTLE,
                 std::get<0>(deadMinion) == 1 ? m_player1 : m_player2);
         }
