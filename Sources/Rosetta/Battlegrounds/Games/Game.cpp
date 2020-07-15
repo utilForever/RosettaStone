@@ -208,6 +208,9 @@ void Game::Recruit()
             continue;
         }
 
+        // Set the flag
+        player.isInCombat = true;
+
         // Assign the index of the player to fight next.
         player.playerIdxNextFight = FindPlayerNextFight(player.idx);
 
@@ -244,6 +247,12 @@ void Game::Recruit()
 
 void Game::Combat()
 {
+    for (auto& player : m_gameState.players)
+    {
+        // Set the flag
+        player.isInCombat = true;
+    }
+
     // Simulates a battle for each pair
     for (const auto& pair : m_playerFightPair)
     {
