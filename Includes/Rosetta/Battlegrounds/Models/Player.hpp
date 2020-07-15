@@ -27,6 +27,10 @@ namespace RosettaStone::Battlegrounds
 class Player
 {
  public:
+    //! Returns the field according the status.
+    //! \return The field according the status.
+    FieldZone& GetField();
+
     //! Initializes a Hero instance.
     //! \param idx The index of hero choices.
     void SelectHero(std::size_t idx);

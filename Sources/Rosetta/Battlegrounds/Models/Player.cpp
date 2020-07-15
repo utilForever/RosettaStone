@@ -9,6 +9,11 @@
 
 namespace RosettaStone::Battlegrounds
 {
+FieldZone& Player::GetField()
+{
+    return isInCombat ? battleField : recruitField;
+}
+
 void Player::SelectHero(std::size_t idx)
 {
     const auto heroCard = Cards::FindCardByDbfID(heroChoices.at(idx));
