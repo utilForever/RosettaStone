@@ -78,6 +78,9 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
     Battle battle(player1, player2);
     battle.Initialize();
 
+    player1.isInCombat = true;
+    player2.isInCombat = true;
+
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
     CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 2);
     CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 2);
@@ -125,6 +128,9 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
 
     Battle battle(player1, player2);
     battle.Initialize();
+
+    player1.isInCombat = true;
+    player2.isInCombat = true;
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
     CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 10);
