@@ -75,20 +75,20 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.ClearData();
     power.AddDeathrattleTask(
         GetGameTagTask{ EntityType::SOURCE, GameTag::ATK });
-    power.AddDeathrattleTask(RandomTask{ EntityType::MINIONS_NOSOURCE, 1 });
+    power.AddDeathrattleTask(RandomTask{ EntityType::MINIONS, 1 });
     power.AddDeathrattleTask(
-        AddEnchantmentTask{ "YOD_026e", EntityType::STACK, true });
+        AddEnchantmentTask{ "Yod_026e", EntityType::STACK, true });
     cards.emplace("YOD_026", CardDef{ power });
 
     // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
-    // [YOD_026e] Servant's Sacrifice (*) - COST:0
+    // [Yod_026e] Servant's Sacrifice (*) - COST:0
     // - Set: YoD
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchant{ Enchants::AddAttackScriptTag });
-    cards.emplace("YOD_026e", CardDef(power));
+    cards.emplace("Yod_026e", CardDef(power));
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
