@@ -24,7 +24,6 @@ class Battle
 {
  public:
     //! Constructs Battle instance with given game context and players.
-    //! \param game The game context.
     //! \param player1 The first player.
     //! \param player2 The second player.
     Battle(Player& player1, Player& player2);
@@ -86,8 +85,8 @@ class Battle
  private:
     Player& m_player1;
     Player& m_player2;
-    FieldZone m_p1Field;
-    FieldZone m_p2Field;
+    FieldZone& m_p1Field;
+    FieldZone& m_p2Field;
 
     int m_p1NextAttackerIdx = 0;
     int m_p2NextAttackerIdx = 0;

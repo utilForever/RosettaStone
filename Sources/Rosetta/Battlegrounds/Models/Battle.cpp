@@ -15,10 +15,11 @@ namespace RosettaStone::Battlegrounds
 Battle::Battle(Player& player1, Player& player2)
     : m_player1(player1),
       m_player2(player2),
-      m_p1Field(m_player1.recruitField),
-      m_p2Field(m_player2.recruitField)
+      m_p1Field(m_player1.battleField),
+      m_p2Field(m_player2.battleField)
 {
-    // Do nothing
+    m_player1.battleField = m_player1.recruitField;
+    m_player2.battleField = m_player2.recruitField;
 }
 
 void Battle::Initialize()
