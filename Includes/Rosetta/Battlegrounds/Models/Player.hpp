@@ -102,6 +102,7 @@ class Player
     std::size_t playerIdxFoughtLastTurn =
         std::numeric_limits<std::size_t>::max();
 
+    bool isInCombat = false;
     bool isFoughtGhostLastTurn = false;
     bool freezeTavern = false;
 };
