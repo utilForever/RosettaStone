@@ -2113,17 +2113,15 @@ TEST_CASE("[Priest : Minion] - ULD_270 : Sandhoof Waterbearer")
     opPlayer->SetUsedMana(0);
     curPlayer->GetHero()->SetDamage(5);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Sandhoof Waterbearer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
+
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
 // ----------------------------------------- SPELL - PRIEST
