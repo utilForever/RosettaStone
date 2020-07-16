@@ -2048,7 +2048,7 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - ULD_269 : Wretched Reclaimer")
 {
-	GameConfig config;
+    GameConfig config;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
@@ -2068,19 +2068,19 @@ TEST_CASE("[Priest : Minion] - ULD_269 : Wretched Reclaimer")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-	const auto card1 =
-		Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Blademaster"));
-	const auto card2 =
-		Generic::DrawCard(curPlayer, Cards::FindCardByName("Shattered Sun Cleric"));
-	const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wretched Reclaimer"));
-	
-	game.Process(curPlayer, PlayCardTask::Minion(card1));
-	game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
-	CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shattered Sun Cleric"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wretched Reclaimer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
     game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
-	CHECK_EQ(curField.GetCount(), 3);
-	CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 7);
 }
@@ -2094,7 +2094,7 @@ TEST_CASE("[Priest : Minion] - ULD_269 : Wretched Reclaimer")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - ULD_270 : Sandhoof Waterbearer")
 {
-	GameConfig config;
+    GameConfig config;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
@@ -2115,13 +2115,13 @@ TEST_CASE("[Priest : Minion] - ULD_270 : Sandhoof Waterbearer")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-	const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sandhoof Waterbearer"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sandhoof Waterbearer"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
-	
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
@@ -2135,7 +2135,7 @@ TEST_CASE("[Priest : Minion] - ULD_270 : Sandhoof Waterbearer")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - ULD_272 : Holy Ripple")
 {
-	GameConfig config;
+    GameConfig config;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
@@ -2157,24 +2157,24 @@ TEST_CASE("[Priest : Spell] - ULD_272 : Holy Ripple")
     auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
-	const auto card1 =
+    const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Ripple"));
-	const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Blademaster"));
-	const auto card3 =
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Servant"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card2));
-	
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-	
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-	game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
     CHECK_EQ(curField[0]->GetHealth(), 4);
@@ -2196,7 +2196,7 @@ TEST_CASE("[Priest : Spell] - ULD_272 : Holy Ripple")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - ULD_714 : Penance")
 {
-	GameConfig config;
+    GameConfig config;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
@@ -2219,11 +2219,11 @@ TEST_CASE("[Priest : Spell] - ULD_714 : Penance")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Penance"));
-	const auto card2 =
+    const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Doomsayer"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card2));
-	game.Process(curPlayer, PlayCardTask::SpellTarget(card1,curField[0]));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField[0]));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
@@ -2239,7 +2239,7 @@ TEST_CASE("[Priest : Spell] - ULD_714 : Penance")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - ULD_718 : Plague of Death")
 {
-	GameConfig config;
+    GameConfig config;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
@@ -2259,24 +2259,24 @@ TEST_CASE("[Priest : Spell] - ULD_718 : Plague of Death")
 
     auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
-	
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Plague of Death"));
-	const auto card2 =
+    const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Serpent Egg"));
-	const auto card3 =
+    const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Serpent Egg"));
-	
+
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-	
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-	
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
-	
+
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 0);
     CHECK_EQ(opField.GetCount(), 0);

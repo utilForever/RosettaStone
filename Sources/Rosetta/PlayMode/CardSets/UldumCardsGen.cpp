@@ -1184,7 +1184,7 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
-	Power power;
+    Power power;
     // ---------------------------------------- MINION - PRIEST
     // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
     // - Set: Uldum, Rarity: Legendary
@@ -1251,14 +1251,15 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-	power.ClearData();
+    power.ClearData();
     power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
-	power.AddPowerTask(std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1));
-	cards.emplace(
-		"ULD_269",
-		CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-								 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-								 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1));
+    cards.emplace(
+        "ULD_269",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_270] Sandhoof Waterbearer - COST:5 [ATK:5/HP:5]
@@ -1267,7 +1268,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn, restore 5 Health
     //       to a damaged friendly character.
     // --------------------------------------------------------
-	power.ClearData();
+    power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::FRIENDS),
@@ -1285,11 +1286,10 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal $1 damage to all enemies. Restore 1 Health
     //       to all friendly characters.
     // --------------------------------------------------------
-	power.ClearData();
+    power.ClearData();
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMIES, 1, true));
-    power.AddPowerTask(
-        std::make_shared<HealTask>(EntityType::FRIENDS, 1));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 1));
     cards.emplace("ULD_272", CardDef(power));
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_714] Penance - COST:2
@@ -1304,7 +1304,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-	power.ClearData();
+    power.ClearData();
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cards.emplace(
@@ -1321,10 +1321,10 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
-	power.ClearData();
+    power.ClearData();
     power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::ALL_MINIONS));
     power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
-	cards.emplace("ULD_718", CardDef(power));
+    cards.emplace("ULD_718", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_724] Activate the Obelisk - COST:1
