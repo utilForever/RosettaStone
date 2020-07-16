@@ -2074,15 +2074,38 @@ TEST_CASE("[Priest : Minion] - ULD_269 : Wretched Reclaimer")
         curPlayer, Cards::FindCardByName("Shattered Sun Cleric"));
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Wretched Reclaimer"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Serpent Egg"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wretched Reclaimer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
     CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
     game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[0]->card->name, "Injured Blademaster");
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card5, card4));
+    CHECK_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField[3]->card->name, "Serpent Egg");
+    CHECK_EQ(curField[4]->card->name, "Sea Serpent");
+    CHECK_EQ(curField[4]->GetAttack(), 3);
+    CHECK_EQ(curField[4]->GetHealth(), 4);
 }
 
 // ---------------------------------------- MINION - PRIEST
