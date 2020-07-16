@@ -2124,11 +2124,12 @@ TEST_CASE("[Priest : Minion] - ULD_270 : Sandhoof Waterbearer")
 
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
 }
+
 // ----------------------------------------- SPELL - PRIEST
 // [ULD_272] Holy Ripple - COST:2
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal $1 damage to all enemies. Restore 1 Health
+// Text: Deal 1 damage to all enemies. Restore 1 Health
 //       to all friendly characters.
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - ULD_272 : Holy Ripple")
@@ -2183,7 +2184,7 @@ TEST_CASE("[Priest : Spell] - ULD_272 : Holy Ripple")
 // [ULD_714] Penance - COST:2
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Lifesteal</b> Deal 3 damage to a_minion.
+// Text: <b>Lifesteal</b> Deal 3 damage to a minion.
 // --------------------------------------------------------
 // GameTag:
 // - LIFESTEAL = 1

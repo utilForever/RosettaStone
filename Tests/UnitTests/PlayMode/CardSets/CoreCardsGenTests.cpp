@@ -2611,7 +2611,7 @@ TEST_CASE("[Paladin : Spell] - EX1_371 : Hand of Protection")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [CS1_112] Holy Nova - COST:5
+// [CS1_112] Holy Nova - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemy minions.
