@@ -380,8 +380,8 @@ TEST_CASE("[Game] - Rank")
              game.GetGameState().minionPool.GetCount() - 3 * 8);
 
     auto& players = game.GetGameState().players;
-    players.at(0).hero.health = 1;
-    players.at(1).hero.health = 1;
+    players.at(0).hero.health = 7;
+    players.at(1).hero.health = 7;
     players.at(2).hero.health = 0;
     players.at(3).hero.health = 0;
     players.at(4).hero.health = 0;
@@ -406,6 +406,9 @@ TEST_CASE("[Game] - Rank")
     players.at(1).PlayCard(0, 0);
 
     game.DetermineOpponent();
+
+    players.at(0).currentTier = 6;
+    players.at(1).currentTier = 6;
 
     for (auto& player : game.GetGameState().players)
     {
