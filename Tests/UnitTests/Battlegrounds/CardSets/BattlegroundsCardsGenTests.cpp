@@ -214,3 +214,17 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_004 : Wrath Weaver")
     CHECK_EQ(player1.recruitField[0].GetAttack(), 3);
     CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [BGS_039] Dragonspawn Lieutenant - TIER:1 [ATK:2/HP:2]
+// - Race: Dragon, Set: Battlegrounds, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - BGS_039 : Dragonspawn Lieutenant")
+{
+    // Do nothing
+}

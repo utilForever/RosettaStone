@@ -137,6 +137,18 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.AddEnchant(Enchant{
         std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(2) } });
     cards.emplace("BGS_004e", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BGS_039] Dragonspawn Lieutenant - TIER:1 [ATK:2/HP:2]
+    // - Race: Dragon, Set: Battlegrounds, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    cards.emplace("BGS_039", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
