@@ -18,13 +18,13 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class DamageTask : public ITask
 {
  public:
-    //! Constructs task with given \p character, \p damage and \p isSpellDamage.
+    //! Constructs task with given \p entityType, \p damage and \p isSpellDamage.
     //! \param entityType The entity type of target to take damage.
     //! \param damage A value indicating how much to take.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.
     DamageTask(EntityType entityType, int damage, bool isSpellDamage = false);
 
-    //! Constructs task with given \p character, \p damage, \p randomDamage and
+    //! Constructs task with given \p entityType, \p damage, \p randomDamage and
     //! \p isSpellDamage.
     //! \param entityType The entity type of target to take damage.
     //! \param damage A value indicating how much to take.
