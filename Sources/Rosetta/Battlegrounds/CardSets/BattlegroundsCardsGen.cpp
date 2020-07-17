@@ -105,6 +105,38 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.ClearData();
     power.AddBattlecryTask(DamageHeroTask{ 2 });
     cards.emplace("LOOT_013", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BGS_004] Wrath Weaver - TIER:1 [ATK:1/HP:1]
+    // - Race: Demon, Set: Battlegrounds, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After you play a Demon, deal 1 damage to your hero
+    //       and gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger{ TriggerType::AFTER_PLAY_MINION });
+    power.GetTrigger().value().SetTriggerSource(
+        TriggerSource::MINIONS_EXCEPT_SELF);
+    power.GetTrigger().value().SetTasks(std::vector<TaskType>{
+        DamageHeroTask{ 1 },
+        AddEnchantmentTask{ "BGS_004e", EntityType::SOURCE } });
+    power.GetTrigger().value().SetCondition(
+        SelfCondition{ SelfCondition::IsRace(Race::DEMON) });
+    cards.emplace("BGS_004", CardDef{ power });
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [BGS_004e] Wrath Woven (*) - COST:0
+    // - Set: Battlegrounds
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{
+        std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(2) } });
+    cards.emplace("BGS_004e", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(

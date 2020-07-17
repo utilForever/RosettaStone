@@ -175,3 +175,42 @@ TEST_CASE("[Battlegrounds : Minion] - LOOT_013 : Vulgar Homunculus")
     player1.PlayCard(0, 0);
     CHECK_EQ(player1.hero.health, 38);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [BGS_004] Wrath Weaver - TIER:1 [ATK:1/HP:1]
+// - Race: Demon, Set: Battlegrounds, Rarity: Common
+// --------------------------------------------------------
+// Text: After you play a Demon, deal 1 damage to your hero
+//       and gain +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - BGS_004 : Wrath Weaver")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("BGS_004"));
+    Minion minion2(Cards::FindCardByID("LOOT_013"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    CHECK_EQ(player1.hero.health, 40);
+
+    player1.hand.Add(minion1);
+    player1.PlayCard(0, 0);
+    CHECK_EQ(player1.hero.health, 40);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 1);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 1);
+
+    player1.hand.Add(minion2);
+    player1.PlayCard(0, 1);
+    CHECK_EQ(player1.hero.health, 37);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 3);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
+}
