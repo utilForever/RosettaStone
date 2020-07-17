@@ -10,6 +10,8 @@
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Common/Enums/TaskEnums.hpp>
 
+#include <initializer_list>
+
 namespace RosettaStone::Battlegrounds
 {
 //!
@@ -114,9 +116,10 @@ class Minion
 
     //! Activates the trigger.
     //! \param type The type of trigger.
-    //! \param source The source of trigger.
+    //! \param sources A list of trigger sources.
     //! \param player The owner of the minion.
-    void ActivateTrigger(TriggerType type, TriggerSource source,
+    void ActivateTrigger(TriggerType type,
+                         std::initializer_list<TriggerSource> sources,
                          Player& player);
 
     //! Activates the task.

@@ -153,7 +153,8 @@ bool Minion::IsDestroyed() const
     return m_isDestroyed;
 }
 
-void Minion::ActivateTrigger(TriggerType type, TriggerSource source,
+void Minion::ActivateTrigger(TriggerType type,
+                             std::initializer_list<TriggerSource> sources,
                              Player& player)
 {
     auto& trigger = m_card.power.GetTrigger();
@@ -162,13 +163,18 @@ void Minion::ActivateTrigger(TriggerType type, TriggerSource source,
         return;
     }
 
-    if (trigger.value().GetTriggerType() != type ||
-        trigger.value().GetTriggerSource() != source)
+    if (trigger.value().GetTriggerType() != type)
     {
         return;
     }
 
-    trigger.value().Run(player, *this);
+    for (const auto& source : sources)
+    {
+        if (trigger.value().GetTriggerSource() == source)
+        {
+            trigger.value().Run(player, *this);
+        }
+    }
 }
 
 void Minion::ActivateTask(PowerType type, Player& player)
