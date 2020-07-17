@@ -220,12 +220,12 @@ void Battle::ProcessDestroy()
 
             m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, TriggerSource::FRIENDLY, curPlayer);
+                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
             });
 
             m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, TriggerSource::ENEMY, curPlayer);
+                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
             });
 
             removedMinion = m_p1Field.Remove(minion);
@@ -249,12 +249,12 @@ void Battle::ProcessDestroy()
 
             m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, TriggerSource::ENEMY, curPlayer);
+                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
             });
 
             m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, TriggerSource::FRIENDLY, curPlayer);
+                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
             });
 
             removedMinion = m_p2Field.Remove(minion);
