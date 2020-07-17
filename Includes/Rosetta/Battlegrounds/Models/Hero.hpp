@@ -23,6 +23,11 @@ class Hero
     //! \param heroCard The card of a Hero instance.
     void Initialize(const Card& heroCard);
 
+    //! Takes damage to the hero.
+    //! \param player The owner of the hero.
+    //! \param amount The amount of damage.
+    void TakeDamage(Player& player, int amount);
+
     Card card;
     int health = 0;
 };
