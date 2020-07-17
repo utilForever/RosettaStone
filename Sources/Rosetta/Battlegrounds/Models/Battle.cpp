@@ -71,19 +71,11 @@ void Battle::Run()
     const int damage = CalculateDamage();
     if (m_result == BattleResult::PLAYER1_WIN)
     {
-        m_player2.hero.health -= damage;
-        if (m_player2.hero.health <= 0)
-        {
-            m_player2.ProcessDefeat();
-        }
+        m_player2.hero.TakeDamage(m_player2, damage);
     }
     else if (m_result == BattleResult::PLAYER2_WIN)
     {
-        m_player1.hero.health -= damage;
-        if (m_player1.hero.health <= 0)
-        {
-            m_player1.ProcessDefeat();
-        }
+        m_player1.hero.TakeDamage(m_player1, damage);
     }
 }
 
