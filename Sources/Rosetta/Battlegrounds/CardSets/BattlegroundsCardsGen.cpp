@@ -9,6 +9,7 @@
 #include <Rosetta/Battlegrounds/Enchants/Enchant.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Enchants.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/DamageHeroTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::Battlegrounds
@@ -89,6 +90,21 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.ClearData();
     power.AddEnchant(Enchant{ Enchants::AddAttackScriptTag });
     cards.emplace("Yod_026e", CardDef(power));
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [LOOT_013] Vulgar Homunculus - TIER:1 [ATK:2/HP:4]
+    // - Race: Demon, Set: Lootapalooza, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Deal 2 damage to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddBattlecryTask(DamageHeroTask{ 2 });
+    cards.emplace("LOOT_013", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(

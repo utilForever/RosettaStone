@@ -144,3 +144,34 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
     CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 12);
     CHECK_EQ(battle.GetPlayer1Field()[0].GetHealth(), 1);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [LOOT_013] Vulgar Homunculus - TIER:1 [ATK:2/HP:4]
+// - Race: Demon, Set: Lootapalooza, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Deal 2 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - LOOT_013 : Vulgar Homunculus")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("LOOT_013"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    CHECK_EQ(player1.hero.health, 40);
+
+    player1.hand.Add(minion1);
+    player1.PlayCard(0, 0);
+    CHECK_EQ(player1.hero.health, 38);
+}
