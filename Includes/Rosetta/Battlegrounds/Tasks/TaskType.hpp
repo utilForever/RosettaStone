@@ -8,6 +8,7 @@
 #define ROSETTASTONE_BATTLEGROUNDS_TASK_TYPE_HPP
 
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/DamageHeroTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
@@ -17,8 +18,8 @@
 namespace RosettaStone::Battlegrounds
 {
 using namespace SimpleTasks;
-using TaskType =
-    std::variant<AddEnchantmentTask, GetGameTagTask, RandomTask, SummonTask>;
+using TaskType = std::variant<AddEnchantmentTask, DamageHeroTask,
+                              GetGameTagTask, RandomTask, SummonTask>;
 }  // namespace RosettaStone::Battlegrounds
 
 #endif  // ROSETTASTONE_BATTLEGROUNDS_TASK_TYPE_HPP
