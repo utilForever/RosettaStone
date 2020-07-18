@@ -31,6 +31,10 @@ class Power
     //! \return A list of battlecry tasks.
     std::vector<TaskType>& GetBattlecryTask();
 
+    //! Returns a list of start of combat tasks.
+    //! \return A list of start of combat tasks.
+    std::vector<TaskType>& GetStartCombatTask();
+
     //! Returns a list of deathrattle tasks.
     //! \return A list of deathrattle tasks.
     std::vector<TaskType>& GetDeathrattleTask();
