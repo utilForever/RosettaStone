@@ -32,6 +32,7 @@
 #include <Rosetta/Battlegrounds/Models/Spell.hpp>
 #include <Rosetta/Battlegrounds/Models/Tavern.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/DamageHeroTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/IncludeTask.hpp>
