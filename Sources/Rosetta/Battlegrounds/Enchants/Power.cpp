@@ -41,6 +41,11 @@ void Power::AddBattlecryTask(TaskType&& task)
     m_battlecryTask.emplace_back(task);
 }
 
+void Power::AddStartCombatTask(TaskType&& task)
+{
+    m_startCombatTask.emplace_back(task);
+}
+
 void Power::AddDeathrattleTask(TaskType&& task)
 {
     m_deathrattleTask.emplace_back(task);
