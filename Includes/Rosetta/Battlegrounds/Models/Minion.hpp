@@ -110,6 +110,10 @@ class Minion
     //! \param source A minion to give damage.
     void TakeDamage(Minion& source);
 
+    //! Takes damage to the minion.
+    //! \param amount The amount of damage.
+    void TakeDamage(int amount);
+
     //! Returns the flag that indicates whether it is destroyed.
     //! \return The flag that indicates whether it is destroyed.
     bool IsDestroyed() const;

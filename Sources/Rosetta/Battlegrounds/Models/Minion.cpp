@@ -148,6 +148,15 @@ void Minion::TakeDamage(Minion& source)
     }
 }
 
+void Minion::TakeDamage(int amount)
+{
+    m_health -= amount;
+    if (m_health <= 0)
+    {
+        m_isDestroyed = true;
+    }
+}
+
 bool Minion::IsDestroyed() const
 {
     return m_isDestroyed;
