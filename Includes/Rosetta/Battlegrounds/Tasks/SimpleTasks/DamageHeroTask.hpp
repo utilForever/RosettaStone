@@ -26,7 +26,7 @@ class DamageHeroTask
  public:
     //! Constructs task with given \p damage.
     //! \param damage A value indicating how much to take.
-    DamageHeroTask(int damage);
+    explicit DamageHeroTask(int damage);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.

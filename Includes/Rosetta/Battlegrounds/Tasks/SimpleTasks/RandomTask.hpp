@@ -28,7 +28,7 @@ class RandomTask
     //! Constructs task with given \p entityType and \p amount.
     //! \param entityType The type of entity.
     //! \param amount The amount of entities to pick.
-    RandomTask(EntityType entityType, int amount);
+    explicit RandomTask(EntityType entityType, int amount);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.

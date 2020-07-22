@@ -27,7 +27,7 @@ class DamageTask
     //! Constructs task with given \p entityType and \p damage.
     //! \param entityType The entity type of target to take damage.
     //! \param damage A value indicating how much to take.
-    DamageTask(EntityType entityType, int damage);
+    explicit DamageTask(EntityType entityType, int damage);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.

@@ -29,7 +29,8 @@ class GetGameTagTask
     //! \param entityType The entity type of target to get game tag.
     //! \param minionIndex An index of minion in the field.
     //! \param tag A game tag to get.
-    GetGameTagTask(EntityType entityType, GameTag tag, int minionIndex = 0);
+    explicit GetGameTagTask(EntityType entityType, GameTag tag,
+                            int minionIndex = 0);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.

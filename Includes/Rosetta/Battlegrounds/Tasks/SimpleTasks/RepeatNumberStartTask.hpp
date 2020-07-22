@@ -27,7 +27,7 @@ class RepeatNumberStartTask
  public:
     //! Constructs task with given \p num.
     //! \param num The number of times to repeat tasks.
-    RepeatNumberStartTask(int num);
+    explicit RepeatNumberStartTask(int num);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.
