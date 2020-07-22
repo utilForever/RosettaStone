@@ -228,3 +228,51 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_039 : Dragonspawn Lieutenant")
 {
     // Do nothing
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [BGS_019] Red Whelp - TIER:1 [ATK:1/HP:2]
+// - Race: Dragon, Set: Battlegrounds
+// --------------------------------------------------------
+// Text: <b>Start of Combat:</b> Deal 1 damage per friendly
+//       Dragon to one random enemy minion.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - BGS_019 : Red Whelp")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("BGS_019"));
+    Minion minion2(Cards::FindCardByID("BGS_039"));
+    Minion minion3(Cards::FindCardByID("BGS_039"));
+    Minion minion4(Cards::FindCardByID("BGS_039"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
+    player1.hand.Add(minion3);
+    player1.PlayCard(0, 0);
+    player1.PlayCard(0, 0);
+    player1.PlayCard(0, 0);
+
+    player2.hand.Add(minion4);
+    player2.PlayCard(0, 0);
+
+    game.SetPlayerPair(0, 1);
+
+    player1.isInCombat = true;
+    player2.isInCombat = true;
+
+    Battle battle(player1, player2);
+    battle.Initialize();
+
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 2);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetHealth(), 1);
+}

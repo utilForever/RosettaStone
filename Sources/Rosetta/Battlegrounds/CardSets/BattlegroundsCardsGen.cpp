@@ -8,9 +8,6 @@
 #include <Rosetta/Battlegrounds/Enchants/Effects.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Enchant.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Enchants.hpp>
-#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/DamageHeroTask.hpp>
-#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -108,7 +105,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [BGS_004] Wrath Weaver - TIER:1 [ATK:1/HP:1]
-    // - Race: Demon, Set: Battlegrounds, Rarity: Common
+    // - Race: Demon, Set: Battlegrounds
     // --------------------------------------------------------
     // Text: After you play a Demon, deal 1 damage to your hero
     //       and gain +2/+2.
@@ -140,7 +137,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [BGS_039] Dragonspawn Lieutenant - TIER:1 [ATK:2/HP:2]
-    // - Race: Dragon, Set: Battlegrounds, Rarity: Common
+    // - Race: Dragon, Set: Battlegrounds
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -149,6 +146,26 @@ void BattlegroundsCardsGen::AddTier1Minions(
     // --------------------------------------------------------
     power.ClearData();
     cards.emplace("BGS_039", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BGS_019] Red Whelp - TIER:1 [ATK:1/HP:2]
+    // - Race: Dragon, Set: Battlegrounds
+    // --------------------------------------------------------
+    // Text: <b>Start of Combat:</b> Deal 1 damage per friendly
+    //       Dragon to one random enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddStartCombatTask(CountTask{
+        EntityType::MINIONS_NOSOURCE, 0,
+        std::vector<SelfCondition>{ SelfCondition::IsRace(Race::DRAGON) } });
+    power.AddStartCombatTask(RepeatNumberStartTask{ 2 });
+    power.AddStartCombatTask(RandomTask{ EntityType::ENEMY_MINIONS, 1 });
+    power.AddStartCombatTask(DamageTask{ EntityType::STACK, 1 });
+    power.AddStartCombatTask(RepeatNumberEndTask{});
+    cards.emplace("BGS_019", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
