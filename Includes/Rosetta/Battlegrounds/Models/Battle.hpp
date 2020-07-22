@@ -7,7 +7,6 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_BATTLE_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_BATTLE_HPP
 
-#include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
 #include <Rosetta/Common/Enums/GameEnums.hpp>
 
@@ -49,7 +48,8 @@ class Battle
     Minion& GetProperTarget(Minion& attacker);
 
     //! Processes a list of minions that are destroyed.
-    void ProcessDestroy();
+    //! \param beforeAttack The flag that indicates it is called before attack.
+    void ProcessDestroy(bool beforeAttack);
 
     //! Checks it is done.
     //! \return true if it is done, false otherwise.
