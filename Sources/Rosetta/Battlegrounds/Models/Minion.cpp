@@ -6,6 +6,7 @@
 
 #include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
+#include <Rosetta/Battlegrounds/Models/Player.hpp>
 
 #include <utility>
 #include <vector>
@@ -196,7 +197,15 @@ void Minion::ActivateTask(PowerType type, Player& player)
 
     for (auto& task : tasks)
     {
-        std::visit([&](auto&& _task) { _task.Run(player, *this); }, task);
+        if (player.taskStack.isStackingTasks &&
+            !std::holds_alternative<RepeatNumberEndTask>(task))
+        {
+            player.taskStack.tasks.emplace_back(task);
+        }
+        else
+        {
+            std::visit([&](auto&& _task) { _task.Run(player, *this); }, task);
+        }
     }
 }
 
@@ -210,8 +219,16 @@ void Minion::ActivateTask(PowerType type, Player& player, Minion& target)
 
     for (auto& task : tasks)
     {
-        std::visit([&](auto&& _task) { _task.Run(player, *this, target); },
-                   task);
+        if (player.taskStack.isStackingTasks &&
+            !std::holds_alternative<RepeatNumberEndTask>(task))
+        {
+            player.taskStack.tasks.emplace_back(task);
+        }
+        else
+        {
+            std::visit([&](auto&& _task) { _task.Run(player, *this, target); },
+                       task);
+        }
     }
 }
 
