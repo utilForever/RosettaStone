@@ -33,6 +33,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -1183,6 +1184,7 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
     // ---------------------------------------- MINION - PRIEST
     // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
     // - Set: Uldum, Rarity: Legendary
@@ -1249,6 +1251,15 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1));
+    cards.emplace(
+        "ULD_269",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_270] Sandhoof Waterbearer - COST:5 [ATK:5/HP:5]
@@ -1257,20 +1268,35 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn, restore 5 Health
     //       to a damaged friendly character.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::FRIENDS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<HealTask>(EntityType::STACK, 5)
+    };
+    cards.emplace("ULD_270", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_272] Holy Ripple - COST:2
     // - Set: Uldum, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal $1 damage to all enemies. Restore 1 Health
+    // Text: Deal 1 damage to all enemies. Restore 1 Health
     //       to all friendly characters.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES, 1, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 1));
+    cards.emplace("ULD_272", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_714] Penance - COST:2
     // - Set: Uldum, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Lifesteal</b> Deal 3 damage to a_minion.
+    // Text: <b>Lifesteal</b> Deal 3 damage to a minion.
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
@@ -1279,6 +1305,13 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "ULD_714",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_718] Plague of Death - COST:9
@@ -1289,6 +1322,10 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
+    cards.emplace("ULD_718", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_724] Activate the Obelisk - COST:1
