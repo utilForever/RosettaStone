@@ -34,6 +34,14 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
                 }
             });
             break;
+        case EntityType::ENEMY_MINIONS:
+        {
+            Player& opponent = player.getOpponentPlayerCallback(player);
+            opponent.GetField().ForEachAlive([&](MinionData& minion) {
+                minions.emplace_back(minion.value());
+            });
+        }
+        break;
         case EntityType::STACK:
             minions = player.taskStack.minions;
             break;
