@@ -108,6 +108,12 @@ void Game::Start()
         }
     };
 
+    // Create callback to get opponent player
+    auto getOpponentPlayerCallback = [this](Player& player) -> Player& {
+        const std::size_t idx = FindPlayerNextFight(player.idx);
+        return m_gameState.players[idx];
+    };
+
     // Create callback to process the tasks related to defeat
     auto processDefeatCallback = [this](Player& player) {
         player.playState = PlayState::LOST;
@@ -155,6 +161,7 @@ void Game::Start()
         player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
         player.completeRecruitCallback = completeRecruitCallback;
+        player.getOpponentPlayerCallback = getOpponentPlayerCallback;
         player.processDefeatCallback = processDefeatCallback;
 
         ++playerIdx;
