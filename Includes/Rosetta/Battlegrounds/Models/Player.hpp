@@ -98,6 +98,7 @@ class Player
     std::function<void(Player&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
     std::function<void()> completeRecruitCallback;
+    std::function<Player&(Player&)> getOpponentPlayerCallback;
     std::function<void(Player&)> processDefeatCallback;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
