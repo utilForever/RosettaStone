@@ -7,6 +7,7 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Models/Battle.hpp>
 
 using namespace RosettaStone;
