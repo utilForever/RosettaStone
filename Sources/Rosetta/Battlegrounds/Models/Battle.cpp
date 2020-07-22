@@ -46,6 +46,27 @@ void Battle::Initialize()
 
     m_p1NextAttackerIdx = 0;
     m_p2NextAttackerIdx = 0;
+
+    if (m_turn == Turn::PLAYER1)
+    {
+        m_p1Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player1);
+        });
+        m_p2Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player2);
+        });
+    }
+    else
+    {
+        m_p2Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player2);
+        });
+        m_p1Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player1);
+        });
+    }
+
+    ProcessDestroy();
 }
 
 void Battle::Run()
@@ -211,7 +232,7 @@ void Battle::ProcessDestroy()
                 --m_p1NextAttackerIdx;
             }
             // If the turn is player 1 and the zone position of minion that is
-            // destroyed equals nextAttackerIdx, keep the value of it.
+            // destroyed equals nextAttackerIdx, keep the value of it
             else if (m_turn == Turn::PLAYER1 &&
                      m_p1NextAttackerIdx == minion.GetZonePosition())
             {
@@ -240,7 +261,7 @@ void Battle::ProcessDestroy()
                 --m_p2NextAttackerIdx;
             }
             // If the turn is player 2 and the zone position of minion that is
-            // destroyed equals nextAttackerIdx, keep the value of it.
+            // destroyed equals nextAttackerIdx, keep the value of it
             else if (m_turn == Turn::PLAYER2 &&
                      m_p2NextAttackerIdx == minion.GetZonePosition())
             {
