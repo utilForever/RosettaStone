@@ -361,6 +361,11 @@ std::size_t Game::DeterminePlayerToFightGhost(
     return idx;
 }
 
+void Game::SetPlayerPair(int player1Idx, int player2Idx)
+{
+    m_playerFightPair.emplace_back(std::make_tuple(player1Idx, player2Idx));
+}
+
 void Game::PairPlayers(std::vector<std::tuple<int, int>>& playerData)
 {
     // Shuffle indefinitely until the conditions are met
