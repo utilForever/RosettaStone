@@ -7,6 +7,8 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_TASK_STACK_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_TASK_STACK_HPP
 
+#include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>
+
 namespace RosettaStone::Battlegrounds
 {
 class Minion;
@@ -21,12 +23,15 @@ struct TaskStack
     //! Resets all variables.
     void Reset()
     {
+        tasks.clear();
         minions.clear();
         num = 0;
     }
 
+    std::vector<TaskType> tasks;
     std::vector<std::reference_wrapper<Minion>> minions;
     int num = 0;
+    bool isStackingTasks = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 
