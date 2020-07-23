@@ -8,6 +8,9 @@
 #define ROSETTASTONE_BATTLEGROUNDS_MINION_HPP
 
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
+
+#include <initializer_list>
 
 namespace RosettaStone::Battlegrounds
 {
@@ -34,6 +37,15 @@ class Minion
     //! \return The value of pool index.
     int GetPoolIndex() const;
 
+    //! Returns the value of name.
+    //! \return The value of name.
+    std::string_view GetName() const;
+
+    //! Returns the value of game tag.
+    //! \param tag The game tag of card.
+    //! \return The value of game tag.
+    int GetGameTag(GameTag tag) const;
+
     //! Returns the value of race.
     //! \return The value of race.
     Race GetRace() const;
@@ -54,6 +66,14 @@ class Minion
     //! \param pos The value of zone position.
     void SetZonePosition(int pos);
 
+    //! Returns the value of last field position.
+    //! \return The value of last field position.
+    int GetLastFieldPos() const;
+
+    //! Sets the value of last field position.
+    //! \param pos The value of last field position.
+    void SetLastFieldPos(int pos);
+
     //! Returns the value of tier.
     //! \return The value of tier.
     int GetTier() const;
@@ -62,9 +82,21 @@ class Minion
     //! \return The value of attack.
     int GetAttack() const;
 
+    //! Sets the value of attack.
+    //! \param val The value of attack to set.
+    void SetAttack(int val);
+
     //! Returns the value of health.
     //! \return The value of health.
     int GetHealth() const;
+
+    //! Sets the value of health.
+    //! \param val The value of health to set.
+    void SetHealth(int val);
+
+    //! Returns the flag that indicates whether it has deathrattle.
+    //! \return The flag that indicates whether it has deathrattle.
+    bool HasDeathrattle() const;
 
     //! Returns the flag that indicates whether it has taunt.
     //! \return The flag that indicates whether it has taunt.
@@ -78,20 +110,52 @@ class Minion
     //! \param source A minion to give damage.
     void TakeDamage(Minion& source);
 
+    //! Takes damage to the minion.
+    //! \param amount The amount of damage.
+    void TakeDamage(int amount);
+
     //! Returns the flag that indicates whether it is destroyed.
     //! \return The flag that indicates whether it is destroyed.
     bool IsDestroyed() const;
 
+    //! Activates the trigger.
+    //! \param type The type of trigger.
+    //! \param sources A list of trigger sources.
+    //! \param player The owner of the minion.
+    void ActivateTrigger(TriggerType type,
+                         std::initializer_list<TriggerSource> sources,
+                         Player& player);
+
+    //! Activates the task.
+    //! \param type The type of power.
+    //! \param player The owner of the minion.
+    void ActivateTask(PowerType type, Player& player);
+
+    //! Activates the task.
+    //! \param type The type of power.
+    //! \param player The owner of the minion.
+    //! \param target The target.
+    void ActivateTask(PowerType type, Player& player, Minion& target);
+
+    Trigger activatedTrigger;
+
  private:
+    //! Gets a list of tasks according to the power type.
+    //! \param type The type of power.
+    //! \return A list of tasks according to the power type.
+    std::vector<TaskType> GetTasks(PowerType type);
+
     Card m_card;
     int m_poolIdx = -1;
 
     ZoneType m_zoneType = ZoneType::INVALID;
     int m_zonePos = -1;
+    int m_lastFieldPos = -1;
 
     int m_attack = 0;
     int m_health = 0;
 
+    bool m_hasDeathrattle = false;
     bool m_hasTaunt = false;
     bool m_hasDivineShield = false;
     bool m_isDestroyed = false;

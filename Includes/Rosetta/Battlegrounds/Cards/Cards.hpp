@@ -22,18 +22,40 @@ namespace RosettaStone::Battlegrounds
 class Cards
 {
  public:
+    //! Deleted copy constructor.
+    Cards(const Cards& cards) = delete;
+
+    //! Deleted move constructor.
+    Cards(Cards&& cards) = delete;
+
+    //! Deleted copy assignment operator.
+    Cards& operator=(const Cards& cards) = delete;
+
+    //! Deleted move assignment operator.
+    Cards& operator=(Cards&& cards) = delete;
+
     //! Returns an instance of Cards class.
     //! \return An instance of Cards class.
     static Cards& GetInstance();
 
     //! Returns a list of all cards.
     //! \return A list of all cards.
-    static const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& GetAllCards();
+    static const std::array<Card, NUM_ALL_CARDS>& GetAllCards();
+
+    //! Returns a card that matches \p id.
+    //! \param id The ID of the card.
+    //! \return A card that matches \p id.
+    static Card FindCardByID(const std::string_view& id);
 
     //! Returns a card that matches \p dbfID.
     //! \param dbfID The dbfID of the card.
     //! \return A card that matches \p dbfID.
     static Card FindCardByDbfID(int dbfID);
+
+    //! Returns a card that matches \p name.
+    //! \param name The name of the card.
+    //! \return A card that matches \p name.
+    static Card FindCardByName(const std::string_view& name);
 
     //! Returns a list of current heroes.
     //! \return A list of current heroes.
@@ -67,7 +89,7 @@ class Cards
     //! Constructor: Loads card data.
     Cards();
 
-    static std::array<Card, NUM_BATTLEGROUNDS_CARDS> m_cards;
+    static std::array<Card, NUM_ALL_CARDS> m_cards;
     static std::array<Card, NUM_BATTLEGROUNDS_HEROES> m_curHeroes;
     static std::array<Card, NUM_TIER1_MINIONS> m_tier1Minions;
     static std::array<Card, NUM_TIER2_MINIONS> m_tier2Minions;

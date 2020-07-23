@@ -544,6 +544,9 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         case PowerType::OUTCAST:
             tasks = card->power.GetOutcastTask();
             break;
+        default:
+            throw std::invalid_argument(
+                "Playable::ActivateTask() - Invalid power type");
     }
 
     if (tasks.empty() || tasks[0] == nullptr)

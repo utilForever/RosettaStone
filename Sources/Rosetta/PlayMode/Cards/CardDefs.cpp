@@ -48,11 +48,11 @@ CardDefs& CardDefs::GetInstance()
     return instance;
 }
 
-CardDef CardDefs::FindCardDefByCardID(const std::string_view& cardID)
+CardDef CardDefs::FindCardDefByID(const std::string_view& id)
 {
     for (auto& data : m_data)
     {
-        if (data.first == cardID)
+        if (data.first == id)
         {
             return data.second;
         }

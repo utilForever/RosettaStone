@@ -7,6 +7,7 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Battlegrounds/Games/Game.hpp>
 #include <Rosetta/Battlegrounds/Models/Battle.hpp>
 
 using namespace RosettaStone;
@@ -14,13 +15,17 @@ using namespace Battlegrounds;
 
 TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(49169));
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player1.recruitFieldZone.Add(minion1);
+    player1.recruitField.Add(minion1);
     player1.currentTier = 4;
 
     Battle battle(player1, player2);
@@ -37,15 +42,19 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
 
 TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(42467));
     Minion minion2(Cards::FindCardByDbfID(60628));
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player1.recruitFieldZone.Add(minion1);
-    player2.recruitFieldZone.Add(minion2);
+    player1.recruitField.Add(minion1);
+    player2.recruitField.Add(minion2);
     player2.currentTier = 3;
 
     Battle battle(player1, player2);
@@ -65,15 +74,19 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
 
 TEST_CASE("[Battle] - Draw (0 attack minions only)")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(49169));
     Minion minion2(Cards::FindCardByDbfID(49169));
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player1.recruitFieldZone.Add(minion1);
-    player2.recruitFieldZone.Add(minion2);
+    player1.recruitField.Add(minion1);
+    player2.recruitField.Add(minion2);
 
     Battle battle(player1, player2);
     battle.Run();
@@ -89,7 +102,11 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
 
 TEST_CASE("[Battle] - Next Attacker")
 {
-    Player player1, player2;
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
 
     Minion minion1(Cards::FindCardByDbfID(1915));
     Minion minion2(Cards::FindCardByDbfID(1915));
@@ -99,11 +116,11 @@ TEST_CASE("[Battle] - Next Attacker")
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player1.recruitFieldZone.Add(minion1);
-    player1.recruitFieldZone.Add(minion2);
-    player1.recruitFieldZone.Add(minion3);
-    player2.recruitFieldZone.Add(minion4);
-    player2.recruitFieldZone.Add(minion5);
+    player1.recruitField.Add(minion1);
+    player1.recruitField.Add(minion2);
+    player1.recruitField.Add(minion3);
+    player2.recruitField.Add(minion4);
+    player2.recruitField.Add(minion5);
 
     Battle battle(player1, player2);
     battle.Initialize();

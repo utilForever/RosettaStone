@@ -7,8 +7,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_ITASK_HPP
 #define ROSETTASTONE_PLAYMODE_ITASK_HPP
 
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
-#include <Rosetta/PlayMode/Tasks/TaskStatus.hpp>
 
 namespace RosettaStone::PlayMode
 {

@@ -26,7 +26,7 @@ class CardLoader
  public:
     //! Loads card data from cards.json.
     //! \param cards Data storage to store added cards with power.
-    static void Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards);
+    static void Load(std::array<Card, NUM_ALL_CARDS>& cards);
 };
 }  // namespace RosettaStone::Battlegrounds
 

@@ -9,6 +9,7 @@
 
 #include <Rosetta/Battlegrounds/Models/Minion.hpp>
 #include <Rosetta/Battlegrounds/Models/Player.hpp>
+#include <Rosetta/Battlegrounds/Models/Tavern.hpp>
 #include <Rosetta/Common/Constants.hpp>
 
 #include <array>
@@ -35,7 +36,8 @@ class MinionPool
 
     //! Add minions to player's Tavern according to current tier.
     //! \param player The player context.
-    void AddMinionsToTavern(Player& player);
+    //! \param tavern The tavern to add minions.
+    void AddMinionsToTavern(Player& player, Tavern& tavern);
 
     //! Returns a minion to the pool.
     //! \param idx The pool index of a minion.

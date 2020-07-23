@@ -37,10 +37,10 @@ class CardDefs
     //! \return A reference to instance of CardDefs class.
     static CardDefs& GetInstance();
 
-    //! Returns the card def data that matches \p cardID.
-    //! \param cardID The ID of the card.
-    //! \return The card def data that matches \p cardID.
-    static CardDef FindCardDefByCardID(const std::string_view& cardID);
+    //! Returns the card def data that matches \p id.
+    //! \param id The ID of the card.
+    //! \return The card def data that matches \p id.
+    static CardDef FindCardDefByID(const std::string_view& id);
 
  private:
     //! Constructor: Loads card data (powers and play requirements).

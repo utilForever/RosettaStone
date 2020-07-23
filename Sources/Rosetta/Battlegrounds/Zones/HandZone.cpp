@@ -51,7 +51,7 @@ void HandZone::Add(CardData card, int zonePos)
     Reposition(pos);
 }
 
-const CardData& HandZone::Remove(CardData& card)
+const CardData HandZone::Remove(CardData& card)
 {
     const ZoneType cardZone = std::visit(
         [&](auto&& _card) -> ZoneType { return _card.GetZoneType(); }, card);
@@ -63,6 +63,8 @@ const CardData& HandZone::Remove(CardData& card)
     const int cardPos = std::visit(
         [&](auto&& _card) -> int { return _card.GetZonePosition(); }, card);
     int count = m_count;
+
+    CardData result = m_cards.at(cardPos).value();
 
     if (cardPos < --count)
     {
@@ -78,7 +80,7 @@ const CardData& HandZone::Remove(CardData& card)
 
     Reposition(cardPos);
 
-    return card;
+    return result;
 }
 
 void HandZone::Reposition(int zonePos)

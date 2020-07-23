@@ -6,10 +6,11 @@
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Loaders/CardLoader.hpp>
+#include <Rosetta/Battlegrounds/Loaders/InternalCardLoader.hpp>
 
 namespace RosettaStone::Battlegrounds
 {
-std::array<Card, NUM_BATTLEGROUNDS_CARDS> Cards::m_cards;
+std::array<Card, NUM_ALL_CARDS> Cards::m_cards;
 std::array<Card, NUM_BATTLEGROUNDS_HEROES> Cards::m_curHeroes;
 std::array<Card, NUM_TIER1_MINIONS> Cards::m_tier1Minions;
 std::array<Card, NUM_TIER2_MINIONS> Cards::m_tier2Minions;
@@ -21,6 +22,7 @@ std::array<Card, NUM_TIER6_MINIONS> Cards::m_tier6Minions;
 Cards::Cards()
 {
     CardLoader::Load(m_cards);
+    InternalCardLoader::Load(m_cards);
 
     std::size_t heroIdx = 0;
     std::size_t tier1Idx = 0, tier2Idx = 0, tier3Idx = 0, tier4Idx = 0,
@@ -73,9 +75,22 @@ Cards& Cards::GetInstance()
     return instance;
 }
 
-const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& Cards::GetAllCards()
+const std::array<Card, NUM_ALL_CARDS>& Cards::GetAllCards()
 {
     return m_cards;
+}
+
+Card Cards::FindCardByID(const std::string_view& id)
+{
+    for (auto& card : m_cards)
+    {
+        if (card.id == id)
+        {
+            return card;
+        }
+    }
+
+    return Card{};
 }
 
 Card Cards::FindCardByDbfID(int dbfID)
@@ -83,6 +98,19 @@ Card Cards::FindCardByDbfID(int dbfID)
     for (auto& card : m_cards)
     {
         if (card.dbfID == dbfID)
+        {
+            return card;
+        }
+    }
+
+    return Card{};
+}
+
+Card Cards::FindCardByName(const std::string_view& name)
+{
+    for (auto& card : m_cards)
+    {
+        if (card.name == name)
         {
             return card;
         }

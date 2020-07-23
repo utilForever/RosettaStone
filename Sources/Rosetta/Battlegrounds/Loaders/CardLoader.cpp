@@ -10,7 +10,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
+void CardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -40,13 +40,6 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
             cardData["set"].is_null()
                 ? CardSet::INVALID
                 : StrToEnum<CardSet>(cardData["set"].get<std::string>());
-        // Check the card set is 'BATTLEGROUNDS'
-        if (cardSet != CardSet::BATTLEGROUNDS &&
-            cardData["techLevel"].is_null())
-        {
-            continue;
-        }
-
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
         const int normalDbfID =

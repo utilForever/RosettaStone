@@ -15,10 +15,11 @@ namespace RosettaStone::Battlegrounds
 Battle::Battle(Player& player1, Player& player2)
     : m_player1(player1),
       m_player2(player2),
-      m_p1Field(m_player1.recruitFieldZone),
-      m_p2Field(m_player2.recruitFieldZone)
+      m_p1Field(m_player1.battleField),
+      m_p2Field(m_player2.battleField)
 {
-    // Do nothing
+    m_player1.battleField = m_player1.recruitField;
+    m_player2.battleField = m_player2.recruitField;
 }
 
 void Battle::Initialize()
@@ -45,6 +46,27 @@ void Battle::Initialize()
 
     m_p1NextAttackerIdx = 0;
     m_p2NextAttackerIdx = 0;
+
+    if (m_turn == Turn::PLAYER1)
+    {
+        m_p1Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player1);
+        });
+        m_p2Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player2);
+        });
+    }
+    else
+    {
+        m_p2Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player2);
+        });
+        m_p1Field.ForEach([&](MinionData& minion) {
+            minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player1);
+        });
+    }
+
+    ProcessDestroy(true);
 }
 
 void Battle::Run()
@@ -70,19 +92,11 @@ void Battle::Run()
     const int damage = CalculateDamage();
     if (m_result == BattleResult::PLAYER1_WIN)
     {
-        m_player2.hero.health -= damage;
-        if (m_player2.hero.health <= 0)
-        {
-            m_player2.ProcessDefeat();
-        }
+        m_player2.hero.TakeDamage(m_player2, damage);
     }
     else if (m_result == BattleResult::PLAYER2_WIN)
     {
-        m_player1.hero.health -= damage;
-        if (m_player1.hero.health <= 0)
-        {
-            m_player1.ProcessDefeat();
-        }
+        m_player1.hero.TakeDamage(m_player1, damage);
     }
 }
 
@@ -102,7 +116,7 @@ bool Battle::Attack()
     target.TakeDamage(attacker);
     attacker.TakeDamage(target);
 
-    ProcessDestroy();
+    ProcessDestroy(false);
 
     m_turn = (m_turn == Turn::PLAYER1) ? Turn::PLAYER2 : Turn::PLAYER1;
     return true;
@@ -158,7 +172,7 @@ Minion& Battle::GetProperTarget([[maybe_unused]] Minion& attacker)
     return minions[idx];
 }
 
-void Battle::ProcessDestroy()
+void Battle::ProcessDestroy(bool beforeAttack)
 {
     std::vector<std::tuple<int, Minion&>> deadMinions;
 
@@ -199,75 +213,114 @@ void Battle::ProcessDestroy()
         });
     }
 
+    Player& curPlayer = m_turn == Turn::PLAYER1 ? m_player1 : m_player2;
     // A variable to check a minion at the index of next attacker is destroyed
     bool isAttackerDestroyed = false;
 
     for (auto& deadMinion : deadMinions)
     {
         Minion& minion = std::get<1>(deadMinion);
+        Minion removedMinion;
 
         if (std::get<0>(deadMinion) == 1)
         {
-            // If the zone position of minion that is destroyed is lower than
-            // nextAttackerIdx and greater than 0, decrease by 1
-            if (m_p1NextAttackerIdx < minion.GetZonePosition() &&
-                m_p1NextAttackerIdx > 0)
+            if (!beforeAttack)
             {
-                --m_p1NextAttackerIdx;
-            }
-            // If the turn is player 1 and the zone position of minion that is
-            // destroyed equals nextAttackerIdx, keep the value of it.
-            else if (m_turn == Turn::PLAYER1 &&
-                     m_p1NextAttackerIdx == minion.GetZonePosition())
-            {
-                isAttackerDestroyed = true;
+                // If the zone position of minion that is destroyed is lower
+                // than nextAttackerIdx and greater than 0, decrease by 1
+                if (m_p1NextAttackerIdx < minion.GetZonePosition() &&
+                    m_p1NextAttackerIdx > 0)
+                {
+                    --m_p1NextAttackerIdx;
+                }
+                // If the turn is player 1 and the zone position of minion that
+                // is destroyed equals nextAttackerIdx, keep the value of it
+                else if (m_turn == Turn::PLAYER1 &&
+                         m_p1NextAttackerIdx == minion.GetZonePosition())
+                {
+                    isAttackerDestroyed = true;
+                }
             }
 
-            m_p1Field.Remove(minion);
+            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
+            });
+
+            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
+            });
+
+            removedMinion = m_p1Field.Remove(minion);
         }
         else
         {
-            // If the zone position of minion that is destroyed is lower than
-            // nextAttackerIdx and greater than 0, decrease by 1
-            if (m_p2NextAttackerIdx < minion.GetZonePosition() &&
-                m_p2NextAttackerIdx > 0)
+            if (!beforeAttack)
             {
-                --m_p2NextAttackerIdx;
+                // If the zone position of minion that is destroyed is lower
+                // than nextAttackerIdx and greater than 0, decrease by 1
+                if (m_p2NextAttackerIdx < minion.GetZonePosition() &&
+                    m_p2NextAttackerIdx > 0)
+                {
+                    --m_p2NextAttackerIdx;
+                }
+                // If the turn is player 2 and the zone position of minion that
+                // is destroyed equals nextAttackerIdx, keep the value of it
+                else if (m_turn == Turn::PLAYER2 &&
+                         m_p2NextAttackerIdx == minion.GetZonePosition())
+                {
+                    isAttackerDestroyed = true;
+                }
             }
-            // If the turn is player 2 and the zone position of minion that is
-            // destroyed equals nextAttackerIdx, keep the value of it.
-            else if (m_turn == Turn::PLAYER2 &&
-                     m_p2NextAttackerIdx == minion.GetZonePosition())
+
+            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
+            });
+
+            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
+            });
+
+            removedMinion = m_p2Field.Remove(minion);
+        }
+
+        // Process deathrattle tasks
+        if (removedMinion.HasDeathrattle())
+        {
+            removedMinion.ActivateTask(
+                PowerType::DEATHRATTLE,
+                std::get<0>(deadMinion) == 1 ? m_player1 : m_player2);
+        }
+    }
+
+    if (!beforeAttack)
+    {
+        // If the zone position of minion that is destroyed not equals
+        // nextAttackerIdx, increase by 1
+        if (!isAttackerDestroyed)
+        {
+            if (m_turn == Turn::PLAYER1)
             {
-                isAttackerDestroyed = true;
+                ++m_p1NextAttackerIdx;
             }
-
-            m_p2Field.Remove(minion);
+            else
+            {
+                ++m_p2NextAttackerIdx;
+            }
         }
-    }
 
-    // If the zone position of minion that is destroyed not equals
-    // nextAttackerIdx, increase by 1
-    if (!isAttackerDestroyed)
-    {
-        if (m_turn == Turn::PLAYER1)
+        // Check the boundaries of field zone
+        if (m_p1NextAttackerIdx == m_p1Field.GetCount())
         {
-            ++m_p1NextAttackerIdx;
+            m_p1NextAttackerIdx = 0;
         }
-        else
+        if (m_p2NextAttackerIdx == m_p2Field.GetCount())
         {
-            ++m_p2NextAttackerIdx;
+            m_p2NextAttackerIdx = 0;
         }
-    }
-
-    // Check the boundaries of field zone
-    if (m_p1NextAttackerIdx == m_p1Field.GetCount())
-    {
-        m_p1NextAttackerIdx = 0;
-    }
-    if (m_p2NextAttackerIdx == m_p2Field.GetCount())
-    {
-        m_p2NextAttackerIdx = 0;
     }
 }
 

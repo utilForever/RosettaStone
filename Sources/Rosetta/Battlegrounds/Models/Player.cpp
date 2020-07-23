@@ -9,6 +9,11 @@
 
 namespace RosettaStone::Battlegrounds
 {
+FieldZone& Player::GetField()
+{
+    return isInCombat ? battleField : recruitField;
+}
+
 void Player::SelectHero(std::size_t idx)
 {
     const auto heroCard = Cards::FindCardByDbfID(heroChoices.at(idx));
@@ -29,18 +34,40 @@ void Player::PurchaseMinion(std::size_t idx)
         return;
     }
 
-    handZone.Add(tavernFieldZone.Remove(tavernFieldZone[idx]), -1);
+    purchaseMinionCallback(*this, idx);
+
     remainCoin -= NUM_COIN_PURCHASE_MINION;
 }
 
-void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx)
+void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
 {
-    auto card = handZone.Remove(handZone[handIdx]);
+    auto card = hand.Remove(hand[handIdx]);
 
     if (std::holds_alternative<Minion>(card))
     {
         auto minion = std::get<Minion>(card);
-        recruitFieldZone.Add(minion, fieldIdx);
+
+        if (targetIdx == -1)
+        {
+            recruitField.Add(minion, fieldIdx);
+            minion.ActivateTask(PowerType::POWER, *this);
+        }
+        else
+        {
+            Minion& target = recruitField[targetIdx];
+            recruitField.Add(minion, fieldIdx);
+            minion.ActivateTask(PowerType::POWER, *this, target);
+        }
+
+        recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+            if (aliveMinion.value().GetZonePosition() !=
+                static_cast<int>(fieldIdx))
+            {
+                aliveMinion.value().ActivateTrigger(
+                    TriggerType::AFTER_PLAY_MINION,
+                    { TriggerSource::MINIONS_EXCEPT_SELF }, *this);
+            }
+        });
     }
     else
     {
@@ -50,7 +77,7 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx)
 
 void Player::SellMinion(std::size_t idx)
 {
-    const auto minion = recruitFieldZone.Remove(recruitFieldZone[idx]);
+    const auto minion = recruitField.Remove(recruitField[idx]);
     returnMinionCallback(minion.GetPoolIndex());
 
     remainCoin += 1;
@@ -74,7 +101,7 @@ void Player::RefreshTavern()
         return;
     }
 
-    clearTavernMinionsCallback(tavernFieldZone);
+    clearTavernMinionsCallback(*this);
     remainCoin -= NUM_COIN_REFRESH_TAVERN;
 
     prepareTavernMinionsCallback(*this);
@@ -88,13 +115,13 @@ void Player::FreezeTavern()
 void Player::RearrangeMinion(std::size_t curIdx, std::size_t newIdx)
 {
     if (curIdx == newIdx ||
-        static_cast<int>(curIdx) >= recruitFieldZone.GetCount() ||
-        static_cast<int>(newIdx) >= recruitFieldZone.GetCount())
+        static_cast<int>(curIdx) >= recruitField.GetCount() ||
+        static_cast<int>(newIdx) >= recruitField.GetCount())
     {
         return;
     }
 
-    recruitFieldZone.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
+    recruitField.Move(static_cast<int>(curIdx), static_cast<int>(newIdx));
 }
 
 void Player::CompleteRecruit() const

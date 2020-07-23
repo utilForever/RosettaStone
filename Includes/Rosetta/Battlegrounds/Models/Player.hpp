@@ -8,6 +8,8 @@
 #define ROSETTASTONE_BATTLEGROUNDS_PLAYER_HPP
 
 #include <Rosetta/Battlegrounds/Models/Hero.hpp>
+#include <Rosetta/Battlegrounds/Models/Tavern.hpp>
+#include <Rosetta/Battlegrounds/Tasks/TaskStack.hpp>
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
 #include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 
@@ -25,6 +27,10 @@ namespace RosettaStone::Battlegrounds
 class Player
 {
  public:
+    //! Returns the field according the status.
+    //! \return The field according the status.
+    FieldZone& GetField();
+
     //! Initializes a Hero instance.
     //! \param idx The index of hero choices.
     void SelectHero(std::size_t idx);
@@ -38,8 +44,10 @@ class Player
 
     //! Plays a minion or spell card.
     //! \param handIdx The index of a list of cards in player's hand.
-    //! \param fieldIdx The index of a list of cards in player's field.
-    void PlayCard(std::size_t handIdx, std::size_t fieldIdx);
+    //! \param fieldIdx The index of player's field to add.
+    //! \param targetIdx The index of the target in player's field.
+    void PlayCard(std::size_t handIdx, std::size_t fieldIdx,
+                  int targetIdx = -1);
 
     //! Sells a minion to Tavern.
     //! \param idx The index of a list of minions in player's field.
@@ -76,16 +84,21 @@ class Player
     int currentTier = 0;
     int coinToUpgradeTavern = 0;
 
-    HandZone handZone;
-    FieldZone recruitFieldZone;
-    FieldZone tavernFieldZone;
+    Tavern tavern;
+    HandZone hand;
+    FieldZone recruitField;
+    FieldZone battleField;
+
+    TaskStack taskStack;
 
     std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
+    std::function<void(Player&, std::size_t)> purchaseMinionCallback;
     std::function<void(int)> returnMinionCallback;
-    std::function<void(FieldZone&)> clearTavernMinionsCallback;
+    std::function<void(Player&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
     std::function<void()> completeRecruitCallback;
+    std::function<Player&(Player&)> getOpponentPlayerCallback;
     std::function<void(Player&)> processDefeatCallback;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };
@@ -94,6 +107,7 @@ class Player
     std::size_t playerIdxFoughtLastTurn =
         std::numeric_limits<std::size_t>::max();
 
+    bool isInCombat = false;
     bool isFoughtGhostLastTurn = false;
     bool freezeTavern = false;
 };
