@@ -109,7 +109,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 41;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 44;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -145,10 +145,10 @@ constexpr int NUM_TIER3_MINIONS = 23;
 constexpr int NUM_TIER4_MINIONS = 19;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 18;
+constexpr int NUM_TIER5_MINIONS = 17;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 12;
+constexpr int NUM_TIER6_MINIONS = 14;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Alleycat (40426)
@@ -258,7 +258,6 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Baron Rivendare (1915)
 // Brann Bronzebeard (2949)
 // Cap'n Hoggarr (61989)
-// Goldrinn, the Great Wolf (59955)
 // Ironhide Direhorn (49973)
 // Junkbot (2074)
 // King Bagurgle (60247)
@@ -273,13 +272,15 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Strongshell Scavenger (43022)
 // Voidlord (46056)
 constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
-    59714, 1915,  2949,  61989, 59955, 49973, 2074,  60247, 59707,
-    1986,  60637, 61046, 60028, 60561, 62458, 59682, 43022, 46056
+    59714, 1915,  2949,  61989, 49973, 2074,  60247, 59707, 1986,
+    60637, 61046, 60028, 60561, 62458, 59682, 43022, 46056
 };
 
 //! A list of Tier 6 minion dbfIDs in Battlegrounds.
+// Amalgadon (61444)
 // Dread Admiral Eliza (61047)
 // Foe Reaper 4000 (2081)
+// Goldrinn, the Great Wolf (59955)
 // Kangor's Apprentice (59935)
 // Gentle Megasaur (56465)
 // Ghastcoiler (52041)
@@ -291,8 +292,8 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // The Tide Razor (62232)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    61047, 2081, 59935, 56465, 52041, 61028,
-    60630, 1791, 60036, 60629, 62232, 60040
+    61444, 61047, 2081, 59955, 59935, 56465, 52041,
+    61028, 60630, 1791, 60036, 60629, 62232, 60040
 };
 
 //! The total number of tier minions in Battlegrounds Tavern.
