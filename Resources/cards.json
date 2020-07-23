@@ -3659,7 +3659,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 6,
         "text": "<b>Deathrattle:</b> Give your Beasts +4/+4.",
         "type": "MINION"
     },
@@ -4581,6 +4581,27 @@
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
         "text": "[x]After another friendly\nminion loses <b>Divine Shield</b>,\ngain <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 61445,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 61444,
+        "health": 6,
+        "id": "BGS_069",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Amalgadon",
+        "race": "ALL",
+        "referencedTags": [
+            "ADAPT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "[x]<b>Battlecry:</b> For each different\nminion type you have,\n<b>Adapt</b> randomly.",
         "type": "MINION"
     },
     {
@@ -14511,7 +14532,7 @@
         "name": "Corsair Cache",
         "rarity": "RARE",
         "set": "BLACK_TEMPLE",
-        "text": "Draw a weapon.\nGive it +1/+1.",
+        "text": "Draw a weapon.\nGive it +1 Durability.",
         "type": "SPELL"
     },
     {
@@ -14520,7 +14541,7 @@
         "id": "BT_124e",
         "name": "Void Sharpened",
         "set": "BLACK_TEMPLE",
-        "text": "+1/+1.",
+        "text": "+1 Durability.",
         "type": "ENCHANTMENT"
     },
     {
@@ -14592,7 +14613,7 @@
         "artist": "Matt Dixon",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 56677,
         "flavor": "Far superior to a beanstalk boondoggle.",
         "id": "BT_128",
@@ -15188,7 +15209,7 @@
         "dbfId": 58202,
         "elite": true,
         "flavor": "\"Armor and heals may slow my zeal, but fel and glaives excite me!\"",
-        "health": 5,
+        "health": 4,
         "id": "BT_187",
         "mechanics": [
             "AURA",
@@ -16428,7 +16449,7 @@
         "name": "Metamorphosis",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "Swap your Hero Power to \"Deal 5 damage.\" After 2 uses, swap it back.",
+        "text": "Swap your Hero Power to \"Deal 4 damage.\" After 2 uses, swap it back.",
         "type": "SPELL"
     },
     {
@@ -16439,7 +16460,7 @@
         "id": "BT_429p",
         "name": "Demonic Blast",
         "set": "BLACK_TEMPLE",
-        "text": "[x]<b>Hero Power</b>\nDeal $5 damage.\n<i>(Two uses left!)</i>",
+        "text": "[x]<b>Hero Power</b>\nDeal $4 damage.\n<i>(Two uses left!)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -16450,7 +16471,7 @@
         "id": "BT_429p2",
         "name": "Demonic Blast",
         "set": "BLACK_TEMPLE",
-        "text": "[x]<b>Hero Power</b>\nDeal $5 damage.\n<i>(Last use!)</i>",
+        "text": "[x]<b>Hero Power</b>\nDeal $4 damage.\n<i>(Last use!)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -16458,7 +16479,7 @@
         "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 56900,
         "durability": 4,
         "flavor": "The blades glow green from things unseen, dark dreams whirling in the felfire gleam.",
@@ -39385,7 +39406,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> If your deck has\nno duplicates, add 2 other\nrandom Dragons to your\nhand. They cost (0).",
+        "text": "[x]<b>Battlecry:</b> If your deck has\nno duplicates, add 2 other\nrandom Dragons to your\nhand. They cost (1).",
         "type": "MINION"
     },
     {
@@ -39394,7 +39415,7 @@
         "id": "DRG_089e",
         "name": "A Queen's Discount",
         "set": "DRAGONS",
-        "text": "Costs (0).",
+        "text": "Costs (1).",
         "type": "ENCHANTMENT"
     },
     {
@@ -41477,7 +41498,7 @@
         "attack": 4,
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 6,
+        "cost": 7,
         "dbfId": 55280,
         "flavor": "It’s challenging to perform magic on dragonback. It’s so easy to drop the rabbit.",
         "health": 4,
@@ -41728,7 +41749,7 @@
         "name": "Galakrond, the Nightmare",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (0).\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (1).\n<i>(",
         "type": "HERO"
     },
     {
@@ -41737,7 +41758,7 @@
         "id": "DRG_610e",
         "name": "Galakrond's Wonder",
         "set": "DRAGONS",
-        "text": "Costs (0).",
+        "text": "Costs (1).",
         "type": "ENCHANTMENT"
     },
     {
@@ -41756,7 +41777,7 @@
         "name": "Galakrond, the Apocalypse",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 2 cards.\nThey cost (0).\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 2 cards.\nThey cost (1).\n<i>(",
         "type": "HERO"
     },
     {
@@ -41774,7 +41795,7 @@
         "name": "Galakrond, Azeroth's End",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 4 cards.\nThey cost (0).\nEquip a 5/2 Claw.",
+        "text": "[x]<b>Battlecry:</b> Draw 4 cards.\nThey cost (1).\nEquip a 5/2 Claw.",
         "type": "HERO"
     },
     {
@@ -65145,6 +65166,38 @@
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 62772,
+        "health": 30,
+        "id": "HERO_08e",
+        "name": "Kel'Thuzad",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 62773,
+        "id": "HERO_08ebp",
+        "name": "Fireblast",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDeal $1 damage.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 62774,
+        "id": "HERO_08ebp2",
+        "name": "Fireblast Rank 2",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDeal $2 damage.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "PRIEST",
@@ -90269,6 +90322,473 @@
         "type": "ENCHANTMENT"
     },
     {
+        "artist": "Ivan Fomin",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 58947,
+        "flavor": "Oh, the places you'll go! There is so much to fight!\nThere are boards to be explored. There are dreams to take flight.",
+        "health": 2,
+        "id": "SCH_199",
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "This has different effects based on which game board you're on.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60566,
+        "health": 2,
+        "id": "SCH_199t",
+        "mechanics": [
+            "DIVINE_SHIELD"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Divine Shield</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60576,
+        "health": 2,
+        "id": "SCH_199t10",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Spend all your Mana. Summon a random minion of that Cost.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60577,
+        "health": 2,
+        "id": "SCH_199t11",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add a <b>Karazhan</b> Portal spell to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60578,
+        "health": 2,
+        "id": "SCH_199t12",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Give a random minion in your hand +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60579,
+        "id": "SCH_199t12e",
+        "name": "Supplies from Gadgetzan",
+        "set": "SCHOLOMANCE",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60580,
+        "health": 2,
+        "id": "SCH_199t13",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "ADAPT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> <b>Adapt</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60581,
+        "health": 2,
+        "id": "SCH_199t14",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Deathrattle:</b> Add a random\n<b>Death Knight</b> card to\nyour hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60583,
+        "health": 2,
+        "id": "SCH_199t15",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "RECRUIT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> <b>Recruit</b> a minion that costs (2) or less.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60584,
+        "health": 2,
+        "id": "SCH_199t16",
+        "mechanics": [
+            "ECHO",
+            "RUSH"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Echo</b>\n<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60585,
+        "health": 2,
+        "id": "SCH_199t17",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Taunt</b>. <b>Battlecry:</b> If you\nhave 10 Mana Crystals,\ngain +5/+5.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 60586,
+        "id": "SCH_199t17e",
+        "name": "Omega Transfer",
+        "set": "SCHOLOMANCE",
+        "text": "+5/+5.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60587,
+        "health": 2,
+        "id": "SCH_199t18",
+        "mechanics": [
+            "OVERKILL",
+            "RUSH"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Rush</b>\n<b>Overkill:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60588,
+        "health": 2,
+        "id": "SCH_199t19",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add a <b>Lackey</b> to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60567,
+        "health": 2,
+        "id": "SCH_199t2",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "targetingArrowText": "Deal 2 damage.",
+        "text": "<b>Battlecry:</b> Deal 2 damage.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60589,
+        "health": 2,
+        "id": "SCH_199t20",
+        "mechanics": [
+            "REBORN"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Reborn</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60590,
+        "health": 2,
+        "id": "SCH_199t21",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a Dragon.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60591,
+        "health": 2,
+        "id": "SCH_199t22",
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Dormant</b> for 2 turns.\nWhen this awakens, deal\n3 damage to two random\nenemy minions.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60594,
+        "health": 2,
+        "id": "SCH_199t23",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add a Dual Class card to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62093,
+        "health": 2,
+        "id": "SCH_199t24",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add a random weapon to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 62094,
+        "health": 2,
+        "id": "SCH_199t25",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add an <b>Uldum</b> Plague spell to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60568,
+        "health": 2,
+        "id": "SCH_199t3",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "targetingArrowText": "Give +1/+2.",
+        "text": "<b>Battlecry:</b> Give a friendly minion +1/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 58949,
+        "id": "SCH_199t3e",
+        "name": "Mark of the Pandaren",
+        "set": "SCHOLOMANCE",
+        "text": "+1/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60569,
+        "health": 2,
+        "id": "SCH_199t4",
+        "mechanics": [
+            "POISONOUS",
+            "STEALTH"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Stealth</b>\n <b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60570,
+        "health": 2,
+        "id": "SCH_199t5",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Deathrattle:</b> Add a random <b>Deathrattle</b> minion to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60572,
+        "health": 2,
+        "id": "SCH_199t6",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "SPARE_PART"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry and Deathrattle:</b> Add a <b>Spare Part</b> card to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60573,
+        "health": 2,
+        "id": "SCH_199t7",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "At the end of your turn, reduce the Cost of a random card in your hand by (2).",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62092,
+        "id": "SCH_199t7e",
+        "name": "Transfer of Power",
+        "set": "SCHOLOMANCE",
+        "text": "Costs (2) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60574,
+        "health": 2,
+        "id": "SCH_199t8",
+        "mechanics": [
+            "INSPIRE"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Inspire:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 60575,
+        "health": 2,
+        "id": "SCH_199t9",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a new basic Hero Power.",
+        "type": "MINION"
+    },
+    {
         "attack": 1,
         "cardClass": "NEUTRAL",
         "cost": 1,
@@ -91151,6 +91671,7 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59814,
         "health": 40,
@@ -91205,6 +91726,7 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 60214,
         "health": 40,
@@ -91253,6 +91775,17 @@
         "hideCost": true,
         "id": "TB_BaconShop_HERO_49",
         "name": "Millhouse Manastorm",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 60367,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_50",
+        "name": "Tess Greymane",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
@@ -91758,6 +92291,24 @@
     },
     {
         "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 59815,
+        "id": "TB_BaconShop_HP_038",
+        "name": "Bananarama",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nGet 2 Bananas.\nAt the end of your turn,\n give everyone else one.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61529,
+        "id": "TB_BaconShop_HP_038e",
+        "name": "Banana Watcher",
+        "set": "BATTLEGROUNDS",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59816,
         "id": "TB_BaconShop_HP_038t",
@@ -92010,16 +92561,15 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 0,
+        "cost": 1,
         "dbfId": 60218,
-        "hideCost": true,
         "id": "TB_BaconShop_HP_048",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
         "name": "Battle Brand",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nAfter you play a <b>Battlecry</b>\nminion, give a random\n   friendly minion +1/+1.",
+        "text": "[x]<b>Hero Power</b>\nRefresh Bob's Tavern\n  with <b>Battlecry</b> minions.",
         "type": "HERO_POWER"
     },
     {
@@ -92233,8 +92783,16 @@
         "id": "TB_BaconShop_HP_065",
         "name": "Demon Hunter Training",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nAfter you <b>Refresh</b> 7 times,\nBob always has 7 minions.\n<i>(7 left!)</i>",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you <b>Refresh</b> 5 times,\nBob always has 7 minions.\n<i>(5 left!)</i>",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63670,
+        "id": "TB_BaconShop_HP_065pe",
+        "name": "Aranna Watcher",
+        "set": "BATTLEGROUNDS",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "DEMONHUNTER",
@@ -92375,7 +92933,7 @@
             "DISCOVER"
         ],
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nRemove a friendly minion.\n <b>Discover</b> one from a\nTavern Tier lower.",
+        "text": "[x]<b>Hero Power</b>\nRemove a friendly minion.\nGet a random one from a\nTavern Tier lower.",
         "type": "HERO_POWER"
     },
     {
@@ -92386,6 +92944,16 @@
         "name": "Piggy Bank",
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Hero Power</b>\nGain 1 Gold this turn.\nIncreases each turn.\n<i>(Once per game.)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 63162,
+        "id": "TB_BaconShop_HP_077",
+        "name": "Bob's Burgles",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nRefresh Bob's Tavern with\nminions from your last\nopponent's warband.",
         "type": "HERO_POWER"
     },
     {
@@ -94143,7 +94711,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 6,
         "text": "<b>Deathrattle:</b> Give your Beasts +8/+8.",
         "type": "MINION"
     },
@@ -94882,6 +95450,27 @@
         "set": "BATTLEGROUNDS",
         "text": "Attack increased.",
         "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 61444,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 61445,
+        "health": 12,
+        "id": "TB_BaconUps_121",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Amalgadon",
+        "race": "ALL",
+        "referencedTags": [
+            "ADAPT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "[x]<b>Battlecry:</b> For each different\nminion type you have,\n<b>Adapt</b> randomly twice.",
+        "type": "MINION"
     },
     {
         "attack": 6,

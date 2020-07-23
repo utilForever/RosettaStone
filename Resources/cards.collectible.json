@@ -6355,7 +6355,7 @@
         "name": "Corsair Cache",
         "rarity": "RARE",
         "set": "BLACK_TEMPLE",
-        "text": "Draw a weapon.\nGive it +1/+1.",
+        "text": "Draw a weapon.\nGive it +1 Durability.",
         "type": "SPELL"
     },
     {
@@ -6400,7 +6400,7 @@
         "artist": "Matt Dixon",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 56677,
         "flavor": "Far superior to a beanstalk boondoggle.",
         "id": "BT_128",
@@ -6746,7 +6746,7 @@
         "dbfId": 58202,
         "elite": true,
         "flavor": "\"Armor and heals may slow my zeal, but fel and glaives excite me!\"",
-        "health": 5,
+        "health": 4,
         "id": "BT_187",
         "mechanics": [
             "AURA",
@@ -7700,7 +7700,7 @@
         "name": "Metamorphosis",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "Swap your Hero Power to \"Deal 5 damage.\" After 2 uses, swap it back.",
+        "text": "Swap your Hero Power to \"Deal 4 damage.\" After 2 uses, swap it back.",
         "type": "SPELL"
     },
     {
@@ -7708,7 +7708,7 @@
         "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 56900,
         "durability": 4,
         "flavor": "The blades glow green from things unseen, dark dreams whirling in the felfire gleam.",
@@ -17149,7 +17149,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> If your deck has\nno duplicates, add 2 other\nrandom Dragons to your\nhand. They cost (0).",
+        "text": "[x]<b>Battlecry:</b> If your deck has\nno duplicates, add 2 other\nrandom Dragons to your\nhand. They cost (1).",
         "type": "MINION"
     },
     {
@@ -18511,7 +18511,7 @@
         "attack": 4,
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 6,
+        "cost": 7,
         "dbfId": 55280,
         "flavor": "It’s challenging to perform magic on dragonback. It’s so easy to drop the rabbit.",
         "health": 4,
@@ -18672,7 +18672,7 @@
         "name": "Galakrond, the Nightmare",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (0).\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (1).\n<i>(",
         "type": "HERO"
     },
     {
@@ -29643,6 +29643,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 62772,
+        "health": 30,
+        "id": "HERO_08e",
+        "name": "Kel'Thuzad",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -39879,6 +39890,22 @@
         "rarity": "LEGENDARY",
         "set": "HOF",
         "text": "<b>Battlecry:</b> Give both players the power to ROCK! (with a Power Chord card)",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 58947,
+        "flavor": "Oh, the places you'll go! There is so much to fight!\nThere are boards to be explored. There are dreams to take flight.",
+        "health": 2,
+        "id": "SCH_199",
+        "name": "Transfer Student",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "This has different effects based on which game board you're on.",
         "type": "MINION"
     },
     {
