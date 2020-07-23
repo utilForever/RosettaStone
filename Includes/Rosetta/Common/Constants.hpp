@@ -24,7 +24,7 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 8> STANDARD_CARD_SETS = {
+constexpr std::array<CardSet, 9> STANDARD_CARD_SETS = {
     CardSet::CORE,                   // Basic, 2014
     CardSet::EXPERT1,                // Classic, 2014
     CardSet::DEMON_HUNTER_INITIATE,  // Ashes of Outland, 2020
@@ -33,10 +33,11 @@ constexpr std::array<CardSet, 8> STANDARD_CARD_SETS = {
     CardSet::DRAGONS,                // Descent of Dragons, 2019
     CardSet::YEAR_OF_THE_DRAGON,     // Galakrond's Awakening, 2020
     CardSet::BLACK_TEMPLE,           // Ashes of Outland, 2020
+    CardSet::SCHOLOMANCE             // Scholomance Academy, 2020
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 23> WILD_CARD_SETS = {
+constexpr std::array<CardSet, 24> WILD_CARD_SETS = {
     // Standard
     CardSet::CORE,                   // Basic, 2014
     CardSet::EXPERT1,                // Classic, 2014
@@ -46,6 +47,7 @@ constexpr std::array<CardSet, 23> WILD_CARD_SETS = {
     CardSet::DRAGONS,                // Descent of Dragons, 2019
     CardSet::YEAR_OF_THE_DRAGON,     // Galakrond's Awakening, 2020
     CardSet::BLACK_TEMPLE,           // Ashes of Outland, 2020
+    CardSet::SCHOLOMANCE,            // Scholomance Academy, 2020
 
     // Wild
     CardSet::NAXX,          // Curse of Naxxramas, 2014
@@ -66,7 +68,7 @@ constexpr std::array<CardSet, 23> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 9304;
+constexpr int NUM_ALL_CARDS = 9344;
 
 //! The number of Battlegrounds cards.
 constexpr int NUM_BATTLEGROUNDS_CARDS = 527;

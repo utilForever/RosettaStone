@@ -195,7 +195,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600t3 : Galakrond, Azeroth's End")
 // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 1 card. It costs (0).
+// Text: <b>Battlecry:</b> Draw 1 card. It costs (1).
 //       <i>(@)</i>
 // --------------------------------------------------------
 // GameTag:
@@ -246,7 +246,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 0);
+    CHECK_EQ(curHand[4]->GetCost(), 1);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 6);
@@ -257,7 +257,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
 // [DRG_610t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 2 cards. They cost (0).
+// Text: <b>Battlecry:</b> Draw 2 cards. They cost (1).
 //       <i>(@)</i>
 // --------------------------------------------------------
 // GameTag:
@@ -307,8 +307,8 @@ TEST_CASE("[Rogue : Hero] - DRG_610t2 : Galakrond, the Apocalypse")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 0);
-    CHECK_EQ(curHand[5]->GetCost(), 0);
+    CHECK_EQ(curHand[4]->GetCost(), 1);
+    CHECK_EQ(curHand[5]->GetCost(), 1);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 7);
@@ -319,7 +319,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610t2 : Galakrond, the Apocalypse")
 // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 4 cards. They cost (0).
+// Text: <b>Battlecry:</b> Draw 4 cards. They cost (1).
 //       Equip a 5/2 Claw.
 // --------------------------------------------------------
 // GameTag:
@@ -368,10 +368,10 @@ TEST_CASE("[Rogue : Hero] - DRG_610t3 : Galakrond, Azeroth's End")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 8);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 0);
-    CHECK_EQ(curHand[5]->GetCost(), 0);
-    CHECK_EQ(curHand[6]->GetCost(), 0);
-    CHECK_EQ(curHand[7]->GetCost(), 0);
+    CHECK_EQ(curHand[4]->GetCost(), 1);
+    CHECK_EQ(curHand[5]->GetCost(), 1);
+    CHECK_EQ(curHand[6]->GetCost(), 1);
+    CHECK_EQ(curHand[7]->GetCost(), 1);
     CHECK_EQ(curPlayer->GetWeapon().card->name, "Dragon Claw");
     CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 5);
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
@@ -2762,7 +2762,7 @@ TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [DRG_322] Dragoncaster - COST:6 [ATK:4/HP:4]
+// [DRG_322] Dragoncaster - COST:7 [ATK:4/HP:4]
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If you're holding a Dragon,
@@ -8381,7 +8381,7 @@ TEST_CASE("[Neutral : Minion] - DRG_088 : Dread Raven")
 // - Race: Dragon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If your deck has no duplicates,
-//       add 2 other random Dragons to your hand. They cost (0).
+//       add 2 other random Dragons to your hand. They cost (1).
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -8433,10 +8433,10 @@ TEST_CASE("[Neutral : Minion] - DRG_089 : Dragonqueen Alexstrasza")
     CHECK_EQ(curHand.GetCount(), 7);
     CHECK_NE(curHand[5]->card->name, "Dragonqueen Alexstrasza");
     CHECK_EQ(curHand[5]->card->GetRace(), Race::DRAGON);
-    CHECK_EQ(curHand[5]->GetCost(), 0);
+    CHECK_EQ(curHand[5]->GetCost(), 1);
     CHECK_NE(curHand[6]->card->name, "Dragonqueen Alexstrasza");
     CHECK_EQ(curHand[6]->card->GetRace(), Race::DRAGON);
-    CHECK_EQ(curHand[6]->GetCost(), 0);
+    CHECK_EQ(curHand[6]->GetCost(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
