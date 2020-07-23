@@ -2032,6 +2032,65 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
 }
 
 // ---------------------------------------- MINION - PRIEST
+// [ULD_268] Psychopomp - COST:4 [ATK:3/HP:1]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a random friendly minion
+//       that died this game. Give it <b>Reborn</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - ULD_268 : Psychopomp")
+{
+	GameConfig config;
+	config.player1Class = CardClass::PRIEST;
+	config.player2Class = CardClass::MAGE;
+	config.startPlayer = PlayerType::PLAYER1;
+	config.doFillDecks = true;
+	config.autoRun = false;
+
+	Game game(config);
+	game.Start();
+	game.ProcessUntil(Step::MAIN_ACTION);
+
+	Player* curPlayer = game.GetCurrentPlayer();
+	Player* opPlayer = game.GetOpponentPlayer();
+	curPlayer->SetTotalMana(10);
+	curPlayer->SetUsedMana(0);
+	opPlayer->SetTotalMana(10);
+	opPlayer->SetUsedMana(0);
+
+	auto& curField = *(curPlayer->GetFieldZone());
+
+	const auto card1 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Psychopomp"));
+	const auto card2 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+	game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+	game.Process(curPlayer, EndTurnTask());
+	game.ProcessUntil(Step::MAIN_ACTION);
+
+	game.Process(opPlayer, HeroPowerTask(card2));
+
+	game.Process(opPlayer, EndTurnTask());
+	game.ProcessUntil(Step::MAIN_ACTION);
+
+	game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+	CHECK_EQ(curField.GetCount(), 2);
+	CHECK_EQ(curField[1]->card->name, "Stonetusk Boar");
+	CHECK_EQ(curField[1]->GetAttack(), 1);
+	CHECK_EQ(curField[1]->GetHealth(), 1);
+	CHECK_EQ(curField[1]->HasReborn(), true);
+}
+
+// ---------------------------------------- MINION - PRIEST
 // [ULD_269] Wretched Reclaimer - COST:3 [ATK:3/HP:3]
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
