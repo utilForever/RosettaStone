@@ -1235,6 +1235,16 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+	power.ClearData();
+	power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+	power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+		std::make_shared<SelfCondition>(SelfCondition::IsDead()) }));
+	power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+	power.AddPowerTask(
+		std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY, 1, true));
+	power.AddPowerTask(std::make_shared<SetGameTagTask>(
+		EntityType::STACK, GameTag::REBORN, 1));
+	cards.emplace("ULD_268", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_269] Wretched Reclaimer - COST:3 [ATK:3/HP:3]
