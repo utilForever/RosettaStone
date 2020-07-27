@@ -276,3 +276,56 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_019 : Red Whelp")
     CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 2);
     CHECK_EQ(battle.GetPlayer2Field()[0].GetHealth(), 1);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [BOT_445] Mecharoo - TIER:1 [ATK:1/HP:1]
+// - Race: Mechanical, Set: Boomsday
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 1/1 Jo-E Bot.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - BOT_445 : Mecharoo")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("BOT_445"));
+    Minion minion2(Cards::FindCardByID("BOT_445"));
+    Minion minion3(Cards::FindCardByID("BOT_445"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
+    player1.PlayCard(0, 0);
+    player1.PlayCard(0, 0);
+
+    player2.hand.Add(minion3);
+    player2.PlayCard(0, 0);
+
+    player1.isInCombat = true;
+    player2.isInCombat = true;
+
+    Battle battle(player1, player2);
+    battle.Initialize();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetName(), "Mecharoo");
+    CHECK_EQ(battle.GetPlayer1Field()[1].GetName(), "Mecharoo");
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetName(), "Mecharoo");
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetName(), "Jo-E Bot");
+    CHECK_EQ(battle.GetPlayer1Field()[1].GetName(), "Mecharoo");
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetName(), "Jo-E Bot");
+}

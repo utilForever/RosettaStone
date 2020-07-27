@@ -134,6 +134,20 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.AddStartCombatTask(DamageTask{ EntityType::STACK, 1 });
     power.AddStartCombatTask(RepeatNumberEndTask{});
     cards.emplace("BGS_019", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BOT_445] Mecharoo - TIER:1 [ATK:1/HP:1]
+    // - Race: Mechanical, Set: Boomsday
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 1/1 Jo-E Bot.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        SummonTask{ "BOT_445t", 1, SummonSide::DEATHRATTLE });
+    cards.emplace("BOT_445", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
@@ -167,11 +181,18 @@ void BattlegroundsCardsGen::AddTokenMinions(
     Power power;
 
     // --------------------------------- MINION - BATTLEGROUNDS
-    // [CFM_315t] Tabbycat (*) - COST:1 [ATK:1/HP:1]
+    // [CFM_315t] Tabbycat (*) - TIER:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Gangs
     // --------------------------------------------------------
     power.ClearData();
     cards.emplace("CFM_315t", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BOT_445t] Jo-E Bot (*) - TIER:1 [ATK:1/HP:1]
+    // - Race: Mechanical, Set: Boomsday
+    // --------------------------------------------------------
+    power.ClearData();
+    cards.emplace("BOT_445t", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddEnchantments(
