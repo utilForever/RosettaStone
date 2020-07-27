@@ -54,6 +54,11 @@ int SummonTask::GetPosition(Minion& source, SummonSide side)
             }
             break;
         }
+        case SummonSide::DEATHRATTLE:
+        {
+            summonPos = source.GetLastFieldPos();
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "SummonTask::Impl() - Invalid summon side");
