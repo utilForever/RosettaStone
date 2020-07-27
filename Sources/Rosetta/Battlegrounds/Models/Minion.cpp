@@ -178,11 +178,18 @@ void Minion::ActivateTrigger(TriggerType type,
         return;
     }
 
-    for (const auto& source : sources)
+    if (trigger.value().GetTriggerSource() == TriggerSource::NONE)
     {
-        if (trigger.value().GetTriggerSource() == source)
+        trigger.value().Run(player, *this);
+    }
+    else
+    {
+        for (const auto& source : sources)
         {
-            trigger.value().Run(player, *this);
+            if (trigger.value().GetTriggerSource() == source)
+            {
+                trigger.value().Run(player, *this);
+            }
         }
     }
 }
