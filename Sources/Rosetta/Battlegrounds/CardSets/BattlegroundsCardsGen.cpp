@@ -193,7 +193,7 @@ void BattlegroundsCardsGen::AddTier6Minions(
 {
 }
 
-void BattlegroundsCardsGen::AddMinionsNonCollect(
+void BattlegroundsCardsGen::AddTokenMinions(
     std::map<std::string, CardDef>& cards)
 {
     // --------------------------------- MINION - BATTLEGROUNDS
@@ -202,7 +202,7 @@ void BattlegroundsCardsGen::AddMinionsNonCollect(
     // --------------------------------------------------------
 }
 
-void BattlegroundsCardsGen::AddSpellsNonCollect(
+void BattlegroundsCardsGen::AddEnchantments(
     std::map<std::string, CardDef>& cards)
 {
 }
@@ -219,7 +219,7 @@ void BattlegroundsCardsGen::AddAll(std::map<std::string, CardDef>& cards)
     AddTier5Minions(cards);
     AddTier6Minions(cards);
 
-    AddMinionsNonCollect(cards);
-    AddSpellsNonCollect(cards);
+    AddTokenMinions(cards);
+    AddEnchantments(cards);
 }
 }  // namespace RosettaStone::Battlegrounds

@@ -53,13 +53,13 @@ class BattlegroundsCardsGen
     //! \param cards A list of cards to store the data such as powers.
     static void AddTier6Minions(std::map<std::string, CardDef>& cards);
 
-    //! Adds minion cards that are not collectible to \p cards.
+    //! Adds token minion cards.
     //! \param cards A list of cards to store the data such as powers.
-    static void AddMinionsNonCollect(std::map<std::string, CardDef>& cards);
+    static void AddTokenMinions(std::map<std::string, CardDef>& cards);
 
-    //! Adds spell cards that are not collectible to \p cards.
+    //! Adds enchantment cards.
     //! \param cards A list of cards to store the data such as powers.
-    static void AddSpellsNonCollect(std::map<std::string, CardDef>& cards);
+    static void AddEnchantments(std::map<std::string, CardDef>& cards);
 
     //! Adds all cards to \p cards.
     //! \param cards A list of cards to store the data such as powers,
