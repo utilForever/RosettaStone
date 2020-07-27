@@ -252,6 +252,7 @@ void Battle::ProcessDestroy(bool beforeAttack)
                     TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
             });
 
+            minion.SetLastFieldPos(minion.GetZonePosition());
             removedMinion = m_p1Field.Remove(minion);
         }
         else
@@ -284,6 +285,7 @@ void Battle::ProcessDestroy(bool beforeAttack)
                     TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
             });
 
+            minion.SetLastFieldPos(minion.GetZonePosition());
             removedMinion = m_p2Field.Remove(minion);
         }
 
