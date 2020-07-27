@@ -148,6 +148,21 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.AddDeathrattleTask(
         SummonTask{ "BOT_445t", 1, SummonSide::DEATHRATTLE });
     cards.emplace("BOT_445", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [GVG_103] Micro Machine - TIER:1 [ATK:1/HP:2]
+    // - Race: Mechanical, Set: Gvg
+    // --------------------------------------------------------
+    // Text: At the start of each turn, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger{ TriggerType::TURN_START });
+    power.GetTrigger().value().SetTasks(std::vector<TaskType>{
+        AddEnchantmentTask{ "GVG_076a", EntityType::SOURCE } });
+    cards.emplace("GVG_103", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
@@ -231,6 +246,16 @@ void BattlegroundsCardsGen::AddEnchantments(
     power.AddEnchant(Enchant{
         std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(2) } });
     cards.emplace("BGS_004e", CardDef{ power });
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [GVG_076a] Pistons (*) - COST:0
+    // - Set: Gvg
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{ std::vector<Effect>{ Effects::AttackN(1) } });
+    cards.emplace("GVG_076a", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddAll(std::map<std::string, CardDef>& cards)

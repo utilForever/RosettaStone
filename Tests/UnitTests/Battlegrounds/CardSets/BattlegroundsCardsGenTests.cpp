@@ -329,3 +329,82 @@ TEST_CASE("[Battlegrounds : Minion] - BOT_445 : Mecharoo")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
     CHECK_EQ(battle.GetPlayer2Field()[0].GetName(), "Jo-E Bot");
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [GVG_103] Micro Machine - TIER:1 [ATK:1/HP:2]
+// - Race: Mechanical, Set: Gvg
+// --------------------------------------------------------
+// Text: At the start of each turn, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("GVG_103"));
+    Minion minion2(Cards::FindCardByID("GVG_103"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    player1.hand.Add(minion1);
+    player1.PlayCard(0, 0);
+
+    player2.hand.Add(minion2);
+    player2.PlayCard(0, 0);
+
+    player1.recruitField[0].SetHealth(10);
+    player2.recruitField[0].SetHealth(10);
+
+    player1.isInCombat = true;
+    player2.isInCombat = true;
+
+    Battle battle(player1, player2);
+    battle.Initialize();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 1);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 1);
+
+    auto& p1Field = const_cast<FieldZone&>(battle.GetPlayer1Field());
+    auto& p2Field = const_cast<FieldZone&>(battle.GetPlayer2Field());
+
+    p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                            player1);
+    });
+    p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                            player2);
+    });
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 2);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 2);
+
+    p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                            player1);
+    });
+    p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                            player2);
+    });
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer1Field()[0].GetAttack(), 3);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 3);
+}
