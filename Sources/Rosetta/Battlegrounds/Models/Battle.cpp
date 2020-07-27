@@ -77,6 +77,31 @@ void Battle::Run()
 
     while (!IsDone())
     {
+        if (m_turn == Turn::PLAYER1)
+        {
+            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                                    m_player1);
+            });
+
+            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                                    m_player2);
+            });
+        }
+        else
+        {
+            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                                    m_player2);
+            });
+
+            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
+                                                    m_player1);
+            });
+        }
+
         const bool curAttackSuccess = Attack();
         if (!prevAttackSuccess && !curAttackSuccess)
         {
