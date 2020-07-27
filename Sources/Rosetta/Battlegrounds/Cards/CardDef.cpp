@@ -6,9 +6,11 @@
 
 #include <Rosetta/Battlegrounds/Cards/CardDef.hpp>
 
+#include <utility>
+
 namespace RosettaStone::Battlegrounds
 {
-CardDef::CardDef(Power _power) : power(_power)
+CardDef::CardDef(Power _power) : power(std::move(_power))
 {
     // Do nothing
 }
