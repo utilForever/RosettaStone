@@ -196,10 +196,14 @@ void BattlegroundsCardsGen::AddTier6Minions(
 void BattlegroundsCardsGen::AddTokenMinions(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------- MINION - BATTLEGROUNDS
     // [CFM_315t] Tabbycat (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Gangs
     // --------------------------------------------------------
+    power.ClearData();
+    cards.emplace("CFM_315t", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddEnchantments(
