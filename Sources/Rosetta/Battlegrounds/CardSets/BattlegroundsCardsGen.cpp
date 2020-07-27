@@ -52,17 +52,6 @@ void BattlegroundsCardsGen::AddTier1Minions(
         SelfCondition{ SelfCondition::IsRace(Race::BEAST) });
     cards.emplace("EX1_531", CardDef{ power });
 
-    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
-    // [EX1_531e] Well Fed (*) - COST:0
-    // - Set: Expert1
-    // --------------------------------------------------------
-    // Text: Increased Attack and Health.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchant{
-        std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(1) } });
-    cards.emplace("EX1_531e", CardDef{ power });
-
     // --------------------------------- MINION - BATTLEGROUNDS
     // [YOD_026] Fiendish Servant - TIER:1 [ATK:2/HP:1]
     // - Race: Demon, Set: YoD, Rarity: Common
@@ -77,16 +66,6 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.AddDeathrattleTask(
         AddEnchantmentTask{ "Yod_026e", EntityType::STACK, true });
     cards.emplace("YOD_026", CardDef{ power });
-
-    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
-    // [Yod_026e] Servant's Sacrifice (*) - COST:0
-    // - Set: YoD
-    // --------------------------------------------------------
-    // Text: Increased Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchant{ Enchants::AddAttackScriptTag });
-    cards.emplace("Yod_026e", CardDef(power));
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [LOOT_013] Vulgar Homunculus - TIER:1 [ATK:2/HP:4]
@@ -123,17 +102,6 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.GetTrigger().value().SetCondition(
         SelfCondition{ SelfCondition::IsRace(Race::DEMON) });
     cards.emplace("BGS_004", CardDef{ power });
-
-    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
-    // [BGS_004e] Wrath Woven (*) - COST:0
-    // - Set: Battlegrounds
-    // --------------------------------------------------------
-    // Text: Increased stats.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchant{
-        std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(2) } });
-    cards.emplace("BGS_004e", CardDef{ power });
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [BGS_039] Dragonspawn Lieutenant - TIER:1 [ATK:2/HP:2]
@@ -209,6 +177,39 @@ void BattlegroundsCardsGen::AddTokenMinions(
 void BattlegroundsCardsGen::AddEnchantments(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [EX1_531e] Well Fed (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack and Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{
+        std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(1) } });
+    cards.emplace("EX1_531e", CardDef{ power });
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [Yod_026e] Servant's Sacrifice (*) - COST:0
+    // - Set: YoD
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{ Enchants::AddAttackScriptTag });
+    cards.emplace("Yod_026e", CardDef(power));
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [BGS_004e] Wrath Woven (*) - COST:0
+    // - Set: Battlegrounds
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{
+        std::vector<Effect>{ Effects::AttackN(2), Effects::HealthN(2) } });
+    cards.emplace("BGS_004e", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddAll(std::map<std::string, CardDef>& cards)
