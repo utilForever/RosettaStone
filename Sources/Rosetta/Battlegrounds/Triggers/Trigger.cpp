@@ -39,11 +39,71 @@ void Trigger::SetCondition(SelfCondition&& condition)
     m_condition = condition;
 }
 
-void Trigger::Run(Player& player, Minion& source)
+void Trigger::Validate(Minion& owner, Minion& source)
 {
+    Player& ownerPlayer = owner.getPlayerCallback();
+    Player& sourcePlayer = source.getPlayerCallback();
+
+    switch (m_triggerSource)
+    {
+        case TriggerSource::NONE:
+            break;
+        case TriggerSource::MINIONS_EXCEPT_SELF:
+            if (ownerPlayer.idx != sourcePlayer.idx ||
+                owner.GetIndex() == source.GetIndex())
+            {
+                return;
+            }
+            break;
+        case TriggerSource::FRIENDLY:
+            if (ownerPlayer.idx != sourcePlayer.idx)
+            {
+                return;
+            }
+            break;
+        default:
+            break;
+    }
+
+    switch (m_triggerType)
+    {
+        case TriggerType::SUMMON:
+            if (owner.GetIndex() == source.GetIndex())
+            {
+                return;
+            }
+            break;
+        default:
+            break;
+    }
+
+    if (m_condition.has_value())
+    {
+        if (!m_condition.value().Evaluate(source))
+        {
+            return;
+        }
+    }
+
+    m_isValidated = true;
+}
+
+void Trigger::Run(Minion& owner, Minion& source)
+{
+    Validate(owner, source);
+
+    if (!m_isValidated)
+    {
+        return;
+    }
+
     for (auto& task : m_tasks)
     {
-        std::visit([&](auto&& _task) { _task.Run(player, source); }, task);
+        std::visit(
+            [&](auto&& _task) { _task.Run(owner.getPlayerCallback(), owner); },
+            task);
     }
+
+    m_isValidated = false;
 }
 }  // namespace RosettaStone::Battlegrounds
