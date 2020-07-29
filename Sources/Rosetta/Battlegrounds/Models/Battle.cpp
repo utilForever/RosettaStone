@@ -79,26 +79,42 @@ void Battle::Run()
     {
         if (m_turn == Turn::PLAYER1)
         {
-            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                                    m_player1);
+            m_p1Field.ForEachAlive([&](MinionData& owner) {
+                m_p1Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
             });
 
-            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                                    m_player2);
+            m_p2Field.ForEachAlive([&](MinionData& owner) {
+                m_p2Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
             });
         }
         else
         {
-            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                                    m_player2);
+            m_p2Field.ForEachAlive([&](MinionData& owner) {
+                m_p2Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
             });
 
-            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                                    m_player1);
+            m_p1Field.ForEachAlive([&](MinionData& owner) {
+                m_p1Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
             });
         }
 
@@ -238,7 +254,6 @@ void Battle::ProcessDestroy(bool beforeAttack)
         });
     }
 
-    Player& curPlayer = m_turn == Turn::PLAYER1 ? m_player1 : m_player2;
     // A variable to check a minion at the index of next attacker is destroyed
     bool isAttackerDestroyed = false;
 
@@ -268,13 +283,11 @@ void Battle::ProcessDestroy(bool beforeAttack)
             }
 
             m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
             m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
             minion.SetLastFieldPos(minion.GetZonePosition());
@@ -301,13 +314,11 @@ void Battle::ProcessDestroy(bool beforeAttack)
             }
 
             m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
             m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
             minion.SetLastFieldPos(minion.GetZonePosition());

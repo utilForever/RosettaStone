@@ -390,13 +390,22 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
     auto& p1Field = const_cast<FieldZone&>(battle.GetPlayer1Field());
     auto& p2Field = const_cast<FieldZone&>(battle.GetPlayer2Field());
 
-    p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                            player1);
+    p1Field.ForEachAlive([&](MinionData& owner) {
+        p1Field.ForEachAlive([&](MinionData& minion) {
+            {
+                owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                              minion.value());
+            };
+        });
     });
-    p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                            player2);
+
+    p2Field.ForEachAlive([&](MinionData& owner) {
+        p2Field.ForEachAlive([&](MinionData& minion) {
+            {
+                owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                              minion.value());
+            };
+        });
     });
 
     battle.Attack();
@@ -406,13 +415,22 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
     CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 2);
 
-    p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                            player1);
+    p1Field.ForEachAlive([&](MinionData& owner) {
+        p1Field.ForEachAlive([&](MinionData& minion) {
+            {
+                owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                              minion.value());
+            };
+        });
     });
-    p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-        aliveMinion.value().ActivateTrigger(TriggerType::TURN_START, {},
-                                            player2);
+
+    p2Field.ForEachAlive([&](MinionData& owner) {
+        p2Field.ForEachAlive([&](MinionData& minion) {
+            {
+                owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                              minion.value());
+            };
+        });
     });
 
     battle.Attack();

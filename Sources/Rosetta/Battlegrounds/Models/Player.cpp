@@ -60,13 +60,8 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
         }
 
         recruitField.ForEachAlive([&](MinionData& aliveMinion) {
-            if (aliveMinion.value().GetZonePosition() !=
-                static_cast<int>(fieldIdx))
-            {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::AFTER_PLAY_MINION,
-                    { TriggerSource::MINIONS_EXCEPT_SELF }, *this);
-            }
+            aliveMinion.value().ActivateTrigger(TriggerType::AFTER_PLAY_MINION,
+                                                minion);
         });
     }
     else
