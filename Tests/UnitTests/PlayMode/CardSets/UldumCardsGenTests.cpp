@@ -2031,6 +2031,108 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
     CHECK_EQ(curField[2]->HasReborn(), true);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [ULD_265] Embalming Ritual - COST:1
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion <b>Reborn</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - ULD_265 : Embalming Ritual")
+{
+	GameConfig config;
+	config.player1Class = CardClass::PRIEST;
+	config.player2Class = CardClass::MAGE;
+	config.startPlayer = PlayerType::PLAYER1;
+	config.doFillDecks = true;
+	config.autoRun = false;
+
+	Game game(config);
+	game.Start();
+	game.ProcessUntil(Step::MAIN_ACTION);
+
+	Player* curPlayer = game.GetCurrentPlayer();
+	Player* opPlayer = game.GetOpponentPlayer();
+	curPlayer->SetTotalMana(10);
+	curPlayer->SetUsedMana(0);
+	opPlayer->SetTotalMana(10);
+	opPlayer->SetUsedMana(0);
+
+	auto& curField = *(curPlayer->GetFieldZone());
+
+	const auto card1 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Embalming Ritual"));
+	const auto card2 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+	game.Process(curPlayer, PlayCardTask::Minion(card2));
+	game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+	CHECK_EQ(curField[0]->HasReborn(), true);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [ULD_266] Grandmummy - COST:2 [ATK:1/HP:2]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Reborn</b> <b>Deathrattle:</b> Give a random
+//       friendly minion +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - ULD_266 : Grandmummy")
+{
+	GameConfig config;
+	config.player1Class = CardClass::PRIEST;
+	config.player2Class = CardClass::MAGE;
+	config.startPlayer = PlayerType::PLAYER1;
+	config.doFillDecks = true;
+	config.autoRun = false;
+
+	Game game(config);
+	game.Start();
+	game.ProcessUntil(Step::MAIN_ACTION);
+
+	Player* curPlayer = game.GetCurrentPlayer();
+	Player* opPlayer = game.GetOpponentPlayer();
+	curPlayer->SetTotalMana(10);
+	curPlayer->SetUsedMana(0);
+	opPlayer->SetTotalMana(10);
+	opPlayer->SetUsedMana(0);
+
+	auto& curField = *(curPlayer->GetFieldZone());
+
+	const auto card1 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Grandmummy"));
+	const auto card2 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+	const auto card3 = Generic::DrawCard(
+		opPlayer, Cards::FindCardByName("Frostbolt"));
+
+	game.Process(curPlayer, PlayCardTask::Minion(card1));
+	game.Process(curPlayer, PlayCardTask::Minion(card2));
+	CHECK_EQ(curField[0]->GetAttack(), 1);
+	CHECK_EQ(curField[0]->GetHealth(), 2);
+
+	game.Process(curPlayer, EndTurnTask());
+	game.ProcessUntil(Step::MAIN_ACTION);
+
+	game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+	CHECK_EQ(curField.GetCount(), 2);
+	CHECK_EQ(curField[0]->GetAttack(), 2);
+	CHECK_EQ(curField[0]->GetHealth(), 2);
+	CHECK_EQ(curField[1]->GetAttack(), 1);
+	CHECK_EQ(curField[1]->GetHealth(), 1);
+	CHECK_EQ(curField[1]->HasReborn(), false);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [ULD_268] Psychopomp - COST:4 [ATK:3/HP:1]
 // - Set: Uldum, Rarity: Epic
@@ -2082,7 +2184,6 @@ TEST_CASE("[Priest : Minion] - ULD_268 : Psychopomp")
 	game.ProcessUntil(Step::MAIN_ACTION);
 
 	game.Process(curPlayer, PlayCardTask::Minion(card1));
-
 	CHECK_EQ(curField.GetCount(), 2);
 	CHECK_EQ(curField[1]->card->name, "Stonetusk Boar");
 	CHECK_EQ(curField[1]->GetAttack(), 1);
