@@ -139,6 +139,8 @@ class Minion
 
     Trigger activatedTrigger;
 
+    std::function<Player&()> getPlayerCallback;
+
  private:
     //! Gets a list of tasks according to the power type.
     //! \param type The type of power.
