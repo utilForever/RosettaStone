@@ -94,6 +94,7 @@ class Player
     std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
     std::function<void(Player&, std::size_t)> purchaseMinionCallback;
+    std::function<int()> getNextCardIndexCallback;
     std::function<void(int)> returnMinionCallback;
     std::function<void(Player&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
