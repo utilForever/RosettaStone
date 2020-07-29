@@ -128,11 +128,8 @@ class Minion
 
     //! Activates the trigger.
     //! \param type The type of trigger.
-    //! \param sources A list of trigger sources.
-    //! \param player The owner of the minion.
-    void ActivateTrigger(TriggerType type,
-                         std::initializer_list<TriggerSource> sources,
-                         Player& player);
+    //! \param source The source of trigger.
+    void ActivateTrigger(TriggerType type, Minion& source);
 
     //! Activates the task.
     //! \param type The type of power.
