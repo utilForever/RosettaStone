@@ -49,15 +49,40 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
         minion.getPlayerCallback = [&]() -> Player& { return *this; };
         minion.SetIndex(getNextCardIndexCallback());
 
+        Player& opponent = getOpponentPlayerCallback(*this);
+
         if (targetIdx == -1)
         {
             recruitField.Add(minion, fieldIdx);
+
+            recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
+            opponent.recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
             minion.ActivateTask(PowerType::POWER, *this);
         }
         else
         {
             Minion& target = recruitField[targetIdx];
+
             recruitField.Add(minion, fieldIdx);
+
+            recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
+            opponent.recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
             minion.ActivateTask(PowerType::POWER, *this, target);
         }
 
