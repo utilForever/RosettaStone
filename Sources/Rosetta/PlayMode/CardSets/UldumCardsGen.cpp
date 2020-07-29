@@ -1195,6 +1195,11 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+	power.ClearData();
+	power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+	power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+	power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+		"ULD_262e", EntityType::EVENT_SOURCE) };
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_265] Embalming Ritual - COST:1
