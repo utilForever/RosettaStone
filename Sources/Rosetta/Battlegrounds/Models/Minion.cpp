@@ -38,6 +38,16 @@ Minion::Minion(Card card, int poolIdx)
     }
 }
 
+int Minion::GetIndex() const
+{
+    return m_index;
+}
+
+void Minion::SetIndex(int index)
+{
+    m_index = index;
+}
+
 int Minion::GetPoolIndex() const
 {
     return m_poolIdx;

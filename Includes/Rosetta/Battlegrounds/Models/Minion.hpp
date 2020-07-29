@@ -33,6 +33,14 @@ class Minion
     //! \param poolIdx The index of minion pool.
     explicit Minion(Card card, int poolIdx = -1);
 
+    //! Returns the value of index.
+    //! \return The value of index.
+    int GetIndex() const;
+
+    //! Sets the value of index.
+    //! \param index The value of index.
+    void SetIndex(int index);
+
     //! Returns the value of pool index.
     //! \return The value of pool index.
     int GetPoolIndex() const;
@@ -148,6 +156,7 @@ class Minion
     std::vector<TaskType> GetTasks(PowerType type);
 
     Card m_card;
+    int m_index = -1;
     int m_poolIdx = -1;
 
     ZoneType m_zoneType = ZoneType::INVALID;
