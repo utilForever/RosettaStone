@@ -46,6 +46,8 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
     if (std::holds_alternative<Minion>(card))
     {
         auto minion = std::get<Minion>(card);
+        minion.getPlayerCallback = [&]() -> Player& { return *this; };
+        minion.SetIndex(getNextCardIndexCallback());
 
         if (targetIdx == -1)
         {
