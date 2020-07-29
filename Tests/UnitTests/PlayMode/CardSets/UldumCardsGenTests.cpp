@@ -2126,11 +2126,11 @@ TEST_CASE("[Priest : Minion] - ULD_266 : Grandmummy")
 
 	game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
 	CHECK_EQ(curField.GetCount(), 2);
-	CHECK_EQ(curField[0]->GetAttack(), 2);
-	CHECK_EQ(curField[0]->GetHealth(), 2);
-	CHECK_EQ(curField[1]->GetAttack(), 1);
-	CHECK_EQ(curField[1]->GetHealth(), 1);
-	CHECK_EQ(curField[1]->HasReborn(), false);
+	CHECK_EQ(curField[0]->GetAttack(), 1);
+	CHECK_EQ(curField[0]->GetHealth(), 1);
+	CHECK_EQ(curField[1]->GetAttack(), 2);
+	CHECK_EQ(curField[1]->GetHealth(), 2);
+	CHECK_EQ(curField[0]->HasReborn(), false);
 }
 
 // ---------------------------------------- MINION - PRIEST
