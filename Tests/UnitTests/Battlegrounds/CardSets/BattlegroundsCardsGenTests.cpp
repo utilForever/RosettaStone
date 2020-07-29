@@ -422,3 +422,49 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
     CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 3);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [EX1_509] Murloc Tidecaller - TIER:1 [ATK:1/HP:2]
+// - Race: Murloc, Set: Expert1
+// --------------------------------------------------------
+// Text: Whenever you summon a Murloc, gain +1 Attack.
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - EX1_509 : Murloc Tidecaller")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("EX1_509"));
+    Minion minion2(Cards::FindCardByID("EX1_509"));
+    Minion minion3(Cards::FindCardByID("BGS_039"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
+
+    player1.hand.Add(minion1);
+    player1.PlayCard(0, 0);
+    CHECK_EQ(player1.recruitField.GetCount(), 1);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 1);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 2);
+
+    player1.hand.Add(minion2);
+    player1.PlayCard(0, 1);
+    CHECK_EQ(player1.recruitField.GetCount(), 2);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 2);
+    CHECK_EQ(player1.recruitField[1].GetAttack(), 1);
+    CHECK_EQ(player1.recruitField[1].GetHealth(), 2);
+
+    player1.hand.Add(minion3);
+    player1.PlayCard(0, 2);
+    CHECK_EQ(player1.recruitField.GetCount(), 3);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 2);
+    CHECK_EQ(player1.recruitField[1].GetAttack(), 1);
+    CHECK_EQ(player1.recruitField[1].GetHealth(), 2);
+}

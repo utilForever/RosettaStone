@@ -26,7 +26,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [CFM_315] Alleycat - TIER:1 [ATK:1/HP:1]
-    // - Race: Beast, Set: Gangs, Rarity: Common
+    // - Race: Beast, Set: Gangs
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 1/1 Cat.
     // --------------------------------------------------------
@@ -39,7 +39,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [EX1_531] Scavenging Hyena - TIER:1 [ATK:2/HP:2]
-    // - Race: Beast, Set: Expert1, Rarity: Common
+    // - Race: Beast, Set: Expert1
     // --------------------------------------------------------
     // Text: Whenever a friendly Beast dies, gain +2/+1.
     // --------------------------------------------------------
@@ -54,7 +54,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [YOD_026] Fiendish Servant - TIER:1 [ATK:2/HP:1]
-    // - Race: Demon, Set: YoD, Rarity: Common
+    // - Race: Demon, Set: YoD
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Give this minion's Attack
     //       to a random friendly minion.
@@ -69,7 +69,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [LOOT_013] Vulgar Homunculus - TIER:1 [ATK:2/HP:4]
-    // - Race: Demon, Set: Lootapalooza, Rarity: Common
+    // - Race: Demon, Set: Lootapalooza
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     //       <b>Battlecry:</b> Deal 2 damage to your hero.
@@ -163,6 +163,21 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.GetTrigger().value().SetTasks(std::vector<TaskType>{
         AddEnchantmentTask{ "GVG_076a", EntityType::SOURCE } });
     cards.emplace("GVG_103", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [EX1_509] Murloc Tidecaller - TIER:1 [ATK:1/HP:2]
+    // - Race: Murloc, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Whenever you summon a Murloc, gain +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger{ TriggerType::SUMMON });
+    power.GetTrigger().value().SetTriggerSource(TriggerSource::FRIENDLY);
+    power.GetTrigger().value().SetTasks(std::vector<TaskType>{
+        AddEnchantmentTask{ "EX1_509e", EntityType::SOURCE } });
+    power.GetTrigger().value().SetCondition(
+        SelfCondition{ SelfCondition::IsRace(Race::MURLOC) });
+    cards.emplace("EX1_509", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
@@ -256,6 +271,16 @@ void BattlegroundsCardsGen::AddEnchantments(
     power.ClearData();
     power.AddEnchant(Enchant{ std::vector<Effect>{ Effects::AttackN(1) } });
     cards.emplace("GVG_076a", CardDef{ power });
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [EX1_509e] Blarghghl (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant{ std::vector<Effect>{ Effects::AttackN(1) } });
+    cards.emplace("EX1_509e", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddAll(std::map<std::string, CardDef>& cards)
