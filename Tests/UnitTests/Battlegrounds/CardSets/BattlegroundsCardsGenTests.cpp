@@ -35,6 +35,8 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
+    game.SetPlayerPair(0, 1);
+
     player1.hand.Add(minion1);
     CHECK_EQ(player1.hand.GetCount(), 1);
     CHECK_EQ(player1.recruitField.GetCount(), 0);
@@ -66,6 +68,8 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
 
     player1.hand.Add(minion1);
     player1.hand.Add(minion2);
@@ -115,6 +119,8 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
 
     player1.hand.Add(minion1);
     player1.hand.Add(minion2);
@@ -169,6 +175,8 @@ TEST_CASE("[Battlegrounds : Minion] - LOOT_013 : Vulgar Homunculus")
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
+    game.SetPlayerPair(0, 1);
+
     CHECK_EQ(player1.hero.health, 40);
 
     player1.hand.Add(minion1);
@@ -199,6 +207,8 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_004 : Wrath Weaver")
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
 
     CHECK_EQ(player1.hero.health, 40);
 
@@ -255,6 +265,8 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_019 : Red Whelp")
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
 
+    game.SetPlayerPair(0, 1);
+
     player1.hand.Add(minion1);
     player1.hand.Add(minion2);
     player1.hand.Add(minion3);
@@ -264,8 +276,6 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_019 : Red Whelp")
 
     player2.hand.Add(minion4);
     player2.PlayCard(0, 0);
-
-    game.SetPlayerPair(0, 1);
 
     player1.isInCombat = true;
     player2.isInCombat = true;
@@ -300,6 +310,8 @@ TEST_CASE("[Battlegrounds : Minion] - BOT_445 : Mecharoo")
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
 
     player1.hand.Add(minion1);
     player1.hand.Add(minion2);
@@ -352,6 +364,8 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
 
     player1.hero.Initialize(Cards::FindCardByDbfID(58536));
     player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
 
     player1.hand.Add(minion1);
     player1.PlayCard(0, 0);
