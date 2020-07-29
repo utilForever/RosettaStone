@@ -1209,6 +1209,13 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+	power.ClearData();
+	power.AddPowerTask(std::make_shared<SetGameTagTask>(
+		EntityType::TARGET, GameTag::REBORN, 1));
+	cards.emplace(
+		"ULD_265",
+		CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+								 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_266] Grandmummy - COST:2 [ATK:1/HP:2]
@@ -1221,6 +1228,12 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - REBORN = 1
     // --------------------------------------------------------
+	power.ClearData();
+	power.AddDeathrattleTask(
+		std::make_shared<RandomTask>(EntityType::MINIONS, 1));
+	power.AddDeathrattleTask(
+		std::make_shared<AddEnchantmentTask>("ULD_266e", EntityType::STACK));
+	cards.emplace("ULD_266", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_268] Psychopomp - COST:4 [ATK:3/HP:1]
@@ -1356,6 +1369,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+	Power power;
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_262e] Amet's Blessing (*) - COST:0
     // - Set: Uldum
@@ -1372,6 +1386,9 @@ void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+	power.ClearData();
+	power.AddEnchant(Enchants::GetEnchantFromText("ULD_266e"));
+	cards.emplace("ULD_266e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_724e] Obelisk's Gaze (*) - COST:0
