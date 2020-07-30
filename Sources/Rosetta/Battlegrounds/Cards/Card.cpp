@@ -30,6 +30,7 @@ void Card::Initialize()
                 break;
             case PlayReq::REQ_FRIENDLY_TARGET:
                 friendlyType = FriendlyType::FRIENDLY;
+                break;
             case PlayReq::REQ_TARGET_WITH_RACE:
             {
                 const Race race = static_cast<Race>(requirement.second);
