@@ -30,6 +30,8 @@ Cards::Cards()
 
     for (auto& card : m_cards)
     {
+        card.Initialize();
+
         if (card.GetCardType() == CardType::HERO && card.isCurHero)
         {
             m_curHeroes.at(heroIdx) = card;
