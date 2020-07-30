@@ -6,11 +6,62 @@
 
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Common/Constants.hpp>
+#include <Rosetta/Common/Enums/TargetingEnums.hpp>
 
 #include <algorithm>
 
 namespace RosettaStone::Battlegrounds
 {
+void Card::Initialize()
+{
+    bool needsTarget = false;
+    CharacterType characterType = CharacterType::CHARACTERS;
+    FriendlyType friendlyType = FriendlyType::ALL;
+
+    for (auto& requirement : playRequirements)
+    {
+        switch (requirement.first)
+        {
+            case PlayReq::REQ_TARGET_IF_AVAILABLE:
+                needsTarget = true;
+                break;
+            case PlayReq::REQ_MINION_TARGET:
+                characterType = CharacterType::MINIONS;
+                break;
+            case PlayReq::REQ_FRIENDLY_TARGET:
+                friendlyType = FriendlyType::FRIENDLY;
+            case PlayReq::REQ_TARGET_WITH_RACE:
+            {
+                const Race race = static_cast<Race>(requirement.second);
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetWithRace(race));
+            }
+            break;
+            default:
+                continue;
+        }
+    }
+
+    if (needsTarget)
+    {
+        switch (characterType)
+        {
+            case CharacterType::MINIONS:
+                switch (friendlyType)
+                {
+                    case FriendlyType::FRIENDLY:
+                        targetingType = TargetingType::FRIENDLY_MINIONS;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 CardType Card::GetCardType() const
 {
     return static_cast<CardType>(gameTags.at(GameTag::CARDTYPE));

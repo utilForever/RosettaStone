@@ -7,8 +7,10 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 
+#include <Rosetta/Battlegrounds/Cards/TargetingPredicates.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/TargetingEnums.hpp>
 
 #include <map>
 #include <string>
@@ -23,6 +25,9 @@ namespace RosettaStone::Battlegrounds
 class Card
 {
  public:
+    //! Initializes card data.
+    void Initialize();
+
     //! Returns the value of card type.
     //! \return The value of card type.
     CardType GetCardType() const;
@@ -76,10 +81,15 @@ class Card
     std::string text;
 
     std::map<GameTag, int> gameTags;
+    std::map<PlayReq, int> playRequirements;
 
+    std::vector<TargetingPredicate> targetingPredicate;
+
+    TargetingType targetingType;
     Power power;
 
-    bool isCurHero;
+    bool isCurHero = false;
+    bool mustHaveToTargetToPlay = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 
