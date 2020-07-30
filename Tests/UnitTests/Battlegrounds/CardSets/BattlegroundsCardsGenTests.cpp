@@ -486,3 +486,48 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_509 : Murloc Tidecaller")
     CHECK_EQ(player1.recruitField[1].GetAttack(), 1);
     CHECK_EQ(player1.recruitField[1].GetHealth(), 2);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [EX1_506] Murloc Tidehunter - TIER:1 [ATK:2/HP:1]
+// - Race: Murloc, Set: Core
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - EX1_506 : Murloc Tidehunter")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("EX1_506"));
+    Minion minion2(Cards::FindCardByID("EX1_506"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
+
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
+    CHECK_EQ(player1.hand.GetCount(), 2);
+    CHECK_EQ(player1.recruitField.GetCount(), 0);
+
+    player1.PlayCard(0, 0);
+    CHECK_EQ(player1.hand.GetCount(), 1);
+    CHECK_EQ(player1.recruitField.GetCount(), 2);
+    CHECK_EQ(player1.recruitField[0].GetName(), "Murloc Tidehunter");
+    CHECK_EQ(player1.recruitField[1].GetName(), "Murloc Scout");
+
+    player1.PlayCard(0, 1);
+    CHECK_EQ(player1.hand.GetCount(), 0);
+    CHECK_EQ(player1.recruitField.GetCount(), 4);
+    CHECK_EQ(player1.recruitField[0].GetName(), "Murloc Tidehunter");
+    CHECK_EQ(player1.recruitField[1].GetName(), "Murloc Tidehunter");
+    CHECK_EQ(player1.recruitField[2].GetName(), "Murloc Scout");
+    CHECK_EQ(player1.recruitField[3].GetName(), "Murloc Scout");
+}

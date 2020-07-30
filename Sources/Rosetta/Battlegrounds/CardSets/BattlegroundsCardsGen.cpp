@@ -178,6 +178,19 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.GetTrigger().value().SetCondition(
         SelfCondition{ SelfCondition::IsRace(Race::MURLOC) });
     cards.emplace("EX1_509", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [EX1_506] Murloc Tidehunter - TIER:1 [ATK:2/HP:1]
+    // - Race: Murloc, Set: Core
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddBattlecryTask(SummonTask{ "EX1_506a", 1, SummonSide::RIGHT });
+    cards.emplace("EX1_506", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
@@ -223,6 +236,13 @@ void BattlegroundsCardsGen::AddTokenMinions(
     // --------------------------------------------------------
     power.ClearData();
     cards.emplace("BOT_445t", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [EX1_506a] Murloc Scout (*) - TIER:1 [ATK:1/HP:1]
+    // - Race: Murloc, Set: Core
+    // --------------------------------------------------------
+    power.ClearData();
+    cards.emplace("EX1_506a", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddEnchantments(
