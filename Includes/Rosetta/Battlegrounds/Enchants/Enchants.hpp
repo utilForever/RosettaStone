@@ -22,6 +22,11 @@ class Enchants
     //! Enchant that adds attack and uses script tag.
     inline static Enchant AddAttackScriptTag =
         Enchant{ Effects::AttackN(0), true };
+
+    //! Creates enchant from card's text.
+    //! \param cardID A card's ID.
+    //! \return A newly created enchant from card's text.
+    static Enchant GetEnchantFromText(const std::string& cardID);
 };
 }  // namespace RosettaStone::Battlegrounds
 
