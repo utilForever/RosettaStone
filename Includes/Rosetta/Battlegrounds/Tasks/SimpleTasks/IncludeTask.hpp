@@ -33,6 +33,15 @@ class IncludeTask
     //! \return A list of minions based on the type of entity.
     static std::vector<std::reference_wrapper<Minion>> GetMinions(
         EntityType entityType, Player& player, Minion& source);
+
+    //! Returns a list of minions based on the type of entity.
+    //! \param entityType The type of entity.
+    //! \param player The player to get hand or battlefield.
+    //! \param source The source that indicates source minion.
+    //! \param target The source that indicates target minion.
+    //! \return A list of minions based on the type of entity.
+    static std::vector<std::reference_wrapper<Minion>> GetMinions(
+        EntityType entityType, Player& player, Minion& source, Minion& target);
 };
 }  // namespace SimpleTasks
 }  // namespace RosettaStone::Battlegrounds

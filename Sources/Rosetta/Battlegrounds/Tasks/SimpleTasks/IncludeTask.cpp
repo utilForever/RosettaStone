@@ -12,7 +12,7 @@
 namespace RosettaStone::Battlegrounds::SimpleTasks
 {
 std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
-    EntityType entityType, [[maybe_unused]] Player& player, Minion& source)
+    EntityType entityType, Player& player, Minion& source)
 {
     std::vector<std::reference_wrapper<Minion>> minions;
 
@@ -44,6 +44,25 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
         break;
         case EntityType::STACK:
             minions = player.taskStack.minions;
+            break;
+        default:
+            throw std::invalid_argument(
+                "IncludeTask::GetEntities() - Invalid entity type");
+    }
+
+    return minions;
+}
+
+std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
+    EntityType entityType, [[maybe_unused]] Player& player,
+    [[maybe_unused]] Minion& source, Minion& target)
+{
+    std::vector<std::reference_wrapper<Minion>> minions;
+
+    switch (entityType)
+    {
+        case EntityType::TARGET:
+            minions.emplace_back(target);
             break;
         default:
             throw std::invalid_argument(
