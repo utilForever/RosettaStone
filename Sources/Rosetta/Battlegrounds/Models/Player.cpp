@@ -49,6 +49,14 @@ void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
             return;
         }
 
+        // Check if we can play this card and the target is valid
+        if (!std::get<Minion>(hand[handIdx]).IsPlayableByCardReq(*this) ||
+            !std::get<Minion>(hand[handIdx])
+                 .IsValidPlayTarget(*this, targetIdx))
+        {
+            return;
+        }
+
         CardData card = hand.Remove(hand[handIdx]);
 
         auto minion = std::get<Minion>(card);
