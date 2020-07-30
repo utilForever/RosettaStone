@@ -173,6 +173,33 @@ bool Minion::IsDestroyed() const
     return m_isDestroyed;
 }
 
+bool Minion::HasAnyValidPlayTargets(Player& player) const
+{
+    bool friendlyMinions = false;
+    
+    switch (m_card.targetingType)
+    {
+        case TargetingType::FRIENDLY_MINIONS:
+            friendlyMinions = true;
+            break;
+        default:
+            break;
+    }
+
+    if (friendlyMinions)
+    {
+        for (auto& minion : player.recruitField.GetAll())
+        {
+            if (m_card.TargetingRequirements(minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 void Minion::ActivateTrigger(TriggerType type, Minion& source)
 {
     auto& trigger = m_card.power.GetTrigger();

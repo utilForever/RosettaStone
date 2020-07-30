@@ -126,6 +126,13 @@ class Minion
     //! \return The flag that indicates whether it is destroyed.
     bool IsDestroyed() const;
 
+    //! Gets whether the current field has any valid play targets
+    //! for this playable.
+    //! \param player The owner of the minion.
+    //! \return true if the current field has any valid play targets,
+    //! false otherwise.
+    bool HasAnyValidPlayTargets(Player& player) const;
+
     //! Activates the trigger.
     //! \param type The type of trigger.
     //! \param source The source of trigger.
