@@ -2031,6 +2031,57 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
     CHECK_EQ(curField[2]->HasReborn(), true);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you summon a minion,
+//       set its Health equal to this minion's.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - ULD_262 : High Priest Amet")
+{
+	GameConfig config;
+	config.player1Class = CardClass::PRIEST;
+	config.player2Class = CardClass::MAGE;
+	config.startPlayer = PlayerType::PLAYER1;
+	config.doFillDecks = true;
+	config.autoRun = false;
+
+	Game game(config);
+	game.Start();
+	game.ProcessUntil(Step::MAIN_ACTION);
+
+	Player* curPlayer = game.GetCurrentPlayer();
+	Player* opPlayer = game.GetOpponentPlayer();
+	curPlayer->SetTotalMana(10);
+	curPlayer->SetUsedMana(0);
+	opPlayer->SetTotalMana(10);
+	opPlayer->SetUsedMana(0);
+
+	auto& curField = *(curPlayer->GetFieldZone());
+
+	const auto card1 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("High Priest Amet"));
+	const auto card2 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Shattered Sun Cleric"));
+	const auto card3 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+	const auto card4 = Generic::DrawCard(
+		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+	game.Process(curPlayer, PlayCardTask::Minion(card1));
+	game.Process(curPlayer, PlayCardTask::Minion(card3));
+	CHECK_EQ(curField[1]->GetHealth(), 7);
+	game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+	game.Process(curPlayer, PlayCardTask::Minion(card4));
+	game.Process(curPlayer, PlayCardTask::Minion(card3));
+	CHECK_EQ(curField[3]->GetHealth(), 8);
+
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [ULD_265] Embalming Ritual - COST:1
 // - Set: Uldum, Rarity: Common
