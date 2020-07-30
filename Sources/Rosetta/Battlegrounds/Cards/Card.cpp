@@ -172,4 +172,18 @@ bool Card::IsTier6MinionInPool() const
 
     return false;
 }
+
+bool Card::IsPlayableByCardReq(Player& player) const
+{
+    for (const auto& playReq : playRequirements)
+    {
+        switch (playReq.first)
+        {
+            default:
+                break;
+        }
+    }
+
+    return true;
+}
 }  // namespace RosettaStone::Battlegrounds

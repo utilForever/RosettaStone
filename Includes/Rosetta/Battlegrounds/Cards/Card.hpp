@@ -72,6 +72,12 @@ class Card
     //! \return the flag that indicates whether it is a Tier 6 minion in pool.
     bool IsTier6MinionInPool() const;
 
+    //! Gets a value indicating whether source entity is playable by card
+    //! requirements. Static requirements are checked.
+    //! \param player The player of the source.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReq(Player& player) const;
+
     std::string id;
     int dbfID;
     int normalDbfID;
