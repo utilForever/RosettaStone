@@ -28,6 +28,11 @@ class CardDef
     //! \param _power The power data.
     explicit CardDef(Power _power);
 
+    //! Constructs card def with given \p _power and \p _playReqs.
+    //! \param _power The power data.
+    //! \param _playReqs The play requirements data.
+    explicit CardDef(Power _power, std::map<PlayReq, int> _playReqs);
+
     Power power;
     std::map<PlayReq, int> playReqs;
 };

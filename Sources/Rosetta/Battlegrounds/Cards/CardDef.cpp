@@ -14,4 +14,10 @@ CardDef::CardDef(Power _power) : power(std::move(_power))
 {
     // Do nothing
 }
+
+CardDef::CardDef(Power _power, std::map<PlayReq, int> _playReqs)
+    : power(std::move(_power)), playReqs(std::move(_playReqs))
+{
+    // Do nothing
+}
 }  // namespace RosettaStone::Battlegrounds
