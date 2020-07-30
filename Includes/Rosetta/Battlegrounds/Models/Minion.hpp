@@ -139,6 +139,11 @@ class Minion
     //! false otherwise.
     bool HasAnyValidPlayTargets(Player& player) const;
 
+    //! Checks the targeting type of a card.
+    //! \param target The proposed target.
+    //! \return true if the targeting type is valid, false otherwise.
+    bool CheckTargetingType(Minion& target);
+
     //! Activates the trigger.
     //! \param type The type of trigger.
     //! \param source The source of trigger.

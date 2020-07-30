@@ -215,6 +215,21 @@ bool Minion::HasAnyValidPlayTargets(Player& player) const
     return false;
 }
 
+bool Minion::CheckTargetingType([[maybe_unused]] Minion& target)
+{
+    switch (m_card.targetingType)
+    {
+        case TargetingType::NONE:
+            return false;
+        case TargetingType::FRIENDLY_MINIONS:
+            return true;
+        default:
+            break;
+    }
+
+    return true;
+}
+
 void Minion::ActivateTrigger(TriggerType type, Minion& source)
 {
     auto& trigger = m_card.power.GetTrigger();
