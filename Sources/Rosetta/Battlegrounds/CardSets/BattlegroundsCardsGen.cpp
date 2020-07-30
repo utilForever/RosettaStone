@@ -11,6 +11,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void BattlegroundsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
 }
@@ -191,6 +193,31 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.ClearData();
     power.AddBattlecryTask(SummonTask{ "EX1_506a", 1, SummonSide::RIGHT });
     cards.emplace("EX1_506", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [UNG_073] Rockpool Hunter - TIER:1 [ATK:2/HP:3]
+    // - Race: Murloc, Set: Ungoro
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly Murloc +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 14
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddBattlecryTask(
+        AddEnchantmentTask{ "UNG_073e", EntityType::TARGET });
+    cards.emplace(
+        "UNG_073",
+        CardDef{ power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                  { PlayReq::REQ_MINION_TARGET, 0 },
+                                  { PlayReq::REQ_TARGET_WITH_RACE, 14 },
+                                  { PlayReq::REQ_FRIENDLY_TARGET, 0 } } });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
@@ -301,6 +328,16 @@ void BattlegroundsCardsGen::AddEnchantments(
     power.ClearData();
     power.AddEnchant(Enchant{ std::vector<Effect>{ Effects::AttackN(1) } });
     cards.emplace("EX1_509e", CardDef{ power });
+
+    // ---------------------------- ENCHANTMENT - BATTLEGROUNDS
+    // [UNG_073e] Trained (*) - COST:0
+    // - Set: Ungoro
+    // --------------------------------------------------------
+    // Text: +1/+1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("UNG_073e"));
+    cards.emplace("UNG_073e", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddAll(std::map<std::string, CardDef>& cards)

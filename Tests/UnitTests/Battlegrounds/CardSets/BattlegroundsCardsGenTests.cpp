@@ -531,3 +531,66 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_506 : Murloc Tidehunter")
     CHECK_EQ(player1.recruitField[2].GetName(), "Murloc Scout");
     CHECK_EQ(player1.recruitField[3].GetName(), "Murloc Scout");
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [UNG_073] Rockpool Hunter - TIER:1 [ATK:2/HP:3]
+// - Race: Murloc, Set: Ungoro
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly Murloc +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_WITH_RACE = 14
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - UNG_073 : Rockpool Hunter")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("UNG_073"));
+    Minion minion2(Cards::FindCardByID("BGS_039"));
+    Minion minion3(Cards::FindCardByID("UNG_073"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
+
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
+    player1.hand.Add(minion3);
+
+    player1.PlayCard(0, 0);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
+
+    player1.PlayCard(0, 1);
+    CHECK_EQ(player1.recruitField[1].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[1].GetHealth(), 3);
+
+    player1.PlayCard(0, 0, 1);
+    CHECK_EQ(player1.hand.GetCount(), 1);
+    CHECK_EQ(player1.recruitField.GetCount(), 2);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
+    CHECK_EQ(player1.recruitField[1].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[1].GetHealth(), 3);
+
+    player1.PlayCard(0, 0, 0);
+    CHECK_EQ(player1.hand.GetCount(), 0);
+    CHECK_EQ(player1.recruitField.GetCount(), 3);
+    CHECK_EQ(player1.recruitField[0].GetAttack(), 3);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 4);
+    CHECK_EQ(player1.recruitField[1].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[1].GetHealth(), 3);
+    CHECK_EQ(player1.recruitField[2].GetAttack(), 2);
+    CHECK_EQ(player1.recruitField[2].GetHealth(), 3);
+}
