@@ -139,6 +139,12 @@ class Minion
     //! false otherwise.
     bool HasAnyValidPlayTargets(Player& player) const;
 
+    //! Determines whether the specified character is a valid target.
+    //! \param player The owner of the minion.
+    //! \param targetIdx The index of proposed target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTarget(Player& player, int targetIdx);
+
     //! Checks the targeting type of a card.
     //! \param target The proposed target.
     //! \return true if the targeting type is valid, false otherwise.

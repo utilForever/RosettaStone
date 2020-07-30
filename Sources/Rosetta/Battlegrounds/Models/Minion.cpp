@@ -215,6 +215,45 @@ bool Minion::HasAnyValidPlayTargets(Player& player) const
     return false;
 }
 
+bool Minion::IsValidPlayTarget(Player& player, int targetIdx)
+{
+    if (targetIdx == -1)
+    {
+        if (m_card.mustHaveToTargetToPlay)
+        {
+            return false;
+        }
+
+        if (m_card.targetingType == TargetingType::NONE)
+        {
+            return true;
+        }
+
+        if (!HasAnyValidPlayTargets(player))
+        {
+            return true;
+        }
+
+        return false;
+    }
+    else
+    {
+        Minion& target = player.recruitField[targetIdx];
+
+        if (!CheckTargetingType(target))
+        {
+            return false;
+        }
+
+        if (m_card.TargetingRequirements(target))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool Minion::CheckTargetingType([[maybe_unused]] Minion& target)
 {
     switch (m_card.targetingType)
