@@ -39,9 +39,10 @@ TaskStatus AddEnchantmentTask::Run(Player& player, Minion& source)
 }
 
 TaskStatus AddEnchantmentTask::Run(Player& player, Minion& source,
-                                   [[maybe_unused]] Minion& target)
+                                   Minion& target)
 {
-    auto minions = IncludeTask::GetMinions(m_entityType, player, source);
+    auto minions =
+        IncludeTask::GetMinions(m_entityType, player, source, target);
     Card enchantmentCard = Cards::FindCardByID(m_cardID);
 
     for (auto& minion : minions)
