@@ -13,6 +13,7 @@
 #include <Rosetta/Battlegrounds/Cards/CardDef.hpp>
 #include <Rosetta/Battlegrounds/Cards/CardDefs.hpp>
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Battlegrounds/Cards/TargetingPredicates.hpp>
 #include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Effects.hpp>
