@@ -41,10 +41,16 @@ void Player::PurchaseMinion(std::size_t idx)
 
 void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
 {
-    auto card = hand.Remove(hand[handIdx]);
-
-    if (std::holds_alternative<Minion>(card))
+    if (std::holds_alternative<Minion>(hand[handIdx]))
     {
+        // Check the field is full
+        if (recruitField.IsFull())
+        {
+            return;
+        }
+
+        CardData card = hand.Remove(hand[handIdx]);
+
         auto minion = std::get<Minion>(card);
         minion.getPlayerCallback = [&]() -> Player& { return *this; };
         minion.SetIndex(getNextCardIndexCallback());
