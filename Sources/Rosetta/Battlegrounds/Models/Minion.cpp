@@ -173,6 +173,21 @@ bool Minion::IsDestroyed() const
     return m_isDestroyed;
 }
 
+bool Minion::IsPlayableByCardReq(Player& player) const
+{
+    if (!m_card.IsPlayableByCardReq(player))
+    {
+        return false;
+    }
+
+    if (!m_card.mustHaveToTargetToPlay && !HasAnyValidPlayTargets(player))
+    {
+        return false;
+    }
+
+    return true;
+}
+
 bool Minion::HasAnyValidPlayTargets(Player& player) const
 {
     bool friendlyMinions = false;

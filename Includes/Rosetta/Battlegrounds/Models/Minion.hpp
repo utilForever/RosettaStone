@@ -126,6 +126,12 @@ class Minion
     //! \return The flag that indicates whether it is destroyed.
     bool IsDestroyed() const;
 
+    //! Gets a value indicating whether source entity is playable by card
+    //! requirements. Static requirements are checked.
+    //! \param player The owner of the minion.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReq(Player& player) const;
+
     //! Gets whether the current field has any valid play targets
     //! for this playable.
     //! \param player The owner of the minion.
