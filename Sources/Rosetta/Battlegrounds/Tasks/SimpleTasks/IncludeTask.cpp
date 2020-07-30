@@ -21,6 +21,8 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
         case EntityType::SOURCE:
             minions.emplace_back(source);
             break;
+        case EntityType::TARGET:
+            break;
         case EntityType::MINIONS:
             player.GetField().ForEachAlive([&](MinionData& minion) {
                 minions.emplace_back(minion.value());
