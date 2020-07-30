@@ -180,7 +180,7 @@ bool Minion::IsPlayableByCardReq(Player& player) const
         return false;
     }
 
-    if (!m_card.mustHaveToTargetToPlay && !HasAnyValidPlayTargets(player))
+    if (m_card.mustHaveToTargetToPlay && !HasAnyValidPlayTargets(player))
     {
         return false;
     }
