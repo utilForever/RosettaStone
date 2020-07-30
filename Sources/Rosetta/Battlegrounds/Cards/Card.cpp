@@ -173,14 +173,30 @@ bool Card::IsTier6MinionInPool() const
     return false;
 }
 
-bool Card::IsPlayableByCardReq(Player& player) const
+bool Card::IsPlayableByCardReq([[maybe_unused]] Player& player) const
 {
-    for (const auto& playReq : playRequirements)
+    //for (const auto& playReq : playRequirements)
+    //{
+    //    switch (playReq.first)
+    //    {
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    return true;
+}
+
+bool Card::TargetingRequirements(Minion& target) const
+{
+    if (!targetingPredicate.empty())
     {
-        switch (playReq.first)
+        for (const auto& predicate : targetingPredicate)
         {
-            default:
-                break;
+            if (!predicate(target))
+            {
+                return false;
+            }
         }
     }
 
