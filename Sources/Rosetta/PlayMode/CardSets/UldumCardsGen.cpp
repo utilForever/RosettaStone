@@ -24,6 +24,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
@@ -1198,8 +1199,9 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 	power.ClearData();
 	power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
 	power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-	power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-		"ULD_262e", EntityType::EVENT_SOURCE) };
+	power.GetTrigger()->tasks = { std::make_shared<GetGameTagTask>(EntityType::SOURCE, GameTag::HEALTH),
+		std::make_shared<AddEnchantmentTask>("ULD_262e", EntityType::TARGET, true) };
+	cards.emplace("ULD_262", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_265] Embalming Ritual - COST:1
@@ -1381,6 +1383,10 @@ void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Health changed.
     // --------------------------------------------------------
+	power.ClearData();
+	power.AddEnchant(
+		std::make_shared<Enchant>(Enchants::SetHealthScriptTag));
+	cards.emplace("ULD_262e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_266e] Grandmummy's Blessing (*) - COST:0
