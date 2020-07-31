@@ -261,6 +261,26 @@ void BattlegroundsCardsGen::AddTier1Minions(
     // --------------------------------------------------------
     power.ClearData();
     cards.emplace("ICC_038", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [OG_221] Selfless Hero - TIER:1 [ATK:2/HP:1]
+    // - Set: Og
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Give a random friendly minion
+    //       <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(IncludeTask{ EntityType::MINIONS });
+    power.AddDeathrattleTask(RandomTask{ EntityType::STACK, 1 });
+    power.AddDeathrattleTask(
+        SetGameTagTask{ EntityType::STACK, GameTag::DIVINE_SHIELD, 1 });
+    cards.emplace("OG_221", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
