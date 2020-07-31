@@ -8,6 +8,7 @@
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Battlegrounds/Games/Game.hpp>
+#include <Rosetta/Battlegrounds/Managers/GameManager.hpp>
 #include <Rosetta/Battlegrounds/Models/Battle.hpp>
 
 using namespace RosettaStone;
@@ -593,4 +594,52 @@ TEST_CASE("[Battlegrounds : Minion] - UNG_073 : Rockpool Hunter")
     CHECK_EQ(player1.recruitField[1].GetHealth(), 3);
     CHECK_EQ(player1.recruitField[2].GetAttack(), 2);
     CHECK_EQ(player1.recruitField[2].GetHealth(), 3);
+}
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [BGS_055] Deck Swabbie - TIER:1 [ATK:2/HP:2]
+// - Race: Pirate, Set: Battlegrounds
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Reduce the cost of upgrading
+//       Bob's Tavern by (1).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - BGS_055 : Deck Swabbie")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("BGS_055"));
+    Minion minion2(Cards::FindCardByID("BGS_055"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.GetGameState().nextPhase = Phase::RECRUIT;
+    GameManager::ProcessNextPhase(game, game.GetGameState().nextPhase);
+
+    game.SetPlayerPair(0, 1);
+
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
+
+    CHECK_EQ(player1.currentTier, 1);
+    CHECK_EQ(player1.coinToUpgradeTavern, 5);
+
+    player1.PlayCard(0, 0);
+    CHECK_EQ(player1.coinToUpgradeTavern, 4);
+
+    player1.PlayCard(0, 1);
+    CHECK_EQ(player1.coinToUpgradeTavern, 3);
+
+    player1.remainCoin = 10;
+
+    player1.UpgradeTavern();
+    CHECK_EQ(player1.currentTier, 2);
+    CHECK_EQ(player1.coinToUpgradeTavern, 7);
 }

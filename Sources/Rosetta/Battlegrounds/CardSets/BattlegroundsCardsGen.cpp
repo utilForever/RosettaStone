@@ -218,6 +218,20 @@ void BattlegroundsCardsGen::AddTier1Minions(
                                   { PlayReq::REQ_MINION_TARGET, 0 },
                                   { PlayReq::REQ_TARGET_WITH_RACE, 14 },
                                   { PlayReq::REQ_FRIENDLY_TARGET, 0 } } });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BGS_055] Deck Swabbie - TIER:1 [ATK:2/HP:2]
+    // - Race: Pirate, Set: Battlegrounds
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Reduce the cost of upgrading
+    //       Bob's Tavern by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddBattlecryTask(ReduceTavernCostTask{ TavernButton::UPGRADE, 1 });
+    cards.emplace("BGS_055", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
