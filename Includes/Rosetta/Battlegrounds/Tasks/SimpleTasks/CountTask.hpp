@@ -45,6 +45,7 @@ class CountTask
     //! \return The result of task processing.
     TaskStatus Run(Player& player, Minion& source, Minion& target);
 
+ private:
     EntityType m_entityType = EntityType::INVALID;
     std::vector<SelfCondition> m_conditions;
     int m_numIndex = 0;

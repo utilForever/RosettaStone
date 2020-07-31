@@ -41,6 +41,7 @@ class DamageHeroTask
     //! \return The result of task processing.
     TaskStatus Run(Player& player, Minion& source, Minion& target);
 
+ private:
     int m_damage = 0;
 };
 }  // namespace SimpleTasks

@@ -45,6 +45,7 @@ class GetGameTagTask
     //! \return The result of task processing.
     TaskStatus Run(Player& player, Minion& source, Minion& target);
 
+ private:
     EntityType m_entityType = EntityType::INVALID;
     GameTag m_gameTag = GameTag::INVALID;
     int m_minionIndex = 0;
