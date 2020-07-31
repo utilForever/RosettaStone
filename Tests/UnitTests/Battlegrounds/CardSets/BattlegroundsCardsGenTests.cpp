@@ -643,3 +643,58 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_055 : Deck Swabbie")
     CHECK_EQ(player1.currentTier, 2);
     CHECK_EQ(player1.coinToUpgradeTavern, 7);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [BGS_061] Scallywag - TIER:1 [ATK:2/HP:1]
+// - Race: Pirate, Set: Battlegrounds
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 1/1 Pirate.
+//       It attacks immediately.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - BGS_061 : Scallywag")
+{
+    Game game;
+    game.Start();
+
+    Player& player1 = game.GetGameState().players[0];
+    Player& player2 = game.GetGameState().players[1];
+
+    Minion minion1(Cards::FindCardByID("BGS_061"));
+    Minion minion2(Cards::FindCardByID("BGS_061"));
+    Minion minion3(Cards::FindCardByID("LOOT_013"));
+
+    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+
+    game.SetPlayerPair(0, 1);
+
+    player1.hand.Add(minion1);
+    player1.hand.Add(minion2);
+    player1.PlayCard(0, 0);
+    player1.PlayCard(0, 0);
+
+    player2.hand.Add(minion3);
+    player2.PlayCard(0, 0);
+
+    player1.isInCombat = true;
+    player2.isInCombat = true;
+
+    Battle battle(player1, player2);
+    battle.Initialize();
+
+    player1.getBattleCallback = [&]() -> Battle& { return battle; };
+    player2.getBattleCallback = [&]() -> Battle& { return battle; };
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetHealth(), 4);
+
+    battle.Attack();
+
+    CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
+    CHECK_EQ(battle.GetPlayer2Field()[0].GetHealth(), 1);
+}

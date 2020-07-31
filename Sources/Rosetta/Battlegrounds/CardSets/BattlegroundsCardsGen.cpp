@@ -232,6 +232,22 @@ void BattlegroundsCardsGen::AddTier1Minions(
     power.ClearData();
     power.AddBattlecryTask(ReduceTavernCostTask{ TavernButton::UPGRADE, 1 });
     cards.emplace("BGS_055", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BGS_061] Scallywag - TIER:1 [ATK:2/HP:1]
+    // - Race: Pirate, Set: Battlegrounds
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 1/1 Pirate.
+    //       It attacks immediately.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        SummonTask{ "BGS_061t", 1, SummonSide::DEATHRATTLE, true });
+    power.AddDeathrattleTask(AttackTask{ EntityType::STACK });
+    cards.emplace("BGS_061", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(
@@ -284,6 +300,13 @@ void BattlegroundsCardsGen::AddTokenMinions(
     // --------------------------------------------------------
     power.ClearData();
     cards.emplace("EX1_506a", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [BGS_061t] Sky Pirate (*) - TIER:1 [ATK:1/HP:1]
+    // - Race: Pirate, Set: Battlegrounds
+    // --------------------------------------------------------
+    power.ClearData();
+    cards.emplace("BGS_061t", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddEnchantments(
