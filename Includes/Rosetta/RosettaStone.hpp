@@ -43,6 +43,7 @@
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/ReduceTavernCostTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RepeatNumberEndTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RepeatNumberStartTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskStack.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>

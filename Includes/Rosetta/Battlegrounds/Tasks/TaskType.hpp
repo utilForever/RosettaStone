@@ -18,6 +18,7 @@
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/ReduceTavernCostTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RepeatNumberEndTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RepeatNumberStartTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 
 #include <variant>
@@ -29,7 +30,7 @@ using TaskType =
     std::variant<AddEnchantmentTask, AttackTask, CountTask, DamageHeroTask,
                  DamageTask, GetGameTagTask, IncludeTask, RandomTask,
                  ReduceTavernCostTask, RepeatNumberEndTask,
-                 RepeatNumberStartTask, SummonTask>;
+                 RepeatNumberStartTask, SetGameTagTask, SummonTask>;
 }  // namespace RosettaStone::Battlegrounds
 
 #endif  // ROSETTASTONE_BATTLEGROUNDS_TASK_TYPE_HPP
