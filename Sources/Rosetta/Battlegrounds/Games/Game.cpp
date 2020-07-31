@@ -267,8 +267,15 @@ void Game::Combat()
     // Simulates a battle for each pair
     for (const auto& pair : m_playerFightPair)
     {
-        Battle battle(m_gameState.players.at(std::get<0>(pair)),
-                      m_gameState.players.at(std::get<1>(pair)));
+        Player& player1 = m_gameState.players.at(std::get<0>(pair));
+        Player& player2 = m_gameState.players.at(std::get<1>(pair));
+
+        Battle battle(player1, player2);
+
+        // Create callback to get battle
+        player1.getBattleCallback = [&]() -> Battle& { return battle; };
+        player2.getBattleCallback = [&]() -> Battle& { return battle; };
+
         battle.Run();
     }
 
