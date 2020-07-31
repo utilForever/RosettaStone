@@ -248,6 +248,19 @@ void BattlegroundsCardsGen::AddTier1Minions(
         SummonTask{ "BGS_061t", 1, SummonSide::DEATHRATTLE, true });
     power.AddDeathrattleTask(AttackTask{ EntityType::STACK });
     cards.emplace("BGS_061", CardDef{ power });
+
+    // --------------------------------- MINION - BATTLEGROUNDS
+    // [ICC_038] Righteous Protector - TIER:1 [ATK:1/HP:1]
+    // - Set: Icecrown
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b> <b>Divine Shield</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    cards.emplace("ICC_038", CardDef{ power });
 }
 
 void BattlegroundsCardsGen::AddTier2Minions(

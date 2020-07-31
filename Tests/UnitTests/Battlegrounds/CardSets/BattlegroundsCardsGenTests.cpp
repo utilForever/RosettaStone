@@ -698,3 +698,18 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_061 : Scallywag")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
     CHECK_EQ(battle.GetPlayer2Field()[0].GetHealth(), 1);
 }
+
+// --------------------------------- MINION - BATTLEGROUNDS
+// [ICC_038] Righteous Protector - TIER:1 [ATK:1/HP:1]
+// - Set: Icecrown
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Battlegrounds : Minion] - ICC_038 : Righteous Protector")
+{
+    // Do nothing
+}
