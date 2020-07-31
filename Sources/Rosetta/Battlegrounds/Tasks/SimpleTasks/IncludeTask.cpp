@@ -11,6 +11,11 @@
 
 namespace RosettaStone::Battlegrounds::SimpleTasks
 {
+IncludeTask::IncludeTask(EntityType entityType) : m_entityType(entityType)
+{
+    // Do nothing
+}
+
 std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
     EntityType entityType, Player& player, Minion& source)
 {
@@ -72,5 +77,21 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
     }
 
     return minions;
+}
+
+TaskStatus IncludeTask::Run(Player& player, Minion& source)
+{
+    const auto minions = GetMinions(m_entityType, player, source);
+    player.taskStack.minions = minions;
+
+    return TaskStatus::COMPLETE;
+}
+
+TaskStatus IncludeTask::Run(Player& player, Minion& source, Minion& target)
+{
+    const auto minions = GetMinions(m_entityType, player, source, target);
+    player.taskStack.minions = minions;
+
+    return TaskStatus::COMPLETE;
 }
 }  // namespace RosettaStone::Battlegrounds::SimpleTasks
