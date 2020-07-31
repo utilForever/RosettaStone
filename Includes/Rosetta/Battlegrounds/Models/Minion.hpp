@@ -54,6 +54,11 @@ class Minion
     //! \return The value of game tag.
     int GetGameTag(GameTag tag) const;
 
+    //! Sets the value of game tag.
+    //! \param tag The game tag to set.
+    //! \param value The value of game tag to set.
+    void SetGameTag(GameTag tag, int value);
+
     //! Returns the value of race.
     //! \return The value of race.
     Race GetRace() const;

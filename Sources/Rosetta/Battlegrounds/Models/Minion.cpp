@@ -69,6 +69,18 @@ int Minion::GetGameTag(GameTag tag) const
     }
 }
 
+void Minion::SetGameTag(GameTag tag, int value)
+{
+    switch (tag)
+    {
+        case GameTag::DIVINE_SHIELD:
+            m_hasDivineShield = value == 1 ? true : false;
+            break;
+        default:
+            break;
+    }
+}
+
 Race Minion::GetRace() const
 {
     return m_card.GetRace();
