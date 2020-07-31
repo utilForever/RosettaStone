@@ -514,6 +514,61 @@ TEST_CASE("[Druid : Minion] - ULD_139 : Elise the Enlightened")
     CHECK_EQ(curHand[9]->card->name, "Wrath");
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [ULD_143] Pharaoh's Blessing - COST:6
+// - Faction: Neutral, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give a minion +4/+4, <b>Divine Shield</b>,
+//       and <b>Taunt</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[PALADIN : Spell] - ULD_143 : Pharaoh's Blessing")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pharaoh's Blessing"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 1);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [ULD_273] Overflow - COST:7
 // - Set: Uldum, Rarity: Rare
