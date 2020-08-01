@@ -13,6 +13,7 @@
 #include <Rosetta/Battlegrounds/Cards/CardDef.hpp>
 #include <Rosetta/Battlegrounds/Cards/CardDefs.hpp>
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Battlegrounds/Cards/TargetingPredicates.hpp>
 #include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Effect.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Effects.hpp>
@@ -32,14 +33,17 @@
 #include <Rosetta/Battlegrounds/Models/Spell.hpp>
 #include <Rosetta/Battlegrounds/Models/Tavern.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/DamageHeroTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/ReduceTavernCostTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RepeatNumberEndTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/RepeatNumberStartTask.hpp>
+#include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskStack.hpp>
 #include <Rosetta/Battlegrounds/Tasks/TaskType.hpp>

@@ -16,6 +16,7 @@ void InternalCardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
         const auto cardDef = CardDefs::GetInstance().FindCardDefByID(card.id);
 
         card.power = cardDef.power;
+        card.playRequirements = cardDef.playReqs;
     }
 }
 }  // namespace RosettaStone::Battlegrounds

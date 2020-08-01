@@ -43,6 +43,7 @@ class RandomTask
     //! \return The result of task processing.
     TaskStatus Run(Player& player, Minion& source, Minion& target);
 
+ private:
     EntityType m_entityType = EntityType::INVALID;
     int m_amount = 0;
 };

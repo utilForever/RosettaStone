@@ -39,8 +39,11 @@ class SummonTask
     //! \param cardID The card ID to summon.
     //! \param amount The number of minions to summon.
     //! \param side The side of summoned minion.
+    //! \param addToStack The flag that indicates
+    //! whether the summon entity should add to stack.
     explicit SummonTask(const std::string_view& cardID, int amount,
-                        SummonSide side = SummonSide::DEFAULT);
+                        SummonSide side = SummonSide::DEFAULT,
+                        bool addToStack = false);
 
     //! Returns the position of minion to summon.
     //! \param source The source minion.
@@ -64,6 +67,7 @@ class SummonTask
     std::string_view m_cardID;
     SummonSide m_side = SummonSide::DEFAULT;
     int m_amount = 1;
+    bool m_addToStack = false;
 };
 }  // namespace SimpleTasks
 }  // namespace RosettaStone::Battlegrounds

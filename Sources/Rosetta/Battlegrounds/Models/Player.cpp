@@ -41,32 +41,68 @@ void Player::PurchaseMinion(std::size_t idx)
 
 void Player::PlayCard(std::size_t handIdx, std::size_t fieldIdx, int targetIdx)
 {
-    auto card = hand.Remove(hand[handIdx]);
-
-    if (std::holds_alternative<Minion>(card))
+    if (std::holds_alternative<Minion>(hand[handIdx]))
     {
+        // Check the field is full
+        if (recruitField.IsFull())
+        {
+            return;
+        }
+
+        // Check if we can play this card and the target is valid
+        if (!std::get<Minion>(hand[handIdx]).IsPlayableByCardReq(*this) ||
+            !std::get<Minion>(hand[handIdx])
+                 .IsValidPlayTarget(*this, targetIdx))
+        {
+            return;
+        }
+
+        CardData card = hand.Remove(hand[handIdx]);
+
         auto minion = std::get<Minion>(card);
+        minion.getPlayerCallback = [&]() -> Player& { return *this; };
+        minion.SetIndex(getNextCardIndexCallback());
+
+        Player& opponent = getOpponentPlayerCallback(*this);
 
         if (targetIdx == -1)
         {
             recruitField.Add(minion, fieldIdx);
+
+            recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
+            opponent.recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
             minion.ActivateTask(PowerType::POWER, *this);
         }
         else
         {
             Minion& target = recruitField[targetIdx];
+
             recruitField.Add(minion, fieldIdx);
+
+            recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
+            opponent.recruitField.ForEachAlive([&](MinionData& aliveMinion) {
+                aliveMinion.value().ActivateTrigger(TriggerType::SUMMON,
+                                                    minion);
+            });
+
             minion.ActivateTask(PowerType::POWER, *this, target);
         }
 
         recruitField.ForEachAlive([&](MinionData& aliveMinion) {
-            if (aliveMinion.value().GetZonePosition() !=
-                static_cast<int>(fieldIdx))
-            {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::AFTER_PLAY_MINION,
-                    { TriggerSource::MINIONS_EXCEPT_SELF }, *this);
-            }
+            aliveMinion.value().ActivateTrigger(TriggerType::AFTER_PLAY_MINION,
+                                                minion);
         });
     }
     else

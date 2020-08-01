@@ -32,10 +32,10 @@ TaskStatus GetGameTagTask::Run(Player& player, Minion& source)
     return TaskStatus::COMPLETE;
 }
 
-TaskStatus GetGameTagTask::Run(Player& player, Minion& source,
-                               [[maybe_unused]] Minion& target)
+TaskStatus GetGameTagTask::Run(Player& player, Minion& source, Minion& target)
 {
-    auto minions = IncludeTask::GetMinions(m_entityType, player, source);
+    auto minions =
+        IncludeTask::GetMinions(m_entityType, player, source, target);
     if (minions.empty())
     {
         return TaskStatus::STOP;

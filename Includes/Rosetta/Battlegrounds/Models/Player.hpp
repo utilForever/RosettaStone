@@ -19,6 +19,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+class Battle;
+
 //!
 //! \brief Player class.
 //!
@@ -94,11 +96,13 @@ class Player
     std::function<void(Player&)> selectHeroCallback;
     std::function<void(Player&)> prepareTavernMinionsCallback;
     std::function<void(Player&, std::size_t)> purchaseMinionCallback;
+    std::function<int()> getNextCardIndexCallback;
     std::function<void(int)> returnMinionCallback;
     std::function<void(Player&)> clearTavernMinionsCallback;
     std::function<void(Player&)> upgradeTavernCallback;
     std::function<void()> completeRecruitCallback;
     std::function<Player&(Player&)> getOpponentPlayerCallback;
+    std::function<Battle&()> getBattleCallback;
     std::function<void(Player&)> processDefeatCallback;
 
     std::array<int, 4> heroChoices{ 0, 0, 0, 0 };

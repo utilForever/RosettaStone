@@ -33,6 +33,14 @@ class Minion
     //! \param poolIdx The index of minion pool.
     explicit Minion(Card card, int poolIdx = -1);
 
+    //! Returns the value of index.
+    //! \return The value of index.
+    int GetIndex() const;
+
+    //! Sets the value of index.
+    //! \param index The value of index.
+    void SetIndex(int index);
+
     //! Returns the value of pool index.
     //! \return The value of pool index.
     int GetPoolIndex() const;
@@ -45,6 +53,11 @@ class Minion
     //! \param tag The game tag of card.
     //! \return The value of game tag.
     int GetGameTag(GameTag tag) const;
+
+    //! Sets the value of game tag.
+    //! \param tag The game tag to set.
+    //! \param value The value of game tag to set.
+    void SetGameTag(GameTag tag, int value);
 
     //! Returns the value of race.
     //! \return The value of race.
@@ -118,13 +131,34 @@ class Minion
     //! \return The flag that indicates whether it is destroyed.
     bool IsDestroyed() const;
 
+    //! Gets a value indicating whether source entity is playable by card
+    //! requirements. Static requirements are checked.
+    //! \param player The owner of the minion.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReq(Player& player) const;
+
+    //! Gets whether the current field has any valid play targets
+    //! for this playable.
+    //! \param player The owner of the minion.
+    //! \return true if the current field has any valid play targets,
+    //! false otherwise.
+    bool HasAnyValidPlayTargets(Player& player) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param player The owner of the minion.
+    //! \param targetIdx The index of proposed target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTarget(Player& player, int targetIdx);
+
+    //! Checks the targeting type of a card.
+    //! \param target The proposed target.
+    //! \return true if the targeting type is valid, false otherwise.
+    bool CheckTargetingType(Minion& target);
+
     //! Activates the trigger.
     //! \param type The type of trigger.
-    //! \param sources A list of trigger sources.
-    //! \param player The owner of the minion.
-    void ActivateTrigger(TriggerType type,
-                         std::initializer_list<TriggerSource> sources,
-                         Player& player);
+    //! \param source The source of trigger.
+    void ActivateTrigger(TriggerType type, Minion& source);
 
     //! Activates the task.
     //! \param type The type of power.
@@ -139,6 +173,8 @@ class Minion
 
     Trigger activatedTrigger;
 
+    std::function<Player&()> getPlayerCallback;
+
  private:
     //! Gets a list of tasks according to the power type.
     //! \param type The type of power.
@@ -146,6 +182,7 @@ class Minion
     std::vector<TaskType> GetTasks(PowerType type);
 
     Card m_card;
+    int m_index = -1;
     int m_poolIdx = -1;
 
     ZoneType m_zoneType = ZoneType::INVALID;

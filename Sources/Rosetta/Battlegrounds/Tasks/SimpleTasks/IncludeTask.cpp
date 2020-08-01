@@ -11,8 +11,13 @@
 
 namespace RosettaStone::Battlegrounds::SimpleTasks
 {
+IncludeTask::IncludeTask(EntityType entityType) : m_entityType(entityType)
+{
+    // Do nothing
+}
+
 std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
-    EntityType entityType, [[maybe_unused]] Player& player, Minion& source)
+    EntityType entityType, Player& player, Minion& source)
 {
     std::vector<std::reference_wrapper<Minion>> minions;
 
@@ -20,6 +25,8 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
     {
         case EntityType::SOURCE:
             minions.emplace_back(source);
+            break;
+        case EntityType::TARGET:
             break;
         case EntityType::MINIONS:
             player.GetField().ForEachAlive([&](MinionData& minion) {
@@ -51,5 +58,40 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
     }
 
     return minions;
+}
+
+std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
+    EntityType entityType, [[maybe_unused]] Player& player,
+    [[maybe_unused]] Minion& source, Minion& target)
+{
+    std::vector<std::reference_wrapper<Minion>> minions;
+
+    switch (entityType)
+    {
+        case EntityType::TARGET:
+            minions.emplace_back(target);
+            break;
+        default:
+            throw std::invalid_argument(
+                "IncludeTask::GetEntities() - Invalid entity type");
+    }
+
+    return minions;
+}
+
+TaskStatus IncludeTask::Run(Player& player, Minion& source)
+{
+    const auto minions = GetMinions(m_entityType, player, source);
+    player.taskStack.minions = minions;
+
+    return TaskStatus::COMPLETE;
+}
+
+TaskStatus IncludeTask::Run(Player& player, Minion& source, Minion& target)
+{
+    const auto minions = GetMinions(m_entityType, player, source, target);
+    player.taskStack.minions = minions;
+
+    return TaskStatus::COMPLETE;
 }
 }  // namespace RosettaStone::Battlegrounds::SimpleTasks

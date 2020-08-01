@@ -7,8 +7,10 @@
 #ifndef ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 #define ROSETTASTONE_BATTLEGROUNDS_CARD_HPP
 
+#include <Rosetta/Battlegrounds/Cards/TargetingPredicates.hpp>
 #include <Rosetta/Battlegrounds/Enchants/Power.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/Common/Enums/TargetingEnums.hpp>
 
 #include <map>
 #include <string>
@@ -23,6 +25,9 @@ namespace RosettaStone::Battlegrounds
 class Card
 {
  public:
+    //! Initializes card data.
+    void Initialize();
+
     //! Returns the value of card type.
     //! \return The value of card type.
     CardType GetCardType() const;
@@ -67,6 +72,18 @@ class Card
     //! \return the flag that indicates whether it is a Tier 6 minion in pool.
     bool IsTier6MinionInPool() const;
 
+    //! Gets a value indicating whether source entity is playable by card
+    //! requirements. Static requirements are checked.
+    //! \param player The player of the source.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReq(Player& player) const;
+
+    //! Calculates if a target is valid by testing the game state
+    //! for each hardcoded requirement.
+    //! \param target The proposed target.
+    //! \return true if the proposed target is valid, false otherwise.
+    bool TargetingRequirements(Minion& target) const;
+
     std::string id;
     int dbfID;
     int normalDbfID;
@@ -76,10 +93,15 @@ class Card
     std::string text;
 
     std::map<GameTag, int> gameTags;
+    std::map<PlayReq, int> playRequirements;
 
+    std::vector<TargetingPredicate> targetingPredicate;
+
+    TargetingType targetingType;
     Power power;
 
-    bool isCurHero;
+    bool isCurHero = false;
+    bool mustHaveToTargetToPlay = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 

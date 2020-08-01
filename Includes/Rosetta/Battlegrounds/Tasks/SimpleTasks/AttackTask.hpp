@@ -3,9 +3,10 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
-#define ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
+#ifndef ROSETTASTONE_BATTLEGROUNDS_ATTACK_TASK_HPP
+#define ROSETTASTONE_BATTLEGROUNDS_ATTACK_TASK_HPP
 
+#include <Rosetta/Battlegrounds/Conditions/SelfCondition.hpp>
 #include <Rosetta/Common/Enums/TaskEnums.hpp>
 
 namespace RosettaStone::Battlegrounds
@@ -17,16 +18,16 @@ class Player;
 namespace SimpleTasks
 {
 //!
-//! \brief DamageHeroTask class.
+//! \brief AttackTask class.
 //!
-//! This class represents the task for taking damage to the hero.
+//! This class represents the task for attacking the opponent minion.
 //!
-class DamageHeroTask
+class AttackTask
 {
  public:
-    //! Constructs task with given \p damage.
-    //! \param damage A value indicating how much to take.
-    explicit DamageHeroTask(int damage);
+    //! Constructs task with given \p attacker.
+    //! \param attacker The entity type of attacker.
+    explicit AttackTask(EntityType attacker);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -42,9 +43,9 @@ class DamageHeroTask
     TaskStatus Run(Player& player, Minion& source, Minion& target);
 
  private:
-    int m_damage = 0;
+    EntityType m_attacker = EntityType::INVALID;
 };
 }  // namespace SimpleTasks
 }  // namespace RosettaStone::Battlegrounds
 
-#endif  // ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
+#endif  // ROSETTASTONE_BATTLEGROUNDS_ATTACK_TASK_HPP

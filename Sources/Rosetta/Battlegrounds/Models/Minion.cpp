@@ -38,6 +38,16 @@ Minion::Minion(Card card, int poolIdx)
     }
 }
 
+int Minion::GetIndex() const
+{
+    return m_index;
+}
+
+void Minion::SetIndex(int index)
+{
+    m_index = index;
+}
+
 int Minion::GetPoolIndex() const
 {
     return m_poolIdx;
@@ -56,6 +66,18 @@ int Minion::GetGameTag(GameTag tag) const
             return GetAttack();
         default:
             return 0;
+    }
+}
+
+void Minion::SetGameTag(GameTag tag, int value)
+{
+    switch (tag)
+    {
+        case GameTag::DIVINE_SHIELD:
+            m_hasDivineShield = value == 1 ? true : false;
+            break;
+        default:
+            break;
     }
 }
 
@@ -163,9 +185,103 @@ bool Minion::IsDestroyed() const
     return m_isDestroyed;
 }
 
-void Minion::ActivateTrigger(TriggerType type,
-                             std::initializer_list<TriggerSource> sources,
-                             Player& player)
+bool Minion::IsPlayableByCardReq(Player& player) const
+{
+    if (!m_card.IsPlayableByCardReq(player))
+    {
+        return false;
+    }
+
+    if (m_card.mustHaveToTargetToPlay && !HasAnyValidPlayTargets(player))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool Minion::HasAnyValidPlayTargets(Player& player) const
+{
+    bool friendlyMinions = false;
+    
+    switch (m_card.targetingType)
+    {
+        case TargetingType::FRIENDLY_MINIONS:
+            friendlyMinions = true;
+            break;
+        default:
+            break;
+    }
+
+    if (friendlyMinions)
+    {
+        for (auto& minion : player.recruitField.GetAll())
+        {
+            if (m_card.TargetingRequirements(minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Minion::IsValidPlayTarget(Player& player, int targetIdx)
+{
+    if (targetIdx == -1)
+    {
+        if (m_card.mustHaveToTargetToPlay)
+        {
+            return false;
+        }
+
+        if (m_card.targetingType == TargetingType::NONE)
+        {
+            return true;
+        }
+
+        if (!HasAnyValidPlayTargets(player))
+        {
+            return true;
+        }
+
+        return false;
+    }
+    else
+    {
+        Minion& target = player.recruitField[targetIdx];
+
+        if (!CheckTargetingType(target))
+        {
+            return false;
+        }
+
+        if (m_card.TargetingRequirements(target))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Minion::CheckTargetingType([[maybe_unused]] Minion& target)
+{
+    switch (m_card.targetingType)
+    {
+        case TargetingType::NONE:
+            return false;
+        case TargetingType::FRIENDLY_MINIONS:
+            return true;
+        default:
+            break;
+    }
+
+    return true;
+}
+
+void Minion::ActivateTrigger(TriggerType type, Minion& source)
 {
     auto& trigger = m_card.power.GetTrigger();
     if (!trigger.has_value())
@@ -178,13 +294,7 @@ void Minion::ActivateTrigger(TriggerType type,
         return;
     }
 
-    for (const auto& source : sources)
-    {
-        if (trigger.value().GetTriggerSource() == source)
-        {
-            trigger.value().Run(player, *this);
-        }
-    }
+    trigger.value().Run(*this, source);
 }
 
 void Minion::ActivateTask(PowerType type, Player& player)

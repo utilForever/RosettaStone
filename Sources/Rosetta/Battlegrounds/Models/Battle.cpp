@@ -77,6 +77,47 @@ void Battle::Run()
 
     while (!IsDone())
     {
+        if (m_turn == Turn::PLAYER1)
+        {
+            m_p1Field.ForEachAlive([&](MinionData& owner) {
+                m_p1Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
+            });
+
+            m_p2Field.ForEachAlive([&](MinionData& owner) {
+                m_p2Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
+            });
+        }
+        else
+        {
+            m_p2Field.ForEachAlive([&](MinionData& owner) {
+                m_p2Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
+            });
+
+            m_p1Field.ForEachAlive([&](MinionData& owner) {
+                m_p1Field.ForEachAlive([&](MinionData& minion) {
+                    {
+                        owner.value().ActivateTrigger(TriggerType::TURN_START,
+                                                      minion.value());
+                    };
+                });
+            });
+        }
+
         const bool curAttackSuccess = Attack();
         if (!prevAttackSuccess && !curAttackSuccess)
         {
@@ -213,7 +254,6 @@ void Battle::ProcessDestroy(bool beforeAttack)
         });
     }
 
-    Player& curPlayer = m_turn == Turn::PLAYER1 ? m_player1 : m_player2;
     // A variable to check a minion at the index of next attacker is destroyed
     bool isAttackerDestroyed = false;
 
@@ -243,15 +283,14 @@ void Battle::ProcessDestroy(bool beforeAttack)
             }
 
             m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
             m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
+            minion.SetLastFieldPos(minion.GetZonePosition());
             removedMinion = m_p1Field.Remove(minion);
         }
         else
@@ -275,15 +314,14 @@ void Battle::ProcessDestroy(bool beforeAttack)
             }
 
             m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::ENEMY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
             m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
-                aliveMinion.value().ActivateTrigger(
-                    TriggerType::DEATH, { TriggerSource::FRIENDLY }, curPlayer);
+                aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
+            minion.SetLastFieldPos(minion.GetZonePosition());
             removedMinion = m_p2Field.Remove(minion);
         }
 

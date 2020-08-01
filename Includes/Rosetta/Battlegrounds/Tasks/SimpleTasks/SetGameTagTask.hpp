@@ -3,9 +3,10 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
-#define ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
+#ifndef ROSETTASTONE_BATTLEGROUNDS_SET_GAME_TAG_TASK_HPP
+#define ROSETTASTONE_BATTLEGROUNDS_SET_GAME_TAG_TASK_HPP
 
+#include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/Common/Enums/TaskEnums.hpp>
 
 namespace RosettaStone::Battlegrounds
@@ -17,16 +18,18 @@ class Player;
 namespace SimpleTasks
 {
 //!
-//! \brief DamageHeroTask class.
+//! \brief SetGameTagTask class.
 //!
-//! This class represents the task for taking damage to the hero.
+//! This class represents the task for setting game tag to minions.
 //!
-class DamageHeroTask
+class SetGameTagTask
 {
  public:
-    //! Constructs task with given \p damage.
-    //! \param damage A value indicating how much to take.
-    explicit DamageHeroTask(int damage);
+    //! Constructs task with given \p entityType, \p tag and \p amount.
+    //! \param entityType The entity type of target to set game tag.
+    //! \param tag A game tag to set.
+    //! \param amount A value of game tag to set.
+    explicit SetGameTagTask(EntityType entityType, GameTag tag, int amount);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -42,9 +45,11 @@ class DamageHeroTask
     TaskStatus Run(Player& player, Minion& source, Minion& target);
 
  private:
-    int m_damage = 0;
+    EntityType m_entityType = EntityType::INVALID;
+    GameTag m_gameTag = GameTag::INVALID;
+    int m_amount = 0;
 };
 }  // namespace SimpleTasks
 }  // namespace RosettaStone::Battlegrounds
 
-#endif  // ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
+#endif  // ROSETTASTONE_BATTLEGROUNDS_SET_GAME_TAG_TASK_HPP

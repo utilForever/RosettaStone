@@ -75,6 +75,13 @@ enum class RelaSign
     GEQ,  //!< Greater equal.
     LEQ   //!< Lesser equal.
 };
+
+//! \brief An enumerator for identifying the button of Tavern in Battlegrounds.
+enum class TavernButton
+{
+    UPGRADE,
+    REFRESH,
+};
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_TASK_ENUMS_HPP

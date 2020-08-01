@@ -13,8 +13,8 @@
 namespace RosettaStone::Battlegrounds::SimpleTasks
 {
 SummonTask::SummonTask(const std::string_view& cardID, int amount,
-                       SummonSide side)
-    : m_cardID(cardID), m_side(side), m_amount(amount)
+                       SummonSide side, bool addToStack)
+    : m_cardID(cardID), m_side(side), m_amount(amount), m_addToStack(addToStack)
 {
     // Do nothing
 }
@@ -54,6 +54,11 @@ int SummonTask::GetPosition(Minion& source, SummonSide side)
             }
             break;
         }
+        case SummonSide::DEATHRATTLE:
+        {
+            summonPos = source.GetLastFieldPos();
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "SummonTask::Impl() - Invalid summon side");
@@ -64,7 +69,7 @@ int SummonTask::GetPosition(Minion& source, SummonSide side)
 
 TaskStatus SummonTask::Run(Player& player, Minion& source)
 {
-    Card card = Cards::FindCardByID(m_cardID);
+    const Card card = Cards::FindCardByID(m_cardID);
 
     for (int i = 0; i < m_amount; ++i)
     {
@@ -83,6 +88,11 @@ TaskStatus SummonTask::Run(Player& player, Minion& source)
     }
 
     player.GetField().Add(summonMinion, summonPos);
+
+    if (m_addToStack)
+    {
+        player.taskStack.minions.emplace_back(player.GetField()[summonPos]);
+    }
 
     return TaskStatus::COMPLETE;
 }
@@ -90,7 +100,7 @@ TaskStatus SummonTask::Run(Player& player, Minion& source)
 TaskStatus SummonTask::Run(Player& player, Minion& source,
                            [[maybe_unused]] Minion& target)
 {
-    Card card = Cards::FindCardByID(m_cardID);
+    const Card card = Cards::FindCardByID(m_cardID);
 
     for (int i = 0; i < m_amount; ++i)
     {
@@ -109,6 +119,11 @@ TaskStatus SummonTask::Run(Player& player, Minion& source,
     }
 
     player.GetField().Add(summonMinion, summonPos);
+
+    if (m_addToStack)
+    {
+        player.taskStack.minions.emplace_back(player.GetField()[summonPos]);
+    }
 
     return TaskStatus::COMPLETE;
 }

@@ -90,6 +90,10 @@ class FieldZone
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;
 
+    //! Returns all minions in this zone.
+    //! \return All minions in this zone.
+    std::vector<std::reference_wrapper<Minion>> GetAll();
+
     //! Runs \p functor on each minion.
     //! \param functor A function to run for each minion.
     template <typename Functor>

@@ -51,10 +51,16 @@ class Trigger
     //! \param condition the condition of the trigger.
     void SetCondition(SelfCondition&& condition);
 
+    //! Validates triggers related to the current sequence at once before the
+    //! sequence starts.
+    //! \param owner The owner of trigger.
+    //! \param source The source of trigger.
+    void Validate(Minion& owner, Minion& source);
+
     //! Runs trigger logic internally.
-    //! \param player The player to run trigger.
-    //! \param source The source minion.
-    void Run(Player& player, Minion& source);
+    //! \param owner The owner of trigger.
+    //! \param source The source of trigger.
+    void Run(Minion& owner, Minion& source);
 
  private:
     TriggerType m_triggerType = TriggerType::NONE;
@@ -62,6 +68,8 @@ class Trigger
 
     std::vector<TaskType> m_tasks;
     std::optional<SelfCondition> m_condition;
+
+    bool m_isValidated = false;
 };
 }  // namespace RosettaStone::Battlegrounds
 

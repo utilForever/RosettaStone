@@ -52,10 +52,13 @@ void Game::Start()
 
     // Create callback to purchase a minion in Tavern
     auto purchaseMinionCallback = [](Player& player, std::size_t tavernIdx) {
-        player.hand.Add(
-            player.tavern.fieldZone.Remove(player.tavern.fieldZone[tavernIdx]),
-            -1);
+        Minion minion =
+            player.tavern.fieldZone.Remove(player.tavern.fieldZone[tavernIdx]);
+        player.hand.Add(minion, -1);
     };
+
+    // Create callback to get next card index
+    auto getNextCardIndexCallback = [this]() -> int { return m_cardIndex++; };
 
     // Create callback to return a minion to the minion pool
     auto returnMinionCallback = [this](int poolIdx) {
@@ -157,6 +160,7 @@ void Game::Start()
         player.selectHeroCallback = selectHeroCallback;
         player.prepareTavernMinionsCallback = prepareTavernMinionsCallback;
         player.purchaseMinionCallback = purchaseMinionCallback;
+        player.getNextCardIndexCallback = getNextCardIndexCallback;
         player.returnMinionCallback = returnMinionCallback;
         player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
@@ -263,8 +267,15 @@ void Game::Combat()
     // Simulates a battle for each pair
     for (const auto& pair : m_playerFightPair)
     {
-        Battle battle(m_gameState.players.at(std::get<0>(pair)),
-                      m_gameState.players.at(std::get<1>(pair)));
+        Player& player1 = m_gameState.players.at(std::get<0>(pair));
+        Player& player2 = m_gameState.players.at(std::get<1>(pair));
+
+        Battle battle(player1, player2);
+
+        // Create callback to get battle
+        player1.getBattleCallback = [&]() -> Battle& { return battle; };
+        player2.getBattleCallback = [&]() -> Battle& { return battle; };
+
         battle.Run();
     }
 

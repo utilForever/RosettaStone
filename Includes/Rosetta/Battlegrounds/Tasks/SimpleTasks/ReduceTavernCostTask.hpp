@@ -3,8 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
-#define ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
+#ifndef ROSETTASTONE_BATTLEGROUNDS_REDUCE_TAVERN_COST_TASK_HPP
+#define ROSETTASTONE_BATTLEGROUNDS_REDUCE_TAVERN_COST_TASK_HPP
 
 #include <Rosetta/Common/Enums/TaskEnums.hpp>
 
@@ -17,16 +17,18 @@ class Player;
 namespace SimpleTasks
 {
 //!
-//! \brief DamageHeroTask class.
+//! \brief ReduceTavernCostTask class.
 //!
-//! This class represents the task for taking damage to the hero.
+//! This class represents the task for reducing the cost of specific button
+//! in Tavern.
 //!
-class DamageHeroTask
+class ReduceTavernCostTask
 {
  public:
-    //! Constructs task with given \p damage.
-    //! \param damage A value indicating how much to take.
-    explicit DamageHeroTask(int damage);
+    //! Constructs task with given \p button and \p cost.
+    //! \param button A specific button in Tavern.
+    //! \param cost The value of cost to reduce.
+    explicit ReduceTavernCostTask(TavernButton button, int cost);
 
     //! Runs task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -42,9 +44,10 @@ class DamageHeroTask
     TaskStatus Run(Player& player, Minion& source, Minion& target);
 
  private:
-    int m_damage = 0;
+    TavernButton m_tavernButton;
+    int m_cost = 0;
 };
 }  // namespace SimpleTasks
 }  // namespace RosettaStone::Battlegrounds
 
-#endif  // ROSETTASTONE_BATTLEGROUNDS_DAMAGE_HERO_TASK_HPP
+#endif  // ROSETTASTONE_BATTLEGROUNDS_REDUCE_TAVERN_COST_TASK_HPP
