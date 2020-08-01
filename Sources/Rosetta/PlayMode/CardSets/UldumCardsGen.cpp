@@ -1020,6 +1020,13 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_143e", EntityType::TARGET));
+    cards.emplace(
+        "ULD_143",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_145] Brazen Zealot - COST:1 [ATK:2/HP:1]
@@ -1151,6 +1158,9 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +4/+4, <b>Divine Shield</b>, and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_143e"));
+    cards.emplace("ULD_143e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ULD_145e] Zeal (*) - COST:0
