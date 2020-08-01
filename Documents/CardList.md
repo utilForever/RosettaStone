@@ -663,7 +663,7 @@ ULDUM | ULD_182 | Spitting Camel | O
 ULDUM | ULD_183 | Anubisath Warbringer |  
 ULDUM | ULD_184 | Kobold Sandtrooper | O
 ULDUM | ULD_185 | Temple Berserker |  
-ULDUM | ULD_186 | Pharaoh Cat |  
+ULDUM | ULD_186 | Pharaoh Cat | O
 ULDUM | ULD_188 | Golden Scarab |  
 ULDUM | ULD_189 | Faceless Lurker |  
 ULDUM | ULD_190 | Pit Crocolisk |  
