@@ -2403,6 +2403,79 @@ TEST_CASE("[Rogue : Minion] - ULD_186 : Pharaoh Cat")
     CHECK_EQ(curHand[0]->card->HasGameTag(GameTag::REBORN), true);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [ULD_231] Whirlkick Master - COST:2 [ATK:1/HP:2]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Whenever you play a <b>Combo</b> card,
+//       add a random <b>Combo</b> card to your hand.
+// --------------------------------------------------------
+// RefTag:
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_231 : Whirlkick Master")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlkick Master"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlkick Master"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eviscerate"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eviscerate"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Eviscerate"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card5, card2));
+    CHECK_EQ(curHand.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, curPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(opHand.GetCount(), 1);     // The Coin
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 3);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[0]->card->HasGameTag(GameTag::COMBO), true);
+    CHECK_EQ(curHand[1]->card->HasGameTag(GameTag::COMBO), true);
+    CHECK_EQ(curHand[2]->card->HasGameTag(GameTag::COMBO), true);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common

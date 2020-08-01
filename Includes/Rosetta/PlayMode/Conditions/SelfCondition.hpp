@@ -203,6 +203,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOverloadCard();
 
+    //! SelfCondition wrapper for checking the card has combo.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsComboCard();
+
     //! SelfCondition wrapper for checking the entity attacks this turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsAttackThisTurn();

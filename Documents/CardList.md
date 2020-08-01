@@ -685,7 +685,7 @@ ULDUM | ULD_215 | Wrapped Golem |
 ULDUM | ULD_216 | Puzzle Box of Yogg-Saron | O
 ULDUM | ULD_217 | Micro Mummy |  
 ULDUM | ULD_229 | Mischief Maker |  
-ULDUM | ULD_231 | Whirlkick Master |  
+ULDUM | ULD_231 | Whirlkick Master | O
 ULDUM | ULD_236 | Tortollan Pilgrim | O
 ULDUM | ULD_238 | Reno the Relicologist | O
 ULDUM | ULD_239 | Flame Ward | O

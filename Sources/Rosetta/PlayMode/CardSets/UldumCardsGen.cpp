@@ -1415,6 +1415,17 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsComboCard());
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { 
+        std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::INVALID,
+                                         GameTags{ { GameTag::COMBO, 1 } }),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("ULD_231", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [ULD_280] Sahket Sapper - COST:4 [ATK:4/HP:4]

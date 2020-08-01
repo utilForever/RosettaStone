@@ -420,6 +420,18 @@ SelfCondition SelfCondition::IsOverloadCard()
     });
 }
 
+SelfCondition SelfCondition::IsComboCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (playable->GetGameTag(GameTag::COMBO) >= 1)
+        {
+            return true;
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsAttackThisTurn()
 {
     return SelfCondition([=](Playable* playable) -> bool {
