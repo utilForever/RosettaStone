@@ -423,7 +423,7 @@ SelfCondition SelfCondition::IsOverloadCard()
 SelfCondition SelfCondition::IsComboCard()
 {
     return SelfCondition([=](Playable* playable) -> bool {
-        if (playable->GetGameTag(GameTag::COMBO) >= 1)
+        if (playable->GetGameTag(GameTag::COMBO) == 1)
         {
             return true;
         }
