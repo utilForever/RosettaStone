@@ -1383,6 +1383,8 @@ void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [ULD_186] Pharaoh Cat - COST:1 [ATK:1/HP:2]
     // - Race: Beast, Set: Uldum, Rarity: Common
@@ -1396,6 +1398,12 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
+                                         GameTags{ { GameTag::REBORN, 1 } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("ULD_186", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [ULD_231] Whirlkick Master - COST:2 [ATK:1/HP:2]
@@ -1407,6 +1415,17 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsComboCard());
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { 
+        std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::INVALID,
+                                         GameTags{ { GameTag::COMBO, 1 } }),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("ULD_231", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [ULD_280] Sahket Sapper - COST:4 [ATK:4/HP:4]
