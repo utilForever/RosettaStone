@@ -1730,6 +1730,7 @@ void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_140] Supreme Archaeology - COST:1
     // - Set: Uldum, Rarity: Legendary
@@ -1849,6 +1850,13 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "ULD_324t", 3));
+	cards.emplace("ULD_324",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 }}));	
 
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_717] Plague of Flames - COST:1
@@ -1861,6 +1869,7 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [ULD_140e] Origination (*) - COST:0
     // - Set: Uldum
@@ -1908,6 +1917,9 @@ void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // [ULD_324t] Worthless Imp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: Uldum
     // --------------------------------------------------------
+	power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_324t", CardDef(power));
 }
 
 void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)

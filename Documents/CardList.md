@@ -718,7 +718,7 @@ ULDUM | ULD_292 | Oasis Surger | O
 ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
-ULDUM | ULD_324 | Impbalming |  
+ULDUM | ULD_324 | Impbalming | O
 ULDUM | ULD_326 | Bazaar Burglary |  
 ULDUM | ULD_327 | Bazaar Mugger |  
 ULDUM | ULD_328 | Clever Disguise |  
