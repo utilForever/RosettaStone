@@ -732,7 +732,7 @@ TEST_CASE("[Hunter : Spell] - DAL_371 : Marked Shot")
     for (auto& card : cards)
     {
         CHECK_EQ(card->GetCardType(), CardType::SPELL);
-        CHECK_EQ(card->GetCardClass(), CardClass::PALADIN);
+        CHECK(card->IsCardClass(CardClass::PALADIN));
     }
 }
 
@@ -1768,7 +1768,7 @@ TEST_CASE("[Mage : Spell] - DAL_608 : Magic Trick")
     for (auto& card : cards)
     {
         CHECK_EQ(card->GetCardType(), CardType::SPELL);
-        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+        CHECK(card->IsCardClass(CardClass::MAGE));
         CHECK_LE(card->GetCost(), 3);
     }
 }
@@ -1822,7 +1822,7 @@ TEST_CASE("[Mage : Minion] - DAL_609 : Kalecgos")
     for (auto& card : cards)
     {
         CHECK_EQ(card->GetCardType(), CardType::SPELL);
-        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+        CHECK(card->IsCardClass(CardClass::MAGE));
     }
 
     Generic::ChoicePick(curPlayer, 26);

@@ -2506,7 +2506,7 @@ TEST_CASE("[Mage : Spell] - DRG_106 : Arcane Breath")
     for (auto& card : cards)
     {
         CHECK_EQ(card->GetCardType(), CardType::SPELL);
-        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+        CHECK(card->IsCardClass(CardClass::MAGE));
     }
 
     Generic::ChoicePick(curPlayer, 27);
