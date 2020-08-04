@@ -190,14 +190,15 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 {
     const FormatType format = game->GetFormatType();
 
+    // NOTE: Assume there is no card that has 'CardType::SPELL' and 'CardClass::NEUTRAL'.
     std::vector<Card*> allCards;
     if (format == FormatType::STANDARD)
     {
-        for (auto& card : Cards::GetAllStandardCards())
+        for (const auto& card : Cards::GetAllStandardCards())
         {
-            if ((card->GetCardClass() == player->baseClass &&
-                 !card->IsQuest()) ||
-                card->GetCardClass() == CardClass::NEUTRAL)
+            if ((card->IsCardClass(player->baseClass) && !card->IsQuest()) ||
+                (card->GetCardType() != CardType::SPELL &&
+                 card->GetCardClass() == CardClass::NEUTRAL))
             {
                 allCards.emplace_back(card);
             }
@@ -205,11 +206,11 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
     }
     else
     {
-        for (auto& card : Cards::GetAllWildCards())
+        for (const auto& card : Cards::GetAllWildCards())
         {
-            if ((card->GetCardClass() == player->baseClass &&
-                 !card->IsQuest()) ||
-                card->GetCardClass() == CardClass::NEUTRAL)
+            if ((card->IsCardClass(player->baseClass) && !card->IsQuest()) ||
+                (card->GetCardType() != CardType::SPELL &&
+                 card->GetCardClass() == CardClass::NEUTRAL))
             {
                 allCards.emplace_back(card);
             }
