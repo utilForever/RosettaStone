@@ -68,7 +68,7 @@ constexpr std::array<CardSet, 24> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 9344;
+constexpr int NUM_ALL_CARDS = 9592;
 
 //! The number of Battlegrounds cards.
 constexpr int NUM_BATTLEGROUNDS_CARDS = 527;
