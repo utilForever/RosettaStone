@@ -1752,12 +1752,12 @@ TEST_CASE("[WARLOCK : SPELL] - ULD_324 : Impbalming")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Impbalming"));
-    
-	game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK_EQ(curDeck.GetCount(), 0);
 
-	game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curHand.GetCount(), 0);
     CHECK_EQ(curDeck.GetCount(), 3);
     CHECK_EQ(curDeck[0]->card->name, "Worthless Imp");
