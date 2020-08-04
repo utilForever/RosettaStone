@@ -36,6 +36,10 @@ class Card
     //! \return The value of card class.
     CardClass GetCardClass() const;
 
+    //! Returns the value of multi class group.
+    //! \return The value of multi class group.
+    MultiClassGroup GetMultiClassGroup() const;
+
     //! Returns the value of card set.
     //! \return The value of card set.
     CardSet GetCardSet() const;

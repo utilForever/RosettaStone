@@ -155,6 +155,12 @@ CardClass Card::GetCardClass() const
     return static_cast<CardClass>(gameTags.at(GameTag::CLASS));
 }
 
+MultiClassGroup Card::GetMultiClassGroup() const
+{
+    return static_cast<MultiClassGroup>(
+        gameTags.at(GameTag::MULTI_CLASS_GROUP));
+}
+
 CardSet Card::GetCardSet() const
 {
     return static_cast<CardSet>(gameTags.at(GameTag::CARD_SET));
