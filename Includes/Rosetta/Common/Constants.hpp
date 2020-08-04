@@ -70,9 +70,6 @@ constexpr std::array<CardSet, 24> WILD_CARD_SETS = {
 //! The number of all cards.
 constexpr int NUM_ALL_CARDS = 9592;
 
-//! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 527;
-
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
 //! Demon Hunter
