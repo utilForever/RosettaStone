@@ -39,6 +39,8 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
     * Rise of Shadows
     * Saviors of Uldum
     * Descent of Dragons
+    * Ashes of Outland
+    * Scholomance Academy
   * Implement programs for playing game
     * Console-based
     * GUI-based
@@ -87,6 +89,8 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Expansions
 
+  * 0% Scholomance Academy (0 of 135 cards)
+  * 0% Ashes of Outland (0 of 135 cards)
   * **100% Descent of Dragons (140 of 140 cards)**
   * 43% Saviors of Uldum (59 of 135 cards)
   * **100% Rise of Shadows (136 of 136 cards)**
