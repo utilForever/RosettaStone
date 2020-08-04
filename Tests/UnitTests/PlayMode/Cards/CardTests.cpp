@@ -73,3 +73,95 @@ TEST_CASE("[Card] - HasMechanic")
 
     CHECK_EQ(false, card.HasGameTag(GameTag::ADAPT));
 }
+
+TEST_CASE("[Card] - IsCardClass")
+{
+    Card card;
+
+    card.gameTags[GameTag::CLASS] = static_cast<int>(CardClass::MAGE);
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::INVALID);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), true);
+    CHECK_EQ(card.IsCardClass(CardClass::HUNTER), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::GRIMY_GOONS);
+    CHECK_EQ(card.IsCardClass(CardClass::HUNTER), true);
+    CHECK_EQ(card.IsCardClass(CardClass::WARRIOR), true);
+    CHECK_EQ(card.IsCardClass(CardClass::PALADIN), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::JADE_LOTUS);
+    CHECK_EQ(card.IsCardClass(CardClass::ROGUE), true);
+    CHECK_EQ(card.IsCardClass(CardClass::SHAMAN), true);
+    CHECK_EQ(card.IsCardClass(CardClass::DRUID), true);
+    CHECK_EQ(card.IsCardClass(CardClass::HUNTER), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::KABAL);
+    CHECK_EQ(card.IsCardClass(CardClass::PRIEST), true);
+    CHECK_EQ(card.IsCardClass(CardClass::WARLOCK), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), true);
+    CHECK_EQ(card.IsCardClass(CardClass::DEMONHUNTER), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::PALADIN_PRIEST);
+    CHECK_EQ(card.IsCardClass(CardClass::PALADIN), true);
+    CHECK_EQ(card.IsCardClass(CardClass::PRIEST), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::PRIEST_WARLOCK);
+    CHECK_EQ(card.IsCardClass(CardClass::PRIEST), true);
+    CHECK_EQ(card.IsCardClass(CardClass::WARLOCK), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::WARLOCK_DEMONHUNTER);
+    CHECK_EQ(card.IsCardClass(CardClass::WARLOCK), true);
+    CHECK_EQ(card.IsCardClass(CardClass::DEMONHUNTER), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::HUNTER_DEMONHUNTER);
+    CHECK_EQ(card.IsCardClass(CardClass::HUNTER), true);
+    CHECK_EQ(card.IsCardClass(CardClass::DEMONHUNTER), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::DRUID_HUNTER);
+    CHECK_EQ(card.IsCardClass(CardClass::DRUID), true);
+    CHECK_EQ(card.IsCardClass(CardClass::HUNTER), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::DRUID_SHAMAN);
+    CHECK_EQ(card.IsCardClass(CardClass::DRUID), true);
+    CHECK_EQ(card.IsCardClass(CardClass::SHAMAN), true);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::MAGE_SHAMAN);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), true);
+    CHECK_EQ(card.IsCardClass(CardClass::SHAMAN), true);
+    CHECK_EQ(card.IsCardClass(CardClass::WARRIOR), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::MAGE_ROGUE);
+    CHECK_EQ(card.IsCardClass(CardClass::MAGE), true);
+    CHECK_EQ(card.IsCardClass(CardClass::ROGUE), true);
+    CHECK_EQ(card.IsCardClass(CardClass::DEMONHUNTER), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::ROGUE_WARRIOR);
+    CHECK_EQ(card.IsCardClass(CardClass::ROGUE), true);
+    CHECK_EQ(card.IsCardClass(CardClass::WARRIOR), true);
+    CHECK_EQ(card.IsCardClass(CardClass::WARLOCK), false);
+
+    card.gameTags[GameTag::MULTI_CLASS_GROUP] =
+        static_cast<int>(MultiClassGroup::PALADIN_WARRIOR);
+    CHECK_EQ(card.IsCardClass(CardClass::PALADIN), true);
+    CHECK_EQ(card.IsCardClass(CardClass::WARRIOR), true);
+    CHECK_EQ(card.IsCardClass(CardClass::SHAMAN), false);
+}
