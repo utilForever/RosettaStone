@@ -86,15 +86,15 @@ const std::string FACTION_STR[] = {
 enum class GameTag
 {
 #define X(a) a,
-#include "GameTagCustom.def"
 #include "Rosetta/Common/Enums/GameTag.def"
+#include "GameTagCustom.def"
 #undef X
 };
 
 const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
-#include "GameTagCustom.def"
 #include "Rosetta/Common/Enums/GameTag.def"
+#include "GameTagCustom.def"
 #undef X
 };
 

@@ -1715,6 +1715,54 @@ TEST_CASE("[Mage : Minion] - ULD_293 : Cloud Prince")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [ULD_324] Impbalming - COST:4
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy a minion. Shuffle 3 Worthless Imps into your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[WARLOCK : SPELL] - ULD_324 : Impbalming")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Impbalming"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 3);
+    CHECK_EQ(curDeck[0]->card->name, "Worthless Imp");
+}
+
 // ------------------------------------------ MINION - MAGE
 // [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3]
 // - Set: Uldum, Rarity: Rare
@@ -2357,6 +2405,123 @@ TEST_CASE("[Priest : Spell] - ULD_718 : Plague of Death")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 0);
     CHECK_EQ(opField.GetCount(), 0);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [ULD_186] Pharaoh Cat - COST:1 [ATK:1/HP:2]
+// - Race: Beast, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a random <b>Reborn</b> minion
+//       to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_186 : Pharaoh Cat")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pharaoh Cat"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->HasGameTag(GameTag::REBORN), true);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [ULD_231] Whirlkick Master - COST:2 [ATK:1/HP:2]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Whenever you play a <b>Combo</b> card,
+//       add a random <b>Combo</b> card to your hand.
+// --------------------------------------------------------
+// RefTag:
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_231 : Whirlkick Master")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlkick Master"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlkick Master"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eviscerate"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eviscerate"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Eviscerate"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card5, card2));
+    CHECK_EQ(curHand.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, curPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(opHand.GetCount(), 1);     // The Coin
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 3);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[0]->card->HasGameTag(GameTag::COMBO), true);
+    CHECK_EQ(curHand[1]->card->HasGameTag(GameTag::COMBO), true);
+    CHECK_EQ(curHand[2]->card->HasGameTag(GameTag::COMBO), true);
 }
 
 // --------------------------------------- MINION - WARRIOR

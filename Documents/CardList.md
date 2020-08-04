@@ -665,7 +665,7 @@ ULDUM | ULD_182 | Spitting Camel | O
 ULDUM | ULD_183 | Anubisath Warbringer |  
 ULDUM | ULD_184 | Kobold Sandtrooper | O
 ULDUM | ULD_185 | Temple Berserker |  
-ULDUM | ULD_186 | Pharaoh Cat |  
+ULDUM | ULD_186 | Pharaoh Cat | O
 ULDUM | ULD_188 | Golden Scarab |  
 ULDUM | ULD_189 | Faceless Lurker |  
 ULDUM | ULD_190 | Pit Crocolisk |  
@@ -687,7 +687,7 @@ ULDUM | ULD_215 | Wrapped Golem |
 ULDUM | ULD_216 | Puzzle Box of Yogg-Saron | O
 ULDUM | ULD_217 | Micro Mummy |  
 ULDUM | ULD_229 | Mischief Maker |  
-ULDUM | ULD_231 | Whirlkick Master |  
+ULDUM | ULD_231 | Whirlkick Master | O
 ULDUM | ULD_236 | Tortollan Pilgrim | O
 ULDUM | ULD_238 | Reno the Relicologist | O
 ULDUM | ULD_239 | Flame Ward | O
@@ -720,7 +720,7 @@ ULDUM | ULD_292 | Oasis Surger | O
 ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
-ULDUM | ULD_324 | Impbalming |  
+ULDUM | ULD_324 | Impbalming | O
 ULDUM | ULD_326 | Bazaar Burglary |  
 ULDUM | ULD_327 | Bazaar Mugger |  
 ULDUM | ULD_328 | Clever Disguise |  
