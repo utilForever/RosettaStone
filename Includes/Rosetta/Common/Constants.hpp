@@ -109,7 +109,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 44;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 45;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -180,6 +180,7 @@ constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
 // Imprisoner (59937)
 // Kaboom Bot (49279)
 // Kindly Grandmother (39481)
+// Menagerie Mug (63435)
 // Metaltooth Leaper (2016)
 // Murloc Warleader (1063)
 // Nathrezim Overseer (59186)
@@ -192,10 +193,9 @@ constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
 // Steward of Time (60621)
 // Unstable Ghoul (1808)
 // Waxrider Togwaggle (60559)
-// Zoobot (39839)
 constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
-    62188, 61049, 61029, 778,   59937, 49279, 39481, 2016, 1063,  59186,
-    736,   60122, 62162, 40428, 680,   38797, 60621, 1808, 60559, 39839
+    62188, 61049, 61029, 778,   59937, 49279, 39481, 63435, 2016, 1063,
+    59186, 736,   60122, 62162, 40428, 680,   38797, 60621, 1808, 60559
 };
 
 //! A list of Tier 3 minion dbfIDs in Battlegrounds.
@@ -240,7 +240,7 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Herald of Flame (60498)
 // Iron Sensei (1992)
 // Mechano-Egg (49169)
-// Menagerie Magician (39269)
+// Menagerie Jug (63487)
 // Ripsnarl Captain (61056)
 // Savannah Highmane (1261)
 // Security Rover (48100)
@@ -250,7 +250,7 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Virmen Sensei (40641)
 constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
     48993, 45392, 43358, 42442, 763,   61072, 2068,  61066, 60498, 1992,
-    49169, 39269, 61056, 1261,  48100, 54835, 61048, 52277, 40641
+    49169, 63487, 61056, 1261,  48100, 54835, 61048, 52277, 40641
 };
 
 //! A list of Tier 5 minion dbfIDs in Battlegrounds.
