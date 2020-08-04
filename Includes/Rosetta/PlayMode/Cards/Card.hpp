@@ -69,6 +69,11 @@ class Card
     //! \return true if this card has game tag, and false otherwise.
     bool HasGameTag(GameTag gameTag) const;
 
+    //! Returns the flag that indicates whether the card class is \p cardClass.
+    //! \param cardClass The value of card class to check.
+    //! \return The flag that indicates whether the card class is \p cardClass.
+    bool IsCardClass(CardClass cardClass) const;
+
     //! Returns the flag that indicates whether it is quest.
     //! \return The flag that indicates whether it is quest.
     bool IsQuest() const;
