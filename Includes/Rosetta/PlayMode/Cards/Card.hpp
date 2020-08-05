@@ -36,6 +36,10 @@ class Card
     //! \return The value of card class.
     CardClass GetCardClass() const;
 
+    //! Returns the value of multi class group.
+    //! \return The value of multi class group.
+    MultiClassGroup GetMultiClassGroup() const;
+
     //! Returns the value of card set.
     //! \return The value of card set.
     CardSet GetCardSet() const;
@@ -64,6 +68,11 @@ class Card
     //! \param gameTag The game tag of card.
     //! \return true if this card has game tag, and false otherwise.
     bool HasGameTag(GameTag gameTag) const;
+
+    //! Returns the flag that indicates whether the card class is \p cardClass.
+    //! \param cardClass The value of card class to check.
+    //! \return The flag that indicates whether the card class is \p cardClass.
+    bool IsCardClass(CardClass cardClass) const;
 
     //! Returns the flag that indicates whether it is quest.
     //! \return The flag that indicates whether it is quest.

@@ -13,6 +13,7 @@
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/CardDefs.hpp>
@@ -35,6 +36,7 @@ CardDefs::CardDefs()
     DragonsCardsGen::AddAll(m_data);
     YoDCardsGen::AddAll(m_data);
     BlackTempleCardsGen::AddAll(m_data);
+    ScholomanceCardsGen::AddAll(m_data);
 }
 
 CardDefs::~CardDefs()
