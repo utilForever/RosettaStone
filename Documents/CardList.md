@@ -668,7 +668,7 @@ ULDUM | ULD_185 | Temple Berserker |
 ULDUM | ULD_186 | Pharaoh Cat | O
 ULDUM | ULD_188 | Golden Scarab |  
 ULDUM | ULD_189 | Faceless Lurker |  
-ULDUM | ULD_190 | Pit Crocolisk |  
+ULDUM | ULD_190 | Pit Crocolisk |  O
 ULDUM | ULD_191 | Beaming Sidekick | O
 ULDUM | ULD_193 | Living Monument | O
 ULDUM | ULD_194 | Wasteland Scorpid | O
