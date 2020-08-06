@@ -63,6 +63,11 @@ void CardLoader::Load(std::vector<Card*>& cards)
                 ? 0
                 : static_cast<int>(StrToEnum<CardClass>(
                       cardData["cardClass"].get<std::string>()));
+        const int multiClassGroup =
+            cardData["multiClassGroup"].is_null()
+                ? 0
+                : static_cast<int>(StrToEnum<MultiClassGroup>(
+                      cardData["multiClassGroup"].get<std::string>()));
         const int collectible = cardData["collectible"].is_null()
                                     ? 0
                                     : cardData["collectible"].get<int>();
@@ -116,6 +121,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::CARD_SET] = cardSet;
         card->gameTags[GameTag::CARDTYPE] = cardType;
         card->gameTags[GameTag::CLASS] = cardClass;
+        card->gameTags[GameTag::MULTI_CLASS_GROUP] = multiClassGroup;
         card->gameTags[GameTag::COLLECTIBLE] = collectible;
         card->gameTags[GameTag::COST] = cost;
         card->gameTags[GameTag::DAMAGE] = 0;

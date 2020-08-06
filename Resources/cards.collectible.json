@@ -6754,6 +6754,9 @@
         ],
         "name": "Kayn Sunfury",
         "rarity": "LEGENDARY",
+        "referencedTags": [
+            "TAUNT"
+        ],
         "set": "BLACK_TEMPLE",
         "text": "<b>Charge</b>\nAll friendly attacks ignore <b>Taunt</b>.",
         "type": "MINION"
@@ -17028,7 +17031,7 @@
         "race": "DRAGON",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "<b>Divine Shield</b>. <b>Rush</b>.\nCan't be targeted by spells or Hero Powers.",
+        "text": "<b>Divine Shield</b>, <b>Rush</b>\nCan't be targeted by spells or Hero Powers.",
         "type": "MINION"
     },
     {
@@ -39893,19 +39896,2703 @@
         "type": "MINION"
     },
     {
+        "artist": "Slawomir Maniak",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59619,
+        "flavor": "How did he get to the top of his class? He pulled a few strings!",
+        "health": 6,
+        "id": "SCH_120",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Cabal Acolyte",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Taunt</b>\n<b>Spellburst:</b> Gain control\nof a random enemy minion\nwith 2 or less Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "classes": [
+            "PRIEST",
+            "WARLOCK"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59623,
+        "elite": true,
+        "flavor": "\"He doesn’t grade on a curve, but on a sharp spike instead.\"",
+        "health": 6,
+        "id": "SCH_126",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "PRIEST_WARLOCK",
+        "name": "Disciplinarian Gandling",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]After you play a minion,\ndestroy it and summon a\n4/4 Failed Student.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59170,
+        "flavor": "Scholomance student Brewfest prank gone awry.",
+        "health": 1,
+        "id": "SCH_133",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Wolpertinger",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Summon a copy of this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 59569,
+        "elite": true,
+        "flavor": "\"Let evil flee before righteousness; let the innocent live in peace. Let the day come when none need fear. For that day, I give my life gladly.\"",
+        "health": 12,
+        "id": "SCH_135",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Turalyon, the Tenured",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Rush</b>. Whenever this attacks\na minion, set the defender's\nAttack and Health to 3.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59572,
+        "flavor": "Some people are here for the stellar, world-renowned academic program. Others are here for the buffet.",
+        "id": "SCH_136",
+        "name": "Power Word: Feast",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Give a minion +2/+2. Restore it to full Health at the end of this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59579,
+        "flavor": "\"Late to bed, early to rise, makes a student unable to open her eyes.\"",
+        "health": 4,
+        "id": "SCH_137",
+        "name": "Frazzled Freshman",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59583,
+        "flavor": "A paladin fights with honor! We don't go face... until next turn!",
+        "id": "SCH_138",
+        "name": "Blessing of Authority",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Give a minion +8/+8. It can't attack heroes this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "PRIEST"
+        ],
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59584,
+        "flavor": "He considers textbooks Light reading.",
+        "health": 5,
+        "id": "SCH_139",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "multiClassGroup": "PALADIN_PRIEST",
+        "name": "Devout Pupil",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Divine Shield, Taunt</b>\nCosts (1) less for each spell\nyou've cast on friendly\ncharacters this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 8,
+        "cardClass": "PRIEST",
+        "classes": [
+            "PRIEST",
+            "WARLOCK"
+        ],
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 59585,
+        "flavor": "\"A BIG mistake.\"",
+        "health": 8,
+        "id": "SCH_140",
+        "multiClassGroup": "PRIEST_WARLOCK",
+        "name": "Flesh Giant",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "Costs (1) less for each time your hero's Health changed during your turns.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "PRIEST"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59587,
+        "elite": true,
+        "flavor": "She's all about hitting the books. Literally.",
+        "health": 6,
+        "id": "SCH_141",
+        "multiClassGroup": "PALADIN_PRIEST",
+        "name": "High Abbess Alura",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Cast a spell from your deck <i>(targets this if possible)</i>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59590,
+        "flavor": "But how much of it is skimming?",
+        "health": 3,
+        "id": "SCH_142",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Voracious Reader",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "At the end of your turn, draw until you have 3 cards.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59595,
+        "flavor": "For when you need to rage, rage against the dying of the Light.",
+        "health": 1,
+        "id": "SCH_143",
+        "mechanics": [
+            "DIVINE_SHIELD"
+        ],
+        "name": "Divine Rager",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Divine Shield</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 59599,
+        "flavor": "\"I feel inky!\"",
+        "health": 1,
+        "id": "SCH_145",
+        "name": "Desk Imp",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59601,
+        "flavor": "Warning: Robes of Protection are intended for targeted effects only and are not an effective defense against Flamestrike, Twisting Nether, or other AOE attacks.",
+        "health": 4,
+        "id": "SCH_146",
+        "mechanics": [
+            "AURA",
+            "CANT_BE_TARGETED_BY_SPELLS",
+            "CANT_BE_TARGETED_BY_HERO_POWERS"
+        ],
+        "name": "Robes of Protection",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Your minions have \"Can't be targeted by spells or Hero Powers.\"",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 0,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59605,
+        "flavor": "Noblegarden is going to be really exciting this year!",
+        "health": 2,
+        "id": "SCH_147",
+        "mechanics": [
+            "DEATHRATTLE",
+            "InvisibleDeathrattle"
+        ],
+        "name": "Boneweb Egg",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Deathrattle:</b> Summon\ntwo 2/1 Spiders. If you\ndiscard this, trigger its\n<b>Deathrattle</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59616,
+        "flavor": "Not sure why he's bragging, he's got the same stats as the next guy.",
+        "health": 1,
+        "id": "SCH_149",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Argent Braggart",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Gain Attack and Health to match the highest in the battlefield.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt O'Connor",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59627,
+        "flavor": "Do you smell what the cauldron is cooking? If so, we apologize.",
+        "health": 6,
+        "id": "SCH_157",
+        "name": "Enchanted Cauldron",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b><b>Spellburst</b>:</b> Cast a random spell of the same Cost.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Kagi",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59628,
+        "flavor": "\"Do you wanna summon a demon? I wanna summon a demon!\"",
+        "id": "SCH_158",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Demonic Studies",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Discover</b> a Demon. Your next one costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59643,
+        "elite": true,
+        "flavor": "\"…and that's how I ended up with a Murloc Cultural Studies major.\"",
+        "health": 3,
+        "id": "SCH_159",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Mindrender Illucia",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Swap hands and decks with your opponent until your next turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59646,
+        "flavor": "She creates incredibly affordable wands of all shapes and sizes. But not owls. The owl is all-natural.",
+        "health": 2,
+        "id": "SCH_160",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Wandmaker",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add a 1-Cost spell from your class to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59658,
+        "elite": true,
+        "flavor": "Don’t let that dark magic worry you. He’ll ensure they hatch without a scratch.",
+        "health": 4,
+        "id": "SCH_162",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Vectus",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> Summon two\n1/1 Whelps. Each gains a\n<b>Deathrattle</b> from your minions\nthat died this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 7,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 59252,
+        "elite": true,
+        "flavor": "One of the demons will do all the work while the other gets the same grade.",
+        "health": 7,
+        "id": "SCH_181",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Archwitch Willow",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Summon a random Demon from your hand and deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "DRUID",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59253,
+        "elite": true,
+        "flavor": "If a teacher lectures in a forest, does she even make a sound?",
+        "health": 4,
+        "id": "SCH_182",
+        "mechanics": [
+            "RUSH",
+            "WINDFURY"
+        ],
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Speaker Gidra",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b><b>Rush</b>, Windfury</b>\n<b><b>Spellburst</b>:</b> Gain Attack\nand Health equal to\nthe spell's Cost.",
+        "type": "MINION"
+    },
+    {
         "artist": "Ivan Fomin",
         "attack": 2,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
         "dbfId": 58947,
-        "flavor": "Oh, the places you'll go! There is so much to fight!\nThere are boards to be explored. There are dreams to take flight.",
+        "flavor": "Oh, the places you'll go!\nThere is so much to fight!\nThere are boards to be explored.\nThere are dreams to take flight.",
         "health": 2,
         "id": "SCH_199",
         "name": "Transfer Student",
         "rarity": "EPIC",
         "set": "SCHOLOMANCE",
         "text": "This has different effects based on which game board you're on.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 58931,
+        "elite": true,
+        "flavor": "\"You wish to know my secrets, hmm? I carry a little bits of tuna in the sleeves of my robe, he loves that. Oh, you meant the risen dead? That was trivial, trivial.\"",
+        "health": 6,
+        "id": "SCH_224",
+        "name": "Headmaster Kel'Thuzad",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> If the spell destroys any minions, summon them.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 58971,
+        "flavor": "Sometimes you gotta spend spells to earn spells.",
+        "health": 9,
+        "id": "SCH_230",
+        "name": "Onyx Magescribe",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Add 2 random spells from your class to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ursula Dorada",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58972,
+        "flavor": "How you like them apples?",
+        "health": 2,
+        "id": "SCH_231",
+        "name": "Intrepid Initiate",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Gain +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58973,
+        "flavor": "Has a real passion for spelling.",
+        "health": 6,
+        "id": "SCH_232",
+        "name": "Crimson Hothead",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Gain +1 Attack and <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Kagi",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58974,
+        "flavor": "Our Draconic Studies program has a high rate of burnout.",
+        "id": "SCH_233",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Draconic Studies",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Discover</b> a Dragon. Your\nnext one costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58975,
+        "flavor": "Experienced enough to do crimes, inexperienced enough to be super obvious about it.",
+        "health": 4,
+        "id": "SCH_234",
+        "mechanics": [
+            "STEALTH"
+        ],
+        "name": "Shifty Sophomore",
+        "rarity": "RARE",
+        "referencedTags": [
+            "COMBO"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Stealth</b>\n<b>Spellburst:</b> Add a <b>Combo</b> card to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58976,
+        "flavor": "Most intermural spell-dueling contests end with a field of wisps.",
+        "id": "SCH_235",
+        "multiClassGroup": "MAGE_SHAMAN",
+        "name": "Devolving Missiles",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Shoot three missiles\nat random enemy minions\nthat transform them into\nones that cost (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 58977,
+        "flavor": "You never know what cards are going to be on the test.",
+        "health": 3,
+        "id": "SCH_236",
+        "name": "Diligent Notetaker",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Return the spell to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58978,
+        "flavor": "It's a quick read.",
+        "id": "SCH_237",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Athletic Studies",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Discover</b> a <b>Rush</b> minion. Your next one costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Kagi",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58979,
+        "durability": 2,
+        "flavor": "Die. Die. Die.",
+        "id": "SCH_238",
+        "name": "Reaper's Scythe",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Spellburst</b>: Also\ndamages adjacent\nminions this turn.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 58980,
+        "flavor": "My friend went krolusk tipping once… once!",
+        "health": 5,
+        "id": "SCH_239",
+        "name": "Krolusk Barkstripper",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Destroy a random enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59000,
+        "flavor": "Too cool for school, too hot for thought.",
+        "health": 4,
+        "id": "SCH_241",
+        "name": "Firebrand",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b><b>Spellburst</b>:</b> Deal 4 damage randomly split among all enemy minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 1,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59001,
+        "flavor": "\"As a Linguistics student I have studied the Gibberlings. I have determined they are speaking Gibberish.\"",
+        "health": 1,
+        "id": "SCH_242",
+        "name": "Gibberling",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Summon a Gibberling.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Bios Studio",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59002,
+        "flavor": "Studied basket weaving as an undergrad.",
+        "health": 6,
+        "id": "SCH_243",
+        "name": "Wyrm Weaver",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Summon two 1/3 Mana Wyrms.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "classes": [
+            "DRUID",
+            "HUNTER"
+        ],
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59026,
+        "flavor": "Really goes the extra mile to get the Hay+.",
+        "health": 5,
+        "id": "SCH_244",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "multiClassGroup": "DRUID_HUNTER",
+        "name": "Teacher's Pet",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon a\nrandom 3-Cost Beast.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ware Lee",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59027,
+        "flavor": "Oh dang it, I spilled ink elemental all over my essay!",
+        "health": 4,
+        "id": "SCH_245",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER",
+            "SPELLPOWER"
+        ],
+        "name": "Steward of Scrolls",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>\n<b>Battlecry:</b> <b>Discover</b> a spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 59038,
+        "flavor": "\"Report to the bookstore to buy your books, the alchemist to buy your potions, and then get your wands at the… wandryroom?\"",
+        "id": "SCH_247",
+        "name": "First Day of School",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Add 2 random 1-Cost minions to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoe Feng",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59039,
+        "flavor": "The pen is also a more aerodynamic short-range projectile than the sword.",
+        "health": 1,
+        "id": "SCH_248",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Pen Flinger",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "targetingArrowText": "Deal 1 damage.",
+        "text": "<b>Battlecry:</b> Deal 1 damage. <b>Spellburst:</b> Return this to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "PRIEST"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59083,
+        "flavor": "\"Flavor text? Eh. Can’t be bothered.\"",
+        "id": "SCH_250",
+        "multiClassGroup": "PALADIN_PRIEST",
+        "name": "Wave of Apathy",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Set the Attack of all enemy minions to 1 until your next turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59089,
+        "durability": 2,
+        "flavor": "Perfect for killing the first boss in Icecrown Citadel.",
+        "id": "SCH_252",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Marrowslicer",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 59092,
+        "flavor": "If you run 2 of these, would that make it the bi-cycle of hatred?",
+        "id": "SCH_253",
+        "name": "Cycle of Hatred",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Deal $3 damage to all minions. Summon a 3/3 Spirit for every minion killed.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59151,
+        "durability": 4,
+        "elite": true,
+        "flavor": "This is what it sounds like when spheres scry.",
+        "id": "SCH_259",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Sphere of Sapience",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]At the start of your turn,\nlook at your top card. You\ncan put it on the bottom\n and lose 1 Durability.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59213,
+        "flavor": "A long forgotten tome whose very essence seeps of magic. 40 dust, used.",
+        "id": "SCH_270",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "multiClassGroup": "MAGE_SHAMAN",
+        "name": "Primordial Studies",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Discover</b> a <b>Spell Damage</b> minion. Your next one costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Daria Tuzova",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59214,
+        "flavor": "Well, how would YOU celebrate after finals week?!",
+        "id": "SCH_271",
+        "name": "Molten Blast",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Deal $2 damage. Summon that many 1/1 Elementals.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Luke Mancini",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59216,
+        "elite": true,
+        "flavor": "Always the favorite of Headmaster Kel'Thuzad, Ras nonetheless received a chilly reception from the other faculty.",
+        "health": 6,
+        "id": "SCH_273",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "MAGE_SHAMAN",
+        "name": "Ras Frostwhisper",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "At the end of your turn,\ndeal $1 damage to all enemies <i>(improved by <b>Spell Damage</b>)</i>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59230,
+        "flavor": "Hates waiting. Abhors chit chat. Fond of the color purple.",
+        "health": 3,
+        "id": "SCH_276",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Magehunter",
+        "rarity": "RARE",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Rush</b>\nWhenever this attacks a minion, <b>Silence</b> it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Kagi",
+        "attack": 1,
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "HUNTER",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59233,
+        "durability": 4,
+        "flavor": "You could have just pointed.",
+        "id": "SCH_279",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "HUNTER_DEMONHUNTER",
+        "name": "Trueaim Crescent",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "After your Hero attacks a minion, your minions attack it too.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59259,
+        "flavor": "Feeds on mana, crystal kibble, and whatever it was you were just snacking on.",
+        "health": 3,
+        "id": "SCH_283",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Manafeeder Panthara",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> If you've used your Hero Power this turn, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58782,
+        "flavor": "A good read but a little too much fluff.",
+        "id": "SCH_300",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Carrion Studies",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Discover</b> a <b>Deathrattle</b> minion. Your next one costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Kagi",
+        "attack": 1,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 58790,
+        "durability": 3,
+        "flavor": "Turns out being stabbed makes you more vulnerable to magic.",
+        "id": "SCH_301",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Rune Dagger",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "After your hero attacks, gain <b>Spell Damage +1</b> this turn.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "PRIEST"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 58791,
+        "flavor": "You get a small version of yourself in a snow globe to remember the moment.",
+        "id": "SCH_302",
+        "multiClassGroup": "PALADIN_PRIEST",
+        "name": "Gift of Luminance",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Give a minion <b>Divine Shield</b>, then summon a 1/1 copy of it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Dave Allsop",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 58794,
+        "flavor": "I use this to sneak out at night and do some villainous baking in the kitchen.",
+        "id": "SCH_305",
+        "name": "Secret Passage",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "Replace your hand with 5 cards from your deck. Swap back next turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Steven Prescott",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 58796,
+        "flavor": "\"B-E A-G-G-R-E-S-S-I-V-E!\"",
+        "id": "SCH_307",
+        "name": "School Spirits",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Deal $2 damage to all\nminions. Shuffle 2 Soul\nFragments into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59013,
+        "flavor": "\"Professor, a gnome burned my homework!\"",
+        "health": 3,
+        "id": "SCH_310",
+        "mechanics": [
+            "SPELLPOWER"
+        ],
+        "name": "Lab Partner",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59029,
+        "flavor": "\"Blimey, that's a Stratocumulus 1000!\"",
+        "health": 1,
+        "id": "SCH_311",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Animated Broomstick",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Rush</b>\n<b>Battlecry:</b> Give your other minions <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59035,
+        "flavor": "\"Here is the original blueprint for the Academy grounds! Don't mind those so-called dark chambers… They'll be at the end of the tour.\"",
+        "health": 1,
+        "id": "SCH_312",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tour Guide",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Your next Hero Power costs (0).",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59036,
+        "flavor": "\"If you like my tutoring, you'll love my sister the art therapist, my father the driver, and my mother the housekeeper.\"",
+        "health": 5,
+        "id": "SCH_313",
+        "name": "Wretched Tutor",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Deal 2 damage to all other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ursula Dorada",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59101,
+        "flavor": "\"Here's the plan: you go left, I go right, and the wounded guy takes the hit.\"",
+        "health": 3,
+        "id": "SCH_317",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Playmaker",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "[x]After you play a <b>Rush</b>\nminion, summon a copy\n with 1 Health remaining.",
+        "type": "MINION"
+    },
+    {
+        "artist": "SARIYA",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59163,
+        "flavor": "\"I have a first edition! Go ahead, count the rings.\"",
+        "id": "SCH_333",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Nature Studies",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Discover</b> a spell. Your next one costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 6,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 59175,
+        "flavor": "\"Prepare for trouble!\"\n\"Make it double!\"",
+        "health": 8,
+        "id": "SCH_337",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Troublemaker",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "At the end of your turn, summon two 3/3 Ruffians that attack random enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59188,
+        "flavor": "This is why Scholomance engineering students prefer C++.",
+        "health": 2,
+        "id": "SCH_340",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Bloated Python",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Deathrattle:</b> Summon a 4/4 Hapless Handler.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59192,
+        "flavor": "It has no taste.",
+        "health": 5,
+        "id": "SCH_343",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Void Drinker",
+        "race": "DEMON",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Taunt</b>. <b>Battlecry:</b> Destroy\na Soul Fragment in your\ndeck to gain +3/+3.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & A. Zemskov",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59540,
+        "flavor": "Sally is friends with three Silverhand Recruits conveniently standing in a line. After casting this spell, how many friends does she have left? (Show your work.)",
+        "id": "SCH_348",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Combustion",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Deal $4 damage to\na minion. Any excess\ndamages both neighbors.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59556,
+        "flavor": "\"What’re ya buyin’?”",
+        "health": 2,
+        "id": "SCH_350",
+        "mechanics": [
+            "COMBO",
+            "DISCOVER"
+        ],
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "Wand Thief",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Combo:</b> <b>Discover</b> a Mage spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59609,
+        "elite": true,
+        "flavor": "Her parents own Scholomance. Of course she's going to play tricks on the students!",
+        "health": 1,
+        "id": "SCH_351",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "Jandice Barov",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> Summon two\nrandom 5-Cost minions.\nSecretly pick one that dies\n when it takes damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59621,
+        "flavor": "Unfortunately, there's no potion that can make you unsee all the faces in that bottle.",
+        "id": "SCH_352",
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "Potion of Illusion",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "Add 1/1 copies of your minions to your hand. They cost (1).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59639,
+        "flavor": "The font of the arcane gives nearly limitless access to power and energy! But it can't keep you awake, for that we still use coffee.",
+        "id": "SCH_353",
+        "name": "Cram Session",
+        "rarity": "RARE",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Draw $1 cards <i>(improved by <b>Spell Damage</b>)</i>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 10,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 60143,
+        "flavor": "What happened to my 1/1 Void Pup? And the glee club?!",
+        "health": 10,
+        "id": "SCH_354",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ancient Void Hound",
+        "race": "DEMON",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]At the end of your turn,\nsteal 1 Attack and Health\nfrom all enemy minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 60151,
+        "flavor": "Enjoys a good soul-crushing defeat.",
+        "health": 2,
+        "id": "SCH_355",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shardshatter Mystic",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Destroy a Soul Fragment in your deck to deal 3 damage to all other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 60153,
+        "flavor": "\"Come with me, and you'll see, a whole new hand of possibly the same cards.\"",
+        "id": "SCH_356",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Glide",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Shuffle your hand into\nyour deck. Draw 4 cards.\n<b>Outcast:</b> Your opponent\ndoes the same.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 60164,
+        "flavor": "What happened after the guardians tripped? They Fel.",
+        "id": "SCH_357",
+        "name": "Fel Guardians",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Summon three 1/2 Demons with <b>Taunt</b>. Costs (1) less whenever a friendly minion dies.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 58770,
+        "elite": true,
+        "flavor": "Treats her students like her peers, which means defeating them in one-sided duels all day long.",
+        "health": 8,
+        "id": "SCH_400",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Mozaki, Master Duelist",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "After you cast a spell, gain <b>Spell Damage +1</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59606,
+        "flavor": "The key to every speed run.",
+        "id": "SCH_422",
+        "name": "Double Jump",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "OUTCAST"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Draw an <b>Outcast</b> card from your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "ROGUE",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59690,
+        "elite": true,
+        "flavor": "He is not a medical doctor.",
+        "health": 4,
+        "id": "SCH_425",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "ROGUE_WARRIOR",
+        "name": "Doctor Krastinov",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Rush</b>\nWhenever this attacks, give your weapon +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59691,
+        "elite": true,
+        "flavor": "She'll get to the bottom of this even if it kills her. Twice!",
+        "health": 2,
+        "id": "SCH_426",
+        "mechanics": [
+            "DEATHRATTLE",
+            "STEALTH"
+        ],
+        "name": "Infiltrator Lilian",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Stealth</b>\n<b>Deathrattle:</b> Summon a 4/2\nForsaken Lilian that attacks\na random enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vlad Botos",
+        "cardClass": "DRUID",
+        "classes": [
+            "DRUID",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 60016,
+        "flavor": "Curiously, this plant never blooms in the same place twice.",
+        "id": "SCH_427",
+        "mechanics": [
+            "OVERLOAD"
+        ],
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Lightning Bloom",
+        "overload": 2,
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Gain 2 Mana Crystals this turn only.\n<b>Overload:</b> (2)",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 60278,
+        "elite": true,
+        "flavor": "quicksort [] = [] quicksort (x:xs) = quicksort small ++ (x : quicksort large) where small = [y | y <- xs, y <= x] large = [y | y <- xs, y > x]",
+        "health": 5,
+        "id": "SCH_428",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lorekeeper Polkelt",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> Reorder your deck\nfrom the highest Cost card\nto the lowest Cost card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59164,
+        "elite": true,
+        "flavor": "When you have fire in your heart, even death can't stop you.",
+        "health": 3,
+        "id": "SCH_507",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Instructor Fireheart",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> <b>Discover</b> a spell\nthat costs (1) or more.\nIf you play it this turn,\nrepeat this effect.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59207,
+        "flavor": "\"The professor called on me, and I totally froze!\"",
+        "id": "SCH_509",
+        "mechanics": [
+            "COMBO"
+        ],
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "Brain Freeze",
+        "rarity": "RARE",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Freeze</b> a minion. <b>Combo:</b> Also deal $3 damage to it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59221,
+        "flavor": "The things a murloc's gotta go through to graduate from Scholomance…",
+        "id": "SCH_512",
+        "name": "Initiation",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Deal $4 damage to a minion. If that kills it, summon a new copy.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "classes": [
+            "PRIEST",
+            "WARLOCK"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59222,
+        "flavor": "Broke many a leg in drama class.",
+        "health": 3,
+        "id": "SCH_513",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "multiClassGroup": "PRIEST_WARLOCK",
+        "name": "Brittlebone Destroyer",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "targetingArrowText": "Destroy a minion.",
+        "text": "[x]<b>Battlecry:</b> If your hero's\nHealth changed this turn,\ndestroy a minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "PRIEST",
+        "classes": [
+            "PRIEST",
+            "WARLOCK"
+        ],
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 59223,
+        "flavor": "Technically, it’s just really late healing.",
+        "id": "SCH_514",
+        "multiClassGroup": "PRIEST_WARLOCK",
+        "name": "Raise Dead",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Deal $3 damage to your hero. Return two friendly minions that died this game to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59263,
+        "flavor": "Imagine having the power of soul magic and using it as a reading light.",
+        "health": 4,
+        "id": "SCH_517",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shadowlight Scholar",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "targetingArrowText": "Deal 3 damage.",
+        "text": "<b>Battlecry:</b> Destroy a Soul Fragment in your deck to deal 3 damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59400,
+        "flavor": "The blade works well enough on its own… but this is just in case.",
+        "health": 3,
+        "id": "SCH_519",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Vulpera Toxinblade",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Your weapon has +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "ROGUE",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59402,
+        "flavor": "\"Give me your lunch money, or the sandwich gets it!\"",
+        "id": "SCH_521",
+        "mechanics": [
+            "COMBO"
+        ],
+        "multiClassGroup": "ROGUE_WARRIOR",
+        "name": "Coerce",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Destroy a damaged minion. <b>Combo:</b> Destroy any minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Gonzalo Ordonez",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "ROGUE",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59403,
+        "flavor": "Pretty powerful if you blade your cards right.",
+        "health": 4,
+        "id": "SCH_522",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "multiClassGroup": "ROGUE_WARRIOR",
+        "name": "Steeldancer",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> Summon a random\nminion with Cost equal to\nyour weapon's Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59408,
+        "durability": 2,
+        "flavor": "For the most discerning of hall monitors.",
+        "id": "SCH_523",
+        "multiClassGroup": "PALADIN_WARRIOR",
+        "name": "Ceremonial Maul",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst</b>: Summon a Student with <b>Taunt</b> and stats equal to the spell's Cost.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59409,
+        "flavor": "\"Sir, this shield would've been more helpful last turn!\"",
+        "id": "SCH_524",
+        "multiClassGroup": "PALADIN_WARRIOR",
+        "name": "Shield of Honor",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Give a damaged minion +3 Attack and <b>Divine Shield</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59410,
+        "flavor": "None can doubt the strength of the Scholomance student body.",
+        "id": "SCH_525",
+        "name": "In Formation!",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Add 2 random <b>Taunt</b> minions to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59411,
+        "elite": true,
+        "flavor": "Alexei Barov stayed at Scholomance despite leasing it to Kel’Thuzad. He says it’s for \"supervision.\"",
+        "health": 2,
+        "id": "SCH_526",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "multiClassGroup": "PALADIN_WARRIOR",
+        "name": "Lord Barov",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> Set the Health\nof all other minions to 1.\n<b>Deathrattle:</b> Deal 1 damage\nto all minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Agatha Zhou",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59576,
+        "flavor": "This substitute's substitution is a dangerous institution.",
+        "health": 6,
+        "id": "SCH_530",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sorcerous Substitute",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> If you have <b>Spell Damage</b>, summon a copy of this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59594,
+        "flavor": "These are my shields. There are at least two like them, and both are mine.",
+        "health": 2,
+        "id": "SCH_532",
+        "mechanics": [
+            "DIVINE_SHIELD"
+        ],
+        "name": "Goody Two-Shields",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Divine Shield</b>\n<b>Spellburst:</b> Gain <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 59602,
+        "flavor": "\"Remember, graduates—you carry a heavy weight on your shoulders now.\"",
+        "id": "SCH_533",
+        "multiClassGroup": "PALADIN_WARRIOR",
+        "name": "Commencement",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Summon a minion from your deck. Give it <b>Taunt</b> and <b>Divine Shield</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 59694,
+        "flavor": "\"Hang Four, mon!\"",
+        "id": "SCH_535",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Tidal Wave",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Lifesteal</b>\nDeal $3 damage to\nall minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59703,
+        "flavor": "It knows how to sit still and do tricks. Still working on rolling over, though.",
+        "health": 3,
+        "id": "SCH_537",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "MAGE_SHAMAN",
+        "name": "Trick Totem",
+        "race": "TOTEM",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "At the end of your turn, cast a random spell that costs (3) or less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "HUNTER",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 60003,
+        "elite": true,
+        "flavor": "This grandmaster marksman loves winning tournaments and eating a bit of ice cream.",
+        "health": 4,
+        "id": "SCH_538",
+        "mechanics": [
+            "AURA"
+        ],
+        "multiClassGroup": "HUNTER_DEMONHUNTER",
+        "name": "Ace Hunter Kreen",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Your other characters are <b>Immune</b> while attacking.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 60004,
+        "elite": true,
+        "flavor": "\"Don’t worry, this will be over in a second. It might FEEL like an eternity, but I assure you, it’s quite quick!\"",
+        "health": 4,
+        "id": "SCH_539",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Professor Slate",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Your spells are <b>Poisonous</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "HUNTER",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59394,
+        "flavor": "Owning a pet can be real hell at times.",
+        "id": "SCH_600",
+        "multiClassGroup": "HUNTER_DEMONHUNTER",
+        "name": "Demon Companion",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Summon a random Demon Companion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59395,
+        "elite": true,
+        "flavor": "Cheating is just using your resources wisely.",
+        "health": 3,
+        "id": "SCH_603",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Star Student Stelina",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Outcast:</b> Look at 3 cards\nin your opponent's hand.\nShuffle one of them\ninto their deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59449,
+        "flavor": "Scholomance student Brewfest prank gone terribly, terribly awry.",
+        "id": "SCH_604",
+        "name": "Overwhelm",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Deal $2 damage to a minion. Deal one more damage for each Beast you control.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59452,
+        "flavor": "\"There’s a monster in the lake?!\" \n\"That’s not a monster, that’s Gary.\"",
+        "health": 6,
+        "id": "SCH_605",
+        "name": "Lake Thresher",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Also damages the minions next to whomever\nthis attacks.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59456,
+        "flavor": "In every group assignment, someone does all the legwork.",
+        "id": "SCH_606",
+        "name": "Partner Assignment",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Add a random 2-Cost and 3-Cost Beast to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "classes": [
+            "DRUID",
+            "HUNTER"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59457,
+        "elite": true,
+        "flavor": "She holds both an academic post and a scratching post.",
+        "health": 3,
+        "id": "SCH_607",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "multiClassGroup": "DRUID_HUNTER",
+        "name": "Shan'do Wildclaw",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Choose One -</b> Give Beasts\nin your deck +1/+1; or\nTransform into a copy\nof a friendly Beast.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 59450,
+        "flavor": "Sometimes the fittest is the one smart enough to not start a fight with seven 6/6 Treants.",
+        "id": "SCH_609",
+        "name": "Survival of the Fittest",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "Give +4/+4 to all minions in your hand, deck, and battlefield.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "cardClass": "HUNTER",
+        "classes": [
+            "DRUID",
+            "HUNTER"
+        ],
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 59539,
+        "flavor": "The guidelines specifically state: \"Students may also bring an ironbeak owl OR an alleycat OR a toad.\" They never said how big.",
+        "id": "SCH_610",
+        "multiClassGroup": "DRUID_HUNTER",
+        "name": "Guardian Animals",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Summon two Beasts that cost (5) or less from your deck. Give them <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "DRUID",
+        "classes": [
+            "DRUID",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59542,
+        "flavor": "\"That totem was beautiful… and you runed it!\"",
+        "id": "SCH_612",
+        "mechanics": [
+            "CHOOSE_ONE",
+            "OVERLOAD"
+        ],
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Runic Carvings",
+        "overload": 2,
+        "rarity": "EPIC",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Choose One -</b> Summon four 2/2 Treant Totems; or <b>Overload:</b> (2) to summon them with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Eva Widermann",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "classes": [
+            "DRUID",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59553,
+        "flavor": "It’s tricky for dryads to tend the garden without trampling the flowers.",
+        "health": 5,
+        "id": "SCH_613",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Groundskeeper",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "targetingArrowText": "Restore 5 Health.",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> If you're holding a\nspell that costs (5) or more,\nrestore 5 Health.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59555,
+        "elite": true,
+        "flavor": "She wishes all things could grow and flourish at Scholomance. If only she knew…",
+        "health": 4,
+        "id": "SCH_614",
+        "name": "Forest Warden Omu",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Spellburst:</b> Refresh your Mana Crystals.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59558,
+        "flavor": "It was an art project, and nobody knew when to stop.",
+        "health": 5,
+        "id": "SCH_615",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Totem Goliath",
+        "race": "TOTEM",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Deathrattle:</b> Summon all four basic Totems.\n<b>Overload: (2)</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59614,
+        "flavor": "Every morning you find two dead cards at your doorstep.",
+        "health": 4,
+        "id": "SCH_616",
+        "mechanics": [
+            "STEALTH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Twilight Runner",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Stealth</b>\nWhenever this attacks, draw 2 cards.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "HUNTER",
+        "classes": [
+            "DRUID",
+            "HUNTER"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59705,
+        "flavor": "Some cards are strong by sheer power; others draw strength from love.",
+        "id": "SCH_617",
+        "multiClassGroup": "DRUID_HUNTER",
+        "name": "Adorable Infestation",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Give a minion +1/+1. Summon a 1/1 Cub. Add a Cub to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 1,
+        "cardClass": "DEMONHUNTER",
+        "classes": [
+            "HUNTER",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59720,
+        "flavor": "\"Red Blood, it gives you wings.\"",
+        "health": 1,
+        "id": "SCH_618",
+        "multiClassGroup": "HUNTER_DEMONHUNTER",
+        "name": "Blood Herald",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "Whenever a friendly minion dies while this is in your hand, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 9,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 59947,
+        "elite": true,
+        "flavor": "He looks bad now, but he was pretty handsome in his 20/20s.",
+        "health": 9,
+        "id": "SCH_621",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Rattlegore",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Deathrattle:</b> Resummon this with -1/-1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Kagi",
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 59989,
+        "durability": 4,
+        "flavor": "You no longer have to bring a stack of #2 swords to a test!",
+        "id": "SCH_622",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Self-Sharpening Sword",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "After your hero attacks, gain +1 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "ROGUE",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 60023,
+        "flavor": "When you actually are the sharpest tool in the shed.",
+        "id": "SCH_623",
+        "multiClassGroup": "ROGUE_WARRIOR",
+        "name": "Cutting Class",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Draw 2 cards.\nCosts (1) less per Attack\nof your weapon.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ben Olson",
+        "attack": 1,
+        "cardClass": "WARLOCK",
+        "classes": [
+            "WARLOCK",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59724,
+        "flavor": "\"Sure, they're in your deck, but the mind is like, the REAL prison.\"",
+        "health": 3,
+        "id": "SCH_700",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "multiClassGroup": "WARLOCK_DEMONHUNTER",
+        "name": "Spirit Jailer",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "cardClass": "WARLOCK",
+        "classes": [
+            "WARLOCK",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59725,
+        "flavor": "\"Just a little off the sides please.\"",
+        "id": "SCH_701",
+        "multiClassGroup": "WARLOCK_DEMONHUNTER",
+        "name": "Soul Shear",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Deal $3 damage to a\nminion. Shuffle 2 Soul\nFragments into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Adam Byrne",
+        "cardClass": "WARLOCK",
+        "classes": [
+            "WARLOCK",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 59726,
+        "flavor": "\"Like, isn't evil subjective man?\"",
+        "id": "SCH_702",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "multiClassGroup": "WARLOCK_DEMONHUNTER",
+        "name": "Felosophy",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Copy the lowest Cost\nDemon in your hand.\n<b>Outcast:</b> Give both +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Steven Prescott",
+        "attack": 5,
+        "cardClass": "WARLOCK",
+        "classes": [
+            "WARLOCK",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "collectionText": "<b>Battlecry:</b> For each Soul Fragment in your deck, summon a 3/3 Soul with <b>Rush</b>.",
+        "cost": 7,
+        "dbfId": 59727,
+        "elite": true,
+        "flavor": "If you value your life, don't call it a \"soft science.\"",
+        "health": 5,
+        "id": "SCH_703",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "multiClassGroup": "WARLOCK_DEMONHUNTER",
+        "name": "Soulciologist Malicia",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> For each Soul Fragment in your deck, summon a 3/3 Soul with <b>Rush</b>.@ <i>(@)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59732,
+        "flavor": "Also known as a soul sequincer.",
+        "health": 5,
+        "id": "SCH_704",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Soulshard Lapidary",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> Destroy a Soul\nFragment in your deck to\ngive your hero +5 Attack\nthis turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Axer",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59753,
+        "flavor": "My Vilefiend Trainers give me a much better sprint than my Air Gul'dans.",
+        "health": 4,
+        "id": "SCH_705",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Vilefiend Trainer",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Outcast:</b> Summon two 1/1 Demons.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59877,
+        "flavor": "Copying is just using your resources wisely.",
+        "id": "SCH_706",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Plagiarize",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Secret:</b> At the end of your opponent's turn, add copies of the cards they played to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 59911,
+        "flavor": "Like a fish out of water.",
+        "health": 3,
+        "id": "SCH_707",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Fishy Flyer",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost with <b>Rush</b> to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 59914,
+        "flavor": "All right, now open your lid and say \"Ahh!\"",
+        "health": 1,
+        "id": "SCH_708",
+        "mechanics": [
+            "DEATHRATTLE",
+            "STEALTH"
+        ],
+        "name": "Sneaky Delinquent",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Stealth</b>. <b>Deathrattle:</b> Add a 3/1 Ghost with <b>Stealth</b> to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59916,
+        "flavor": "You want to see something funny? Go visit him in five years.",
+        "health": 7,
+        "id": "SCH_709",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Smug Senior",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost with <b>Taunt</b> to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ben Olson",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 59918,
+        "flavor": "After their third attempt, Tharg began to suspect that Krul was summoning the skeletons on purpose.",
+        "health": 7,
+        "id": "SCH_710",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ogremancer",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "[x]Whenever your opponent\ncasts a spell, summon a 2/2\nSkeleton with <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 59948,
+        "flavor": "\"What’s in the drake?! WHAT’S IN THE DRAKE?\"",
+        "health": 8,
+        "id": "SCH_711",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Plagued Protodrake",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Deathrattle:</b> Summon a random 7-Cost minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eric Browning",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 59963,
+        "flavor": "She's judge, jury, and junior!",
+        "health": 9,
+        "id": "SCH_712",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Judicious Junior",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 60043,
+        "flavor": "Make a new recruit's deficiencies your efficiencies.",
+        "health": 2,
+        "id": "SCH_713",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Cult Neophyte",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Your opponent's spells cost (1) more next turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Cheng Hao",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 60090,
+        "flavor": "\"This reminds me of a saying. 'An elekk never…' something. I can't remember.\"",
+        "health": 4,
+        "id": "SCH_714",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Educated Elekk",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Whenever a spell is played,\nthis minion remembers it.\n<b>Deathrattle:</b> Shuffle the\nspells into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61174,
+        "elite": true,
+        "flavor": "The key to his mastery is a solid stack of backup copies.",
+        "health": 8,
+        "id": "SCH_717",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Keymaster Alabaster",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "[x]Whenever your opponent\n draws a card, add a copy to \n your hand that costs (1).",
         "type": "MINION"
     },
     {
@@ -42987,7 +45674,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "text": "After your hero takes damage on your turn, summon a random\n3-Cost minion.",
+        "text": "Whenever your hero takes damage on your turn, summon a random\n3-Cost minion.",
         "type": "MINION"
     },
     {

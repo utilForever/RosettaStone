@@ -1715,6 +1715,54 @@ TEST_CASE("[Mage : Minion] - ULD_293 : Cloud Prince")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [ULD_324] Impbalming - COST:4
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy a minion. Shuffle 3 Worthless Imps into your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[WARLOCK : SPELL] - ULD_324 : Impbalming")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Impbalming"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 3);
+    CHECK_EQ(curDeck[0]->card->name, "Worthless Imp");
+}
+
 // ------------------------------------------ MINION - MAGE
 // [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3]
 // - Set: Uldum, Rarity: Rare
