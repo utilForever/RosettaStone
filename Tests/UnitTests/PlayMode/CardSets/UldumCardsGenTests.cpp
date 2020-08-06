@@ -2524,6 +2524,67 @@ TEST_CASE("[Rogue : Minion] - ULD_231 : Whirlkick Master")
     CHECK_EQ(curHand[2]->card->HasGameTag(GameTag::COMBO), true);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [ULD_280] Sahket Sapper - COST:4 [ATK:4/HP:4]
+// - Race: Pirate, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Return a random enemy minion
+//       to your opponent's hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_280 : Sahket Sapper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    for(int i = 0; i < 10; i++) 
+    {
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sahket Sapper"));
+    }
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0])); 
+    Generic::DrawCard(curPlayer, Cards::FindCardByName("Sahket Sapper"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card1 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Sahket Sapper"));
+    const auto card2 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Sahket Sapper"));
+    const auto card3 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Eviscerate"));
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opHand.GetCount(), 2);     // 'The Coin' and returned 'Sahket Sapper'
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common

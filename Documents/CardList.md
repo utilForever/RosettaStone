@@ -708,7 +708,7 @@ ULDUM | ULD_273 | Overflow | O
 ULDUM | ULD_274 | Wasteland Assassin | O
 ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
-ULDUM | ULD_280 | Sahket Sapper |  
+ULDUM | ULD_280 | Sahket Sapper | O
 ULDUM | ULD_282 | Jar Dealer |  
 ULDUM | ULD_285 | Hooked Scimitar |  
 ULDUM | ULD_286 | Shadow of Death |  
