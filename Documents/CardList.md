@@ -710,7 +710,7 @@ ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
 ULDUM | ULD_280 | Sahket Sapper | O
 ULDUM | ULD_282 | Jar Dealer |  
-ULDUM | ULD_285 | Hooked Scimitar |  
+ULDUM | ULD_285 | Hooked Scimitar | O
 ULDUM | ULD_286 | Shadow of Death |  
 ULDUM | ULD_288 | Anka, the Buried |  
 ULDUM | ULD_289 | Fishflinger | O

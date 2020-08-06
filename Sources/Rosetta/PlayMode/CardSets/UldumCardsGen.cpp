@@ -1453,6 +1453,11 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    power.AddComboTask(std::make_shared<AddEnchantmentTask>(
+        "ULD_285e", EntityType::SOURCE, true));
+    cards.emplace("ULD_285", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_286] Shadow of Death - COST:4
@@ -1532,12 +1537,17 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [ULD_285e] Polished (*) - COST:0
     // - Set: Uldum
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_285e"));
+    cards.emplace("ULD_285e", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_286t] Shadow (*) - COST:4

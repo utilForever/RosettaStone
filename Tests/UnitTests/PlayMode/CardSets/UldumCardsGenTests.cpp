@@ -2585,6 +2585,48 @@ TEST_CASE("[Rogue : Minion] - ULD_280 : Sahket Sapper")
     CHECK_EQ(opHand.GetCount(), 2);     // 'The Coin' and returned 'Sahket Sapper'
 }
 
+// ----------------------------------------- WEAPON - ROGUE
+// [ULD_285] Hooked Scimitar - COST:3 [ATK:2/HP:0]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Gain +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Weapon] - ULD_285 : Hooked Scimitar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common
