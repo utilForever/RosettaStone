@@ -1458,7 +1458,6 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - COMBO = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(nullptr);
     power.AddComboTask(std::make_shared<AddEnchantmentTask>(
         "ULD_285e", EntityType::SOURCE, true));
     cards.emplace("ULD_285", CardDef(power));
@@ -1483,7 +1482,7 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
             }
             
             std::map<GameTag, int> tags;
-            tags.emplace(GameTag::TEMPORARY_SAVED_DBFID, target->card->dbfID);
+            tags.emplace(GameTag::TAG_SCRIPT_DATA_NUM_1, target->card->dbfID);
 
             for (int i = 0; i < 3; i++)
             {
@@ -1592,7 +1591,7 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     power.AddTopdeckTask(std::make_shared<CustomTask>(
         [](Player* player, Entity* source, Playable* target) {
             const int dbfID =
-                source->GetGameTag(GameTag::TEMPORARY_SAVED_DBFID);
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
             Playable* minion =
                 Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID));
             Generic::Summon(dynamic_cast<Minion*>(minion), -1, player);
@@ -1600,7 +1599,7 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, Entity* source, Playable* target) {
             const int dbfID =
-                source->GetGameTag(GameTag::TEMPORARY_SAVED_DBFID);
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
             Playable* minion =
                 Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID));
             Generic::Summon(dynamic_cast<Minion*>(minion), -1, player);

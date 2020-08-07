@@ -2582,6 +2582,7 @@ TEST_CASE("[Rogue : Minion] - ULD_280 : Sahket Sapper")
     
     CHECK_EQ(curField.GetCount(), 0);
     CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 10);
     CHECK_EQ(opHand.GetCount(), 2);     // 'The Coin' and returned 'Sahket Sapper'
 }
 
