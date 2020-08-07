@@ -4,6 +4,9 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Copy.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
@@ -38,6 +41,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -1470,6 +1474,29 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            if (target == nullptr)
+            {
+                return;
+            }
+            
+            std::map<GameTag, int> tags;
+            tags.emplace(GameTag::TEMPORARY_SAVED_DBFID, target->card->dbfID);
+
+            for (int i = 0; i < 3; i++)
+            {
+                Playable* shadow =
+                    Entity::GetFromCard(player, Cards::FindCardByID("ULD_286t"), 
+                                        tags, player->GetDeckZone());
+                Generic::ShuffleIntoDeck(player, source, shadow);
+            }
+        }));
+    cards.emplace(
+        "ULD_286",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 }, 
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [ULD_288] Anka, the Buried - COST:5 [ATK:5/HP:5]
@@ -1561,6 +1588,24 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, Playable* target) {
+            const int dbfID =
+                source->GetGameTag(GameTag::TEMPORARY_SAVED_DBFID);
+            Playable* minion =
+                Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID));
+            Generic::Summon(dynamic_cast<Minion*>(minion), -1, player);
+        }));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, Playable* target) {
+            const int dbfID =
+                source->GetGameTag(GameTag::TEMPORARY_SAVED_DBFID);
+            Playable* minion =
+                Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID));
+            Generic::Summon(dynamic_cast<Minion*>(minion), -1, player);
+        }));
+    cards.emplace("ULD_286t", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [ULD_326t] Mirage Blade (*) - COST:2 [ATK:3/HP:0]

@@ -711,7 +711,7 @@ ULDUM | ULD_276 | EVIL Totem |
 ULDUM | ULD_280 | Sahket Sapper | O
 ULDUM | ULD_282 | Jar Dealer |  
 ULDUM | ULD_285 | Hooked Scimitar | O
-ULDUM | ULD_286 | Shadow of Death |  
+ULDUM | ULD_286 | Shadow of Death | O
 ULDUM | ULD_288 | Anka, the Buried |  
 ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  

@@ -2627,6 +2627,57 @@ TEST_CASE("[Rogue : Weapon] - ULD_285 : Hooked Scimitar")
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [ULD_286] Shadow of Death - COST:4
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Choose a minion. Shuffle 3 'Shadows' into your deck
+//       that summon a copy when drawn.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - ULD_286 : Shadow of Death")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dread Raven"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadow of Death"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fan of Knives"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    CHECK_EQ(curField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 12);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common
