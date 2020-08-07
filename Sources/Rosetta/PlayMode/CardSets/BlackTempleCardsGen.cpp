@@ -4,9 +4,6 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -20,17 +17,6 @@ void BlackTempleCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ------------------------------------------ SPELL - DRUID
-    // [BT_130] Overgrowth - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Gain two empty Mana Crystals.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ManaCrystalTask>(2, false));
-    cards.emplace("BT_130", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddDruidNonCollect(
