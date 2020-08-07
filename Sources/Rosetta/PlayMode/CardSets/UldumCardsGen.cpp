@@ -2122,6 +2122,7 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddDeathrattleTask(std::make_shared<DrawTask>(8));
     cards.emplace("ULD_177", CardDef(power));
+
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_178] Siamat - COST:7 [ATK:6/HP:6]
     // - Race: Elemental, Set: Uldum, Rarity: Legendary
