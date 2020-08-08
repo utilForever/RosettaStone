@@ -67,6 +67,7 @@ void Power::ClearData()
     m_topdeckTask.clear();
     m_afterChooseTask.clear();
     m_outcastTask.clear();
+    m_spellburstTask.clear();
 }
 
 void Power::AddAura(std::shared_ptr<IAura> aura)
