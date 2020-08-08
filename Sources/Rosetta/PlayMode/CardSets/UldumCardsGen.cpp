@@ -2178,6 +2178,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(8));
+    cards.emplace("ULD_177", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_178] Siamat - COST:7 [ATK:6/HP:6]
@@ -2310,6 +2313,11 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 5));
+    cards.emplace(
+        "ULD_190",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 }}));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_191] Beaming Sidekick - COST:1 [ATK:1/HP:2]
