@@ -1795,11 +1795,9 @@ TEST_CASE("[Rogue : Minion] - ULD_327 : Bazaar Mugger")
     opPlayer->SetUsedMana(0);
 
     auto& curHand = *(curPlayer->GetHandZone());
-
-    CHECK_EQ(curHand.GetCount(), 1);
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Bazaar Mugger"));
+    CHECK_EQ(curHand.GetCount(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 1);
