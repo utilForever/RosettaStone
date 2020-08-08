@@ -674,12 +674,12 @@ ULDUM | ULD_193 | Living Monument | O
 ULDUM | ULD_194 | Wasteland Scorpid | O
 ULDUM | ULD_195 | Frightened Flunky |  
 ULDUM | ULD_196 | Neferset Ritualist |  
-ULDUM | ULD_197 | Quicksand Elemental |  
-ULDUM | ULD_198 | Conjured Mirage |  
+ULDUM | ULD_197 | Quicksand Elemental | O
+ULDUM | ULD_198 | Conjured Mirage | O
 ULDUM | ULD_205 | Candletaker | O
 ULDUM | ULD_206 | Restless Mummy | O
 ULDUM | ULD_207 | Ancestral Guardian | O
-ULDUM | ULD_208 | Khartut Defender |  
+ULDUM | ULD_208 | Khartut Defender | O
 ULDUM | ULD_209 | Vulpera Scoundrel |  
 ULDUM | ULD_212 | Wild Bloodstinger | O
 ULDUM | ULD_214 | Generous Mummy |  
@@ -692,7 +692,7 @@ ULDUM | ULD_236 | Tortollan Pilgrim | O
 ULDUM | ULD_238 | Reno the Relicologist | O
 ULDUM | ULD_239 | Flame Ward | O
 ULDUM | ULD_240 | Arcane Flakmage | O
-ULDUM | ULD_250 | Infested Goblin |  
+ULDUM | ULD_250 | Infested Goblin | O
 ULDUM | ULD_253 | Tomb Warden |  
 ULDUM | ULD_256 | Into the Fray |  
 ULDUM | ULD_258 | Armagedillo |  
@@ -700,16 +700,16 @@ ULDUM | ULD_262 | High Priest Amet |
 ULDUM | ULD_265 | Embalming Ritual |  
 ULDUM | ULD_266 | Grandmummy |  
 ULDUM | ULD_268 | Psychopomp |  
-ULDUM | ULD_269 | Wretched Reclaimer |  
-ULDUM | ULD_270 | Sandhoof Waterbearer |  
+ULDUM | ULD_269 | Wretched Reclaimer | O
+ULDUM | ULD_270 | Sandhoof Waterbearer | O
 ULDUM | ULD_271 | Injured Tol'vir | O
-ULDUM | ULD_272 | Holy Ripple |  
+ULDUM | ULD_272 | Holy Ripple | O
 ULDUM | ULD_273 | Overflow | O
 ULDUM | ULD_274 | Wasteland Assassin | O
 ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
 ULDUM | ULD_280 | Sahket Sapper |  
-ULDUM | ULD_282 | Jar Dealer |  
+ULDUM | ULD_282 | Jar Dealer | O
 ULDUM | ULD_285 | Hooked Scimitar |  
 ULDUM | ULD_286 | Shadow of Death |  
 ULDUM | ULD_288 | Anka, the Buried |  
@@ -746,11 +746,11 @@ ULDUM | ULD_709 | Armored Goon |
 ULDUM | ULD_711 | Hack the System |  
 ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts | O
-ULDUM | ULD_714 | Penance |  
+ULDUM | ULD_714 | Penance | O
 ULDUM | ULD_715 | Plague of Madness |  
 ULDUM | ULD_716 | Tip the Scales |  
 ULDUM | ULD_717 | Plague of Flames |  
-ULDUM | ULD_718 | Plague of Death |  
+ULDUM | ULD_718 | Plague of Death | O
 ULDUM | ULD_719 | Desert Hare |  
 ULDUM | ULD_720 | Bloodsworn Mercenary |  
 ULDUM | ULD_721 | Colossus of the Moon | O
@@ -760,7 +760,7 @@ ULDUM | ULD_726 | Ancient Mysteries | O
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 35% (48 of 135 Cards)
+- Progress: 45% (62 of 135 Cards)
 
 ## Descent of Dragons
 
@@ -1123,7 +1123,7 @@ SCHOLOMANCE | SCH_182 | Speaker Gidra |
 SCHOLOMANCE | SCH_199 | Transfer Student |  
 SCHOLOMANCE | SCH_224 | Headmaster Kel'Thuzad |  
 SCHOLOMANCE | SCH_230 | Onyx Magescribe |  
-SCHOLOMANCE | SCH_231 | Intrepid Initiate |  
+SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
 SCHOLOMANCE | SCH_232 | Crimson Hothead |  
 SCHOLOMANCE | SCH_233 | Draconic Studies |  
 SCHOLOMANCE | SCH_234 | Shifty Sophomore |  
@@ -1233,4 +1233,4 @@ SCHOLOMANCE | SCH_713 | Cult Neophyte |
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 0% (1 of 135 Cards)

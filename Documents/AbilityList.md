@@ -46,6 +46,7 @@
 * [x] Reborn
 * [ ] Recruit
 * [x] Sidequest
+* [x] Spellburst
 * [ ] Start of Game
 * [x] Twinspell
 
@@ -71,6 +72,7 @@
 * [x] Enchant
 * [x] Enrage
 * [x] Equip
+* [ ] Force attack
 * [ ] Forgetful
 * [x] Gain Armor
 * [x] Generate
