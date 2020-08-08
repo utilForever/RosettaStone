@@ -2374,7 +2374,6 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     //       all minions and awaken
     //       after 3 Warders die.)</i>
     // --------------------------------------------------------
-
 }
 
 void BlackTempleCardsGen::AddAll(std::map<std::string, CardDef>& cards)
