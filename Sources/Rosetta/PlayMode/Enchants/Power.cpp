@@ -113,4 +113,9 @@ void Power::AddOutcastTask(std::shared_ptr<ITask> task)
 {
     m_outcastTask.emplace_back(task);
 }
+
+void Power::AddSpellburstTask(std::shared_ptr<ITask> task)
+{
+    m_spellburstTask.emplace_back(task);
+}
 }  // namespace RosettaStone::PlayMode

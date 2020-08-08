@@ -102,6 +102,10 @@ class Power
     //! \param task A pointer to outcast task.
     void AddOutcastTask(std::shared_ptr<ITask> task);
 
+    //! Adds spellburst task.
+    //! \param task A pointer to spellburst task.
+    void AddSpellburstTask(std::shared_ptr<ITask> task);
+
  private:
     std::shared_ptr<IAura> m_aura;
     std::shared_ptr<Enchant> m_enchant;
