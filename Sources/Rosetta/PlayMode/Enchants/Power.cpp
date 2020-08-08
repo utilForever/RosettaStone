@@ -55,6 +55,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetOutcastTask()
     return m_outcastTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetSpellburstTask()
+{
+    return m_spellburstTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();

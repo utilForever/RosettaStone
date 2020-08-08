@@ -63,6 +63,10 @@ class Power
     //! \return A list of outcast tasks.
     std::vector<std::shared_ptr<ITask>>& GetOutcastTask();
 
+    //! Returns a list of spellburst tasks.
+    //! \return A list of spellburst tasks.
+    std::vector<std::shared_ptr<ITask>>& GetSpellburstTask();
+
     //! Clears power task and enchant.
     void ClearData();
 
