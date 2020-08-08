@@ -62,6 +62,10 @@ class RandomCardTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
+    static const std::vector<Card*>& GetCardList(
+        Entity* source,
+        CardClass cardClass);
+
     CardType m_cardType = CardType::INVALID;
     CardClass m_cardClass = CardClass::INVALID;
     Race m_race = Race::INVALID;

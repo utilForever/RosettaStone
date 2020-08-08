@@ -52,106 +52,59 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
 {
     std::vector<Card*> result;
 
-    if (cardClass == CardClass::INVALID)
+    const auto cards = GetCardList(source, cardClass);
+    for (const auto& card : cards)
     {
-        const auto cards = source->game->GetFormatType() == FormatType::STANDARD
-                               ? Cards::GetAllStandardCards()
-                               : Cards::GetAllWildCards();
-
-        for (const auto& card : cards)
+        if ((cardType == CardType::INVALID ||
+             cardType == card->GetCardType()) &&
+            (race == Race::INVALID || race == card->GetRace()) &&
+            (rarity == Rarity::INVALID || rarity == card->GetRarity()))
         {
-            if ((cardType == CardType::INVALID ||
-                 cardType == card->GetCardType()) &&
-                (race == Race::INVALID || race == card->GetRace()) &&
-                (rarity == Rarity::INVALID || rarity == card->GetRarity()))
+            bool check = true;
+
+            for (auto& tag : tags)
             {
-                bool check = true;
-
-                for (auto& tag : tags)
+                if (!card->HasGameTag(tag.first) ||
+                    card->gameTags[tag.first] != tag.second)
                 {
-                    if (!card->HasGameTag(tag.first) ||
-                        card->gameTags[tag.first] != tag.second)
-                    {
-                        check = false;
-                        break;
-                    }
-                }
-
-                if (check)
-                {
-                    result.emplace_back(card);
+                    check = false;
+                    break;
                 }
             }
-        }
-    }
-    else if (cardClass == CardClass::PLAYER_CLASS)
-    {
-        const auto playerClass =
-            source->player->GetHero()->card->GetCardClass();
-        const auto cards = source->game->GetFormatType() == FormatType::STANDARD
-                               ? Cards::GetStandardCards(playerClass)
-                               : Cards::GetWildCards(playerClass);
 
-        for (const auto& card : cards)
-        {
-            if ((cardType == CardType::INVALID ||
-                 cardType == card->GetCardType()) &&
-                (race == Race::INVALID || race == card->GetRace()) &&
-                (rarity == Rarity::INVALID || rarity == card->GetRarity()))
+            if (check)
             {
-                bool check = true;
-
-                for (auto& tag : tags)
-                {
-                    if (!card->HasGameTag(tag.first) ||
-                        card->gameTags[tag.first] != tag.second)
-                    {
-                        check = false;
-                        break;
-                    }
-                }
-
-                if (check)
-                {
-                    result.emplace_back(card);
-                }
-            }
-        }
-    }
-    else
-    {
-        const auto cards = source->game->GetFormatType() == FormatType::STANDARD
-                               ? Cards::GetStandardCards(cardClass)
-                               : Cards::GetWildCards(cardClass);
-
-        for (const auto& card : cards)
-        {
-            if ((cardType == CardType::INVALID ||
-                 cardType == card->GetCardType()) &&
-                (race == Race::INVALID || race == card->GetRace()) &&
-                (rarity == Rarity::INVALID || rarity == card->GetRarity()))
-            {
-                bool check = true;
-
-                for (auto& tag : tags)
-                {
-                    if (!card->HasGameTag(tag.first) ||
-                        card->gameTags[tag.first] != tag.second)
-                    {
-                        check = false;
-                        break;
-                    }
-                }
-
-                if (check)
-                {
-                    result.emplace_back(card);
-                }
+                result.emplace_back(card);
             }
         }
     }
 
     return result;
+}
+
+const std::vector<Card*>& RandomCardTask::GetCardList(
+    Entity* source, CardClass cardClass)
+{
+    if (cardClass == CardClass::INVALID)
+    {
+        return source->game->GetFormatType() == FormatType::STANDARD
+           ? Cards::GetAllStandardCards()
+           : Cards::GetAllWildCards();
+    }
+    else if(cardClass == CardClass::PLAYER_CLASS)
+    {
+        const auto playerClass =
+            source->player->GetHero()->card->GetCardClass();
+        return source->game->GetFormatType() == FormatType::STANDARD
+           ? Cards::GetStandardCards(playerClass)
+           : Cards::GetWildCards(playerClass);
+    }
+    else
+    {
+        return source->game->GetFormatType() == FormatType::STANDARD
+           ? Cards::GetStandardCards(cardClass)
+           : Cards::GetWildCards(cardClass);
+    }
 }
 
 TaskStatus RandomCardTask::Impl(Player* player)
