@@ -2524,6 +2524,49 @@ TEST_CASE("[Rogue : Minion] - ULD_231 : Whirlkick Master")
     CHECK_EQ(curHand[2]->card->HasGameTag(GameTag::COMBO), true);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [ULD_715] Plague of Madness - COST:1
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Each player equips a 2/2 Knife with <b>Poisonous</b>.
+// --------------------------------------------------------
+// GameTag:
+// - 858 = 2451
+// --------------------------------------------------------
+// RefTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+
+TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Plague of Madness"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 2);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common

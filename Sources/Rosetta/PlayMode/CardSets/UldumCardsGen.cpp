@@ -37,6 +37,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -1523,10 +1524,16 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_715t"));
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_715t", true));
+    cards.emplace("ULD_715", CardDef(power));
 }
 
 void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [ULD_285e] Polished (*) - COST:0
     // - Set: Uldum
@@ -1570,6 +1577,9 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_715t", CardDef(power));
 }
 
 void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
