@@ -70,6 +70,12 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                     check = false;
                     break;
                 }
+
+                if (cardClass == CardClass::ANOTHER_CLASS &&
+                    source->player->GetHero()->card->GetCardClass() != cardClass)
+                {
+                    check = false;
+                }
             }
 
             if (check)
@@ -85,7 +91,8 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
 const std::vector<Card*>& RandomCardTask::GetCardList(
     Entity* source, CardClass cardClass)
 {
-    if (cardClass == CardClass::INVALID)
+    if (cardClass == CardClass::INVALID ||
+        cardClass == CardClass::ANOTHER_CLASS)
     {
         return source->game->GetFormatType() == FormatType::STANDARD
            ? Cards::GetAllStandardCards()
