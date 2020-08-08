@@ -155,6 +155,11 @@ bool Character::HasMegaWindfury() const
            player->playerAuraEffects.GetValue(GameTag::MEGA_WINDFURY) > 0;
 }
 
+bool Character::HasSpellburst() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::SPELLBURST));
+}
+
 bool Character::CanAttack() const
 {
     //! If the current player is opponent, returns false
