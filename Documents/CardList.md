@@ -656,7 +656,7 @@ ULDUM | ULD_171 | Totemic Surge |
 ULDUM | ULD_172 | Plague of Murlocs |  
 ULDUM | ULD_173 | Vessina |  
 ULDUM | ULD_174 | Serpent Egg | O
-ULDUM | ULD_177 | Octosari |  
+ULDUM | ULD_177 | Octosari |  O
 ULDUM | ULD_178 | Siamat |  
 ULDUM | ULD_179 | Phalanx Commander |  
 ULDUM | ULD_180 | Sunstruck Henchman |  
@@ -668,7 +668,7 @@ ULDUM | ULD_185 | Temple Berserker |
 ULDUM | ULD_186 | Pharaoh Cat | O
 ULDUM | ULD_188 | Golden Scarab |  
 ULDUM | ULD_189 | Faceless Lurker |  
-ULDUM | ULD_190 | Pit Crocolisk |  
+ULDUM | ULD_190 | Pit Crocolisk |  O
 ULDUM | ULD_191 | Beaming Sidekick | O
 ULDUM | ULD_193 | Living Monument | O
 ULDUM | ULD_194 | Wasteland Scorpid | O
