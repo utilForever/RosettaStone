@@ -112,6 +112,11 @@ bool Minion::HasReborn() const
     return static_cast<bool>(GetGameTag(GameTag::REBORN));
 }
 
+bool Minion::CanAttack() const
+{
+    return Character::CanAttack() && !IsUntouchable();
+}
+
 void Minion::Silence()
 {
     SetGameTag(GameTag::TAUNT, 0);

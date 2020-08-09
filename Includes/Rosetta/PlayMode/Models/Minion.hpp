@@ -82,6 +82,10 @@ class Minion : public Character
     //! \return The flag that indicates whether it has reborn.
     bool HasReborn() const;
 
+    //! Returns whether attack is possible.
+    //! \return Whether attack is possible.
+    bool CanAttack() const override;
+
     //! Disables all special effects on this minion.
     void Silence();
 
