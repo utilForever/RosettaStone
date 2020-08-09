@@ -52,6 +52,10 @@ class RandomCardTask : public ITask
         CardClass cardClass = CardClass::INVALID, Race race = Race::INVALID,
         Rarity rarity = Rarity::INVALID, std::map<GameTag, int> tags = {});
 
+    static const std::vector<Card*>& GetCardList(
+        Entity* source,
+        CardClass cardClass);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -61,10 +65,6 @@ class RandomCardTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
-
-    static const std::vector<Card*>& GetCardList(
-        Entity* source,
-        CardClass cardClass);
 
     CardType m_cardType = CardType::INVALID;
     CardClass m_cardClass = CardClass::INVALID;
