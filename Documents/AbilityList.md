@@ -33,8 +33,8 @@
 * [x] Charge
 * [ ] Choose Twice
 * [x] Counter
-* [ ] Dormant
-* [X] Echo
+* [x] Dormant
+* [x] Echo
 * [x] Immune
 * [ ] Inspire
 * [x] Invoke

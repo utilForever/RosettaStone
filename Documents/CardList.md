@@ -1032,7 +1032,7 @@ BLACK_TEMPLE | BT_254 | Sethekk Veilweaver |
 BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |  
 BLACK_TEMPLE | BT_256 | Dragonmaw Overseer |  
 BLACK_TEMPLE | BT_257 | Apotheosis |  
-BLACK_TEMPLE | BT_258 | Imprisoned Homunculus |  
+BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
 BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel |  
 BLACK_TEMPLE | BT_291 | Apexis Blast |  
 BLACK_TEMPLE | BT_292 | Hand of A'dal |  
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 0% (1 of 135 Cards)
 
 ## Scholomance Academy
 
