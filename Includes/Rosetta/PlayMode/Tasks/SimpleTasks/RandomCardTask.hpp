@@ -52,6 +52,10 @@ class RandomCardTask : public ITask
         CardClass cardClass = CardClass::INVALID, Race race = Race::INVALID,
         Rarity rarity = Rarity::INVALID, std::map<GameTag, int> tags = {});
 
+    //! Returns card list that fits the criteria.
+    //! \param source The source entity.
+    //! \param cardClass The class of card to filter.
+    //! \return A list of cards that fits the criteria (i.e., \p cardClass).
     static const std::vector<Card*>& GetCardList(
         Entity* source,
         CardClass cardClass);
