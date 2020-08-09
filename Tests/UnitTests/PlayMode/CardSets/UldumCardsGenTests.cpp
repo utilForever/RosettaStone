@@ -1763,6 +1763,48 @@ TEST_CASE("[WARLOCK : SPELL] - ULD_324 : Impbalming")
     CHECK_EQ(curDeck[0]->card->name, "Worthless Imp");
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [ULD_327] Bazaar Mugger - COST:5 [ATK:3/HP:5]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Battlecry:</b> Add a random minion
+//       from another class to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_327 : Bazaar Mugger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bazaar Mugger"));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_NE(curHand[0]->card->GetCardClass(), CardClass::ROGUE);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3]
 // - Set: Uldum, Rarity: Rare
