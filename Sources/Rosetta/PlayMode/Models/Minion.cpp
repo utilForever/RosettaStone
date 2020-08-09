@@ -84,7 +84,7 @@ bool Minion::IsLackey() const
 
 bool Minion::IsUntouchable() const
 {
-    return card->IsUntouchable();
+    return static_cast<bool>(GetGameTag(GameTag::UNTOUCHABLE));
 }
 
 bool Minion::HasCharge() const
