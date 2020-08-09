@@ -1,9 +1,13 @@
-// This code is based on Sabberstone project.
+﻿// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -116,11 +120,37 @@ void ScholomanceCardsGen::AddDualNonCollect(
 
 void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
+    // - Set: Scholomance, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Spellburst:</b> Gain +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<AddEnchantmentTask>("SCH_231e", EntityType::SOURCE));
+    cards.emplace("SCH_231", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_231e] Ready for School (*) - COST:0
+    // - Set: Scholomance
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_231e"));
+    cards.emplace("SCH_231e", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddAll(std::map<std::string, CardDef>& cards)

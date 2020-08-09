@@ -33,8 +33,8 @@
 * [x] Charge
 * [ ] Choose Twice
 * [x] Counter
-* [ ] Dormant
-* [X] Echo
+* [x] Dormant
+* [x] Echo
 * [x] Immune
 * [ ] Inspire
 * [x] Invoke
@@ -46,6 +46,7 @@
 * [x] Reborn
 * [ ] Recruit
 * [x] Sidequest
+* [x] Spellburst
 * [ ] Start of Game
 * [x] Twinspell
 
@@ -71,6 +72,7 @@
 * [x] Enchant
 * [x] Enrage
 * [x] Equip
+* [ ] Force attack
 * [ ] Forgetful
 * [x] Gain Armor
 * [x] Generate
