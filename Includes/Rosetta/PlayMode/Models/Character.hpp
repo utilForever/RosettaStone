@@ -143,7 +143,7 @@ class Character : public Playable
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
-    bool CanAttack() const;
+    virtual bool CanAttack() const;
 
     //! Returns whether it can't attack.
     //! \return Whether it can't attack.
