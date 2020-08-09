@@ -2524,6 +2524,161 @@ TEST_CASE("[Rogue : Minion] - ULD_231 : Whirlkick Master")
     CHECK_EQ(curHand[2]->card->HasGameTag(GameTag::COMBO), true);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [ULD_280] Sahket Sapper - COST:4 [ATK:4/HP:4]
+// - Race: Pirate, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Return a random enemy minion
+//       to your opponent's hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_280 : Sahket Sapper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    for(int i = 0; i < 10; i++) 
+    {
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sahket Sapper"));
+    }
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0])); 
+    Generic::DrawCard(curPlayer, Cards::FindCardByName("Sahket Sapper"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card1 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Sahket Sapper"));
+    const auto card2 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Sahket Sapper"));
+    const auto card3 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Eviscerate"));
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 10);
+    CHECK_EQ(opHand.GetCount(), 2);     // 'The Coin' and returned 'Sahket Sapper'
+}
+
+// ----------------------------------------- WEAPON - ROGUE
+// [ULD_285] Hooked Scimitar - COST:3 [ATK:2/HP:0]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Gain +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Weapon] - ULD_285 : Hooked Scimitar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [ULD_286] Shadow of Death - COST:4
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Choose a minion. Shuffle 3 'Shadows' into your deck
+//       that summon a copy when drawn.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - ULD_286 : Shadow of Death")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dread Raven"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadow of Death"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fan of Knives"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    CHECK_EQ(curField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 12);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common

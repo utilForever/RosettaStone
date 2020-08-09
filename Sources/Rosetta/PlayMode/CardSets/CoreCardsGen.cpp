@@ -462,7 +462,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
-    // [CS2_013] Wild Growth - COST:2
+    // [CS2_013] Wild Growth - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Gain an empty Mana Crystal.
