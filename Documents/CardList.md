@@ -656,7 +656,7 @@ ULDUM | ULD_171 | Totemic Surge |
 ULDUM | ULD_172 | Plague of Murlocs |  
 ULDUM | ULD_173 | Vessina |  
 ULDUM | ULD_174 | Serpent Egg | O
-ULDUM | ULD_177 | Octosari |  
+ULDUM | ULD_177 | Octosari |  O
 ULDUM | ULD_178 | Siamat |  
 ULDUM | ULD_179 | Phalanx Commander |  
 ULDUM | ULD_180 | Sunstruck Henchman |  
@@ -668,7 +668,7 @@ ULDUM | ULD_185 | Temple Berserker |
 ULDUM | ULD_186 | Pharaoh Cat | O
 ULDUM | ULD_188 | Golden Scarab |  
 ULDUM | ULD_189 | Faceless Lurker |  
-ULDUM | ULD_190 | Pit Crocolisk |  
+ULDUM | ULD_190 | Pit Crocolisk |  O
 ULDUM | ULD_191 | Beaming Sidekick | O
 ULDUM | ULD_193 | Living Monument | O
 ULDUM | ULD_194 | Wasteland Scorpid | O
@@ -708,10 +708,10 @@ ULDUM | ULD_273 | Overflow | O
 ULDUM | ULD_274 | Wasteland Assassin | O
 ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
-ULDUM | ULD_280 | Sahket Sapper |  
+ULDUM | ULD_280 | Sahket Sapper | O
 ULDUM | ULD_282 | Jar Dealer |  
-ULDUM | ULD_285 | Hooked Scimitar |  
-ULDUM | ULD_286 | Shadow of Death |  
+ULDUM | ULD_285 | Hooked Scimitar | O
+ULDUM | ULD_286 | Shadow of Death | O
 ULDUM | ULD_288 | Anka, the Buried |  
 ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
@@ -721,8 +721,8 @@ ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
 ULDUM | ULD_324 | Impbalming | O
-ULDUM | ULD_326 | Bazaar Burglary |  
-ULDUM | ULD_327 | Bazaar Mugger |  
+ULDUM | ULD_326 | Bazaar Burglary |   
+ULDUM | ULD_327 | Bazaar Mugger | O  
 ULDUM | ULD_328 | Clever Disguise |  
 ULDUM | ULD_329 | Dune Sculptor | O
 ULDUM | ULD_410 | Scarlet Webweaver | O
@@ -987,13 +987,13 @@ BLACK_TEMPLE | BT_115 | Marshspawn |
 BLACK_TEMPLE | BT_117 | Bladestorm |  
 BLACK_TEMPLE | BT_120 | Warmaul Challenger |  
 BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
-BLACK_TEMPLE | BT_123 | Kargath Bladefist |  
-BLACK_TEMPLE | BT_124 | Corsair Cache |  
+BLACK_TEMPLE | BT_123 | Kargath Bladefist | O 
+BLACK_TEMPLE | BT_124 | Corsair Cache | O 
 BLACK_TEMPLE | BT_126 | Teron Gorefiend |  
 BLACK_TEMPLE | BT_127 | Imprisoned Satyr |  
 BLACK_TEMPLE | BT_128 | Fungal Fortunes |  
 BLACK_TEMPLE | BT_129 | Germination |  
-BLACK_TEMPLE | BT_130 | Overgrowth |  
+BLACK_TEMPLE | BT_130 | Overgrowth | O 
 BLACK_TEMPLE | BT_131 | Ysiel Windsinger |  
 BLACK_TEMPLE | BT_132 | Ironbark |  
 BLACK_TEMPLE | BT_133 | Marsh Hydra |  
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 2% (3 of 135 Cards)
 
 ## Scholomance Academy
 
