@@ -98,7 +98,7 @@ const std::vector<Card*>& RandomCardTask::GetCardList(
            ? Cards::GetAllStandardCards()
            : Cards::GetAllWildCards();
     }
-    else if(cardClass == CardClass::PLAYER_CLASS)
+    else if (cardClass == CardClass::PLAYER_CLASS)
     {
         const auto playerClass =
             source->player->GetHero()->card->GetCardClass();
