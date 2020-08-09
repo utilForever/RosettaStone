@@ -70,12 +70,12 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                     check = false;
                     break;
                 }
+            }
 
-                if (cardClass == CardClass::ANOTHER_CLASS &&
-                    source->player->GetHero()->card->GetCardClass() != cardClass)
-                {
-                    check = false;
-                }
+            if (cardClass == CardClass::ANOTHER_CLASS &&
+                source->player->GetHero()->card->GetCardClass() != cardClass)
+            {
+                check = false;
             }
 
             if (check)
