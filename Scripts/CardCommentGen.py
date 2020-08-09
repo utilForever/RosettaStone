@@ -4,7 +4,10 @@ import json
 def cardCommentGen(card):
     div = "\n// --------------------------------------------------------"
     comm = "\n// "
-    str_format = "//#"+'%56s' % ("#"+card['type']+"#-#"+card['cardClass'])
+    if "cardClass" in card.keys():
+        str_format = "//#"+'%56s' % ("#"+card['type']+"#-#"+card['cardClass'])
+    else:
+        str_format = "//#"+'%56s' % ("#"+card['type'])
     str_format = str_format.replace(" ", "-")
     str_format = str_format.replace("#", " ")
     str_format = str_format + comm + "[" + card['id'] + "] " + card['name'] + " - COST: "
@@ -50,7 +53,7 @@ def cardCommentGen(card):
     return str_format
 
 
-def setCommentGen(target_set):
+def setCommentGen(target_set, target_id):
     Heroes = []
     HeroPowers = []
     Druid = []
@@ -77,13 +80,13 @@ def setCommentGen(target_set):
     DualNonCollect = []
     Neutral = []
     NeutralNonCollect = []
-    Exceptions = []
+    NoneClass = []
 
     all = [Heroes, HeroPowers, Druid, DruidNonCollect, Hunter, HunterNonCollect, Mage,
            MageNonCollect, Paladin, PaladinNonCollect, Priest, PriestNonCollect,
            Rogue, RogueNonCollect, Shaman, ShamanNonCollect, Warlock, WarlockNonCollect,
            Warrior, WarriorNonCollect, DemonHunter, DemonHunterNonCollect, Dual, DualNonCollect,
-           Neutral, NeutralNonCollect, Exceptions]
+           Neutral, NeutralNonCollect, NoneClass]
 
     all_names = ["Heroes", "HeroPowers", "Druid", "DruidNonCollect", "Hunter", "HunterNonCollect", "Mage",
                  "MageNonCollect", "Paladin", "PaladinNonCollect", "Priest", "PriestNonCollect",
@@ -100,6 +103,8 @@ def setCommentGen(target_set):
     for card in card_data:
         if card['set'] != target_set:
             continue
+        if card['id'].split("_")[0] != target_id:
+            continue
         # count the number of cards in target set
         total_cnt+=1
         if "collectible" in card.keys() and card["collectible"] == True:
@@ -114,8 +119,9 @@ def setCommentGen(target_set):
             data = data + "\n" + "\n"
             HeroPowers.append(data)
         elif "cardClass" not in card.keys():
-            warning = "These cards does not belong to any class: " + card['name'] + " (" + card['id'] + ")\n"
-            Exceptions.append(warning)
+            data = cardCommentGen(card)
+            data = data + "\n" + "\n"
+            NoneClass.append(data)
         elif card["cardClass"] == "DRUID":
             data = cardCommentGen(card)
             data = data + "\n" + "\n"
@@ -215,7 +221,9 @@ def setCommentGen(target_set):
 if __name__ == '__main__':
     target_set = input("Enter the name of the set to generate comments (ex: BLACK_TEMPLE, SCHOLOMANCE): ")
     target_set = target_set.upper()
-    total_count, collectible_count = setCommentGen(target_set)
+    target_id = input("Enter the first id of the set to generate comments (ex: BT, SCH): ")
+    target_id = target_id.upper()
+    total_count, collectible_count = setCommentGen(target_set,target_id)
     print("Total of {total_count} card comments are generated. "
           "\nTotal of {collectible_count} collectible card comments are generated.\n".
           format(total_count=total_count, collectible_count=collectible_count))
