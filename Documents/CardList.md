@@ -721,8 +721,8 @@ ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
 ULDUM | ULD_324 | Impbalming | O
-ULDUM | ULD_326 | Bazaar Burglary |  
-ULDUM | ULD_327 | Bazaar Mugger |  
+ULDUM | ULD_326 | Bazaar Burglary |   
+ULDUM | ULD_327 | Bazaar Mugger | O  
 ULDUM | ULD_328 | Clever Disguise |  
 ULDUM | ULD_329 | Dune Sculptor | O
 ULDUM | ULD_410 | Scarlet Webweaver | O
@@ -987,8 +987,8 @@ BLACK_TEMPLE | BT_115 | Marshspawn |
 BLACK_TEMPLE | BT_117 | Bladestorm |  
 BLACK_TEMPLE | BT_120 | Warmaul Challenger |  
 BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
-BLACK_TEMPLE | BT_123 | Kargath Bladefist |  
-BLACK_TEMPLE | BT_124 | Corsair Cache |  
+BLACK_TEMPLE | BT_123 | Kargath Bladefist | O 
+BLACK_TEMPLE | BT_124 | Corsair Cache | O 
 BLACK_TEMPLE | BT_126 | Teron Gorefiend |  
 BLACK_TEMPLE | BT_127 | Imprisoned Satyr |  
 BLACK_TEMPLE | BT_128 | Fungal Fortunes |  
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 2% (3 of 135 Cards)
 
 ## Scholomance Academy
 

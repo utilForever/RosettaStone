@@ -4,12 +4,24 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+
 void BlackTempleCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
 }
@@ -103,11 +115,87 @@ void BlackTempleCardsGen::AddWarlockNonCollect(
 
 void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // ----------------------------------------- MINION - WARRIOR
+    // [BT_123] Kargath Bladefist - COST:4 [ATK:4/HP:4]
+    // - Set: BLACK_TEMPLE, Rarity: LEGENDARY
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       <b>Deathrattle:</b> Shuffle
+    //       'Kargath Prime'
+    //       into your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - RUSH = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "BT_123t"));
+    cards.emplace("BT_123", CardDef(power));
+
+    // ----------------------------------------- SPELL - WARRIOR
+    // [BT_124] Corsair Cache - COST:2
+    // - Set: BLACK_TEMPLE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw a weapon.
+    //       Give it +1 Durability.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsWeapon()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_124e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("BT_124", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
+    // ----------------------------------------- MINION - WARRIOR
+    // [BT_123t] Kargath Prime - COST:8 [ATK:10/HP:10]
+    // - Set: BLACK_TEMPLE
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. Whenever this attacks and kills a minion, gain 10 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { 
+        std::make_shared<ConditionTask>(
+            EntityType::SOURCE, 
+            SelfCondList {
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsDefenderDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsEventTargetIs(CardType::MINION))
+            }),
+        std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<ArmorTask>(10) })
+    };
+    cards.emplace("BT_123t", CardDef(power));
+
+    // ----------------------------------------- ENCHANTMENT - WARRIOR
+    // [BT_124e] Void Sharpened
+    // - Set: BLACK_TEMPLE
+    // --------------------------------------------------------
+    // Text: +1 Durability.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(
+        std::make_shared<Effect>(GameTag::DURABILITY, EffectOperator::ADD, 1)));
+    cards.emplace("BT_124e", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)

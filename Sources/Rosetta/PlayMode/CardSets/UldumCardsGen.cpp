@@ -1503,6 +1503,11 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::ANOTHER_CLASS));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("ULD_327", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_328] Clever Disguise - COST:2
