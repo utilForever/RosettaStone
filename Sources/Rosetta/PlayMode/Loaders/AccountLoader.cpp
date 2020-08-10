@@ -45,7 +45,7 @@ AccountInfo* AccountLoader::Load(std::string email) const
 
         auto nickname = j["nickname"].get<std::string>();
 
-        std::vector<DeckInfo*> decks;
+        std::vector<std::shared_ptr<DeckInfo>> decks;
         decks.reserve(j["decks"].size());
 
         if (!j["decks"].is_null())
@@ -56,7 +56,7 @@ AccountInfo* AccountLoader::Load(std::string email) const
                     StrToEnum<CardClass>(deck["class"].get<std::string>());
                 const std::string deckName = deck["name"].get<std::string>();
 
-                DeckInfo* d = new DeckInfo(deckName, deckClass);
+                auto d = std::make_shared<DeckInfo>(deckName, deckClass);
                 for (auto& card : deck["cards"])
                 {
                     const std::string cardID = card["id"].get<std::string>();

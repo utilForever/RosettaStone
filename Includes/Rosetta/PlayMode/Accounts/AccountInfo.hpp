@@ -9,6 +9,7 @@
 
 #include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace RosettaStone::PlayMode
@@ -37,7 +38,7 @@ class AccountInfo
     //! \param nickname Nickname of account.
     //! \param decks A list of decks.
     AccountInfo(std::string&& email, std::string&& nickname,
-                std::vector<DeckInfo*> decks);
+                std::vector<std::shared_ptr<DeckInfo>> decks);
 
     //! Returns e-mail address of account.
     //! \return E-mail address of account.
@@ -53,8 +54,8 @@ class AccountInfo
 
     //! Returns a pointer to deck at \p idx.
     //! \param idx Index of decks.
-    //! \return A pointer to deck at \p idx.
-    DeckInfo* GetDeck(std::size_t idx) const;
+    //! \return A shared pointer to deck at \p idx.
+    std::shared_ptr<DeckInfo> GetDeck(std::size_t idx) const;
 
     //! Prints a list of decks.
     void ShowDeckList() const;
@@ -73,7 +74,7 @@ class AccountInfo
  private:
     std::string m_email;
     std::string m_nickname;
-    std::vector<DeckInfo*> m_decks;
+    std::vector<std::shared_ptr<DeckInfo>> m_decks;
 };
 }  // namespace RosettaStone::PlayMode
 

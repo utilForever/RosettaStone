@@ -23,8 +23,7 @@ TEST_CASE("[AccountInfo] - Constructors")
     CHECK_EQ("1", player2.GetEmail());
     CHECK_EQ("name1", player2.GetNickname());
 
-    const std::vector<DeckInfo*> decks;
-    AccountInfo player3("2", "name2", decks);
+    AccountInfo player3("2", "name2", std::vector<std::shared_ptr<DeckInfo>>());
     CHECK_EQ("2", player3.GetEmail());
     CHECK_EQ("name2", player3.GetNickname());
     CHECK_EQ(0, static_cast<int>(player3.GetNumOfDeck()));

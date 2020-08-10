@@ -25,7 +25,7 @@ void AddAccountInfo(pybind11::module& m)
              nickname : Nickname of account.)pbdoc",
              pybind11::arg("email"), pybind11::arg("nickname"))
         .def(pybind11::init<std::string&&, std::string&&,
-                            std::vector<DeckInfo*>>(),
+                            std::vector<std::shared_ptr<DeckInfo>>>(),
              R"pbdoc(Constructs account with given email and nickname
              and fill deck list with decks.
 

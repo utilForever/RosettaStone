@@ -218,8 +218,8 @@ void Console::SimulateGame() const
     AccountInfo* p1 = loader.Load(user1);
     AccountInfo* p2 = loader.Load(user2);
 
-    DeckInfo* deck1 = p1->GetDeck(deckIndex1);
-    DeckInfo* deck2 = p2->GetDeck(deckIndex2);
+    std::shared_ptr<DeckInfo> deck1 = p1->GetDeck(deckIndex1);
+    std::shared_ptr<DeckInfo> deck2 = p2->GetDeck(deckIndex2);
 
     GameConfig config;
     config.player1Class = deck1->GetClass();
@@ -329,7 +329,7 @@ int Console::OperateDeck(std::size_t deckIndex)
 
 void Console::AddCardInDeck(std::size_t deckIndex)
 {
-    DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
+    std::shared_ptr<DeckInfo> deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() >= START_DECK_SIZE)
     {
@@ -383,7 +383,7 @@ void Console::AddCardInDeck(std::size_t deckIndex)
 
 void Console::DeleteCardInDeck(std::size_t deckIndex) const
 {
-    DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
+    std::shared_ptr<DeckInfo> deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() == 0)
     {

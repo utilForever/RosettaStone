@@ -24,7 +24,7 @@ AccountInfo::AccountInfo(std::string&& email, std::string&& nickname)
 }
 
 AccountInfo::AccountInfo(std::string&& email, std::string&& nickname,
-                         std::vector<DeckInfo*> decks)
+                         std::vector<std::shared_ptr<DeckInfo>> decks)
     : m_email(std::move(email)),
       m_nickname(std::move(nickname)),
       m_decks(std::move(decks))
@@ -47,7 +47,7 @@ std::size_t AccountInfo::GetNumOfDeck() const
     return m_decks.size();
 }
 
-DeckInfo* AccountInfo::GetDeck(std::size_t idx) const
+std::shared_ptr<DeckInfo> AccountInfo::GetDeck(std::size_t idx) const
 {
     return m_decks[idx];
 }
