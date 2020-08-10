@@ -74,10 +74,24 @@ void Attack(Player* player, Character* source, Character* target,
         }
     }
 
+	// Check poisonous weapon if hero attack
+    Hero* sourceHero = dynamic_cast<Hero*>(source);
+    bool isSourceHeroHasPoisonous =
+        sourceHero != nullptr && sourceHero->weapon != nullptr &&
+        sourceHero->weapon->GetGameTag(GameTag::POISONOUS) == 1;
+    
+	Hero* realTargetHero = dynamic_cast<Hero*>(realTarget);
+    bool isRealTargetHeroHasPoisonous =
+        realTargetHero != nullptr && realTargetHero->weapon != nullptr &&
+        realTargetHero->weapon->GetGameTag(GameTag::POISONOUS) == 1;
+
     // Destroy target if attacker is poisonous
-    if (isTargetDamaged && source->HasPoisonous())
+    if(source->HasPoisonous() || isSourceHeroHasPoisonous)
     {
-        realTarget->Destroy();
+        if (isTargetDamaged && realTargetHero == nullptr)
+        {
+			realTarget->Destroy();
+		}
     }
 
     // Ignore damage from defenders with 0 attack
@@ -97,9 +111,12 @@ void Attack(Player* player, Character* source, Character* target,
         }
 
         // Destroy source if defender is poisonous
-        if (isSourceDamaged && realTarget->HasPoisonous())
+        if (realTarget->HasPoisonous() || isRealTargetHeroHasPoisonous)
         {
-            source->Destroy();
+            if (isSourceDamaged && sourceHero == nullptr)
+            {
+                source->Destroy();
+            }
         }
     }
 
@@ -110,11 +127,10 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Remove durability from weapon if hero attack
-    Hero* hero = dynamic_cast<Hero*>(source);
-    if (hero != nullptr && hero->weapon != nullptr &&
-        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
+    if (sourceHero != nullptr && sourceHero->weapon != nullptr &&
+        sourceHero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        hero->weapon->RemoveDurability(1);
+        sourceHero->weapon->RemoveDurability(1);
     }
 
     // Increase the number of attacked

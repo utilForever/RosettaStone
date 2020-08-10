@@ -2754,14 +2754,33 @@ TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& opField = *(opPlayer->GetFieldZone());
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Plague of Madness"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+
     CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
     CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
     CHECK_EQ(opPlayer->GetHero()->weapon->GetAttack(), 2);
     CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->isDestroyed, false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // --------------------------------------- MINION - WARRIOR
