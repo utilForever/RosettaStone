@@ -137,9 +137,13 @@ class Character : public Playable
     //! \return The flag that indicates whether it has mega-windfury.
     bool HasMegaWindfury() const;
 
+    //! Returns the flag that indicates whether it has spellburst.
+    //! \return The flag that indicates whether it has spellburst.
+    bool HasSpellburst() const;
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
-    bool CanAttack() const;
+    virtual bool CanAttack() const;
 
     //! Returns whether it can't attack.
     //! \return Whether it can't attack.

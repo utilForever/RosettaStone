@@ -26,6 +26,7 @@ enum class PowerType
     DEATHRATTLE,
     COMBO,
     OUTCAST,
+    SPELLBURST,
     START_OF_COMBAT,
 };
 
