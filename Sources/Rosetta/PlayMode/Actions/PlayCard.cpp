@@ -339,6 +339,21 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
+    // Process spellburst tasks
+    player->game->taskQueue.StartEvent();
+
+    for (auto& minion : player->GetFieldZone()->GetAll())
+    {
+        if (!minion->isDestroyed && minion->HasSpellburst())
+        {
+            minion->ActivateTask(PowerType::SPELLBURST);
+            minion->SetGameTag(GameTag::SPELLBURST, 0);
+        }
+    }
+
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+
     const int val = player->GetNumSpellsPlayedThisTurn();
     player->SetNumSpellsPlayedThisTurn(val + 1);
     player->IncreaseNumSpellsPlayedThisGame();

@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
 
 #include <fstream>
+#include <regex>
 
 namespace RosettaStone::PlayMode
 {
@@ -138,6 +139,14 @@ void CardLoader::Load(std::vector<Card*>& cards)
         if (overload > 0)
         {
             card->gameTags[GameTag::OVERLOAD] = overload;
+        }
+
+        static std::regex spellburstRegex("(<b>Spellburst:</b>)");
+        std::smatch values;
+
+        if (std::regex_search(text, values, spellburstRegex))
+        {
+            card->gameTags[GameTag::SPELLBURST] = 1;
         }
 
         cards.emplace_back(card);

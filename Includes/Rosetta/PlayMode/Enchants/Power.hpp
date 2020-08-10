@@ -63,6 +63,10 @@ class Power
     //! \return A list of outcast tasks.
     std::vector<std::shared_ptr<ITask>>& GetOutcastTask();
 
+    //! Returns a list of spellburst tasks.
+    //! \return A list of spellburst tasks.
+    std::vector<std::shared_ptr<ITask>>& GetSpellburstTask();
+
     //! Clears power task and enchant.
     void ClearData();
 
@@ -102,6 +106,10 @@ class Power
     //! \param task A pointer to outcast task.
     void AddOutcastTask(std::shared_ptr<ITask> task);
 
+    //! Adds spellburst task.
+    //! \param task A pointer to spellburst task.
+    void AddSpellburstTask(std::shared_ptr<ITask> task);
+
  private:
     std::shared_ptr<IAura> m_aura;
     std::shared_ptr<Enchant> m_enchant;
@@ -113,6 +121,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_topdeckTask;
     std::vector<std::shared_ptr<ITask>> m_afterChooseTask;
     std::vector<std::shared_ptr<ITask>> m_outcastTask;
+    std::vector<std::shared_ptr<ITask>> m_spellburstTask;
 };
 }  // namespace RosettaStone::PlayMode
 

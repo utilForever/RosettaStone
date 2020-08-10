@@ -84,7 +84,7 @@ bool Minion::IsLackey() const
 
 bool Minion::IsUntouchable() const
 {
-    return card->IsUntouchable();
+    return static_cast<bool>(GetGameTag(GameTag::UNTOUCHABLE));
 }
 
 bool Minion::HasCharge() const
@@ -110,6 +110,11 @@ void Minion::SetAttackableByRush(bool attackable)
 bool Minion::HasReborn() const
 {
     return static_cast<bool>(GetGameTag(GameTag::REBORN));
+}
+
+bool Minion::CanAttack() const
+{
+    return Character::CanAttack() && !IsUntouchable();
 }
 
 void Minion::Silence()

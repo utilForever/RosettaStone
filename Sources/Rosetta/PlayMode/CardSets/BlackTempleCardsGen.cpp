@@ -1,4 +1,4 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
@@ -8,12 +8,14 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -812,6 +814,29 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::UNTOUCHABLE, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 2));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const int value =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
+            if (value <= 2)
+            {
+                source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
+            }
+
+            if (value + 1 == source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
+            {
+                source->SetGameTag(GameTag::UNTOUCHABLE, 0);
+                source->SetGameTag(GameTag::EXHAUSTED, 1);
+            }
+        }) };
+    cards.emplace("BT_258", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BT_262] Dragonmaw Sentinel - COST: 2 [ATK: 1/HP: 4]

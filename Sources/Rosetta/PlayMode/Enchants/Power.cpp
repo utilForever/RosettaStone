@@ -55,6 +55,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetOutcastTask()
     return m_outcastTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetSpellburstTask()
+{
+    return m_spellburstTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();
@@ -67,6 +72,7 @@ void Power::ClearData()
     m_topdeckTask.clear();
     m_afterChooseTask.clear();
     m_outcastTask.clear();
+    m_spellburstTask.clear();
 }
 
 void Power::AddAura(std::shared_ptr<IAura> aura)
@@ -112,5 +118,10 @@ void Power::AddAfterChooseTask(std::shared_ptr<ITask> task)
 void Power::AddOutcastTask(std::shared_ptr<ITask> task)
 {
     m_outcastTask.emplace_back(task);
+}
+
+void Power::AddSpellburstTask(std::shared_ptr<ITask> task)
+{
+    m_spellburstTask.emplace_back(task);
 }
 }  // namespace RosettaStone::PlayMode
