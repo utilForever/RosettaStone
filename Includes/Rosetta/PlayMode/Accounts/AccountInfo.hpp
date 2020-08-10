@@ -60,6 +60,9 @@ class AccountInfo
     //! Prints a list of decks.
     void ShowDeckList() const;
 
+    //! Adds the \param NewDeck into the account information.
+    void AddDeck(std::shared_ptr<DeckInfo> NewDeck);
+
     //! Creates a deck with given \p name and \p deckClass.
     //! \param name The name of deck.
     //! \param deckClass The class of deck.
