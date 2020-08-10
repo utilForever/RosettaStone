@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Loaders/AccountLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <lyra/cli_parser.hpp>
 #include <lyra/help.hpp>
@@ -286,7 +287,30 @@ void Console::ModifyDeck()
 
     OperateDeck(selectedDeck);
 }
+void Console::AddDeckCode()
+{
+    std::cout << "========================================\n";
+    std::cout << "          Add Deck With Code!           \n";
+    std::cout << "========================================\n";
 
+    std::cout << "Input the deck code to add :";
+
+    std::string DeckCode;
+    std::cin >> DeckCode;
+
+    DeckInfo NewDeck;
+    try
+    {
+        NewDeck = ::RosettaStone::PlayMode::DeckCode::Decode(DeckCode);
+    }
+    catch (const std::runtime_error& error)
+    {
+        std::cerr << error.what() << '\n';
+        return;
+    }
+
+    OperateDeck(m_account->GetNumOfDeck());
+}
 void Console::DeleteDeck() const
 {
     if (m_account->GetNumOfDeck() == 0)

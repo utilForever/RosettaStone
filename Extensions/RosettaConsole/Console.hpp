@@ -20,7 +20,7 @@
 
 constexpr std::size_t LOGIN_MENU_SIZE = 3;
 constexpr std::size_t MAIN_MENU_SIZE = 4;
-constexpr std::size_t MANAGE_DECK_MENU_SIZE = 4;
+constexpr std::size_t MANAGE_DECK_MENU_SIZE = 5;
 constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
 
 inline std::size_t GetInputNum(const std::string& inputStr)
@@ -96,6 +96,7 @@ class Console
 
     void CreateDeck();
     void ModifyDeck();
+    void AddDeckCode();
     void DeleteDeck() const;
 
     int OperateDeck(std::size_t deckIndex);
@@ -139,11 +140,12 @@ class Console
         m_mainMenuFuncs = { &Console::SearchCard, &Console::ManageDeck,
                             &Console::SimulateGame, &Console::Leave };
     std::array<std::string, MANAGE_DECK_MENU_SIZE> m_manageDeckStr = {
-        "1. Create deck", "2. Modify deck", "3. Delete deck", "4. Back"
+        "1. Create deck", "2. Modify deck", "3. Add with deck code",
+        "4. Delete deck", "5. Back"
     };
     std::array<std::function<void(Console&)>, MANAGE_DECK_MENU_SIZE - 1>
         m_manageDeckFuncs = { &Console::CreateDeck, &Console::ModifyDeck,
-                              &Console::DeleteDeck };
+                              &Console::AddDeckCode, &Console::DeleteDeck };
     std::array<std::string, NUM_PLAYER_CLASS> m_playerClassStr = {
         "1. Druid", "2. Hunter", "3. Mage",    "4. Paladin", "5. Priest",
         "6. Rogue", "7. Shaman", "8. Warlock", "9. Warrior"
