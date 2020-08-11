@@ -1228,9 +1228,9 @@ SCHOLOMANCE | SCH_708 | Sneaky Delinquent |
 SCHOLOMANCE | SCH_709 | Smug Senior |  
 SCHOLOMANCE | SCH_710 | Ogremancer |  
 SCHOLOMANCE | SCH_711 | Plagued Protodrake |  
-SCHOLOMANCE | SCH_712 | Judicious Junior |  
+SCHOLOMANCE | SCH_712 | Judicious Junior |  O
 SCHOLOMANCE | SCH_713 | Cult Neophyte |  
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 0.01% (2 of 135 Cards)
