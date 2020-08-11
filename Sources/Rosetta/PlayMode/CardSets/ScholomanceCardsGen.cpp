@@ -47,7 +47,21 @@ void ScholomanceCardsGen::AddMageNonCollect(
 }
 
 void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
-{
+{   
+    Power power;
+    // --------------------------------------- MINION - PALADIN
+    // [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
+    // - Set: Scholomance, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_088", CardDef(power));
+    
 }
 
 void ScholomanceCardsGen::AddPaladinNonCollect(
