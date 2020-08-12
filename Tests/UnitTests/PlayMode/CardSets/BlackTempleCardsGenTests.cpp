@@ -527,3 +527,58 @@ TEST_CASE("[Priest : Minion] - BT_156 : Imprisoned Vilefiend")
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
+
+ // --------------------------------------- MINION - NEUTRAL
+// [BT_159] Terrorguard Escapee - COST: 3 [ATK: 3/HP: 7]
+//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon three 1/1 Huntresses for your?opponent.
+// --------------------------------------------------------
+// GameTag:
+//  - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BT_159 : Terrorguard Escapee")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Terrorguard Escapee"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->card->name, "Huntress");
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->GetAttack(), 1);
+    CHECK_EQ(opField[1]->card->name, "Huntress");
+    CHECK_EQ(opField[2]->GetHealth(), 1);
+    CHECK_EQ(opField[2]->GetAttack(), 1);
+    CHECK_EQ(opField[2]->card->name, "Huntress");
+}

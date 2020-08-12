@@ -18,6 +18,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1916,6 +1917,9 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonOpTask>("BT_159t",3));
+    cards.emplace("BT_159", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_160] Rustsworn Cultist - COST: 4 [ATK: 3/HP: 3]
@@ -2311,6 +2315,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // [BT_159t] Huntress - COST: 1 [ATK: 1/HP: 1]
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_159t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_160e] Rustsworn Pact - COST: 0
