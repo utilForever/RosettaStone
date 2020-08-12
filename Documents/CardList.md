@@ -1003,7 +1003,7 @@ BLACK_TEMPLE | BT_136 | Archspore Msshi'fn |
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
 BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
-BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend |  
+BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
 BLACK_TEMPLE | BT_159 | Terrorguard Escapee |  
 BLACK_TEMPLE | BT_160 | Rustsworn Cultist |  
 BLACK_TEMPLE | BT_163 | Nagrand Slam |  
