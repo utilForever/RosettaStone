@@ -48,6 +48,10 @@ bool AddCardToHand(Player* player, Playable* entity)
 
     // Add card to hand
     player->GetHandZone()->Add(entity);
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAddCardTrigger(entity);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
     return true;
 }
 

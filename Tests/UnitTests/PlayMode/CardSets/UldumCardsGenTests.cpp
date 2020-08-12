@@ -2722,6 +2722,145 @@ TEST_CASE("[Rogue : Spell] - ULD_286 : Shadow of Death")
 }
 
 // ------------------------------------------ SPELL - ROGUE
+// [ULD_326] Bazaar Burglary - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Add 4 cards from other classes to your hand.
+//       <b>Reward: </b>Ancient Blades.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 4
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 54312
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
+{
+    /***** Game 1 Start *****/
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::WARRIOR;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto curHero = curPlayer->GetHero();
+        auto opHero = opPlayer->GetHero();
+        auto curSecret = curPlayer->GetSecretZone();
+        auto& opField = *opPlayer->GetFieldZone();
+
+        const auto curCard1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Bazaar Burglary"));
+        const auto curCard2 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Bazaar Mugger"));
+        const auto curCard3 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Witch's Brew"));
+        const auto curCard4 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Rapid Fire"));
+        const auto curCard5 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Ysera, Unleashed"));
+        const auto curCard6 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Shiv"));
+
+        opField.Add(Entity::GetFromCard(
+            opPlayer, Cards::FindCardByName("Boulderfist Ogre")));
+
+        auto quest = dynamic_cast<Spell*>(curCard1);
+
+        game.Process(curPlayer, PlayCardTask::Spell(curCard1));
+        CHECK(curSecret->quest != nullptr);
+        CHECK_EQ(quest->GetQuestProgress(), 0);
+        CHECK_EQ(quest->GetQuestProgressTotal(), 4);
+
+        game.Process(curPlayer, PlayCardTask::Minion(curCard2));
+        CHECK_EQ(quest->GetQuestProgress(), 1);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(curCard3, curHero));
+        CHECK_EQ(quest->GetQuestProgress(), 2);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(curCard4, opHero));
+        CHECK_EQ(quest->GetQuestProgress(), 3);
+
+        curPlayer->SetUsedMana(0);
+        game.Process(curPlayer, PlayCardTask::Minion(curCard5));
+        CHECK_EQ(quest->GetQuestProgress(), 3);
+
+        curPlayer->SetUsedMana(0);
+        CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 2);
+        game.Process(curPlayer, PlayCardTask::SpellTarget(curCard6, opHero));
+        CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 7);
+        CHECK_EQ(quest->GetQuestProgress(), 4);
+
+        CHECK(curSecret->quest == nullptr);
+        CHECK_EQ(curHero->heroPower->card->id, "ULD_326p");
+
+        const int curHealth = curHero->GetHealth();
+        game.Process(curPlayer, HeroPowerTask());
+        game.Process(curPlayer, AttackTask(curHero, opField[0]));
+        CHECK_EQ(curHero->GetHealth(), curHealth);
+        CHECK_EQ(curHero->GetGameTag(GameTag::IMMUNE), 0);
+    }
+
+    /***** Game 2 Start *****/
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::WARRIOR;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto curHero = curPlayer->GetHero();
+        auto curSecret = curPlayer->GetSecretZone();
+
+        const auto curCard1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Bazaar Burglary"));
+        const auto curCard2 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByID("LOOT_998k"));  // Golden Kobold
+
+        for (int i = 0; i < 8; i++)
+        {
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("LOOT_998k"));
+        }
+
+        auto quest = dynamic_cast<Spell*>(curCard1);
+
+        game.Process(curPlayer, PlayCardTask::Spell(curCard1));
+        CHECK(curSecret->quest != nullptr);
+        CHECK_EQ(quest->GetQuestProgress(), 0);
+        CHECK_EQ(quest->GetQuestProgressTotal(), 4);
+
+        game.Process(curPlayer, PlayCardTask::Minion(curCard2));
+        CHECK_EQ(quest->GetQuestProgress(), 0);
+    }
+}
+
+// ------------------------------------------ SPELL - ROGUE
 // [ULD_715] Plague of Madness - COST:1
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
