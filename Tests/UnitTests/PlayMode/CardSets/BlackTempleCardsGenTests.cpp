@@ -451,6 +451,7 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Scrapyard Colossus")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 7);
     CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
 // --------------------------------------- MINION - NEUTRAL
