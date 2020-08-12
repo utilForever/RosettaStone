@@ -16,6 +16,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1814,6 +1815,10 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_008t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_008", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_010] Felfin Navigator - COST: 4 [ATK: 4/HP: 4]
@@ -2164,6 +2169,8 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void BlackTempleCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [BT_008t] Impcaster - COST: 1 [ATK: 1/HP: 1]
     //  - Race: DEMON, Set: BLACK_TEMPLE
@@ -2173,6 +2180,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_008t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_010e] Felfin Fueled - COST: 0

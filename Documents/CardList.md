@@ -959,7 +959,7 @@ BLACK_TEMPLE | BT_002 | Incanter's Flow |
 BLACK_TEMPLE | BT_003 | Netherwind Portal |  
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
-BLACK_TEMPLE | BT_008 | Rustsworn Initiate |  
+BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
 BLACK_TEMPLE | BT_010 | Felfin Navigator |  
 BLACK_TEMPLE | BT_011 | Libram of Justice |  
