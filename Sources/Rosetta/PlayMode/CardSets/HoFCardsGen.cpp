@@ -620,6 +620,25 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         return playable->player->GetHero()->GetDamage();
     }));
     cards.emplace("EX1_620", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Can't attack. At the end of your turn, deal 8 damage
+    //       to a random enemy.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ENEMIES),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 8)
+    };
+    cards.emplace("EX1_298", CardDef(power));
 }
 
 void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
