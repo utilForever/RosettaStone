@@ -1868,6 +1868,10 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_155t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_155", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_156] Imprisoned Vilefiend - COST: 2 [ATK: 3/HP: 5]
@@ -2276,6 +2280,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_155t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_159t] Huntress - COST: 1 [ATK: 1/HP: 1]
