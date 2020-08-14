@@ -9,6 +9,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
@@ -1437,6 +1438,31 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to all minions. Repeat until one dies.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            const auto& damageTask = std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true);
+            const auto& condition = std::make_shared<SelfCondition>(SelfCondition::IsNotDead());
+            bool flag = true;
+
+            damageTask->SetPlayer(player);
+            damageTask->SetSource(source);
+
+            do {
+                auto minions = IncludeTask::GetEntities(EntityType::ALL_MINIONS, player, source, nullptr);
+                if (minions.empty())
+                    break;
+                
+                damageTask->Run();
+
+                for (auto& minion : minions)
+                    flag = flag && condition->Evaluate(minion);
+            } while (flag);
+
+            return TaskStatus::COMPLETE;
+        })
+    );
+    cards.emplace("BT_117", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BT_120] Warmaul Challenger - COST: 3 [ATK: 1/HP: 10]
