@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
@@ -22,8 +23,9 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
-using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using PlayReqs = std::map<PlayReq, int>;
+using TaskList = std::vector<std::shared_ptr<ITask>>;
 
 void BlackTempleCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -1472,9 +1474,39 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     //       an enemy minion.
     //       Battle it to the death!
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, Playable* target) {
+            const auto& attackTask = std::make_shared<AttackTask>(EntityType::SOURCE, EntityType::TARGET, true);
+            const auto& condition = std::make_shared<SelfCondition>(SelfCondition::IsDead());
+
+            attackTask->SetPlayer(player);
+            attackTask->SetSource(source);
+            attackTask->SetTarget(target);
+
+            while (true) {
+                if (condition->Evaluate(dynamic_cast<Playable*>(source)) ||
+                    condition->Evaluate(dynamic_cast<Playable*>(target)))
+                    break;
+
+                attackTask->Run();
+            }
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace(
+        "BT_120",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [BT_121] Imprisoned Gan'arg - COST: 1 [ATK: 2/HP: 2]

@@ -985,7 +985,7 @@ BLACK_TEMPLE | BT_113 | Totemic Reflection |
 BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
 BLACK_TEMPLE | BT_115 | Marshspawn |  
 BLACK_TEMPLE | BT_117 | Bladestorm | O 
-BLACK_TEMPLE | BT_120 | Warmaul Challenger |  
+BLACK_TEMPLE | BT_120 | Warmaul Challenger | O 
 BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
 BLACK_TEMPLE | BT_123 | Kargath Bladefist | O
 BLACK_TEMPLE | BT_124 | Corsair Cache | O
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 3% (5 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## Scholomance Academy
 
