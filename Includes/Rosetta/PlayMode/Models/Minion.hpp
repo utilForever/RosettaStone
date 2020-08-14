@@ -66,6 +66,18 @@ class Minion : public Character
     //! \return The flag that indicates whether it has charge.
     bool HasCharge() const;
 
+    //! Returns the flag that indicates whether it has taunt.
+    //! \return The flag that indicates whether it has taunt.
+    bool HasTaunt() const;
+
+    //! Returns the flag that indicates whether it has divine shield.
+    //! \return The flag that indicates whether it has divine shield.
+    bool HasDivineShield() const;
+
+    //! Returns the flag that indicates whether it has poisonous.
+    //! \return The flag that indicates whether it has poisonous.
+    bool HasPoisonous() const;
+
     //! Returns the flag that indicates whether it has freeze.
     //! \return The flag that indicates whether it has freeze.
     bool HasFreeze() const;
@@ -73,6 +85,10 @@ class Minion : public Character
     //! Returns the flag that indicates whether it has reborn.
     //! \return The flag that indicates whether it has reborn.
     bool HasReborn() const;
+
+    //! Returns the flag that indicates whether it has spellburst.
+    //! \return The flag that indicates whether it has spellburst.
+    bool HasSpellburst() const;
 
     //! Returns the flag that indicates whether it is rush.
     //! \return The flag that indicates whether it is rush.

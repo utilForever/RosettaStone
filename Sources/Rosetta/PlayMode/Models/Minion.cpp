@@ -92,6 +92,21 @@ bool Minion::HasCharge() const
     return static_cast<bool>(GetGameTag(GameTag::CHARGE));
 }
 
+bool Minion::HasTaunt() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::TAUNT));
+}
+
+bool Minion::HasDivineShield() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
+}
+
+bool Minion::HasPoisonous() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
+}
+
 bool Minion::HasFreeze() const
 {
     return static_cast<bool>(GetGameTag(GameTag::FREEZE));
@@ -100,6 +115,11 @@ bool Minion::HasFreeze() const
 bool Minion::HasReborn() const
 {
     return static_cast<bool>(GetGameTag(GameTag::REBORN));
+}
+
+bool Minion::HasSpellburst() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::SPELLBURST));
 }
 
 bool Minion::IsRush() const
