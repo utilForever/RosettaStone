@@ -58,4 +58,9 @@ bool Weapon::IsImmune() const
 {
     return static_cast<bool>(GetGameTag(GameTag::IMMUNE));
 }
+
+bool Weapon::HasPoisonous() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
+}
 }  // namespace RosettaStone::PlayMode
