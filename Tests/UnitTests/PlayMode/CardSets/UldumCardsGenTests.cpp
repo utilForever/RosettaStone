@@ -1242,7 +1242,7 @@ TEST_CASE("[Hunter : Weapon] - ULD_430 : Desert Spear")
     CHECK_EQ(curField[1]->card->name, "Locust");
     CHECK_EQ(curField[1]->GetAttack(), 1);
     CHECK_EQ(curField[1]->GetHealth(), 1);
-    CHECK_EQ(curField[1]->IsRush(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -1298,7 +1298,7 @@ TEST_CASE("[Hunter : Spell] - ULD_713 : Swarm of Locusts")
         CHECK_EQ(curField[i]->card->name, "Locust");
         CHECK_EQ(curField[i]->GetAttack(), 1);
         CHECK_EQ(curField[i]->GetHealth(), 1);
-        CHECK_EQ(curField[i]->IsRush(), true);
+        CHECK_EQ(curField[i]->HasRush(), true);
     }
 }
 
