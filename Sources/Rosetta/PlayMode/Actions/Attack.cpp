@@ -69,7 +69,7 @@ void Attack(Player* player, Character* source, Character* target,
     const bool isTargetDamaged = targetDamage > 0;
 
     // Freeze target if attacker is freezer
-    if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
+    if (isTargetDamaged && minion != nullptr && minion->HasFreeze())
     {
         if (!realTarget->player->CantBeFrozen())
         {
@@ -101,7 +101,8 @@ void Attack(Player* player, Character* source, Character* target,
         auto targetMinion = dynamic_cast<Minion*>(realTarget);
 
         // Freeze source if defender is freezer
-        if (isSourceDamaged && realTarget->GetGameTag(GameTag::FREEZE) == 1)
+        if (isSourceDamaged && targetMinion != nullptr &&
+            targetMinion->HasFreeze())
         {
             if (!source->player->CantBeFrozen())
             {
