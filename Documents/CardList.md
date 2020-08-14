@@ -747,7 +747,7 @@ ULDUM | ULD_711 | Hack the System |
 ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts | O
 ULDUM | ULD_714 | Penance | O
-ULDUM | ULD_715 | Plague of Madness |  
+ULDUM | ULD_715 | Plague of Madness | O
 ULDUM | ULD_716 | Tip the Scales |  
 ULDUM | ULD_717 | Plague of Flames |  
 ULDUM | ULD_718 | Plague of Death | O
