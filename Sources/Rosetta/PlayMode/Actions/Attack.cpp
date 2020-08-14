@@ -51,8 +51,11 @@ void Attack(Player* player, Character* source, Character* target,
         return;
     }
 
+    auto hero = dynamic_cast<Hero*>(source);
+    auto minion = dynamic_cast<Minion*>(source);
     auto realTarget =
         dynamic_cast<Character*>(player->game->currentEventData->eventTarget);
+    auto targetHero = dynamic_cast<Hero*>(realTarget);
 
     // Set game step to MAIN_COMBAT
     player->game->step = Step::MAIN_COMBAT;
@@ -74,24 +77,18 @@ void Attack(Player* player, Character* source, Character* target,
         }
     }
 
-	// Check poisonous weapon if hero attack
-    Hero* sourceHero = dynamic_cast<Hero*>(source);
-    bool isSourceHeroHasPoisonous =
-        sourceHero != nullptr && sourceHero->weapon != nullptr &&
-        sourceHero->weapon->GetGameTag(GameTag::POISONOUS) == 1;
-    
-	Hero* realTargetHero = dynamic_cast<Hero*>(realTarget);
-    bool isRealTargetHeroHasPoisonous =
-        realTargetHero != nullptr && realTargetHero->weapon != nullptr &&
-        realTargetHero->weapon->GetGameTag(GameTag::POISONOUS) == 1;
-
     // Destroy target if attacker is poisonous
-    if(source->HasPoisonous() || isSourceHeroHasPoisonous)
+    const bool hasMinionPoisonous =
+        (minion != nullptr && minion->HasPoisonous()) ? true : false;
+    const bool hasWeaponPoisonous =
+        (hero != nullptr && hero->weapon != nullptr &&
+         hero->weapon->HasPoisonous())
+            ? true
+            : false;
+    if (isTargetDamaged && targetHero == nullptr &&
+        (hasMinionPoisonous || hasWeaponPoisonous) && !realTarget->isDestroyed)
     {
-        if (isTargetDamaged && realTargetHero == nullptr)
-        {
-			realTarget->Destroy();
-		}
+        realTarget->Destroy();
     }
 
     // Ignore damage from defenders with 0 attack
@@ -100,6 +97,8 @@ void Attack(Player* player, Character* source, Character* target,
         // Take damage to source
         const int sourceDamage = source->TakeDamage(realTarget, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
+
+        auto targetMinion = dynamic_cast<Minion*>(realTarget);
 
         // Freeze source if defender is freezer
         if (isSourceDamaged && realTarget->GetGameTag(GameTag::FREEZE) == 1)
@@ -111,12 +110,11 @@ void Attack(Player* player, Character* source, Character* target,
         }
 
         // Destroy source if defender is poisonous
-        if (realTarget->HasPoisonous() || isRealTargetHeroHasPoisonous)
+        const bool hasTargetMinionPoisonous =
+            (targetMinion != nullptr && targetMinion->HasPoisonous());
+        if (isSourceDamaged && hasTargetMinionPoisonous && !source->isDestroyed)
         {
-            if (isSourceDamaged && sourceHero == nullptr)
-            {
-                source->Destroy();
-            }
+            source->Destroy();
         }
     }
 
@@ -127,10 +125,10 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Remove durability from weapon if hero attack
-    if (sourceHero != nullptr && sourceHero->weapon != nullptr &&
-        sourceHero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
+    if (hero != nullptr && hero->weapon != nullptr &&
+        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        sourceHero->weapon->RemoveDurability(1);
+        hero->weapon->RemoveDurability(1);
     }
 
     // Increase the number of attacked
