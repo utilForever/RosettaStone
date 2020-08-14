@@ -82,6 +82,10 @@ class Minion : public Character
     //! \return The flag that indicates whether it has freeze.
     bool HasFreeze() const;
 
+    //! Returns the flag that indicates whether it has rush.
+    //! \return The flag that indicates whether it has rush.
+    bool HasRush() const;
+
     //! Returns the flag that indicates whether it has reborn.
     //! \return The flag that indicates whether it has reborn.
     bool HasReborn() const;
@@ -89,10 +93,6 @@ class Minion : public Character
     //! Returns the flag that indicates whether it has spellburst.
     //! \return The flag that indicates whether it has spellburst.
     bool HasSpellburst() const;
-
-    //! Returns the flag that indicates whether it is rush.
-    //! \return The flag that indicates whether it is rush.
-    bool IsRush() const;
 
     //! Returns the flag that indicates whether it is attackable by rush.
     //! \return The flag that indicates whether it is attackable by rush.

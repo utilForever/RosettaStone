@@ -314,7 +314,7 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
-SelfCondition SelfCondition::IsRush()
+SelfCondition SelfCondition::HasRush()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         const auto minion = dynamic_cast<Minion*>(playable);
@@ -323,7 +323,7 @@ SelfCondition SelfCondition::IsRush()
             return false;
         }
 
-        return minion->IsRush();
+        return minion->HasRush();
     });
 }
 
