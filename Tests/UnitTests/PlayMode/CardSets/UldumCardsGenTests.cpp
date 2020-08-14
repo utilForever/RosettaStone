@@ -1242,7 +1242,7 @@ TEST_CASE("[Hunter : Weapon] - ULD_430 : Desert Spear")
     CHECK_EQ(curField[1]->card->name, "Locust");
     CHECK_EQ(curField[1]->GetAttack(), 1);
     CHECK_EQ(curField[1]->GetHealth(), 1);
-    CHECK_EQ(curField[1]->IsRush(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -1298,7 +1298,7 @@ TEST_CASE("[Hunter : Spell] - ULD_713 : Swarm of Locusts")
         CHECK_EQ(curField[i]->card->name, "Locust");
         CHECK_EQ(curField[i]->GetAttack(), 1);
         CHECK_EQ(curField[i]->GetHealth(), 1);
-        CHECK_EQ(curField[i]->IsRush(), true);
+        CHECK_EQ(curField[i]->HasRush(), true);
     }
 }
 
@@ -2719,6 +2719,68 @@ TEST_CASE("[Rogue : Spell] - ULD_286 : Shadow of Death")
 
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(curField[0]->GetAttack(), 12);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [ULD_715] Plague of Madness - COST:1
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Each player equips a 2/2 Knife with <b>Poisonous</b>.
+// --------------------------------------------------------
+// GameTag:
+// - 858 = 2451
+// --------------------------------------------------------
+// RefTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+
+TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Plague of Madness"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->isDestroyed, false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // --------------------------------------- MINION - WARRIOR

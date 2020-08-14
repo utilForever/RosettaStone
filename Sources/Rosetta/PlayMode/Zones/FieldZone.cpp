@@ -51,7 +51,7 @@ void FieldZone::Add(Playable* entity, int zonePos)
     {
         if (!minion->HasCharge())
         {
-            if (minion->IsRush())
+            if (minion->HasRush())
             {
                 minion->SetAttackableByRush(true);
                 minion->game->rushMinions.emplace_back(
@@ -121,7 +121,7 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
 
     if (!newEntity->HasCharge())
     {
-        if (newEntity->IsRush())
+        if (newEntity->HasRush())
         {
             newEntity->SetAttackableByRush(true);
             newEntity->game->rushMinions.emplace_back(
