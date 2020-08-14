@@ -96,29 +96,27 @@ TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
 
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Judicious Junior"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Judicious Junior"));
     game.Process(curPlayer, PlayCardTask::Minion(card1));
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-
     game.Process(opPlayer, HeroPowerTask());
     CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
+
     game.Process(opPlayer,
                  AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-
-    game.Process(curPlayer,
-                 AttackTask(card1, opPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
 }
