@@ -5402,15 +5402,15 @@ TEST_CASE("[Demon Hunter : Spell] - BT_036 : Coordinated Strike")
     CHECK_EQ(opField[0]->card->name, "Illidari Initiate");
     CHECK_EQ(opField[0]->GetAttack(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 1);
-    CHECK_EQ(opField[0]->IsRush(), true);
+    CHECK_EQ(opField[0]->HasRush(), true);
     CHECK_EQ(opField[1]->card->name, "Illidari Initiate");
     CHECK_EQ(opField[1]->GetAttack(), 1);
     CHECK_EQ(opField[1]->GetHealth(), 1);
-    CHECK_EQ(opField[1]->IsRush(), true);
+    CHECK_EQ(opField[1]->HasRush(), true);
     CHECK_EQ(opField[2]->card->name, "Illidari Initiate");
     CHECK_EQ(opField[2]->GetAttack(), 1);
     CHECK_EQ(opField[2]->GetHealth(), 1);
-    CHECK_EQ(opField[2]->IsRush(), true);
+    CHECK_EQ(opField[2]->HasRush(), true);
 
     game.Process(opPlayer, AttackTask(opField[0], card1));
     game.Process(opPlayer, AttackTask(opField[0], card1));

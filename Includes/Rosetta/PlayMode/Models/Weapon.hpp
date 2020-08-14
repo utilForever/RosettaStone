@@ -67,6 +67,10 @@ class Weapon : public Playable
     //! Returns the flag that indicates whether it is immune.
     //! \return The flag that indicates whether it is immune.
     bool IsImmune() const;
+
+    //! Returns the flag that indicates whether it has poisonous.
+    //! \return The flag that indicates whether it has poisonous.
+    bool HasPoisonous() const;
 };
 }  // namespace RosettaStone::PlayMode
 

@@ -113,21 +113,9 @@ class Character : public Playable
     //! \return The flag that indicates whether it is frozen.
     bool IsFrozen() const;
 
-    //! Returns the flag that indicates whether it has taunt.
-    //! \return The flag that indicates whether it has taunt.
-    bool HasTaunt() const;
-
     //! Returns the flag that indicates whether it has stealth.
     //! \return The flag that indicates whether it has stealth.
     bool HasStealth() const;
-
-    //! Returns the flag that indicates whether it has divine shield.
-    //! \return The flag that indicates whether it has divine shield.
-    bool HasDivineShield() const;
-
-    //! Returns the flag that indicates whether it has poisonous.
-    //! \return The flag that indicates whether it has poisonous.
-    bool HasPoisonous() const;
 
     //! Returns the flag that indicates whether it has windfury.
     //! \return The flag that indicates whether it has windfury.
@@ -136,10 +124,6 @@ class Character : public Playable
     //! Returns the flag that indicates whether it has mega-windfury.
     //! \return The flag that indicates whether it has mega-windfury.
     bool HasMegaWindfury() const;
-
-    //! Returns the flag that indicates whether it has spellburst.
-    //! \return The flag that indicates whether it has spellburst.
-    bool HasSpellburst() const;
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.

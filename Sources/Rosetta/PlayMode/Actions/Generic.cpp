@@ -235,7 +235,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
         {
             if (!minion->HasCharge())
             {
-                if (minion->IsRush())
+                if (minion->HasRush())
                 {
                     minion->SetExhausted(false);
                     minion->SetAttackableByRush(true);

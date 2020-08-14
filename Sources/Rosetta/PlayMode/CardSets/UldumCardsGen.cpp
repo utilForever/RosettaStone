@@ -41,6 +41,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -1564,6 +1565,10 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_715t"));
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_715t", true));
+    cards.emplace("ULD_715", CardDef(power));
 }
 
 void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
@@ -1634,6 +1639,9 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_715t", CardDef(power));
 }
 
 void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)

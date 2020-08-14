@@ -51,8 +51,11 @@ void Attack(Player* player, Character* source, Character* target,
         return;
     }
 
+    auto hero = dynamic_cast<Hero*>(source);
+    auto minion = dynamic_cast<Minion*>(source);
     auto realTarget =
         dynamic_cast<Character*>(player->game->currentEventData->eventTarget);
+    auto targetHero = dynamic_cast<Hero*>(realTarget);
 
     // Set game step to MAIN_COMBAT
     player->game->step = Step::MAIN_COMBAT;
@@ -66,7 +69,7 @@ void Attack(Player* player, Character* source, Character* target,
     const bool isTargetDamaged = targetDamage > 0;
 
     // Freeze target if attacker is freezer
-    if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
+    if (isTargetDamaged && minion != nullptr && minion->HasFreeze())
     {
         if (!realTarget->player->CantBeFrozen())
         {
@@ -75,7 +78,15 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Destroy target if attacker is poisonous
-    if (isTargetDamaged && source->HasPoisonous())
+    const bool hasMinionPoisonous =
+        (minion != nullptr && minion->HasPoisonous()) ? true : false;
+    const bool hasWeaponPoisonous =
+        (hero != nullptr && hero->weapon != nullptr &&
+         hero->weapon->HasPoisonous())
+            ? true
+            : false;
+    if (isTargetDamaged && targetHero == nullptr &&
+        (hasMinionPoisonous || hasWeaponPoisonous) && !realTarget->isDestroyed)
     {
         realTarget->Destroy();
     }
@@ -87,8 +98,11 @@ void Attack(Player* player, Character* source, Character* target,
         const int sourceDamage = source->TakeDamage(realTarget, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
+        auto targetMinion = dynamic_cast<Minion*>(realTarget);
+
         // Freeze source if defender is freezer
-        if (isSourceDamaged && realTarget->GetGameTag(GameTag::FREEZE) == 1)
+        if (isSourceDamaged && targetMinion != nullptr &&
+            targetMinion->HasFreeze())
         {
             if (!source->player->CantBeFrozen())
             {
@@ -97,7 +111,9 @@ void Attack(Player* player, Character* source, Character* target,
         }
 
         // Destroy source if defender is poisonous
-        if (isSourceDamaged && realTarget->HasPoisonous())
+        const bool hasTargetMinionPoisonous =
+            (targetMinion != nullptr && targetMinion->HasPoisonous());
+        if (isSourceDamaged && hasTargetMinionPoisonous && !source->isDestroyed)
         {
             source->Destroy();
         }
@@ -110,7 +126,6 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Remove durability from weapon if hero attack
-    Hero* hero = dynamic_cast<Hero*>(source);
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {

@@ -66,9 +66,33 @@ class Minion : public Character
     //! \return The flag that indicates whether it has charge.
     bool HasCharge() const;
 
-    //! Returns the flag that indicates whether it is rush.
-    //! \return The flag that indicates whether it is rush.
-    bool IsRush() const;
+    //! Returns the flag that indicates whether it has taunt.
+    //! \return The flag that indicates whether it has taunt.
+    bool HasTaunt() const;
+
+    //! Returns the flag that indicates whether it has divine shield.
+    //! \return The flag that indicates whether it has divine shield.
+    bool HasDivineShield() const;
+
+    //! Returns the flag that indicates whether it has poisonous.
+    //! \return The flag that indicates whether it has poisonous.
+    bool HasPoisonous() const;
+
+    //! Returns the flag that indicates whether it has freeze.
+    //! \return The flag that indicates whether it has freeze.
+    bool HasFreeze() const;
+
+    //! Returns the flag that indicates whether it has rush.
+    //! \return The flag that indicates whether it has rush.
+    bool HasRush() const;
+
+    //! Returns the flag that indicates whether it has reborn.
+    //! \return The flag that indicates whether it has reborn.
+    bool HasReborn() const;
+
+    //! Returns the flag that indicates whether it has spellburst.
+    //! \return The flag that indicates whether it has spellburst.
+    bool HasSpellburst() const;
 
     //! Returns the flag that indicates whether it is attackable by rush.
     //! \return The flag that indicates whether it is attackable by rush.
@@ -77,10 +101,6 @@ class Minion : public Character
     //! Sets the flag that indicates whether it is attackable by rush.
     //! \param attackable The value of attackable.
     void SetAttackableByRush(bool attackable);
-
-    //! Returns the flag that indicates whether it has reborn.
-    //! \return The flag that indicates whether it has reborn.
-    bool HasReborn() const;
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
