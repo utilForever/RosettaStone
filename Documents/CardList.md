@@ -456,7 +456,7 @@ HOF | EX1_128 | Conceal | O
 HOF | EX1_161 | Naturalize | O
 HOF | EX1_284 | Azure Drake | O
 HOF | EX1_295 | Ice Block |  
-HOF | EX1_298 | Ragnaros the Firelord |  
+HOF | EX1_298 | Ragnaros the Firelord | O
 HOF | EX1_310 | Doomguard | O
 HOF | EX1_316 | Power Overwhelming | O
 HOF | EX1_349 | Divine Favor | O
