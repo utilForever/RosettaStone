@@ -514,6 +514,67 @@ TEST_CASE("[Druid : Minion] - ULD_139 : Elise the Enlightened")
     CHECK_EQ(curHand[9]->card->name, "Wrath");
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [ULD_140] Supreme Archaeology - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Draw 20 cards.
+//       <b>Reward:</b> Tome of Origination.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 20
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 53740
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - ULD_140 : Supreme Archaeology")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    for (int i = 0; i < 21; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Doomguard");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto questCard = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Supreme Archaeology"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(questCard));
+
+    // Repeat 'TURN_END' twenty times to draw twenty cards.
+    for (int i = 0; i < 20; ++i)
+    {
+        Generic::Draw(curPlayer);
+        curHand.Remove(curHand.GetAll()[0]);
+    }
+
+    CHECK_EQ(curPlayer->GetHeroPower().card->name, "Tome of Origination");
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand.GetAll()[4]->GetCost(), 0);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [ULD_143] Pharaoh's Blessing - COST:6
 // - Faction: Neutral, Set: Uldum, Rarity: Rare
