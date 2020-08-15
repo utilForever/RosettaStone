@@ -959,9 +959,9 @@ BLACK_TEMPLE | BT_002 | Incanter's Flow |
 BLACK_TEMPLE | BT_003 | Netherwind Portal |  
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
-BLACK_TEMPLE | BT_008 | Rustsworn Initiate |  
+BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
-BLACK_TEMPLE | BT_010 | Felfin Navigator |  
+BLACK_TEMPLE | BT_010 | Felfin Navigator | O 
 BLACK_TEMPLE | BT_011 | Libram of Justice |  
 BLACK_TEMPLE | BT_014 | Starscryer |  
 BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
@@ -1002,9 +1002,9 @@ BLACK_TEMPLE | BT_135 | Glowfly Swarm |
 BLACK_TEMPLE | BT_136 | Archspore Msshi'fn |  
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
-BLACK_TEMPLE | BT_155 | Scrapyard Colossus |  
-BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend |  
-BLACK_TEMPLE | BT_159 | Terrorguard Escapee |  
+BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
+BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
+BLACK_TEMPLE | BT_159 | Terrorguard Escapee | O
 BLACK_TEMPLE | BT_160 | Rustsworn Cultist |  
 BLACK_TEMPLE | BT_163 | Nagrand Slam |  
 BLACK_TEMPLE | BT_187 | Kayn Sunfury |  

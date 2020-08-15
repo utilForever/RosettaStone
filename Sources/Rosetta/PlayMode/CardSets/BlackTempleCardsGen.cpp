@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
@@ -16,6 +17,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1814,6 +1817,10 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_008t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_008", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_010] Felfin Navigator - COST: 4 [ATK: 4/HP: 4]
@@ -1824,6 +1831,15 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_010e", EntityType::STACK));
+    cards.emplace("BT_010", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_126] Teron Gorefiend - COST: 3 [ATK: 3/HP: 4]
@@ -1853,6 +1869,10 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_155t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_155", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_156] Imprisoned Vilefiend - COST: 2 [ATK: 3/HP: 5]
@@ -1864,6 +1884,29 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::UNTOUCHABLE, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 2));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const int value =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
+            if (value <= 2)
+            {
+                source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
+            }
+
+            if (value + 1 == source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
+            {
+                source->SetGameTag(GameTag::UNTOUCHABLE, 0);
+                source->SetGameTag(GameTag::EXHAUSTED, 1);
+            }
+        }) };
+    cards.emplace("BT_156", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_159] Terrorguard Escapee - COST: 3 [ATK: 3/HP: 7]
@@ -1874,6 +1917,9 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonOpTask>("BT_159t", 3));
+    cards.emplace("BT_159", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_160] Rustsworn Cultist - COST: 4 [ATK: 3/HP: 3]
@@ -2164,6 +2210,8 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void BlackTempleCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [BT_008t] Impcaster - COST: 1 [ATK: 1/HP: 1]
     //  - Race: DEMON, Set: BLACK_TEMPLE
@@ -2173,6 +2221,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_008t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_010e] Felfin Fueled - COST: 0
@@ -2180,6 +2231,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_010e"));
+    cards.emplace("BT_010e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_011e] Judgment of Justice - COST: 0
@@ -2253,11 +2307,17 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_155t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_159t] Huntress - COST: 1 [ATK: 1/HP: 1]
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_159t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_160e] Rustsworn Pact - COST: 0
