@@ -18,99 +18,6 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-// ---------------------------------------- SPELL - WARRIOR
-// [BT_117] Bladestorm - COST: 3
-//  - Set: BLACK_TEMPLE, Rarity: Epic
-// --------------------------------------------------------
-// Text: Deal 1 damage to all minions. Repeat until one dies.
-// --------------------------------------------------------
-TEST_CASE("[Warrior : Spell] - BT_117 : Bladestorm")
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::WARLOCK;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bladestorm"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Target Dummy"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dire Mole"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 0);
-    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 1);
-}
-
-// --------------------------------------- MINION - WARRIOR
-// [BT_120] Warmaul Challenger - COST: 3 [ATK: 1/HP: 10]
-//  - Set: BLACK_TEMPLE, Rarity: Epic
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Choose
-//       an enemy minion.
-//       Battle it to the death!
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_TARGET_IF_AVAILABLE = 0
-// - REQ_MINION_TARGET = 0
-// - REQ_ENEMY_TARGET = 0
-// --------------------------------------------------------
-// GameTag:
-//  - BATTLECRY = 1
-// --------------------------------------------------------
-TEST_CASE("[Warrior : Minion] - BT_120 : Warmaul Challenger")
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::WARLOCK;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    const auto card1 = Generic::DrawCard(opPlayer, Cards::FindCardByName("Dire Mole"));
-    game.Process(opPlayer, PlayCardTask::Minion(card1));
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    const auto card2 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Warmaul Challenger"));
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
-    CHECK_EQ(dynamic_cast<Minion*>(card1)->GetHealth(), 0);
-    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 7);
-}
-
 // ------------------------------------------ SPELL - DRUID
 // [BT_130] Overgrowth - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Common
@@ -223,6 +130,107 @@ TEST_CASE("[Priest : Minion] - BT_258 : Imprisoned Homunculus")
 
     game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [BT_117] Bladestorm - COST: 3
+//  - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 1 damage to all minions. Repeat until one dies.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - BT_117 : Bladestorm")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bladestorm"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Target Dummy"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dire Mole"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Dire Mole");
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [BT_120] Warmaul Challenger - COST: 3 [ATK: 1/HP: 10]
+//  - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Choose an enemy minion.
+//       Battle it to the death!
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+// GameTag:
+//  - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BT_120 : Warmaul Challenger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dire Mole"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Warmaul Challenger"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // ----------------------------------------- MINION - WARRIOR
@@ -356,8 +364,8 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 
     HandZone& curHand = *(curPlayer->GetHandZone());
 
-    const auto card = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Corsair Cache"));
+    const auto card =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Corsair Cache"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card));
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);

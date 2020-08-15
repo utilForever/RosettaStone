@@ -23,9 +23,12 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 
 void BlackTempleCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -1443,35 +1446,41 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
-            const auto& damageTask = std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true);
-            const auto& condition = std::make_shared<SelfCondition>(SelfCondition::IsNotDead());
+            const auto& damageTask =
+                std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true);
+            const auto& condition =
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead());
             bool flag = true;
 
             damageTask->SetPlayer(player);
             damageTask->SetSource(source);
 
-            do {
-                auto minions = IncludeTask::GetEntities(EntityType::ALL_MINIONS, player, source, nullptr);
+            while (flag)
+            {
+                auto minions = IncludeTask::GetEntities(
+                    EntityType::ALL_MINIONS, player, source, nullptr);
                 if (minions.empty())
+                {
                     break;
-                
+                }
+
                 damageTask->Run();
 
                 for (auto& minion : minions)
+                {
                     flag = flag && condition->Evaluate(minion);
-            } while (flag);
+                }
+            }
 
             return TaskStatus::COMPLETE;
-        })
-    );
+        }));
     cards.emplace("BT_117", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BT_120] Warmaul Challenger - COST: 3 [ATK: 1/HP: 10]
     //  - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Choose
-    //       an enemy minion.
+    // Text: <b>Battlecry:</b> Choose an enemy minion.
     //       Battle it to the death!
     // --------------------------------------------------------
     // PlayReq:
@@ -1485,17 +1494,22 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, Entity* source, Playable* target) {
-            const auto& attackTask = std::make_shared<AttackTask>(EntityType::SOURCE, EntityType::TARGET, true);
-            const auto& condition = std::make_shared<SelfCondition>(SelfCondition::IsDead());
+            const auto& attackTask = std::make_shared<AttackTask>(
+                EntityType::SOURCE, EntityType::TARGET, true);
+            const auto& condition =
+                std::make_shared<SelfCondition>(SelfCondition::IsDead());
 
             attackTask->SetPlayer(player);
             attackTask->SetSource(source);
             attackTask->SetTarget(target);
 
-            while (true) {
+            while (true)
+            {
                 if (condition->Evaluate(dynamic_cast<Playable*>(source)) ||
                     condition->Evaluate(dynamic_cast<Playable*>(target)))
+                {
                     break;
+                }
 
                 attackTask->Run();
             }
