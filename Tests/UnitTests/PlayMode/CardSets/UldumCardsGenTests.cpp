@@ -2721,6 +2721,78 @@ TEST_CASE("[Rogue : Spell] - ULD_286 : Shadow of Death")
     CHECK_EQ(curField[0]->GetAttack(), 12);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [ULD_288] Anka, the Buried - COST:5 [ATK:5/HP:5]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Change each <b>Deathrattle</b>
+//       minion in your hand into a 1/1 that costs (1).
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_288 : Anka, the Buried")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    /*
+        card1: Anka (Test card)
+        card 2~3: Deathrattle Minion
+        card4: Not Deathrattle
+        card5: Opponent deathrattle minion
+        card6: Not Minion, Weapon
+    */
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Anka, the Buried"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chromatic Egg"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Waxadred"));
+    const auto card4 = 
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Necrium Apothecary"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chromatic Egg"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Waggle Pick"));
+
+    game.Process(curPlayer, PlayCardTask::PlayCardTask(card1));
+
+    const auto check_minion = [](Playable* card, bool is_changed) {
+        const auto minion = dynamic_cast<Minion*>(card);
+        CHECK_EQ(minion->GetCost() == 1, is_changed);
+        CHECK_EQ(minion->GetAttack() == 1, is_changed);
+        CHECK_EQ(minion->GetHealth() == 1, is_changed);
+    };
+    check_minion(card2, true);
+    check_minion(card3, true);
+    check_minion(card4, false);
+    check_minion(card5, false);
+
+    // separately check weapon cost
+    const auto weapon7 = dynamic_cast<Weapon*>(card6);
+    CHECK_EQ(weapon7->GetCost() == 1, false);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [ULD_326] Bazaar Burglary - COST:1
 // - Set: Uldum, Rarity: Legendary
