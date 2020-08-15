@@ -263,8 +263,8 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 
     HandZone& curHand = *(curPlayer->GetHandZone());
 
-    const auto card = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Corsair Cache"));
+    const auto card =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Corsair Cache"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card));
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);
@@ -308,8 +308,8 @@ TEST_CASE("[Neutral : Minion] - BT_008 : Rustsworn Initiate")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rustsworn Initiate"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Rustsworn Initiate"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
 
@@ -325,6 +325,7 @@ TEST_CASE("[Neutral : Minion] - BT_008 : Rustsworn Initiate")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetSpellPower(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -378,21 +379,20 @@ TEST_CASE("[Neutral : Minion] - BT_010 : Felfin Navigator")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-
-    CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[1]->GetAttack(), 3);
-    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
     CHECK_EQ(curField[2]->GetAttack(), 3);
-    CHECK_EQ(curField[3]->GetHealth(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
     CHECK_EQ(curField[3]->GetAttack(), 4);
+    CHECK_EQ(curField[3]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetAttack(), 2);
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
@@ -514,7 +514,7 @@ TEST_CASE("[Priest : Minion] - BT_156 : Imprisoned Vilefiend")
     CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 2);
     CHECK_EQ(curField[0]->IsUntouchable(), false);
     CHECK_EQ(curField[0]->CanAttack(), false);
-    CHECK_EQ(curField[0]->IsRush(), true);
+    CHECK_EQ(curField[0]->HasRush(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -528,11 +528,11 @@ TEST_CASE("[Priest : Minion] - BT_156 : Imprisoned Vilefiend")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
 
- // --------------------------------------- MINION - NEUTRAL
+// --------------------------------------- MINION - NEUTRAL
 // [BT_159] Terrorguard Escapee - COST: 3 [ATK: 3/HP: 7]
 //  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Summon three 1/1 Huntresses for your?opponent.
+// Text: <b>Battlecry:</b> Summon three 1/1 Huntresses for your opponent.
 // --------------------------------------------------------
 // GameTag:
 //  - BATTLECRY = 1
@@ -557,11 +557,10 @@ TEST_CASE("[Neutral : Minion] - BT_159 : Terrorguard Escapee")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Terrorguard Escapee"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Terrorguard Escapee"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
