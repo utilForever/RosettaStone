@@ -747,7 +747,7 @@ ULDUM | ULD_711 | Hack the System |
 ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts | O
 ULDUM | ULD_714 | Penance | O
-ULDUM | ULD_715 | Plague of Madness |  
+ULDUM | ULD_715 | Plague of Madness | O
 ULDUM | ULD_716 | Tip the Scales |  
 ULDUM | ULD_717 | Plague of Flames |  
 ULDUM | ULD_718 | Plague of Death | O
@@ -1228,9 +1228,9 @@ SCHOLOMANCE | SCH_708 | Sneaky Delinquent |
 SCHOLOMANCE | SCH_709 | Smug Senior |  
 SCHOLOMANCE | SCH_710 | Ogremancer |  
 SCHOLOMANCE | SCH_711 | Plagued Protodrake |  
-SCHOLOMANCE | SCH_712 | Judicious Junior |  
+SCHOLOMANCE | SCH_712 | Judicious Junior |  O
 SCHOLOMANCE | SCH_713 | Cult Neophyte |  
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 0.01% (2 of 135 Cards)

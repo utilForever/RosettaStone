@@ -20,7 +20,9 @@ class WeaponTask : public ITask
  public:
     //! Constructs task with given \p cardID.
     //! \param cardID The card ID of weapon to equip.
-    explicit WeaponTask(std::string cardID);
+    //! \param isOpponent true if opponent player is given weapon, and false
+    //! otherwise.
+    explicit WeaponTask(std::string cardID, bool isOpponent = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,6 +35,7 @@ class WeaponTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     std::string m_cardID;
+    bool m_isOpponent = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
 

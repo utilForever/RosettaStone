@@ -1,4 +1,4 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
@@ -55,7 +55,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [SCH_606] Partner Assignment - COST: 1
     //  - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Add a random 2-Cost and 3-Cost Beast to your hand.
+    // Text: Add a random 2-Cost and 3-Cost Beast to your hand.
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
@@ -284,7 +284,7 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [SCH_610] Guardian Animals - COST: 7
     //  - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Summon two Beasts that cost (5) or less from your deck. Give them
+    // Text: Summon two Beasts that cost (5) or less from your deck. Give them
     // <b>Rush</b>.
     // --------------------------------------------------------
     // RefTag:
@@ -369,7 +369,7 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b><b>Spellburst</b>:</b> Deal 4 damage randomly split among
-    // all enemy minions.
+    // all enemy minions.
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
@@ -461,7 +461,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [SCH_138] Blessing of Authority - COST: 5
     //  - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Give a minion +8/+8. It can't attack heroes this turn.
+    // Text: Give a minion +8/+8. It can't attack heroes this turn.
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
@@ -517,7 +517,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [SCH_302] Gift of Luminance - COST: 3
     //  - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Give a minion <b>Divine Shield</b>, then summon a 1/1 copy of it.
+    // Text: Give a minion <b>Divine Shield</b>, then summon a 1/1 copy of it.
     // --------------------------------------------------------
     // RefTag:
     //  - DIVINE_SHIELD = 1
@@ -591,6 +591,9 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_712", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddPaladinNonCollect(
@@ -859,7 +862,7 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [SCH_519] Vulpera Toxinblade - COST: 3 [ATK: 3/HP: 3]
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your weapon has +2 Attack.
+    // Text: Your weapon has +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     //  - AURA = 1
@@ -1232,7 +1235,7 @@ void ScholomanceCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: After you play a <b>Rush</b>
     //       minion, summon a copy
-    //        with 1 Health remaining.
+    //        with 1 Health remaining.
     // --------------------------------------------------------
     // GameTag:
     //  - TRIGGER_VISUAL = 1
@@ -1414,7 +1417,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
     // Text: Summon three 1/2 Demons with <b>Taunt</b>. Costs (1) less whenever
-    // a friendly minion dies.
+    // a friendly minion dies.
     // --------------------------------------------------------
     // RefTag:
     //  - TAUNT = 1
@@ -1490,7 +1493,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [SCH_705] Vilefiend Trainer - COST: 4 [ATK: 5/HP: 4]
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Outcast:</b> Summon two 1/1 Demons.
+    // Text: <b>Outcast:</b> Summon two 1/1 Demons.
     // --------------------------------------------------------
     // GameTag:
     //  - OUTCAST = 1
@@ -1692,7 +1695,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_160] Wandmaker - COST: 2 [ATK: 2/HP: 2]
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Add a 1-Cost spell from your class to your hand.
+    // Text: <b>Battlecry:</b> Add a 1-Cost spell from your class to your hand.
     // --------------------------------------------------------
     // GameTag:
     //  - BATTLECRY = 1
@@ -1750,7 +1753,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_230] Onyx Magescribe - COST: 6 [ATK: 4/HP: 9]
     //  - Race: DRAGON, Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Spellburst:</b> Add 2 random spells from your class to your
+    // Text: <b>Spellburst:</b> Add 2 random spells from your class to your
     // hand.
     // --------------------------------------------------------
 
@@ -1758,7 +1761,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
     // - Set: Scholomance, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Spellburst:</b> Gain +2 Attack.
+    // Text: <b>Spellburst:</b> Gain +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1806,7 +1809,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage. <b>Spellburst:</b> Return this
-    // to your hand.
+    // to your hand.
     // --------------------------------------------------------
     // GameTag:
     //  - BATTLECRY = 1
@@ -1819,7 +1822,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the start of your turn,
     //       look at your top card. You
     //       can put it on the bottom
-    //        and lose 1 Durability.
+    //        and lose 1 Durability.
     // --------------------------------------------------------
     // GameTag:
     //  - ELITE = 1
@@ -1900,7 +1903,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_350] Wand Thief - COST: 1 [ATK: 1/HP: 2]
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Combo:</b> <b>Discover</b> a Mage spell.
+    // Text: <b>Combo:</b> <b>Discover</b> a Mage spell.
     // --------------------------------------------------------
     // GameTag:
     //  - COMBO = 1
@@ -1914,7 +1917,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: <b>Battlecry:</b> Summon two
     //       random 5-Cost minions.
     //       Secretly pick one that dies
-    //        when it takes damage.
+    //        when it takes damage.
     // --------------------------------------------------------
     // GameTag:
     //  - ELITE = 1
@@ -2035,8 +2038,8 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_707] Fishy Flyer - COST: 4 [ATK: 4/HP: 3]
     //  - Race: MURLOC, Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost with <b>Rush</b>
-    // to your hand.
+    // Text: <b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost with <b>Rush</b>
+    // to your hand.
     // --------------------------------------------------------
     // GameTag:
     //  - DEATHRATTLE = 1
@@ -2059,8 +2062,8 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_709] Smug Senior - COST: 6 [ATK: 5/HP: 7]
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost with <b>Taunt</b>
-    // to your hand.
+    // Text: <b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost with <b>Taunt</b>
+    // to your hand.
     // --------------------------------------------------------
     // GameTag:
     //  - DEATHRATTLE = 1
@@ -2096,7 +2099,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_713] Cult Neophyte - COST: 2 [ATK: 3/HP: 2]
     //  - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Your opponent's spells cost (1) more next turn.
+    // Text: <b>Battlecry:</b> Your opponent's spells cost (1) more next turn.
     // --------------------------------------------------------
     // GameTag:
     //  - BATTLECRY = 1
@@ -2121,8 +2124,8 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Whenever your opponent
-    //        draws a card, add a copy to 
-    //        your hand that costs (1).
+    //        draws a card, add a copy to 
+    //        your hand that costs (1).
     // --------------------------------------------------------
     // GameTag:
     //  - ELITE = 1
@@ -2302,7 +2305,7 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // [SCH_199t19] Transfer Student - COST: 2 [ATK: 2/HP: 2]
     //  - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Add a <b>Lackey</b> to your hand.
+    // Text: <b>Battlecry:</b> Add a <b>Lackey</b> to your hand.
     // --------------------------------------------------------
     // GameTag:
     //  - BATTLECRY = 1
@@ -2413,7 +2416,7 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     //  - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Add a random <b>Deathrattle</b> minion to
-    // your hand.
+    // your hand.
     // --------------------------------------------------------
     // GameTag:
     //  - DEATHRATTLE = 1
@@ -2559,7 +2562,7 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // [SCH_305d] Secret Passage Dummy - COST: 0
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
-    // Text: Dummy Hook Up SCH 305e3
+    // Text: Dummy Hook Up SCH 305e3
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
