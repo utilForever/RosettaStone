@@ -1036,7 +1036,7 @@ TEST_CASE("[Hunter : Spell] - DAL_378 : Unleash the Beast")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
-    CHECK_EQ(curField[0]->IsRush(), true);
+    CHECK_EQ(curField[0]->HasRush(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -1049,7 +1049,7 @@ TEST_CASE("[Hunter : Spell] - DAL_378 : Unleash the Beast")
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 5);
-    CHECK_EQ(curField[1]->IsRush(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
 }
 
 // ---------------------------------------- MINION - HUNTER
@@ -3474,14 +3474,14 @@ TEST_CASE("[Rogue : Minion] - DAL_714 : Underbelly Fence")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 4);
-    CHECK_EQ(curField[0]->IsRush(), true);
+    CHECK_EQ(curField[0]->HasRush(), true);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[1]->GetAttack(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 3);
-    CHECK_EQ(curField[1]->IsRush(), false);
+    CHECK_EQ(curField[1]->HasRush(), false);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -4840,12 +4840,12 @@ TEST_CASE("[Warlock : Minion] - DAL_607 : Fel Lord Betrug")
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[1]->card->name, "Wisp");
-    CHECK_EQ(curField[1]->IsRush(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
 
     game.Process(curPlayer, PlayCardTask::Minion(curHand[4]));
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[2]->card->name, "Wisp");
-    CHECK_EQ(curField[2]->IsRush(), false);
+    CHECK_EQ(curField[2]->HasRush(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -4853,7 +4853,7 @@ TEST_CASE("[Warlock : Minion] - DAL_607 : Fel Lord Betrug")
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[0]->card->name, "Fel Lord Betrug");
     CHECK_EQ(curField[1]->card->name, "Wisp");
-    CHECK_EQ(curField[1]->IsRush(), false);
+    CHECK_EQ(curField[1]->HasRush(), false);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
@@ -5233,7 +5233,7 @@ TEST_CASE("[Warrior : Minion] - DAL_070 : The Boom Reaver")
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[0]->card->name, "The Boom Reaver");
     CHECK_EQ(curField[1]->card->name, "Malygos");
-    CHECK_EQ(curField[1]->IsRush(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
     CHECK_EQ(curDeck.GetCount(), 26);
 }
 
@@ -6720,11 +6720,11 @@ TEST_CASE("[Neutral : Minion] - DAL_565 : Portal Overfiend")
 
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(curField[1]->card->name, "Felhound");
-    CHECK_EQ(curField[1]->IsRush(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
     CHECK_EQ(curField[2]->card->name, "Felhound");
-    CHECK_EQ(curField[2]->IsRush(), true);
+    CHECK_EQ(curField[2]->HasRush(), true);
     CHECK_EQ(curField[3]->card->name, "Felhound");
-    CHECK_EQ(curField[3]->IsRush(), true);
+    CHECK_EQ(curField[3]->HasRush(), true);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6828,11 +6828,11 @@ TEST_CASE("[Neutral : Minion] - DAL_582 : Portal Keeper")
 
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(curField[1]->card->name, "Felhound");
-    CHECK_EQ(curField[1]->IsRush(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
     CHECK_EQ(curField[2]->card->name, "Felhound");
-    CHECK_EQ(curField[2]->IsRush(), true);
+    CHECK_EQ(curField[2]->HasRush(), true);
     CHECK_EQ(curField[3]->card->name, "Felhound");
-    CHECK_EQ(curField[3]->IsRush(), true);
+    CHECK_EQ(curField[3]->HasRush(), true);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -7535,11 +7535,11 @@ TEST_CASE("[Neutral : Minion] - DAL_773 : Magic Carpet")
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[1]->GetAttack(), 1);
-    CHECK_EQ(curField[1]->IsRush(), false);
+    CHECK_EQ(curField[1]->HasRush(), false);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curField[2]->GetAttack(), 3);
-    CHECK_EQ(curField[2]->IsRush(), true);
+    CHECK_EQ(curField[2]->HasRush(), true);
 }
 
 // --------------------------------------- MINION - NEUTRAL
