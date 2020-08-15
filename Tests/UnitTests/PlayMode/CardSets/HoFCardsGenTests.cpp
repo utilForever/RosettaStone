@@ -1345,6 +1345,64 @@ TEST_CASE("[Neutral : Minion] - EX1_284 : Azure Drake")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
+// - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Can't attack. At the end of your turn, deal 8 damage
+//       to a random enemy.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] EX1_298 : Ragnaros the Firelord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ragnaros the Firelord"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Grommash Hellscream"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opField.GetCount(), 1);
+    const bool check =
+        opPlayer->GetHero()->GetHealth() == 14 || opField[0]->GetHealth() == 1;
+    CHECK_EQ(check, true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
 // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
 // --------------------------------------------------------
@@ -1405,64 +1463,4 @@ TEST_CASE("[Neutral : Minion] - EX1_620 : Molten Giant")
     game.Process(curPlayer, PlayCardTask(card9));
 
     CHECK_EQ(card1->GetCost(), 0);
-}
-
-// --------------------------------------- MINION - NEUTRAL
-// [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
-// - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Legendary
-// --------------------------------------------------------
-// --------------------------------------------------------
-// Text: Can't attack. At the end of your turn, deal 8 damage
-//       to a random enemy.
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] EX1_298 : Ragnaros the Firelord")
-{
-    GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
-
-    const auto card =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ragnaros the Firelord"));
-    CHECK_EQ(card->GetCost(), 8);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card));
-
-    auto& curField = *(curPlayer->GetFieldZone());
-    CHECK_EQ(curField.GetCount(), 1);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
-
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Grommash Hellscream"));
-
-    game.Process(opPlayer, PlayCardTask::Minion(card2));
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    auto& opField = *(opPlayer->GetFieldZone());
-    CHECK_EQ(opField.GetCount(), 1);
-    CHECK_EQ((opPlayer->GetHero()->GetHealth() == 14 ||
-              opField[0]->GetHealth() == 1),
-             true);
 }
