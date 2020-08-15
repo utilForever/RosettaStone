@@ -1567,6 +1567,13 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add 2 random spells from another class to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(CardType::SPELL,
+                                                   CardClass::ANOTHER_CLASS),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        2));
+    cards.emplace("ULD_328", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_715] Plague of Madness - COST:1

@@ -2933,6 +2933,45 @@ TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
 }
 
 // ------------------------------------------ SPELL - ROGUE
+// [ULD_328] Clever Disguise - COST:2
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Add 2 random spells from another class to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - ULD_328 : Clever Disguise")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Clever Disguise"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK(curHand[0]->card->GetCardClass() != CardClass::ROGUE);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::SPELL);
+    CHECK(curHand[1]->card->GetCardClass() != CardClass::ROGUE);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+}
+
+// ------------------------------------------ SPELL - ROGUE
 // [ULD_715] Plague of Madness - COST:1
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
