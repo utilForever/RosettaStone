@@ -633,7 +633,7 @@ ULDUM | ULD_136 | Worthy Expedition | O
 ULDUM | ULD_137 | Garden Gnome | O
 ULDUM | ULD_138 | Anubisath Defender | O
 ULDUM | ULD_139 | Elise the Enlightened | O
-ULDUM | ULD_140 | Supreme Archaeology |  
+ULDUM | ULD_140 | Supreme Archaeology | O  
 ULDUM | ULD_143 | Pharaoh's Blessing | O
 ULDUM | ULD_145 | Brazen Zealot |  
 ULDUM | ULD_151 | Ramkahen Wildtamer | O
