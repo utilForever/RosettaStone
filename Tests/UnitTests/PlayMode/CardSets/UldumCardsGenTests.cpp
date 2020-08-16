@@ -630,6 +630,61 @@ TEST_CASE("[PALADIN : Spell] - ULD_143 : Pharaoh's Blessing")
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [ULD_145] Brazen Zealot - COST:1 [ATK:2/HP:1]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you summon a minion, gain +1 Attack.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ULD_144 : Brazen Zealot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const int brazenZealotCardCount = 3;
+    const std::array<Playable*, brazenZealotCardCount> brazenZealotCards = {
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brazen Zealot")),
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brazen Zealot")),
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brazen Zealot")),
+    };
+    const auto minionCard = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Commander Rhyssa"));
+
+    const auto curField = curPlayer->GetFieldZone();
+
+    constexpr int defaultAttack = 2;
+    for (int i = 0; i < 3; ++i)
+    {
+        game.Process(curPlayer, PlayCardTask::Minion(brazenZealotCards[i]));
+        for (int pos = 0; pos <= i; ++pos)
+        {
+            CHECK_EQ(defaultAttack + i - pos,
+                     curField->GetAll()[pos]->GetAttack());
+        }
+    }
+
+    game.Process(curPlayer, PlayCardTask::Minion(minionCard));
+    CHECK_EQ(defaultAttack + 3, curField->GetAll()[0]->GetAttack());
+    CHECK_EQ(defaultAttack + 2, curField->GetAll()[1]->GetAttack());
+    CHECK_EQ(defaultAttack + 1, curField->GetAll()[2]->GetAttack());
+    CHECK_EQ(4, curField->GetAll()[3]->GetAttack());
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [ULD_273] Overflow - COST:7
 // - Set: Uldum, Rarity: Rare
