@@ -959,9 +959,9 @@ BLACK_TEMPLE | BT_002 | Incanter's Flow |
 BLACK_TEMPLE | BT_003 | Netherwind Portal |  
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
-BLACK_TEMPLE | BT_008 | Rustsworn Initiate |  
+BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
-BLACK_TEMPLE | BT_010 | Felfin Navigator |  
+BLACK_TEMPLE | BT_010 | Felfin Navigator | O 
 BLACK_TEMPLE | BT_011 | Libram of Justice |  
 BLACK_TEMPLE | BT_014 | Starscryer |  
 BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
@@ -984,8 +984,8 @@ BLACK_TEMPLE | BT_110 | Torrent |
 BLACK_TEMPLE | BT_113 | Totemic Reflection |  
 BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
 BLACK_TEMPLE | BT_115 | Marshspawn |  
-BLACK_TEMPLE | BT_117 | Bladestorm |  
-BLACK_TEMPLE | BT_120 | Warmaul Challenger |  
+BLACK_TEMPLE | BT_117 | Bladestorm | O 
+BLACK_TEMPLE | BT_120 | Warmaul Challenger | O 
 BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
 BLACK_TEMPLE | BT_123 | Kargath Bladefist | O
 BLACK_TEMPLE | BT_124 | Corsair Cache | O
@@ -1002,9 +1002,9 @@ BLACK_TEMPLE | BT_135 | Glowfly Swarm |
 BLACK_TEMPLE | BT_136 | Archspore Msshi'fn |  
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
-BLACK_TEMPLE | BT_155 | Scrapyard Colossus |  
-BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend |  
-BLACK_TEMPLE | BT_159 | Terrorguard Escapee |  
+BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
+BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
+BLACK_TEMPLE | BT_159 | Terrorguard Escapee | O
 BLACK_TEMPLE | BT_160 | Rustsworn Cultist |  
 BLACK_TEMPLE | BT_163 | Nagrand Slam |  
 BLACK_TEMPLE | BT_187 | Kayn Sunfury |  
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 2% (4 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## Scholomance Academy
 
