@@ -29,6 +29,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnEndTurnTrigger(Entity* sender);
 
+    //! Callback for trigger when a card is added in hand.
+    //! \param sender An entity that is the source of trigger.
+    void OnAddCardTrigger(Entity* sender);
+
     //! Callback for trigger when player draws a card.
     //! \param sender An entity that is the source of trigger.
     void OnDrawCardTrigger(Entity* sender);
@@ -111,6 +115,7 @@ class TriggerManager
 
     TriggerEvent startTurnTrigger;
     TriggerEvent endTurnTrigger;
+    TriggerEvent addCardTrigger;
     TriggerEvent drawCardTrigger;
     TriggerEvent playCardTrigger;
     TriggerEvent afterPlayCardTrigger;

@@ -18,6 +18,11 @@ void TriggerManager::OnEndTurnTrigger(Entity* sender)
     endTurnTrigger(sender);
 }
 
+void TriggerManager::OnAddCardTrigger(Entity* sender)
+{
+    addCardTrigger(sender);
+}
+
 void TriggerManager::OnDrawCardTrigger(Entity* sender)
 {
     drawCardTrigger(sender);

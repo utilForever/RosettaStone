@@ -242,6 +242,19 @@ SelfCondition SelfCondition::IsHoldingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsAnotherClassCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (playable->card->GetCardClass() != CardClass::NEUTRAL &&
+            playable->card->GetCardClass() !=
+                playable->player->GetHero()->card->GetCardClass())
+        {
+            return true;
+        }
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHoldingAnotherClassCard()
 {
     return SelfCondition([=](Playable* playable) -> bool {

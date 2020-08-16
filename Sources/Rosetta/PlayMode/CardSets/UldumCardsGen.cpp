@@ -123,6 +123,9 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_326t"));
+    cards.emplace("ULD_326p", CardDef(power));
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [ULD_431p] Emperor Wraps (*) - COST:2
@@ -1528,6 +1531,14 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 54312
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ADD_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsAnotherClassCard());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_326p") };
+    cards.emplace("ULD_326", CardDef(power, 4, 0));
 
     // ----------------------------------------- MINION - ROGUE
     // [ULD_327] Bazaar Mugger - COST:5 [ATK:3/HP:5]
@@ -1628,6 +1639,12 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("ULD_326t", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [ULD_715t] Plagued Knife (*) - COST:1 [ATK:2/HP:0]
