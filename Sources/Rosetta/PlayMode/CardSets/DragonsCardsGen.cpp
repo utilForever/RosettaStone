@@ -856,7 +856,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRush()) }));
+        std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
     power.AddPowerTask(std::make_shared<DrawStackTask>(1));
     cards.emplace("DRG_010", CardDef(power));
@@ -893,7 +893,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRush());
+        std::make_shared<SelfCondition>(SelfCondition::HasRush());
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_251t", 1) }) };
     cards.emplace("DRG_251", CardDef(power, 3, 0));

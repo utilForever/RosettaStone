@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
@@ -64,7 +65,7 @@ void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
         {
             const auto twinspell = Entity::GetFromCard(
                 player, Cards::FindCardByID(spell->card->id + "ts"));
-            player->GetHandZone()->Add(twinspell);
+            AddCardToHand(player, twinspell);
         }
 
         // Check card has overload

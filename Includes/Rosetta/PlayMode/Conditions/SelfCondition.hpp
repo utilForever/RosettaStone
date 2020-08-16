@@ -133,6 +133,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHoldingRace(Race race);
 
+    //! SelfCondition wrapper for checking the entity is another class card.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsAnotherClassCard();
+
     //! SelfCondition wrapper for checking the player has entity
     //! with another class in hand zone.
     //! \return Generated SelfCondition for intended purpose.
@@ -167,9 +171,9 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
 
-    //! SelfCondition wrapper for checking the entity is rush.
+    //! SelfCondition wrapper for checking the entity has rush.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition IsRush();
+    static SelfCondition HasRush();
 
     //! SelfCondition wrapper for checking the entity has deathrattle.
     //! \return Generated SelfCondition for intended purpose.
