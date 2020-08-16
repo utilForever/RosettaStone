@@ -729,10 +729,10 @@ void Game::ProcessGraveyard()
             const int val = minion->player->GetNumFriendlyMinionsDiedThisTurn();
             minion->player->SetNumFriendlyMinionsDiedThisTurn(val + 1);
 
-            // Summon minion if it has reborn
+            // Add reborn minion if it has reborn
             if (minion->HasReborn())
             {
-                Generic::SummonReborn(minion);
+                rebornMinions.emplace(deadMinion);
             }
         }
 
