@@ -14,8 +14,10 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
@@ -90,6 +92,13 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card. It costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_140e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(std::make_shared<ApplyEffectTask>(
+        EntityType::STACK, EffectList{ Effects::SetCost(0) }));
+    cards.emplace("ULD_140p", CardDef(power));
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [ULD_155p] Pharaoh's Warmask (*) - COST:2
@@ -1836,6 +1845,14 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53740
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList {
+            std::make_shared<ChangeHeroPowerTask>("ULD_140p")
+        })
+    };
+    cards.emplace("ULD_140", CardDef(power, 20, 0));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_160] Sinister Deal - COST:1
@@ -1968,6 +1985,9 @@ void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_140e"));
+    cards.emplace("ULD_140e", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_162t] EVIL Demon (*) - COST:5 [ATK:5/HP:5]
