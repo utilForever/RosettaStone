@@ -2043,43 +2043,42 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - ULD_262 : High Priest Amet")
 {
-	GameConfig config;
-	config.player1Class = CardClass::PRIEST;
-	config.player2Class = CardClass::MAGE;
-	config.startPlayer = PlayerType::PLAYER1;
-	config.doFillDecks = true;
-	config.autoRun = false;
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
 
-	Game game(config);
-	game.Start();
-	game.ProcessUntil(Step::MAIN_ACTION);
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
 
-	Player* curPlayer = game.GetCurrentPlayer();
-	Player* opPlayer = game.GetOpponentPlayer();
-	curPlayer->SetTotalMana(10);
-	curPlayer->SetUsedMana(0);
-	opPlayer->SetTotalMana(10);
-	opPlayer->SetUsedMana(0);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
-	auto& curField = *(curPlayer->GetFieldZone());
+    auto& curField = *(curPlayer->GetFieldZone());
 
-	const auto card1 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("High Priest Amet"));
-	const auto card2 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Shattered Sun Cleric"));
-	const auto card3 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
-	const auto card4 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("High Priest Amet"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shattered Sun Cleric"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card1));
-	game.Process(curPlayer, PlayCardTask::Minion(card3));
-	CHECK_EQ(curField[1]->GetHealth(), 7);
-	game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
-	game.Process(curPlayer, PlayCardTask::Minion(card4));
-	game.Process(curPlayer, PlayCardTask::Minion(card3));
-	CHECK_EQ(curField[3]->GetHealth(), 8);
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[1]->GetHealth(), 7);
 
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[3]->GetHealth(), 8);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2097,34 +2096,34 @@ TEST_CASE("[Priest : Minion] - ULD_262 : High Priest Amet")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - ULD_265 : Embalming Ritual")
 {
-	GameConfig config;
-	config.player1Class = CardClass::PRIEST;
-	config.player2Class = CardClass::MAGE;
-	config.startPlayer = PlayerType::PLAYER1;
-	config.doFillDecks = true;
-	config.autoRun = false;
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
 
-	Game game(config);
-	game.Start();
-	game.ProcessUntil(Step::MAIN_ACTION);
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
 
-	Player* curPlayer = game.GetCurrentPlayer();
-	Player* opPlayer = game.GetOpponentPlayer();
-	curPlayer->SetTotalMana(10);
-	curPlayer->SetUsedMana(0);
-	opPlayer->SetTotalMana(10);
-	opPlayer->SetUsedMana(0);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
-	auto& curField = *(curPlayer->GetFieldZone());
+    auto& curField = *(curPlayer->GetFieldZone());
 
-	const auto card1 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Embalming Ritual"));
-	const auto card2 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Embalming Ritual"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card2));
-	game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-	CHECK_EQ(curField[0]->HasReborn(), true);
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->HasReborn(), true);
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -2140,48 +2139,48 @@ TEST_CASE("[Priest : Spell] - ULD_265 : Embalming Ritual")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - ULD_266 : Grandmummy")
 {
-	GameConfig config;
-	config.player1Class = CardClass::PRIEST;
-	config.player2Class = CardClass::MAGE;
-	config.startPlayer = PlayerType::PLAYER1;
-	config.doFillDecks = true;
-	config.autoRun = false;
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
 
-	Game game(config);
-	game.Start();
-	game.ProcessUntil(Step::MAIN_ACTION);
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
 
-	Player* curPlayer = game.GetCurrentPlayer();
-	Player* opPlayer = game.GetOpponentPlayer();
-	curPlayer->SetTotalMana(10);
-	curPlayer->SetUsedMana(0);
-	opPlayer->SetTotalMana(10);
-	opPlayer->SetUsedMana(0);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
-	auto& curField = *(curPlayer->GetFieldZone());
+    auto& curField = *(curPlayer->GetFieldZone());
 
-	const auto card1 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Grandmummy"));
-	const auto card2 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
-	const auto card3 = Generic::DrawCard(
-		opPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Grandmummy"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card1));
-	game.Process(curPlayer, PlayCardTask::Minion(card2));
-	CHECK_EQ(curField[0]->GetAttack(), 1);
-	CHECK_EQ(curField[0]->GetHealth(), 2);
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
 
-	game.Process(curPlayer, EndTurnTask());
-	game.ProcessUntil(Step::MAIN_ACTION);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
 
-	game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-	CHECK_EQ(curField.GetCount(), 2);
-	CHECK_EQ(curField[0]->GetAttack(), 1);
-	CHECK_EQ(curField[0]->GetHealth(), 1);
-	CHECK_EQ(curField[1]->GetAttack(), 2);
-	CHECK_EQ(curField[1]->GetHealth(), 2);
-	CHECK_EQ(curField[0]->HasReborn(), false);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasReborn(), false);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -2199,47 +2198,47 @@ TEST_CASE("[Priest : Minion] - ULD_266 : Grandmummy")
 // --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - ULD_268 : Psychopomp")
 {
-	GameConfig config;
-	config.player1Class = CardClass::PRIEST;
-	config.player2Class = CardClass::MAGE;
-	config.startPlayer = PlayerType::PLAYER1;
-	config.doFillDecks = true;
-	config.autoRun = false;
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
 
-	Game game(config);
-	game.Start();
-	game.ProcessUntil(Step::MAIN_ACTION);
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
 
-	Player* curPlayer = game.GetCurrentPlayer();
-	Player* opPlayer = game.GetOpponentPlayer();
-	curPlayer->SetTotalMana(10);
-	curPlayer->SetUsedMana(0);
-	opPlayer->SetTotalMana(10);
-	opPlayer->SetUsedMana(0);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
-	auto& curField = *(curPlayer->GetFieldZone());
+    auto& curField = *(curPlayer->GetFieldZone());
 
-	const auto card1 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Psychopomp"));
-	const auto card2 = Generic::DrawCard(
-		curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Psychopomp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
 
-	game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
 
-	game.Process(curPlayer, EndTurnTask());
-	game.ProcessUntil(Step::MAIN_ACTION);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
 
-	game.Process(opPlayer, HeroPowerTask(card2));
+    game.Process(opPlayer, HeroPowerTask(card2));
 
-	game.Process(opPlayer, EndTurnTask());
-	game.ProcessUntil(Step::MAIN_ACTION);
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
 
-	game.Process(curPlayer, PlayCardTask::Minion(card1));
-	CHECK_EQ(curField.GetCount(), 2);
-	CHECK_EQ(curField[1]->card->name, "Stonetusk Boar");
-	CHECK_EQ(curField[1]->GetAttack(), 1);
-	CHECK_EQ(curField[1]->GetHealth(), 1);
-	CHECK_EQ(curField[1]->HasReborn(), true);
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Stonetusk Boar");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasReborn(), true);
 }
 
 // ---------------------------------------- MINION - PRIEST

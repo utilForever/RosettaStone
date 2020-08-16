@@ -40,8 +40,8 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
 void SummonReborn(Minion* minion)
 {
     int alternateCount = 0;
-    int zonePos = SummonTask::GetPosition(minion, SummonSide::DEATHRATTLE, nullptr,
-                                          alternateCount);
+    int zonePos = SummonTask::GetPosition(minion, SummonSide::DEATHRATTLE,
+                                          nullptr, alternateCount);
     if (zonePos > minion->player->GetFieldZone()->GetCount())
     {
         zonePos = minion->player->GetFieldZone()->GetCount();
