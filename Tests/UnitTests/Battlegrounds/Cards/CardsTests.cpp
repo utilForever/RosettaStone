@@ -7,7 +7,6 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
-#include <Rosetta/Common/Enums/CardEnums.hpp>
 
 using namespace RosettaStone;
 using namespace Battlegrounds;
@@ -17,5 +16,5 @@ TEST_CASE("[Cards] - GetAllCards")
     const auto cards = Cards::GetInstance().GetAllCards();
 
     CHECK_FALSE(cards.empty());
-    CHECK_EQ(static_cast<int>(cards.size()), NUM_BATTLEGROUNDS_CARDS);
+    CHECK_EQ(static_cast<int>(cards.size()), NUM_ALL_CARDS);
 }

@@ -84,7 +84,7 @@ bool Minion::IsLackey() const
 
 bool Minion::IsUntouchable() const
 {
-    return card->IsUntouchable();
+    return static_cast<bool>(GetGameTag(GameTag::UNTOUCHABLE));
 }
 
 bool Minion::HasCharge() const
@@ -92,9 +92,39 @@ bool Minion::HasCharge() const
     return static_cast<bool>(GetGameTag(GameTag::CHARGE));
 }
 
-bool Minion::IsRush() const
+bool Minion::HasTaunt() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::TAUNT));
+}
+
+bool Minion::HasDivineShield() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
+}
+
+bool Minion::HasPoisonous() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
+}
+
+bool Minion::HasFreeze() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::FREEZE));
+}
+
+bool Minion::HasRush() const
 {
     return static_cast<bool>(GetGameTag(GameTag::RUSH));
+}
+
+bool Minion::HasReborn() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::REBORN));
+}
+
+bool Minion::HasSpellburst() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::SPELLBURST));
 }
 
 bool Minion::IsAttackableByRush() const
@@ -107,9 +137,9 @@ void Minion::SetAttackableByRush(bool attackable)
     SetGameTag(GameTag::ATTACKABLE_BY_RUSH, static_cast<int>(attackable));
 }
 
-bool Minion::HasReborn() const
+bool Minion::CanAttack() const
 {
-    return static_cast<bool>(GetGameTag(GameTag::REBORN));
+    return Character::CanAttack() && !IsUntouchable();
 }
 
 void Minion::Silence()

@@ -33,7 +33,7 @@ using namespace PlayMode;
 inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {
 #if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
-    const filesystem::path p(path + "/Tests/UnitTests/CardSets");
+    const filesystem::path p(path + "/Tests/UnitTests/PlayMode/CardSets");
 
     if (!filesystem::exists(p))
     {

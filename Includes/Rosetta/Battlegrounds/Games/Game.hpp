@@ -57,6 +57,11 @@ class Game
     std::size_t DeterminePlayerToFightGhost(
         std::vector<std::tuple<int, int>>& playerData);
 
+    //! Sets a player pair to fight next.
+    //! \param player1Idx The index of first player.
+    //! \param player2Idx The index of second player.
+    void SetPlayerPair(int player1Idx, int player2Idx);
+
     //! Pairs a list of players.
     //! \param playerData The player data that stores index and rank.
     void PairPlayers(std::vector<std::tuple<int, int>>& playerData);
@@ -72,6 +77,7 @@ class Game
     Race m_excludeRace = Race::INVALID;
     std::vector<std::tuple<std::size_t, std::size_t>> m_playerFightPair;
     std::atomic<int> m_playerCount = 0;
+    std::atomic<int> m_cardIndex = 0;
 };
 }  // namespace RosettaStone::Battlegrounds
 

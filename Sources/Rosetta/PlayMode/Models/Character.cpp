@@ -124,24 +124,9 @@ bool Character::IsFrozen() const
     return static_cast<bool>(GetGameTag(GameTag::FROZEN));
 }
 
-bool Character::HasTaunt() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::TAUNT));
-}
-
 bool Character::HasStealth() const
 {
     return static_cast<bool>(GetGameTag(GameTag::STEALTH));
-}
-
-bool Character::HasDivineShield() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
-}
-
-bool Character::HasPoisonous() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
 }
 
 bool Character::HasWindfury() const

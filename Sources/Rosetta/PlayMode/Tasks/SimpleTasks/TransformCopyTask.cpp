@@ -80,7 +80,7 @@ TaskStatus TransformCopyTask::Impl(Player* player)
     {
         copy->SetExhausted(false);
     }
-    else if (target->IsRush())
+    else if (target->HasRush())
     {
         dynamic_cast<Minion*>(copy)->SetAttackableByRush(true);
         copy->game->rushMinions.emplace_back(

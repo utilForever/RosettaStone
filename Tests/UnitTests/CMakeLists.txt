@@ -27,6 +27,11 @@ target_compile_definitions(${target}
     RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../Resources/"
 )
 
+# Increase the stack size in MSVC
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /STACK:10000000")
+endif ()
+
 # Link libraries
 target_link_libraries(${target}
     PRIVATE

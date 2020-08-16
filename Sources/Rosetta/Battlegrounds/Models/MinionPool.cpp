@@ -116,7 +116,7 @@ std::size_t MinionPool::GetCount() const
     return m_count;
 }
 
-void MinionPool::AddMinionsToTavern(Player& player)
+void MinionPool::AddMinionsToTavern(Player& player, Tavern& tavern)
 {
     const std::size_t numMinions = GetNumMinionsCanPurchase(player.currentTier);
     auto minions = GetMinions(1, player.currentTier, true);
@@ -126,7 +126,7 @@ void MinionPool::AddMinionsToTavern(Player& player)
     std::size_t idx = 0;
     for (auto& minion : minions)
     {
-        player.tavernFieldZone.Add(minion);
+        tavern.fieldZone.Add(minion);
         std::get<2>(m_minions.at(minion.GetPoolIndex())) = false;
         ++idx;
 
@@ -141,7 +141,7 @@ void MinionPool::ReturnMinion(int idx)
 {
     if (idx < 0 || idx >= NUM_TOTAL_TAVERN_MINIONS)
     {
-        throw std::invalid_argument("Invalid pool index");
+        return;
     }
 
     std::get<2>(m_minions.at(idx)) = true;

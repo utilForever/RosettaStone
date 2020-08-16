@@ -242,6 +242,19 @@ SelfCondition SelfCondition::IsHoldingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsAnotherClassCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (playable->card->GetCardClass() != CardClass::NEUTRAL &&
+            playable->card->GetCardClass() !=
+                playable->player->GetHero()->card->GetCardClass())
+        {
+            return true;
+        }
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHoldingAnotherClassCard()
 {
     return SelfCondition([=](Playable* playable) -> bool {
@@ -314,7 +327,7 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
-SelfCondition SelfCondition::IsRush()
+SelfCondition SelfCondition::HasRush()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         const auto minion = dynamic_cast<Minion*>(playable);
@@ -323,7 +336,7 @@ SelfCondition SelfCondition::IsRush()
             return false;
         }
 
-        return minion->IsRush();
+        return minion->HasRush();
     });
 }
 
@@ -412,6 +425,18 @@ SelfCondition SelfCondition::IsOverloadCard()
 {
     return SelfCondition([=](Playable* playable) -> bool {
         if (playable->GetGameTag(GameTag::OVERLOAD) >= 1)
+        {
+            return true;
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::IsComboCard()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (playable->GetGameTag(GameTag::COMBO) == 1)
         {
             return true;
         }

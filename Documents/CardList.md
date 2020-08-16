@@ -8,6 +8,8 @@
 * [Saviors of Uldum](#saviors-of-uldum)
 * [Descent of Dragons](#descent-of-dragons)
 * [Galakrond's Awakening](#galakronds-awakening)
+* [Ashes of Outland](#ashes-of-outland)
+* [Scholomance Academy](#scholomance-academy)
 
 ## Basic
 
@@ -631,8 +633,8 @@ ULDUM | ULD_136 | Worthy Expedition | O
 ULDUM | ULD_137 | Garden Gnome | O
 ULDUM | ULD_138 | Anubisath Defender | O
 ULDUM | ULD_139 | Elise the Enlightened | O
-ULDUM | ULD_140 | Supreme Archaeology |  
-ULDUM | ULD_143 | Pharaoh's Blessing |  
+ULDUM | ULD_140 | Supreme Archaeology | O  
+ULDUM | ULD_143 | Pharaoh's Blessing | O
 ULDUM | ULD_145 | Brazen Zealot |  
 ULDUM | ULD_151 | Ramkahen Wildtamer | O
 ULDUM | ULD_152 | Pressure Plate | O
@@ -654,7 +656,7 @@ ULDUM | ULD_171 | Totemic Surge |
 ULDUM | ULD_172 | Plague of Murlocs |  
 ULDUM | ULD_173 | Vessina |  
 ULDUM | ULD_174 | Serpent Egg | O
-ULDUM | ULD_177 | Octosari |  
+ULDUM | ULD_177 | Octosari | O
 ULDUM | ULD_178 | Siamat |  
 ULDUM | ULD_179 | Phalanx Commander |  
 ULDUM | ULD_180 | Sunstruck Henchman |  
@@ -663,21 +665,21 @@ ULDUM | ULD_182 | Spitting Camel | O
 ULDUM | ULD_183 | Anubisath Warbringer |  
 ULDUM | ULD_184 | Kobold Sandtrooper | O
 ULDUM | ULD_185 | Temple Berserker |  
-ULDUM | ULD_186 | Pharaoh Cat |  
+ULDUM | ULD_186 | Pharaoh Cat | O
 ULDUM | ULD_188 | Golden Scarab |  
 ULDUM | ULD_189 | Faceless Lurker |  
-ULDUM | ULD_190 | Pit Crocolisk |  
+ULDUM | ULD_190 | Pit Crocolisk | O
 ULDUM | ULD_191 | Beaming Sidekick | O
 ULDUM | ULD_193 | Living Monument | O
 ULDUM | ULD_194 | Wasteland Scorpid | O
 ULDUM | ULD_195 | Frightened Flunky |  
 ULDUM | ULD_196 | Neferset Ritualist |  
-ULDUM | ULD_197 | Quicksand Elemental |  
-ULDUM | ULD_198 | Conjured Mirage |  
+ULDUM | ULD_197 | Quicksand Elemental | O
+ULDUM | ULD_198 | Conjured Mirage | O
 ULDUM | ULD_205 | Candletaker | O
 ULDUM | ULD_206 | Restless Mummy | O
 ULDUM | ULD_207 | Ancestral Guardian | O
-ULDUM | ULD_208 | Khartut Defender |  
+ULDUM | ULD_208 | Khartut Defender | O
 ULDUM | ULD_209 | Vulpera Scoundrel |  
 ULDUM | ULD_212 | Wild Bloodstinger | O
 ULDUM | ULD_214 | Generous Mummy |  
@@ -685,12 +687,12 @@ ULDUM | ULD_215 | Wrapped Golem |
 ULDUM | ULD_216 | Puzzle Box of Yogg-Saron | O
 ULDUM | ULD_217 | Micro Mummy |  
 ULDUM | ULD_229 | Mischief Maker |  
-ULDUM | ULD_231 | Whirlkick Master |  
+ULDUM | ULD_231 | Whirlkick Master | O
 ULDUM | ULD_236 | Tortollan Pilgrim | O
 ULDUM | ULD_238 | Reno the Relicologist | O
 ULDUM | ULD_239 | Flame Ward | O
 ULDUM | ULD_240 | Arcane Flakmage | O
-ULDUM | ULD_250 | Infested Goblin |  
+ULDUM | ULD_250 | Infested Goblin | O
 ULDUM | ULD_253 | Tomb Warden |  
 ULDUM | ULD_256 | Into the Fray |  
 ULDUM | ULD_258 | Armagedillo |  
@@ -698,18 +700,18 @@ ULDUM | ULD_262 | High Priest Amet |
 ULDUM | ULD_265 | Embalming Ritual |  
 ULDUM | ULD_266 | Grandmummy |  
 ULDUM | ULD_268 | Psychopomp |  
-ULDUM | ULD_269 | Wretched Reclaimer |  
-ULDUM | ULD_270 | Sandhoof Waterbearer |  
+ULDUM | ULD_269 | Wretched Reclaimer | O
+ULDUM | ULD_270 | Sandhoof Waterbearer | O
 ULDUM | ULD_271 | Injured Tol'vir | O
-ULDUM | ULD_272 | Holy Ripple |  
+ULDUM | ULD_272 | Holy Ripple | O
 ULDUM | ULD_273 | Overflow | O
 ULDUM | ULD_274 | Wasteland Assassin | O
 ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
-ULDUM | ULD_280 | Sahket Sapper |  
-ULDUM | ULD_282 | Jar Dealer |  
-ULDUM | ULD_285 | Hooked Scimitar |  
-ULDUM | ULD_286 | Shadow of Death |  
+ULDUM | ULD_280 | Sahket Sapper | O
+ULDUM | ULD_282 | Jar Dealer | O
+ULDUM | ULD_285 | Hooked Scimitar | O  
+ULDUM | ULD_286 | Shadow of Death | O
 ULDUM | ULD_288 | Anka, the Buried |  
 ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
@@ -718,9 +720,9 @@ ULDUM | ULD_292 | Oasis Surger | O
 ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
-ULDUM | ULD_324 | Impbalming |  
-ULDUM | ULD_326 | Bazaar Burglary |  
-ULDUM | ULD_327 | Bazaar Mugger |  
+ULDUM | ULD_324 | Impbalming | O
+ULDUM | ULD_326 | Bazaar Burglary | O
+ULDUM | ULD_327 | Bazaar Mugger | O
 ULDUM | ULD_328 | Clever Disguise |  
 ULDUM | ULD_329 | Dune Sculptor | O
 ULDUM | ULD_410 | Scarlet Webweaver | O
@@ -744,11 +746,11 @@ ULDUM | ULD_709 | Armored Goon |
 ULDUM | ULD_711 | Hack the System |  
 ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts | O
-ULDUM | ULD_714 | Penance |  
-ULDUM | ULD_715 | Plague of Madness |  
+ULDUM | ULD_714 | Penance | O
+ULDUM | ULD_715 | Plague of Madness | O
 ULDUM | ULD_716 | Tip the Scales |  
 ULDUM | ULD_717 | Plague of Flames |  
-ULDUM | ULD_718 | Plague of Death |  
+ULDUM | ULD_718 | Plague of Death | O
 ULDUM | ULD_719 | Desert Hare |  
 ULDUM | ULD_720 | Bloodsworn Mercenary |  
 ULDUM | ULD_721 | Colossus of the Moon | O
@@ -758,7 +760,7 @@ ULDUM | ULD_726 | Ancient Mysteries | O
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 35% (48 of 135 Cards)
+- Progress: 45% (62 of 135 Cards)
 
 ## Descent of Dragons
 
@@ -948,3 +950,287 @@ YEAR_OF_THE_DRAGON | YOD_042 | The Fist of Ra-den |
 YEAR_OF_THE_DRAGON | YOD_043 | Scalelord |  
 
 - Progress: 0% (0 of 35 Cards)
+
+## Ashes of Outland
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+BLACK_TEMPLE | BT_002 | Incanter's Flow |  
+BLACK_TEMPLE | BT_003 | Netherwind Portal |  
+BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
+BLACK_TEMPLE | BT_006 | Evocation |  
+BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
+BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
+BLACK_TEMPLE | BT_010 | Felfin Navigator | O 
+BLACK_TEMPLE | BT_011 | Libram of Justice |  
+BLACK_TEMPLE | BT_014 | Starscryer |  
+BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
+BLACK_TEMPLE | BT_019 | Murgur Murgurgle |  
+BLACK_TEMPLE | BT_020 | Aldor Attendant |  
+BLACK_TEMPLE | BT_021 | Font of Power |  
+BLACK_TEMPLE | BT_022 | Apexis Smuggler |  
+BLACK_TEMPLE | BT_024 | Libram of Hope |  
+BLACK_TEMPLE | BT_025 | Libram of Wisdom |  
+BLACK_TEMPLE | BT_026 | Aldor Truthseeker |  
+BLACK_TEMPLE | BT_028 | Astromancer Solarian |  
+BLACK_TEMPLE | BT_042 | Bamboozle |  
+BLACK_TEMPLE | BT_072 | Deep Freeze |  
+BLACK_TEMPLE | BT_100 | Serpentshrine Portal |  
+BLACK_TEMPLE | BT_101 | Vivid Spores |  
+BLACK_TEMPLE | BT_102 | Boggspine Knuckles |  
+BLACK_TEMPLE | BT_106 | Bogstrok Clacker |  
+BLACK_TEMPLE | BT_109 | Lady Vashj |  
+BLACK_TEMPLE | BT_110 | Torrent |  
+BLACK_TEMPLE | BT_113 | Totemic Reflection |  
+BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
+BLACK_TEMPLE | BT_115 | Marshspawn |  
+BLACK_TEMPLE | BT_117 | Bladestorm | O 
+BLACK_TEMPLE | BT_120 | Warmaul Challenger | O 
+BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
+BLACK_TEMPLE | BT_123 | Kargath Bladefist | O
+BLACK_TEMPLE | BT_124 | Corsair Cache | O
+BLACK_TEMPLE | BT_126 | Teron Gorefiend |  
+BLACK_TEMPLE | BT_127 | Imprisoned Satyr |  
+BLACK_TEMPLE | BT_128 | Fungal Fortunes |  
+BLACK_TEMPLE | BT_129 | Germination |  
+BLACK_TEMPLE | BT_130 | Overgrowth | O
+BLACK_TEMPLE | BT_131 | Ysiel Windsinger |  
+BLACK_TEMPLE | BT_132 | Ironbark |  
+BLACK_TEMPLE | BT_133 | Marsh Hydra |  
+BLACK_TEMPLE | BT_134 | Bogbeam |  
+BLACK_TEMPLE | BT_135 | Glowfly Swarm |  
+BLACK_TEMPLE | BT_136 | Archspore Msshi'fn |  
+BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
+BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
+BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
+BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
+BLACK_TEMPLE | BT_159 | Terrorguard Escapee | O
+BLACK_TEMPLE | BT_160 | Rustsworn Cultist |  
+BLACK_TEMPLE | BT_163 | Nagrand Slam |  
+BLACK_TEMPLE | BT_187 | Kayn Sunfury |  
+BLACK_TEMPLE | BT_188 | Shadowjeweler Hanar |  
+BLACK_TEMPLE | BT_190 | Replicat-o-tron |  
+BLACK_TEMPLE | BT_196 | Keli'dan the Breaker |  
+BLACK_TEMPLE | BT_197 | Reliquary of Souls |  
+BLACK_TEMPLE | BT_198 | Soul Mirror |  
+BLACK_TEMPLE | BT_199 | Unstable Felbolt |  
+BLACK_TEMPLE | BT_201 | Augmented Porcupine |  
+BLACK_TEMPLE | BT_202 | Helboar |  
+BLACK_TEMPLE | BT_203 | Pack Tactics |  
+BLACK_TEMPLE | BT_205 | Scrap Shot |  
+BLACK_TEMPLE | BT_210 | Zixor, Apex Predator |  
+BLACK_TEMPLE | BT_211 | Imprisoned Felmaw |  
+BLACK_TEMPLE | BT_212 | Mok'Nathal Lion |  
+BLACK_TEMPLE | BT_213 | Scavenger's Ingenuity |  
+BLACK_TEMPLE | BT_214 | Beastmaster Leoroxx |  
+BLACK_TEMPLE | BT_230 | The Lurker Below |  
+BLACK_TEMPLE | BT_233 | Sword and Board |  
+BLACK_TEMPLE | BT_249 | Scrap Golem |  
+BLACK_TEMPLE | BT_252 | Renew |  
+BLACK_TEMPLE | BT_253 | Psyche Split |  
+BLACK_TEMPLE | BT_254 | Sethekk Veilweaver |  
+BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |  
+BLACK_TEMPLE | BT_256 | Dragonmaw Overseer |  
+BLACK_TEMPLE | BT_257 | Apotheosis |  
+BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
+BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel |  
+BLACK_TEMPLE | BT_291 | Apexis Blast |  
+BLACK_TEMPLE | BT_292 | Hand of A'dal |  
+BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
+BLACK_TEMPLE | BT_301 | Nightshade Matron |  
+BLACK_TEMPLE | BT_302 | The Dark Portal |  
+BLACK_TEMPLE | BT_304 | Enhanced Dreadlord |  
+BLACK_TEMPLE | BT_305 | Imprisoned Scrap Imp |  
+BLACK_TEMPLE | BT_306 | Shadow Council |  
+BLACK_TEMPLE | BT_307 | Darkglare |  
+BLACK_TEMPLE | BT_309 | Kanrethad Ebonlocke |  
+BLACK_TEMPLE | BT_321 | Netherwalker |  
+BLACK_TEMPLE | BT_334 | Lady Liadrin |  
+BLACK_TEMPLE | BT_341 | Skeletal Dragon |  
+BLACK_TEMPLE | BT_423 | Ashtongue Battlelord |  
+BLACK_TEMPLE | BT_429 | Metamorphosis |  
+BLACK_TEMPLE | BT_430 | Warglaives of Azzinoth |  
+BLACK_TEMPLE | BT_480 | Crimson Sigil Runner |  
+BLACK_TEMPLE | BT_486 | Pit Commander |  
+BLACK_TEMPLE | BT_491 | Spectral Sight |  
+BLACK_TEMPLE | BT_493 | Priestess of Fury |  
+BLACK_TEMPLE | BT_496 | Furious Felfin |  
+BLACK_TEMPLE | BT_509 | Fel Summoner |  
+BLACK_TEMPLE | BT_514 | Immolation Aura |  
+BLACK_TEMPLE | BT_601 | Skull of Gul'dan |  
+BLACK_TEMPLE | BT_701 | Spymistress |  
+BLACK_TEMPLE | BT_702 | Ashtongue Slayer |  
+BLACK_TEMPLE | BT_703 | Cursed Vagrant |  
+BLACK_TEMPLE | BT_707 | Ambush |  
+BLACK_TEMPLE | BT_709 | Dirty Tricks |  
+BLACK_TEMPLE | BT_710 | Greyheart Sage |  
+BLACK_TEMPLE | BT_711 | Blackjack Stunner |  
+BLACK_TEMPLE | BT_713 | Akama |  
+BLACK_TEMPLE | BT_714 | Frozen Shadoweaver |  
+BLACK_TEMPLE | BT_715 | Bonechewer Brawler |  
+BLACK_TEMPLE | BT_716 | Bonechewer Vanguard |  
+BLACK_TEMPLE | BT_717 | Burrowing Scorpid |  
+BLACK_TEMPLE | BT_720 | Ruststeed Raider |  
+BLACK_TEMPLE | BT_721 | Blistering Rot |  
+BLACK_TEMPLE | BT_722 | Guardian Augmerchant |  
+BLACK_TEMPLE | BT_723 | Rocket Augmerchant |  
+BLACK_TEMPLE | BT_724 | Ethereal Augmerchant |  
+BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker |  
+BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
+BLACK_TEMPLE | BT_728 | Disguised Wanderer |  
+BLACK_TEMPLE | BT_729 | Waste Warden |  
+BLACK_TEMPLE | BT_730 | Overconfident Orc |  
+BLACK_TEMPLE | BT_731 | Infectious Sporeling |  
+BLACK_TEMPLE | BT_732 | Scavenging Shivarra |  
+BLACK_TEMPLE | BT_733 | Mo'arg Artificer |  
+BLACK_TEMPLE | BT_734 | Supreme Abyssal |  
+BLACK_TEMPLE | BT_735 | Al'ar |  
+BLACK_TEMPLE | BT_737 | Maiev Shadowsong |  
+BLACK_TEMPLE | BT_761 | Coilfang Warlord |  
+BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |  
+BLACK_TEMPLE | BT_850 | Magtheridon |  
+BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
+
+- Progress: 4% (6 of 135 Cards)
+
+## Scholomance Academy
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+SCHOLOMANCE | SCH_120 | Cabal Acolyte |  
+SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |  
+SCHOLOMANCE | SCH_133 | Wolpertinger |  
+SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
+SCHOLOMANCE | SCH_136 | Power Word: Feast |  
+SCHOLOMANCE | SCH_137 | Frazzled Freshman |  
+SCHOLOMANCE | SCH_138 | Blessing of Authority |  
+SCHOLOMANCE | SCH_139 | Devout Pupil |  
+SCHOLOMANCE | SCH_140 | Flesh Giant |  
+SCHOLOMANCE | SCH_141 | High Abbess Alura |  
+SCHOLOMANCE | SCH_142 | Voracious Reader |  
+SCHOLOMANCE | SCH_143 | Divine Rager |  
+SCHOLOMANCE | SCH_145 | Desk Imp |  
+SCHOLOMANCE | SCH_146 | Robes of Protection |  
+SCHOLOMANCE | SCH_147 | Boneweb Egg |  
+SCHOLOMANCE | SCH_149 | Argent Braggart |  
+SCHOLOMANCE | SCH_157 | Enchanted Cauldron |  
+SCHOLOMANCE | SCH_158 | Demonic Studies |  
+SCHOLOMANCE | SCH_159 | Mindrender Illucia |  
+SCHOLOMANCE | SCH_160 | Wandmaker |  
+SCHOLOMANCE | SCH_162 | Vectus |  
+SCHOLOMANCE | SCH_181 | Archwitch Willow |  
+SCHOLOMANCE | SCH_182 | Speaker Gidra |  
+SCHOLOMANCE | SCH_199 | Transfer Student |  
+SCHOLOMANCE | SCH_224 | Headmaster Kel'Thuzad |  
+SCHOLOMANCE | SCH_230 | Onyx Magescribe |  
+SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
+SCHOLOMANCE | SCH_232 | Crimson Hothead |  
+SCHOLOMANCE | SCH_233 | Draconic Studies |  
+SCHOLOMANCE | SCH_234 | Shifty Sophomore |  
+SCHOLOMANCE | SCH_235 | Devolving Missiles |  
+SCHOLOMANCE | SCH_236 | Diligent Notetaker |  
+SCHOLOMANCE | SCH_237 | Athletic Studies |  
+SCHOLOMANCE | SCH_238 | Reaper's Scythe |  
+SCHOLOMANCE | SCH_239 | Krolusk Barkstripper |  
+SCHOLOMANCE | SCH_241 | Firebrand |  
+SCHOLOMANCE | SCH_242 | Gibberling |  
+SCHOLOMANCE | SCH_243 | Wyrm Weaver |  
+SCHOLOMANCE | SCH_244 | Teacher's Pet |  
+SCHOLOMANCE | SCH_245 | Steward of Scrolls |  
+SCHOLOMANCE | SCH_247 | First Day of School |  
+SCHOLOMANCE | SCH_248 | Pen Flinger |  
+SCHOLOMANCE | SCH_250 | Wave of Apathy |  
+SCHOLOMANCE | SCH_252 | Marrowslicer |  
+SCHOLOMANCE | SCH_253 | Cycle of Hatred |  
+SCHOLOMANCE | SCH_259 | Sphere of Sapience |  
+SCHOLOMANCE | SCH_270 | Primordial Studies |  
+SCHOLOMANCE | SCH_271 | Molten Blast |  
+SCHOLOMANCE | SCH_273 | Ras Frostwhisper |  
+SCHOLOMANCE | SCH_276 | Magehunter |  
+SCHOLOMANCE | SCH_279 | Trueaim Crescent |  
+SCHOLOMANCE | SCH_283 | Manafeeder Panthara |  
+SCHOLOMANCE | SCH_300 | Carrion Studies |  
+SCHOLOMANCE | SCH_301 | Rune Dagger |  
+SCHOLOMANCE | SCH_302 | Gift of Luminance |  
+SCHOLOMANCE | SCH_305 | Secret Passage |  
+SCHOLOMANCE | SCH_307 | School Spirits |  
+SCHOLOMANCE | SCH_310 | Lab Partner |  
+SCHOLOMANCE | SCH_311 | Animated Broomstick |  
+SCHOLOMANCE | SCH_312 | Tour Guide |  
+SCHOLOMANCE | SCH_313 | Wretched Tutor |  
+SCHOLOMANCE | SCH_317 | Playmaker |  
+SCHOLOMANCE | SCH_333 | Nature Studies |  
+SCHOLOMANCE | SCH_337 | Troublemaker |  
+SCHOLOMANCE | SCH_340 | Bloated Python |  
+SCHOLOMANCE | SCH_343 | Void Drinker |  
+SCHOLOMANCE | SCH_348 | Combustion |  
+SCHOLOMANCE | SCH_350 | Wand Thief |  
+SCHOLOMANCE | SCH_351 | Jandice Barov |  
+SCHOLOMANCE | SCH_352 | Potion of Illusion |  
+SCHOLOMANCE | SCH_353 | Cram Session |  
+SCHOLOMANCE | SCH_354 | Ancient Void Hound |  
+SCHOLOMANCE | SCH_355 | Shardshatter Mystic |  
+SCHOLOMANCE | SCH_356 | Glide |  
+SCHOLOMANCE | SCH_357 | Fel Guardians |  
+SCHOLOMANCE | SCH_400 | Mozaki, Master Duelist |  
+SCHOLOMANCE | SCH_422 | Double Jump |  
+SCHOLOMANCE | SCH_425 | Doctor Krastinov |  
+SCHOLOMANCE | SCH_426 | Infiltrator Lilian |  
+SCHOLOMANCE | SCH_427 | Lightning Bloom |  
+SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
+SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
+SCHOLOMANCE | SCH_509 | Brain Freeze |  
+SCHOLOMANCE | SCH_512 | Initiation |  
+SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |  
+SCHOLOMANCE | SCH_514 | Raise Dead |  
+SCHOLOMANCE | SCH_517 | Shadowlight Scholar |  
+SCHOLOMANCE | SCH_519 | Vulpera Toxinblade |  
+SCHOLOMANCE | SCH_521 | Coerce |  
+SCHOLOMANCE | SCH_522 | Steeldancer |  
+SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
+SCHOLOMANCE | SCH_524 | Shield of Honor |  
+SCHOLOMANCE | SCH_525 | In Formation! |  
+SCHOLOMANCE | SCH_526 | Lord Barov |  
+SCHOLOMANCE | SCH_530 | Sorcerous Substitute |  
+SCHOLOMANCE | SCH_532 | Goody Two-Shields |  
+SCHOLOMANCE | SCH_533 | Commencement |  
+SCHOLOMANCE | SCH_535 | Tidal Wave |  
+SCHOLOMANCE | SCH_537 | Trick Totem |  
+SCHOLOMANCE | SCH_538 | Ace Hunter Kreen |  
+SCHOLOMANCE | SCH_539 | Professor Slate |  
+SCHOLOMANCE | SCH_600 | Demon Companion |  
+SCHOLOMANCE | SCH_603 | Star Student Stelina |  
+SCHOLOMANCE | SCH_604 | Overwhelm |  
+SCHOLOMANCE | SCH_605 | Lake Thresher |  
+SCHOLOMANCE | SCH_606 | Partner Assignment |  
+SCHOLOMANCE | SCH_607 | Shan'do Wildclaw |  
+SCHOLOMANCE | SCH_609 | Survival of the Fittest |  
+SCHOLOMANCE | SCH_610 | Guardian Animals |  
+SCHOLOMANCE | SCH_612 | Runic Carvings |  
+SCHOLOMANCE | SCH_613 | Groundskeeper |  
+SCHOLOMANCE | SCH_614 | Forest Warden Omu |  
+SCHOLOMANCE | SCH_615 | Totem Goliath |  
+SCHOLOMANCE | SCH_616 | Twilight Runner |  
+SCHOLOMANCE | SCH_617 | Adorable Infestation |  
+SCHOLOMANCE | SCH_618 | Blood Herald |  
+SCHOLOMANCE | SCH_621 | Rattlegore |  
+SCHOLOMANCE | SCH_622 | Self-Sharpening Sword |  
+SCHOLOMANCE | SCH_623 | Cutting Class |  
+SCHOLOMANCE | SCH_700 | Spirit Jailer |  
+SCHOLOMANCE | SCH_701 | Soul Shear |  
+SCHOLOMANCE | SCH_702 | Felosophy |  
+SCHOLOMANCE | SCH_703 | Soulciologist Malicia |  
+SCHOLOMANCE | SCH_704 | Soulshard Lapidary |  
+SCHOLOMANCE | SCH_705 | Vilefiend Trainer |  
+SCHOLOMANCE | SCH_706 | Plagiarize |  
+SCHOLOMANCE | SCH_707 | Fishy Flyer |  
+SCHOLOMANCE | SCH_708 | Sneaky Delinquent |  
+SCHOLOMANCE | SCH_709 | Smug Senior |  
+SCHOLOMANCE | SCH_710 | Ogremancer |  
+SCHOLOMANCE | SCH_711 | Plagued Protodrake |  
+SCHOLOMANCE | SCH_712 | Judicious Junior |  O
+SCHOLOMANCE | SCH_713 | Cult Neophyte |  
+SCHOLOMANCE | SCH_714 | Educated Elekk |  
+SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
+
+- Progress: 0.01% (2 of 135 Cards)

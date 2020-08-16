@@ -26,6 +26,20 @@ const std::string CARD_CLASS_STR[] = {
 #undef X
 };
 
+//! \brief An enumerator for identifying the multi class group of the card.
+enum class MultiClassGroup
+{
+#define X(a) a,
+#include "Rosetta/Common/Enums/MultiClassGroup.def"
+#undef X
+};
+
+const std::string MULTI_CLASS_GROUP_STR[] = {
+#define X(a) #a,
+#include "Rosetta/Common/Enums/MultiClassGroup.def"
+#undef X
+};
+
 //! \brief An enumerator for identifying the set of the card.
 enum class CardSet
 {
@@ -72,15 +86,15 @@ const std::string FACTION_STR[] = {
 enum class GameTag
 {
 #define X(a) a,
-#include "GameTagCustom.def"
 #include "Rosetta/Common/Enums/GameTag.def"
+#include "GameTagCustom.def"
 #undef X
 };
 
 const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
-#include "GameTagCustom.def"
 #include "Rosetta/Common/Enums/GameTag.def"
+#include "GameTagCustom.def"
 #undef X
 };
 
@@ -265,6 +279,7 @@ std::string_view EnumToStr(T);
     ENUM2STR(TYPE, ARRAY)
 
 ENUM_AND_STR(CardClass, CARD_CLASS_STR)
+ENUM_AND_STR(MultiClassGroup, MULTI_CLASS_GROUP_STR)
 ENUM_AND_STR(CardSet, CARD_SET_STR)
 ENUM_AND_STR(CardType, CARD_TYPE_STR)
 ENUM_AND_STR(Faction, FACTION_STR)

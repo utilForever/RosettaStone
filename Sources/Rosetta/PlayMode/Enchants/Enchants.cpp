@@ -81,6 +81,11 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
         effects.emplace_back(Effects::Rush);
     }
 
+    if (text.find("<b>Divine Shield</b>") != std::string::npos)
+    {
+        effects.emplace_back(Effects::DivineShield);
+    }
+
     if (text.find("this turn") != std::string::npos ||
         card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] > 0)
     {

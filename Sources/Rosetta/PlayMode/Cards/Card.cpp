@@ -155,6 +155,12 @@ CardClass Card::GetCardClass() const
     return static_cast<CardClass>(gameTags.at(GameTag::CLASS));
 }
 
+MultiClassGroup Card::GetMultiClassGroup() const
+{
+    return static_cast<MultiClassGroup>(
+        gameTags.at(GameTag::MULTI_CLASS_GROUP));
+}
+
 CardSet Card::GetCardSet() const
 {
     return static_cast<CardSet>(gameTags.at(GameTag::CARD_SET));
@@ -188,6 +194,59 @@ int Card::GetCost() const
 bool Card::HasGameTag(GameTag gameTag) const
 {
     return gameTags.find(gameTag) != gameTags.end();
+}
+
+bool Card::IsCardClass(CardClass cardClass) const
+{
+    switch (GetMultiClassGroup())
+    {
+        case MultiClassGroup::INVALID:
+            return cardClass == GetCardClass();
+        case MultiClassGroup::GRIMY_GOONS:
+            return cardClass == CardClass::HUNTER ||
+                   cardClass == CardClass::WARRIOR ||
+                   cardClass == CardClass::PALADIN;
+        case MultiClassGroup::JADE_LOTUS:
+            return cardClass == CardClass::ROGUE ||
+                   cardClass == CardClass::SHAMAN ||
+                   cardClass == CardClass::DRUID;
+        case MultiClassGroup::KABAL:
+            return cardClass == CardClass::PRIEST ||
+                   cardClass == CardClass::WARLOCK ||
+                   cardClass == CardClass::MAGE;
+        case MultiClassGroup::PALADIN_PRIEST:
+            return cardClass == CardClass::PALADIN ||
+                   cardClass == CardClass::PRIEST;
+        case MultiClassGroup::PRIEST_WARLOCK:
+            return cardClass == CardClass::PRIEST ||
+                   cardClass == CardClass::WARLOCK;
+        case MultiClassGroup::WARLOCK_DEMONHUNTER:
+            return cardClass == CardClass::WARLOCK ||
+                   cardClass == CardClass::DEMONHUNTER;
+        case MultiClassGroup::HUNTER_DEMONHUNTER:
+            return cardClass == CardClass::HUNTER ||
+                   cardClass == CardClass::DEMONHUNTER;
+        case MultiClassGroup::DRUID_HUNTER:
+            return cardClass == CardClass::DRUID ||
+                   cardClass == CardClass::HUNTER;
+        case MultiClassGroup::DRUID_SHAMAN:
+            return cardClass == CardClass::DRUID ||
+                   cardClass == CardClass::SHAMAN;
+        case MultiClassGroup::MAGE_SHAMAN:
+            return cardClass == CardClass::MAGE ||
+                   cardClass == CardClass::SHAMAN;
+        case MultiClassGroup::MAGE_ROGUE:
+            return cardClass == CardClass::MAGE ||
+                   cardClass == CardClass::ROGUE;
+        case MultiClassGroup::ROGUE_WARRIOR:
+            return cardClass == CardClass::ROGUE ||
+                   cardClass == CardClass::WARRIOR;
+        case MultiClassGroup::PALADIN_WARRIOR:
+            return cardClass == CardClass::PALADIN ||
+                   cardClass == CardClass::WARRIOR;
+    }
+
+    return cardClass == GetCardClass();
 }
 
 bool Card::IsQuest() const

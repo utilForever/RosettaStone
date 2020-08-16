@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
@@ -22,9 +23,16 @@ TaskStatus ReturnHandTask::Impl(Player* player)
 
     for (auto& playable : playables)
     {
-        playable->zone->Remove(playable);
-        playable->Reset();
-        Generic::AddCardToHand(playable->player, playable);
+        if (playable->player->GetHandZone()->IsFull()) 
+        {
+            playable->Destroy();
+        }
+        else
+        {
+            playable->zone->Remove(playable);
+            playable->Reset();
+            Generic::AddCardToHand(playable->player, playable);
+        }
     }
 
     return TaskStatus::COMPLETE;

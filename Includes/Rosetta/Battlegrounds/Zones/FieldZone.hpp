@@ -31,6 +31,24 @@ using MinionData = std::optional<Minion>;
 class FieldZone
 {
  public:
+    //! Default constructor.
+    FieldZone() = default;
+
+    //! Default destructor.
+    ~FieldZone() = default;
+
+    //! Default copy constructor.
+    FieldZone(const FieldZone& rhs) = default;
+
+    //! Deleted move constructor.
+    FieldZone(FieldZone&& rhs) noexcept = delete;
+
+    //! Copy assignment operator.
+    FieldZone& operator=(const FieldZone& rhs);
+
+    //! Deleted Move assignment operator.
+    FieldZone& operator=(FieldZone&& rhs) noexcept = delete;
+
     //! Operator overloading for operator[].
     //! \param zonePos The zone position of minion.
     //! \return The minion at \p zonePos.
@@ -72,6 +90,10 @@ class FieldZone
     //! \return true if this zone is full, false otherwise.
     bool IsFull() const;
 
+    //! Returns all minions in this zone.
+    //! \return All minions in this zone.
+    std::vector<std::reference_wrapper<Minion>> GetAll();
+
     //! Runs \p functor on each minion.
     //! \param functor A function to run for each minion.
     template <typename Functor>
@@ -94,6 +116,34 @@ class FieldZone
         for (const auto& minion : m_minions)
         {
             if (minion.has_value())
+            {
+                functor(minion);
+            }
+        }
+    }
+
+    //! Runs \p functor on each minion that is alive.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEachAlive(Functor&& functor)
+    {
+        for (auto& minion : m_minions)
+        {
+            if (minion.has_value() && !minion.value().IsDestroyed())
+            {
+                functor(minion);
+            }
+        }
+    }
+
+    //! Runs \p functor on each minion that is alive.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEachAlive(Functor&& functor) const
+    {
+        for (const auto& minion : m_minions)
+        {
+            if (minion.has_value() && !minion.value().IsDestroyed())
             {
                 functor(minion);
             }

@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
 
 #include <fstream>
+#include <regex>
 
 namespace RosettaStone::PlayMode
 {
@@ -63,6 +64,11 @@ void CardLoader::Load(std::vector<Card*>& cards)
                 ? 0
                 : static_cast<int>(StrToEnum<CardClass>(
                       cardData["cardClass"].get<std::string>()));
+        const int multiClassGroup =
+            cardData["multiClassGroup"].is_null()
+                ? 0
+                : static_cast<int>(StrToEnum<MultiClassGroup>(
+                      cardData["multiClassGroup"].get<std::string>()));
         const int collectible = cardData["collectible"].is_null()
                                     ? 0
                                     : cardData["collectible"].get<int>();
@@ -116,6 +122,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::CARD_SET] = cardSet;
         card->gameTags[GameTag::CARDTYPE] = cardType;
         card->gameTags[GameTag::CLASS] = cardClass;
+        card->gameTags[GameTag::MULTI_CLASS_GROUP] = multiClassGroup;
         card->gameTags[GameTag::COLLECTIBLE] = collectible;
         card->gameTags[GameTag::COST] = cost;
         card->gameTags[GameTag::DAMAGE] = 0;
@@ -132,6 +139,14 @@ void CardLoader::Load(std::vector<Card*>& cards)
         if (overload > 0)
         {
             card->gameTags[GameTag::OVERLOAD] = overload;
+        }
+
+        static std::regex spellburstRegex("(<b>Spellburst:</b>)");
+        std::smatch values;
+
+        if (std::regex_search(text, values, spellburstRegex))
+        {
+            card->gameTags[GameTag::SPELLBURST] = 1;
         }
 
         cards.emplace_back(card);

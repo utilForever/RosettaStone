@@ -10,6 +10,19 @@
 
 namespace RosettaStone::Battlegrounds
 {
+FieldZone& FieldZone::operator=(const FieldZone& rhs)
+{
+    if (this == &rhs)
+    {
+        return *this;
+    }
+
+    m_minions = rhs.m_minions;
+    m_count = rhs.m_count;
+
+    return *this;
+}
+
 Minion& FieldZone::operator[](int zonePos)
 {
     return m_minions.at(zonePos).value();
@@ -117,5 +130,21 @@ bool FieldZone::IsEmpty() const
 bool FieldZone::IsFull() const
 {
     return m_count == MAX_FIELD_SIZE;
+}
+
+std::vector<std::reference_wrapper<Minion>> FieldZone::GetAll()
+{
+    std::vector<std::reference_wrapper<Minion>> result;
+    result.reserve(m_count);
+
+    for (int i = 0; i < m_count; ++i)
+    {
+        if (m_minions[i].has_value() && !m_minions[i].value().IsDestroyed())
+        {
+            result.emplace_back(m_minions[i].value());
+        }
+    }
+
+    return result;
 }
 }  // namespace RosettaStone::Battlegrounds

@@ -164,7 +164,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 1 card. It costs (0).
+    // Text: <b>Battlecry:</b> Draw 1 card. It costs (1).
     //       <i>(@)</i>
     // --------------------------------------------------------
     // GameTag:
@@ -186,7 +186,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 2 cards. They cost (0).
+    // Text: <b>Battlecry:</b> Draw 2 cards. They cost (1).
     //       <i>(@)</i>
     // --------------------------------------------------------
     // GameTag:
@@ -207,7 +207,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 4 cards. They cost (0).
+    // Text: <b>Battlecry:</b> Draw 4 cards. They cost (1).
     //       Equip a 5/2 Claw.
     // --------------------------------------------------------
     // GameTag:
@@ -856,7 +856,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRush()) }));
+        std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
     power.AddPowerTask(std::make_shared<DrawStackTask>(1));
     cards.emplace("DRG_010", CardDef(power));
@@ -893,7 +893,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRush());
+        std::make_shared<SelfCondition>(SelfCondition::HasRush());
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_251t", 1) }) };
     cards.emplace("DRG_251", CardDef(power, 3, 0));
@@ -1357,7 +1357,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
-    // [DRG_322] Dragoncaster - COST:6 [ATK:4/HP:4]
+    // [DRG_322] Dragoncaster - COST:7 [ATK:4/HP:4]
     // - Set: Dragons, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you're holding a Dragon,
@@ -2566,10 +2566,10 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // [DRG_610e] Galakrond's Wonder (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: Costs (0).
+    // Text: Costs (1).
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
     cards.emplace("DRG_610e", CardDef(power));
 }
 
@@ -4058,7 +4058,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Dragon, Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
-    //       add 2 other random Dragons to your hand. They cost (0).
+    //       add 2 other random Dragons to your hand. They cost (1).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -4414,10 +4414,10 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // [DRG_089e] A Queen's Discount (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: Costs (0).
+    // Text: Costs (1).
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
     cards.emplace("DRG_089e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL

@@ -504,7 +504,8 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
     // TODO: Remove code '56057' after the card 'Rising Winds' is implemented
-    if (HasChooseOne() && card->dbfID != 56057)
+    // TODO: Remove code '59542' after the card 'Runic Carvings' is implemented
+    if (HasChooseOne() && (card->dbfID != 56057 && card->dbfID != 59542))
     {
         if (player->ChooseBoth() && !card->IsTransformMinion())
         {
@@ -544,6 +545,12 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         case PowerType::OUTCAST:
             tasks = card->power.GetOutcastTask();
             break;
+        case PowerType::SPELLBURST:
+            tasks = card->power.GetSpellburstTask();
+            break;
+        default:
+            throw std::invalid_argument(
+                "Playable::ActivateTask() - Invalid power type");
     }
 
     if (tasks.empty() || tasks[0] == nullptr)

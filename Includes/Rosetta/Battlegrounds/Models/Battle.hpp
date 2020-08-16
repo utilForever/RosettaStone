@@ -22,7 +22,7 @@ namespace RosettaStone::Battlegrounds
 class Battle
 {
  public:
-    //! Constructs Battle instance with given \p player1 and \p player2.
+    //! Constructs Battle instance with given game context and players.
     //! \param player1 The first player.
     //! \param player2 The second player.
     Battle(Player& player1, Player& player2);
@@ -48,7 +48,8 @@ class Battle
     Minion& GetProperTarget(Minion& attacker);
 
     //! Processes a list of minions that are destroyed.
-    void ProcessDestroy();
+    //! \param beforeAttack The flag that indicates it is called before attack.
+    void ProcessDestroy(bool beforeAttack);
 
     //! Checks it is done.
     //! \return true if it is done, false otherwise.
@@ -84,8 +85,8 @@ class Battle
  private:
     Player& m_player1;
     Player& m_player2;
-    FieldZone m_p1Field;
-    FieldZone m_p2Field;
+    FieldZone& m_p1Field;
+    FieldZone& m_p2Field;
 
     int m_p1NextAttackerIdx = 0;
     int m_p2NextAttackerIdx = 0;

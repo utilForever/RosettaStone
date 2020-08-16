@@ -21,7 +21,7 @@ Let's assume that you have selected the **CS2_124 ("Wolfrider")** card.
 
 ## Step 2: Add card to CardSets
 
-The next thing to do is to add selected card to the card set. There are C++ source files for each card set in `Sources/Rosetta/CardSets`.
+The next thing to do is to add selected card to the card set. There are C++ source files for each card set in `Sources/Rosetta/PlayMode/CardSets`.
 You need to select right source file by card set.
 See [CardList.md](./CardList.md) and watch `Set` label.
 Card `CS2_124` that you will add is a `CORE` set card. So this card should be added to `CoreCardsGen.cpp`
@@ -175,7 +175,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 ## Step 3: Add test code
 
-The last thing you need to do is test card you've added. There are test files for each card set in `Tests/UnitTests/CardSets`. Card `CS2_124` that you will add is a basic card set. So, you have to see file `CoreCardsGenTests.cpp`.
+The last thing you need to do is test card you've added. There are test files for each card set in `Tests/UnitTests/PlayMode/CardSets`. Card `CS2_124` that you will add is a basic card set. So, you have to see file `CoreCardsGenTests.cpp`.
 
 Test file has the following structure:
 

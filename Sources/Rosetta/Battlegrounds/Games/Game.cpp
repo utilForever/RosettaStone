@@ -47,8 +47,18 @@ void Game::Start()
 
     // Create callback to prepare a list of minions for purchase
     auto prepareTavernMinionsCallback = [this](Player& player) {
-        m_gameState.minionPool.AddMinionsToTavern(player);
+        m_gameState.minionPool.AddMinionsToTavern(player, player.tavern);
     };
+
+    // Create callback to purchase a minion in Tavern
+    auto purchaseMinionCallback = [](Player& player, std::size_t tavernIdx) {
+        Minion minion =
+            player.tavern.fieldZone.Remove(player.tavern.fieldZone[tavernIdx]);
+        player.hand.Add(minion, -1);
+    };
+
+    // Create callback to get next card index
+    auto getNextCardIndexCallback = [this]() -> int { return m_cardIndex++; };
 
     // Create callback to return a minion to the minion pool
     auto returnMinionCallback = [this](int poolIdx) {
@@ -56,10 +66,11 @@ void Game::Start()
     };
 
     // Create callback to clear a list of minions in Tavern's field
-    auto clearTavernMinionsCallback = [this](FieldZone& minions) {
-        while (!minions.IsEmpty())
+    auto clearTavernMinionsCallback = [this](Player& player) {
+        while (!player.tavern.fieldZone.IsEmpty())
         {
-            Minion minion = minions.Remove(minions[0]);
+            Minion minion =
+                player.tavern.fieldZone.Remove(player.tavern.fieldZone[0]);
             m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
         }
     };
@@ -100,6 +111,12 @@ void Game::Start()
         }
     };
 
+    // Create callback to get opponent player
+    auto getOpponentPlayerCallback = [this](Player& player) -> Player& {
+        const std::size_t idx = FindPlayerNextFight(player.idx);
+        return m_gameState.players[idx];
+    };
+
     // Create callback to process the tasks related to defeat
     auto processDefeatCallback = [this](Player& player) {
         player.playState = PlayState::LOST;
@@ -108,11 +125,11 @@ void Game::Start()
         player.rank = m_gameState.numRemainPlayer;
         --m_gameState.numRemainPlayer;
 
-        player.tavernFieldZone.ForEach([&](MinionData& minion) {
+        player.tavern.fieldZone.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 
-        player.handZone.ForEach([&](std::optional<CardData>& card) {
+        player.hand.ForEach([&](std::optional<CardData>& card) {
             if (std::holds_alternative<Minion>(card.value()))
             {
                 const auto minion = std::get<Minion>(card.value());
@@ -120,7 +137,7 @@ void Game::Start()
             }
         });
 
-        player.recruitFieldZone.ForEach([&](MinionData& minion) {
+        player.recruitField.ForEach([&](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 
@@ -142,10 +159,13 @@ void Game::Start()
 
         player.selectHeroCallback = selectHeroCallback;
         player.prepareTavernMinionsCallback = prepareTavernMinionsCallback;
+        player.purchaseMinionCallback = purchaseMinionCallback;
+        player.getNextCardIndexCallback = getNextCardIndexCallback;
         player.returnMinionCallback = returnMinionCallback;
         player.clearTavernMinionsCallback = clearTavernMinionsCallback;
         player.upgradeTavernCallback = upgradeTavernCallback;
         player.completeRecruitCallback = completeRecruitCallback;
+        player.getOpponentPlayerCallback = getOpponentPlayerCallback;
         player.processDefeatCallback = processDefeatCallback;
 
         ++playerIdx;
@@ -199,6 +219,9 @@ void Game::Recruit()
             continue;
         }
 
+        // Set the flag
+        player.isInCombat = true;
+
         // Assign the index of the player to fight next.
         player.playerIdxNextFight = FindPlayerNextFight(player.idx);
 
@@ -218,10 +241,10 @@ void Game::Recruit()
         if (!player.freezeTavern)
         {
             // Clear a list of minions in Tavern
-            while (!player.tavernFieldZone.IsEmpty())
+            while (!player.tavern.fieldZone.IsEmpty())
             {
                 Minion minion =
-                    player.tavernFieldZone.Remove(player.tavernFieldZone[0]);
+                    player.tavern.fieldZone.Remove(player.tavern.fieldZone[0]);
                 m_gameState.minionPool.ReturnMinion(minion.GetPoolIndex());
             }
 
@@ -235,11 +258,24 @@ void Game::Recruit()
 
 void Game::Combat()
 {
+    for (auto& player : m_gameState.players)
+    {
+        // Set the flag
+        player.isInCombat = true;
+    }
+
     // Simulates a battle for each pair
     for (const auto& pair : m_playerFightPair)
     {
-        Battle battle(m_gameState.players.at(std::get<0>(pair)),
-                      m_gameState.players.at(std::get<1>(pair)));
+        Player& player1 = m_gameState.players.at(std::get<0>(pair));
+        Player& player2 = m_gameState.players.at(std::get<1>(pair));
+
+        Battle battle(player1, player2);
+
+        // Create callback to get battle
+        player1.getBattleCallback = [&]() -> Battle& { return battle; };
+        player2.getBattleCallback = [&]() -> Battle& { return battle; };
+
         battle.Run();
     }
 
@@ -334,6 +370,11 @@ std::size_t Game::DeterminePlayerToFightGhost(
                      playerData.end());
 
     return idx;
+}
+
+void Game::SetPlayerPair(int player1Idx, int player2Idx)
+{
+    m_playerFightPair.emplace_back(std::make_tuple(player1Idx, player2Idx));
 }
 
 void Game::PairPlayers(std::vector<std::tuple<int, int>>& playerData)

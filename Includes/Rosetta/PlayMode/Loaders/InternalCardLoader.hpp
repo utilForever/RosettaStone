@@ -14,7 +14,7 @@
 namespace RosettaStone::PlayMode
 {
 //!
-//! \brief CardInternalLoader class.
+//! \brief InternalCardLoader class.
 //!
 //! This class loads internal card data from card data generators.
 //! e.g. power and play requirements.

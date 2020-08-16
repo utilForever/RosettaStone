@@ -42,7 +42,7 @@ class HandZone
     //! Removes the specified card from this zone.
     //! \param card The card context to remove.
     //! \return The removed card.
-    const CardData& Remove(CardData& card);
+    const CardData Remove(CardData& card);
 
     //! Repositions all cards by \p zonePos.
     //! \param zonePos The position of card to add or remove.
