@@ -1240,7 +1240,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(
-        std::make_shared<RandomTask>(EntityType::MINIONS, 1));
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1));
     power.AddDeathrattleTask(
         std::make_shared<AddEnchantmentTask>("ULD_266e", EntityType::STACK));
     cards.emplace("ULD_266", CardDef(power));
