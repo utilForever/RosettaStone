@@ -180,6 +180,9 @@ class Game
     //! Processes graveyard.
     void ProcessGraveyard();
 
+    //! Processes minions that have reborn.
+    void ProcessReborn();
+
     //! Updates aura.
     void UpdateAura();
 
@@ -217,6 +220,7 @@ class Game
     std::map<int, Playable*> entityList;
     std::vector<Minion*> summonedMinions;
     std::map<std::size_t, Minion*> deadMinions;
+    std::map<std::size_t, Minion*> rebornMinions;
     std::vector<int> rushMinions;
     std::vector<int> ghostlyCards;
 

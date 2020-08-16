@@ -682,6 +682,7 @@ void Game::ProcessDestroyAndUpdateAura()
     {
         ProcessGraveyard();
         ProcessTasks();
+        ProcessReborn();
     } while (!deadMinions.empty());
     taskQueue.EndEvent();
 
@@ -739,6 +740,19 @@ void Game::ProcessGraveyard()
     }
 
     CheckGameOver();
+}
+
+void Game::ProcessReborn()
+{
+    if (!rebornMinions.empty())
+    {
+        for (auto& rebornMinion : rebornMinions)
+        {
+            Generic::SummonReborn(rebornMinion.second);
+        }
+
+        rebornMinions.clear();
+    }
 }
 
 void Game::UpdateAura()
