@@ -1046,6 +1046,13 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you summon a minion, gain +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = TaskList {
+        std::make_shared<AddEnchantmentTask>("ULD_145e", EntityType::SOURCE)
+    };
+    cards.emplace("ULD_145", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
@@ -1180,6 +1187,9 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("ULD_145e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ULD_431e] Emperor Wrapped (*) - COST:0

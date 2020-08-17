@@ -635,7 +635,7 @@ ULDUM | ULD_138 | Anubisath Defender | O
 ULDUM | ULD_139 | Elise the Enlightened | O
 ULDUM | ULD_140 | Supreme Archaeology | O  
 ULDUM | ULD_143 | Pharaoh's Blessing | O
-ULDUM | ULD_145 | Brazen Zealot |  
+ULDUM | ULD_145 | Brazen Zealot | O 
 ULDUM | ULD_151 | Ramkahen Wildtamer | O
 ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha | O
