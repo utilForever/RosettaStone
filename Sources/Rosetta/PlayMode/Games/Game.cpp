@@ -682,6 +682,7 @@ void Game::ProcessDestroyAndUpdateAura()
     {
         ProcessGraveyard();
         ProcessTasks();
+        ProcessReborn();
     } while (!deadMinions.empty());
     taskQueue.EndEvent();
 
@@ -728,10 +729,10 @@ void Game::ProcessGraveyard()
             const int val = minion->player->GetNumFriendlyMinionsDiedThisTurn();
             minion->player->SetNumFriendlyMinionsDiedThisTurn(val + 1);
 
-            // Summon minion if it has reborn
+            // Add reborn minion if it has reborn
             if (minion->HasReborn())
             {
-                Generic::SummonReborn(minion);
+                rebornMinions.emplace(deadMinion);
             }
         }
 
@@ -739,6 +740,19 @@ void Game::ProcessGraveyard()
     }
 
     CheckGameOver();
+}
+
+void Game::ProcessReborn()
+{
+    if (!rebornMinions.empty())
+    {
+        for (auto& rebornMinion : rebornMinions)
+        {
+            Generic::SummonReborn(rebornMinion.second);
+        }
+
+        rebornMinions.clear();
+    }
 }
 
 void Game::UpdateAura()
