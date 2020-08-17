@@ -140,12 +140,13 @@ class Console
         m_mainMenuFuncs = { &Console::SearchCard, &Console::ManageDeck,
                             &Console::SimulateGame, &Console::Leave };
     std::array<std::string, MANAGE_DECK_MENU_SIZE> m_manageDeckStr = {
-        "1. Create deck", "2. Modify deck", "3. Add with deck code",
+        "1. Create deck", "2. Create deck with code", "3. Modify deck",
         "4. Delete deck", "5. Back"
     };
     std::array<std::function<void(Console&)>, MANAGE_DECK_MENU_SIZE - 1>
-        m_manageDeckFuncs = { &Console::CreateDeck, &Console::ModifyDeck,
-                              &Console::AddDeckCode, &Console::DeleteDeck };
+        m_manageDeckFuncs = { &Console::CreateDeck,
+                              &Console::CreateDeckWithCode,
+                              &Console::ModifyDeck, &Console::DeleteDeck };
     std::array<std::string, NUM_PLAYER_CLASS> m_playerClassStr = {
         "1. Druid", "2. Hunter", "3. Mage",    "4. Paladin", "5. Priest",
         "6. Rogue", "7. Shaman", "8. Warlock", "9. Warrior"
