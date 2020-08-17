@@ -72,7 +72,8 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
 //! \param amount The number of elements to choose.
 //! \return A list of N distinct elements.
 template <typename T, std::size_t N>
-std::vector<T*> ChooseNElements(const std::array<T*, N>& list, std::size_t amount)
+std::vector<T*> ChooseNElements(const std::array<T*, N>& list,
+                                std::size_t amount)
 {
     if (amount > list.size())
     {
@@ -175,6 +176,6 @@ inline bool EndsWith(const std::string& value, const std::string& ending)
 //! Decodes Base64 based string.
 //! \param src Base64 based string.
 //! \return A unsigned char type container consists of decoded string.
-std::vector<unsigned char> DecodeBase64(const std::string& src);
+std::vector<unsigned char> DecodeBase64(std::string_view src);
 
 #endif  // ROSETTASTONE_UTILS_HPP

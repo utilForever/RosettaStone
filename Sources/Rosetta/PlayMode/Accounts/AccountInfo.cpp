@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/PlayMode/Accounts/AccountInfo.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <iostream>
 #include <utility>
@@ -70,6 +71,13 @@ bool AccountInfo::CreateDeck(std::string name, CardClass deckClass)
     }
 
     m_decks.emplace_back(new DeckInfo(name, deckClass));
+    return true;
+}
+
+bool AccountInfo::CreateDeckWithCode(std::string_view deckCode)
+{
+    const DeckInfo newDeck = DeckCode::Decode(deckCode);
+    m_decks.emplace_back(new DeckInfo(newDeck));
     return true;
 }
 

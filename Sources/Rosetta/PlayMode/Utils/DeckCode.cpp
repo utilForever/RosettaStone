@@ -13,7 +13,7 @@
 
 namespace RosettaStone::PlayMode
 {
-DeckInfo DeckCode::Decode(const std::string& deckCode)
+DeckInfo DeckCode::Decode(std::string_view deckCode)
 {
     std::size_t pos = 0;
     std::vector<unsigned char> code = DecodeBase64(deckCode);

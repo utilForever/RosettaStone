@@ -6,9 +6,7 @@
 
 #include <Rosetta/Common/Utils.hpp>
 
-#include <memory>
-
-std::vector<unsigned char> DecodeBase64(const std::string& src)
+std::vector<unsigned char> DecodeBase64(std::string_view src)
 {
     static constexpr int decodeTable[256] = {
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
