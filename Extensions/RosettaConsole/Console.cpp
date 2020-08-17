@@ -295,13 +295,12 @@ void Console::AddDeckCode()
 
     std::cout << "Input the deck code to add :";
 
-    std::string DeckCode;
-    std::cin >> DeckCode;
+    std::string deckCode;
+    std::cin >> deckCode;
 
-    DeckInfo NewDeck;
     try
     {
-        NewDeck = ::RosettaStone::PlayMode::DeckCode::Decode(DeckCode);
+        DeckInfo newDeck = DeckCode::Decode(deckCode);
     }
     catch (const std::runtime_error& error)
     {
