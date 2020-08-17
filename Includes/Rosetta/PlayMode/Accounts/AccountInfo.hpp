@@ -9,6 +9,7 @@
 
 #include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 
+#include <string_view>
 #include <vector>
 
 namespace RosettaStone::PlayMode
@@ -64,6 +65,11 @@ class AccountInfo
     //! \param deckClass The class of deck.
     //! \return true if deck is created successfully, and false otherwise.
     bool CreateDeck(std::string name, CardClass deckClass);
+
+    //! Creates a deck with given \p deckCode.
+    //! \param deckCode The deck code to create.
+    //! \return true if deck is created successfully, and false otherwise.
+    bool CreateDeckWithCode(std::string_view deckCode);
 
     //! Deletes a deck at \p idx.
     //! \param idx Index of decks.
