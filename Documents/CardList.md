@@ -712,7 +712,7 @@ ULDUM | ULD_280 | Sahket Sapper | O
 ULDUM | ULD_282 | Jar Dealer | O
 ULDUM | ULD_285 | Hooked Scimitar | O  
 ULDUM | ULD_286 | Shadow of Death | O
-ULDUM | ULD_288 | Anka, the Buried |  
+ULDUM | ULD_288 | Anka, the Buried | O
 ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
 ULDUM | ULD_291 | Corrupt the Waters |  
@@ -723,7 +723,7 @@ ULDUM | ULD_309 | Dwarven Archaeologist |
 ULDUM | ULD_324 | Impbalming | O
 ULDUM | ULD_326 | Bazaar Burglary | O
 ULDUM | ULD_327 | Bazaar Mugger | O
-ULDUM | ULD_328 | Clever Disguise |  
+ULDUM | ULD_328 | Clever Disguise | O
 ULDUM | ULD_329 | Dune Sculptor | O
 ULDUM | ULD_410 | Scarlet Webweaver | O
 ULDUM | ULD_413 | Splitting Axe |  

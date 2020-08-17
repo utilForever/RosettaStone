@@ -610,8 +610,8 @@ TEST_CASE("[PALADIN : Spell] - ULD_143 : Pharaoh's Blessing")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pharaoh's Blessing"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Pharaoh's Blessing"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
@@ -1856,6 +1856,7 @@ TEST_CASE("[Rogue : Minion] - ULD_327 : Bazaar Mugger")
     opPlayer->SetUsedMana(0);
 
     auto& curHand = *(curPlayer->GetHandZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Bazaar Mugger"));
     CHECK_EQ(curHand.GetCount(), 1);
@@ -2813,7 +2814,8 @@ TEST_CASE("[Rogue : Minion] - ULD_231 : Whirlkick Master")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
     CHECK_EQ(curHand.GetCount(), 4);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card5, card2));
@@ -2821,16 +2823,18 @@ TEST_CASE("[Rogue : Minion] - ULD_231 : Whirlkick Master")
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
-    
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, curPlayer->GetHero()));
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card6, curPlayer->GetHero()));
     CHECK_EQ(curHand.GetCount(), 3);
-    CHECK_EQ(opHand.GetCount(), 1);     // The Coin
+    CHECK_EQ(opHand.GetCount(), 1);  // The Coin
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curHand.GetCount(), 3);
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
     CHECK_EQ(curHand.GetCount(), 3);
     CHECK_EQ(curHand[0]->card->HasGameTag(GameTag::COMBO), true);
     CHECK_EQ(curHand[1]->card->HasGameTag(GameTag::COMBO), true);
@@ -2872,31 +2876,31 @@ TEST_CASE("[Rogue : Minion] - ULD_280 : Sahket Sapper")
     auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
-    for(int i = 0; i < 10; i++) 
+    for (int i = 0; i < 10; i++)
     {
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Sahket Sapper"));
     }
-    game.Process(curPlayer, PlayCardTask::Minion(curHand[0])); 
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
     Generic::DrawCard(curPlayer, Cards::FindCardByName("Sahket Sapper"));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    const auto card1 = 
+    const auto card1 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Sahket Sapper"));
-    const auto card2 = 
+    const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Sahket Sapper"));
-    const auto card3 = 
+    const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Eviscerate"));
 
     game.Process(opPlayer, PlayCardTask::Minion(card1));
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-    
+
     CHECK_EQ(curField.GetCount(), 0);
     CHECK_EQ(opField.GetCount(), 0);
     CHECK_EQ(curHand.GetCount(), 10);
-    CHECK_EQ(opHand.GetCount(), 2);     // 'The Coin' and returned 'Sahket Sapper'
+    CHECK_EQ(opHand.GetCount(), 2);  // 'The Coin' and returned 'Sahket Sapper'
 }
 
 // ----------------------------------------- WEAPON - ROGUE
@@ -2992,6 +2996,70 @@ TEST_CASE("[Rogue : Spell] - ULD_286 : Shadow of Death")
     CHECK_EQ(curField[0]->GetAttack(), 12);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [ULD_288] Anka, the Buried - COST:5 [ATK:5/HP:5]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Change each <b>Deathrattle</b>
+//       minion in your hand into a 1/1 that costs (1).
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - ULD_288 : Anka, the Buried")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Anka, the Buried"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chromatic Egg"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Waxadred"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Necrium Apothecary"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Waggle Pick"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chromatic Egg"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    const auto CheckMinion = [](Playable* card, bool isChanged) {
+        const auto minion = dynamic_cast<Minion*>(card);
+        CHECK_EQ(minion->GetCost() == 1, isChanged);
+        CHECK_EQ(minion->GetAttack() == 1, isChanged);
+        CHECK_EQ(minion->GetHealth() == 1, isChanged);
+    };
+    CheckMinion(card2, true);
+    CheckMinion(card3, true);
+    CheckMinion(card4, false);
+    CheckMinion(card6, false);
+
+    const auto weapon = dynamic_cast<Weapon*>(card5);
+    CHECK_NE(weapon->GetCost(), 1);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [ULD_326] Bazaar Burglary - COST:1
 // - Set: Uldum, Rarity: Legendary
@@ -3009,7 +3077,6 @@ TEST_CASE("[Rogue : Spell] - ULD_286 : Shadow of Death")
 // --------------------------------------------------------
 TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
 {
-    /***** Game 1 Start *****/
     {
         GameConfig config;
         config.player1Class = CardClass::ROGUE;
@@ -3034,45 +3101,45 @@ TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
         auto curSecret = curPlayer->GetSecretZone();
         auto& opField = *opPlayer->GetFieldZone();
 
-        const auto curCard1 = Generic::DrawCard(
+        const auto card1 = Generic::DrawCard(
             curPlayer, Cards::FindCardByName("Bazaar Burglary"));
-        const auto curCard2 = Generic::DrawCard(
+        const auto card2 = Generic::DrawCard(
             curPlayer, Cards::FindCardByName("Bazaar Mugger"));
-        const auto curCard3 =
+        const auto card3 =
             Generic::DrawCard(curPlayer, Cards::FindCardByName("Witch's Brew"));
-        const auto curCard4 =
+        const auto card4 =
             Generic::DrawCard(curPlayer, Cards::FindCardByName("Rapid Fire"));
-        const auto curCard5 = Generic::DrawCard(
+        const auto card5 = Generic::DrawCard(
             curPlayer, Cards::FindCardByName("Ysera, Unleashed"));
-        const auto curCard6 =
+        const auto card6 =
             Generic::DrawCard(curPlayer, Cards::FindCardByName("Shiv"));
 
         opField.Add(Entity::GetFromCard(
             opPlayer, Cards::FindCardByName("Boulderfist Ogre")));
 
-        auto quest = dynamic_cast<Spell*>(curCard1);
+        auto quest = dynamic_cast<Spell*>(card1);
 
-        game.Process(curPlayer, PlayCardTask::Spell(curCard1));
+        game.Process(curPlayer, PlayCardTask::Spell(card1));
         CHECK(curSecret->quest != nullptr);
         CHECK_EQ(quest->GetQuestProgress(), 0);
         CHECK_EQ(quest->GetQuestProgressTotal(), 4);
 
-        game.Process(curPlayer, PlayCardTask::Minion(curCard2));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
         CHECK_EQ(quest->GetQuestProgress(), 1);
 
-        game.Process(curPlayer, PlayCardTask::SpellTarget(curCard3, curHero));
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curHero));
         CHECK_EQ(quest->GetQuestProgress(), 2);
 
-        game.Process(curPlayer, PlayCardTask::SpellTarget(curCard4, opHero));
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card4, opHero));
         CHECK_EQ(quest->GetQuestProgress(), 3);
 
         curPlayer->SetUsedMana(0);
-        game.Process(curPlayer, PlayCardTask::Minion(curCard5));
+        game.Process(curPlayer, PlayCardTask::Minion(card5));
         CHECK_EQ(quest->GetQuestProgress(), 3);
 
         curPlayer->SetUsedMana(0);
         CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 2);
-        game.Process(curPlayer, PlayCardTask::SpellTarget(curCard6, opHero));
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card6, opHero));
         CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 7);
         CHECK_EQ(quest->GetQuestProgress(), 4);
 
@@ -3086,7 +3153,6 @@ TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
         CHECK_EQ(curHero->GetGameTag(GameTag::IMMUNE), 0);
     }
 
-    /***** Game 2 Start *****/
     {
         GameConfig config;
         config.player1Class = CardClass::ROGUE;
@@ -3106,29 +3172,67 @@ TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
         opPlayer->SetTotalMana(10);
         opPlayer->SetUsedMana(0);
 
-        auto curHero = curPlayer->GetHero();
         auto curSecret = curPlayer->GetSecretZone();
 
-        const auto curCard1 = Generic::DrawCard(
+        const auto card1 = Generic::DrawCard(
             curPlayer, Cards::FindCardByName("Bazaar Burglary"));
-        const auto curCard2 = Generic::DrawCard(
+        const auto card2 = Generic::DrawCard(
             curPlayer, Cards::FindCardByID("LOOT_998k"));  // Golden Kobold
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; ++i)
         {
             Generic::DrawCard(curPlayer, Cards::FindCardByID("LOOT_998k"));
         }
 
-        auto quest = dynamic_cast<Spell*>(curCard1);
+        auto quest = dynamic_cast<Spell*>(card1);
 
-        game.Process(curPlayer, PlayCardTask::Spell(curCard1));
+        game.Process(curPlayer, PlayCardTask::Spell(card1));
         CHECK(curSecret->quest != nullptr);
         CHECK_EQ(quest->GetQuestProgress(), 0);
         CHECK_EQ(quest->GetQuestProgressTotal(), 4);
 
-        game.Process(curPlayer, PlayCardTask::Minion(curCard2));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
         CHECK_EQ(quest->GetQuestProgress(), 0);
     }
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [ULD_328] Clever Disguise - COST:2
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Add 2 random spells from another class to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - ULD_328 : Clever Disguise")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Clever Disguise"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK(curHand[0]->card->GetCardClass() != CardClass::ROGUE);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::SPELL);
+    CHECK(curHand[1]->card->GetCardClass() != CardClass::ROGUE);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3182,7 +3286,8 @@ TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    game.Process(opPlayer, AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->isDestroyed, false);
 
     game.Process(opPlayer, EndTurnTask());
