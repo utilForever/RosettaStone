@@ -29,6 +29,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
@@ -1213,6 +1214,7 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
     // - Set: Uldum, Rarity: Legendary
@@ -1223,6 +1225,14 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<GetGameTagTask>(
+                                      EntityType::SOURCE, GameTag::HEALTH),
+                                  std::make_shared<AddEnchantmentTask>(
+                                      "ULD_262e", EntityType::TARGET, true) };
+    cards.emplace("ULD_262", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_265] Embalming Ritual - COST:1
@@ -1237,6 +1247,13 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::REBORN, 1));
+    cards.emplace(
+        "ULD_265",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_266] Grandmummy - COST:2 [ATK:1/HP:2]
@@ -1249,6 +1266,12 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("ULD_266e", EntityType::STACK));
+    cards.emplace("ULD_266", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_268] Psychopomp - COST:4 [ATK:3/HP:1]
@@ -1263,6 +1286,16 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY, 1, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::REBORN, 1));
+    cards.emplace("ULD_268", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_269] Wretched Reclaimer - COST:3 [ATK:3/HP:3]
@@ -1374,12 +1407,17 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_262e] Amet's Blessing (*) - COST:0
     // - Set: Uldum
     // --------------------------------------------------------
     // Text: Health changed.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Enchants::SetHealthScriptTag));
+    cards.emplace("ULD_262e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_266e] Grandmummy's Blessing (*) - COST:0
@@ -1390,6 +1428,9 @@ void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_266e"));
+    cards.emplace("ULD_266e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_724e] Obelisk's Gaze (*) - COST:0
