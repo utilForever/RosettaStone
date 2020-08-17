@@ -465,13 +465,6 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("ULD_137t", CardDef(power));
 
-    // ------------------------------------ ENCHANTMENT - DRUID
-    // [ULD_288e] Buried (*) - COST:0
-    // - Set: Uldum
-    // --------------------------------------------------------
-    // Text: Anka, the Buried made this 1/1.
-    // --------------------------------------------------------
-
     // ------------------------------------------ SPELL - DRUID
     // [ULD_292a] Focused Burst (*) - COST:0
     // - Set: Uldum
@@ -1575,6 +1568,16 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_288e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<ApplyEffectTask>(
+        EntityType::STACK, EffectList{ Effects::SetCost(1) }));
+    cards.emplace("ULD_288", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_326] Bazaar Burglary - COST:1
@@ -1623,6 +1626,13 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add 2 random spells from another class to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(CardType::SPELL,
+                                                   CardClass::ANOTHER_CLASS),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        2));
+    cards.emplace("ULD_328", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_715] Plague of Madness - COST:1
@@ -1686,6 +1696,16 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
             Generic::Summon(dynamic_cast<Minion*>(minion), -1, player);
         }));
     cards.emplace("ULD_286t", CardDef(power));
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [ULD_288e] Buried (*) - COST:0
+    // - Set: Uldum
+    // --------------------------------------------------------
+    // Text: Anka, the Buried made this 1/1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_288e"));
+    cards.emplace("ULD_288e", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [ULD_326t] Mirage Blade (*) - COST:2 [ATK:3/HP:0]
