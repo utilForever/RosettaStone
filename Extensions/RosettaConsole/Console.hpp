@@ -95,7 +95,7 @@ class Console
     void Leave();
 
     void CreateDeck();
-    void CreateDeckWithCode();
+    void CreateDeckWithCode() const;
     void ModifyDeck();
     void DeleteDeck() const;
 

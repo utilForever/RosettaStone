@@ -14,7 +14,6 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Loaders/AccountLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
-#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <lyra/cli_parser.hpp>
 #include <lyra/help.hpp>
@@ -267,15 +266,11 @@ void Console::CreateDeck()
     OperateDeck(m_account->GetNumOfDeck());
 }
 
-void Console::CreateDeckWithCode()
+void Console::CreateDeckWithCode() const
 {
     std::cout << "========================================\n";
     std::cout << "         Create Deck With Code!         \n";
     std::cout << "========================================\n";
-
-    std::cout << "What's your deck name? ";
-    std::string name;
-    std::cin >> name;
 
     std::cout << "Input the deck code to create: ";
     std::string deckCode;
@@ -283,15 +278,13 @@ void Console::CreateDeckWithCode()
 
     try
     {
-        DeckInfo newDeck = DeckCode::Decode(deckCode);
+        m_account->CreateDeckWithCode(deckCode);
+        std::cout << "Deck is created! :D\n";
     }
-    catch (const std::runtime_error& error)
+    catch (const std::runtime_error&)
     {
-        std::cerr << error.what() << '\n';
-        return;
+        std::cout << "Invalid deck code. Try again.\n";
     }
-
-    OperateDeck(m_account->GetNumOfDeck());
 }
 
 void Console::ModifyDeck()
