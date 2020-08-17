@@ -267,6 +267,33 @@ void Console::CreateDeck()
     OperateDeck(m_account->GetNumOfDeck());
 }
 
+void Console::CreateDeckWithCode()
+{
+    std::cout << "========================================\n";
+    std::cout << "         Create Deck With Code!         \n";
+    std::cout << "========================================\n";
+
+    std::cout << "What's your deck name? ";
+    std::string name;
+    std::cin >> name;
+
+    std::cout << "Input the deck code to create: ";
+    std::string deckCode;
+    std::cin >> deckCode;
+
+    try
+    {
+        DeckInfo newDeck = DeckCode::Decode(deckCode);
+    }
+    catch (const std::runtime_error& error)
+    {
+        std::cerr << error.what() << '\n';
+        return;
+    }
+
+    OperateDeck(m_account->GetNumOfDeck());
+}
+
 void Console::ModifyDeck()
 {
     if (m_account->GetNumOfDeck() == 0)
@@ -287,29 +314,7 @@ void Console::ModifyDeck()
 
     OperateDeck(selectedDeck);
 }
-void Console::AddDeckCode()
-{
-    std::cout << "========================================\n";
-    std::cout << "          Add Deck With Code!           \n";
-    std::cout << "========================================\n";
 
-    std::cout << "Input the deck code to add :";
-
-    std::string deckCode;
-    std::cin >> deckCode;
-
-    try
-    {
-        DeckInfo newDeck = DeckCode::Decode(deckCode);
-    }
-    catch (const std::runtime_error& error)
-    {
-        std::cerr << error.what() << '\n';
-        return;
-    }
-
-    OperateDeck(m_account->GetNumOfDeck());
-}
 void Console::DeleteDeck() const
 {
     if (m_account->GetNumOfDeck() == 0)

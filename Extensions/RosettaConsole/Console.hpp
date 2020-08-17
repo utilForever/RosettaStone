@@ -95,8 +95,8 @@ class Console
     void Leave();
 
     void CreateDeck();
+    void CreateDeckWithCode();
     void ModifyDeck();
-    void AddDeckCode();
     void DeleteDeck() const;
 
     int OperateDeck(std::size_t deckIndex);
