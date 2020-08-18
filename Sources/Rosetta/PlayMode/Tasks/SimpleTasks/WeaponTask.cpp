@@ -9,7 +9,8 @@
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-WeaponTask::WeaponTask(std::string cardID) : m_cardID(std::move(cardID))
+WeaponTask::WeaponTask(std::string cardID, bool isOpponent)
+    : m_cardID(std::move(cardID)), m_isOpponent(isOpponent)
 {
     // Do nothing
 }
@@ -22,20 +23,22 @@ TaskStatus WeaponTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    if (player->GetHero()->HasWeapon())
+    Player* owner = m_isOpponent ? player->opponent : player;
+
+    if (owner->GetHero()->HasWeapon())
     {
-        player->GetWeapon().Destroy();
+        owner->GetWeapon().Destroy();
     }
 
     const auto weapon =
-        dynamic_cast<Weapon*>(Entity::GetFromCard(player, weaponCard));
-    Generic::PlayWeapon(player, weapon, nullptr);
+        dynamic_cast<Weapon*>(Entity::GetFromCard(owner, weaponCard));
+    Generic::PlayWeapon(owner, weapon, nullptr);
 
     return TaskStatus::COMPLETE;
 }
 
 std::unique_ptr<ITask> WeaponTask::CloneImpl()
 {
-    return std::make_unique<WeaponTask>(m_cardID);
+    return std::make_unique<WeaponTask>(m_cardID, m_isOpponent);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

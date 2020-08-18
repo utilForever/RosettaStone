@@ -633,9 +633,9 @@ ULDUM | ULD_136 | Worthy Expedition | O
 ULDUM | ULD_137 | Garden Gnome | O
 ULDUM | ULD_138 | Anubisath Defender | O
 ULDUM | ULD_139 | Elise the Enlightened | O
-ULDUM | ULD_140 | Supreme Archaeology |  
+ULDUM | ULD_140 | Supreme Archaeology | O  
 ULDUM | ULD_143 | Pharaoh's Blessing | O
-ULDUM | ULD_145 | Brazen Zealot |  
+ULDUM | ULD_145 | Brazen Zealot | O 
 ULDUM | ULD_151 | Ramkahen Wildtamer | O
 ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha | O
@@ -712,7 +712,7 @@ ULDUM | ULD_280 | Sahket Sapper | O
 ULDUM | ULD_282 | Jar Dealer | O
 ULDUM | ULD_285 | Hooked Scimitar | O  
 ULDUM | ULD_286 | Shadow of Death | O
-ULDUM | ULD_288 | Anka, the Buried |  
+ULDUM | ULD_288 | Anka, the Buried | O
 ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
 ULDUM | ULD_291 | Corrupt the Waters |  
@@ -721,9 +721,9 @@ ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
 ULDUM | ULD_309 | Dwarven Archaeologist |  
 ULDUM | ULD_324 | Impbalming | O
-ULDUM | ULD_326 | Bazaar Burglary |  
+ULDUM | ULD_326 | Bazaar Burglary | O
 ULDUM | ULD_327 | Bazaar Mugger | O
-ULDUM | ULD_328 | Clever Disguise |  
+ULDUM | ULD_328 | Clever Disguise | O
 ULDUM | ULD_329 | Dune Sculptor | O
 ULDUM | ULD_410 | Scarlet Webweaver | O
 ULDUM | ULD_413 | Splitting Axe |  
@@ -747,7 +747,7 @@ ULDUM | ULD_711 | Hack the System |
 ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts | O
 ULDUM | ULD_714 | Penance | O
-ULDUM | ULD_715 | Plague of Madness |  
+ULDUM | ULD_715 | Plague of Madness | O
 ULDUM | ULD_716 | Tip the Scales |  
 ULDUM | ULD_717 | Plague of Flames |  
 ULDUM | ULD_718 | Plague of Death | O
@@ -959,9 +959,9 @@ BLACK_TEMPLE | BT_002 | Incanter's Flow |
 BLACK_TEMPLE | BT_003 | Netherwind Portal |  
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
-BLACK_TEMPLE | BT_008 | Rustsworn Initiate |  
+BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
-BLACK_TEMPLE | BT_010 | Felfin Navigator |  
+BLACK_TEMPLE | BT_010 | Felfin Navigator | O 
 BLACK_TEMPLE | BT_011 | Libram of Justice |  
 BLACK_TEMPLE | BT_014 | Starscryer |  
 BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
@@ -984,8 +984,8 @@ BLACK_TEMPLE | BT_110 | Torrent |
 BLACK_TEMPLE | BT_113 | Totemic Reflection |  
 BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
 BLACK_TEMPLE | BT_115 | Marshspawn |  
-BLACK_TEMPLE | BT_117 | Bladestorm |  
-BLACK_TEMPLE | BT_120 | Warmaul Challenger |  
+BLACK_TEMPLE | BT_117 | Bladestorm | O 
+BLACK_TEMPLE | BT_120 | Warmaul Challenger | O 
 BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
 BLACK_TEMPLE | BT_123 | Kargath Bladefist | O
 BLACK_TEMPLE | BT_124 | Corsair Cache | O
@@ -1002,9 +1002,9 @@ BLACK_TEMPLE | BT_135 | Glowfly Swarm |
 BLACK_TEMPLE | BT_136 | Archspore Msshi'fn |  
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
-BLACK_TEMPLE | BT_155 | Scrapyard Colossus |  
-BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend |  
-BLACK_TEMPLE | BT_159 | Terrorguard Escapee |  
+BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
+BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
+BLACK_TEMPLE | BT_159 | Terrorguard Escapee | O
 BLACK_TEMPLE | BT_160 | Rustsworn Cultist |  
 BLACK_TEMPLE | BT_163 | Nagrand Slam |  
 BLACK_TEMPLE | BT_187 | Kayn Sunfury |  
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 2% (4 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## Scholomance Academy
 
@@ -1228,9 +1228,9 @@ SCHOLOMANCE | SCH_708 | Sneaky Delinquent |
 SCHOLOMANCE | SCH_709 | Smug Senior |  
 SCHOLOMANCE | SCH_710 | Ogremancer |  
 SCHOLOMANCE | SCH_711 | Plagued Protodrake |  
-SCHOLOMANCE | SCH_712 | Judicious Junior |  
+SCHOLOMANCE | SCH_712 | Judicious Junior |  O
 SCHOLOMANCE | SCH_713 | Cult Neophyte |  
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 0.01% (2 of 135 Cards)

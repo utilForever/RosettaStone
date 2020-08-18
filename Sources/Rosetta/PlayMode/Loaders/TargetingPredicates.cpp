@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>
+#include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
@@ -121,7 +122,10 @@ AvailabilityPredicate TargetingPredicates::ReqTargetForCombo()
 
 TargetingPredicate TargetingPredicates::ReqMustTargetTaunter()
 {
-    return [=](Character* character) { return character->HasTaunt(); };
+    return [=](Character* character) {
+        const auto minion = dynamic_cast<Minion*>(character);
+        return minion && minion->HasTaunt();
+    };
 }
 
 AvailabilityPredicate TargetingPredicates::MinimumFriendlySecrets(int value)

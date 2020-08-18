@@ -124,24 +124,9 @@ bool Character::IsFrozen() const
     return static_cast<bool>(GetGameTag(GameTag::FROZEN));
 }
 
-bool Character::HasTaunt() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::TAUNT));
-}
-
 bool Character::HasStealth() const
 {
     return static_cast<bool>(GetGameTag(GameTag::STEALTH));
-}
-
-bool Character::HasDivineShield() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
-}
-
-bool Character::HasPoisonous() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::POISONOUS));
 }
 
 bool Character::HasWindfury() const
@@ -153,11 +138,6 @@ bool Character::HasMegaWindfury() const
 {
     return static_cast<bool>(GetGameTag(GameTag::MEGA_WINDFURY)) ||
            player->playerAuraEffects.GetValue(GameTag::MEGA_WINDFURY) > 0;
-}
-
-bool Character::HasSpellburst() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::SPELLBURST));
 }
 
 bool Character::CanAttack() const

@@ -266,6 +266,27 @@ void Console::CreateDeck()
     OperateDeck(m_account->GetNumOfDeck());
 }
 
+void Console::CreateDeckWithCode() const
+{
+    std::cout << "========================================\n";
+    std::cout << "         Create Deck With Code!         \n";
+    std::cout << "========================================\n";
+
+    std::cout << "Input the deck code to create: ";
+    std::string deckCode;
+    std::cin >> deckCode;
+
+    try
+    {
+        m_account->CreateDeckWithCode(deckCode);
+        std::cout << "Deck is created! :D\n";
+    }
+    catch (const std::runtime_error&)
+    {
+        std::cout << "Invalid deck code. Try again.\n";
+    }
+}
+
 void Console::ModifyDeck()
 {
     if (m_account->GetNumOfDeck() == 0)

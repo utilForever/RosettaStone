@@ -14,8 +14,10 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
@@ -27,6 +29,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
@@ -41,6 +44,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -89,6 +93,13 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card. It costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_140e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(std::make_shared<ApplyEffectTask>(
+        EntityType::STACK, EffectList{ Effects::SetCost(0) }));
+    cards.emplace("ULD_140p", CardDef(power));
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [ULD_155p] Pharaoh's Warmask (*) - COST:2
@@ -122,6 +133,9 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_326t"));
+    cards.emplace("ULD_326p", CardDef(power));
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [ULD_431p] Emperor Wraps (*) - COST:2
@@ -450,13 +464,6 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("ULD_137t", CardDef(power));
-
-    // ------------------------------------ ENCHANTMENT - DRUID
-    // [ULD_288e] Buried (*) - COST:0
-    // - Set: Uldum
-    // --------------------------------------------------------
-    // Text: Anka, the Buried made this 1/1.
-    // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
     // [ULD_292a] Focused Burst (*) - COST:0
@@ -1039,6 +1046,13 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you summon a minion, gain +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = TaskList {
+        std::make_shared<AddEnchantmentTask>("ULD_145e", EntityType::SOURCE)
+    };
+    cards.emplace("ULD_145", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
@@ -1173,6 +1187,9 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("ULD_145e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ULD_431e] Emperor Wrapped (*) - COST:0
@@ -1200,6 +1217,7 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
     // - Set: Uldum, Rarity: Legendary
@@ -1210,6 +1228,14 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<GetGameTagTask>(
+                                      EntityType::SOURCE, GameTag::HEALTH),
+                                  std::make_shared<AddEnchantmentTask>(
+                                      "ULD_262e", EntityType::TARGET, true) };
+    cards.emplace("ULD_262", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_265] Embalming Ritual - COST:1
@@ -1224,6 +1250,13 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::REBORN, 1));
+    cards.emplace(
+        "ULD_265",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_266] Grandmummy - COST:2 [ATK:1/HP:2]
@@ -1236,6 +1269,12 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("ULD_266e", EntityType::STACK));
+    cards.emplace("ULD_266", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_268] Psychopomp - COST:4 [ATK:3/HP:1]
@@ -1250,6 +1289,16 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY, 1, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::REBORN, 1));
+    cards.emplace("ULD_268", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ULD_269] Wretched Reclaimer - COST:3 [ATK:3/HP:3]
@@ -1361,12 +1410,17 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_262e] Amet's Blessing (*) - COST:0
     // - Set: Uldum
     // --------------------------------------------------------
     // Text: Health changed.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Enchants::SetHealthScriptTag));
+    cards.emplace("ULD_262e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_266e] Grandmummy's Blessing (*) - COST:0
@@ -1377,6 +1431,9 @@ void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_266e"));
+    cards.emplace("ULD_266e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [ULD_724e] Obelisk's Gaze (*) - COST:0
@@ -1511,6 +1568,16 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_288e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<ApplyEffectTask>(
+        EntityType::STACK, EffectList{ Effects::SetCost(1) }));
+    cards.emplace("ULD_288", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_326] Bazaar Burglary - COST:1
@@ -1527,6 +1594,14 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 54312
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ADD_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsAnotherClassCard());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_326p") };
+    cards.emplace("ULD_326", CardDef(power, 4, 0));
 
     // ----------------------------------------- MINION - ROGUE
     // [ULD_327] Bazaar Mugger - COST:5 [ATK:3/HP:5]
@@ -1551,6 +1626,13 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add 2 random spells from another class to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(CardType::SPELL,
+                                                   CardClass::ANOTHER_CLASS),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        2));
+    cards.emplace("ULD_328", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_715] Plague of Madness - COST:1
@@ -1564,6 +1646,10 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_715t"));
+    power.AddPowerTask(std::make_shared<WeaponTask>("ULD_715t", true));
+    cards.emplace("ULD_715", CardDef(power));
 }
 
 void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
@@ -1611,6 +1697,16 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
         }));
     cards.emplace("ULD_286t", CardDef(power));
 
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [ULD_288e] Buried (*) - COST:0
+    // - Set: Uldum
+    // --------------------------------------------------------
+    // Text: Anka, the Buried made this 1/1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_288e"));
+    cards.emplace("ULD_288e", CardDef(power));
+
     // ----------------------------------------- WEAPON - ROGUE
     // [ULD_326t] Mirage Blade (*) - COST:2 [ATK:3/HP:0]
     // - Set: Uldum
@@ -1623,6 +1719,12 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("ULD_326t", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [ULD_715t] Plagued Knife (*) - COST:1 [ATK:2/HP:0]
@@ -1634,6 +1736,9 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_715t", CardDef(power));
 }
 
 void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
@@ -1811,6 +1916,14 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 53740
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList {
+            std::make_shared<ChangeHeroPowerTask>("ULD_140p")
+        })
+    };
+    cards.emplace("ULD_140", CardDef(power, 20, 0));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_160] Sinister Deal - COST:1
@@ -1943,6 +2056,9 @@ void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_140e"));
+    cards.emplace("ULD_140e", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_162t] EVIL Demon (*) - COST:5 [ATK:5/HP:5]

@@ -48,6 +48,10 @@ bool AddCardToHand(Player* player, Playable* entity)
 
     // Add card to hand
     player->GetHandZone()->Add(entity);
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAddCardTrigger(entity);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
     return true;
 }
 
@@ -235,7 +239,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
         {
             if (!minion->HasCharge())
             {
-                if (minion->IsRush())
+                if (minion->HasRush())
                 {
                     minion->SetExhausted(false);
                     minion->SetAttackableByRush(true);
