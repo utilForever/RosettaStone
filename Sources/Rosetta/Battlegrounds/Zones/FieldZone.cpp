@@ -23,12 +23,12 @@ FieldZone& FieldZone::operator=(const FieldZone& rhs)
     return *this;
 }
 
-Minion& FieldZone::operator[](int zonePos)
+Minion& FieldZone::operator[](std::size_t zonePos)
 {
     return m_minions.at(zonePos).value();
 }
 
-const Minion& FieldZone::operator[](int zonePos) const
+const Minion& FieldZone::operator[](std::size_t zonePos) const
 {
     return m_minions.at(zonePos).value();
 }
