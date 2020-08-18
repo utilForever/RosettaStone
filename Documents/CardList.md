@@ -475,7 +475,7 @@ HOF | NEW1_004 | Vanish | O
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 68% (24 of 35 Cards)
+- Progress: 71% (25 of 35 Cards)
 
 ## Rise of Shadows
 
@@ -633,9 +633,9 @@ ULDUM | ULD_136 | Worthy Expedition | O
 ULDUM | ULD_137 | Garden Gnome | O
 ULDUM | ULD_138 | Anubisath Defender | O
 ULDUM | ULD_139 | Elise the Enlightened | O
-ULDUM | ULD_140 | Supreme Archaeology | O  
+ULDUM | ULD_140 | Supreme Archaeology | O
 ULDUM | ULD_143 | Pharaoh's Blessing | O
-ULDUM | ULD_145 | Brazen Zealot | O 
+ULDUM | ULD_145 | Brazen Zealot | O
 ULDUM | ULD_151 | Ramkahen Wildtamer | O
 ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha | O
@@ -696,10 +696,10 @@ ULDUM | ULD_250 | Infested Goblin | O
 ULDUM | ULD_253 | Tomb Warden |  
 ULDUM | ULD_256 | Into the Fray |  
 ULDUM | ULD_258 | Armagedillo |  
-ULDUM | ULD_262 | High Priest Amet |  
-ULDUM | ULD_265 | Embalming Ritual |  
-ULDUM | ULD_266 | Grandmummy |  
-ULDUM | ULD_268 | Psychopomp |  
+ULDUM | ULD_262 | High Priest Amet | O
+ULDUM | ULD_265 | Embalming Ritual | O
+ULDUM | ULD_266 | Grandmummy | O
+ULDUM | ULD_268 | Psychopomp | O
 ULDUM | ULD_269 | Wretched Reclaimer | O
 ULDUM | ULD_270 | Sandhoof Waterbearer | O
 ULDUM | ULD_271 | Injured Tol'vir | O
@@ -710,7 +710,7 @@ ULDUM | ULD_275 | Bone Wraith | O
 ULDUM | ULD_276 | EVIL Totem |  
 ULDUM | ULD_280 | Sahket Sapper | O
 ULDUM | ULD_282 | Jar Dealer | O
-ULDUM | ULD_285 | Hooked Scimitar | O  
+ULDUM | ULD_285 | Hooked Scimitar | O
 ULDUM | ULD_286 | Shadow of Death | O
 ULDUM | ULD_288 | Anka, the Buried | O
 ULDUM | ULD_289 | Fishflinger | O
@@ -760,7 +760,7 @@ ULDUM | ULD_726 | Ancient Mysteries | O
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 45% (62 of 135 Cards)
+- Progress: 57% (78 of 135 Cards)
 
 ## Descent of Dragons
 
@@ -961,7 +961,7 @@ BLACK_TEMPLE | BT_004 | Imprisoned Observer |
 BLACK_TEMPLE | BT_006 | Evocation |  
 BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
-BLACK_TEMPLE | BT_010 | Felfin Navigator | O 
+BLACK_TEMPLE | BT_010 | Felfin Navigator | O
 BLACK_TEMPLE | BT_011 | Libram of Justice |  
 BLACK_TEMPLE | BT_014 | Starscryer |  
 BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
@@ -984,8 +984,8 @@ BLACK_TEMPLE | BT_110 | Torrent |
 BLACK_TEMPLE | BT_113 | Totemic Reflection |  
 BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
 BLACK_TEMPLE | BT_115 | Marshspawn |  
-BLACK_TEMPLE | BT_117 | Bladestorm | O 
-BLACK_TEMPLE | BT_120 | Warmaul Challenger | O 
+BLACK_TEMPLE | BT_117 | Bladestorm | O
+BLACK_TEMPLE | BT_120 | Warmaul Challenger | O
 BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
 BLACK_TEMPLE | BT_123 | Kargath Bladefist | O
 BLACK_TEMPLE | BT_124 | Corsair Cache | O
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 4% (6 of 135 Cards)
+- Progress: 8% (11 of 135 Cards)
 
 ## Scholomance Academy
 
@@ -1228,9 +1228,9 @@ SCHOLOMANCE | SCH_708 | Sneaky Delinquent |
 SCHOLOMANCE | SCH_709 | Smug Senior |  
 SCHOLOMANCE | SCH_710 | Ogremancer |  
 SCHOLOMANCE | SCH_711 | Plagued Protodrake |  
-SCHOLOMANCE | SCH_712 | Judicious Junior |  O
+SCHOLOMANCE | SCH_712 | Judicious Junior | O
 SCHOLOMANCE | SCH_713 | Cult Neophyte |  
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 0.01% (2 of 135 Cards)
+- Progress: 1% (2 of 135 Cards)
