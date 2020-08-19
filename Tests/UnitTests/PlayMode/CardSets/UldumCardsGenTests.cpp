@@ -3958,6 +3958,47 @@ TEST_CASE("[Neutral : Minion] - ULD_250 : Infested Goblin")
     CHECK_EQ(curHand[5]->card->name, "Scarab");
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [ULD_253] Tomb Warden - COST:8 [ATK:3/HP:6]
+// - Race: Mechanical, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Summon a copy of this minion.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_253 : Tomb Warden")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    const auto card =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tomb Warden"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card));
+
+    CHECK_EQ("Tomb Warden", curField[0]->card->name);
+    CHECK_EQ("Tomb Warden", curField[1]->card->name);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 // - Set: Uldum, Rarity: Common

@@ -2148,6 +2148,9 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::SOURCE));
+    cards.emplace("ULD_253", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [ULD_256] Into the Fray - COST:1
