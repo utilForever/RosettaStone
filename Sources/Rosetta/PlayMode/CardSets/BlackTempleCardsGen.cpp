@@ -1825,8 +1825,6 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
             SelfCondition::IsRace(Race::DEMON)) }));
     power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddDeathrattleTask(std::make_shared<GetGameTagTask>(
-        EntityType::STACK, GameTag::ENTITY_ID));
     power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
     cards.emplace("BT_509", CardDef(power));
 
@@ -2043,9 +2041,6 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
-        SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsMinion()) }));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_160e", EntityType::STACK));
     cards.emplace("BT_160", CardDef(power));
