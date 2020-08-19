@@ -215,8 +215,7 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("BT_136t",
-                  CardDef(power,
+    cards.emplace("BT_136t",CardDef(power,
                       ChooseCardIDs{ "BT_136ta", "BT_136tb" }));
 
     // ------------------------------------------ SPELL - DRUID
