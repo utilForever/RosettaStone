@@ -151,7 +151,6 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
-
 // ---------------------------------------- MINION - PRIEST
 // [BT_258] Imprisoned Homunculus - COST:1 [ATK:2/HP:5]
 // - Race: Demon, Set: Black Temple, Rarity: Common
