@@ -179,8 +179,8 @@ TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    CHECK_EQ(curField[0]->card->name, "Cursed Shadow");
     CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Cursed Shadow");
     CHECK_EQ(curField[0]->GetAttack(), 7);
     CHECK_EQ(curField[0]->GetHealth(), 5);
     CHECK_EQ(curField[0]->HasStealth(), true);
@@ -240,8 +240,8 @@ TEST_CASE("[Warlock : Minion] - BT_304 : Enhanced Dreadlord")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-    CHECK_EQ(curField[0]->card->name, "Desperate Dreadlord");
     CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Desperate Dreadlord");
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
     CHECK_EQ(curField[0]->HasLifesteal(), true);
