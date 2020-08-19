@@ -58,6 +58,100 @@ TEST_CASE("[Druid : Spell] - BT_130 : Overgrowth")
     CHECK_EQ(curPlayer->GetTotalMana(), 10);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [BT_136] Archspore Msshi'fn - COST: 3 [ATK: 3/HP: 4]
+//  - Set: BLACK_TEMPLE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Deathrattle:</b> Shuffle
+//       'Msshi'fn Prime'
+//       into your deck.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - DEATHRATTLE = 1
+//  - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(40);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(20);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Archspore Msshi'fn"));
+    const auto card2 = 
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Archspore Msshi'fn"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    const auto card5 = curHand[0];
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5, 1));
+    CHECK_EQ(curField[0]->card->name, "Msshi'fn Prime");
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[1]->card->name, "Fungal Guardian");
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetHealth(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card6 = curHand[0];
+
+    game.Process(curPlayer, PlayCardTask::Minion(card6, 2));
+    CHECK_EQ(curField[2]->card->name, "Msshi'fn Prime");
+    CHECK_EQ(curField[2]->GetAttack(), 9);
+    CHECK_EQ(curField[2]->GetHealth(), 9);
+    CHECK_EQ(curField[3]->card->name, "Fungal Bruiser");
+    CHECK_EQ(curField[3]->HasRush(), true);
+    CHECK_EQ(curField[3]->GetAttack(), 9);
+    CHECK_EQ(curField[3]->GetHealth(), 9);
+}
+
+
 // ---------------------------------------- MINION - PRIEST
 // [BT_258] Imprisoned Homunculus - COST:1 [ATK:2/HP:5]
 // - Race: Demon, Set: Black Temple, Rarity: Common

@@ -167,6 +167,10 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "BT_136t", 1));
+    cards.emplace("BT_136", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddDruidNonCollect(
@@ -209,6 +213,11 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     //  - RUSH = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_136t",
+                  CardDef(power,
+                      ChooseCardIDs{ "BT_136ta", "BT_136tb" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_136ta] Msshi'fn Pro'tec - COST: 10
@@ -221,6 +230,9 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     // RefTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("BT_136tt", 1));
+    cards.emplace("BT_136ta", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_136tb] Msshi'fn At'tac - COST: 10
@@ -233,6 +245,9 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     // RefTag:
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("BT_136tt2", 1));
+    cards.emplace("BT_136tb", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BT_136tt] Fungal Guardian - COST: 10 [ATK: 9/HP: 9]
@@ -244,6 +259,9 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     //  - ELITE = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_136tt", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BT_136tt2] Fungal Bruiser - COST: 10 [ATK: 9/HP: 9]
@@ -255,6 +273,9 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     //  - ELITE = 1
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_136tt2", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BT_136tt3] Fungal Gargantuan - COST: 10 [ATK: 9/HP: 9]
@@ -268,6 +289,9 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     //  - RUSH = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_136tt3", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)

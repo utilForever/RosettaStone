@@ -999,7 +999,7 @@ BLACK_TEMPLE | BT_132 | Ironbark |
 BLACK_TEMPLE | BT_133 | Marsh Hydra |  
 BLACK_TEMPLE | BT_134 | Bogbeam |  
 BLACK_TEMPLE | BT_135 | Glowfly Swarm |  
-BLACK_TEMPLE | BT_136 | Archspore Msshi'fn |  
+BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O  
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
 BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
