@@ -1075,7 +1075,7 @@ BLACK_TEMPLE | BT_721 | Blistering Rot |
 BLACK_TEMPLE | BT_722 | Guardian Augmerchant |  
 BLACK_TEMPLE | BT_723 | Rocket Augmerchant |  
 BLACK_TEMPLE | BT_724 | Ethereal Augmerchant |  
-BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker |  
+BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker | O
 BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
 BLACK_TEMPLE | BT_728 | Disguised Wanderer |  
 BLACK_TEMPLE | BT_729 | Waste Warden |  

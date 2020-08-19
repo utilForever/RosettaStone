@@ -2159,6 +2159,10 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_726t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_726", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_727] Soulbound Ashtongue - COST: 1 [ATK: 1/HP: 4]
@@ -2527,6 +2531,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // [BT_726t] Dragonrider - COST: 3 [ATK: 3/HP: 4]
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_726t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_728t] Rustsworn Inquisitor - COST: 4 [ATK: 9/HP: 1]
