@@ -52,12 +52,12 @@ class FieldZone
     //! Operator overloading for operator[].
     //! \param zonePos The zone position of minion.
     //! \return The minion at \p zonePos.
-    Minion& operator[](int zonePos);
+    Minion& operator[](std::size_t zonePos);
 
     //! Operator overloading for operator[].
     //! \param zonePos The zone position of minion.
     //! \return The minion at \p zonePos.
-    const Minion& operator[](int zonePos) const;
+    const Minion& operator[](std::size_t zonePos) const;
 
     //! Adds the specified minion into this zone, at the given position.
     //! \param minion The minion to add.

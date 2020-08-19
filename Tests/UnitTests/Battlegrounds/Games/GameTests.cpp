@@ -110,12 +110,15 @@ TEST_CASE("[Game] - Basic")
     player1.PlayCard(0, 0);
     player1.PlayCard(0, 1);
 
-    const int poolIdx1 = player1.recruitField[0].GetPoolIndex();
-    const int poolIdx2 = player1.recruitField[1].GetPoolIndex();
+    if (player1.recruitField.GetCount() >= 2)
+    {
+        const int poolIdx1 = player1.recruitField[0].GetPoolIndex();
+        const int poolIdx2 = player1.recruitField[1].GetPoolIndex();
 
-    player1.RearrangeMinion(0, 1);
-    CHECK_EQ(poolIdx1, player1.recruitField[1].GetPoolIndex());
-    CHECK_EQ(poolIdx2, player1.recruitField[0].GetPoolIndex());
+        player1.RearrangeMinion(0, 1);
+        CHECK_EQ(poolIdx1, player1.recruitField[1].GetPoolIndex());
+        CHECK_EQ(poolIdx2, player1.recruitField[0].GetPoolIndex());
+    }
 
     player1.UpgradeTavern();
     CHECK_EQ(player1.currentTier, 1);
@@ -131,12 +134,15 @@ TEST_CASE("[Game] - Basic")
     CHECK(check1);
 
     player1.RefreshTavern();
-    CHECK_EQ(player1.hand.GetCount(), 0);
+
+    const bool check2 =
+        player1.hand.GetCount() == 0 || player1.hand.GetCount() == 1;
+    CHECK(check2);
     CHECK_EQ(player1.tavern.fieldZone.GetCount(), 4);
 
-    const bool check2 = player1.remainCoin == 4 || player1.remainCoin == 5 ||
+    const bool check3 = player1.remainCoin == 4 || player1.remainCoin == 5 ||
                         player1.remainCoin == 6 || player1.remainCoin == 7;
-    CHECK(check2);
+    CHECK(check3);
 
     const std::size_t numMinions =
         GetNumMinionsCanPurchase(player1.currentTier);
