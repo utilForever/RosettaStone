@@ -36,6 +36,9 @@ TEST_CASE("[Board] - RefCopyFrom")
     board1->RefCopyFrom(*board2);
     CHECK_EQ(board1->GetViewType(), PlayerType::PLAYER2);
     CHECK_EQ(board1->GetCurrentPlayer()->playerType, PlayerType::PLAYER1);
+
+    delete board1;
+    delete board2;
 }
 
 TEST_CASE("[Board] - CreateView")
