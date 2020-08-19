@@ -820,8 +820,8 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    CHECK_EQ(curField[0]->card->name, "Dragonrider");
     CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Dragonrider");
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
