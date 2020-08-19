@@ -1357,6 +1357,10 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_304t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_304", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [BT_305] Imprisoned Scrap Imp - COST: 2 [ATK: 3/HP: 3]
@@ -1416,6 +1420,9 @@ void BlackTempleCardsGen::AddWarlockNonCollect(
     // GameTag:
     //  - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_304t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [BT_305e] Scrap Weapons - COST: 0

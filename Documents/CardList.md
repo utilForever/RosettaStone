@@ -1039,7 +1039,7 @@ BLACK_TEMPLE | BT_292 | Hand of A'dal |
 BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
 BLACK_TEMPLE | BT_301 | Nightshade Matron |  
 BLACK_TEMPLE | BT_302 | The Dark Portal |  
-BLACK_TEMPLE | BT_304 | Enhanced Dreadlord |  
+BLACK_TEMPLE | BT_304 | Enhanced Dreadlord | O
 BLACK_TEMPLE | BT_305 | Imprisoned Scrap Imp |  
 BLACK_TEMPLE | BT_306 | Shadow Council |  
 BLACK_TEMPLE | BT_307 | Darkglare |  

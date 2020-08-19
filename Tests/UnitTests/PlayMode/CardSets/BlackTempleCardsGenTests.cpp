@@ -170,8 +170,6 @@ TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
         curPlayer, Cards::FindCardByName("Cursed Vagrant"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField.GetCount(), 1);
@@ -181,12 +179,72 @@ TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
     CHECK_EQ(curField[0]->card->name, "Cursed Shadow");
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 7);
     CHECK_EQ(curField[0]->GetHealth(), 5);
     CHECK_EQ(curField[0]->HasStealth(), true);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [BT_304] Enhanced Dreadlord - COST: 8 [ATK: 5/HP: 7]
+//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Deathrattle:</b> Summon a 5/5
+//       Dreadlord with <b>Lifesteal</b>.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+//  - TAUNT = 1
+// --------------------------------------------------------
+// RefTag:
+//  - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - BT_304 : Enhanced Dreadlord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Enhanced Dreadlord"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Enhanced Dreadlord");
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->card->name, "Desperate Dreadlord");
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
