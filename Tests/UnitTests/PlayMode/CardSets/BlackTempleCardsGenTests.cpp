@@ -95,6 +95,7 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
 
     auto& curDeck = *(curPlayer->GetDeckZone());
     auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Archspore Msshi'fn"));
@@ -121,7 +122,6 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    auto& curHand = *(curPlayer->GetHandZone());
     const auto card5 = curHand[0];
 
     game.Process(curPlayer, PlayCardTask::Minion(card5, 1));
