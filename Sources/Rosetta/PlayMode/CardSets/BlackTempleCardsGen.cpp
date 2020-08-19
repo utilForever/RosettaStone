@@ -994,6 +994,10 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_703t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_703", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BT_707] Ambush - COST: 2
@@ -1097,6 +1101,9 @@ void BlackTempleCardsGen::AddRogueNonCollect(
     // GameTag:
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_703t", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_707t] Broken Ambusher - COST: 2 [ATK: 2/HP: 3]

@@ -1060,7 +1060,7 @@ BLACK_TEMPLE | BT_514 | Immolation Aura |
 BLACK_TEMPLE | BT_601 | Skull of Gul'dan |  
 BLACK_TEMPLE | BT_701 | Spymistress |  
 BLACK_TEMPLE | BT_702 | Ashtongue Slayer |  
-BLACK_TEMPLE | BT_703 | Cursed Vagrant |  
+BLACK_TEMPLE | BT_703 | Cursed Vagrant | O
 BLACK_TEMPLE | BT_707 | Ambush |  
 BLACK_TEMPLE | BT_709 | Dirty Tricks |  
 BLACK_TEMPLE | BT_710 | Greyheart Sage |  

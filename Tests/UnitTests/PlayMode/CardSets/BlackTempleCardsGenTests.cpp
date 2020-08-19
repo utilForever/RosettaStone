@@ -132,6 +132,63 @@ TEST_CASE("[Priest : Minion] - BT_258 : Imprisoned Homunculus")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [BT_703] Cursed Vagrant - COST: 7 [ATK: 7/HP: 5]
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 7/5 Shadow with <b>Stealth</b>.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+// --------------------------------------------------------
+// RefTag:
+//  - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Cursed Vagrant"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Cursed Vagrant");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->card->name, "Cursed Shadow");
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->HasStealth(), true);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [BT_117] Bladestorm - COST: 3
 //  - Set: BLACK_TEMPLE, Rarity: Epic
