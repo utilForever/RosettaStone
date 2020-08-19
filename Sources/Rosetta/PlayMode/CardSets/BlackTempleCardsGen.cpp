@@ -215,8 +215,8 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("BT_136t",CardDef(power,
-                      ChooseCardIDs{ "BT_136ta", "BT_136tb" }));
+    cards.emplace("BT_136t",
+                  CardDef(power, ChooseCardIDs{ "BT_136ta", "BT_136tb" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_136ta] Msshi'fn Pro'tec - COST: 10
