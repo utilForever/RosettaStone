@@ -1055,7 +1055,7 @@ BLACK_TEMPLE | BT_486 | Pit Commander |
 BLACK_TEMPLE | BT_491 | Spectral Sight |  
 BLACK_TEMPLE | BT_493 | Priestess of Fury |  
 BLACK_TEMPLE | BT_496 | Furious Felfin |  
-BLACK_TEMPLE | BT_509 | Fel Summoner |  
+BLACK_TEMPLE | BT_509 | Fel Summoner | O
 BLACK_TEMPLE | BT_514 | Immolation Aura |  
 BLACK_TEMPLE | BT_601 | Skull of Gul'dan |  
 BLACK_TEMPLE | BT_701 | Spymistress |  
@@ -1086,7 +1086,7 @@ BLACK_TEMPLE | BT_733 | Mo'arg Artificer |
 BLACK_TEMPLE | BT_734 | Supreme Abyssal |  
 BLACK_TEMPLE | BT_735 | Al'ar |  
 BLACK_TEMPLE | BT_737 | Maiev Shadowsong |  
-BLACK_TEMPLE | BT_761 | Coilfang Warlord |  
+BLACK_TEMPLE | BT_761 | Coilfang Warlord | O
 BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |  
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
