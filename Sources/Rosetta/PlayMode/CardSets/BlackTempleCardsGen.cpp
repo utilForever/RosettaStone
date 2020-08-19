@@ -2040,6 +2040,15 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsMinion()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_160e", EntityType::STACK));
+    cards.emplace("BT_160", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_190] Replicat-o-tron - COST: 4 [ATK: 3/HP: 3]
@@ -2430,11 +2439,18 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon a 1/1 Demon.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_160t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_160e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_160t] Rusted Devil - COST: 1 [ATK: 1/HP: 1]
     //  - Race: DEMON, Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_160t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_187e] Death's Dance - COST: 0
