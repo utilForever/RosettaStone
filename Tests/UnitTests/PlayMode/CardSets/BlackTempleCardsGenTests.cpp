@@ -240,6 +240,7 @@ TEST_CASE("[Warlock : Minion] - BT_304 : Enhanced Dreadlord")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Desperate Dreadlord");
     CHECK_EQ(curField[0]->GetAttack(), 5);
@@ -540,7 +541,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->IsRace((Race::DEMON)), true);
+    CHECK_EQ(curField[0]->IsRace(Race::DEMON), true);
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
@@ -594,8 +595,8 @@ TEST_CASE("[Demon Hunter : Minion] - BT_761 : Coilfang Warlord")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    CHECK_EQ(curField[0]->card->name, "Conchguard Warlord");
     CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Conchguard Warlord");
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 9);
     CHECK_EQ(curField[0]->HasTaunt(), true);
@@ -952,8 +953,6 @@ TEST_CASE("[Neutral : Minion] - BT_160 : Rustsworn Cultist")
         curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
-    const auto card4 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card1));
@@ -962,8 +961,8 @@ TEST_CASE("[Neutral : Minion] - BT_160 : Rustsworn Cultist")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
-    CHECK_EQ(curField[0]->card->name, "Rusted Devil");
     CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Rusted Devil");
     CHECK_EQ(curField[0]->GetAttack(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 1);
 }
