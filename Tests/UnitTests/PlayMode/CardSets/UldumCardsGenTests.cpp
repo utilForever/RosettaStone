@@ -3958,6 +3958,72 @@ TEST_CASE("[Neutral : Minion] - ULD_250 : Infested Goblin")
     CHECK_EQ(curHand[5]->card->name, "Scarab");
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [ULD_253] Tomb Warden - COST:8 [ATK:3/HP:6]
+// - Race: Mechanical, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Summon a copy of this minion.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_253 : Tomb Warden")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Tomb Warden");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(30);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Galakrond, the Unbreakable"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(5, curHand.GetCount());
+    CHECK_EQ("Tomb Warden", curHand[4]->card->name);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[4]));
+    CHECK_EQ(2, curField.GetCount());
+    CHECK_EQ("Tomb Warden", curField[0]->card->name);
+    CHECK_EQ("Tomb Warden", curField[1]->card->name);
+    CHECK_EQ(7, curField[0]->GetAttack());
+    CHECK_EQ(7, curField[1]->GetAttack());
+    CHECK_EQ(10, curField[0]->GetHealth());
+    CHECK_EQ(10, curField[1]->GetHealth());
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(4, curField.GetCount());
+    CHECK_EQ("Tomb Warden", curField[2]->card->name);
+    CHECK_EQ("Tomb Warden", curField[3]->card->name);
+    CHECK_EQ(3, curField[2]->GetAttack());
+    CHECK_EQ(3, curField[3]->GetAttack());
+    CHECK_EQ(6, curField[2]->GetHealth());
+    CHECK_EQ(6, curField[3]->GetHealth());
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 // - Set: Uldum, Rarity: Common

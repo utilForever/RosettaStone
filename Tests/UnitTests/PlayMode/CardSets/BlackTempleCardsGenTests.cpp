@@ -59,6 +59,102 @@ TEST_CASE("[Druid : Spell] - BT_130 : Overgrowth")
 }
 
 // ----------------------------------------- MINION - DRUID
+// [BT_136] Archspore Msshi'fn - COST: 3 [ATK: 3/HP: 4]
+//  - Set: BLACK_TEMPLE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Deathrattle:</b> Shuffle
+//       'Msshi'fn Prime'
+//       into your deck.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - DEATHRATTLE = 1
+//  - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    curPlayer->SetTotalMana(40);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(20);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Archspore Msshi'fn"));
+    const auto card2 = 
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Archspore Msshi'fn"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card5 = curHand[0];
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5, 1));
+    CHECK_EQ(curField[0]->card->name, "Msshi'fn Prime");
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[1]->card->name, "Fungal Guardian");
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetHealth(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card6 = curHand[0];
+
+    game.Process(curPlayer, PlayCardTask::Minion(card6, 2));
+    CHECK_EQ(curField[2]->card->name, "Msshi'fn Prime");
+    CHECK_EQ(curField[2]->GetAttack(), 9);
+    CHECK_EQ(curField[2]->GetHealth(), 9);
+    CHECK_EQ(curField[3]->card->name, "Fungal Bruiser");
+    CHECK_EQ(curField[3]->HasRush(), true);
+    CHECK_EQ(curField[3]->GetAttack(), 9);
+    CHECK_EQ(curField[3]->GetHealth(), 9);
+
+}
+
 // [BT_131] Ysiel Windsinger - COST: 9 [ATK: 5/HP: 5]
 //  -Faction: Neutral, Set: BLACK_TEMPLE, Rarity: Legendary
 // --------------------------------------------------------
@@ -76,13 +172,14 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
-
+    
     Game game(config);
     game.Start();
     game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
+
     curPlayer->SetTotalMana(10);
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
@@ -102,6 +199,7 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+
     CHECK_EQ(card2->GetCost(), 0);
 
     game.Process(opPlayer, EndTurnTask());
@@ -1018,4 +1116,54 @@ TEST_CASE("[Neutral : Minion] - BT_160 : Rustsworn Cultist")
     CHECK_EQ(curField[0]->card->name, "Rusted Devil");
     CHECK_EQ(curField[0]->GetAttack(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BT_726] Dragonmaw Sky Stalker - COST: 6 [ATK: 5/HP: 6]
+//  - Race: DRAGON, Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 3/4 Dragonrider.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dragonmaw Sky Stalker"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Dragonmaw Sky Stalker");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Dragonrider");
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 }

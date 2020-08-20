@@ -693,7 +693,7 @@ ULDUM | ULD_238 | Reno the Relicologist | O
 ULDUM | ULD_239 | Flame Ward | O
 ULDUM | ULD_240 | Arcane Flakmage | O
 ULDUM | ULD_250 | Infested Goblin | O
-ULDUM | ULD_253 | Tomb Warden |  
+ULDUM | ULD_253 | Tomb Warden | O
 ULDUM | ULD_256 | Into the Fray |  
 ULDUM | ULD_258 | Armagedillo |  
 ULDUM | ULD_262 | High Priest Amet | O
@@ -999,7 +999,7 @@ BLACK_TEMPLE | BT_132 | Ironbark |
 BLACK_TEMPLE | BT_133 | Marsh Hydra |  
 BLACK_TEMPLE | BT_134 | Bogbeam |  
 BLACK_TEMPLE | BT_135 | Glowfly Swarm |  
-BLACK_TEMPLE | BT_136 | Archspore Msshi'fn |  
+BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O  
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
 BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
@@ -1075,7 +1075,7 @@ BLACK_TEMPLE | BT_721 | Blistering Rot |
 BLACK_TEMPLE | BT_722 | Guardian Augmerchant |  
 BLACK_TEMPLE | BT_723 | Rocket Augmerchant |  
 BLACK_TEMPLE | BT_724 | Ethereal Augmerchant |  
-BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker |  
+BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker | O
 BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
 BLACK_TEMPLE | BT_728 | Disguised Wanderer |  
 BLACK_TEMPLE | BT_729 | Waste Warden |  
