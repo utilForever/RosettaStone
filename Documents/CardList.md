@@ -666,7 +666,7 @@ ULDUM | ULD_183 | Anubisath Warbringer |
 ULDUM | ULD_184 | Kobold Sandtrooper | O
 ULDUM | ULD_185 | Temple Berserker |  
 ULDUM | ULD_186 | Pharaoh Cat | O
-ULDUM | ULD_188 | Golden Scarab |  
+ULDUM | ULD_188 | Golden Scarab | O
 ULDUM | ULD_189 | Faceless Lurker |  
 ULDUM | ULD_190 | Pit Crocolisk | O
 ULDUM | ULD_191 | Beaming Sidekick | O

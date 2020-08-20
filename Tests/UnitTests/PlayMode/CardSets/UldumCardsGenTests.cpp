@@ -4357,3 +4357,48 @@ TEST_CASE("[Neutral : Minion] - ULD_723 : Murmy")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [ULD_188] Golden Scarab - COST:3 [ATK:2/HP:2]
+// - Race: Beast, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b><b>Battlecry:</b> Discover</b> a 4-Cost card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_188 : Golden Scarab")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Golden Scarab"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    auto cards = TestUtils::GetChoiceCards(game);
+
+    CHECK_EQ(curField[0]->card->name, "Golden Scarab");
+    CHECK_EQ(cards[0]->GetCost(), 4);
+}
