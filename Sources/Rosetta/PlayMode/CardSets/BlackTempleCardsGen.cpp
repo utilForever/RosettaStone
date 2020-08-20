@@ -15,11 +15,13 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -1017,6 +1019,10 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_703t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_703", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BT_707] Ambush - COST: 2
@@ -1120,6 +1126,9 @@ void BlackTempleCardsGen::AddRogueNonCollect(
     // GameTag:
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_703t", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_707t] Broken Ambusher - COST: 2 [ATK: 2/HP: 3]
@@ -1373,6 +1382,10 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_304t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_304", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [BT_305] Imprisoned Scrap Imp - COST: 2 [ATK: 3/HP: 3]
@@ -1432,6 +1445,9 @@ void BlackTempleCardsGen::AddWarlockNonCollect(
     // GameTag:
     //  - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_304t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [BT_305e] Scrap Weapons - COST: 0
@@ -1826,6 +1842,14 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("BT_509", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_514] Immolation Aura - COST: 2
@@ -1860,6 +1884,10 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_761t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_761", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_934] Imprisoned Antaen - COST: 6 [ATK: 10/HP: 6]
@@ -1893,6 +1921,9 @@ void BlackTempleCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_761t", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -2030,6 +2061,12 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_160e", EntityType::STACK));
+    cards.emplace("BT_160", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_190] Replicat-o-tron - COST: 4 [ATK: 3/HP: 3]
@@ -2424,11 +2461,18 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon a 1/1 Demon.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_160t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_160e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_160t] Rusted Devil - COST: 1 [ATK: 1/HP: 1]
     //  - Race: DEMON, Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_160t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_187e] Death's Dance - COST: 0

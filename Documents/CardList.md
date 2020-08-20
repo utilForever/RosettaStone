@@ -1005,7 +1005,7 @@ BLACK_TEMPLE | BT_140 | Bonechewer Raider |
 BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
 BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
 BLACK_TEMPLE | BT_159 | Terrorguard Escapee | O
-BLACK_TEMPLE | BT_160 | Rustsworn Cultist |  
+BLACK_TEMPLE | BT_160 | Rustsworn Cultist | O
 BLACK_TEMPLE | BT_163 | Nagrand Slam |  
 BLACK_TEMPLE | BT_187 | Kayn Sunfury |  
 BLACK_TEMPLE | BT_188 | Shadowjeweler Hanar |  
@@ -1039,7 +1039,7 @@ BLACK_TEMPLE | BT_292 | Hand of A'dal |
 BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
 BLACK_TEMPLE | BT_301 | Nightshade Matron |  
 BLACK_TEMPLE | BT_302 | The Dark Portal |  
-BLACK_TEMPLE | BT_304 | Enhanced Dreadlord |  
+BLACK_TEMPLE | BT_304 | Enhanced Dreadlord | O
 BLACK_TEMPLE | BT_305 | Imprisoned Scrap Imp |  
 BLACK_TEMPLE | BT_306 | Shadow Council |  
 BLACK_TEMPLE | BT_307 | Darkglare |  
@@ -1055,12 +1055,12 @@ BLACK_TEMPLE | BT_486 | Pit Commander |
 BLACK_TEMPLE | BT_491 | Spectral Sight |  
 BLACK_TEMPLE | BT_493 | Priestess of Fury |  
 BLACK_TEMPLE | BT_496 | Furious Felfin |  
-BLACK_TEMPLE | BT_509 | Fel Summoner |  
+BLACK_TEMPLE | BT_509 | Fel Summoner | O
 BLACK_TEMPLE | BT_514 | Immolation Aura |  
 BLACK_TEMPLE | BT_601 | Skull of Gul'dan |  
 BLACK_TEMPLE | BT_701 | Spymistress |  
 BLACK_TEMPLE | BT_702 | Ashtongue Slayer |  
-BLACK_TEMPLE | BT_703 | Cursed Vagrant |  
+BLACK_TEMPLE | BT_703 | Cursed Vagrant | O
 BLACK_TEMPLE | BT_707 | Ambush |  
 BLACK_TEMPLE | BT_709 | Dirty Tricks |  
 BLACK_TEMPLE | BT_710 | Greyheart Sage |  
@@ -1086,7 +1086,7 @@ BLACK_TEMPLE | BT_733 | Mo'arg Artificer |
 BLACK_TEMPLE | BT_734 | Supreme Abyssal |  
 BLACK_TEMPLE | BT_735 | Al'ar |  
 BLACK_TEMPLE | BT_737 | Maiev Shadowsong |  
-BLACK_TEMPLE | BT_761 | Coilfang Warlord |  
+BLACK_TEMPLE | BT_761 | Coilfang Warlord | O
 BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |  
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
