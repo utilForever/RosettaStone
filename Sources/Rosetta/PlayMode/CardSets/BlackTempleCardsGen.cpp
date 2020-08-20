@@ -12,10 +12,12 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
@@ -798,6 +800,23 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL, 3));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+
+    cards.emplace
+    (
+        "BT_252",
+        CardDef
+        (
+            power, 
+            PlayReqs
+            {
+                { PlayReq::REQ_TARGET_TO_PLAY, 0 }
+            }
+        )
+    );
 
     // ----------------------------------------- SPELL - PRIEST
     // [BT_253] Psyche Split - COST: 5
