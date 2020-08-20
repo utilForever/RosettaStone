@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
@@ -32,6 +33,7 @@ using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void BlackTempleCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -104,14 +106,22 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [BT_131] Ysiel Windsinger - COST: 9 [ATK: 5/HP: 5]
-    //  - Set: BLACK_TEMPLE, Rarity: Legendary
+    //  -Faction: Neutral, Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Your spells cost (1).
     // --------------------------------------------------------
     // GameTag:
-    //  - ELITE = 1
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::SetCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("BT_131", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_132] Ironbark - COST: 2
@@ -2357,10 +2367,13 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [BT_131e] Ysiel Windsinger - COST: 0
-    //  - Set: BLACK_TEMPLE
+    // [BT_131e] Ysiel Windsinger - COST: 9 [ATK:5/HP:5]
+    // - Faction:  - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Costs (1).
+    // Text: Your spell costs (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
