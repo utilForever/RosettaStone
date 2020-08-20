@@ -692,6 +692,9 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [SCH_137] Frazzled Freshman - COST: 1 [ATK: 1/HP: 4]
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
+	power.ClearData();
+	power.AddPowerTask(nullptr);
+	cards.emplace("SCH_137", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [SCH_140] Flesh Giant - COST: 8 [ATK: 8/HP: 8]
