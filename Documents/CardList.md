@@ -693,7 +693,7 @@ ULDUM | ULD_238 | Reno the Relicologist | O
 ULDUM | ULD_239 | Flame Ward | O
 ULDUM | ULD_240 | Arcane Flakmage | O
 ULDUM | ULD_250 | Infested Goblin | O
-ULDUM | ULD_253 | Tomb Warden |  
+ULDUM | ULD_253 | Tomb Warden | O
 ULDUM | ULD_256 | Into the Fray |  
 ULDUM | ULD_258 | Armagedillo |  
 ULDUM | ULD_262 | High Priest Amet | O
