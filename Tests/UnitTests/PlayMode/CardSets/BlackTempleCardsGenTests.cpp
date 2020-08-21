@@ -152,6 +152,53 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [BT_252] Renew - COST: 1
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Restore #3 Health. <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+//  - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Preist : Spell] - BT_252 : Renew")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(5);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Renew"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetCardClass(), CardClass::PRIEST);
+    }
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [BT_258] Imprisoned Homunculus - COST:1 [ATK:2/HP:5]
 // - Race: Demon, Set: Black Temple, Rarity: Common
@@ -1109,55 +1156,4 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
     CHECK_EQ(curField[0]->card->name, "Dragonrider");
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 4);
-}
-
-// ----------------------------------------- SPELL - PRIEST
-// [BT_252] Renew - COST: 1
-//  - Set: BLACK_TEMPLE, Rarity: Common
-// --------------------------------------------------------
-// Text: Restore #3 Health. <b>Discover</b> a spell.
-// --------------------------------------------------------
-// GameTag:
-//  - DISCOVER = 1
-// --------------------------------------------------------
-TEST_CASE("[Preist : Spell] - BT_252 : Renew")
-{
-    GameConfig config;
-
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::HUNTER;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetDamage(5);
-
-    const auto card1 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Renew"));
-
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
-
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
-
-    CHECK(curPlayer->choice != nullptr);
-    CHECK_EQ(curPlayer->choice->choices.size(), 3);
-
-    auto cards = TestUtils::GetChoiceCards(game);
-
-    for (auto& card : cards)
-    {
-        CHECK_EQ(card->GetCardType(), CardType::SPELL);
-        CHECK_EQ(card->GetCardClass(), CardClass::PRIEST);
-    }
 }

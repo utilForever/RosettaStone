@@ -801,22 +801,11 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     //  - DISCOVER = 1
     // --------------------------------------------------------
     power.ClearData();
-
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL, 3));
     power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
-
-    cards.emplace
-    (
+    cards.emplace(
         "BT_252",
-        CardDef
-        (
-            power, 
-            PlayReqs
-            {
-                { PlayReq::REQ_TARGET_TO_PLAY, 0 }
-            }
-        )
-    );
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BT_253] Psyche Split - COST: 5
