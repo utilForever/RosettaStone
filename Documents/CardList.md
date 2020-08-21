@@ -1077,7 +1077,7 @@ BLACK_TEMPLE | BT_723 | Rocket Augmerchant |
 BLACK_TEMPLE | BT_724 | Ethereal Augmerchant |  
 BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker | O
 BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
-BLACK_TEMPLE | BT_728 | Disguised Wanderer |  
+BLACK_TEMPLE | BT_728 | Disguised Wanderer | O 
 BLACK_TEMPLE | BT_729 | Waste Warden |  
 BLACK_TEMPLE | BT_730 | Overconfident Orc |  
 BLACK_TEMPLE | BT_731 | Infectious Sporeling |  
