@@ -151,6 +151,61 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [BT_131] Ysiel Windsinger - COST: 9 [ATK: 5/HP: 5]
+// - Set: BLACK_TEMPLE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your spells cost (1).
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysiel Windsinger"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [BT_258] Imprisoned Homunculus - COST:1 [ATK:2/HP:5]
 // - Race: Demon, Set: Black Temple, Rarity: Common
