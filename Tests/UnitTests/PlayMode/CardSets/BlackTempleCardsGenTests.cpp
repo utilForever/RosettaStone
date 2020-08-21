@@ -1164,3 +1164,51 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BT_728] Disguised Wanderer - COST: 4 [ATK: 3/HP: 3]
+//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 9/1 Inquisitor.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Netural : Minion] - BT_728 : Disguised Wanderer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Disguised Wanderer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Rustsworn Inquisitor");
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+}

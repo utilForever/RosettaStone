@@ -2253,6 +2253,10 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BT_728t", SummonSide::DEATHRATTLE));
+    cards.emplace("BT_728", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_729] Waste Warden - COST: 5 [ATK: 3/HP: 3]
@@ -2608,6 +2612,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // [BT_728t] Rustsworn Inquisitor - COST: 4 [ATK: 9/HP: 1]
     //  - Race: DEMON, Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_728t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_735t] Ashes of Al'ar - COST: 1 [ATK: 0/HP: 3]
