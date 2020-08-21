@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -16,7 +16,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
@@ -98,7 +97,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_130] Overgrowth - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Common
+    // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
     // Text: Gain two empty Mana Crystals.
     // --------------------------------------------------------
@@ -108,7 +107,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [BT_131] Ysiel Windsinger - COST: 9 [ATK: 5/HP: 5]
-    //  -Faction: Neutral, Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Your spells cost (1).
     // --------------------------------------------------------
@@ -1854,8 +1853,8 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
-    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON)) }));
     power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::STACK, 1));
     power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
@@ -2428,16 +2427,6 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [BT_131e] Ysiel Windsinger - COST: 9 [ATK:5/HP:5]
-    // - Faction:  - Set: BLACK_TEMPLE, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: Your spell costs (1).
-    // --------------------------------------------------------
-    // GameTag:
-    // - AURA = 1
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
