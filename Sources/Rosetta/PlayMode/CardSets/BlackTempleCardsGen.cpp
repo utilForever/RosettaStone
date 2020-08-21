@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -15,7 +16,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
@@ -34,6 +34,7 @@ using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void BlackTempleCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -96,7 +97,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_130] Overgrowth - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Common
+    // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
     // Text: Gain two empty Mana Crystals.
     // --------------------------------------------------------
@@ -106,14 +107,22 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [BT_131] Ysiel Windsinger - COST: 9 [ATK: 5/HP: 5]
-    //  - Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Your spells cost (1).
     // --------------------------------------------------------
     // GameTag:
-    //  - ELITE = 1
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::SetCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("BT_131", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_132] Ironbark - COST: 2
@@ -1844,8 +1853,8 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
-    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON)) }));
     power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::STACK, 1));
     power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
@@ -2418,13 +2427,6 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [BT_131e] Ysiel Windsinger - COST: 0
-    //  - Set: BLACK_TEMPLE
-    // --------------------------------------------------------
-    // Text: Costs (1).
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
