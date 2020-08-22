@@ -250,7 +250,7 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
     for (auto& card : cards)
     {
         CHECK_EQ(card->GetCardType(), CardType::SPELL);
-        CHECK_EQ(card->GetCardClass(), CardClass::PRIEST);
+        CHECK_EQ(card->IsCardClass(CardClass::PRIEST), true);
     }
 }
 
