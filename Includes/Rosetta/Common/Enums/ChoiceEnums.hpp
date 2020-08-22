@@ -24,6 +24,7 @@ enum class DiscoverType
     MADAME_LAZUL,
     SWAMPQUEEN_HAGATHA,
     TORTOLLAN_PILGRIM,
+    FOUR_COST_ONE,
 };
 
 //! The action type of choice.

@@ -666,7 +666,7 @@ ULDUM | ULD_183 | Anubisath Warbringer |
 ULDUM | ULD_184 | Kobold Sandtrooper | O
 ULDUM | ULD_185 | Temple Berserker |  
 ULDUM | ULD_186 | Pharaoh Cat | O
-ULDUM | ULD_188 | Golden Scarab |  
+ULDUM | ULD_188 | Golden Scarab | O
 ULDUM | ULD_189 | Faceless Lurker |  
 ULDUM | ULD_190 | Pit Crocolisk | O
 ULDUM | ULD_191 | Beaming Sidekick | O
@@ -1102,7 +1102,7 @@ SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |
 SCHOLOMANCE | SCH_133 | Wolpertinger |  
 SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
 SCHOLOMANCE | SCH_136 | Power Word: Feast |  
-SCHOLOMANCE | SCH_137 | Frazzled Freshman |  
+SCHOLOMANCE | SCH_137 | Frazzled Freshman | O 
 SCHOLOMANCE | SCH_138 | Blessing of Authority |  
 SCHOLOMANCE | SCH_139 | Devout Pupil |  
 SCHOLOMANCE | SCH_140 | Flesh Giant |  

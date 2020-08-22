@@ -2412,6 +2412,10 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::FOUR_COST_ONE));
+    cards.emplace("ULD_188", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_189] Faceless Lurker - COST:5 [ATK:3/HP:3]

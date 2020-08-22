@@ -346,6 +346,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 
             break;
         }
+        case DiscoverType::FOUR_COST_ONE:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCost() == 4)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         default:
             throw std::out_of_range(
                 "DiscoverTask::Discover() - Invalid discover type");
