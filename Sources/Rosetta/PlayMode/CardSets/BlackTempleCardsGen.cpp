@@ -23,6 +23,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -823,6 +824,13 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +1/+2. Summon a copy of it.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("BT_253e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    cards.emplace(
+        "BT_253",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [BT_254] Sethekk Veilweaver - COST: 2 [ATK: 2/HP: 3]
@@ -938,11 +946,14 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
 
     // ----------------------------------- ENCHANTMENT - PRIEST
-    // [BT_253e] Twin Vision - COST: 0
+    // [BT_253e] Psyche Split - COST: 0
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_253e"));
+    cards.emplace("BT_253e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [BT_256e] Booted - COST: 0
