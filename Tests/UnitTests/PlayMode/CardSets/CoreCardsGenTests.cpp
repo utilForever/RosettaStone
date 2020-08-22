@@ -857,7 +857,7 @@ TEST_CASE("[Druid : Spell] - CS2_013 : Wild Growth")
 
 // ----------------------------------------- MINION - DRUID
 // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
-// - Faction: neutral, Set: Core, Rarity: Free
+// - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
