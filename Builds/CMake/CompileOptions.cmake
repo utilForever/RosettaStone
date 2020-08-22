@@ -99,6 +99,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/wd4245       # -> disable warning: conversion from 'int' to 'uint64_t', signed/unsigned mismatch (caused by Torch)
 		/wd4702       # -> disable warning: unreachable code (caused by Torch)
 		/wd4189       # -> disable warning: local variable is initialized but not referenced (caused by tiny-dnn)
+		/wd5033       # -> disable warning: 'register' is no longer a supported storage class
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
