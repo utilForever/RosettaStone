@@ -15,6 +15,40 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ---------------------------------------- MINION - PRIEST
+// [SCH_137] Frazzled Freshman - COST: 1 [ATK: 1/HP: 4]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frazzled Freshman"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
 // - Set: Scholomance, Rarity: Common

@@ -692,6 +692,9 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [SCH_137] Frazzled Freshman - COST: 1 [ATK: 1/HP: 4]
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_137", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [SCH_140] Flesh Giant - COST: 8 [ATK: 8/HP: 8]
@@ -2124,7 +2127,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Whenever your opponent
-    //        draws a card, add a copy to 
+    //        draws a card, add a copy to
     //        your hand that costs (1).
     // --------------------------------------------------------
     // GameTag:
@@ -2488,7 +2491,6 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - ELITE = 1
     // --------------------------------------------------------
-
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_231e] Ready for School (*) - COST:0

@@ -1102,7 +1102,7 @@ SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |
 SCHOLOMANCE | SCH_133 | Wolpertinger |  
 SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
 SCHOLOMANCE | SCH_136 | Power Word: Feast |  
-SCHOLOMANCE | SCH_137 | Frazzled Freshman |  
+SCHOLOMANCE | SCH_137 | Frazzled Freshman | O 
 SCHOLOMANCE | SCH_138 | Blessing of Authority |  
 SCHOLOMANCE | SCH_139 | Devout Pupil |  
 SCHOLOMANCE | SCH_140 | Flesh Giant |  
