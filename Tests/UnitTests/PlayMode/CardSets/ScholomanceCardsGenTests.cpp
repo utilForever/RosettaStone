@@ -40,12 +40,9 @@ TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Frazzled Freshman"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frazzled Freshman"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 1);
