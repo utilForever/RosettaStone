@@ -946,7 +946,7 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
 
     // ----------------------------------- ENCHANTMENT - PRIEST
-    // [BT_253e] Psyche Split - COST: 0
+    // [BT_253e] Tween Vision - COST: 0
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: +1/+2.
