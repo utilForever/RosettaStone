@@ -64,6 +64,7 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
             const auto effect =
                 new PlayMode::Effect(GameTag::ATK, effectOp, value);
             effect->ApplyTo(entity);
+            delete effect;
         }
     }
 
