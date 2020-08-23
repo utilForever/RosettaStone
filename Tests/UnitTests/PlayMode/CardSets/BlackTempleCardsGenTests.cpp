@@ -254,6 +254,52 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
     }
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [BT_253] Psyche Split - COST: 5
+//  - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give a minion +1/+2. Summon a copy of it.
+// --------------------------------------------------------
+TEST_CASE("[Preist : Spell] - BT_253 : Psyche Split")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Psyche Split"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Loot Hoarder"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [BT_258] Imprisoned Homunculus - COST:1 [ATK:2/HP:5]
 // - Race: Demon, Set: Black Temple, Rarity: Common

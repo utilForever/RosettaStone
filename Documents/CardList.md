@@ -1027,7 +1027,7 @@ BLACK_TEMPLE | BT_230 | The Lurker Below |
 BLACK_TEMPLE | BT_233 | Sword and Board |  
 BLACK_TEMPLE | BT_249 | Scrap Golem |  
 BLACK_TEMPLE | BT_252 | Renew | O
-BLACK_TEMPLE | BT_253 | Psyche Split |  
+BLACK_TEMPLE | BT_253 | Psyche Split | O
 BLACK_TEMPLE | BT_254 | Sethekk Veilweaver |  
 BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |  
 BLACK_TEMPLE | BT_256 | Dragonmaw Overseer |  
