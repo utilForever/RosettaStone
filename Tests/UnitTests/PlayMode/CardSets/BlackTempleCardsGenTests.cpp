@@ -207,6 +207,59 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
     CHECK_EQ(curPlayer->GetRemainingMana(), 10);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [BT_011] Libram of Justice - COST: 5
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Equip a 1/4 weapon. Change the Health of all enemy minions to 1.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Libram of Justice"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::HEALTH), 6);
+    CHECK_EQ(opField[0]->GetGameTag(GameTag::HEALTH), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [BT_252] Renew - COST: 1
 //  - Set: BLACK_TEMPLE, Rarity: Common

@@ -27,6 +27,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -622,6 +623,11 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Equip a 1/4 weapon. Change the Health of all enemy minions to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("BT_011t"));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BT_011e", EntityType::ENEMY_MINIONS));
+    cards.emplace("BT_011", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [BT_018] Underlight Angling Rod - COST: 3
@@ -732,6 +738,9 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     // [BT_011t] Overdue Justice - COST: 1
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_011t", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BT_019t] Murgurgle Prime - COST: 8 [ATK: 6/HP: 3]
@@ -2421,6 +2430,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Health changed to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    cards.emplace("BT_011e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_020e] Aldor Attendant - COST: 0
