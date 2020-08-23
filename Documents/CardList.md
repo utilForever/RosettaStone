@@ -1031,7 +1031,7 @@ BLACK_TEMPLE | BT_253 | Psyche Split | O
 BLACK_TEMPLE | BT_254 | Sethekk Veilweaver |  
 BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |  
 BLACK_TEMPLE | BT_256 | Dragonmaw Overseer |  
-BLACK_TEMPLE | BT_257 | Apotheosis |  
+BLACK_TEMPLE | BT_257 | Apotheosis | O
 BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
 BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel |  
 BLACK_TEMPLE | BT_291 | Apexis Blast |  
