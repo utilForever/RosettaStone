@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -322,6 +322,54 @@ TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
     CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
     CHECK_EQ(curField[0]->GetGameTag(GameTag::HEALTH), 6);
     CHECK_EQ(opField[0]->GetGameTag(GameTag::HEALTH), 1);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [BT_024] Libram of Hope - COST: 9
+//  - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Restore 8 Health. Summon an 8/8 Guardian with <b>Taunt</b>
+// and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// RefTag:
+//  - DIVINE_SHIELD = 1
+//  - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    auto curHero = curPlayer->GetHero();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curHero->SetDamage(10);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Libram of Hope"));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curHero));
+    CHECK_EQ(curHero->GetHealth(), 28);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Ancient Guardian");
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
 }
 
 // ----------------------------------------- SPELL - PRIEST

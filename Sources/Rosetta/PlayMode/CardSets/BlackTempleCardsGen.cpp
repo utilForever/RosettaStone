@@ -683,6 +683,13 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     //  - DIVINE_SHIELD = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BT_024t", 1, SummonSide::DEFAULT));
+    cards.emplace(
+        "BT_024",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BT_025] Libram of Wisdom - COST: 2
@@ -775,6 +782,9 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     //  - DIVINE_SHIELD = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_024t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BT_025e] Light's Wisdom - COST: 0
