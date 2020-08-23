@@ -863,6 +863,14 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_257e", EntityType::TARGET));
+    cards.emplace(
+        "BT_257",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
 
     // ---------------------------------------- MINION - PRIEST
     // [BT_258] Imprisoned Homunculus - COST: 1 [ATK: 2/HP: 5]
@@ -968,6 +976,9 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: +2/+3 and <b>Lifesteal</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_257e"));
+    cards.emplace("BT_257e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [BT_262e] Nether Sight - COST: 0
