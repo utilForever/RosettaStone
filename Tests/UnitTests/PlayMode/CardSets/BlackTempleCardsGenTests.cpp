@@ -228,9 +228,9 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
     for (int i = 0; i < 10; ++i)
     {
         config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
-        config.player1Deck[static_cast<__int64>(i) + 10] =
+        config.player1Deck[i + 10] =
             Cards::FindCardByName("Starscryer");
-        config.player1Deck[static_cast<__int64>(i) + 20] =
+        config.player1Deck[i + 20] =
             Cards::FindCardByName("Pyroblast");
     }
 
