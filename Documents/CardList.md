@@ -963,7 +963,7 @@ BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
 BLACK_TEMPLE | BT_010 | Felfin Navigator | O
 BLACK_TEMPLE | BT_011 | Libram of Justice | O
-BLACK_TEMPLE | BT_014 | Starscryer |  
+BLACK_TEMPLE | BT_014 | Starscryer | O
 BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
 BLACK_TEMPLE | BT_019 | Murgur Murgurgle |  
 BLACK_TEMPLE | BT_020 | Aldor Attendant |  
