@@ -2682,6 +2682,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_710t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_713e] Spoiled! - COST: 0
