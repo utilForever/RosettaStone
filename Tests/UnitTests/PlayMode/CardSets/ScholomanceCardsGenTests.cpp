@@ -234,6 +234,53 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_709 : Smug Senior")
     CHECK_EQ(curHand[4]->card->name, "Spectral Senior");
 }
 
+TEST_CASE("[NEUTRAL : Minion] - SCH_710 : Ogremancer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ogremancer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frost Nova"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->card->name, "Risen Skeleton");
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Risen Skeleton");
+    CHECK_EQ(curField[1]->IsFrozen(), true);
+    CHECK_EQ(curField[2]->IsFrozen(), true);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
 // - Set: Scholomance, Rarity: Common

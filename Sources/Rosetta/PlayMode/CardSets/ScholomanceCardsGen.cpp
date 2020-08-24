@@ -2105,6 +2105,12 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "SCH_710t", SummonSide::DEATHRATTLE) };
+    cards.emplace("SCH_710", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_711] Plagued Protodrake - COST: 8 [ATK: 8/HP: 8]
