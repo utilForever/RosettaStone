@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -205,6 +205,170 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [BT_014] Starscryer - COST: 2 [ATK: 3/HP: 1]
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Draw a spell.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 10; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
+        config.player1Deck[i + 10] =
+            Cards::FindCardByName("Starscryer");
+        config.player1Deck[i + 20] =
+            Cards::FindCardByName("Pyroblast");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Starscryer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Pyroblast");
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [BT_011] Libram of Justice - COST: 5
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Equip a 1/4 weapon. Change the Health of all enemy minions to 1.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Libram of Justice"));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [BT_024] Libram of Hope - COST: 9
+//  - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Restore 8 Health. Summon an 8/8 Guardian with <b>Taunt</b>
+// and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// RefTag:
+//  - DIVINE_SHIELD = 1
+//  - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Libram of Hope"));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Ancient Guardian");
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
 }
 
 // ----------------------------------------- SPELL - PRIEST

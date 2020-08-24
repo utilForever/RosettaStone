@@ -3737,6 +3737,9 @@ TEST_CASE("[Paladin : Spell] - EX1_619 : Equality")
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Equality"));
 
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
     game.Process(curPlayer, PlayCardTask::Minion(card1));
 
     game.Process(curPlayer, EndTurnTask());
@@ -3747,13 +3750,9 @@ TEST_CASE("[Paladin : Spell] - EX1_619 : Equality")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
-
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::HEALTH), 1);
-    CHECK_EQ(opField[0]->GetGameTag(GameTag::HEALTH), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
 // ----------------------------------------- SPELL - PRIEST

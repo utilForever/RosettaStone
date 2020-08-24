@@ -27,6 +27,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -509,6 +510,14 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("BT_014", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [BT_021] Font of Power - COST: 1
@@ -622,6 +631,11 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Equip a 1/4 weapon. Change the Health of all enemy minions to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("BT_011t"));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BT_011e", EntityType::ENEMY_MINIONS));
+    cards.emplace("BT_011", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [BT_018] Underlight Angling Rod - COST: 3
@@ -669,6 +683,13 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     //  - DIVINE_SHIELD = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BT_024t", 1, SummonSide::DEFAULT));
+    cards.emplace(
+        "BT_024",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BT_025] Libram of Wisdom - COST: 2
@@ -732,6 +753,9 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     // [BT_011t] Overdue Justice - COST: 1
     //  - Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_011t", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BT_019t] Murgurgle Prime - COST: 8 [ATK: 6/HP: 3]
@@ -758,6 +782,9 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     //  - DIVINE_SHIELD = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_024t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BT_025e] Light's Wisdom - COST: 0
@@ -2421,6 +2448,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Health changed to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    cards.emplace("BT_011e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_020e] Aldor Attendant - COST: 0
