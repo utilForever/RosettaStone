@@ -2070,6 +2070,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SCH_708t", 1));
+    cards.emplace("SCH_708", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_709] Smug Senior - COST: 6 [ATK: 5/HP: 7]
@@ -2642,6 +2646,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_708t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_709t] Spectral Senior - COST: 6 [ATK: 5/HP: 7]
