@@ -5,12 +5,18 @@
 
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
+
 void ScholomanceCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
 }
@@ -2048,6 +2054,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SCH_707t", 1));
+    cards.emplace("SCH_707", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_708] Sneaky Delinquent - COST: 2 [ATK: 3/HP: 1]
@@ -2619,6 +2629,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_707t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_708t] Spectral Delinquent - COST: 2 [ATK: 3/HP: 1]
