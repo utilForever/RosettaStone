@@ -2121,6 +2121,11 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 7, RelaSign::EQ } }));
+    power.AddDeathrattleTask(std::make_shared<SummonTask>());
+    cards.emplace("SCH_711", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_713] Cult Neophyte - COST: 2 [ATK: 3/HP: 2]
