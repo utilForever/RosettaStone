@@ -2086,6 +2086,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SCH_709t", 1));
+    cards.emplace("SCH_709", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_710] Ogremancer - COST: 5 [ATK: 3/HP: 7]
@@ -2659,6 +2663,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_709t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_710t] Risen Skeleton - COST: 2 [ATK: 2/HP: 2]
