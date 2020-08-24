@@ -962,14 +962,14 @@ BLACK_TEMPLE | BT_006 | Evocation |
 BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
 BLACK_TEMPLE | BT_010 | Felfin Navigator | O
-BLACK_TEMPLE | BT_011 | Libram of Justice |  
-BLACK_TEMPLE | BT_014 | Starscryer |  
+BLACK_TEMPLE | BT_011 | Libram of Justice | O
+BLACK_TEMPLE | BT_014 | Starscryer | O
 BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
 BLACK_TEMPLE | BT_019 | Murgur Murgurgle |  
 BLACK_TEMPLE | BT_020 | Aldor Attendant |  
 BLACK_TEMPLE | BT_021 | Font of Power |  
 BLACK_TEMPLE | BT_022 | Apexis Smuggler |  
-BLACK_TEMPLE | BT_024 | Libram of Hope |  
+BLACK_TEMPLE | BT_024 | Libram of Hope | O
 BLACK_TEMPLE | BT_025 | Libram of Wisdom |  
 BLACK_TEMPLE | BT_026 | Aldor Truthseeker |  
 BLACK_TEMPLE | BT_028 | Astromancer Solarian |  
