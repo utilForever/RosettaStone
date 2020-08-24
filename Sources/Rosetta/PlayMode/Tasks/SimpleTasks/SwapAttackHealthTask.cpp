@@ -36,6 +36,9 @@ TaskStatus SwapAttackHealthTask::Impl(Player* player)
 
         attackEffect->ApplyTo(playable);
         healthEffect->ApplyTo(playable);
+
+        delete attackEffect;
+        delete healthEffect;
     }
 
     return TaskStatus::COMPLETE;
