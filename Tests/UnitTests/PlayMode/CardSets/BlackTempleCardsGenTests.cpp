@@ -304,6 +304,9 @@ TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Libram of Justice"));
 
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
     game.Process(curPlayer, PlayCardTask::Minion(card1));
 
     game.Process(curPlayer, EndTurnTask());
@@ -314,14 +317,11 @@ TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
-
     game.Process(curPlayer, PlayCardTask::Spell(card3));
     CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
     CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::HEALTH), 6);
-    CHECK_EQ(opField[0]->GetGameTag(GameTag::HEALTH), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -350,20 +350,19 @@ TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
-    auto curHero = curPlayer->GetHero();
     curPlayer->SetTotalMana(10);
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-    curHero->SetDamage(10);
+    curPlayer->GetHero()->SetDamage(10);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Libram of Hope"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Libram of Hope"));
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curHero));
-    CHECK_EQ(curHero->GetHealth(), 28);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Ancient Guardian");
     CHECK_EQ(curField[0]->GetAttack(), 8);
