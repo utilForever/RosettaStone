@@ -154,6 +154,17 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_707 : Fishy Flyer")
     CHECK_EQ(curHand[4]->card->name, "Spectral Flyer");
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_708] Sneaky Delinquent - COST: 2 [ATK: 3/HP: 1]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>. <b>Deathrattle:</b> Add a 3/1 Ghost with
+// <b>Stealth</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+//  - STEALTH = 1
+// --------------------------------------------------------
 TEST_CASE("[NEUTRAL : Minion] - SCH_708 : Sneaky Delinquent")
 {
     GameConfig config;
@@ -194,6 +205,17 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_708 : Sneaky Delinquent")
     CHECK_EQ(curHand[4]->card->name, "Spectral Delinquent");
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_709] Smug Senior - COST: 6 [ATK: 5/HP: 7]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost with <b>Taunt</b>
+// to your hand.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+//  - TAUNT = 1
+// --------------------------------------------------------
 TEST_CASE("[NEUTRAL : Minion] - SCH_709 : Smug Senior")
 {
     GameConfig config;
@@ -234,6 +256,20 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_709 : Smug Senior")
     CHECK_EQ(curHand[4]->card->name, "Spectral Senior");
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_710] Ogremancer - COST: 5 [ATK: 3/HP: 7]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever your opponent
+//       casts a spell, summon a 2/2
+//       Skeleton with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+//  - TAUNT = 1
+// --------------------------------------------------------
 TEST_CASE("[NEUTRAL : Minion] - SCH_710 : Ogremancer")
 {
     GameConfig config;
@@ -281,6 +317,15 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_710 : Ogremancer")
     CHECK_EQ(curField[2]->IsFrozen(), true);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_711] Plagued Protodrake - COST: 8 [ATK: 8/HP: 8]
+//  - Race: DRAGON, Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a random 7-Cost minion.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+// --------------------------------------------------------
 TEST_CASE("[NEUTRAL : Minion] - SCH_711 : Plagued Protodrake")
 {
     GameConfig config;
@@ -316,7 +361,7 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_711 : Plagued Protodrake")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[1]->GetCost(), 7);
+    CHECK_EQ(curField[0]->GetCost(), 7);
 }
 
 // --------------------------------------- MINION - PALADIN
