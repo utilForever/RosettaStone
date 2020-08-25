@@ -1223,11 +1223,11 @@ SCHOLOMANCE | SCH_703 | Soulciologist Malicia |
 SCHOLOMANCE | SCH_704 | Soulshard Lapidary |  
 SCHOLOMANCE | SCH_705 | Vilefiend Trainer |  
 SCHOLOMANCE | SCH_706 | Plagiarize |  
-SCHOLOMANCE | SCH_707 | Fishy Flyer |  
-SCHOLOMANCE | SCH_708 | Sneaky Delinquent |  
-SCHOLOMANCE | SCH_709 | Smug Senior |  
-SCHOLOMANCE | SCH_710 | Ogremancer |  
-SCHOLOMANCE | SCH_711 | Plagued Protodrake |  
+SCHOLOMANCE | SCH_707 | Fishy Flyer | O  
+SCHOLOMANCE | SCH_708 | Sneaky Delinquent | O  
+SCHOLOMANCE | SCH_709 | Smug Senior | O  
+SCHOLOMANCE | SCH_710 | Ogremancer | O 
+SCHOLOMANCE | SCH_711 | Plagued Protodrake | O  
 SCHOLOMANCE | SCH_712 | Judicious Junior | O
 SCHOLOMANCE | SCH_713 | Cult Neophyte |  
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
