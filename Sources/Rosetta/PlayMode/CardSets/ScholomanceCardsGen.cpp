@@ -5,12 +5,17 @@
 
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
+
 void ScholomanceCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
 }
@@ -2048,6 +2053,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SCH_707t", 1));
+    cards.emplace("SCH_707", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_708] Sneaky Delinquent - COST: 2 [ATK: 3/HP: 1]
@@ -2060,6 +2069,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SCH_708t", 1));
+    cards.emplace("SCH_708", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_709] Smug Senior - COST: 6 [ATK: 5/HP: 7]
@@ -2072,6 +2085,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SCH_709t", 1));
+    cards.emplace("SCH_709", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_710] Ogremancer - COST: 5 [ATK: 3/HP: 7]
@@ -2087,6 +2104,12 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "SCH_710t", SummonSide::DEATHRATTLE) };
+    cards.emplace("SCH_710", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_711] Plagued Protodrake - COST: 8 [ATK: 8/HP: 8]
@@ -2097,6 +2120,11 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 7, RelaSign::EQ } }));
+    power.AddDeathrattleTask(std::make_shared<SummonTask>());
+    cards.emplace("SCH_711", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_713] Cult Neophyte - COST: 2 [ATK: 3/HP: 2]
@@ -2619,6 +2647,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_707t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_708t] Spectral Delinquent - COST: 2 [ATK: 3/HP: 1]
@@ -2629,6 +2660,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_708t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_709t] Spectral Senior - COST: 6 [ATK: 5/HP: 7]
@@ -2639,6 +2673,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_709t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_710t] Risen Skeleton - COST: 2 [ATK: 2/HP: 2]
@@ -2649,6 +2686,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_710t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_713e] Spoiled! - COST: 0
