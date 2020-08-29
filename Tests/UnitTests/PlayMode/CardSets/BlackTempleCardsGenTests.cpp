@@ -271,6 +271,54 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
     CHECK_EQ(curHand[4]->card->name, "Pyroblast");
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [BT_072] Deep Freeze - COST: 8
+//  - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.
+// --------------------------------------------------------
+// GameTag:
+//  - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Deep Freeze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(opField[0]->card->name, "Water Elemental");
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [BT_011] Libram of Justice - COST: 5
 //  - Set: BLACK_TEMPLE, Rarity: Common

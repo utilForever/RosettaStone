@@ -974,7 +974,7 @@ BLACK_TEMPLE | BT_025 | Libram of Wisdom |
 BLACK_TEMPLE | BT_026 | Aldor Truthseeker |  
 BLACK_TEMPLE | BT_028 | Astromancer Solarian |  
 BLACK_TEMPLE | BT_042 | Bamboozle |  
-BLACK_TEMPLE | BT_072 | Deep Freeze |  
+BLACK_TEMPLE | BT_072 | Deep Freeze | O
 BLACK_TEMPLE | BT_100 | Serpentshrine Portal |  
 BLACK_TEMPLE | BT_101 | Vivid Spores |  
 BLACK_TEMPLE | BT_102 | Boggspine Knuckles |  

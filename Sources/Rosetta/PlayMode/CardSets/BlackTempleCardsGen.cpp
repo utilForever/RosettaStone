@@ -568,6 +568,13 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<SummonTask>("CS2_033"));
+    cards.emplace("BT_072",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BT_291] Apexis Blast - COST: 5
