@@ -103,6 +103,60 @@ TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [SCH_234] Shifty Sophomore - COST: 4 [ATK: 4/HP: 4]
+//  - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       <b>Spellburst:</b> Add a <b>Combo</b> card to your hand.
+// --------------------------------------------------------
+// GameTag:
+//  - STEALTH = 1
+// --------------------------------------------------------
+// RefTag:
+//  - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Shifty Sophomore"));
+    const auto card2 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card3 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasStealth(), true);
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->HasCombo(), true);
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
 // - Set: Scholomance, Rarity: Common

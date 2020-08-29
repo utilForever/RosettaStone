@@ -7,6 +7,8 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -15,6 +17,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
+using GameTags = std::map<GameTag, int>;
 
 void ScholomanceCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -843,6 +846,12 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::INVALID,
+                                         GameTags{ { GameTag::COMBO, 1 } }));
+    power.AddSpellburstTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_234", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [SCH_305] Secret Passage - COST: 1

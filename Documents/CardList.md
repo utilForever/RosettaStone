@@ -1126,7 +1126,7 @@ SCHOLOMANCE | SCH_230 | Onyx Magescribe |
 SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
 SCHOLOMANCE | SCH_232 | Crimson Hothead |  
 SCHOLOMANCE | SCH_233 | Draconic Studies |  
-SCHOLOMANCE | SCH_234 | Shifty Sophomore |  
+SCHOLOMANCE | SCH_234 | Shifty Sophomore | O
 SCHOLOMANCE | SCH_235 | Devolving Missiles |  
 SCHOLOMANCE | SCH_236 | Diligent Notetaker |  
 SCHOLOMANCE | SCH_237 | Athletic Studies |  
