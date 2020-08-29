@@ -1175,7 +1175,7 @@ SCHOLOMANCE | SCH_357 | Fel Guardians |
 SCHOLOMANCE | SCH_400 | Mozaki, Master Duelist |  
 SCHOLOMANCE | SCH_422 | Double Jump |  
 SCHOLOMANCE | SCH_425 | Doctor Krastinov |  
-SCHOLOMANCE | SCH_426 | Infiltrator Lilian |  
+SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom |  
 SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  

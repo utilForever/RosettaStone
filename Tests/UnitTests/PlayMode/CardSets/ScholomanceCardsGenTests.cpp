@@ -157,6 +157,89 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
     CHECK_EQ(curField[0]->HasSpellburst(), false);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [SCH_426] Infiltrator Lilian - COST: 4 [ATK: 4/HP: 2]
+//  - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       <b>Deathrattle:</b> Summon a 4/2
+//       Forsaken Lilian that attacks
+//       a random enemy.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - DEATHRATTLE = 1
+//  - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
+{
+    for (int i = 0; i < 10; ++i)
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::MAGE;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        curPlayer->GetHero()->SetHealth(30);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+        opPlayer->GetHero()->SetHealth(30);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+        auto& opField = *(opPlayer->GetFieldZone());
+        auto curHero = curPlayer->GetHero();
+        auto opHero = opPlayer->GetHero();
+
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Infiltrator Lilian"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Consecration"));
+        const auto card3 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+        const auto card4 =
+            Entity::GetFromCard(opPlayer, Cards::FindCardByName("Abomination"));
+        const auto card5 =
+            Entity::GetFromCard(opPlayer, Cards::FindCardByName("Abomination"));
+
+        opField.Add(card4);
+        opField.Add(card5);
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Spell(card2));
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+
+        // case when attack Abomination
+        if (curField.GetCount() == 0)
+        {
+            CHECK_EQ(opField.GetCount(), 0);
+            CHECK_EQ(curHero->GetHealth(), 26);
+            CHECK_EQ(opHero->GetHealth(), 24);
+        }
+        // case when attack OpHero
+        else if (curField.GetCount() == 1)
+        {
+            CHECK_EQ(opField.GetCount(), 2);
+            CHECK_EQ(curHero->GetHealth(), 30);
+            CHECK_EQ(opHero->GetHealth(), 24);
+        }
+        else
+        {
+            CHECK(false);
+        }
+    }
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
 // - Set: Scholomance, Rarity: Common

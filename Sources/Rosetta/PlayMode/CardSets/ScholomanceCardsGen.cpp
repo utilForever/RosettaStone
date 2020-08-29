@@ -8,6 +8,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -874,6 +877,18 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     //  - DEATHRATTLE = 1
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<SummonTask>(
+        "SCH_426t", SummonSide::DEATHRATTLE, true));
+    power.AddDeathrattleTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::ENTITY_ID, 0, 0));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
+    power.AddDeathrattleTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::ENTITY_ID, 0, 1));
+    power.AddDeathrattleTask(std::make_shared<AttackTask>(
+        EntityType::STACK_NUM0, EntityType::STACK_NUM1));
+    cards.emplace("SCH_426", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [SCH_519] Vulpera Toxinblade - COST: 3 [ATK: 3/HP: 3]
@@ -954,6 +969,9 @@ void ScholomanceCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // GameTag:
     //  - ELITE = 1
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_426t", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
