@@ -240,6 +240,62 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
     }
 }
 
+// ----------------------------------------- WEAPON - ROGUE
+// [SCH_622] Self-Sharpening Sword - COST: 3
+//  - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: After your hero attacks, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetHealth(30);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Self-Sharpening Sword"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Deadly Poison"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHero->GetAttack(), 1);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHero->GetAttack(), 4);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->GetAttack(), 5);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
 // - Set: Scholomance, Rarity: Common

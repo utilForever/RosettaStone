@@ -909,6 +909,12 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SCH_622e", EntityType::SOURCE) };
+    cards.emplace("SCH_622", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [SCH_706] Plagiarize - COST: 2
@@ -972,6 +978,16 @@ void ScholomanceCardsGen::AddRogueNonCollect(
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("SCH_426t", CardDef(power));
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [SCH_622e] Honed Edge - COST: 0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_622e"));
+    cards.emplace("SCH_622e", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
@@ -2656,13 +2672,6 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_539e] Professor's Poison - COST: 0
     //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [SCH_622e] Honed Edge - COST: 0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: +1 Attack.
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
