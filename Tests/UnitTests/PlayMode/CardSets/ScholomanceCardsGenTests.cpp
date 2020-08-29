@@ -296,6 +296,66 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
     CHECK_EQ(curHero->GetAttack(), 5);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [SCH_706] Plagiarize - COST: 2
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> At the end of your opponent's turn, add copies of
+// the cards they played to your hand.
+// --------------------------------------------------------
+// GameTag:
+//  - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plagiarize"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Missiles"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curHand.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Arcane Missiles");
+    CHECK_EQ(curHand[1]->card->name, "Blizzard");
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
 // - Set: Scholomance, Rarity: Common

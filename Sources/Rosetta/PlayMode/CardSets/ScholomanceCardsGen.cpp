@@ -3,17 +3,20 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -926,6 +929,29 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
+            const auto opPlayer = playable->game->GetCurrentPlayer();
+            return opPlayer != playable->player &&
+                   !opPlayer->cardsPlayedThisTurn.empty();
+        });
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            for (auto card : player->opponent->cardsPlayedThisTurn)
+            {
+                if (player->GetHandZone()->IsFull())
+                {
+                    break;
+                }
+                Generic::AddCardToHand(player,
+                                       Entity::GetFromCard(player, card));
+            }
+        }) };
+    cards.emplace("SCH_706", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddRogueNonCollect(

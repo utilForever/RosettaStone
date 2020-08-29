@@ -1222,7 +1222,7 @@ SCHOLOMANCE | SCH_702 | Felosophy |
 SCHOLOMANCE | SCH_703 | Soulciologist Malicia |  
 SCHOLOMANCE | SCH_704 | Soulshard Lapidary |  
 SCHOLOMANCE | SCH_705 | Vilefiend Trainer |  
-SCHOLOMANCE | SCH_706 | Plagiarize |  
+SCHOLOMANCE | SCH_706 | Plagiarize | O
 SCHOLOMANCE | SCH_707 | Fishy Flyer | O  
 SCHOLOMANCE | SCH_708 | Sneaky Delinquent | O  
 SCHOLOMANCE | SCH_709 | Smug Senior | O  
