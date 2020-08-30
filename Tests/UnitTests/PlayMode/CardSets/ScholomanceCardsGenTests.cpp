@@ -341,11 +341,13 @@ TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
+
     CHECK_EQ(curHand.GetCount(), 0);
 
     game.Process(curPlayer, EndTurnTask());
@@ -353,6 +355,7 @@ TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
 
     game.Process(opPlayer, PlayCardTask::Spell(card2));
     game.Process(opPlayer, PlayCardTask::Spell(card3));
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
