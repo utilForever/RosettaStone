@@ -207,9 +207,9 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
         const auto card3 =
             Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
         const auto card4 =
-            Entity::GetFromCard(opPlayer, Cards::FindCardByName("Abomination"));
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
         const auto card5 =
-            Entity::GetFromCard(opPlayer, Cards::FindCardByName("Abomination"));
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
 
         game.Process(curPlayer, EndTurnTask());
         game.ProcessUntil(Step::MAIN_ACTION);
