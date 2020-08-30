@@ -316,7 +316,9 @@ TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(opField.GetCount(), 2);
     CHECK_EQ(opField[0]->card->name, "Water Elemental");
+    CHECK_EQ(opField[1]->card->name, "Water Elemental");
 }
 
 // ---------------------------------------- SPELL - PALADIN

@@ -573,8 +573,8 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
-    power.AddPowerTask(std::make_shared<SummonTask>("CS2_033"));
+        EntityType::TARGET, GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<SummonTask>("CS2_033", 2));
     cards.emplace("BT_072",
                   CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
@@ -1248,11 +1248,9 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<RandomMinionTask>(
-                      TagValues{ { GameTag::COST, 3, RelaSign::EQ } }),
-                  std::make_shared<SummonTask>() },
-        1));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 3, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonTask>());
     cards.emplace(
         "BT_100",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
