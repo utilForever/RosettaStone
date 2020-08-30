@@ -182,7 +182,7 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
         config.player1Class = CardClass::ROGUE;
         config.player2Class = CardClass::MAGE;
         config.startPlayer = PlayerType::PLAYER1;
-        config.doFillDecks = false;
+        config.doFillDecks = true;
         config.autoRun = false;
 
         Game game(config);
@@ -193,10 +193,8 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
         Player* opPlayer = game.GetOpponentPlayer();
         curPlayer->SetTotalMana(10);
         curPlayer->SetUsedMana(0);
-        curPlayer->GetHero()->SetHealth(30);
         opPlayer->SetTotalMana(10);
         opPlayer->SetUsedMana(0);
-        opPlayer->GetHero()->SetHealth(30);
 
         auto& curField = *(curPlayer->GetFieldZone());
         auto& opField = *(opPlayer->GetFieldZone());
@@ -214,22 +212,27 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
         const auto card5 =
             Entity::GetFromCard(opPlayer, Cards::FindCardByName("Abomination"));
 
-        opField.Add(card4);
-        opField.Add(card5);
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(opPlayer, PlayCardTask::Minion(card4));
+        game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
         game.Process(curPlayer, PlayCardTask::Minion(card1));
         game.Process(curPlayer, PlayCardTask::Spell(card2));
-
         game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
 
-        // case when attack Abomination
+        // case when attack "Abomination"
         if (curField.GetCount() == 0)
         {
             CHECK_EQ(opField.GetCount(), 0);
             CHECK_EQ(curHero->GetHealth(), 26);
             CHECK_EQ(opHero->GetHealth(), 24);
         }
-        // case when attack OpHero
+        // case when attack opponent hero
         else if (curField.GetCount() == 1)
         {
             CHECK_EQ(opField.GetCount(), 2);
