@@ -260,7 +260,7 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
     config.player1Class = CardClass::ROGUE;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
+    config.doFillDecks = true;
     config.autoRun = false;
 
     Game game(config);
@@ -273,7 +273,6 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-    opPlayer->GetHero()->SetHealth(30);
 
     auto curHero = curPlayer->GetHero();
     auto opHero = opPlayer->GetHero();
@@ -288,9 +287,11 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
 
     game.Process(curPlayer, AttackTask(curHero, opHero));
     CHECK_EQ(curHero->GetAttack(), 2);
+    CHECK_EQ(opHero->GetHealth(), 29);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
@@ -299,6 +300,7 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
 
     game.Process(curPlayer, AttackTask(curHero, opHero));
     CHECK_EQ(curHero->GetAttack(), 5);
+    CHECK_EQ(opHero->GetHealth(), 25);
 }
 
 // ------------------------------------------ SPELL - ROGUE

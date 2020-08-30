@@ -912,7 +912,7 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "SCH_622e", EntityType::SOURCE) };
