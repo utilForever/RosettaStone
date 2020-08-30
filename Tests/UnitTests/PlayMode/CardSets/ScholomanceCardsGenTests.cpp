@@ -16,6 +16,59 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// --------------------------------------- MINION - PALADIN
+// [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
+// - Set: Scholomance, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>
+// --------------------------------------------------------
+// GameTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Judicious Junior"));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
+
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [SCH_137] Frazzled Freshman - COST: 1 [ATK: 1/HP: 4]
 //  - Set: SCHOLOMANCE, Rarity: Common
@@ -48,6 +101,269 @@ TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [SCH_234] Shifty Sophomore - COST: 4 [ATK: 4/HP: 4]
+//  - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       <b>Spellburst:</b> Add a <b>Combo</b> card to your hand.
+// --------------------------------------------------------
+// GameTag:
+//  - STEALTH = 1
+// --------------------------------------------------------
+// RefTag:
+//  - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shifty Sophomore"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasStealth(), true);
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->HasCombo(), true);
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [SCH_426] Infiltrator Lilian - COST: 4 [ATK: 4/HP: 2]
+//  - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       <b>Deathrattle:</b> Summon a 4/2 Forsaken Lilian
+//       that attacks a random enemy.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - DEATHRATTLE = 1
+//  - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
+{
+    for (int i = 0; i < 10; ++i)
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::MAGE;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = true;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+        auto& opField = *(opPlayer->GetFieldZone());
+        auto curHero = curPlayer->GetHero();
+        auto opHero = opPlayer->GetHero();
+
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Infiltrator Lilian"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Consecration"));
+        const auto card3 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+        const auto card4 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
+        const auto card5 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(opPlayer, PlayCardTask::Minion(card4));
+        game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Spell(card2));
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+
+        // case when attack "Abomination"
+        if (curField.GetCount() == 0)
+        {
+            CHECK_EQ(opField.GetCount(), 0);
+            CHECK_EQ(curHero->GetHealth(), 26);
+            CHECK_EQ(opHero->GetHealth(), 24);
+        }
+        // case when attack opponent hero
+        else if (curField.GetCount() == 1)
+        {
+            CHECK_EQ(opField.GetCount(), 2);
+            CHECK_EQ(curHero->GetHealth(), 30);
+            CHECK_EQ(opHero->GetHealth(), 24);
+        }
+        else
+        {
+            CHECK(false);
+        }
+    }
+}
+
+// ----------------------------------------- WEAPON - ROGUE
+// [SCH_622] Self-Sharpening Sword - COST: 3
+//  - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: After your hero attacks, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Self-Sharpening Sword"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Deadly Poison"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHero->GetAttack(), 1);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->GetAttack(), 2);
+    CHECK_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHero->GetAttack(), 4);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->GetAttack(), 5);
+    CHECK_EQ(opHero->GetHealth(), 25);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [SCH_706] Plagiarize - COST: 2
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> At the end of your opponent's turn,
+//       add copies of the cards they played to your hand.
+// --------------------------------------------------------
+// GameTag:
+//  - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plagiarize"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Missiles"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Arcane Missiles");
+    CHECK_EQ(curHand[1]->card->name, "Blizzard");
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -362,57 +678,4 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_711 : Plagued Protodrake")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetCost(), 7);
-}
-
-// --------------------------------------- MINION - PALADIN
-// [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
-// - Set: Scholomance, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Lifesteal</b>
-// --------------------------------------------------------
-// GameTag:
-// - LIFESTEAL = 1
-// --------------------------------------------------------
-TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
-{
-    GameConfig config;
-    config.player1Class = CardClass::PALADIN;
-    config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetDamage(10);
-
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Judicious Junior"));
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, HeroPowerTask());
-    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
-
-    game.Process(opPlayer,
-                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
 }

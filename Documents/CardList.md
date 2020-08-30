@@ -1126,7 +1126,7 @@ SCHOLOMANCE | SCH_230 | Onyx Magescribe |
 SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
 SCHOLOMANCE | SCH_232 | Crimson Hothead |  
 SCHOLOMANCE | SCH_233 | Draconic Studies |  
-SCHOLOMANCE | SCH_234 | Shifty Sophomore |  
+SCHOLOMANCE | SCH_234 | Shifty Sophomore | O
 SCHOLOMANCE | SCH_235 | Devolving Missiles |  
 SCHOLOMANCE | SCH_236 | Diligent Notetaker |  
 SCHOLOMANCE | SCH_237 | Athletic Studies |  
@@ -1175,7 +1175,7 @@ SCHOLOMANCE | SCH_357 | Fel Guardians |
 SCHOLOMANCE | SCH_400 | Mozaki, Master Duelist |  
 SCHOLOMANCE | SCH_422 | Double Jump |  
 SCHOLOMANCE | SCH_425 | Doctor Krastinov |  
-SCHOLOMANCE | SCH_426 | Infiltrator Lilian |  
+SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom |  
 SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
@@ -1214,7 +1214,7 @@ SCHOLOMANCE | SCH_616 | Twilight Runner |
 SCHOLOMANCE | SCH_617 | Adorable Infestation |  
 SCHOLOMANCE | SCH_618 | Blood Herald |  
 SCHOLOMANCE | SCH_621 | Rattlegore |  
-SCHOLOMANCE | SCH_622 | Self-Sharpening Sword |  
+SCHOLOMANCE | SCH_622 | Self-Sharpening Sword | O
 SCHOLOMANCE | SCH_623 | Cutting Class |  
 SCHOLOMANCE | SCH_700 | Spirit Jailer |  
 SCHOLOMANCE | SCH_701 | Soul Shear |  
@@ -1222,7 +1222,7 @@ SCHOLOMANCE | SCH_702 | Felosophy |
 SCHOLOMANCE | SCH_703 | Soulciologist Malicia |  
 SCHOLOMANCE | SCH_704 | Soulshard Lapidary |  
 SCHOLOMANCE | SCH_705 | Vilefiend Trainer |  
-SCHOLOMANCE | SCH_706 | Plagiarize |  
+SCHOLOMANCE | SCH_706 | Plagiarize | O
 SCHOLOMANCE | SCH_707 | Fishy Flyer | O  
 SCHOLOMANCE | SCH_708 | Sneaky Delinquent | O  
 SCHOLOMANCE | SCH_709 | Smug Senior | O  

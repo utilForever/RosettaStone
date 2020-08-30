@@ -3,18 +3,27 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
+using GameTags = std::map<GameTag, int>;
 
 void ScholomanceCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -843,6 +852,12 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::INVALID,
+                                         GameTags{ { GameTag::COMBO, 1 } }));
+    power.AddSpellburstTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_234", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [SCH_305] Secret Passage - COST: 1
@@ -856,15 +871,26 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     //  - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Stealth</b>
-    //       <b>Deathrattle:</b> Summon a 4/2
-    //       Forsaken Lilian that attacks
-    //       a random enemy.
+    //       <b>Deathrattle:</b> Summon a 4/2 Forsaken Lilian
+    //       that attacks a random enemy.
     // --------------------------------------------------------
     // GameTag:
     //  - ELITE = 1
     //  - DEATHRATTLE = 1
     //  - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<SummonTask>(
+        "SCH_426t", SummonSide::DEATHRATTLE, true));
+    power.AddDeathrattleTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::ENTITY_ID, 0, 0));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
+    power.AddDeathrattleTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::ENTITY_ID, 0, 1));
+    power.AddDeathrattleTask(std::make_shared<AttackTask>(
+        EntityType::STACK_NUM0, EntityType::STACK_NUM1));
+    cards.emplace("SCH_426", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [SCH_519] Vulpera Toxinblade - COST: 3 [ATK: 3/HP: 3]
@@ -885,17 +911,46 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SCH_622e", EntityType::SOURCE) };
+    cards.emplace("SCH_622", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [SCH_706] Plagiarize - COST: 2
     //  - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Secret:</b> At the end of your opponent's turn, add copies of
-    // the cards they played to your hand.
+    // Text: <b>Secret:</b> At the end of your opponent's turn,
+    //       add copies of the cards they played to your hand.
     // --------------------------------------------------------
     // GameTag:
     //  - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
+            const auto opPlayer = playable->game->GetCurrentPlayer();
+            return opPlayer != playable->player &&
+                   !opPlayer->cardsPlayedThisTurn.empty();
+        });
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            for (auto card : player->opponent->cardsPlayedThisTurn)
+            {
+                if (player->GetHandZone()->IsFull())
+                {
+                    break;
+                }
+                Generic::AddCardToHand(player,
+                                       Entity::GetFromCard(player, card));
+            }
+        }) };
+    cards.emplace("SCH_706", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddRogueNonCollect(
@@ -945,6 +1000,19 @@ void ScholomanceCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // GameTag:
     //  - ELITE = 1
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_426t", CardDef(power));
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [SCH_622e] Honed Edge - COST: 0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_622e"));
+    cards.emplace("SCH_622e", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
@@ -2629,13 +2697,6 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_539e] Professor's Poison - COST: 0
     //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [SCH_622e] Honed Edge - COST: 0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: +1 Attack.
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
