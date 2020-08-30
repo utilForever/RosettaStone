@@ -139,9 +139,12 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
     auto& curField = *(curPlayer->GetFieldZone());
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card1 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Shifty Sophomore"));
-    const auto card2 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
-    const auto card3 = Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shifty Sophomore"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->HasStealth(), true);
