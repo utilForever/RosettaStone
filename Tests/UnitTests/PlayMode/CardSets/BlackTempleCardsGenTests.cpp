@@ -271,6 +271,56 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
     CHECK_EQ(curHand[4]->card->name, "Pyroblast");
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [BT_072] Deep Freeze - COST: 8
+//  - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.
+// --------------------------------------------------------
+// GameTag:
+//  - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Deep Freeze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->card->name, "Water Elemental");
+    CHECK_EQ(opField[1]->card->name, "Water Elemental");
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [BT_011] Libram of Justice - COST: 5
 //  - Set: BLACK_TEMPLE, Rarity: Common
@@ -637,6 +687,63 @@ TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
     CHECK_EQ(curField[0]->GetAttack(), 7);
     CHECK_EQ(curField[0]->GetHealth(), 5);
     CHECK_EQ(curField[0]->HasStealth(), true);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [BT_100] Serpentshrine Portal - COST: 3
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage.
+//       Summon a random
+//       3-Cost minion.
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+//  - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Serpentshrine Portal"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 3);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
 // --------------------------------------- MINION - WARLOCK

@@ -15,6 +15,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
@@ -22,6 +23,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
@@ -33,6 +35,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
@@ -568,6 +571,13 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<SummonTask>("CS2_033", 2));
+    cards.emplace("BT_072",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BT_291] Apexis Blast - COST: 5
@@ -1235,6 +1245,15 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 3, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace(
+        "BT_100",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [BT_101] Vivid Spores - COST: 4
