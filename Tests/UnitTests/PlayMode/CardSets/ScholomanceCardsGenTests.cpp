@@ -165,9 +165,8 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
 //  - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Stealth</b>
-//       <b>Deathrattle:</b> Summon a 4/2
-//       Forsaken Lilian that attacks
-//       a random enemy.
+//       <b>Deathrattle:</b> Summon a 4/2 Forsaken Lilian
+//       that attacks a random enemy.
 // --------------------------------------------------------
 // GameTag:
 //  - ELITE = 1
@@ -306,8 +305,8 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
 // [SCH_706] Plagiarize - COST: 2
 //  - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Secret:</b> At the end of your opponent's turn, add copies of
-// the cards they played to your hand.
+// Text: <b>Secret:</b> At the end of your opponent's turn,
+//       add copies of the cards they played to your hand.
 // --------------------------------------------------------
 // GameTag:
 //  - SECRET = 1
