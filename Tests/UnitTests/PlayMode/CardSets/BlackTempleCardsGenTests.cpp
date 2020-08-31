@@ -1083,11 +1083,11 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fel Summoner"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Battlefiend"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ur'zul Horror"));
-    const auto card4 =
+    [[maybe_unused]] const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card5 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
