@@ -3630,7 +3630,7 @@
         "name": "Pack Leader",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
+        "techLevel": 2,
         "text": "Whenever you summon a Beast, give it +3 Attack.",
         "type": "MINION"
     },
@@ -3660,7 +3660,7 @@
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
-        "text": "<b>Deathrattle:</b> Give your Beasts +4/+4.",
+        "text": "<b>Deathrattle:</b> Give your Beasts +5/+5.",
         "type": "MINION"
     },
     {
@@ -3669,7 +3669,7 @@
         "id": "BGS_018e",
         "name": "Soul of the Beast",
         "set": "BATTLEGROUNDS",
-        "text": "+4/+4.",
+        "text": "+5/+5.",
         "type": "ENCHANTMENT"
     },
     {
@@ -3706,17 +3706,17 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "<b>Battlecry:</b> If you control another Murloc, <b>Discover</b> a Murloc.",
         "type": "MINION"
     },
     {
-        "attack": 5,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 60038,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 60036,
-        "health": 5,
+        "health": 4,
         "id": "BGS_021",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -3725,8 +3725,8 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
-        "text": "Whenever you summon a Beast, give it +5/+5.",
+        "techLevel": 5,
+        "text": "Whenever you summon a Beast, give it +4/+4.",
         "type": "MINION"
     },
     {
@@ -3735,7 +3735,7 @@
         "id": "BGS_021e",
         "name": "Rampage",
         "set": "BATTLEGROUNDS",
-        "text": "+5/+5.",
+        "text": "+4/+4.",
         "type": "ENCHANTMENT"
     },
     {
@@ -4260,14 +4260,14 @@
         "elite": true,
         "health": 5,
         "id": "BGS_046",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Nat Pagle, Extreme Angler",
         "race": "PIRATE",
-        "referencedTags": [
-            "OVERKILL"
-        ],
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "<b>Overkill:</b> Summon a 0/2 Treasure Chest.",
+        "text": "[x]When this attacks and kills\na minion, add a random\nminion to your hand.",
         "type": "MINION"
     },
     {
@@ -4654,7 +4654,7 @@
         "type": "MINION"
     },
     {
-        "attack": 3,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 62165,
         "cardClass": "HUNTER",
         "cost": 3,
@@ -4702,12 +4702,12 @@
         "type": "MINION"
     },
     {
-        "attack": 3,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 62231,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 62230,
-        "health": 2,
+        "health": 3,
         "id": "BGS_078",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -15824,7 +15824,7 @@
         "name": "Kael'thas Sunstrider",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "Every third spell you cast each turn costs (0).",
+        "text": "Every third spell you cast each turn costs (1).",
         "type": "MINION"
     },
     {
@@ -15833,7 +15833,7 @@
         "id": "BT_255e",
         "name": "Sunstrider",
         "set": "BLACK_TEMPLE",
-        "text": "Costs (0).",
+        "text": "Costs (1).",
         "type": "ENCHANTMENT"
     },
     {
@@ -20122,7 +20122,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "GANGS",
-        "techLevel": 2,
+        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 1/1 Rats equal\n to this minion's Attack.",
         "type": "MINION"
     },
@@ -90939,7 +90939,7 @@
         "attack": 1,
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 59643,
         "elite": true,
         "flavor": "\"…and that's how I ended up with a Murloc Cultural Studies major.\"",
@@ -95839,7 +95839,6 @@
         "type": "HERO"
     },
     {
-        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 61913,
         "health": 40,
@@ -95997,7 +95996,7 @@
         "id": "TB_BaconShop_HP_011",
         "name": "Galakrond's Greed",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nReplace a minion in Bob's\nTavern with a minion from\na higher Tavern Tier.",
+        "text": "[x]<b>Hero Power</b>\nReplace a minion in Bob's\nTavern with one from a higher\nTavern Tier and <b>Freeze</b> it.",
         "type": "HERO_POWER"
     },
     {
@@ -96134,7 +96133,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 1,
+        "cost": 0,
         "dbfId": 58040,
         "id": "TB_BaconShop_HP_024",
         "name": "Reborn Rites",
@@ -96488,7 +96487,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 0,
         "dbfId": 60216,
         "id": "TB_BaconShop_HP_046",
         "name": "Gonna Be Rich!",
@@ -96882,7 +96881,7 @@
         "id": "TB_BaconShop_HP_074",
         "name": "Buried Treasure",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\n Dig for a Golden minion!\n<i>(4 Digs left.)</i>",
+        "text": "[x]<b>Hero Power</b>\n Dig for a Golden minion!\n<i>(5 Digs left.)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -97358,7 +97357,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
+        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 2/2 Rats equal\n to this minion's Attack.",
         "type": "MINION"
     },
@@ -98689,7 +98688,7 @@
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
-        "text": "<b>Deathrattle:</b> Give your Beasts +8/+8.",
+        "text": "<b>Deathrattle:</b> Give your Beasts +10/+10.",
         "type": "MINION"
     },
     {
@@ -98698,7 +98697,7 @@
         "id": "TB_BaconUps_085e",
         "name": "Soul of the Beast",
         "set": "BATTLEGROUNDS",
-        "text": "+8/+8.",
+        "text": "+10/+10.",
         "type": "ENCHANTMENT"
     },
     {
@@ -98715,7 +98714,7 @@
         "name": "Pack Leader",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
+        "techLevel": 2,
         "text": "Whenever you summon a Beast, give it +6 Attack.",
         "type": "MINION"
     },
@@ -98791,17 +98790,17 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "<b>Battlecry:</b> If you control another Murloc, <b>Discover</b> two Murlocs.",
         "type": "MINION"
     },
     {
-        "attack": 10,
+        "attack": 8,
         "battlegroundsNormalDbfId": 60036,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 60038,
-        "health": 10,
+        "health": 8,
         "id": "TB_BaconUps_090",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -98810,8 +98809,8 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
-        "text": "Whenever you summon a Beast, give it +10/+10.",
+        "techLevel": 5,
+        "text": "Whenever you summon a Beast, give it +8/+8.",
         "type": "MINION"
     },
     {
@@ -98820,7 +98819,7 @@
         "id": "TB_BaconUps_090e",
         "name": "Rampage",
         "set": "BATTLEGROUNDS",
-        "text": "+10/+10.",
+        "text": "+8/+8.",
         "type": "ENCHANTMENT"
     },
     {
@@ -99508,7 +99507,7 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 8,
         "battlegroundsNormalDbfId": 62162,
         "cardClass": "HUNTER",
         "cost": 3,
@@ -99624,14 +99623,14 @@
         "elite": true,
         "health": 10,
         "id": "TB_BaconUps_132",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Nat Pagle, Extreme Angler",
         "race": "PIRATE",
-        "referencedTags": [
-            "OVERKILL"
-        ],
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "<b>Overkill:</b> Summon a 0/2 Golden Treasure Chest.",
+        "text": "[x]When this attacks and kills\na minion, add 2 random\nminions to your hand.",
         "type": "MINION"
     },
     {
@@ -99698,12 +99697,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 8,
         "battlegroundsNormalDbfId": 62230,
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 62231,
-        "health": 4,
+        "health": 6,
         "id": "TB_BaconUps_135",
         "mechanics": [
             "TRIGGER_VISUAL"
