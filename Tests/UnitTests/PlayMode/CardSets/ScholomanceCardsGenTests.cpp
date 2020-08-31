@@ -543,6 +543,59 @@ TEST_CASE("[Neutral : Minion] - SCH_522 : Steeldancer")
     CHECK_EQ(curField[5]->GetCost(), 4);
 }
 
+// ---------------------------------------- SPELL - NEUTRAL
+// [SCH_623] Cutting Class - COST: 5
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 cards.
+//       Costs (1) less per Attack
+//       of your weapon.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - SCH_623 : Cutting Class")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cutting Class"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cutting Class"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
+
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(card1->GetCost(), 4);
+    CHECK_EQ(card2->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    CHECK_EQ(card2->GetCost(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 8);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_707] Fishy Flyer - COST: 4 [ATK: 4/HP: 3]
 //  - Race: MURLOC, Set: SCHOLOMANCE, Rarity: Common

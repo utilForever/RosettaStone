@@ -1215,7 +1215,7 @@ SCHOLOMANCE | SCH_617 | Adorable Infestation |
 SCHOLOMANCE | SCH_618 | Blood Herald |  
 SCHOLOMANCE | SCH_621 | Rattlegore |  
 SCHOLOMANCE | SCH_622 | Self-Sharpening Sword | O
-SCHOLOMANCE | SCH_623 | Cutting Class |  
+SCHOLOMANCE | SCH_623 | Cutting Class | O
 SCHOLOMANCE | SCH_700 | Spirit Jailer |  
 SCHOLOMANCE | SCH_701 | Soul Shear |  
 SCHOLOMANCE | SCH_702 | Felosophy |  

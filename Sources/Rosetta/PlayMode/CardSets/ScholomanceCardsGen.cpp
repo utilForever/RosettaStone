@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
@@ -12,6 +13,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
@@ -2134,6 +2136,17 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //       Costs (1) less per Attack
     //       of your weapon.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (!playable->player->GetHero()->HasWeapon())
+        {
+            return 0;
+        }
+
+        return playable->player->GetHero()->weapon->GetAttack();
+    }));
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cards.emplace("SCH_623", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_707] Fishy Flyer - COST: 4 [ATK: 4/HP: 3]
