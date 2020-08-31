@@ -60,13 +60,66 @@ TEST_CASE("[Druid : Spell] - BT_130 : Overgrowth")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [BT_136] Archspore Msshi'fn - COST: 3 [ATK: 3/HP: 4]
+// [BT_131] Ysiel Windsinger - COST:9 [ATK:5/HP:5]
+// - Set: BLACK_TEMPLE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your spells cost (1).
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysiel Windsinger"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [BT_136] Archspore Msshi'fn - COST:3 [ATK:3/HP:4]
 //  - Set: BLACK_TEMPLE, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Deathrattle:</b> Shuffle
-//       'Msshi'fn Prime'
-//       into your deck.
+// Text: <b>Taunt</b> <b>Deathrattle:</b> Shuffle
+//       'Msshi'fn Prime' into your deck.
 // --------------------------------------------------------
 // GameTag:
 //  - ELITE = 1
@@ -152,63 +205,8 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
-// ----------------------------------------- MINION - DRUID
-// [BT_131] Ysiel Windsinger - COST: 9 [ATK: 5/HP: 5]
-// - Set: BLACK_TEMPLE, Rarity: Legendary
-// --------------------------------------------------------
-// Text: Your spells cost (1).
-// --------------------------------------------------------
-// GameTag:
-//  - ELITE = 1
-//  - AURA = 1
-// --------------------------------------------------------
-TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
-{
-    GameConfig config;
-    config.player1Class = CardClass::DRUID;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysiel Windsinger"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(card2->GetCost(), 1);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-    CHECK_EQ(card2->GetCost(), 0);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
-}
-
 // ------------------------------------------ MINION - MAGE
-// [BT_014] Starscryer - COST: 2 [ATK: 3/HP: 1]
+// [BT_014] Starscryer - COST:2 [ATK:3/HP:1]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Draw a spell.
@@ -270,7 +268,7 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
 }
 
 // ------------------------------------------- SPELL - MAGE
-// [BT_072] Deep Freeze - COST: 8
+// [BT_072] Deep Freeze - COST:8
 //  - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.
@@ -320,10 +318,11 @@ TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [BT_011] Libram of Justice - COST: 5
+// [BT_011] Libram of Justice - COST:5
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: Equip a 1/4 weapon. Change the Health of all enemy minions to 1.
+// Text: Equip a 1/4 weapon.
+//       Change the Health of all enemy minions to 1.
 // --------------------------------------------------------
 TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
 {
@@ -373,11 +372,11 @@ TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [BT_024] Libram of Hope - COST: 9
+// [BT_024] Libram of Hope - COST:9
 //  - Set: BLACK_TEMPLE, Rarity: Epic
 // --------------------------------------------------------
-// Text: Restore 8 Health. Summon an 8/8 Guardian with <b>Taunt</b>
-// and <b>Divine Shield</b>.
+// Text: Restore 8 Health. Summon an 8/8 Guardian
+//       with <b>Taunt</b> and <b>Divine Shield</b>.
 // --------------------------------------------------------
 // RefTag:
 //  - DIVINE_SHIELD = 1
@@ -421,7 +420,7 @@ TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [BT_252] Renew - COST: 1
+// [BT_252] Renew - COST:1
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: Restore 3 Health. <b>Discover</b> a spell.
@@ -468,7 +467,7 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [BT_253] Psyche Split - COST: 5
+// [BT_253] Psyche Split - COST:5
 //  - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: Give a minion +1/+2. Summon a copy of it.
@@ -514,7 +513,7 @@ TEST_CASE("[Preist : Spell] - BT_253 : Psyche Split")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [BT_257] Apotheosis - COST: 3
+// [BT_257] Apotheosis - COST:3
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: Give a minion +2/+3 and <b>Lifesteal</b>.
@@ -564,8 +563,7 @@ TEST_CASE("[Preist : Spell] - BT_257 : Apotheosis")
 // [BT_258] Imprisoned Homunculus - COST:1 [ATK:2/HP:5]
 // - Race: Demon, Set: Black Temple, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Dormant</b> for 2 turns.
-//       <b>Taunt</b>
+// Text: <b>Dormant</b> for 2 turns. <b>Taunt</b>
 // --------------------------------------------------------
 // GameTag:
 // - TAUNT = 1
@@ -635,7 +633,7 @@ TEST_CASE("[Priest : Minion] - BT_258 : Imprisoned Homunculus")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [BT_703] Cursed Vagrant - COST: 7 [ATK: 7/HP: 5]
+// [BT_703] Cursed Vagrant - COST:7 [ATK:7/HP:5]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 7/5 Shadow with <b>Stealth</b>.
@@ -689,12 +687,10 @@ TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
-// [BT_100] Serpentshrine Portal - COST: 3
+// [BT_100] Serpentshrine Portal - COST:3
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal 3 damage.
-//       Summon a random
-//       3-Cost minion.
+// Text: Deal 3 damage. Summon a random 3-Cost minion.
 //       <b>Overload:</b> (1)
 // --------------------------------------------------------
 // GameTag:
@@ -746,11 +742,10 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 }
 
 // --------------------------------------- MINION - WARLOCK
-// [BT_304] Enhanced Dreadlord - COST: 8 [ATK: 5/HP: 7]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Rare
+// [BT_304] Enhanced Dreadlord - COST:8 [ATK:5/HP:7]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Deathrattle:</b> Summon a 5/5
+// Text: <b>Taunt</b> <b>Deathrattle:</b> Summon a 5/5
 //       Dreadlord with <b>Lifesteal</b>.
 // --------------------------------------------------------
 // GameTag:
@@ -808,7 +803,7 @@ TEST_CASE("[Warlock : Minion] - BT_304 : Enhanced Dreadlord")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [BT_117] Bladestorm - COST: 3
+// [BT_117] Bladestorm - COST:3
 //  - Set: BLACK_TEMPLE, Rarity: Epic
 // --------------------------------------------------------
 // Text: Deal 1 damage to all minions. Repeat until one dies.
@@ -852,7 +847,7 @@ TEST_CASE("[Warrior : Spell] - BT_117 : Bladestorm")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [BT_120] Warmaul Challenger - COST: 3 [ATK: 1/HP: 10]
+// [BT_120] Warmaul Challenger - COST:3 [ATK:1/HP:10]
 //  - Set: BLACK_TEMPLE, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Choose an enemy minion.
@@ -908,14 +903,12 @@ TEST_CASE("[Warrior : Minion] - BT_120 : Warmaul Challenger")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
-// ----------------------------------------- MINION - WARRIOR
+// --------------------------------------- MINION - WARRIOR
 // [BT_123] Kargath Bladefist - COST:4 [ATK:4/HP:4]
 // - Set: BLACK_TEMPLE, Rarity: LEGENDARY
 // --------------------------------------------------------
-// Text: <b>Rush</b>
-//       <b>Deathrattle:</b> Shuffle
-//       'Kargath Prime'
-//       into your deck.
+// Text: <b>Rush</b> <b>Deathrattle:</b> Shuffle
+//       'Kargath Prime' into your deck.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -1004,12 +997,11 @@ TEST_CASE("[Warrior : Minion] - BT_123 : Kargath Bladefist")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 20);
 }
 
-// ----------------------------------------- SPELL - WARRIOR
+// ---------------------------------------- SPELL - WARRIOR
 // [BT_124] Corsair Cache - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: Draw a weapon.
-//       Give it +1 Durability.
+// Text: Draw a weapon. Give it +1 Durability.
 // --------------------------------------------------------
 TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 {
@@ -1050,10 +1042,10 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_509] Fel Summoner - COST: 6 [ATK: 8/HP: 3]
+// [BT_509] Fel Summoner - COST:6 [ATK:8/HP:3]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
+// Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -1104,12 +1096,11 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_761] Coilfang Warlord - COST: 8 [ATK: 9/HP: 5]
+// [BT_761] Coilfang Warlord - COST:8 [ATK:9/HP:5]
 //  - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Rush</b>
-//       <b>Deathrattle:</b> Summon a
-//        5/9 Warlord with <b>Taunt</b>.
+// Text: <b>Rush</b> <b>Deathrattle:</b> Summon a
+//       5/9 Warlord with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -1162,7 +1153,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_761 : Coilfang Warlord")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_008] Rustsworn Initiate - COST: 2 [ATK: 2/HP: 2]
+// [BT_008] Rustsworn Initiate - COST:2 [ATK:2/HP:2]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 1/1 Impcaster with
@@ -1217,8 +1208,8 @@ TEST_CASE("[Neutral : Minion] - BT_008 : Rustsworn Initiate")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_010] Felfin Navigator - COST: 4 [ATK: 4/HP: 4]
-//  - Race: MURLOC, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_010] Felfin Navigator - COST:4 [ATK:4/HP:4]
+//  - Race: Murloc, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give your other Murlocs +1/+1.
 // --------------------------------------------------------
@@ -1285,13 +1276,11 @@ TEST_CASE("[Neutral : Minion] - BT_010 : Felfin Navigator")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_155] Scrapyard Colossus - COST: 10 [ATK: 7/HP: 7]
-//  - Race: ELEMENTAL, Set: BLACK_TEMPLE, Rarity: Rare
+// [BT_155] Scrapyard Colossus - COST:10 [ATK:7/HP:7]
+//  - Race: Elemental, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Deathrattle:</b> Summon a
-//       7/7 Felcracked Colossus
-//       with <b>Taunt</b>.
+// Text: <b>Taunt</b> <b>Deathrattle:</b> Summon a
+//       7/7 Felcracked Colossus with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -1343,11 +1332,10 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Scrapyard Colossus")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_156] Imprisoned Vilefiend - COST: 2 [ATK: 3/HP: 5]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_156] Imprisoned Vilefiend - COST:2 [ATK:3/HP:5]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Dormant</b> for 2 turns.
-//       <b>Rush</b>
+// Text: <b>Dormant</b> for 2 turns. <b>Rush</b>
 // --------------------------------------------------------
 // GameTag:
 //  - RUSH = 1
@@ -1417,10 +1405,11 @@ TEST_CASE("[Priest : Minion] - BT_156 : Imprisoned Vilefiend")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_159] Terrorguard Escapee - COST: 3 [ATK: 3/HP: 7]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_159] Terrorguard Escapee - COST:3 [ATK:3/HP:7]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Summon three 1/1 Huntresses for your opponent.
+// Text: <b>Battlecry:</b> Summon three 1/1 Huntresses
+//       for your opponent.
 // --------------------------------------------------------
 // GameTag:
 //  - BATTLECRY = 1
@@ -1471,12 +1460,11 @@ TEST_CASE("[Neutral : Minion] - BT_159 : Terrorguard Escapee")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_160] Rustsworn Cultist - COST: 4 [ATK: 3/HP: 3]
+// [BT_160] Rustsworn Cultist - COST:4 [ATK:3/HP:3]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give your
-//       other minions "<b>Deathrattle:</b>
-//       Summon a 1/1 Demon."
+// Text: <b>Battlecry:</b> Give your other minions
+//       "<b>Deathrattle:</b> Summon a 1/1 Demon."
 // --------------------------------------------------------
 // GameTag:
 //  - BATTLECRY = 1
@@ -1527,15 +1515,15 @@ TEST_CASE("[Neutral : Minion] - BT_160 : Rustsworn Cultist")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_726] Dragonmaw Sky Stalker - COST: 6 [ATK: 5/HP: 6]
-//  - Race: DRAGON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_726] Dragonmaw Sky Stalker - COST:6 [ATK:5/HP:6]
+//  - Race: Dragon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 3/4 Dragonrider.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
 // --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
+TEST_CASE("[Neutral : Minion] - BT_726 : Dragonmaw Sky Stalker")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -1577,8 +1565,8 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_728] Disguised Wanderer - COST: 4 [ATK: 3/HP: 3]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_728] Disguised Wanderer - COST:4 [ATK:3/HP:3]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 9/1 Inquisitor.
 // --------------------------------------------------------

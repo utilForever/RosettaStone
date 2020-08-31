@@ -70,7 +70,7 @@ TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [SCH_137] Frazzled Freshman - COST: 1 [ATK: 1/HP: 4]
+// [SCH_137] Frazzled Freshman - COST:1 [ATK:1/HP:4]
 //  - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
@@ -104,11 +104,11 @@ TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [SCH_234] Shifty Sophomore - COST: 4 [ATK: 4/HP: 4]
+// [SCH_234] Shifty Sophomore - COST:4 [ATK:4/HP:4]
 //  - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Stealth</b>
-//       <b>Spellburst:</b> Add a <b>Combo</b> card to your hand.
+// Text: <b>Stealth</b> <b>Spellburst:</b> Add a
+//       <b>Combo</b> card to your hand.
 // --------------------------------------------------------
 // GameTag:
 //  - STEALTH = 1
@@ -161,12 +161,11 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [SCH_426] Infiltrator Lilian - COST: 4 [ATK: 4/HP: 2]
+// [SCH_426] Infiltrator Lilian - COST:4 [ATK:4/HP:2]
 //  - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Stealth</b>
-//       <b>Deathrattle:</b> Summon a 4/2 Forsaken Lilian
-//       that attacks a random enemy.
+// Text: <b>Stealth</b> <b>Deathrattle:</b> Summon a
+//       4/2 Forsaken Lilian that attacks a random enemy.
 // --------------------------------------------------------
 // GameTag:
 //  - ELITE = 1
@@ -246,7 +245,7 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
 }
 
 // ----------------------------------------- WEAPON - ROGUE
-// [SCH_622] Self-Sharpening Sword - COST: 3
+// [SCH_622] Self-Sharpening Sword - COST:3
 //  - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: After your hero attacks, gain +1 Attack.
@@ -304,7 +303,7 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
 }
 
 // ------------------------------------------ SPELL - ROGUE
-// [SCH_706] Plagiarize - COST: 2
+// [SCH_706] Plagiarize - COST:2
 //  - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Secret:</b> At the end of your opponent's turn,
@@ -420,11 +419,11 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_707] Fishy Flyer - COST: 4 [ATK: 4/HP: 3]
-//  - Race: MURLOC, Set: SCHOLOMANCE, Rarity: Common
+// [SCH_707] Fishy Flyer - COST:4 [ATK:4/HP:3]
+//  - Race: Murloc, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost with <b>Rush</b>
-// to your hand.
+// Text: <b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost
+//       with <b>Rush</b> to your hand.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -471,11 +470,11 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_707 : Fishy Flyer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_708] Sneaky Delinquent - COST: 2 [ATK: 3/HP: 1]
+// [SCH_708] Sneaky Delinquent - COST:2 [ATK:3/HP:1]
 //  - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Stealth</b>. <b>Deathrattle:</b> Add a 3/1 Ghost with
-// <b>Stealth</b> to your hand.
+// Text: <b>Stealth</b>. <b>Deathrattle:</b> Add a 3/1 Ghost
+//       with <b>Stealth</b> to your hand.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -522,11 +521,11 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_708 : Sneaky Delinquent")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_709] Smug Senior - COST: 6 [ATK: 5/HP: 7]
+// [SCH_709] Smug Senior - COST:6 [ATK:5/HP:7]
 //  - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost with <b>Taunt</b>
-// to your hand.
+// Text: <b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost
+//       with <b>Taunt</b> to your hand.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -573,12 +572,11 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_709 : Smug Senior")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_710] Ogremancer - COST: 5 [ATK: 3/HP: 7]
+// [SCH_710] Ogremancer - COST:5 [ATK:3/HP:7]
 //  - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: Whenever your opponent
-//       casts a spell, summon a 2/2
-//       Skeleton with <b>Taunt</b>.
+// Text: Whenever your opponent casts a spell,
+//       summon a 2/2 Skeleton with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 //  - TRIGGER_VISUAL = 1
@@ -634,8 +632,8 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_710 : Ogremancer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_711] Plagued Protodrake - COST: 8 [ATK: 8/HP: 8]
-//  - Race: DRAGON, Set: SCHOLOMANCE, Rarity: Common
+// [SCH_711] Plagued Protodrake - COST:8 [ATK:8/HP:8]
+//  - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a random 7-Cost minion.
 // --------------------------------------------------------
