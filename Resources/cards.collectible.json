@@ -7184,7 +7184,7 @@
         "name": "Kael'thas Sunstrider",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "Every third spell you cast each turn costs (0).",
+        "text": "Every third spell you cast each turn costs (1).",
         "type": "MINION"
     },
     {
@@ -9266,7 +9266,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "GANGS",
-        "techLevel": 2,
+        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 1/1 Rats equal\n to this minion's Attack.",
         "type": "MINION"
     },
@@ -40244,7 +40244,7 @@
         "attack": 1,
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 59643,
         "elite": true,
         "flavor": "\"…and that's how I ended up with a Murloc Cultural Studies major.\"",
