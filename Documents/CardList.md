@@ -981,7 +981,7 @@ BLACK_TEMPLE | BT_102 | Boggspine Knuckles |
 BLACK_TEMPLE | BT_106 | Bogstrok Clacker |  
 BLACK_TEMPLE | BT_109 | Lady Vashj |  
 BLACK_TEMPLE | BT_110 | Torrent |  
-BLACK_TEMPLE | BT_113 | Totemic Reflection |  
+BLACK_TEMPLE | BT_113 | Totemic Reflection | O
 BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
 BLACK_TEMPLE | BT_115 | Marshspawn |  
 BLACK_TEMPLE | BT_117 | Bladestorm | O

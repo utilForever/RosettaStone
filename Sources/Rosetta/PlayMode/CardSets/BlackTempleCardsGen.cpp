@@ -1317,6 +1317,28 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +2/+2.
     //       If it's a Totem, summon a copy of it.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("BT_113e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<ConditionTask>(
+                            EntityType::TARGET,
+                            RelaCondList{ std::make_shared<RelaCondition>(
+                                RelaCondition::IsFriendly()) }),
+                        std::make_shared<FlagTask>(
+                            true, TaskList{ std::make_shared<SummonCopyTask>(
+                                      EntityType::TARGET, false, false,
+                                      SummonSide::TARGET) }),
+                        std::make_shared<FlagTask>(
+                            false, TaskList{ std::make_shared<SummonCopyTask>(
+                                       EntityType::TARGET, false, false,
+                                       SummonSide::SPELL) }) }));
+    cards.emplace(
+        "BT_113",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_114] Shattered Rumbler - COST: 5 [ATK: 5/HP: 6]
@@ -2491,6 +2513,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_113e"));
+    cards.emplace("BT_113e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_126e] Shadowy Construct - COST: 0
