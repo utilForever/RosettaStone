@@ -228,10 +228,8 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
     for (int i = 0; i < 10; ++i)
     {
         config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
-        config.player1Deck[i + 10] =
-            Cards::FindCardByName("Starscryer");
-        config.player1Deck[i + 20] =
-            Cards::FindCardByName("Pyroblast");
+        config.player1Deck[i + 10] = Cards::FindCardByName("Starscryer");
+        config.player1Deck[i + 20] = Cards::FindCardByName("Pyroblast");
     }
 
     Game game(config);
@@ -249,8 +247,8 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
     auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Starscryer"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Starscryer"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
@@ -411,7 +409,8 @@ TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Libram of Hope"));
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Ancient Guardian");
@@ -723,8 +722,8 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Serpentshrine Portal"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Serpentshrine Portal"));
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));

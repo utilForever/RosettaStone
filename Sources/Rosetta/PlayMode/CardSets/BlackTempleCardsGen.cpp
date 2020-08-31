@@ -20,8 +20,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
@@ -570,8 +570,8 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     //  - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::TARGET, GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::FROZEN, 1));
     power.AddPowerTask(std::make_shared<SummonTask>("CS2_033", 2));
     cards.emplace("BT_072",
                   CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -860,7 +860,8 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +1/+2. Summon a copy of it.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("BT_253e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_253e", EntityType::TARGET));
     power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
     cards.emplace(
         "BT_253",
@@ -905,7 +906,6 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
         "BT_257",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
-
 
     // ---------------------------------------- MINION - PRIEST
     // [BT_258] Imprisoned Homunculus - COST: 1 [ATK: 2/HP: 5]
