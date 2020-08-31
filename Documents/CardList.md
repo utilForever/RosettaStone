@@ -1186,7 +1186,7 @@ SCHOLOMANCE | SCH_514 | Raise Dead |
 SCHOLOMANCE | SCH_517 | Shadowlight Scholar |  
 SCHOLOMANCE | SCH_519 | Vulpera Toxinblade |  
 SCHOLOMANCE | SCH_521 | Coerce |  
-SCHOLOMANCE | SCH_522 | Steeldancer |  
+SCHOLOMANCE | SCH_522 | Steeldancer | O
 SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
 SCHOLOMANCE | SCH_524 | Shield of Honor |  
 SCHOLOMANCE | SCH_525 | In Formation! |  

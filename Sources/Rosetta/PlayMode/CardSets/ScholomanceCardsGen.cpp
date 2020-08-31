@@ -14,9 +14,11 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -2085,6 +2087,11 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(std::make_shared<RandomMinionNumberTask>(GameTag::COST));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("SCH_522", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_530] Sorcerous Substitute - COST: 6 [ATK: 6/HP: 6]
