@@ -1179,7 +1179,7 @@ SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom |  
 SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
-SCHOLOMANCE | SCH_509 | Brain Freeze |  
+SCHOLOMANCE | SCH_509 | Brain Freeze | O
 SCHOLOMANCE | SCH_512 | Initiation |  
 SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |  
 SCHOLOMANCE | SCH_514 | Raise Dead |  
