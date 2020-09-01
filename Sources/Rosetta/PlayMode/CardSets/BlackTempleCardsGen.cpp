@@ -1392,6 +1392,21 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to an enemy minion
     //       and a random friendly one.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldNotEmpty()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<IncludeTask>(EntityType::MINIONS),
+                  std::make_shared<RandomTask>(EntityType::STACK, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 3, true) }));
+    cards.emplace("BT_199", CardDef(power, PlayReqs{
+        { PlayReq::REQ_TARGET_TO_PLAY, 0 }, { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_300] Hand of Gul'dan - COST:6

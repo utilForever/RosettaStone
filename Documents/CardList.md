@@ -1013,7 +1013,7 @@ BLACK_TEMPLE | BT_190 | Replicat-o-tron |
 BLACK_TEMPLE | BT_196 | Keli'dan the Breaker |  
 BLACK_TEMPLE | BT_197 | Reliquary of Souls |  
 BLACK_TEMPLE | BT_198 | Soul Mirror |  
-BLACK_TEMPLE | BT_199 | Unstable Felbolt |  
+BLACK_TEMPLE | BT_199 | Unstable Felbolt | O
 BLACK_TEMPLE | BT_201 | Augmented Porcupine |  
 BLACK_TEMPLE | BT_202 | Helboar |  
 BLACK_TEMPLE | BT_203 | Pack Tactics |  
