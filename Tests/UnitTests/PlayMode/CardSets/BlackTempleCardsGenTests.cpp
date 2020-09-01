@@ -742,7 +742,7 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
-// [BT_113] Totemic Reflection - COST: 3
+// [BT_113] Totemic Reflection - COST:3
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: Give a minion +2/+2.
@@ -773,23 +773,24 @@ TEST_CASE("[Shaman : Spell] - BT_113 : Totemic Reflection")
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Totemic Reflection"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Mana Tide Totem"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dust Devil"));
-    const auto card4 = Generic::DrawCard(
+    const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Totemic Reflection"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Mana Tide Totem"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dust Devil"));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Mana Tide Totem");
     CHECK_EQ(curField[0]->GetAttack(), 2);
