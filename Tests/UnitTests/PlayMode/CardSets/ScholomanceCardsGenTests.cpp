@@ -419,10 +419,11 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
-// [SCH_509] Brain Freeze - COST: 1
+// [SCH_509] Brain Freeze - COST:1
 //  - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Freeze</b> a minion. <b>Combo:</b> Also deal 3 damage to it.
+// Text: <b>Freeze</b> a minion.
+//       <b>Combo:</b> Also deal 3 damage to it.
 // --------------------------------------------------------
 // GameTag:
 //  - COMBO = 1
@@ -467,10 +468,12 @@ TEST_CASE("[Neutral : Spell] - SCH_509 : Brain Freeze")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Ironfur Grizzly"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
@@ -484,12 +487,11 @@ TEST_CASE("[Neutral : Spell] - SCH_509 : Brain Freeze")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_522] Steeldancer - COST: 4 [ATK: 4/HP: 4]
+// [SCH_522] Steeldancer - COST:4 [ATK:4/HP:4]
 //  - Set: SCHOLOMANCE, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Summon a random
-//       minion with Cost equal to
-//       your weapon's Attack.
+// Text: <b>Battlecry:</b> Summon a random minion with Cost
+//       equal to your weapon's Attack.
 // --------------------------------------------------------
 // GameTag:
 //  - BATTLECRY = 1
@@ -543,12 +545,10 @@ TEST_CASE("[Neutral : Minion] - SCH_522 : Steeldancer")
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
-// [SCH_623] Cutting Class - COST: 5
+// [SCH_623] Cutting Class - COST:5
 //  - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: Draw 2 cards.
-//       Costs (1) less per Attack
-//       of your weapon.
+// Text: Draw 2 cards. Costs (1) less per Attack of your weapon.
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Spell] - SCH_623 : Cutting Class")
 {
