@@ -418,6 +418,183 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
     CHECK_EQ(curField[0]->HasSpellburst(), false);
 }
 
+// ---------------------------------------- SPELL - NEUTRAL
+// [SCH_509] Brain Freeze - COST:1
+//  - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a minion.
+//       <b>Combo:</b> Also deal 3 damage to it.
+// --------------------------------------------------------
+// GameTag:
+//  - COMBO = 1
+// --------------------------------------------------------
+// RefTag:
+//  - FREEZE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - SCH_509 : Brain Freeze")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brain Freeze"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brain Freeze"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironfur Grizzly"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Ironfur Grizzly"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_522] Steeldancer - COST:4 [ATK:4/HP:4]
+//  - Set: SCHOLOMANCE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a random minion with Cost
+//       equal to your weapon's Attack.
+// --------------------------------------------------------
+// GameTag:
+//  - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_522 : Steeldancer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steeldancer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steeldancer"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steeldancer"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetCost(), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[3]->GetCost(), 1);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField[5]->GetCost(), 4);
+}
+
+// ---------------------------------------- SPELL - NEUTRAL
+// [SCH_623] Cutting Class - COST:5
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 cards. Costs (1) less per Attack of your weapon.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - SCH_623 : Cutting Class")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cutting Class"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cutting Class"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
+
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(card1->GetCost(), 4);
+    CHECK_EQ(card2->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    CHECK_EQ(card2->GetCost(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 8);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_707] Fishy Flyer - COST:4 [ATK:4/HP:3]
 //  - Race: Murloc, Set: SCHOLOMANCE, Rarity: Common
