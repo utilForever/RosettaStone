@@ -452,6 +452,13 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Reduce the Cost of spells in your deck by (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_002e", EntityType::STACK));
+    cards.emplace("BT_002", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [BT_003] Netherwind Portal - COST:3
@@ -575,6 +582,9 @@ void BlackTempleCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BT_002e", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BT_006e] Evocation - COST:0

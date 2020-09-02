@@ -205,6 +205,63 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [BT_002] Incanter's Flow - COST:2
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Reduce the Cost of spells in your deck by (1).
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BT_002 : Incanter's Flow")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Blizzard");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Incanter's Flow"));
+
+    CHECK_EQ(curHand[0]->GetCost(), 6);
+    CHECK_EQ(curHand[1]->GetCost(), 6);
+    CHECK_EQ(curHand[2]->GetCost(), 6);
+    CHECK_EQ(curHand[3]->GetCost(), 6);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 6);
+    }
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand[0]->GetCost(), 6);
+    CHECK_EQ(curHand[1]->GetCost(), 6);
+    CHECK_EQ(curHand[2]->GetCost(), 6);
+    CHECK_EQ(curHand[3]->GetCost(), 6);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 5);
+    }
+}
+
 // ------------------------------------------ MINION - MAGE
 // [BT_014] Starscryer - COST:2 [ATK:3/HP:1]
 //  - Set: BLACK_TEMPLE, Rarity: Common

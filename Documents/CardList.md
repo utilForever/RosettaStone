@@ -955,7 +955,7 @@ YEAR_OF_THE_DRAGON | YOD_043 | Scalelord |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-BLACK_TEMPLE | BT_002 | Incanter's Flow |  
+BLACK_TEMPLE | BT_002 | Incanter's Flow | O
 BLACK_TEMPLE | BT_003 | Netherwind Portal |  
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
