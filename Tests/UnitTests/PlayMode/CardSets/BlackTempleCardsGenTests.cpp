@@ -324,7 +324,7 @@ TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
 // Text: Equip a 1/4 weapon.
 //       Change the Health of all enemy minions to 1.
 // --------------------------------------------------------
-TEST_CASE("[Paladin : Speel] - BT_011 : Libram of Justice")
+TEST_CASE("[Paladin : Spell] - BT_011 : Libram of Justice")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
