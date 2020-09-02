@@ -239,8 +239,8 @@ TEST_CASE("[Mage : Spell] - BT_002 : Incanter's Flow")
     auto& curHand = *(curPlayer->GetHandZone());
     auto& curDeck = *(curPlayer->GetDeckZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Incanter's Flow"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Incanter's Flow"));
 
     CHECK_EQ(curHand[0]->GetCost(), 6);
     CHECK_EQ(curHand[1]->GetCost(), 6);
@@ -805,6 +805,10 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 // Text: Give a minion +2/+2.
 //       If it's a Totem, summon a copy of it.
 // --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
 TEST_CASE("[Shaman : Spell] - BT_113 : Totemic Reflection")
 {
     GameConfig config;
@@ -864,6 +868,11 @@ TEST_CASE("[Shaman : Spell] - BT_113 : Totemic Reflection")
 // --------------------------------------------------------
 // Text: Deal 3 damage to an enemy minion
 //       and a random friendly one.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
 TEST_CASE("[Warlock : Spell] - BT_199 : Unstable Felbolt")
 {
