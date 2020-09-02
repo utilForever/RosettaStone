@@ -632,6 +632,50 @@ TEST_CASE("[Priest : Minion] - BT_258 : Imprisoned Homunculus")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [BT_292] Hand of A'dal - COST: 2
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +2/+2. Draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : SPELL] - BT_292 : Hand of A'dal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hand of A'dal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [BT_703] Cursed Vagrant - COST:7 [ATK:7/HP:5]
 //  - Set: BLACK_TEMPLE, Rarity: Common
