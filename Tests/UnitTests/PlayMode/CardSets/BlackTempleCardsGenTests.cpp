@@ -671,7 +671,7 @@ TEST_CASE("[Paladin : SPELL] - BT_292 : Hand of A'dal")
     CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }

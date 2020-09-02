@@ -706,9 +706,17 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +2/+2. Draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("BT_292e"));
-    cards.emplace("BT_292e", CardDef(power));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_292e", EntityType::TARGET));
+    cards.emplace(
+        "BT_292",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [BT_334] Lady Liadrin - COST:7 [ATK:4/HP:6]
@@ -783,13 +791,13 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BT_292e", EntityType::TARGET));
-    cards.emplace(
-        "BT_292",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_292e"));
+    cards.emplace("BT_292e", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
