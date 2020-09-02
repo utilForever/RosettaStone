@@ -1179,14 +1179,14 @@ SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom |  
 SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
-SCHOLOMANCE | SCH_509 | Brain Freeze |  
+SCHOLOMANCE | SCH_509 | Brain Freeze | O
 SCHOLOMANCE | SCH_512 | Initiation |  
 SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |  
 SCHOLOMANCE | SCH_514 | Raise Dead |  
 SCHOLOMANCE | SCH_517 | Shadowlight Scholar |  
 SCHOLOMANCE | SCH_519 | Vulpera Toxinblade |  
 SCHOLOMANCE | SCH_521 | Coerce |  
-SCHOLOMANCE | SCH_522 | Steeldancer |  
+SCHOLOMANCE | SCH_522 | Steeldancer | O
 SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
 SCHOLOMANCE | SCH_524 | Shield of Honor |  
 SCHOLOMANCE | SCH_525 | In Formation! |  
@@ -1215,7 +1215,7 @@ SCHOLOMANCE | SCH_617 | Adorable Infestation |
 SCHOLOMANCE | SCH_618 | Blood Herald |  
 SCHOLOMANCE | SCH_621 | Rattlegore |  
 SCHOLOMANCE | SCH_622 | Self-Sharpening Sword | O
-SCHOLOMANCE | SCH_623 | Cutting Class |  
+SCHOLOMANCE | SCH_623 | Cutting Class | O
 SCHOLOMANCE | SCH_700 | Spirit Jailer |  
 SCHOLOMANCE | SCH_701 | Soul Shear |  
 SCHOLOMANCE | SCH_702 | Felosophy |  
