@@ -15,6 +15,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
@@ -713,6 +714,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_292e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
     cards.emplace(
         "BT_292",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -1290,7 +1292,8 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       If it's a Totem, summon a copy of it.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("BT_113e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_113e", EntityType::TARGET));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsRace(Race::TOTEM)) }));
