@@ -981,7 +981,7 @@ BLACK_TEMPLE | BT_102 | Boggspine Knuckles |
 BLACK_TEMPLE | BT_106 | Bogstrok Clacker |  
 BLACK_TEMPLE | BT_109 | Lady Vashj |  
 BLACK_TEMPLE | BT_110 | Torrent |  
-BLACK_TEMPLE | BT_113 | Totemic Reflection |  
+BLACK_TEMPLE | BT_113 | Totemic Reflection | O
 BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
 BLACK_TEMPLE | BT_115 | Marshspawn |  
 BLACK_TEMPLE | BT_117 | Bladestorm | O
@@ -994,12 +994,12 @@ BLACK_TEMPLE | BT_127 | Imprisoned Satyr |
 BLACK_TEMPLE | BT_128 | Fungal Fortunes |  
 BLACK_TEMPLE | BT_129 | Germination |  
 BLACK_TEMPLE | BT_130 | Overgrowth | O
-BLACK_TEMPLE | BT_131 | Ysiel Windsinger |  
+BLACK_TEMPLE | BT_131 | Ysiel Windsinger | O
 BLACK_TEMPLE | BT_132 | Ironbark |  
 BLACK_TEMPLE | BT_133 | Marsh Hydra |  
 BLACK_TEMPLE | BT_134 | Bogbeam |  
 BLACK_TEMPLE | BT_135 | Glowfly Swarm |  
-BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O  
+BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
 BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
@@ -1077,7 +1077,7 @@ BLACK_TEMPLE | BT_723 | Rocket Augmerchant |
 BLACK_TEMPLE | BT_724 | Ethereal Augmerchant |  
 BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker | O
 BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
-BLACK_TEMPLE | BT_728 | Disguised Wanderer |  
+BLACK_TEMPLE | BT_728 | Disguised Wanderer | O
 BLACK_TEMPLE | BT_729 | Waste Warden |  
 BLACK_TEMPLE | BT_730 | Overconfident Orc |  
 BLACK_TEMPLE | BT_731 | Infectious Sporeling |  
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 8% (11 of 135 Cards)
+- Progress: 20% (28 of 135 Cards)
 
 ## Scholomance Academy
 
@@ -1102,7 +1102,7 @@ SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |
 SCHOLOMANCE | SCH_133 | Wolpertinger |  
 SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
 SCHOLOMANCE | SCH_136 | Power Word: Feast |  
-SCHOLOMANCE | SCH_137 | Frazzled Freshman | O 
+SCHOLOMANCE | SCH_137 | Frazzled Freshman | O
 SCHOLOMANCE | SCH_138 | Blessing of Authority |  
 SCHOLOMANCE | SCH_139 | Devout Pupil |  
 SCHOLOMANCE | SCH_140 | Flesh Giant |  
@@ -1223,14 +1223,14 @@ SCHOLOMANCE | SCH_703 | Soulciologist Malicia |
 SCHOLOMANCE | SCH_704 | Soulshard Lapidary |  
 SCHOLOMANCE | SCH_705 | Vilefiend Trainer |  
 SCHOLOMANCE | SCH_706 | Plagiarize | O
-SCHOLOMANCE | SCH_707 | Fishy Flyer | O  
-SCHOLOMANCE | SCH_708 | Sneaky Delinquent | O  
-SCHOLOMANCE | SCH_709 | Smug Senior | O  
-SCHOLOMANCE | SCH_710 | Ogremancer | O 
-SCHOLOMANCE | SCH_711 | Plagued Protodrake | O  
+SCHOLOMANCE | SCH_707 | Fishy Flyer | O
+SCHOLOMANCE | SCH_708 | Sneaky Delinquent | O
+SCHOLOMANCE | SCH_709 | Smug Senior | O
+SCHOLOMANCE | SCH_710 | Ogremancer | O
+SCHOLOMANCE | SCH_711 | Plagued Protodrake | O
 SCHOLOMANCE | SCH_712 | Judicious Junior | O
 SCHOLOMANCE | SCH_713 | Cult Neophyte |  
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 1% (2 of 135 Cards)
+- Progress: 8% (12 of 135 Cards)

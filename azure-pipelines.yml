@@ -4,11 +4,11 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - template: Scripts/azure_pipelines_build_windows_vs2017.yml
-- job: Windows_VS2019
-  pool:
-    vmImage: 'windows-2019'
-  steps:
-  - template: Scripts/azure_pipelines_build_windows_vs2019.yml
+#- job: Windows_VS2019
+#  pool:
+#    vmImage: 'windows-2019'
+#  steps:
+#  - template: Scripts/azure_pipelines_build_windows_vs2019.yml
 - job: Linux
   pool:
     vmImage: 'Ubuntu-16.04'
