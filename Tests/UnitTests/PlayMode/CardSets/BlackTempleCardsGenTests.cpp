@@ -905,10 +905,12 @@ TEST_CASE("[Warlock : Spell] - BT_199 : Unstable Felbolt")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Doomsayer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
