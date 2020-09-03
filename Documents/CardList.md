@@ -1035,7 +1035,7 @@ BLACK_TEMPLE | BT_257 | Apotheosis | O
 BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
 BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel |  
 BLACK_TEMPLE | BT_291 | Apexis Blast |  
-BLACK_TEMPLE | BT_292 | Hand of A'dal |  
+BLACK_TEMPLE | BT_292 | Hand of A'dal | O
 BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
 BLACK_TEMPLE | BT_301 | Nightshade Matron |  
 BLACK_TEMPLE | BT_302 | The Dark Portal |  
