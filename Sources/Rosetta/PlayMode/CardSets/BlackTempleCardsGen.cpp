@@ -452,6 +452,13 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Reduce the Cost of spells in your deck by (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_002e", EntityType::STACK));
+    cards.emplace("BT_002", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [BT_003] Netherwind Portal - COST:3
@@ -575,6 +582,9 @@ void BlackTempleCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BT_002e", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BT_006e] Evocation - COST:0
@@ -1271,8 +1281,13 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +2/+2.
     //       If it's a Totem, summon a copy of it.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("BT_113e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_113e", EntityType::TARGET));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsRace(Race::TOTEM)) }));
@@ -1291,8 +1306,8 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                                        SummonSide::SPELL) }) }));
     cards.emplace(
         "BT_113",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_114] Shattered Rumbler - COST:5 [ATK:5/HP:6]
@@ -1392,6 +1407,26 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to an enemy minion
     //       and a random friendly one.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldNotEmpty()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<IncludeTask>(EntityType::MINIONS),
+                  std::make_shared<RandomTask>(EntityType::STACK, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 3, true) }));
+    cards.emplace("BT_199",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_300] Hand of Gul'dan - COST:6
