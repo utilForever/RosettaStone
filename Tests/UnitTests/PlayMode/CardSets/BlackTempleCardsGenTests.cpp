@@ -205,6 +205,63 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [BT_002] Incanter's Flow - COST:2
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Reduce the Cost of spells in your deck by (1).
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BT_002 : Incanter's Flow")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Blizzard");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Incanter's Flow"));
+
+    CHECK_EQ(curHand[0]->GetCost(), 6);
+    CHECK_EQ(curHand[1]->GetCost(), 6);
+    CHECK_EQ(curHand[2]->GetCost(), 6);
+    CHECK_EQ(curHand[3]->GetCost(), 6);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 6);
+    }
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand[0]->GetCost(), 6);
+    CHECK_EQ(curHand[1]->GetCost(), 6);
+    CHECK_EQ(curHand[2]->GetCost(), 6);
+    CHECK_EQ(curHand[3]->GetCost(), 6);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 5);
+    }
+}
+
 // ------------------------------------------ MINION - MAGE
 // [BT_014] Starscryer - COST:2 [ATK:3/HP:1]
 //  - Set: BLACK_TEMPLE, Rarity: Common
@@ -792,6 +849,10 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 // Text: Give a minion +2/+2.
 //       If it's a Totem, summon a copy of it.
 // --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
 TEST_CASE("[Shaman : Spell] - BT_113 : Totemic Reflection")
 {
     GameConfig config;
@@ -843,6 +904,64 @@ TEST_CASE("[Shaman : Spell] - BT_113 : Totemic Reflection")
     CHECK_EQ(opField[0]->GetHealth(), 5);
     CHECK_EQ(opField[1]->GetAttack(), 5);
     CHECK_EQ(opField[1]->GetHealth(), 3);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [BT_199] Unstable Felbolt - COST:1
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage to an enemy minion
+//       and a random friendly one.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - BT_199 : Unstable Felbolt")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Felbolt"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Doomsayer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
 }
 
 // --------------------------------------- MINION - WARLOCK

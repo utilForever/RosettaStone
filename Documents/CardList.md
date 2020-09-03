@@ -955,7 +955,7 @@ YEAR_OF_THE_DRAGON | YOD_043 | Scalelord |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-BLACK_TEMPLE | BT_002 | Incanter's Flow |  
+BLACK_TEMPLE | BT_002 | Incanter's Flow | O
 BLACK_TEMPLE | BT_003 | Netherwind Portal |  
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
@@ -1013,7 +1013,7 @@ BLACK_TEMPLE | BT_190 | Replicat-o-tron |
 BLACK_TEMPLE | BT_196 | Keli'dan the Breaker |  
 BLACK_TEMPLE | BT_197 | Reliquary of Souls |  
 BLACK_TEMPLE | BT_198 | Soul Mirror |  
-BLACK_TEMPLE | BT_199 | Unstable Felbolt |  
+BLACK_TEMPLE | BT_199 | Unstable Felbolt | O
 BLACK_TEMPLE | BT_201 | Augmented Porcupine |  
 BLACK_TEMPLE | BT_202 | Helboar |  
 BLACK_TEMPLE | BT_203 | Pack Tactics |  
@@ -1179,14 +1179,14 @@ SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom |  
 SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
-SCHOLOMANCE | SCH_509 | Brain Freeze |  
+SCHOLOMANCE | SCH_509 | Brain Freeze | O
 SCHOLOMANCE | SCH_512 | Initiation |  
 SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |  
 SCHOLOMANCE | SCH_514 | Raise Dead |  
 SCHOLOMANCE | SCH_517 | Shadowlight Scholar |  
 SCHOLOMANCE | SCH_519 | Vulpera Toxinblade |  
 SCHOLOMANCE | SCH_521 | Coerce |  
-SCHOLOMANCE | SCH_522 | Steeldancer |  
+SCHOLOMANCE | SCH_522 | Steeldancer | O
 SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
 SCHOLOMANCE | SCH_524 | Shield of Honor |  
 SCHOLOMANCE | SCH_525 | In Formation! |  
@@ -1215,7 +1215,7 @@ SCHOLOMANCE | SCH_617 | Adorable Infestation |
 SCHOLOMANCE | SCH_618 | Blood Herald |  
 SCHOLOMANCE | SCH_621 | Rattlegore |  
 SCHOLOMANCE | SCH_622 | Self-Sharpening Sword | O
-SCHOLOMANCE | SCH_623 | Cutting Class |  
+SCHOLOMANCE | SCH_623 | Cutting Class | O
 SCHOLOMANCE | SCH_700 | Spirit Jailer |  
 SCHOLOMANCE | SCH_701 | Soul Shear |  
 SCHOLOMANCE | SCH_702 | Felosophy |  
