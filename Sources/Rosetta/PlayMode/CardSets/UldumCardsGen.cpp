@@ -6,8 +6,8 @@
 #include <Rosetta/PlayMode/Actions/Copy.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -1049,9 +1049,8 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = TaskList {
-        std::make_shared<AddEnchantmentTask>("ULD_145e", EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = TaskList{ std::make_shared<AddEnchantmentTask>(
+        "ULD_145e", EntityType::SOURCE) };
     cards.emplace("ULD_145", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
@@ -1482,7 +1481,7 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->condition =
         std::make_shared<SelfCondition>(SelfCondition::IsComboCard());
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { 
+    power.GetTrigger()->tasks = {
         std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::INVALID,
                                          GameTags{ { GameTag::COMBO, 1 } }),
         std::make_shared<AddStackToTask>(EntityType::HAND)
@@ -1500,8 +1499,10 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
-    power.AddDeathrattleTask(std::make_shared<ReturnHandTask>(EntityType::STACK));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<ReturnHandTask>(EntityType::STACK));
     cards.emplace("ULD_280", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
@@ -1537,21 +1538,21 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
             {
                 return;
             }
-            
+
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::TAG_SCRIPT_DATA_NUM_1, target->card->dbfID);
 
             for (int i = 0; i < 3; i++)
             {
                 Playable* shadow =
-                    Entity::GetFromCard(player, Cards::FindCardByID("ULD_286t"), 
+                    Entity::GetFromCard(player, Cards::FindCardByID("ULD_286t"),
                                         tags, player->GetDeckZone());
                 Generic::ShuffleIntoDeck(player, source, shadow);
             }
         }));
     cards.emplace(
         "ULD_286",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 }, 
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
@@ -1919,10 +1920,7 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
-        TaskList {
-            std::make_shared<ChangeHeroPowerTask>("ULD_140p")
-        })
-    };
+        TaskList{ std::make_shared<ChangeHeroPowerTask>("ULD_140p") }) };
     cards.emplace("ULD_140", CardDef(power, 20, 0));
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -2445,7 +2443,7 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 5));
     cards.emplace(
         "ULD_190",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 }}));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_191] Beaming Sidekick - COST:1 [ATK:1/HP:2]
