@@ -553,6 +553,15 @@ void Trigger::Validate(Entity* source)
             }
             break;
         }
+        case TriggerSource::SPELLS:
+        {
+            if (dynamic_cast<Spell*>(source) == nullptr ||
+                (source && source->player != m_owner->player))
+            {
+                return;
+            }
+            break;
+        }
         case TriggerSource::ENEMY_SPELLS:
         {
             if (dynamic_cast<Spell*>(source) == nullptr ||
