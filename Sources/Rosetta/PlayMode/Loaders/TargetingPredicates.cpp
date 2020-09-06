@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
@@ -94,6 +95,18 @@ TargetingPredicate TargetingPredicates::ReqTargetWithDeathrattle()
 TargetingPredicate TargetingPredicates::ReqDamagedTarget()
 {
     return [=](Character* character) { return character->GetDamage() > 0; };
+}
+
+TargetingPredicate TargetingPredicates::ReqDamagedTargetUnlessCombo()
+{
+    return [=](Character* character) {
+        if (character->game->GetCurrentPlayer()->IsComboActive())
+        {
+            return true;
+        }
+
+        return character->GetDamage() > 0;
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqUndamagedTarget()
