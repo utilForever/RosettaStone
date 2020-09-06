@@ -1573,7 +1573,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "NEW1_012o", EntityType::SOURCE) };
     cards.emplace("NEW1_012", CardDef(power));
