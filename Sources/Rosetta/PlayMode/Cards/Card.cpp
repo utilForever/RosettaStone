@@ -57,6 +57,10 @@ void Card::Initialize()
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqDamagedTarget());
                 break;
+            case PlayReq::REQ_DAMAGED_TARGET_UNLESS_COMBO:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqDamagedTargetUnlessCombo());
+                break;
             case PlayReq::REQ_UNDAMAGED_TARGET:
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqUndamagedTarget());
