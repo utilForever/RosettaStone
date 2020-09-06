@@ -21,6 +21,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
@@ -471,6 +472,19 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsOpFieldNotFull());
+    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(TagValues{
+                                      { GameTag::COST, 4, RelaSign::EQ } }),
+                                  std::make_shared<SummonStackTask>(),
+                                  std::make_shared<SetGameTagTask>(
+                                      EntityType::SOURCE, GameTag::REVEALED, 1),
+                                  std::make_shared<MoveToGraveyardTask>(
+                                      EntityType::SOURCE) };
+    cards.emplace("BT_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [BT_004] Imprisoned Observer - COST:3 [ATK:4/HP:5]

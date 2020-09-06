@@ -262,6 +262,76 @@ TEST_CASE("[Mage : Spell] - BT_002 : Incanter's Flow")
     }
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [BT_003] Netherwind Portal - COST:3
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent casts a spell,
+//       summon a random 4-Cost minion.
+// --------------------------------------------------------
+// GameTag:
+//  - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BT_003 : Netherwind Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curSecret = *(curPlayer->GetSecretZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Onyxia"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Netherwind Portal"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Bolt"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Bolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.IsFull(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(card2->GetGameTag(GameTag::REVEALED), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(card2->GetGameTag(GameTag::REVEALED), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, curField[6]));
+    CHECK_EQ(curSecret.GetCount(), 0);
+    CHECK_EQ(card2->GetGameTag(GameTag::REVEALED), 1);
+    CHECK_EQ(curField.IsFull(), true);
+    CHECK_EQ(curField[6]->card->GetCost(), 4);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [BT_014] Starscryer - COST:2 [ATK:3/HP:1]
 //  - Set: BLACK_TEMPLE, Rarity: Common
