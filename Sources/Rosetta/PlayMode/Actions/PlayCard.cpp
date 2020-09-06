@@ -333,6 +333,10 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
         player->game->ProcessDestroyAndUpdateAura();
     }
 
+    // Validate after play spell trigger
+    Trigger::ValidateTriggers(player->game, spell,
+                              SequenceType::AFTER_PLAY_SPELL);
+
     // Process after cast trigger
     player->game->taskQueue.StartEvent();
     player->game->triggerManager.OnAfterCastTrigger(spell);
