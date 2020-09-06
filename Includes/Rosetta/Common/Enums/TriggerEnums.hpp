@@ -89,6 +89,7 @@ enum class SequenceType
     PLAY_CARD,
     PLAY_MINION,
     PLAY_SPELL,
+    AFTER_PLAY_SPELL,
     TARGET
 };
 }  // namespace RosettaStone
