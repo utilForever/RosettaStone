@@ -486,6 +486,74 @@ TEST_CASE("[Neutral : Spell] - SCH_509 : Brain Freeze")
     CHECK_EQ(curField[0]->IsFrozen(), true);
 }
 
+// ---------------------------------------- SPELL - NEUTRAL
+// [SCH_521] Coerce - COST:3
+//  - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy a damaged minion.
+//       <b>Combo:</b> Destroy any minion.
+// --------------------------------------------------------
+// GameTag:
+//  - COMBO = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_DAMAGED_TARGET_UNLESS_COMBO = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - SCH_521 : Coerce")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lake Thresher"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lake Thresher"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Coerce"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Coerce"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opHand.GetCount(), 3);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opHand.GetCount(), 1);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_522] Steeldancer - COST:4 [ATK:4/HP:4]
 //  - Set: SCHOLOMANCE, Rarity: Epic
