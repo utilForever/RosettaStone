@@ -103,6 +103,53 @@ TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
+//  - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spellburst:</b> Add 2 random spells
+//       from your class to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_230 : Onyx Magescribe")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Onyx Magescribe"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Explosion"));
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->card->name, "Onyx Magescribe");
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+    CHECK_EQ(curHand.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::MAGE);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::MAGE);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [SCH_234] Shifty Sophomore - COST:4 [ATK:4/HP:4]
 //  - Set: SCHOLOMANCE, Rarity: Rare

@@ -1122,7 +1122,7 @@ SCHOLOMANCE | SCH_181 | Archwitch Willow |
 SCHOLOMANCE | SCH_182 | Speaker Gidra |  
 SCHOLOMANCE | SCH_199 | Transfer Student |  
 SCHOLOMANCE | SCH_224 | Headmaster Kel'Thuzad |  
-SCHOLOMANCE | SCH_230 | Onyx Magescribe |  
+SCHOLOMANCE | SCH_230 | Onyx Magescribe | O
 SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
 SCHOLOMANCE | SCH_232 | Crimson Hothead |  
 SCHOLOMANCE | SCH_233 | Draconic Studies |  
