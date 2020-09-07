@@ -57,6 +57,10 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Summon a Gibberling.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<SummonTask>("SCH_242", SummonSide::RIGHT));
+    cards.emplace("SCH_242", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_333] Nature Studies - COST:1

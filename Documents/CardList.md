@@ -1133,7 +1133,7 @@ SCHOLOMANCE | SCH_237 | Athletic Studies |
 SCHOLOMANCE | SCH_238 | Reaper's Scythe |  
 SCHOLOMANCE | SCH_239 | Krolusk Barkstripper |  
 SCHOLOMANCE | SCH_241 | Firebrand |  
-SCHOLOMANCE | SCH_242 | Gibberling |  
+SCHOLOMANCE | SCH_242 | Gibberling | O
 SCHOLOMANCE | SCH_243 | Wyrm Weaver |  
 SCHOLOMANCE | SCH_244 | Teacher's Pet |  
 SCHOLOMANCE | SCH_245 | Steward of Scrolls |  

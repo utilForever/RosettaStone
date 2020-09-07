@@ -207,6 +207,56 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
     CHECK_EQ(curField[0]->HasSpellburst(), false);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [SCH_242] Gibberling - COST:1 [ATK:1/HP:1]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spellburst:</b> Summon a Gibberling.
+// --------------------------------------------------------
+TEST_CASE("[DRUID : MINION] - SCH_242 : Gibberling")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gibberling"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Savage Roar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+    CHECK_EQ(curField[1]->card->name, "Wisp");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+    CHECK_EQ(curField[1]->card->name, "Gibberling");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasSpellburst(), true);
+    CHECK_EQ(curField[2]->card->name, "Wisp");
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [SCH_426] Infiltrator Lilian - COST:4 [ATK:4/HP:2]
 //  - Set: SCHOLOMANCE, Rarity: Legendary
