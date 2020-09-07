@@ -176,14 +176,23 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
         trigger->Activate(hero);
     }
 
+    // Process play card trigger
     player->game->taskQueue.StartEvent();
     player->game->triggerManager.OnPlayCardTrigger(hero);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
 
+    // Process power tasks
     player->game->taskQueue.StartEvent();
     hero->ActivateTask(PowerType::POWER, target, chooseOne);
+
+    // If player has extra battlecry, activate power task again
+    if (player->ExtraBattlecry())
+    {
+        hero->ActivateTask(PowerType::POWER, target, chooseOne);    
+    }
+
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
@@ -253,6 +262,12 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         minion->ActivateTask(PowerType::COMBO, target);
     }
     else
+    {
+        minion->ActivateTask(PowerType::POWER, target, chooseOne);
+    }
+
+    // If player has extra battlecry, activate power task again
+    if (player->ExtraBattlecry() && minion->HasBattlecry())
     {
         minion->ActivateTask(PowerType::POWER, target, chooseOne);
     }
@@ -399,12 +414,18 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
 
     player->game->taskQueue.StartEvent();
 
-    // Process power tasks
+    // Process power or combo tasks
     if (weapon->HasCombo() && player->IsComboActive())
     {
         weapon->ActivateTask(PowerType::COMBO, target);
     }
     else
+    {
+        weapon->ActivateTask(PowerType::POWER, target);
+    }
+
+    // If player has extra battlecry, activate power task again
+    if (player->ExtraBattlecry() && weapon->HasBattlecry())
     {
         weapon->ActivateTask(PowerType::POWER, target);
     }
