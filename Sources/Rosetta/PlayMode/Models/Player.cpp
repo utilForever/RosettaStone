@@ -173,6 +173,11 @@ bool Player::ExtraTriggerSecret() const
     return playerAuraEffects.GetValue(GameTag::EXTRA_TRIGGER_SECRET) > 0;
 }
 
+bool Player::ExtraBattlecry() const
+{
+    return playerAuraEffects.GetValue(GameTag::EXTRA_BATTLECRIES_BASE) > 0;
+}
+
 bool Player::ChooseBoth() const
 {
     return playerAuraEffects.GetValue(GameTag::CHOOSE_BOTH) > 0;
