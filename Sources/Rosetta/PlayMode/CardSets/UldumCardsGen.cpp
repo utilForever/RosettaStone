@@ -122,6 +122,10 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_291pe", EntityType::PLAYER));
+    cards.emplace("ULD_291p", CardDef(power));
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [ULD_326p] Ancient Blades (*) - COST:2
@@ -1744,6 +1748,8 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [ULD_158] Sandstorm Elemental - COST:2 [ATK:2/HP:2]
     // - Race: Elemental, Set: Uldum, Rarity: Common
@@ -1853,6 +1859,14 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard());
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_291p") };
+    cards.emplace("ULD_291", CardDef(power, 6, 0));
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [ULD_413] Splitting Axe - COST:4 [ATK:3/HP:0]
@@ -3064,6 +3078,16 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_BATTLECRIES_BASE,
+                                             EffectOperator::SET, 1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::TURN_END, nullptr };
+    }
+    cards.emplace("ULD_291pe", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_309e] Archaelogical Study (*) - COST:0

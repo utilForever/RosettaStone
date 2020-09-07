@@ -514,6 +514,140 @@ TEST_CASE("[Druid : Minion] - ULD_139 : Elise the Enlightened")
     CHECK_EQ(curHand[9]->card->name, "Wrath");
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [ULD_291] Corrupt the Waters - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Play 6 <b>Battlecry</b> cards.
+//       <b>Reward:</b> Heart of Vir'naal.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 6
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 54370
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - ULD_291 : Corrupt the Waters")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+    auto& curField = *(curPlayer->GetFieldZone());
+    const auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Corrupt the Waters"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card9 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Razorfen Hunter"));
+    const auto card10 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Abusive Sergeant"));
+    const auto card11 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Explosion"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curSecret->quest != nullptr);
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 6);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opHero));
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+    CHECK_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, opHero));
+    CHECK_EQ(quest->GetQuestProgress(), 2);
+    CHECK_EQ(opHero->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card4, opHero));
+    CHECK_EQ(quest->GetQuestProgress(), 3);
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card5, opHero));
+    CHECK_EQ(quest->GetQuestProgress(), 4);
+    CHECK_EQ(opHero->GetHealth(), 26);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card6, opHero));
+    CHECK_EQ(quest->GetQuestProgress(), 5);
+    CHECK_EQ(opHero->GetHealth(), 25);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card7, opHero));
+    CHECK(curSecret->quest == nullptr);
+    CHECK_EQ(quest->GetQuestProgress(), 6);
+    CHECK_EQ(curHero->heroPower->card->id, "ULD_291p");
+    CHECK_EQ(opHero->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card11));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    opHero->SetDamage(0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->ExtraBattlecry(), true);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card8, opHero));
+    CHECK_EQ(opHero->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card9));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->card->name, "Razorfen Hunter");
+    CHECK_EQ(curField[2]->card->name, "Boar");
+    CHECK_EQ(curField[3]->card->name, "Boar");
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card10, curField[2]));
+    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->ExtraBattlecry(), false);
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [ULD_140] Supreme Archaeology - COST:1
 // - Set: Uldum, Rarity: Legendary
@@ -662,8 +796,8 @@ TEST_CASE("[Paladin : Minion] - ULD_144 : Brazen Zealot")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Brazen Zealot")),
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Brazen Zealot")),
     };
-    const auto minionCard = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Commander Rhyssa"));
+    const auto minionCard =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Commander Rhyssa"));
 
     const auto curField = curPlayer->GetFieldZone();
 
@@ -4046,8 +4180,8 @@ TEST_CASE("[Warrior : Minion] - ULD_253 : Tomb Warden")
     auto& curField = *(curPlayer->GetFieldZone());
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Galakrond, the Unbreakable"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Galakrond, the Unbreakable"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(5, curHand.GetCount());
