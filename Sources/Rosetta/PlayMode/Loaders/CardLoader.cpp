@@ -29,13 +29,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
     for (auto& cardData : j)
     {
         const std::string id = cardData["id"].get<std::string>();
-        // NOTE: Check invalid card type for 'Placeholder'
-        // See https://hearthstone.gamepedia.com/Placeholder_Card
-        if (id == "PlaceholderCard")
-        {
-            continue;
-        }
-
         const std::string name = cardData["name"].is_null()
                                      ? ""
                                      : cardData["name"].get<std::string>();
