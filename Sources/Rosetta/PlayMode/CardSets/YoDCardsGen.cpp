@@ -4,6 +4,8 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -118,6 +120,8 @@ void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [YOD_004] Chopshop Copter - COST:3 [ATK:2/HP:4]
     // - Race: Mechanical, Set: YoD, Rarity: Rare
@@ -144,6 +148,14 @@ void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_TARGET_WITH_RACE = 20
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOD_005e", EntityType::TARGET));
+    cards.emplace(
+        "YOD_005",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [YOD_036] Rotnest Drake - COST:5 [ATK:6/HP:5]
@@ -159,12 +171,17 @@ void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [YOD_005e] Fresh Scent (*) - COST:0
     // - Set: YoD
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOD_005e"));
+    cards.emplace("YOD_005e", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [YOD_005ts] Fresh Scent (*) - COST:2
@@ -177,6 +194,14 @@ void YoDCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_TARGET_WITH_RACE = 20
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOD_005e", EntityType::TARGET));
+    cards.emplace(
+        "YOD_005ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 }
 
 void YoDCardsGen::AddMage(std::map<std::string, CardDef>& cards)
