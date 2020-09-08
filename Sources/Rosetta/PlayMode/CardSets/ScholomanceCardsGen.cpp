@@ -21,6 +21,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -226,7 +227,7 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     //  - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::SOURCE));
     cards.emplace("SCH_133", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
@@ -2602,7 +2603,7 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     //  - Race: Beast, Set: SCHOLOMANCE
     // --------------------------------------------------------
     // GameTag:
-    //  - ELITE = 1SCH_231e
+    //  - ELITE = 1
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL

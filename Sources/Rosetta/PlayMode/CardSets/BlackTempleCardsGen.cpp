@@ -2662,7 +2662,7 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // Text: Increased Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(3)));
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(2)));
     cards.emplace("BT_715e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2672,7 +2672,7 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // Text: Increased Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(3)));
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(2)));
     cards.emplace("BT_716e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
