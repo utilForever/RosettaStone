@@ -203,6 +203,8 @@ void YoDCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [YOD_010] Shotbot - COST:2 [ATK:2/HP:2]
     // - Race: Mechanical, Set: YoD, Rarity: Common
@@ -212,6 +214,9 @@ void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_010", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [YOD_012] Air Raid - COST:2

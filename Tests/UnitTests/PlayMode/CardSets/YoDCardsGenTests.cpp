@@ -6,7 +6,16 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-TEST_CASE("[YoDCardsGen] - Temp")
+// --------------------------------------- MINION - PALADIN
+// [YOD_010] Shotbot - COST:2 [ATK:2/HP:2]
+// - Race: Mechanical, Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Reborn</b>
+// --------------------------------------------------------
+// GameTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - YOD_010 : Shotbot")
 {
-    CHECK(true);
+    // Do nothing
 }
