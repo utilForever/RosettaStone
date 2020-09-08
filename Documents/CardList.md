@@ -1099,7 +1099,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 SCHOLOMANCE | SCH_120 | Cabal Acolyte |  
 SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |  
-SCHOLOMANCE | SCH_133 | Wolpertinger |  
+SCHOLOMANCE | SCH_133 | Wolpertinger | O
 SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
 SCHOLOMANCE | SCH_136 | Power Word: Feast |  
 SCHOLOMANCE | SCH_137 | Frazzled Freshman | O

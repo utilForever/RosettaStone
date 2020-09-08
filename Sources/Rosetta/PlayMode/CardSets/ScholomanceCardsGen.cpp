@@ -225,6 +225,9 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>(EntityType::SOURCE));
+    cards.emplace("SCH_133", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [SCH_239] Krolusk Barkstripper - COST:4 [ATK:3/HP:5]
@@ -2599,7 +2602,7 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     //  - Race: Beast, Set: SCHOLOMANCE
     // --------------------------------------------------------
     // GameTag:
-    //  - ELITE = 1
+    //  - ELITE = 1SCH_231e
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
