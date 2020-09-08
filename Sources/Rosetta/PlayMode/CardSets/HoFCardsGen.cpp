@@ -617,7 +617,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //       to a random enemy.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(nullptr);
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::ENEMIES),
