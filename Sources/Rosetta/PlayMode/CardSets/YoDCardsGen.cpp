@@ -6,10 +6,11 @@
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
-#include "Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp"
-#include "Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp"
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -383,6 +384,8 @@ void YoDCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [YOD_016] Skyvateer - COST:2 [ATK:1/HP:3]
     // - Set: YoD, Rarity: Common
@@ -395,6 +398,9 @@ void YoDCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("YOD_016", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [YOD_017] Shadow Sculptor - COST:5 [ATK:3/HP:2]
