@@ -4,9 +4,15 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void YoDCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // -------------------------------------------- HERO - MAGE
@@ -235,6 +241,14 @@ void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 2, SummonSide::SPELL, true));
+    power.AddPowerTask(
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 1));
+    cards.emplace(
+        "YOD_012",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [YOD_043] Scalelord - COST:5 [ATK:5/HP:6]
@@ -252,6 +266,8 @@ void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [YOD_012ts] Air Raid (*) - COST:2
     // - Set: YoD, Rarity: Rare
@@ -264,6 +280,14 @@ void YoDCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 2, SummonSide::SPELL, true));
+    power.AddPowerTask(
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 1));
+    cards.emplace(
+        "YOD_012ts",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 }
 
 void YoDCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
