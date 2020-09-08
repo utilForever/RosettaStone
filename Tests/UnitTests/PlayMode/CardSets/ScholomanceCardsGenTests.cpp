@@ -555,6 +555,83 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
+// [SCH_352] Potion of Illusion - COST:4
+//  - Set: SCHOLOMANCE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Add 1/1 copies of your minions to your hand.
+//       They cost (1).
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blazing Battlemage"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Defias Ringleader"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Potion of Illusion"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Blazing Battlemage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(opHand.GetCount(), 1);  // The Coin
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    const auto CheckMinion = [](Playable* card, bool isChanged) {
+        const auto minion = dynamic_cast<Minion*>(card);
+        CHECK_EQ(minion->GetCost() == 1, isChanged);
+        CHECK_EQ(minion->GetAttack() == 1, isChanged);
+        CHECK_EQ(minion->GetHealth() == 1, isChanged);
+    };
+    CheckMinion(curHand[0], false);
+    CheckMinion(curHand[1], true);
+    CheckMinion(curHand[2], true);
+    CheckMinion(curHand[3], true);
+    CheckMinion(curHand[4], true);
+}
+
+// ---------------------------------------- SPELL - NEUTRAL
 // [SCH_509] Brain Freeze - COST:1
 //  - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------

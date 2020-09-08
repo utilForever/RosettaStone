@@ -11,13 +11,16 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
@@ -1000,13 +1003,6 @@ void ScholomanceCardsGen::AddRogueNonCollect(
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
     // Text: This might be an illusion that dies when it takes damage.
-    // --------------------------------------------------------
-
-    // ------------------------------------ ENCHANTMENT - ROGUE
-    // [SCH_352e] Potion of Illusion - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: 1/1.
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
@@ -2011,6 +2007,15 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Add 1/1 copies of your minions to your hand.
     //       They cost (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_352e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<ApplyEffectTask>(
+        EntityType::STACK, EffectList{ Effects::SetCost(1) }));
+    cards.emplace("SCH_352", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_425] Doctor Krastinov - COST:5 [ATK:4/HP:4]
@@ -2724,6 +2729,16 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // [SCH_351b] This is not an Illusion. - COST:0
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_352e] Potion of Illusion - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: 1/1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_352e"));
+    cards.emplace("SCH_352e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_519e] Akunda's Bite - COST:0
