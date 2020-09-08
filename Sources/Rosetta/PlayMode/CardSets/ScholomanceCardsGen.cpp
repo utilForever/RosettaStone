@@ -17,6 +17,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
@@ -1980,6 +1981,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - COMBO = 1
     //  - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<DiscoverTask>(CardType::SPELL, CardClass::MAGE));
+    cards.emplace("SCH_350", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]

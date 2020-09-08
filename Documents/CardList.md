@@ -1164,7 +1164,7 @@ SCHOLOMANCE | SCH_337 | Troublemaker |
 SCHOLOMANCE | SCH_340 | Bloated Python |  
 SCHOLOMANCE | SCH_343 | Void Drinker |  
 SCHOLOMANCE | SCH_348 | Combustion |  
-SCHOLOMANCE | SCH_350 | Wand Thief |  
+SCHOLOMANCE | SCH_350 | Wand Thief | O
 SCHOLOMANCE | SCH_351 | Jandice Barov |  
 SCHOLOMANCE | SCH_352 | Potion of Illusion | O
 SCHOLOMANCE | SCH_353 | Cram Session |  

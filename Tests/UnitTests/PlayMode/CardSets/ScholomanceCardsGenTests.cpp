@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -552,6 +553,55 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->HasSpellburst(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_350] Wand Thief - COST:1 [ATK:1/HP:2]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Combo:</b> <b>Discover</b> a Mage spell.
+// --------------------------------------------------------
+// GameTag:
+//  - COMBO = 1
+//  - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wand Thief"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wand Thief"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice == nullptr);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+    }
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
