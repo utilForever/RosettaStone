@@ -8,12 +8,15 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp"
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp"
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void YoDCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -292,6 +295,14 @@ void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("YOD_043", CardDef(power));
 }
 
 void YoDCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)

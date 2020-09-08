@@ -236,3 +236,55 @@ TEST_CASE("[Paladin : Spell] - YOD_012 : Air Raid")
     CHECK_EQ(curField[3]->card->name, "Silver Hand Recruit");
     CHECK_EQ(curField[3]->HasTaunt(), true);
 }
+
+// --------------------------------------- MINION - PALADIN
+// [YOD_043] Scalelord - COST:5 [ATK:5/HP:6]
+// - Race: Dragon, Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your Murlocs <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - YOD_043 : Scalelord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scalelord"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->HasDivineShield(), true);
+    CHECK_EQ(curField[2]->HasDivineShield(), false);
+}
