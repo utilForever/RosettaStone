@@ -2202,6 +2202,12 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - TAUNT = 1
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BT_715e", EntityType::SOURCE) };
+    cards.emplace("BT_715", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_716] Bonechewer Vanguard - COST:7 [ATK:4/HP:10]

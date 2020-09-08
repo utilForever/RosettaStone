@@ -1067,7 +1067,7 @@ BLACK_TEMPLE | BT_710 | Greyheart Sage |
 BLACK_TEMPLE | BT_711 | Blackjack Stunner |  
 BLACK_TEMPLE | BT_713 | Akama |  
 BLACK_TEMPLE | BT_714 | Frozen Shadoweaver |  
-BLACK_TEMPLE | BT_715 | Bonechewer Brawler |  
+BLACK_TEMPLE | BT_715 | Bonechewer Brawler | O
 BLACK_TEMPLE | BT_716 | Bonechewer Vanguard |  
 BLACK_TEMPLE | BT_717 | Burrowing Scorpid |  
 BLACK_TEMPLE | BT_720 | Ruststeed Raider |  
