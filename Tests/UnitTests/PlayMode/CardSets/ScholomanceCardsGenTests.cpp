@@ -631,6 +631,75 @@ TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
     CheckMinion(curHand[4], true);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_425] Doctor Krastinov - COST:5 [ATK:4/HP:4]
+//  - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       Whenever this attacks, give your weapon +1/+1.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - RUSH = 1
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doctor Krastinov"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doctor Krastinov"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doctor Krastinov"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Blazing Battlemage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opHero));
+    CHECK_EQ(curHero->HasWeapon(), false);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, AttackTask(card2, opHero));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, AttackTask(card3, card4));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 4);
+}
+
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_509] Brain Freeze - COST:1
 //  - Set: SCHOLOMANCE, Rarity: Rare

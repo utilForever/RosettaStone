@@ -1396,13 +1396,6 @@ void ScholomanceCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
-    // [SCH_425e] Sharpened - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: +1/+1.
-    // --------------------------------------------------------
-
-    // ---------------------------------- ENCHANTMENT - WARRIOR
     // [SCH_526e] A Common Peasant - COST:0
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
@@ -2029,6 +2022,13 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - RUSH = 1
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SCH_425e", EntityType::WEAPON) };
+    cards.emplace("SCH_425", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_428] Lorekeeper Polkelt - COST:4 [ATK:4/HP:5]
@@ -2739,6 +2739,18 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("SCH_352e"));
     cards.emplace("SCH_352e", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_425e] Sharpened - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>(
+            { Effects::AttackN(1), Effects::DurabilityN(1) })));
+    cards.emplace("SCH_425e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_519e] Akunda's Bite - COST:0
