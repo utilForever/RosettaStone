@@ -1794,6 +1794,62 @@ TEST_CASE("[Neutral : Minion] - BT_715 : Bonechewer Brawler")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [BT_716] Bonechewer Vanguard - COST:7 [ATK:4/HP:10]
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> Whenever this minion takes damage,
+//       gain +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+//  - TAUNT = 1
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BT_716 : Bonechewer Vanguard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bonechewer Vanguard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card));
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [BT_726] Dragonmaw Sky Stalker - COST:6 [ATK:5/HP:6]
 //  - Race: Dragon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
