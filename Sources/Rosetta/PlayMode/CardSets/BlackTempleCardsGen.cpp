@@ -2655,6 +2655,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(3)));
+    cards.emplace("BT_715e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_716e] Victorious - COST:0
