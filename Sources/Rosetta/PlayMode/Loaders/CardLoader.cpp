@@ -110,6 +110,12 @@ void CardLoader::Load(std::vector<Card*>& cards)
             gameTags.emplace(gameTag, 1);
         }
 
+        // NOTE: Skyvateer (YOD_016) doesn't have GameTag::DEATHRATTLE
+        if (dbfID == 56091)
+        {
+            gameTags.emplace(GameTag::DEATHRATTLE, 1);
+        }
+
         Card* card = new Card();
         card->id = id;
         card->dbfID = dbfID;
