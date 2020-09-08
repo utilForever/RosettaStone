@@ -46,6 +46,8 @@ void YoDCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001] Rising Winds - COST:2
     // - Set: YoD, Rarity: Common
@@ -72,6 +74,9 @@ void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REBORN = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_003", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [YOD_040] Steel Beetle - COST:2 [ATK:2/HP:3]
