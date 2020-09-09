@@ -89,17 +89,17 @@ TargetingPredicate TargetingPredicates::ReqTargetWithRace(Race race)
 
 TargetingPredicate TargetingPredicates::ReqTargetWithDeathrattle()
 {
-    return [=](Character* character) { return character->HasDeathrattle(); };
+    return [](Character* character) { return character->HasDeathrattle(); };
 }
 
 TargetingPredicate TargetingPredicates::ReqDamagedTarget()
 {
-    return [=](Character* character) { return character->GetDamage() > 0; };
+    return [](Character* character) { return character->GetDamage() > 0; };
 }
 
 TargetingPredicate TargetingPredicates::ReqDamagedTargetUnlessCombo()
 {
-    return [=](Character* character) {
+    return [](Character* character) {
         if (character->game->GetCurrentPlayer()->IsComboActive())
         {
             return true;
@@ -111,7 +111,7 @@ TargetingPredicate TargetingPredicates::ReqDamagedTargetUnlessCombo()
 
 TargetingPredicate TargetingPredicates::ReqUndamagedTarget()
 {
-    return [=](Character* character) { return character->GetDamage() == 0; };
+    return [](Character* character) { return character->GetDamage() == 0; };
 }
 
 TargetingPredicate TargetingPredicates::ReqTargetMaxAttack(int value)
@@ -135,7 +135,7 @@ AvailabilityPredicate TargetingPredicates::ReqTargetForCombo()
 
 TargetingPredicate TargetingPredicates::ReqMustTargetTaunter()
 {
-    return [=](Character* character) {
+    return [](Character* character) {
         const auto minion = dynamic_cast<Minion*>(character);
         return minion && minion->HasTaunt();
     };
