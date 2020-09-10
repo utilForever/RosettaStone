@@ -159,6 +159,59 @@ TEST_CASE("[Hunter : Spell] - YOD_005 : Fresh Scent")
 }
 
 // ------------------------------------------ MINION - MAGE
+// [YOD_007] Animated Avalanche - COST:7 [ATK:7/HP:6]
+// - Race: Elemental, Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you played an Elemental
+//       last turn, summon a copy of this.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - YOD_007 : Animated Avalanche")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Animated Avalanche"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Animated Avalanche"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Animated Avalanche");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Animated Avalanche");
+    CHECK_EQ(curField[2]->card->name, "Animated Avalanche");
+}
+
+// ------------------------------------------ MINION - MAGE
 // [YOD_008] Arcane Amplifier - COST:3 [ATK:2/HP:5]
 // - Race: Elemental, Set: YoD, Rarity: Common
 // --------------------------------------------------------
