@@ -18,6 +18,7 @@ namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void YoDCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -215,6 +216,8 @@ void YoDCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [YOD_007] Animated Avalanche - COST:7 [ATK:7/HP:6]
     // - Race: Elemental, Set: YoD, Rarity: Common
@@ -235,10 +238,17 @@ void YoDCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HEROPOWER_DAMAGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::HEROPOWER_DAMAGE,
+                                             EffectOperator::ADD, 2) }));
+    cards.emplace("YOD_008", CardDef(power));
 }
 
 void YoDCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)

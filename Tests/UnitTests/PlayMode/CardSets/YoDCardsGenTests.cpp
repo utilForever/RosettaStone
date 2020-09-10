@@ -158,6 +158,59 @@ TEST_CASE("[Hunter : Spell] - YOD_005 : Fresh Scent")
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [YOD_008] Arcane Amplifier - COST:3 [ATK:2/HP:5]
+// - Race: Elemental, Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: Your Hero Power deals 2 extra damage.
+// --------------------------------------------------------
+// GameTag:
+// - HEROPOWER_DAMAGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - YOD_008 : Arcane Amplifier")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Amplifier"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("King Krush"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 26);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [YOD_010] Shotbot - COST:2 [ATK:2/HP:2]
 // - Race: Mechanical, Set: YoD, Rarity: Common
