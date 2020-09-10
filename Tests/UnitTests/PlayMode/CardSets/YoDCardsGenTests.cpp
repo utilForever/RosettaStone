@@ -158,6 +158,61 @@ TEST_CASE("[Hunter : Spell] - YOD_005 : Fresh Scent")
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [YOD_036] Rotnest Drake - COST:5 [ATK:6/HP:5]
+// - Race: Dragon, Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       destroy a random enemy minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - YOD_036 : Rotnest Drake")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Amplifier"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Amplifier"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Rotnest Drake"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Rotnest Drake"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 1);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [YOD_007] Animated Avalanche - COST:7 [ATK:7/HP:6]
 // - Race: Elemental, Set: YoD, Rarity: Common
