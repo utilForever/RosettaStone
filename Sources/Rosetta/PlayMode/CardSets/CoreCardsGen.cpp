@@ -205,7 +205,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         for (const auto& id : playable->card->entourages)
         {
             bool exist = false;
-            for (auto minion : minions)
+            for (const auto& minion : minions)
             {
                 if (id == minion->card->id)
                 {
