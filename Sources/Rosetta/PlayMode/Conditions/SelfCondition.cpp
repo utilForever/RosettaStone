@@ -466,6 +466,13 @@ SelfCondition SelfCondition::SpellsPlayedThisTurn(int num)
     });
 }
 
+SelfCondition SelfCondition::IsPlayElementalMinionLastTurn()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return playable->player->GetNumElementalPlayedLastTurn() > 0;
+    });
+}
+
 SelfCondition SelfCondition::IsNotPlayElementalMinionThisTurn()
 {
     return SelfCondition([=](Playable* playable) -> bool {

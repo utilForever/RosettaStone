@@ -227,6 +227,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition SpellsPlayedThisTurn(int num);
 
+    //! SelfCondition wrapper for checking the player plays
+    //! elemental minion in last turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsPlayElementalMinionLastTurn();
+
     //! SelfCondition wrapper for checking the player don't play
     //! elemental minion in this turn.
     //! \return Generated SelfCondition for intended purpose.
