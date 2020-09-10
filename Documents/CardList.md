@@ -1067,8 +1067,8 @@ BLACK_TEMPLE | BT_710 | Greyheart Sage |
 BLACK_TEMPLE | BT_711 | Blackjack Stunner |  
 BLACK_TEMPLE | BT_713 | Akama |  
 BLACK_TEMPLE | BT_714 | Frozen Shadoweaver |  
-BLACK_TEMPLE | BT_715 | Bonechewer Brawler |  
-BLACK_TEMPLE | BT_716 | Bonechewer Vanguard |  
+BLACK_TEMPLE | BT_715 | Bonechewer Brawler | O
+BLACK_TEMPLE | BT_716 | Bonechewer Vanguard | O
 BLACK_TEMPLE | BT_717 | Burrowing Scorpid |  
 BLACK_TEMPLE | BT_720 | Ruststeed Raider |  
 BLACK_TEMPLE | BT_721 | Blistering Rot |  
@@ -1099,7 +1099,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 SCHOLOMANCE | SCH_120 | Cabal Acolyte |  
 SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |  
-SCHOLOMANCE | SCH_133 | Wolpertinger |  
+SCHOLOMANCE | SCH_133 | Wolpertinger | O
 SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
 SCHOLOMANCE | SCH_136 | Power Word: Feast |  
 SCHOLOMANCE | SCH_137 | Frazzled Freshman | O

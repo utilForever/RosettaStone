@@ -69,6 +69,45 @@ TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
 }
 
+// --------------------------------------- MINION - HUNTER
+// [SCH_133] Wolpertinger - COST:1 [ATK:1/HP:1]
+// - Set: Scholomance, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a copy of this.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[HUNTER : Minion] - SCH_133 : Wolpertinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    const auto card =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolpertinger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card));
+
+    CHECK_EQ("Wolpertinger", curField[0]->card->name);
+    CHECK_EQ("Wolpertinger", curField[1]->card->name);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [SCH_137] Frazzled Freshman - COST:1 [ATK:1/HP:4]
 //  - Set: SCHOLOMANCE, Rarity: Common
