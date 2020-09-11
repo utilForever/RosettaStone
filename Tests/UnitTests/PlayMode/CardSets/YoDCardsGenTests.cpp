@@ -501,3 +501,47 @@ TEST_CASE("[Rogue : Minion] - YOD_016 : Skyvateer")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
     CHECK_EQ(curField.GetCount(), 0);
 }
+
+// ---------------------------------------- SPELL - WARLOCK
+// [YOD_025] Twisted Knowledge - COST:2
+// - Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Discover</b> 2 Warlock cards.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - YOD_025 : Twisted Knowledge")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Twisted Knowledge"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::WARLOCK);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::WARLOCK);
+}

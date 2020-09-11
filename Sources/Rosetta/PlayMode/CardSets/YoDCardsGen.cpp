@@ -8,6 +8,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
@@ -16,6 +17,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp"
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp"
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -525,6 +529,8 @@ void YoDCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [YOD_025] Twisted Knowledge - COST:2
     // - Set: YoD, Rarity: Common
@@ -534,6 +540,13 @@ void YoDCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::INVALID, CardClass::WARLOCK, Race::INVALID, Rarity::INVALID,
+        ChoiceAction::STACK, 2));
+    power.AddAfterChooseTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("YOD_025", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [YOD_026] Fiendish Servant - COST:1 [ATK:2/HP:1]
