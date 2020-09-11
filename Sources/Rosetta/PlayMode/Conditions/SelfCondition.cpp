@@ -55,9 +55,8 @@ SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 
 SelfCondition SelfCondition::IsBattlecryCard()
 {
-    return SelfCondition([=](Playable* playable) -> bool {
-        return playable->HasBattlecry();
-    });
+    return SelfCondition(
+        [=](Playable* playable) -> bool { return playable->HasBattlecry(); });
 }
 
 SelfCondition SelfCondition::IsGalakrondHero()
@@ -482,7 +481,7 @@ SelfCondition SelfCondition::IsNotPlayElementalMinionThisTurn()
 
 SelfCondition SelfCondition::IsCost(int value, RelaSign relaSign)
 {
-    return SelfCondition([=](Playable* playable) -> bool {
+    return SelfCondition([value, relaSign](Playable* playable) -> bool {
         const int val = playable->GetCost();
 
         return (relaSign == RelaSign::EQ && val == value) ||
