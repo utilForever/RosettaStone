@@ -176,12 +176,12 @@ TEST_CASE("[Neutral : Minion] - SCH_230 : Onyx Magescribe")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Onyx Magescribe"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Explosion"));
-    CHECK_EQ(curHand.GetCount(), 2);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->card->name, "Onyx Magescribe");
     CHECK_EQ(curField[0]->HasSpellburst(), true);
     CHECK_EQ(curHand.GetCount(), 1);
+
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curField[0]->HasSpellburst(), false);
     CHECK_EQ(curHand.GetCount(), 2);
