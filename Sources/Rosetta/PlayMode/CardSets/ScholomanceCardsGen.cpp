@@ -22,6 +22,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -58,6 +59,10 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Summon a Gibberling.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<SummonTask>("SCH_242", SummonSide::RIGHT));
+    cards.emplace("SCH_242", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_333] Nature Studies - COST:1
@@ -226,6 +231,9 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::SOURCE));
+    cards.emplace("SCH_133", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [SCH_239] Krolusk Barkstripper - COST:4 [ATK:3/HP:5]
@@ -1827,6 +1835,14 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: <b>Spellburst:</b> Add 2 random spells
     //       from your class to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(std::make_shared<RandomCardTask>(
+        CardType::SPELL, CardClass::PLAYER_CLASS));
+    power.AddSpellburstTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddSpellburstTask(std::make_shared<RandomCardTask>(
+        CardType::SPELL, CardClass::PLAYER_CLASS));
+    power.AddSpellburstTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_230", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]

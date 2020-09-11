@@ -2216,6 +2216,12 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - TAUNT = 1
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BT_715e", EntityType::SOURCE) };
+    cards.emplace("BT_715", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_716] Bonechewer Vanguard - COST:7 [ATK:4/HP:10]
@@ -2228,6 +2234,12 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - TAUNT = 1
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BT_716e", EntityType::SOURCE) };
+    cards.emplace("BT_716", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_717] Burrowing Scorpid - COST:4 [ATK:5/HP:2]
@@ -2663,6 +2675,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(2)));
+    cards.emplace("BT_715e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_716e] Victorious - COST:0
@@ -2670,6 +2685,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(2)));
+    cards.emplace("BT_716e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_720e] Ride Eternal - COST:0

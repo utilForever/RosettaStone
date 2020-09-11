@@ -69,6 +69,45 @@ TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
 }
 
+// --------------------------------------- MINION - HUNTER
+// [SCH_133] Wolpertinger - COST:1 [ATK:1/HP:1]
+// - Set: Scholomance, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a copy of this.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[HUNTER : Minion] - SCH_133 : Wolpertinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    const auto card =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolpertinger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card));
+
+    CHECK_EQ("Wolpertinger", curField[0]->card->name);
+    CHECK_EQ("Wolpertinger", curField[1]->card->name);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [SCH_137] Frazzled Freshman - COST:1 [ATK:1/HP:4]
 //  - Set: SCHOLOMANCE, Rarity: Common
@@ -101,6 +140,53 @@ TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
+//  - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spellburst:</b> Add 2 random spells
+//       from your class to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_230 : Onyx Magescribe")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Onyx Magescribe"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Explosion"));
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->card->name, "Onyx Magescribe");
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+    CHECK_EQ(curHand.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::MAGE);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::MAGE);
 }
 
 // ----------------------------------------- MINION - ROGUE
@@ -158,6 +244,56 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK_EQ(curHand[0]->HasCombo(), true);
     CHECK_EQ(curField[0]->HasSpellburst(), false);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [SCH_242] Gibberling - COST:1 [ATK:1/HP:1]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spellburst:</b> Summon a Gibberling.
+// --------------------------------------------------------
+TEST_CASE("[DRUID : MINION] - SCH_242 : Gibberling")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gibberling"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Savage Roar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+    CHECK_EQ(curField[1]->card->name, "Wisp");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+    CHECK_EQ(curField[1]->card->name, "Gibberling");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasSpellburst(), true);
+    CHECK_EQ(curField[2]->card->name, "Wisp");
 }
 
 // ----------------------------------------- MINION - ROGUE
