@@ -3745,9 +3745,6 @@ TEST_CASE("[Neutral : Minion] - ULD_188 : Golden Scarab")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
-    auto& curField = *(curPlayer->GetFieldZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Golden Scarab"));
 
