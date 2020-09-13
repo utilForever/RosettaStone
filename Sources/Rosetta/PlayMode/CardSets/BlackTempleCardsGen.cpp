@@ -1612,10 +1612,12 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                 std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true);
             const auto& condition =
                 std::make_shared<SelfCondition>(SelfCondition::IsNotDead());
-            bool flag = true;
 
             damageTask->SetPlayer(player);
             damageTask->SetSource(source);
+
+            int repeatTime = 0;
+            bool flag = true;
 
             while (flag)
             {
@@ -1631,6 +1633,17 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                 for (auto& minion : minions)
                 {
                     flag = flag && condition->Evaluate(minion);
+                }
+
+                ++repeatTime;
+
+                // NOTE: Bladestorm can only repeat a maximum of 29 times. After
+                // the 30th time (dealing 30 damage), it stops, regardless of
+                // how much health the minion with the lowest one has.
+                // References: https://hearthstone.gamepedia.com/Bladestorm
+                if (repeatTime >= 30)
+                {
+                    break;
                 }
             }
 
