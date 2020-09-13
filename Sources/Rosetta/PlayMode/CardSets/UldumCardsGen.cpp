@@ -1685,7 +1685,7 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTopdeckTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, Playable* target) {
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
             const int dbfID =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
             Playable* minion =
@@ -1693,7 +1693,7 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
             Generic::Summon(dynamic_cast<Minion*>(minion), -1, player);
         }));
     power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, Playable* target) {
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
             const int dbfID =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
             Playable* minion =
