@@ -14,7 +14,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
@@ -1835,12 +1837,11 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //       from your class to your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddSpellburstTask(std::make_shared<RandomCardTask>(
-        CardType::SPELL, CardClass::PLAYER_CLASS));
-    power.AddSpellburstTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    power.AddSpellburstTask(std::make_shared<RandomCardTask>(
-        CardType::SPELL, CardClass::PLAYER_CLASS));
-    power.AddSpellburstTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddSpellburstTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(CardType::SPELL,
+                                                   CardClass::PLAYER_CLASS),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        2));
     cards.emplace("SCH_230", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2075,6 +2076,20 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_DAMAGED_TARGET_UNLESS_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddComboTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "SCH_521",
+        CardDef(power,
+                PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                          { PlayReq::REQ_MINION_TARGET, 0 },
+                          { PlayReq::REQ_DAMAGED_TARGET_UNLESS_COMBO, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_522] Steeldancer - COST:4 [ATK:4/HP:4]

@@ -109,6 +109,11 @@ int Playable::GetOverload() const
     return GetGameTag(GameTag::OVERLOAD);
 }
 
+bool Playable::HasBattlecry() const
+{
+    return GetGameTag(GameTag::BATTLECRY) == 1;
+}
+
 bool Playable::HasDeathrattle() const
 {
     return GetGameTag(GameTag::DEATHRATTLE) == 1;

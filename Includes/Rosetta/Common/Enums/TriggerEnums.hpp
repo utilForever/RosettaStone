@@ -67,6 +67,7 @@ enum class TriggerSource
     MINIONS_EXCEPT_SELF,
     ENEMY_MINIONS,
     ENCHANTMENT_TARGET,
+    SPELLS,
     ENEMY_SPELLS,
     FRIENDLY,
     FRIENDLY_EVENT_SOURCE,
@@ -88,6 +89,7 @@ enum class SequenceType
     PLAY_CARD,
     PLAY_MINION,
     PLAY_SPELL,
+    AFTER_PLAY_SPELL,
     TARGET
 };
 }  // namespace RosettaStone

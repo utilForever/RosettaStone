@@ -21,6 +21,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
@@ -471,6 +472,19 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsOpFieldNotFull());
+    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(TagValues{
+                                      { GameTag::COST, 4, RelaSign::EQ } }),
+                                  std::make_shared<SummonStackTask>(),
+                                  std::make_shared<SetGameTagTask>(
+                                      EntityType::SOURCE, GameTag::REVEALED, 1),
+                                  std::make_shared<MoveToGraveyardTask>(
+                                      EntityType::SOURCE) };
+    cards.emplace("BT_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [BT_004] Imprisoned Observer - COST:3 [ATK:4/HP:5]
@@ -1598,12 +1612,18 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                 std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true);
             const auto& condition =
                 std::make_shared<SelfCondition>(SelfCondition::IsNotDead());
-            bool flag = true;
 
             damageTask->SetPlayer(player);
             damageTask->SetSource(source);
 
-            while (flag)
+            int repeatTime = 0;
+            bool flag = true;
+
+            // NOTE: Bladestorm can only repeat a maximum of 29 times. After
+            // the 30th time (dealing 30 damage), it stops, regardless of
+            // how much health the minion with the lowest one has.
+            // References: https://hearthstone.gamepedia.com/Bladestorm
+            while (flag && repeatTime < 30)
             {
                 auto minions = IncludeTask::GetEntities(
                     EntityType::ALL_MINIONS, player, source, nullptr);
@@ -1618,6 +1638,8 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                 {
                     flag = flag && condition->Evaluate(minion);
                 }
+
+                ++repeatTime;
             }
 
             return TaskStatus::COMPLETE;

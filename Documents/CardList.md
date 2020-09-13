@@ -914,26 +914,26 @@ DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 YEAR_OF_THE_DRAGON | YOD_001 | Rising Winds |  
-YEAR_OF_THE_DRAGON | YOD_003 | Winged Guardian |  
+YEAR_OF_THE_DRAGON | YOD_003 | Winged Guardian | O
 YEAR_OF_THE_DRAGON | YOD_004 | Chopshop Copter |  
-YEAR_OF_THE_DRAGON | YOD_005 | Fresh Scent |  
+YEAR_OF_THE_DRAGON | YOD_005 | Fresh Scent | O
 YEAR_OF_THE_DRAGON | YOD_006 | Escaped Manasaber |  
-YEAR_OF_THE_DRAGON | YOD_007 | Animated Avalanche |  
-YEAR_OF_THE_DRAGON | YOD_008 | Arcane Amplifier |  
+YEAR_OF_THE_DRAGON | YOD_007 | Animated Avalanche | O
+YEAR_OF_THE_DRAGON | YOD_008 | Arcane Amplifier | O
 YEAR_OF_THE_DRAGON | YOD_009 | The Amazing Reno |  
-YEAR_OF_THE_DRAGON | YOD_010 | Shotbot |  
-YEAR_OF_THE_DRAGON | YOD_012 | Air Raid |  
+YEAR_OF_THE_DRAGON | YOD_010 | Shotbot | O
+YEAR_OF_THE_DRAGON | YOD_012 | Air Raid | O
 YEAR_OF_THE_DRAGON | YOD_013 | Cleric of Scales |  
 YEAR_OF_THE_DRAGON | YOD_014 | Aeon Reaver |  
 YEAR_OF_THE_DRAGON | YOD_015 | Dark Prophecy |  
-YEAR_OF_THE_DRAGON | YOD_016 | Skyvateer |  
+YEAR_OF_THE_DRAGON | YOD_016 | Skyvateer | O
 YEAR_OF_THE_DRAGON | YOD_017 | Shadow Sculptor |  
 YEAR_OF_THE_DRAGON | YOD_018 | Waxmancy |  
 YEAR_OF_THE_DRAGON | YOD_020 | Explosive Evolution |  
 YEAR_OF_THE_DRAGON | YOD_022 | Risky Skipper |  
 YEAR_OF_THE_DRAGON | YOD_023 | Boom Squad |  
 YEAR_OF_THE_DRAGON | YOD_024 | Bomb Wrangler |  
-YEAR_OF_THE_DRAGON | YOD_025 | Twisted Knowledge |  
+YEAR_OF_THE_DRAGON | YOD_025 | Twisted Knowledge | O
 YEAR_OF_THE_DRAGON | YOD_026 | Fiendish Servant |  
 YEAR_OF_THE_DRAGON | YOD_027 | Chaos Gazer |  
 YEAR_OF_THE_DRAGON | YOD_028 | Skydiving Instructor |  
@@ -942,21 +942,21 @@ YEAR_OF_THE_DRAGON | YOD_030 | Licensed Adventurer |
 YEAR_OF_THE_DRAGON | YOD_032 | Frenzied Felwing |  
 YEAR_OF_THE_DRAGON | YOD_033 | Boompistol Bully |  
 YEAR_OF_THE_DRAGON | YOD_035 | Grand Lackey Erkh |  
-YEAR_OF_THE_DRAGON | YOD_036 | Rotnest Drake |  
+YEAR_OF_THE_DRAGON | YOD_036 | Rotnest Drake | O
 YEAR_OF_THE_DRAGON | YOD_038 | Sky Gen'ral Kragg |  
 YEAR_OF_THE_DRAGON | YOD_040 | Steel Beetle |  
 YEAR_OF_THE_DRAGON | YOD_041 | Eye of the Storm |  
 YEAR_OF_THE_DRAGON | YOD_042 | The Fist of Ra-den |  
-YEAR_OF_THE_DRAGON | YOD_043 | Scalelord |  
+YEAR_OF_THE_DRAGON | YOD_043 | Scalelord | O
 
-- Progress: 0% (0 of 35 Cards)
+- Progress: 28% (10 of 35 Cards)
 
 ## Ashes of Outland
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 BLACK_TEMPLE | BT_002 | Incanter's Flow | O
-BLACK_TEMPLE | BT_003 | Netherwind Portal |  
+BLACK_TEMPLE | BT_003 | Netherwind Portal | O
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
 BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 20% (28 of 135 Cards)
+- Progress: 25% (35 of 135 Cards)
 
 ## Scholomance Academy
 
@@ -1185,7 +1185,7 @@ SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |
 SCHOLOMANCE | SCH_514 | Raise Dead |  
 SCHOLOMANCE | SCH_517 | Shadowlight Scholar |  
 SCHOLOMANCE | SCH_519 | Vulpera Toxinblade |  
-SCHOLOMANCE | SCH_521 | Coerce |  
+SCHOLOMANCE | SCH_521 | Coerce | O
 SCHOLOMANCE | SCH_522 | Steeldancer | O
 SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
 SCHOLOMANCE | SCH_524 | Shield of Honor |  
@@ -1233,4 +1233,4 @@ SCHOLOMANCE | SCH_713 | Cult Neophyte |
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 8% (12 of 135 Cards)
+- Progress: 14% (19 of 135 Cards)

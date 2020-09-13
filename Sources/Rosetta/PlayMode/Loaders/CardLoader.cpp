@@ -29,13 +29,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
     for (auto& cardData : j)
     {
         const std::string id = cardData["id"].get<std::string>();
-        // NOTE: Check invalid card type for 'Placeholder'
-        // See https://hearthstone.gamepedia.com/Placeholder_Card
-        if (id == "PlaceholderCard")
-        {
-            continue;
-        }
-
         const std::string name = cardData["name"].is_null()
                                      ? ""
                                      : cardData["name"].get<std::string>();
@@ -102,12 +95,18 @@ void CardLoader::Load(std::vector<Card*>& cards)
             GameTag gameTag = StrToEnum<GameTag>(mechanic.get<std::string>());
 
             // NOTE: Erase mechanics 'FREEZE' of Frost Elemental (EX1_283)
-            if (name == "Frost Elemental" && gameTag == GameTag::FREEZE)
+            if (dbfID == 512 && gameTag == GameTag::FREEZE)
             {
                 continue;
             }
 
             gameTags.emplace(gameTag, 1);
+        }
+
+        // NOTE: Skyvateer (YOD_016) doesn't have GameTag::DEATHRATTLE
+        if (dbfID == 56091)
+        {
+            gameTags.emplace(GameTag::DEATHRATTLE, 1);
         }
 
         Card* card = new Card();

@@ -71,17 +71,17 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
     {
         const auto idx =
             Random::get<std::size_t>(0, player->choice->choices.size() - 1);
-
-        player->game->taskQueue.StartEvent();
         Generic::ChoicePick(player, player->choice->choices[idx]);
-        player->game->ProcessTasks();
-        player->game->taskQueue.EndEvent();
-        player->game->ProcessDestroyAndUpdateAura();
     }
+
+    player->game->ProcessDestroyAndUpdateAura();
 
     player->choice = choiceTemp;
 
     player->SetGameTag(GameTag::CAST_RANDOM_SPELLS, 0);
+
+    player->game->taskStack.Reset();
+
     return TaskStatus::COMPLETE;
 }
 
