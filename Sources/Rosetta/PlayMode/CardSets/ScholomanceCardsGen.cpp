@@ -4,8 +4,10 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
@@ -21,6 +23,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
@@ -30,6 +33,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -990,20 +994,6 @@ void ScholomanceCardsGen::AddRogueNonCollect(
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [SCH_305e3] Secret Passage Player Enchantment - COST:0
     //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-
-    // ------------------------------------ ENCHANTMENT - ROGUE
-    // [SCH_351e] Illusion - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: This might be an illusion that dies when it takes damage.
-    // --------------------------------------------------------
-
-    // ------------------------------------ ENCHANTMENT - ROGUE
-    // [SCH_351e2] Illusion - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: This might be an illusion that dies when it takes damage.
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
@@ -1997,6 +1987,99 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - ELITE = 1
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto fieldZone = player->GetFieldZone();
+
+            if (!fieldZone->IsFull())
+            {
+                auto& stack = player->game->taskStack;
+
+                const auto SummonMinion = [source](SummonSide side,
+                                                   Playable* target) {
+                    int alternateCount = 0;
+                    Minion* minion = dynamic_cast<Minion*>(target);
+                    const int summonPos = SummonTask::GetPosition(
+                        source, side, minion, alternateCount);
+                    Generic::Summon(minion, summonPos, source);
+                };
+
+                const auto& randomMinionTask =
+                    std::make_shared<RandomMinionTask>(
+                        TagValues{ { GameTag::COST, 5, RelaSign::EQ } });
+                randomMinionTask->SetPlayer(player);
+                randomMinionTask->SetSource(source);
+
+                if (fieldZone->GetFreeSpace() == 1)
+                {
+                    randomMinionTask->Run();
+                    SummonMinion(SummonSide::LEFT, stack.playables[0]);
+                    stack.playables.clear();
+                }
+                else
+                {
+                    randomMinionTask->Run();
+                    Playable* left = stack.playables[0];
+
+                    Playable* right = nullptr;
+                    do
+                    {
+                        randomMinionTask->Run();
+                        right = stack.playables[0];
+                    } while (left->card->dbfID == right->card->dbfID);
+
+                    SummonMinion(SummonSide::LEFT, left);
+                    SummonMinion(SummonSide::RIGHT, right);
+
+                    std::vector<Playable*> playables = { left, right };
+                    stack.playables = playables;
+                    source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1,
+                                       left->card->dbfID);
+                }
+            }
+
+            return TaskStatus::COMPLETE;
+        }));
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::FILTER_STACK, 2));
+    power.AddAfterChooseTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto& stack = player->game->taskStack;
+            const auto chosen = stack.playables[0];
+            const int leftDbfID =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+            source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 0);
+
+            const auto& includeAdjacentTask =
+                std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE);
+            includeAdjacentTask->SetPlayer(player);
+            includeAdjacentTask->SetSource(source);
+            includeAdjacentTask->Run();
+
+            Card* leftInchantmentCard = nullptr;
+            Card* rightInchantmentCard = nullptr;
+
+            if (leftDbfID == chosen->card->dbfID)
+            {
+                leftInchantmentCard = Cards::FindCardByID("SCH_351a");
+                rightInchantmentCard = Cards::FindCardByID("SCH_351b");
+            }
+            else
+            {
+                leftInchantmentCard = Cards::FindCardByID("SCH_351b");
+                rightInchantmentCard = Cards::FindCardByID("SCH_351a");
+            }
+            Generic::AddEnchantment(leftInchantmentCard,
+                                    dynamic_cast<Playable*>(source),
+                                    stack.playables[0]);
+            Generic::AddEnchantment(rightInchantmentCard,
+                                    dynamic_cast<Playable*>(source),
+                                    stack.playables[1]);
+        }));
+    cards.emplace("SCH_351", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_352] Potion of Illusion - COST:4
@@ -2729,10 +2812,33 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // [SCH_351a] This is an Illusion. - COST:0
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::TARGET) };
+    cards.emplace("SCH_351a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_351b] This is not an Illusion. - COST:0
     //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_351b", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_351e] Illusion - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: This might be an illusion that dies when it takes damage.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_351e2] Illusion - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: This might be an illusion that dies when it takes damage.
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL

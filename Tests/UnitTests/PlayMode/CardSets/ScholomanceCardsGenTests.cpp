@@ -8,7 +8,9 @@
 #include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -601,6 +603,135 @@ TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
     {
         CHECK_EQ(card->GetCardType(), CardType::SPELL);
         CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
+//  - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two random 5-Cost minions.
+//       Secretly pick one that dies when it takes damage.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
+{
+    /* Testcase for 'Jandice Barov' (SCH_351) */
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::MAGE;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+        const auto card3 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Jandice Barov"));
+        const auto card4 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Jandice Barov"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
+        game.Process(curPlayer, PlayCardTask::Minion(card3));
+        CHECK(curPlayer->choice != nullptr);
+
+        const auto& left = curField[2];
+        const auto& right = curField[4];
+        CHECK_NE(left->card->dbfID, right->card->dbfID);
+        CHECK_EQ(left->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(left->card->GetCost(), 5);
+        CHECK_EQ(right->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(right->card->GetCost(), 5);
+
+        auto cards = TestUtils::GetChoiceCards(game);
+        CHECK_EQ(cards.size(), 2);
+        CHECK_EQ(cards[0]->dbfID, left->card->dbfID);
+        CHECK_EQ(cards[1]->dbfID, right->card->dbfID);
+
+        TestUtils::ChooseNthChoice(game, 2);
+        CHECK_EQ(left->appliedEnchantments.size(), 0);
+        CHECK_EQ(right->appliedEnchantments.size(), 1);
+        CHECK_EQ(right->appliedEnchantments[0]->card->id, "SCH_351a");
+
+        curPlayer->SetUsedMana(0);
+        game.Process(curPlayer, PlayCardTask::Minion(card4));
+        CHECK(curPlayer->choice == nullptr);
+        CHECK_EQ(curField.IsFull(), true);
+        CHECK_EQ(curField[5]->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(curField[5]->card->GetCost(), 5);
+    }
+
+    /* Testcase for 'This is an Illusion' (SCH_351a) */
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::MAGE;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Abomination"));
+        const auto card3 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Dalaran Crusader"));
+        const auto card4 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+        const auto card5 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
+        game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+        Generic::AddEnchantment(Cards::FindCardByID("SCH_351a"),
+                                dynamic_cast<Playable*>(card1), card2);
+        Generic::AddEnchantment(Cards::FindCardByID("SCH_351a"),
+                                dynamic_cast<Playable*>(card1), card3);
+        CHECK_EQ(card2->appliedEnchantments.size(), 1);
+        CHECK_EQ(card3->appliedEnchantments.size(), 1);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card2));
+        CHECK_EQ(card2->isDestroyed, true);
+        CHECK_EQ(card3->isDestroyed, false);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card5, card3));
+        CHECK_EQ(card3->isDestroyed, true);
+        CHECK_EQ(curField.GetCount(), 0);
     }
 }
 

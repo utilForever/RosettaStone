@@ -356,6 +356,30 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::FILTER_STACK:
+        {
+            choiceAction = ChoiceAction::STACK;
+
+            std::vector<int> list;
+            for (auto& playable : game->taskStack.playables)
+            {
+                list.emplace_back(playable->card->dbfID);
+            }
+
+            auto end_iter = list.end();
+            for (auto iter = list.begin(); iter != end_iter; ++iter)
+            {
+                end_iter = std::remove(iter + 1, end_iter, *iter);
+            }
+            list.erase(end_iter, list.end());
+
+            for (auto& dbfID : list)
+            {
+                cards.emplace_back(Cards::FindCardByDbfID(dbfID));
+            }
+
+            break;
+        }
         default:
             throw std::out_of_range(
                 "DiscoverTask::Discover() - Invalid discover type");

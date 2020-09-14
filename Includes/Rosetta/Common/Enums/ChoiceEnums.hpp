@@ -25,6 +25,7 @@ enum class DiscoverType
     SWAMPQUEEN_HAGATHA,
     TORTOLLAN_PILGRIM,
     FOUR_COST_ONE,
+    FILTER_STACK,
 };
 
 //! The action type of choice.
