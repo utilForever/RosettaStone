@@ -4,20 +4,27 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
@@ -26,6 +33,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -988,27 +996,6 @@ void ScholomanceCardsGen::AddRogueNonCollect(
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
 
-    // ------------------------------------ ENCHANTMENT - ROGUE
-    // [SCH_351e] Illusion - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: This might be an illusion that dies when it takes damage.
-    // --------------------------------------------------------
-
-    // ------------------------------------ ENCHANTMENT - ROGUE
-    // [SCH_351e2] Illusion - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: This might be an illusion that dies when it takes damage.
-    // --------------------------------------------------------
-
-    // ------------------------------------ ENCHANTMENT - ROGUE
-    // [SCH_352e] Potion of Illusion - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: 1/1.
-    // --------------------------------------------------------
-
     // ----------------------------------------- MINION - ROGUE
     // [SCH_426t] Forsaken Lilian - COST:4 [ATK:4/HP:2]
     //  - Set: SCHOLOMANCE
@@ -1397,13 +1384,6 @@ void ScholomanceCardsGen::AddWarriorNonCollect(
     // --------------------------------------- MINION - WARRIOR
     // [SCH_337t] Ruffian - COST:3 [ATK:3/HP:3]
     //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-
-    // ---------------------------------- ENCHANTMENT - WARRIOR
-    // [SCH_425e] Sharpened - COST:0
-    //  - Set: SCHOLOMANCE
-    // --------------------------------------------------------
-    // Text: +1/+1.
     // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
@@ -1991,6 +1971,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - COMBO = 1
     //  - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<DiscoverTask>(CardType::SPELL, CardClass::MAGE));
+    cards.emplace("SCH_350", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
@@ -2003,6 +1987,99 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - ELITE = 1
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const auto& fieldZone = player->GetFieldZone();
+
+            if (!fieldZone->IsFull())
+            {
+                auto& stack = player->game->taskStack;
+
+                const auto SummonMinion = [source](SummonSide side,
+                                                   Playable* summonTarget) {
+                    int alternateCount = 0;
+                    Minion* minion = dynamic_cast<Minion*>(summonTarget);
+                    const int summonPos = SummonTask::GetPosition(
+                        source, side, minion, alternateCount);
+                    Generic::Summon(minion, summonPos, source);
+                };
+
+                const auto& randomMinionTask =
+                    std::make_shared<RandomMinionTask>(
+                        TagValues{ { GameTag::COST, 5, RelaSign::EQ } });
+                randomMinionTask->SetPlayer(player);
+                randomMinionTask->SetSource(source);
+
+                if (fieldZone->GetFreeSpace() == 1)
+                {
+                    randomMinionTask->Run();
+                    SummonMinion(SummonSide::LEFT, stack.playables[0]);
+                    stack.playables.clear();
+                }
+                else
+                {
+                    randomMinionTask->Run();
+                    Playable* left = stack.playables[0];
+                    Playable* right = nullptr;
+                    do
+                    {
+                        randomMinionTask->Run();
+                        right = stack.playables[0];
+                    } while (left->card->dbfID == right->card->dbfID);
+
+                    SummonMinion(SummonSide::LEFT, left);
+                    SummonMinion(SummonSide::RIGHT, right);
+
+                    const std::vector<Playable*> playables = { left, right };
+                    stack.playables = playables;
+                    source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1,
+                                       left->card->dbfID);
+                }
+            }
+
+            return TaskStatus::COMPLETE;
+        }));
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::JANDICE_BAROV, 2));
+    power.AddAfterChooseTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto& stack = player->game->taskStack;
+            const auto chosen = stack.playables[0];
+            const int leftDbfID =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+            source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 0);
+
+            const auto& includeAdjacentTask =
+                std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE);
+            includeAdjacentTask->SetPlayer(player);
+            includeAdjacentTask->SetSource(source);
+            includeAdjacentTask->Run();
+
+            Card* leftInchantmentCard;
+            Card* rightInchantmentCard;
+
+            if (leftDbfID == chosen->card->dbfID)
+            {
+                leftInchantmentCard = Cards::FindCardByID("SCH_351a");
+                rightInchantmentCard = Cards::FindCardByID("SCH_351b");
+            }
+            else
+            {
+                leftInchantmentCard = Cards::FindCardByID("SCH_351b");
+                rightInchantmentCard = Cards::FindCardByID("SCH_351a");
+            }
+
+            Generic::AddEnchantment(leftInchantmentCard,
+                                    dynamic_cast<Playable*>(source),
+                                    stack.playables[0]);
+            Generic::AddEnchantment(rightInchantmentCard,
+                                    dynamic_cast<Playable*>(source),
+                                    stack.playables[1]);
+        }));
+    cards.emplace("SCH_351", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_352] Potion of Illusion - COST:4
@@ -2011,6 +2088,15 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Add 1/1 copies of your minions to your hand.
     //       They cost (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_352e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<ApplyEffectTask>(
+        EntityType::STACK, EffectList{ Effects::SetCost(1) }));
+    cards.emplace("SCH_352", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_425] Doctor Krastinov - COST:5 [ATK:4/HP:4]
@@ -2024,6 +2110,12 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - RUSH = 1
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SCH_425e", EntityType::WEAPON) };
+    cards.emplace("SCH_425", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_428] Lorekeeper Polkelt - COST:4 [ATK:4/HP:5]
@@ -2719,11 +2811,56 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // [SCH_351a] This is an Illusion. - COST:0
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::TARGET) };
+    cards.emplace("SCH_351a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_351b] This is not an Illusion. - COST:0
     //  - Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_351b", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_351e] Illusion - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: This might be an illusion that dies when it takes damage.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_351e2] Illusion - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: This might be an illusion that dies when it takes damage.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_352e] Potion of Illusion - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: 1/1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_352e"));
+    cards.emplace("SCH_352e", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SCH_425e] Sharpened - COST:0
+    //  - Set: SCHOLOMANCE
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>(
+            { Effects::AttackN(1), Effects::DurabilityN(1) })));
+    cards.emplace("SCH_425e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_519e] Akunda's Bite - COST:0

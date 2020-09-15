@@ -5,9 +5,12 @@
 // property of any third parties.
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -552,6 +555,330 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->HasSpellburst(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_350] Wand Thief - COST:1 [ATK:1/HP:2]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Combo:</b> <b>Discover</b> a Mage spell.
+// --------------------------------------------------------
+// GameTag:
+//  - COMBO = 1
+//  - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wand Thief"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wand Thief"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice == nullptr);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetCardClass(), CardClass::MAGE);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
+//  - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two random 5-Cost minions.
+//       Secretly pick one that dies when it takes damage.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
+{
+    /* Testcase for 'Jandice Barov' (SCH_351) */
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::MAGE;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+        const auto card3 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Jandice Barov"));
+        const auto card4 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Jandice Barov"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
+        game.Process(curPlayer, PlayCardTask::Minion(card3));
+        CHECK(curPlayer->choice != nullptr);
+
+        const auto& left = curField[2];
+        const auto& right = curField[4];
+        CHECK_NE(left->card->dbfID, right->card->dbfID);
+        CHECK_EQ(left->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(left->card->GetCost(), 5);
+        CHECK_EQ(right->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(right->card->GetCost(), 5);
+
+        auto cards = TestUtils::GetChoiceCards(game);
+        CHECK_EQ(cards.size(), 2);
+        CHECK_EQ(cards[0]->dbfID, left->card->dbfID);
+        CHECK_EQ(cards[1]->dbfID, right->card->dbfID);
+
+        TestUtils::ChooseNthChoice(game, 2);
+        CHECK_EQ(left->appliedEnchantments.size(), 0);
+        CHECK_EQ(right->appliedEnchantments.size(), 1);
+        CHECK_EQ(right->appliedEnchantments[0]->card->id, "SCH_351a");
+
+        curPlayer->SetUsedMana(0);
+        game.Process(curPlayer, PlayCardTask::Minion(card4));
+        CHECK(curPlayer->choice == nullptr);
+        CHECK_EQ(curField.IsFull(), true);
+        CHECK_EQ(curField[5]->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(curField[5]->card->GetCost(), 5);
+    }
+
+    /* Testcase for 'This is an Illusion' (SCH_351a) */
+    {
+        GameConfig config;
+        config.player1Class = CardClass::ROGUE;
+        config.player2Class = CardClass::MAGE;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Abomination"));
+        const auto card3 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Dalaran Crusader"));
+        const auto card4 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+        const auto card5 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
+        game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+        Generic::AddEnchantment(Cards::FindCardByID("SCH_351a"),
+                                dynamic_cast<Playable*>(card1), card2);
+        Generic::AddEnchantment(Cards::FindCardByID("SCH_351a"),
+                                dynamic_cast<Playable*>(card1), card3);
+        CHECK_EQ(card2->appliedEnchantments.size(), 1);
+        CHECK_EQ(card3->appliedEnchantments.size(), 1);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card2));
+        CHECK_EQ(card2->isDestroyed, true);
+        CHECK_EQ(card3->isDestroyed, false);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card5, card3));
+        CHECK_EQ(card3->isDestroyed, true);
+        CHECK_EQ(curField.GetCount(), 0);
+    }
+}
+
+// ---------------------------------------- SPELL - NEUTRAL
+// [SCH_352] Potion of Illusion - COST:4
+//  - Set: SCHOLOMANCE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Add 1/1 copies of your minions to your hand.
+//       They cost (1).
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blazing Battlemage"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Defias Ringleader"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Potion of Illusion"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Blazing Battlemage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(opHand.GetCount(), 1);  // The Coin
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    const auto CheckMinion = [](Playable* card, bool isChanged) {
+        const auto minion = dynamic_cast<Minion*>(card);
+        CHECK_EQ(minion->GetCost() == 1, isChanged);
+        CHECK_EQ(minion->GetAttack() == 1, isChanged);
+        CHECK_EQ(minion->GetHealth() == 1, isChanged);
+    };
+    CheckMinion(curHand[0], false);
+    CheckMinion(curHand[1], true);
+    CheckMinion(curHand[2], true);
+    CheckMinion(curHand[3], true);
+    CheckMinion(curHand[4], true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_425] Doctor Krastinov - COST:5 [ATK:4/HP:4]
+//  - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       Whenever this attacks, give your weapon +1/+1.
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - RUSH = 1
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doctor Krastinov"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doctor Krastinov"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doctor Krastinov"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Blazing Battlemage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opHero));
+    CHECK_EQ(curHero->HasWeapon(), false);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, AttackTask(card2, opHero));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, AttackTask(card3, card4));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 4);
 }
 
 // ---------------------------------------- SPELL - NEUTRAL

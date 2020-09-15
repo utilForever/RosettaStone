@@ -1164,9 +1164,9 @@ SCHOLOMANCE | SCH_337 | Troublemaker |
 SCHOLOMANCE | SCH_340 | Bloated Python |  
 SCHOLOMANCE | SCH_343 | Void Drinker |  
 SCHOLOMANCE | SCH_348 | Combustion |  
-SCHOLOMANCE | SCH_350 | Wand Thief |  
-SCHOLOMANCE | SCH_351 | Jandice Barov |  
-SCHOLOMANCE | SCH_352 | Potion of Illusion |  
+SCHOLOMANCE | SCH_350 | Wand Thief | O
+SCHOLOMANCE | SCH_351 | Jandice Barov | O
+SCHOLOMANCE | SCH_352 | Potion of Illusion | O
 SCHOLOMANCE | SCH_353 | Cram Session |  
 SCHOLOMANCE | SCH_354 | Ancient Void Hound |  
 SCHOLOMANCE | SCH_355 | Shardshatter Mystic |  
@@ -1174,7 +1174,7 @@ SCHOLOMANCE | SCH_356 | Glide |
 SCHOLOMANCE | SCH_357 | Fel Guardians |  
 SCHOLOMANCE | SCH_400 | Mozaki, Master Duelist |  
 SCHOLOMANCE | SCH_422 | Double Jump |  
-SCHOLOMANCE | SCH_425 | Doctor Krastinov |  
+SCHOLOMANCE | SCH_425 | Doctor Krastinov | O
 SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom |  
 SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
