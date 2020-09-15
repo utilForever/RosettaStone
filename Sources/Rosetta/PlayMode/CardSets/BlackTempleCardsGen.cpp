@@ -1527,10 +1527,10 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [BT_307] Darkglare - COST:3 [ATK:3/HP:4]
+    // [BT_307] Darkglare - COST:2 [ATK:2/HP:3]
     //  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: After your hero takes damage, refresh 2 Mana Crystals.
+    // Text: After your hero takes damage, refresh a Mana Crystals.
     // --------------------------------------------------------
     // GameTag:
     //  - TRIGGER_VISUAL = 1

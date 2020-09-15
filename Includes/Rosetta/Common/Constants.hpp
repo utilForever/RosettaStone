@@ -68,7 +68,7 @@ constexpr std::array<CardSet, 24> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 9592;
+constexpr int NUM_ALL_CARDS = 9668;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
