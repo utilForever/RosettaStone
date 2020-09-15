@@ -3617,7 +3617,7 @@
         "type": "MINION"
     },
     {
-        "attack": 3,
+        "attack": 2,
         "battlegroundsPremiumDbfId": 59969,
         "cardClass": "NEUTRAL",
         "cost": 3,
@@ -3631,7 +3631,7 @@
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
         "techLevel": 2,
-        "text": "Whenever you summon a Beast, give it +3 Attack.",
+        "text": "Whenever you summon a Beast, give it +2 Attack.",
         "type": "MINION"
     },
     {
@@ -3640,7 +3640,7 @@
         "id": "BGS_017e",
         "name": "Feral Calling",
         "set": "BATTLEGROUNDS",
-        "text": "+3 Attack.",
+        "text": "+2 Attack.",
         "type": "ENCHANTMENT"
     },
     {
@@ -3984,6 +3984,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63779,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 60558,
@@ -4109,6 +4110,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63772,
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 60628,
@@ -4126,6 +4128,7 @@
     },
     {
         "attack": 7,
+        "battlegroundsPremiumDbfId": 63780,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 60629,
@@ -4457,6 +4460,7 @@
     },
     {
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63782,
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 61060,
@@ -16152,13 +16156,13 @@
     },
     {
         "artist": "Nicola Saviori",
-        "attack": 3,
+        "attack": 2,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 56523,
         "flavor": "He's got a dark glare, but he sees crystal clear!",
-        "health": 4,
+        "health": 3,
         "id": "BT_307",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -16167,7 +16171,7 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "BLACK_TEMPLE",
-        "text": "After your hero takes damage, refresh 2 Mana Crystals.",
+        "text": "After your hero takes damage, refresh a Mana Crystal.",
         "type": "MINION"
     },
     {
@@ -28738,6 +28742,7 @@
     {
         "artist": "Anton Zemskov",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 63796,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -43911,7 +43916,7 @@
         ],
         "name": "Dragonblood",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Passive Hero Power</b>\nAfter a friendly Dragon dies, give your minions +1/+1.",
+        "text": "<b>Passive Hero Power</b>\nAfter a friendly Dragon dies, give all minions +1/+1.",
         "type": "HERO_POWER"
     },
     {
@@ -54155,6 +54160,7 @@
     {
         "artist": "Howard Lyon",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63781,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 6,
@@ -64428,6 +64434,7 @@
     {
         "artist": "James Ryman",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 63776,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 8,
@@ -65328,6 +65335,7 @@
     },
     {
         "cardClass": "MAGE",
+        "collectible": true,
         "dbfId": 61598,
         "health": 30,
         "id": "HERO_08f",
@@ -65335,6 +65343,27 @@
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 64973,
+        "id": "HERO_08fbp",
+        "name": "Fireblast",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDeal $1 damage.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 64974,
+        "id": "HERO_08fbp2",
+        "name": "Fireblast Rank 2",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDeal $2 damage.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "PRIEST",
@@ -65888,6 +65917,7 @@
     {
         "artist": "Evgeniy Dlinnov",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 63774,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 1,
@@ -76925,6 +76955,7 @@
     {
         "artist": "Steve Prescott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63778,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 2,
@@ -77458,6 +77489,7 @@
     {
         "artist": "Peter Stapleton",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63794,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -90093,7 +90125,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 4,
+        "cost": 5,
         "dbfId": 60975,
         "id": "Prologue_AzzinothHP",
         "name": "Warglaives",
@@ -90274,7 +90306,7 @@
     {
         "cardClass": "WARLOCK",
         "dbfId": 60750,
-        "health": 40,
+        "health": 30,
         "id": "Prologue_Mannoroth",
         "name": "Mannoroth",
         "set": "BLACK_TEMPLE",
@@ -90282,7 +90314,7 @@
     },
     {
         "cardClass": "WARLOCK",
-        "cost": 0,
+        "cost": 1,
         "dbfId": 60998,
         "id": "Prologue_MannorothHP",
         "name": "Felstorm",
@@ -90444,7 +90476,7 @@
     {
         "cardClass": "PRIEST",
         "dbfId": 60749,
-        "health": 30,
+        "health": 35,
         "id": "Prologue_Xavius",
         "name": "Xavius",
         "set": "BLACK_TEMPLE",
@@ -90477,7 +90509,7 @@
         "cost": 4,
         "dbfId": 59619,
         "flavor": "How did he get to the top of his class? He pulled a few strings!",
-        "health": 6,
+        "health": 4,
         "id": "SCH_120",
         "mechanics": [
             "TAUNT"
@@ -91035,14 +91067,14 @@
     },
     {
         "artist": "Alex Horley Orlandelli",
-        "attack": 7,
+        "attack": 5,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 9,
+        "cost": 8,
         "dbfId": 59252,
         "elite": true,
         "flavor": "One of the demons will do all the work while the other gets the same grade.",
-        "health": 7,
+        "health": 5,
         "id": "SCH_181",
         "mechanics": [
             "BATTLECRY"
@@ -91563,7 +91595,7 @@
         "cost": 5,
         "dbfId": 58931,
         "elite": true,
-        "flavor": "\"You wish to know my secrets, hmm? I carry a little bits of tuna in the sleeves of my robe, he loves that. Oh, you meant the risen dead? That was trivial, trivial.\"",
+        "flavor": "\"You wish to know my secrets, hmm? I carry little bits of tuna in the sleeves of my robe, he loves that. Oh, you meant the risen dead? That was trivial, trivial.\"",
         "health": 6,
         "id": "SCH_224",
         "name": "Headmaster Kel'Thuzad",
@@ -92367,7 +92399,7 @@
         "name": "Secret Passage",
         "rarity": "EPIC",
         "set": "SCHOLOMANCE",
-        "text": "Replace your hand with 5 cards from your deck. Swap back next turn.",
+        "text": "Replace your hand with 4 cards from your deck. Swap back next turn.",
         "type": "SPELL"
     },
     {
@@ -94072,7 +94104,7 @@
     },
     {
         "artist": "MAR Studio",
-        "attack": 4,
+        "attack": 5,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 5,
@@ -94090,7 +94122,7 @@
             "OVERLOAD"
         ],
         "set": "SCHOLOMANCE",
-        "text": "<b>Deathrattle:</b> Summon all four basic Totems.\n<b>Overload: (2)</b>",
+        "text": "<b>Deathrattle:</b> Summon all four basic Totems.\n<b>Overload: (1)</b>",
         "type": "MINION"
     },
     {
@@ -94763,6 +94795,722 @@
         "race": "MECHANICAL",
         "set": "EXPERT1",
         "techLevel": 1,
+        "type": "MINION"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 61382,
+        "health": 50,
+        "id": "Story_01_Aethas",
+        "name": "Aethas Sunreaver",
+        "set": "SCHOLOMANCE",
+        "text": "<i>He represents the Horde members in the Kirin Tor, but his days are numbered.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 63209,
+        "id": "Story_01_AethasHP",
+        "name": "Arcane Intensity",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $2 damage to the enemy hero and gain <b>Spell Damage +2</b> this turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 63590,
+        "id": "Story_01_AethasHPe",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Arcane Intensity",
+        "set": "SCHOLOMANCE",
+        "text": "You have <b>Spell Damage +2</b> this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63199,
+        "health": 30,
+        "id": "Story_01_Antonidas",
+        "name": "Archmage Antonidas",
+        "set": "SCHOLOMANCE",
+        "text": "<i>He's the only teacher Jaina would ever need! She just has to convince him first.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 63200,
+        "hideStats": true,
+        "id": "Story_01_AntonidasHP",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Supreme Acumen",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Passive Hero Power</b>\nYour spells cast twice.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 65202,
+        "health": 2,
+        "id": "Story_01_ArcaneKeysmith",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Arcane Keysmith",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a <b>Secret</b>. Put it into the battlefield.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 63206,
+        "health": 40,
+        "id": "Story_01_Archimonde",
+        "name": "Archimonde",
+        "set": "SCHOLOMANCE",
+        "text": "<i>This powerful invader is certain he will win... Maybe too certain.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 63210,
+        "id": "Story_01_ArchimondeHP",
+        "name": "Rain of Chaos",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon two 6/6 Infernals.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 63204,
+        "health": 30,
+        "id": "Story_01_Arthas",
+        "name": "Prince Arthas",
+        "set": "SCHOLOMANCE",
+        "text": "<i>No one knows yet, but his heart has already been corrupted by the Lich King's evil.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 63203,
+        "id": "Story_01_ArthasHP",
+        "name": "Defensive Strike",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal 2 damage to all enemy minions. If any die, give all your minions <b>Divine Shield</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 63555,
+        "elite": true,
+        "health": 3,
+        "id": "Story_01_Bigglesworth",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Assistant Bigglesworth",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a copy of a minion in your opponent's deck.",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 63717,
+        "elite": true,
+        "health": 5,
+        "id": "Story_01_BookofRunes",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Book of Runes",
+        "set": "SCHOLOMANCE",
+        "text": "At the end of your turn, reduce the Cost of cards in your hand by (1).",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 64471,
+        "health": 5,
+        "id": "Story_01_CobaltSpellkin",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Cobalt Spellkin",
+        "race": "DRAGON",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add two 1-Cost spells from your class to your hand.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 3,
+        "dbfId": 63945,
+        "id": "Story_01_FeralSpirit",
+        "name": "Feral Spirit",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Summon two 2/3 Spirit Wolves with <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 0,
+        "cardClass": "MAGE",
+        "cost": 8,
+        "dbfId": 63588,
+        "durability": 3,
+        "elite": true,
+        "id": "Story_01_FocusingIris",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLPOWER"
+        ],
+        "name": "Focusing Iris",
+        "set": "SCHOLOMANCE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b> <b>Battlecry:</b> Fill your board with 3/6 Water Elementals.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 63207,
+        "health": 40,
+        "id": "Story_01_Garrosh",
+        "name": "Garrosh Hellscream",
+        "set": "SCHOLOMANCE",
+        "text": "<i>Thrall's successor is driven by the need for conquest and valorous war.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 61370,
+        "id": "Story_01_GarroshHP",
+        "name": "Horde Armada",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $4 damage to the Gates of Theramore.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "MAGE",
+        "cost": 3,
+        "dbfId": 63541,
+        "health": 3,
+        "id": "Story_01_GrayCat",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLPOWER"
+        ],
+        "name": "Gray Cat",
+        "race": "BEAST",
+        "set": "SCHOLOMANCE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>\n <b>Battlecry:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 61369,
+        "id": "Story_01_GromHP",
+        "name": "Equip Gorehowl",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nEquip Gorehowl.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 63205,
+        "health": 30,
+        "id": "Story_01_Grommash",
+        "name": "Grommash Hellscream",
+        "set": "SCHOLOMANCE",
+        "text": "<i>This mighty orc warrior fights a greater battle within himself.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63908,
+        "id": "Story_01_Iceball",
+        "name": "Iceball",
+        "set": "SCHOLOMANCE",
+        "text": "Deal $6 damage.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63198,
+        "health": 30,
+        "id": "Story_01_Jaina",
+        "name": "Jaina Proudmoore",
+        "set": "SCHOLOMANCE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 3,
+        "dbfId": 63569,
+        "id": "Story_01_JainaHP",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Icefall",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $2 damage to 2 random enemy minions and <b>Freeze</b> them.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 3,
+        "dbfId": 63571,
+        "id": "Story_01_JainaHP2",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Icefall Rank 2",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $3 damage to 2 random enemy minions and <b>Freeze</b> them.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63197,
+        "health": 30,
+        "id": "Story_01_JainaMid",
+        "name": "Jaina Proudmoore",
+        "set": "SCHOLOMANCE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63542,
+        "id": "Story_01_JainaMidHP",
+        "name": "Summon Elemental",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon a 3/6 Water Elemental.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63557,
+        "id": "Story_01_JainaMidHP2",
+        "name": "Summon Elemental Rank 3",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon a 5/8 Water Elemental.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63559,
+        "id": "Story_01_JainaMidHP3",
+        "name": "Summon Elemental Rank 2",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon a 4/7 Water Elemental.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63196,
+        "health": 30,
+        "id": "Story_01_JainaYoung",
+        "name": "Jaina Proudmoore",
+        "set": "SCHOLOMANCE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 63563,
+        "id": "Story_01_JainaYoungHP",
+        "name": "Iceblast",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $1 damage.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 63564,
+        "id": "Story_01_JainaYoungHP2",
+        "name": "Iceblast Rank 2",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $2 damage.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 63565,
+        "id": "Story_01_JainaYoungHP3",
+        "name": "Iceblast Rank 3",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $3 damage.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63201,
+        "health": 30,
+        "id": "Story_01_Kaelthas",
+        "name": "Prince Kael'thas",
+        "set": "SCHOLOMANCE",
+        "text": "<i>Has heard of Jaina's skill but not her love for a different blond prince. It's hard to tell him...</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 63202,
+        "hideStats": true,
+        "id": "Story_01_KaelthasHP",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Firemancy",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Passive Hero Power</b>\n  After you cast a spell, add a Fireball to your deck. It costs (2) more.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63458,
+        "id": "Story_01_KaelthasHPe",
+        "name": "Firemancy Enchantment",
+        "set": "SCHOLOMANCE",
+        "text": "Costs (2) more.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 5,
+        "dbfId": 63817,
+        "elite": true,
+        "health": 6,
+        "id": "Story_01_Kalec",
+        "mechanics": [
+            "AURA",
+            "BATTLECRY"
+        ],
+        "name": "Archmage Kalec",
+        "race": "DRAGON",
+        "set": "SCHOLOMANCE",
+        "text": "Your first spell each\nturn costs (0).\n<b>Battlecry:</b> Draw\na spell from your deck.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 63721,
+        "id": "Story_01_LibramofWisdom",
+        "name": "Libram of Wisdom",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "[x]Give a minion +1/+1\nand \"<b>Deathrattle:</b> Add\na 'Libram of Wisdom'\nspell to your hand.\"",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 63720,
+        "health": 3,
+        "id": "Story_01_LordaeronAttendant",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lordaeron Attendant",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Reduce the Cost of your Librams by (1) this game.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63905,
+        "elite": true,
+        "health": 7,
+        "hideStats": true,
+        "id": "Story_01_Malfurion",
+        "name": "Malfurion Stormrage",
+        "race": "NIGHTELF",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "cardClass": "WARRIOR",
+        "cost": 7,
+        "dbfId": 64472,
+        "elite": true,
+        "health": 5,
+        "id": "Story_01_Malkorok",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Malkorok",
+        "rarity": "LEGENDARY",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Equip a random weapon.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63907,
+        "elite": true,
+        "health": 7,
+        "hideStats": true,
+        "id": "Story_01_Nordrassil",
+        "name": "Nordrassil",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63718,
+        "id": "Story_01_RunicSpell",
+        "name": "Runic Spell",
+        "set": "SCHOLOMANCE",
+        "text": "Costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "cost": 7,
+        "dbfId": 63584,
+        "elite": true,
+        "health": 6,
+        "id": "Story_01_Shandris",
+        "mechanics": [
+            "BATTLECRY",
+            "STEALTH"
+        ],
+        "name": "Shandris Feathermoon",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Stealth</b>\n<b>Battlecry:</b> Destroy your opponent's left and right-most minions.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "MAGE",
+        "cost": 7,
+        "dbfId": 63583,
+        "durability": 3,
+        "elite": true,
+        "id": "Story_01_StaffofAntonidas",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Staff of Antonidas",
+        "set": "SCHOLOMANCE",
+        "text": "Whenever you cast a spell, add a 'Fireball' spell to your hand.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 2,
+        "cardClass": "MAGE",
+        "cost": 3,
+        "dbfId": 63713,
+        "health": 4,
+        "id": "Story_01_StargazeElemental",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Stargaze Elemental",
+        "race": "ELEMENTAL",
+        "set": "SCHOLOMANCE",
+        "text": "After you play the\nright-most card in your hand, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 61383,
+        "health": 10,
+        "id": "Story_01_TheramoreGates",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Gates of Theramore",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Deal $3 damage to your hero.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 63597,
+        "health": 1,
+        "id": "Story_01_TheramoreGuard",
+        "mechanics": [
+            "CHARGE",
+            "DEATHRATTLE"
+        ],
+        "name": "Theramore Guard",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Charge</b>\n<b>Deathrattle:</b> Deal 2 damage to your hero.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 63208,
+        "health": 50,
+        "id": "Story_01_Thrall",
+        "name": "Thrall",
+        "set": "SCHOLOMANCE",
+        "text": "<i>The former warchief has returned to restore the peace, if he can.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 61371,
+        "id": "Story_01_ThrallHP",
+        "name": "Spirit of Air",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nGive all friendly minions <b>Windfury</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63589,
+        "id": "Story_01_ThrallHPe",
+        "name": "Spirited Air",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Windfury</b>",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63909,
+        "elite": true,
+        "health": 7,
+        "id": "Story_01_ThrallMinion",
+        "name": "Thrall",
+        "race": "ORC",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63906,
+        "elite": true,
+        "health": 7,
+        "id": "Story_01_Tyrande",
+        "name": "Tyrande Whisperwind",
+        "race": "NIGHTELF",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 1,
+        "dbfId": 63946,
+        "id": "Story_01_Upgrade",
+        "name": "Upgrade!",
+        "set": "SCHOLOMANCE",
+        "text": "If you have a weapon, give it +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 1,
+        "dbfId": 63944,
+        "id": "Story_01_VoltaicBurst",
+        "name": "Voltaic Burst",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Summon two 1/1 Sparks with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63595,
+        "health": 7,
+        "id": "Story_01_WaterElemental",
+        "mechanics": [
+            "FREEZE"
+        ],
+        "name": "Water Elemental",
+        "race": "ELEMENTAL",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Freeze</b> any character damaged by this minion.",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "cardClass": "MAGE",
+        "cost": 4,
+        "dbfId": 63982,
+        "health": 8,
+        "id": "Story_01_WaterElemental2",
+        "mechanics": [
+            "FREEZE"
+        ],
+        "name": "Water Elemental",
+        "race": "ELEMENTAL",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Freeze</b> any character damaged by this minion.",
         "type": "MINION"
     },
     {
@@ -95904,6 +96652,39 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 63601,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_71",
+        "name": "Jandice Barov",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 63602,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_72",
+        "name": "Lord Barov",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 63604,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_74",
+        "name": "Forest Warden Omu",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 59194,
         "health": 0,
@@ -96930,6 +97711,40 @@
         "name": "Kel'Thuzad's Kitty",
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Passive Hero Power</b>\nWhen a player dies, <b>Discover</b>\na minion from their warband.\nIt keeps any enchantments.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 63600,
+        "id": "TB_BaconShop_HP_081",
+        "name": "Friendly Wager",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nGuess which player will\nwin their next combat.\n If they win, get three Coins.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63605,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_082",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Everbloom",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you upgrade Bob's\nTavern, gain 2 Gold\nthis turn only.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63607,
+        "id": "TB_BaconShop_HP_084",
+        "name": "Swap, Lock, & Shop It",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nSwap a friendly non-golden\nminion with a random one\nin Bob's Tavern.",
         "type": "HERO_POWER"
     },
     {
@@ -98701,7 +99516,7 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 4,
         "battlegroundsNormalDbfId": 59940,
         "cardClass": "NEUTRAL",
         "cost": 3,
@@ -98715,7 +99530,7 @@
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
         "techLevel": 2,
-        "text": "Whenever you summon a Beast, give it +6 Attack.",
+        "text": "Whenever you summon a Beast, give it +4 Attack.",
         "type": "MINION"
     },
     {
@@ -98724,7 +99539,7 @@
         "id": "TB_BaconUps_086e",
         "name": "Feral Calling",
         "set": "BATTLEGROUNDS",
-        "text": "+6 Attack.",
+        "text": "+4 Attack.",
         "type": "ENCHANTMENT"
     },
     {
@@ -99982,6 +100797,228 @@
         "name": "Gulp of Tea",
         "set": "BATTLEGROUNDS",
         "text": "+4/+4.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 60628,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 63772,
+        "health": 6,
+        "id": "TB_BaconUps_146",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Dragonspawn Lieutenant",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 42467,
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 63774,
+        "health": 2,
+        "id": "TB_BaconUps_147",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "name": "Righteous Protector",
+        "rarity": "COMMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 43121,
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 63778,
+        "health": 8,
+        "id": "TB_BaconUps_148",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Vulgar Homunculus",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage to your hero.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 60558,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 63779,
+        "health": 2,
+        "id": "TB_BaconUps_149",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "REBORN"
+        ],
+        "name": "Bronze Warden",
+        "race": "DRAGON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 61060,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 63782,
+        "health": 16,
+        "id": "TB_BaconUps_150",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Yo-Ho-Ogre",
+        "race": "PIRATE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "[x]<b>Taunt</b>\nAfter this minion survives\nbeing attacked,\nattack immediately.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 43358,
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 63794,
+        "health": 8,
+        "id": "TB_BaconUps_151",
+        "name": "Cave Hydra",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "Also damages the minions next to whomever\nthis attacks.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 52277,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 63796,
+        "health": 4,
+        "id": "TB_BaconUps_152",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Toxfin",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 2081,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 63776,
+        "elite": true,
+        "health": 18,
+        "id": "TB_BaconUps_153",
+        "name": "Foe Reaper 4000",
+        "race": "MECHANICAL",
+        "rarity": "LEGENDARY",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "Also damages the minions next to whomever it attacks.",
+        "type": "MINION"
+    },
+    {
+        "attack": 14,
+        "battlegroundsNormalDbfId": 60629,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 63780,
+        "elite": true,
+        "health": 8,
+        "id": "TB_BaconUps_154",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Nadina the Red",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Deathrattle:</b> Give your Dragons <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 1791,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 63781,
+        "elite": true,
+        "health": 16,
+        "id": "TB_BaconUps_155",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Maexxna",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 53445,
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 64343,
+        "health": 4,
+        "id": "TB_BaconUps_250",
+        "mechanics": [
+            "REBORN",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Micro Mummy",
+        "race": "MECHANICAL",
+        "rarity": "EPIC",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "[x]<b>Reborn</b>\nAt the end of your turn, give\nanother random friendly\nminion +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64344,
+        "id": "TB_BaconUps_250e",
+        "name": "Microwrapped",
+        "set": "BATTLEGROUNDS",
+        "text": "Attack increased.",
         "type": "ENCHANTMENT"
     },
     {
@@ -117920,6 +118957,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 64343,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 2,
@@ -117935,6 +118973,7 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "ULDUM",
+        "techLevel": 1,
         "text": "[x]<b>Reborn</b>\nAt the end of your turn, give\nanother random friendly\nminion +1 Attack.",
         "type": "MINION"
     },
