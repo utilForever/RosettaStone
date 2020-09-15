@@ -106,7 +106,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 44;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 47;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -152,8 +152,8 @@ constexpr int NUM_TIER6_MINIONS = 12;
 // Deck Swabbie (61055)
 // Dragonspawn Lieutenant (60628)
 // Fiendish Servant (56112)
-// Mecharoo (48886)
 // Micro Machine (60055)
+// Micro Mummy (53445)
 // Murloc Tidecaller (475)
 // Murloc Tidehunter (976)
 // Red Whelp (59968)
@@ -165,7 +165,7 @@ constexpr int NUM_TIER6_MINIONS = 12;
 // Vulgar Homunculus (43121)
 // Wrath Weaver (59670)
 constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
-    40426, 61055, 60628, 56112, 48886, 60055, 475,   976,
+    40426, 61055, 60628, 56112, 60055, 53445, 475,   976,
     59968, 42467, 41245, 61061, 1281,  38740, 43121, 59670
 };
 
