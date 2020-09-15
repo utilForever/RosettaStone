@@ -695,7 +695,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ---------------------------------------- MINION - PRIEST
-    // [SCH_120] Cabal Acolyte - COST:4 [ATK:2/HP:6]
+    // [SCH_120] Cabal Acolyte - COST:4 [ATK:2/HP:4]
     //  - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Taunt</b> <b>Spellburst:</b> Gain control
@@ -886,7 +886,7 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [SCH_305] Secret Passage - COST:1
     //  - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Replace your hand with 5 cards from your deck.
+    // Text: Replace your hand with 4 cards from your deck.
     //       Swap back next turn.
     // --------------------------------------------------------
 
@@ -1078,11 +1078,11 @@ void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [SCH_615] Totem Goliath - COST:5 [ATK:4/HP:5]
+    // [SCH_615] Totem Goliath - COST:5 [ATK:5/HP:5]
     //  - Race: TOTEM, Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon all four basic Totems.
-    //       <b>Overload: (2)</b>
+    //       <b>Overload: (1)</b>
     // --------------------------------------------------------
     // GameTag:
     //  - DEATHRATTLE = 1
@@ -1140,7 +1140,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [SCH_181] Archwitch Willow - COST:9 [ATK:7/HP:7]
+    // [SCH_181] Archwitch Willow - COST:8 [ATK:5/HP:5]
     //  - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a random Demon
