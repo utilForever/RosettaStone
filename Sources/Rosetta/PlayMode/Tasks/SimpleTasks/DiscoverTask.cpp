@@ -356,28 +356,13 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::FILTER_STACK:
+        case DiscoverType::JANDICE_BAROV:
         {
             choiceAction = ChoiceAction::STACK;
-
-            std::vector<int> list;
             for (auto& playable : game->taskStack.playables)
             {
-                list.emplace_back(playable->card->dbfID);
+                cards.emplace_back(playable->card);
             }
-
-            auto endIter = list.end();
-            for (auto iter = list.begin(); iter != endIter; ++iter)
-            {
-                endIter = std::remove(iter + 1, endIter, *iter);
-            }
-            list.erase(endIter, list.end());
-
-            for (auto& dbfID : list)
-            {
-                cards.emplace_back(Cards::FindCardByDbfID(dbfID));
-            }
-
             break;
         }
         default:
