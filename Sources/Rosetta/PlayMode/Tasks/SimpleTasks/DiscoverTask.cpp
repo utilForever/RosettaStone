@@ -366,12 +366,12 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 list.emplace_back(playable->card->dbfID);
             }
 
-            auto end_iter = list.end();
-            for (auto iter = list.begin(); iter != end_iter; ++iter)
+            auto endIter = list.end();
+            for (auto iter = list.begin(); iter != endIter; ++iter)
             {
-                end_iter = std::remove(iter + 1, end_iter, *iter);
+                endIter = std::remove(iter + 1, endIter, *iter);
             }
-            list.erase(end_iter, list.end());
+            list.erase(endIter, list.end());
 
             for (auto& dbfID : list)
             {

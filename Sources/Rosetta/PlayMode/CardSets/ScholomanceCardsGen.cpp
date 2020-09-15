@@ -1991,16 +1991,16 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            auto fieldZone = player->GetFieldZone();
+            const auto& fieldZone = player->GetFieldZone();
 
             if (!fieldZone->IsFull())
             {
                 auto& stack = player->game->taskStack;
 
                 const auto SummonMinion = [source](SummonSide side,
-                                                   Playable* target) {
+                                                   Playable* summonTarget) {
                     int alternateCount = 0;
-                    Minion* minion = dynamic_cast<Minion*>(target);
+                    Minion* minion = dynamic_cast<Minion*>(summonTarget);
                     const int summonPos = SummonTask::GetPosition(
                         source, side, minion, alternateCount);
                     Generic::Summon(minion, summonPos, source);
@@ -2022,7 +2022,6 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 {
                     randomMinionTask->Run();
                     Playable* left = stack.playables[0];
-
                     Playable* right = nullptr;
                     do
                     {
@@ -2033,7 +2032,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                     SummonMinion(SummonSide::LEFT, left);
                     SummonMinion(SummonSide::RIGHT, right);
 
-                    std::vector<Playable*> playables = { left, right };
+                    const std::vector<Playable*> playables = { left, right };
                     stack.playables = playables;
                     source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1,
                                        left->card->dbfID);
@@ -2059,8 +2058,8 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             includeAdjacentTask->SetSource(source);
             includeAdjacentTask->Run();
 
-            Card* leftInchantmentCard = nullptr;
-            Card* rightInchantmentCard = nullptr;
+            Card* leftInchantmentCard;
+            Card* rightInchantmentCard;
 
             if (leftDbfID == chosen->card->dbfID)
             {
@@ -2072,6 +2071,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 leftInchantmentCard = Cards::FindCardByID("SCH_351b");
                 rightInchantmentCard = Cards::FindCardByID("SCH_351a");
             }
+
             Generic::AddEnchantment(leftInchantmentCard,
                                     dynamic_cast<Playable*>(source),
                                     stack.playables[0]);
@@ -2110,7 +2110,6 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //  - RUSH = 1
     //  - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
