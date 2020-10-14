@@ -19,7 +19,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
     if (!cardFile.is_open())
     {
-        throw std::runtime_error("Can't open cards.json");
+        throw std::runtime_error("Can't open cards.json - Path: " RESOURCES_DIR);
     }
 
     cardFile >> j;
