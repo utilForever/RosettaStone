@@ -38,7 +38,8 @@ class CMakeBuild(build_ext):
             self.get_ext_fullpath(ext.name)))
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir,
                       '-DPYTHON_EXECUTABLE=' + sys.executable,
-                      '-DBUILD_FROM_PIP=ON']
+                      '-DBUILD_FROM_PIP=ON',
+                      '-DROSETTA_ROOT=@ROSETTA_ROOT@']
 
         cfg = 'Debug' if self.debug else 'Release'
         build_args = ['--config', cfg]
@@ -53,7 +54,6 @@ class CMakeBuild(build_ext):
             build_args += ['--', '/m']
         else:
             cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-            cmake_args += ['-DROSETTA_ROOT=@ROSETTA_ROOT@']
             num_jobs = env.get('NUM_JOBS', multiprocessing.cpu_count())
             build_args += ['--', '-j%s' % str(num_jobs), 'pyRosetta']
 
