@@ -32,7 +32,7 @@ jobs:
     - name: Build
       run: cd build && MSBuild.exe RosettaStone.sln /p:Configuration=Release
     - name: Run Unit Test
-      run: /build/bin/Release/UnitTests.exe
+      run: /a/RosettaStone/RosettaStone/build/bin/Release/UnitTests.exe
     - name: Run Python Test
       run: |
         pip install -r requirements.txt

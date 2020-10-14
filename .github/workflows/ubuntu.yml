@@ -63,7 +63,7 @@ jobs:
     - name: Build
       run: cd build && make
     - name: Run Unit Test
-      run: /build/bin/UnitTests
+      run: /home/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
     - name: Run Python Test
       run: |
         pip3 install -r requirements.txt
