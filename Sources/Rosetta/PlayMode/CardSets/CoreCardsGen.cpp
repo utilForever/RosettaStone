@@ -205,7 +205,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         for (const auto& id : playable->card->entourages)
         {
             bool exist = false;
-            for (auto minion : minions)
+            for (const auto& minion : minions)
             {
                 if (id == minion->card->id)
                 {
@@ -225,7 +225,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
             return 0;
         }
 
-        const auto idx = Random::get<int>(0, totemCards.size() - 1);
+        const auto idx = Random::get<std::size_t>(0, totemCards.size() - 1);
         Playable* totem =
             Entity::GetFromCard(playable->player, totemCards[idx]);
         playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));

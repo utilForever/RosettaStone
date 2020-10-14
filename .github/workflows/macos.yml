@@ -1,0 +1,63 @@
+name: macOS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-macos:
+    strategy:
+      matrix:
+        include:
+          # macOS 10.15 + Xcode 11.7
+          - name: "macOS 10.15 + Xcode 11.7"
+            os: macos-10.15
+            compiler: xcode
+            version: "11.7"
+          # macOS 10.15 + Xcode 12.2
+          - name: "macOS 10.15 + Xcode 12.2"
+            os: macos-10.15
+            compiler: xcode
+            version: "12.2"
+          # macOS 10.15 + gcc-8
+          - name: "macOS 10.15 + gcc-8"
+            os: macos-10.15
+            compiler: gcc
+            version: "8"
+          # macOS 10.15 + gcc-9
+          - name: "macOS 10.15 + gcc-9"
+            os: macos-10.15
+            compiler: gcc
+            version: "9"
+
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.name }}
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    - name: Configure Compiler
+      run: |
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+          echo "::set-env name=CC::gcc-${{ matrix.version }}"
+          echo "::set-env name=CXX::g++-${{ matrix.version }}"
+        else
+          ls -ls /Applications/
+          sudo xcode-select -switch /Applications/Xcode_${{ matrix.version }}.app
+          echo "::set-env name=CC::clang"
+          echo "::set-env name=CXX::clang++"
+        fi
+    - name: Configure Build
+      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ..
+    - name: Build
+      run: cd build && make
+    - name: Run Unit Test
+      run: /Users/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
+    - name: Run Python Test
+      run: |
+        pip install -r requirements.txt
+        pip install .
+        python -m pytest Tests/PythonTests/

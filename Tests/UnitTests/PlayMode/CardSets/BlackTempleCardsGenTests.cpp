@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -60,13 +60,66 @@ TEST_CASE("[Druid : Spell] - BT_130 : Overgrowth")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [BT_136] Archspore Msshi'fn - COST: 3 [ATK: 3/HP: 4]
+// [BT_131] Ysiel Windsinger - COST:9 [ATK:5/HP:5]
+// - Set: BLACK_TEMPLE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your spells cost (1).
+// --------------------------------------------------------
+// GameTag:
+//  - ELITE = 1
+//  - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysiel Windsinger"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [BT_136] Archspore Msshi'fn - COST:3 [ATK:3/HP:4]
 //  - Set: BLACK_TEMPLE, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Deathrattle:</b> Shuffle
-//       'Msshi'fn Prime'
-//       into your deck.
+// Text: <b>Taunt</b> <b>Deathrattle:</b> Shuffle
+//       'Msshi'fn Prime' into your deck.
 // --------------------------------------------------------
 // GameTag:
 //  - ELITE = 1
@@ -152,20 +205,208 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
-// ----------------------------------------- MINION - DRUID
-// [BT_131] Ysiel Windsinger - COST: 9 [ATK: 5/HP: 5]
-// - Set: BLACK_TEMPLE, Rarity: Legendary
+// ------------------------------------------- SPELL - MAGE
+// [BT_002] Incanter's Flow - COST:2
+//  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: Your spells cost (1).
+// Text: Reduce the Cost of spells in your deck by (1).
 // --------------------------------------------------------
-// GameTag:
-//  - ELITE = 1
-//  - AURA = 1
-// --------------------------------------------------------
-TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
+TEST_CASE("[Mage : Spell] - BT_002 : Incanter's Flow")
 {
     GameConfig config;
-    config.player1Class = CardClass::DRUID;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Blizzard");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Incanter's Flow"));
+
+    CHECK_EQ(curHand[0]->GetCost(), 6);
+    CHECK_EQ(curHand[1]->GetCost(), 6);
+    CHECK_EQ(curHand[2]->GetCost(), 6);
+    CHECK_EQ(curHand[3]->GetCost(), 6);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 6);
+    }
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand[0]->GetCost(), 6);
+    CHECK_EQ(curHand[1]->GetCost(), 6);
+    CHECK_EQ(curHand[2]->GetCost(), 6);
+    CHECK_EQ(curHand[3]->GetCost(), 6);
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 5);
+    }
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [BT_003] Netherwind Portal - COST:3
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent casts a spell,
+//       summon a random 4-Cost minion.
+// --------------------------------------------------------
+// GameTag:
+//  - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BT_003 : Netherwind Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curSecret = *(curPlayer->GetSecretZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Onyxia"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Netherwind Portal"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Bolt"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Bolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.IsFull(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(card2->GetGameTag(GameTag::REVEALED), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(card2->GetGameTag(GameTag::REVEALED), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, curField[6]));
+    CHECK_EQ(curSecret.GetCount(), 0);
+    CHECK_EQ(card2->GetGameTag(GameTag::REVEALED), 1);
+    CHECK_EQ(curField.IsFull(), true);
+    CHECK_EQ(curField[6]->card->GetCost(), 4);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [BT_014] Starscryer - COST:2 [ATK:3/HP:1]
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Draw a spell.
+// --------------------------------------------------------
+// GameTag:
+//  - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 10; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
+        config.player1Deck[i + 10] = Cards::FindCardByName("Starscryer");
+        config.player1Deck[i + 20] = Cards::FindCardByName("Pyroblast");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Starscryer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Pyroblast");
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [BT_072] Deep Freeze - COST:8
+//  - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.
+// --------------------------------------------------------
+// GameTag:
+//  - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -177,38 +418,136 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Deep Freeze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->card->name, "Water Elemental");
+    CHECK_EQ(opField[1]->card->name, "Water Elemental");
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [BT_011] Libram of Justice - COST:5
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Equip a 1/4 weapon.
+//       Change the Health of all enemy minions to 1.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BT_011 : Libram of Justice")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer->SetTotalMana(10);
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ysiel Windsinger"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tirion Fordring"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Libram of Justice"));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(card2->GetCost(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-    CHECK_EQ(card2->GetCost(), 0);
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [BT_024] Libram of Hope - COST:9
+//  - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Restore 8 Health. Summon an 8/8 Guardian
+//       with <b>Taunt</b> and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// RefTag:
+//  - DIVINE_SHIELD = 1
+//  - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Libram of Hope"));
+
     game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Ancient Guardian");
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [BT_252] Renew - COST: 1
+// [BT_252] Renew - COST:1
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: Restore 3 Health. <b>Discover</b> a spell.
@@ -254,12 +593,104 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
     }
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [BT_253] Psyche Split - COST:5
+//  - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give a minion +1/+2. Summon a copy of it.
+// --------------------------------------------------------
+TEST_CASE("[Preist : Spell] - BT_253 : Psyche Split")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Psyche Split"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Loot Hoarder"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [BT_257] Apotheosis - COST:3
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +2/+3 and <b>Lifesteal</b>.
+// --------------------------------------------------------
+// RefTag:
+//  - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Preist : Spell] - BT_257 : Apotheosis")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Apotheosis"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Loot Hoarder"));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::LIFESTEAL), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::LIFESTEAL), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [BT_258] Imprisoned Homunculus - COST:1 [ATK:2/HP:5]
 // - Race: Demon, Set: Black Temple, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Dormant</b> for 2 turns.
-//       <b>Taunt</b>
+// Text: <b>Dormant</b> for 2 turns. <b>Taunt</b>
 // --------------------------------------------------------
 // GameTag:
 // - TAUNT = 1
@@ -328,8 +759,52 @@ TEST_CASE("[Priest : Minion] - BT_258 : Imprisoned Homunculus")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [BT_292] Hand of A'dal - COST: 2
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +2/+2. Draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : SPELL] - BT_292 : Hand of A'dal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hand of A'dal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
+
 // ----------------------------------------- MINION - ROGUE
-// [BT_703] Cursed Vagrant - COST: 7 [ATK: 7/HP: 5]
+// [BT_703] Cursed Vagrant - COST:7 [ATK:7/HP:5]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 7/5 Shadow with <b>Stealth</b>.
@@ -382,12 +857,188 @@ TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
     CHECK_EQ(curField[0]->HasStealth(), true);
 }
 
-// --------------------------------------- MINION - WARLOCK
-// [BT_304] Enhanced Dreadlord - COST: 8 [ATK: 5/HP: 7]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Rare
+// ----------------------------------------- SPELL - SHAMAN
+// [BT_100] Serpentshrine Portal - COST:3
+//  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Deathrattle:</b> Summon a 5/5
+// Text: Deal 3 damage. Summon a random 3-Cost minion.
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+//  - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Serpentshrine Portal"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 3);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [BT_113] Totemic Reflection - COST:3
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +2/+2.
+//       If it's a Totem, summon a copy of it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - BT_113 : Totemic Reflection")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Totemic Reflection"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Totemic Reflection"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Mana Tide Totem"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dust Devil"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Mana Tide Totem");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->GetAttack(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[1]->GetAttack(), 5);
+    CHECK_EQ(opField[1]->GetHealth(), 3);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [BT_199] Unstable Felbolt - COST:1
+//  - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage to an enemy minion
+//       and a random friendly one.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - BT_199 : Unstable Felbolt")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Felbolt"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Doomsayer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [BT_304] Enhanced Dreadlord - COST:8 [ATK:5/HP:7]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Deathrattle:</b> Summon a 5/5
 //       Dreadlord with <b>Lifesteal</b>.
 // --------------------------------------------------------
 // GameTag:
@@ -445,7 +1096,7 @@ TEST_CASE("[Warlock : Minion] - BT_304 : Enhanced Dreadlord")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [BT_117] Bladestorm - COST: 3
+// [BT_117] Bladestorm - COST:3
 //  - Set: BLACK_TEMPLE, Rarity: Epic
 // --------------------------------------------------------
 // Text: Deal 1 damage to all minions. Repeat until one dies.
@@ -489,7 +1140,7 @@ TEST_CASE("[Warrior : Spell] - BT_117 : Bladestorm")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [BT_120] Warmaul Challenger - COST: 3 [ATK: 1/HP: 10]
+// [BT_120] Warmaul Challenger - COST:3 [ATK:1/HP:10]
 //  - Set: BLACK_TEMPLE, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Choose an enemy minion.
@@ -545,14 +1196,12 @@ TEST_CASE("[Warrior : Minion] - BT_120 : Warmaul Challenger")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
-// ----------------------------------------- MINION - WARRIOR
+// --------------------------------------- MINION - WARRIOR
 // [BT_123] Kargath Bladefist - COST:4 [ATK:4/HP:4]
 // - Set: BLACK_TEMPLE, Rarity: LEGENDARY
 // --------------------------------------------------------
-// Text: <b>Rush</b>
-//       <b>Deathrattle:</b> Shuffle
-//       'Kargath Prime'
-//       into your deck.
+// Text: <b>Rush</b> <b>Deathrattle:</b> Shuffle
+//       'Kargath Prime' into your deck.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -641,12 +1290,11 @@ TEST_CASE("[Warrior : Minion] - BT_123 : Kargath Bladefist")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 20);
 }
 
-// ----------------------------------------- SPELL - WARRIOR
+// ---------------------------------------- SPELL - WARRIOR
 // [BT_124] Corsair Cache - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: Draw a weapon.
-//       Give it +1 Durability.
+// Text: Draw a weapon. Give it +1 Durability.
 // --------------------------------------------------------
 TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 {
@@ -687,10 +1335,10 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_509] Fel Summoner - COST: 6 [ATK: 8/HP: 3]
+// [BT_509] Fel Summoner - COST:6 [ATK:8/HP:3]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
+// Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -719,11 +1367,11 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fel Summoner"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Battlefiend"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ur'zul Horror"));
-    const auto card4 =
+    [[maybe_unused]] const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card5 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
@@ -741,12 +1389,11 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_761] Coilfang Warlord - COST: 8 [ATK: 9/HP: 5]
+// [BT_761] Coilfang Warlord - COST:8 [ATK:9/HP:5]
 //  - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Rush</b>
-//       <b>Deathrattle:</b> Summon a
-//        5/9 Warlord with <b>Taunt</b>.
+// Text: <b>Rush</b> <b>Deathrattle:</b> Summon a
+//       5/9 Warlord with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -799,7 +1446,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_761 : Coilfang Warlord")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_008] Rustsworn Initiate - COST: 2 [ATK: 2/HP: 2]
+// [BT_008] Rustsworn Initiate - COST:2 [ATK:2/HP:2]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 1/1 Impcaster with
@@ -854,8 +1501,8 @@ TEST_CASE("[Neutral : Minion] - BT_008 : Rustsworn Initiate")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_010] Felfin Navigator - COST: 4 [ATK: 4/HP: 4]
-//  - Race: MURLOC, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_010] Felfin Navigator - COST:4 [ATK:4/HP:4]
+//  - Race: Murloc, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give your other Murlocs +1/+1.
 // --------------------------------------------------------
@@ -922,13 +1569,11 @@ TEST_CASE("[Neutral : Minion] - BT_010 : Felfin Navigator")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_155] Scrapyard Colossus - COST: 10 [ATK: 7/HP: 7]
-//  - Race: ELEMENTAL, Set: BLACK_TEMPLE, Rarity: Rare
+// [BT_155] Scrapyard Colossus - COST:10 [ATK:7/HP:7]
+//  - Race: Elemental, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Deathrattle:</b> Summon a
-//       7/7 Felcracked Colossus
-//       with <b>Taunt</b>.
+// Text: <b>Taunt</b> <b>Deathrattle:</b> Summon a
+//       7/7 Felcracked Colossus with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
@@ -980,11 +1625,10 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Scrapyard Colossus")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_156] Imprisoned Vilefiend - COST: 2 [ATK: 3/HP: 5]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_156] Imprisoned Vilefiend - COST:2 [ATK:3/HP:5]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Dormant</b> for 2 turns.
-//       <b>Rush</b>
+// Text: <b>Dormant</b> for 2 turns. <b>Rush</b>
 // --------------------------------------------------------
 // GameTag:
 //  - RUSH = 1
@@ -1054,10 +1698,11 @@ TEST_CASE("[Priest : Minion] - BT_156 : Imprisoned Vilefiend")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_159] Terrorguard Escapee - COST: 3 [ATK: 3/HP: 7]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_159] Terrorguard Escapee - COST:3 [ATK:3/HP:7]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Summon three 1/1 Huntresses for your opponent.
+// Text: <b>Battlecry:</b> Summon three 1/1 Huntresses
+//       for your opponent.
 // --------------------------------------------------------
 // GameTag:
 //  - BATTLECRY = 1
@@ -1108,12 +1753,11 @@ TEST_CASE("[Neutral : Minion] - BT_159 : Terrorguard Escapee")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_160] Rustsworn Cultist - COST: 4 [ATK: 3/HP: 3]
+// [BT_160] Rustsworn Cultist - COST:4 [ATK:3/HP:3]
 //  - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give your
-//       other minions "<b>Deathrattle:</b>
-//       Summon a 1/1 Demon."
+// Text: <b>Battlecry:</b> Give your other minions
+//       "<b>Deathrattle:</b> Summon a 1/1 Demon."
 // --------------------------------------------------------
 // GameTag:
 //  - BATTLECRY = 1
@@ -1164,15 +1808,127 @@ TEST_CASE("[Neutral : Minion] - BT_160 : Rustsworn Cultist")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_726] Dragonmaw Sky Stalker - COST: 6 [ATK: 5/HP: 6]
-//  - Race: DRAGON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_715] Bonechewer Brawler - COST:2 [ATK:2/HP:3]
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> Whenever this minion takes damage,
+//       gain +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+//  - TAUNT = 1
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BT_715 : Bonechewer Brawler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bonechewer Brawler"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BT_716] Bonechewer Vanguard - COST:7 [ATK:4/HP:10]
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> Whenever this minion takes damage,
+//       gain +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+//  - TAUNT = 1
+//  - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BT_716 : Bonechewer Vanguard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bonechewer Vanguard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card));
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BT_726] Dragonmaw Sky Stalker - COST:6 [ATK:5/HP:6]
+//  - Race: Dragon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 3/4 Dragonrider.
 // --------------------------------------------------------
 // GameTag:
 //  - DEATHRATTLE = 1
 // --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
+TEST_CASE("[Neutral : Minion] - BT_726 : Dragonmaw Sky Stalker")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -1214,8 +1970,8 @@ TEST_CASE("[Neutral : Minion] - BT_155 : Dragonmaw Sky Stalker")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [BT_728] Disguised Wanderer - COST: 4 [ATK: 3/HP: 3]
-//  - Race: DEMON, Set: BLACK_TEMPLE, Rarity: Common
+// [BT_728] Disguised Wanderer - COST:4 [ATK:3/HP:3]
+//  - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 9/1 Inquisitor.
 // --------------------------------------------------------

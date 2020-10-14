@@ -7184,7 +7184,7 @@
         "name": "Kael'thas Sunstrider",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "Every third spell you cast each turn costs (0).",
+        "text": "Every third spell you cast each turn costs (1).",
         "type": "MINION"
     },
     {
@@ -7421,13 +7421,13 @@
     },
     {
         "artist": "Nicola Saviori",
-        "attack": 3,
+        "attack": 2,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 56523,
         "flavor": "He's got a dark glare, but he sees crystal clear!",
-        "health": 4,
+        "health": 3,
         "id": "BT_307",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -7436,7 +7436,7 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "BLACK_TEMPLE",
-        "text": "After your hero takes damage, refresh 2 Mana Crystals.",
+        "text": "After your hero takes damage, refresh a Mana Crystal.",
         "type": "MINION"
     },
     {
@@ -9266,7 +9266,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "GANGS",
-        "techLevel": 2,
+        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 1/1 Rats equal\n to this minion's Attack.",
         "type": "MINION"
     },
@@ -13825,6 +13825,7 @@
     {
         "artist": "Anton Zemskov",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 63796,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -23787,6 +23788,7 @@
     {
         "artist": "Howard Lyon",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63781,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 6,
@@ -29036,6 +29038,7 @@
     {
         "artist": "James Ryman",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 63776,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 8,
@@ -29657,6 +29660,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 61598,
+        "health": 30,
+        "id": "HERO_08f",
+        "name": "Scholar Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -29969,6 +29983,7 @@
     {
         "artist": "Evgeniy Dlinnov",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 63774,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 1,
@@ -34265,6 +34280,7 @@
     {
         "artist": "Steve Prescott",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63778,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 2,
@@ -34601,6 +34617,7 @@
     {
         "artist": "Peter Stapleton",
         "attack": 2,
+        "battlegroundsPremiumDbfId": 63794,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -39903,7 +39920,7 @@
         "cost": 4,
         "dbfId": 59619,
         "flavor": "How did he get to the top of his class? He pulled a few strings!",
-        "health": 6,
+        "health": 4,
         "id": "SCH_120",
         "mechanics": [
             "TAUNT"
@@ -40244,7 +40261,7 @@
         "attack": 1,
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 59643,
         "elite": true,
         "flavor": "\"…and that's how I ended up with a Murloc Cultural Studies major.\"",
@@ -40303,14 +40320,14 @@
     },
     {
         "artist": "Alex Horley Orlandelli",
-        "attack": 7,
+        "attack": 5,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 9,
+        "cost": 8,
         "dbfId": 59252,
         "elite": true,
         "flavor": "One of the demons will do all the work while the other gets the same grade.",
-        "health": 7,
+        "health": 5,
         "id": "SCH_181",
         "mechanics": [
             "BATTLECRY"
@@ -40371,7 +40388,7 @@
         "cost": 5,
         "dbfId": 58931,
         "elite": true,
-        "flavor": "\"You wish to know my secrets, hmm? I carry a little bits of tuna in the sleeves of my robe, he loves that. Oh, you meant the risen dead? That was trivial, trivial.\"",
+        "flavor": "\"You wish to know my secrets, hmm? I carry little bits of tuna in the sleeves of my robe, he loves that. Oh, you meant the risen dead? That was trivial, trivial.\"",
         "health": 6,
         "id": "SCH_224",
         "name": "Headmaster Kel'Thuzad",
@@ -40972,7 +40989,7 @@
         "name": "Secret Passage",
         "rarity": "EPIC",
         "set": "SCHOLOMANCE",
-        "text": "Replace your hand with 5 cards from your deck. Swap back next turn.",
+        "text": "Replace your hand with 4 cards from your deck. Swap back next turn.",
         "type": "SPELL"
     },
     {
@@ -42123,7 +42140,7 @@
     },
     {
         "artist": "MAR Studio",
-        "attack": 4,
+        "attack": 5,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 5,
@@ -42141,7 +42158,7 @@
             "OVERLOAD"
         ],
         "set": "SCHOLOMANCE",
-        "text": "<b>Deathrattle:</b> Summon all four basic Totems.\n<b>Overload: (2)</b>",
+        "text": "<b>Deathrattle:</b> Summon all four basic Totems.\n<b>Overload: (1)</b>",
         "type": "MINION"
     },
     {
@@ -46395,6 +46412,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 64343,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 2,
@@ -46410,6 +46428,7 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "ULDUM",
+        "techLevel": 1,
         "text": "[x]<b>Reborn</b>\nAt the end of your turn, give\nanother random friendly\nminion +1 Attack.",
         "type": "MINION"
     },

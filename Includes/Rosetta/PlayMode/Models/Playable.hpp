@@ -79,6 +79,10 @@ class Playable : public Entity
     //! \return The value of overload.
     int GetOverload() const;
 
+    //! Returns the flag that indicates whether it has battlecry.
+    //! \return The flag that indicates whether it has battlecry.
+    bool HasBattlecry() const;
+
     //! Returns the flag that indicates whether it has deathrattle.
     //! \return The flag that indicates whether it has deathrattle.
     bool HasDeathrattle() const;

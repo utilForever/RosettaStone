@@ -17,7 +17,7 @@ SelfCondition::SelfCondition(std::function<bool(Minion&)> func)
 SelfCondition SelfCondition::IsRace(Race race)
 {
     return SelfCondition(
-        [=](Minion& minion) -> bool { return minion.GetRace() == race; });
+        [race](Minion& minion) { return minion.GetRace() == race; });
 }
 
 bool SelfCondition::Evaluate(Minion& owner) const

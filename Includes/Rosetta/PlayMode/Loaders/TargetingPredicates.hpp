@@ -84,6 +84,11 @@ class TargetingPredicates
     static TargetingPredicate ReqDamagedTarget();
 
     //! Predicate wrapper for checking the target requires that
+    //! it is damaged unless combo.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqDamagedTargetUnlessCombo();
+
+    //! Predicate wrapper for checking the target requires that
     //! it is undamaged.
     //! \return Generated TargetingPredicate for intended purpose.
     static TargetingPredicate ReqUndamagedTarget();

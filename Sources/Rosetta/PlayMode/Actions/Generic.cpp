@@ -31,7 +31,12 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     }
     else if (dynamic_cast<HeroPower*>(source))
     {
-        // TODO: Process GameTag::HEROPOWER_DAMAGE
+        if (const auto value = source->player->playerAuraEffects.GetValue(
+                GameTag::HEROPOWER_DAMAGE);
+            value > 0)
+        {
+            amount += value;
+        }
     }
 
     target->TakeDamage(source, amount);

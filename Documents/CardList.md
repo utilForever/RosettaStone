@@ -914,26 +914,26 @@ DRAGONS | DRG_660 | Galakrond, the Unspeakable | O
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 YEAR_OF_THE_DRAGON | YOD_001 | Rising Winds |  
-YEAR_OF_THE_DRAGON | YOD_003 | Winged Guardian |  
+YEAR_OF_THE_DRAGON | YOD_003 | Winged Guardian | O
 YEAR_OF_THE_DRAGON | YOD_004 | Chopshop Copter |  
-YEAR_OF_THE_DRAGON | YOD_005 | Fresh Scent |  
+YEAR_OF_THE_DRAGON | YOD_005 | Fresh Scent | O
 YEAR_OF_THE_DRAGON | YOD_006 | Escaped Manasaber |  
-YEAR_OF_THE_DRAGON | YOD_007 | Animated Avalanche |  
-YEAR_OF_THE_DRAGON | YOD_008 | Arcane Amplifier |  
+YEAR_OF_THE_DRAGON | YOD_007 | Animated Avalanche | O
+YEAR_OF_THE_DRAGON | YOD_008 | Arcane Amplifier | O
 YEAR_OF_THE_DRAGON | YOD_009 | The Amazing Reno |  
-YEAR_OF_THE_DRAGON | YOD_010 | Shotbot |  
-YEAR_OF_THE_DRAGON | YOD_012 | Air Raid |  
+YEAR_OF_THE_DRAGON | YOD_010 | Shotbot | O
+YEAR_OF_THE_DRAGON | YOD_012 | Air Raid | O
 YEAR_OF_THE_DRAGON | YOD_013 | Cleric of Scales |  
 YEAR_OF_THE_DRAGON | YOD_014 | Aeon Reaver |  
 YEAR_OF_THE_DRAGON | YOD_015 | Dark Prophecy |  
-YEAR_OF_THE_DRAGON | YOD_016 | Skyvateer |  
+YEAR_OF_THE_DRAGON | YOD_016 | Skyvateer | O
 YEAR_OF_THE_DRAGON | YOD_017 | Shadow Sculptor |  
 YEAR_OF_THE_DRAGON | YOD_018 | Waxmancy |  
 YEAR_OF_THE_DRAGON | YOD_020 | Explosive Evolution |  
 YEAR_OF_THE_DRAGON | YOD_022 | Risky Skipper |  
 YEAR_OF_THE_DRAGON | YOD_023 | Boom Squad |  
 YEAR_OF_THE_DRAGON | YOD_024 | Bomb Wrangler |  
-YEAR_OF_THE_DRAGON | YOD_025 | Twisted Knowledge |  
+YEAR_OF_THE_DRAGON | YOD_025 | Twisted Knowledge | O
 YEAR_OF_THE_DRAGON | YOD_026 | Fiendish Servant |  
 YEAR_OF_THE_DRAGON | YOD_027 | Chaos Gazer |  
 YEAR_OF_THE_DRAGON | YOD_028 | Skydiving Instructor |  
@@ -942,46 +942,46 @@ YEAR_OF_THE_DRAGON | YOD_030 | Licensed Adventurer |
 YEAR_OF_THE_DRAGON | YOD_032 | Frenzied Felwing |  
 YEAR_OF_THE_DRAGON | YOD_033 | Boompistol Bully |  
 YEAR_OF_THE_DRAGON | YOD_035 | Grand Lackey Erkh |  
-YEAR_OF_THE_DRAGON | YOD_036 | Rotnest Drake |  
+YEAR_OF_THE_DRAGON | YOD_036 | Rotnest Drake | O
 YEAR_OF_THE_DRAGON | YOD_038 | Sky Gen'ral Kragg |  
 YEAR_OF_THE_DRAGON | YOD_040 | Steel Beetle |  
 YEAR_OF_THE_DRAGON | YOD_041 | Eye of the Storm |  
 YEAR_OF_THE_DRAGON | YOD_042 | The Fist of Ra-den |  
-YEAR_OF_THE_DRAGON | YOD_043 | Scalelord |  
+YEAR_OF_THE_DRAGON | YOD_043 | Scalelord | O
 
-- Progress: 0% (0 of 35 Cards)
+- Progress: 28% (10 of 35 Cards)
 
 ## Ashes of Outland
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-BLACK_TEMPLE | BT_002 | Incanter's Flow |  
-BLACK_TEMPLE | BT_003 | Netherwind Portal |  
+BLACK_TEMPLE | BT_002 | Incanter's Flow | O
+BLACK_TEMPLE | BT_003 | Netherwind Portal | O
 BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
 BLACK_TEMPLE | BT_006 | Evocation |  
 BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
 BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
 BLACK_TEMPLE | BT_010 | Felfin Navigator | O
-BLACK_TEMPLE | BT_011 | Libram of Justice |  
-BLACK_TEMPLE | BT_014 | Starscryer |  
+BLACK_TEMPLE | BT_011 | Libram of Justice | O
+BLACK_TEMPLE | BT_014 | Starscryer | O
 BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
 BLACK_TEMPLE | BT_019 | Murgur Murgurgle |  
 BLACK_TEMPLE | BT_020 | Aldor Attendant |  
 BLACK_TEMPLE | BT_021 | Font of Power |  
 BLACK_TEMPLE | BT_022 | Apexis Smuggler |  
-BLACK_TEMPLE | BT_024 | Libram of Hope |  
+BLACK_TEMPLE | BT_024 | Libram of Hope | O
 BLACK_TEMPLE | BT_025 | Libram of Wisdom |  
 BLACK_TEMPLE | BT_026 | Aldor Truthseeker |  
 BLACK_TEMPLE | BT_028 | Astromancer Solarian |  
 BLACK_TEMPLE | BT_042 | Bamboozle |  
-BLACK_TEMPLE | BT_072 | Deep Freeze |  
-BLACK_TEMPLE | BT_100 | Serpentshrine Portal |  
+BLACK_TEMPLE | BT_072 | Deep Freeze | O
+BLACK_TEMPLE | BT_100 | Serpentshrine Portal | O
 BLACK_TEMPLE | BT_101 | Vivid Spores |  
 BLACK_TEMPLE | BT_102 | Boggspine Knuckles |  
 BLACK_TEMPLE | BT_106 | Bogstrok Clacker |  
 BLACK_TEMPLE | BT_109 | Lady Vashj |  
 BLACK_TEMPLE | BT_110 | Torrent |  
-BLACK_TEMPLE | BT_113 | Totemic Reflection |  
+BLACK_TEMPLE | BT_113 | Totemic Reflection | O
 BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
 BLACK_TEMPLE | BT_115 | Marshspawn |  
 BLACK_TEMPLE | BT_117 | Bladestorm | O
@@ -994,12 +994,12 @@ BLACK_TEMPLE | BT_127 | Imprisoned Satyr |
 BLACK_TEMPLE | BT_128 | Fungal Fortunes |  
 BLACK_TEMPLE | BT_129 | Germination |  
 BLACK_TEMPLE | BT_130 | Overgrowth | O
-BLACK_TEMPLE | BT_131 | Ysiel Windsinger |  
+BLACK_TEMPLE | BT_131 | Ysiel Windsinger | O
 BLACK_TEMPLE | BT_132 | Ironbark |  
 BLACK_TEMPLE | BT_133 | Marsh Hydra |  
 BLACK_TEMPLE | BT_134 | Bogbeam |  
 BLACK_TEMPLE | BT_135 | Glowfly Swarm |  
-BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O  
+BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O
 BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
 BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
@@ -1013,7 +1013,7 @@ BLACK_TEMPLE | BT_190 | Replicat-o-tron |
 BLACK_TEMPLE | BT_196 | Keli'dan the Breaker |  
 BLACK_TEMPLE | BT_197 | Reliquary of Souls |  
 BLACK_TEMPLE | BT_198 | Soul Mirror |  
-BLACK_TEMPLE | BT_199 | Unstable Felbolt |  
+BLACK_TEMPLE | BT_199 | Unstable Felbolt | O
 BLACK_TEMPLE | BT_201 | Augmented Porcupine |  
 BLACK_TEMPLE | BT_202 | Helboar |  
 BLACK_TEMPLE | BT_203 | Pack Tactics |  
@@ -1027,15 +1027,15 @@ BLACK_TEMPLE | BT_230 | The Lurker Below |
 BLACK_TEMPLE | BT_233 | Sword and Board |  
 BLACK_TEMPLE | BT_249 | Scrap Golem |  
 BLACK_TEMPLE | BT_252 | Renew | O
-BLACK_TEMPLE | BT_253 | Psyche Split |  
+BLACK_TEMPLE | BT_253 | Psyche Split | O
 BLACK_TEMPLE | BT_254 | Sethekk Veilweaver |  
 BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |  
 BLACK_TEMPLE | BT_256 | Dragonmaw Overseer |  
-BLACK_TEMPLE | BT_257 | Apotheosis |  
+BLACK_TEMPLE | BT_257 | Apotheosis | O
 BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
 BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel |  
 BLACK_TEMPLE | BT_291 | Apexis Blast |  
-BLACK_TEMPLE | BT_292 | Hand of A'dal |  
+BLACK_TEMPLE | BT_292 | Hand of A'dal | O
 BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
 BLACK_TEMPLE | BT_301 | Nightshade Matron |  
 BLACK_TEMPLE | BT_302 | The Dark Portal |  
@@ -1067,8 +1067,8 @@ BLACK_TEMPLE | BT_710 | Greyheart Sage |
 BLACK_TEMPLE | BT_711 | Blackjack Stunner |  
 BLACK_TEMPLE | BT_713 | Akama |  
 BLACK_TEMPLE | BT_714 | Frozen Shadoweaver |  
-BLACK_TEMPLE | BT_715 | Bonechewer Brawler |  
-BLACK_TEMPLE | BT_716 | Bonechewer Vanguard |  
+BLACK_TEMPLE | BT_715 | Bonechewer Brawler | O
+BLACK_TEMPLE | BT_716 | Bonechewer Vanguard | O
 BLACK_TEMPLE | BT_717 | Burrowing Scorpid |  
 BLACK_TEMPLE | BT_720 | Ruststeed Raider |  
 BLACK_TEMPLE | BT_721 | Blistering Rot |  
@@ -1077,7 +1077,7 @@ BLACK_TEMPLE | BT_723 | Rocket Augmerchant |
 BLACK_TEMPLE | BT_724 | Ethereal Augmerchant |  
 BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker | O
 BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
-BLACK_TEMPLE | BT_728 | Disguised Wanderer |  
+BLACK_TEMPLE | BT_728 | Disguised Wanderer | O
 BLACK_TEMPLE | BT_729 | Waste Warden |  
 BLACK_TEMPLE | BT_730 | Overconfident Orc |  
 BLACK_TEMPLE | BT_731 | Infectious Sporeling |  
@@ -1091,7 +1091,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 8% (11 of 135 Cards)
+- Progress: 25% (35 of 135 Cards)
 
 ## Scholomance Academy
 
@@ -1099,10 +1099,10 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 SCHOLOMANCE | SCH_120 | Cabal Acolyte |  
 SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |  
-SCHOLOMANCE | SCH_133 | Wolpertinger |  
+SCHOLOMANCE | SCH_133 | Wolpertinger | O
 SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
 SCHOLOMANCE | SCH_136 | Power Word: Feast |  
-SCHOLOMANCE | SCH_137 | Frazzled Freshman |  
+SCHOLOMANCE | SCH_137 | Frazzled Freshman | O
 SCHOLOMANCE | SCH_138 | Blessing of Authority |  
 SCHOLOMANCE | SCH_139 | Devout Pupil |  
 SCHOLOMANCE | SCH_140 | Flesh Giant |  
@@ -1122,18 +1122,18 @@ SCHOLOMANCE | SCH_181 | Archwitch Willow |
 SCHOLOMANCE | SCH_182 | Speaker Gidra |  
 SCHOLOMANCE | SCH_199 | Transfer Student |  
 SCHOLOMANCE | SCH_224 | Headmaster Kel'Thuzad |  
-SCHOLOMANCE | SCH_230 | Onyx Magescribe |  
+SCHOLOMANCE | SCH_230 | Onyx Magescribe | O
 SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
 SCHOLOMANCE | SCH_232 | Crimson Hothead |  
 SCHOLOMANCE | SCH_233 | Draconic Studies |  
-SCHOLOMANCE | SCH_234 | Shifty Sophomore |  
+SCHOLOMANCE | SCH_234 | Shifty Sophomore | O
 SCHOLOMANCE | SCH_235 | Devolving Missiles |  
 SCHOLOMANCE | SCH_236 | Diligent Notetaker |  
 SCHOLOMANCE | SCH_237 | Athletic Studies |  
 SCHOLOMANCE | SCH_238 | Reaper's Scythe |  
 SCHOLOMANCE | SCH_239 | Krolusk Barkstripper |  
 SCHOLOMANCE | SCH_241 | Firebrand |  
-SCHOLOMANCE | SCH_242 | Gibberling |  
+SCHOLOMANCE | SCH_242 | Gibberling | O
 SCHOLOMANCE | SCH_243 | Wyrm Weaver |  
 SCHOLOMANCE | SCH_244 | Teacher's Pet |  
 SCHOLOMANCE | SCH_245 | Steward of Scrolls |  
@@ -1164,9 +1164,9 @@ SCHOLOMANCE | SCH_337 | Troublemaker |
 SCHOLOMANCE | SCH_340 | Bloated Python |  
 SCHOLOMANCE | SCH_343 | Void Drinker |  
 SCHOLOMANCE | SCH_348 | Combustion |  
-SCHOLOMANCE | SCH_350 | Wand Thief |  
-SCHOLOMANCE | SCH_351 | Jandice Barov |  
-SCHOLOMANCE | SCH_352 | Potion of Illusion |  
+SCHOLOMANCE | SCH_350 | Wand Thief | O
+SCHOLOMANCE | SCH_351 | Jandice Barov | O
+SCHOLOMANCE | SCH_352 | Potion of Illusion | O
 SCHOLOMANCE | SCH_353 | Cram Session |  
 SCHOLOMANCE | SCH_354 | Ancient Void Hound |  
 SCHOLOMANCE | SCH_355 | Shardshatter Mystic |  
@@ -1174,19 +1174,19 @@ SCHOLOMANCE | SCH_356 | Glide |
 SCHOLOMANCE | SCH_357 | Fel Guardians |  
 SCHOLOMANCE | SCH_400 | Mozaki, Master Duelist |  
 SCHOLOMANCE | SCH_422 | Double Jump |  
-SCHOLOMANCE | SCH_425 | Doctor Krastinov |  
-SCHOLOMANCE | SCH_426 | Infiltrator Lilian |  
+SCHOLOMANCE | SCH_425 | Doctor Krastinov | O
+SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom |  
 SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
-SCHOLOMANCE | SCH_509 | Brain Freeze |  
+SCHOLOMANCE | SCH_509 | Brain Freeze | O
 SCHOLOMANCE | SCH_512 | Initiation |  
 SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |  
 SCHOLOMANCE | SCH_514 | Raise Dead |  
 SCHOLOMANCE | SCH_517 | Shadowlight Scholar |  
 SCHOLOMANCE | SCH_519 | Vulpera Toxinblade |  
-SCHOLOMANCE | SCH_521 | Coerce |  
-SCHOLOMANCE | SCH_522 | Steeldancer |  
+SCHOLOMANCE | SCH_521 | Coerce | O
+SCHOLOMANCE | SCH_522 | Steeldancer | O
 SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
 SCHOLOMANCE | SCH_524 | Shield of Honor |  
 SCHOLOMANCE | SCH_525 | In Formation! |  
@@ -1214,23 +1214,23 @@ SCHOLOMANCE | SCH_616 | Twilight Runner |
 SCHOLOMANCE | SCH_617 | Adorable Infestation |  
 SCHOLOMANCE | SCH_618 | Blood Herald |  
 SCHOLOMANCE | SCH_621 | Rattlegore |  
-SCHOLOMANCE | SCH_622 | Self-Sharpening Sword |  
-SCHOLOMANCE | SCH_623 | Cutting Class |  
+SCHOLOMANCE | SCH_622 | Self-Sharpening Sword | O
+SCHOLOMANCE | SCH_623 | Cutting Class | O
 SCHOLOMANCE | SCH_700 | Spirit Jailer |  
 SCHOLOMANCE | SCH_701 | Soul Shear |  
 SCHOLOMANCE | SCH_702 | Felosophy |  
 SCHOLOMANCE | SCH_703 | Soulciologist Malicia |  
 SCHOLOMANCE | SCH_704 | Soulshard Lapidary |  
 SCHOLOMANCE | SCH_705 | Vilefiend Trainer |  
-SCHOLOMANCE | SCH_706 | Plagiarize |  
-SCHOLOMANCE | SCH_707 | Fishy Flyer |  
-SCHOLOMANCE | SCH_708 | Sneaky Delinquent |  
-SCHOLOMANCE | SCH_709 | Smug Senior |  
-SCHOLOMANCE | SCH_710 | Ogremancer |  
-SCHOLOMANCE | SCH_711 | Plagued Protodrake |  
+SCHOLOMANCE | SCH_706 | Plagiarize | O
+SCHOLOMANCE | SCH_707 | Fishy Flyer | O
+SCHOLOMANCE | SCH_708 | Sneaky Delinquent | O
+SCHOLOMANCE | SCH_709 | Smug Senior | O
+SCHOLOMANCE | SCH_710 | Ogremancer | O
+SCHOLOMANCE | SCH_711 | Plagued Protodrake | O
 SCHOLOMANCE | SCH_712 | Judicious Junior | O
 SCHOLOMANCE | SCH_713 | Cult Neophyte |  
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 1% (2 of 135 Cards)
+- Progress: 14% (19 of 135 Cards)

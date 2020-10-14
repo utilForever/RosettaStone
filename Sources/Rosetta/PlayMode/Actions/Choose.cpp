@@ -237,38 +237,38 @@ bool ChoicePick(Player* player, int choice)
                 "ChoicePick() - Invalid choice action!");
     }
 
-    // Process after choose tasks
-    if (choiceVal->source != nullptr)
-    {
-        auto tasks = choiceVal->source->card->power.GetAfterChooseTask();
-
-        if (!choiceVal->entityStack.empty())
-        {
-            std::vector<Playable*> playables;
-
-            for (auto& entityID : choiceVal->entityStack)
-            {
-                playables.emplace_back(player->game->entityList[entityID]);
-            }
-
-            player->game->taskStack.playables = playables;
-        }
-
-        for (auto& task : tasks)
-        {
-            std::unique_ptr<ITask> clonedTask = task->Clone();
-
-            clonedTask->SetPlayer(player);
-            clonedTask->SetSource(choiceVal->source);
-            clonedTask->SetTarget(playable);
-
-            clonedTask->Run();
-        }
-    }
-
     Choice* nextChoice = choiceVal->TryPopNextChoice(choice);
     if (nextChoice == nullptr)
     {
+        // Process after choose tasks
+        if (choiceVal->source != nullptr)
+        {
+            auto tasks = choiceVal->source->card->power.GetAfterChooseTask();
+
+            if (!choiceVal->entityStack.empty())
+            {
+                std::vector<Playable*> playables;
+
+                for (auto& entityID : choiceVal->entityStack)
+                {
+                    playables.emplace_back(player->game->entityList[entityID]);
+                }
+
+                player->game->taskStack.playables = playables;
+            }
+
+            for (auto& task : tasks)
+            {
+                std::unique_ptr<ITask> clonedTask = task->Clone();
+
+                clonedTask->SetPlayer(player);
+                clonedTask->SetSource(choiceVal->source);
+                clonedTask->SetTarget(playable);
+
+                clonedTask->Run();
+            }
+        }
+
         // It's done! - Reset choice
         delete player->choice;
         player->choice = nullptr;

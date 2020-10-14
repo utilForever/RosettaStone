@@ -57,6 +57,8 @@ class PlayerAuraEffects
     int m_extraTriggerSecret = 0;
     int m_megaWindfury = 0;
     int m_chooseBoth = 0;
+    int m_extraBattlecry = 0;
+    int m_heroPowerDamage = 0;
 };
 }  // namespace RosettaStone::PlayMode
 

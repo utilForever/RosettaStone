@@ -1,68 +1,37 @@
 language: cpp
+os: linux
+dist: focal
 
-matrix:
-  include:
-    - name: Test Ubuntu 16.04 + gcc-7 + codecov + (sonarcloud)
-      os: linux
-      addons:
-        apt:
-          sources:
-            - deadsnakes
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-            - python3.7-dev
-            - python3.7-venv
-        sonarcloud:
-          organization: "utilforever-github"
-          token:
-            secure: "JZM7ZH0E2p8CSU6sXxJ6Z0IujyHrqBHo4G+stlA/yWcLVjPsc5ub0ewYMloVj9DE4AlORahKLR8ZZeXT4i4pmI8SEQhzKmNjjYKG2wArqydyFoDzoP/cyTZFHhrO9cVL3/lkBkYt3ILTjuR7GgbU0utUFjhZpG/tJnMVkB1LenvM04ZN5DLr4k1H8OaXmFlsGN/llARmdyTmgMqInTu7qlD/uZIQOlwt1LudeWLCVlZMcbn/pJW0Oo26LU5fxgca/sEf5UeegjesQ/H8ZHZAaiKKIwQc6oJtptPtFNxXDqS68ReksfFv3v47JHUm4OiSFQXwSogw31UgAUXancYo4s9LzB/Y/cxlH0QhcUQ2jqmKRkjq1KmOIGJLeQT2JElSElrL7NxMM9NYneIALUvC7ef9RY5KVaYYV5zEaQ6qCCKVQayCPoqXrqAQ7ZKmNZ77vVX53ve7e03wVIWUeOjifDnHtK7Veg58bn5AwOpJmGS8Pd4cQXOehhniyx9iX0WSm/2/cyR6585TlR/v+V29uGW+jlwty8TJXdhYO/MjjhwsY1VKkGp+ySB5U6CpyB+nQSlprzqhYC/rt+RKctmsiPw4CAk3cLQqQYOV0+4yKr+lVKMQdRpZ1ZM3+9v6fPc15IVve7HtvZ1vN15nRuy+pWrEiu1m9PFWiggweOm1Y8c="
-      dist: xenial
-      sudo: required
-      compiler: gcc
-      env:
-        - BUILD_TYPE=Debug
-      script:
-        - |
-          if [[ -n "${TRAVIS_PULL_REQUEST_SLUG}" && "${TRAVIS_PULL_REQUEST_SLUG}" != "${TRAVIS_REPO_SLUG}" ]]; then
-            echo "The pull request from ${TRAVIS_PULL_REQUEST_SLUG} is an EXTERNAL pull request. Skip sonar analysis."
-            sh Scripts/travis_build_codecov.sh
-          else
-            sh Scripts/travis_build_codecov_sonar.sh
-          fi
-    - name: Test Docker based on Ubuntu 18.04 LTS + gcc
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh
-    - name: Test Docker based on Ubuntu 20.04 LTS + gcc
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal focal
-    - name: Test Docker based on Ubuntu 20.04 LTS + gcc-latest
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal.gcc-latest focal-gcc-latest
-    - name: Test Docker based on Ubuntu 20.04 LTS + clang-latest
-      os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.focal.clang-latest focal-clang-latest
-    - name: Test OS X 10.14 + Xcode 10.2 + clang
-      os: osx
-      osx_image: xcode10.2
-      compiler: clang
-      script:
-        - sh Scripts/travis_build.sh
-  before_install:
-    - eval "${MATRIX_EVAL}"
+addons:
+  sonarcloud:
+    organization: "utilforever-github"
+    token:
+      secure: "JZM7ZH0E2p8CSU6sXxJ6Z0IujyHrqBHo4G+stlA/yWcLVjPsc5ub0ewYMloVj9DE4AlORahKLR8ZZeXT4i4pmI8SEQhzKmNjjYKG2wArqydyFoDzoP/cyTZFHhrO9cVL3/lkBkYt3ILTjuR7GgbU0utUFjhZpG/tJnMVkB1LenvM04ZN5DLr4k1H8OaXmFlsGN/llARmdyTmgMqInTu7qlD/uZIQOlwt1LudeWLCVlZMcbn/pJW0Oo26LU5fxgca/sEf5UeegjesQ/H8ZHZAaiKKIwQc6oJtptPtFNxXDqS68ReksfFv3v47JHUm4OiSFQXwSogw31UgAUXancYo4s9LzB/Y/cxlH0QhcUQ2jqmKRkjq1KmOIGJLeQT2JElSElrL7NxMM9NYneIALUvC7ef9RY5KVaYYV5zEaQ6qCCKVQayCPoqXrqAQ7ZKmNZ77vVX53ve7e03wVIWUeOjifDnHtK7Veg58bn5AwOpJmGS8Pd4cQXOehhniyx9iX0WSm/2/cyR6585TlR/v+V29uGW+jlwty8TJXdhYO/MjjhwsY1VKkGp+ySB5U6CpyB+nQSlprzqhYC/rt+RKctmsiPw4CAk3cLQqQYOV0+4yKr+lVKMQdRpZ1ZM3+9v6fPc15IVve7HtvZ1vN15nRuy+pWrEiu1m9PFWiggweOm1Y8c="
+
+script:
+  # Install packages
+  - sudo apt-get install -yq gcovr ggcov lcov curl
+  # Configure build
+  - mkdir build
+  - cd build
+  - cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
+  # Wraps the compilation with the Build Wrapper to generate configuration
+  # (used later by the SonarQube Scanner) into the "bw-output" folder
+  - build-wrapper-linux-x86-64 --out-dir ../bw-output make all
+  # Execute some tests
+  - lcov --gcov-tool /usr/bin/gcov -c -i -d Tests/UnitTests -o base.info
+  - bin/UnitTests
+  - lcov --gcov-tool /usr/bin/gcov -c -d Tests/UnitTests -o test.info
+  - lcov --gcov-tool /usr/bin/gcov -a base.info -a test.info -o coverage.info
+  - lcov --gcov-tool /usr/bin/gcov -r coverage.info '*/Extensions/*' -o coverage.info
+  - lcov --gcov-tool /usr/bin/gcov -r coverage.info '*/Includes/*' -o coverage.info
+  - lcov --gcov-tool /usr/bin/gcov -r coverage.info '*/Libraries/*' -o coverage.info
+  - lcov --gcov-tool /usr/bin/gcov -l coverage.info
+  # And finally run the SonarQube analysis - read the "sonar-project.properties"
+  # file to see the specific configuration
+  - cd ..
+  - sonar-scanner
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
