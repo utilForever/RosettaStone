@@ -60,4 +60,4 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install .
-        python -m pytest /Tests/PythonTests/
+        python -m pytest Tests/PythonTests/

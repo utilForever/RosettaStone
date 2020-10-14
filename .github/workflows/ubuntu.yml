@@ -68,4 +68,4 @@ jobs:
       run: |
         pip3 install -r requirements.txt
         pip3 install .
-        python3 -m pytest /Tests/PythonTests/
+        python3 -m pytest Tests/PythonTests/
