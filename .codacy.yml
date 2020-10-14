@@ -3,6 +3,7 @@ exclude_paths:
   - 3RD-PARTY.md
   - Dockerfile
   - setup.py
+  - .github/**
   - Datas/**
   - Documents/**
   - Libraries/**
