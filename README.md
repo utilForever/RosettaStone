@@ -2,13 +2,13 @@
 
 <img src="./Medias/Logos/Logo.png" width=256 height=256 />
 
-[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/RosettaStone.svg?branch=master)](https://travis-ci.org/utilForever/RosettaStone/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/RosettaStone?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/RosettaStone/branch/master) [![Build Status](https://utilforever.visualstudio.com/RosettaStone/_apis/build/status/utilForever.RosettaStone?branchName=master)](https://utilforever.visualstudio.com/RosettaStone/_build/latest?definitionId=7&branchName=master) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
+[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/master/LICENSE) ![Windows](https://github.com/utilForever/RosettaStone/workflows/Windows/badge.svg) ![Ubuntu](https://github.com/utilForever/RosettaStone/workflows/Ubuntu/badge.svg) ![macOS](https://github.com/utilForever/RosettaStone/workflows/macOS/badge.svg) ![Ubuntu - Codecov](https://github.com/utilForever/RosettaStone/workflows/Ubuntu%20-%20Codecov/badge.svg) [![Build Status](https://travis-ci.com/utilForever/RosettaStone.svg?branch=main)](https://travis-ci.com/utilForever/RosettaStone)
 
-[![codecov](https://codecov.io/gh/utilForever/RosettaStone/branch/master/graph/badge.svg)](https://codecov.io/gh/utilForever/RosettaStone)
+[![codecov](https://codecov.io/gh/utilForever/RosettaStone/branch/main/graph/badge.svg)](https://codecov.io/gh/utilForever/RosettaStone)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/RosettaStone?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/RosettaStone&amp;utm_campaign=Badge_Grade)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/utilForever/RosettaStone.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/RosettaStone/alerts/)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/RosettaStone.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/RosettaStone/context:cpp)
-[![CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone/badge)](https://www.codefactor.io/repository/github/utilforever/RosettaStone)
+[![CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone/badge)](https://www.codefactor.io/repository/github/utilforever/RosettaStone) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=alert_status)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=ncloc)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=security_rating)](https://sonarcloud.io/dashboard?id=RosettaStone)
 
@@ -237,7 +237,7 @@ The class is licensed under the [Affero GPLv3 License](https://opensource.org/li
 
 RosettaStone is based on part of Sabberstone's code
 
-Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+Copyright (c) 2017-2020 SabberStone Team, darkfriend77 & rnilva
 
 RosettaStone is based on part of hearthstone-ai's code
 
@@ -245,7 +245,7 @@ Copyright (c) 2017 Peter Shih, peter1591
 
 RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
-Copyright (c) 2017-2019 RosettaStone Team
+Copyright (c) 2017-2020 RosettaStone Team
 
   * [Chris Ohk](http://www.github.com/utilForever)
   * [Youngjoong Kim](https://github.com/revsic)
