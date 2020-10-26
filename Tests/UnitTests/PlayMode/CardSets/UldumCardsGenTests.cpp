@@ -1593,8 +1593,8 @@ TEST_CASE("[Mage : Spell] - ULD_216 : Puzzle Box of Yogg-Saron")
 // [ULD_236] Tortollan Pilgrim - COST:8 [ATK:5/HP:5]
 // - Set: Uldum, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Battlecry</b>: <b>Discover</b> a copy of
-//       a spell in your deck and cast it with random targets.
+// Text: <b>Battlecry</b>: <b>Discover</b> a spell
+//       in your deck and cast it with random targets.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -1702,6 +1702,8 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
         const bool check34 = check31 || check32 || check33;
         CHECK_EQ(check34, true);
     }
+
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 25);
 }
 
 // ------------------------------------------ MINION - MAGE

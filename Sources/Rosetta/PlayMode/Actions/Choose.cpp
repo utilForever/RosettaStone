@@ -203,16 +203,16 @@ bool ChoicePick(Player* player, int choice)
         }
         case ChoiceAction::TORTOLLAN_PILGRIM:
         {
-            auto spellToCast = dynamic_cast<Spell*>(
-                Entity::GetFromCard(player, playable->card));
-            const auto randTarget = spellToCast->GetRandomValidTarget();
+            player->GetSetasideZone()->Remove(playable);
+            const auto randTarget = playable->GetRandomValidTarget();
             const int randChooseOne = Random::get<int>(1, 2);
 
             const auto choiceTemp = player->choice;
             player->choice = nullptr;
 
             player->game->taskQueue.StartEvent();
-            CastSpell(player, spellToCast, randTarget, randChooseOne);
+            CastSpell(player, dynamic_cast<Spell*>(playable), randTarget,
+                      randChooseOne);
             player->game->ProcessDestroyAndUpdateAura();
             player->game->taskQueue.EndEvent();
 
