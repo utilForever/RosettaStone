@@ -4853,6 +4853,374 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 64076,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 63624,
+        "elite": true,
+        "health": 4,
+        "id": "BGS_100",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lil' Rag",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]After you play an Elemental,\ngive a friendly minion stats\nequal to the Elemental's\nTavern Tier.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64075,
+        "id": "BGS_100e",
+        "name": "Lil' Hand of Rag",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 64185,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 63626,
+        "elite": true,
+        "health": 4,
+        "id": "BGS_104",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Nomi, Kitchen Nightmare",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]After you play an Elemental,\nElementals in Bob's Tavern\nhave +1/+1 for the rest\nof the game.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64168,
+        "id": "BGS_104e1",
+        "name": "Tavern Feast",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64167,
+        "id": "BGS_104pe",
+        "name": "Nomi Player Enchant",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 64459,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 63630,
+        "elite": true,
+        "health": 3,
+        "id": "BGS_105",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Majordomo Executus",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "[x]At the end of your turn,\ngive your left-most minion\n+1/+1 for each Elemental\nyou played this turn.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65180,
+        "id": "BGS_105e",
+        "name": "Aegis of the Firelord",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 64041,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64038,
+        "health": 2,
+        "id": "BGS_115",
+        "name": "Sellemental",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "[x]When you sell this,\nadd a 2/2 Elemental\nto your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64040,
+        "health": 2,
+        "id": "BGS_115t",
+        "name": "Water Droplet",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "battlegroundsPremiumDbfId": 64045,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 64042,
+        "health": 3,
+        "id": "BGS_116",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Refreshing Anomaly",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "[x]<b>Battlecry:</b> Your next\n<b>Refresh</b> costs (0).",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64043,
+        "id": "BGS_116e",
+        "name": "Refresh Costs 0",
+        "set": "BATTLEGROUNDS",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 64055,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64054,
+        "health": 1,
+        "id": "BGS_119",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "WINDFURY"
+        ],
+        "name": "Crackling Cyclone",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Divine Shield</b>\n<b>Windfury</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 64058,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64056,
+        "health": 2,
+        "id": "BGS_120",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Party Elemental",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "After you play an Elemental, give another random friendly Elemental +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64057,
+        "id": "BGS_120e",
+        "name": "Party Time",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsPremiumDbfId": 64064,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 64062,
+        "health": 8,
+        "id": "BGS_121",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Gentle Djinni",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Taunt</b>. <b>Deathrattle:</b> Summon another random Elemental and add a copy of it to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 64073,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64069,
+        "health": 4,
+        "id": "BGS_122",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Stasis Elemental",
+        "race": "ELEMENTAL",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Battlecry:</b> Add another random Elemental to Bob's Tavern and <b>Freeze</b> it.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 64079,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 64077,
+        "health": 4,
+        "id": "BGS_123",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tavern Tempest",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "<b>Battlecry:</b> Add another random Elemental to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsPremiumDbfId": 64085,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 64081,
+        "elite": true,
+        "health": 1,
+        "id": "BGS_124",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lieutenant Garr",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Taunt</b>. After you play an Elemental, gain +1 Health for each Elemental you have.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64082,
+        "id": "BGS_124e",
+        "name": "Garrdian",
+        "set": "BATTLEGROUNDS",
+        "text": "+1 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 7,
+        "battlegroundsPremiumDbfId": 64190,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 64189,
+        "health": 3,
+        "id": "BGS_126",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wildfire Elemental",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "After this attacks and kills\na minion, deal excess damage to a random adjacent minion.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 64300,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64296,
+        "health": 3,
+        "id": "BGS_127",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Molten Rock",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "<b>Taunt</b>. After you play an Elemental, gain +1 Health.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64298,
+        "id": "BGS_127e",
+        "name": "Lava Shield",
+        "set": "BATTLEGROUNDS",
+        "text": "+1 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 64303,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64297,
+        "health": 2,
+        "id": "BGS_128",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Arcane Assistant",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Battlecry:</b> Give your other Elementals +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64302,
+        "id": "BGS_128e",
+        "name": "Elemental Energy",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "battlegroundsPremiumDbfId": 65122,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65031,
+        "health": 1,
+        "id": "BGS_131",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Deadly Spore",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "<b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
         "artist": "Jim Nelson",
         "attack": 1,
         "cardClass": "NEUTRAL",
@@ -14503,6 +14871,7 @@
         "type": "SPELL"
     },
     {
+        "artist": "Ursula Dorada",
         "attack": 1,
         "cardClass": "WARRIOR",
         "collectible": true,
@@ -22406,7 +22775,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 40693,
-        "flavor": "If you think her Illidan and Sylvanas cosplay is great, wait till you see her Reno Jackson!",
+        "flavor": "If you think her Xavius and Sylvanas cosplay is great, wait till you see her Reno Jackson!",
         "health": 5,
         "id": "CFM_697",
         "mechanics": [
@@ -31344,6 +31713,7 @@
     {
         "artist": "Wayne Wu",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 64457,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 8,
@@ -31361,6 +31731,7 @@
             "WINDFURY"
         ],
         "set": "DALARAN",
+        "techLevel": 4,
         "text": "Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.",
         "type": "MINION"
     },
@@ -64760,16 +65131,6 @@
         "type": "HERO"
     },
     {
-        "cardClass": "WARRIOR",
-        "dbfId": 61923,
-        "health": 30,
-        "id": "HERO_01e",
-        "name": "Annhylde",
-        "rarity": "FREE",
-        "set": "HERO_SKINS",
-        "type": "HERO"
-    },
-    {
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -64998,6 +65359,7 @@
     },
     {
         "cardClass": "PALADIN",
+        "collectible": true,
         "dbfId": 61886,
         "health": 30,
         "id": "HERO_04f",
@@ -65005,6 +65367,27 @@
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 65542,
+        "id": "HERO_04fbp",
+        "name": "Reinforce",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nSummon a 1/1 Silver Hand Recruit.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 65543,
+        "id": "HERO_04fbp2",
+        "name": "The Silver Hand",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nSummon two 1/1 Recruits.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "HUNTER",
@@ -65075,6 +65458,7 @@
     },
     {
         "cardClass": "HUNTER",
+        "collectible": true,
         "dbfId": 61597,
         "health": 30,
         "id": "HERO_05d",
@@ -65082,6 +65466,29 @@
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectionText": "<b>Hero Power</b>\nDeal $2 damage.",
+        "cost": 2,
+        "dbfId": 65540,
+        "id": "HERO_05dbp",
+        "name": "Steady Shot",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDeal $2 damage to the enemy hero.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectionText": "<b>Hero Power</b>\nDeal $3 damage.",
+        "cost": 2,
+        "dbfId": 65541,
+        "id": "HERO_05dbp2",
+        "name": "Ballista Shot",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDeal $3 damage to the enemy hero.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "DRUID",
@@ -91059,9 +91466,6 @@
         "id": "SCH_162t",
         "name": "Plagued Hatchling",
         "race": "DRAGON",
-        "referencedTags": [
-            "DEATHRATTLE"
-        ],
         "set": "SCHOLOMANCE",
         "type": "MINION"
     },
@@ -93961,7 +94365,7 @@
             "HUNTER"
         ],
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 59539,
         "flavor": "The guidelines specifically state: \"Students may also bring an ironbeak owl OR an alleycat OR a toad.\" They never said how big.",
         "id": "SCH_610",
@@ -95276,7 +95680,6 @@
         "hideStats": true,
         "id": "Story_01_Malfurion",
         "name": "Malfurion Stormrage",
-        "race": "NIGHTELF",
         "set": "SCHOLOMANCE",
         "type": "MINION"
     },
@@ -95381,7 +95784,7 @@
         ],
         "name": "Gates of Theramore",
         "set": "SCHOLOMANCE",
-        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Deal $3 damage to your hero.",
+        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Deal 3 damage to your hero.",
         "type": "MINION"
     },
     {
@@ -95441,7 +95844,6 @@
         "health": 7,
         "id": "Story_01_ThrallMinion",
         "name": "Thrall",
-        "race": "ORC",
         "set": "SCHOLOMANCE",
         "type": "MINION"
     },
@@ -95454,7 +95856,6 @@
         "health": 7,
         "id": "Story_01_Tyrande",
         "name": "Tyrande Whisperwind",
-        "race": "NIGHTELF",
         "set": "SCHOLOMANCE",
         "type": "MINION"
     },
@@ -95514,6 +95915,853 @@
         "type": "MINION"
     },
     {
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "cost": 4,
+        "dbfId": 64624,
+        "elite": true,
+        "health": 5,
+        "hideStats": true,
+        "id": "Story_02_Baine",
+        "name": "Prisoner Baine",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Dormant</b>\nDefeat Khiragg to return Baine to his father.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 64645,
+        "id": "Story_02_BeastCompanion",
+        "name": "Beast Companion",
+        "set": "SCHOLOMANCE",
+        "text": "Summon a random Beast Companion.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 63835,
+        "health": 30,
+        "id": "Story_02_Blackhand",
+        "name": "Warchief Blackhand",
+        "set": "SCHOLOMANCE",
+        "text": "<i>Uniting the orc clans into the Horde, he has secured dominance over the land.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 63840,
+        "id": "Story_02_BlackhandHP",
+        "name": "Backhand",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDestroy a random damaged enemy minion.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 61386,
+        "health": 8,
+        "id": "Story_02_BloodmaulBrute",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bloodmaul Brute",
+        "set": "SCHOLOMANCE",
+        "text": "At the end of your turn, summon two 2/2 Bloodmaul Maulers that attack random enemies.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 61387,
+        "health": 2,
+        "id": "Story_02_BloodmaulMauler",
+        "name": "Bloodmaul Mauler",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 64663,
+        "id": "Story_02_Burgle",
+        "name": "Burgle",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "Add 2 random cards to your hand <i>(from your opponent's class)</i>.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 64492,
+        "elite": true,
+        "faction": "ALLIANCE",
+        "health": 5,
+        "id": "Story_02_Cairne",
+        "mechanics": [
+            "CHARGE",
+            "DEATHRATTLE"
+        ],
+        "name": "Cairne Bloodhoof",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Charge</b>\n<b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 61385,
+        "health": 40,
+        "id": "Story_02_Centaur",
+        "name": "Khiragg",
+        "set": "SCHOLOMANCE",
+        "text": "<i>The centaur have long fueded with the tauren, fighting over territory and resources.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 61375,
+        "id": "Story_02_CentaurHP",
+        "name": "Kidnap!",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nPut an enemy minion\n into a sack. \n(Except Misha.)",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 63838,
+        "health": 50,
+        "id": "Story_02_Daelin",
+        "name": "Daelin Proudmoore",
+        "set": "SCHOLOMANCE",
+        "text": "<i>After the wars, Jaina's father is determined to destroy any remnant of the Horde.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 4,
+        "dbfId": 63841,
+        "id": "Story_02_DaelinHP",
+        "name": "Launch Warship",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon a Kul Tiran Warship.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63837,
+        "health": 40,
+        "id": "Story_02_Darkscale",
+        "name": "Lady Darkscale",
+        "set": "SCHOLOMANCE",
+        "text": "<i>The vindictive naga often cause trouble on these shorelines...</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 2,
+        "dbfId": 61374,
+        "id": "Story_02_DarkscaleHP",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Tornado",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal $4 damage to a minion.\nAny excess damage continues to the left or right.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "cost": 5,
+        "dbfId": 65054,
+        "durability": 8,
+        "id": "Story_02_Doomhammer",
+        "mechanics": [
+            "OVERLOAD",
+            "WINDFURY"
+        ],
+        "name": "Doomhammer",
+        "overload": 2,
+        "set": "SCHOLOMANCE",
+        "text": "<b>Windfury, Overload:</b> (2)",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 64889,
+        "health": 2,
+        "id": "Story_02_EnchantedFamiliar",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Enchanted Familiar",
+        "race": "BEAST",
+        "set": "SCHOLOMANCE",
+        "text": "Your spells cost (1) less.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64890,
+        "id": "Story_02_EnchantedFamiliare",
+        "name": "Enchanted Assistance",
+        "set": "SCHOLOMANCE",
+        "text": "Costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 64653,
+        "health": 1,
+        "id": "Story_02_EVILCableRat",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "EVIL Cable Rat",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Add a <b>Lackey</b> to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 64652,
+        "health": 4,
+        "id": "Story_02_EVILMiscreant",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "EVIL Miscreant",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Combo:</b> Add two random <b>Lackeys</b> to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 64657,
+        "health": 3,
+        "id": "Story_02_FrenziedCrocolisk",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Frenzied Crocolisk",
+        "race": "BEAST",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Battlecry:</b> If you're holding\na card from another class,\n gain +1/+1 and <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 63839,
+        "health": 50,
+        "id": "Story_02_Gorgrom",
+        "name": "Gorgrom the Dragon-Eater",
+        "set": "SCHOLOMANCE",
+        "text": "<i>This enormous gronn threatens to destroy Rexxar's people once and for all.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 61376,
+        "id": "Story_02_GorgromHP",
+        "name": "Monstrous Growth",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Hero Power</b>\nGain 2 Armor. If you have\nless than 5 Armor,\ngain 3 Armor instead.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 64461,
+        "faction": "ALLIANCE",
+        "health": 10,
+        "id": "Story_02_GronnTrap",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Gronn Trap",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Taunt</b> Can't Attack.\nAt the start of your turn, deal 4 damage to the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 64354,
+        "elite": true,
+        "health": 5,
+        "id": "Story_02_Haratha",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Haratha",
+        "race": "BEAST",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Taunt</b>\n<b>Deathrattle:</b>\nDeal 2 damage to all enemy minions.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 64670,
+        "health": 3,
+        "id": "Story_02_HenchClanBurglar",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Hench-Clan Burglar",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a spell from another class.",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "cost": 7,
+        "dbfId": 64462,
+        "durability": 2,
+        "elite": true,
+        "id": "Story_02_HuntmasterBow",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Huntmaster's Bow",
+        "set": "SCHOLOMANCE",
+        "text": "After your hero attacks,\nsummon three 1/1 Snakes.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 64655,
+        "id": "Story_02_Intimidation",
+        "name": "Intimidation",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "Add 2 random <b>Taunt</b> minions to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 64445,
+        "health": 4,
+        "id": "Story_02_KulTiranGuard",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLPOWER"
+        ],
+        "name": "Kul Tiran Footman",
+        "set": "SCHOLOMANCE",
+        "spellDamage": 2,
+        "text": "<b>Spell Damage +2</b>\n<b>Deathrattle:</b> Deal 3 damage to the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 63834,
+        "health": 30,
+        "id": "Story_02_Leoroxx",
+        "name": "Leoroxx",
+        "set": "SCHOLOMANCE",
+        "text": "<i>Rexxar's father thinks he knows best. But does he truly?</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 61372,
+        "id": "Story_02_LeoroxxHP",
+        "name": "Reprimand",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nReduce the Attack of an enemy minion by 1 for a turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 64218,
+        "elite": true,
+        "health": 11,
+        "id": "Story_02_Maim",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Maim Blackhand",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> If you're holding a Dragon, gain +1 Attack and <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "cost": 3,
+        "dbfId": 64656,
+        "health": 4,
+        "id": "Story_02_Marshspawn",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Marshspawn",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> If you cast\na spell last turn,\n<b>Discover</b> a spell.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 63836,
+        "health": 30,
+        "id": "Story_02_Misha",
+        "name": "Misha",
+        "set": "SCHOLOMANCE",
+        "text": "<i>Winning the trust of a bear isn't easy. You need patience. And snacks.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 63842,
+        "id": "Story_02_MishaHP",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Wild Thrashing",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal 1-3 damage to 2 random minions.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 64241,
+        "health": 40,
+        "hideCost": true,
+        "id": "Story_02_MishaTrap",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Vicious Bear Trap",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Taunt</b>\nCan't Attack\nAt the start of your turn,\ndeal 4 damage to\nMisha.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 64294,
+        "health": 14,
+        "hideCost": true,
+        "id": "Story_02_Mogrin",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Mogrin the Injured",
+        "set": "SCHOLOMANCE",
+        "text": "At the start of your turn, this minion loses 2 health. Can't attack.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "cost": 7,
+        "dbfId": 64650,
+        "durability": 2,
+        "elite": true,
+        "id": "Story_02_MokNathalBow",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Mok'Nathal Bow",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> If your deck has no minions, fill your hand with Hunter spells.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 7,
+        "dbfId": 64446,
+        "id": "Story_02_Monsoon",
+        "name": "Monsoon",
+        "set": "SCHOLOMANCE",
+        "text": "Deal $6 damage to all minions, then deal $3 damage to all enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 61384,
+        "health": 30,
+        "id": "Story_02_Quilboar",
+        "name": "Ferocious Quilboar",
+        "set": "SCHOLOMANCE",
+        "text": "<i>These beasts are creating a disturbance. It'd be best to investigate.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 61373,
+        "id": "Story_02_QuilboarHP",
+        "name": "Get Over Here!",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon two 4/2 Quilboar Hunters.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64253,
+        "health": 2,
+        "id": "Story_02_QuilboarHunter",
+        "name": "Quilboar Hunter",
+        "set": "SCHOLOMANCE",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64359,
+        "id": "Story_02_Reprimande",
+        "name": "Reprimand",
+        "set": "SCHOLOMANCE",
+        "text": "Reduced Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 63846,
+        "health": 30,
+        "id": "Story_02_Rexxar",
+        "name": "Rexxar",
+        "set": "SCHOLOMANCE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 64366,
+        "id": "Story_02_RexxarHP",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Axe Toss Rank 2",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal 5 damage to a random enemy minion.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 63845,
+        "health": 30,
+        "id": "Story_02_RexxarMid",
+        "name": "Rexxar",
+        "set": "SCHOLOMANCE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 64311,
+        "id": "Story_02_RexxarMidHP",
+        "name": "Call Misha",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon Misha.\nIf she is already present,\nrestore 1 Health to her.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 64364,
+        "id": "Story_02_RexxarMidHP2",
+        "name": "Call Misha Rank 2",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon Misha.\nIf she is already present,\nrestore 2 Health to her.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 64365,
+        "id": "Story_02_RexxarMidHP3",
+        "name": "Call Misha Rank 3",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nSummon Misha.\nIf she is already present,\nrestore 3 Health to her.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 64256,
+        "id": "Story_02_RexxarMidHP4",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Axe Toss",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nDeal 4 damage to a random enemy minion.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 63844,
+        "health": 30,
+        "id": "Story_02_RexxarWar",
+        "name": "Rexxar",
+        "set": "SCHOLOMANCE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 64255,
+        "id": "Story_02_RexxarWarHP",
+        "name": "Friend to Animals",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Hero Power</b>\nGive a Beast +2/+2.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 63843,
+        "health": 30,
+        "id": "Story_02_RexxarYoung",
+        "name": "Rexxar",
+        "set": "SCHOLOMANCE",
+        "type": "HERO"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64460,
+        "elite": true,
+        "faction": "ALLIANCE",
+        "health": 3,
+        "id": "Story_02_Spirit",
+        "mechanics": [
+            "AURA",
+            "DEATHRATTLE"
+        ],
+        "name": "Spirit",
+        "race": "BEAST",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "SCHOLOMANCE",
+        "text": "All friendly attacks ignore <b>Taunt</b>.\n<b>Deathrattle:</b> Deal 5 damage to the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65291,
+        "id": "Story_02_Spirite",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Spirit's Flight",
+        "set": "SCHOLOMANCE",
+        "text": "Your attacks ignore <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65292,
+        "id": "Story_02_Spirite2",
+        "name": "Spirit's Flight",
+        "set": "SCHOLOMANCE",
+        "text": "Spirit is letting this ignore <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 64648,
+        "health": 4,
+        "id": "Story_02_Sporlar",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Sporlar",
+        "race": "BEAST",
+        "set": "SCHOLOMANCE",
+        "text": "Your other minions have +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 65293,
+        "id": "Story_02_Sporlare",
+        "name": "More to the Spore",
+        "set": "SCHOLOMANCE",
+        "text": "Sporlar is granting this minion +1 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 64891,
+        "health": 3,
+        "id": "Story_02_StuffedSack",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Stuffed Sack",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Deathrattle:</b> Return your stolen minion!",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "classes": [
+            "DRUID",
+            "HUNTER"
+        ],
+        "cost": 5,
+        "dbfId": 64654,
+        "health": 5,
+        "id": "Story_02_TeachersPet",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "multiClassGroup": "DRUID_HUNTER",
+        "name": "Teacher's Pet",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "SCHOLOMANCE",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon a\nrandom 3-Cost Beast.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 64649,
+        "health": 4,
+        "id": "Story_02_Tethik",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Tethik",
+        "race": "BEAST",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 64647,
+        "health": 3,
+        "id": "Story_02_Tuffer",
+        "mechanics": [
+            "CHARGE"
+        ],
+        "name": "Tuffer",
+        "race": "BEAST",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Charge</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64325,
+        "health": 6,
+        "id": "Story_02_Warship",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Kul Tiran Warship",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Taunt</b>\nAt the start of your turn, summon 2 random minions from your deck.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 64381,
+        "health": 3,
+        "id": "Story_02_WinkFox",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Wink Fox",
+        "race": "BEAST",
+        "set": "SCHOLOMANCE",
+        "text": "<b>Battlecry:</b> Copy a card in your opponent’s deck and add it to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 64489,
+        "health": 4,
+        "id": "Story_02_WoundedFootman",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLPOWER"
+        ],
+        "name": "Wounded Footman",
+        "set": "SCHOLOMANCE",
+        "spellDamage": 2,
+        "text": "<b>Spell Damage +2</b>\n<b>Battlecry:</b> Deal 2 damage to HIMSELF.",
+        "type": "MINION"
+    },
+    {
         "cardClass": "MAGE",
         "dbfId": 46435,
         "id": "TagTeamIceBlock",
@@ -95527,6 +96775,23 @@
         "dbfId": 2643,
         "id": "TB_001",
         "name": "Boss HP Swapper",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63870,
+        "id": "TB_00423e",
+        "name": "Dressed Up",
+        "set": "TB",
+        "text": "Who could it be?!",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63669,
+        "id": "TB_00423Test",
+        "name": "Costume",
         "set": "TB",
         "type": "ENCHANTMENT"
     },
@@ -96131,6 +97396,7 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57892,
         "health": 40,
@@ -96685,6 +97951,39 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 64400,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_75",
+        "name": "Rakanishu",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 64403,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_76",
+        "name": "Al'Akir",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 64475,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_78",
+        "name": "Chenvaala",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 59194,
         "health": 0,
@@ -97213,6 +98512,20 @@
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
+        "dbfId": 64220,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_041h",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "King of Elementals",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy an\n<b>Elemental</b>, give it +1/+2.\nSwaps type each turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
         "dbfId": 59860,
         "hideCost": true,
         "id": "TB_BaconShop_HP_042",
@@ -97311,7 +98624,7 @@
             "BATTLECRY"
         ],
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nRefresh Bob's Tavern\n  with <b>Battlecry</b> minions.",
+        "text": "[x]<b>Hero Power</b>\n<b>Refresh</b> Bob's Tavern\n  with <b>Battlecry</b> minions.",
         "type": "HERO_POWER"
     },
     {
@@ -97695,7 +99008,7 @@
         "id": "TB_BaconShop_HP_077",
         "name": "Bob's Burgles",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nRefresh Bob's Tavern with\nminions from your last\nopponent's warband.",
+        "text": "[x]<b>Hero Power</b>\n<b>Refresh</b> Bob's Tavern with\nminions from your last\nopponent's warband.",
         "type": "HERO_POWER"
     },
     {
@@ -97746,6 +99059,103 @@
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Hero Power</b>\nSwap a friendly non-golden\nminion with a random one\nin Bob's Tavern.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 64401,
+        "id": "TB_BaconShop_HP_085",
+        "name": "Tavern Lighting",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nGive a random friendly\nminion stats equal to\nyour Tavern Tier.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64404,
+        "id": "TB_BaconShop_HP_085e",
+        "name": "Tavern Lights",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 64402,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_086",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Swatting Insects",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT",
+            "WINDFURY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\n<b>Start of Combat:</b> Give your\nleft-most minion <b>Windfury</b>,\n   <b>Divine Shield</b>, and <b>Taunt</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 64424,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_087",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "DIE, INSECTS!",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nAfter you kill 20 enemy\nminions, get Sulfuras.\n<i>(20 left!)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 64426,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_087t",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Sulfuras",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nAt the end of your turn,\ngive your left- and right-\nmost minions +4/+4.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64427,
+        "id": "TB_BaconShop_HP_087te",
+        "name": "Hand of Ragnaros",
+        "set": "BATTLEGROUNDS",
+        "text": "+4/+4.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 64476,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_088",
+        "name": "Avalanche",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nAfter you play 3 Elementals,\nreduce the cost of upgrading\nBob's Tavern by (2).",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "collectionText": "</b>.",
+        "cost": 0,
+        "dbfId": 64484,
+        "id": "TB_BaconShop_HP_101t2",
+        "name": "Prize",
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier",
+        "type": "SPELL"
     },
     {
         "cardClass": "NEUTRAL",
@@ -100708,7 +102118,7 @@
         ],
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "<b>Windfury</b>\n<b>Overkill:</b> Give your other Pirates +4/+4.",
+        "text": "<b>Mega-Windfury</b>\n<b>Overkill:</b> Give your other Pirates +4/+4.",
         "type": "MINION"
     },
     {
@@ -100993,6 +102403,313 @@
         "type": "MINION"
     },
     {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 64038,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64041,
+        "health": 4,
+        "id": "TB_BaconUps_156",
+        "name": "Sellemental",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "[x]When you sell this,\nadd two 2/2 Elementals\nto your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 64054,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64055,
+        "health": 2,
+        "id": "TB_BaconUps_159",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "WINDFURY"
+        ],
+        "name": "Crackling Cyclone",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Divine Shield</b>\n<b>Mega-Windfury</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 64056,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64058,
+        "health": 4,
+        "id": "TB_BaconUps_160",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Party Elemental",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "After you play an Elemental, give another random friendly Elemental +1/+1 twice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 64069,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64073,
+        "health": 8,
+        "id": "TB_BaconUps_161",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Stasis Elemental",
+        "race": "ELEMENTAL",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Battlecry:</b> Add two other random Elementals to Bob's Tavern and <b>Freeze</b> them.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 64077,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 64079,
+        "health": 8,
+        "id": "TB_BaconUps_162",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tavern Tempest",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "<b>Battlecry:</b> Add two other random Elementals to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 16,
+        "battlegroundsNormalDbfId": 64081,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 64085,
+        "elite": true,
+        "health": 2,
+        "id": "TB_BaconUps_163",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lieutenant Garr",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Taunt</b>. After you play an Elemental, gain +2 Health for each Elemental you have.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64083,
+        "id": "TB_BaconUps_163e",
+        "name": "Garrdian",
+        "set": "BATTLEGROUNDS",
+        "text": "+2 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 64062,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 64064,
+        "health": 16,
+        "id": "TB_BaconUps_165",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Gentle Djinni",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "<b>Taunt</b>. <b>Deathrattle:</b> Summon two other random Elementals and add copies of them to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 14,
+        "battlegroundsNormalDbfId": 64189,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 64190,
+        "health": 6,
+        "id": "TB_BaconUps_166",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wildfire Elemental",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "After this attacks and kills\na minion, deal excess damage to both adjacent minions.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 64042,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 64045,
+        "health": 6,
+        "id": "TB_BaconUps_167",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Refreshing Anomaly",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "[x]<b>Battlecry:</b> Your next two\n <b>Refreshes</b> cost (0).",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 63624,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64076,
+        "elite": true,
+        "health": 8,
+        "id": "TB_BaconUps_200",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lil' Rag",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]After you play an Elemental,\ngive a friendly minion stats\nequal to the Elemental's\nTavern Tier twice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 63626,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 64185,
+        "elite": true,
+        "health": 8,
+        "id": "TB_BaconUps_201",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Nomi, Kitchen Nightmare",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]After you play an Elemental,\nElementals in Bob's Tavern\nhave +2/+2 for the rest\nof the game.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 64296,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64300,
+        "health": 6,
+        "id": "TB_Baconups_202",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Molten Rock",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "<b>Taunt</b>. After you play an Elemental, gain +2 Health.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64301,
+        "id": "TB_Baconups_202e",
+        "name": "Lava Shield",
+        "set": "BATTLEGROUNDS",
+        "text": "+2 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 64297,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 64303,
+        "health": 4,
+        "id": "TB_Baconups_203",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Arcane Assistant",
+        "race": "ELEMENTAL",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Battlecry:</b> Give your other Elementals +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64304,
+        "id": "TB_Baconups_203e",
+        "name": "Elemental Energy",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 52902,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 64457,
+        "health": 12,
+        "id": "TB_BaconUps_206",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Whirlwind Tempest",
+        "race": "ELEMENTAL",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 63630,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 64459,
+        "elite": true,
+        "health": 6,
+        "id": "TB_BaconUps_207",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Majordomo Executus",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "[x]At the end of your turn,\ngive your left-most minion\n+2/+2 for each Elemental\nyou played this turn.",
+        "type": "MINION"
+    },
+    {
         "attack": 2,
         "battlegroundsNormalDbfId": 53445,
         "cardClass": "PALADIN",
@@ -101020,6 +102737,285 @@
         "set": "BATTLEGROUNDS",
         "text": "Attack increased.",
         "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 65031,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65122,
+        "health": 2,
+        "id": "TB_BaconUps_251",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Deadly Spore",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "<b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 64801,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_01",
+        "name": "Hagatha the Vengeful",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 2,
+        "dbfId": 64813,
+        "id": "TB_BBR3_BOSS_01p",
+        "name": "Swampqueen's Touch",
+        "set": "TB",
+        "text": "[x]<b>Hero Power</b>\nTransform a friendly\nminion into one that\ncosts 1-3 more.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 64802,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_02",
+        "name": "Rotwing",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 1,
+        "dbfId": 64814,
+        "id": "TB_BBR3_BOSS_02p",
+        "name": "Rot Aura",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "TB",
+        "text": "[x]<b>Hero Power</b>\nTrigger ALL <b>Deathrattle</b>\neffects.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 64803,
+        "health": 15,
+        "id": "TB_BBR3_BOSS_03",
+        "name": "Lich Baz'hial",
+        "set": "TB",
+        "text": "<i>Baz'hial has cheated\ndeath. She also cheats at cards.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 64815,
+        "id": "TB_BBR3_BOSS_03p1",
+        "name": "Lich's Phylactery",
+        "set": "TB",
+        "text": "[x]<b>Hero Power</b>\nRestore $20 Health to your\nHero. Reduce by 1 for every\n  friendly minion that dies.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 64816,
+        "hideStats": true,
+        "id": "TB_BBR3_BOSS_03p2",
+        "name": "Broken Phylactery",
+        "set": "TB",
+        "text": "[x]<b>Passive Hero Power</b>\nYou take double damage\nfrom fatigue.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 64804,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_04",
+        "name": "Dr. Boom",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 64817,
+        "id": "TB_BBR3_Boss_04p",
+        "name": "SUMMON THE BOTS!",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nAdd a random Boomlabs Mech to your hand.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 64805,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_05",
+        "name": "Kriziki the Winged",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 2,
+        "dbfId": 64818,
+        "id": "TB_BBR3_BOSS_05p",
+        "name": "Wings of Rebirth",
+        "referencedTags": [
+            "REBORN"
+        ],
+        "set": "TB",
+        "text": "[x]<b>Hero Power</b>\nGive a minion <b>Reborn</b> and\n'Can't be targeted by\nspells or Hero Powers.'",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64819,
+        "id": "TB_BBR3_BOSS_05pe",
+        "name": "Wings of Rebirth",
+        "referencedTags": [
+            "REBORN"
+        ],
+        "set": "TB",
+        "text": "Has <b>Reborn</b> and 'Can't be targeted by spells or Hero Powers '.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 64806,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_06",
+        "name": "Baduu Prime",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 64820,
+        "hideStats": true,
+        "id": "TB_BBR3_BOSS_06p",
+        "name": "Corrupted by Rust",
+        "referencedTags": [
+            "POISONOUS",
+            "STEALTH"
+        ],
+        "set": "TB",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you play a minion,\ngive it <b>Stealth</b> or <b>Poisonous</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 64807,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_07",
+        "name": "Cenarius",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 2,
+        "dbfId": 64821,
+        "id": "TB_BBR3_BOSS_07p",
+        "name": "Nature's Grasp",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nSummon a 2/2 Treant with <b>Taunt</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "classes": [
+            "WARLOCK",
+            "NEUTRAL"
+        ],
+        "dbfId": 64825,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_08",
+        "name": "Mecha-Jaraxxus",
+        "set": "TB",
+        "text": "With rage and rust, he has been rebuilt!",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64810,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_09",
+        "name": "White King",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 64826,
+        "id": "TB_BBR3_BOSS_09p",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Castle",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\n<b>Discover</b> a chess piece.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 64811,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_10",
+        "name": "Illidan Stormrage",
+        "set": "TB",
+        "text": "The Lord of Outland is looking forward to a rematch!",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 64983,
+        "hideStats": true,
+        "id": "TB_BBR3_BOSS_10p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Burning Rage",
+        "set": "TB",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter your hero attacks,\ndeal $1 damage to all\nenemies.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 65041,
+        "health": 30,
+        "id": "TB_BBR3_BOSS_11",
+        "name": "Mother Shahraz",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 65042,
+        "id": "TB_BBR3_BOSS_11p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Parry and Riposte",
+        "set": "TB",
+        "text": "<b>Passive Hero Power</b>\nThe first time you are damaged each turn, prevent it and counterattack!",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 63693,
+        "health": 30,
+        "id": "TB_BBR_DRGA_BOSS_05h",
+        "name": "Dr. Boom",
+        "set": "TB",
+        "type": "HERO"
     },
     {
         "cardClass": "NEUTRAL",
@@ -105958,6 +107954,16 @@
         "rarity": "LEGENDARY",
         "set": "TB",
         "text": "[x]<b>Quest:</b> 7 minions are played\n by ANY player.\n<b>Reward:</b> Master Chests\n for all!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63633,
+        "id": "TB_MasqueradeBuff",
+        "name": "Masquerade",
+        "set": "TB",
+        "text": "Who could it be?!",
         "type": "SPELL"
     },
     {
@@ -119044,7 +121050,7 @@
         "name": "Tortollan Pilgrim",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "text": "[x]<b>Battlecry</b>: <b>Discover</b> a copy of\na spell in your deck and cast\nit with random targets.",
+        "text": "[x]<b>Battlecry</b>: <b>Discover</b> a spell\nin your deck and cast it\nwith random targets.",
         "type": "MINION"
     },
     {

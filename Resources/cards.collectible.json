@@ -6288,6 +6288,7 @@
         "type": "SPELL"
     },
     {
+        "artist": "Ursula Dorada",
         "attack": 1,
         "cardClass": "WARRIOR",
         "collectible": true,
@@ -10683,7 +10684,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 40693,
-        "flavor": "If you think her Illidan and Sylvanas cosplay is great, wait till you see her Reno Jackson!",
+        "flavor": "If you think her Xavius and Sylvanas cosplay is great, wait till you see her Reno Jackson!",
         "health": 5,
         "id": "CFM_697",
         "mechanics": [
@@ -15705,6 +15706,7 @@
     {
         "artist": "Wayne Wu",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 64457,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 8,
@@ -15722,6 +15724,7 @@
             "WINDFURY"
         ],
         "set": "DALARAN",
+        "techLevel": 4,
         "text": "Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.",
         "type": "MINION"
     },
@@ -29461,6 +29464,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 61886,
+        "health": 30,
+        "id": "HERO_04f",
+        "name": "Horseman Uther",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -29500,6 +29514,17 @@
         "health": 30,
         "id": "HERO_05c",
         "name": "Sylvanas Windrunner",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 61597,
+        "health": 30,
+        "id": "HERO_05d",
+        "name": "Warsong Rexxar",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -42054,7 +42079,7 @@
             "HUNTER"
         ],
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 59539,
         "flavor": "The guidelines specifically state: \"Students may also bring an ironbeak owl OR an alleycat OR a toad.\" They never said how big.",
         "id": "SCH_610",
@@ -46490,7 +46515,7 @@
         "name": "Tortollan Pilgrim",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "text": "[x]<b>Battlecry</b>: <b>Discover</b> a copy of\na spell in your deck and cast\nit with random targets.",
+        "text": "[x]<b>Battlecry</b>: <b>Discover</b> a spell\nin your deck and cast it\nwith random targets.",
         "type": "MINION"
     },
     {
