@@ -1702,8 +1702,6 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
         const bool check34 = check31 || check32 || check33;
         CHECK_EQ(check34, true);
     }
-
-    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 25);
 }
 
 // ------------------------------------------ MINION - MAGE
