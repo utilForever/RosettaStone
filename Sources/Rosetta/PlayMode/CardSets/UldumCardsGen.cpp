@@ -805,8 +805,8 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [ULD_236] Tortollan Pilgrim - COST:8 [ATK:5/HP:5]
     // - Set: Uldum, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry</b>: <b>Discover</b> a copy of
-    //       a spell in your deck and cast it with random targets.
+    // Text: <b>Battlecry</b>: <b>Discover</b> a spell
+    //       in your deck and cast it with random targets.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
