@@ -4366,7 +4366,7 @@
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 61053,
-        "health": 2,
+        "health": 3,
         "id": "BGS_053",
         "name": "Bloodsail Cannoneer",
         "race": "PIRATE",
@@ -4774,12 +4774,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 3,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 62739,
         "cardClass": "ROGUE",
         "cost": 4,
         "dbfId": 62734,
-        "health": 3,
+        "health": 4,
         "id": "BGS_081",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4853,13 +4853,13 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 4,
+        "attack": 6,
         "battlegroundsPremiumDbfId": 64076,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 63624,
         "elite": true,
-        "health": 4,
+        "health": 6,
         "id": "BGS_100",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4867,7 +4867,7 @@
         "name": "Lil' Rag",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 6,
         "text": "[x]After you play an Elemental,\ngive a friendly minion stats\nequal to the Elemental's\nTavern Tier.",
         "type": "MINION"
     },
@@ -4931,7 +4931,7 @@
         "name": "Majordomo Executus",
         "set": "BATTLEGROUNDS",
         "techLevel": 4,
-        "text": "[x]At the end of your turn,\ngive your left-most minion\n+1/+1 for each Elemental\nyou played this turn.",
+        "text": "[x]At the end of your turn, give\nyour left-most minion +1/+1.\nRepeat for each Elemental\nyou played this turn.",
         "type": "MINION"
     },
     {
@@ -5017,7 +5017,7 @@
         "type": "MINION"
     },
     {
-        "attack": 2,
+        "attack": 3,
         "battlegroundsPremiumDbfId": 64058,
         "cardClass": "NEUTRAL",
         "cost": 4,
@@ -5044,12 +5044,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 64064,
         "cardClass": "NEUTRAL",
-        "cost": 8,
+        "cost": 6,
         "dbfId": 64062,
-        "health": 8,
+        "health": 5,
         "id": "BGS_121",
         "mechanics": [
             "DEATHRATTLE",
@@ -5058,7 +5058,7 @@
         "name": "Gentle Djinni",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
+        "techLevel": 5,
         "text": "<b>Taunt</b>. <b>Deathrattle:</b> Summon another random Elemental and add a copy of it to your hand.",
         "type": "MINION"
     },
@@ -5182,7 +5182,7 @@
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 64297,
-        "health": 2,
+        "health": 3,
         "id": "BGS_128",
         "mechanics": [
             "BATTLECRY"
@@ -5216,7 +5216,7 @@
         ],
         "name": "Deadly Spore",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
+        "techLevel": 5,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
     },
@@ -14113,7 +14113,7 @@
         "artist": "Gonzalo Ordonez",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 56389,
         "elite": true,
         "flavor": "You too could be the winner of the national spelling spree!",
@@ -14532,7 +14532,7 @@
         "artist": "Arthur Gimaldinov",
         "attack": 7,
         "cardClass": "MAGE",
-        "cost": 7,
+        "cost": 9,
         "dbfId": 56718,
         "elite": true,
         "health": 7,
@@ -18426,6 +18426,7 @@
         "health": 6,
         "id": "BTA_05",
         "mechanics": [
+            "ADJACENT_BUFF",
             "AURA",
             "OUTCAST"
         ],
@@ -38506,6 +38507,45 @@
         "rarity": "FREE",
         "set": "TB",
         "text": "Deal $3 damage randomly split among all enemies.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61640,
+        "elite": true,
+        "health": 4,
+        "id": "DMF_074",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Silas Darkmoon",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Choose a direction to rotate all minions.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63280,
+        "id": "DMF_074a",
+        "name": "This Way",
+        "set": "DARKMOON_FAIRE",
+        "text": "Minions will rotate\nthis way.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63281,
+        "id": "DMF_074b",
+        "name": "That Way",
+        "set": "DARKMOON_FAIRE",
+        "text": "Minions will rotate\nthat way.",
         "type": "SPELL"
     },
     {
@@ -58863,6 +58903,9 @@
             "DUNGEON_PASSIVE_BUFF"
         ],
         "name": "Lunar Signet",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
         "set": "GILNEAS",
         "text": "<b>Passive</b>\nAfter you play a minion, trigger its <b>Deathrattle</b> effect.",
         "type": "SPELL"
@@ -65631,6 +65674,38 @@
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 64685,
+        "health": 30,
+        "id": "HERO_07d",
+        "name": "N'Zoth",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 64686,
+        "id": "HERO_07dbp",
+        "name": "Life Tap",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDraw a card and take $2 damage.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 64687,
+        "id": "HERO_07dbp2",
+        "name": "Soul Tap",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nDraw a card.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "MAGE",
@@ -88808,7 +88883,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "OG",
-        "techLevel": 1,
+        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -90443,6 +90518,22 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "cost": 6,
+        "dbfId": 64812,
+        "durability": 4,
+        "flavor": "Tales of its power are…Legendary.",
+        "id": "PCVPDR_SCH_Paladint1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Great Royal Sword",
+        "set": "TB",
+        "text": "After you attack, Summon a legendary minion from your deck.",
+        "type": "WEAPON"
+    },
+    {
         "artist": "Samwise",
         "attack": 5,
         "cardClass": "NEUTRAL",
@@ -90907,6 +90998,2852 @@
         "set": "BLACK_TEMPLE",
         "text": "This minion has 1 Health.",
         "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "cost": 3,
+        "dbfId": 63579,
+        "flavor": "Quick! Play all your Voidwalkers and Flame Imps!",
+        "health": 3,
+        "id": "PVPDR_022",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Impish Aid",
+        "race": "DEMON",
+        "set": "TB",
+        "text": "Whenever you summon a Demon give it +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 63580,
+        "id": "PVPDR_022e",
+        "name": "Imp-aided",
+        "set": "TB",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 63567,
+        "flavor": "Try our new patented Scholomade. It’s high in electrolytes!",
+        "id": "PVPDR_036",
+        "name": "Slate's Syringe",
+        "set": "TB",
+        "text": "[x]Steal 3 Attack and Health\n from an enemy minion.\n Give +3/+3  to a random\n friendly Beast.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63568,
+        "id": "PVPDR_036e",
+        "name": "Syringed",
+        "set": "TB",
+        "text": "-3/-3",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63570,
+        "id": "PVPDR_036e2",
+        "name": "Infused",
+        "set": "TB",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 66391,
+        "id": "PVPDR_Duels_Buckets_Aggro",
+        "name": "No Retreat!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 66383,
+        "id": "PVPDR_Duels_Buckets_Armor",
+        "name": "Iron and Steel",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 65728,
+        "id": "PVPDR_Duels_Buckets_Balance",
+        "name": "Balance",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 0,
+        "dbfId": 66388,
+        "id": "PVPDR_Duels_Buckets_Beast",
+        "name": "Beasts",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 66567,
+        "id": "PVPDR_Duels_Buckets_Beasts",
+        "name": "Beasts",
+        "set": "TROLL",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 66386,
+        "id": "PVPDR_Duels_Buckets_Big",
+        "name": "All Might",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65734,
+        "id": "PVPDR_Duels_Buckets_Blacklist",
+        "name": "Blacklist",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 65718,
+        "id": "PVPDR_Duels_Buckets_DBeasts",
+        "name": "Deathly Beasts",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 0,
+        "dbfId": 66389,
+        "id": "PVPDR_Duels_Buckets_Deathrattl",
+        "name": "Deathly Minions",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 66393,
+        "id": "PVPDR_Duels_Buckets_DHBig",
+        "name": "Overwhelm",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 66396,
+        "id": "PVPDR_Duels_Buckets_DHControl",
+        "name": "Divide and Conquer",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 66395,
+        "id": "PVPDR_Duels_Buckets_DHSoulFrag",
+        "name": "Soul Strategy",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 66392,
+        "id": "PVPDR_Duels_Buckets_DHToken",
+        "name": "Fearless",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 0,
+        "dbfId": 66394,
+        "id": "PVPDR_Duels_Buckets_DHWeapon",
+        "name": "Whirling Weapons",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 66566,
+        "id": "PVPDR_Duels_Buckets_DMana",
+        "name": "Mana Growth",
+        "set": "LOOTAPALOOZA",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 66381,
+        "id": "PVPDR_Duels_Buckets_Enrage",
+        "name": "Enrage",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 0,
+        "dbfId": 66387,
+        "id": "PVPDR_Duels_Buckets_Face",
+        "name": "The Best Defense...",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 65731,
+        "id": "PVPDR_Duels_Buckets_Feral",
+        "name": "Feral",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 66398,
+        "id": "PVPDR_Duels_Buckets_MFrost",
+        "name": "Frost",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 66397,
+        "id": "PVPDR_Duels_Buckets_MSecret",
+        "name": "Enigmas",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 66399,
+        "id": "PVPDR_Duels_Buckets_MSpellPowe",
+        "name": "Path to Power",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 66400,
+        "id": "PVPDR_Duels_Buckets_MSpells",
+        "name": "More Spells!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66564,
+        "id": "PVPDR_Duels_Buckets_NBattlecry",
+        "name": "Battlecries and Combos",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66565,
+        "id": "PVPDR_Duels_Buckets_NCute",
+        "name": "Why? Why Not?",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66553,
+        "id": "PVPDR_Duels_Buckets_NDeathratt",
+        "name": "Deathrattle",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 65729,
+        "id": "PVPDR_Duels_Buckets_NDefense",
+        "name": "Natural Defense",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66561,
+        "id": "PVPDR_Duels_Buckets_NDisruptor",
+        "name": "Mischief Makers",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66552,
+        "id": "PVPDR_Duels_Buckets_NDragons",
+        "name": "Dragons",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66559,
+        "id": "PVPDR_Duels_Buckets_NDraw",
+        "name": "Draw!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66562,
+        "id": "PVPDR_Duels_Buckets_NFace",
+        "name": "Shock Troops",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66558,
+        "id": "PVPDR_Duels_Buckets_NHighCost",
+        "name": "Bruisers",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66555,
+        "id": "PVPDR_Duels_Buckets_NLowCost",
+        "name": "Underlings",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66557,
+        "id": "PVPDR_Duels_Buckets_NMedCost",
+        "name": "Followers",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66554,
+        "id": "PVPDR_Duels_Buckets_NMenagerie",
+        "name": "Menagerie",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66560,
+        "id": "PVPDR_Duels_Buckets_NTaunt",
+        "name": "Taunt",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66522,
+        "id": "PVPDR_Duels_Buckets_PaBuffs",
+        "name": "Blessings",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66525,
+        "id": "PVPDR_Duels_Buckets_PaControl",
+        "name": "Peacekeepers",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66521,
+        "id": "PVPDR_Duels_Buckets_PaDivine",
+        "name": "Holy Warriors",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66528,
+        "id": "PVPDR_Duels_Buckets_PaDragon",
+        "name": "Dragons",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66523,
+        "id": "PVPDR_Duels_Buckets_PaHealing",
+        "name": "Caretaking",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66526,
+        "id": "PVPDR_Duels_Buckets_PaMid",
+        "name": "Veterans",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66524,
+        "id": "PVPDR_Duels_Buckets_PaSecrets",
+        "name": "Secret Whispers",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66527,
+        "id": "PVPDR_Duels_Buckets_PaSlver",
+        "name": "The Silver Hand",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66585,
+        "id": "PVPDR_Duels_Buckets_PBuffs",
+        "name": "Strength Within",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66586,
+        "id": "PVPDR_Duels_Buckets_PControl",
+        "name": "In Control",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66579,
+        "id": "PVPDR_Duels_Buckets_PDragon",
+        "name": "Dragons",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66583,
+        "id": "PVPDR_Duels_Buckets_PHealing",
+        "name": "Curatives",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66581,
+        "id": "PVPDR_Duels_Buckets_PMind",
+        "name": "What's Mind is Mine",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66587,
+        "id": "PVPDR_Duels_Buckets_PShadow",
+        "name": "Shadows",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66580,
+        "id": "PVPDR_Duels_Buckets_PShenaniga",
+        "name": "Visions",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66582,
+        "id": "PVPDR_Duels_Buckets_PSilence",
+        "name": "Silence",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66584,
+        "id": "PVPDR_Duels_Buckets_PSummon",
+        "name": "Summoning",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66501,
+        "id": "PVPDR_Duels_Buckets_RAggro",
+        "name": "Swift Strikes",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66502,
+        "id": "PVPDR_Duels_Buckets_RCombo",
+        "name": "Combos",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66503,
+        "id": "PVPDR_Duels_Buckets_RDeathratl",
+        "name": "Deathrattle",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 66385,
+        "id": "PVPDR_Duels_Buckets_Removal",
+        "name": "Clobber 'Em!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66505,
+        "id": "PVPDR_Duels_Buckets_RRemoval",
+        "name": "Sneaky Tricks",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66504,
+        "id": "PVPDR_Duels_Buckets_Rshenan",
+        "name": "Light Fingers",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66500,
+        "id": "PVPDR_Duels_Buckets_RStealth",
+        "name": "Shadow Agents",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66498,
+        "id": "PVPDR_Duels_Buckets_RWeapon",
+        "name": "Mercenaries",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 66499,
+        "id": "PVPDR_Duels_Buckets_RWeaponBuf",
+        "name": "Thieves' Tools",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 0,
+        "dbfId": 66390,
+        "id": "PVPDR_Duels_Buckets_Secret",
+        "name": "Traps and Trappers",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66518,
+        "id": "PVPDR_Duels_Buckets_ShAggro",
+        "name": "Elemental Assault",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66520,
+        "id": "PVPDR_Duels_Buckets_ShControl",
+        "name": "Hexes and Vexes",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66517,
+        "id": "PVPDR_Duels_Buckets_ShDraw",
+        "name": "Wisdom",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66519,
+        "id": "PVPDR_Duels_Buckets_ShMurlocs",
+        "name": "From the Deep",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66514,
+        "id": "PVPDR_Duels_Buckets_ShOverload",
+        "name": "Overloaded!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66515,
+        "id": "PVPDR_Duels_Buckets_ShSpellDmg",
+        "name": "Spells Unleashed",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66513,
+        "id": "PVPDR_Duels_Buckets_ShTotems",
+        "name": "Totems",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 66516,
+        "id": "PVPDR_Duels_Buckets_ShWeapon",
+        "name": "Sacred Weapons",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 66384,
+        "id": "PVPDR_Duels_Buckets_Taunt",
+        "name": "Taunt",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 65727,
+        "id": "PVPDR_Duels_Buckets_Tokens",
+        "name": "Nature's Army",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 66512,
+        "id": "PVPDR_Duels_Buckets_WControl",
+        "name": "In Control",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 66510,
+        "id": "PVPDR_Duels_Buckets_WDeathratt",
+        "name": "Sacrifice",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 66511,
+        "id": "PVPDR_Duels_Buckets_WDemons",
+        "name": "Demons",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 66507,
+        "id": "PVPDR_Duels_Buckets_WDiscard",
+        "name": "Discard",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 66382,
+        "id": "PVPDR_Duels_Buckets_Weapon",
+        "name": "Arsenal",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 66509,
+        "id": "PVPDR_Duels_Buckets_WPainZoo",
+        "name": "Pain",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 66506,
+        "id": "PVPDR_Duels_Buckets_WSoulF",
+        "name": "Soul Exploits",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 66508,
+        "id": "PVPDR_Duels_Buckets_WZoo",
+        "name": "Swarming",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66693,
+        "id": "PVPDR_EmptyBucketS1",
+        "name": "No More, Please!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66690,
+        "id": "PVPDR_EmptyBucketS2",
+        "name": "No More, Please!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65343,
+        "id": "PVPDR_EmptyBucketS3",
+        "name": "No More, Please!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66598,
+        "id": "PVPDR_EmptyLootBucket_Name_1",
+        "name": "No More, Please!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66599,
+        "id": "PVPDR_EmptyLootBucket_Name_2",
+        "name": "No More, Please!",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 63479,
+        "health": 30,
+        "id": "PVPDR_Hero_Bob",
+        "name": "Cafeteria Bob",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 63475,
+        "flavor": "Overload Exploits\nTotems\nDevolving other players' treasures into Desk Imps.",
+        "health": 20,
+        "id": "PVPDR_Hero_Fireheart",
+        "name": "Instructor Fireheart",
+        "set": "TB",
+        "text": "Overload Exploits\nTotems\nDevolving other players' treasures into Desk Imps.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63480,
+        "health": 15,
+        "id": "PVPDR_Hero_HeadlessHorseman",
+        "name": "Headless Horseman",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 63470,
+        "flavor": "Resource Generation\nBoard Control\nDirty Rotten Thievery",
+        "health": 20,
+        "id": "PVPDR_Hero_Illucia",
+        "name": "Mindrender Illucia",
+        "set": "TB",
+        "text": "Resource Generation\nBoard Control\nDirty Rotten Thievery",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 63481,
+        "health": 15,
+        "id": "PVPDR_Hero_KelThuzad",
+        "name": "Headmaster Kel'Thuzad",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63476,
+        "health": 15,
+        "id": "PVPDR_Hero_Kulzon",
+        "name": "Kulzon, Castmaster",
+        "set": "TB",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 63477,
+        "flavor": "Weapons\nStealth\nActing like your board is a bouncy castle.",
+        "health": 20,
+        "id": "PVPDR_Hero_Lilian",
+        "name": "Infiltrator Lilian",
+        "set": "TB",
+        "text": "Weapons\n<b>Stealth</b>\nActing like your board is a bouncy castle.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 63538,
+        "flavor": "Spells\nDamage\nAlso Spell Damage",
+        "health": 20,
+        "id": "PVPDR_Hero_Mozaki",
+        "name": "Mozaki, Master Duelist",
+        "set": "TB",
+        "text": "Spells\nDamage\nAlso Spell Damage",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 63474,
+        "flavor": "Treants\nSpell Damage\nPlaying Survival of the Fittest on turn five.",
+        "health": 20,
+        "id": "PVPDR_Hero_Omu",
+        "name": "Forest Warden Omu",
+        "set": "TB",
+        "text": "Treants\nSpell Damage\nPlaying Survival of the Fittest on turn five.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 63478,
+        "flavor": "Armor\nRush\nPain! For value!",
+        "health": 20,
+        "id": "PVPDR_Hero_Rattlegore",
+        "name": "Rattlegore",
+        "set": "TB",
+        "text": "Armor\n<b>Rush</b>\nPain! For value!",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 63473,
+        "flavor": "Beasts\nDeathrattle\nThe last theme is a secret.",
+        "health": 20,
+        "id": "PVPDR_Hero_Slate",
+        "name": "Professor Slate",
+        "set": "TB",
+        "text": "Beasts\nDeathrattle\nThe last theme is a secret.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 63472,
+        "flavor": "Soul Fragments\nAggression\nHitting people's faces with your face.",
+        "health": 20,
+        "id": "PVPDR_Hero_Stelina",
+        "name": "Star Student Stelina",
+        "set": "TB",
+        "text": "Soul Fragments\nAggression\nHitting people's faces with your face.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 63466,
+        "flavor": "Stat Increases\nResurrection\nTo punt is human; to shield, divine.",
+        "health": 20,
+        "id": "PVPDR_Hero_Turalyon",
+        "name": "Turalyon, the Tenured",
+        "set": "TB",
+        "text": "Stat Increases\nResurrection\nTo punt is human; to shield, divine.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 63471,
+        "flavor": "Card Draw\nSoul Fragments\nDemons? Demons.",
+        "health": 20,
+        "id": "PVPDR_Hero_Willow",
+        "name": "Archwitch Willow",
+        "set": "TB",
+        "text": "Card Draw\nSoul Fragments\nDemons? Demons.",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 0,
+        "dbfId": 63485,
+        "id": "PVPDR_LOOT_SmartyPants",
+        "name": "Smarty Pants",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "TB",
+        "text": "Give a minion +1/+1 and \"<b>Deathrattle:</b> Add an Explorer's Hat to your hand.\"",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63587,
+        "id": "PVPDR_Recipe_Check",
+        "name": "Check Recipes",
+        "set": "TB",
+        "text": "Check Recipes",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 65739,
+        "id": "PVPDR_SCH_Active01",
+        "name": "Mask of Mimicry",
+        "set": "TB",
+        "text": "Choose a minion.\nMinions in your hand become copies of it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 65740,
+        "id": "PVPDR_SCH_Active02",
+        "name": "Puzzle Box",
+        "set": "TB",
+        "text": "Transform all minions into random ones that cost (3) more.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65744,
+        "id": "PVPDR_SCH_Active03",
+        "name": "Sow the Seeds",
+        "set": "TB",
+        "text": "Give all minions in your deck +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65745,
+        "id": "PVPDR_SCH_Active03e1",
+        "name": "Seeds Sown",
+        "set": "TB",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 65748,
+        "id": "PVPDR_SCH_Active05",
+        "name": "Overpowered",
+        "set": "TB",
+        "text": "After you play a card this turn, replay it\n<i>(targets chosen randomly)</i>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65749,
+        "id": "PVPDR_SCH_Active05e1",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Overpowered",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 65750,
+        "id": "PVPDR_SCH_Active07",
+        "mechanics": [
+            "SILENCE"
+        ],
+        "name": "Wand of Disintegration",
+        "set": "TB",
+        "text": "<b>Silence</b> and destroy all enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65751,
+        "health": 6,
+        "id": "PVPDR_SCH_Active08",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Party Portal",
+        "set": "TB",
+        "text": "Whenever you cast a spell, summon a random minion of the same Cost.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65752,
+        "durability": 3,
+        "id": "PVPDR_SCH_Active10",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Archmage Staff",
+        "set": "TB",
+        "text": "[x]At the start of your turn,\nadd a random Mage\nspell to your hand.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65753,
+        "id": "PVPDR_SCH_Active11",
+        "name": "Bag of Stuffing",
+        "set": "TB",
+        "text": "Draw cards until your hand is full.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65758,
+        "id": "PVPDR_SCH_Active14",
+        "name": "Bag of Coins",
+        "set": "TB",
+        "text": "Add 3 Coins to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65759,
+        "id": "PVPDR_SCH_Active17",
+        "name": "Hunter's Insight",
+        "set": "TB",
+        "text": "Reduce the cost of all cards in your hand by (1).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65760,
+        "id": "PVPDR_SCH_Active17e1",
+        "name": "Insightful",
+        "set": "TB",
+        "text": "This card costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65762,
+        "id": "PVPDR_SCH_Active19",
+        "name": "Canopic Jars",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "TB",
+        "text": "[x]Give your minions\n\"<b>Deathrattle:</b> Summon\na random <b>Legendary</b>\nminion.\"",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65763,
+        "id": "PVPDR_SCH_Active19e1",
+        "name": "Canopic Jars",
+        "set": "TB",
+        "text": "<b>Deathrattle:</b> Summon a random <b>Legendary</b> minion.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65764,
+        "durability": 3,
+        "id": "PVPDR_SCH_Active20",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Phaoris' Blade",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "TB",
+        "text": "<b>Windfury</b>.\nAfter your hero attacks and kills a minion, this gains +2/+1.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65765,
+        "id": "PVPDR_SCH_Active20e1",
+        "name": "Phaoris' Fury",
+        "set": "TB",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65766,
+        "id": "PVPDR_SCH_Active21",
+        "name": "Ancient Reflections",
+        "set": "TB",
+        "text": "Choose a minion.\nFill your board with 1/1 copies of it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65767,
+        "id": "PVPDR_SCH_Active21e1",
+        "name": "Titan Hologram",
+        "set": "TB",
+        "text": "1/1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 65768,
+        "id": "PVPDR_SCH_Active23",
+        "name": "Banana Split",
+        "set": "TB",
+        "text": "Give a friendly minion +2/+2. Summon two copies of it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65769,
+        "id": "PVPDR_SCH_Active23e1",
+        "name": "Glowing Green",
+        "set": "TB",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65771,
+        "durability": 2,
+        "id": "PVPDR_SCH_Active24",
+        "name": "Blade of Quel'Delar",
+        "set": "TB",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65774,
+        "id": "PVPDR_SCH_Active24e1",
+        "name": "Forging Quel'Delar",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 65775,
+        "durability": 4,
+        "id": "PVPDR_SCH_Active25",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Quel'Delar",
+        "set": "TB",
+        "text": "After your hero attacks, deal 4 damage to all enemies.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65779,
+        "health": 2,
+        "id": "PVPDR_SCH_Active26",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Loyal Sidekick",
+        "set": "TB",
+        "text": "<b>Taunt</b>\nHas +1/+1 for each <b>Opponent</b> you've defeated this run.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65936,
+        "durability": 2,
+        "id": "PVPDR_SCH_Active27",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Greedy Pickaxe",
+        "set": "TB",
+        "text": "After your hero attacks, gain an empty Mana Crystal.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66207,
+        "id": "PVPDR_SCH_Active28",
+        "name": "Creepy Curio",
+        "set": "TB",
+        "text": "Summon three 1/1 Ghosts. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66213,
+        "health": 1,
+        "id": "PVPDR_SCH_Active28m1",
+        "name": "Weeping Ghost",
+        "set": "TB",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66215,
+        "health": 2,
+        "id": "PVPDR_SCH_Active28m2",
+        "name": "Weeping Ghost",
+        "set": "TB",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66217,
+        "health": 3,
+        "id": "PVPDR_SCH_Active28m3",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Weeping Ghost",
+        "set": "TB",
+        "text": "<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66209,
+        "id": "PVPDR_SCH_Active28s1",
+        "name": "Haunted Curio",
+        "set": "TB",
+        "text": "Summon three 2/2 Ghosts. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66210,
+        "id": "PVPDR_SCH_Active28s2",
+        "name": "Cursed Curio",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "TB",
+        "text": "Summon three 3/3 Ghosts with <b>Lifesteal</b>.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66221,
+        "health": 6,
+        "id": "PVPDR_SCH_Active29",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Beastly Beauty",
+        "set": "TB",
+        "text": "[x]<b>Rush</b>\nAfter this attacks a minion\nand survives, transform\nthis into an 8/8.",
+        "type": "MINION"
+    },
+    {
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66222,
+        "health": 8,
+        "id": "PVPDR_SCH_Active29m1",
+        "name": "Beautiful Beast",
+        "set": "TB",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66228,
+        "id": "PVPDR_SCH_Active30",
+        "name": "Blood Moon",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "TB",
+        "text": "Give your minions +1/+1 and <b>Lifesteal</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66233,
+        "id": "PVPDR_SCH_Active30e1",
+        "name": "Blood Hungry",
+        "set": "TB",
+        "text": "+1/+1 and <b>Lifesteal</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66239,
+        "id": "PVPDR_SCH_Active31",
+        "name": "Coin Pouch",
+        "set": "TB",
+        "text": "Summon a random 3-Cost minion. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66240,
+        "id": "PVPDR_SCH_Active31s1",
+        "name": "Sack of Coins",
+        "set": "TB",
+        "text": "Summon a random 6-Cost minion. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66241,
+        "id": "PVPDR_SCH_Active31s2",
+        "name": "Hefty Sack of Coins",
+        "set": "TB",
+        "text": "Summon a random 3, 6, and 9-Cost minion.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66244,
+        "elite": true,
+        "health": 4,
+        "id": "PVPDR_SCH_Active34",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Murloc Holmes",
+        "race": "MURLOC",
+        "set": "TB",
+        "text": "Whenever your opponent draws a card, add a copy to your hand.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66251,
+        "id": "PVPDR_SCH_Active35",
+        "name": "Old Militia Horn",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "TB",
+        "text": "Give your minions +1/+1 and <b>Taunt</b>. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66256,
+        "id": "PVPDR_SCH_Active35e1",
+        "name": "Morale Boost",
+        "set": "TB",
+        "text": "+1/+1 and <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66257,
+        "id": "PVPDR_SCH_Active35e2",
+        "name": "Rallied",
+        "set": "TB",
+        "text": "+2/+2 and <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66258,
+        "id": "PVPDR_SCH_Active35e3",
+        "name": "United",
+        "set": "TB",
+        "text": "+4/+4, <b>Taunt</b>, and <b>Divine Shield</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66252,
+        "id": "PVPDR_SCH_Active35s1",
+        "name": "Militia Horn",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "TB",
+        "text": "Give your minions +2/+2 and <b>Taunt</b>. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66253,
+        "id": "PVPDR_SCH_Active35s2",
+        "name": "Veteran's Militia Horn",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "set": "TB",
+        "text": "Give your minions +4/+4, <b>Taunt</b>, and <b>Divine Shield</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 66260,
+        "id": "PVPDR_SCH_Active38",
+        "name": "Spyglass",
+        "set": "TB",
+        "text": "Put a copy of a random card in your opponent's hand into yours. It costs (3) less.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66267,
+        "id": "PVPDR_SCH_Active39",
+        "name": "Surly Mob",
+        "set": "TB",
+        "text": "Destroy a random enemy minion. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66268,
+        "id": "PVPDR_SCH_Active39s1",
+        "name": "Angry Mob",
+        "set": "TB",
+        "text": "Destroy 2 random enemy minions. Upgrade this and shuffle it into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66269,
+        "id": "PVPDR_SCH_Active39s2",
+        "name": "Crazed Mob",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "TB",
+        "text": "<b>Silence</b> and destroy all enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66262,
+        "durability": 3,
+        "id": "PVPDR_SCH_Active42",
+        "name": "The Exorcisor",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "TB",
+        "text": "<b>Silence</b> any minion attacked by this weapon.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 66263,
+        "id": "PVPDR_SCH_Active43",
+        "mechanics": [
+            "SILENCE"
+        ],
+        "name": "Holy Book",
+        "set": "TB",
+        "text": "<b>Silence</b> and destroy a minion. Summon a 10/10 copy of it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66264,
+        "id": "PVPDR_SCH_Active43e1",
+        "name": "Holy Essence",
+        "set": "TB",
+        "text": "Attack and Health set to 10.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66276,
+        "id": "PVPDR_SCH_Active44",
+        "name": "Amalgamate",
+        "set": "TB",
+        "text": "[x]Destroy all friendly minions.\n Summon an Amalgamation\n with their combined\nAttack and Health.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 66277,
+        "health": 1,
+        "id": "PVPDR_SCH_Active44m1",
+        "name": "Amalgamation",
+        "race": "ALL",
+        "set": "TB",
+        "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66278,
+        "elite": true,
+        "health": 2,
+        "id": "PVPDR_SCH_Active45",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Butch",
+        "race": "BEAST",
+        "set": "TB",
+        "text": "<b>Rush</b>\nHas +1/+1 for each\nfriendly Beast that\ndied this game.",
+        "type": "MINION"
+    },
+    {
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 66282,
+        "elite": true,
+        "health": 6,
+        "id": "PVPDR_SCH_Active46",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Princess",
+        "race": "BEAST",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "TB",
+        "text": "[x]<b>Battlecry:</b> Gain the\n<b>Deathrattles</b> of 3 random\nminions in your deck.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66283,
+        "id": "PVPDR_SCH_Active46e1",
+        "name": "Princess's Bone",
+        "set": "TB",
+        "text": "Copied <b>Deathrattle</b> from {0}.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 66279,
+        "elite": true,
+        "health": 6,
+        "id": "PVPDR_SCH_Active47",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Bubba",
+        "race": "BEAST",
+        "set": "TB",
+        "text": "<b>Battlecry</b>: Summon six 1/1 Bloodhounds to attack an enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66281,
+        "health": 1,
+        "id": "PVPDR_SCH_Active47t",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Bloodhound",
+        "race": "BEAST",
+        "set": "TB",
+        "text": "<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66266,
+        "health": 1,
+        "id": "PVPDR_SCH_Active48",
+        "name": "Clockwork Assistant",
+        "race": "MECHANICAL",
+        "set": "TB",
+        "text": "Has +1/+1 for each spell you've cast this game.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66265,
+        "id": "PVPDR_SCH_Active49",
+        "name": "Chaos Theory",
+        "set": "TB",
+        "text": "Both players cast all spells in their hand <i>(targets chosen randomly).</i>",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 66254,
+        "health": 1,
+        "id": "PVPDR_SCH_Active50",
+        "mechanics": [
+            "START_OF_GAME",
+            "TAUNT"
+        ],
+        "name": "Loyal Henchman",
+        "set": "TB",
+        "text": "[x]<b>Start of Game:</b> Draw this.\n<b>Taunt</b>. Each turn this is in\nyour hand, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66255,
+        "id": "PVPDR_SCH_Active50e",
+        "name": "Scheming",
+        "set": "TB",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66249,
+        "durability": 4,
+        "id": "PVPDR_SCH_Active51",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Hyperblaster",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "TB",
+        "text": "<b>Poisonous</b>.\nYour hero is <b>Immune</b> while attacking.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66250,
+        "id": "PVPDR_SCH_Active51e",
+        "name": "Hyperblaster Enchantment",
+        "set": "TB",
+        "text": "<b>Immune</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66242,
+        "elite": true,
+        "health": 3,
+        "id": "PVPDR_SCH_Active52",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Crusty the Crustacean",
+        "race": "BEAST",
+        "set": "TB",
+        "text": "[x]<b>Battlecry:</b> Destroy a minion.\nGain its Attack and Health.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66245,
+        "id": "PVPDR_SCH_Active52e",
+        "name": "Om Nom Nom",
+        "set": "TB",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 66234,
+        "id": "PVPDR_SCH_Active53",
+        "mechanics": [
+            "TWINSPELL"
+        ],
+        "name": "LOCUUUUSTS!!!",
+        "set": "TB",
+        "text": "<b>Twinspell</b>.\nChoose an enemy.\nFill your board with 2/2 Locusts that attack it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 7,
+        "dbfId": 66235,
+        "id": "PVPDR_SCH_Active53s",
+        "name": "LOCUUUUSTS!!!",
+        "set": "TB",
+        "text": "Choose an enemy.\nFill your board with 2/2 Locusts that attack it.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 66236,
+        "health": 2,
+        "id": "PVPDR_SCH_Active53t",
+        "name": "Giant Locust",
+        "race": "BEAST",
+        "set": "TB",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 14,
+        "dbfId": 66231,
+        "id": "PVPDR_SCH_Active54",
+        "name": "Book of the Dead",
+        "set": "TB",
+        "text": "Deal $7 damage to all enemies. Costs (1) less for each minion that's died this game.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 10,
+        "dbfId": 66229,
+        "id": "PVPDR_SCH_Active55",
+        "name": "Embers of Ragnaros",
+        "set": "TB",
+        "text": "Shoot three fireballs at random enemies that deal $8 damage each.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 11,
+        "dbfId": 66224,
+        "id": "PVPDR_SCH_Active56",
+        "name": "Wish",
+        "set": "TB",
+        "text": "Fill your board with <b>Legendary</b> minions. Fully heal your hero.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 66223,
+        "id": "PVPDR_SCH_Active57",
+        "name": "Necrotic Poison",
+        "set": "TB",
+        "text": "Destroy a minion.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66220,
+        "id": "PVPDR_SCH_Active58",
+        "name": "Mindpocalypse",
+        "set": "TB",
+        "text": "Both players draw 2 cards and gain a Mana Crystal.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66206,
+        "durability": 5,
+        "id": "PVPDR_SCH_Active59",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Jaws",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "TB",
+        "text": "Whenever a minion with <b>Deathrattle</b> dies, gain +2 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66208,
+        "id": "PVPDR_SCH_Active59e",
+        "name": "Extra Teeth",
+        "set": "TB",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66198,
+        "id": "PVPDR_SCH_Active60",
+        "name": "Supercharge",
+        "set": "TB",
+        "text": "Give your minions +2 Health.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66199,
+        "id": "PVPDR_SCH_Active60e",
+        "name": "Supercharged",
+        "set": "TB",
+        "text": "+2 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 66173,
+        "id": "PVPDR_SCH_Active61",
+        "mechanics": [
+            "FREEZE"
+        ],
+        "name": "Pure Cold",
+        "set": "TB",
+        "text": "Deal $8 damage to the enemy hero, and <b>Freeze</b> it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65409,
+        "flavor": "Coming Soon!",
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoon",
+        "name": "Coming Soon",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65415,
+        "flavor": "Coming Soon!",
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoonp2",
+        "name": "Coming Soon",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66882,
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoonp3",
+        "name": "Coming Soon",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66883,
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoont2",
+        "name": "Coming Soon",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66884,
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoont3",
+        "name": "Coming Soon",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66885,
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoont4",
+        "name": "Coming Soon",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66886,
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoont5",
+        "name": "Coming Soon",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 1,
+        "dbfId": 64692,
+        "id": "PVPDR_SCH_DemonHunterp1",
+        "name": "Infernal Strike",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nGain +1 Attack this turn. After you attack and destroy a minion, get a \"Second Slice.\"",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 64693,
+        "id": "PVPDR_SCH_DemonHunterp1e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Infernal Strike",
+        "set": "TB",
+        "text": "+1 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 4,
+        "dbfId": 65095,
+        "flavor": "“Demons! It’s time for your nap!”",
+        "id": "PVPDR_SCH_DemonHuntert2",
+        "name": "Summoning Ritual",
+        "set": "TB",
+        "text": "[x]Summon 3 demons from\n your deck. They are <b>Dormant</b>\n for 2 turns.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65096,
+        "hideStats": true,
+        "id": "PVPDR_SCH_DemonHuntert2e1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Summoning Ritual",
+        "set": "TB",
+        "text": "<b>Dormant</b>. Awaken in 2 turns.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 2,
+        "dbfId": 64252,
+        "id": "PVPDR_SCH_Druidp3",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Nature's Gifts",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "TB",
+        "text": "<b>Hero Power</b>\n<b>Choose One -</b> +2 Attack\nthis turn; or<b> Spell Damage +2</b> this turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 65223,
+        "id": "PVPDR_SCH_Druidp3s1",
+        "name": "Razor Claws",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Give your hero +2 Attack this turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65224,
+        "id": "PVPDR_SCH_Druidp3s1e1",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Razor Claws",
+        "set": "TB",
+        "text": "+2 Attack this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 65226,
+        "id": "PVPDR_SCH_Druidp3s3",
+        "name": "Starlight",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "Gain <b>Spell Damage +2</b> this turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 65227,
+        "id": "PVPDR_SCH_Druidp3s3e1",
+        "mechanics": [
+            "SPELLPOWER",
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Starlight",
+        "set": "TB",
+        "spellDamage": 2,
+        "text": "<b>Spell Damage +2</b>  this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 64287,
+        "id": "PVPDR_SCH_Druidt1s2",
+        "name": "Vision of the Warden",
+        "set": "TB",
+        "text": "Summon a Treant for each Mana Crystal you have.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 3,
+        "dbfId": 64275,
+        "flavor": "The school has nothing to dread nor fear,\n'Til Silverpine comes to Darrowmere.",
+        "id": "PVPDR_SCH_Druidt2",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Warden's Insight",
+        "set": "TB",
+        "text": "[x]<b>Choose One -</b>\n Refresh your Mana Crystals;\n or Summon a Treant for each\n Mana Crystal you have.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 64794,
+        "id": "PVPDR_SCH_Hunterp1",
+        "name": "Survival Training",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nDeal 2 damage to the enemy hero, then give a random friendly minion +1 Attack.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 65071,
+        "id": "PVPDR_SCH_Hunterp1e1",
+        "name": "Survival Training",
+        "set": "TB",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 64250,
+        "id": "PVPDR_SCH_Magep3",
+        "name": "Wyrm Bolt",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\n Deal $1 damage. If this kills a minion, summon a Mana Wyrm.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 0,
+        "cardClass": "MAGE",
+        "cost": 1,
+        "dbfId": 64270,
+        "durability": 3,
+        "flavor": "You know what time it be.",
+        "id": "PVPDR_SCH_Maget3",
+        "mechanics": [
+            "HEROPOWER_DAMAGE"
+        ],
+        "name": "Wand of Dueling",
+        "set": "TB",
+        "text": "Your Hero Power deals 1 extra damage, after each use lose 1 durability.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 64790,
+        "id": "PVPDR_SCH_Paladinp1",
+        "name": "From Golden Light",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nSummon a friendly minion that died this game with 1 health.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 6,
+        "cardClass": "PALADIN",
+        "cost": 6,
+        "dbfId": 64953,
+        "durability": 3,
+        "flavor": "Tales of its power are…Legendary.",
+        "id": "PVPDR_SCH_Paladint1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Royal Greatsword",
+        "set": "TB",
+        "text": "After you attack, summon a legendary minion from your deck.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65622,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive05",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Rhonin's Scrying Orb",
+        "set": "TB",
+        "text": "<b>Passive</b>\nThe first spell you cast each turn costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65623,
+        "id": "PVPDR_SCH_Passive05e1",
+        "name": "Rhonin's Scrying Orb Enchantment",
+        "set": "TB",
+        "text": "The first spell you cast each turn costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65633,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive06",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Mysterious Tome",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "TB",
+        "text": "<b>Passive</b>\nAt the start of the game, play 2 random <b>Secrets</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65642,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive07",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Robes of Shrinking",
+        "set": "TB",
+        "text": "<b>Passive</b>\nAfter you draw a spell, reduce its Cost by (1) this turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65643,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive07e1",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Robes of Shrinking Player Enchantment",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65644,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive07e2",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF",
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Robes of Shrinking",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65638,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive08",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Small Pouches",
+        "set": "TB",
+        "text": "<b>Passive</b>\nAt the start of the game, draw 1 card.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65631,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive09",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Robe of the Apprentice",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "TB",
+        "text": "<b>Passive</b>\n<b>Spell Damage +1</b>",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65639,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive10",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Lunar Band",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "TB",
+        "text": "<b>Passive</b>\nThe first <b>Deathrattle</b>  minion you play each turn triggers its effect.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65641,
+        "id": "PVPDR_SCH_Passive10e",
+        "name": "Lunar Band Player Enchant",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65649,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive11",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Rocket Backpacks",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "TB",
+        "text": "<b>Passive</b>\nThe first minion you play each turn has <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65650,
+        "id": "PVPDR_SCH_Passive11e1",
+        "mechanics": [
+            "AURA",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Rocket Backpacks Player Enchantment",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65651,
+        "id": "PVPDR_SCH_Passive11e2",
+        "name": "Rocket Backpack",
+        "set": "TB",
+        "text": "Has <b>Rush</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65709,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive12",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Emerald Goggles",
+        "set": "TB",
+        "text": "<b>Passive</b>\nThe left-most card in your hand costs (2) less but not less than (1).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65710,
+        "id": "PVPDR_SCH_Passive12e1",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Emerald Goggles Player Enchantment",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65711,
+        "id": "PVPDR_SCH_Passive12e2",
+        "name": "Emerald Goggles",
+        "set": "TB",
+        "text": "Cost reduced by (2).",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65647,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive14",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Crystal Gem",
+        "set": "TB",
+        "text": "<b>Passive</b>\nOn your first turn you have 2 Mana Crystals.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65648,
+        "id": "PVPDR_SCH_Passive14e1",
+        "name": "Crystal Gem Enchantment",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65634,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive15a1",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Scattered Caltrops",
+        "set": "TB",
+        "text": "<b>Passive</b>\nAfter your opponent\nplays their first minion each turn, deal 1\ndamage to it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65635,
+        "id": "PVPDR_SCH_Passive15a1e",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Scattered Caltrops Player Enchantment",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65679,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive16",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Pillage the Fallen",
+        "set": "TB",
+        "text": "<b>Passive</b>\nWhenever your weapon is destroyed, equip a random weapon of the same cost.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65680,
+        "id": "PVPDR_SCH_Passive16e2",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Pillage the Fallen Player Enchantment",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65686,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive17",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Recycling",
+        "set": "TB",
+        "text": "<b>Passive</b>\nAfter a friendly minion dies, gain 1 armor.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65687,
+        "id": "PVPDR_SCH_Passive17d",
+        "name": "Recycling Dummy Effects",
+        "set": "TB",
+        "text": "Holds an effect for Recycling Player Enchantment (DALA 728e)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65688,
+        "id": "PVPDR_SCH_Passive17e",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Recycling Player Enchantment",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65761,
+        "health": 1,
+        "id": "PVPDR_SCH_Passive24t",
+        "name": "Bloated Zombie",
+        "set": "TB",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 2,
+        "dbfId": 64700,
+        "id": "PVPDR_SCH_Priestp1",
+        "name": "Shadow Mend",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nRestore 3 health to a character. If it is still damaged, draw a card.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 5,
+        "dbfId": 65089,
+        "faction": "HORDE",
+        "flavor": "Mime your manners.",
+        "id": "PVPDR_SCH_Priestt1",
+        "name": "Fractured Spirits",
+        "rarity": "FREE",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "TB",
+        "text": "<b>Silence</b> a minion, then summon 2 copies of it.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 64694,
+        "id": "PVPDR_SCH_Roguep1",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Roguish Maneuvers",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nEquip a 1/2 Dagger.\n<b>Combo:</b> Equip a 2/2 Dagger.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 64977,
+        "flavor": "Deadly Weapons 102 was canceled due to low enrollment.",
+        "id": "PVPDR_SCH_Roguet2",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Deadly Weapons 101",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "TB",
+        "text": "Give your weapon +2/+1. <b>Combo</b>: Also give it <b>Poisonous</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64992,
+        "id": "PVPDR_SCH_Roguet2e1",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Deadly Weapons: Poison",
+        "set": "TB",
+        "text": "<b>Poisonous</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 64994,
+        "id": "PVPDR_SCH_Roguet2e2",
+        "name": "Deadly Weapons: Upgrades",
+        "set": "TB",
+        "text": "+2 Attack and +1 Durability.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 2,
+        "dbfId": 64791,
+        "id": "PVPDR_SCH_Shamanp1",
+        "name": "Totemic Power",
+        "rarity": "FREE",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nSummon a random Totem. If you're <b>Overloaded</b>, summon a non-basic Totem as well.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 0,
+        "cardClass": "SHAMAN",
+        "cost": 2,
+        "dbfId": 65083,
+        "flavor": "Think carefully about board position when placing this treasure.",
+        "health": 3,
+        "id": "PVPDR_SCH_Shamant2",
+        "mechanics": [
+            "STEALTH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fluctuating Totem",
+        "race": "TOTEM",
+        "rarity": "FREE",
+        "set": "TB",
+        "text": "<b>Stealth</b> for 1 turn. At the end of your turn, evolve adjacent minions.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65356,
+        "id": "PVPDR_SCH_Shamant2e1",
+        "name": "Fluctuations",
+        "set": "TB",
+        "text": "Stealthed until your next turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 64210,
+        "id": "PVPDR_SCH_Warlockp2",
+        "name": "Dark Arts",
+        "set": "TB",
+        "text": "[x]<b>Hero Power</b>\nLook at up to 4 cards in\nyour hand and discard 1.\nThen, draw 1 card.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 64449,
+        "id": "PVPDR_SCH_Warlockp2e",
+        "name": "Dark Arts",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64972,
+        "id": "PVPDR_SCH_Warlockt2e",
+        "name": "Unstoppable",
+        "set": "TB",
+        "text": "Increased Attac and Health",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 64792,
+        "id": "PVPDR_SCH_Warriorp1",
+        "name": "No Guts, No Glory",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nDeal 1 damage to a minion. If it lives it gains +2 attack, if it dies gain 2 armor.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 64793,
+        "id": "PVPDR_SCH_Warriorp1e",
+        "name": "Glory",
+        "set": "TB",
+        "text": "+1/+1",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "cost": 4,
+        "dbfId": 64952,
+        "flavor": "Ready for action!",
+        "health": 6,
+        "id": "PVPDR_SCH_Warriort1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Auto-Armaments",
+        "race": "MECHANICAL",
+        "set": "TB",
+        "text": "Whenever this takes damage, draw a minion from your deck and give it +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 65336,
+        "id": "PVPDR_SCH_Warriort1e",
+        "name": "Auto-Armed",
+        "set": "TB",
+        "text": "+1/+1",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66696,
+        "id": "PVPDR_TEST_BuildDesignerB2",
+        "name": "Build a Designer Bucket - Slot 0 - Class 100",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66697,
+        "id": "PVPDR_TEST_BuildDesignerB3",
+        "name": "Build a Designer Bucket - Slot1 - Class 100",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66698,
+        "id": "PVPDR_TEST_BuildDesignerB4",
+        "name": "Build a Designer Bucket - Slot2 - Class 100",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66699,
+        "id": "PVPDR_TEST_BuildDesignerB5",
+        "name": "Build a Designer Bucket - Slot1 - Class 50",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66700,
+        "id": "PVPDR_TEST_BuildDesignerB6",
+        "name": "Build a Designer Bucket - Slot2 - Class 50",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66177,
+        "id": "PVPDR_TEST_BuildDesignerBucket",
+        "name": "Build a Designer Bucket - Slot 0 - Class 50",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63556,
+        "id": "PVPDR_TEST_LoadBuckets",
+        "name": "Load 3 Loot Buckets",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 63691,
+        "id": "PVPDR_TEST_SmartBucketTestLabe",
+        "name": "Group Learning",
+        "set": "TB",
+        "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 63536,
+        "id": "PVPDR_TEST_Will",
+        "name": "Will of the Warden",
+        "set": "TB",
+        "text": "Refresh your Mana Crystals.",
+        "type": "SPELL"
     },
     {
         "artist": "Slawomir Maniak",
@@ -93238,6 +96175,15 @@
         "name": "Potion of Illusion",
         "set": "SCHOLOMANCE",
         "text": "1/1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 66896,
+        "id": "SCH_352e2",
+        "name": "Potion of Illusion",
+        "set": "SCHOLOMANCE",
+        "text": "Costs (1).",
         "type": "ENCHANTMENT"
     },
     {
@@ -96780,19 +99726,19 @@
     },
     {
         "cardClass": "NEUTRAL",
+        "dbfId": 63669,
+        "id": "TB_00423",
+        "name": "Costume",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
         "dbfId": 63870,
         "id": "TB_00423e",
         "name": "Dressed Up",
         "set": "TB",
         "text": "Who could it be?!",
-        "type": "ENCHANTMENT"
-    },
-    {
-        "cardClass": "NEUTRAL",
-        "dbfId": 63669,
-        "id": "TB_00423Test",
-        "name": "Costume",
-        "set": "TB",
         "type": "ENCHANTMENT"
     },
     {
@@ -97570,7 +100516,6 @@
         "type": "HERO"
     },
     {
-        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58546,
         "health": 40,
@@ -97595,7 +100540,7 @@
         "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 59397,
-        "health": 50,
+        "health": 55,
         "hideCost": true,
         "id": "TB_BaconShop_HERO_34",
         "name": "Patchwerk",
@@ -97984,6 +100929,17 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 64485,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_91",
+        "name": "Zephrys, the Great",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 59194,
         "health": 0,
@@ -98090,7 +101046,7 @@
         ],
         "name": "Stay Frosty",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nAt the end of your turn,\n<b>Frozen</b> minions get\n+1/+1.",
+        "text": "[x]<b>Passive Hero Power</b>\nAt the end of your turn,\n<b>Frozen</b> minions get\n+2/+1.",
         "type": "HERO_POWER"
     },
     {
@@ -98099,7 +101055,7 @@
         "id": "TB_BaconShop_HP_014e",
         "name": "Frosty",
         "set": "BATTLEGROUNDS",
-        "text": "+1/+1.",
+        "text": "+2/+1.",
         "type": "ENCHANTMENT"
     },
     {
@@ -98289,7 +101245,7 @@
         "id": "TB_BaconShop_HP_035",
         "name": "All Patched Up",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nStart with 50 Health \ninstead of 40.",
+        "text": "[x]<b>Passive Hero Power</b>\nStart with 55 Health \ninstead of 40.",
         "type": "HERO_POWER"
     },
     {
@@ -98901,7 +101857,7 @@
         "id": "TB_BaconShop_HP_068",
         "name": "Imprison",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nMake a minion in Bob's\nTavern <b>Dormant</b>. After 2\n  turns, get it with +1/+1.",
+        "text": "[x]<b>Hero Power</b>\nMake a minion in Bob's\nTavern <b>Dormant</b>. After 2\n  turns, get it with +1 Attack.",
         "type": "HERO_POWER"
     },
     {
@@ -98922,7 +101878,7 @@
         "id": "TB_BaconShop_HP_068e2",
         "name": "Awakened",
         "set": "BATTLEGROUNDS",
-        "text": "+1/+1.",
+        "text": "+1 Attack.",
         "type": "ENCHANTMENT"
     },
     {
@@ -98984,9 +101940,6 @@
         "dbfId": 62267,
         "id": "TB_BaconShop_HP_075",
         "name": "Trash for Treasure",
-        "referencedTags": [
-            "DISCOVER"
-        ],
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Hero Power</b>\nRemove a friendly minion.\nGet a random one from a\nTavern Tier lower.",
         "type": "HERO_POWER"
@@ -99033,7 +101986,7 @@
         "id": "TB_BaconShop_HP_081",
         "name": "Friendly Wager",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGuess which player will\nwin their next combat.\n If they win, get three Coins.",
+        "text": "[x]<b>Hero Power</b>\nGuess which player will\nwin their next combat.\n If they win, get 3 Coins.",
         "type": "HERO_POWER"
     },
     {
@@ -99109,7 +102062,7 @@
         ],
         "name": "DIE, INSECTS!",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAfter you kill 20 enemy\nminions, get Sulfuras.\n<i>(20 left!)</i>",
+        "text": "[x]<b>Hero Power</b>\nAfter you kill 25 enemy\nminions, get Sulfuras.\n<i>(25 left!)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -99123,7 +102076,7 @@
         ],
         "name": "Sulfuras",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nAt the end of your turn,\ngive your left- and right-\nmost minions +4/+4.",
+        "text": "[x]<b>Passive Hero Power</b>\nAt the end of your turn,\ngive your left- and right-\nmost minions +3/+3.",
         "type": "HERO_POWER"
     },
     {
@@ -99132,7 +102085,7 @@
         "id": "TB_BaconShop_HP_087te",
         "name": "Hand of Ragnaros",
         "set": "BATTLEGROUNDS",
-        "text": "+4/+4.",
+        "text": "+3/+3.",
         "type": "ENCHANTMENT"
     },
     {
@@ -99143,7 +102096,7 @@
         "id": "TB_BaconShop_HP_088",
         "name": "Avalanche",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nAfter you play 3 Elementals,\nreduce the cost of upgrading\nBob's Tavern by (2).",
+        "text": "[x]<b>Hero Power</b>\nAfter you play 3 Elementals,\nreduce the cost of upgrading\nBob's Tavern by (3).",
         "type": "HERO_POWER"
     },
     {
@@ -99156,6 +102109,16 @@
         "set": "BATTLEGROUNDS",
         "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier",
         "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 64486,
+        "id": "TB_BaconShop_HP_102",
+        "name": "Three Wishes",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nIf you have two copies\nof a minion, find the third.\n<i>(3 wishes left)</i>",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
@@ -99485,7 +102448,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
+        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Give 2 random friendly minions <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -101993,7 +104956,7 @@
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 62254,
-        "health": 4,
+        "health": 6,
         "id": "TB_BaconUps_138",
         "name": "Bloodsail Cannoneer",
         "race": "PIRATE",
@@ -102109,13 +105072,11 @@
         "health": 14,
         "id": "TB_BaconUps_142",
         "mechanics": [
-            "OVERKILL"
+            "OVERKILL",
+            "WINDFURY"
         ],
         "name": "Seabreaker Goliath",
         "race": "PIRATE",
-        "referencedTags": [
-            "WINDFURY"
-        ],
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
         "text": "<b>Mega-Windfury</b>\n<b>Overkill:</b> Give your other Pirates +4/+4.",
@@ -102437,7 +105398,7 @@
         "type": "MINION"
     },
     {
-        "attack": 4,
+        "attack": 6,
         "battlegroundsNormalDbfId": 64056,
         "cardClass": "NEUTRAL",
         "cost": 4,
@@ -102523,12 +105484,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 12,
+        "attack": 8,
         "battlegroundsNormalDbfId": 64062,
         "cardClass": "NEUTRAL",
-        "cost": 8,
+        "cost": 6,
         "dbfId": 64064,
-        "health": 16,
+        "health": 10,
         "id": "TB_BaconUps_165",
         "mechanics": [
             "DEATHRATTLE",
@@ -102537,7 +105498,7 @@
         "name": "Gentle Djinni",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
+        "techLevel": 5,
         "text": "<b>Taunt</b>. <b>Deathrattle:</b> Summon two other random Elementals and add copies of them to your hand.",
         "type": "MINION"
     },
@@ -102578,13 +105539,13 @@
         "type": "MINION"
     },
     {
-        "attack": 8,
+        "attack": 12,
         "battlegroundsNormalDbfId": 63624,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 64076,
         "elite": true,
-        "health": 8,
+        "health": 12,
         "id": "TB_BaconUps_200",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -102592,7 +105553,7 @@
         "name": "Lil' Rag",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 6,
         "text": "[x]After you play an Elemental,\ngive a friendly minion stats\nequal to the Elemental's\nTavern Tier twice.",
         "type": "MINION"
     },
@@ -102648,7 +105609,7 @@
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 64303,
-        "health": 4,
+        "health": 6,
         "id": "TB_Baconups_203",
         "mechanics": [
             "BATTLECRY"
@@ -102706,7 +105667,7 @@
         "name": "Majordomo Executus",
         "set": "BATTLEGROUNDS",
         "techLevel": 4,
-        "text": "[x]At the end of your turn,\ngive your left-most minion\n+2/+2 for each Elemental\nyou played this turn.",
+        "text": "[x]At the end of your turn, give\nyour left-most minion +2/+2.\nRepeat for each Elemental\nyou played this turn.",
         "type": "MINION"
     },
     {
@@ -102751,7 +105712,7 @@
         ],
         "name": "Deadly Spore",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
+        "techLevel": 5,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
     },

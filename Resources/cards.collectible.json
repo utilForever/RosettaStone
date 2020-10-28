@@ -5760,7 +5760,7 @@
         "artist": "Gonzalo Ordonez",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 56389,
         "elite": true,
         "flavor": "You too could be the winner of the national spelling spree!",
@@ -16063,6 +16063,25 @@
         "rarity": "LEGENDARY",
         "set": "DALARAN",
         "text": "You start the game with one of Zayle's EVIL Decks!",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61640,
+        "elite": true,
+        "health": 4,
+        "id": "DMF_074",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Silas Darkmoon",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Choose a direction to rotate all minions.",
         "type": "MINION"
     },
     {
@@ -29630,6 +29649,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 64685,
+        "health": 30,
+        "id": "HERO_07d",
+        "name": "N'Zoth",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 637,
@@ -38777,7 +38807,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "OG",
-        "techLevel": 1,
+        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.",
         "type": "MINION"
     },
