@@ -495,7 +495,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------- SPELL - MAGE
-    // [BT_006] Evocation - COST:1
+    // [BT_006] Evocation - COST:2
     //  - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Fill your hand with random Mage spells.
@@ -609,7 +609,7 @@ void BlackTempleCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [BT_028t] Solarian Prime - COST:7 [ATK:7/HP:7]
+    // [BT_028t] Solarian Prime - COST:9 [ATK:7/HP:7]
     //  - Race: Demon, Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
