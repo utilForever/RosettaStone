@@ -2387,6 +2387,13 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("ULD_183e", EntityType::STACK));
+    cards.emplace("ULD_183", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_184] Kobold Sandtrooper - COST:2 [ATK:2/HP:1]
@@ -2970,6 +2977,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_183e"));
+    cards.emplace("ULD_183e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_185e] Enraged (*) - COST:0

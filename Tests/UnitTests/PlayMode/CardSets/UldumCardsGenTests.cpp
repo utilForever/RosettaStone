@@ -3672,6 +3672,59 @@ TEST_CASE("[Neutral : Minion] - ULD_182 : Spitting Camel")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_183] Anubisath Warbringer - COST:9 [ATK:9/HP:6]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give all minions in your hand +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_183 : Anubisath Warbringer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Anubisath Warbringer"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_184] Kobold Sandtrooper - COST:2 [ATK:2/HP:1]
 // - Faction: Alliance, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
