@@ -4615,6 +4615,47 @@ TEST_CASE("[Neutral : Minion] - ULD_712 : Bug Collector")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_719] Desert Hare - COST:3 [ATK:1/HP:1]
+// - Race: Beast, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Desert Hares.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_719 : Desert Hare")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Hare"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Desert Hare");
+    CHECK_EQ(curField[1]->card->name, "Desert Hare");
+    CHECK_EQ(curField[2]->card->name, "Desert Hare");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_721] Colossus of the Moon - COST:10 [ATK:10/HP:10]
 // - Set: Uldum, Rarity: Legendary
 // --------------------------------------------------------

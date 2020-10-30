@@ -2844,6 +2844,12 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ULD_719", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ULD_719", SummonSide::RIGHT));
+    cards.emplace("ULD_719", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_721] Colossus of the Moon - COST:10 [ATK:10/HP:10]
