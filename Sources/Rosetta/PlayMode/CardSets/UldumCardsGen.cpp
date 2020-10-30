@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/Actions/Copy.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
+#include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
@@ -2419,6 +2420,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ENRAGED = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "ULD_185e"));
+    cards.emplace("ULD_185", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_188] Golden Scarab - COST:3 [ATK:2/HP:2]
@@ -2990,6 +2994,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_185e"));
+    cards.emplace("ULD_185e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_189e] Bravery (*) - COST:0
