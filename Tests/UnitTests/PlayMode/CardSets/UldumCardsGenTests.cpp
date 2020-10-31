@@ -4310,6 +4310,52 @@ TEST_CASE("[Warrior : Minion] - ULD_253 : Tomb Warden")
     CHECK_EQ(6, curField[3]->GetHealth());
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [ULD_256] Into the Fray - COST:1
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give all <b>Taunt</b> minions in your hand +2/+2.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - ULD_256 : Into the Fray")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Into the Fray"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostwolf Grunt"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 // - Set: Uldum, Rarity: Common

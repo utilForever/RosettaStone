@@ -2174,6 +2174,14 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::HasTaunt()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_256e", EntityType::STACK));
+    cards.emplace("ULD_256", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [ULD_258] Armagedillo - COST:6 [ATK:4/HP:7]
@@ -3077,6 +3085,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2 from Into the Fray.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_256e"));
+    cards.emplace("ULD_256e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_258e] Tough (*) - COST:0
