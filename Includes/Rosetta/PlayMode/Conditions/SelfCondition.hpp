@@ -171,6 +171,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
 
+    //! SelfCondition wrapper for checking the entity has taunt.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasTaunt();
+
     //! SelfCondition wrapper for checking the entity has rush.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasRush();

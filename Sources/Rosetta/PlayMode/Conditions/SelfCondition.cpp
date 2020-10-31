@@ -322,6 +322,19 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::HasTaunt()
+{
+    return SelfCondition([](Playable* playable) {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->HasTaunt();
+    });
+}
+
 SelfCondition SelfCondition::HasRush()
 {
     return SelfCondition([](Playable* playable) {
