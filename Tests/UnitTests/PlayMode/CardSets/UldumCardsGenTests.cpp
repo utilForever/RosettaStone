@@ -4491,6 +4491,54 @@ TEST_CASE("[Warrior : Spell] - ULD_707 : Plague of Wrath")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// --------------------------------------- WEAPON - WARRIOR
+// [ULD_708] Livewire Lance - COST:3 [ATK:2/HP:0]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: After your Hero attacks,
+//       add a <b>Lackey</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - 1359 = 1
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - ULD_708 : Livewire Lance")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Livewire Lance"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHand.GetCount(), 0);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->IsLackey(), true);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 // - Set: Uldum, Rarity: Common
