@@ -2214,6 +2214,13 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - 858 = 41425
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("ULD_707", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [ULD_708] Livewire Lance - COST:3 [ATK:2/HP:0]
