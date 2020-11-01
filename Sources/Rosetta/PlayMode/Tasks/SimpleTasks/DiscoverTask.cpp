@@ -190,7 +190,8 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 {
     const FormatType format = game->GetFormatType();
 
-    // NOTE: Assume there is no card that has 'CardType::SPELL' and 'CardClass::NEUTRAL'.
+    // NOTE: Assume there is no card that has 'CardType::SPELL' and
+    // 'CardClass::NEUTRAL'.
     std::vector<Card*> allCards;
     if (format == FormatType::STANDARD)
     {
@@ -222,21 +223,14 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 
     switch (discoverType)
     {
+        case DiscoverType::INVALID:
+            throw std::out_of_range(
+                "DiscoverTask::Discover() - Invalid discover type");
         case DiscoverType::CHOOSE_ONE:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
             {
                 if (card->HasGameTag(GameTag::CHOOSE_ONE))
-                {
-                    cards.emplace_back(card);
-                }
-            }
-            break;
-        case DiscoverType::SPELL:
-            choiceAction = ChoiceAction::HAND;
-            for (auto& card : allCards)
-            {
-                if (card->GetCardType() == CardType::SPELL)
                 {
                     cards.emplace_back(card);
                 }
@@ -252,7 +246,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::SIX_COST_SUMMON:
+        case DiscoverType::SIX_COST_MINION_SUMMON:
             choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)
             {
@@ -282,6 +276,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                     playable->HasDeathrattle() && playable->isDestroyed)
                 {
                     cards.emplace_back(playable->card);
+                }
+            }
+            break;
+        case DiscoverType::SPELL:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL)
+                {
+                    cards.emplace_back(card);
                 }
             }
             break;
@@ -365,9 +369,6 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             }
             break;
         }
-        default:
-            throw std::out_of_range(
-                "DiscoverTask::Discover() - Invalid discover type");
     }
 
     return cards;

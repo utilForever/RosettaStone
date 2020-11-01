@@ -915,7 +915,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DiscoverTask>(DiscoverType::SIX_COST_SUMMON));
+        std::make_shared<DiscoverTask>(DiscoverType::SIX_COST_MINION_SUMMON));
     power.AddAfterChooseTask(
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY));
     cards.emplace(
