@@ -4539,6 +4539,44 @@ TEST_CASE("[Warrior : Weapon] - ULD_708 : Livewire Lance")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->IsLackey(), true);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [ULD_709] Armored Goon - COST:6 [ATK:6/HP:7]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever your hero attacks, gain 5 Armor.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_709 : Armored Goon")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Armored Goon"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 // - Set: Uldum, Rarity: Common
