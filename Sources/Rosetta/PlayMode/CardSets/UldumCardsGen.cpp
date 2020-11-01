@@ -2194,6 +2194,16 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::HAND),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+            std::make_shared<SelfCondition>(SelfCondition::HasTaunt()) }),
+        std::make_shared<AddEnchantmentTask>("ULD_258e", EntityType::STACK)
+    };
+    cards.emplace("ULD_258", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [ULD_707] Plague of Wrath - COST:5
@@ -3095,6 +3105,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats from Armagedillo.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(2)));
+    cards.emplace("ULD_258e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_290e] Erudite (*) - COST:0
