@@ -2455,7 +2455,7 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DiscoverTask>(DiscoverType::FOUR_COST_ONE));
+        std::make_shared<DiscoverTask>(DiscoverType::FOUR_COST_CARD));
     cards.emplace("ULD_188", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL

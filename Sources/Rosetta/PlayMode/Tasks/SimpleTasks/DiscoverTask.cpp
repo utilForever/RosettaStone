@@ -222,16 +222,6 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 
     switch (discoverType)
     {
-        case DiscoverType::SPELL:
-            choiceAction = ChoiceAction::HAND;
-            for (auto& card : allCards)
-            {
-                if (card->GetCardType() == CardType::SPELL)
-                {
-                    cards.emplace_back(card);
-                }
-            }
-            break;
         case DiscoverType::CHOOSE_ONE:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
@@ -242,11 +232,32 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::DRAGON:
+        case DiscoverType::SPELL:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
             {
-                if (card->GetRace() == Race::DRAGON)
+                if (card->GetCardType() == CardType::SPELL)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
+        case DiscoverType::FOUR_COST_CARD:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCost() == 4)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
+        case DiscoverType::SIX_COST_SUMMON:
+            choiceAction = ChoiceAction::SUMMON;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->GetCost() == 6)
                 {
                     cards.emplace_back(card);
                 }
@@ -274,23 +285,22 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::SIX_COST_SUMMON:
-            choiceAction = ChoiceAction::SUMMON;
-            for (auto& card : allCards)
-            {
-                if (card->GetCardType() == CardType::MINION &&
-                    card->GetCost() == 6)
-                {
-                    cards.emplace_back(card);
-                }
-            }
-            break;
         case DiscoverType::SPELL_THREE_COST_OR_LESS:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
             {
                 if (card->GetCardType() == CardType::SPELL &&
                     card->GetCost() <= 3)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
+        case DiscoverType::DRAGON:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetRace() == Race::DRAGON)
                 {
                     cards.emplace_back(card);
                 }
@@ -346,16 +356,6 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 
             break;
         }
-        case DiscoverType::FOUR_COST_ONE:
-            choiceAction = ChoiceAction::HAND;
-            for (auto& card : allCards)
-            {
-                if (card->GetCost() == 4)
-                {
-                    cards.emplace_back(card);
-                }
-            }
-            break;
         case DiscoverType::JANDICE_BAROV:
         {
             choiceAction = ChoiceAction::STACK;
