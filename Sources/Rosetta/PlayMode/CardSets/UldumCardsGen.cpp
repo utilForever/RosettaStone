@@ -2137,6 +2137,10 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::TAUNT_MINION));
+    cards.emplace("ULD_195", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]

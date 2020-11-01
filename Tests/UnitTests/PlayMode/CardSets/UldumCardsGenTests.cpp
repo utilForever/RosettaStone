@@ -3436,8 +3436,7 @@ TEST_CASE("[Rogue : Spell] - ULD_328 : Clever Disguise")
 // RefTag:
 // - POISONOUS = 1
 // --------------------------------------------------------
-
-TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
+TEST_CASE("[Rogue : Spell] - ULD_715 : Plague of Madness")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3485,6 +3484,53 @@ TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
     CHECK_EQ(opField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [ULD_195] Frightened Flunky - COST:2 [ATK:2/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> <b>Discover</b> a <b>Taunt</b> minion.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_195 : Frightened Flunky")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frightened Flunky"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->HasGameTag(GameTag::TAUNT), true);
+    }
 }
 
 // --------------------------------------- MINION - WARRIOR
