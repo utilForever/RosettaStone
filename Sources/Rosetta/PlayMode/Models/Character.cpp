@@ -55,7 +55,7 @@ void Character::SetDamage(int damage)
     {
         damage = 0;
     }
-    else if (GetGameTag(GameTag::HEALTH) <= damage)
+    else if (GetBaseHealth() <= damage)
     {
         Destroy();
     }
@@ -65,7 +65,7 @@ void Character::SetDamage(int damage)
 
 int Character::GetHealth() const
 {
-    return GetBaseHealth() - GetGameTag(GameTag::DAMAGE);
+    return GetBaseHealth() - GetDamage();
 }
 
 void Character::SetHealth(int health)
@@ -76,7 +76,7 @@ void Character::SetHealth(int health)
     }
 
     SetGameTag(GameTag::HEALTH, health);
-    SetGameTag(GameTag::DAMAGE, 0);
+    SetDamage(0);
 }
 
 int Character::GetBaseHealth() const
