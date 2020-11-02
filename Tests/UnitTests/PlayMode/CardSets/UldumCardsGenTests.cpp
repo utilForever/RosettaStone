@@ -4623,6 +4623,78 @@ TEST_CASE("[Warrior : Minion] - ULD_709 : Armored Goon")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry</b>: Choose a damaged friendly minion.
+//       Summon a copy of it.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_DAMAGED_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_720 : Bloodsworn Mercenary")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodsworn Mercenary"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodsworn Mercenary"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rampage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 // - Set: Uldum, Rarity: Common

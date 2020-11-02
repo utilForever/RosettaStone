@@ -2277,7 +2277,7 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:3/HP:3]
+    // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
     // - Set: Uldum, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry</b>: Choose a damaged friendly minion.
@@ -2292,6 +2292,14 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_DAMAGED_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    cards.emplace(
+        "ULD_720",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 }
 
 void UldumCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
