@@ -7152,7 +7152,7 @@ TEST_CASE("[Warrior : Spell] - CS2_104 : Rampage")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
@@ -7177,11 +7177,22 @@ TEST_CASE("[Warrior : Spell] - CS2_104 : Rampage")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
-    curField[0]->SetDamage(1);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 9);
     CHECK_EQ(curField[0]->GetHealth(), 9);
