@@ -73,10 +73,10 @@ class Effects
         return Atk::Effect(EffectOperator::SET, n);
     }
 
-    //! Creates effect that sets max health to \p n.
+    //! Creates effect that sets base health to \p n.
     //! \param n The value to set.
     //! \return A dynamically allocated Effect instance.
-    static std::shared_ptr<IEffect> SetMaxHealth(int n)
+    static std::shared_ptr<IEffect> SetBaseHealth(int n)
     {
         return Health::Effect(EffectOperator::SET, n);
     }
@@ -86,7 +86,7 @@ class Effects
     //! \return A dynamically allocated Effects instance.
     static std::vector<std::shared_ptr<IEffect>> SetAttackHealth(int n)
     {
-        return { SetAttack(n), SetMaxHealth(n) };
+        return { SetAttack(n), SetBaseHealth(n) };
     }
 
     //! Creates effect that adds cost by \p n.

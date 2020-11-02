@@ -2035,7 +2035,7 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // Text: Health reduced to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
     cards.emplace("EX1_379e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
@@ -2067,7 +2067,7 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // Text: Health changed to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
     cards.emplace("EX1_619e", CardDef(power));
 }
 
@@ -6062,7 +6062,7 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // Text: Health set to 15.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(15)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(15)));
     cards.emplace("EX1_561e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL

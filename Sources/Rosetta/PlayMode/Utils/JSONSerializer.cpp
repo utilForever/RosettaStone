@@ -100,7 +100,7 @@ nlohmann::json JSONSerializer::SerializeHero(const Hero& hero)
 
     obj["card_id"] = hero.card->dbfID;
     obj["health"] = hero.GetHealth();
-    obj["max_health"] = hero.GetMaxHealth();
+    obj["base_health"] = hero.GetBaseHealth();
     obj["attack"] = hero.GetAttack();
     obj["armor"] = hero.GetArmor();
 
@@ -203,7 +203,7 @@ nlohmann::json JSONSerializer::SerializeMinion(const Minion& minion)
     obj["cost"] = const_cast<Minion&>(minion).GetCost();
     obj["attack"] = minion.GetAttack();
     obj["health"] = minion.GetHealth();
-    obj["max_health"] = minion.GetMaxHealth();
+    obj["base_health"] = minion.GetBaseHealth();
     obj["taunt"] = minion.GetGameTag(GameTag::TAUNT);
     obj["divine_shield"] = minion.GetGameTag(GameTag::DIVINE_SHIELD);
     obj["stealth"] = minion.GetGameTag(GameTag::STEALTH);

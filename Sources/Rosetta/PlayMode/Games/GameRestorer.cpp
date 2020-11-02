@@ -76,7 +76,7 @@ void GameRestorer::MakeHeroAndHeroPower(
 
     player->GetHero()->SetAttack(hero.attack);
     player->GetHero()->SetHealth(hero.health);
-    player->GetHero()->SetMaxHealth(hero.maxHealth);
+    player->GetHero()->SetBaseHealth(hero.maxHealth);
     player->GetHero()->SetArmor(hero.armor);
     player->GetHero()->SetExhausted(hero.isExhausted);
 
@@ -156,7 +156,7 @@ void GameRestorer::AddMinion(PlayerType playerType, Game& game,
     Minion* m = (*player->GetFieldZone())[pos];
     m->SetAttack(minion.attack);
     m->SetHealth(minion.health);
-    m->SetMaxHealth(minion.maxHealth);
+    m->SetBaseHealth(minion.maxHealth);
     m->SetSpellPower(minion.spellPower);
     m->SetExhausted(minion.isExhausted);
 }

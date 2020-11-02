@@ -76,13 +76,13 @@ class Character : public Playable
     //! \param health The value of health.
     void SetHealth(int health);
 
-    //! Returns the value of max health.
-    //! \return The value of max health.
-    int GetMaxHealth() const;
+    //! Returns the value of base health.
+    //! \return The value of base health.
+    int GetBaseHealth() const;
 
-    //! Sets the value of max health.
-    //! \param maxHealth The value of max health.
-    void SetMaxHealth(int maxHealth);
+    //! Sets the value of base health.
+    //! \param baseHealth The value of base health.
+    void SetBaseHealth(int baseHealth);
 
     //! Returns the value of spell power.
     //! \return The value of spell power.

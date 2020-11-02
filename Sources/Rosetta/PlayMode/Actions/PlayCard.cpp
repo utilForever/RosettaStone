@@ -155,7 +155,7 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
     Hero* oldHero = player->GetHero();
 
     hero->SetZoneType(ZoneType::PLAY);
-    hero->SetHealth(oldHero->GetMaxHealth());
+    hero->SetHealth(oldHero->GetBaseHealth());
     hero->SetDamage(oldHero->GetDamage());
     hero->SetArmor(oldHero->GetArmor() + hero->card->gameTags[GameTag::ARMOR]);
     hero->SetExhausted(oldHero->IsExhausted());

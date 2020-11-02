@@ -65,7 +65,7 @@ void Character::SetDamage(int damage)
 
 int Character::GetHealth() const
 {
-    return GetMaxHealth() - GetGameTag(GameTag::DAMAGE);
+    return GetBaseHealth() - GetGameTag(GameTag::DAMAGE);
 }
 
 void Character::SetHealth(int health)
@@ -79,14 +79,14 @@ void Character::SetHealth(int health)
     SetGameTag(GameTag::DAMAGE, 0);
 }
 
-int Character::GetMaxHealth() const
+int Character::GetBaseHealth() const
 {
     return GetGameTag(GameTag::HEALTH);
 }
 
-void Character::SetMaxHealth(int maxHealth)
+void Character::SetBaseHealth(int baseHealth)
 {
-    SetGameTag(GameTag::HEALTH, maxHealth);
+    SetGameTag(GameTag::HEALTH, baseHealth);
 }
 
 int Character::GetSpellPower() const
@@ -385,7 +385,7 @@ void Character::TakeHeal(Playable* source, int heal)
 void Character::CopyInternalAttributes(Character* copy) const
 {
     copy->SetAttack(GetAttack());
-    copy->SetMaxHealth(GetMaxHealth());
+    copy->SetBaseHealth(GetBaseHealth());
     copy->SetDamage(GetDamage());
     copy->SetNumAttacksThisTurn(GetNumAttacksThisTurn());
     copy->SetGameTag(GameTag::DEATHRATTLE, GetGameTag(GameTag::DEATHRATTLE));

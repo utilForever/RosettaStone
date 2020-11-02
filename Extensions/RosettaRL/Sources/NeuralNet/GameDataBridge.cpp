@@ -69,8 +69,8 @@ double GameDataBridge::GetSideField(
             return fieldZone.GetCount();
         case FieldType::MINION_HEALTH:
             return fieldZone[arg]->GetHealth();
-        case FieldType::MINION_MAX_HEALTH:
-            return fieldZone[arg]->GetMaxHealth();
+        case FieldType::MINION_BASE_HEALTH:
+            return fieldZone[arg]->GetBaseHealth();
         case FieldType::MINION_ATTACK:
             return fieldZone[arg]->GetAttack();
         case FieldType::MINION_ATTACKABLE:

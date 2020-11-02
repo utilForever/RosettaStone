@@ -77,7 +77,7 @@ void InputDataConverter::AddMinionData(FieldSide side,
     data.push_back(NormalizeFromUniformDist(
         getter->GetField(side, FieldType::MINION_HEALTH, minionIdx), 1.0, 7.0));
     data.push_back(NormalizeFromUniformDist(
-        getter->GetField(side, FieldType::MINION_MAX_HEALTH, minionIdx), 1.0,
+        getter->GetField(side, FieldType::MINION_BASE_HEALTH, minionIdx), 1.0,
         7.0));
     data.push_back(NormalizeFromUniformDist(
         getter->GetField(side, FieldType::MINION_ATTACK, minionIdx), 0.0, 7.0));

@@ -40,7 +40,7 @@ class Health : public SelfContainedIntAttr<Health, Entity>
         {
             if (auto hero = dynamic_cast<Hero*>(entity); hero)
             {
-                const int heroHealth = hero->GetMaxHealth();
+                const int heroHealth = hero->GetBaseHealth();
 
                 if (heroHealth > value)
                 {

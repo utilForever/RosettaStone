@@ -49,7 +49,7 @@ double NeuralNetRefInputGetter::GetSideField(NeuralNet::FieldType fieldType,
             return GetHeroField(fieldType, arg, side["hero"]);
         case NeuralNet::FieldType::MINION_COUNT:
         case NeuralNet::FieldType::MINION_HEALTH:
-        case NeuralNet::FieldType::MINION_MAX_HEALTH:
+        case NeuralNet::FieldType::MINION_BASE_HEALTH:
         case NeuralNet::FieldType::MINION_ATTACK:
         case NeuralNet::FieldType::MINION_ATTACKABLE:
         case NeuralNet::FieldType::MINION_TAUNT:
@@ -111,8 +111,8 @@ double NeuralNetRefInputGetter::GetMinionsField(
             return minions.size();
         case NeuralNet::FieldType::MINION_HEALTH:
             return minions[minionIdx]["health"];
-        case NeuralNet::FieldType::MINION_MAX_HEALTH:
-            return minions[minionIdx]["max_health"];
+        case NeuralNet::FieldType::MINION_BASE_HEALTH:
+            return minions[minionIdx]["base_health"];
         case NeuralNet::FieldType::MINION_ATTACK:
             return minions[minionIdx]["attack"];
         case NeuralNet::FieldType::MINION_ATTACKABLE:
