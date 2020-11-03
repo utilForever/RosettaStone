@@ -10671,8 +10671,8 @@ TEST_CASE("[Neutral : Minion] - EX1_190 : High Inquisitor Whitemane")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetHealth(100);
-    opPlayer->GetHero()->SetHealth(100);
+    curPlayer->GetHero()->SetBaseHealth(100);
+    opPlayer->GetHero()->SetBaseHealth(100);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
@@ -11671,13 +11671,13 @@ TEST_CASE("[Neutral : Minion] - EX1_577 : The Beast")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    curField[0]->SetHealth(1);
+    curField[0]->SetBaseHealth(1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    opField[0]->SetHealth(99);
+    opField[0]->SetBaseHealth(99);
 
     game.Process(opPlayer, AttackTask(card2, card1));
     CHECK(card1->isDestroyed);

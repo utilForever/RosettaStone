@@ -197,9 +197,9 @@ void Minion::Silence()
     {
         SetGameTag(GameTag::ATK, GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
 
-        if (GetHealth() > GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
+        if (GetBaseHealth() > GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
         {
-            SetHealth(GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+            SetBaseHealth(GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
         }
         else
         {
@@ -222,9 +222,9 @@ void Minion::Silence()
     {
         SetGameTag(GameTag::ATK, card->gameTags[GameTag::ATK]);
 
-        if (GetHealth() > card->gameTags[GameTag::HEALTH])
+        if (GetBaseHealth() > card->gameTags[GameTag::HEALTH])
         {
-            SetHealth(card->gameTags[GameTag::HEALTH]);
+            SetBaseHealth(card->gameTags[GameTag::HEALTH]);
         }
         else
         {

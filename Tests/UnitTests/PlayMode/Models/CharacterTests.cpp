@@ -38,11 +38,11 @@ TEST_CASE("[Character] - Health")
     curField[0]->SetDamage(2);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 
-    curField[0]->SetHealth(8);
+    curField[0]->SetBaseHealth(8);
     CHECK_EQ(curField[0]->GetDamage(), 0);
     CHECK_EQ(curField[0]->GetHealth(), 8);
 
-    curField[0]->SetHealth(0);
+    curField[0]->SetBaseHealth(0);
     CHECK_EQ(curField[0]->isDestroyed, true);
 }
 
