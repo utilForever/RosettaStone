@@ -68,17 +68,6 @@ int Character::GetHealth() const
     return GetBaseHealth() - GetDamage();
 }
 
-void Character::SetHealth(int health)
-{
-    if (health == 0)
-    {
-        Destroy();
-    }
-
-    SetGameTag(GameTag::HEALTH, health);
-    SetDamage(0);
-}
-
 int Character::GetBaseHealth() const
 {
     return GetGameTag(GameTag::HEALTH);

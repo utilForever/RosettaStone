@@ -72,10 +72,6 @@ class Character : public Playable
     //! \return The value of health.
     int GetHealth() const;
 
-    //! Sets the value of health.
-    //! \param health The value of health.
-    void SetHealth(int health);
-
     //! Returns the value of base health.
     //! \return The value of base health.
     int GetBaseHealth() const;
