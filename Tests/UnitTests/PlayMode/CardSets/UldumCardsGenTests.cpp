@@ -4690,7 +4690,7 @@ TEST_CASE("[Warrior : Minion] - ULD_720 : Bloodsworn Mercenary")
     CHECK_EQ(curField[0]->GetHealth(), 4);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
-    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 4);
 }
