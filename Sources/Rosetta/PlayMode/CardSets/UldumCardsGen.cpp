@@ -2293,7 +2293,8 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_DAMAGED_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(
+        EntityType::TARGET, false, false, SummonSide::TARGET));
     cards.emplace(
         "ULD_720",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
