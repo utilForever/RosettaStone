@@ -514,6 +514,76 @@ TEST_CASE("[Druid : Minion] - ULD_139 : Elise the Enlightened")
     CHECK_EQ(curHand[9]->card->name, "Wrath");
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [ULD_158] Sandstorm Elemental - COST:2 [ATK:2/HP:2]
+// - Race: Elemental, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage to all enemy minions.
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - ULD_158 : Sandstorm Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Sandstorm Elemental"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(opPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(opPlayer->GetOverloadLocked(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(opPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(opPlayer->GetOverloadLocked(), 1);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [ULD_291] Corrupt the Waters - COST:1
 // - Set: Uldum, Rarity: Legendary

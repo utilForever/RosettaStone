@@ -1738,12 +1738,16 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Race: Elemental, Set: Uldum, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to all enemy minions.
-    // <b>Overload:</b> (1)
+    //       <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1));
+    cards.emplace("ULD_158", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [ULD_169] Mogu Fleshshaper - COST:7 [ATK:3/HP:4]
