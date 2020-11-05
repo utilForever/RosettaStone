@@ -745,26 +745,6 @@ void UldumCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("ULD_155e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
-    // [ULD_156t] Duke (*) - COST:5 [ATK:5/HP:5]
-    // - Race: Beast, Set: Uldum
-    // --------------------------------------------------------
-    // Text: <b>Rush</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - RUSH = 1
-    // --------------------------------------------------------
-
-    // ---------------------------------------- MINION - HUNTER
-    // [ULD_156t2] Duchess (*) - COST:5 [ATK:5/HP:5]
-    // - Race: Beast, Set: Uldum
-    // --------------------------------------------------------
-    // Text: <b>Rush</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - RUSH = 1
-    // --------------------------------------------------------
-
-    // ---------------------------------------- MINION - HUNTER
     // [ULD_156t3] King Krush (*) - COST:9 [ATK:8/HP:8]
     // - Race: Beast, Faction: Neutral, Set: Uldum, Rarity: Legendary
     // --------------------------------------------------------
