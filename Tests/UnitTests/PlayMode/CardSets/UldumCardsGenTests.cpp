@@ -584,6 +584,67 @@ TEST_CASE("[Shaman : Minion] - ULD_158 : Sandstorm Elemental")
     CHECK_EQ(opPlayer->GetOverloadLocked(), 1);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [ULD_169] Mogu Fleshshaper - COST:9 [ATK:3/HP:4]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>. Costs (1) less for each minion
+//       on the battlefield.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - ULD_169 : Mogu Fleshshaper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Fleshshaper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(card1->GetCost(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(card1->GetCost(), 4);
+
+    game.Process(opPlayer, HeroPowerTask(card2));
+    CHECK_EQ(card1->GetCost(), 5);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [ULD_291] Corrupt the Waters - COST:1
 // - Set: Uldum, Rarity: Legendary

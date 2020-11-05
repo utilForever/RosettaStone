@@ -49,6 +49,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -1750,7 +1751,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cards.emplace("ULD_158", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [ULD_169] Mogu Fleshshaper - COST:7 [ATK:3/HP:4]
+    // [ULD_169] Mogu Fleshshaper - COST:9 [ATK:3/HP:4]
     // - Set: Uldum, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>. Costs (1) less for each minion
@@ -1759,6 +1760,12 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        return playable->player->GetFieldZone()->GetCount() +
+               playable->player->opponent->GetFieldZone()->GetCount();
+    }));
+    cards.emplace("ULD_169", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [ULD_170] Weaponized Wasp - COST:3 [ATK:3/HP:3]
