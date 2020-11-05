@@ -1778,11 +1778,20 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ88 = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsControllingLackey()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3) }));
+    cards.emplace(
+        "ULD_170",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_171] Totemic Surge - COST:0
