@@ -1113,6 +1113,10 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "ULD_439t", 2));
+    cards.emplace("ULD_439", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_500] Sir Finley of the Sands - COST:2 [ATK:2/HP:3]
@@ -1192,6 +1196,9 @@ void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // [ULD_439t] Sandwasp (*) - COST:1 [ATK:2/HP:1]
     // - Race: Beast, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_439t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ULD_716e2] Watched (*) - COST:0

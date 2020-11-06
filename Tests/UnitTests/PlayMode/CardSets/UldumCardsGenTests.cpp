@@ -2669,6 +2669,46 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
     CHECK_EQ(curField[2]->HasReborn(), true);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [ULD_439] Sandwasp Queen - COST:2 [ATK:3/HP:1]
+// - Race: Beast, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add two 2/1 Sandwasps to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ULD_439 : Sandwasp Queen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sandwasp Queen"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Sandwasp");
+    CHECK_EQ(curHand[1]->card->name, "Sandwasp");
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
 // - Set: Uldum, Rarity: Legendary
