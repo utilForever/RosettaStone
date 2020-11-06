@@ -1799,6 +1799,13 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your Totems +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_171e", EntityType::STACK));
+    cards.emplace("ULD_171", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_172] Plague of Murlocs - COST:3
@@ -1896,6 +1903,9 @@ void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_171e"));
+    cards.emplace("ULD_171e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [ULD_173e] Vessina's Devotion (*) - COST:0

@@ -705,6 +705,58 @@ TEST_CASE("[Shaman : Minion] - ULD_170 : Weaponized Wasp")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
+// [ULD_171] Totemic Surge - COST:0
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your Totems +2 Attack.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - ULD_171 : Totemic Surge")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Totemic Surge"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    int totem1Attack = curField[0]->GetAttack();
+    int totem2Attack = curField[1]->GetAttack();
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetAttack(), totem1Attack + 2);
+    CHECK_EQ(curField[1]->GetAttack(), totem2Attack + 2);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
 // [ULD_291] Corrupt the Waters - COST:1
 // - Set: Uldum, Rarity: Legendary
 // --------------------------------------------------------
