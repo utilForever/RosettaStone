@@ -2350,6 +2350,13 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - QUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsControllingQuest()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace("ULD_157", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_174] Serpent Egg - COST:2 [ATK:0/HP:3]
