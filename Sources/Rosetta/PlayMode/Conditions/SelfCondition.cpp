@@ -208,6 +208,13 @@ SelfCondition SelfCondition::IsControllingSecret()
     });
 }
 
+SelfCondition SelfCondition::IsControllingQuest()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetSecretZone()->quest != nullptr;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingLackey()
 {
     return SelfCondition([](Playable* playable) {

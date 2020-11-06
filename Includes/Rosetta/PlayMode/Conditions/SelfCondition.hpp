@@ -122,6 +122,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingSecret();
 
+    //! SelfCondition wrapper for checking the quest exists
+    //! in the owner's secret zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingQuest();
+
     //! SelfCondition wrapper for checking there is the entity
     //! with Lackey in field zone.
     //! \return Generated SelfCondition for intended purpose.
