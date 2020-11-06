@@ -641,8 +641,8 @@ ULDUM | ULD_152 | Pressure Plate | O
 ULDUM | ULD_154 | Hyena Alpha | O
 ULDUM | ULD_155 | Unseal the Vault | O
 ULDUM | ULD_156 | Dinotamer Brann | O
-ULDUM | ULD_157 | Questing Explorer |  
-ULDUM | ULD_158 | Sandstorm Elemental |  
+ULDUM | ULD_157 | Questing Explorer | O
+ULDUM | ULD_158 | Sandstorm Elemental | O
 ULDUM | ULD_160 | Sinister Deal |  
 ULDUM | ULD_161 | Neferset Thrasher |  
 ULDUM | ULD_162 | EVIL Recruiter |  
@@ -650,9 +650,9 @@ ULDUM | ULD_163 | Expired Merchant |
 ULDUM | ULD_165 | Riftcleaver |  
 ULDUM | ULD_167 | Diseased Vulture |  
 ULDUM | ULD_168 | Dark Pharaoh Tekahn |  
-ULDUM | ULD_169 | Mogu Fleshshaper |  
-ULDUM | ULD_170 | Weaponized Wasp |  
-ULDUM | ULD_171 | Totemic Surge |  
+ULDUM | ULD_169 | Mogu Fleshshaper | O
+ULDUM | ULD_170 | Weaponized Wasp | O
+ULDUM | ULD_171 | Totemic Surge | O
 ULDUM | ULD_172 | Plague of Murlocs |  
 ULDUM | ULD_173 | Vessina |  
 ULDUM | ULD_174 | Serpent Egg | O
@@ -662,9 +662,9 @@ ULDUM | ULD_179 | Phalanx Commander |
 ULDUM | ULD_180 | Sunstruck Henchman |  
 ULDUM | ULD_181 | Earthquake |  
 ULDUM | ULD_182 | Spitting Camel | O
-ULDUM | ULD_183 | Anubisath Warbringer |  
+ULDUM | ULD_183 | Anubisath Warbringer | O
 ULDUM | ULD_184 | Kobold Sandtrooper | O
-ULDUM | ULD_185 | Temple Berserker |  
+ULDUM | ULD_185 | Temple Berserker | O
 ULDUM | ULD_186 | Pharaoh Cat | O
 ULDUM | ULD_188 | Golden Scarab | O
 ULDUM | ULD_189 | Faceless Lurker |  
@@ -672,7 +672,7 @@ ULDUM | ULD_190 | Pit Crocolisk | O
 ULDUM | ULD_191 | Beaming Sidekick | O
 ULDUM | ULD_193 | Living Monument | O
 ULDUM | ULD_194 | Wasteland Scorpid | O
-ULDUM | ULD_195 | Frightened Flunky |  
+ULDUM | ULD_195 | Frightened Flunky | O
 ULDUM | ULD_196 | Neferset Ritualist |  
 ULDUM | ULD_197 | Quicksand Elemental | O
 ULDUM | ULD_198 | Conjured Mirage | O
@@ -683,7 +683,7 @@ ULDUM | ULD_208 | Khartut Defender | O
 ULDUM | ULD_209 | Vulpera Scoundrel |  
 ULDUM | ULD_212 | Wild Bloodstinger | O
 ULDUM | ULD_214 | Generous Mummy |  
-ULDUM | ULD_215 | Wrapped Golem |  
+ULDUM | ULD_215 | Wrapped Golem | O
 ULDUM | ULD_216 | Puzzle Box of Yogg-Saron | O
 ULDUM | ULD_217 | Micro Mummy |  
 ULDUM | ULD_229 | Mischief Maker |  
@@ -694,8 +694,8 @@ ULDUM | ULD_239 | Flame Ward | O
 ULDUM | ULD_240 | Arcane Flakmage | O
 ULDUM | ULD_250 | Infested Goblin | O
 ULDUM | ULD_253 | Tomb Warden | O
-ULDUM | ULD_256 | Into the Fray |  
-ULDUM | ULD_258 | Armagedillo |  
+ULDUM | ULD_256 | Into the Fray | O
+ULDUM | ULD_258 | Armagedillo | O
 ULDUM | ULD_262 | High Priest Amet | O
 ULDUM | ULD_265 | Embalming Ritual | O
 ULDUM | ULD_266 | Grandmummy | O
@@ -715,7 +715,7 @@ ULDUM | ULD_286 | Shadow of Death | O
 ULDUM | ULD_288 | Anka, the Buried | O
 ULDUM | ULD_289 | Fishflinger | O
 ULDUM | ULD_290 | History Buff |  
-ULDUM | ULD_291 | Corrupt the Waters |  
+ULDUM | ULD_291 | Corrupt the Waters | O
 ULDUM | ULD_292 | Oasis Surger | O
 ULDUM | ULD_293 | Cloud Prince | O
 ULDUM | ULD_304 | King Phaoris |  
@@ -733,16 +733,16 @@ ULDUM | ULD_431 | Making Mummies | O
 ULDUM | ULD_433 | Raid the Sky Temple | O
 ULDUM | ULD_435 | Naga Sand Witch | O
 ULDUM | ULD_438 | Salhet's Pride |  
-ULDUM | ULD_439 | Sandwasp Queen |  
+ULDUM | ULD_439 | Sandwasp Queen | O
 ULDUM | ULD_450 | Vilefiend | O
 ULDUM | ULD_500 | Sir Finley of the Sands |  
 ULDUM | ULD_702 | Mortuary Machine |  
 ULDUM | ULD_703 | Desert Obelisk |  
 ULDUM | ULD_705 | Mogu Cultist |  
 ULDUM | ULD_706 | Blatant Decoy |  
-ULDUM | ULD_707 | Plague of Wrath |  
-ULDUM | ULD_708 | Livewire Lance |  
-ULDUM | ULD_709 | Armored Goon |  
+ULDUM | ULD_707 | Plague of Wrath | O
+ULDUM | ULD_708 | Livewire Lance | O
+ULDUM | ULD_709 | Armored Goon | O
 ULDUM | ULD_711 | Hack the System |  
 ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts | O
@@ -751,8 +751,8 @@ ULDUM | ULD_715 | Plague of Madness | O
 ULDUM | ULD_716 | Tip the Scales |  
 ULDUM | ULD_717 | Plague of Flames |  
 ULDUM | ULD_718 | Plague of Death | O
-ULDUM | ULD_719 | Desert Hare |  
-ULDUM | ULD_720 | Bloodsworn Mercenary |  
+ULDUM | ULD_719 | Desert Hare | O
+ULDUM | ULD_720 | Bloodsworn Mercenary | O
 ULDUM | ULD_721 | Colossus of the Moon | O
 ULDUM | ULD_723 | Murmy | O
 ULDUM | ULD_724 | Activate the Obelisk |  
@@ -760,7 +760,7 @@ ULDUM | ULD_726 | Ancient Mysteries | O
 ULDUM | ULD_727 | Body Wrapper |  
 ULDUM | ULD_728 | Subdue |  
 
-- Progress: 57% (78 of 135 Cards)
+- Progress: 72% (98 of 135 Cards)
 
 ## Descent of Dragons
 
