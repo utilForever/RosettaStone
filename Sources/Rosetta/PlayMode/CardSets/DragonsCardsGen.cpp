@@ -1032,7 +1032,7 @@ void DragonsCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // Text: Health changed to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
     cards.emplace("DRG_095e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
@@ -2817,7 +2817,7 @@ void DragonsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(
-        EffectList{ Effects::SetAttack(5), Effects::SetMaxHealth(5) }));
+        EffectList{ Effects::SetAttack(5), Effects::SetBaseHealth(5) }));
     cards.emplace("DRG_096e2", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
@@ -3067,7 +3067,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                 minion->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, count);
 
                 minion->SetAttack(count);
-                minion->SetMaxHealth(count);
+                minion->SetBaseHealth(count);
                 minion->SetCost(count);
             }
 

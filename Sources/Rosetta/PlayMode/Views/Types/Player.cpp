@@ -28,8 +28,8 @@ void Hero::Parse(PlayMode::Hero* hero)
 {
     cardID = hero->card->id;
     attack = hero->GetAttack();
-    health = hero->GetHealth();
-    maxHealth = hero->GetMaxHealth();
+    damage = hero->GetDamage();
+    baseHealth = hero->GetBaseHealth();
     armor = hero->GetArmor();
     isExhausted = hero->IsExhausted();
 }
@@ -53,8 +53,8 @@ void Minion::Parse(const PlayMode::Minion& minion)
 {
     cardID = minion.card->id;
     attack = minion.GetAttack();
-    health = minion.GetHealth();
-    maxHealth = minion.GetMaxHealth();
+    damage = minion.GetDamage();
+    baseHealth = minion.GetBaseHealth();
     spellPower = minion.GetSpellPower();
     isExhausted = minion.IsExhausted();
 }

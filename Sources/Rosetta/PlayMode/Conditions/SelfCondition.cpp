@@ -208,6 +208,13 @@ SelfCondition SelfCondition::IsControllingSecret()
     });
 }
 
+SelfCondition SelfCondition::IsControllingQuest()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetSecretZone()->quest != nullptr;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingLackey()
 {
     return SelfCondition([](Playable* playable) {
@@ -319,6 +326,19 @@ SelfCondition SelfCondition::IsFrozen()
         }
 
         return character->IsFrozen();
+    });
+}
+
+SelfCondition SelfCondition::HasTaunt()
+{
+    return SelfCondition([](Playable* playable) {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->HasTaunt();
     });
 }
 

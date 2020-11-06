@@ -31,8 +31,8 @@ struct Hero
 
     std::string cardID;
     int attack = 0;
-    int health = 0;
-    int maxHealth = 0;
+    int damage = 0;
+    int baseHealth = 0;
     int armor = 0;
     bool isExhausted = false;
 
@@ -92,8 +92,8 @@ struct Minion
 
     std::string cardID;
     int attack = 0;
-    int health = 0;
-    int maxHealth = 0;
+    int damage = 0;
+    int baseHealth = 0;
     int spellPower = 0;
     bool isExhausted = false;
 };

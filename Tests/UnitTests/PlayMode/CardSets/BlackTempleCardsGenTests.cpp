@@ -1285,7 +1285,7 @@ TEST_CASE("[Warrior : Minion] - BT_123 : Kargath Bladefist")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     // 'Kargath Prime' kill a hero
-    opPlayer->GetHero()->SetHealth(10);
+    opPlayer->GetHero()->SetBaseHealth(10);
     game.Process(curPlayer, AttackTask(card5, opPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 20);
 }

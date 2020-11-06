@@ -122,6 +122,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingSecret();
 
+    //! SelfCondition wrapper for checking the quest exists
+    //! in the owner's secret zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingQuest();
+
     //! SelfCondition wrapper for checking there is the entity
     //! with Lackey in field zone.
     //! \return Generated SelfCondition for intended purpose.
@@ -170,6 +175,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the entity is frozen.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
+
+    //! SelfCondition wrapper for checking the entity has taunt.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasTaunt();
 
     //! SelfCondition wrapper for checking the entity has rush.
     //! \return Generated SelfCondition for intended purpose.

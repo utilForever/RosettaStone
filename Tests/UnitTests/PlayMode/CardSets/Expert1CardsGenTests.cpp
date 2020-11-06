@@ -7152,7 +7152,7 @@ TEST_CASE("[Warrior : Spell] - CS2_104 : Rampage")
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
@@ -7177,11 +7177,22 @@ TEST_CASE("[Warrior : Spell] - CS2_104 : Rampage")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
-    curField[0]->SetDamage(1);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 9);
     CHECK_EQ(curField[0]->GetHealth(), 9);
@@ -10660,8 +10671,8 @@ TEST_CASE("[Neutral : Minion] - EX1_190 : High Inquisitor Whitemane")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetHealth(100);
-    opPlayer->GetHero()->SetHealth(100);
+    curPlayer->GetHero()->SetBaseHealth(100);
+    opPlayer->GetHero()->SetBaseHealth(100);
 
     auto& curField = *(curPlayer->GetFieldZone());
 
@@ -11660,13 +11671,13 @@ TEST_CASE("[Neutral : Minion] - EX1_577 : The Beast")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    curField[0]->SetHealth(1);
+    curField[0]->SetBaseHealth(1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    opField[0]->SetHealth(99);
+    opField[0]->SetBaseHealth(99);
 
     game.Process(opPlayer, AttackTask(card2, card1));
     CHECK(card1->isDestroyed);

@@ -40,7 +40,7 @@ class Health : public SelfContainedIntAttr<Health, Entity>
         {
             if (auto hero = dynamic_cast<Hero*>(entity); hero)
             {
-                const int heroHealth = hero->GetMaxHealth();
+                const int heroHealth = hero->GetBaseHealth();
 
                 if (heroHealth > value)
                 {
@@ -48,7 +48,7 @@ class Health : public SelfContainedIntAttr<Health, Entity>
                 }
                 else
                 {
-                    hero->SetHealth(value);
+                    hero->SetBaseHealth(value);
                 }
 
                 return;
@@ -56,7 +56,8 @@ class Health : public SelfContainedIntAttr<Health, Entity>
 
             if (auto minion = dynamic_cast<Minion*>(entity); minion)
             {
-                minion->SetHealth(value);
+                minion->SetBaseHealth(value);
+                minion->SetDamage(0);
                 return;
             }
         }
@@ -86,7 +87,7 @@ class Health : public SelfContainedIntAttr<Health, Entity>
     int GetValue(Entity* entity) override
     {
         const auto character = dynamic_cast<Character*>(entity);
-        return character->GetHealth();
+        return character->GetBaseHealth();
     }
 
     //! Sets the value of the attribute of the entity.
@@ -95,7 +96,7 @@ class Health : public SelfContainedIntAttr<Health, Entity>
     void SetValue(Entity* entity, int value) override
     {
         auto character = dynamic_cast<Character*>(entity);
-        character->SetHealth(value);
+        character->SetBaseHealth(value);
     }
 
     //! Returns the value the attribute that is affected by the aura effect.

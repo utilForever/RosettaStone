@@ -514,6 +514,248 @@ TEST_CASE("[Druid : Minion] - ULD_139 : Elise the Enlightened")
     CHECK_EQ(curHand[9]->card->name, "Wrath");
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [ULD_158] Sandstorm Elemental - COST:2 [ATK:2/HP:2]
+// - Race: Elemental, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage to all enemy minions.
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - ULD_158 : Sandstorm Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Sandstorm Elemental"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(opPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(opPlayer->GetOverloadLocked(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(opPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(opPlayer->GetOverloadLocked(), 1);
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [ULD_169] Mogu Fleshshaper - COST:9 [ATK:3/HP:4]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>. Costs (1) less for each minion
+//       on the battlefield.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - ULD_169 : Mogu Fleshshaper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Fleshshaper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(card1->GetCost(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(card1->GetCost(), 4);
+
+    game.Process(opPlayer, HeroPowerTask(card2));
+    CHECK_EQ(card1->GetCost(), 5);
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [ULD_170] Weaponized Wasp - COST:3 [ATK:3/HP:3]
+// - Race: Beast, Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Lackey</b>,
+//       deal 3 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - ULD_170 : Weaponized Wasp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_739"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Weaponized Wasp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Weaponized Wasp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Weaponized Wasp"));
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opHero));
+    CHECK_EQ(opHero->GetHealth(), 30);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card4, card3));
+    CHECK_EQ(curField.GetCount(), 3);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [ULD_171] Totemic Surge - COST:0
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your Totems +2 Attack.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - ULD_171 : Totemic Surge")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Totemic Surge"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    int totem1Attack = curField[0]->GetAttack();
+    int totem2Attack = curField[1]->GetAttack();
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetAttack(), totem1Attack + 2);
+    CHECK_EQ(curField[1]->GetAttack(), totem2Attack + 2);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [ULD_291] Corrupt the Waters - COST:1
 // - Set: Uldum, Rarity: Legendary
@@ -2427,6 +2669,46 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
     CHECK_EQ(curField[2]->HasReborn(), true);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [ULD_439] Sandwasp Queen - COST:2 [ATK:3/HP:1]
+// - Race: Beast, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add two 2/1 Sandwasps to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ULD_439 : Sandwasp Queen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sandwasp Queen"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Sandwasp");
+    CHECK_EQ(curHand[1]->card->name, "Sandwasp");
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
 // - Set: Uldum, Rarity: Legendary
@@ -3436,8 +3718,7 @@ TEST_CASE("[Rogue : Spell] - ULD_328 : Clever Disguise")
 // RefTag:
 // - POISONOUS = 1
 // --------------------------------------------------------
-
-TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
+TEST_CASE("[Rogue : Spell] - ULD_715 : Plague of Madness")
 {
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
@@ -3488,6 +3769,53 @@ TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [ULD_195] Frightened Flunky - COST:2 [ATK:2/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> <b>Discover</b> a <b>Taunt</b> minion.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_195 : Frightened Flunky")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frightened Flunky"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->HasGameTag(GameTag::TAUNT), true);
+    }
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
@@ -3500,6 +3828,58 @@ TEST_CASE("[ROGUE : SPELL] - ULD_715 : Plague of Madness")
 TEST_CASE("[Warrior : Minion] - ULD_206 : Restless Mummy")
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [ULD_157] Questing Explorer - COST:2 [ATK:2/HP:3]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Quest</b>,
+//       draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - QUEST = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_157 : Questing Explorer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Questing Explorer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Questing Explorer"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Untapped Potential"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -3672,6 +4052,59 @@ TEST_CASE("[Neutral : Minion] - ULD_182 : Spitting Camel")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_183] Anubisath Warbringer - COST:9 [ATK:9/HP:6]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give all minions in your hand +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_183 : Anubisath Warbringer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Anubisath Warbringer"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_184] Kobold Sandtrooper - COST:2 [ATK:2/HP:1]
 // - Faction: Alliance, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
@@ -3712,6 +4145,60 @@ TEST_CASE("[Neutral : Minion] - ULD_184 : Kobold Sandtrooper")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [ULD_185] Temple Berserker - COST:2 [ATK:1/HP:2]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Reborn</b> Has +2 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_185 : Temple Berserker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Temple Berserker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -4085,6 +4572,57 @@ TEST_CASE("[Neutral : Minion] - ULD_208 : Khartut Defender")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_215] Wrapped Golem - COST:7 [ATK:7/HP:5]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Reborn</b> At the end of your turn,
+//       summon a 1/1 Scarab with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - REBORN = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_215 : Wrapped Golem")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wrapped Golem"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Scarab");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_250] Infested Goblin - COST:3 [ATK:2/HP:3]
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
@@ -4201,6 +4739,345 @@ TEST_CASE("[Warrior : Minion] - ULD_253 : Tomb Warden")
     CHECK_EQ(3, curField[3]->GetAttack());
     CHECK_EQ(6, curField[2]->GetHealth());
     CHECK_EQ(6, curField[3]->GetHealth());
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [ULD_256] Into the Fray - COST:1
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give all <b>Taunt</b> minions in your hand +2/+2.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - ULD_256 : Into the Fray")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Into the Fray"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostwolf Grunt"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [ULD_258] Armagedillo - COST:6 [ATK:4/HP:7]
+// - Race: Beast, Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Taunt</b> At the end of your turn,
+//       give all <b>Taunt</b> minions in your hand +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_258 : Armagedillo")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Armagedillo"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostwolf Grunt"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostwolf Grunt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(dynamic_cast<Minion*>(opHand[1])->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(opHand[1])->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 6);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [ULD_707] Plague of Wrath - COST:5
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy all damaged minions.
+// --------------------------------------------------------
+// GameTag:
+// - 858 = 41425
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - ULD_707 : Plague of Wrath")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plague of Wrath"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// --------------------------------------- WEAPON - WARRIOR
+// [ULD_708] Livewire Lance - COST:3 [ATK:2/HP:0]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: After your Hero attacks,
+//       add a <b>Lackey</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - 1359 = 1
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - ULD_708 : Livewire Lance")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Livewire Lance"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHand.GetCount(), 0);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->IsLackey(), true);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [ULD_709] Armored Goon - COST:6 [ATK:6/HP:7]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever your hero attacks, gain 5 Armor.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_709 : Armored Goon")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Armored Goon"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry</b>: Choose a damaged friendly minion.
+//       Summon a copy of it.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_DAMAGED_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - ULD_720 : Bloodsworn Mercenary")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodsworn Mercenary"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodsworn Mercenary"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rampage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -4505,6 +5382,47 @@ TEST_CASE("[Neutral : Minion] - ULD_712 : Bug Collector")
     game.Process(opPlayer, AttackTask(opField[1], curField[1]));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [ULD_719] Desert Hare - COST:3 [ATK:1/HP:1]
+// - Race: Beast, Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Desert Hares.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_719 : Desert Hare")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Hare"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Desert Hare");
+    CHECK_EQ(curField[1]->card->name, "Desert Hare");
+    CHECK_EQ(curField[2]->card->name, "Desert Hare");
 }
 
 // --------------------------------------- MINION - NEUTRAL

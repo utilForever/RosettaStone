@@ -2035,7 +2035,7 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // Text: Health reduced to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
     cards.emplace("EX1_379e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
@@ -2067,7 +2067,7 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // Text: Health changed to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
     cards.emplace("EX1_619e", CardDef(power));
 }
 
@@ -5250,8 +5250,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_HERO_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_561e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            Hero* hero = dynamic_cast<Hero*>(target);
+            hero->SetDamage(hero->GetBaseHealth() - 15);
+        }));
     cards.emplace(
         "EX1_561",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
@@ -6054,16 +6058,6 @@ void Expert1CardsGen::AddNeutralNonCollect(
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
     cards.emplace("EX1_509e", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [EX1_561e] Alexstrasza's Fire (*) - COST:0
-    // - Set: Expert1
-    // --------------------------------------------------------
-    // Text: Health set to 15.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetMaxHealth(15)));
-    cards.emplace("EX1_561e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
