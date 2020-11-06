@@ -2694,6 +2694,10 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("ULD_215t") };
+    cards.emplace("ULD_215", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_229] Mischief Maker - COST:3 [ATK:3/HP:3]
