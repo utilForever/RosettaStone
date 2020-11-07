@@ -4030,7 +4030,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "techLevel": 1,
         "text": "<b>Deathrattle:</b> Summon a 1/1 Jo-E Bot.",
         "type": "MINION"
     },
@@ -12125,7 +12124,6 @@
         "race": "DEMON",
         "rarity": "FREE",
         "set": "CORE",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -15724,7 +15722,6 @@
             "WINDFURY"
         ],
         "set": "DALARAN",
-        "techLevel": 4,
         "text": "Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.",
         "type": "MINION"
     },
@@ -16073,6 +16070,7 @@
         "cost": 7,
         "dbfId": 61640,
         "elite": true,
+        "flavor": "\"You might remember me from such attractions as 'Being Shot out of a Cannon' or 'That Carousel Ate My Friend.'\"",
         "health": 4,
         "id": "DMF_074",
         "mechanics": [
@@ -20450,7 +20448,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "techLevel": 1,
         "text": "Adjacent minions have +1 Attack.",
         "type": "MINION"
     },
@@ -20549,7 +20546,6 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 1,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
     },
@@ -26040,7 +26036,6 @@
         "name": "Festeroot Hulk",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "techLevel": 4,
         "text": "After a friendly minion attacks, gain +1 Attack.",
         "type": "MINION"
     },
@@ -26243,7 +26238,6 @@
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "techLevel": 2,
         "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
         "type": "MINION"
     },
@@ -27392,7 +27386,7 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "GVG",
-        "techLevel": 4,
+        "techLevel": 3,
         "text": "At the end of your turn, give another friendly Mech +2/+2.",
         "type": "MINION"
     },
@@ -28054,7 +28048,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "GVG",
-        "techLevel": 3,
         "text": "Whenever you summon a Mech, gain <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -28502,7 +28495,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "GVG",
-        "techLevel": 2,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -33149,7 +33141,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "KARA",
-        "techLevel": 2,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.",
         "type": "MINION"
     },
@@ -33299,7 +33290,6 @@
         "name": "Menagerie Magician",
         "rarity": "COMMON",
         "set": "KARA",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.",
         "type": "MINION"
     },
@@ -38287,7 +38277,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "OG",
-        "techLevel": 3,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -39371,7 +39360,6 @@
         "name": "The Boogeymonster",
         "rarity": "LEGENDARY",
         "set": "OG",
-        "techLevel": 4,
         "text": "Whenever this attacks and kills a minion, gain +2/+2.",
         "type": "MINION"
     },
@@ -45947,7 +45935,6 @@
             "TAUNT"
         ],
         "set": "ULDUM",
-        "techLevel": 3,
         "text": "Your <b>Taunt</b> minions\nhave +2 Attack.",
         "type": "MINION"
     },
@@ -47978,7 +47965,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "techLevel": 5,
         "text": "<b>Deathrattle:</b> Summon three 1/1 Murlocs.",
         "type": "MINION"
     },
@@ -48310,7 +48296,6 @@
         "name": "Tortollan Shellraiser",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "techLevel": 3,
         "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +1/+1.",
         "type": "MINION"
     },
