@@ -3464,7 +3464,7 @@
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 59670,
-        "health": 1,
+        "health": 3,
         "id": "BGS_004",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -3538,7 +3538,7 @@
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
         "techLevel": 5,
-        "text": "[x]At the end of your turn,\ngive a friendly minion\nof each minion type\n+2/+1.",
+        "text": "[x]At the end of your turn,\ngive a friendly minion\nof each minion type\n+2/+2.",
         "type": "MINION"
     },
     {
@@ -3790,7 +3790,6 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon a random 4-Cost minion.",
         "type": "MINION"
     },
@@ -3809,7 +3808,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Summon a random 1-Cost minion.",
         "type": "MINION"
     },
@@ -3847,7 +3845,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "[x]<b>Battlecry:</b> Gain +2/+2 for\neach other Pogo-Hopper\nyou played this game.",
         "type": "MINION"
     },
@@ -3933,7 +3930,6 @@
             "ADAPT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs.",
         "type": "MINION"
     },
@@ -4285,7 +4281,6 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Deathrattle:</b> Summon a random Golden minion.",
         "type": "MINION"
     },
@@ -4305,7 +4300,7 @@
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
-        "text": "Whenever a friendly Pirate attacks, give all friendly minions +1/+1.",
+        "text": "Whenever a friendly Pirate attacks, give all friendly minions +2/+1.",
         "type": "MINION"
     },
     {
@@ -4314,16 +4309,16 @@
         "id": "BGS_047e",
         "name": "Yaharr!!",
         "set": "BATTLEGROUNDS",
-        "text": "+1/+1.",
+        "text": "+2/+1.",
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 5,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 62259,
         "cardClass": "NEUTRAL",
         "cost": 5,
         "dbfId": 61048,
-        "health": 4,
+        "health": 3,
         "id": "BGS_048",
         "name": "Southsea Strongarm",
         "race": "PIRATE",
@@ -4332,7 +4327,7 @@
         ],
         "set": "BATTLEGROUNDS",
         "targetingArrowText": "Give +1/+1 for each Pirate you bought this turn.",
-        "techLevel": 4,
+        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give a friendly Pirate +1/+1 for each Pirate you bought this turn.",
         "type": "MINION"
     },
@@ -4406,12 +4401,12 @@
         "type": "MINION"
     },
     {
-        "attack": 3,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 62257,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 61056,
-        "health": 4,
+        "health": 5,
         "id": "BGS_056",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4464,7 +4459,7 @@
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 61060,
-        "health": 8,
+        "health": 5,
         "id": "BGS_060",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4475,7 +4470,7 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
+        "techLevel": 2,
         "text": "[x]<b>Taunt</b>\nAfter this minion survives\nbeing attacked,\nattack immediately.",
         "type": "MINION"
     },
@@ -4507,7 +4502,6 @@
         "name": "Sky Pirate",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -4583,7 +4577,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "[x]After another friendly\nminion loses <b>Divine Shield</b>,\ngain <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -4605,7 +4598,7 @@
         ],
         "set": "BATTLEGROUNDS",
         "techLevel": 6,
-        "text": "[x]<b>Battlecry:</b> For each different\nminion type you have,\n<b>Adapt</b> randomly.",
+        "text": "[x]<b>Battlecry:</b> For each different\nminion type you have among\nother minions, <b>Adapt</b>\nrandomly.",
         "type": "MINION"
     },
     {
@@ -4701,7 +4694,6 @@
         ],
         "name": "Arcane Cannon",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "[x]Can't attack.\nAfter an adjacent minion\nattacks, deal 2 damage\nto an enemy minion.",
         "type": "MINION"
     },
@@ -4853,13 +4845,13 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 64076,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 63624,
         "elite": true,
-        "health": 6,
+        "health": 4,
         "id": "BGS_100",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4968,7 +4960,6 @@
         "name": "Water Droplet",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -5058,7 +5049,7 @@
         "name": "Gentle Djinni",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
+        "techLevel": 6,
         "text": "<b>Taunt</b>. <b>Deathrattle:</b> Summon another random Elemental and add a copy of it to your hand.",
         "type": "MINION"
     },
@@ -5102,7 +5093,7 @@
         "type": "MINION"
     },
     {
-        "attack": 8,
+        "attack": 5,
         "battlegroundsPremiumDbfId": 64085,
         "cardClass": "NEUTRAL",
         "cost": 8,
@@ -5940,7 +5931,6 @@
         "name": "Guard Bot",
         "race": "MECHANICAL",
         "set": "BOOMSDAY",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -6778,7 +6768,6 @@
         "name": "Microbot",
         "race": "MECHANICAL",
         "set": "BOOMSDAY",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -7366,7 +7355,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "techLevel": 1,
         "text": "<b>Deathrattle:</b> Summon a 1/1 Jo-E Bot.",
         "type": "MINION"
     },
@@ -7381,7 +7369,6 @@
         "name": "Jo-E Bot",
         "race": "MECHANICAL",
         "set": "BOOMSDAY",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -7810,7 +7797,6 @@
         "name": "Robosaur",
         "race": "MECHANICAL",
         "set": "BOOMSDAY",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -10929,7 +10915,6 @@
         "name": "Imp",
         "race": "DEMON",
         "set": "BRM",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -20475,7 +20460,6 @@
         "name": "Tabbycat",
         "race": "BEAST",
         "set": "GANGS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -20511,7 +20495,6 @@
         "name": "Rat",
         "race": "BEAST",
         "set": "GANGS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -26922,7 +26905,6 @@
         "race": "DEMON",
         "rarity": "FREE",
         "set": "CORE",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -29326,7 +29308,6 @@
         "name": "Vault Safe",
         "race": "MECHANICAL",
         "set": "DALARAN",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -31732,7 +31713,6 @@
             "WINDFURY"
         ],
         "set": "DALARAN",
-        "techLevel": 4,
         "text": "Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.",
         "type": "MINION"
     },
@@ -31777,7 +31757,6 @@
         "name": "Hench-Clan Squire",
         "race": "MURLOC",
         "set": "DALARAN",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -38517,6 +38496,7 @@
         "cost": 7,
         "dbfId": 61640,
         "elite": true,
+        "flavor": "\"You might remember me from such attractions as 'Being Shot out of a Cannon' or 'That Carousel Ate My Friend.'\"",
         "health": 4,
         "id": "DMF_074",
         "mechanics": [
@@ -47337,7 +47317,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "techLevel": 1,
         "text": "Adjacent minions have +1 Attack.",
         "type": "MINION"
     },
@@ -47552,7 +47531,6 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 1,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
     },
@@ -49827,7 +49805,6 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "CORE",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -50023,7 +50000,6 @@
         "name": "Hyena",
         "race": "BEAST",
         "set": "EXPERT1",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -50215,7 +50191,6 @@
         "name": "Snake",
         "race": "BEAST",
         "set": "EXPERT1",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -51445,7 +51420,6 @@
         "id": "EX1_finkle",
         "name": "Finkle Einhorn",
         "set": "EXPERT1",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -57686,7 +57660,6 @@
         "name": "Festeroot Hulk",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "techLevel": 4,
         "text": "After a friendly minion attacks, gain +1 Attack.",
         "type": "MINION"
     },
@@ -57937,7 +57910,6 @@
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "techLevel": 2,
         "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
         "type": "MINION"
     },
@@ -62797,7 +62769,7 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "GVG",
-        "techLevel": 4,
+        "techLevel": 3,
         "text": "At the end of your turn, give another friendly Mech +2/+2.",
         "type": "MINION"
     },
@@ -63678,7 +63650,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "GVG",
-        "techLevel": 3,
         "text": "Whenever you summon a Mech, gain <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -64190,7 +64161,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "GVG",
-        "techLevel": 2,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -70807,7 +70777,6 @@
         "name": "Big Bad Wolf",
         "race": "BEAST",
         "set": "KARA",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -71626,7 +71595,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "KARA",
-        "techLevel": 2,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.",
         "type": "MINION"
     },
@@ -71810,7 +71778,6 @@
         "name": "Menagerie Magician",
         "rarity": "COMMON",
         "set": "KARA",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.",
         "type": "MINION"
     },
@@ -88174,7 +88141,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "OG",
-        "techLevel": 3,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -88808,7 +88774,6 @@
         "name": "Spider",
         "race": "BEAST",
         "set": "OG",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -89637,7 +89602,6 @@
         "name": "The Boogeymonster",
         "rarity": "LEGENDARY",
         "set": "OG",
-        "techLevel": 4,
         "text": "Whenever this attacks and kills a minion, gain +2/+2.",
         "type": "MINION"
     },
@@ -92067,7 +92031,7 @@
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 65751,
-        "health": 6,
+        "health": 4,
         "id": "PVPDR_SCH_Active08",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -92133,7 +92097,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 4,
+        "cost": 5,
         "dbfId": 65762,
         "id": "PVPDR_SCH_Active19",
         "name": "Canopic Jars",
@@ -92518,7 +92482,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 66260,
         "id": "PVPDR_SCH_Active38",
         "name": "Spyglass",
@@ -92598,7 +92562,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 1,
+        "cost": 0,
         "dbfId": 66276,
         "id": "PVPDR_SCH_Active44",
         "name": "Amalgamate",
@@ -92857,7 +92821,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 11,
+        "cost": 10,
         "dbfId": 66224,
         "id": "PVPDR_SCH_Active56",
         "name": "Wish",
@@ -92933,7 +92897,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 6,
+        "cost": 5,
         "dbfId": 66173,
         "id": "PVPDR_SCH_Active61",
         "mechanics": [
@@ -93054,7 +93018,7 @@
     },
     {
         "cardClass": "DEMONHUNTER",
-        "cost": 4,
+        "cost": 5,
         "dbfId": 65095,
         "flavor": "“Demons! It’s time for your nap!”",
         "id": "PVPDR_SCH_DemonHuntert2",
@@ -93454,7 +93418,7 @@
         ],
         "name": "Crystal Gem",
         "set": "TB",
-        "text": "<b>Passive</b>\nOn your first turn you have 2 Mana Crystals.",
+        "text": "<b>Passive</b>\nOn your first two turns, you have 1 extra Mana Crystal.",
         "type": "SPELL"
     },
     {
@@ -93590,7 +93554,7 @@
     },
     {
         "cardClass": "ROGUE",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 64694,
         "id": "PVPDR_SCH_Roguep1",
         "mechanics": [
@@ -93616,7 +93580,7 @@
             "POISONOUS"
         ],
         "set": "TB",
-        "text": "Give your weapon +2/+1. <b>Combo</b>: Also give it <b>Poisonous</b>.",
+        "text": "Give your weapon +2/+2. <b>Combo</b>: Also give it <b>Poisonous</b>.",
         "type": "SPELL"
     },
     {
@@ -93637,7 +93601,7 @@
         "id": "PVPDR_SCH_Roguet2e2",
         "name": "Deadly Weapons: Upgrades",
         "set": "TB",
-        "text": "+2 Attack and +1 Durability.",
+        "text": "+2 Attack and +2 Durability.",
         "type": "ENCHANTMENT"
     },
     {
@@ -93646,12 +93610,11 @@
         "dbfId": 64791,
         "id": "PVPDR_SCH_Shamanp1",
         "name": "Totemic Power",
-        "rarity": "FREE",
         "referencedTags": [
             "OVERLOAD"
         ],
         "set": "TB",
-        "text": "<b>Hero Power</b>\nSummon a random Totem. If you're <b>Overloaded</b>, summon a non-basic Totem as well.",
+        "text": "<b>Hero Power</b>\nSummon a random Totem. If you're <b>Overloaded</b>, summon a [x]non-basic Totem instead.",
         "type": "HERO_POWER"
     },
     {
@@ -93685,7 +93648,7 @@
     },
     {
         "cardClass": "WARLOCK",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 64210,
         "id": "PVPDR_SCH_Warlockp2",
         "name": "Dark Arts",
@@ -93712,7 +93675,7 @@
     },
     {
         "cardClass": "WARRIOR",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 64792,
         "id": "PVPDR_SCH_Warriorp1",
         "name": "No Guts, No Glory",
@@ -98144,7 +98107,6 @@
         "name": "Damaged Golem",
         "race": "MECHANICAL",
         "set": "EXPERT1",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -100505,7 +100467,6 @@
         "type": "HERO"
     },
     {
-        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 58536,
         "health": 40,
@@ -101014,7 +100975,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 3,
+        "cost": 2,
         "dbfId": 57562,
         "id": "TB_BaconShop_HP_010",
         "name": "Boon of Light",
@@ -101027,12 +100988,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 1,
+        "cost": 0,
         "dbfId": 57555,
         "id": "TB_BaconShop_HP_011",
         "name": "Galakrond's Greed",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nReplace a minion in Bob's\nTavern with one from a higher\nTavern Tier and <b>Freeze</b> it.",
+        "text": "[x]<b>Hero Power</b>\nReplace a minion in Bob's\nTavern with one from a\nhigher Tavern Tier.",
         "type": "HERO_POWER"
     },
     {
@@ -101131,7 +101092,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 58022,
         "id": "TB_BaconShop_HP_020",
         "name": "Prestidigitation",
@@ -101220,7 +101181,7 @@
         "id": "TB_BaconShop_HP_033",
         "name": "Menagerist",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nStart the game with a\n1/1 Amalgam with\nall minion types.",
+        "text": "[x]<b>Passive Hero Power</b>\nStart the game with a\n1/2 Amalgam with\nall minion types.",
         "type": "HERO_POWER"
     },
     {
@@ -101228,12 +101189,11 @@
         "cardClass": "NEUTRAL",
         "cost": 2,
         "dbfId": 59202,
-        "health": 1,
+        "health": 2,
         "id": "TB_BaconShop_HP_033t",
         "name": "Amalgam",
         "race": "ALL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
         "type": "MINION"
     },
@@ -101274,7 +101234,7 @@
         "id": "TB_BaconShop_HP_037a",
         "name": "Wax Warband",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGive a friendly minion\nof each minion type\n+2 Attack.",
+        "text": "[x]<b>Hero Power</b>\nGive a friendly minion\nof each minion type\n+2/+1.",
         "type": "HERO_POWER"
     },
     {
@@ -101283,7 +101243,7 @@
         "id": "TB_BaconShop_HP_037te",
         "name": "Waxed",
         "set": "BATTLEGROUNDS",
-        "text": "Increased Attack.",
+        "text": "Increased stats.",
         "type": "ENCHANTMENT"
     },
     {
@@ -101369,7 +101329,7 @@
         "id": "TB_BaconShop_HP_041",
         "name": "A Tale of Kings",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a minion of\na specific type, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a minion of\na specific type, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101383,7 +101343,7 @@
         ],
         "name": "King of Beasts",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Beast</b>, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Beast</b>, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101397,7 +101357,7 @@
         ],
         "name": "King of Mechs",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Mech</b>, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Mech</b>, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101411,7 +101371,7 @@
         ],
         "name": "King of Murlocs",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Murloc</b>, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Murloc</b>, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101425,7 +101385,7 @@
         ],
         "name": "King of Demons",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Demon</b>, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Demon</b>, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101434,7 +101394,7 @@
         "id": "TB_BaconShop_HP_041e",
         "name": "Rat Follower",
         "set": "BATTLEGROUNDS",
-        "text": "Has +1/+2.",
+        "text": "Has +2/+2.",
         "type": "ENCHANTMENT"
     },
     {
@@ -101448,7 +101408,7 @@
         ],
         "name": "King of Dragons",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Dragon</b>, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Dragon</b>, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101462,7 +101422,7 @@
         ],
         "name": "King of Pirates",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Pirate</b>, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy a\n<b>Pirate</b>, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101476,7 +101436,7 @@
         ],
         "name": "King of Elementals",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy an\n<b>Elemental</b>, give it +1/+2.\nSwaps type each turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nWhenever you buy an\n<b>Elemental</b>, give it +2/+2.\nSwaps type each turn.",
         "type": "HERO_POWER"
     },
     {
@@ -101562,7 +101522,7 @@
     {
         "cardClass": "NEUTRAL",
         "collectionText": "</b>.",
-        "cost": 3,
+        "cost": 2,
         "dbfId": 60265,
         "id": "TB_BaconShop_HP_047t",
         "name": "Recruitment Map",
@@ -101757,7 +101717,7 @@
         ],
         "name": "Dream Portal",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Passive Hero Power</b>\nAt the start of your turn,\nadd a Dragon to Bob's\nTavern.",
+        "text": "[x]<b>Passive Hero Power</b>\nBob always offers an extra\nDragon whenever the\nTavern is refreshed.",
         "type": "HERO_POWER"
     },
     {
@@ -101936,12 +101896,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 0,
+        "cost": 1,
         "dbfId": 62267,
         "id": "TB_BaconShop_HP_075",
         "name": "Trash for Treasure",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nRemove a friendly minion.\nGet a random one from a\nTavern Tier lower.",
+        "text": "[x]<b>Hero Power</b>\nRemove a friendly minion.\n<b>Discover</b> a random one from\na Tavern Tier lower.",
         "type": "HERO_POWER"
     },
     {
@@ -101961,7 +101921,7 @@
         "id": "TB_BaconShop_HP_077",
         "name": "Bob's Burgles",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\n<b>Refresh</b> Bob's Tavern with\nminions from your last\nopponent's warband.",
+        "text": "[x]<b>Hero Power</b>\n<b>Refresh</b> Bob's Tavern\nwith your last opponent's\nwarband.",
         "type": "HERO_POWER"
     },
     {
@@ -102020,7 +101980,7 @@
         "id": "TB_BaconShop_HP_085",
         "name": "Tavern Lighting",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGive a random friendly\nminion stats equal to\nyour Tavern Tier.",
+        "text": "[x]<b>Hero Power</b>\nGive a friendly minion stats\nequal to your Tavern Tier.",
         "type": "HERO_POWER"
     },
     {
@@ -102229,7 +102189,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Deathrattle:</b> Summon a 2/2 Jo-E Bot.",
         "type": "MINION"
     },
@@ -102243,7 +102202,6 @@
         "name": "Jo-E Bot",
         "race": "MECHANICAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102261,7 +102219,6 @@
         "race": "MURLOC",
         "rarity": "FREE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Battlecry:</b> Summon a 2/2 Murloc Scout.",
         "type": "MINION"
     },
@@ -102277,7 +102234,6 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102295,7 +102251,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Summon a 6/4 Big Bad Wolf.",
         "type": "MINION"
     },
@@ -102309,7 +102264,6 @@
         "name": "Big Bad Wolf",
         "race": "BEAST",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102327,7 +102281,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Summon a 4/2 Damaged Golem.",
         "type": "MINION"
     },
@@ -102341,7 +102294,6 @@
         "name": "Damaged Golem",
         "race": "MECHANICAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102359,7 +102311,6 @@
         "race": "MURLOC",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "Your other Murlocs have +4 Attack.",
         "type": "MINION"
     },
@@ -102390,7 +102341,6 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give adjacent minions +2/+2 and <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -102418,7 +102368,6 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "Whenever you summon a Murloc, gain +2 Attack.",
         "type": "MINION"
     },
@@ -102448,7 +102397,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Give 2 random friendly minions <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -102467,7 +102415,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Summon two random 1-Cost minions.",
         "type": "MINION"
     },
@@ -102485,7 +102432,6 @@
         "name": "Spawn of N'Zoth",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Give your minions +2/+2.",
         "type": "MINION"
     },
@@ -102513,7 +102459,6 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Deathrattle:</b> Summon two 2/2 Spiders.",
         "type": "MINION"
     },
@@ -102527,7 +102472,6 @@
         "name": "Spider",
         "race": "BEAST",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102545,7 +102489,6 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 2/2 Rats equal\n to this minion's Attack.",
         "type": "MINION"
     },
@@ -102559,7 +102502,6 @@
         "name": "Rat",
         "race": "BEAST",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102577,7 +102519,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Deal 4 damage to a random enemy minion twice.",
         "type": "MINION"
     },
@@ -102596,7 +102537,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "Whenever this minion takes damage, summon a 2/2 Imp.",
         "type": "MINION"
     },
@@ -102610,7 +102550,6 @@
         "name": "Imp",
         "race": "DEMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102628,7 +102567,6 @@
         "name": "Tortollan Shellraiser",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +2/+2.",
         "type": "MINION"
     },
@@ -102657,7 +102595,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Magnetic</b>\n<b>Deathrattle:</b> Summon three 2/2 Microbots.",
         "type": "MINION"
     },
@@ -102683,7 +102620,6 @@
         "name": "Microbot",
         "race": "MECHANICAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102700,7 +102636,6 @@
         "name": "Festeroot Hulk",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "After a friendly minion attacks, gain +2 Attack.",
         "type": "MINION"
     },
@@ -102728,7 +102663,6 @@
         "name": "Khadgar",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "Your cards that summon minions summon three times as many.",
         "type": "MINION"
     },
@@ -102747,7 +102681,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Deathrattle:</b> Summon two random 2-Cost minions.",
         "type": "MINION"
     },
@@ -102767,7 +102700,6 @@
         "race": "MURLOC",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Charge</b>. Has +2 Attack for each other Murloc on the battlefield.",
         "type": "MINION"
     },
@@ -102788,7 +102720,6 @@
             "BATTLECRY"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "Whenever you play a card with <b>Battlecry</b>, gain +2/+2.",
         "type": "MINION"
     },
@@ -102815,7 +102746,6 @@
         "name": "Phalanx Commander",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "Your <b>Taunt</b> minions\nhave +4 Attack.",
         "type": "MINION"
     },
@@ -102843,7 +102773,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon a 16/16 Robosaur.",
         "type": "MINION"
     },
@@ -102857,7 +102786,6 @@
         "name": "Robosaur",
         "race": "MECHANICAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -102875,7 +102803,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon a 0/10\nVault Safe with <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -102892,7 +102819,6 @@
         "name": "Vault Safe",
         "race": "MECHANICAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -102914,7 +102840,6 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "[x]Whenever this minion\ntakes damage, summon a\n4/6 Mech with <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -102931,7 +102856,6 @@
         "name": "Guard Bot",
         "race": "MECHANICAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -102951,7 +102875,6 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.",
         "type": "MINION"
     },
@@ -102970,7 +102893,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "Whenever a friendly Beast dies, gain +4/+2.",
         "type": "MINION"
     },
@@ -102998,7 +102920,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "At the end of your turn, give another friendly Mech +4/+4.",
         "type": "MINION"
     },
@@ -103029,7 +102950,6 @@
             "BATTLECRY"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "Your <b>Battlecries</b> trigger three times.",
         "type": "MINION"
     },
@@ -103057,7 +102977,6 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "Whenever a friendly Mech dies, gain +4/+4.",
         "type": "MINION"
     },
@@ -103086,7 +103005,6 @@
         "name": "Bolvar, Fireblood",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +4 Attack.",
         "type": "MINION"
     },
@@ -103114,7 +103032,6 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon two 4/4 Hyenas.",
         "type": "MINION"
     },
@@ -103128,7 +103045,6 @@
         "name": "Hyena",
         "race": "BEAST",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -103146,7 +103062,6 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon two random 4-Cost minions.",
         "type": "MINION"
     },
@@ -103165,7 +103080,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Overkill:</b> Summon a 10/10 Ironhide Runt.",
         "type": "MINION"
     },
@@ -103179,7 +103093,6 @@
         "name": "Ironhide Runt",
         "race": "BEAST",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -103197,7 +103110,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Deathrattle:</b> Summon three 2/2 Murlocs.",
         "type": "MINION"
     },
@@ -103211,7 +103123,6 @@
         "name": "Primalfin",
         "race": "MURLOC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -103230,7 +103141,6 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Taunt</b>\nYour other Demons have +2 Attack.",
         "type": "MINION"
     },
@@ -103261,7 +103171,6 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "Your minions trigger their <b>Deathrattles</b> three times.",
         "type": "MINION"
     },
@@ -103288,7 +103197,6 @@
         "name": "Ghastcoiler",
         "race": "BEAST",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Deathrattle:</b> Summon\n4 random <b>Deathrattle</b> minions.",
         "type": "MINION"
     },
@@ -103307,7 +103215,6 @@
         "name": "The Boogeymonster",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "Whenever this attacks and kills a minion, gain +4/+4.",
         "type": "MINION"
     },
@@ -103336,7 +103243,6 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "[x]<b>Taunt</b>\n <b>Deathrattle:</b> Summon three\n2/6 Demons with <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -103354,7 +103260,6 @@
         "race": "DEMON",
         "rarity": "FREE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -103377,7 +103282,6 @@
             "IMMUNE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "Your other Demons have +4/+4.\nYour hero is <b>Immune</b>.",
         "type": "MINION"
     },
@@ -103405,7 +103309,6 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Battlecry:</b> Give a friendly Murloc +2/+2.",
         "type": "MINION"
     },
@@ -103433,7 +103336,6 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Battlecry:</b> Give a friendly Demon +4/+4.",
         "type": "MINION"
     },
@@ -103461,7 +103363,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.",
         "type": "MINION"
     },
@@ -103489,7 +103390,6 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your other Murlocs +4 Health.",
         "type": "MINION"
     },
@@ -103517,7 +103417,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Battlecry:</b> Give your other Mechs +4 Attack.",
         "type": "MINION"
     },
@@ -103547,7 +103446,6 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give a friendly Beast +4/+4 and <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -103575,7 +103473,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give a friendly Mech +4/+4.",
         "type": "MINION"
     },
@@ -103602,7 +103499,6 @@
         "name": "Crystalweaver",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your Demons +2/+2.",
         "type": "MINION"
     },
@@ -103632,7 +103528,6 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Battlecry:</b> Give your <b>Taunt</b> minions +4/+4.",
         "type": "MINION"
     },
@@ -103659,7 +103554,6 @@
         "name": "Menagerie Magician",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +4/+4.",
         "type": "MINION"
     },
@@ -103686,7 +103580,6 @@
         "name": "Virmen Sensei",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Beast +4/+4.",
         "type": "MINION"
     },
@@ -103712,7 +103605,6 @@
         ],
         "name": "Soul Juggler",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "After a friendly Demon dies, deal 3 damage to a random enemy minion twice.",
         "type": "MINION"
     },
@@ -103731,7 +103623,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "[x]<b>Battlecry:</b> Gain +4/+4 for\neach other Pogo-Hopper\nyou played this game.",
         "type": "MINION"
     },
@@ -103750,7 +103641,7 @@
         "cardClass": "NEUTRAL",
         "cost": 1,
         "dbfId": 59679,
-        "health": 2,
+        "health": 6,
         "id": "TB_BaconUps_079",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -103758,7 +103649,6 @@
         "name": "Wrath Weaver",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "After you play a Demon, deal 1 damage to your hero and gain +4/+4.",
         "type": "MINION"
     },
@@ -103787,7 +103677,6 @@
         "race": "MECHANICAL",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Deathrattle:</b> Summon 2 random <b>Legendary</b> minions.",
         "type": "MINION"
     },
@@ -103805,8 +103694,7 @@
         "name": "Lightfang Enforcer",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
-        "text": "[x]At the end of your turn,\ngive a friendly minion\nof each minion type\n+4/+2.",
+        "text": "[x]At the end of your turn,\ngive a friendly minion\nof each minion type\n+4/+4.",
         "type": "MINION"
     },
     {
@@ -103833,7 +103721,6 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Battlecry:</b> Gain +2 Health for each damage your hero has taken.",
         "type": "MINION"
     },
@@ -103855,7 +103742,6 @@
             "ADAPT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs twice.",
         "type": "MINION"
     },
@@ -103875,7 +103761,6 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Deathrattle:</b> Give your Beasts +10/+10.",
         "type": "MINION"
     },
@@ -103902,7 +103787,6 @@
         "name": "Pack Leader",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "Whenever you summon a Beast, give it +4 Attack.",
         "type": "MINION"
     },
@@ -103929,7 +103813,6 @@
         "name": "Kangor's Apprentice",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Deathrattle</b>: Summon the first 4 friendly Mechs that died this combat.",
         "type": "MINION"
     },
@@ -103949,7 +103832,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "Adjacent minions have +2 Attack.",
         "type": "MINION"
     },
@@ -103978,7 +103860,6 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> If you control another Murloc, <b>Discover</b> two Murlocs.",
         "type": "MINION"
     },
@@ -103997,7 +103878,6 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "Whenever you summon a Beast, give it +8/+8.",
         "type": "MINION"
     },
@@ -104024,7 +103904,6 @@
         ],
         "name": "Zapp Slywick",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "[x]<b>Mega-Windfury</b>\nThis minion always attacks\nthe enemy minion with\nthe lowest Attack.",
         "type": "MINION"
     },
@@ -104043,7 +103922,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Battlecry:</b> Summon a 2/2 Cat.",
         "type": "MINION"
     },
@@ -104058,7 +103936,6 @@
         "name": "Tabbycat",
         "race": "BEAST",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -104076,7 +103953,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "At the start of each turn, gain +2 Attack.",
         "type": "MINION"
     },
@@ -104101,7 +103977,6 @@
         "name": "Shifter Zerus",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "Each turn this is in your hand, transform it into a random minion.",
         "type": "MINION"
     },
@@ -104131,7 +104006,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Magnetic</b>\n<b>Divine Shield</b>\n<b>Taunt</b>",
         "type": "MINION"
     },
@@ -104164,7 +104038,6 @@
         "race": "MURLOC",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Battlecry and Deathrattle:</b> Give your other Murlocs +4/+4.",
         "type": "MINION"
     },
@@ -104192,7 +104065,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "Whenever your hero takes damage on your turn, gain +4/+4.",
         "type": "MINION"
     },
@@ -104219,7 +104091,6 @@
         "name": "Red Whelp",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "[x]<b>Start of Combat:</b> Deal\n1 damage per friendly\nDragon to one random\nenemy minion twice.",
         "type": "MINION"
     },
@@ -104237,7 +104108,6 @@
         "name": "Herald of Flame",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Overkill:</b> Deal 6 damage\nto the left-most enemy minion.",
         "type": "MINION"
     },
@@ -104255,7 +104125,6 @@
         "name": "Hangry Dragon",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "[x]At the start of your turn,\ngain +4/+4 if you won\nthe last combat.",
         "type": "MINION"
     },
@@ -104282,7 +104151,6 @@
         ],
         "name": "Waxrider Togwaggle",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "Whenever a friendly Dragon kills an enemy, gain +4/+4.",
         "type": "MINION"
     },
@@ -104310,7 +104178,6 @@
         "name": "Razorgore, the Untamed",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "At the end of your turn, gain +2/+2 for each Dragon you have.",
         "type": "MINION"
     },
@@ -104334,7 +104201,6 @@
         "name": "Steward of Time",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "When you sell this minion, give all minions in Bob's Tavern +2/+2.",
         "type": "MINION"
     },
@@ -104362,7 +104228,6 @@
         "name": "Twilight Emissary",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> Give a friendly Dragon +4/+4.",
         "type": "MINION"
     },
@@ -104393,7 +104258,6 @@
             "BATTLECRY"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "After you play a minion with <b>Battlecry</b>, give your Dragons +2/+2.",
         "type": "MINION"
     },
@@ -104421,7 +104285,6 @@
         "name": "Murozond",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "[x]<b>Battlecry:</b> Add a minion\nfrom your last opponent's\nwarband to your hand.\nMake it Golden!",
         "type": "MINION"
     },
@@ -104440,7 +104303,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "[x]<b>Deathrattle:</b> Give this\nminion's Attack to a random\nfriendly minion twice.",
         "type": "MINION"
     },
@@ -104460,7 +104322,6 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Summon a 2/2 Imp.",
         "type": "MINION"
     },
@@ -104478,7 +104339,6 @@
         "name": "Glyph Guardian",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "Whenever this attacks, triple its Attack.",
         "type": "MINION"
     },
@@ -104508,7 +104368,6 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "[x]Whenever this minion\ntakes damage, summon\n2 random Demons and\ngive them <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -104529,7 +104388,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "After a friendly minion loses <b>Divine Shield</b>, gain +4/+4.",
         "type": "MINION"
     },
@@ -104557,7 +104415,6 @@
         "name": "Unstable Ghoul",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Deal 1 damage to all minions twice.",
         "type": "MINION"
     },
@@ -104602,7 +104459,6 @@
         "race": "DRAGON",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "At the end of your turn, give another random friendly minion +6 Attack.",
         "type": "MINION"
     },
@@ -104632,8 +104488,7 @@
             "ADAPT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
-        "text": "[x]<b>Battlecry:</b> For each different\nminion type you have,\n<b>Adapt</b> randomly twice.",
+        "text": "[x]<b>Battlecry:</b> For each different\nminion type you have among\nother minions, <b>Adapt</b>\nrandomly twice.",
         "type": "MINION"
     },
     {
@@ -104653,7 +104508,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "[x]<b>Divine Shield</b>\nWhenever you summon a Mech\nduring combat, gain +2 Attack\nand <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -104681,7 +104535,6 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your other Murlocs +2/+2.",
         "type": "MINION"
     },
@@ -104711,7 +104564,6 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "After you play a minion with <b>Deathrattle</b>, gain +2/+2.",
         "type": "MINION"
     },
@@ -104738,7 +104590,6 @@
         "name": "Deck Swabbie",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Battlecry:</b> Reduce the cost of upgrading Bob's\nTavern by (2).",
         "type": "MINION"
     },
@@ -104753,7 +104604,6 @@
         "name": "Freedealing Gambler",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "This minion sells for\n6 Gold.",
         "type": "MINION"
     },
@@ -104771,7 +104621,6 @@
         ],
         "name": "Arcane Cannon",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "[x]Can't attack.\nAfter an adjacent minion\nattacks, deal 2 damage to\n   an enemy minion twice.",
         "type": "MINION"
     },
@@ -104789,7 +104638,6 @@
         "name": "Goldgrubber",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "At the end of your turn, gain +4/+4 for each friendly Golden minion.",
         "type": "MINION"
     },
@@ -104817,7 +104665,6 @@
         "name": "Nat Pagle, Extreme Angler",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "[x]When this attacks and kills\na minion, add 2 random\nminions to your hand.",
         "type": "MINION"
     },
@@ -104833,7 +104680,6 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Deathrattle:</b> Summon 2 random Golden minions.",
         "type": "MINION"
     },
@@ -104852,7 +104698,6 @@
         "name": "Cap'n Hoggarr",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "After you buy a Pirate,\ngain 2 Gold this turn\nonly.",
         "type": "MINION"
     },
@@ -104871,8 +104716,7 @@
         "name": "Dread Admiral Eliza",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
-        "text": "Whenever a friendly Pirate attacks, give all friendly minions +2/+2.",
+        "text": "Whenever a friendly Pirate attacks, give all friendly minions +4/+2.",
         "type": "MINION"
     },
     {
@@ -104881,7 +104725,7 @@
         "id": "TB_BaconUps_134e",
         "name": "Yaharr!!",
         "set": "BATTLEGROUNDS",
-        "text": "+2/+2.",
+        "text": "+4/+2.",
         "type": "ENCHANTMENT"
     },
     {
@@ -104901,7 +104745,6 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "[x]After this attacks, trigger\na random friendly minion's\n<b>Deathrattle</b> twice.",
         "type": "MINION"
     },
@@ -104920,7 +104763,6 @@
         "race": "PIRATE",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "Your other Pirates have +2/+2.",
         "type": "MINION"
     },
@@ -104946,7 +104788,6 @@
         ],
         "name": "The Tide Razor",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Deathrattle</b>: Summon 6 random Pirates.",
         "type": "MINION"
     },
@@ -104964,7 +104805,6 @@
             "BATTLECRY"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry</b>: Give your other Pirates +6 Attack.",
         "type": "MINION"
     },
@@ -104978,12 +104818,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 8,
         "battlegroundsNormalDbfId": 61056,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 62257,
-        "health": 8,
+        "health": 10,
         "id": "TB_BaconUps_139",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -104991,7 +104831,6 @@
         "name": "Ripsnarl Captain",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "Whenever another friendly Pirate attacks, give it +4/+4.",
         "type": "MINION"
     },
@@ -105005,12 +104844,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 10,
+        "attack": 8,
         "battlegroundsNormalDbfId": 61048,
         "cardClass": "NEUTRAL",
         "cost": 5,
         "dbfId": 62259,
-        "health": 8,
+        "health": 6,
         "id": "TB_BaconUps_140",
         "name": "Southsea Strongarm",
         "race": "PIRATE",
@@ -105019,7 +104858,6 @@
         ],
         "set": "BATTLEGROUNDS",
         "targetingArrowText": "Give +2/+2 for each Pirate you bought this turn.",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Pirate +2/+2 for each Pirate you bought this turn.",
         "type": "MINION"
     },
@@ -105046,7 +104884,6 @@
         "name": "Scallywag",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Deathrattle:</b> Summon a 2/2 Pirate. It attacks immediately.",
         "type": "MINION"
     },
@@ -105060,7 +104897,6 @@
         "name": "Sky Pirate",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -105078,7 +104914,6 @@
         "name": "Seabreaker Goliath",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Mega-Windfury</b>\n<b>Overkill:</b> Give your other Pirates +4/+4.",
         "type": "MINION"
     },
@@ -105092,12 +104927,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 8,
         "battlegroundsNormalDbfId": 62734,
         "cardClass": "ROGUE",
         "cost": 4,
         "dbfId": 62739,
-        "health": 6,
+        "health": 8,
         "id": "TB_BaconUps_143",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -105105,7 +104940,6 @@
         "name": "Salty Looter",
         "race": "PIRATE",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "Whenever you play a Pirate, gain +2/+2.",
         "type": "MINION"
     },
@@ -105131,7 +104965,6 @@
         ],
         "name": "Menagerie Mug",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "[x]<b>Battlecry:</b> Give 3 random\nfriendly minions of different\nminion types +2/+2.",
         "type": "MINION"
     },
@@ -105157,7 +104990,6 @@
         ],
         "name": "Menagerie Jug",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "[x]<b>Battlecry:</b> Give 3 random\nfriendly minions of different\nminion types +4/+4.",
         "type": "MINION"
     },
@@ -105184,7 +105016,6 @@
         "name": "Dragonspawn Lieutenant",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -105203,7 +105034,6 @@
         "name": "Righteous Protector",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -105223,7 +105053,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage to your hero.",
         "type": "MINION"
     },
@@ -105242,7 +105071,6 @@
         "name": "Bronze Warden",
         "race": "DRAGON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Divine Shield</b>\n<b>Reborn</b>",
         "type": "MINION"
     },
@@ -105252,7 +105080,7 @@
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 63782,
-        "health": 16,
+        "health": 10,
         "id": "TB_BaconUps_150",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -105263,7 +105091,6 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "[x]<b>Taunt</b>\nAfter this minion survives\nbeing attacked,\nattack immediately.",
         "type": "MINION"
     },
@@ -105279,7 +105106,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "Also damages the minions next to whomever\nthis attacks.",
         "type": "MINION"
     },
@@ -105301,7 +105127,6 @@
             "POISONOUS"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
         "type": "MINION"
     },
@@ -105318,7 +105143,6 @@
         "race": "MECHANICAL",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "Also damages the minions next to whomever it attacks.",
         "type": "MINION"
     },
@@ -105339,7 +105163,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Deathrattle:</b> Give your Dragons <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -105359,7 +105182,6 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
     },
@@ -105374,7 +105196,6 @@
         "name": "Sellemental",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "[x]When you sell this,\nadd two 2/2 Elementals\nto your hand.",
         "type": "MINION"
     },
@@ -105393,7 +105214,6 @@
         "name": "Crackling Cyclone",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Divine Shield</b>\n<b>Mega-Windfury</b>",
         "type": "MINION"
     },
@@ -105411,7 +105231,6 @@
         "name": "Party Elemental",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "After you play an Elemental, give another random friendly Elemental +1/+1 twice.",
         "type": "MINION"
     },
@@ -105432,7 +105251,6 @@
             "FREEZE"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Add two other random Elementals to Bob's Tavern and <b>Freeze</b> them.",
         "type": "MINION"
     },
@@ -105450,12 +105268,11 @@
         "name": "Tavern Tempest",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Battlecry:</b> Add two other random Elementals to your hand.",
         "type": "MINION"
     },
     {
-        "attack": 16,
+        "attack": 10,
         "battlegroundsNormalDbfId": 64081,
         "cardClass": "NEUTRAL",
         "cost": 8,
@@ -105470,7 +105287,6 @@
         "name": "Lieutenant Garr",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "<b>Taunt</b>. After you play an Elemental, gain +2 Health for each Elemental you have.",
         "type": "MINION"
     },
@@ -105498,7 +105314,6 @@
         "name": "Gentle Djinni",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Taunt</b>. <b>Deathrattle:</b> Summon two other random Elementals and add copies of them to your hand.",
         "type": "MINION"
     },
@@ -105516,7 +105331,6 @@
         "name": "Wildfire Elemental",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "After this attacks and kills\na minion, deal excess damage to both adjacent minions.",
         "type": "MINION"
     },
@@ -105534,18 +105348,17 @@
         "name": "Refreshing Anomaly",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "[x]<b>Battlecry:</b> Your next two\n <b>Refreshes</b> cost (0).",
         "type": "MINION"
     },
     {
-        "attack": 12,
+        "attack": 8,
         "battlegroundsNormalDbfId": 63624,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 64076,
         "elite": true,
-        "health": 12,
+        "health": 8,
         "id": "TB_BaconUps_200",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -105553,7 +105366,6 @@
         "name": "Lil' Rag",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "[x]After you play an Elemental,\ngive a friendly minion stats\nequal to the Elemental's\nTavern Tier twice.",
         "type": "MINION"
     },
@@ -105571,7 +105383,6 @@
         ],
         "name": "Nomi, Kitchen Nightmare",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "[x]After you play an Elemental,\nElementals in Bob's Tavern\nhave +2/+2 for the rest\nof the game.",
         "type": "MINION"
     },
@@ -105590,7 +105401,6 @@
         "name": "Molten Rock",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 2,
         "text": "<b>Taunt</b>. After you play an Elemental, gain +2 Health.",
         "type": "MINION"
     },
@@ -105617,7 +105427,6 @@
         "name": "Arcane Assistant",
         "race": "ELEMENTAL",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your other Elementals +2/+2.",
         "type": "MINION"
     },
@@ -105648,7 +105457,6 @@
             "WINDFURY"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.",
         "type": "MINION"
     },
@@ -105666,7 +105474,6 @@
         ],
         "name": "Majordomo Executus",
         "set": "BATTLEGROUNDS",
-        "techLevel": 4,
         "text": "[x]At the end of your turn, give\nyour left-most minion +2/+2.\nRepeat for each Elemental\nyou played this turn.",
         "type": "MINION"
     },
@@ -105686,7 +105493,6 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "techLevel": 1,
         "text": "[x]<b>Reborn</b>\nAt the end of your turn, give\nanother random friendly\nminion +2 Attack.",
         "type": "MINION"
     },
@@ -105712,7 +105518,6 @@
         ],
         "name": "Deadly Spore",
         "set": "BATTLEGROUNDS",
-        "techLevel": 5,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
     },
@@ -115611,7 +115416,6 @@
         "name": "Ironhide Runt",
         "race": "BEAST",
         "set": "TROLL",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -119404,7 +119208,6 @@
         "name": "Ghastcoiler",
         "race": "BEAST",
         "set": "TROLL",
-        "techLevel": 6,
         "text": "<b>Deathrattle:</b> Summon\n2 random <b>Deathrattle</b> minions.",
         "type": "MINION"
     },
@@ -123307,7 +123110,6 @@
             "TAUNT"
         ],
         "set": "ULDUM",
-        "techLevel": 3,
         "text": "Your <b>Taunt</b> minions\nhave +2 Attack.",
         "type": "MINION"
     },
@@ -131899,7 +131701,6 @@
         "name": "Amalgam Explorer",
         "race": "ALL",
         "set": "ULDUM",
-        "techLevel": 2,
         "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
         "type": "MINION"
     },
@@ -132342,7 +132143,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "techLevel": 5,
         "text": "<b>Deathrattle:</b> Summon three 1/1 Murlocs.",
         "type": "MINION"
     },
@@ -132749,7 +132549,6 @@
         "name": "Tortollan Shellraiser",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "techLevel": 3,
         "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +1/+1.",
         "type": "MINION"
     },
@@ -133779,7 +133578,6 @@
         "name": "Primalfin",
         "race": "MURLOC",
         "set": "UNGORO",
-        "techLevel": 1,
         "type": "MINION"
     },
     {
@@ -135847,7 +135645,6 @@
         "id": "UNG_999t2t1",
         "name": "Plant",
         "set": "UNGORO",
-        "techLevel": 1,
         "type": "MINION"
     },
     {

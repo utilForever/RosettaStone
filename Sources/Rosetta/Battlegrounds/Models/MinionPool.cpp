@@ -21,13 +21,13 @@ void MinionPool::Initialize(Race excludeRace)
     // Tier 1
     for (const auto& card : Cards::GetTier1Minions())
     {
+        if (card.GetRace() == excludeRace)
+        {
+            continue;
+        }
+
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER1_MINIONS; ++i)
         {
-            if (card.GetRace() == excludeRace)
-            {
-                continue;
-            }
-
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -36,13 +36,13 @@ void MinionPool::Initialize(Race excludeRace)
     // Tier 2
     for (const auto& card : Cards::GetTier2Minions())
     {
+        if (card.GetRace() == excludeRace)
+        {
+            continue;
+        }
+
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER2_MINIONS; ++i)
         {
-            if (card.GetRace() == excludeRace)
-            {
-                continue;
-            }
-
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -51,13 +51,13 @@ void MinionPool::Initialize(Race excludeRace)
     // Tier 3
     for (const auto& card : Cards::GetTier3Minions())
     {
+        if (card.GetRace() == excludeRace)
+        {
+            continue;
+        }
+
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER3_MINIONS; ++i)
         {
-            if (card.GetRace() == excludeRace)
-            {
-                continue;
-            }
-
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -66,13 +66,13 @@ void MinionPool::Initialize(Race excludeRace)
     // Tier 4
     for (const auto& card : Cards::GetTier4Minions())
     {
+        if (card.GetRace() == excludeRace)
+        {
+            continue;
+        }
+
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER4_MINIONS; ++i)
         {
-            if (card.GetRace() == excludeRace)
-            {
-                continue;
-            }
-
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -81,13 +81,13 @@ void MinionPool::Initialize(Race excludeRace)
     // Tier 5
     for (const auto& card : Cards::GetTier5Minions())
     {
+        if (card.GetRace() == excludeRace)
+        {
+            continue;
+        }
+
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER5_MINIONS; ++i)
         {
-            if (card.GetRace() == excludeRace)
-            {
-                continue;
-            }
-
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }
@@ -96,13 +96,13 @@ void MinionPool::Initialize(Race excludeRace)
     // Tier 6
     for (const auto& card : Cards::GetTier6Minions())
     {
+        if (card.GetRace() == excludeRace)
+        {
+            continue;
+        }
+
         for (std::size_t i = 0; i < NUM_COPIES_OF_EACH_TIER6_MINIONS; ++i)
         {
-            if (card.GetRace() == excludeRace)
-            {
-                continue;
-            }
-
             m_minions.at(idx) = { Minion(card, idx), idx, true };
             ++idx;
         }

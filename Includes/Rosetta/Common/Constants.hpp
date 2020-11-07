@@ -106,7 +106,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 51;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 50;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -133,19 +133,19 @@ constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 constexpr int NUM_TIER1_MINIONS = 17;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 21;
+constexpr int NUM_TIER2_MINIONS = 22;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 26;
+constexpr int NUM_TIER3_MINIONS = 27;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 22;
+constexpr int NUM_TIER4_MINIONS = 20;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 21;
+constexpr int NUM_TIER5_MINIONS = 20;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 14;
+constexpr int NUM_TIER6_MINIONS = 15;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Beast Pool
@@ -203,6 +203,7 @@ constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
 // Pirate Pool
 // Freedealing Gambler (61049)
 // Southsea Captain (680)
+// Yo-Ho-Ogre (61060)
 // Neutral
 // Menagerie Mug (63435)
 // Spawn of N'Zoth (38797)
@@ -210,7 +211,7 @@ constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
 // Unstable Ghoul (1808)
 constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
     39481, 59940, 62162, 59937, 59186, 61029, 60621, 60559, 64296, 64056, 778,
-    49279, 2016,  1063,  736,   61049, 680,   63435, 38797, 38740, 1808
+    49279, 2016,  1063,  736,   61049, 680,   61060, 63435, 38797, 38740, 1808
 };
 
 //! A list of Tier 3 minion dbfIDs in Battlegrounds.
@@ -234,6 +235,7 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Stasis Elemental (64069)
 // Mech Pool
 // Deflect-o-Bot (61930)
+// Iron Sensei (1992)
 // Piloted Shredder (60048)
 // Screwjank Clunker (2023)
 // Replicating Menace (48536)
@@ -243,15 +245,15 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Pirate Pool
 // Bloodsail Cannoneer (61053)
 // Salty Looter (62734)
-// Yo-Ho-Ogre (61060)
+// Southsea Strongarm (61048)
 // Neutral
 // Crowd Favorite (2518)
 // Khadgar (52502)
 // Shifter Zerus (57742)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
     38734, 62230, 962,   1003,  40428, 2288,  40391, 59660, 60558,
-    60552, 60626, 64297, 64054, 64069, 61930, 60048, 2023,  48536,
-    453,   56393, 61053, 62734, 61060, 2518,  52502, 57742
+    60552, 60626, 64297, 64054, 64069, 61930, 1992,  60048, 2023,
+    48536, 453,   56393, 61053, 62734, 61048, 2518,  52502, 57742
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.
@@ -271,7 +273,6 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Wildfire Elemental (64189)
 // Mech Pool
 // Annoy-o-Module (48993)
-// Iron Sensei (1992)
 // Mechano-Egg (49169)
 // Security Rover (48100)
 // Murloc Pool
@@ -280,14 +281,13 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Pirate Pool
 // Goldgrubber (61066)
 // Ripsnarl Captain (61056)
-// Southsea Strongarm (61048)
 // Neutral
 // Bolvar, Fireblood (45392)
 // Defender of Argus (763)
 // Menagerie Jug (63487)
 constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
-    43358, 1261,  40641, 2068,  54835, 42442, 61072, 60498, 63630, 64189, 48993,
-    1992,  49169, 48100, 60028, 52277, 61066, 61056, 61048, 45392, 763,   63487
+    43358, 1261,  40641, 2068,  54835, 42442, 61072, 60498, 63630, 64189,
+    48993, 49169, 48100, 60028, 52277, 61066, 61056, 45392, 763,   63487
 };
 
 //! A list of Tier 5 minion dbfIDs in Battlegrounds.
@@ -302,7 +302,6 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Murozond (60637)
 // Razorgore, the Untamed (60561)
 // Elemental Pool
-// Gentle Djinni (64062)
 // Nomi, Kitchen Nightmare (63626)
 // Tavern Tempest (64077)
 // Mech Pool
@@ -321,13 +320,13 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Strongshell Scavenger (43022)
 // Lightfang Enforcer (59707)
 constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
-    49973, 60036, 59714, 1986,  46056, 60637, 60561, 64062, 63626, 64077, 2074,
+    49973, 60036, 59714, 1986,  46056, 60637, 60561, 63626, 64077, 2074,
     59682, 60247, 61989, 61046, 62458, 1915,  2949,  65031, 43022, 59707
 };
 
 //! A list of Tier 6 minion dbfIDs in Battlegrounds.
 // Beast Pool
-// Ghastcoiler (52041)
+// Ghastcoiler (59687)
 // Goldrinn, the Great Wolf (59955)
 // Maexxna (1791)
 // Demon Pool
@@ -336,6 +335,7 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // Kalecgos, Arcane Aspect (60630)
 // Nadina the Red (60629)
 // Elemental Pool
+// Gentle Djinni (64062)
 // Lieutenant Garr (64081)
 // Lil' Rag (63624)
 // Mech Pool
@@ -350,7 +350,7 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // Amalgadon (61444)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    52041, 59955, 1791,  61028, 60630, 60629, 64081,
+    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081,
     63624, 2081,  59935, 61047, 62232, 61444, 60040
 };
 
@@ -364,9 +364,9 @@ constexpr int NUM_TOTAL_TAVERN_MINIONS =
     NUM_TIER6_MINIONS * NUM_COPIES_OF_EACH_TIER6_MINIONS;
 
 //! A list of races in Battlegrounds.
-constexpr std::array<Race, 6> RACES_IN_BATTLEGROUNDS = {
-    Race::BEAST,  Race::MECHANICAL, Race::DEMON,
-    Race::DRAGON, Race::MURLOC,     Race::PIRATE
+constexpr std::array<Race, 7> RACES_IN_BATTLEGROUNDS = {
+    Race::BEAST,      Race::DEMON,  Race::DRAGON, Race::ELEMENTAL,
+    Race::MECHANICAL, Race::MURLOC, Race::PIRATE
 };
 
 //! The number of coin to purchase a minion.
