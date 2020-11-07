@@ -217,13 +217,13 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_004 : Wrath Weaver")
     player1.PlayCard(0, 0);
     CHECK_EQ(player1.hero.health, 40);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 1);
-    CHECK_EQ(player1.recruitField[0].GetHealth(), 1);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
 
     player1.hand.Add(minion2);
     player1.PlayCard(0, 1);
     CHECK_EQ(player1.hero.health, 37);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 3);
-    CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
+    CHECK_EQ(player1.recruitField[0].GetHealth(), 5);
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
