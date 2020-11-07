@@ -326,7 +326,7 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 
 //! A list of Tier 6 minion dbfIDs in Battlegrounds.
 // Beast Pool
-// Ghastcoiler (52041)
+// Ghastcoiler (59687)
 // Goldrinn, the Great Wolf (59955)
 // Maexxna (1791)
 // Demon Pool
@@ -350,7 +350,7 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // Amalgadon (61444)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    52041, 59955, 1791,  61028, 60630, 60629, 64062, 64081,
+    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081,
     63624, 2081,  59935, 61047, 62232, 61444, 60040
 };
 
