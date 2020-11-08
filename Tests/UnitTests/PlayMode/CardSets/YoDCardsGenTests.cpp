@@ -19,6 +19,55 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------ SPELL - DRUID
+// [YOD_001] Rising Winds - COST:2
+// - Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> <b>Choose One -</b>
+//       Draw a card; or Summon a 3/2 Eagle.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// - TWINSPELL_COPY = 56141
+// - TWINSPELL = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - YOD_001 : Rising Winds")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("YOD_001"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->id, "YOD_001ts");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4], 2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Eagle");
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
 // ----------------------------------------- MINION - DRUID
 // [YOD_003] Winged Guardian - COST:7 [ATK:6/HP:8]
 // - Race: Beast, Set: YoD, Rarity: Rare

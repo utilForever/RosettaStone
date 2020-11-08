@@ -24,6 +24,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
@@ -73,6 +74,10 @@ void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TWINSPELL_COPY = 56141
     // - TWINSPELL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_001", CardDef(power, PlayReqs{},
+                                     ChooseCardIDs{ "YOD_001b", "YOD_001c" }));
 
     // ----------------------------------------- MINION - DRUID
     // [YOD_003] Winged Guardian - COST:7 [ATK:6/HP:8]
@@ -105,12 +110,17 @@ void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001b] Take Flight (*) - COST:2
     // - Faction: Neutral, Set: YoD
     // --------------------------------------------------------
     // Text: Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("YOD_001b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001c] Swoop In (*) - COST:2
@@ -118,11 +128,20 @@ void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a 3/2 Eagle.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("YOD_001t", SummonSide::SPELL));
+    cards.emplace(
+        "YOD_001c",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [YOD_001t] Eagle (*) - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Set: YoD
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_001t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001ts] Rising Winds (*) - COST:2
@@ -134,6 +153,11 @@ void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "YOD_001ts",
+        CardDef(power, PlayReqs{}, ChooseCardIDs{ "YOD_001b", "YOD_001c" }));
 }
 
 void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
