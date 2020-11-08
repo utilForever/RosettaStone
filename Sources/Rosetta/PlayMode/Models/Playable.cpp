@@ -508,9 +508,8 @@ bool Playable::CheckTargetingType(Card* card, Character* target)
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
-    // TODO: Remove code '56057' after the card 'Rising Winds' is implemented
     // TODO: Remove code '59542' after the card 'Runic Carvings' is implemented
-    if (HasChooseOne() && (card->dbfID != 56057 && card->dbfID != 59542))
+    if (HasChooseOne() && (card->dbfID != 59542))
     {
         if (player->ChooseBoth() && !card->IsTransformMinion())
         {
