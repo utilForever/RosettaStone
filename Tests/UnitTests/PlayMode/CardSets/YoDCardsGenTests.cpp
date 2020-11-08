@@ -133,6 +133,57 @@ TEST_CASE("[Druid : Minion] - YOD_003 : Winged Guardian")
     CHECK_EQ(curField[0]->HasReborn(), false);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [YOD_040] Steel Beetle - COST:2 [ATK:2/HP:3]
+// - Race: Beast, Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a spell that
+//       costs (5) or more, gain 5 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - YOD_040 : Steel Beetle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steel Beetle"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steel Beetle"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gift of the Wild"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [YOD_005] Fresh Scent - COST:2
 // - Set: YoD, Rarity: Common
