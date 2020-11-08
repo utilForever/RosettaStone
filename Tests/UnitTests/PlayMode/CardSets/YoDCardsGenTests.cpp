@@ -660,6 +660,55 @@ TEST_CASE("[Rogue : Minion] - YOD_016 : Skyvateer")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
+// [YOD_020] Explosive Evolution - COST:2
+// - Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: Transform a minion into a random one that costs (3) more.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - YOD_020 : Explosive Evolution")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Explosive Evolution"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Explosive Evolution"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shattered Rumbler"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField[0]));
+    CHECK_EQ(curField[0]->GetCost(), 8);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField[0]));
+    CHECK_EQ(curField[0]->GetCost(), 10);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
 // [YOD_041] Eye of the Storm - COST:10
 // - Set: YoD, Rarity: Common
 // --------------------------------------------------------
