@@ -523,6 +523,8 @@ void YoDCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_020] Explosive Evolution - COST:2
     // - Set: YoD, Rarity: Common
@@ -546,6 +548,12 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("YOD_041t", 3, SummonSide::SPELL));
+    cards.emplace(
+        "YOD_041",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [YOD_042] The Fist of Ra-den - COST:4 [ATK:1/HP:0]
@@ -563,6 +571,8 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [YOD_041t] Stormblocker (*) - COST:5 [ATK:5/HP:6]
     // - Race: Elemental, Set: YoD
@@ -570,6 +580,9 @@ void YoDCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_041t", CardDef(power));
 }
 
 void YoDCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
