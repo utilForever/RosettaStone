@@ -607,6 +607,57 @@ TEST_CASE("[Paladin : Minion] - YOD_043 : Scalelord")
     CHECK_EQ(curField[2]->HasDivineShield(), false);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [YOD_014] Aeon Reaver - COST:6 [ATK:4/HP:4]
+// - Race: Dragon, Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal damage to a minion equal
+//       to its Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - YOD_014 : Aeon Reaver")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ironbark Protector"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Aeon Reaver"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [YOD_016] Skyvateer - COST:2 [ATK:1/HP:3]
 // - Set: YoD, Rarity: Common
