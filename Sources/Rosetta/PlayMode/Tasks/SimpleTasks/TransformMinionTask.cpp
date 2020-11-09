@@ -53,19 +53,39 @@ TaskStatus TransformMinionTask::Impl(Player* player)
     for (auto& playable : playables)
     {
         std::vector<Card*> cards;
-        for (auto& card : minionCards)
+        int newCost = playable->card->GetCost() + m_costChange;
+
+        while (true)
         {
-            if (card->GetCost() == playable->card->GetCost() + m_costChange)
+            for (auto& card : minionCards)
             {
-                cards.emplace_back(card);
+                if (card->GetCost() == newCost)
+                {
+                    cards.emplace_back(card);
+                }
             }
+
+            if (!cards.empty())
+            {
+                break;
+            }
+
+            // NOTE: Cards that "transform a minion into a random one that costs
+            // (1) more/less", like Evolve or Devolve, will now always re-roll
+            // the minion, even if no minion exists in the target-cost minion
+            // pool. The minion will be re-rolled at the nearest possible cost.
+            // For example, when a 0-mana Target Dummy is Devolved, because
+            // there is no negative-cost minion, it will transform into a random
+            // 0-cost minion.
+            // For example, when a 25-mana Shirvallah, the Tiger is Evolved,
+            // because there is no 26-cost minion or another 25-cost minion, it
+            // will transform into a new Shirvallah, the Tiger.
+            // References: https://hearthstone.gamepedia.com/Transform
+            newCost = m_costChange < 0 ? newCost + 1 : newCost - 1;
         }
 
-        if (!cards.empty())
-        {
-            const auto idx = Random::get<std::size_t>(0, cards.size() - 1);
-            Generic::ChangeEntity(m_player, playable, cards[idx], true);
-        }
+        const auto idx = Random::get<std::size_t>(0, cards.size() - 1);
+        Generic::ChangeEntity(m_player, playable, cards[idx], true);
     }
 
     return TaskStatus::COMPLETE;
