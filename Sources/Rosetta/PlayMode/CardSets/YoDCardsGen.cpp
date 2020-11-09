@@ -10,6 +10,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
@@ -660,6 +661,8 @@ void YoDCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [YOD_022] Risky Skipper - COST:1 [ATK:1/HP:3]
     // - Set: YoD, Rarity: Rare
@@ -669,6 +672,12 @@ void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 1) };
+    cards.emplace("YOD_022", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [YOD_023] Boom Squad - COST:1
