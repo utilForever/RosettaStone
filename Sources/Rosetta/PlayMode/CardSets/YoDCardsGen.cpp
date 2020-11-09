@@ -5,25 +5,36 @@
 
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddLackeyTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageNumberTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
@@ -73,6 +84,10 @@ void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - TWINSPELL_COPY = 56141
     // - TWINSPELL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_001", CardDef(power, PlayReqs{},
+                                     ChooseCardIDs{ "YOD_001b", "YOD_001c" }));
 
     // ----------------------------------------- MINION - DRUID
     // [YOD_003] Winged Guardian - COST:7 [ATK:6/HP:8]
@@ -101,16 +116,28 @@ void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::Has5MoreCostSpellInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<ArmorTask>(5) }));
+    cards.emplace("YOD_040", CardDef(power));
 }
 
 void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001b] Take Flight (*) - COST:2
     // - Faction: Neutral, Set: YoD
     // --------------------------------------------------------
     // Text: Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("YOD_001b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001c] Swoop In (*) - COST:2
@@ -118,11 +145,20 @@ void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a 3/2 Eagle.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("YOD_001t", SummonSide::SPELL));
+    cards.emplace(
+        "YOD_001c",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [YOD_001t] Eagle (*) - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Set: YoD
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_001t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [YOD_001ts] Rising Winds (*) - COST:2
@@ -134,6 +170,11 @@ void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "YOD_001ts",
+        CardDef(power, PlayReqs{}, ChooseCardIDs{ "YOD_001b", "YOD_001c" }));
 }
 
 void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -150,6 +191,18 @@ void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsRace(Race::MECHANICAL));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomMinionTask>(
+            TagValues{ { GameTag::CARDRACE, static_cast<int>(Race::MECHANICAL),
+                         RelaSign::EQ } }),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("YOD_004", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [YOD_005] Fresh Scent - COST:2
@@ -370,6 +423,8 @@ void YoDCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [YOD_013] Cleric of Scales - COST:1 [ATK:1/HP:1]
     // - Set: YoD, Rarity: Rare
@@ -392,6 +447,18 @@ void YoDCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE, GameTag::ATK));
+    power.AddPowerTask(std::make_shared<DamageNumberTask>(EntityType::TARGET));
+    cards.emplace(
+        "YOD_014",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [YOD_015] Dark Prophecy - COST:3
@@ -476,12 +543,25 @@ void YoDCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_020] Explosive Evolution - COST:2
     // - Set: YoD, Rarity: Common
     // --------------------------------------------------------
     // Text: Transform a minion into a random one that costs (3) more.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformMinionTask>(EntityType::TARGET, 3));
+    cards.emplace(
+        "YOD_020",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_041] Eye of the Storm - COST:10
@@ -499,6 +579,12 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("YOD_041t", 3, SummonSide::SPELL));
+    cards.emplace(
+        "YOD_041",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [YOD_042] The Fist of Ra-den - COST:4 [ATK:1/HP:0]
@@ -516,6 +602,8 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [YOD_041t] Stormblocker (*) - COST:5 [ATK:5/HP:6]
     // - Race: Elemental, Set: YoD
@@ -523,6 +611,9 @@ void YoDCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOD_041t", CardDef(power));
 }
 
 void YoDCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
@@ -588,6 +679,8 @@ void YoDCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [YOD_022] Risky Skipper - COST:1 [ATK:1/HP:3]
     // - Set: YoD, Rarity: Rare
@@ -597,6 +690,12 @@ void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 1) };
+    cards.emplace("YOD_022", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [YOD_023] Boom Squad - COST:1
@@ -618,6 +717,11 @@ void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("GVG_110t", 1) };
+    cards.emplace("YOD_024", CardDef(power));
 }
 
 void YoDCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
@@ -626,6 +730,8 @@ void YoDCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
     // - Race: Beast, Faction: Neutral, Set: YoD, Rarity: Epic
@@ -678,12 +784,17 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
     // RefTag:
     // - QUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsControllingQuest()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                      "GAME_005") }));
+    cards.emplace("YOD_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_032] Skydiving Instructor - COST:4 [ATK:3/HP:3]
@@ -715,6 +826,13 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsLackey());
+    power.GetTrigger()->tasks = { std::make_shared<AddLackeyTask>(1) };
+    cards.emplace("YOD_035", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_038] Sky Gen'ral Kragg - COST:4 [ATK:2/HP:3]

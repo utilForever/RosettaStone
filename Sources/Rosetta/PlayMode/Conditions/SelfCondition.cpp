@@ -163,6 +163,19 @@ SelfCondition SelfCondition::IsTreant()
         [](Playable* playable) { return playable->card->name == "Treant"; });
 }
 
+SelfCondition SelfCondition::IsLackey()
+{
+    return SelfCondition([](Playable* playable) {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->IsLackey();
+    });
+}
+
 SelfCondition SelfCondition::IsRace(Race race)
 {
     return SelfCondition([race](Playable* playable) {

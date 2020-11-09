@@ -19,6 +19,55 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------ SPELL - DRUID
+// [YOD_001] Rising Winds - COST:2
+// - Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Twinspell</b> <b>Choose One -</b>
+//       Draw a card; or Summon a 3/2 Eagle.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// - TWINSPELL_COPY = 56141
+// - TWINSPELL = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - YOD_001 : Rising Winds")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("YOD_001"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->id, "YOD_001ts");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4], 2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Eagle");
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
 // ----------------------------------------- MINION - DRUID
 // [YOD_003] Winged Guardian - COST:7 [ATK:6/HP:8]
 // - Race: Beast, Set: YoD, Rarity: Rare
@@ -82,6 +131,114 @@ TEST_CASE("[Druid : Minion] - YOD_003 : Winged Guardian")
     CHECK_EQ(curField[0]->GetHealth(), 1);
     CHECK_EQ(curField[0]->HasTaunt(), true);
     CHECK_EQ(curField[0]->HasReborn(), false);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [YOD_040] Steel Beetle - COST:2 [ATK:2/HP:3]
+// - Race: Beast, Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a spell that
+//       costs (5) or more, gain 5 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - YOD_040 : Steel Beetle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steel Beetle"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steel Beetle"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gift of the Wild"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [YOD_004] Chopshop Copter - COST:3 [ATK:2/HP:4]
+// - Race: Mechanical, Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: After a friendly Mech dies,
+//       add a random Mech to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - YOD_004 : Chopshop Copter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chopshop Copter"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Harvest Golem"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card2));
+    CHECK_EQ(curHand.GetCount(), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->GetRace(), Race::MECHANICAL);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -450,6 +607,57 @@ TEST_CASE("[Paladin : Minion] - YOD_043 : Scalelord")
     CHECK_EQ(curField[2]->HasDivineShield(), false);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [YOD_014] Aeon Reaver - COST:6 [ATK:4/HP:4]
+// - Race: Dragon, Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal damage to a minion equal
+//       to its Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - YOD_014 : Aeon Reaver")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ironbark Protector"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Aeon Reaver"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [YOD_016] Skyvateer - COST:2 [ATK:1/HP:3]
 // - Set: YoD, Rarity: Common
@@ -502,6 +710,118 @@ TEST_CASE("[Rogue : Minion] - YOD_016 : Skyvateer")
     CHECK_EQ(curField.GetCount(), 0);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [YOD_020] Explosive Evolution - COST:2
+// - Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: Transform a minion into a random one that costs (3) more.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - YOD_020 : Explosive Evolution")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Explosive Evolution"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Explosive Evolution"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shattered Rumbler"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField[0]));
+    CHECK_EQ(curField[0]->GetCost(), 8);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField[0]));
+    CHECK_EQ(curField[0]->GetCost(), 10);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [YOD_041] Eye of the Storm - COST:10
+// - Set: YoD, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon three 5/6 Elementals with <b>Taunt</b>.
+//       <b>Overload:</b> (3)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 3
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - YOD_041 : Eye of the Storm")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eye of the Storm"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Stormblocker");
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->card->name, "Stormblocker");
+    CHECK_EQ(curField[2]->card->name, "Stormblocker");
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 3);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [YOD_025] Twisted Knowledge - COST:2
 // - Set: YoD, Rarity: Common
@@ -544,4 +864,224 @@ TEST_CASE("[Warlock : Spell] - YOD_025 : Twisted Knowledge")
     CHECK_EQ(curHand.GetCount(), 2);
     CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::WARLOCK);
     CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::WARLOCK);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [YOD_022] Risky Skipper - COST:1 [ATK:1/HP:3]
+// - Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you play a minion, deal 1 damage to all minions.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - YOD_022 : Risky Skipper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Risky Skipper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("River Crocolisk"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [YOD_024] Bomb Wrangler - COST:3 [ATK:2/HP:3]
+// - Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever this minion takes damage, summon a 1/1 Boom Bot.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - YOD_024 : Bomb Wrangler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bomb Wrangler"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->card->name, "Boom Bot");
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Boom Bot");
+    CHECK_EQ(curField[1]->card->name, "Boom Bot");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [YOD_030] Licensed Adventurer - COST:2 [ATK:2/HP:2]
+// - Faction: Neutral, Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Quest</b>,
+//       add a Coin to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - QUEST = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOD_030 : Licensed Adventurer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Licensed Adventurer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Licensed Adventurer"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Untapped Potential"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "The Coin");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [YOD_035] Grand Lackey Erkh - COST:4 [ATK:2/HP:3]
+// - Faction: Neutral, Set: YoD, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After you play a <b>Lackey</b>,
+//       add a <b>Lackey</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOD_035 : Grand Lackey Erkh")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Grand Lackey Erkh"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_614"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->IsLackey(), true);
 }

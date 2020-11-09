@@ -81,7 +81,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Adventures
 
-  * 28% Galakrond's Awakening (10 of 35 cards)
+  * 57% Galakrond's Awakening (20 of 35 cards)
   * 0% One Night in Karazhan (0 of 45 Cards)
   * 0% The League of Explorers (0 of 45 Cards)
   * 0% Blackrock Mountain (0 of 31 Cards)

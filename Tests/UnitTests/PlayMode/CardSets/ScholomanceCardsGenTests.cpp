@@ -775,7 +775,7 @@ TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
     const auto card4 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Potion of Illusion"));
-    const auto card5 =
+    [[maybe_unused]] const auto card5 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
     const auto card6 = Generic::DrawCard(
         opPlayer, Cards::FindCardByName("Blazing Battlemage"));
@@ -1054,25 +1054,18 @@ TEST_CASE("[Neutral : Minion] - SCH_522 : Steeldancer")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Steeldancer"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Steeldancer"));
-    const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Hooked Scimitar"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[1]->GetCost(), 0);
 
-    game.Process(curPlayer, HeroPowerTask());
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField.GetCount(), 4);
-    CHECK_EQ(curField[3]->GetCost(), 1);
-
     curPlayer->SetUsedMana(0);
 
-    game.Process(curPlayer, PlayCardTask::Weapon(card4));
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField.GetCount(), 6);
-    CHECK_EQ(curField[5]->GetCost(), 4);
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[3]->GetCost(), 4);
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
