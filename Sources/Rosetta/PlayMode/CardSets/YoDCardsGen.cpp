@@ -699,6 +699,11 @@ void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("GVG_110t", 1) };
+    cards.emplace("YOD_024", CardDef(power));
 }
 
 void YoDCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
