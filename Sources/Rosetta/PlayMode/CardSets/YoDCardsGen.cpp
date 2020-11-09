@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddLackeyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
@@ -809,6 +810,13 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsLackey());
+    power.GetTrigger()->tasks = { std::make_shared<AddLackeyTask>(1) };
+    cards.emplace("YOD_035", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_038] Sky Gen'ral Kragg - COST:4 [ATK:2/HP:3]

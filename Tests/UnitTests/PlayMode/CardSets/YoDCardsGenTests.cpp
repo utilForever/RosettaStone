@@ -983,3 +983,54 @@ TEST_CASE("[Neutral : Minion] - YOD_030 : Licensed Adventurer")
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "The Coin");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [YOD_035] Grand Lackey Erkh - COST:4 [ATK:2/HP:3]
+// - Faction: Neutral, Set: YoD, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After you play a <b>Lackey</b>,
+//       add a <b>Lackey</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOD_035 : Grand Lackey Erkh")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Grand Lackey Erkh"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_614"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->IsLackey(), true);
+}
