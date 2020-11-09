@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
@@ -712,6 +713,8 @@ void YoDCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
     // - Race: Beast, Faction: Neutral, Set: YoD, Rarity: Epic
@@ -764,12 +767,17 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
     // RefTag:
     // - QUEST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsControllingQuest()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                      "GAME_005") }));
+    cards.emplace("YOD_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_032] Skydiving Instructor - COST:4 [ATK:3/HP:3]

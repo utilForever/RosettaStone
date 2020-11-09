@@ -930,3 +930,56 @@ TEST_CASE("[Warrior : Minion] - YOD_024 : Bomb Wrangler")
     CHECK_EQ(curField[0]->card->name, "Boom Bot");
     CHECK_EQ(curField[1]->card->name, "Boom Bot");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [YOD_030] Licensed Adventurer - COST:2 [ATK:2/HP:2]
+// - Faction: Neutral, Set: YoD, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Quest</b>,
+//       add a Coin to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - QUEST = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOD_030 : Licensed Adventurer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Licensed Adventurer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Licensed Adventurer"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Untapped Potential"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "The Coin");
+}
