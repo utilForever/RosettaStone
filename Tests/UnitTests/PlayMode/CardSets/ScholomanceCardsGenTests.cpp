@@ -775,7 +775,7 @@ TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
     const auto card4 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Potion of Illusion"));
-    const auto card5 =
+    [[maybe_unused]] const auto card5 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Edwin VanCleef"));
     const auto card6 = Generic::DrawCard(
         opPlayer, Cards::FindCardByName("Blazing Battlemage"));
