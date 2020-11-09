@@ -2022,7 +2022,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 {
                     randomMinionTask->Run();
                     Playable* left = stack.playables[0];
-                    Playable* right = nullptr;
+                    Playable* right;
                     do
                     {
                         randomMinionTask->Run();
