@@ -22,6 +22,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -413,6 +414,15 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: <b>Spellburst</b>: Deal 4 damage randomly split
     //       among all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        4));
+    cards.emplace("SCH_241", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [SCH_243] Wyrm Weaver - COST:5 [ATK:3/HP:6]
