@@ -2363,6 +2363,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "SCH_713e", EntityType::ENEMY_PLAYER));
+    cards.emplace("SCH_713", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_714] Educated Elekk - COST:3 [ATK:3/HP:4]
@@ -2961,6 +2965,17 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND, "SCH_713e2"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::TURN_END,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsEnemyTurn()) };
+    }
+    cards.emplace("SCH_713e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_713e2] Spoiling - COST:0
@@ -2968,6 +2983,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) more.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AddCost(1)));
+    cards.emplace("SCH_713e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_714e] Educated - COST:0
