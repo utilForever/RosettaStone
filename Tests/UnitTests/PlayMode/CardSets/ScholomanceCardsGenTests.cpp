@@ -170,6 +170,56 @@ TEST_CASE("[Mage : Minion] - SCH_241 : Firebrand")
     CHECK(check);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [SCH_243] Wyrm Weaver - COST:5 [ATK:3/HP:6]
+//  - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - SCH_243 : Wyrm Weaver")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wyrm Weaver"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->HasSpellburst(), false);
+    CHECK_EQ(curField[0]->card->name, "Mana Wyrm");
+    CHECK_EQ(curField[2]->card->name, "Mana Wyrm");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
 // - Set: Scholomance, Rarity: Common

@@ -430,6 +430,12 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<SummonTask>("NEW1_012", SummonSide::LEFT));
+    power.AddSpellburstTask(
+        std::make_shared<SummonTask>("NEW1_012", SummonSide::RIGHT));
+    cards.emplace("SCH_243", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [SCH_310] Lab Partner - COST:1 [ATK:1/HP:3]
