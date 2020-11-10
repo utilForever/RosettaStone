@@ -446,6 +446,9 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_310", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [SCH_348] Combustion - COST:3

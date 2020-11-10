@@ -220,6 +220,20 @@ TEST_CASE("[Mage : Minion] - SCH_243 : Wyrm Weaver")
     CHECK_EQ(curField[2]->GetAttack(), 2);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [SCH_310] Lab Partner - COST:1 [ATK:1/HP:3]
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+//  - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - SCH_310 : Lab Partner")
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - PALADIN
 // [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
 // - Set: Scholomance, Rarity: Common
