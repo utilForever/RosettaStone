@@ -28,7 +28,7 @@ using namespace SimpleTasks;
 // GameTag:
 // - LIFESTEAL = 1
 // --------------------------------------------------------
-TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
+TEST_CASE("[Paladin : Minion] - SCH_712 : Judicious Junior")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -81,7 +81,7 @@ TEST_CASE("[PALADIN : Minion] - SCH_712 : Judicious Junior")
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[HUNTER : Minion] - SCH_133 : Wolpertinger")
+TEST_CASE("[Hunter : Minion] - SCH_133 : Wolpertinger")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -317,7 +317,7 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
 // --------------------------------------------------------
 // Text: <b>Spellburst:</b> Summon a Gibberling.
 // --------------------------------------------------------
-TEST_CASE("[DRUID : MINION] - SCH_242 : Gibberling")
+TEST_CASE("[Druid : Minion] - SCH_242 : Gibberling")
 {
     GameConfig config;
     config.player1Class = CardClass::DRUID;
@@ -681,7 +681,7 @@ TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
 {
-    /* Testcase for 'Jandice Barov' (SCH_351) */
+    // Test case for 'Jandice Barov' (SCH_351)
     {
         GameConfig config;
         config.player1Class = CardClass::ROGUE;
@@ -743,7 +743,7 @@ TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
         CHECK_EQ(curField[5]->card->GetCost(), 5);
     }
 
-    /* Testcase for 'This is an Illusion' (SCH_351a) */
+    // Test case for 'This is an Illusion' (SCH_351a)
     {
         GameConfig config;
         config.player1Class = CardClass::ROGUE;
@@ -1192,7 +1192,7 @@ TEST_CASE("[Neutral : Spell] - SCH_623 : Cutting Class")
 //  - DEATHRATTLE = 1
 //  - RUSH = 1
 // --------------------------------------------------------
-TEST_CASE("[NEUTRAL : Minion] - SCH_707 : Fishy Flyer")
+TEST_CASE("[Neutral : Minion] - SCH_707 : Fishy Flyer")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -1243,7 +1243,7 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_707 : Fishy Flyer")
 //  - DEATHRATTLE = 1
 //  - STEALTH = 1
 // --------------------------------------------------------
-TEST_CASE("[NEUTRAL : Minion] - SCH_708 : Sneaky Delinquent")
+TEST_CASE("[Neutral : Minion] - SCH_708 : Sneaky Delinquent")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -1294,7 +1294,7 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_708 : Sneaky Delinquent")
 //  - DEATHRATTLE = 1
 //  - TAUNT = 1
 // --------------------------------------------------------
-TEST_CASE("[NEUTRAL : Minion] - SCH_709 : Smug Senior")
+TEST_CASE("[Neutral : Minion] - SCH_709 : Smug Senior")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -1347,7 +1347,7 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_709 : Smug Senior")
 // RefTag:
 //  - TAUNT = 1
 // --------------------------------------------------------
-TEST_CASE("[NEUTRAL : Minion] - SCH_710 : Ogremancer")
+TEST_CASE("[Neutral : Minion] - SCH_710 : Ogremancer")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -1403,7 +1403,7 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_710 : Ogremancer")
 // GameTag:
 //  - DEATHRATTLE = 1
 // --------------------------------------------------------
-TEST_CASE("[NEUTRAL : Minion] - SCH_711 : Plagued Protodrake")
+TEST_CASE("[Neutral : Minion] - SCH_711 : Plagued Protodrake")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
