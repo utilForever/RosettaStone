@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <Rosetta/Common/Constants.hpp>
-#include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -47,15 +46,6 @@ void HandZone::Add(Playable* entity, int zonePos)
     if (auto trigger = entity->card->power.GetTrigger(); trigger)
     {
         trigger->Activate(entity, TriggerActivation::HAND);
-    }
-
-    for (auto& iAura : entity->game->auras)
-    {
-        if (auto aura = dynamic_cast<Aura*>(iAura);
-            aura && aura->GetType() == AuraType::HAND)
-        {
-            aura->Apply(entity);
-        }
     }
 
     entity->game->triggerManager.OnZoneTrigger(entity);
