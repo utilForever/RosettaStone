@@ -6803,8 +6803,13 @@ TEST_CASE("[Warlock : Minion] - EX1_315 : Summoning Portal")
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Pit Lord");
+    }
 
     Game game(config);
     game.Start();
@@ -6816,6 +6821,8 @@ TEST_CASE("[Warlock : Minion] - EX1_315 : Summoning Portal")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Summoning Portal"));
@@ -6852,13 +6859,12 @@ TEST_CASE("[Warlock : Minion] - EX1_315 : Summoning Portal")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    const auto card6 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pit Lord"));
-    CHECK_EQ(card6->GetCost(), 2);
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[6]->GetCost(), 2);
 
-    const auto card7 =
+    const auto card6 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowstep"));
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card7, card4));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card6, card4));
     CHECK_EQ(card4->GetCost(), 0);
 }
 
