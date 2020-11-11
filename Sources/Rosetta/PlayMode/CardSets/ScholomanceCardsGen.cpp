@@ -83,6 +83,11 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_333e", EntityType::PLAYER));
+    cards.emplace("SCH_333", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_427] Lightning Bloom - COST:0
@@ -179,6 +184,17 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // GameTag:
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "SCH_333e2"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsSpell()) };
+    }
+    cards.emplace("SCH_333e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SCH_333e2] Studying Nature - COST:0
@@ -186,6 +202,9 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("SCH_333e2", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SCH_609e] Survival of the Fittest - COST:0

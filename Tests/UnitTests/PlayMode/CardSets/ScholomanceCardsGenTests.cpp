@@ -69,6 +69,72 @@ TEST_CASE("[Druid : Minion] - SCH_242 : Gibberling")
     CHECK_EQ(curField[2]->card->name, "Wisp");
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [SCH_333] Nature Studies - COST:1
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Discover</b> a spell. Your next one costs (1) less.
+// --------------------------------------------------------
+// GameTag:
+//  - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nature Studies"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Starfall"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->IsCardClass(CardClass::DRUID), true);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(card2->GetCost(), 4);
+
+    const int oldCost = curHand[1]->GetCost();
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 1));
+    if (curHand[0]->GetCost() != 0)
+    {
+        CHECK_EQ(curHand[0]->GetCost(), oldCost + 1);   
+    }
+}
+
 // --------------------------------------- MINION - HUNTER
 // [SCH_133] Wolpertinger - COST:1 [ATK:1/HP:1]
 // - Set: Scholomance, Rarity: Common
