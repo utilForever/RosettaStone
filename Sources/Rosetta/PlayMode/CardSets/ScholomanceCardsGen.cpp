@@ -296,6 +296,12 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::DEATHRATTLE_MINION));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_300e", EntityType::PLAYER));
+    cards.emplace("SCH_300", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [SCH_340] Bloated Python - COST:3 [ATK:1/HP:2]
@@ -2817,6 +2823,17 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "SCH_300e2"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsDeathrattleCard());
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsDeathrattleCard()) };
+    }
+    cards.emplace("SCH_300e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_300e2] Studying Carrion - COST:0
@@ -2824,6 +2841,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("SCH_300e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_301e] Runic Power - COST:0
