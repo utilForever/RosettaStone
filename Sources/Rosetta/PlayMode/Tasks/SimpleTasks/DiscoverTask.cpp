@@ -279,6 +279,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::DEATHRATTLE_MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->HasGameTag(GameTag::DEATHRATTLE) == 1)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::DEATHRATTLE_MINION_DIED:
             choiceAction = ChoiceAction::HAND_AND_STACK;
             for (auto& playable : player->GetGraveyardZone()->GetAll())
