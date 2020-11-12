@@ -59,6 +59,12 @@ SelfCondition SelfCondition::IsBattlecryCard()
         [](Playable* playable) { return playable->HasBattlecry(); });
 }
 
+SelfCondition SelfCondition::IsDeathrattleCard()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->HasDeathrattle(); });
+}
+
 SelfCondition SelfCondition::IsGalakrondHero()
 {
     return SelfCondition(

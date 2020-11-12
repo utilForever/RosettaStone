@@ -52,6 +52,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsBattlecryCard();
 
+    //! SelfCondition wrapper for checking the card has Deathrattle.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDeathrattleCard();
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
