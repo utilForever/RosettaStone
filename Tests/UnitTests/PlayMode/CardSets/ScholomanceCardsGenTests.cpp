@@ -1030,6 +1030,80 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
     CHECK_EQ(curField[0]->HasSpellburst(), false);
 }
 
+// ---------------------------------------- SPELL - NEUTRAL
+// [SCH_270] Primordial Studies - COST:1
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Discover</b> a <b>Spell Damage</b> minion.
+//       Your next one costs (1) less.
+// --------------------------------------------------------
+// GameTag:
+//  - DISCOVER = 1
+// --------------------------------------------------------
+// RefTag:
+//  - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - SCH_270 : Primordial Studies")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Primordial Studies"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Savannah Highmane"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->HasGameTag(GameTag::SPELLPOWER), true);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(card2->GetCost(), 1);
+    CHECK_EQ(card3->GetCost(), 6);
+
+    const int oldCost = curHand[2]->GetCost();
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetCost(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    if (curHand[1]->GetCost() != 0)
+    {
+        CHECK_EQ(curHand[1]->GetCost(), oldCost + 1);
+    }
+    CHECK_EQ(card3->GetCost(), 6);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_350] Wand Thief - COST:1 [ATK:1/HP:2]
 //  - Set: SCHOLOMANCE, Rarity: Common

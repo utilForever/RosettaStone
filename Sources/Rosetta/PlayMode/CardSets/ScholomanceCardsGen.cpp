@@ -2004,6 +2004,12 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELLPOWER_MINION));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_270e", EntityType::PLAYER));
+    cards.emplace("SCH_270", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_273] Ras Frostwhisper - COST:5 [ATK:3/HP:6]
@@ -2864,6 +2870,17 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // GameTag:
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "SCH_270e2"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::HasSpellPower());
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::HasSpellPower()) };
+    }
+    cards.emplace("SCH_270e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_270e2] Studying Runes - COST:0
@@ -2871,6 +2888,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("SCH_270e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_300e] Carrion Studies - COST:0
