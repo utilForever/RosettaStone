@@ -1201,6 +1201,11 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DEMON));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_158e", EntityType::PLAYER));
+    cards.emplace("SCH_158", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_181] Archwitch Willow - COST:8 [ATK:5/HP:5]
@@ -1309,6 +1314,17 @@ void ScholomanceCardsGen::AddWarlockNonCollect(
     // GameTag:
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "SCH_158e2"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON));
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsRace(Race::DEMON)) };
+    }
+    cards.emplace("SCH_158e", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_307t] Soul Fragment - COST:0
@@ -2459,6 +2475,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("SCH_158e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_162e] Experimental Plague - COST:0
