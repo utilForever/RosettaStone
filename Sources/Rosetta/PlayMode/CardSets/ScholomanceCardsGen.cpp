@@ -1372,6 +1372,12 @@ void ScholomanceCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     //  - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::RUSH_MINION));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_237e", EntityType::PLAYER));
+    cards.emplace("SCH_237", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [SCH_238] Reaper's Scythe - COST:4
@@ -1442,6 +1448,17 @@ void ScholomanceCardsGen::AddWarriorNonCollect(
     // GameTag:
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "SCH_237e2"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::HasRush());
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::HasRush()) };
+    }
+    cards.emplace("SCH_237e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [SCH_237e2] Studying Athletics - COST:0
@@ -1449,6 +1466,9 @@ void ScholomanceCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("SCH_237e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [SCH_238e] Reaping - COST:0

@@ -856,6 +856,80 @@ TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
     CHECK_EQ(card3->GetCost(), 6);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [SCH_237] Athletic Studies - COST:1
+//  - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Discover</b> a <b>Rush</b> minion.
+//       Your next one costs (1) less.
+// --------------------------------------------------------
+// GameTag:
+//  - DISCOVER = 1
+// --------------------------------------------------------
+// RefTag:
+//  - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - SCH_237 : Athletic Studies")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Athletic Studies"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hippogryph"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Savannah Highmane"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->HasGameTag(GameTag::RUSH), true);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 6);
+
+    const int oldCost = curHand[2]->GetCost();
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    if (curHand[1]->GetCost() != 0)
+    {
+        CHECK_EQ(curHand[1]->GetCost(), oldCost + 1);
+    }
+    CHECK_EQ(card3->GetCost(), 6);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
 //  - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
