@@ -2878,7 +2878,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
-                              SelfCondition::HasSpellPower()) }));
+                              SelfCondition::HasPlayerSpellPower()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DrawTask>(1) }));
     cards.emplace("DAL_089", CardDef(power));
