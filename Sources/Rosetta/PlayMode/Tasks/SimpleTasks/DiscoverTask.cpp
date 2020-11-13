@@ -301,6 +301,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::RUSH_MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->HasGameTag(GameTag::RUSH) == 1)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::SPELL:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
