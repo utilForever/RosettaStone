@@ -806,6 +806,11 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     //  - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_233e", EntityType::PLAYER));
+    cards.emplace("SCH_233", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [SCH_512] Initiation - COST:6
@@ -879,6 +884,17 @@ void ScholomanceCardsGen::AddPriestNonCollect(
     // GameTag:
     //  - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "SCH_233e2"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON));
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsRace(Race::DRAGON)) };
+    }
+    cards.emplace("SCH_233e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [SCH_233e2] Studying Dragons - COST:0
@@ -886,6 +902,9 @@ void ScholomanceCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("SCH_233e2", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [SCH_250e] Apathetic - COST:0
