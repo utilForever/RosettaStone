@@ -322,6 +322,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::DEMON:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetRace() == Race::DEMON)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::DRAGON:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
