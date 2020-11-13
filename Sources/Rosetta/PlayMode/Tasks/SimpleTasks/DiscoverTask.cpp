@@ -279,6 +279,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::DEATHRATTLE_MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->HasGameTag(GameTag::DEATHRATTLE) == 1)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::DEATHRATTLE_MINION_DIED:
             choiceAction = ChoiceAction::HAND_AND_STACK;
             for (auto& playable : player->GetGraveyardZone()->GetAll())
@@ -287,6 +298,28 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                     playable->HasDeathrattle() && playable->isDestroyed)
                 {
                     cards.emplace_back(playable->card);
+                }
+            }
+            break;
+        case DiscoverType::SPELLPOWER_MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->HasGameTag(GameTag::SPELLPOWER) == 1)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
+        case DiscoverType::RUSH_MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION &&
+                    card->HasGameTag(GameTag::RUSH) == 1)
+                {
+                    cards.emplace_back(card);
                 }
             }
             break;
@@ -306,6 +339,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->GetCardType() == CardType::SPELL &&
                     card->GetCost() <= 3)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
+        case DiscoverType::DEMON:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetRace() == Race::DEMON)
                 {
                     cards.emplace_back(card);
                 }

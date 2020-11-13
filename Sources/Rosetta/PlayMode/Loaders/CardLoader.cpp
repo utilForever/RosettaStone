@@ -140,7 +140,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
             card->gameTags[GameTag::OVERLOAD] = overload;
         }
 
-        static std::regex spellburstRegex("(<b>Spellburst:</b>)");
+        static std::regex spellburstRegex("([<b>]*<b>Spellburst[</b>]*:</b>)");
         std::smatch values;
 
         if (std::regex_search(text, values, spellburstRegex))

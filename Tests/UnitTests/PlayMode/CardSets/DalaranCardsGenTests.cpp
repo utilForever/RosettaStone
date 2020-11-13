@@ -1825,7 +1825,7 @@ TEST_CASE("[Mage : Minion] - DAL_609 : Kalecgos")
         CHECK(card->IsCardClass(CardClass::MAGE));
     }
 
-    Generic::ChoicePick(curPlayer, 26);
+    TestUtils::ChooseNthChoice(game, 1);
     CHECK_EQ(curHand.GetCount(), 7);
     CHECK_EQ(card2->GetCost(), 0);
     CHECK_EQ(card3->GetCost(), 0);

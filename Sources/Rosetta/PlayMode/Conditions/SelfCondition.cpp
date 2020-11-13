@@ -59,6 +59,12 @@ SelfCondition SelfCondition::IsBattlecryCard()
         [](Playable* playable) { return playable->HasBattlecry(); });
 }
 
+SelfCondition SelfCondition::IsDeathrattleCard()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->HasDeathrattle(); });
+}
+
 SelfCondition SelfCondition::IsGalakrondHero()
 {
     return SelfCondition(
@@ -342,6 +348,19 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::HasSpellPower()
+{
+    return SelfCondition([](Playable* playable) {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->GetSpellPower() > 0;
+    });
+}
+
 SelfCondition SelfCondition::HasTaunt()
 {
     return SelfCondition([](Playable* playable) {
@@ -420,13 +439,6 @@ SelfCondition SelfCondition::HasReborn()
     });
 }
 
-SelfCondition SelfCondition::HasSpellPower()
-{
-    return SelfCondition([](Playable* playable) {
-        return playable->player->GetCurrentSpellPower() > 0;
-    });
-}
-
 SelfCondition SelfCondition::HasInvokedTwice()
 {
     return SelfCondition(
@@ -469,6 +481,13 @@ SelfCondition SelfCondition::IsComboCard()
         }
 
         return false;
+    });
+}
+
+SelfCondition SelfCondition::HasPlayerSpellPower()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetCurrentSpellPower() > 0;
     });
 }
 

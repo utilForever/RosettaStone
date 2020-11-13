@@ -52,6 +52,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsBattlecryCard();
 
+    //! SelfCondition wrapper for checking the card has Deathrattle.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDeathrattleCard();
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
@@ -180,6 +184,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
 
+    //! SelfCondition wrapper for checking the entity has spellpower.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasSpellPower();
+
     //! SelfCondition wrapper for checking the entity has taunt.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasTaunt();
@@ -204,10 +212,6 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasReborn();
 
-    //! SelfCondition wrapper for checking the player has spellpower.
-    //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition HasSpellPower();
-
     //! SelfCondition wrapper for checking the player has invoked twice.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasInvokedTwice();
@@ -223,6 +227,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the card has combo.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsComboCard();
+
+    //! SelfCondition wrapper for checking the player has spellpower.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasPlayerSpellPower();
 
     //! SelfCondition wrapper for checking the entity attacks this turn.
     //! \return Generated SelfCondition for intended purpose.
