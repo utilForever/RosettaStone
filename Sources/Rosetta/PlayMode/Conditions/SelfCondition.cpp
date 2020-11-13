@@ -348,6 +348,19 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::HasSpellPower()
+{
+    return SelfCondition([](Playable* playable) {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->GetSpellPower() > 0;
+    });
+}
+
 SelfCondition SelfCondition::HasTaunt()
 {
     return SelfCondition([](Playable* playable) {
