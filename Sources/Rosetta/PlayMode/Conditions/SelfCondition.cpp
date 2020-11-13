@@ -426,13 +426,6 @@ SelfCondition SelfCondition::HasReborn()
     });
 }
 
-SelfCondition SelfCondition::HasSpellPower()
-{
-    return SelfCondition([](Playable* playable) {
-        return playable->player->GetCurrentSpellPower() > 0;
-    });
-}
-
 SelfCondition SelfCondition::HasInvokedTwice()
 {
     return SelfCondition(
@@ -475,6 +468,13 @@ SelfCondition SelfCondition::IsComboCard()
         }
 
         return false;
+    });
+}
+
+SelfCondition SelfCondition::HasPlayerSpellPower()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetCurrentSpellPower() > 0;
     });
 }
 

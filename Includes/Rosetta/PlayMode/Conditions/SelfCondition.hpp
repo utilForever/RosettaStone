@@ -208,10 +208,6 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasReborn();
 
-    //! SelfCondition wrapper for checking the player has spellpower.
-    //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition HasSpellPower();
-
     //! SelfCondition wrapper for checking the player has invoked twice.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasInvokedTwice();
@@ -227,6 +223,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the card has combo.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsComboCard();
+
+    //! SelfCondition wrapper for checking the player has spellpower.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasPlayerSpellPower();
 
     //! SelfCondition wrapper for checking the entity attacks this turn.
     //! \return Generated SelfCondition for intended purpose.
