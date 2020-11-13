@@ -1114,7 +1114,7 @@ SCHOLOMANCE | SCH_146 | Robes of Protection |
 SCHOLOMANCE | SCH_147 | Boneweb Egg |  
 SCHOLOMANCE | SCH_149 | Argent Braggart |  
 SCHOLOMANCE | SCH_157 | Enchanted Cauldron |  
-SCHOLOMANCE | SCH_158 | Demonic Studies |  
+SCHOLOMANCE | SCH_158 | Demonic Studies | O
 SCHOLOMANCE | SCH_159 | Mindrender Illucia |  
 SCHOLOMANCE | SCH_160 | Wandmaker |  
 SCHOLOMANCE | SCH_162 | Vectus |  
@@ -1125,16 +1125,16 @@ SCHOLOMANCE | SCH_224 | Headmaster Kel'Thuzad |
 SCHOLOMANCE | SCH_230 | Onyx Magescribe | O
 SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
 SCHOLOMANCE | SCH_232 | Crimson Hothead |  
-SCHOLOMANCE | SCH_233 | Draconic Studies |  
+SCHOLOMANCE | SCH_233 | Draconic Studies | O
 SCHOLOMANCE | SCH_234 | Shifty Sophomore | O
 SCHOLOMANCE | SCH_235 | Devolving Missiles |  
 SCHOLOMANCE | SCH_236 | Diligent Notetaker |  
-SCHOLOMANCE | SCH_237 | Athletic Studies |  
+SCHOLOMANCE | SCH_237 | Athletic Studies | O
 SCHOLOMANCE | SCH_238 | Reaper's Scythe |  
 SCHOLOMANCE | SCH_239 | Krolusk Barkstripper |  
-SCHOLOMANCE | SCH_241 | Firebrand |  
+SCHOLOMANCE | SCH_241 | Firebrand | O
 SCHOLOMANCE | SCH_242 | Gibberling | O
-SCHOLOMANCE | SCH_243 | Wyrm Weaver |  
+SCHOLOMANCE | SCH_243 | Wyrm Weaver | O
 SCHOLOMANCE | SCH_244 | Teacher's Pet |  
 SCHOLOMANCE | SCH_245 | Steward of Scrolls |  
 SCHOLOMANCE | SCH_247 | First Day of School |  
@@ -1143,23 +1143,23 @@ SCHOLOMANCE | SCH_250 | Wave of Apathy |
 SCHOLOMANCE | SCH_252 | Marrowslicer |  
 SCHOLOMANCE | SCH_253 | Cycle of Hatred |  
 SCHOLOMANCE | SCH_259 | Sphere of Sapience |  
-SCHOLOMANCE | SCH_270 | Primordial Studies |  
+SCHOLOMANCE | SCH_270 | Primordial Studies | O
 SCHOLOMANCE | SCH_271 | Molten Blast |  
 SCHOLOMANCE | SCH_273 | Ras Frostwhisper |  
 SCHOLOMANCE | SCH_276 | Magehunter |  
 SCHOLOMANCE | SCH_279 | Trueaim Crescent |  
 SCHOLOMANCE | SCH_283 | Manafeeder Panthara |  
-SCHOLOMANCE | SCH_300 | Carrion Studies |  
+SCHOLOMANCE | SCH_300 | Carrion Studies | O
 SCHOLOMANCE | SCH_301 | Rune Dagger |  
 SCHOLOMANCE | SCH_302 | Gift of Luminance |  
 SCHOLOMANCE | SCH_305 | Secret Passage |  
 SCHOLOMANCE | SCH_307 | School Spirits |  
-SCHOLOMANCE | SCH_310 | Lab Partner |  
+SCHOLOMANCE | SCH_310 | Lab Partner | O
 SCHOLOMANCE | SCH_311 | Animated Broomstick |  
 SCHOLOMANCE | SCH_312 | Tour Guide |  
 SCHOLOMANCE | SCH_313 | Wretched Tutor |  
 SCHOLOMANCE | SCH_317 | Playmaker |  
-SCHOLOMANCE | SCH_333 | Nature Studies |  
+SCHOLOMANCE | SCH_333 | Nature Studies | O
 SCHOLOMANCE | SCH_337 | Troublemaker |  
 SCHOLOMANCE | SCH_340 | Bloated Python |  
 SCHOLOMANCE | SCH_343 | Void Drinker |  
@@ -1229,8 +1229,8 @@ SCHOLOMANCE | SCH_709 | Smug Senior | O
 SCHOLOMANCE | SCH_710 | Ogremancer | O
 SCHOLOMANCE | SCH_711 | Plagued Protodrake | O
 SCHOLOMANCE | SCH_712 | Judicious Junior | O
-SCHOLOMANCE | SCH_713 | Cult Neophyte |  
+SCHOLOMANCE | SCH_713 | Cult Neophyte | O
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
 
-- Progress: 14% (19 of 135 Cards)
+- Progress: 24% (33 of 135 Cards)
