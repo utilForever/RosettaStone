@@ -5,31 +5,36 @@ def cardCommentGen(card):
     div = "\n// --------------------------------------------------------"
     comm = "\n// "
     if "cardClass" in card.keys():
-        str_format = "//#"+'%56s' % ("#"+card['type']+"#-#"+card['cardClass'])
+        str_format = "//#" + \
+            '%56s' % ("#" + card['type'] + "#-#" + card['cardClass'])
     else:
-        str_format = "//#"+'%56s' % ("#"+card['type'])
+        str_format = "//#" + '%56s' % ("#" + card['type'])
     str_format = str_format.replace(" ", "-")
     str_format = str_format.replace("#", " ")
-    str_format = str_format + comm + "[" + card['id'] + "] " + card['name'] + " - COST: "
+    str_format = str_format + comm + \
+        "[" + card['id'] + "] " + card['name'] + " - COST: "
     if("cost" in card.keys()):
         str_format = str_format + str(card['cost'])
     else:
         str_format = str_format + str(0)
     if card['type'] == "MINION":
-        str_format = str_format + " [ATK: " + str(card['attack']) + "/HP: " + str(card['health']) + "]"
+        str_format = str_format + \
+            " [ATK: " + str(card['attack']) + "/HP: " + \
+            str(card['health']) + "]"
     str_format = str_format + comm + " - "
     if "race" in card.keys():
-        str_format = str_format + "Race: " + card['race']+", "
+        str_format = str_format + "Race: " + card['race'] + ", "
     if "faction" in card.keys():
-        str_format = str_format + "Faction: " + card['faction']+", "
+        str_format = str_format + "Faction: " + card['faction'] + ", "
     str_format = str_format + "Set: " + card['set']
     if "rarity" in card.keys():
-        str_format = str_format+", " + "Rarity: " + card['rarity'].capitalize()
+        str_format = str_format + ", " + \
+            "Rarity: " + card['rarity'].capitalize()
     str_format = str_format + div
     if "text" in card.keys():
-        card['text'] = card['text'].replace("[x]","")
-        card['text'] = card['text'].replace("$","")
-        card['text'] = card['text'].replace("\n","\n//       ")
+        card['text'] = card['text'].replace("[x]", "")
+        card['text'] = card['text'].replace("$", "")
+        card['text'] = card['text'].replace("\n", "\n//       ")
         str_format = str_format + comm + "Text: " + card['text'] + div
     # if card has GameTag, PlayReq, or RefTag, add it.
     # GameTag
@@ -39,7 +44,7 @@ def cardCommentGen(card):
             str_format = str_format + comm + " - ELITE = 1"
         if "mechanics" in card.keys():
             for tag in card['mechanics']:
-                str_format =  str_format + comm + " - " + tag + " = 1"
+                str_format = str_format + comm + " - " + tag + " = 1"
             str_format = str_format + div
     # How About PlayReq?
 
@@ -48,7 +53,7 @@ def cardCommentGen(card):
         str_format = str_format + comm + "RefTag:"
         if "referencedTags" in card.keys():
             for tag in card['referencedTags']:
-                str_format = str_format + comm + " - "  + tag + " = 1"
+                str_format = str_format + comm + " - " + tag + " = 1"
             str_format = str_format + div
     return str_format
 
@@ -106,7 +111,7 @@ def setCommentGen(target_set, target_id):
         if card['id'].split("_")[0] != target_id:
             continue
         # count the number of cards in target set
-        total_cnt+=1
+        total_cnt += 1
         if "collectible" in card.keys() and card["collectible"] == True:
             collectible_cnt += 1
 
@@ -129,7 +134,7 @@ def setCommentGen(target_set, target_id):
                 Druid.append(data)
             else:
                 DruidNonCollect.append(data)
-    
+
         elif card["cardClass"] == "HUNTER":
             data = cardCommentGen(card)
             data = data + "\n" + "\n"
@@ -209,7 +214,7 @@ def setCommentGen(target_set, target_id):
                 NeutralNonCollect.append(data)
 
     name = iter(all_names)
-    with open(target_set+"_comments"+".txt", 'a', -1, 'utf-8') as f:
+    with open(target_set + "_comments" + ".txt", 'a', -1, 'utf-8') as f:
         for group in all:
             f.write(next(name))
             f.write(" =" * 57 + "\n\n\n")
@@ -218,12 +223,15 @@ def setCommentGen(target_set, target_id):
         f.close()
     return total_cnt, collectible_cnt
 
+
 if __name__ == '__main__':
-    target_set = input("Enter the name of the set to generate comments (ex: BLACK_TEMPLE, SCHOLOMANCE): ")
+    target_set = input(
+        "Enter the name of the set to generate comments (ex: BLACK_TEMPLE, SCHOLOMANCE): ")
     target_set = target_set.upper()
-    target_id = input("Enter the first id of the set to generate comments (ex: BT, SCH): ")
+    target_id = input(
+        "Enter the first id of the set to generate comments (ex: BT, SCH): ")
     target_id = target_id.upper()
-    total_count, collectible_count = setCommentGen(target_set,target_id)
+    total_count, collectible_count = setCommentGen(target_set, target_id)
     print("Total of {total_count} card comments are generated. "
           "\nTotal of {collectible_count} collectible card comments are generated.\n".
           format(total_count=total_count, collectible_count=collectible_count))
