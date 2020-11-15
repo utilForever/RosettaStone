@@ -21,11 +21,12 @@ def cardCommentGen(card):
         str_format = str_format + \
             " [ATK: " + str(card['attack']) + "/HP: " + \
             str(card['health']) + "]"
-    str_format = str_format + comm + " - "
+    str_format = str_format + comm + "- "
     if "race" in card.keys():
-        str_format = str_format + "Race: " + card['race'] + ", "
+        str_format = str_format + "Race: " + card['race'].capitalize() + ", "
     if "faction" in card.keys():
-        str_format = str_format + "Faction: " + card['faction'] + ", "
+        str_format = str_format + "Faction: " + \
+            card['faction'].capitalize() + ", "
     str_format = str_format + "Set: " + card['set']
     if "rarity" in card.keys():
         str_format = str_format + ", " + \
@@ -41,10 +42,10 @@ def cardCommentGen(card):
     if "mechanics" in card.keys() or "elite" in card.keys():
         str_format = str_format + comm + "GameTag:"
         if "elite" in card.keys():
-            str_format = str_format + comm + " - ELITE = 1"
+            str_format = str_format + comm + "- ELITE = 1"
         if "mechanics" in card.keys():
             for tag in card['mechanics']:
-                str_format = str_format + comm + " - " + tag + " = 1"
+                str_format = str_format + comm + "- " + tag + " = 1"
             str_format = str_format + div
     # How About PlayReq?
 
@@ -53,7 +54,7 @@ def cardCommentGen(card):
         str_format = str_format + comm + "RefTag:"
         if "referencedTags" in card.keys():
             for tag in card['referencedTags']:
-                str_format = str_format + comm + " - " + tag + " = 1"
+                str_format = str_format + comm + "- " + tag + " = 1"
             str_format = str_format + div
     return str_format
 
