@@ -21,7 +21,7 @@ using namespace SimpleTasks;
 
 // ----------------------------------------- MINION - DRUID
 // [SCH_242] Gibberling - COST:1 [ATK:1/HP:1]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Spellburst:</b> Summon a Gibberling.
 // --------------------------------------------------------
@@ -71,12 +71,12 @@ TEST_CASE("[Druid : Minion] - SCH_242 : Gibberling")
 
 // ------------------------------------------ SPELL - DRUID
 // [SCH_333] Nature Studies - COST:1
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Discover</b> a spell. Your next one costs (1) less.
 // --------------------------------------------------------
 // GameTag:
-//  - DISCOVER = 1
+// - DISCOVER = 1
 // --------------------------------------------------------
 TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
 {
@@ -176,16 +176,16 @@ TEST_CASE("[Hunter : Minion] - SCH_133 : Wolpertinger")
 
 // ----------------------------------------- SPELL - HUNTER
 // [SCH_300] Carrion Studies - COST:1
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Discover</b> a <b>Deathrattle</b> minion.
 //       Your next one costs (1) less.
 // --------------------------------------------------------
 // GameTag:
-//  - DISCOVER = 1
+// - DISCOVER = 1
 // --------------------------------------------------------
 // RefTag:
-//  - DEATHRATTLE = 1
+// - DEATHRATTLE = 1
 // --------------------------------------------------------
 TEST_CASE("[Hunter : Spell] - SCH_300 : Carrion Studies")
 {
@@ -246,7 +246,7 @@ TEST_CASE("[Hunter : Spell] - SCH_300 : Carrion Studies")
 
 // ------------------------------------------ MINION - MAGE
 // [SCH_241] Firebrand - COST:3 [ATK:3/HP:4]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Spellburst</b>: Deal 4 damage randomly split
 //       among all enemy minions.
@@ -308,7 +308,7 @@ TEST_CASE("[Mage : Minion] - SCH_241 : Firebrand")
 
 // ------------------------------------------ MINION - MAGE
 // [SCH_243] Wyrm Weaver - COST:5 [ATK:3/HP:6]
-//  - Set: SCHOLOMANCE, Rarity: Rare
+// - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
 // --------------------------------------------------------
@@ -358,12 +358,12 @@ TEST_CASE("[Mage : Minion] - SCH_243 : Wyrm Weaver")
 
 // ------------------------------------------ MINION - MAGE
 // [SCH_310] Lab Partner - COST:1 [ATK:1/HP:3]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
 // --------------------------------------------------------
 // GameTag:
-//  - SPELLPOWER = 1
+// - SPELLPOWER = 1
 // --------------------------------------------------------
 TEST_CASE("[Mage : Minion] - SCH_310 : Lab Partner")
 {
@@ -425,7 +425,7 @@ TEST_CASE("[Paladin : Minion] - SCH_712 : Judicious Junior")
 
 // ---------------------------------------- MINION - PRIEST
 // [SCH_137] Frazzled Freshman - COST:1 [ATK:1/HP:4]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
 {
@@ -459,12 +459,12 @@ TEST_CASE("[Priest : Minion] - SCH_137 : Frazzled Freshman")
 
 // ----------------------------------------- SPELL - PRIEST
 // [SCH_233] Draconic Studies - COST:1
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Discover</b> a Dragon. Your next one costs (1) less.
 // --------------------------------------------------------
 // GameTag:
-//  - DISCOVER = 1
+// - DISCOVER = 1
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - SCH_233 : Draconic Studies")
 {
@@ -529,16 +529,16 @@ TEST_CASE("[Priest : Spell] - SCH_233 : Draconic Studies")
 
 // ----------------------------------------- MINION - ROGUE
 // [SCH_234] Shifty Sophomore - COST:4 [ATK:4/HP:4]
-//  - Set: SCHOLOMANCE, Rarity: Rare
+// - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Stealth</b> <b>Spellburst:</b> Add a
 //       <b>Combo</b> card to your hand.
 // --------------------------------------------------------
 // GameTag:
-//  - STEALTH = 1
+// - STEALTH = 1
 // --------------------------------------------------------
 // RefTag:
-//  - COMBO = 1
+// - COMBO = 1
 // --------------------------------------------------------
 TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
 {
@@ -586,15 +586,15 @@ TEST_CASE("[Rogue : Minion] - SCH_234 : Shifty Sophomore")
 
 // ----------------------------------------- MINION - ROGUE
 // [SCH_426] Infiltrator Lilian - COST:4 [ATK:4/HP:2]
-//  - Set: SCHOLOMANCE, Rarity: Legendary
+// - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Stealth</b> <b>Deathrattle:</b> Summon a
 //       4/2 Forsaken Lilian that attacks a random enemy.
 // --------------------------------------------------------
 // GameTag:
-//  - ELITE = 1
-//  - DEATHRATTLE = 1
-//  - STEALTH = 1
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// - STEALTH = 1
 // --------------------------------------------------------
 TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
 {
@@ -667,12 +667,12 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
 
 // ----------------------------------------- WEAPON - ROGUE
 // [SCH_622] Self-Sharpening Sword - COST:3
-//  - Set: SCHOLOMANCE, Rarity: Rare
+// - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: After your hero attacks, gain +1 Attack.
 // --------------------------------------------------------
 // GameTag:
-//  - TRIGGER_VISUAL = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
 {
@@ -725,13 +725,13 @@ TEST_CASE("[Rogue : Minion] - SCH_622 : Self-Sharpening Sword")
 
 // ------------------------------------------ SPELL - ROGUE
 // [SCH_706] Plagiarize - COST:2
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Secret:</b> At the end of your opponent's turn,
 //       add copies of the cards they played to your hand.
 // --------------------------------------------------------
 // GameTag:
-//  - SECRET = 1
+// - SECRET = 1
 // --------------------------------------------------------
 TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
 {
@@ -788,12 +788,12 @@ TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_158] Demonic Studies - COST:1
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Discover</b> a Demon. Your next one costs (1) less.
 // --------------------------------------------------------
 // GameTag:
-//  - DISCOVER = 1
+// - DISCOVER = 1
 // --------------------------------------------------------
 TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
 {
@@ -858,16 +858,16 @@ TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
 
 // ---------------------------------------- SPELL - WARRIOR
 // [SCH_237] Athletic Studies - COST:1
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Discover</b> a <b>Rush</b> minion.
 //       Your next one costs (1) less.
 // --------------------------------------------------------
 // GameTag:
-//  - DISCOVER = 1
+// - DISCOVER = 1
 // --------------------------------------------------------
 // RefTag:
-//  - RUSH = 1
+// - RUSH = 1
 // --------------------------------------------------------
 TEST_CASE("[Warrior : Spell] - SCH_237 : Athletic Studies")
 {
@@ -932,7 +932,7 @@ TEST_CASE("[Warrior : Spell] - SCH_237 : Athletic Studies")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
-//  - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
+// - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Spellburst:</b> Add 2 random spells
 //       from your class to your hand.
@@ -1032,16 +1032,16 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
 
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_270] Primordial Studies - COST:1
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Discover</b> a <b>Spell Damage</b> minion.
 //       Your next one costs (1) less.
 // --------------------------------------------------------
 // GameTag:
-//  - DISCOVER = 1
+// - DISCOVER = 1
 // --------------------------------------------------------
 // RefTag:
-//  - SPELLPOWER = 1
+// - SPELLPOWER = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Spell] - SCH_270 : Primordial Studies")
 {
@@ -1106,13 +1106,13 @@ TEST_CASE("[Neutral : Spell] - SCH_270 : Primordial Studies")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_350] Wand Thief - COST:1 [ATK:1/HP:2]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Combo:</b> <b>Discover</b> a Mage spell.
 // --------------------------------------------------------
 // GameTag:
-//  - COMBO = 1
-//  - DISCOVER = 1
+// - COMBO = 1
+// - DISCOVER = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
 {
@@ -1155,14 +1155,14 @@ TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
-//  - Set: SCHOLOMANCE, Rarity: Legendary
+// - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon two random 5-Cost minions.
 //       Secretly pick one that dies when it takes damage.
 // --------------------------------------------------------
 // GameTag:
-//  - ELITE = 1
-//  - BATTLECRY = 1
+// - ELITE = 1
+// - BATTLECRY = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
 {
@@ -1284,7 +1284,7 @@ TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
 
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_352] Potion of Illusion - COST:4
-//  - Set: SCHOLOMANCE, Rarity: Epic
+// - Set: SCHOLOMANCE, Rarity: Epic
 // --------------------------------------------------------
 // Text: Add 1/1 copies of your minions to your hand.
 //       They cost (1).
@@ -1361,15 +1361,15 @@ TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_425] Doctor Krastinov - COST:5 [ATK:4/HP:4]
-//  - Set: SCHOLOMANCE, Rarity: Legendary
+// - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Rush</b>
 //       Whenever this attacks, give your weapon +1/+1.
 // --------------------------------------------------------
 // GameTag:
-//  - ELITE = 1
-//  - RUSH = 1
-//  - TRIGGER_VISUAL = 1
+// - ELITE = 1
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
 {
@@ -1430,16 +1430,16 @@ TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
 
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_509] Brain Freeze - COST:1
-//  - Set: SCHOLOMANCE, Rarity: Rare
+// - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a minion.
 //       <b>Combo:</b> Also deal 3 damage to it.
 // --------------------------------------------------------
 // GameTag:
-//  - COMBO = 1
+// - COMBO = 1
 // --------------------------------------------------------
 // RefTag:
-//  - FREEZE = 1
+// - FREEZE = 1
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1498,13 +1498,13 @@ TEST_CASE("[Neutral : Spell] - SCH_509 : Brain Freeze")
 
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_521] Coerce - COST:3
-//  - Set: SCHOLOMANCE, Rarity: Rare
+// - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: Destroy a damaged minion.
 //       <b>Combo:</b> Destroy any minion.
 // --------------------------------------------------------
 // GameTag:
-//  - COMBO = 1
+// - COMBO = 1
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1566,13 +1566,13 @@ TEST_CASE("[Neutral : Spell] - SCH_521 : Coerce")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_522] Steeldancer - COST:4 [ATK:4/HP:4]
-//  - Set: SCHOLOMANCE, Rarity: Epic
+// - Set: SCHOLOMANCE, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a random minion with Cost
 //       equal to your weapon's Attack.
 // --------------------------------------------------------
 // GameTag:
-//  - BATTLECRY = 1
+// - BATTLECRY = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_522 : Steeldancer")
 {
@@ -1617,7 +1617,7 @@ TEST_CASE("[Neutral : Minion] - SCH_522 : Steeldancer")
 
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_623] Cutting Class - COST:5
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: Draw 2 cards. Costs (1) less per Attack of your weapon.
 // --------------------------------------------------------
@@ -1668,14 +1668,14 @@ TEST_CASE("[Neutral : Spell] - SCH_623 : Cutting Class")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_707] Fishy Flyer - COST:4 [ATK:4/HP:3]
-//  - Race: Murloc, Set: SCHOLOMANCE, Rarity: Common
+// - Race: Murloc, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost
 //       with <b>Rush</b> to your hand.
 // --------------------------------------------------------
 // GameTag:
-//  - DEATHRATTLE = 1
-//  - RUSH = 1
+// - DEATHRATTLE = 1
+// - RUSH = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_707 : Fishy Flyer")
 {
@@ -1719,14 +1719,14 @@ TEST_CASE("[Neutral : Minion] - SCH_707 : Fishy Flyer")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_708] Sneaky Delinquent - COST:2 [ATK:3/HP:1]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Stealth</b>. <b>Deathrattle:</b> Add a 3/1 Ghost
 //       with <b>Stealth</b> to your hand.
 // --------------------------------------------------------
 // GameTag:
-//  - DEATHRATTLE = 1
-//  - STEALTH = 1
+// - DEATHRATTLE = 1
+// - STEALTH = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_708 : Sneaky Delinquent")
 {
@@ -1770,14 +1770,14 @@ TEST_CASE("[Neutral : Minion] - SCH_708 : Sneaky Delinquent")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_709] Smug Senior - COST:6 [ATK:5/HP:7]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost
 //       with <b>Taunt</b> to your hand.
 // --------------------------------------------------------
 // GameTag:
-//  - DEATHRATTLE = 1
-//  - TAUNT = 1
+// - DEATHRATTLE = 1
+// - TAUNT = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_709 : Smug Senior")
 {
@@ -1821,16 +1821,16 @@ TEST_CASE("[Neutral : Minion] - SCH_709 : Smug Senior")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_710] Ogremancer - COST:5 [ATK:3/HP:7]
-//  - Set: SCHOLOMANCE, Rarity: Common
+// - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever your opponent casts a spell,
 //       summon a 2/2 Skeleton with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
-//  - TRIGGER_VISUAL = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 // RefTag:
-//  - TAUNT = 1
+// - TAUNT = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_710 : Ogremancer")
 {
@@ -1881,12 +1881,12 @@ TEST_CASE("[Neutral : Minion] - SCH_710 : Ogremancer")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_711] Plagued Protodrake - COST:8 [ATK:8/HP:8]
-//  - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
+// - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a random 7-Cost minion.
 // --------------------------------------------------------
 // GameTag:
-//  - DEATHRATTLE = 1
+// - DEATHRATTLE = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_711 : Plagued Protodrake")
 {
@@ -1928,13 +1928,13 @@ TEST_CASE("[Neutral : Minion] - SCH_711 : Plagued Protodrake")
 
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_713] Cult Neophyte - COST:2 [ATK:3/HP:2]
-//  - Set: SCHOLOMANCE, Rarity: Rare
+// - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Your opponent's spells cost (1)
 //       more next turn.
 // --------------------------------------------------------
 // GameTag:
-//  - BATTLECRY = 1
+// - BATTLECRY = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - SCH_713 : Cult Neophyte")
 {
