@@ -16063,6 +16063,439 @@
         "type": "MINION"
     },
     {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 60443,
+        "elite": true,
+        "flavor": "It really just wants to cuddle all the creatures of Azeroth.",
+        "health": 7,
+        "id": "DMF_002",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "N'Zoth, God of the Deep",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Resurrect a friendly minion of each minion type.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "collectionText": "[x]<b>Battlecry:</b> If you've cast\n10 spells this game, spin\nthe Wheel of Yogg-Saron.",
+        "cost": 10,
+        "dbfId": 60445,
+        "elite": true,
+        "flavor": "Yogg take the wheel!",
+        "health": 5,
+        "id": "DMF_004",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Yogg-Saron, Master of Fate",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> If you've cast\n10 spells this game, spin\nthe Wheel of Yogg-Saron.@\n<i>({0} left!)</i>@\n<i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 60916,
+        "flavor": "Still doesn't understand why he can't beat Paper Rager.",
+        "health": 1,
+        "id": "DMF_044",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Rock Rager",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 8,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 61434,
+        "faction": "HORDE",
+        "flavor": "An attempted cure becomes disease, blooming and thriving as rot and decay.",
+        "health": 8,
+        "id": "DMF_053",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Blood of G'huun",
+        "race": "ELEMENTAL",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Taunt</b>\nAt the end of your turn,\nsummon a 5/5 copy of a\nminion in your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61435,
+        "flavor": "Shouldn't the eyes be facing backwards for insight?",
+        "id": "DMF_054",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Insight",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw a minion. <b>Corrupt:</b> Reduce its Cost by (2).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Agatha Zhou",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 61436,
+        "flavor": "Without a tongue, it speaks in seven. Without a voice, its echo lingers forever.",
+        "id": "DMF_055",
+        "name": "Idol of Y'Shaarj",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon a 10/10 copy of a minion in your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 8,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 61437,
+        "elite": true,
+        "flavor": "All of the other Old Gods used to laugh and call him names. They never let poor G'huun join in any Old God games.",
+        "health": 8,
+        "id": "DMF_056",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "G'huun the Blood God",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Draw 2 cards. They cost Health instead of Mana.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jun Yan",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61449,
+        "flavor": "When the Azeroth is between the Sun and the Moon.",
+        "id": "DMF_057",
+        "name": "Lunar Eclipse",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $3 damage to a minion. Your next spell this turn costs (2) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jun Yan",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61450,
+        "flavor": "When the Moon is between the Sun and the Azeroth.",
+        "id": "DMF_058",
+        "name": "Solar Eclipse",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Your next spell this turn casts twice.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 10,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 61460,
+        "flavor": "Loved. Hated. Carbonated.",
+        "health": 10,
+        "id": "DMF_059",
+        "mechanics": [
+            "RUSH",
+            "TAUNT"
+        ],
+        "name": "Fizzy Elemental",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>\n<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61461,
+        "flavor": "It sleeps with one eye open.",
+        "health": 4,
+        "id": "DMF_060",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Umbral Owl",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Rush</b>\nCosts (1) less for each spell\nyou've cast this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 2,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61462,
+        "flavor": "The bad apple never falls far from the treant.",
+        "health": 2,
+        "id": "DMF_061",
+        "mechanics": [
+            "CHOOSE_ONE",
+            "CORRUPT"
+        ],
+        "name": "Faire Arborist",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Choose One - </b>Draw a card;\nor Summon a 2/2 Treant.\n<b>Corrupt:</b> Do both.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Nicola Saviori",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61580,
+        "flavor": "This game of ring toss just got really intense.",
+        "health": 2,
+        "id": "DMF_062",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Gyreworm",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Deal 3 damage.",
+        "text": "<b>Battlecry:</b> If you played an Elemental last turn, deal 3 damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 5,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61581,
+        "flavor": "\"When does this bird land in Stormwind? I've been flying for hours!\"",
+        "health": 5,
+        "id": "DMF_064",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Carousel Gryphon",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Divine Shield</b>\n<b>Corrupt:</b> Gain +3/+3 and <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61616,
+        "flavor": "There's always money in the banana stand.",
+        "health": 4,
+        "id": "DMF_065",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Banana Vendor",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Add 2 Bananas to each player's hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Angelica Alieva",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61620,
+        "flavor": "\"They're perfectly safe! These gloves totally aren't hiding any bandages.\"",
+        "health": 4,
+        "id": "DMF_066",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Knife Vendor",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Deal 4 damage to each hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61622,
+        "flavor": "He's just making sure they're real. Authentic tickets taste like strawberry.",
+        "health": 3,
+        "id": "DMF_067",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Prize Vendor",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Both players draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61625,
+        "flavor": "\"What if this goes wrong?\" \"But what if this goes right?\"",
+        "health": 7,
+        "id": "DMF_068",
+        "mechanics": [
+            "FORGETFUL",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Optimistic Ogre",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "50% chance to attack the correct enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61626,
+        "flavor": "\"I have been mrglrlglr… chosen!\"",
+        "health": 3,
+        "id": "DMF_069",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Claw Machine",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>. <b>Deathrattle:</b> Draw a minion and give it +3/+3.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 61629,
+        "flavor": "That's no ordinary rabbit! That's the most foul, cruel, and bad-tempered rodent you ever set eyes on!",
+        "health": 1,
+        "id": "DMF_070",
+        "mechanics": [
+            "POISONOUS",
+            "RUSH"
+        ],
+        "name": "Darkmoon Rabbit",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>, <b>Poisonous</b>\nAlso damages the minions next to whomever this attacks.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Juyoung Oh",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61635,
+        "elite": true,
+        "flavor": "Red, the color of subtlety.",
+        "health": 2,
+        "id": "DMF_071",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tenwu of the Red Smoke",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Return a minion to your hand.",
+        "text": "<b>Battlecry:</b> Return a friendly minion to your hand. It costs (1) this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61639,
+        "flavor": "\"It's dirigible? I don’t even know what diriging is!\"",
+        "health": 2,
+        "id": "DMF_073",
+        "mechanics": [
+            "CORRUPT",
+            "DIVINE_SHIELD"
+        ],
+        "name": "Darkmoon Dirigible",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Divine Shield</b>\n<b>Corrupt:</b> Gain <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
         "artist": "Ivan Fomin",
         "attack": 4,
         "cardClass": "NEUTRAL",
@@ -16080,6 +16513,2185 @@
         "rarity": "LEGENDARY",
         "set": "DARKMOON_FAIRE",
         "text": "<b>Battlecry:</b> Choose a direction to rotate all minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61649,
+        "flavor": "\"And then at the last second, I'll shapeshift into cat form!\"",
+        "id": "DMF_075",
+        "name": "Guess the Weight",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw a card. Guess if your next card costs more or less to draw it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61670,
+        "flavor": "Sure, it looks impressive until you realize it's a barrel of helium.",
+        "health": 6,
+        "id": "DMF_078",
+        "mechanics": [
+            "CORRUPT",
+            "TAUNT"
+        ],
+        "name": "Strongman",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\n<b>Corrupt:</b> This costs (0).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sean McNally",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61672,
+        "flavor": "Improvise, adapt, overcome.",
+        "health": 2,
+        "id": "DMF_079",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Inconspicuous Rider",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Cast a <b>Secret</b> from your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61674,
+        "flavor": "Guest interactions may vary over the duration of the visit.",
+        "health": 4,
+        "id": "DMF_080",
+        "mechanics": [
+            "CORRUPT",
+            "RUSH"
+        ],
+        "name": "Fleethoof Pearltusk",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>\n<b>Corrupt:</b> Gain +4/+4.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61676,
+        "flavor": "Something evil this way comes… and it's bringing friends over!",
+        "health": 4,
+        "id": "DMF_081",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "K'thir Ritualist",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Add a random\n4-Cost minion to your\nopponent's hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61677,
+        "flavor": "As far as workplace injuries go, Silas is protected by his statue of limitations.",
+        "health": 5,
+        "id": "DMF_082",
+        "mechanics": [
+            "AURA",
+            "CORRUPT"
+        ],
+        "name": "Darkmoon Statue",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Your other minions have +1 Attack. <b>Corrupt:</b> This gains +4 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61679,
+        "flavor": "Snakes are just tentacles with fangs.",
+        "health": 5,
+        "id": "DMF_083",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Dancing Cobra",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupt:</b> Gain <b>Poisonous</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ware Lee",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 61690,
+        "flavor": "This coveted gem calls for you to free it… and unleash an inescapable prison.",
+        "id": "DMF_084",
+        "name": "Jewel of N'Zoth",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon three friendly <b>Deathrattle</b> minions that died this game.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 8,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61699,
+        "flavor": "\"Ready to roll out!\"",
+        "health": 5,
+        "id": "DMF_085",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Darkmoon Tonk",
+        "race": "MECHANICAL",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Deathrattle:</b> Fire four  missiles at random enemies that deal 2 damage each.",
+        "type": "MINION"
+    },
+    {
+        "artist": "E. Li & A. Zemskov",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61700,
+        "flavor": "Welcome to the petting zoo. DO NOT TOUCH THE ANIMALS.",
+        "id": "DMF_086",
+        "name": "Petting Zoo",
+        "rarity": "RARE",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon a 3/3 Strider. Repeat for each <b>Secret</b> you control.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61702,
+        "flavor": "\"Whew. I thought you said 'Trampoline Rhino.' Now that would have been scary.\"",
+        "health": 5,
+        "id": "DMF_087",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Trampling Rhino",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>. After this attacks\nand kills a minion, excess damage hits the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61839,
+        "durability": 2,
+        "elite": true,
+        "flavor": "This rifle needs a muzzle for its muzzle.",
+        "id": "DMF_088",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Rinling's Rifle",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DISCOVER",
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks, <b>Discover</b> a <b>Secret</b> and cast it.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61842,
+        "elite": true,
+        "flavor": "Believe it or not, this is only the faire's fourth most dangerous game.",
+        "health": 4,
+        "id": "DMF_089",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Maxima Blastenheimer",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Summon a minion\nfrom your deck. It attacks the\nenemy hero, then dies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61846,
+        "flavor": "They're still cleaning up the mess from the last time someone fed the basilisk a deep fried candybar.",
+        "id": "DMF_090",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Don't Feed the Animals",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "Give all Beasts in your hand +1/+1.\n<b>Corrupt:</b> Give them +2/+2 instead.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61898,
+        "flavor": "Created to scare. Born to wriggle.",
+        "health": 1,
+        "id": "DMF_091",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Wriggling Horror",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Give adjacent minions +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61176,
+        "flavor": "\"Oh, I thought it was a desert elemental?\"",
+        "health": 2,
+        "id": "DMF_100",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Confection Cyclone",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Add two 1/2 Sugar Elementals to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61177,
+        "flavor": "The brightest spark can still go dark.",
+        "health": 5,
+        "id": "DMF_101",
+        "mechanics": [
+            "BATTLECRY",
+            "CORRUPT"
+        ],
+        "name": "Firework Elemental",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Deal 3 damage.",
+        "text": "[x]<b>Battlecry:</b> Deal 3 damage\nto a minion. <b>Corrupt:</b>\nDeal 12 instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Cheung & A. Bozonnet",
+        "attack": 2,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61178,
+        "flavor": "\"You hear the mrgrgls of angry murlocs approaching. Roll initiative!\"",
+        "health": 3,
+        "id": "DMF_102",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Game Master",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "The first <b>Secret</b> you play each turn costs (1).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ware Lee",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61179,
+        "flavor": "Hide in the mask, but it will wear you. Through its gleaming eye, you shall see true.",
+        "id": "DMF_103",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Mask of C'Thun",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $10 damage randomly split among all enemies.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "E. Li & K. Turovec",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 61180,
+        "flavor": "Considering all the other hazards at Darkmoon, overindulgent pyrotechnics seem downright pedestrian.",
+        "id": "DMF_104",
+        "name": "Grand Finale",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon an 8/8 Elemental. Repeat for each Elemental you played last turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61291,
+        "flavor": "If you liked it, then you shoulda put a ring on it!",
+        "id": "DMF_105",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Ring Toss",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DISCOVER",
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Discover</b> a <b>Secret</b> and cast it. <b>Corrupt:</b> <b>Discover</b> 2 instead.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "attack": 4,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61584,
+        "flavor": "Like mirror image, but more secretive and angsty.",
+        "health": 4,
+        "id": "DMF_106",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Occult Conjurer",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> If you control a <b>Secret</b>, summon a copy of this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Cheung & K. Turovec",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61585,
+        "flavor": "What's faire is fair.",
+        "id": "DMF_107",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Rigged Faire Game",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Secret:</b> If you didn't take any damage during your opponent's turn, draw 3 cards.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61587,
+        "elite": true,
+        "flavor": "Voted \"Most Lunacy\" in Madness Monthly magazine.",
+        "id": "DMF_108",
+        "name": "Deck of Lunacy",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "Transform spells in your deck into ones that cost (3) more. <i>(They keep their original Cost.)</i>",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 5,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61589,
+        "elite": true,
+        "flavor": "There are no secrets between us... or refunds.",
+        "health": 5,
+        "id": "DMF_109",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sayge, Seer of Darkmoon",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Draw 1 card.\n<i>(Upgraded for each\nfriendly <b>Secret</b> that has\ntriggered this game!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Cheung & K. Turovec",
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61202,
+        "flavor": "\"Phew! That skull has been stuck between my teeth for hours!\"",
+        "health": 3,
+        "id": "DMF_110",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Fire Breather",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Deal 2 damage to all minions except Demons.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & A. Bozonnet",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61203,
+        "flavor": "\"E.T.C. is sooo mainstream. Have you heard of Blight Boar?\"",
+        "health": 4,
+        "id": "DMF_111",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Man'ari Mosher",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Give +3 Attack and <b>Lifesteal</b>.",
+        "text": "<b>Battlecry:</b> Give a friendly Demon +3 Attack and <b>Lifesteal</b> this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61205,
+        "flavor": "\"Quick, get in before someone sees you, or worse, someone sees me.\"",
+        "id": "DMF_113",
+        "name": "Free Admission",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw 2 minions. If they're both Demons, reduce their Costs by (2).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 1,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61206,
+        "flavor": "Faire owners hate him! Learn his secrets with one simple spell!",
+        "health": 5,
+        "id": "DMF_114",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Midway Maniac",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Cheng Hao",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61207,
+        "flavor": "Turns out his face really did get stuck that way.",
+        "health": 3,
+        "id": "DMF_115",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Revenant Rascal",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Destroy a Mana Crystal for both players.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61208,
+        "elite": true,
+        "flavor": "Used to be called \"             , the Nameless,\" but everyone got confused.",
+        "health": 4,
+        "id": "DMF_116",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "The Nameless One",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Become a 4/4 copy and <b>Silence</b> it.",
+        "text": "<b>Battlecry:</b> Choose a minion. Become a 4/4 copy of it, then <b>Silence</b> it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61254,
+        "flavor": "Please keep all hands, arms, feet and legs inside the ride until the monster comes to a complete stop.",
+        "id": "DMF_117",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Cascading Disaster",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]Destroy a random enemy\nminion. <b>Corrupt:</b> Destroy 2.\n<b>Corrupt Again:</b> Destroy 3.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 8,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61646,
+        "elite": true,
+        "flavor": "\"These are all.... EXPIRED!\"",
+        "health": 8,
+        "id": "DMF_118",
+        "mechanics": [
+            "BATTLECRY",
+            "CORRUPT"
+        ],
+        "name": "Tickatus",
+        "race": "DEMON",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Remove the\ntop 5 cards from your deck.\n<b>Corrupt:</b> Your opponent's\ndeck instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "E. Li & K. Turovec",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61648,
+        "flavor": "When the Old Ones whisper, others will scream.",
+        "id": "DMF_119",
+        "name": "Wicked Whispers",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Discard your lowest Cost card. Give your minions +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61642,
+        "flavor": "Her first stage name, Ketchupweaver, failed to excite the audience.",
+        "health": 5,
+        "id": "DMF_120",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Nazmani Bloodweaver",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]After you cast a spell,\nreduce the cost of a random\ncard in your hand by (1).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61643,
+        "flavor": "\"I see a giant piano in your future.\"",
+        "health": 3,
+        "id": "DMF_121",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Fortune Teller",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Gain +1/+1 for\neach spell in your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61682,
+        "flavor": "Yeah, but the mystery prize could be anything! Even a boat!",
+        "health": 1,
+        "id": "DMF_122",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Mystery Winner",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a <b>Secret.</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61683,
+        "flavor": "\"Coming out of my cage, and I'm dead by turn nine...\"",
+        "id": "DMF_123",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Open the Cages",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Secret:</b> When your\nturn starts, if you control\n two minions, summon an\nAnimal Companion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61685,
+        "flavor": "Stop picking at it! You’re only making it worse.",
+        "health": 2,
+        "id": "DMF_124",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Horrendous Growth",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupt:</b> Gain +1/+1. Can be <b>Corrupted</b> endlessly.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 62049,
+        "flavor": "\"All right, you're good. No sign of safety anywhere.\"",
+        "health": 3,
+        "id": "DMF_125",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Safety Inspector",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Shuffle the\n lowest-Cost card from\n your hand into your\n deck. Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 60926,
+        "flavor": "Send in the clowns!",
+        "health": 4,
+        "id": "DMF_163",
+        "mechanics": [
+            "BATTLECRY",
+            "CORRUPT",
+            "TAUNT"
+        ],
+        "name": "Carnival Clown",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Summon 2 copies\nof this. <b>Corrupt:</b> Fill your\nboard with copies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 60979,
+        "flavor": "Just be careful not to mix this with any creepy eyeballs, tentacles, or dark whispers, and you'll be fine in the morning.",
+        "health": 4,
+        "id": "DMF_174",
+        "mechanics": [
+            "BATTLECRY",
+            "CORRUPT"
+        ],
+        "name": "Circus Medic",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Restore #4 Health.",
+        "text": "<b>Battlecry:</b> Restore #4 Health. <b>Corrupt:</b> Deal 4 damage instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61268,
+        "flavor": "\"What did Illidan say when his rocketeer broke down on the Darkmoon racetrack? YOU ARE NOT REPAIRED!\"",
+        "health": 3,
+        "id": "DMF_184",
+        "mechanics": [
+            "CORRUPT",
+            "TAUNT"
+        ],
+        "name": "Fairground Fool",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\n<b>Corrupt:</b> Gain +4 Health.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Forrest Imel",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61283,
+        "flavor": "\"I'm not AWE-spicious, but I am a little spicious.\"",
+        "id": "DMF_186",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Auspicious Spirits",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon a random\n4-Cost minion.\n<b>Corrupt:</b> Summon a\n7-Cost minion instead.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61282,
+        "flavor": "Actual palms not required.",
+        "id": "DMF_187",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Palm Reading",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Discover</b> a spell. Reduce the Cost of spells in your hand by (1).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 10,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 61308,
+        "elite": true,
+        "flavor": "Y'Shaarj made an excellent office intern, doing the copying AND defiling.",
+        "health": 10,
+        "id": "DMF_188",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Y'Shaarj, the Defiler",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Add a copy of each\n<b>Corrupted</b> card you've played\nthis game to your hand.\nThey cost (0) this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61297,
+        "flavor": "Just remember not to talk. It breaks character.",
+        "health": 2,
+        "id": "DMF_189",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Costumed Entertainer",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Give a random\nminion in your hand +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61298,
+        "flavor": "The original flaming chicken.",
+        "health": 5,
+        "id": "DMF_190",
+        "mechanics": [
+            "WINDFURY"
+        ],
+        "name": "Fantastic Firebird",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Windfury</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61299,
+        "flavor": "This act is killing it!",
+        "health": 2,
+        "id": "DMF_191",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Showstopper",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Deathrattle:</b> <b>Silence</b> all minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61305,
+        "flavor": "Sir Finley made this look a lot easier three expansions ago...",
+        "health": 3,
+        "id": "DMF_194",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Redscale Dragontamer",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Deathrattle:</b> Draw a Dragon.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61306,
+        "flavor": "\"I'll have two monster churros, a combo box of Yogg-Saron, and one of those turkey legs that ate the Silver Hand Recruit.\"",
+        "id": "DMF_195",
+        "name": "Snack Run",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Discover</b> a spell. Restore Health to your hero equal to its Cost.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 60892,
+        "flavor": "So long as it doesn’t kill you, it's considered part of the ride \"experience.\"",
+        "health": 2,
+        "id": "DMF_202",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Derailed Coaster",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Summon a 1/1 Rider with <b>Rush</b> for each minion in your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "K. Lashley & K. Turovec",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61123,
+        "flavor": "There are two things Demon Hunters know: hopping, and cutting.",
+        "health": 4,
+        "id": "DMF_217",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Line Hopper",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "OUTCAST"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Your <b>Outcast</b> cards cost (1) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61125,
+        "flavor": "If you steal a Demon Hunter's corn dog, you'll get what's coming.",
+        "id": "DMF_219",
+        "name": "Relentless Pursuit",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Give your hero +4 Attack and <b>Immune</b> this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "K. Lashley & K. Turovec",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61127,
+        "flavor": "All the souls start running when they see the felscream truck.",
+        "id": "DMF_221",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Felscream Blast",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Lifesteal</b>. Deal $1 damage to a minion and its neighbors.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61128,
+        "flavor": "\"Look at this stick. Look at it!\"",
+        "health": 3,
+        "id": "DMF_222",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Redeemed Pariah",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "OUTCAST"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "After you play an <b>Outcast</b> card, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61129,
+        "flavor": "Cutting the assistant in half is the easy part.",
+        "health": 3,
+        "id": "DMF_223",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Renowned Performer",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH",
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Summon two\n  1/1 Assistants with <b>Taunt</b>.  ",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61130,
+        "flavor": "When someone gets injured, it's considered performance art.",
+        "id": "DMF_224",
+        "name": "Expendable Performers",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon seven 1/1 Illidari with <b>Rush</b>. If they all die this turn, summon seven more.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt O'Connor",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61131,
+        "flavor": "\"No, no, I said SHOW me the glaive!\"",
+        "id": "DMF_225",
+        "name": "Throw Glaive",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $2 damage to a minion. If it dies, add a temporary copy of this to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 6,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61132,
+        "flavor": "While you were busy learning magic, she studied the blade.",
+        "health": 6,
+        "id": "DMF_226",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Bladed Lady",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Rush</b>\nCosts (1) if your hero has\n6 or more Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Brandon Blackwell",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61133,
+        "durability": 2,
+        "flavor": "When it gets too dull, it's more of a nibble.",
+        "id": "DMF_227",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Dreadlord's Bite",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Outcast:</b> Deal 1 damage\nto all enemies.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61135,
+        "flavor": "Circus school was tough, sometimes you had to step on people to make it to the top.",
+        "health": 1,
+        "id": "DMF_229",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Stiltstepper",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Draw a card. If you\nplay it this turn, give your\nhero +4 Attack this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61136,
+        "elite": true,
+        "flavor": "Well, that just sounds like damage with extra steps.",
+        "health": 6,
+        "id": "DMF_230",
+        "name": "Il'gynoth",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Lifesteal</b>\nYour <b>Lifesteal</b> damages\nthe enemy hero instead\nof healing you.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61137,
+        "elite": true,
+        "flavor": "Following this act will be her younger brother, Frank the Mediocre.",
+        "health": 3,
+        "id": "DMF_231",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Zai, the Incredible",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Copy the left- and right-most cards in your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Forrest Imel",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61186,
+        "flavor": "It's a shiny yellow balloon! But it can be popped with a single point of damage.",
+        "health": 5,
+        "id": "DMF_235",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Balloon Merchant",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Give your Silver Hand Recruits +1 Attack and <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Wayne Wu",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61187,
+        "flavor": "Many wonders lie within, but they are not mere toys when your mind is their plaything.",
+        "id": "DMF_236",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Oh My Yogg!",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Secret:</b> When your\nopponent casts a spell,\nthey instead cast a random\none of the same Cost.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61188,
+        "flavor": "The barking initially confused faire-goers, so he switched to words.",
+        "health": 2,
+        "id": "DMF_237",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Carnival Barker",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Whenever you summon a 1-Health minion, give it +1/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "SARIYA",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61189,
+        "durability": 3,
+        "flavor": "The naaru wasn't using it. It doesn't have arms.",
+        "id": "DMF_238",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Hammer of the Naaru",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Summon a 6/6 Holy Elemental with <b>Taunt</b>.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 5,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61191,
+        "elite": true,
+        "flavor": "So infused with the Light, he has to wear double sleep masks at night.",
+        "health": 5,
+        "id": "DMF_240",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lothraxion the Redeemed",
+        "race": "DEMON",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> For the rest of the\ngame, after you summon\na Silver Hand Recruit,\ngive it <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Phroilan Gardner",
+        "attack": 7,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 61192,
+        "elite": true,
+        "flavor": "There can be no neutrality in the fight against darkness.",
+        "health": 5,
+        "id": "DMF_241",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "High Exarch Yrel",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "LIFESTEAL",
+            "RUSH",
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> If your deck has\nno Neutral cards, gain\n<b>Rush</b>, <b>Lifesteal</b>, <b>Taunt</b>,\nand <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61218,
+        "flavor": "Karl knew he would someday regret that turkey leg.",
+        "id": "DMF_244",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Day at the Faire",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon 3 Silver\nHand Recruits.\n<b>Corrupt:</b> Summon 5.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61269,
+        "flavor": "Back-to-back winner of the annual hot dog eating contest... and the judge-eating contest.",
+        "health": 5,
+        "id": "DMF_247",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Insatiable Felhound",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "LIFESTEAL",
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\n <b>Corrupt:</b> Gain +1/+1 and <b>Lifesteal</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61271,
+        "flavor": "\"My mom said I could be anything I want.\"",
+        "health": 3,
+        "id": "DMF_248",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Felsteel Executioner",
+        "race": "ELEMENTAL",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupt:</b> Become a weapon.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61273,
+        "flavor": "He soars through the air with the greatest of fleas.",
+        "id": "DMF_249",
+        "name": "Acrobatics",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw 2 cards. If you play both this turn, draw 2 more.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 61503,
+        "elite": true,
+        "flavor": "My grandfather's deck has no useless cards!",
+        "health": 6,
+        "id": "DMF_254",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "C'Thun, the Shattered",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "START_OF_GAME"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Start of Game:</b> Break into\npieces. <b>Battlecry:</b> Deal 30\ndamage randomly split\namong all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eva Widermann",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61151,
+        "flavor": "His other street con involves a druid. He can't pull it off without a plant.",
+        "health": 2,
+        "id": "DMF_511",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Foxy Fraud",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "COMBO"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Your next\n<b>Combo</b> card this turn costs (2) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Cheng Hao",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61154,
+        "flavor": "Only worthy emperors can see the cloak.",
+        "id": "DMF_512",
+        "name": "Cloak of Shadows",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Give your hero <b>Stealth</b> for 1 turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61156,
+        "flavor": "\"You thought you were attacking face, but it was me! You!\"",
+        "id": "DMF_513",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Shadow Clone",
+        "rarity": "RARE",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Secret:</b> After a minion attacks your hero, summon a copy of it with <b>Stealth</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Adam Byrne",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61157,
+        "flavor": "You can exchange one ticket for a bear or save up thousands for a tacky light-up paperweight!",
+        "health": 3,
+        "id": "DMF_514",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Ticket Master",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Deathrattle:</b> Shuffle 3\nTickets into your deck.\nWhen drawn, summon\na 3/3 Plush Bear.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61159,
+        "flavor": "You know, it's probably just cheaper to find a place that sells the plushie…",
+        "id": "DMF_515",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Swindle",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw a spell.\n<b>Combo:</b> And a minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61162,
+        "elite": true,
+        "flavor": "So is a Grand Empress an empress that's grand or an empress's empress?",
+        "health": 7,
+        "id": "DMF_516",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Grand Empress Shek'zara",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a card in your deck and draw all copies of it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61168,
+        "flavor": "He's been eyeballing that ice cream cone all day!",
+        "health": 2,
+        "id": "DMF_517",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Sweet Tooth",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupt:</b> Gain +2 Attack and <b>Stealth</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61169,
+        "flavor": "\"I don't know how those got in there, but I'm blaming you two.\"",
+        "id": "DMF_518",
+        "name": "Malevolent Strike",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]Destroy a minion.\n Costs (1) less for each\n  card in your deck that\n  didn't start there.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61171,
+        "flavor": "But he'll never be able to plunder the prize of a happy childhood.",
+        "health": 1,
+        "id": "DMF_519",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Prize Plunderer",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Deal 1 damage for each other card played this turn.",
+        "text": "[x]<b>Combo:</b> Deal 1 damage to\na minion for each other card\nyou've played this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61235,
+        "flavor": "He's always going to reign on his parade.",
+        "health": 3,
+        "id": "DMF_520",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Parade Leader",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "After you summon a <b>Rush</b> minion, give it +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61237,
+        "flavor": "How tough is he? He eats swords for breakfast! Without any milk.",
+        "health": 5,
+        "id": "DMF_521",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Sword Eater",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Equip a 3/2 Sword.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61238,
+        "flavor": "Dodge bombs like you're playing Tonksweeper!",
+        "id": "DMF_522",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Minefield",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $5 damage randomly split among all minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ursula Dorada",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61242,
+        "flavor": "Subject: Re: Unsafe Rides?\nbump",
+        "health": 3,
+        "id": "DMF_523",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Bumper Car",
+        "race": "MECHANICAL",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>\n<b>Deathrattle:</b> Add two 1/1 Riders with <b>Rush</b> to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61246,
+        "durability": 3,
+        "flavor": "A mech, a dragon, and a pirate walk into an Old God's gaping maw. The mech was too crunchy, the dragon was too hot, but the pirate was just right.",
+        "id": "DMF_524",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ringmaster's Baton",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks, give a Mech, Dragon, and Pirate in your hand +1/+1.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61248,
+        "elite": true,
+        "flavor": "His main qualification is that he'll work with anyone. Or anything.",
+        "health": 5,
+        "id": "DMF_525",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ringmaster Whatley",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Draw a Mech, Dragon, and Pirate.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Cheung & K. Turovec",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61249,
+        "flavor": "The most metal trust fall.",
+        "id": "DMF_526",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Stage Dive",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw a <b>Rush</b> minion. <b>Corrupt:</b> Give it +2/+1.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 5,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61252,
+        "flavor": "\"I consider it redecorating.\"",
+        "health": 5,
+        "id": "DMF_528",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Tent Trasher",
+        "race": "DRAGON",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b><b>Rush</b>.</b> Costs (1) less for each friendly minion with a unique minion type.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & A. Zemskov",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61262,
+        "elite": true,
+        "flavor": "There are Old Gods and then there are Rock Gods.",
+        "health": 4,
+        "id": "DMF_529",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "E.T.C., God of Metal",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "After a friendly <b>Rush</b> minion attacks, deal 2 damage to the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "K. Lashley & K. Turovec",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61263,
+        "flavor": "Generally happens right after the airing of grievances.",
+        "id": "DMF_530",
+        "name": "Feat of Strength",
+        "rarity": "RARE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Give a random <b>Taunt</b> minion in your hand +5/+5.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61426,
+        "flavor": "Holds everything himself because people wouldn't stop touching the prop table.",
+        "health": 2,
+        "id": "DMF_531",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Stage Hand",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Give a random\nminion in your hand +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61428,
+        "flavor": "Who needs a petting zoo when you have all the creatures right here?!",
+        "health": 5,
+        "id": "DMF_532",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Circus Amalgam",
+        "race": "ALL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\n<i>This has all minion types.</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 6,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61884,
+        "flavor": "But where does she keep them?",
+        "health": 4,
+        "id": "DMF_533",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Ring Matron",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon\ntwo 3/2 Imps.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 61885,
+        "elite": true,
+        "flavor": "Yeah, it's chaos, but it's organized chaos.",
+        "id": "DMF_534",
+        "name": "Deck of Chaos",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "Swap the Cost and Attack of all minions in your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61222,
+        "flavor": "\"Please don't ride the carousel for thirty minutes after eating. After the carousel eats, I mean.\"",
+        "id": "DMF_700",
+        "name": "Revolve",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Transform all minions into random ones with the same Cost.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61223,
+        "flavor": "\"When I said bring a tank to the dungeon, this is not what I had in mind!\"",
+        "id": "DMF_701",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Dunk Tank",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $4 damage.\n<b>Corrupt:</b> Then deal $2 damage to all enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61224,
+        "flavor": "When your phone is at 5%.",
+        "id": "DMF_702",
+        "name": "Stormstrike",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $3 damage to a minion. Give your hero +3 Attack this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 1,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61225,
+        "flavor": "If you win your duel, he'll throw in some of his famous Pit Master barbecue.",
+        "health": 2,
+        "id": "DMF_703",
+        "mechanics": [
+            "BATTLECRY",
+            "CORRUPT"
+        ],
+        "name": "Pit Master",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Summon a 3/2 Duelist.\n<b>Corrupt:</b> Summon two.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Tang Ruiqian",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61226,
+        "flavor": "Cleans up after a dust up.",
+        "health": 2,
+        "id": "DMF_704",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Cagematch Custodian",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Draw a weapon.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61227,
+        "durability": 2,
+        "flavor": "Hogger's most hated attraction.",
+        "id": "DMF_705",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Whack-A-Gnoll Hammer",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks, give a random friendly minion +1/+1.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "J. Cheung & A. Bozonnet",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61228,
+        "flavor": "Worth it for the stuffed toy at the end.",
+        "id": "DMF_706",
+        "name": "Deathmatch Pavilion",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon a 3/2 Duelist.\nIf your hero attacked this turn, summon another.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61229,
+        "flavor": "The best part is when he pulls Deathwing out of a top hat!",
+        "health": 4,
+        "id": "DMF_707",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Magicfin",
+        "race": "MURLOC",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "After a friendly Murloc dies, add a random Legendary minion to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61230,
+        "elite": true,
+        "flavor": "A fan favorite, Inara is always met with thunderous applause.",
+        "health": 5,
+        "id": "DMF_708",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Inara Stormcrash",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "On your turn, your hero has +2 Attack and <b>Windfury</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 0,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61663,
+        "elite": true,
+        "flavor": "Some say it can see straight into the soul of any who dare to read its flavor text...",
+        "health": 4,
+        "id": "DMF_709",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Grand Totem Eys'or",
+        "race": "TOTEM",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn,\ngive +1/+1 to all other Totems in your hand, deck and battlefield.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61602,
+        "flavor": "The Suntouched Amulet melted.",
+        "id": "DMF_730",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Moontouched Amulet",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Give your hero +4 Attack this turn. <b>Corrupt:</b> And gain 6 Armor.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "MAR Studio",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 61604,
+        "flavor": "Don't ask about his right hand. He's still growing into it.",
+        "id": "DMF_732",
+        "name": "Cenarion Ward",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "Gain 8 Armor.\nSummon a random\n8-Cost minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 2,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61605,
+        "elite": true,
+        "flavor": "Now, when the Sun is between the Moon and the Azeroth... that's when you've got a problem.",
+        "health": 2,
+        "id": "DMF_733",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Kiri, Chosen of Elune",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Add a Solar Eclipse and Lunar Eclipse to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Steven Prescott",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61606,
+        "elite": true,
+        "flavor": "The best time to plant a tree was 20 years ago. The next best time is when you lose a minion.",
+        "health": 6,
+        "id": "DMF_734",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Greybough",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\nfriendly minion \"<b>Deathrattle:</b>\nSummon Greybough.\"",
         "type": "MINION"
     },
     {
@@ -17814,7 +20426,7 @@
         "name": "Lightforged Crusader",
         "rarity": "EPIC",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> If your deck\nhas no Neutral cards,\nadd 5 random Paladin\ncards to your hand.",
+        "text": "[x]<b>Battlecry:</b> If your deck has\nno Neutral cards, add 5\nrandom Paladin cards\nto your hand.",
         "type": "MINION"
     },
     {
@@ -29321,6 +31933,39 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 61595,
+        "health": 30,
+        "id": "HERO_01d",
+        "name": "Nagrand Garrosh",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 61923,
+        "health": 30,
+        "id": "HERO_01e",
+        "name": "Annhylde",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 64739,
+        "health": 30,
+        "id": "HERO_01f",
+        "name": "Garrosh of Might",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -29387,6 +32032,50 @@
         "type": "HERO"
     },
     {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 64736,
+        "health": 30,
+        "id": "HERO_02f",
+        "name": "Earthfury Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 64848,
+        "health": 30,
+        "id": "HERO_02g",
+        "name": "Thrall, Son of Durotan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 64849,
+        "health": 30,
+        "id": "HERO_02h",
+        "name": "Alterac Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 64850,
+        "health": 30,
+        "id": "HERO_02i",
+        "name": "Wolfrider Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -29415,6 +32104,17 @@
         "health": 30,
         "id": "HERO_03b",
         "name": "Cap’n Valeera",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 64734,
+        "health": 30,
+        "id": "HERO_03d",
+        "name": "Nightslayer Valeera",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -29486,6 +32186,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 64732,
+        "health": 30,
+        "id": "HERO_04g",
+        "name": "Uther Lawbringer",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -29536,6 +32247,17 @@
         "health": 30,
         "id": "HERO_05d",
         "name": "Warsong Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 64699,
+        "health": 30,
+        "id": "HERO_05e",
+        "name": "Giantstalker Rexxar",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -29597,6 +32319,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 64698,
+        "health": 30,
+        "id": "HERO_06e",
+        "name": "Cenarion Malfurion",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -29647,6 +32380,17 @@
         "health": 30,
         "id": "HERO_07d",
         "name": "N'Zoth",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 64738,
+        "health": 30,
+        "id": "HERO_07e",
+        "name": "Felheart Gul'dan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -29718,6 +32462,50 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 64844,
+        "health": 30,
+        "id": "HERO_08g",
+        "name": "Arcanist Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 64845,
+        "health": 30,
+        "id": "HERO_08h",
+        "name": "Apprentice Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 64846,
+        "health": 30,
+        "id": "HERO_08i",
+        "name": "Archmage Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 64847,
+        "health": 30,
+        "id": "HERO_08j",
+        "name": "Kul Tiran Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -29762,6 +32550,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 64733,
+        "health": 30,
+        "id": "HERO_09d",
+        "name": "Anduin of Prophecy",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
@@ -29791,6 +32590,17 @@
         "health": 30,
         "id": "HERO_10b",
         "name": "Aranna Starseeker",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 64697,
+        "health": 30,
+        "id": "HERO_10c",
+        "name": "Demonbane Illidan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -39966,6 +42776,7 @@
         "health": 4,
         "id": "SCH_120",
         "mechanics": [
+            "SPELLBURST",
             "TAUNT"
         ],
         "name": "Cabal Acolyte",
@@ -40144,6 +42955,9 @@
         "flavor": "She's all about hitting the books. Literally.",
         "health": 6,
         "id": "SCH_141",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "multiClassGroup": "PALADIN_PRIEST",
         "name": "High Abbess Alura",
         "rarity": "LEGENDARY",
@@ -40278,6 +43092,9 @@
         "id": "SCH_157",
         "name": "Enchanted Cauldron",
         "rarity": "EPIC",
+        "referencedTags": [
+            "SPELLBURST"
+        ],
         "set": "SCHOLOMANCE",
         "text": "<b><b>Spellburst</b>:</b> Cast a random spell of the same Cost.",
         "type": "MINION"
@@ -40398,6 +43215,7 @@
         "id": "SCH_182",
         "mechanics": [
             "RUSH",
+            "SPELLBURST",
             "WINDFURY"
         ],
         "multiClassGroup": "DRUID_SHAMAN",
@@ -40434,6 +43252,9 @@
         "flavor": "\"You wish to know my secrets, hmm? I carry little bits of tuna in the sleeves of my robe, he loves that. Oh, you meant the risen dead? That was trivial, trivial.\"",
         "health": 6,
         "id": "SCH_224",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Headmaster Kel'Thuzad",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
@@ -40450,6 +43271,9 @@
         "flavor": "Sometimes you gotta spend spells to earn spells.",
         "health": 9,
         "id": "SCH_230",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Onyx Magescribe",
         "race": "DRAGON",
         "rarity": "COMMON",
@@ -40467,6 +43291,9 @@
         "flavor": "How you like them apples?",
         "health": 2,
         "id": "SCH_231",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Intrepid Initiate",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
@@ -40483,6 +43310,9 @@
         "flavor": "Has a real passion for spelling.",
         "health": 6,
         "id": "SCH_232",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Crimson Hothead",
         "race": "DRAGON",
         "rarity": "COMMON",
@@ -40521,6 +43351,7 @@
         "health": 4,
         "id": "SCH_234",
         "mechanics": [
+            "SPELLBURST",
             "STEALTH"
         ],
         "name": "Shifty Sophomore",
@@ -40561,6 +43392,9 @@
         "flavor": "You never know what cards are going to be on the test.",
         "health": 3,
         "id": "SCH_236",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Diligent Notetaker",
         "rarity": "RARE",
         "set": "SCHOLOMANCE",
@@ -40597,6 +43431,9 @@
         "durability": 2,
         "flavor": "Die. Die. Die.",
         "id": "SCH_238",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Reaper's Scythe",
         "rarity": "RARE",
         "set": "SCHOLOMANCE",
@@ -40613,6 +43450,9 @@
         "flavor": "My friend went krolusk tipping once… once!",
         "health": 5,
         "id": "SCH_239",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Krolusk Barkstripper",
         "race": "BEAST",
         "rarity": "EPIC",
@@ -40630,6 +43470,9 @@
         "flavor": "Too cool for school, too hot for thought.",
         "health": 4,
         "id": "SCH_241",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Firebrand",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
@@ -40646,6 +43489,9 @@
         "flavor": "\"As a Linguistics student I have studied the Gibberlings. I have determined they are speaking Gibberish.\"",
         "health": 1,
         "id": "SCH_242",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Gibberling",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
@@ -40662,6 +43508,9 @@
         "flavor": "Studied basket weaving as an undergrad.",
         "health": 6,
         "id": "SCH_243",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Wyrm Weaver",
         "rarity": "RARE",
         "set": "SCHOLOMANCE",
@@ -40742,7 +43591,8 @@
         "health": 1,
         "id": "SCH_248",
         "mechanics": [
-            "BATTLECRY"
+            "BATTLECRY",
+            "SPELLBURST"
         ],
         "name": "Pen Flinger",
         "rarity": "COMMON",
@@ -41118,6 +43968,9 @@
         "flavor": "\"If you like my tutoring, you'll love my sister the art therapist, my father the driver, and my mother the housekeeper.\"",
         "health": 5,
         "id": "SCH_313",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Wretched Tutor",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
@@ -41734,6 +44587,9 @@
         "durability": 2,
         "flavor": "For the most discerning of hall monitors.",
         "id": "SCH_523",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "multiClassGroup": "PALADIN_WARRIOR",
         "name": "Ceremonial Maul",
         "rarity": "EPIC",
@@ -41842,7 +44698,8 @@
         "health": 2,
         "id": "SCH_532",
         "mechanics": [
-            "DIVINE_SHIELD"
+            "DIVINE_SHIELD",
+            "SPELLBURST"
         ],
         "name": "Goody Two-Shields",
         "rarity": "RARE",
@@ -42175,6 +45032,9 @@
         "flavor": "She wishes all things could grow and flourish at Scholomance. If only she knew…",
         "health": 4,
         "id": "SCH_614",
+        "mechanics": [
+            "SPELLBURST"
+        ],
         "name": "Forest Warden Omu",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
@@ -49451,7 +52311,7 @@
         "name": "Corrupting Mist",
         "rarity": "RARE",
         "set": "UNGORO",
-        "text": "Corrupt every minion. Destroy them at the start of your next turn.",
+        "text": "Curse all minions. Destroy them at the start of your next turn.",
         "type": "SPELL"
     },
     {
@@ -50947,7 +53807,7 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "[x]<b>Battlecry:</b> Corrupt a\nplayable card in your\nopponent's hand. They\nhave 1 turn to play it!",
+        "text": "[x]<b>Battlecry:</b> Curse a\nplayable card in your\nopponent's hand. They\nhave 1 turn to play it!",
         "type": "MINION"
     },
     {

@@ -32,6 +32,7 @@
 * [x] Casts When Drawn
 * [x] Charge
 * [ ] Choose Twice
+* [ ] Corrupt
 * [x] Counter
 * [x] Dormant
 * [x] Echo
@@ -55,6 +56,7 @@
 * [ ] Death Knight
 * [ ] Jade Golem
 * [x] Lackey
+* [ ] Piece of C'Thun
 * [ ] Spare Part
 
 ## Other abilities
