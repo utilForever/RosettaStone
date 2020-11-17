@@ -1835,6 +1835,8 @@ void DarkmoonFaireCardsGen::AddDemonHunterNonCollect(
 
 void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_002] N'Zoth, God of the Deep - COST: 10 [ATK: 5/HP: 7]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
@@ -1960,6 +1962,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_073", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_074] Silas Darkmoon - COST: 7 [ATK: 4/HP: 4]
@@ -2196,6 +2201,8 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - NEUTRAL
     // [DMF_004t1] Mysterybox - COST: 0
     // - Set: DARKMOON_FAIRE
@@ -2328,6 +2335,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // - DIVINE_SHIELD = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_073t", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [DMF_074a] This Way - COST: 0
