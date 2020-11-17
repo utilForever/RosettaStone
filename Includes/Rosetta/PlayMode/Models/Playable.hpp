@@ -103,6 +103,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it is echo.
     bool IsEcho() const;
 
+    //! Returns the flag that indicates whether it has corrupt.
+    //! \return The flag that indicates whether it has corrupt.
+    bool HasCorrupt() const;
+
     //! Resets the value of the cost.
     void ResetCost();
 
