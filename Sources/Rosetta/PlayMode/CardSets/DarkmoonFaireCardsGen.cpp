@@ -232,6 +232,8 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
 
 void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [DMF_083] Dancing Cobra - COST: 2 [ATK: 1/HP: 5]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
@@ -244,6 +246,9 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_083", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DMF_084] Jewel of N'Zoth - COST: 8
@@ -359,6 +364,8 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [DMF_083t] Dancing Cobra - COST: 2 [ATK: 1/HP: 5]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
@@ -369,6 +376,9 @@ void DarkmoonFaireCardsGen::AddHunterNonCollect(
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_083t", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DMF_086e] Darkmoon Strider - COST: 3 [ATK: 3/HP: 3]
