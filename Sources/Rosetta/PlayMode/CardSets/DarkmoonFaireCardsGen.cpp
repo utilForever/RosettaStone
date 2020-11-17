@@ -755,6 +755,8 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
 
 void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [DMF_053] Blood of G'huun - COST: 9 [ATK: 8/HP: 8]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Epic
@@ -845,6 +847,9 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - CORRUPT = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_184", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_186] Auspicious Spirits - COST: 4
@@ -872,6 +877,8 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddPriestNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_054t] Insight - COST: 2
     // - Set: DARKMOON_FAIRE, Rarity: Common
@@ -897,6 +904,9 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_184t", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_186a] Auspicious Spirits - COST: 4
