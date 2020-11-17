@@ -1615,6 +1615,8 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
 void DarkmoonFaireCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- MINION - DEMONHUNTER
     // [DMF_217] Line Hopper - COST: 3 [ATK: 3/HP: 4]
     // - Set: DARKMOON_FAIRE, Rarity: Common
@@ -1770,6 +1772,9 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // - LIFESTEAL = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_247", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [DMF_248] Felsteel Executioner - COST: 3 [ATK: 4/HP: 3]
@@ -1792,6 +1797,8 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
 void DarkmoonFaireCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [DMF_217e] Marked for Passing - COST: 0
     // - Set: DARKMOON_FAIRE
@@ -1837,6 +1844,9 @@ void DarkmoonFaireCardsGen::AddDemonHunterNonCollect(
     // - LIFESTEAL = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_247t", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [DMF_248e] Wicked Transformation - COST: 0
