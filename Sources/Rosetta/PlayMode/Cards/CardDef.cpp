@@ -26,6 +26,12 @@ CardDef::CardDef(Power _power, std::vector<std::string> _chooseCardIDs)
     // Do nothing
 }
 
+CardDef::CardDef(Power _power, std::string _corruptCardID)
+    : power(std::move(_power)), corruptCardID(std::move(_corruptCardID))
+{
+    // Do nothing
+}
+
 CardDef::CardDef(Power _power, int _questProgressTotal, int _heroPowerDbfID)
     : power(std::move(_power)),
       questProgressTotal(_questProgressTotal),
