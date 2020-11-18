@@ -19,7 +19,7 @@ def cardCommentGen(card):
         str_format = str_format + str(0)
     if card['type'] == "MINION":
         str_format = str_format + \
-            " [ATK: " + str(card['attack']) + "/HP: " + \
+            " [ATK:" + str(card['attack']) + "/HP:" + \
             str(card['health']) + "]"
     str_format = str_format + comm + "- "
     if "race" in card.keys():
