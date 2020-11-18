@@ -578,6 +578,8 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
 
 void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [DMF_064] Carousel Gryphon - COST: 5 [ATK:5/HP:5]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
@@ -592,6 +594,9 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_064", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DMF_194] Redscale Dragontamer - COST: 2 [ATK:2/HP:3]
@@ -713,6 +718,8 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [DMF_064t] Carousel Gryphon - COST: 5 [ATK:8/HP:8]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
@@ -724,6 +731,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_064t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DMF_235e] Floaty - COST: 0
