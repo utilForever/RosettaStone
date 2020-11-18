@@ -2043,6 +2043,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CORRUPT = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_080", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_081] K'thir Ritualist - COST: 3 [ATK:4/HP:4]
@@ -2413,6 +2416,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_080t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DMF_082e] Imposing Statue - COST: 0

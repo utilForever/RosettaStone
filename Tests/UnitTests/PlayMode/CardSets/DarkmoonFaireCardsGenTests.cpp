@@ -288,3 +288,76 @@ TEST_CASE("[Neutral : Minion] - DMF_073 : Darkmoon Dirigible")
     CHECK_EQ(curField[1]->HasDivineShield(), true);
     CHECK_EQ(curField[1]->HasRush(), true);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DMF_080] Fleethoof Pearltusk - COST: 5 [ATK:4/HP:4]
+// - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Corrupt:</b> Gain +4/+4.
+// --------------------------------------------------------
+// GameTag:
+// - CORRUPT = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DMF_080 : Fleethoof Pearltusk")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fleethoof Pearltusk"));
+    [[maybe_unused]] auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fleethoof Pearltusk"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Blizzard"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasRush(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(curHand[0]->card->id, "DMF_080");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand[0]->card->id, "DMF_080t");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField[1]->HasRush(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetAttack(), 8);
+}
