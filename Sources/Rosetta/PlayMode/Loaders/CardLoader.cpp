@@ -107,9 +107,21 @@ void CardLoader::Load(std::vector<Card*>& cards)
         }
 
         // NOTE: Skyvateer (YOD_016) doesn't have GameTag::DEATHRATTLE
+        // NOTE: Insatiable Felhound (DMF_247) doesn't have GameTag::TAUNT
+        // NOTE: Insatiable Felhound (DMF_247t) doesn't have GameTag::TAUNT
+        //       and GameTag::LIFESTEAL
         if (dbfID == 56091)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
+        }
+        else if (dbfID == 61269)
+        {
+            gameTags.emplace(GameTag::TAUNT, 1);
+        }
+        else if (dbfID == 61270)
+        {
+            gameTags.emplace(GameTag::TAUNT, 1);
+            gameTags.emplace(GameTag::LIFESTEAL, 1);
         }
 
         Card* card = new Card();
