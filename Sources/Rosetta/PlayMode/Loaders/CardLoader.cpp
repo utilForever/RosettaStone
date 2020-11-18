@@ -26,6 +26,9 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
     cards.reserve(j.size());
 
+    std::regex spellburstRegex("([<b>]*<b>Spellburst[</b>]*:</b>)");
+    std::smatch values;
+
     for (auto& cardData : j)
     {
         const std::string id = cardData["id"].get<std::string>();
@@ -139,9 +142,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         {
             card->gameTags[GameTag::OVERLOAD] = overload;
         }
-
-        static std::regex spellburstRegex("([<b>]*<b>Spellburst[</b>]*:</b>)");
-        std::smatch values;
 
         if (std::regex_search(text, values, spellburstRegex))
         {
