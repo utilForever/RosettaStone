@@ -33,7 +33,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
-    // [DMF_059] Fizzy Elemental - COST: 9 [ATK: 10/HP: 10]
+    // [DMF_059] Fizzy Elemental - COST: 9 [ATK:10/HP:10]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>
@@ -45,7 +45,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
-    // [DMF_060] Umbral Owl - COST: 7 [ATK: 4/HP: 4]
+    // [DMF_060] Umbral Owl - COST: 7 [ATK:4/HP:4]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>
@@ -57,7 +57,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
-    // [DMF_061] Faire Arborist - COST: 3 [ATK: 2/HP: 2]
+    // [DMF_061] Faire Arborist - COST: 3 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Choose One - </b>Draw a card;
@@ -96,7 +96,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
-    // [DMF_733] Kiri, Chosen of Elune - COST: 4 [ATK: 2/HP: 2]
+    // [DMF_733] Kiri, Chosen of Elune - COST: 4 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Add a Solar Eclipse and
@@ -108,7 +108,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
-    // [DMF_734] Greybough - COST: 5 [ATK: 4/HP: 6]
+    // [DMF_734] Greybough - COST: 5 [ATK:4/HP:6]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Taunt</b> <b>Deathrattle:</b> Give a random
@@ -176,7 +176,7 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
-    // [DMF_061t] Faire Arborist - COST: 3 [ATK: 2/HP: 2]
+    // [DMF_061t] Faire Arborist - COST: 3 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -187,7 +187,7 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
-    // [DMF_061t2] Treant - COST: 2 [ATK: 2/HP: 2]
+    // [DMF_061t2] Treant - COST: 2 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 
@@ -235,7 +235,7 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ---------------------------------------- MINION - HUNTER
-    // [DMF_083] Dancing Cobra - COST: 2 [ATK: 1/HP: 5]
+    // [DMF_083] Dancing Cobra - COST: 2 [ATK:1/HP:5]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupt:</b> Gain <b>Poisonous</b>.
@@ -262,7 +262,7 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [DMF_085] Darkmoon Tonk - COST: 7 [ATK: 8/HP: 5]
+    // [DMF_085] Darkmoon Tonk - COST: 7 [ATK:8/HP:5]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Fire four missiles
@@ -284,7 +284,7 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [DMF_087] Trampling Rhino - COST: 5 [ATK: 5/HP: 5]
+    // [DMF_087] Trampling Rhino - COST: 5 [ATK:5/HP:5]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>. After this attacks and kills a minion,
@@ -312,7 +312,7 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [DMF_089] Maxima Blastenheimer - COST: 6 [ATK: 4/HP: 4]
+    // [DMF_089] Maxima Blastenheimer - COST: 6 [ATK:4/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a minion from your deck.
@@ -335,7 +335,7 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [DMF_122] Mystery Winner - COST: 1 [ATK: 1/HP: 1]
+    // [DMF_122] Mystery Winner - COST: 1 [ATK:1/HP:1]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a <b>Secret.</b>
@@ -367,7 +367,7 @@ void DarkmoonFaireCardsGen::AddHunterNonCollect(
     Power power;
 
     // ---------------------------------------- MINION - HUNTER
-    // [DMF_083t] Dancing Cobra - COST: 2 [ATK: 1/HP: 5]
+    // [DMF_083t] Dancing Cobra - COST: 2 [ATK:1/HP:5]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -381,7 +381,7 @@ void DarkmoonFaireCardsGen::AddHunterNonCollect(
     cards.emplace("DMF_083t", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
-    // [DMF_086e] Darkmoon Strider - COST: 3 [ATK: 3/HP: 3]
+    // [DMF_086e] Darkmoon Strider - COST: 3 [ATK:3/HP:3]
     // - Race: Beast, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 
@@ -418,7 +418,7 @@ void DarkmoonFaireCardsGen::AddHunterNonCollect(
 void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ MINION - MAGE
-    // [DMF_100] Confection Cyclone - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_100] Confection Cyclone - COST: 2 [ATK:3/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Add two 1/2 Sugar Elementals
@@ -429,7 +429,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [DMF_101] Firework Elemental - COST: 5 [ATK: 3/HP: 5]
+    // [DMF_101] Firework Elemental - COST: 5 [ATK:3/HP:5]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 3 damage to a minion.
@@ -441,7 +441,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [DMF_102] Game Master - COST: 2 [ATK: 2/HP: 3]
+    // [DMF_102] Game Master - COST: 2 [ATK:2/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: The first <b>Secret</b> you play each turn costs (1).
@@ -487,7 +487,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [DMF_106] Occult Conjurer - COST: 4 [ATK: 4/HP: 4]
+    // [DMF_106] Occult Conjurer - COST: 4 [ATK:4/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
@@ -523,7 +523,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [DMF_109] Sayge, Seer of Darkmoon - COST: 6 [ATK: 5/HP: 5]
+    // [DMF_109] Sayge, Seer of Darkmoon - COST: 6 [ATK:5/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw 1 card.
@@ -543,12 +543,12 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ MINION - MAGE
-    // [DMF_100t] Sugar Elemental - COST: 1 [ATK: 1/HP: 2]
+    // [DMF_100t] Sugar Elemental - COST: 1 [ATK:1/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [DMF_101t] Firework Elemental - COST: 5 [ATK: 3/HP: 5]
+    // [DMF_101t] Firework Elemental - COST: 5 [ATK:3/HP:5]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -559,7 +559,7 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [DMF_104t] Exploding Sparkler - COST: 8 [ATK: 8/HP: 8]
+    // [DMF_104t] Exploding Sparkler - COST: 8 [ATK:8/HP:8]
     // - Race: Elemental, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 
@@ -579,7 +579,7 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
 void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - PALADIN
-    // [DMF_064] Carousel Gryphon - COST: 5 [ATK: 5/HP: 5]
+    // [DMF_064] Carousel Gryphon - COST: 5 [ATK:5/HP:5]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Divine Shield</b>
@@ -594,7 +594,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [DMF_194] Redscale Dragontamer - COST: 2 [ATK: 2/HP: 3]
+    // [DMF_194] Redscale Dragontamer - COST: 2 [ATK:2/HP:3]
     // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Draw a Dragon.
@@ -615,7 +615,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [DMF_235] Balloon Merchant - COST: 4 [ATK: 3/HP: 5]
+    // [DMF_235] Balloon Merchant - COST: 4 [ATK:3/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your Silver Hand Recruits
@@ -640,7 +640,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [DMF_237] Carnival Barker - COST: 3 [ATK: 3/HP: 2]
+    // [DMF_237] Carnival Barker - COST: 3 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: Whenever you summon a 1-Health minion, give it +1/+2.
@@ -664,7 +664,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [DMF_240] Lothraxion the Redeemed - COST: 5 [ATK: 5/HP: 5]
+    // [DMF_240] Lothraxion the Redeemed - COST: 5 [ATK:5/HP:5]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> For the rest of the game,
@@ -680,7 +680,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [DMF_241] High Exarch Yrel - COST: 8 [ATK: 7/HP: 5]
+    // [DMF_241] High Exarch Yrel - COST: 8 [ATK:7/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no Neutral cards,
@@ -714,7 +714,7 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - PALADIN
-    // [DMF_064t] Carousel Gryphon - COST: 5 [ATK: 8/HP: 8]
+    // [DMF_064t] Carousel Gryphon - COST: 5 [ATK:8/HP:8]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -745,7 +745,7 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [DMF_238t] Holy Elemental - COST: 6 [ATK: 6/HP: 6]
+    // [DMF_238t] Holy Elemental - COST: 6 [ATK:6/HP:6]
     // - Race: Elemental, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -768,7 +768,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ---------------------------------------- MINION - PRIEST
-    // [DMF_053] Blood of G'huun - COST: 9 [ATK: 8/HP: 8]
+    // [DMF_053] Blood of G'huun - COST: 9 [ATK:8/HP:8]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Taunt</b> At the end of your turn,
@@ -797,7 +797,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
-    // [DMF_056] G'huun the Blood God - COST: 8 [ATK: 8/HP: 8]
+    // [DMF_056] G'huun the Blood God - COST: 8 [ATK:8/HP:8]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw 2 cards.
@@ -809,7 +809,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
-    // [DMF_116] The Nameless One - COST: 4 [ATK: 4/HP: 4]
+    // [DMF_116] The Nameless One - COST: 4 [ATK:4/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Choose a minion.
@@ -824,7 +824,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
-    // [DMF_120] Nazmani Bloodweaver - COST: 3 [ATK: 2/HP: 5]
+    // [DMF_120] Nazmani Bloodweaver - COST: 3 [ATK:2/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: After you cast a spell,
@@ -835,7 +835,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
-    // [DMF_121] Fortune Teller - COST: 5 [ATK: 3/HP: 3]
+    // [DMF_121] Fortune Teller - COST: 5 [ATK:3/HP:3]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -847,7 +847,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
-    // [DMF_184] Fairground Fool - COST: 3 [ATK: 4/HP: 3]
+    // [DMF_184] Fairground Fool - COST: 3 [ATK:4/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -905,7 +905,7 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
-    // [DMF_184t] Fairground Fool - COST: 3 [ATK: 4/HP: 7]
+    // [DMF_184t] Fairground Fool - COST: 3 [ATK:4/HP:7]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -930,7 +930,7 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
 void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_071] Tenwu of the Red Smoke - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_071] Tenwu of the Red Smoke - COST: 2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Return a friendly minion to your hand.
@@ -942,7 +942,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_511] Foxy Fraud - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_511] Foxy Fraud - COST: 2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Your next <b>Combo</b> card
@@ -980,7 +980,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_514] Ticket Master - COST: 3 [ATK: 4/HP: 3]
+    // [DMF_514] Ticket Master - COST: 3 [ATK:4/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Shuffle 3 Tickets into your deck.
@@ -1002,7 +1002,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_516] Grand Empress Shek'zara - COST: 6 [ATK: 5/HP: 7]
+    // [DMF_516] Grand Empress Shek'zara - COST: 6 [ATK:5/HP:7]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a card in your deck
@@ -1017,7 +1017,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_517] Sweet Tooth - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_517] Sweet Tooth - COST: 2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupt:</b> Gain +2 Attack and <b>Stealth</b>.
@@ -1038,7 +1038,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_519] Prize Plunderer - COST: 1 [ATK: 2/HP: 1]
+    // [DMF_519] Prize Plunderer - COST: 1 [ATK:2/HP:1]
     // - Race: Pirate, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Combo:</b> Deal 1 damage to a minion
@@ -1089,12 +1089,12 @@ void DarkmoonFaireCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_514t2] Plush Bear - COST: 3 [ATK: 3/HP: 3]
+    // [DMF_514t2] Plush Bear - COST: 3 [ATK:3/HP:3]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DMF_517a] Sweet Tooth - COST: 2 [ATK: 5/HP: 2]
+    // [DMF_517a] Sweet Tooth - COST: 2 [ATK:5/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -1134,7 +1134,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_703] Pit Master - COST: 3 [ATK: 1/HP: 2]
+    // [DMF_703] Pit Master - COST: 3 [ATK:1/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 3/2 Duelist.
@@ -1146,7 +1146,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_704] Cagematch Custodian - COST: 2 [ATK: 2/HP: 2]
+    // [DMF_704] Cagematch Custodian - COST: 2 [ATK:2/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a weapon.
@@ -1175,7 +1175,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_707] Magicfin - COST: 3 [ATK: 3/HP: 4]
+    // [DMF_707] Magicfin - COST: 3 [ATK:3/HP:4]
     // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: After a friendly Murloc dies,
@@ -1186,7 +1186,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_708] Inara Stormcrash - COST: 5 [ATK: 4/HP: 5]
+    // [DMF_708] Inara Stormcrash - COST: 5 [ATK:4/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: On your turn, your hero has +2 Attack and <b>Windfury</b>.
@@ -1200,7 +1200,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_709] Grand Totem Eys'or - COST: 3 [ATK: 0/HP: 4]
+    // [DMF_709] Grand Totem Eys'or - COST: 3 [ATK:0/HP:4]
     // - Race: Totem, Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: At the end of your turn, give +1/+1 to all other Totems
@@ -1234,7 +1234,7 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_703t] Pit Master - COST: 3 [ATK: 1/HP: 2]
+    // [DMF_703t] Pit Master - COST: 3 [ATK:1/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -1245,7 +1245,7 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_703t2] Duelist - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_703t2] Duelist - COST: 2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 
@@ -1257,7 +1257,7 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DMF_706t] Pavilion Duelist - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_706t] Pavilion Duelist - COST: 2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 
@@ -1279,7 +1279,7 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
 void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_110] Fire Breather - COST: 4 [ATK: 4/HP: 3]
+    // [DMF_110] Fire Breather - COST: 4 [ATK:4/HP:3]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 2 damage to all minions except Demons.
@@ -1289,7 +1289,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_111] Man'ari Mosher - COST: 3 [ATK: 3/HP: 4]
+    // [DMF_111] Man'ari Mosher - COST: 3 [ATK:3/HP:4]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a friendly Demon +3 Attack
@@ -1311,7 +1311,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_114] Midway Maniac - COST: 2 [ATK: 1/HP: 5]
+    // [DMF_114] Midway Maniac - COST: 2 [ATK:1/HP:5]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -1321,7 +1321,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_115] Revenant Rascal - COST: 3 [ATK: 3/HP: 3]
+    // [DMF_115] Revenant Rascal - COST: 3 [ATK:3/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy a Mana Crystal for both players.
@@ -1343,7 +1343,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_118] Tickatus - COST: 6 [ATK: 8/HP: 8]
+    // [DMF_118] Tickatus - COST: 6 [ATK:8/HP:8]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Remove the top 5 cards from your deck.
@@ -1363,7 +1363,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_533] Ring Matron - COST: 6 [ATK: 6/HP: 4]
+    // [DMF_533] Ring Matron - COST: 6 [ATK:6/HP:4]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -1420,7 +1420,7 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_118t] Tickatus - COST: 6 [ATK: 8/HP: 8]
+    // [DMF_118t] Tickatus - COST: 6 [ATK:8/HP:8]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -1440,7 +1440,7 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [DMF_533t] Fiery Imp - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_533t] Fiery Imp - COST: 2 [ATK:3/HP:2]
     // - Race: Demon, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
 }
@@ -1448,7 +1448,7 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
 void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARRIOR
-    // [DMF_521] Sword Eater - COST: 4 [ATK: 2/HP: 5]
+    // [DMF_521] Sword Eater - COST: 4 [ATK:2/HP:5]
     // - Race: Pirate, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -1470,7 +1470,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [DMF_523] Bumper Car - COST: 2 [ATK: 1/HP: 3]
+    // [DMF_523] Bumper Car - COST: 2 [ATK:1/HP:3]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b> <b>Deathrattle:</b> Add two 1/1 Riders
@@ -1493,7 +1493,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [DMF_525] Ringmaster Whatley - COST: 5 [ATK: 3/HP: 5]
+    // [DMF_525] Ringmaster Whatley - COST: 5 [ATK:3/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a Mech, Dragon, and Pirate.
@@ -1518,7 +1518,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [DMF_528] Tent Trasher - COST: 5 [ATK: 5/HP: 5]
+    // [DMF_528] Tent Trasher - COST: 5 [ATK:5/HP:5]
     // - Race: Dragon, Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b><b>Rush</b>.</b> Costs (1) less for each friendly minion with a
@@ -1529,7 +1529,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [DMF_529] E.T.C., God of Metal - COST: 2 [ATK: 1/HP: 4]
+    // [DMF_529] E.T.C., God of Metal - COST: 2 [ATK:1/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: After a friendly <b>Rush</b> minion attacks,
@@ -1554,7 +1554,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [DMF_531] Stage Hand - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_531] Stage Hand - COST: 2 [ATK:3/HP:2]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a random minion in your hand +1/+1.
@@ -1618,7 +1618,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     Power power;
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_217] Line Hopper - COST: 3 [ATK: 3/HP: 4]
+    // [DMF_217] Line Hopper - COST: 3 [ATK:3/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: Your <b>Outcast</b> cards cost (1) less.
@@ -1652,7 +1652,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_222] Redeemed Pariah - COST: 2 [ATK: 2/HP: 3]
+    // [DMF_222] Redeemed Pariah - COST: 2 [ATK:2/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: After you play an <b>Outcast</b> card, gain +1/+1.
@@ -1665,7 +1665,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_223] Renowned Performer - COST: 4 [ATK: 3/HP: 3]
+    // [DMF_223] Renowned Performer - COST: 4 [ATK:3/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>
@@ -1700,7 +1700,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_226] Bladed Lady - COST: 6 [ATK: 6/HP: 6]
+    // [DMF_226] Bladed Lady - COST: 6 [ATK:6/HP:6]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>
@@ -1721,7 +1721,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_229] Stiltstepper - COST: 3 [ATK: 4/HP: 1]
+    // [DMF_229] Stiltstepper - COST: 3 [ATK:4/HP:1]
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a card.
@@ -1733,7 +1733,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_230] Il'gynoth - COST: 4 [ATK: 2/HP: 6]
+    // [DMF_230] Il'gynoth - COST: 4 [ATK:2/HP:6]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
@@ -1747,7 +1747,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_231] Zai, the Incredible - COST: 5 [ATK: 5/HP: 3]
+    // [DMF_231] Zai, the Incredible - COST: 5 [ATK:5/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Copy the left- and right-most cards
@@ -1759,7 +1759,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_247] Insatiable Felhound - COST: 3 [ATK: 2/HP: 5]
+    // [DMF_247] Insatiable Felhound - COST: 3 [ATK:2/HP:5]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -1777,7 +1777,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     cards.emplace("DMF_247", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_248] Felsteel Executioner - COST: 3 [ATK: 4/HP: 3]
+    // [DMF_248] Felsteel Executioner - COST: 3 [ATK:4/HP:3]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Corrupt:</b> Become a weapon.
@@ -1824,7 +1824,7 @@ void DarkmoonFaireCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_223t] Performer's Assistant - COST: 1 [ATK: 1/HP: 1]
+    // [DMF_223t] Performer's Assistant - COST: 1 [ATK:1/HP:1]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -1834,7 +1834,7 @@ void DarkmoonFaireCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_247t] Insatiable Felhound - COST: 3 [ATK: 3/HP: 6]
+    // [DMF_247t] Insatiable Felhound - COST: 3 [ATK:3/HP:6]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -1868,7 +1868,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_002] N'Zoth, God of the Deep - COST: 10 [ATK: 5/HP: 7]
+    // [DMF_002] N'Zoth, God of the Deep - COST: 10 [ATK:5/HP:7]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Resurrect a friendly minion
@@ -1880,7 +1880,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_004] Yogg-Saron, Master of Fate - COST: 10 [ATK: 7/HP: 5]
+    // [DMF_004] Yogg-Saron, Master of Fate - COST: 10 [ATK:7/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you've cast 10 spells this game,
@@ -1893,7 +1893,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_044] Rock Rager - COST: 2 [ATK: 5/HP: 1]
+    // [DMF_044] Rock Rager - COST: 2 [ATK:5/HP:1]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -1903,7 +1903,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_062] Gyreworm - COST: 3 [ATK: 3/HP: 2]
+    // [DMF_062] Gyreworm - COST: 3 [ATK:3/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you played an Elemental last turn,
@@ -1914,7 +1914,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_065] Banana Vendor - COST: 3 [ATK: 2/HP: 4]
+    // [DMF_065] Banana Vendor - COST: 3 [ATK:2/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Add 2 Bananas to each player's hand.
@@ -1924,7 +1924,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_066] Knife Vendor - COST: 4 [ATK: 3/HP: 4]
+    // [DMF_066] Knife Vendor - COST: 4 [ATK:3/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 4 damage to each hero.
@@ -1934,7 +1934,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_067] Prize Vendor - COST: 2 [ATK: 2/HP: 3]
+    // [DMF_067] Prize Vendor - COST: 2 [ATK:2/HP:3]
     // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Both players draw a card.
@@ -1944,7 +1944,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_068] Optimistic Ogre - COST: 5 [ATK: 6/HP: 7]
+    // [DMF_068] Optimistic Ogre - COST: 5 [ATK:6/HP:7]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: 50% chance to attack the correct enemy.
@@ -1955,7 +1955,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_069] Claw Machine - COST: 6 [ATK: 6/HP: 3]
+    // [DMF_069] Claw Machine - COST: 6 [ATK:6/HP:3]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>.
@@ -1967,7 +1967,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_070] Darkmoon Rabbit - COST: 10 [ATK: 1/HP: 1]
+    // [DMF_070] Darkmoon Rabbit - COST: 10 [ATK:1/HP:1]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Rush</b>, <b>Poisonous</b>
@@ -1979,7 +1979,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_073] Darkmoon Dirigible - COST: 3 [ATK: 3/HP: 2]
+    // [DMF_073] Darkmoon Dirigible - COST: 3 [ATK:3/HP:2]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Divine Shield</b>
@@ -1997,7 +1997,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("DMF_073", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_074] Silas Darkmoon - COST: 7 [ATK: 4/HP: 4]
+    // [DMF_074] Silas Darkmoon - COST: 7 [ATK:4/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Choose a direction to rotate all minions.
@@ -2008,7 +2008,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_078] Strongman - COST: 7 [ATK: 6/HP: 6]
+    // [DMF_078] Strongman - COST: 7 [ATK:6/HP:6]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -2020,7 +2020,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_079] Inconspicuous Rider - COST: 3 [ATK: 2/HP: 2]
+    // [DMF_079] Inconspicuous Rider - COST: 3 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Cast a <b>Secret</b> from your deck.
@@ -2033,7 +2033,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_080] Fleethoof Pearltusk - COST: 5 [ATK: 4/HP: 4]
+    // [DMF_080] Fleethoof Pearltusk - COST: 5 [ATK:4/HP:4]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>
@@ -2045,7 +2045,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_081] K'thir Ritualist - COST: 3 [ATK: 4/HP: 4]
+    // [DMF_081] K'thir Ritualist - COST: 3 [ATK:4/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -2058,7 +2058,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_082] Darkmoon Statue - COST: 3 [ATK: 0/HP: 5]
+    // [DMF_082] Darkmoon Statue - COST: 3 [ATK:0/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: Your other minions have +1 Attack.
@@ -2070,7 +2070,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_091] Wriggling Horror - COST: 2 [ATK: 2/HP: 1]
+    // [DMF_091] Wriggling Horror - COST: 2 [ATK:2/HP:1]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give adjacent minions +1/+1.
@@ -2080,7 +2080,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_124] Horrendous Growth - COST: 2 [ATK: 2/HP: 2]
+    // [DMF_124] Horrendous Growth - COST: 2 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Corrupt:</b> Gain +1/+1.
@@ -2091,7 +2091,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_125] Safety Inspector - COST: 1 [ATK: 1/HP: 3]
+    // [DMF_125] Safety Inspector - COST: 1 [ATK:1/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Shuffle the lowest-Cost card
@@ -2102,7 +2102,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_163] Carnival Clown - COST: 9 [ATK: 4/HP: 4]
+    // [DMF_163] Carnival Clown - COST: 9 [ATK:4/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -2116,7 +2116,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_174] Circus Medic - COST: 4 [ATK: 3/HP: 4]
+    // [DMF_174] Circus Medic - COST: 4 [ATK:3/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Restore 4 Health.
@@ -2128,7 +2128,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_188] Y'Shaarj, the Defiler - COST: 10 [ATK: 10/HP: 10]
+    // [DMF_188] Y'Shaarj, the Defiler - COST: 10 [ATK:10/HP:10]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Add a copy of each <b>Corrupted</b>
@@ -2141,7 +2141,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_189] Costumed Entertainer - COST: 2 [ATK: 1/HP: 2]
+    // [DMF_189] Costumed Entertainer - COST: 2 [ATK:1/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a random minion in your hand +2/+2.
@@ -2151,7 +2151,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_190] Fantastic Firebird - COST: 4 [ATK: 3/HP: 5]
+    // [DMF_190] Fantastic Firebird - COST: 4 [ATK:3/HP:5]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Windfury</b>
@@ -2161,7 +2161,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_191] Showstopper - COST: 2 [ATK: 3/HP: 2]
+    // [DMF_191] Showstopper - COST: 2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> <b>Silence</b> all minions.
@@ -2174,7 +2174,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_202] Derailed Coaster - COST: 5 [ATK: 3/HP: 2]
+    // [DMF_202] Derailed Coaster - COST: 5 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 1/1 Rider with <b>Rush</b>
@@ -2188,7 +2188,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_254] C'Thun, the Shattered - COST: 10 [ATK: 6/HP: 6]
+    // [DMF_254] C'Thun, the Shattered - COST: 10 [ATK:6/HP:6]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Start of Game:</b> Break into pieces.
@@ -2204,7 +2204,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_520] Parade Leader - COST: 2 [ATK: 2/HP: 3]
+    // [DMF_520] Parade Leader - COST: 2 [ATK:2/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: After you summon a <b>Rush</b> minion, give it +2 Attack.
@@ -2217,7 +2217,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_532] Circus Amalgam - COST: 4 [ATK: 4/HP: 5]
+    // [DMF_532] Circus Amalgam - COST: 4 [ATK:4/HP:5]
     // - Race: All, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -2355,7 +2355,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_073t] Darkmoon Dirigible - COST: 3 [ATK: 3/HP: 2]
+    // [DMF_073t] Darkmoon Dirigible - COST: 3 [ATK:3/HP:2]
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -2393,7 +2393,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_078t] Strongman - COST: 0 [ATK: 6/HP: 6]
+    // [DMF_078t] Strongman - COST: 0 [ATK:6/HP:6]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -2404,7 +2404,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_080t] Fleethoof Pearltusk - COST: 5 [ATK: 8/HP: 8]
+    // [DMF_080t] Fleethoof Pearltusk - COST: 5 [ATK:8/HP:8]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -2422,7 +2422,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_082t] Darkmoon Statue - COST: 3 [ATK: 4/HP: 5]
+    // [DMF_082t] Darkmoon Statue - COST: 3 [ATK:4/HP:5]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -2475,7 +2475,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_124t] Horrendous Growth - COST: 2 [ATK: 3/HP: 3]
+    // [DMF_124t] Horrendous Growth - COST: 2 [ATK:3/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -2487,7 +2487,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_163t] Carnival Clown - COST: 9 [ATK: 4/HP: 4]
+    // [DMF_163t] Carnival Clown - COST: 9 [ATK:4/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -2500,7 +2500,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_174t] Circus Medic - COST: 4 [ATK: 3/HP: 4]
+    // [DMF_174t] Circus Medic - COST: 4 [ATK:3/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
@@ -2650,7 +2650,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_254t5t] C'Thun's Body - COST: 6 [ATK: 6/HP: 6]
+    // [DMF_254t5t] C'Thun's Body - COST: 6 [ATK:6/HP:6]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -2675,7 +2675,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_523t] Darkmoon Rider - COST: 1 [ATK: 1/HP: 1]
+    // [DMF_523t] Darkmoon Rider - COST: 1 [ATK:1/HP:1]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
     // Text: <b>Rush</b>

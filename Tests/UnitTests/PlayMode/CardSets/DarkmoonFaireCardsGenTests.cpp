@@ -17,7 +17,7 @@ using namespace PlayerTasks;
 using namespace SimpleTasks;
 
 // ---------------------------------------- MINION - HUNTER
-// [DMF_083] Dancing Cobra - COST: 2 [ATK: 1/HP: 5]
+// [DMF_083] Dancing Cobra - COST: 2 [ATK:1/HP:5]
 // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Corrupt:</b> Gain <b>Poisonous</b>.
@@ -81,7 +81,7 @@ TEST_CASE("[Hunter : Minion] - DMF_083 : Dancing Cobra")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [DMF_184] Fairground Fool - COST: 3 [ATK: 4/HP: 3]
+// [DMF_184] Fairground Fool - COST: 3 [ATK:4/HP:3]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
@@ -149,7 +149,7 @@ TEST_CASE("[Priest : Minion] - DMF_184 : Fairground Fool")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [DMF_247] Insatiable Felhound - COST: 3 [ATK: 2/HP: 5]
+// [DMF_247] Insatiable Felhound - COST: 3 [ATK:2/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
@@ -221,7 +221,7 @@ TEST_CASE("[Demon Hunter : Minion] - DMF_247 : Insatiable Felhound")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [DMF_073] Darkmoon Dirigible - COST: 3 [ATK: 3/HP: 2]
+// [DMF_073] Darkmoon Dirigible - COST: 3 [ATK:3/HP:2]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Divine Shield</b>
