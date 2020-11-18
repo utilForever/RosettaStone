@@ -939,6 +939,8 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
 
 void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [DMF_071] Tenwu of the Red Smoke - COST: 2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
@@ -1038,6 +1040,9 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_517", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_518] Malevolent Strike - COST: 5
@@ -1062,6 +1067,8 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [DMF_511e] Enabling - COST: 0
     // - Set: DARKMOON_FAIRE
@@ -1113,6 +1120,9 @@ void DarkmoonFaireCardsGen::AddRogueNonCollect(
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_517a", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
