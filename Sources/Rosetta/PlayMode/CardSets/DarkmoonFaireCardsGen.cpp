@@ -248,7 +248,7 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("DMF_083", CardDef(power));
+    cards.emplace("DMF_083", CardDef(power, "DMF_083t"));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DMF_084] Jewel of N'Zoth - COST: 8
@@ -596,7 +596,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("DMF_064", CardDef(power));
+    cards.emplace("DMF_064", CardDef(power, "DMF_064t"));
 
     // --------------------------------------- MINION - PALADIN
     // [DMF_194] Redscale Dragontamer - COST: 2 [ATK:2/HP:3]
@@ -869,7 +869,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("DMF_184", CardDef(power));
+    cards.emplace("DMF_184", CardDef(power, "DMF_184t"));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_186] Auspicious Spirits - COST: 4
@@ -1042,7 +1042,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("DMF_517", CardDef(power));
+    cards.emplace("DMF_517", CardDef(power, "DMF_517a"));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_518] Malevolent Strike - COST: 5
@@ -1794,7 +1794,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("DMF_247", CardDef(power));
+    cards.emplace("DMF_247", CardDef(power, "DMF_247t"));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [DMF_248] Felsteel Executioner - COST: 3 [ATK:4/HP:3]
@@ -2014,7 +2014,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("DMF_073", CardDef(power));
+    cards.emplace("DMF_073", CardDef(power, "DMF_073t"));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_074] Silas Darkmoon - COST: 7 [ATK:4/HP:4]
@@ -2065,7 +2065,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
-    cards.emplace("DMF_080", CardDef(power));
+    cards.emplace("DMF_080", CardDef(power, "DMF_080t"));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_081] K'thir Ritualist - COST: 3 [ATK:4/HP:4]
