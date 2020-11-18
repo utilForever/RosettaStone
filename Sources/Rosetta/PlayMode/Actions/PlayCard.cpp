@@ -81,7 +81,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     {
         if (playable->HasCorrupt() && source->GetCost() > playable->GetCost())
         {
-            Card* newCard = Cards::FindCardByID(playable->card->id + "t");
+            Card* newCard = Cards::FindCardByDbfID(
+                playable->GetGameTag(GameTag::CORRUPTEDCARD));
             if (newCard != nullptr)
             {
                 ChangeEntity(player, playable, newCard, true);
