@@ -16,6 +16,70 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------ SPELL - DRUID
+// [DMF_730] Moontouched Amulet - COST: 3
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give your hero +4 Attack this turn.
+//       <b>Corrupt:</b> And gain 6 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - CORRUPT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DMF_730 : Moontouched Amulet")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Moontouched Amulet"));
+    [[maybe_unused]] auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Moontouched Amulet"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHero.GetAttack(), 4);
+    CHECK_EQ(curHero.GetArmor(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curHand[0]->card->id, "DMF_730");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curHand[0]->card->id, "DMF_730t");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(curHero.GetAttack(), 4);
+    CHECK_EQ(curHero.GetArmor(), 6);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DMF_083] Dancing Cobra - COST: 2 [ATK:1/HP:5]
 // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common

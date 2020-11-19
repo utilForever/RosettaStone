@@ -4,6 +4,12 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
+
+using namespace RosettaStone::PlayMode;
+using namespace SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -17,6 +23,8 @@ void DarkmoonFaireCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [DMF_057] Lunar Eclipse - COST: 2
     // - Set: DARKMOON_FAIRE, Rarity: Common
@@ -87,6 +95,10 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CORRUPT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_730e", EntityType::HERO));
+    cards.emplace("DMF_730", CardDef(power, "DMF_730t"));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_732] Cenarion Ward - COST: 8
@@ -124,6 +136,8 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [DMF_057e] Lunar Empowerment - COST: 0
     // - Set: DARKMOON_FAIRE
@@ -220,6 +234,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_730e"));
+    cards.emplace("DMF_730e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_730t] Moontouched Amulet - COST: 3
@@ -228,6 +245,11 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // Text: <b>Corrupted</b>
     //       Give your hero +4 Attack this turn. Gain 6 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_730e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(6));
+    cards.emplace("DMF_730t", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
