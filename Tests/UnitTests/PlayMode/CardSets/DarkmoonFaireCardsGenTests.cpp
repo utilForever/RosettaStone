@@ -211,6 +211,8 @@ TEST_CASE("[Mage : Minion] - DMF_101 : Firework Elemental")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
+    opPlayer->GetHero()->SetDamage(0);
+
     game.Process(curPlayer, PlayCardTask::Spell(card4));
     CHECK_EQ(curHand[0]->card->id, "DMF_101");
 
