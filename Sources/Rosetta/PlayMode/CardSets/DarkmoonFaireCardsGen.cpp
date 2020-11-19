@@ -2060,6 +2060,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CORRUPT = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_078", CardDef(power, "DMF_078t"));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_079] Inconspicuous Rider - COST:3 [ATK:2/HP:2]
@@ -2447,6 +2450,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_078t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_080t] Fleethoof Pearltusk - COST:5 [ATK:8/HP:8]
