@@ -8,6 +8,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
@@ -1173,6 +1174,8 @@ void DarkmoonFaireCardsGen::AddRogueNonCollect(
 
 void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_700] Revolve - COST:1
     // - Set: DARKMOON_FAIRE, Rarity: Common
@@ -1210,6 +1213,10 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CORRUPT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DMF_703t2", SummonSide::RIGHT));
+    cards.emplace("DMF_703", CardDef(power, "DMF_703t"));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_704] Cagematch Custodian - COST:2 [ATK:2/HP:2]
@@ -1281,6 +1288,8 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddShamanNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_701t] Dunk Tank - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
@@ -1309,11 +1318,20 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DMF_703t2", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DMF_703t2", SummonSide::RIGHT));
+    cards.emplace("DMF_703t", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_703t2] Duelist - COST:2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_703t2", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DMF_705e] Winner! - COST:0

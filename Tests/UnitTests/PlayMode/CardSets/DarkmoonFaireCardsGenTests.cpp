@@ -439,6 +439,75 @@ TEST_CASE("[Rogue : Minion] - DMF_517 : Sweet Tooth")
     CHECK_EQ(curField[1]->GetAttack(), 5);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DMF_703] Pit Master - COST:3 [ATK:1/HP:2]
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 3/2 Duelist.
+//       <b>Corrupt:</b> Summon two.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - CORRUPT = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DMF_703 : Pit Master")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pit Master"));
+    [[maybe_unused]] auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pit Master"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Pit Master");
+    CHECK_EQ(curField[1]->card->name, "Duelist");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(curHand[0]->card->id, "DMF_703");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curHand[0]->card->id, "DMF_703t");
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[2]->card->name, "Duelist");
+    CHECK_EQ(curField[3]->card->name, "Pit Master");
+    CHECK_EQ(curField[4]->card->name, "Duelist");
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [DMF_247] Insatiable Felhound - COST:3 [ATK:2/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
