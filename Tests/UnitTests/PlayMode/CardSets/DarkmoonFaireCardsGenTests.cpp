@@ -17,7 +17,7 @@ using namespace PlayerTasks;
 using namespace SimpleTasks;
 
 // ------------------------------------------ SPELL - DRUID
-// [DMF_730] Moontouched Amulet - COST: 3
+// [DMF_730] Moontouched Amulet - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Rare
 // --------------------------------------------------------
 // Text: Give your hero +4 Attack this turn.
@@ -81,7 +81,7 @@ TEST_CASE("[Druid : Spell] - DMF_730 : Moontouched Amulet")
 }
 
 // ---------------------------------------- MINION - HUNTER
-// [DMF_083] Dancing Cobra - COST: 2 [ATK:1/HP:5]
+// [DMF_083] Dancing Cobra - COST:2 [ATK:1/HP:5]
 // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Corrupt:</b> Gain <b>Poisonous</b>.
@@ -145,7 +145,7 @@ TEST_CASE("[Hunter : Minion] - DMF_083 : Dancing Cobra")
 }
 
 // --------------------------------------- MINION - PALADIN
-// [DMF_064] Carousel Gryphon - COST: 5 [ATK:5/HP:5]
+// [DMF_064] Carousel Gryphon - COST:5 [ATK:5/HP:5]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Divine Shield</b>
@@ -222,7 +222,7 @@ TEST_CASE("[Paladin : Minion] - DMF_064 : Carousel Gryphon")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [DMF_184] Fairground Fool - COST: 3 [ATK:4/HP:3]
+// [DMF_184] Fairground Fool - COST:3 [ATK:4/HP:3]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
@@ -290,7 +290,7 @@ TEST_CASE("[Priest : Minion] - DMF_184 : Fairground Fool")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [DMF_517] Sweet Tooth - COST: 2 [ATK:3/HP:2]
+// [DMF_517] Sweet Tooth - COST:2 [ATK:3/HP:2]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Corrupt:</b> Gain +2 Attack and <b>Stealth</b>.
@@ -357,7 +357,7 @@ TEST_CASE("[Rogue : Minion] - DMF_517 : Sweet Tooth")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [DMF_247] Insatiable Felhound - COST: 3 [ATK:2/HP:5]
+// [DMF_247] Insatiable Felhound - COST:3 [ATK:2/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
@@ -429,7 +429,7 @@ TEST_CASE("[Demon Hunter : Minion] - DMF_247 : Insatiable Felhound")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [DMF_073] Darkmoon Dirigible - COST: 3 [ATK:3/HP:2]
+// [DMF_073] Darkmoon Dirigible - COST:3 [ATK:3/HP:2]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Divine Shield</b>
@@ -498,7 +498,7 @@ TEST_CASE("[Neutral : Minion] - DMF_073 : Darkmoon Dirigible")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [DMF_080] Fleethoof Pearltusk - COST: 5 [ATK:4/HP:4]
+// [DMF_080] Fleethoof Pearltusk - COST:5 [ATK:4/HP:4]
 // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Rush</b>
