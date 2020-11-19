@@ -59,6 +59,14 @@ class CardDef
     explicit CardDef(Power _power, std::map<PlayReq, int> _playReqs,
                      std::vector<std::string> _chooseCardIDs);
 
+    //! Constructs card def with given \p _power, \p _playReqs and
+    //! \p _corruptCardID.
+    //! \param _power The power data.
+    //! \param _playReqs The play requirements data.
+    //! \param _corruptCardID The card ID to change when 'Corrupt' is activated.
+    explicit CardDef(Power _power, std::map<PlayReq, int> _playReqs,
+                     std::string _corruptCardID);
+
     //! Constructs card def with given \p _power, \p _playReqs,
     //! \p _chooseCardIDs and \p _entourages.
     //! \param _power The power data.
