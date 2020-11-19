@@ -7,12 +7,15 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 
 using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void DarkmoonFaireCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
 }
@@ -439,6 +442,8 @@ void DarkmoonFaireCardsGen::AddHunterNonCollect(
 
 void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [DMF_100] Confection Cyclone - COST:2 [ATK:3/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
@@ -461,6 +466,17 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CORRUPT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cards.emplace("DMF_101",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          "DMF_101t"));
 
     // ------------------------------------------ MINION - MAGE
     // [DMF_102] Game Master - COST:2 [ATK:2/HP:3]
@@ -564,6 +580,8 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [DMF_100t] Sugar Elemental - COST:1 [ATK:1/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE
@@ -579,6 +597,12 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 12));
+    cards.emplace(
+        "DMF_101t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [DMF_104t] Exploding Sparkler - COST:8 [ATK:8/HP:8]

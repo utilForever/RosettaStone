@@ -144,6 +144,89 @@ TEST_CASE("[Hunter : Minion] - DMF_083 : Dancing Cobra")
     CHECK_EQ(curField[1]->HasPoisonous(), true);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DMF_101] Firework Elemental - COST:5 [ATK:3/HP:5]
+// - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 3 damage to a minion.
+//       <b>Corrupt:</b> Deal 12 instead.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - CORRUPT = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DMF_101 : Firework Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Firework Elemental"));
+    [[maybe_unused]] auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Firework Elemental"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Blizzard"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card5));
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curHand[0]->card->id, "DMF_101");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand[0]->card->id, "DMF_101t");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[0], card5));
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DMF_064] Carousel Gryphon - COST:5 [ATK:5/HP:5]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
