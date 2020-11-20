@@ -306,6 +306,84 @@ TEST_CASE("[Paladin : Minion] - DMF_064 : Carousel Gryphon")
     CHECK_EQ(curField[1]->GetHealth(), 8);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [DMF_244] Day at the Faire - COST:3
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon 3 Silver Hand Recruits.
+//       <b>Corrupt:</b> Summon 5.
+// --------------------------------------------------------
+// GameTag:
+// - CORRUPT = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - DMF_244 : Day at the Faire")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Day at the Faire"));
+    [[maybe_unused]] auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Day at the Faire"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Explosion"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[1]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[2]->card->name, "Silver Hand Recruit");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curHand[0]->card->id, "DMF_244");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curHand[0]->card->id, "DMF_244t");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[0]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[1]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[2]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[3]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[4]->card->name, "Silver Hand Recruit");
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [DMF_184] Fairground Fool - COST:3 [ATK:4/HP:3]
 // - Set: DARKMOON_FAIRE, Rarity: Common

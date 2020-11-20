@@ -760,6 +760,16 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CORRUPT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 3, SummonSide::SPELL));
+    cards.emplace(
+        "DMF_244",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                "DMF_244t"));
 }
 
 void DarkmoonFaireCardsGen::AddPaladinNonCollect(
@@ -818,6 +828,15 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // Text: <b>Corrupted</b>
     //       Summon 5 Silver Hand Recruits.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 5, SummonSide::SPELL));
+    cards.emplace(
+        "DMF_244t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 }
 
 void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
