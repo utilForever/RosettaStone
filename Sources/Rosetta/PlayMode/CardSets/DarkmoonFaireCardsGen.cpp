@@ -1405,6 +1405,8 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
 
 void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [DMF_110] Fire Breather - COST:4 [ATK:4/HP:3]
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Rare
@@ -1446,6 +1448,9 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_114", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DMF_115] Revenant Rascal - COST:3 [ATK:3/HP:3]

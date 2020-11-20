@@ -695,6 +695,20 @@ TEST_CASE("[Shaman : Minion] - DMF_703 : Pit Master")
     CHECK_EQ(curField[4]->card->name, "Duelist");
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [DMF_114] Midway Maniac - COST:2 [ATK:1/HP:5]
+// - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DMF_114 : Midway Maniac")
+{
+    // Do nothing
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [DMF_247] Insatiable Felhound - COST:3 [ATK:2/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
