@@ -1193,6 +1193,15 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CORRUPT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace("DMF_701",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } },
+                          "DMF_701t"));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_702] Stormstrike - COST:3
@@ -1297,6 +1306,17 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // Text: <b>Corrupted</b>
     //       Deal 4 damage, then deal 2 damage to all enemy minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    cards.emplace(
+        "DMF_701t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DMF_702e] Stormstrike - COST:0
