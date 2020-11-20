@@ -22,10 +22,10 @@ jobs:
             compiler: xcode
             version: "12.2"
           # macOS 10.15 + gcc-8
-          - name: "macOS 10.15 + gcc-8"
-            os: macos-10.15
-            compiler: gcc
-            version: "8"
+          #- name: "macOS 10.15 + gcc-8"
+          #  os: macos-10.15
+          #  compiler: gcc
+          #  version: "8"
           # macOS 10.15 + gcc-9
           - name: "macOS 10.15 + gcc-9"
             os: macos-10.15
