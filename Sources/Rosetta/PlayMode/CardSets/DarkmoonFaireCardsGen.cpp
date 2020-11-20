@@ -2301,6 +2301,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_190", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_191] Showstopper - COST:2 [ATK:3/HP:2]

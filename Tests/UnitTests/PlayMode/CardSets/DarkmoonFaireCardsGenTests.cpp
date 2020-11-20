@@ -1034,3 +1034,17 @@ TEST_CASE("[Neutral : Minion] - DMF_174 : Circus Medic")
     game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[0], opHero));
     CHECK_EQ(opHero->GetHealth(), 26);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DMF_190] Fantastic Firebird - COST:4 [ATK:3/HP:5]
+// - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DMF_190 : Fantastic Firebird")
+{
+    // Do nothing
+}
