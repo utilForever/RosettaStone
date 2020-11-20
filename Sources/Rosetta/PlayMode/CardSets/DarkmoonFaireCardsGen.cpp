@@ -2025,6 +2025,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_044", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_062] Gyreworm - COST:3 [ATK:3/HP:2]

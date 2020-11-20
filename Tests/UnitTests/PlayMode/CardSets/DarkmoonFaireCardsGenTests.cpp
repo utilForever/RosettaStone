@@ -752,6 +752,20 @@ TEST_CASE("[Demon Hunter : Minion] - DMF_247 : Insatiable Felhound")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DMF_044] Rock Rager - COST:2 [ATK:5/HP:1]
+// - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DMF_044 : Rock Rager")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DMF_073] Darkmoon Dirigible - COST:3 [ATK:3/HP:2]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
