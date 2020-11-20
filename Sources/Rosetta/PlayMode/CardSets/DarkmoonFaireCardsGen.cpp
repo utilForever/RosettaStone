@@ -8,6 +8,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode;
@@ -2255,6 +2256,15 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CORRUPT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 4));
+    cards.emplace(
+        "DMF_174",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
+                "DMF_174t"));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_188] Y'Shaarj, the Defiler - COST:10 [ATK:10/HP:10]
@@ -2644,6 +2654,14 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
+    cards.emplace(
+        "DMF_174t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DMF_187e] Palm Reading - COST:0

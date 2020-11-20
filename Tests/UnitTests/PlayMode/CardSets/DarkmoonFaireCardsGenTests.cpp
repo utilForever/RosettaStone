@@ -944,3 +944,79 @@ TEST_CASE("[Neutral : Minion] - DMF_080 : Fleethoof Pearltusk")
     CHECK_EQ(curField[1]->GetAttack(), 8);
     CHECK_EQ(curField[1]->GetAttack(), 8);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [DMF_174] Circus Medic - COST:4 [ATK:3/HP:4]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Restore 4 Health.
+//       <b>Corrupt:</b> Deal 4 damage instead.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - CORRUPT = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DMF_174 : Circus Medic")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Circus Medic"));
+    [[maybe_unused]] auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Circus Medic"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Blizzard"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    opHero->SetDamage(15);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, opHero));
+    CHECK_EQ(opHero->GetHealth(), 19);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(curHand[0]->card->id, "DMF_174");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand[0]->card->id, "DMF_174t");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    opHero->SetDamage(0);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[0], opHero));
+    CHECK_EQ(opHero->GetHealth(), 26);
+}
