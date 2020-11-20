@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/PlayMode/Cards/CardDefs.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Loaders/InternalCardLoader.hpp>
 
 namespace RosettaStone::PlayMode
@@ -22,6 +23,8 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] =
             cardDef.questProgressTotal;
         card->gameTags[GameTag::HERO_POWER] = cardDef.heroPowerDbfID;
+        card->gameTags[GameTag::CORRUPTEDCARD] =
+            Cards::FindCardByID(cardDef.corruptCardID)->dbfID;
 
         // NOTE: Load some game tag data
         // Scheme series

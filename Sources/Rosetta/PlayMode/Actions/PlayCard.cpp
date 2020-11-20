@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/PlayCard.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
@@ -73,6 +74,20 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             player->opponent->GetDeckZone()->GetCount() + 7)
     {
         player->IncreaseNumCardsPlayedThisGameNotStartInDeck();
+    }
+
+    // Process keyword 'Corrupt'
+    for (auto& playable : player->GetHandZone()->GetAll())
+    {
+        if (playable->HasCorrupt() && source->GetCost() > playable->GetCost())
+        {
+            Card* newCard = Cards::FindCardByDbfID(
+                playable->GetGameTag(GameTag::CORRUPTEDCARD));
+            if (newCard != nullptr)
+            {
+                ChangeEntity(player, playable, newCard, true);
+            }
+        }
     }
 
     // Set card's owner
@@ -190,7 +205,7 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
     // If player has extra battlecry, activate power task again
     if (player->ExtraBattlecry())
     {
-        hero->ActivateTask(PowerType::POWER, target, chooseOne);    
+        hero->ActivateTask(PowerType::POWER, target, chooseOne);
     }
 
     player->game->ProcessTasks();

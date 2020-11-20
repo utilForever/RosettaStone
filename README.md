@@ -89,7 +89,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Expansions
 
-  * 0% Madness at the Darkmoon Faire (0 of 135 cards)
+  * 13% Madness at the Darkmoon Faire (18 of 135 cards)
   * 24% Scholomance Academy (33 of 135 cards)
   * 25% Ashes of Outland (35 of 135 cards)
   * **100% Descent of Dragons (140 of 140 cards)**
