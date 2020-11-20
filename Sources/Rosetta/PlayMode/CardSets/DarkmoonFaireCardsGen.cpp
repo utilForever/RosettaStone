@@ -56,6 +56,9 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_059", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_060] Umbral Owl - COST:7 [ATK:4/HP:4]

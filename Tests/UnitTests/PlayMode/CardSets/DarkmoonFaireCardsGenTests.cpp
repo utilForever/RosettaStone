@@ -16,6 +16,22 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ----------------------------------------- MINION - DRUID
+// [DMF_059] Fizzy Elemental - COST:9 [ATK:10/HP:10]
+// - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DMF_059 : Fizzy Elemental")
+{
+    // Do nothing
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [DMF_730] Moontouched Amulet - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Rare
