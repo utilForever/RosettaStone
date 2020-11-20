@@ -54,11 +54,11 @@ jobs:
     - name: Configure Compiler
       run: |
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
-          echo "::set-env name=CC::gcc-${{ matrix.version }}"
-          echo "::set-env name=CXX::g++-${{ matrix.version }}"
+          echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
+          echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
         else
-          echo "::set-env name=CC::clang-${{ matrix.version }}"
-          echo "::set-env name=CXX::clang++-${{ matrix.version }}"
+          echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
+          echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
         fi
     - name: Configure Build
       run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ..
