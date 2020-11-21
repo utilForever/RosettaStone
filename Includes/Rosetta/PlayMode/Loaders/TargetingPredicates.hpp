@@ -68,6 +68,10 @@ class TargetingPredicates
     //! \return Generated TargetingPredicate for intended purpose.
     static TargetingPredicate ReqDragonTarget();
 
+    //! Predicate wrapper for checking the target requires that it is lackey.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqLackeyTarget();
+
     //! Predicate wrapper for checking the target requires that it has \p race.
     //! \param race The value of race.
     //! \return Generated TargetingPredicate for intended purpose.
