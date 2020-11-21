@@ -364,6 +364,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::LACKEY:
+            choiceAction = ChoiceAction::HAND;
+            for (const auto& card : Cards::GetAllCards())
+            {
+                if (card->IsLackey())
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::HEISTBARON_TOGWAGGLE:
             choiceAction = ChoiceAction::HAND;
             cards = { Cards::FindCardByID("LOOT_998h"),
