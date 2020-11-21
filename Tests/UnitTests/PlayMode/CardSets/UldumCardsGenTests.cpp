@@ -999,6 +999,48 @@ TEST_CASE("[Warlock : Spell] - ULD_160 : Sinister Deal")
     }
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [ULD_161] Neferset Thrasher - COST:3 [ATK:4/HP:5]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever this attacks, deal 3 damage to your hero.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - ULD_161 : Neferset Thrasher")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Neferset Thrasher"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [ULD_143] Pharaoh's Blessing - COST:6
 // - Faction: Neutral, Set: Uldum, Rarity: Rare

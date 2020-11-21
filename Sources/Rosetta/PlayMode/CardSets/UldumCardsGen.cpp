@@ -1981,6 +1981,12 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever this attacks, deal 3 damage to your hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(EntityType::HERO,
+                                                               3) };
+    cards.emplace("ULD_161", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_162] EVIL Recruiter - COST:3 [ATK:3/HP:3]
