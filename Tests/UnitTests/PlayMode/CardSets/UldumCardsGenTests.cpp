@@ -951,6 +951,54 @@ TEST_CASE("[Warlock : Spell] - ULD_140 : Supreme Archaeology")
     CHECK_EQ(curHand.GetAll()[4]->GetCost(), 0);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [ULD_160] Sinister Deal - COST:1
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Discover</b> a <b>Lackey</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// - 1359 = 1
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - ULD_160 : Sinister Deal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sinister Deal"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->IsLackey(), true);
+    }
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [ULD_143] Pharaoh's Blessing - COST:6
 // - Faction: Neutral, Set: Uldum, Rarity: Rare

@@ -1971,6 +1971,9 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::LACKEY));
+    cards.emplace("ULD_160", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_161] Neferset Thrasher - COST:3 [ATK:4/HP:5]
