@@ -87,14 +87,14 @@ enum class GameTag
 {
 #define X(a) a,
 #include "Rosetta/Common/Enums/GameTag.def"
-#include "GameTagCustom.def"
+#include "Rosetta/Common/Enums/GameTagCustom.def"
 #undef X
 };
 
 const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
 #include "Rosetta/Common/Enums/GameTag.def"
-#include "GameTagCustom.def"
+#include "Rosetta/Common/Enums/GameTagCustom.def"
 #undef X
 };
 
@@ -103,12 +103,14 @@ enum class PlayReq
 {
 #define X(a) a,
 #include "Rosetta/Common/Enums/PlayReq.def"
+#include "Rosetta/Common/Enums/PlayReqCustom.def"
 #undef X
 };
 
 const std::string PLAY_REQ_STR[] = {
 #define X(a) #a,
 #include "Rosetta/Common/Enums/PlayReq.def"
+#include "Rosetta/Common/Enums/PlayReqCustom.def"
 #undef X
 };
 
