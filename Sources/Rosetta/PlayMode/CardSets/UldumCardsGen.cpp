@@ -2003,11 +2003,23 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_MINION_TARGET = 0
-    // - REQ87 = 0
+    // - REQ_LACKEY_TARGET = 0
     // --------------------------------------------------------
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::TARGET, GameTag::ZONE_POSITION));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ULD_162t", SummonSide::NUMBER));
+    cards.emplace(
+        "ULD_162",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_LACKEY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_163] Expired Merchant - COST:2 [ATK:2/HP:1]
@@ -2105,6 +2117,9 @@ void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // [ULD_162t] EVIL Demon (*) - COST:5 [ATK:5/HP:5]
     // - Race: Demon, Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_162t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [ULD_163e] Expired Goods (*) - COST:0

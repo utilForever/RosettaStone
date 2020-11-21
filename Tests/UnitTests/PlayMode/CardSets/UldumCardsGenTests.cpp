@@ -1041,6 +1041,68 @@ TEST_CASE("[Warlock : Minion] - ULD_161 : Neferset Thrasher")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [ULD_162] EVIL Recruiter - COST:3 [ATK:3/HP:3]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a friendly <b>Lackey</b>
+//       to summon a 5/5 Demon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - 1359 = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_LACKEY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - ULD_162 : EVIL Recruiter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("EVIL Recruiter"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_739"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [ULD_143] Pharaoh's Blessing - COST:6
 // - Faction: Neutral, Set: Uldum, Rarity: Rare
@@ -1076,12 +1138,12 @@ TEST_CASE("[PALADIN : Spell] - ULD_143 : Pharaoh's Blessing")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curField = *(curPlayer->GetFieldZone());
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Pharaoh's Blessing"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-
-    auto& curField = *(curPlayer->GetFieldZone());
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
