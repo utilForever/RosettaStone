@@ -1110,6 +1110,14 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(1)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddDeathrattleTask(std::make_shared<DrawStackTask>(2));
+    cards.emplace("ULD_438", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ULD_439] Sandwasp Queen - COST:2 [ATK:3/HP:1]
