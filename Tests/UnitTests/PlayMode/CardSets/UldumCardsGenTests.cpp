@@ -2729,6 +2729,61 @@ TEST_CASE("[Paladin : Minion] - ULD_207 : Ancestral Guardian")
     // Do nothing
 }
 
+// --------------------------------------- MINION - PALADIN
+// [ULD_217] Micro Mummy - COST:2 [ATK:1/HP:2]
+// - Race: Mechanical, Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Reborn</b> At the end of your turn, give
+//       another random friendly minion +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ULD_217 : Micro Mummy")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Micro Mummy"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    int totalAttack = curField[1]->GetAttack();
+    totalAttack += curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    totalAttack = curField[1]->GetAttack();
+    totalAttack += curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 7);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [ULD_431] Making Mummies - COST:1
 // - Set: Uldum, Rarity: Legendary
