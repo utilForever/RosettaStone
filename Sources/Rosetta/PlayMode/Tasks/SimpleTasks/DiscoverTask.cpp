@@ -415,15 +415,6 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 
             break;
         }
-        case DiscoverType::JANDICE_BAROV:
-        {
-            choiceAction = ChoiceAction::STACK;
-            for (auto& playable : game->taskStack.playables)
-            {
-                cards.emplace_back(playable->card);
-            }
-            break;
-        }
         case DiscoverType::FROM_STACK:
         {
             choiceAction = ChoiceAction::STACK;

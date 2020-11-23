@@ -2147,7 +2147,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             return TaskStatus::COMPLETE;
         }));
     power.AddPowerTask(
-        std::make_shared<DiscoverTask>(DiscoverType::JANDICE_BAROV, 2));
+        std::make_shared<DiscoverTask>(DiscoverType::FROM_STACK, 2, 1, false));
     power.AddAfterChooseTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
