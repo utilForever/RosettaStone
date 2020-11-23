@@ -760,7 +760,7 @@ TEST_CASE("[Priest : Minion] - BT_258 : Imprisoned Homunculus")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [BT_292] Hand of A'dal - COST: 2
+// [BT_292] Hand of A'dal - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: Give a minion +2/+2. Draw a card.

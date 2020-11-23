@@ -160,6 +160,10 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     if (playable->card->GetCardType() == newCard->GetCardType())
     {
         playable->card = newCard;
+        for (auto& gameTag : newCard->gameTags)
+        {
+            playable->SetGameTag(gameTag.first, gameTag.second);
+        }
 
         if (playable->costManager != nullptr)
         {

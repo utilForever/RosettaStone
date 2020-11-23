@@ -32,7 +32,7 @@
 * [x] Casts When Drawn
 * [x] Charge
 * [ ] Choose Twice
-* [ ] Corrupt
+* [x] Corrupt
 * [x] Counter
 * [x] Dormant
 * [x] Echo

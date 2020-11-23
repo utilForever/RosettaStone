@@ -139,6 +139,11 @@ bool Playable::IsEcho() const
     return GetGameTag(GameTag::ECHO) == 1;
 }
 
+bool Playable::HasCorrupt() const
+{
+    return GetGameTag(GameTag::CORRUPT) == 1;
+}
+
 void Playable::ResetCost()
 {
     costManager = nullptr;

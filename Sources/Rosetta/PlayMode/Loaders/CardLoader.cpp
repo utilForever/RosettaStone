@@ -26,6 +26,9 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
     cards.reserve(j.size());
 
+    std::regex spellburstRegex("([<b>]*<b>Spellburst[</b>]*:</b>)");
+    std::smatch values;
+
     for (auto& cardData : j)
     {
         const std::string id = cardData["id"].get<std::string>();
@@ -104,9 +107,26 @@ void CardLoader::Load(std::vector<Card*>& cards)
         }
 
         // NOTE: Skyvateer (YOD_016) doesn't have GameTag::DEATHRATTLE
+        // NOTE: Insatiable Felhound (DMF_247) doesn't have GameTag::TAUNT
+        // NOTE: Insatiable Felhound (DMF_247t) doesn't have GameTag::TAUNT
+        //       and GameTag::LIFESTEAL
+        // NOTE: Carousel Gryphon (DMF_064) doesn't have GameTag::DIVINE_SHIELD
         if (dbfID == 56091)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
+        }
+        else if (dbfID == 61269)
+        {
+            gameTags.emplace(GameTag::TAUNT, 1);
+        }
+        else if (dbfID == 61270)
+        {
+            gameTags.emplace(GameTag::TAUNT, 1);
+            gameTags.emplace(GameTag::LIFESTEAL, 1);
+        }
+        else if (dbfID == 61581)
+        {
+            gameTags.emplace(GameTag::DIVINE_SHIELD, 1);
         }
 
         Card* card = new Card();
@@ -139,9 +159,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         {
             card->gameTags[GameTag::OVERLOAD] = overload;
         }
-
-        static std::regex spellburstRegex("([<b>]*<b>Spellburst[</b>]*:</b>)");
-        std::smatch values;
 
         if (std::regex_search(text, values, spellburstRegex))
         {
