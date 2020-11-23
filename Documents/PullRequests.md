@@ -47,10 +47,10 @@ Once you've built the project locally, you're ready to start making changes!
 ### Step 3: Branch
 
 To keep your development environment organized, create local branches to
-hold your work. These should be branched directly off of the `master` branch.
+hold your work. These should be branched directly off of the `main` branch.
 
 ```
-$ git checkout -b my-branch -t upstream/master
+$ git checkout -b my-branch -t upstream/main
 ```
 
 ## Making Changes
@@ -137,11 +137,11 @@ Once you have committed your changes, it is a good idea to use `git rebase`
 
 ```
 $ git fetch upstream
-$ git rebase upstream/master
+$ git rebase upstream/main
 ```
 
 This ensures that your working branch has the latest changes from `utilForever/RosettaStone`
-master.
+main.
 
 ### Step 7: Test
 
@@ -182,7 +182,7 @@ the requirements below.
 
 Bug fixes and new features should include tests and possibly benchmarks.
 
-Contributors guide: https://github.com/utilForever/RosettaStone/blob/master/Documents/Contributing.md
+Contributors guide: https://github.com/utilForever/RosettaStone/blob/main/Documents/Contributing.md
 -->
 ```
 
