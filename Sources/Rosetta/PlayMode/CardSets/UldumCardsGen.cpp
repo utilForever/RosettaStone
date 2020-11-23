@@ -1160,6 +1160,15 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 7));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("ULD_716", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [ULD_728] Subdue - COST:2

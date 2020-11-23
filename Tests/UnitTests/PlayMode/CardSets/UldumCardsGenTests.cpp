@@ -2972,6 +2972,55 @@ TEST_CASE("[Paladin : Minion] - ULD_439 : Sandwasp Queen")
     CHECK_EQ(curHand[1]->card->name, "Sandwasp");
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [ULD_716] Tip the Scales - COST:8
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Summon 7 Murlocs from your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - ULD_716 : Tip the Scales")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Murloc Raider");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Bluegill Warrior");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Faerie Dragon");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tip the Scales"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 7);
+    for (int i = 0; i < 7; ++i)
+    {
+        CHECK_EQ(curField[i]->card->GetRace(), Race::MURLOC);
+    }
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
 // - Set: Uldum, Rarity: Legendary
