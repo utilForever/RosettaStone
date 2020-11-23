@@ -63,8 +63,9 @@ class DiscoverTask : public ITask
     //! \param discoverType The type of discover.
     //! \param numberOfChoices The number of choices.
     //! \param repeat The number to repeat this task.
+    //! \param doShuffle The flag that indicates it does shuffle.
     explicit DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3,
-                          int repeat = 1);
+                          int repeat = 1, bool doShuffle = true);
 
     //! Constructs task with given various parameters.
     //! \param cards A list of cards to discover.
