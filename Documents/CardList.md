@@ -1143,7 +1143,7 @@ SCHOLOMANCE | SCH_248 | Pen Flinger |
 SCHOLOMANCE | SCH_250 | Wave of Apathy |  
 SCHOLOMANCE | SCH_252 | Marrowslicer |  
 SCHOLOMANCE | SCH_253 | Cycle of Hatred |  
-SCHOLOMANCE | SCH_259 | Sphere of Sapience |  
+SCHOLOMANCE | SCH_259 | Sphere of Sapience | O
 SCHOLOMANCE | SCH_270 | Primordial Studies | O
 SCHOLOMANCE | SCH_271 | Molten Blast |  
 SCHOLOMANCE | SCH_273 | Ras Frostwhisper |  

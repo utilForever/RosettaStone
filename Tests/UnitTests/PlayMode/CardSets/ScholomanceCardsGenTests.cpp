@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -1028,6 +1029,87 @@ TEST_CASE("[Neutral : Minion] - SCH_231 : Intrepid Initiate")
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->HasSpellburst(), false);
+}
+
+// --------------------------------------- WEAPON - NEUTRAL
+// [SCH_259] Sphere of Sapience - COST:1
+// - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the start of your turn, look at your top card.
+//       You can put it on the bottom and lose 1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto curHero = curPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sphere of Sapience"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK(curPlayer->choice == nullptr);
+
+    auto topCardId = curDeck.GetTopCard()->card->id;
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_RESOURCE);
+
+    CHECK(curPlayer->choice != nullptr);
+    auto cards = TestUtils::GetChoiceCards(game);
+    CHECK_EQ(cards.size(), 2);
+    CHECK_EQ(cards[0]->id, topCardId);
+    CHECK_EQ(cards[1]->id, "SCH_259t");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curHero->weapon->GetDurability(), 4);
+    CHECK_EQ(curHand.GetAll().back()->card->id, topCardId);
+
+    auto secondCardId = curDeck.GetNthTopCard(2)->card->id;
+    topCardId = curDeck.GetTopCard()->card->id;
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_RESOURCE);
+
+    CHECK(curPlayer->choice != nullptr);
+    cards = TestUtils::GetChoiceCards(game);
+    CHECK_EQ(cards.size(), 2);
+    CHECK_EQ(cards[0]->id, topCardId);
+    CHECK_EQ(cards[1]->id, "SCH_259t");
+
+    TestUtils::ChooseNthChoice(game, 2);
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curHero->weapon->GetDurability(), 3);
+    CHECK_EQ(curHand.GetAll().back()->card->id, secondCardId);
+    CHECK_EQ(curDeck.GetNthTopCard(curDeck.GetCount())->card->id, topCardId);
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
