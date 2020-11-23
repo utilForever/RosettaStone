@@ -1180,6 +1180,13 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_728e", EntityType::TARGET));
+    cards.emplace(
+        "ULD_728",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void UldumCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
@@ -3311,6 +3318,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: 1/1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetAttackHealth(1)));
+    cards.emplace("ULD_728e", CardDef(power));
 }
 
 void UldumCardsGen::AddAll(std::map<std::string, CardDef>& cards)
