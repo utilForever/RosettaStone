@@ -47,6 +47,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
@@ -1851,6 +1852,10 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform all minions into random Murlocs.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TransformMinionTask>(
+        EntityType::ALL_MINIONS, Race::MURLOC));
+    cards.emplace("ULD_172", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [ULD_173] Vessina - COST:4 [ATK:2/HP:6]

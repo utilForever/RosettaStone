@@ -756,6 +756,77 @@ TEST_CASE("[Shaman : Spell] - ULD_171 : Totemic Surge")
     CHECK_EQ(curField[2]->GetAttack(), 3);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [ULD_172] Plague of Murlocs - COST:3
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Transform all minions into random Murlocs.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - ULD_172 : Plague of Murlocs")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Plague of Murlocs"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironfur Grizzly"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faerie Dragon"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Ironfur Grizzly"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Faerie Dragon"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->IsRace(Race::MURLOC), true);
+    CHECK_EQ(curField[1]->IsRace(Race::MURLOC), true);
+    CHECK_EQ(curField[2]->IsRace(Race::MURLOC), true);
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->IsRace(Race::MURLOC), true);
+    CHECK_EQ(opField[1]->IsRace(Race::MURLOC), true);
+    CHECK_EQ(opField[2]->IsRace(Race::MURLOC), true);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [ULD_276] EVIL Totem - COST:2 [ATK:0/HP:2]
 // - Race: Totem, Set: Uldum, Rarity: Common
