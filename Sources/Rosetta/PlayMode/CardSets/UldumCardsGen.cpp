@@ -1888,6 +1888,10 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<AddLackeyTask>(1) };
+    cards.emplace("ULD_276", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_291] Corrupt the Waters - COST:1
