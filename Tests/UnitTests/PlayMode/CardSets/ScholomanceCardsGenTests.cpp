@@ -2061,3 +2061,56 @@ TEST_CASE("[Neutral : Minion] - SCH_713 : Cult Neophyte")
     CHECK_EQ(card2->GetCost(), 4);
     CHECK_EQ(card3->GetCost(), 10);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_717] Keymaster Alabaster - COST:7 [ATK:6/HP:8]
+// - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever your opponent draws a card,
+//       add a copy to your hand that costs (1).
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[NEUTRAL : Minion] - SCH_717 : Keymaster Alabaster")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+    config.fillCardIDs = { "CS2_124", "CS2_124", "CS2_124",
+                           "CS2_124", "CS2_124", "CS2_124",
+                           "CS2_124", "CS2_124", "CS2_124" };
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Keymaster Alabaster"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+
+    CHECK_EQ(curHand[4]->card->id, opHand[5]->card->id);
+    CHECK_EQ(curHand[5]->card->id, opHand[6]->card->id);
+    CHECK_EQ(curHand[4]->GetCost(), 1);
+    CHECK_EQ(curHand[5]->GetCost(), 1);
+}

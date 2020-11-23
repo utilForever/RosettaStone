@@ -1232,7 +1232,7 @@ SCHOLOMANCE | SCH_711 | Plagued Protodrake | O
 SCHOLOMANCE | SCH_712 | Judicious Junior | O
 SCHOLOMANCE | SCH_713 | Cult Neophyte | O
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
-SCHOLOMANCE | SCH_717 | Keymaster Alabaster |  
+SCHOLOMANCE | SCH_717 | Keymaster Alabaster | O
 
 - Progress: 24% (33 of 135 Cards)
 

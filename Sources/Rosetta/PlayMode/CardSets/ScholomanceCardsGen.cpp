@@ -2524,6 +2524,14 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::HAND, 1, true),
+        std::make_shared<AddEnchantmentTask>("DRG_089e", EntityType::STACK)
+    };
+    cards.emplace("SCH_717", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddNeutralNonCollect(
