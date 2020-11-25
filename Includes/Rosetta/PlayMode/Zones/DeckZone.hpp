@@ -35,9 +35,9 @@ class DeckZone : public LimitedZone<Playable>
     //! \return The top card of deck.
     Playable* GetTopCard() const;
 
-    //! Returns the Nth top card from deck.
+    //! Returns the n-th top card from deck.
     //! \param rank The rank of entity from deck.
-    //! \return The Nth top card of deck.
+    //! \return The n-th top card of deck.
     Playable* GetNthTopCard(int rank) const;
 
     //! Adds the specified entity into this zone, at the given position.
