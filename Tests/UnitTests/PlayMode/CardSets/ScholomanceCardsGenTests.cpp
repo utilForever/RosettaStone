@@ -132,7 +132,7 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
     game.Process(curPlayer, PlayCardTask::Spell(card2, 1));
     if (curHand[0]->GetCost() != 0)
     {
-        CHECK_EQ(curHand[0]->GetCost(), oldCost + 1);   
+        CHECK_EQ(curHand[0]->GetCost(), oldCost + 1);
     }
 }
 
@@ -1073,7 +1073,8 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
     game.Process(curPlayer, HeroPowerTask());
     CHECK(curPlayer->choice == nullptr);
 
-    auto topCardId = curDeck.GetTopCard()->card->id;
+    std::string topCardID = curDeck.GetTopCard()->card->id;
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
@@ -1081,18 +1082,21 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
     game.ProcessUntil(Step::MAIN_RESOURCE);
 
     CHECK(curPlayer->choice != nullptr);
+
     auto cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 2);
-    CHECK_EQ(cards[0]->id, topCardId);
+    CHECK_EQ(cards[0]->id, topCardID);
     CHECK_EQ(cards[1]->id, "SCH_259t");
 
     TestUtils::ChooseNthChoice(game, 1);
     game.ProcessUntil(Step::MAIN_ACTION);
-    CHECK_EQ(curHero->weapon->GetDurability(), 4);
-    CHECK_EQ(curHand.GetAll().back()->card->id, topCardId);
 
-    auto secondCardId = curDeck.GetNthTopCard(2)->card->id;
-    topCardId = curDeck.GetTopCard()->card->id;
+    CHECK_EQ(curHero->weapon->GetDurability(), 4);
+    CHECK_EQ(curHand.GetAll().back()->card->id, topCardID);
+
+    std::string secondCardID = curDeck.GetNthTopCard(2)->card->id;
+    topCardID = curDeck.GetTopCard()->card->id;
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
@@ -1100,16 +1104,18 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
     game.ProcessUntil(Step::MAIN_RESOURCE);
 
     CHECK(curPlayer->choice != nullptr);
+
     cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 2);
-    CHECK_EQ(cards[0]->id, topCardId);
+    CHECK_EQ(cards[0]->id, topCardID);
     CHECK_EQ(cards[1]->id, "SCH_259t");
 
     TestUtils::ChooseNthChoice(game, 2);
     game.ProcessUntil(Step::MAIN_ACTION);
+
     CHECK_EQ(curHero->weapon->GetDurability(), 3);
-    CHECK_EQ(curHand.GetAll().back()->card->id, secondCardId);
-    CHECK_EQ(curDeck.GetNthTopCard(curDeck.GetCount())->card->id, topCardId);
+    CHECK_EQ(curHand.GetAll().back()->card->id, secondCardID);
+    CHECK_EQ(curDeck.GetNthTopCard(curDeck.GetCount())->card->id, topCardID);
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
@@ -2108,7 +2114,6 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_717 : Keymaster Alabaster")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, HeroPowerTask());
-
     CHECK_EQ(curHand[4]->card->id, opHand[5]->card->id);
     CHECK_EQ(curHand[5]->card->id, opHand[6]->card->id);
     CHECK_EQ(curHand[4]->GetCost(), 1);
