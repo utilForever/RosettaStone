@@ -1996,11 +1996,11 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            const auto& deckZone = player->GetDeckZone();
+            DeckZone* deckZone = player->GetDeckZone();
 
             if (!deckZone->IsEmpty())
             {
-                auto& stack = player->game->taskStack;
+                TaskStack& stack = player->game->taskStack;
                 stack.AddPlayables(
                     { deckZone->GetTopCard(),
                       Entity::GetFromCard(player,
@@ -2012,28 +2012,30 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 discoverTask->SetSource(source);
                 discoverTask->Run();
             }
+
             return TaskStatus::COMPLETE;
         }) };
     power.AddAfterChooseTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            const auto& deckZone = player->GetDeckZone();
-            auto& stack = player->game->taskStack;
+            DeckZone* deckZone = player->GetDeckZone();
+            TaskStack& stack = player->game->taskStack;
             const Playable* result = stack.playables[0];
 
             if (result != nullptr && result->card->id == "SCH_259t")
             {
-                Weapon* weapon = player->GetHero()->weapon;
-                if (weapon != nullptr)
+                if (Weapon* weapon = player->GetHero()->weapon; weapon)
                 {
                     Playable* topCard = deckZone->GetTopCard();
+
+                    // Add a card at the bottom of stack
                     deckZone->Remove(topCard);
-                    deckZone->Add(topCard,
-                                  0);  // add a card at the bottom of stack
+                    deckZone->Add(topCard, 0);
 
                     weapon->RemoveDurability(1);
                 }
             }
+
             return TaskStatus::COMPLETE;
         }));
     cards.emplace("SCH_259", CardDef(power));
