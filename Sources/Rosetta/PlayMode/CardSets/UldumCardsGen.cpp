@@ -1871,6 +1871,15 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "ULD_173e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsOverloaded());
+    }
+    cards.emplace("ULD_173", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_181] Earthquake - COST:7
@@ -1958,8 +1967,11 @@ void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // [ULD_173e] Vessina's Devotion (*) - COST:0
     // - Set: Uldum
     // --------------------------------------------------------
-    // Text: Vessina is granting this minion +2_Attack.
+    // Text: Vessina is granting this minion +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_173e"));
+    cards.emplace("ULD_173e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [ULD_433e] Cheat Sheet (*) - COST:0
