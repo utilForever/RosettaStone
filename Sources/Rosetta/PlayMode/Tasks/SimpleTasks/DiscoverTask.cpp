@@ -59,10 +59,11 @@ DiscoverTask::DiscoverTask(const std::vector<std::string>& cardIDs,
 }
 
 DiscoverTask::DiscoverTask(DiscoverType discoverType, int numberOfChoices,
-                           int repeat)
+                           int repeat, bool doShuffle)
     : m_discoverType(discoverType),
       m_numberOfChoices(numberOfChoices),
-      m_repeat(repeat)
+      m_repeat(repeat),
+      m_doShuffle(doShuffle)
 {
     // Do nothing
 }
@@ -122,18 +123,18 @@ TaskStatus DiscoverTask::Impl(Player* player)
 
     if (!m_cards.empty())
     {
-        result = GetChoices(m_cards, m_numberOfChoices);
+        result = GetChoices(m_cards, m_numberOfChoices, m_doShuffle);
     }
     else if (m_discoverType != DiscoverType::INVALID)
     {
         cardsToDiscover =
             Discover(player->game, player, m_discoverType, m_choiceAction);
-        result = GetChoices(cardsToDiscover, m_numberOfChoices);
+        result = GetChoices(cardsToDiscover, m_numberOfChoices, m_doShuffle);
     }
     else
     {
         cardsToDiscover = Discover(player->game, player, m_discoverCriteria);
-        result = GetChoices(cardsToDiscover, m_numberOfChoices);
+        result = GetChoices(cardsToDiscover, m_numberOfChoices, m_doShuffle);
     }
 
     if (result.empty())
@@ -414,7 +415,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
 
             break;
         }
-        case DiscoverType::JANDICE_BAROV:
+        case DiscoverType::FROM_STACK:
         {
             choiceAction = ChoiceAction::STACK;
             for (auto& playable : game->taskStack.playables)
