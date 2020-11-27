@@ -878,8 +878,8 @@ TEST_CASE("[Shaman : Minion] - ULD_173 : Vessina")
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curField[0]->GetAttack(), 2);
-    // CHECK_EQ(curField[1]->GetAttack(), 5);
-    // CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetAttack(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -888,8 +888,8 @@ TEST_CASE("[Shaman : Minion] - ULD_173 : Vessina")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField[0]->GetAttack(), 2);
-    // CHECK_EQ(curField[1]->GetAttack(), 5);
-    // CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetAttack(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

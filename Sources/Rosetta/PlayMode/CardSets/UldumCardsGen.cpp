@@ -1878,6 +1878,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsOverloaded());
+        aura->restless = true;
     }
     cards.emplace("ULD_173", CardDef(power));
 
@@ -1970,7 +1971,7 @@ void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // Text: Vessina is granting this minion +2 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("ULD_173e"));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(2)));
     cards.emplace("ULD_173e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
