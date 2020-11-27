@@ -2896,6 +2896,16 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever you play a minion,
     //       give a random minion in your hand +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::HAND),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<AddEnchantmentTask>("ULD_290e", EntityType::STACK)
+    };
+    cards.emplace("ULD_290", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_304] King Phaoris - COST:10 [ATK:5/HP:5]
@@ -3255,6 +3265,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats from History Buff.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(1)));
+    cards.emplace("ULD_290e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_291pe] Heart of Vir'naal (*) - COST:0

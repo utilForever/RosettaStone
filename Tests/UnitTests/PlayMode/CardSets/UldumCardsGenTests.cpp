@@ -5834,6 +5834,58 @@ TEST_CASE("[Neutral : Minion] - ULD_289 : Fishflinger")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_290] History Buff - COST:3 [ATK:3/HP:4]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: Whenever you play a minion,
+//       give a random minion in your hand +1/+1.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_290 : History Buff")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("History Buff"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
 // - Race: Demon, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
