@@ -2490,6 +2490,23 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SIAMAT, 4, 2));
+    power.AddAfterChooseTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const int dbfID1 =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
+            Generic::AddEnchantment(Cards::FindCardByDbfID(dbfID1),
+                                    dynamic_cast<Playable*>(source), source);
+
+            const int dbfID2 =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2);
+            Generic::AddEnchantment(Cards::FindCardByDbfID(dbfID2),
+                                    dynamic_cast<Playable*>(source), source);
+        }));
+    cards.emplace("ULD_178", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_179] Phalanx Commander - COST:5 [ATK:4/HP:5]
@@ -3086,6 +3103,12 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::Windfury));
+    cards.emplace(
+        "ULD_178a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_178a2] Siamat's Shield (*) - COST:0
@@ -3103,6 +3126,12 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::DivineShield));
+    cards.emplace(
+        "ULD_178a2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_178a3] Siamat's Heart (*) - COST:0
@@ -3121,6 +3150,13 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::Taunt));
+    cards.emplace(
+        "ULD_178a3",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [ULD_178a4] Siamat's Speed (*) - COST:0
@@ -3138,6 +3174,12 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::Rush));
+    cards.emplace(
+        "ULD_178a4",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_179e] Commanded (*) - COST:0

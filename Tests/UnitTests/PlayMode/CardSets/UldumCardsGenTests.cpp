@@ -4582,6 +4582,82 @@ TEST_CASE("[Neutral : Minion] - ULD_177 : Octosari")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_178] Siamat - COST:7 [ATK:6/HP:6]
+// - Race: Elemental, Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Gain 2 of <b>Rush</b>,
+//       <b>Taunt</b>, <b>Divine Shield</b>, or
+//       <b>Windfury</b> <i>(your choice).</i>
+// --------------------------------------------------------
+// Entourage: ULD_178a2, ULD_178a, ULD_178a3, ULD_178a4
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - WINDFURY = 1
+// - TAUNT = 1
+// - DIVINE_SHIELD = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_178 : Siamat")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Siamat"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Siamat"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    TestUtils::ChooseNthChoice(game, 1);
+
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+    CHECK_EQ(curField[0]->HasRush(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice != nullptr);
+
+    TestUtils::ChooseNthChoice(game, 4);
+    TestUtils::ChooseNthChoice(game, 3);
+
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->HasWindfury(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->HasRush(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_182] Spitting Camel - COST:2 [ATK:2/HP:4]
 // - Race: Beast, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
