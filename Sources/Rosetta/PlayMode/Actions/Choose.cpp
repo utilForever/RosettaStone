@@ -232,6 +232,20 @@ bool ChoicePick(Player* player, int choice)
 
             break;
         }
+        case ChoiceAction::SIAMAT:
+        {
+            if (choiceVal->depth == 1)
+            {
+                choiceVal->source->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1,
+                                              playable->card->dbfID);
+            }
+            else
+            {
+                choiceVal->source->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2,
+                                              playable->card->dbfID);
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "ChoicePick() - Invalid choice action!");

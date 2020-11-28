@@ -18,9 +18,20 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class TransformMinionTask : public ITask
 {
  public:
+    //! Constructs task with given \p entityType, \p race and \p costChange.
+    //! \param entityType The entity type to transform.
+    //! \param race The value of race to change for transform.
+    //! \param costChange The value of cost to change for transform.
+    TransformMinionTask(EntityType entityType, Race race, int costChange);
+
+    //! Constructs task with given \p entityType and \p race.
+    //! \param entityType The entity type to transform.
+    //! \param race The value of race to change for transform.
+    TransformMinionTask(EntityType entityType, Race race);
+
     //! Constructs task with given \p entityType and \p costChange.
     //! \param entityType The entity type to transform.
-    //! \param costChange The value of cost to change for transformation.
+    //! \param costChange The value of cost to change for transform.
     TransformMinionTask(EntityType entityType, int costChange);
 
  private:
@@ -33,6 +44,7 @@ class TransformMinionTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
+    Race m_race = Race::INVALID;
     int m_costChange = 0;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks

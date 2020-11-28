@@ -614,6 +614,17 @@ void Aura::RenewAll()
         case AuraType::FIELD:
             m_owner->player->GetFieldZone()->ForEach(Renew);
             break;
+        case AuraType::FIELD_EXCEPT_SOURCE:
+        {
+            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            {
+                if (minion != m_owner)
+                {
+                    Renew(minion);
+                }
+            }
+            break;
+        }
         case AuraType::HANDS:
             m_owner->player->GetHandZone()->ForEach(Renew);
             m_owner->player->opponent->GetHandZone()->ForEach(Renew);

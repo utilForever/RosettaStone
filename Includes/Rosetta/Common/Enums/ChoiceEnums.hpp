@@ -26,11 +26,13 @@ enum class DiscoverType
     SPELL_THREE_COST_OR_LESS,
     DEMON,
     DRAGON,
+    LACKEY,
     HEISTBARON_TOGWAGGLE,
     MADAME_LAZUL,
     SWAMPQUEEN_HAGATHA,
     TORTOLLAN_PILGRIM,
     FROM_STACK,
+    SIAMAT,
 };
 
 //! The action type of choice.
@@ -47,6 +49,7 @@ enum class ChoiceAction
     SIGHTLESS_WATCHER,   //!< Sightless Watcher.
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
     TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
+    SIAMAT,              //!< Siamat.
 };
 }  // namespace RosettaStone
 

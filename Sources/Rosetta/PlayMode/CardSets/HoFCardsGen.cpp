@@ -288,7 +288,17 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS2_236e] Divine Spirit (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This minion has double Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Enchants::AddHealthScriptTag));
+    cards.emplace("CS2_236e", CardDef(power));
 }
 
 void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)

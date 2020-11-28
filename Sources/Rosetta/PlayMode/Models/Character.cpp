@@ -105,7 +105,7 @@ void Character::SetNumAttacksThisTurn(int amount)
 
 bool Character::IsRace(Race race) const
 {
-    return race == card->GetRace();
+    return card->GetRace() == race || card->GetRace() == Race::ALL;
 }
 
 bool Character::IsImmune() const

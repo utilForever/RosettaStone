@@ -36,7 +36,7 @@ void Choice::TryPrepare()
 
     if (choiceAction == ChoiceAction::SWAMPQUEEN_HAGATHA)
     {
-        auto playable = player->game->entityList[lastChoice];
+        Playable* playable = player->game->entityList[lastChoice];
         bool isTargetingCard = false;
 
         for (auto& playReq : playable->card->playRequirements)
@@ -80,6 +80,12 @@ void Choice::TryPrepare()
 
             cardSets = cards;
         }
+    }
+    else if (choiceAction == ChoiceAction::SIAMAT)
+    {
+        Playable* effect = player->game->entityList[lastChoice];
+        EraseIf(cardSets,
+                [=](Card* card) { return effect->card->id == card->id; });
     }
 
     auto cards = SimpleTasks::DiscoverTask::GetChoices(cardSets, 3);

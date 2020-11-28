@@ -57,6 +57,11 @@ TargetingPredicate TargetingPredicates::ReqDragonTarget()
     return [](Character* character) { return character->IsRace(Race::DRAGON); };
 }
 
+TargetingPredicate TargetingPredicates::ReqLackeyTarget()
+{
+    return [](Character* character) { return character->card->IsLackey(); };
+}
+
 TargetingPredicate TargetingPredicates::ReqTargetWithRace(Race race)
 {
     switch (race)

@@ -89,6 +89,10 @@ void Card::Initialize()
                     TargetingPredicates::ReqTargetWithRace(race));
             }
             break;
+            case PlayReq::REQ_LACKEY_TARGET:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqLackeyTarget());
+                break;
             case PlayReq::REQ_TARGET_FOR_COMBO:
                 needsTarget = true;
                 targetingAvailabilityPredicate.emplace_back(
