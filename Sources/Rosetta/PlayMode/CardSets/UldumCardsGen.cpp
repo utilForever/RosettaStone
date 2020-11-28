@@ -2516,13 +2516,19 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
-    // - 1429 = 58385
     // - TECH_LEVEL = 3
-    // - 1456 = 1
     // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "ULD_179e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::HasTaunt());
+    }
+    cards.emplace("ULD_179", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_180] Sunstruck Henchman - COST:4 [ATK:6/HP:5]
@@ -3187,6 +3193,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Phalanx Commander is granting this +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_179e"));
+    cards.emplace("ULD_179e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_183e] Anubisath Power (*) - COST:0
