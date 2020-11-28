@@ -4972,6 +4972,62 @@ TEST_CASE("[Neutral : Minion] - ULD_188 : Golden Scarab")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_189] Faceless Lurker - COST:5 [ATK:3/HP:3]
+// - Set: Uldum, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Double this minion's Health.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_189 : Faceless Lurker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faceless Lurker"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Anubisath Warbringer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(dynamic_cast<Minion*>(card1)->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(dynamic_cast<Minion*>(card1)->GetHealth(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_190] Pit Crocolisk - COST:8 [ATK:5/HP:6]
 // - Race: Beast, Set: Uldum, Rarity: Common
 // --------------------------------------------------------

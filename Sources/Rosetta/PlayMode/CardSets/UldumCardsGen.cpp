@@ -37,6 +37,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/QuestProgressTask.hpp>
@@ -2627,6 +2628,16 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE, GameTag::HEALTH));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                                        GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "ULD_189e", EntityType::SOURCE, true));
+    cards.emplace("ULD_189", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_190] Pit Crocolisk - COST:8 [ATK:5/HP:6]
@@ -3233,6 +3244,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Doubled Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Enchants::AddHealthScriptTag));
+    cards.emplace("ULD_189e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_191e] Assisting! (*) - COST:0
