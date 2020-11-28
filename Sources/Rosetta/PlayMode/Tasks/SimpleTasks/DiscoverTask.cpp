@@ -433,6 +433,13 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             }
             break;
         }
+        case DiscoverType::SIAMAT:
+            choiceAction = ChoiceAction::SIAMAT;
+            cards = { Cards::FindCardByID("ULD_178a2"),
+                      Cards::FindCardByID("ULD_178a"),
+                      Cards::FindCardByID("ULD_178a3"),
+                      Cards::FindCardByID("ULD_178a4") };
+            break;
     }
 
     return cards;
