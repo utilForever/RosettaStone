@@ -5860,8 +5860,6 @@ TEST_CASE("[Neutral : Minion] - ULD_290 : History Buff")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("History Buff"));
     const auto card2 =
