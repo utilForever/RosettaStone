@@ -5109,6 +5109,55 @@ TEST_CASE("[Neutral : Minion] - ULD_194 : Wasteland Scorpid")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_196] Neferset Ritualist - COST:2 [ATK:2/HP:3]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Restore adjacent minions
+//       to full Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_196 : Neferset Ritualist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Neferset Ritualist"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 1));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[2]->GetHealth(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_197] Quicksand Elemental - COST:2 [ATK:3/HP:2]
 // - Race: Elemental, Set: Uldum, Rarity: Rare
 // --------------------------------------------------------

@@ -33,7 +33,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
@@ -2703,6 +2705,11 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::STACK));
+    cards.emplace("ULD_196", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_197] Quicksand Elemental - COST:2 [ATK:3/HP:2]
