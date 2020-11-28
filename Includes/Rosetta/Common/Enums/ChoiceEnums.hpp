@@ -31,7 +31,7 @@ enum class DiscoverType
     MADAME_LAZUL,
     SWAMPQUEEN_HAGATHA,
     TORTOLLAN_PILGRIM,
-    JANDICE_BAROV,
+    FROM_STACK,
     SIAMAT,
 };
 

@@ -34,6 +34,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -1990,6 +1991,54 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            DeckZone* deckZone = player->GetDeckZone();
+
+            if (!deckZone->IsEmpty())
+            {
+                TaskStack& stack = player->game->taskStack;
+                stack.AddPlayables(
+                    { deckZone->GetTopCard(),
+                      Entity::GetFromCard(player,
+                                          Cards::FindCardByID("SCH_259t")) });
+
+                const auto& discoverTask = std::make_shared<DiscoverTask>(
+                    DiscoverType::FROM_STACK, 2, 1, false);
+                discoverTask->SetPlayer(player);
+                discoverTask->SetSource(source);
+                discoverTask->Run();
+            }
+
+            return TaskStatus::COMPLETE;
+        }) };
+    power.AddAfterChooseTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            DeckZone* deckZone = player->GetDeckZone();
+            TaskStack& stack = player->game->taskStack;
+            const Playable* result = stack.playables[0];
+
+            if (result != nullptr && result->card->id == "SCH_259t")
+            {
+                if (Weapon* weapon = player->GetHero()->weapon; weapon)
+                {
+                    Playable* topCard = deckZone->GetTopCard();
+
+                    // Add a card at the bottom of stack
+                    deckZone->Remove(topCard);
+                    deckZone->Add(topCard, 0);
+
+                    weapon->RemoveDurability(1);
+                }
+            }
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace("SCH_259", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_270] Primordial Studies - COST:1
@@ -2147,7 +2196,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             return TaskStatus::COMPLETE;
         }));
     power.AddPowerTask(
-        std::make_shared<DiscoverTask>(DiscoverType::JANDICE_BAROV, 2));
+        std::make_shared<DiscoverTask>(DiscoverType::FROM_STACK, 2, 1, false));
     power.AddAfterChooseTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
@@ -2477,6 +2526,14 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::HAND, 1, true),
+        std::make_shared<AddEnchantmentTask>("DRG_089e", EntityType::STACK)
+    };
+    cards.emplace("SCH_717", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddNeutralNonCollect(
@@ -2860,6 +2917,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Draw a different card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_259t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_270e] Runic Studies - COST:0
