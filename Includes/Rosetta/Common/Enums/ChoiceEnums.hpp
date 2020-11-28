@@ -49,6 +49,7 @@ enum class ChoiceAction
     SIGHTLESS_WATCHER,   //!< Sightless Watcher.
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
     TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
+    SIAMAT,              //!< Siamat.
 };
 }  // namespace RosettaStone
 
