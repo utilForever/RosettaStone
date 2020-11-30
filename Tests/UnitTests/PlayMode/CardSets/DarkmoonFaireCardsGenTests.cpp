@@ -160,6 +160,56 @@ TEST_CASE("[Hunter : Minion] - DMF_083 : Dancing Cobra")
     CHECK_EQ(curField[1]->HasPoisonous(), true);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [DMF_085] Darkmoon Tonk - COST:7 [ATK:8/HP:5]
+// - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Fire four missiles
+//       at random enemies that deal 2 damage each.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DMF_085 : Darkmoon Tonk")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opHero = *(opPlayer->GetHero());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Darkmoon Tonk"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opHero.GetHealth(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(opHero.GetHealth(), 22);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [DMF_101] Firework Elemental - COST:5 [ATK:3/HP:5]
 // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common

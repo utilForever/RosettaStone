@@ -8,7 +8,10 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::PlayMode;
@@ -17,6 +20,8 @@ using namespace SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void DarkmoonFaireCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -301,6 +306,15 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 2) },
+        4, false));
+    cards.emplace("DMF_085", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DMF_086] Petting Zoo - COST:3
