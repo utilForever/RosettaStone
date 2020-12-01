@@ -15,6 +15,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp"
+
 using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
 
@@ -1594,6 +1596,8 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
 
 void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [DMF_521] Sword Eater - COST:4 [ATK:2/HP:5]
     // - Race: Pirate, Set: DARKMOON_FAIRE, Rarity: Common
@@ -1709,11 +1713,21 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_531e", EntityType::STACK));
+    cards.emplace("DMF_531", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - WARRIOR
     // [DMF_521t] Jawbreaker - COST:3
     // - Set: DARKMOON_FAIRE
@@ -1757,6 +1771,9 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_531e"));
+    cards.emplace("DMF_531e", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddDemonHunter(

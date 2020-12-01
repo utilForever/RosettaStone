@@ -759,6 +759,56 @@ TEST_CASE("[Warlock : Minion] - DMF_114 : Midway Maniac")
     // Do nothing
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [DMF_531] Stage Hand - COST:2 [ATK:3/HP:2]
+// - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a random minion in your hand +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DMF_531 : Stage Hand")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stage Hand"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    const int totalAttack = dynamic_cast<Minion*>(card2)->GetAttack() +
+                            dynamic_cast<Minion*>(card3)->GetAttack();
+    const int totalHealth = dynamic_cast<Minion*>(card2)->GetHealth() +
+                            dynamic_cast<Minion*>(card3)->GetHealth();
+    CHECK_EQ(totalAttack, 7);
+    CHECK_EQ(totalHealth, 4);
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [DMF_247] Insatiable Felhound - COST:3 [ATK:2/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
