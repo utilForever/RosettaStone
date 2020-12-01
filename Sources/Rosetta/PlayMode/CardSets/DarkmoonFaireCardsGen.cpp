@@ -2393,6 +2393,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_532", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddNeutralNonCollect(
