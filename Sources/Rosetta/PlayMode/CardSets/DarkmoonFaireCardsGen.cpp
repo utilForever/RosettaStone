@@ -11,11 +11,11 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
-
-#include "Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp"
 
 using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
@@ -2251,6 +2251,12 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_091e2", EntityType::STACK));
+    cards.emplace("DMF_091", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_124] Horrendous Growth - COST:2 [ATK:2/HP:2]
@@ -2643,6 +2649,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_091e2"));
+    cards.emplace("DMF_091e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DMF_102e] Special Discount - COST:0
