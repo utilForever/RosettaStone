@@ -2331,6 +2331,14 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_189e", EntityType::STACK));
+    cards.emplace("DMF_189", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_190] Fantastic Firebird - COST:4 [ATK:3/HP:5]
@@ -2758,6 +2766,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_189e"));
+    cards.emplace("DMF_189e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DMF_224e] Expendable - COST:0

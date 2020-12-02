@@ -1166,6 +1166,56 @@ TEST_CASE("[Neutral : Minion] - DMF_174 : Circus Medic")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DMF_189] Costumed Entertainer - COST:2 [ATK:1/HP:2]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a random minion in your hand +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DMF_189 : Costumed Entertainer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Costumed Entertainer"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    const int totalAttack = dynamic_cast<Minion*>(card2)->GetAttack() +
+                            dynamic_cast<Minion*>(card3)->GetAttack();
+    const int totalHealth = dynamic_cast<Minion*>(card2)->GetHealth() +
+                            dynamic_cast<Minion*>(card3)->GetHealth();
+    CHECK_EQ(totalAttack, 8);
+    CHECK_EQ(totalHealth, 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DMF_190] Fantastic Firebird - COST:4 [ATK:3/HP:5]
 // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
