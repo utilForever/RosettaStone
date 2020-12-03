@@ -895,7 +895,7 @@ TEST_CASE("[Shaman : Minion] - DMF_704 : Cagematch Custodian")
     game.Process(curPlayer, PlayCardTask::Spell(card));
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(curHand[4]->card->name, "Cagematch Custodian");
+    CHECK_EQ(curHand[4]->card->name, "Stormforged Axe");
 }
 
 // --------------------------------------- MINION - WARLOCK
