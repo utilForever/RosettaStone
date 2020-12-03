@@ -763,12 +763,18 @@ TEST_CASE("[Shaman : Spell] - DMF_702 : Stormstrike")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curField = *(curPlayer->GetFieldZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Stormstrike"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Earth Elemental"));
 
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->GetHealth(), 5);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
 
     game.Process(curPlayer, EndTurnTask());
