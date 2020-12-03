@@ -1251,6 +1251,16 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion.
     //       Give your hero +3 Attack this turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_702e", EntityType::HERO));
+    cards.emplace("DMF_702", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_703] Pit Master - COST:3 [ATK:1/HP:2]
@@ -1371,6 +1381,9 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_702e"));
+    cards.emplace("DMF_702e", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_703t] Pit Master - COST:3 [ATK:1/HP:2]
