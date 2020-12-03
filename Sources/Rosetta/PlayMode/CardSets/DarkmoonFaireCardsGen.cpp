@@ -1265,7 +1265,10 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DMF_702e", EntityType::HERO));
-    cards.emplace("DMF_702", CardDef(power));
+    cards.emplace(
+        "DMF_702",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_703] Pit Master - COST:3 [ATK:1/HP:2]
