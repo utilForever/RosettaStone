@@ -8,6 +8,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
@@ -1276,6 +1277,9 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawWeaponTask>(1));
+    cards.emplace("DMF_704", CardDef(power));
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [DMF_705] Whack-A-Gnoll Hammer - COST:3

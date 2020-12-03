@@ -745,6 +745,52 @@ TEST_CASE("[Shaman : Minion] - DMF_703 : Pit Master")
     CHECK_EQ(curField[4]->card->name, "Duelist");
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DMF_704] Cagematch Custodian - COST:2 [ATK:2/HP:2]
+// - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a weapon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DMF_704 : Cagematch Custodian")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Stormforged Axe");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Cagematch Custodian"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Cagematch Custodian");
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [DMF_114] Midway Maniac - COST:2 [ATK:1/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
