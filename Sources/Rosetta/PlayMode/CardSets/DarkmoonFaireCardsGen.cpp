@@ -23,6 +23,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp"
+
 using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
 
@@ -2129,6 +2131,12 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "EX1_014t", 2));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "EX1_014t", 2));
+    cards.emplace("DMF_065", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_066] Knife Vendor - COST:4 [ATK:3/HP:4]

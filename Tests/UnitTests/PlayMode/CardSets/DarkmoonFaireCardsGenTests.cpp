@@ -1152,6 +1152,53 @@ TEST_CASE("[Neutral : Minion] - DMF_044 : Rock Rager")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DMF_065] Banana Vendor - COST:3 [ATK:2/HP:4]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add 2 Bananas to each player's hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DMF_065 : Banana Vendor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Banana Vendor"));
+
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Bananas");
+    CHECK_EQ(curHand[1]->card->name, "Bananas");
+    CHECK_EQ(opHand.GetCount(), 3);
+    CHECK_EQ(opHand[1]->card->name, "Bananas");
+    CHECK_EQ(opHand[2]->card->name, "Bananas");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DMF_066] Knife Vendor - COST:4 [ATK:3/HP:4]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
