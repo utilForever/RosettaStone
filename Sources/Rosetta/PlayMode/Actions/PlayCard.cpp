@@ -336,6 +336,9 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
 
+    // Store minions in field to process spellburst task
+    auto minions = player->GetFieldZone()->GetAll();
+
     // Check spell is countered
     if (spell->IsCountered())
     {
@@ -376,7 +379,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     // Process spellburst tasks
     player->game->taskQueue.StartEvent();
 
-    for (auto& minion : player->GetFieldZone()->GetAll())
+    for (auto& minion : minions)
     {
         if (!minion->isDestroyed && minion->HasSpellburst())
         {
