@@ -2139,6 +2139,10 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 4));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 4));
+    cards.emplace("DMF_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_067] Prize Vendor - COST:2 [ATK:2/HP:3]

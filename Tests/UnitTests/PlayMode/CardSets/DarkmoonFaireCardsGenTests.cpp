@@ -1152,6 +1152,46 @@ TEST_CASE("[Neutral : Minion] - DMF_044 : Rock Rager")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DMF_066] Knife Vendor - COST:4 [ATK:3/HP:4]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 4 damage to each hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DMF_066 : Knife Vendor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Knife Vendor"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DMF_067] Prize Vendor - COST:2 [ATK:2/HP:3]
 // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
