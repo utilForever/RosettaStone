@@ -741,6 +741,9 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_238t"));
+    cards.emplace("DMF_238", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DMF_240] Lothraxion the Redeemed - COST:5 [ATK:5/HP:5]
@@ -847,6 +850,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_238t", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DMF_244t] Day at the Faire - COST:3

@@ -428,6 +428,54 @@ TEST_CASE("[Paladin : Minion] - DMF_194 : Redscale Dragontamer")
     CHECK_EQ(curHand[4]->card->name, "Faerie Dragon");
 }
 
+// --------------------------------------- WEAPON - PALADIN
+// [DMF_238] Hammer of the Naaru - COST:6
+// - Set: DARKMOON_FAIRE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 6/6 Holy Elemental
+//       with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - DMF_238 : Hammer of the Naaru")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Hammer of the Naaru"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Holy Elemental");
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DMF_244] Day at the Faire - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Common
