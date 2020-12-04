@@ -158,6 +158,12 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         }
     }
 
+    // Reset transformed minions
+    for (auto& minion : player->GetFieldZone()->GetAll())
+    {
+        minion->isTransformed = false;
+    }
+
     // Set combo active to true
     if (!player->IsComboActive())
     {
@@ -381,7 +387,8 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 
     for (auto& minion : minions)
     {
-        if (!minion->isDestroyed && minion->HasSpellburst())
+        if (!minion->isDestroyed && !minion->isTransformed &&
+            minion->HasSpellburst())
         {
             minion->ActivateTask(PowerType::SPELLBURST);
             minion->SetGameTag(GameTag::SPELLBURST, 0);

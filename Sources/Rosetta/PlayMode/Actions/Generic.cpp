@@ -221,6 +221,9 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
         playable = entity;
     }
 
+    // Set it is transformed playable
+    playable->isTransformed = true;
+
     // Replay auras
     if (hand != nullptr)
     {
