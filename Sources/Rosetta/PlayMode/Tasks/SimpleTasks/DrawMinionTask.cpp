@@ -14,6 +14,12 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+DrawMinionTask::DrawMinionTask(int amount, bool addToStack)
+    : m_amount(amount), m_addToStack(addToStack)
+{
+    // Do nothing
+}
+
 DrawMinionTask::DrawMinionTask(bool lowestCost, int amount, bool addToStack)
     : m_amount(amount), m_lowestCost(lowestCost), m_addToStack(addToStack)
 {

@@ -18,6 +18,11 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class DrawMinionTask : public ITask
 {
  public:
+    //! Constructs task with given \p amount and \p addToStack.
+    //! \param amount The amount to draw minion card(s).
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawMinionTask(int amount, bool addToStack);
+
     //! Constructs task with given \p lowestCost, \p amount and \p addToStack.
     //! \param lowestCost A flag to draw lowest cost card(s).
     //! \param amount The amount to draw minion card(s).
