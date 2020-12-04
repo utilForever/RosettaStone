@@ -9,8 +9,10 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
@@ -2147,6 +2149,10 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    power.AddPowerTask(std::make_shared<DrawOpTask>(1));
+    cards.emplace("DMF_067", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [DMF_068] Optimistic Ogre - COST:5 [ATK:6/HP:7]

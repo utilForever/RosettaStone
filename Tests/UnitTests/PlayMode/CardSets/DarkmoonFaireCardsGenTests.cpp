@@ -1152,6 +1152,49 @@ TEST_CASE("[Neutral : Minion] - DMF_044 : Rock Rager")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [DMF_067] Prize Vendor - COST:2 [ATK:2/HP:3]
+// - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Both players draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - DMF_067 : Prize Vendor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Prize Vendor"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(opHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(opHand.GetCount(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [DMF_073] Darkmoon Dirigible - COST:3 [ATK:3/HP:2]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
