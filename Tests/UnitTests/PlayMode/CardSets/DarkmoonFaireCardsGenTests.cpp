@@ -622,6 +622,61 @@ TEST_CASE("[Priest : Minion] - DMF_184 : Fairground Fool")
     CHECK_EQ(curField[1]->GetHealth(), 7);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [DMF_515] Swindle - COST:2
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw a spell.
+//       <b>Combo:</b> And a minion.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - DMF_515 : Swindle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Faerie Dragon");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Shiv");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Assassin's Blade");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Swindle"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Swindle"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[6]->card->GetCardType(), CardType::MINION);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [DMF_517] Sweet Tooth - COST:2 [ATK:3/HP:2]
 // - Set: DARKMOON_FAIRE, Rarity: Common
