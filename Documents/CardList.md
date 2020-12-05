@@ -1254,9 +1254,9 @@ DARKMOON_FAIRE | DMF_060 | Umbral Owl |
 DARKMOON_FAIRE | DMF_061 | Faire Arborist |  
 DARKMOON_FAIRE | DMF_062 | Gyreworm |  
 DARKMOON_FAIRE | DMF_064 | Carousel Gryphon | O
-DARKMOON_FAIRE | DMF_065 | Banana Vendor |  
-DARKMOON_FAIRE | DMF_066 | Knife Vendor |  
-DARKMOON_FAIRE | DMF_067 | Prize Vendor |  
+DARKMOON_FAIRE | DMF_065 | Banana Vendor | O
+DARKMOON_FAIRE | DMF_066 | Knife Vendor | O
+DARKMOON_FAIRE | DMF_067 | Prize Vendor | O
 DARKMOON_FAIRE | DMF_068 | Optimistic Ogre |  
 DARKMOON_FAIRE | DMF_069 | Claw Machine |  
 DARKMOON_FAIRE | DMF_070 | Darkmoon Rabbit |  
@@ -1271,17 +1271,17 @@ DARKMOON_FAIRE | DMF_081 | K'thir Ritualist |
 DARKMOON_FAIRE | DMF_082 | Darkmoon Statue |  
 DARKMOON_FAIRE | DMF_083 | Dancing Cobra | O
 DARKMOON_FAIRE | DMF_084 | Jewel of N'Zoth |  
-DARKMOON_FAIRE | DMF_085 | Darkmoon Tonk |  
+DARKMOON_FAIRE | DMF_085 | Darkmoon Tonk | O
 DARKMOON_FAIRE | DMF_086 | Petting Zoo |  
 DARKMOON_FAIRE | DMF_087 | Trampling Rhino |  
 DARKMOON_FAIRE | DMF_088 | Rinling's Rifle |  
 DARKMOON_FAIRE | DMF_089 | Maxima Blastenheimer |  
 DARKMOON_FAIRE | DMF_090 | Don't Feed the Animals |  
-DARKMOON_FAIRE | DMF_091 | Wriggling Horror |  
+DARKMOON_FAIRE | DMF_091 | Wriggling Horror | O
 DARKMOON_FAIRE | DMF_100 | Confection Cyclone |  
 DARKMOON_FAIRE | DMF_101 | Firework Elemental | O
 DARKMOON_FAIRE | DMF_102 | Game Master |  
-DARKMOON_FAIRE | DMF_103 | Mask of C'Thun |  
+DARKMOON_FAIRE | DMF_103 | Mask of C'Thun | O
 DARKMOON_FAIRE | DMF_104 | Grand Finale |  
 DARKMOON_FAIRE | DMF_105 | Ring Toss |  
 DARKMOON_FAIRE | DMF_106 | Occult Conjurer |  
@@ -1309,28 +1309,28 @@ DARKMOON_FAIRE | DMF_184 | Fairground Fool | O
 DARKMOON_FAIRE | DMF_186 | Auspicious Spirits |  
 DARKMOON_FAIRE | DMF_187 | Palm Reading |  
 DARKMOON_FAIRE | DMF_188 | Y'Shaarj, the Defiler |  
-DARKMOON_FAIRE | DMF_189 | Costumed Entertainer |  
+DARKMOON_FAIRE | DMF_189 | Costumed Entertainer | O
 DARKMOON_FAIRE | DMF_190 | Fantastic Firebird | O
-DARKMOON_FAIRE | DMF_191 | Showstopper |  
-DARKMOON_FAIRE | DMF_194 | Redscale Dragontamer |  
+DARKMOON_FAIRE | DMF_191 | Showstopper | O
+DARKMOON_FAIRE | DMF_194 | Redscale Dragontamer | O
 DARKMOON_FAIRE | DMF_195 | Snack Run |  
 DARKMOON_FAIRE | DMF_202 | Derailed Coaster |  
 DARKMOON_FAIRE | DMF_217 | Line Hopper |  
-DARKMOON_FAIRE | DMF_219 | Relentless Pursuit |  
+DARKMOON_FAIRE | DMF_219 | Relentless Pursuit | O
 DARKMOON_FAIRE | DMF_221 | Felscream Blast |  
 DARKMOON_FAIRE | DMF_222 | Redeemed Pariah |  
-DARKMOON_FAIRE | DMF_223 | Renowned Performer |  
+DARKMOON_FAIRE | DMF_223 | Renowned Performer | O
 DARKMOON_FAIRE | DMF_224 | Expendable Performers |  
 DARKMOON_FAIRE | DMF_225 | Throw Glaive |  
 DARKMOON_FAIRE | DMF_226 | Bladed Lady |  
-DARKMOON_FAIRE | DMF_227 | Dreadlord's Bite |  
+DARKMOON_FAIRE | DMF_227 | Dreadlord's Bite | O
 DARKMOON_FAIRE | DMF_229 | Stiltstepper |  
 DARKMOON_FAIRE | DMF_230 | Il'gynoth |  
 DARKMOON_FAIRE | DMF_231 | Zai, the Incredible |  
 DARKMOON_FAIRE | DMF_235 | Balloon Merchant |  
 DARKMOON_FAIRE | DMF_236 | Oh My Yogg! |  
 DARKMOON_FAIRE | DMF_237 | Carnival Barker |  
-DARKMOON_FAIRE | DMF_238 | Hammer of the Naaru |  
+DARKMOON_FAIRE | DMF_238 | Hammer of the Naaru | O
 DARKMOON_FAIRE | DMF_240 | Lothraxion the Redeemed |  
 DARKMOON_FAIRE | DMF_241 | High Exarch Yrel |  
 DARKMOON_FAIRE | DMF_244 | Day at the Faire | O
@@ -1342,14 +1342,14 @@ DARKMOON_FAIRE | DMF_511 | Foxy Fraud |
 DARKMOON_FAIRE | DMF_512 | Cloak of Shadows |  
 DARKMOON_FAIRE | DMF_513 | Shadow Clone |  
 DARKMOON_FAIRE | DMF_514 | Ticket Master |  
-DARKMOON_FAIRE | DMF_515 | Swindle |  
+DARKMOON_FAIRE | DMF_515 | Swindle | O
 DARKMOON_FAIRE | DMF_516 | Grand Empress Shek'zara |  
 DARKMOON_FAIRE | DMF_517 | Sweet Tooth | O
 DARKMOON_FAIRE | DMF_518 | Malevolent Strike |  
 DARKMOON_FAIRE | DMF_519 | Prize Plunderer |  
 DARKMOON_FAIRE | DMF_520 | Parade Leader |  
-DARKMOON_FAIRE | DMF_521 | Sword Eater |  
-DARKMOON_FAIRE | DMF_522 | Minefield |  
+DARKMOON_FAIRE | DMF_521 | Sword Eater | O
+DARKMOON_FAIRE | DMF_522 | Minefield | O
 DARKMOON_FAIRE | DMF_523 | Bumper Car |  
 DARKMOON_FAIRE | DMF_524 | Ringmaster's Baton |  
 DARKMOON_FAIRE | DMF_525 | Ringmaster Whatley |  
@@ -1357,15 +1357,15 @@ DARKMOON_FAIRE | DMF_526 | Stage Dive |
 DARKMOON_FAIRE | DMF_528 | Tent Trasher |  
 DARKMOON_FAIRE | DMF_529 | E.T.C., God of Metal |  
 DARKMOON_FAIRE | DMF_530 | Feat of Strength |  
-DARKMOON_FAIRE | DMF_531 | Stage Hand |  
-DARKMOON_FAIRE | DMF_532 | Circus Amalgam |  
+DARKMOON_FAIRE | DMF_531 | Stage Hand | O
+DARKMOON_FAIRE | DMF_532 | Circus Amalgam | O
 DARKMOON_FAIRE | DMF_533 | Ring Matron |  
 DARKMOON_FAIRE | DMF_534 | Deck of Chaos |  
 DARKMOON_FAIRE | DMF_700 | Revolve |  
 DARKMOON_FAIRE | DMF_701 | Dunk Tank | O
-DARKMOON_FAIRE | DMF_702 | Stormstrike |  
+DARKMOON_FAIRE | DMF_702 | Stormstrike | O
 DARKMOON_FAIRE | DMF_703 | Pit Master | O
-DARKMOON_FAIRE | DMF_704 | Cagematch Custodian |  
+DARKMOON_FAIRE | DMF_704 | Cagematch Custodian | O
 DARKMOON_FAIRE | DMF_705 | Whack-A-Gnoll Hammer |  
 DARKMOON_FAIRE | DMF_706 | Deathmatch Pavilion |  
 DARKMOON_FAIRE | DMF_707 | Magicfin |  
@@ -1376,4 +1376,4 @@ DARKMOON_FAIRE | DMF_732 | Cenarion Ward |
 DARKMOON_FAIRE | DMF_733 | Kiri, Chosen of Elune |  
 DARKMOON_FAIRE | DMF_734 | Greybough |  
 
-- Progress: 13% (18 of 135 Cards)
+- Progress: 28% (38 of 135 Cards)

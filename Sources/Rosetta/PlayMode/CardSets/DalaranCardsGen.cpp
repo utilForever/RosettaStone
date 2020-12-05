@@ -34,6 +34,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawNumberTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
@@ -637,13 +638,8 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(
-        SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsRace(Race::MECHANICAL)) }));
     power.AddDeathrattleTask(
-        std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddDeathrattleTask(std::make_shared<DrawStackTask>(1));
+        std::make_shared<DrawRaceMinionTask>(Race::MECHANICAL, 1, false));
     cards.emplace("DAL_604", CardDef(power));
 }
 

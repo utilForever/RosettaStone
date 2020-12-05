@@ -193,8 +193,11 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawOpTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>

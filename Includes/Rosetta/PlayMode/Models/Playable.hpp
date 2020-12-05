@@ -181,6 +181,7 @@ class Playable : public Entity
 
     int orderOfPlay = 0;
     bool isDestroyed = false;
+    bool isTransformed = false;
 };
 }  // namespace RosettaStone::PlayMode
 

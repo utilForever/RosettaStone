@@ -5,7 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -14,19 +14,13 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-DrawMinionTask::DrawMinionTask(int amount, bool addToStack)
+DrawWeaponTask::DrawWeaponTask(int amount, bool addToStack)
     : m_amount(amount), m_addToStack(addToStack)
 {
     // Do nothing
 }
 
-DrawMinionTask::DrawMinionTask(bool lowestCost, int amount, bool addToStack)
-    : m_amount(amount), m_lowestCost(lowestCost), m_addToStack(addToStack)
-{
-    // Do nothing
-}
-
-TaskStatus DrawMinionTask::Impl(Player* player)
+TaskStatus DrawWeaponTask::Impl(Player* player)
 {
     if (m_addToStack)
     {
@@ -42,39 +36,11 @@ TaskStatus DrawMinionTask::Impl(Player* player)
     std::vector<Playable*> cards;
     cards.reserve(m_amount);
 
-    if (m_lowestCost)
+    for (auto& deckCard : deck)
     {
-        int minCost = std::numeric_limits<int>::max();
-
-        for (auto& deckCard : deck)
+        if (deckCard->card->GetCardType() == CardType::WEAPON)
         {
-            if (deckCard->card->GetCardType() != CardType::MINION)
-            {
-                continue;
-            }
-
-            const int cost = deckCard->card->GetCost();
-            if (cost < minCost)
-            {
-                minCost = cost;
-
-                cards.clear();
-                cards.emplace_back(deckCard);
-            }
-            else if (cost == minCost)
-            {
-                cards.emplace_back(deckCard);
-            }
-        }
-    }
-    else
-    {
-        for (auto& deckCard : deck)
-        {
-            if (deckCard->card->GetCardType() == CardType::MINION)
-            {
-                cards.emplace_back(deckCard);
-            }
+            cards.emplace_back(deckCard);
         }
     }
 
@@ -114,9 +80,8 @@ TaskStatus DrawMinionTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-std::unique_ptr<ITask> DrawMinionTask::CloneImpl()
+std::unique_ptr<ITask> DrawWeaponTask::CloneImpl()
 {
-    return std::make_unique<DrawMinionTask>(m_lowestCost, m_amount,
-                                            m_addToStack);
+    return std::make_unique<DrawWeaponTask>(m_amount, m_addToStack);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

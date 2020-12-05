@@ -32,6 +32,7 @@ TaskStatus AddCardTask::Impl(Player* player)
                 Generic::AddCardToHand(player,
                                        Entity::GetFromCard(player, card));
             }
+            break;
         }
         case EntityType::ENEMY_HAND:
         {

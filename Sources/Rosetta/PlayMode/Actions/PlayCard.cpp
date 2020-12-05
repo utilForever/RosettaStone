@@ -56,6 +56,20 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
 
     const bool isEcho = source->IsEcho();
 
+    // Process keyword 'Corrupt'
+    for (auto& playable : player->GetHandZone()->GetAll())
+    {
+        if (playable->HasCorrupt() && source->GetCost() > playable->GetCost())
+        {
+            Card* newCard = Cards::FindCardByDbfID(
+                playable->GetGameTag(GameTag::CORRUPTEDCARD));
+            if (newCard != nullptr)
+            {
+                ChangeEntity(player, playable, newCard, true);
+            }
+        }
+    }
+
     // Erase from player's hand
     player->GetHandZone()->Remove(source);
 
@@ -74,20 +88,6 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             player->opponent->GetDeckZone()->GetCount() + 7)
     {
         player->IncreaseNumCardsPlayedThisGameNotStartInDeck();
-    }
-
-    // Process keyword 'Corrupt'
-    for (auto& playable : player->GetHandZone()->GetAll())
-    {
-        if (playable->HasCorrupt() && source->GetCost() > playable->GetCost())
-        {
-            Card* newCard = Cards::FindCardByDbfID(
-                playable->GetGameTag(GameTag::CORRUPTEDCARD));
-            if (newCard != nullptr)
-            {
-                ChangeEntity(player, playable, newCard, true);
-            }
-        }
     }
 
     // Set card's owner
@@ -156,6 +156,12 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             player->game->ghostlyCards.emplace_back(
                 playable->GetGameTag(GameTag::ENTITY_ID));
         }
+    }
+
+    // Reset transformed minions
+    for (auto& minion : player->GetFieldZone()->GetAll())
+    {
+        minion->isTransformed = false;
     }
 
     // Set combo active to true
@@ -336,6 +342,9 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
 
+    // Store minions in field to process spellburst task
+    auto minions = player->GetFieldZone()->GetAll();
+
     // Check spell is countered
     if (spell->IsCountered())
     {
@@ -376,9 +385,10 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     // Process spellburst tasks
     player->game->taskQueue.StartEvent();
 
-    for (auto& minion : player->GetFieldZone()->GetAll())
+    for (auto& minion : minions)
     {
-        if (!minion->isDestroyed && minion->HasSpellburst())
+        if (!minion->isDestroyed && !minion->isTransformed &&
+            minion->HasSpellburst())
         {
             minion->ActivateTask(PowerType::SPELLBURST);
             minion->SetGameTag(GameTag::SPELLBURST, 0);
@@ -443,6 +453,15 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
     if (player->ExtraBattlecry() && weapon->HasBattlecry())
     {
         weapon->ActivateTask(PowerType::POWER, target);
+    }
+
+    const int handPos = weapon->GetZonePosition();
+
+    // Process outcast tasks
+    if (weapon->HasOutcast() &&
+        (handPos == 0 || handPos == player->GetHandZone()->GetCount()))
+    {
+        weapon->ActivateTask(PowerType::OUTCAST, target);
     }
 
     // Check card has overload

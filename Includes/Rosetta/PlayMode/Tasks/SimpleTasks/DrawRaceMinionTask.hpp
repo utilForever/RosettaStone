@@ -3,31 +3,27 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_PLAYMODE_DRAW_MINION_TASK_HPP
-#define ROSETTASTONE_PLAYMODE_DRAW_MINION_TASK_HPP
+#ifndef ROSETTASTONE_PLAYMODE_DRAW_RACE_MINION_TASK_HPP
+#define ROSETTASTONE_PLAYMODE_DRAW_RACE_MINION_TASK_HPP
 
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 //!
-//! \brief DrawMinionTask class.
+//! \brief DrawRaceMinionTask class.
 //!
-//! This class represents the task for drawing minion card(s) from the deck.
+//! This class represents the task for drawing minion card(s)
+//! that matches the race from the deck.
 //!
-class DrawMinionTask : public ITask
+class DrawRaceMinionTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount and \p addToStack.
+    //! Constructs task with given \p race, \p amount and \p addToStack.
+    //! \param race The race to draw minion card(s).
     //! \param amount The amount to draw minion card(s).
     //! \param addToStack A flag to store card to stack.
-    explicit DrawMinionTask(int amount, bool addToStack);
-
-    //! Constructs task with given \p lowestCost, \p amount and \p addToStack.
-    //! \param lowestCost A flag to draw lowest cost card(s).
-    //! \param amount The amount to draw minion card(s).
-    //! \param addToStack A flag to store card to stack.
-    explicit DrawMinionTask(bool lowestCost, int amount, bool addToStack);
+    explicit DrawRaceMinionTask(Race race, int amount, bool addToStack);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -39,10 +35,10 @@ class DrawMinionTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
+    Race m_race = Race::INVALID;
     int m_amount = 0;
-    bool m_lowestCost = false;
     bool m_addToStack = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
 
-#endif  // ROSETTASTONE_PLAYMODE_DRAW_MINION_TASK_HPP
+#endif  // ROSETTASTONE_PLAYMODE_DRAW_RACE_MINION_TASK_HPP

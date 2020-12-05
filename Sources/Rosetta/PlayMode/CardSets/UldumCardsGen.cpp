@@ -2944,6 +2944,7 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         std::make_shared<IncludeTask>(EntityType::HAND),
         std::make_shared<FilterStackTask>(SelfCondList{
             std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
         std::make_shared<AddEnchantmentTask>("ULD_290e", EntityType::STACK)
     };
     cards.emplace("ULD_290", CardDef(power));

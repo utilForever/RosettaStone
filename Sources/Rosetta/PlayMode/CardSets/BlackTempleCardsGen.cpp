@@ -14,8 +14,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
@@ -514,12 +515,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
-    power.AddDeathrattleTask(
-        std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddDeathrattleTask(std::make_shared<DrawStackTask>(1));
+    power.AddDeathrattleTask(std::make_shared<DrawSpellTask>(1));
     cards.emplace("BT_014", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
@@ -1724,13 +1720,9 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Draw a weapon. Give it +1 Durability.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsWeapon()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawWeaponTask>(1, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BT_124e", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
     cards.emplace("BT_124", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
