@@ -455,6 +455,15 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
         weapon->ActivateTask(PowerType::POWER, target);
     }
 
+    const int handPos = weapon->GetZonePosition();
+
+    // Process outcast tasks
+    if (weapon->HasOutcast() &&
+        (handPos == 0 || handPos == player->GetHandZone()->GetCount()))
+    {
+        weapon->ActivateTask(PowerType::OUTCAST, target);
+    }
+
     // Check card has overload
     if (weapon->HasOverload())
     {
