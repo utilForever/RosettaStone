@@ -530,6 +530,15 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        10, true));
+    cards.emplace("DMF_103", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DMF_104] Grand Finale - COST:8

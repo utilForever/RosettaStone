@@ -295,6 +295,64 @@ TEST_CASE("[Mage : Minion] - DMF_101 : Firework Elemental")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [DMF_103] Mask of C'Thun - COST:7
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 10 damage randomly split among all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - DMF_103 : Mask of C'Thun")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mask of C'Thun"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    const int totalHealth =
+        opField[0]->GetHealth() + opPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 32);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DMF_064] Carousel Gryphon - COST:5 [ATK:5/HP:5]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
