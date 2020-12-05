@@ -56,6 +56,20 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
 
     const bool isEcho = source->IsEcho();
 
+    // Process keyword 'Corrupt'
+    for (auto& playable : player->GetHandZone()->GetAll())
+    {
+        if (playable->HasCorrupt() && source->GetCost() > playable->GetCost())
+        {
+            Card* newCard = Cards::FindCardByDbfID(
+                playable->GetGameTag(GameTag::CORRUPTEDCARD));
+            if (newCard != nullptr)
+            {
+                ChangeEntity(player, playable, newCard, true);
+            }
+        }
+    }
+
     // Erase from player's hand
     player->GetHandZone()->Remove(source);
 
@@ -74,20 +88,6 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             player->opponent->GetDeckZone()->GetCount() + 7)
     {
         player->IncreaseNumCardsPlayedThisGameNotStartInDeck();
-    }
-
-    // Process keyword 'Corrupt'
-    for (auto& playable : player->GetHandZone()->GetAll())
-    {
-        if (playable->HasCorrupt() && source->GetCost() > playable->GetCost())
-        {
-            Card* newCard = Cards::FindCardByDbfID(
-                playable->GetGameTag(GameTag::CORRUPTEDCARD));
-            if (newCard != nullptr)
-            {
-                ChangeEntity(player, playable, newCard, true);
-            }
-        }
     }
 
     // Set card's owner
