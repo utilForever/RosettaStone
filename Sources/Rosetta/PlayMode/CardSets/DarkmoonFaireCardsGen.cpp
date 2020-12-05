@@ -1925,6 +1925,9 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(std::make_shared<DamageTask>(EntityType::ENEMIES, 1));
+    cards.emplace("DMF_227", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [DMF_229] Stiltstepper - COST:3 [ATK:4/HP:1]

@@ -1065,6 +1065,70 @@ TEST_CASE("[Warrior : Minion] - DMF_531 : Stage Hand")
     CHECK_EQ(totalHealth, 4);
 }
 
+// ----------------------------------- WEAPON - DEMONHUNTER
+// [DMF_227] Dreadlord's Bite - COST:3
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Outcast:</b> Deal 1 damage to all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - OUTCAST = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Weapon] - DMF_227 : Dreadlord's Bite")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dreadlord's Bite"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dreadlord's Bite"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dreadlord's Bite"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    opPlayer->GetHero()->SetDamage(0);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [DMF_247] Insatiable Felhound - COST:3 [ATK:2/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
