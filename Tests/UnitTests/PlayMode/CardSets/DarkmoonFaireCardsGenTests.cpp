@@ -1065,6 +1065,67 @@ TEST_CASE("[Warrior : Minion] - DMF_531 : Stage Hand")
     CHECK_EQ(totalHealth, 4);
 }
 
+// ------------------------------------ SPELL - DEMONHUNTER
+// [DMF_219] Relentless Pursuit - COST:3
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your hero +4 Attack and <b>Immune</b> this turn.
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - DMF_219 : Relentless Pursuit")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Relentless Pursuit"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHero.GetAttack(), 4);
+    CHECK_EQ(curHero.IsImmune(), true);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curHero.GetHealth(), 30);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHero.GetAttack(), 0);
+    CHECK_EQ(curHero.IsImmune(), false);
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [DMF_223] Renowned Performer - COST:4 [ATK:3/HP:3]
 // - Set: DARKMOON_FAIRE, Rarity: Common

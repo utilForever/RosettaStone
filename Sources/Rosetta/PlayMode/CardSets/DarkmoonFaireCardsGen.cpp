@@ -1844,6 +1844,10 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_219e", EntityType::HERO));
+    cards.emplace("DMF_219", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [DMF_221] Felscream Blast - COST:1
@@ -2027,6 +2031,9 @@ void DarkmoonFaireCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_219e"));
+    cards.emplace("DMF_219e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [DMF_222e] Pariah's Resolve - COST:0
