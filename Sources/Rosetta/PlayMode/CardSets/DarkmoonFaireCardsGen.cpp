@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
@@ -22,8 +23,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
-
-#include "Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp"
 
 using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
@@ -1885,6 +1884,10 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DMF_223t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("DMF_223", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [DMF_224] Expendable Performers - COST:7
@@ -2041,6 +2044,9 @@ void DarkmoonFaireCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_223t", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [DMF_247t] Insatiable Felhound - COST:3 [ATK:3/HP:6]

@@ -1065,6 +1065,62 @@ TEST_CASE("[Warrior : Minion] - DMF_531 : Stage Hand")
     CHECK_EQ(totalHealth, 4);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [DMF_223] Renowned Performer - COST:4 [ATK:3/HP:3]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Deathrattle:</b> Summon two 1/1 Assistants
+//       with <b>Taunt</b>.  
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - DMF_223 : Renowned Performer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Renowned Performer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Performer's Assistant");
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->card->name, "Performer's Assistant");
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+}
+
 // ----------------------------------- WEAPON - DEMONHUNTER
 // [DMF_227] Dreadlord's Bite - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Common
@@ -1077,7 +1133,7 @@ TEST_CASE("[Warrior : Minion] - DMF_531 : Stage Hand")
 TEST_CASE("[Demon Hunter : Weapon] - DMF_227 : Dreadlord's Bite")
 {
     GameConfig config;
-    config.player1Class = CardClass::WARRIOR;
+    config.player1Class = CardClass::DEMONHUNTER;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
