@@ -1660,6 +1660,15 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ALL_MINIONS, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        5, true));
+    cards.emplace("DMF_522", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [DMF_523] Bumper Car - COST:2 [ATK:1/HP:3]
@@ -1713,8 +1722,8 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [DMF_528] Tent Trasher - COST:5 [ATK:5/HP:5]
     // - Race: Dragon, Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b><b>Rush</b>.</b> Costs (1) less for each friendly minion with a
-    // unique minion type.
+    // Text: <b>Rush</b>. Costs (1) less for each friendly minion
+    //       with a unique minion type.
     // --------------------------------------------------------
     // GameTag:
     // - RUSH = 1
