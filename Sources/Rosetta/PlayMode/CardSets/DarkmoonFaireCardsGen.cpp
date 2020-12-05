@@ -23,6 +23,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::PlayMode;
 using namespace SimpleTasks;
@@ -1650,6 +1651,9 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("DMF_521t"));
+    cards.emplace("DMF_521", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [DMF_522] Minefield - COST:2
@@ -1782,6 +1786,9 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     // [DMF_521t] Jawbreaker - COST:3
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_521t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DMF_524e] Big-Top Special - COST:0
