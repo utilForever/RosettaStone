@@ -45,8 +45,11 @@
 * DrawMinionTask
 * DrawNumberTask
 * DrawOpTask
+* DrawRaceMinionTask
+* DrawSpellTask
 * DrawStackTask
 * DrawTask
+* DrawWeaponTask
 * EnqueueNumberTask
 * EnqueueTask
 * FilterStackTask
