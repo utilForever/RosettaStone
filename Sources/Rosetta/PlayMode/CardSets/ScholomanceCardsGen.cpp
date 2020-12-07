@@ -144,6 +144,15 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "SCH_612",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{ "SCH_612a", "SCH_612b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [SCH_613] Groundskeeper - COST:4 [ATK:4/HP:5]
@@ -234,6 +243,10 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Summon four 2/2 Treant Totems.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_612t", 4, SummonSide::SPELL));
+    cards.emplace("SCH_612a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612b] Alarm the Forest - COST:6
@@ -248,11 +261,20 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_612t", 4, SummonSide::SPELL, true));
+    power.AddPowerTask(
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::RUSH, 1));
+    cards.emplace("SCH_612b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SCH_612t] Treant Totem - COST:2 [ATK:2/HP:2]
     // - Race: TOTEM, Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_612t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SCH_617e] Adorable - COST:0

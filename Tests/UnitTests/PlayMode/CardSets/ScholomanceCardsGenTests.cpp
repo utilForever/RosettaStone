@@ -245,6 +245,79 @@ TEST_CASE("[Druid : Spell] - SCH_606 : Partner Assignment")
     CHECK_EQ(curHand[1]->card->GetRace(), Race::BEAST);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [SCH_612] Runic Carvings - COST:6
+// - Set: SCHOLOMANCE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Summon four 2/2 Treant Totems; or
+//       <b>Overload:</b> (2) to summon them with <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// - OVERLOAD = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - SCH_612 : Runic Carvings")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Runic Carvings"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Runic Carvings"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Bloom"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->card->name, "Treant Totem");
+    CHECK_EQ(curField[0]->HasRush(), false);
+    CHECK_EQ(curField[1]->card->name, "Treant Totem");
+    CHECK_EQ(curField[1]->HasRush(), false);
+    CHECK_EQ(curField[2]->card->name, "Treant Totem");
+    CHECK_EQ(curField[2]->HasRush(), false);
+    CHECK_EQ(curField[3]->card->name, "Treant Totem");
+    CHECK_EQ(curField[3]->HasRush(), false);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 4);
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[4]->card->name, "Treant Totem");
+    CHECK_EQ(curField[4]->HasRush(), true);
+    CHECK_EQ(curField[5]->card->name, "Treant Totem");
+    CHECK_EQ(curField[5]->HasRush(), true);
+    CHECK_EQ(curField[6]->card->name, "Treant Totem");
+    CHECK_EQ(curField[6]->HasRush(), true);
+}
+
 // --------------------------------------- MINION - HUNTER
 // [SCH_133] Wolpertinger - COST:1 [ATK:1/HP:1]
 // - Set: Scholomance, Rarity: Common
