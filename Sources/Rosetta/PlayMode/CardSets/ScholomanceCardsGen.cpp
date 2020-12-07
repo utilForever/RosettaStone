@@ -34,6 +34,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -100,6 +101,9 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TempManaTask>(2));
+    cards.emplace("SCH_427", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_606] Partner Assignment - COST:1

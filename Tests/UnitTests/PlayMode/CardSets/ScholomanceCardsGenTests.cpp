@@ -136,6 +136,74 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
     }
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [SCH_427] Lightning Bloom - COST:0
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Gain 2 Mana Crystals this turn only.
+//       <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+TEST_CASE("[Druid : Spell] - SCH_427 : Lightning Bloom")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(8);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Bloom"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Bloom"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dragonling Mechanic"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 2);
+    CHECK_EQ(curPlayer->GetTotalMana(), 8);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+    CHECK_EQ(curPlayer->GetTotalMana(), 8);
+    CHECK_EQ(curPlayer->GetUsedMana(), 2);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 2);
+    CHECK_EQ(curPlayer->GetTotalMana(), 9);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+}
+
 // --------------------------------------- MINION - HUNTER
 // [SCH_133] Wolpertinger - COST:1 [ATK:1/HP:1]
 // - Set: Scholomance, Rarity: Common
