@@ -204,6 +204,47 @@ TEST_CASE("[Druid : Spell] - SCH_427 : Lightning Bloom")
     CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [SCH_606] Partner Assignment - COST:1
+// - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Add a random 2-Cost and 3-Cost Beast to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - SCH_606 : Partner Assignment")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(8);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Partner Assignment"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->GetCost(), 2);
+    CHECK_EQ(curHand[0]->card->GetRace(), Race::BEAST);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[1]->card->GetCost(), 3);
+    CHECK_EQ(curHand[1]->card->GetRace(), Race::BEAST);
+}
+
 // --------------------------------------- MINION - HUNTER
 // [SCH_133] Wolpertinger - COST:1 [ATK:1/HP:1]
 // - Set: Scholomance, Rarity: Common

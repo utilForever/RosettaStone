@@ -111,6 +111,16 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add a random 2-Cost and 3-Cost Beast to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::COST, 2, RelaSign::EQ },
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::COST, 3, RelaSign::EQ },
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_606", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_609] Survival of the Fittest - COST:10
