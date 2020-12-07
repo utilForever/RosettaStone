@@ -319,6 +319,71 @@ TEST_CASE("[Druid : Spell] - SCH_612 : Runic Carvings")
 }
 
 // ----------------------------------------- MINION - DRUID
+// [SCH_613] Groundskeeper - COST:4 [ATK:4/HP:5]
+// - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Battlecry:</b> If you're holding a
+//       spell that costs (5) or more, restore 5 Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_DRAG_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - SCH_613 : Groundskeeper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Groundskeeper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Groundskeeper"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodlust"));
+
+    curHero->SetDamage(15);
+    CHECK_EQ(curHero->GetHealth(), 15);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, curHero));
+    CHECK_EQ(curHero->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, curHero));
+    CHECK_EQ(curHero->GetHealth(), 20);
+}
+
+// ----------------------------------------- MINION - DRUID
 // [SCH_616] Twilight Runner - COST:5 [ATK:5/HP:4]
 // - Race: Beast, Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
