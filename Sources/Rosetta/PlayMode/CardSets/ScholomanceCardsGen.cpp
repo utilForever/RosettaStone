@@ -369,6 +369,10 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SCH_340t", SummonSide::DEATHRATTLE));
+    cards.emplace("SCH_340", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [SCH_539] Professor Slate - COST:3 [ATK:3/HP:4]
@@ -433,6 +437,9 @@ void ScholomanceCardsGen::AddHunterNonCollect(
     // [SCH_340t] Hapless Handler - COST:4 [ATK:4/HP:4]
     // - Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_340t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [SCH_538e] Ace Hunter's Lesson - COST:0
