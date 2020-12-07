@@ -520,11 +520,29 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable0 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[0]),
                             std::nullopt, player->GetSetasideZone());
+
+            // Check card has overload
+            if (playable0->HasOverload())
+            {
+                const int amount = playable0->GetOverload();
+                player->SetOverloadOwed(player->GetOverloadOwed() + amount);
+            }
+
             playable0->ActivateTask(type, target, chooseOne, this);
+
             Playable* playable1 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[1]),
                             std::nullopt, player->GetSetasideZone());
+
+            // Check card has overload
+            if (playable1->HasOverload())
+            {
+                const int amount = playable1->GetOverload();
+                player->SetOverloadOwed(player->GetOverloadOwed() + amount);
+            }
+
             playable1->ActivateTask(type, target, chooseOne, this);
+
             return;
         }
 
@@ -533,7 +551,16 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable = GetFromCard(
                 player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
                 std::nullopt, player->GetSetasideZone());
+
+            // Check card has overload
+            if (playable->HasOverload())
+            {
+                const int amount = playable->GetOverload();
+                player->SetOverloadOwed(player->GetOverloadOwed() + amount);
+            }
+
             playable->ActivateTask(type, target, chooseOne, this);
+
             return;
         }
     }
