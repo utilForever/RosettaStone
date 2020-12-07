@@ -1278,6 +1278,55 @@ TEST_CASE("[Warrior : Spell] - SCH_237 : Athletic Studies")
     CHECK_EQ(card3->GetCost(), 6);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [SCH_705] Vilefiend Trainer - COST:4 [ATK:5/HP:4]
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Outcast:</b> Summon two 1/1 Demons.
+// --------------------------------------------------------
+// GameTag:
+// - OUTCAST = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - SCH_705 : Vilefiend Trainer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Vilefiend Trainer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Vilefiend Trainer"));
+    [[maybe_unused]] const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Vilefiend Trainer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 0));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->card->name, "Snarling Vilefiend");
+    CHECK_EQ(curField[1]->card->name, "Vilefiend Trainer");
+    CHECK_EQ(curField[2]->card->name, "Snarling Vilefiend");
+    CHECK_EQ(curField[3]->card->name, "Vilefiend Trainer");
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
 // - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common

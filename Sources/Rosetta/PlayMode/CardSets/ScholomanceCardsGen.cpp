@@ -1720,6 +1720,13 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.ClearData();
+    power.AddOutcastTask(
+        std::make_shared<SummonTask>("SCH_705t", SummonSide::LEFT));
+    power.AddOutcastTask(
+        std::make_shared<SummonTask>("SCH_705t", SummonSide::RIGHT));
+    cards.emplace("SCH_705", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddDemonHunterNonCollect(
@@ -1854,6 +1861,9 @@ void ScholomanceCardsGen::AddDemonHunterNonCollect(
     // [SCH_705t] Snarling Vilefiend - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_705t", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddDual(std::map<std::string, CardDef>& cards)
