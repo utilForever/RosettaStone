@@ -185,6 +185,11 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(2) };
+    cards.emplace("SCH_616", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddDruidNonCollect(
