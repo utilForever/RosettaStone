@@ -1204,6 +1204,56 @@ TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
     CHECK_EQ(card3->GetCost(), 6);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [SCH_700] Spirit Jailer - COST:1 [ATK:1/HP:3]
+// - Race: Demon, Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - SCH_700 : Spirit Jailer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spirit Jailer"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curDeck.GetCount(), 2);
+    CHECK_EQ(curDeck[0]->card->name, "Soul Fragment");
+    CHECK_EQ(curDeck[1]->card->name, "Soul Fragment");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(curDeck.GetCount(), 0);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [SCH_237] Athletic Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common

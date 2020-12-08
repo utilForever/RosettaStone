@@ -1323,6 +1323,10 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace("SCH_700", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_701] Soul Shear - COST:2
@@ -1400,6 +1404,10 @@ void ScholomanceCardsGen::AddWarlockNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<HealTask>(EntityType::HERO, 2));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 2));
+    cards.emplace("SCH_307t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [SCH_343e] Soul Powered - COST:0
