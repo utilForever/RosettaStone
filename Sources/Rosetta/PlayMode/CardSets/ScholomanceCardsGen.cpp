@@ -1335,6 +1335,19 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion.
     //       Shuffle 2 Soul Fragments into your deck.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace(
+        "SCH_701",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_702] Felosophy - COST:1
