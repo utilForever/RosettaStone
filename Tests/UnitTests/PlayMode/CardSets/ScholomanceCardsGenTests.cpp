@@ -1204,6 +1204,66 @@ TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
     CHECK_EQ(card3->GetCost(), 6);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [SCH_307] School Spirits - COST:3
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 2 damage to all minions.
+//       Shuffle 2 Soul Fragments into your deck.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - SCH_307 : School Spirits")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("School Spirits"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodmage Thalnos"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fen Creeper"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 13);
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [SCH_700] Spirit Jailer - COST:1 [ATK:1/HP:3]
 // - Race: Demon, Set: SCHOLOMANCE, Rarity: Common

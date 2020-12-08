@@ -1290,6 +1290,12 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to all minions.
     //       Shuffle 2 Soul Fragments into your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace("SCH_307", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_343] Void Drinker - COST:5 [ATK:4/HP:5]
