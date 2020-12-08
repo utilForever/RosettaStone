@@ -1898,6 +1898,9 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_143", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_145] Desk Imp - COST:0 [ATK:1/HP:1]

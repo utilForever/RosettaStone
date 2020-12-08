@@ -1328,6 +1328,20 @@ TEST_CASE("[Demon Hunter : Minion] - SCH_705 : Vilefiend Trainer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SCH_143] Divine Rager - COST:4 [ATK:5/HP:1]
+// - Race: Elemental, Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_143 : Divine Rager")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
 // - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
