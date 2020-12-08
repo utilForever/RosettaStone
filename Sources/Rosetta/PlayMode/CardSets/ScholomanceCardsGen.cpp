@@ -1906,6 +1906,9 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_145] Desk Imp - COST:0 [ATK:1/HP:1]
     // - Race: Demon, Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_145", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_146] Robes of Protection - COST:3 [ATK:2/HP:4]

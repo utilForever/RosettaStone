@@ -1342,6 +1342,15 @@ TEST_CASE("[Neutral : Minion] - SCH_143 : Divine Rager")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SCH_145] Desk Imp - COST:0 [ATK:1/HP:1]
+// - Race: Demon, Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_145 : Desk Imp")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
 // - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
