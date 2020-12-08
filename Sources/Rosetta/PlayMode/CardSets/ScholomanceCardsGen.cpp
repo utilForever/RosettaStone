@@ -2193,6 +2193,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Deal 2 damage to all other minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 2));
+    cards.emplace("SCH_313", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_350] Wand Thief - COST:1 [ATK:1/HP:2]
