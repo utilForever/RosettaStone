@@ -1238,7 +1238,7 @@ TEST_CASE("[Warlock : Minion] - SCH_700 : Spirit Jailer")
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Spirit Jailer"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
     CHECK_EQ(curDeck.GetCount(), 2);
     CHECK_EQ(curDeck[0]->card->name, "Soul Fragment");
@@ -1326,6 +1326,59 @@ TEST_CASE("[Warrior : Spell] - SCH_237 : Athletic Studies")
         CHECK_EQ(curHand[1]->GetCost(), oldCost + 1);
     }
     CHECK_EQ(card3->GetCost(), 6);
+}
+
+// ----------------------------------- WEAPON - DEMONHUNTER
+// [SCH_252] Marrowslicer - COST:4
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Weapon] - SCH_252 : Marrowslicer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Marrowslicer"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curDeck.GetCount(), 2);
+    CHECK_EQ(curDeck[0]->card->name, "Soul Fragment");
+    CHECK_EQ(curDeck[1]->card->name, "Soul Fragment");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(curDeck.GetCount(), 0);
 }
 
 // ----------------------------------- MINION - DEMONHUNTER

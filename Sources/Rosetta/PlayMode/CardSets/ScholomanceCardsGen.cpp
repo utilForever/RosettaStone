@@ -1578,6 +1578,10 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace("SCH_252", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SCH_253] Cycle of Hatred - COST:7
