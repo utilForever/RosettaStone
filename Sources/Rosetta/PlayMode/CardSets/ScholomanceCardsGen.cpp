@@ -19,6 +19,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroySoulFragmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
@@ -1308,6 +1309,15 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<AddEnchantmentTask>(
+                            "SCH_343e", EntityType::SOURCE) }));
+    cards.emplace("SCH_343", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_517] Shadowlight Scholar - COST:3 [ATK:3/HP:4]
@@ -1434,6 +1444,9 @@ void ScholomanceCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_343e"));
+    cards.emplace("SCH_343e", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_703t] Released Soul - COST:3 [ATK:3/HP:3]

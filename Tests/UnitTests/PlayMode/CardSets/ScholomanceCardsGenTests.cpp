@@ -1265,6 +1265,70 @@ TEST_CASE("[Warlock : Spell] - SCH_307 : School Spirits")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [SCH_343] Void Drinker - COST:5 [ATK:4/HP:5]
+// - Race: Demon, Set: SCHOLOMANCE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>. <b>Battlecry:</b> Destroy
+//       a Soul Fragment in your deck to gain +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - SCH_343 : Void Drinker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("School Spirits"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Void Drinker"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Void Drinker"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curDeck.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [SCH_700] Spirit Jailer - COST:1 [ATK:1/HP:3]
 // - Race: Demon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
