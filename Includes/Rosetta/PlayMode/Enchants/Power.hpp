@@ -20,6 +20,8 @@ class ITask;
 class Aura;
 class Enchant;
 
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+
 //!
 //! \brief Power class.
 //!
@@ -85,6 +87,10 @@ class Power
     //! Adds power task.
     //! \param task A pointer to power task.
     void AddPowerTask(std::shared_ptr<ITask> task);
+
+    //! Adds a list of power task.
+    //! \param tasks A list of power task.
+    void AddPowerTask(TaskList tasks);
 
     //! Adds deathrattle task.
     //! \param task A pointer to deathrattle task.
