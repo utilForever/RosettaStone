@@ -96,6 +96,10 @@ class Power
     //! \param task A pointer to deathrattle task.
     void AddDeathrattleTask(std::shared_ptr<ITask> task);
 
+    //! Adds a list of deathrattle task.
+    //! \param tasks A list of deathrattle task.
+    void AddDeathrattleTask(TaskList tasks);
+
     //! Adds combo task.
     //! \param task A pointer to combo task.
     void AddComboTask(std::shared_ptr<ITask> task);

@@ -105,6 +105,12 @@ void Power::AddDeathrattleTask(std::shared_ptr<ITask> task)
     m_deathrattleTask.emplace_back(task);
 }
 
+void Power::AddDeathrattleTask(TaskList tasks)
+{
+    m_deathrattleTask.insert(m_deathrattleTask.end(), tasks.begin(),
+                             tasks.end());
+}
+
 void Power::AddComboTask(std::shared_ptr<ITask> task)
 {
     m_comboTask.emplace_back(task);
