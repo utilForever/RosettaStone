@@ -135,4 +135,9 @@ void Power::AddSpellburstTask(std::shared_ptr<ITask> task)
 {
     m_spellburstTask.emplace_back(task);
 }
+
+void Power::AddSpellburstTask(TaskList tasks)
+{
+    m_spellburstTask.insert(m_spellburstTask.end(), tasks.begin(), tasks.end());
+}
 }  // namespace RosettaStone::PlayMode
