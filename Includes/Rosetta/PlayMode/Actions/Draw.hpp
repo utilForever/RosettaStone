@@ -21,6 +21,10 @@ Playable* Draw(Player* player, Playable* cardToDraw = nullptr);
 //! \param card A card to draw to the hand.
 //! \return A dynamic allocated entity object.
 Playable* DrawCard(Player* player, Card* card);
+
+//! Finds another spell card from the deck.
+//! \param player The player to find another spell card from the deck.
+Playable* FindAnotherSpellCard(Player* player);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_DRAW_HPP

@@ -69,33 +69,10 @@ Playable* Draw(Player* player, Playable* cardToDraw)
                 // find another spell card to draw.
                 if (cardToDraw != nullptr)
                 {
-                    std::vector<Playable*> cards;
-                    cards.reserve(MAX_DECK_SIZE);
-
-                    for (auto& deckCard : player->GetDeckZone()->GetAll())
-                    {
-                        if (deckCard->card->GetCardType() == CardType::SPELL)
-                        {
-                            cards.emplace_back(deckCard);
-                        }
-                    }
-
-                    if (cards.empty())
-                    {
-                        cardToDraw = nullptr;
-                    }
-                    else
-                    {
-                        const auto pick =
-                            Random::get<std::size_t>(0, cards.size() - 1);
-
-                        Draw(player, cards[pick]);
-                    }
+                    cardToDraw = FindAnotherSpellCard(player);
                 }
-                else
-                {
-                    Draw(player, cardToDraw);
-                }
+
+                Draw(player, cardToDraw);
             }
         }
     }
@@ -109,5 +86,27 @@ Playable* DrawCard(Player* player, Card* card)
     AddCardToHand(player, playable);
 
     return playable;
+}
+
+Playable* FindAnotherSpellCard(Player* player)
+{
+    std::vector<Playable*> cards;
+    cards.reserve(MAX_DECK_SIZE);
+
+    for (auto& deckCard : player->GetDeckZone()->GetAll())
+    {
+        if (deckCard->card->GetCardType() == CardType::SPELL)
+        {
+            cards.emplace_back(deckCard);
+        }
+    }
+
+    if (cards.empty())
+    {
+        return nullptr;
+    }
+
+    const auto pick = Random::get<std::size_t>(0, cards.size() - 1);
+    return cards[pick];
 }
 }  // namespace RosettaStone::PlayMode::Generic
