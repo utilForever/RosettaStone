@@ -64,7 +64,38 @@ Playable* Draw(Player* player, Playable* cardToDraw)
             {
                 player->GetSetasideZone()->Add(
                     player->GetHandZone()->Remove(playable));
-                Draw(player, cardToDraw);
+
+                // When the player draws a spell card,
+                // find another spell card to draw.
+                if (cardToDraw != nullptr)
+                {
+                    std::vector<Playable*> cards;
+                    cards.reserve(MAX_DECK_SIZE);
+
+                    for (auto& deckCard : player->GetDeckZone()->GetAll())
+                    {
+                        if (deckCard->card->GetCardType() == CardType::SPELL)
+                        {
+                            cards.emplace_back(deckCard);
+                        }
+                    }
+
+                    if (cards.empty())
+                    {
+                        cardToDraw = nullptr;
+                    }
+                    else
+                    {
+                        const auto pick =
+                            Random::get<std::size_t>(0, cards.size() - 1);
+
+                        Draw(player, cards[pick]);
+                    }
+                }
+                else
+                {
+                    Draw(player, cardToDraw);
+                }
             }
         }
     }
