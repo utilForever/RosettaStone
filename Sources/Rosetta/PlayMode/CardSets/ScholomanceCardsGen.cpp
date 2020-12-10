@@ -1329,6 +1329,19 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<DamageTask>(EntityType::TARGET, 3) }));
+    cards.emplace(
+        "SCH_517",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_700] Spirit Jailer - COST:1 [ATK:1/HP:3]
@@ -1339,6 +1352,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
