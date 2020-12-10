@@ -1684,6 +1684,15 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<DamageTask>(
+                            EntityType::ALL_MINIONS_NOSOURCE, 3) }));
+    cards.emplace("SCH_355", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SCH_356] Glide - COST:4

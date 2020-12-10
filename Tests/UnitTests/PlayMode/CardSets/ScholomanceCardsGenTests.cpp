@@ -1640,6 +1640,85 @@ TEST_CASE("[Demon Hunter : Weapon] - SCH_252 : Marrowslicer")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
+// [SCH_355] Shardshatter Mystic - COST:3 [ATK:3/HP:2]
+// - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a Soul Fragment
+//       in your deck to deal 3 damage to all other minions.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - SCH_355 : Shardshatter Mystic")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spirit Jailer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shardshatter Mystic"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shardshatter Mystic"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
 // [SCH_705] Vilefiend Trainer - COST:4 [ATK:5/HP:4]
 // - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
