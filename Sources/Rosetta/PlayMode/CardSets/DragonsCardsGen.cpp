@@ -15,6 +15,7 @@
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Enchants/SwapCostEnchant.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -514,13 +515,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
-        TaskList{
-            std::make_shared<IncludeTask>(EntityType::DECK),
-            std::make_shared<FilterStackTask>(SelfCondList{
-                std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
-            std::make_shared<RandomTask>(EntityType::STACK, 1),
-            std::make_shared<SummonStackTask>(true) },
-        ProgressType::SPEND_MANA) };
+        ComplexTask::SummonMinionFromDeck(), ProgressType::SPEND_MANA) };
     cards.emplace("DRG_051", CardDef(power, 10, 0));
 
     // ------------------------------------------ SPELL - DRUID
