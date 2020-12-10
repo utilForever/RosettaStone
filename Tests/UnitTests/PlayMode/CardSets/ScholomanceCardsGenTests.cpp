@@ -384,6 +384,52 @@ TEST_CASE("[Druid : Minion] - SCH_613 : Groundskeeper")
 }
 
 // ----------------------------------------- MINION - DRUID
+// [SCH_614] Forest Warden Omu - COST:6 [ATK:5/HP:4]
+// - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Spellburst:</b> Refresh your Mana Crystals.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - SCH_614 : Forest Warden Omu")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Forest Warden Omu"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+}
+
+// ----------------------------------------- MINION - DRUID
 // [SCH_616] Twilight Runner - COST:5 [ATK:5/HP:4]
 // - Race: Beast, Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------

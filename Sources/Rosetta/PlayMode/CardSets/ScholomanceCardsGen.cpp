@@ -36,6 +36,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetPlayerGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -191,6 +192,10 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<SetPlayerGameTagTask>(GameTag::RESOURCES_USED, 0));
+    cards.emplace("SCH_614", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SCH_616] Twilight Runner - COST:5 [ATK:5/HP:4]
