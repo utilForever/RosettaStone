@@ -334,6 +334,9 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Destroy a random enemy minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace("SCH_239", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [SCH_244] Teacher's Pet - COST:5 [ATK:4/HP:5]

@@ -509,13 +509,69 @@ TEST_CASE("[Hunter : Minion] - SCH_133 : Wolpertinger")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    const auto card =
+
+    const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolpertinger"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
 
-    CHECK_EQ("Wolpertinger", curField[0]->card->name);
-    CHECK_EQ("Wolpertinger", curField[1]->card->name);
+    CHECK_EQ(curField[0]->card->name, "Wolpertinger");
+    CHECK_EQ(curField[1]->card->name, "Wolpertinger");
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [SCH_239] Krolusk Barkstripper - COST:4 [ATK:3/HP:5]
+// - Race: Beast, Set: SCHOLOMANCE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Spellburst:</b> Destroy a random enemy minion.
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - SCH_239 : Krolusk Barkstripper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Krolusk Barkstripper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Explosive Trap"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opField.GetCount(), 2);
 }
 
 // ----------------------------------------- SPELL - HUNTER
