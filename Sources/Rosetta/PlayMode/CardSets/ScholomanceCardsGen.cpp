@@ -1777,6 +1777,15 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<AddEnchantmentTask>(
+                            "SCH_704e", EntityType::HERO) }));
+    cards.emplace("SCH_704", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SCH_705] Vilefiend Trainer - COST:4 [ATK:5/HP:4]
@@ -1923,6 +1932,9 @@ void ScholomanceCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_704e"));
+    cards.emplace("SCH_704e", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SCH_705t] Snarling Vilefiend - COST:1 [ATK:1/HP:1]

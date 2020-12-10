@@ -1652,7 +1652,7 @@ TEST_CASE("[Demon Hunter : Weapon] - SCH_252 : Marrowslicer")
 TEST_CASE("[Demon Hunter : Minion] - SCH_355 : Shardshatter Mystic")
 {
     GameConfig config;
-    config.player1Class = CardClass::WARLOCK;
+    config.player1Class = CardClass::DEMONHUNTER;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
@@ -1716,6 +1716,63 @@ TEST_CASE("[Demon Hunter : Minion] - SCH_355 : Shardshatter Mystic")
     CHECK_EQ(curField[1]->GetHealth(), 2);
     CHECK_EQ(curField[2]->GetHealth(), 2);
     CHECK_EQ(opField[0]->GetHealth(), 9);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [SCH_704] Soulshard Lapidary - COST:5 [ATK:5/HP:5]
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a Soul Fragment in your deck
+//       to give your hero +5 Attack this turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - SCH_704 : Soulshard Lapidary")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spirit Jailer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Soulshard Lapidary"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Soulshard Lapidary"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
