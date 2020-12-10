@@ -10,6 +10,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
@@ -730,6 +731,11 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::SummonMinionFromDeck());
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_533e", EntityType::STACK));
+    cards.emplace("SCH_533", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
@@ -797,6 +803,9 @@ void ScholomanceCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: <b>Taunt</b>, <b>Divine Shield</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_533e"));
+    cards.emplace("SCH_533e", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)

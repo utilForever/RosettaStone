@@ -718,6 +718,52 @@ TEST_CASE("[Mage : Minion] - SCH_310 : Lab Partner")
     // Do nothing
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [SCH_533] Commencement - COST:7
+// - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon a minion from your deck.
+//       Give it <b>Taunt</b> and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - SCH_533 : Commencement")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Faerie Dragon");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Commencement"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
 // - Set: Scholomance, Rarity: Common
