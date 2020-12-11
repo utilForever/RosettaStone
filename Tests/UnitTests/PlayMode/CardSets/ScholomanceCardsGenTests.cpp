@@ -744,6 +744,58 @@ TEST_CASE("[Hunter : Minion] - SCH_340 : Bloated Python")
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [SCH_617] Adorable Infestation - COST:1
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +1/+1. Summon a 1/1 Cub.
+//       Add a Cub to your hand.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - SCH_617 : Adorable Infestation")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Adorable Infestation"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->card->name, "Marsuul Cub");
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Marsuul Cub");
+}
+
 // ------------------------------------------ MINION - MAGE
 // [SCH_241] Firebrand - COST:3 [ATK:3/HP:4]
 // - Set: SCHOLOMANCE, Rarity: Common
