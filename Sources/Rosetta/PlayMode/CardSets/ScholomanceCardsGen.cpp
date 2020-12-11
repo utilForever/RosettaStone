@@ -2193,6 +2193,9 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("SCH_245", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_248] Pen Flinger - COST:1 [ATK:1/HP:1]
