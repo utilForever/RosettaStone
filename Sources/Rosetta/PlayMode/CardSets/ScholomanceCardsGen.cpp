@@ -2172,6 +2172,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<AddEnchantmentTask>("SCH_232e", EntityType::SOURCE));
+    cards.emplace("SCH_232", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_235] Devolving Missiles - COST:1
@@ -3142,6 +3146,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_232e"));
+    cards.emplace("SCH_232e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_259t] A New Fate - COST:0
