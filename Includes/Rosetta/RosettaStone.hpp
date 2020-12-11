@@ -154,6 +154,7 @@
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Models/Weapon.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/EventMetaData.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
@@ -187,6 +188,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageWeaponTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyAllTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroySoulFragmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
@@ -239,6 +241,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RevealStealthTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetPlayerGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCapturedMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>

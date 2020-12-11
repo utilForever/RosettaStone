@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -1198,9 +1199,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddPowerTask(ComplexTask::DestroyRandomEnemyMinion(1));
     cards.emplace(
         "EX1_617",
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));

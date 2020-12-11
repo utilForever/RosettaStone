@@ -376,6 +376,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition Cast5MoreCostSpellInThisTurn();
 
+    //! SelfCondition wrapper for checking the player has the card
+    //! 'Soul Fragment' in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasSoulFragmentInDeck();
+
     //! SelfCondition wrapper for checking the threshold value.
     //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.

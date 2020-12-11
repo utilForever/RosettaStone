@@ -39,6 +39,7 @@
 * DamageTask
 * DamageWeaponTask
 * DestroyAllTask
+* DestroySoulFragmentTask
 * DestroyTask
 * DiscardTask
 * DiscoverTask
@@ -91,6 +92,7 @@
 * RevealStealthTask
 * SetGameTagNumberTask
 * SetGameTagTask
+* SetPlayerGameTagTask
 * SilenceTask
 * SummonCapturedMinionTask
 * SummonCopyTask

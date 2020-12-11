@@ -20,6 +20,8 @@ class ITask;
 class Aura;
 class Enchant;
 
+using TaskList = std::vector<std::shared_ptr<ITask>>;
+
 //!
 //! \brief Power class.
 //!
@@ -86,9 +88,17 @@ class Power
     //! \param task A pointer to power task.
     void AddPowerTask(std::shared_ptr<ITask> task);
 
+    //! Adds a list of power task.
+    //! \param tasks A list of power task.
+    void AddPowerTask(TaskList tasks);
+
     //! Adds deathrattle task.
     //! \param task A pointer to deathrattle task.
     void AddDeathrattleTask(std::shared_ptr<ITask> task);
+
+    //! Adds a list of deathrattle task.
+    //! \param tasks A list of deathrattle task.
+    void AddDeathrattleTask(TaskList tasks);
 
     //! Adds combo task.
     //! \param task A pointer to combo task.
@@ -109,6 +119,10 @@ class Power
     //! Adds spellburst task.
     //! \param task A pointer to spellburst task.
     void AddSpellburstTask(std::shared_ptr<ITask> task);
+
+    //! Adds a list of spellburst task.
+    //! \param tasks A list of spellburst task.
+    void AddSpellburstTask(TaskList tasks);
 
  private:
     std::shared_ptr<IAura> m_aura;

@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateDeathrattleTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -1488,13 +1489,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(
-        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
-    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }));
-    power.AddDeathrattleTask(
-        std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddDeathrattleTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddDeathrattleTask(ComplexTask::DestroyRandomEnemyMinion(1));
     cards.emplace("DAL_039", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST

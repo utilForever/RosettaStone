@@ -95,9 +95,20 @@ void Power::AddPowerTask(std::shared_ptr<ITask> task)
     m_powerTask.emplace_back(task);
 }
 
+void Power::AddPowerTask(TaskList tasks)
+{
+    m_powerTask.insert(m_powerTask.end(), tasks.begin(), tasks.end());
+}
+
 void Power::AddDeathrattleTask(std::shared_ptr<ITask> task)
 {
     m_deathrattleTask.emplace_back(task);
+}
+
+void Power::AddDeathrattleTask(TaskList tasks)
+{
+    m_deathrattleTask.insert(m_deathrattleTask.end(), tasks.begin(),
+                             tasks.end());
 }
 
 void Power::AddComboTask(std::shared_ptr<ITask> task)
@@ -123,5 +134,10 @@ void Power::AddOutcastTask(std::shared_ptr<ITask> task)
 void Power::AddSpellburstTask(std::shared_ptr<ITask> task)
 {
     m_spellburstTask.emplace_back(task);
+}
+
+void Power::AddSpellburstTask(TaskList tasks)
+{
+    m_spellburstTask.insert(m_spellburstTask.end(), tasks.begin(), tasks.end());
 }
 }  // namespace RosettaStone::PlayMode

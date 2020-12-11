@@ -19,7 +19,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
     if (!cardFile.is_open())
     {
-        throw std::runtime_error("Can't open cards.json - Path: " RESOURCES_DIR);
+        throw std::runtime_error(
+            "Can't open cards.json - Path: " RESOURCES_DIR);
     }
 
     cardFile >> j;
@@ -163,6 +164,12 @@ void CardLoader::Load(std::vector<Card*>& cards)
         if (std::regex_search(text, values, spellburstRegex))
         {
             card->gameTags[GameTag::SPELLBURST] = 1;
+        }
+
+        // NOTE: Runic Carvings (SCH_612) has GameTag::OVERLOAD
+        if (dbfID == 59542)
+        {
+            card->gameTags.erase(GameTag::OVERLOAD);
         }
 
         cards.emplace_back(card);

@@ -10,20 +10,25 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroySoulFragmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
@@ -31,9 +36,11 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetPlayerGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -100,6 +107,9 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TempManaTask>(2));
+    cards.emplace("SCH_427", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_606] Partner Assignment - COST:1
@@ -107,6 +117,16 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add a random 2-Cost and 3-Cost Beast to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::COST, 2, RelaSign::EQ },
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::COST, 3, RelaSign::EQ },
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_606", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_609] Survival of the Fittest - COST:10
@@ -130,6 +150,15 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "SCH_612",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{ "SCH_612a", "SCH_612b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [SCH_613] Groundskeeper - COST:4 [ATK:4/HP:5]
@@ -142,6 +171,17 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_DRAG_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::Has5MoreCostSpellInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<HealTask>(EntityType::TARGET, 5) }));
+    cards.emplace("SCH_613",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_DRAG_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [SCH_614] Forest Warden Omu - COST:6 [ATK:5/HP:4]
@@ -151,6 +191,11 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<SetPlayerGameTagTask>(GameTag::RESOURCES_USED, 0));
+    cards.emplace("SCH_614", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SCH_616] Twilight Runner - COST:5 [ATK:5/HP:4]
@@ -162,6 +207,11 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(2) };
+    cards.emplace("SCH_616", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddDruidNonCollect(
@@ -220,6 +270,10 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Summon four 2/2 Treant Totems.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_612t", 4, SummonSide::SPELL));
+    cards.emplace("SCH_612a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612b] Alarm the Forest - COST:6
@@ -234,11 +288,20 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_612t", 4, SummonSide::SPELL, true));
+    power.AddPowerTask(
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::RUSH, 1));
+    cards.emplace("SCH_612b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SCH_612t] Treant Totem - COST:2 [ATK:2/HP:2]
     // - Race: TOTEM, Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_612t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SCH_617e] Adorable - COST:0
@@ -246,6 +309,9 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_617e"));
+    cards.emplace("SCH_617e", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -271,6 +337,9 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Destroy a random enemy minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace("SCH_239", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [SCH_244] Teacher's Pet - COST:5 [ATK:4/HP:5]
@@ -283,6 +352,12 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::COST, 3, RelaSign::EQ },
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddDeathrattleTask(std::make_shared<SummonTask>());
+    cards.emplace("SCH_244", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [SCH_300] Carrion Studies - COST:1
@@ -313,6 +388,10 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SCH_340t", SummonSide::DEATHRATTLE));
+    cards.emplace("SCH_340", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [SCH_539] Professor Slate - COST:3 [ATK:3/HP:4]
@@ -366,6 +445,21 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +1/+1. Summon a 1/1 Cub.
     //       Add a Cub to your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_617e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_617t", SummonSide::SPELL));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SCH_617t", 1));
+    cards.emplace(
+        "SCH_617",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void ScholomanceCardsGen::AddHunterNonCollect(
@@ -377,6 +471,9 @@ void ScholomanceCardsGen::AddHunterNonCollect(
     // [SCH_340t] Hapless Handler - COST:4 [ATK:4/HP:4]
     // - Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_340t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [SCH_538e] Ace Hunter's Lesson - COST:0
@@ -420,6 +517,9 @@ void ScholomanceCardsGen::AddHunterNonCollect(
     // [SCH_617t] Marsuul Cub - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_617t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [SCH_618e] Blood of Innocents - COST:0
@@ -590,6 +690,11 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add 2 random 1-Cost minions to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }, 2));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_247", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_250] Wave of Apathy - COST:1
@@ -630,6 +735,19 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_524e", EntityType::TARGET));
+    cards.emplace(
+        "SCH_524",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [SCH_526] Lord Barov - COST:3 [ATK:3/HP:2]
@@ -666,6 +784,11 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::SummonMinionFromDeck());
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_533e", EntityType::STACK));
+    cards.emplace("SCH_533", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [SCH_712] Judicious Junior - COST:6 [ATK:4/HP:9]
@@ -733,6 +856,9 @@ void ScholomanceCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: <b>Taunt</b>, <b>Divine Shield</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_533e"));
+    cards.emplace("SCH_533e", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
@@ -1227,6 +1353,12 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to all minions.
     //       Shuffle 2 Soul Fragments into your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace("SCH_307", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_343] Void Drinker - COST:5 [ATK:4/HP:5]
@@ -1239,6 +1371,15 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<AddEnchantmentTask>(
+                            "SCH_343e", EntityType::SOURCE) }));
+    cards.emplace("SCH_343", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_517] Shadowlight Scholar - COST:3 [ATK:3/HP:4]
@@ -1250,6 +1391,19 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<DamageTask>(EntityType::TARGET, 3) }));
+    cards.emplace(
+        "SCH_517",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_700] Spirit Jailer - COST:1 [ATK:1/HP:3]
@@ -1261,6 +1415,11 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
 
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace("SCH_700", CardDef(power));
+
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_701] Soul Shear - COST:2
     // - Set: SCHOLOMANCE, Rarity: Rare
@@ -1268,6 +1427,19 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion.
     //       Shuffle 2 Soul Fragments into your deck.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace(
+        "SCH_701",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_702] Felosophy - COST:1
@@ -1337,6 +1509,10 @@ void ScholomanceCardsGen::AddWarlockNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<HealTask>(EntityType::HERO, 2));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 2));
+    cards.emplace("SCH_307t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [SCH_343e] Soul Powered - COST:0
@@ -1344,6 +1520,9 @@ void ScholomanceCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_343e"));
+    cards.emplace("SCH_343e", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [SCH_703t] Released Soul - COST:3 [ATK:3/HP:3]
@@ -1422,6 +1601,11 @@ void ScholomanceCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::TAUNT, 1, RelaSign::EQ } }, 2));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_525", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SCH_621] Rattlegore - COST:9 [ATK:9/HP:9]
@@ -1507,6 +1691,10 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SCH_307t", 2));
+    cards.emplace("SCH_252", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SCH_253] Cycle of Hatred - COST:7
@@ -1563,6 +1751,15 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<DamageTask>(
+                            EntityType::ALL_MINIONS_NOSOURCE, 3) }));
+    cards.emplace("SCH_355", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SCH_356] Glide - COST:4
@@ -1647,6 +1844,15 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasSoulFragmentInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroySoulFragmentTask>(),
+                        std::make_shared<AddEnchantmentTask>(
+                            "SCH_704e", EntityType::HERO) }));
+    cards.emplace("SCH_704", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SCH_705] Vilefiend Trainer - COST:4 [ATK:5/HP:4]
@@ -1657,6 +1863,13 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.ClearData();
+    power.AddOutcastTask(
+        std::make_shared<SummonTask>("SCH_705t", SummonSide::LEFT));
+    power.AddOutcastTask(
+        std::make_shared<SummonTask>("SCH_705t", SummonSide::RIGHT));
+    cards.emplace("SCH_705", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddDemonHunterNonCollect(
@@ -1786,11 +1999,17 @@ void ScholomanceCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_704e"));
+    cards.emplace("SCH_704e", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SCH_705t] Snarling Vilefiend - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_705t", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddDual(std::map<std::string, CardDef>& cards)
@@ -1825,11 +2044,17 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_143", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_145] Desk Imp - COST:0 [ATK:1/HP:1]
     // - Race: Demon, Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_145", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_146] Robes of Protection - COST:3 [ATK:2/HP:4]
@@ -1947,6 +2172,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<AddEnchantmentTask>("SCH_232e", EntityType::SOURCE));
+    cards.emplace("SCH_232", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_235] Devolving Missiles - COST:1
@@ -1968,6 +2197,9 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("SCH_245", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_248] Pen Flinger - COST:1 [ATK:1/HP:1]
@@ -2114,6 +2346,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Deal 2 damage to all other minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 2));
+    cards.emplace("SCH_313", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_350] Wand Thief - COST:1 [ATK:1/HP:2]
@@ -2910,6 +3146,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_232e"));
+    cards.emplace("SCH_232e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_259t] A New Fate - COST:0
@@ -3075,6 +3314,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3 Attack and <b>Divine Shield</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_524e"));
+    cards.emplace("SCH_524e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_539e] Professor's Poison - COST:0

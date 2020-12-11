@@ -771,6 +771,21 @@ SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
     });
 }
 
+SelfCondition SelfCondition::HasSoulFragmentInDeck()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& deckCard : playable->player->GetDeckZone()->GetAll())
+        {
+            if (deckCard->card->dbfID == 59723)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
 {
     return SelfCondition([relaSign](Playable* playable) {
