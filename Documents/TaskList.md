@@ -39,6 +39,7 @@
 * DamageTask
 * DamageWeaponTask
 * DestroyAllTask
+* DestroySoulFragmentTask
 * DestroyTask
 * DiscardTask
 * DiscoverTask
