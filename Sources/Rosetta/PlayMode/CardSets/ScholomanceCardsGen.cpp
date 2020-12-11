@@ -349,6 +349,12 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::COST, 3, RelaSign::EQ },
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddDeathrattleTask(std::make_shared<SummonTask>());
+    cards.emplace("SCH_244", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [SCH_300] Carrion Studies - COST:1
