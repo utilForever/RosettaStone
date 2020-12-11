@@ -1601,6 +1601,11 @@ void ScholomanceCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::TAUNT, 1, RelaSign::EQ } }, 2));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_525", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SCH_621] Rattlegore - COST:9 [ATK:9/HP:9]

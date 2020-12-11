@@ -1936,6 +1936,48 @@ TEST_CASE("[Warrior : Spell] - SCH_237 : Athletic Studies")
     CHECK_EQ(card3->GetCost(), 6);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [SCH_525] In Formation! - COST:2
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Add 2 random <b>Taunt</b> minions to your hand.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - SCH_525 : In Formation!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("In Formation!"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->HasGameTag(GameTag::TAUNT), true);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[1]->card->HasGameTag(GameTag::TAUNT), true);
+}
+
 // ----------------------------------- WEAPON - DEMONHUNTER
 // [SCH_252] Marrowslicer - COST:4
 // - Set: SCHOLOMANCE, Rarity: Common
