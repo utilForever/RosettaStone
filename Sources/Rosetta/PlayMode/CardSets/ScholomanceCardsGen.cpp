@@ -690,6 +690,11 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add 2 random 1-Cost minions to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }, 2));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_247", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_250] Wave of Apathy - COST:1

@@ -923,6 +923,45 @@ TEST_CASE("[Mage : Minion] - SCH_310 : Lab Partner")
 }
 
 // ---------------------------------------- SPELL - PALADIN
+// [SCH_247] First Day of School - COST:0
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Add 2 random 1-Cost minions to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - SCH_247 : First Day of School")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("First Day of School"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->GetCost(), 1);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[1]->card->GetCost(), 1);
+}
+
+// ---------------------------------------- SPELL - PALADIN
 // [SCH_524] Shield of Honor - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
