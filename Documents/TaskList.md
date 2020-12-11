@@ -92,6 +92,7 @@
 * RevealStealthTask
 * SetGameTagNumberTask
 * SetGameTagTask
+* SetPlayerGameTagTask
 * SilenceTask
 * SummonCapturedMinionTask
 * SummonCopyTask
