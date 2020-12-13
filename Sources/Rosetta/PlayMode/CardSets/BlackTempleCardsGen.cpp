@@ -1012,6 +1012,13 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BT_262e", EntityType::SOURCE) }));
+    cards.emplace("BT_262", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BT_341] Skeletal Dragon - COST:7 [ATK:4/HP:9]
@@ -1077,6 +1084,9 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Lifesteal</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_262e"));
+    cards.emplace("BT_262e", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
