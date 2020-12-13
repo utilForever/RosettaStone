@@ -352,6 +352,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNoDuplicateInDeck();
 
+    //! SelfCondition wrapper for checking the player has no minions in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasNoMinionsInDeck();
+
     //! SelfCondition wrapper for checking the player has no neutral cards
     //! in deck.
     //! \return Generated SelfCondition for intended purpose.

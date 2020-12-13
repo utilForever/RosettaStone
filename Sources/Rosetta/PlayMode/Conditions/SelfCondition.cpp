@@ -708,6 +708,23 @@ SelfCondition SelfCondition::IsNoDuplicateInDeck()
     });
 }
 
+SelfCondition SelfCondition::HasNoMinionsInDeck()
+{
+    return SelfCondition([](Playable* playable) {
+        auto cards = playable->player->GetDeckZone()->GetAll();
+
+        for (auto& card : cards)
+        {
+            if (card->card->GetCardType() == CardType::MINION)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
 SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
 {
     return SelfCondition([](Playable* playable) {
