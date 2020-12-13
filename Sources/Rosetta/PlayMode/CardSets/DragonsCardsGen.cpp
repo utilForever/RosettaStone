@@ -33,6 +33,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyAllTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
@@ -309,13 +310,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(1, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DRG_650e", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
     cards.emplace("DRG_650", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
@@ -334,13 +331,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(2, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DRG_650e2", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(2));
     cards.emplace("DRG_650t2", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
@@ -358,13 +351,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 4));
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(4, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DRG_650e3", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(4));
     power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
     cards.emplace("DRG_650t3", CardDef(power, 0, 55805));
 
