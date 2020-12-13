@@ -1205,13 +1205,13 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                 return;
             }
 
-            auto continueFunc = [](FieldZone* fieldZone, Playable* source,
+            auto continueFunc = [](FieldZone* fieldZone, Playable* _source,
                                    Minion* minion, int remainDamage,
                                    bool isLeft) {
                 while (true)
                 {
                     const int targetHealth = minion->GetHealth();
-                    minion->TakeDamage(source, remainDamage);
+                    minion->TakeDamage(_source, remainDamage);
 
                     if (minion->isDestroyed)
                     {
