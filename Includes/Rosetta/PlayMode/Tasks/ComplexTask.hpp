@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 #define ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -48,6 +49,21 @@ class ComplexTask
                 std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
             std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, num),
             std::make_shared<SimpleTasks::DestroyTask>(EntityType::STACK)
+        };
+    }
+
+    //! Returns a list of task for giving buff to a random minion in hand.
+    //! \param enchantmentCardID The ID of enchantment card to give buff.
+    static TaskList GiveBuffToRandomMinionInHand(
+        std::string_view enchantmentCardID)
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::HAND),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::AddEnchantmentTask>(enchantmentCardID,
+                                                              EntityType::STACK)
         };
     }
 };
