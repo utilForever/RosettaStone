@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
@@ -394,6 +395,12 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a Beast. Give it +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawRaceMinionTask>(Race::BEAST, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_213e", EntityType::STACK));
+    cards.emplace("BT_213", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BT_214] Beastmaster Leoroxx - COST:8 [ATK:5/HP:5]
@@ -2626,6 +2633,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_213e"));
+    cards.emplace("BT_213e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_255e] Sunstrider - COST:0
