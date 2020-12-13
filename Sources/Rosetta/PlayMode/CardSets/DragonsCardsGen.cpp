@@ -1213,31 +1213,26 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     const int targetHealth = minion->GetHealth();
                     minion->TakeDamage(_source, remainDamage);
 
-                    if (minion->isDestroyed)
+                    if (!minion->isDestroyed)
                     {
-                        remainDamage = remainDamage - targetHealth;
-                        if (remainDamage > 0)
-                        {
-                            const int targetPos = minion->GetZonePosition();
+                        break;
+                    }
 
-                            if (isLeft && targetPos > 0)
-                            {
-                                minion = (*fieldZone)[targetPos - 1];
-                            }
-                            else if (!isLeft &&
-                                     targetPos < fieldZone->GetCount() - 1)
-                            {
-                                minion = (*fieldZone)[targetPos + 1];
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
+                    remainDamage = remainDamage - targetHealth;
+                    if (remainDamage <= 0)
+                    {
+                        break;
+                    }
+
+                    const int targetPos = minion->GetZonePosition();
+
+                    if (isLeft && targetPos > 0)
+                    {
+                        minion = (*fieldZone)[targetPos - 1];
+                    }
+                    else if (!isLeft && targetPos < fieldZone->GetCount() - 1)
+                    {
+                        minion = (*fieldZone)[targetPos + 1];
                     }
                     else
                     {
