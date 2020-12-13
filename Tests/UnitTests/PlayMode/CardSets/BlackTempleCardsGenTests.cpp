@@ -497,6 +497,10 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
 // GameTag:
 // - FREEZE = 1
 // --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
 TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
 {
     GameConfig config;
@@ -603,6 +607,9 @@ TEST_CASE("[Paladin : Spell] - BT_011 : Libram of Justice")
 // - DIVINE_SHIELD = 1
 // - TAUNT = 1
 // --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
 TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
 {
     GameConfig config;
@@ -649,6 +656,9 @@ TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
 // GameTag:
 // - DISCOVER = 1
 // --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
 TEST_CASE("[Preist : Spell] - BT_252 : Renew")
 {
     GameConfig config;
@@ -692,6 +702,10 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: Give a minion +1/+2. Summon a copy of it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
 TEST_CASE("[Preist : Spell] - BT_253 : Psyche Split")
 {
@@ -741,6 +755,10 @@ TEST_CASE("[Preist : Spell] - BT_253 : Psyche Split")
 // --------------------------------------------------------
 // RefTag:
 // - LIFESTEAL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
 TEST_CASE("[Preist : Spell] - BT_257 : Apotheosis")
 {
@@ -960,6 +978,9 @@ TEST_CASE("[Rogue : Minion] - BT_703 : Cursed Vagrant")
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 {
