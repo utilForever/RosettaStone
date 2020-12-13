@@ -1943,9 +1943,10 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
                     while (player->choice != nullptr)
                     {
-                        const auto choiceIdx =
-                            Random::get<int>(0, player->choice->choices.size());
-                        Generic::ChoicePick(player, choiceIdx);
+                        const auto choiceIdx = Random::get<std::size_t>(
+                            0, player->choice->choices.size());
+                        Generic::ChoicePick(player,
+                                            static_cast<int>(choiceIdx));
                     }
 
                     player->game->ProcessDestroyAndUpdateAura();
