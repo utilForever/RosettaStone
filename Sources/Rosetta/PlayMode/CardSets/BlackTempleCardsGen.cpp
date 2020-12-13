@@ -334,6 +334,16 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("BT_205e", EntityType::STACK));
+    cards.emplace("BT_202", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BT_203] Pack Tactics - COST:2

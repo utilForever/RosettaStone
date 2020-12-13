@@ -205,6 +205,58 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
     CHECK_EQ(curField[3]->GetHealth(), 9);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [BT_202] Helboar - COST:1 [ATK:2/HP:1]
+// - Race: Beast, Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give a random Beast in your hand +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - BT_202 : Helboar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Helboar"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faerie Dragon"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 1);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [BT_205] Scrap Shot - COST:4
 // - Set: BLACK_TEMPLE, Rarity: Rare
