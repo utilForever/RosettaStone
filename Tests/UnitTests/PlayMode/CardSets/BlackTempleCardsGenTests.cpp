@@ -553,7 +553,7 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
-TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
+TEST_CASE("[Mage : Spell] - BT_072 : Deep Freeze")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -592,6 +592,69 @@ TEST_CASE("[Mage : Speel] - BT_072 : Deep Freeze")
     CHECK_EQ(opField.GetCount(), 2);
     CHECK_EQ(opField[0]->card->name, "Water Elemental");
     CHECK_EQ(opField[1]->card->name, "Water Elemental");
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [BT_291] Apexis Blast - COST:5
+// - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 5 damage. If your deck has no minions,
+//       summon a random 5-Cost minion.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BT_291 : Apexis Blast")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wolfrider");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Apexis Blast"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Apexis Blast"));
+
+    opHero->SetDamage(0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, opHero));
+    CHECK_EQ(opHero->GetHealth(), 25);
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    opHero->SetDamage(0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opHero));
+    CHECK_EQ(opHero->GetHealth(), 25);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 5);
 }
 
 // ---------------------------------------- SPELL - PALADIN

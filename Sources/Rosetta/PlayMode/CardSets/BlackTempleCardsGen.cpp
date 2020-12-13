@@ -618,6 +618,22 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage. If your deck has no minions,
     //       summon a random 5-Cost minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasNoMinionsInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomMinionTask>(
+                            TagValues{ { GameTag::COST, 5, RelaSign::EQ } }),
+                        std::make_shared<SummonTask>() }));
+    cards.emplace(
+        "BT_291",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
 void BlackTempleCardsGen::AddMageNonCollect(
