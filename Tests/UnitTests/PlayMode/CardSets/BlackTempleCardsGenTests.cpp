@@ -206,6 +206,55 @@ TEST_CASE("[Druid : Minion] - BT_136 : Archspore Msshi'fn")
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [BT_205] Scrap Shot - COST:4
+// - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 3 damage. Give a random Beast in your hand +3/+3.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - BT_205 : Scrap Shot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scrap Shot"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faerie Dragon"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 1);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [BT_213] Scavenger's Ingenuity - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------

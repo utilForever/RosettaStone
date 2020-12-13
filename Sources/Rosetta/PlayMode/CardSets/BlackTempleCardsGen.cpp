@@ -352,6 +352,22 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage. Give a random Beast in your hand +3/+3.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_205e", EntityType::STACK));
+    cards.emplace(
+        "BT_205",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [BT_210] Zixor, Apex Predator - COST:3 [ATK:2/HP:4]
@@ -2626,6 +2642,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_205e"));
+    cards.emplace("BT_205e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_213e] Pack Tactics - COST:0
