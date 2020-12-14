@@ -1458,6 +1458,69 @@ TEST_CASE("[Shaman : Minion] - BT_114 : Shattered Rumbler")
     CHECK_EQ(opField[0]->GetHealth(), 4);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [BT_115] Marshspawn - COST:3 [ATK:3/HP:4]
+// - Race: Elemental, Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you cast a spell last turn,
+//       <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - BT_115 : Marshspawn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Marshspawn"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Marshspawn"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice == nullptr);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->IsCardClass(CardClass::SHAMAN), true);
+    }
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [BT_199] Unstable Felbolt - COST:1
 // - Set: BLACK_TEMPLE, Rarity: Common

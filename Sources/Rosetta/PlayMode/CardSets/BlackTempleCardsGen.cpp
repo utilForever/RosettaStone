@@ -1480,6 +1480,13 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsCastSpellLastTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(DiscoverType::SPELL) }));
+    cards.emplace("BT_115", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_230] The Lurker Below - COST:6 [ATK:6/HP:5]
