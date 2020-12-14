@@ -1393,6 +1393,25 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 8 damage to a minion.
     //       Costs (3) less if you cast a spell last turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 8, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->player->GetNumSpellsCastLastTurn() > 0)
+        {
+            return 3;
+        }
+
+        return 0;
+    }));
+    cards.emplace(
+        "BT_110",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [BT_113] Totemic Reflection - COST:3
