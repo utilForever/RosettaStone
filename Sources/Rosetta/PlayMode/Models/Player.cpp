@@ -310,6 +310,16 @@ void Player::SetNumSpellsPlayedThisTurn(int value)
     SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_TURN, value);
 }
 
+int Player::GetNumSpellsCastLastTurn() const
+{
+    return GetGameTag(GameTag::NUM_SPELLS_CAST_LAST_TURN);
+}
+
+void Player::SetNumSpellsCastLastTurn(int value)
+{
+    SetGameTag(GameTag::NUM_SPELLS_CAST_LAST_TURN, value);
+}
+
 int Player::GetNumSpellsPlayedThisGame() const
 {
     return GetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME);

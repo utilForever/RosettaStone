@@ -246,6 +246,14 @@ class Player : public Entity
     //! \param value The number of spells that played this turn.
     void SetNumSpellsPlayedThisTurn(int value);
 
+    //! Returns the number of spells that cast last turn.
+    //! \return The number of spells that cast last turn.
+    int GetNumSpellsCastLastTurn() const;
+
+    //! Sets the number of spells that cast this turn.
+    //! \param value The number of spells that cast this turn.
+    void SetNumSpellsCastLastTurn(int value);
+
     //! Returns the number of spells that played this game.
     //! \return The number of spells that played this game.
     int GetNumSpellsPlayedThisGame() const;
