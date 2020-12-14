@@ -34,6 +34,10 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
+
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp"
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp"
+
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
@@ -1372,6 +1376,12 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(
+        std::make_shared<TransformMinionTask>(EntityType::STACK, 1));
+    cards.emplace("BT_106", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_109] Lady Vashj - COST:3 [ATK:4/HP:3]

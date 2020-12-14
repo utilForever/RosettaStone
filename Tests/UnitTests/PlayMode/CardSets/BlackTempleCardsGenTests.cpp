@@ -1265,6 +1265,52 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [BT_106] Bogstrok Clacker - COST:3 [ATK:3/HP:3]
+// - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Transform adjacent minions
+//       into random minions that cost (1) more.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - BT_106 : Bogstrok Clacker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bogstrok Clacker"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 1));
+    CHECK_EQ(curField[0]->card->GetCost(), 4);
+    CHECK_EQ(curField[2]->card->GetCost(), 5);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [BT_110] Torrent - COST:4
 // - Set: BLACK_TEMPLE, Rarity: Rare
