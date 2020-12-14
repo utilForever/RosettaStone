@@ -432,9 +432,9 @@ void Game::MainReady()
     curPlayer->SetNumElementalPlayedLastTurn(numElementalPlayedThisTurn);
     curPlayer->SetNumElementalPlayedThisTurn(0);
 
-    const int numSpellCastThisTurn = curPlayer->GetNumSpellsPlayedThisTurn();
+    const int numSpellCastThisTurn = curPlayer->GetNumSpellsCastThisTurn();
     curPlayer->SetNumSpellsCastLastTurn(numSpellCastThisTurn);
-    curPlayer->SetNumSpellsPlayedThisTurn(0);
+    curPlayer->SetNumSpellsCastThisTurn(0);
 
     curPlayer->cardsPlayedThisTurn.clear();
 

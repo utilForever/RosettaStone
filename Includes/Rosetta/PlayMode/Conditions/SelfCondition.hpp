@@ -243,10 +243,10 @@ class SelfCondition
     static SelfCondition MinionsPlayedThisTurn(int num);
 
     //! SelfCondition wrapper for checking the number of spells
-    //! that played this turn.
+    //! that cast this turn.
     //! \param num The number of spells for checking.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition SpellsPlayedThisTurn(int num);
+    static SelfCondition SpellsCastThisTurn(int num);
 
     //! SelfCondition wrapper for checking the player plays
     //! elemental minion in last turn.

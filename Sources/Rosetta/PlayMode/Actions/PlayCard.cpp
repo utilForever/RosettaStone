@@ -398,8 +398,8 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
-    const int val = player->GetNumSpellsPlayedThisTurn();
-    player->SetNumSpellsPlayedThisTurn(val + 1);
+    const int val = player->GetNumSpellsCastThisTurn();
+    player->SetNumSpellsCastThisTurn(val + 1);
     player->IncreaseNumSpellsPlayedThisGame();
 
     player->game->ProcessDestroyAndUpdateAura();

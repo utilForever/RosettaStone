@@ -505,10 +505,10 @@ SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
     });
 }
 
-SelfCondition SelfCondition::SpellsPlayedThisTurn(int num)
+SelfCondition SelfCondition::SpellsCastThisTurn(int num)
 {
     return SelfCondition([num](Playable* playable) {
-        return playable->player->GetNumSpellsPlayedThisTurn() == num;
+        return playable->player->GetNumSpellsCastThisTurn() == num;
     });
 }
 

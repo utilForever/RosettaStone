@@ -977,7 +977,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(std::make_shared<SwitchingAura>(
-        AuraType::HAND, SelfCondition::SpellsPlayedThisTurn(0),
+        AuraType::HAND, SelfCondition::SpellsCastThisTurn(0),
         TriggerType::CAST_SPELL, EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
