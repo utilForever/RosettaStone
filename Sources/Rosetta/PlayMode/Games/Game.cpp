@@ -402,7 +402,6 @@ void Game::MainReady()
         // Player
         player.SetNumCardsPlayedThisTurn(0);
         player.SetNumMinionsPlayedThisTurn(0);
-        player.SetNumSpellsPlayedThisTurn(0);
         player.SetNumFriendlyMinionsDiedThisTurn(0);
     }
 
@@ -428,9 +427,15 @@ void Game::MainReady()
     }
 
     // Player
-    const int val = curPlayer->GetNumElementalPlayedThisTurn();
-    curPlayer->SetNumElementalPlayedLastTurn(val);
+    const int numElementalPlayedThisTurn =
+        curPlayer->GetNumElementalPlayedThisTurn();
+    curPlayer->SetNumElementalPlayedLastTurn(numElementalPlayedThisTurn);
     curPlayer->SetNumElementalPlayedThisTurn(0);
+
+    const int numSpellCastThisTurn = curPlayer->GetNumSpellsPlayedThisTurn();
+    curPlayer->SetNumSpellsCastLastTurn(numSpellCastThisTurn);
+    curPlayer->SetNumSpellsPlayedThisTurn(0);
+
     curPlayer->cardsPlayedThisTurn.clear();
 
     // Reset combo active
