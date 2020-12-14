@@ -236,6 +236,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsAttackThisTurn();
 
+    //! SelfCondition wrapper for checking the player casts a spell last turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsCastSpellLastTurn();
+
     //! SelfCondition wrapper for checking the number of minions
     //! that played this turn.
     //! \param num The number of minions for checking.

@@ -498,6 +498,14 @@ SelfCondition SelfCondition::IsAttackThisTurn()
     });
 }
 
+SelfCondition SelfCondition::IsCastSpellLastTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetGameTag(
+                   GameTag::NUM_SPELLS_CAST_LAST_TURN) > 0;
+    });
+}
+
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
     return SelfCondition([num](Playable* playable) {
