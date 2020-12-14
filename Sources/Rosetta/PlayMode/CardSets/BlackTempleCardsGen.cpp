@@ -1458,6 +1458,14 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsCastSpellLastTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(
+                  EntityType::ALL_MINIONS_NOSOURCE, 2) }));
+    cards.emplace("BT_114", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_115] Marshspawn - COST:3 [ATK:3/HP:4]
