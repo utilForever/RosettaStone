@@ -1140,6 +1140,20 @@ TEST_CASE("[Paladin : SPELL] - BT_292 : Hand of A'dal")
 }
 
 // ----------------------------------------- MINION - ROGUE
+// [BT_701] Spymistress - COST:1 [ATK:3/HP:1]
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - BT_701 : Spymistress")
+{
+    // Do nothing
+}
+
+// ----------------------------------------- MINION - ROGUE
 // [BT_703] Cursed Vagrant - COST:7 [ATK:7/HP:5]
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------

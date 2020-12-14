@@ -1156,6 +1156,9 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_701", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_702] Ashtongue Slayer - COST:2 [ATK:3/HP:2]
