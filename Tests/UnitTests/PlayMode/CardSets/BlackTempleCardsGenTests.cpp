@@ -1265,6 +1265,78 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
+// ---------------------------------------- WEAPON - SHAMAN
+// [BT_102] Boggspine Knuckles - COST:5
+// - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: After your hero attacks, transform your minions
+//       into random ones that cost (1) more.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Weapon] - BT_102 : Boggspine Knuckles")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Boggspine Knuckles"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Murloc Tidehunter"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->GetCost(), 3);
+    CHECK_EQ(curField[1]->card->GetCost(), 2);
+    CHECK_EQ(curField[2]->card->GetCost(), 1);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->card->GetCost(), 4);
+    CHECK_EQ(curField[1]->card->GetCost(), 3);
+    CHECK_EQ(curField[2]->card->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[3]->card->GetCost(), 9);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->card->GetCost(), 5);
+    CHECK_EQ(curField[1]->card->GetCost(), 4);
+    CHECK_EQ(curField[2]->card->GetCost(), 3);
+    CHECK_EQ(curField[3]->card->GetCost(), 10);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [BT_106] Bogstrok Clacker - COST:3 [ATK:3/HP:3]
 // - Set: BLACK_TEMPLE, Rarity: Rare

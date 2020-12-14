@@ -22,6 +22,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
@@ -32,11 +33,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
-
-
-#include "Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp"
-#include "Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp"
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1365,6 +1363,12 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<TransformMinionTask>(
+        EntityType::MINIONS, 1) };
+    cards.emplace("BT_102", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_106] Bogstrok Clacker - COST:3 [ATK:3/HP:3]
