@@ -1232,6 +1232,14 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingStealthedMinion()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(2) }));
+    cards.emplace("BT_710", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_711] Blackjack Stunner - COST:1 [ATK:1/HP:2]
