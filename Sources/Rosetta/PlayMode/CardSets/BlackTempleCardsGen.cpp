@@ -1207,6 +1207,16 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<SummonTask>("BT_707t", SummonSide::SPELL),
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
+                                         1),
+        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
+    };
+    cards.emplace("BT_707", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BT_709] Dirty Tricks - COST:2
@@ -1310,6 +1320,9 @@ void BlackTempleCardsGen::AddRogueNonCollect(
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_707t", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_713t] Akama Prime - COST:6 [ATK:6/HP:5]
