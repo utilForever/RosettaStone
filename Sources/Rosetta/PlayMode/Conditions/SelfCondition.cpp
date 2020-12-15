@@ -234,6 +234,21 @@ SelfCondition SelfCondition::IsControllingQuest()
     });
 }
 
+SelfCondition SelfCondition::IsControllingStealthedMinion()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& minion : playable->player->GetFieldZone()->GetAll())
+        {
+            if (minion->HasStealth() == true)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingLackey()
 {
     return SelfCondition([](Playable* playable) {

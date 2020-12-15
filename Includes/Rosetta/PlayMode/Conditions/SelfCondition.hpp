@@ -136,6 +136,11 @@ class SelfCondition
     static SelfCondition IsControllingQuest();
 
     //! SelfCondition wrapper for checking there is the entity
+    //! with stealthed minion in field zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingStealthedMinion();
+
+    //! SelfCondition wrapper for checking there is the entity
     //! with Lackey in field zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingLackey();
