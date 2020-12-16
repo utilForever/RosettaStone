@@ -1472,25 +1472,9 @@ TEST_CASE("[Shaman : Weapon] - BT_102 : Boggspine Knuckles")
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Boggspine Knuckles"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card3 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Murloc Tidehunter"));
-    const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField.GetCount(), 3);
-    CHECK_EQ(curField[0]->card->GetCost(), 3);
-    CHECK_EQ(curField[1]->card->GetCost(), 2);
-    CHECK_EQ(curField[2]->card->GetCost(), 1);
-
-    game.Process(curPlayer,
-                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->card->GetCost(), 4);
-    CHECK_EQ(curField[1]->card->GetCost(), 3);
-    CHECK_EQ(curField[2]->card->GetCost(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -1498,15 +1482,12 @@ TEST_CASE("[Shaman : Weapon] - BT_102 : Boggspine Knuckles")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
-    CHECK_EQ(curField[3]->card->GetCost(), 9);
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->card->GetCost(), 9);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->card->GetCost(), 5);
-    CHECK_EQ(curField[1]->card->GetCost(), 4);
-    CHECK_EQ(curField[2]->card->GetCost(), 3);
-    CHECK_EQ(curField[3]->card->GetCost(), 10);
+    CHECK_EQ(curField[0]->card->GetCost(), 10);
 }
 
 // ---------------------------------------- MINION - SHAMAN
