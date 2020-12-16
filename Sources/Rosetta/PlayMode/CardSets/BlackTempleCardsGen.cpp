@@ -1130,6 +1130,14 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<TransformMinionTask>(EntityType::EVENT_TARGET, 3) });
+    cards.emplace("BT_042", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_188] Shadowjeweler Hanar - COST:2 [ATK:1/HP:4]

@@ -1139,6 +1139,61 @@ TEST_CASE("[Paladin : SPELL] - BT_292 : Hand of A'dal")
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [BT_042] Bamboozle - COST:2
+// - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When one of your minions is attacked,
+//       transform it into a random one that costs (3) more.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BT_042 : Bamboozle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bamboozle"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->card->GetCost(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, AttackTask(card3, card2));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curField[0]->card->GetCost(), 7);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [BT_701] Spymistress - COST:1 [ATK:3/HP:1]
 // - Set: BLACK_TEMPLE, Rarity: Common
