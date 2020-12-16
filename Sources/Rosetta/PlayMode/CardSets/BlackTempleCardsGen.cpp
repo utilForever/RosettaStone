@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
@@ -514,13 +515,10 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
     power.GetTrigger()->condition =
         std::make_shared<SelfCondition>(SelfCondition::IsOpFieldNotFull());
-    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(TagValues{
-                                      { GameTag::COST, 4, RelaSign::EQ } }),
-                                  std::make_shared<SummonStackTask>(),
-                                  std::make_shared<SetGameTagTask>(
-                                      EntityType::SOURCE, GameTag::REVEALED, 1),
-                                  std::make_shared<MoveToGraveyardTask>(
-                                      EntityType::SOURCE) };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<RandomMinionTask>(
+                      TagValues{ { GameTag::COST, 4, RelaSign::EQ } }),
+                  std::make_shared<SummonStackTask>() });
     cards.emplace("BT_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
@@ -1210,12 +1208,8 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
-    power.GetTrigger()->tasks = {
-        std::make_shared<SummonTask>("BT_707t", SummonSide::SPELL),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<SummonTask>("BT_707t", SummonSide::SPELL) });
     cards.emplace("BT_707", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE

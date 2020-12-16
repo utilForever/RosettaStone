@@ -1150,19 +1150,20 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
             return opPlayer != playable->player &&
                    !opPlayer->cardsPlayedThisTurn.empty();
         });
-    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
-           [[maybe_unused]] Playable* target) {
-            for (auto card : player->opponent->cardsPlayedThisTurn)
-            {
-                if (player->GetHandZone()->IsFull())
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
+            [](Player* player, [[maybe_unused]] Entity* source,
+               [[maybe_unused]] Playable* target) {
+                for (auto card : player->opponent->cardsPlayedThisTurn)
                 {
-                    break;
+                    if (player->GetHandZone()->IsFull())
+                    {
+                        break;
+                    }
+                    Generic::AddCardToHand(player,
+                                           Entity::GetFromCard(player, card));
                 }
-                Generic::AddCardToHand(player,
-                                       Entity::GetFromCard(player, card));
-            }
-        }) };
+            }) });
     cards.emplace("SCH_706", CardDef(power));
 }
 

@@ -942,13 +942,11 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                               std::make_shared<SelfCondition>(
                                   SelfCondition::IsNotDead()) }) }),
         std::make_shared<FlagTask>(
-            true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
-                            std::make_shared<ChangeAttackingTargetTask>(
-                                EntityType::TARGET, EntityType::STACK),
-                            std::make_shared<SetGameTagTask>(
-                                EntityType::SOURCE, GameTag::REVEALED, 1),
-                            std::make_shared<MoveToGraveyardTask>(
-                                EntityType::SOURCE) })
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<RandomTask>(EntityType::STACK, 1),
+                      std::make_shared<ChangeAttackingTargetTask>(
+                          EntityType::TARGET, EntityType::STACK) }))
+
     };
     cards.emplace("EX1_533", CardDef(power));
 
@@ -1103,11 +1101,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->condition = std::make_shared<SelfCondition>(
         SelfCondition::IsProposedDefender(CardType::MINION));
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("EX1_554t", 3),
-                                  std::make_shared<SetGameTagTask>(
-                                      EntityType::SOURCE, GameTag::REVEALED, 1),
-                                  std::make_shared<MoveToGraveyardTask>(
-                                      EntityType::SOURCE) };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
     cards.emplace("EX1_554", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1129,11 +1124,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                                     SelfCondition::IsNotDead()) }),
         std::make_shared<FlagTask>(
             true,
-            TaskList{
-                std::make_shared<DamageTask>(EntityType::TARGET, 4, true),
-                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
-                                                 GameTag::REVEALED, 1),
-                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) })
+            ComplexTask::ActivateSecret(TaskList{
+                std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }))
     };
     cards.emplace("EX1_609", CardDef(power));
 
@@ -1152,12 +1144,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->condition = std::make_shared<SelfCondition>(
         SelfCondition::IsProposedDefender(CardType::HERO));
-    power.GetTrigger()->tasks = {
-        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true) });
     cards.emplace("EX1_610", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1178,14 +1166,10 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
             EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                     SelfCondition::IsNotDead()) }),
         std::make_shared<FlagTask>(
-            true,
-            TaskList{
-                std::make_shared<ReturnHandTask>(EntityType::TARGET),
-                std::make_shared<AddAuraEffectTask>(Effects::AddCost(2),
-                                                    EntityType::TARGET),
-                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
-                                                 GameTag::REVEALED, 1),
-                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) })
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<ReturnHandTask>(EntityType::TARGET),
+                      std::make_shared<AddAuraEffectTask>(
+                          Effects::AddCost(2), EntityType::TARGET) }))
     };
     cards.emplace("EX1_611", CardDef(power));
 
@@ -1424,13 +1408,9 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
-    power.GetTrigger()->tasks = {
-        std::make_shared<SetGameTagTask>(EntityType::TARGET, GameTag::CANT_PLAY,
-                                         1),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<SetGameTagTask>(
+            EntityType::TARGET, GameTag::CANT_PLAY, 1) });
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_287", CardDef(power));
 
@@ -1448,11 +1428,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->condition = std::make_shared<SelfCondition>(
         SelfCondition::IsProposedDefender(CardType::HERO));
-    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(8),
-                                  std::make_shared<SetGameTagTask>(
-                                      EntityType::SOURCE, GameTag::REVEALED, 1),
-                                  std::make_shared<MoveToGraveyardTask>(
-                                      EntityType::SOURCE) };
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<ArmorTask>(8) });
     cards.emplace("EX1_289", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
@@ -1479,11 +1456,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     SelfCondition::IsOpFieldNotFull()) }),
         std::make_shared<FlagTask>(
             true,
-            TaskList{
-                std::make_shared<SummonCopyTask>(EntityType::EVENT_SOURCE),
-                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
-                                                 GameTag::REVEALED, 1),
-                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) }),
+            ComplexTask::ActivateSecret(TaskList{
+                std::make_shared<SummonCopyTask>(EntityType::EVENT_SOURCE) }))
     };
     cards.emplace("EX1_294", CardDef(power));
 
@@ -1519,12 +1493,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->condition = std::make_shared<SelfCondition>(
         SelfCondition::IsProposedDefender(CardType::HERO));
     power.GetTrigger()->fastExecution = true;
-    power.GetTrigger()->tasks = {
-        std::make_shared<DestroyTask>(EntityType::TARGET),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) });
     cards.emplace("EX1_594", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
@@ -1600,23 +1570,19 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
                 std::make_shared<SelfCondition>(
                     SelfCondition::IsTagValue(GameTag::CANT_PLAY, 0)) }),
         std::make_shared<FlagTask>(
-            true,
-            TaskList{
-                std::make_shared<SummonTask>("tt_010a", SummonSide::SPELL,
-                                             true),
-                std::make_shared<IncludeTask>(EntityType::SOURCE,
-                                              std::vector<EntityType>(), true),
-                std::make_shared<IncludeTask>(EntityType::TARGET,
-                                              std::vector<EntityType>(), true),
-                std::make_shared<FuncPlayableTask>(
-                    [=](const std::vector<Playable*>& playables) {
-                        playables[2]->SetCardTarget(
-                            playables[0]->GetGameTag(GameTag::ENTITY_ID));
-                        return playables;
-                    }),
-                std::make_shared<SetGameTagTask>(EntityType::SOURCE,
-                                                 GameTag::REVEALED, 1),
-                std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE) }),
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<SummonTask>("tt_010a", SummonSide::SPELL,
+                                                   true),
+                      std::make_shared<IncludeTask>(
+                          EntityType::SOURCE, std::vector<EntityType>(), true),
+                      std::make_shared<IncludeTask>(
+                          EntityType::TARGET, std::vector<EntityType>(), true),
+                      std::make_shared<FuncPlayableTask>(
+                          [=](const std::vector<Playable*>& playables) {
+                              playables[2]->SetCardTarget(
+                                  playables[0]->GetGameTag(GameTag::ENTITY_ID));
+                              return playables;
+                          }) }))
     };
     cards.emplace("tt_010", CardDef(power));
 }
@@ -1685,14 +1651,10 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->tasks = {
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<SummonTask>("EX1_130a", SummonSide::SPELL, true),
         std::make_shared<ChangeAttackingTargetTask>(EntityType::TARGET,
-                                                    EntityType::STACK),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+                                                    EntityType::STACK) });
     cards.emplace("EX1_130", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1708,13 +1670,9 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = {
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<GetEventNumberTask>(),
-        std::make_shared<DamageNumberTask>(EntityType::ENEMY_HERO, true),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_HERO, true) });
     cards.emplace("EX1_132", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1730,7 +1688,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
-    power.GetTrigger()->tasks = {
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
         std::make_shared<FuncPlayableTask>(
             [=](const std::vector<Playable*>& playables) {
@@ -1742,11 +1700,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
                 target->SetDamage(target->GetHealth() - 1);
                 return std::vector<Playable*>{ target };
-            }),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+            }) });
     power.GetTrigger()->removeAfterTriggered = true;
     cards.emplace("EX1_136", CardDef(power));
 
@@ -1904,12 +1858,9 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
                 std::make_shared<SelfCondition>(
                     SelfCondition::IsNotUntouchable()) }),
         std::make_shared<FlagTask>(
-            true, TaskList{ std::make_shared<AddEnchantmentTask>(
-                                "EX1_379e", EntityType::EVENT_SOURCE),
-                            std::make_shared<SetGameTagTask>(
-                                EntityType::SOURCE, GameTag::REVEALED, 1),
-                            std::make_shared<MoveToGraveyardTask>(
-                                EntityType::SOURCE) })
+            true, ComplexTask::ActivateSecret(
+                      TaskList{ std::make_shared<AddEnchantmentTask>(
+                          "EX1_379e", EntityType::EVENT_SOURCE) }))
     };
     cards.emplace("EX1_379", CardDef(power));
 
