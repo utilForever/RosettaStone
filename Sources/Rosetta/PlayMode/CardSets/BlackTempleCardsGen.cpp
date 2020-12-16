@@ -1222,6 +1222,12 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<DrawTask>(2) });
+    cards.emplace("BT_709", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_710] Greyheart Sage - COST:3 [ATK:3/HP:3]
