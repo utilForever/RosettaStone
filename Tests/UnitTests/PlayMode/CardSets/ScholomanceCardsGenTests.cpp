@@ -131,7 +131,8 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
     CHECK_EQ(card2->GetCost(), 4);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2, 1));
-    if (curHand[0]->GetCost() != 0)
+    if (curHand[0]->GetCost() != 0 &&
+        curHand[0]->card->name != "Moontouched Amulet")
     {
         CHECK_EQ(curHand[0]->GetCost(), oldCost + 1);
     }
