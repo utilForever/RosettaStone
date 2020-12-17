@@ -105,7 +105,7 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
 
         for (int i = 0; i < numberOfChoices; ++i)
         {
-            result[i] = cardsToDiscover[i];
+            result.emplace_back(cardsToDiscover[i]);
         }
     }
 
