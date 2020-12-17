@@ -883,12 +883,7 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
-                                SelfCondition::IsControllingSecret()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6) }));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 6));
     cards.emplace(
         "ULD_293",
         CardDef(
