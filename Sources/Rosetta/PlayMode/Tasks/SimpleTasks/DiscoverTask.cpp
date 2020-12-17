@@ -100,16 +100,12 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
 
         if (doShuffle)
         {
-            std::sample(cardsToDiscover.begin(), cardsToDiscover.end(),
-                        std::back_inserter(result), numberOfChoices,
-                        Random::get_engine());
+            Random::shuffle(cardsToDiscover);
         }
-        else
+
+        for (int i = 0; i < numberOfChoices; ++i)
         {
-            for (int i = 0; i < numberOfChoices; ++i)
-            {
-                result[i] = cardsToDiscover[i];
-            }
+            result[i] = cardsToDiscover[i];
         }
     }
 
