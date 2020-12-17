@@ -308,7 +308,30 @@ bool Playable::IsValidPlayTarget(Character* target)
             {
                 return true;
             }
-            
+
+            bool check1 = false, check2 = false;
+
+            for (auto& predicate : card1->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, card1))
+                {
+                    check1 = true;
+                }
+            }
+
+            for (auto& predicate : card2->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, card2))
+                {
+                    check2 = true;
+                }
+            }
+
+            if (check1 && check2)
+            {
+                return true;
+            }
+
             if (!HasAnyValidPlayTargets(card1) &&
                 !HasAnyValidPlayTargets(card2))
             {
@@ -357,6 +380,22 @@ bool Playable::IsValidPlayTarget(Character* target)
             !CheckTargetingType(card2, target))
         {
             return false;
+        }
+
+        for (auto& predicate : card1->targetingAvailabilityPredicate)
+        {
+            if (!predicate(player, card1))
+            {
+                return false;
+            }
+        }
+
+        for (auto& predicate : card2->targetingAvailabilityPredicate)
+        {
+            if (!predicate(player, card2))
+            {
+                return false;
+            }
         }
 
         if (TargetingRequirements(card1, target) &&
