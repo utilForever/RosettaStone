@@ -2100,6 +2100,10 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BT_491", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:5]

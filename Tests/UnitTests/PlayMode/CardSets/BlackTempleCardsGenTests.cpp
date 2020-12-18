@@ -2272,6 +2272,51 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[4])->GetDurability(), 3);
 }
 
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_491] Spectral Sight - COST:2
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw a card. <b>Outcast:</b> Draw another.
+// --------------------------------------------------------
+// GameTag:
+// - OUTCAST = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_491 : Spectral Sight")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(20);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spectral Sight"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spectral Sight"));
+
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [BT_509] Fel Summoner - COST:6 [ATK:8/HP:3]
 // - Set: BLACK_TEMPLE, Rarity: Common
