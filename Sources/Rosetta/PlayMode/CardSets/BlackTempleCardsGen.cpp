@@ -2192,6 +2192,11 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(3, true));
+    power.AddOutcastTask(
+        std::make_shared<AddEnchantmentTask>("BT_601e", EntityType::STACK));
+    cards.emplace("BT_601", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_761] Coilfang Warlord - COST:8 [ATK:9/HP:5]
@@ -2931,6 +2936,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (3) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(3)));
+    cards.emplace("BT_601e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_711e] Stunned - COST:0

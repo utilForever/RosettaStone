@@ -2584,6 +2584,67 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
     CHECK_EQ(curField[0]->IsRace(Race::DEMON), true);
 }
 
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_601] Skull of Gul'dan - COST:6
+// - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw 3 cards. <b>Outcast:</b> Reduce their Cost by (3).
+// --------------------------------------------------------
+// GameTag:
+// - OUTCAST = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_601 : Skull of Gul'dan")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.doShuffle = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Goldshire Footman");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Skull of Gul'dan");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Skull of Gul'dan"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Skull of Gul'dan"));
+
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curHand[5]->GetCost(), 0);
+    CHECK_EQ(curHand[6]->GetCost(), 3);
+    CHECK_EQ(curHand[7]->GetCost(), 6);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 10);
+    CHECK_EQ(curHand[7]->GetCost(), 1);
+    CHECK_EQ(curHand[8]->GetCost(), 6);
+    CHECK_EQ(curHand[9]->GetCost(), 9);
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [BT_761] Coilfang Warlord - COST:8 [ATK:9/HP:5]
 // - Set: BLACK_TEMPLE, Rarity: Rare
