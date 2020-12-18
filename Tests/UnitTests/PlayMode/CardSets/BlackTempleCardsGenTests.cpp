@@ -2302,8 +2302,6 @@ TEST_CASE("[Demon Hunter : Minion] - BT_321 : Netherwalker")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Netherwalker"));
 
@@ -2477,6 +2475,59 @@ TEST_CASE("[Demon Hunter : Minion] - BT_493 : Priestess of Fury")
     const int totalHealth =
         opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth();
     CHECK_EQ(totalHealth, 36);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_496] Furious Felfin - COST:2 [ATK:3/HP:2]
+// - Race: Murloc, Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your hero attacked this turn,
+//       gain +1 Attack and <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_496 : Furious Felfin")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Furious Felfin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Furious Felfin"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->HasRush(), false);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->HasRush(), true);
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
