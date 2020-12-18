@@ -2048,6 +2048,9 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_423", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_429] Metamorphosis - COST:5

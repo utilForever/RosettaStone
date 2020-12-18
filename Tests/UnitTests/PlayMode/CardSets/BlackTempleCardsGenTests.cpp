@@ -2273,6 +2273,21 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
+// [BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> <b>Lifesteal</b>
+// --------------------------------------------------------
+// GameTag:
+// - LIFESTEAL = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_423 : Ashtongue Battlelord")
+{
+    // Do nothing
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
 // [BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
