@@ -2079,6 +2079,9 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BT_480", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_486] Pit Commander - COST:9 [ATK:7/HP:9]
