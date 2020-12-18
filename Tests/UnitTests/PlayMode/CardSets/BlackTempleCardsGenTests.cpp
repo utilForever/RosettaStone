@@ -2260,7 +2260,7 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    HandZone& curHand = *(curPlayer->GetHandZone());
+    auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Corsair Cache"));
@@ -2270,6 +2270,57 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[3])->GetDurability(), 2);
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[4])->GetDurability(), 3);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [BT_233] Sword and Board - COST:1
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 2 damage to a minion. Gain 2 Armor.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - BT_233 : Sword and Board")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sword and Board"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(opField[0]->GetHealth(), 10);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
