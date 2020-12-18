@@ -795,12 +795,18 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
     opPlayer->SetUsedMana(0);
     curPlayer->GetHero()->SetDamage(5);
 
+    auto& curField = *(curPlayer->GetFieldZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Renew"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
 
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
     CHECK(curPlayer->choice != nullptr);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
