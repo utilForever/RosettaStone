@@ -42,6 +42,20 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for summoning a \p race minion from your deck.
+    //! \param race The race of minion(s) to summon.
+    static TaskList SummonRaceMinionFromDeck(Race race)
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+                std::make_shared<SelfCondition>(SelfCondition::IsRace(race)) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::SummonStackTask>(true)
+        };
+    }
+
     //! Returns a list of task for destroying random enemy minion(s).
     //! \param num The number of minion(s) to destroy.
     static TaskList DestroyRandomEnemyMinion(int num)
