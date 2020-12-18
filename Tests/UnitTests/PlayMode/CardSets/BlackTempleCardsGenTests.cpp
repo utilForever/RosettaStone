@@ -2376,6 +2376,59 @@ TEST_CASE("[Demon Hunter : Minion] - BT_480 : Crimson Sigil Runner")
     CHECK_EQ(curHand.GetCount(), 5);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_486] Pit Commander - COST:9 [ATK:7/HP:9]
+// - Race: Demon, Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b> At the end of your turn,
+//       summon a Demon from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_486 : Pit Commander")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Disguised Wanderer");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pit Commander"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::DEMON);
+    CHECK_EQ(curDeck.GetCount(), 25);
+}
+
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_491] Spectral Sight - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
