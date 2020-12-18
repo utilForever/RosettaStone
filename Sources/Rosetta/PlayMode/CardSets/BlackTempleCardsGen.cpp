@@ -2037,6 +2037,9 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DEMON));
+    cards.emplace("BT_321", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
