@@ -917,7 +917,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL, 3));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
     power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
     cards.emplace(
         "BT_252",
