@@ -2383,9 +2383,20 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::FROZEN, 1));
+    cards.emplace(
+        "BT_714",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_715] Bonechewer Brawler - COST:2 [ATK:2/HP:3]

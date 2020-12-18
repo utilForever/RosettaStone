@@ -2746,6 +2746,78 @@ TEST_CASE("[Neutral : Minion] - BT_160 : Rustsworn Cultist")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [BT_714] Frozen Shadoweaver - COST:3 [ATK:4/HP:3]
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Freeze</b> an enemy.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BT_714 : Frozen Shadoweaver")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Frozen Shadoweaver"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fen Creeper"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fen Creeper"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fen Creeper"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->IsFrozen(), false);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[1]->IsFrozen(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[1]->IsFrozen(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [BT_715] Bonechewer Brawler - COST:2 [ATK:2/HP:3]
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
