@@ -946,7 +946,6 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                       std::make_shared<RandomTask>(EntityType::STACK, 1),
                       std::make_shared<ChangeAttackingTargetTask>(
                           EntityType::TARGET, EntityType::STACK) }))
-
     };
     cards.emplace("EX1_533", CardDef(power));
 
