@@ -12,6 +12,7 @@
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddLackeyTask.hpp>
@@ -39,7 +40,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
@@ -551,13 +551,9 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
     power.GetTrigger()->condition =
         std::make_shared<SelfCondition>(SelfCondition::IsFieldNotEmpty());
-    power.GetTrigger()->tasks = {
-        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
-        std::make_shared<DestroyTask>(EntityType::STACK),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+                  std::make_shared<DestroyTask>(EntityType::STACK) });
     cards.emplace("ULD_152", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
@@ -846,12 +842,8 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACKED));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = {
-        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true) });
     cards.emplace("ULD_239", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
@@ -891,12 +883,7 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
-                                SelfCondition::IsControllingSecret()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6) }));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 6));
     cards.emplace(
         "ULD_293",
         CardDef(

@@ -136,6 +136,11 @@ class SelfCondition
     static SelfCondition IsControllingQuest();
 
     //! SelfCondition wrapper for checking there is the entity
+    //! with stealthed minion in field zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingStealthedMinion();
+
+    //! SelfCondition wrapper for checking there is the entity
     //! with Lackey in field zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingLackey();
@@ -236,6 +241,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsAttackThisTurn();
 
+    //! SelfCondition wrapper for checking the player casts a spell last turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsCastSpellLastTurn();
+
     //! SelfCondition wrapper for checking the number of minions
     //! that played this turn.
     //! \param num The number of minions for checking.
@@ -243,10 +252,10 @@ class SelfCondition
     static SelfCondition MinionsPlayedThisTurn(int num);
 
     //! SelfCondition wrapper for checking the number of spells
-    //! that played this turn.
+    //! that cast this turn.
     //! \param num The number of spells for checking.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition SpellsPlayedThisTurn(int num);
+    static SelfCondition SpellsCastThisTurn(int num);
 
     //! SelfCondition wrapper for checking the player plays
     //! elemental minion in last turn.
@@ -351,6 +360,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking it is no duplicate cards in deck.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNoDuplicateInDeck();
+
+    //! SelfCondition wrapper for checking the player has no minions in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasNoMinionsInDeck();
 
     //! SelfCondition wrapper for checking the player has no neutral cards
     //! in deck.

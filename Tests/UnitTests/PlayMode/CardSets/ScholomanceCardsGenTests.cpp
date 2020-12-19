@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -130,7 +131,8 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
     CHECK_EQ(card2->GetCost(), 4);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2, 1));
-    if (curHand[0]->GetCost() != 0)
+    if (curHand[0]->GetCost() != 0 &&
+        curHand[0]->card->name != "Moontouched Amulet")
     {
         CHECK_EQ(curHand[0]->GetCost(), oldCost + 1);
     }
@@ -1452,6 +1454,7 @@ TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
     opPlayer->SetUsedMana(0);
 
     auto& curHand = *(curPlayer->GetHandZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Plagiarize"));
@@ -1461,6 +1464,7 @@ TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -1479,6 +1483,7 @@ TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
+    CHECK_EQ(curSecret.GetCount(), 0);
     CHECK_EQ(curHand.GetCount(), 2);
     CHECK_EQ(curHand[0]->card->name, "Arcane Missiles");
     CHECK_EQ(curHand[1]->card->name, "Blizzard");

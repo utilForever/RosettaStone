@@ -6,30 +6,37 @@
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -333,6 +340,16 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("BT_205e", EntityType::STACK));
+    cards.emplace("BT_202", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BT_203] Pack Tactics - COST:2
@@ -351,6 +368,22 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage. Give a random Beast in your hand +3/+3.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_205e", EntityType::STACK));
+    cards.emplace(
+        "BT_205",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [BT_210] Zixor, Apex Predator - COST:3 [ATK:2/HP:4]
@@ -394,6 +427,12 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a Beast. Give it +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawRaceMinionTask>(Race::BEAST, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_213e", EntityType::STACK));
+    cards.emplace("BT_213", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BT_214] Beastmaster Leoroxx - COST:8 [ATK:5/HP:5]
@@ -478,13 +517,10 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
     power.GetTrigger()->condition =
         std::make_shared<SelfCondition>(SelfCondition::IsOpFieldNotFull());
-    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(TagValues{
-                                      { GameTag::COST, 4, RelaSign::EQ } }),
-                                  std::make_shared<SummonStackTask>(),
-                                  std::make_shared<SetGameTagTask>(
-                                      EntityType::SOURCE, GameTag::REVEALED, 1),
-                                  std::make_shared<MoveToGraveyardTask>(
-                                      EntityType::SOURCE) };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<RandomMinionTask>(
+                      TagValues{ { GameTag::COST, 4, RelaSign::EQ } }),
+                  std::make_shared<SummonStackTask>() });
     cards.emplace("BT_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
@@ -565,6 +601,10 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
                                                         GameTag::FROZEN, 1));
@@ -580,6 +620,22 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage. If your deck has no minions,
     //       summon a random 5-Cost minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasNoMinionsInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomMinionTask>(
+                            TagValues{ { GameTag::COST, 5, RelaSign::EQ } }),
+                        std::make_shared<SummonTask>() }));
+    cards.emplace(
+        "BT_291",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
 void BlackTempleCardsGen::AddMageNonCollect(
@@ -689,6 +745,9 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
@@ -813,10 +872,6 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_292e"));
     cards.emplace("BT_292e", CardDef(power));
@@ -858,8 +913,11 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL, 3));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
     power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
     cards.emplace(
         "BT_252",
@@ -870,6 +928,10 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: Give a minion +1/+2. Summon a copy of it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -910,6 +972,10 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -965,6 +1031,14 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BT_262e", EntityType::SOURCE) }));
+    cards.emplace("BT_262", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BT_341] Skeletal Dragon - COST:7 [ATK:4/HP:9]
@@ -977,6 +1051,15 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomMinionTask>(
+            TagValues{ { GameTag::CARDRACE, static_cast<int>(Race::DRAGON),
+                         RelaSign::EQ } }),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("BT_341", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddPriestNonCollect(
@@ -1030,6 +1113,9 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Lifesteal</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_262e"));
+    cards.emplace("BT_262e", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
@@ -1046,6 +1132,14 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<TransformMinionTask>(EntityType::EVENT_TARGET, 3) });
+    cards.emplace("BT_042", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_188] Shadowjeweler Hanar - COST:2 [ATK:1/HP:4]
@@ -1072,6 +1166,9 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_701", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_702] Ashtongue Slayer - COST:2 [ATK:3/HP:2]
@@ -1118,6 +1215,12 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<SummonTask>("BT_707t", SummonSide::SPELL) });
+    cards.emplace("BT_707", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BT_709] Dirty Tricks - COST:2
@@ -1129,6 +1232,12 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<DrawTask>(2) });
+    cards.emplace("BT_709", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_710] Greyheart Sage - COST:3 [ATK:3/HP:3]
@@ -1143,6 +1252,14 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingStealthedMinion()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(2) }));
+    cards.emplace("BT_710", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_711] Blackjack Stunner - COST:1 [ATK:1/HP:2]
@@ -1154,9 +1271,23 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(Effects::AddCost(1),
+                                                           EntityType::TARGET));
+    cards.emplace(
+        "BT_711",
+        CardDef(
+            power,
+            PlayReqs{
+                { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS,
+                  1 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_713] Akama - COST:3 [ATK:3/HP:4]
@@ -1213,6 +1344,9 @@ void BlackTempleCardsGen::AddRogueNonCollect(
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_707t", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BT_713t] Akama Prime - COST:6 [ATK:6/HP:5]
@@ -1239,6 +1373,9 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -1271,6 +1408,12 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<TransformMinionTask>(
+        EntityType::MINIONS, 1) };
+    cards.emplace("BT_102", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_106] Bogstrok Clacker - COST:3 [ATK:3/HP:3]
@@ -1282,6 +1425,12 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(
+        std::make_shared<TransformMinionTask>(EntityType::STACK, 1));
+    cards.emplace("BT_106", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_109] Lady Vashj - COST:3 [ATK:4/HP:3]
@@ -1303,6 +1452,25 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 8 damage to a minion.
     //       Costs (3) less if you cast a spell last turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 8, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->player->GetNumSpellsCastLastTurn() > 0)
+        {
+            return 3;
+        }
+
+        return 0;
+    }));
+    cards.emplace(
+        "BT_110",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [BT_113] Totemic Reflection - COST:3
@@ -1349,6 +1517,14 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsCastSpellLastTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(
+                  EntityType::ALL_MINIONS_NOSOURCE, 2) }));
+    cards.emplace("BT_114", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_115] Marshspawn - COST:3 [ATK:3/HP:4]
@@ -1363,6 +1539,13 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsCastSpellLastTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(DiscoverType::SPELL) }));
+    cards.emplace("BT_115", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BT_230] The Lurker Below - COST:6 [ATK:6/HP:5]
@@ -1755,6 +1938,18 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion. Gain 2 Armor.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace(
+        "BT_233",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [BT_249] Scrap Golem - COST:5 [ATK:4/HP:5]
@@ -1854,6 +2049,9 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DEMON));
+    cards.emplace("BT_321", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
@@ -1865,6 +2063,9 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_423", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_429] Metamorphosis - COST:5
@@ -1896,6 +2097,9 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BT_480", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_486] Pit Commander - COST:9 [ATK:7/HP:9]
@@ -1908,6 +2112,11 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { ComplexTask::SummonRaceMinionFromDeck(
+        Race::DEMON) };
+    cards.emplace("BT_486", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_491] Spectral Sight - COST:2
@@ -1918,6 +2127,10 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BT_491", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:5]
@@ -1929,6 +2142,16 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        6, false) };
+    cards.emplace("BT_493", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_496] Furious Felfin - COST:2 [ATK:3/HP:2]
@@ -1943,6 +2166,14 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsAttackThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BT_496e", EntityType::SOURCE) }));
+    cards.emplace("BT_496", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_509] Fel Summoner - COST:6 [ATK:8/HP:3]
@@ -1978,6 +2209,11 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(3, true));
+    power.AddOutcastTask(
+        std::make_shared<AddEnchantmentTask>("BT_601e", EntityType::STACK));
+    cards.emplace("BT_601", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_761] Coilfang Warlord - COST:8 [ATK:9/HP:5]
@@ -2201,9 +2437,20 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::FROZEN, 1));
+    cards.emplace(
+        "BT_714",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_715] Bonechewer Brawler - COST:2 [ATK:2/HP:3]
@@ -2289,9 +2536,21 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace(
+        "BT_722",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_723] Rocket Augmerchant - COST:1 [ATK:2/HP:1]
@@ -2303,9 +2562,21 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddPowerTask(
+        std::make_shared<SetGameTagTask>(EntityType::TARGET, GameTag::RUSH, 1));
+    cards.emplace(
+        "BT_723",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_724] Ethereal Augmerchant - COST:1 [ATK:2/HP:1]
@@ -2317,9 +2588,21 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::SPELLPOWER, 1));
+    cards.emplace(
+        "BT_724",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BT_726] Dragonmaw Sky Stalker - COST:6 [ATK:5/HP:6]
@@ -2619,6 +2902,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_205e"));
+    cards.emplace("BT_205e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_213e] Pack Tactics - COST:0
@@ -2626,6 +2912,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_213e"));
+    cards.emplace("BT_213e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_255e] Sunstrider - COST:0
@@ -2654,6 +2943,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Rush</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_496e"));
+    cards.emplace("BT_496e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_601e] Embrace Power - COST:0
@@ -2661,6 +2953,9 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (3) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(3)));
+    cards.emplace("BT_601e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BT_711e] Stunned - COST:0

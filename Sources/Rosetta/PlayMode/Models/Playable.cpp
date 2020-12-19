@@ -309,6 +309,29 @@ bool Playable::IsValidPlayTarget(Character* target)
                 return true;
             }
 
+            bool check1 = false, check2 = false;
+
+            for (auto& predicate : card1->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, card1))
+                {
+                    check1 = true;
+                }
+            }
+
+            for (auto& predicate : card2->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, card2))
+                {
+                    check2 = true;
+                }
+            }
+
+            if (check1 && check2)
+            {
+                return true;
+            }
+
             if (!HasAnyValidPlayTargets(card1) &&
                 !HasAnyValidPlayTargets(card2))
             {
@@ -325,6 +348,14 @@ bool Playable::IsValidPlayTarget(Character* target)
             if (card->targetingType == TargetingType::NONE)
             {
                 return true;
+            }
+
+            for (auto& predicate : card->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, card))
+                {
+                    return true;
+                }
             }
 
             if (!HasAnyValidPlayTargets(card))
@@ -351,6 +382,22 @@ bool Playable::IsValidPlayTarget(Character* target)
             return false;
         }
 
+        for (auto& predicate : card1->targetingAvailabilityPredicate)
+        {
+            if (!predicate(player, card1))
+            {
+                return false;
+            }
+        }
+
+        for (auto& predicate : card2->targetingAvailabilityPredicate)
+        {
+            if (!predicate(player, card2))
+            {
+                return false;
+            }
+        }
+
         if (TargetingRequirements(card1, target) &&
             TargetingRequirements(card2, target))
         {
@@ -362,6 +409,14 @@ bool Playable::IsValidPlayTarget(Character* target)
         if (!CheckTargetingType(card, target))
         {
             return false;
+        }
+
+        for (auto& predicate : card->targetingAvailabilityPredicate)
+        {
+            if (!predicate(player, card))
+            {
+                return false;
+            }
         }
 
         if (TargetingRequirements(card, target))

@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
@@ -1777,12 +1778,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("DMF_531e", EntityType::STACK));
+    power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInHand("DMF_531e"));
     cards.emplace("DMF_531", CardDef(power));
 }
 
@@ -2435,12 +2431,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("DMF_189e", EntityType::STACK));
+    power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInHand("DMF_189e"));
     cards.emplace("DMF_189", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL

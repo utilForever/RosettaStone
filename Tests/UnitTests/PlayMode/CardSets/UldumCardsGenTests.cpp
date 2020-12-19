@@ -2184,7 +2184,7 @@ TEST_CASE("[Mage : Spell] - ULD_216 : Puzzle Box of Yogg-Saron")
 
         game.Process(curPlayer, PlayCardTask::Spell(card1));
         CHECK_EQ(curPlayer->GetGameTag(GameTag::CAST_RANDOM_SPELLS), 0);
-        CHECK_EQ(curPlayer->GetNumSpellsPlayedThisTurn(), 1);
+        CHECK_EQ(curPlayer->GetNumSpellsCastThisTurn(), 1);
     }
 }
 

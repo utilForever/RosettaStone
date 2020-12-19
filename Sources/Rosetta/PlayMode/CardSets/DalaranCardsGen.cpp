@@ -977,7 +977,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(std::make_shared<SwitchingAura>(
-        AuraType::HAND, SelfCondition::SpellsPlayedThisTurn(0),
+        AuraType::HAND, SelfCondition::SpellsCastThisTurn(0),
         TriggerType::CAST_SPELL, EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
@@ -1191,12 +1191,9 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
-    power.GetTrigger()->tasks = {
-        std::make_shared<AddEnchantmentTask>("DAL_570e", EntityType::MINIONS),
-        std::make_shared<SetGameTagTask>(EntityType::SOURCE, GameTag::REVEALED,
-                                         1),
-        std::make_shared<MoveToGraveyardTask>(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<AddEnchantmentTask>("DAL_570e",
+                                                       EntityType::MINIONS) });
     cards.emplace("DAL_570", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN

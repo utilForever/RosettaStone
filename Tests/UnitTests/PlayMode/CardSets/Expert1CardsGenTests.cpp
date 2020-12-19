@@ -5048,8 +5048,7 @@ TEST_CASE("[Rogue : Weapon] - EX1_133 : Perdition's Blade")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer,
-                 PlayCardTask::MinionTarget(card3, curPlayer->GetHero()));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -5099,8 +5098,7 @@ TEST_CASE("[Rogue : Minion] - EX1_134 : SI:7 Agent")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("SI:7 Agent"));
 
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     game.Process(curPlayer,

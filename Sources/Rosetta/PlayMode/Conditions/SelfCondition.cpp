@@ -234,6 +234,21 @@ SelfCondition SelfCondition::IsControllingQuest()
     });
 }
 
+SelfCondition SelfCondition::IsControllingStealthedMinion()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& minion : playable->player->GetFieldZone()->GetAll())
+        {
+            if (minion->HasStealth() == true)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingLackey()
 {
     return SelfCondition([](Playable* playable) {
@@ -498,6 +513,14 @@ SelfCondition SelfCondition::IsAttackThisTurn()
     });
 }
 
+SelfCondition SelfCondition::IsCastSpellLastTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetGameTag(
+                   GameTag::NUM_SPELLS_CAST_LAST_TURN) > 0;
+    });
+}
+
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
     return SelfCondition([num](Playable* playable) {
@@ -505,10 +528,10 @@ SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
     });
 }
 
-SelfCondition SelfCondition::SpellsPlayedThisTurn(int num)
+SelfCondition SelfCondition::SpellsCastThisTurn(int num)
 {
     return SelfCondition([num](Playable* playable) {
-        return playable->player->GetNumSpellsPlayedThisTurn() == num;
+        return playable->player->GetNumSpellsCastThisTurn() == num;
     });
 }
 
@@ -699,6 +722,23 @@ SelfCondition SelfCondition::IsNoDuplicateInDeck()
         for (auto& res : result)
         {
             if (res.second >= 2)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
+SelfCondition SelfCondition::HasNoMinionsInDeck()
+{
+    return SelfCondition([](Playable* playable) {
+        auto cards = playable->player->GetDeckZone()->GetAll();
+
+        for (auto& card : cards)
+        {
+            if (card->card->GetCardType() == CardType::MINION)
             {
                 return false;
             }

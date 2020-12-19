@@ -238,13 +238,21 @@ class Player : public Entity
     //! \param value The number of elemental minions that played this turn.
     void SetNumElementalPlayedLastTurn(int value);
 
-    //! Returns the number of spells that played this turn.
-    //! \return The number of spells that played this turn.
-    int GetNumSpellsPlayedThisTurn() const;
+    //! Returns the number of spells that cast this turn.
+    //! \return The number of spells that cast this turn.
+    int GetNumSpellsCastThisTurn() const;
 
-    //! Sets the number of spells that played this turn.
-    //! \param value The number of spells that played this turn.
-    void SetNumSpellsPlayedThisTurn(int value);
+    //! Sets the number of spells that cast this turn.
+    //! \param value The number of spells that cast this turn.
+    void SetNumSpellsCastThisTurn(int value);
+
+    //! Returns the number of spells that cast last turn.
+    //! \return The number of spells that cast last turn.
+    int GetNumSpellsCastLastTurn() const;
+
+    //! Sets the number of spells that cast this turn.
+    //! \param value The number of spells that cast this turn.
+    void SetNumSpellsCastLastTurn(int value);
 
     //! Returns the number of spells that played this game.
     //! \return The number of spells that played this game.

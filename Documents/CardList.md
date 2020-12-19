@@ -974,17 +974,17 @@ BLACK_TEMPLE | BT_024 | Libram of Hope | O
 BLACK_TEMPLE | BT_025 | Libram of Wisdom |  
 BLACK_TEMPLE | BT_026 | Aldor Truthseeker |  
 BLACK_TEMPLE | BT_028 | Astromancer Solarian |  
-BLACK_TEMPLE | BT_042 | Bamboozle |  
+BLACK_TEMPLE | BT_042 | Bamboozle | O
 BLACK_TEMPLE | BT_072 | Deep Freeze | O
 BLACK_TEMPLE | BT_100 | Serpentshrine Portal | O
 BLACK_TEMPLE | BT_101 | Vivid Spores |  
-BLACK_TEMPLE | BT_102 | Boggspine Knuckles |  
-BLACK_TEMPLE | BT_106 | Bogstrok Clacker |  
+BLACK_TEMPLE | BT_102 | Boggspine Knuckles | O
+BLACK_TEMPLE | BT_106 | Bogstrok Clacker | O
 BLACK_TEMPLE | BT_109 | Lady Vashj |  
-BLACK_TEMPLE | BT_110 | Torrent |  
+BLACK_TEMPLE | BT_110 | Torrent | O
 BLACK_TEMPLE | BT_113 | Totemic Reflection | O
-BLACK_TEMPLE | BT_114 | Shattered Rumbler |  
-BLACK_TEMPLE | BT_115 | Marshspawn |  
+BLACK_TEMPLE | BT_114 | Shattered Rumbler | O
+BLACK_TEMPLE | BT_115 | Marshspawn | O
 BLACK_TEMPLE | BT_117 | Bladestorm | O
 BLACK_TEMPLE | BT_120 | Warmaul Challenger | O
 BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
@@ -1016,16 +1016,16 @@ BLACK_TEMPLE | BT_197 | Reliquary of Souls |
 BLACK_TEMPLE | BT_198 | Soul Mirror |  
 BLACK_TEMPLE | BT_199 | Unstable Felbolt | O
 BLACK_TEMPLE | BT_201 | Augmented Porcupine |  
-BLACK_TEMPLE | BT_202 | Helboar |  
+BLACK_TEMPLE | BT_202 | Helboar | O
 BLACK_TEMPLE | BT_203 | Pack Tactics |  
-BLACK_TEMPLE | BT_205 | Scrap Shot |  
+BLACK_TEMPLE | BT_205 | Scrap Shot | O
 BLACK_TEMPLE | BT_210 | Zixor, Apex Predator |  
 BLACK_TEMPLE | BT_211 | Imprisoned Felmaw |  
 BLACK_TEMPLE | BT_212 | Mok'Nathal Lion |  
-BLACK_TEMPLE | BT_213 | Scavenger's Ingenuity |  
+BLACK_TEMPLE | BT_213 | Scavenger's Ingenuity | O
 BLACK_TEMPLE | BT_214 | Beastmaster Leoroxx |  
 BLACK_TEMPLE | BT_230 | The Lurker Below |  
-BLACK_TEMPLE | BT_233 | Sword and Board |  
+BLACK_TEMPLE | BT_233 | Sword and Board | O
 BLACK_TEMPLE | BT_249 | Scrap Golem |  
 BLACK_TEMPLE | BT_252 | Renew | O
 BLACK_TEMPLE | BT_253 | Psyche Split | O
@@ -1034,8 +1034,8 @@ BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |
 BLACK_TEMPLE | BT_256 | Dragonmaw Overseer |  
 BLACK_TEMPLE | BT_257 | Apotheosis | O
 BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
-BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel |  
-BLACK_TEMPLE | BT_291 | Apexis Blast |  
+BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel | O
+BLACK_TEMPLE | BT_291 | Apexis Blast | O
 BLACK_TEMPLE | BT_292 | Hand of A'dal | O
 BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
 BLACK_TEMPLE | BT_301 | Nightshade Matron |  
@@ -1045,37 +1045,37 @@ BLACK_TEMPLE | BT_305 | Imprisoned Scrap Imp |
 BLACK_TEMPLE | BT_306 | Shadow Council |  
 BLACK_TEMPLE | BT_307 | Darkglare |  
 BLACK_TEMPLE | BT_309 | Kanrethad Ebonlocke |  
-BLACK_TEMPLE | BT_321 | Netherwalker |  
+BLACK_TEMPLE | BT_321 | Netherwalker | O
 BLACK_TEMPLE | BT_334 | Lady Liadrin |  
-BLACK_TEMPLE | BT_341 | Skeletal Dragon |  
-BLACK_TEMPLE | BT_423 | Ashtongue Battlelord |  
+BLACK_TEMPLE | BT_341 | Skeletal Dragon | O
+BLACK_TEMPLE | BT_423 | Ashtongue Battlelord | O
 BLACK_TEMPLE | BT_429 | Metamorphosis |  
 BLACK_TEMPLE | BT_430 | Warglaives of Azzinoth |  
-BLACK_TEMPLE | BT_480 | Crimson Sigil Runner |  
-BLACK_TEMPLE | BT_486 | Pit Commander |  
-BLACK_TEMPLE | BT_491 | Spectral Sight |  
-BLACK_TEMPLE | BT_493 | Priestess of Fury |  
-BLACK_TEMPLE | BT_496 | Furious Felfin |  
+BLACK_TEMPLE | BT_480 | Crimson Sigil Runner | O
+BLACK_TEMPLE | BT_486 | Pit Commander | O
+BLACK_TEMPLE | BT_491 | Spectral Sight | O
+BLACK_TEMPLE | BT_493 | Priestess of Fury | O
+BLACK_TEMPLE | BT_496 | Furious Felfin | O
 BLACK_TEMPLE | BT_509 | Fel Summoner | O
 BLACK_TEMPLE | BT_514 | Immolation Aura |  
-BLACK_TEMPLE | BT_601 | Skull of Gul'dan |  
-BLACK_TEMPLE | BT_701 | Spymistress |  
+BLACK_TEMPLE | BT_601 | Skull of Gul'dan | O
+BLACK_TEMPLE | BT_701 | Spymistress | O
 BLACK_TEMPLE | BT_702 | Ashtongue Slayer |  
 BLACK_TEMPLE | BT_703 | Cursed Vagrant | O
-BLACK_TEMPLE | BT_707 | Ambush |  
-BLACK_TEMPLE | BT_709 | Dirty Tricks |  
-BLACK_TEMPLE | BT_710 | Greyheart Sage |  
-BLACK_TEMPLE | BT_711 | Blackjack Stunner |  
+BLACK_TEMPLE | BT_707 | Ambush | O
+BLACK_TEMPLE | BT_709 | Dirty Tricks | O
+BLACK_TEMPLE | BT_710 | Greyheart Sage | O
+BLACK_TEMPLE | BT_711 | Blackjack Stunner | O
 BLACK_TEMPLE | BT_713 | Akama |  
-BLACK_TEMPLE | BT_714 | Frozen Shadoweaver |  
+BLACK_TEMPLE | BT_714 | Frozen Shadoweaver | O
 BLACK_TEMPLE | BT_715 | Bonechewer Brawler | O
 BLACK_TEMPLE | BT_716 | Bonechewer Vanguard | O
 BLACK_TEMPLE | BT_717 | Burrowing Scorpid |  
 BLACK_TEMPLE | BT_720 | Ruststeed Raider |  
 BLACK_TEMPLE | BT_721 | Blistering Rot |  
-BLACK_TEMPLE | BT_722 | Guardian Augmerchant |  
-BLACK_TEMPLE | BT_723 | Rocket Augmerchant |  
-BLACK_TEMPLE | BT_724 | Ethereal Augmerchant |  
+BLACK_TEMPLE | BT_722 | Guardian Augmerchant | O
+BLACK_TEMPLE | BT_723 | Rocket Augmerchant | O
+BLACK_TEMPLE | BT_724 | Ethereal Augmerchant | O
 BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker | O
 BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
 BLACK_TEMPLE | BT_728 | Disguised Wanderer | O
@@ -1092,7 +1092,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
 
-- Progress: 25% (35 of 135 Cards)
+- Progress: 48% (65 of 135 Cards)
 
 ## Scholomance Academy
 

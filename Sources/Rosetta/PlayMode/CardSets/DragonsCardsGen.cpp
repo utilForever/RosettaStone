@@ -33,6 +33,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyAllTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
@@ -309,13 +310,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(1, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DRG_650e", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
     cards.emplace("DRG_650", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
@@ -334,13 +331,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(2, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DRG_650e2", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(2));
     cards.emplace("DRG_650t2", CardDef(power, 0, 55805));
 
     // ----------------------------------------- HERO - WARRIOR
@@ -358,13 +351,9 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - GALAKROND_HERO_CARD = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 4));
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(4, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DRG_650e3", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(4));
     power.AddPowerTask(std::make_shared<WeaponTask>("DRG_238ht"));
     cards.emplace("DRG_650t3", CardDef(power, 0, 55805));
 
@@ -1216,39 +1205,34 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                 return;
             }
 
-            auto continueFunc = [](FieldZone* fieldZone, Playable* source,
+            auto continueFunc = [](FieldZone* fieldZone, Playable* _source,
                                    Minion* minion, int remainDamage,
                                    bool isLeft) {
                 while (true)
                 {
                     const int targetHealth = minion->GetHealth();
-                    minion->TakeDamage(source, remainDamage);
+                    minion->TakeDamage(_source, remainDamage);
 
-                    if (minion->isDestroyed)
+                    if (!minion->isDestroyed)
                     {
-                        remainDamage = remainDamage - targetHealth;
-                        if (remainDamage > 0)
-                        {
-                            const int targetPos = minion->GetZonePosition();
+                        break;
+                    }
 
-                            if (isLeft && targetPos > 0)
-                            {
-                                minion = (*fieldZone)[targetPos - 1];
-                            }
-                            else if (!isLeft &&
-                                     targetPos < fieldZone->GetCount() - 1)
-                            {
-                                minion = (*fieldZone)[targetPos + 1];
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
+                    remainDamage = remainDamage - targetHealth;
+                    if (remainDamage <= 0)
+                    {
+                        break;
+                    }
+
+                    const int targetPos = minion->GetZonePosition();
+
+                    if (isLeft && targetPos > 0)
+                    {
+                        minion = (*fieldZone)[targetPos - 1];
+                    }
+                    else if (!isLeft && targetPos < fieldZone->GetCount() - 1)
+                    {
+                        minion = (*fieldZone)[targetPos + 1];
                     }
                     else
                     {
@@ -1959,9 +1943,10 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
                     while (player->choice != nullptr)
                     {
-                        const auto choiceIdx =
-                            Random::get<int>(0, player->choice->choices.size());
-                        Generic::ChoicePick(player, choiceIdx);
+                        const auto choiceIdx = Random::get<std::size_t>(
+                            0, player->choice->choices.size());
+                        Generic::ChoicePick(player,
+                                            static_cast<int>(choiceIdx));
                     }
 
                     player->game->ProcessDestroyAndUpdateAura();
