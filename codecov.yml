@@ -24,6 +24,7 @@ ignore:
 - "Documents/*"
 - "Documents/**/*"
 - "Extensions/**/*"
+- "Includes/Rosetta/Common/Enums/*.def"
 - "Libraries/**/*"
 - "Medias/**/*"
 - "Resources/*"
