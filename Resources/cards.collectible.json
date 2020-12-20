@@ -2253,7 +2253,6 @@
             "BATTLECRY"
         ],
         "set": "TGT",
-        "techLevel": 3,
         "text": "Whenever you play a card with <b>Battlecry</b>, gain +1/+1.",
         "type": "MINION"
     },
@@ -7586,7 +7585,7 @@
         "artist": "Zoltan Boros",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 58492,
         "flavor": "The surest way to clear the dance floor.",
         "id": "BT_354",
@@ -7749,7 +7748,6 @@
         "attack": 8,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "collectionText": "-Cost minions.\n<i>(Upgrades each time a\nfriendly minion dies!)</i>",
         "cost": 9,
         "dbfId": 58172,
         "elite": true,
@@ -7763,7 +7761,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "[x]<b>Battlecry:</b> Summon two\nrandom",
+        "text": "[x]<b>Battlecry:</b> Summon two\nrandom 0-Cost minions.\n<i>(Upgrades each time a\nfriendly minion dies!)</i>",
         "type": "MINION"
     },
     {
@@ -10799,7 +10797,6 @@
         "attack": 2,
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": "<b>Battlecry:</b> Summon a <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)",
         "cost": 2,
         "dbfId": 40529,
         "durability": 2,
@@ -10816,7 +10813,7 @@
             "JADE_GOLEM"
         ],
         "set": "GANGS",
-        "text": "<b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)",
+        "text": "<b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)0<b>Battlecry:</b> Summon a <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)",
         "type": "WEAPON"
     },
     {
@@ -17685,7 +17682,7 @@
     },
     {
         "artist": "Brandon Blackwell",
-        "attack": 3,
+        "attack": 2,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 3,
@@ -21274,7 +21271,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57329,
         "elite": true,
@@ -21287,7 +21283,7 @@
         "name": "Galakrond, the Wretched",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Summon\n1 random Demon.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Summon\n1 random Demon.",
         "type": "HERO"
     },
     {
@@ -21295,7 +21291,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "ROGUE",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57419,
         "elite": true,
@@ -21308,7 +21303,7 @@
         "name": "Galakrond, the Nightmare",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (1).\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (1).",
         "type": "HERO"
     },
     {
@@ -21316,7 +21311,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57427,
         "elite": true,
@@ -21332,7 +21326,7 @@
             "RUSH"
         ],
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Summon two\n2/2 Storms with <b>Rush</b>.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Summon two\n2/2 Storms with <b>Rush</b>.",
         "type": "HERO"
     },
     {
@@ -21340,7 +21334,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57413,
         "elite": true,
@@ -21353,7 +21346,7 @@
         "name": "Galakrond, the Unbreakable",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 1 minion.\nGive it +4/+4.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 1 minion.\nGive it +4/+4.",
         "type": "HERO"
     },
     {
@@ -21361,7 +21354,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "PRIEST",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57416,
         "elite": true,
@@ -21374,7 +21366,7 @@
         "name": "Galakrond, the Unspeakable",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Destroy 1\nrandom enemy minion.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Destroy 1\nrandom enemy minion.",
         "type": "HERO"
     },
     {
@@ -25612,7 +25604,6 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "techLevel": 3,
         "text": "<b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.",
         "type": "MINION"
     },
@@ -29299,7 +29290,7 @@
         "type": "MINION"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "attack": 3,
         "cardClass": "ROGUE",
         "collectible": true,
@@ -32177,6 +32168,17 @@
     {
         "cardClass": "PALADIN",
         "collectible": true,
+        "dbfId": 61596,
+        "health": 30,
+        "id": "HERO_04e",
+        "name": "Second War Uther",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "collectible": true,
         "dbfId": 61886,
         "health": 30,
         "id": "HERO_04f",
@@ -32855,7 +32857,6 @@
         "name": "Righteous Protector",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -38095,7 +38096,7 @@
         "type": "MINION"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "attack": 2,
         "cardClass": "MAGE",
         "collectible": true,
@@ -38171,7 +38172,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "attack": 3,
         "cardClass": "NEUTRAL",
         "collectible": true,
@@ -42970,7 +42971,7 @@
         "attack": 1,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 59590,
         "flavor": "But how much of it is skimming?",
         "health": 3,
@@ -43064,6 +43065,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 67493,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 2,
@@ -44204,7 +44206,7 @@
         "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 60151,
         "flavor": "Enjoys a good soul-crushing defeat.",
         "health": 2,
@@ -44367,7 +44369,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 60278,
         "elite": true,
         "flavor": "quicksort [] = [] quicksort (x:xs) = quicksort small ++ (x : quicksort large) where small = [y | y <- xs, y <= x] large = [y | y <- xs, y > x]",
@@ -48421,7 +48423,7 @@
         "attack": 2,
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 53926,
         "elite": true,
         "flavor": "Brann's new dino-taming hobby is going well—his pet can already make him sit, stand, and roll over!",

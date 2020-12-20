@@ -269,7 +269,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_351 : Battlefiend")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
-// [BT_354] Blade Dance - COST:2
+// [BT_354] Blade Dance - COST:3
 // - Set: Demon Hunter Initiate, Rarity: Rare
 // --------------------------------------------------------
 // Text: Deal damage equal to your hero's Attack
