@@ -2874,7 +2874,6 @@
             "BATTLECRY"
         ],
         "set": "TGT",
-        "techLevel": 3,
         "text": "Whenever you play a card with <b>Battlecry</b>, gain +1/+1.",
         "type": "MINION"
     },
@@ -3869,7 +3868,6 @@
         "name": "Shifter Zerus",
         "rarity": "LEGENDARY",
         "set": "BATTLEGROUNDS",
-        "techLevel": 3,
         "text": "Each turn this is in your hand, transform it into a random minion.",
         "type": "MINION"
     },
@@ -4428,32 +4426,6 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 4,
-        "battlegroundsPremiumDbfId": 61081,
-        "cardClass": "NEUTRAL",
-        "cost": 7,
-        "dbfId": 61059,
-        "health": 6,
-        "id": "BGS_059",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
-        "name": "Master Demonologist",
-        "race": "DEMON",
-        "set": "BATTLEGROUNDS",
-        "text": "Whenever you summon a Demon, gain +1/+1.",
-        "type": "MINION"
-    },
-    {
-        "cardClass": "NEUTRAL",
-        "dbfId": 61080,
-        "id": "BGS_059e",
-        "name": "Demonic Fury",
-        "set": "BATTLEGROUNDS",
-        "text": "Increased stats.",
-        "type": "ENCHANTMENT"
-    },
-    {
         "attack": 2,
         "battlegroundsPremiumDbfId": 63782,
         "cardClass": "NEUTRAL",
@@ -4918,6 +4890,128 @@
     },
     {
         "attack": 2,
+        "battlegroundsPremiumDbfId": 65658,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 63614,
+        "health": 2,
+        "id": "BGS_106",
+        "mechanics": [
+            "REBORN",
+            "TAUNT"
+        ],
+        "name": "Acolyte of C'Thun",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 1,
+        "text": "<b>Taunt</b>\n<b>Reborn</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 65673,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 63622,
+        "health": 5,
+        "id": "BGS_110",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Arm of the Empire",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "Whenever a friendly <b>Taunt</b> minion is attacked, give it +3 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65670,
+        "id": "BGS_110e",
+        "name": "Armed!",
+        "set": "BATTLEGROUNDS",
+        "text": "+3 Attack",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 65666,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 63623,
+        "health": 2,
+        "id": "BGS_111",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Champion of Y'Shaarj",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "Whenever a friendly <b>Taunt</b> minion is attacked, gain +1/+1 permanently.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65659,
+        "id": "BGS_111e",
+        "name": "Y'Shaarj!!!",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 5,
+        "battlegroundsPremiumDbfId": 65675,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 63619,
+        "health": 5,
+        "id": "BGS_112",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Qiraji Harbinger",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "After a friendly minion with <b>Taunt</b> dies, give its neighbors +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68225,
+        "id": "BGS_112e",
+        "name": "Harbinger's Illusion",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 66597,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 63627,
+        "health": 4,
+        "id": "BGS_113",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Faceless Taverngoer",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]<b>Battlecry:</b> Choose a minion\nin Bob's Tavern. Transform\ninto a plain copy of it.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
         "battlegroundsPremiumDbfId": 64041,
         "cardClass": "NEUTRAL",
         "cost": 3,
@@ -5191,6 +5285,617 @@
         "techLevel": 5,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 65665,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65660,
+        "health": 3,
+        "id": "BGS_200",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Warden of Old",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "<b>Deathrattle:</b> Add a Gold Coin to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 65668,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 65661,
+        "health": 3,
+        "id": "BGS_201",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Tormented Ritualist",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 2,
+        "text": "[x]<b>Taunt</b>\nWhenever this is attacked,\ngive adjacent minions\n+1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66838,
+        "id": "BGS_201e",
+        "name": "Ritual Sacrifice",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 65671,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 65662,
+        "elite": true,
+        "health": 4,
+        "id": "BGS_202",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Mythrax the Unraveler",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 5,
+        "text": "[x]At the end of your turn,\ngain +1/+2 for each\n  minion type you control.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65669,
+        "id": "BGS_202e",
+        "name": "Void Echoes",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsPremiumDbfId": 66237,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66227,
+        "health": 4,
+        "id": "BGS_204",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bigfernal",
+        "race": "DEMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 4,
+        "text": "After you summon a Demon, gain +1/+1 permanently.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66230,
+        "id": "BGS_204e",
+        "name": "Bigger!!!",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 7,
+        "battlegroundsPremiumDbfId": 66840,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 66835,
+        "elite": true,
+        "health": 7,
+        "id": "BGS_205",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "REBORN",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Elistra the Immortal",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "techLevel": 6,
+        "text": "[x]<b>Divine Shield</b>. <b>Reborn</b>.\nWhenever a friendly <b>Taunt</b>\nminion is attacked, this\n  gets attacked instead.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65230,
+        "id": "BGS_Treasures_000",
+        "name": "Big Banana",
+        "set": "BATTLEGROUNDS",
+        "text": "Give a minion +2/+2.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65231,
+        "id": "BGS_Treasures_000e",
+        "name": "Big Banana",
+        "set": "BATTLEGROUNDS",
+        "text": "Has +2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 65232,
+        "id": "BGS_Treasures_001",
+        "name": "Pocket Change",
+        "set": "BATTLEGROUNDS",
+        "text": "Add 2 Gold Coins to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65235,
+        "id": "BGS_Treasures_003",
+        "name": "Regular Discount",
+        "set": "BATTLEGROUNDS",
+        "text": "Reduce the cost of upgrading Bob's Tavern by (3).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65236,
+        "id": "BGS_Treasures_004",
+        "name": "Gacha Gift",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Discover</b> a minion from <b>Tavern Tier 1</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 65238,
+        "id": "BGS_Treasures_006",
+        "name": "Evolving Tavern",
+        "set": "BATTLEGROUNDS",
+        "text": "Replace all minions in Bob's Tavern with ones of a higher Tavern Tier.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65239,
+        "id": "BGS_Treasures_007",
+        "name": "Might of Stormwind",
+        "set": "BATTLEGROUNDS",
+        "text": "Give your minions +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65240,
+        "id": "BGS_Treasures_007e",
+        "name": "Might of Stormwind",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65246,
+        "id": "BGS_Treasures_009",
+        "name": "Gruul Rules",
+        "set": "BATTLEGROUNDS",
+        "text": "Give a minion \"At the end of your turn, gain +2/+2.\"",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65247,
+        "id": "BGS_Treasures_009e",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Gruul Rules",
+        "set": "BATTLEGROUNDS",
+        "text": "Gains +2/+2 at the end of your turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65248,
+        "id": "BGS_Treasures_010",
+        "name": "Time Thief",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Discover</b> a minion from your last opponent's warband.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65249,
+        "id": "BGS_Treasures_011",
+        "name": "Training Session",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Discover</b> a new Hero Power.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65250,
+        "id": "BGS_Treasures_012",
+        "name": "On the House",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Discover</b> a minion from your current <b>Tavern Tier</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65254,
+        "id": "BGS_Treasures_013",
+        "name": "The Good Stuff",
+        "set": "BATTLEGROUNDS",
+        "text": "Give minions in Bob's Shop +1 Health for the rest of the game.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65252,
+        "id": "BGS_Treasures_013e1",
+        "name": "Good Stuff",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65253,
+        "id": "BGS_Treasures_013e2",
+        "name": "Good Stuff",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65251,
+        "id": "BGS_Treasures_013pe",
+        "name": "The Good Stuff Player Enchant",
+        "set": "BATTLEGROUNDS",
+        "text": "Minions in Bob's Shop have increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65256,
+        "id": "BGS_Treasures_014",
+        "name": "The Unlimited Coin",
+        "set": "BATTLEGROUNDS",
+        "text": "Gain 1 Gold this turn only. Return this to your hand at end of turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65258,
+        "id": "BGS_Treasures_014e",
+        "name": "Unlimited Coin Return to Hand",
+        "set": "BATTLEGROUNDS",
+        "text": "Return the Unlimited Coin to your hand at end of turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 65259,
+        "id": "BGS_Treasures_015",
+        "name": "Buy the Holy Light",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "Give a minion <b>Divine Shield</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65260,
+        "id": "BGS_Treasures_016",
+        "name": "Raise the Stakes",
+        "set": "BATTLEGROUNDS",
+        "text": "Make a friendly minion Golden and return it to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65262,
+        "id": "BGS_Treasures_018",
+        "name": "I'm Still Just a Rat in a Cage",
+        "set": "BATTLEGROUNDS",
+        "text": "Double a minion's Attack.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65263,
+        "id": "BGS_Treasures_018e",
+        "name": "Rat in a Cage",
+        "set": "BATTLEGROUNDS",
+        "text": "This minion's Attack has been doubled.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65264,
+        "id": "BGS_Treasures_019",
+        "name": "B.A.N.A.N.A.S.",
+        "set": "BATTLEGROUNDS",
+        "text": "Fill your hand with Bananas.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65265,
+        "id": "BGS_Treasures_020",
+        "name": "Top Shelf",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Discover</b> a minion from <b>Tavern Tier 6</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65270,
+        "id": "BGS_Treasures_022",
+        "name": "Friends and Family Discount",
+        "set": "BATTLEGROUNDS",
+        "text": "For the rest of the game, minions in Bob's Tavern costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65272,
+        "id": "BGS_Treasures_022e",
+        "mechanics": [
+            "ENCHANTMENT_INVISIBLE"
+        ],
+        "name": "Discounted",
+        "set": "BATTLEGROUNDS",
+        "text": "Costs less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65271,
+        "id": "BGS_Treasures_022pe",
+        "name": "Friends and Family Discount Player Enchant",
+        "set": "BATTLEGROUNDS",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65277,
+        "id": "BGS_Treasures_023",
+        "name": "Open Bar",
+        "set": "BATTLEGROUNDS",
+        "text": "Your first 5 <b>Refreshes</b>\neach turn cost (0).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65278,
+        "id": "BGS_Treasures_023pe",
+        "name": "Refresh Cost 0",
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Refresh</b> costs (0).",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65274,
+        "id": "BGS_Treasures_025",
+        "name": "Fresh Tab",
+        "set": "BATTLEGROUNDS",
+        "text": "Refresh your Gold.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65380,
+        "id": "BGS_Treasures_026",
+        "name": "The Bouncer",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "Give a minion +5/+5 and <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65381,
+        "id": "BGS_Treasures_026e",
+        "name": "Bouncy Bouncy",
+        "set": "BATTLEGROUNDS",
+        "text": "+5/+5 and <b>Taunt</b>",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 65529,
+        "id": "BGS_Treasures_027",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Ice Block",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66424,
+        "id": "BGS_Treasures_028",
+        "name": "Give A Dog A Bone",
+        "set": "BATTLEGROUNDS",
+        "text": "Give a friendly minion <b>Divine Shield</b>, <b>Windfury</b>, and +10/+10.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66426,
+        "id": "BGS_Treasures_028e",
+        "name": "Dog Bone",
+        "set": "BATTLEGROUNDS",
+        "text": "Has +10/+10, <b>Divine Shield</b>, and <b>Windfury</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66427,
+        "id": "BGS_Treasures_029",
+        "name": "Rocking and Rolling",
+        "set": "BATTLEGROUNDS",
+        "text": "Your next three\n <b>Refreshes</b> cost (0).",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66458,
+        "id": "BGS_Treasures_030",
+        "name": "Brann's Blessing",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "Your <b>Battlecries</b> trigger twice this turn.",
+        "type": "SPELL"
+    },
+    {
+        "dbfId": 66493,
+        "id": "BGS_Treasures_030e",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Brann's Blessing",
+        "set": "BATTLEGROUNDS",
+        "text": "Your <b>Battlecries</b> trigger twice this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66460,
+        "id": "BGS_Treasures_032",
+        "name": "Big Winner!",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Discover</b> a Darkmoon Prize from each of the previous Prize turns.",
+        "type": "SPELL"
+    },
+    {
+        "cost": 0,
+        "dbfId": 66463,
+        "id": "BGS_Treasures_033",
+        "name": "New Recruit",
+        "set": "BATTLEGROUNDS",
+        "text": "Add a minion to Bob's Tavern for the rest of the game.",
+        "type": "SPELL"
+    },
+    {
+        "dbfId": 66494,
+        "id": "BGS_Treasures_033e",
+        "name": "New Recruit",
+        "set": "BATTLEGROUNDS",
+        "text": "Add a minion to Bob's Tavern for the rest of the game.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66495,
+        "id": "BGS_Treasures_034",
+        "name": "Repeat Customer",
+        "set": "BATTLEGROUNDS",
+        "text": "Return a friendly non-golden minion to your hand. Give it +2/+2.",
+        "type": "SPELL"
+    },
+    {
+        "dbfId": 66497,
+        "id": "BGS_Treasures_034e",
+        "name": "Repeat Customer",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66545,
+        "id": "BGS_Treasures_036",
+        "name": "Great Deal",
+        "set": "BATTLEGROUNDS",
+        "text": "For the rest of the game, reduce the cost of upgrading Bob's Tavern by (2) at the end of your turn.",
+        "type": "SPELL"
+    },
+    {
+        "dbfId": 66546,
+        "id": "BGS_Treasures_036e",
+        "name": "Great Deal",
+        "set": "BATTLEGROUNDS",
+        "text": "At the end of each turn, reduce the cost of upgrading Bob's Tavern by (2).",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66947,
+        "id": "BGS_Treasures_037",
+        "name": "All That Glitters",
+        "set": "BATTLEGROUNDS",
+        "text": "Make a random minion in Bob's Tavern Golden.",
+        "type": "SPELL"
     },
     {
         "artist": "Jim Nelson",
@@ -16705,7 +17410,7 @@
         "artist": "Zoltan Boros",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 58492,
         "flavor": "The surest way to clear the dance floor.",
         "id": "BT_354",
@@ -16911,7 +17616,6 @@
         "attack": 8,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "collectionText": "-Cost minions.\n<i>(Upgrades each time a\nfriendly minion dies!)</i>",
         "cost": 9,
         "dbfId": 58172,
         "elite": true,
@@ -16925,7 +17629,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "[x]<b>Battlecry:</b> Summon two\nrandom",
+        "text": "[x]<b>Battlecry:</b> Summon two\nrandom 0-Cost minions.\n<i>(Upgrades each time a\nfriendly minion dies!)</i>",
         "type": "MINION"
     },
     {
@@ -21451,12 +22155,13 @@
     {
         "artist": "Konstantin Turovec",
         "cardClass": "NEUTRAL",
+        "collectionText": "Polymorph a random enemy minion.",
         "cost": 5,
         "dbfId": 41617,
         "id": "CFM_621t21",
         "name": "Mystic Wool",
         "set": "GANGS",
-        "text": "Transform a random enemy minion into a 1/1 Sheep.1Polymorph a random enemy minion.",
+        "text": "Transform a random enemy minion into a 1/1 Sheep.",
         "type": "SPELL"
     },
     {
@@ -23318,7 +24023,6 @@
         "attack": 2,
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": "<b>Battlecry:</b> Summon a <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)",
         "cost": 2,
         "dbfId": 40529,
         "durability": 2,
@@ -23335,7 +24039,7 @@
             "JADE_GOLEM"
         ],
         "set": "GANGS",
-        "text": "<b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)",
+        "text": "<b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)0<b>Battlecry:</b> Summon a <b>Jade Golem</b>.\n<b><b>Overload</b>:</b> (1)",
         "type": "WEAPON"
     },
     {
@@ -31292,6 +31996,9 @@
         "cardClass": "SHAMAN",
         "dbfId": 52549,
         "id": "DAL_710e",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
         "name": "Soul of the Murloc",
         "set": "DALARAN",
         "text": "<b>Deathrattle:</b> Summon a 1/1 Murloc.",
@@ -36684,7 +37391,6 @@
     {
         "artist": "Evgeniy Zagumennyy",
         "cardClass": "NEUTRAL",
-        "collectionText": " currently)</i>",
         "cost": 2,
         "dbfId": 54363,
         "id": "DALA_BOSS_69p",
@@ -36693,12 +37399,11 @@
             "SPELLPOWER"
         ],
         "set": "DALARAN",
-        "text": "<b>Hero Power</b>\nGive your Hero\n<b>Spell Damage +1</b>.\n<i>(+",
+        "text": "<b>Hero Power</b>\nGive your Hero\n<b>Spell Damage +1</b>.\n<i>(+0 currently)</i>",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": " currently)</i>",
         "cost": 1,
         "dbfId": 56039,
         "id": "DALA_BOSS_69px",
@@ -36707,7 +37412,7 @@
             "SPELLPOWER"
         ],
         "set": "DALARAN",
-        "text": "<b>Hero Power</b>\nGive your Hero\n<b>Spell Damage +1</b>.\n<i>(+",
+        "text": "<b>Hero Power</b>\nGive your Hero\n<b>Spell Damage +1</b>.\n<i>(+0 currently)</i>",
         "type": "HERO_POWER"
     },
     {
@@ -40968,7 +41673,7 @@
     },
     {
         "artist": "Brandon Blackwell",
-        "attack": 3,
+        "attack": 2,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 3,
@@ -41439,7 +42144,6 @@
     {
         "artist": "Kagi",
         "cardClass": "NEUTRAL",
-        "collectionText": "/4)</b>\nDeal $7 damage randomly\nsplit among all enemies.",
         "cost": 5,
         "dbfId": 61873,
         "id": "DMF_254t3",
@@ -41448,25 +42152,23 @@
         ],
         "name": "Eye of C'Thun",
         "set": "DARKMOON_FAIRE",
-        "text": "[x]<b>Piece of C'Thun (",
+        "text": "[x]<b>Piece of C'Thun (0/4)</b>\nDeal $7 damage randomly\nsplit among all enemies.",
         "type": "SPELL"
     },
     {
         "artist": "Akkapoj T.",
         "cardClass": "NEUTRAL",
-        "collectionText": "/4)</b>\nDeal $3 damage to all minions.",
         "cost": 5,
         "dbfId": 61874,
         "id": "DMF_254t4",
         "name": "Heart of C'Thun",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Piece of C'Thun (",
+        "text": "<b>Piece of C'Thun (0/4)</b>\nDeal $3 damage to all minions.",
         "type": "SPELL"
     },
     {
         "artist": "Akkapoj T.",
         "cardClass": "NEUTRAL",
-        "collectionText": "/4)</b>\nSummon a 6/6 C'Thun's\nBody with <b>Taunt</b>.",
         "cost": 5,
         "dbfId": 61875,
         "id": "DMF_254t5",
@@ -41475,7 +42177,7 @@
             "TAUNT"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "[x]<b>Piece of C'Thun (",
+        "text": "[x]<b>Piece of C'Thun (0/4)</b>\nSummon a 6/6 C'Thun's\nBody with <b>Taunt</b>.",
         "type": "SPELL"
     },
     {
@@ -41497,13 +42199,12 @@
     {
         "artist": "Akkapoj T.",
         "cardClass": "NEUTRAL",
-        "collectionText": "/4)</b>\nDestroy a minion.",
         "cost": 5,
         "dbfId": 61877,
         "id": "DMF_254t7",
         "name": "Maw of C'Thun",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Piece of C'Thun (",
+        "text": "<b>Piece of C'Thun (0/4)</b>\nDestroy a minion.",
         "type": "SPELL"
     },
     {
@@ -46175,7 +46876,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57329,
         "elite": true,
@@ -46188,14 +46888,13 @@
         "name": "Galakrond, the Wretched",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Summon\n1 random Demon.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Summon\n1 random Demon.",
         "type": "HERO"
     },
     {
         "armor": 5,
         "artist": "Konstantin Turovec",
         "cardClass": "WARLOCK",
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57330,
         "elite": true,
@@ -46207,7 +46906,7 @@
         "name": "Galakrond, the Apocalypse",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Summon\n2 random Demons.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Summon\n2 random Demons.",
         "type": "HERO"
     },
     {
@@ -46233,7 +46932,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "ROGUE",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57419,
         "elite": true,
@@ -46246,7 +46944,7 @@
         "name": "Galakrond, the Nightmare",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (1).\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 1 card.\nIt costs (1).",
         "type": "HERO"
     },
     {
@@ -46262,7 +46960,6 @@
         "armor": 5,
         "artist": "Konstantin Turovec",
         "cardClass": "ROGUE",
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57421,
         "elite": true,
@@ -46274,7 +46971,7 @@
         "name": "Galakrond, the Apocalypse",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 2 cards.\nThey cost (1).\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 2 cards.\nThey cost (1).",
         "type": "HERO"
     },
     {
@@ -46300,7 +46997,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57427,
         "elite": true,
@@ -46316,14 +47012,13 @@
             "RUSH"
         ],
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Summon two\n2/2 Storms with <b>Rush</b>.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Summon two\n2/2 Storms with <b>Rush</b>.",
         "type": "HERO"
     },
     {
         "armor": 5,
         "artist": "Konstantin Turovec",
         "cardClass": "SHAMAN",
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57432,
         "elite": true,
@@ -46338,7 +47033,7 @@
             "RUSH"
         ],
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Summon two\n4/4 Storms with <b>Rush</b>.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Summon two\n4/4 Storms with <b>Rush</b>.",
         "type": "HERO"
     },
     {
@@ -46418,7 +47113,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57413,
         "elite": true,
@@ -46431,7 +47125,7 @@
         "name": "Galakrond, the Unbreakable",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 1 minion.\nGive it +4/+4.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 1 minion.\nGive it +4/+4.",
         "type": "HERO"
     },
     {
@@ -46465,7 +47159,6 @@
         "armor": 5,
         "artist": "Konstantin Turovec",
         "cardClass": "WARRIOR",
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57414,
         "elite": true,
@@ -46477,7 +47170,7 @@
         "name": "Galakrond, the Apocalypse",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Draw 2 minions.\nGive them +4/+4.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Draw 2 minions.\nGive them +4/+4.",
         "type": "HERO"
     },
     {
@@ -46503,7 +47196,6 @@
         "artist": "Konstantin Turovec",
         "cardClass": "PRIEST",
         "collectible": true,
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57416,
         "elite": true,
@@ -46516,14 +47208,13 @@
         "name": "Galakrond, the Unspeakable",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Destroy 1\nrandom enemy minion.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Destroy 1\nrandom enemy minion.",
         "type": "HERO"
     },
     {
         "armor": 5,
         "artist": "Konstantin Turovec",
         "cardClass": "PRIEST",
-        "collectionText": ")</i>",
         "cost": 7,
         "dbfId": 57417,
         "elite": true,
@@ -46535,7 +47226,7 @@
         "name": "Galakrond, the Apocalypse",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "[x]<b>Battlecry:</b> Destroy 2\nrandom enemy minions.\n<i>(",
+        "text": "[x]<b>Battlecry:</b> Destroy 2\nrandom enemy minions.",
         "type": "HERO"
     },
     {
@@ -47397,6 +48088,7 @@
     },
     {
         "cardClass": "WARLOCK",
+        "collectionText": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.",
         "cost": 2,
         "dbfId": 60507,
         "id": "DRGA_BOSS_07p2",
@@ -47405,11 +48097,12 @@
         ],
         "name": "Summon Galakrond",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.5 <i>({0} left!)</i>5",
+        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.@ <i>({0} left!)</i>@",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "WARLOCK",
+        "collectionText": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.",
         "cost": 2,
         "dbfId": 60565,
         "id": "DRGA_BOSS_07p3",
@@ -47418,7 +48111,7 @@
         ],
         "name": "Summon Galakrond",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.5 <i>({0} left!)</i>5",
+        "text": "<b>Passive Hero Power</b>\nInvoke Galakrond 5 times to finish the ritual.@ <i>({0} left!)</i>@",
         "type": "HERO_POWER"
     },
     {
@@ -54632,7 +55325,6 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "techLevel": 3,
         "text": "<b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.",
         "type": "MINION"
     },
@@ -57288,7 +57980,6 @@
     },
     {
         "cardClass": "DEATHKNIGHT",
-        "collectionText": " damage to the enemy hero. +1 Damage each time.",
         "cost": 0,
         "dbfId": 46594,
         "id": "FB_LK005",
@@ -57297,7 +57988,7 @@
         ],
         "name": "Remorseless Winter",
         "set": "TB",
-        "text": "<b>Hero Power</b>\nDeal",
+        "text": "<b>Hero Power</b>\nDeal 0 damage to the enemy hero. +1 Damage each time.",
         "type": "HERO_POWER"
     },
     {
@@ -62443,7 +63134,7 @@
         "type": "MINION"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "attack": 3,
         "cardClass": "ROGUE",
         "collectible": true,
@@ -69550,6 +70241,7 @@
     },
     {
         "cardClass": "PALADIN",
+        "collectible": true,
         "dbfId": 61596,
         "health": 30,
         "id": "HERO_04e",
@@ -69557,6 +70249,27 @@
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 67740,
+        "id": "HERO_04ebp",
+        "name": "Reinforce",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nSummon a 1/1 Silver Hand Recruit.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 67741,
+        "id": "HERO_04ebp2",
+        "name": "The Silver Hand",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\nSummon two 1/1 Recruits.",
+        "type": "HERO_POWER"
     },
     {
         "cardClass": "PALADIN",
@@ -70765,7 +71478,6 @@
         "name": "Righteous Protector",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -83227,7 +83939,7 @@
         "type": "ENCHANTMENT"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "attack": 2,
         "cardClass": "MAGE",
         "collectible": true,
@@ -83313,7 +84025,7 @@
         "type": "ENCHANTMENT"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "attack": 3,
         "cardClass": "NEUTRAL",
         "collectible": true,
@@ -85933,7 +86645,7 @@
     {
         "artist": "Clint Langley",
         "cardClass": "NEUTRAL",
-        "collectionText": "<b>Adapt</b> a friendly minion {0} times.",
+        "collectionText": "<b>Adapt</b> a friendly minion {0} |4(time, times).",
         "cost": 4,
         "dbfId": 46421,
         "id": "LOOTA_817",
@@ -86606,7 +87318,7 @@
         "type": "HERO_POWER"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "cardClass": "PRIEST",
         "dbfId": 46310,
         "health": 20,
@@ -86617,7 +87329,7 @@
         "type": "HERO"
     },
     {
-        "artist": "Eva Widermannn",
+        "artist": "Eva Widermann",
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 46161,
@@ -95003,7 +95715,7 @@
     },
     {
         "cardClass": "DRUID",
-        "cost": 2,
+        "cost": 3,
         "dbfId": 60999,
         "id": "Prologue_CenariusHP",
         "name": "Nature's Grasp",
@@ -95160,7 +95872,7 @@
     },
     {
         "cardClass": "WARLOCK",
-        "cost": 1,
+        "cost": 2,
         "dbfId": 60998,
         "id": "Prologue_MannorothHP",
         "name": "Felstorm",
@@ -95375,7 +96087,7 @@
     },
     {
         "cardClass": "DEMONHUNTER",
-        "cost": 2,
+        "cost": 3,
         "dbfId": 63560,
         "flavor": "The Legion can offer you everything...for a price.",
         "id": "PVPDR_035",
@@ -95450,6 +96162,33 @@
         "type": "ENCHANTMENT"
     },
     {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 67515,
+        "id": "PVPDR_Buckets_AddDesigner",
+        "name": "Populate GameSaveData with Designer Buckets",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 67514,
+        "id": "PVPDR_Buckets_AddSmart",
+        "name": "Populate GameSaveData with Smart Buckets",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 67513,
+        "id": "PVPDR_Buckets_AddSpecial",
+        "name": "Populate GameSaveData with Special Buckets",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
         "cardClass": "DEMONHUNTER",
         "cost": 0,
         "dbfId": 66729,
@@ -95476,7 +96215,7 @@
     {
         "attack": 3,
         "cardClass": "DEMONHUNTER",
-        "cost": 3,
+        "cost": 4,
         "dbfId": 66750,
         "flavor": "He has a face mask. Why doesn't he use it?",
         "health": 3,
@@ -95552,7 +96291,7 @@
     },
     {
         "cardClass": "MAGE",
-        "cost": 2,
+        "cost": 1,
         "dbfId": 66767,
         "id": "PVPDR_DMF_Magep1",
         "name": "Secret Studies",
@@ -95604,7 +96343,7 @@
     {
         "attack": 4,
         "cardClass": "PALADIN",
-        "cost": 5,
+        "cost": 4,
         "dbfId": 66818,
         "flavor": "You are what you eat.",
         "health": 6,
@@ -95741,13 +96480,9 @@
         "faction": "HORDE",
         "health": 1,
         "id": "PVPDR_DMF_Roguep1m1",
-        "mechanics": [
-            "BATTLECRY"
-        ],
         "name": "Shadowshell Informant",
         "race": "BEAST",
         "set": "TB",
-        "text": "<b>Battlecry:</b> Deal 1 damage to a random enemy minion.",
         "type": "MINION"
     },
     {
@@ -98054,7 +98789,7 @@
     {
         "attack": 0,
         "cardClass": "DRUID",
-        "cost": 5,
+        "cost": 4,
         "dbfId": 64290,
         "durability": 3,
         "flavor": "The more the hairier.",
@@ -99009,7 +99744,7 @@
         "name": "Killmox, the Banished One",
         "race": "DEMON",
         "set": "TB",
-        "text": "<b>Rush</b>. <b>Lifesteal</b>. This minion has +2/+2 for each card you discarded this game. If this minion is discarded, return it to your hand.",
+        "text": "<b>Rush</b>. <b>Lifesteal</b>. This minion has +1/+1 for each card you discarded this game. If this minion is discarded, return it to your hand.",
         "type": "MINION"
     },
     {
@@ -99071,7 +99806,7 @@
         "cost": 0,
         "dbfId": 66696,
         "id": "PVPDR_TEST_BuildDesignerB2",
-        "name": "Build a Designer Bucket - Slot 0 - Class 100",
+        "name": "Build a Designer Bucket - Slot0 - Class 100",
         "set": "TB",
         "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
         "type": "SPELL"
@@ -99121,7 +99856,7 @@
         "cost": 0,
         "dbfId": 66177,
         "id": "PVPDR_TEST_BuildDesignerBucket",
-        "name": "Build a Designer Bucket - Slot 0 - Class 50",
+        "name": "Build a Designer Bucket - Slot0 - Class 50",
         "set": "TB",
         "text": "Create a loot bucket from your seed deck (Name, and 3 cards)",
         "type": "SPELL"
@@ -99426,7 +100161,7 @@
         "attack": 1,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 59590,
         "flavor": "But how much of it is skimming?",
         "health": 3,
@@ -99546,6 +100281,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
+        "battlegroundsPremiumDbfId": 67493,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 2,
@@ -101678,7 +102414,7 @@
         "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 60151,
         "flavor": "Enjoys a good soul-crushing defeat.",
         "health": 2,
@@ -101898,7 +102634,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 60278,
         "elite": true,
         "flavor": "quicksort [] = [] quicksort (x:xs) = quicksort small ++ (x : quicksort large) where small = [y | y <- xs, y <= x] large = [y | y <- xs, y > x]",
@@ -105903,15 +106639,15 @@
         "durability": 2,
         "id": "Story_03_WarsongAxe",
         "mechanics": [
-            "OVERKILL"
+            "TRIGGER_VISUAL"
         ],
         "name": "Warsong Axe",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Overkill</b>: You may attack again.",
+        "text": "After attacking a minion, your hero may attack again.",
         "type": "WEAPON"
     },
     {
-        "attack": 2,
+        "attack": 3,
         "cardClass": "WARRIOR",
         "cost": 2,
         "dbfId": 66841,
@@ -105995,7 +106731,7 @@
         ],
         "name": "Y'Shaarj's Power",
         "set": "DARKMOON_FAIRE",
-        "text": "[x]<b>Quest:</b> Kill\n8 enemy minions.\n<b>Reward:</b> Corruption.",
+        "text": "[x]<b>Quest:</b> Kill\n6 enemy minions.\n<b>Reward:</b> Corruption.",
         "type": "SPELL"
     },
     {
@@ -106016,6 +106752,902 @@
         "name": "Dark Conversion",
         "set": "DARKMOON_FAIRE",
         "text": "<b>Hero Power</b>\nDeal $2 damage to a random enemy minion. If it dies, summon a Ghoul.",
+        "type": "HERO_POWER"
+    },
+    {
+        "artist": "MAR Studio",
+        "cardClass": "PRIEST",
+        "dbfId": 61388,
+        "health": 30,
+        "id": "Story_04_Alonsus",
+        "name": "Alonsus Faol",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The kindly Archbishop has called on your service as war rages across your homeland.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 2,
+        "dbfId": 61377,
+        "id": "Story_04_AlonsusHP",
+        "name": "Holy Prayer",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nRestore $1 Health to a friendly minion and your hero.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEATHKNIGHT",
+        "dbfId": 65562,
+        "health": 300,
+        "id": "Story_04_Arthas",
+        "name": "Prince Arthas",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The time has come to face the inevitable.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66628,
+        "id": "Story_04_Arthase",
+        "name": "Apprenticed",
+        "set": "DARKMOON_FAIRE",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEATHKNIGHT",
+        "cost": 0,
+        "dbfId": 65563,
+        "id": "Story_04_ArthasHP",
+        "name": "Scourge Army",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nSummon three 2/2 Ghouls.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "cost": 4,
+        "dbfId": 66592,
+        "elite": true,
+        "health": 6,
+        "id": "Story_04_ArthasMinion",
+        "mechanics": [
+            "DEATHRATTLE",
+            "INSPIRE"
+        ],
+        "name": "Prince Arthas",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Inspire:</b> Gain +2 Attack. <b>Deathrattle:</b> Go <b>Dormant</b> for 3 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "PALADIN",
+        "cost": 11,
+        "dbfId": 66629,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_04_ArthasMinionDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Prince Arthas",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 66714,
+        "health": 3,
+        "id": "Story_04_BlackrockRaider",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Blackrock Raider",
+        "set": "DARKMOON_FAIRE",
+        "text": "Your weapon has +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66715,
+        "id": "Story_04_BlackrockRaidere",
+        "name": "Sharpened Blade",
+        "set": "DARKMOON_FAIRE",
+        "text": "+2 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Nicola Saviori",
+        "cardClass": "ROGUE",
+        "dbfId": 61389,
+        "health": 40,
+        "id": "Story_04_Blademaster",
+        "name": "Blackrock Blademaster",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The defeated orcs have grown in strength again and are kidnapping human villagers!</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 61378,
+        "id": "Story_04_BlademasterHP",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Blade Tempest",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDeal 3 damage to the highest Attack enemy minion and 1 damage to the rest.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66716,
+        "health": 4,
+        "id": "Story_04_BloodclawDragon",
+        "mechanics": [
+            "CHARGE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bloodclaw Dragon",
+        "race": "DRAGON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Charge</b>\nWhenever this attacks, give a random friendly minion +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 67533,
+        "id": "Story_04_BloodclawDragone",
+        "name": "Draconic Might",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 67714,
+        "id": "Story_04_DarknessBeckons",
+        "name": "Darkness Beckons",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw 3 cards.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 65559,
+        "health": 100,
+        "id": "Story_04_DarkPortal",
+        "name": "The Dark Portal",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The Horde came from this mysterious portal, and now they seek to return to it while they still can.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 65565,
+        "id": "Story_04_DarkPortalHP",
+        "name": "Grim Retreat",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDestroy a friendly minion. Give your minions +1/+1.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 67734,
+        "id": "Story_04_DivertForces",
+        "name": "Divert Forces",
+        "set": "DARKMOON_FAIRE",
+        "text": "Choose a friendly minion.\nShuffle a copy into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 65557,
+        "health": 50,
+        "id": "Story_04_Doomhammer",
+        "name": "Orgrim Doomhammer",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The Warchief of the Horde and his ruthless army move to conquer Lordaeron.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 4,
+        "dbfId": 61379,
+        "id": "Story_04_DoomhammerHP",
+        "name": "Equip Doomhammer",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nEquip Doomhammer.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "cost": 5,
+        "dbfId": 66720,
+        "durability": 8,
+        "id": "Story_04_DoomhammerWeapon",
+        "mechanics": [
+            "OVERLOAD",
+            "WINDFURY"
+        ],
+        "name": "Doomhammer",
+        "overload": 2,
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Windfury, Overload:</b> (2)",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 65626,
+        "id": "Story_04_DragonRoar",
+        "name": "Dragon Roar",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Add 2 random Dragons to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 11,
+        "dbfId": 65636,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_04_ExhaustedRecruit",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Exhausted Recruit",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>\nWhen you restore 5 Health, awaken this minion.\n<i>(5 left!)</i>",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 65637,
+        "health": 4,
+        "id": "Story_04_FightTrainer",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fight Trainer",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\nAfter you play a minion, deal 1 damage to all enemy minions.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 0,
+        "dbfId": 66664,
+        "id": "Story_04_FinalStand",
+        "mechanics": [
+            "QUEST"
+        ],
+        "name": "Final Stand",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Quest:</b> Survive\n10 turns.\n<b>Reward:</b> Victory.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 5,
+        "cardClass": "DEATHKNIGHT",
+        "cost": 7,
+        "dbfId": 68185,
+        "durability": 3,
+        "elite": true,
+        "id": "Story_04_Frostmourne",
+        "mechanics": [
+            "CANT_BE_DESTROYED",
+            "DEATHRATTLE"
+        ],
+        "name": "Frostmourne",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Deathrattle:</b> Summon every minion killed by this weapon.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 8,
+        "dbfId": 65657,
+        "id": "Story_04_GuldanReinforcements",
+        "name": "Gul'dan's Reinforcements",
+        "set": "DARKMOON_FAIRE",
+        "text": "Gul'dan has betrayed you. Destroy all friendly minions.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 5,
+        "dbfId": 67732,
+        "id": "Story_04_HolyWrath",
+        "mechanics": [
+            "AFFECTED_BY_SPELL_POWER"
+        ],
+        "name": "Holy Wrath",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw a card and deal damage equal to its Cost.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 65560,
+        "health": 40,
+        "id": "Story_04_Iceblade",
+        "name": "Venim Iceblade",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Arthas and Jaina were ambushed while investigating a new plague outside the city.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEATHKNIGHT",
+        "cost": 0,
+        "dbfId": 65566,
+        "id": "Story_04_IcebladeHP",
+        "name": "Infection",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Hero Power</b>\nAt the end of your turn, transform\na non-Legendary enemy\nminion into a 1/1 Skeleton\n and take control of it.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "DEATHKNIGHT",
+        "cost": 4,
+        "dbfId": 66717,
+        "durability": 2,
+        "id": "Story_04_IcebladeWeapon",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Iceblade",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry and Deathrattle:</b>\nDeal 2 damage to all enemy minions.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "DEATHKNIGHT",
+        "dbfId": 66596,
+        "id": "Story_04_Infectione",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Infection",
+        "set": "DARKMOON_FAIRE",
+        "text": "This minion will transform into a Skeleton in 1 turns.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 5,
+        "cardClass": "MAGE",
+        "cost": 6,
+        "dbfId": 66591,
+        "elite": true,
+        "health": 4,
+        "id": "Story_04_Jaina",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLBURST"
+        ],
+        "name": "Jaina Proudmoore",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Spellburst</b>: Summon a 3/6 Water Elemental. <b>Deathrattle:</b> Shuffle into your deck.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66594,
+        "elite": true,
+        "health": 6,
+        "id": "Story_04_KelThuzad",
+        "mechanics": [
+            "SPELLBURST"
+        ],
+        "name": "Spirit of Kel'Thuzad",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b><b>Spellburst</b>:</b> If the spell destroys any minions, summon them.",
+        "type": "MINION"
+    },
+    {
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "cost": 25,
+        "dbfId": 67733,
+        "elite": true,
+        "health": 5,
+        "id": "Story_04_Khadgar",
+        "mechanics": [
+            "SPELLPOWER"
+        ],
+        "name": "Khadgar",
+        "set": "DARKMOON_FAIRE",
+        "spellDamage": 2,
+        "text": "[x]<b>Spell Damage +2</b>\n Costs (1) less for each minion\nyou've summoned.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66626,
+        "elite": true,
+        "health": 6,
+        "id": "Story_04_KingTerenas",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "King Terenas",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Give a random minion in your hand +5/+5.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66705,
+        "id": "Story_04_KingTerenase",
+        "name": "King's Favor",
+        "set": "DARKMOON_FAIRE",
+        "text": "+5/+5.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 66639,
+        "id": "Story_04_LibramofCompassion",
+        "name": "Libram of Compassion",
+        "set": "DARKMOON_FAIRE",
+        "text": "Choose a friendly minion. Restore Health equal to its Attack to a random friendly minion.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 66630,
+        "id": "Story_04_LibramofHoliness",
+        "name": "Libram of Holiness",
+        "set": "DARKMOON_FAIRE",
+        "text": "Give a minion +3 Health. Restore 3 Health to your hero.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 66631,
+        "id": "Story_04_LibramofHolinesse",
+        "name": "Light's Holiness",
+        "set": "DARKMOON_FAIRE",
+        "text": "+3 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 5,
+        "dbfId": 66709,
+        "id": "Story_04_LibramofJustice",
+        "name": "Libram of Justice",
+        "set": "DARKMOON_FAIRE",
+        "text": "Equip a 1/4 weapon. Change the Health of all enemy minions to 1.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "cost": 4,
+        "dbfId": 61392,
+        "durability": 4,
+        "id": "Story_04_Lightbringer",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Hammer of the Lightbringer",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks, give a random friendly minion <b>Divine Shield</b> and <b>Taunt</b>.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 68070,
+        "id": "Story_04_Lightbringere",
+        "name": "Blessed by Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>, <b>Divine Shield</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 65561,
+        "health": 50,
+        "id": "Story_04_MalGanis",
+        "name": "Mal'Ganis",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>This dreadlord commands the Scourge against you, impeding your progress.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 65567,
+        "id": "Story_04_MalGanisHP",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Nathrezim's Favor",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Passive Hero Power</b>\nAt the end of your turn, give your left and right-most minions +3/+3.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67712,
+        "id": "Story_04_MalganisHPe",
+        "name": "Nathrezim's Favor",
+        "set": "DARKMOON_FAIRE",
+        "text": "+3/+3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "cost": 5,
+        "dbfId": 66707,
+        "health": 6,
+        "id": "Story_04_RadiantLightspawn",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Radiant Lightspawn",
+        "race": "ELEMENTAL",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> Reduce the Cost of your Librams by (2) this game.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66708,
+        "id": "Story_04_RadiantLightspawne",
+        "name": "Radiant Lightspawn",
+        "set": "DARKMOON_FAIRE",
+        "text": "Reduced Cost.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66713,
+        "health": 5,
+        "id": "Story_04_RavenousDrake",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Ravenous Drake",
+        "race": "DRAGON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\nCosts (1) less per Attack of your weapon.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 66665,
+        "elite": true,
+        "health": 5,
+        "id": "Story_04_RoyalUrn",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Royal Urn",
+        "set": "DARKMOON_FAIRE",
+        "text": "Can't Attack.\nAt the start of your turn, restore 5 Health to a damaged friendly minion.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 65558,
+        "health": 50,
+        "id": "Story_04_Saurfang",
+        "name": "Varok Saurfang",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Though the Horde retreats, their legendary warriors are still a great threat to the Alliance.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 65564,
+        "id": "Story_04_SaurfangHP",
+        "name": "Unbound Rage",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nGive a friendly minion +3 Attack.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 7,
+        "cardClass": "PALADIN",
+        "cost": 7,
+        "dbfId": 66718,
+        "health": 7,
+        "id": "Story_04_SilverHandCrusader",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Silver Hand Crusader",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> If your deck has\nno Neutral cards, add 5\nrandom Paladin cards\nto your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "cost": 4,
+        "dbfId": 66719,
+        "health": 2,
+        "id": "Story_04_SilverHandZealot",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Silver Hand Zealot",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> If your deck has no Neutral cards, equip a   4/2 Truesilver Champion. ",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 3,
+        "dbfId": 66710,
+        "id": "Story_04_TimeOut",
+        "name": "Time Out!",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Your hero is <b>Immune</b> until your next turn.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65613,
+        "health": 4,
+        "id": "Story_04_TiredRecruit",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Tired Recruit",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Taunt</b>, <b>Battlecry:</b> Deal 3\ndamage to himself.\n<b>Deathrattle:</b> Go <b>Dormant</b>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "cardClass": "PALADIN",
+        "cost": 8,
+        "dbfId": 66706,
+        "elite": true,
+        "health": 6,
+        "id": "Story_04_Tirion",
+        "mechanics": [
+            "DEATHRATTLE",
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "name": "Tirion Fordring",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b><b>Divine Shield</b>,</b> <b>Taunt</b> <b>Deathrattle:</b> Equip a 1/5 Sword of Justice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "cost": 6,
+        "dbfId": 66593,
+        "elite": true,
+        "health": 12,
+        "id": "Story_04_TuralyonMinion",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Turalyon",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Rush</b>. Whenever this attacks\na minion, set the defender's\nAttack and Health to 3.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 65685,
+        "id": "Story_04_UnboundRagee",
+        "name": "Enraged",
+        "set": "DARKMOON_FAIRE",
+        "text": "+3 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 66711,
+        "id": "Story_04_UnbrokenFaith",
+        "name": "Unbroken Faith",
+        "set": "DARKMOON_FAIRE",
+        "text": "Give a minion +2/+2.\nDraw a card.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 66712,
+        "id": "Story_04_UnbrokenFaithe",
+        "name": "Unbroken Faith",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 65570,
+        "health": 30,
+        "id": "Story_04_Uther",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67737,
+        "health": 30,
+        "id": "Story_04_Uther2",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67738,
+        "health": 30,
+        "id": "Story_04_Uther3",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67739,
+        "health": 30,
+        "id": "Story_04_Uther4",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 4,
+        "dbfId": 65572,
+        "id": "Story_04_UtherHP",
+        "name": "Equip Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Hero Power:</b> Equip a 3/4\nHammer that grants <b>Taunt</b>\n and <b>Divine Shield</b> to a friendly\n minion after attacking.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 3,
+        "dbfId": 65573,
+        "id": "Story_04_UtherHP2",
+        "name": "Equip Lightbringer Rank 2",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Hero Power:</b> Equip a 3/4\nHammer that grants <b>Taunt</b>\n and <b>Divine Shield</b> to a friendly\n minion after attacking.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 65574,
+        "id": "Story_04_UtherHP3",
+        "name": "Divine Storm",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDeal $4 damage to an enemy minion. Any excess damages both neighbors.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 65575,
+        "id": "Story_04_UtherHP4",
+        "name": "Divine Storm Rank 2",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDeal $5 damage to an enemy minion. Any excess damages both neighbors.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 65568,
+        "health": 30,
+        "id": "Story_04_UtherPriest",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 65569,
+        "health": 30,
+        "id": "Story_04_UtherYoung",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67735,
+        "health": 30,
+        "id": "Story_04_UtherYoung2",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67736,
+        "health": 30,
+        "id": "Story_04_UtherYoung3",
+        "name": "Uther Lightbringer",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66627,
+        "health": 10,
+        "id": "Story_04_WallsLordaeron",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Walls of Lordaeron",
+        "set": "DARKMOON_FAIRE",
+        "text": "Can't Attack\n<b>Deathrattle:</b> Deal 10 damage to your hero.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 65571,
+        "id": "Story_04_YoungUtherHP",
+        "name": "Bombard Portal",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nIf you control a minion, deal 10 damage to the Dark Portal.",
         "type": "HERO_POWER"
     },
     {
@@ -106152,6 +107784,24 @@
         "dbfId": 2761,
         "id": "TB_013",
         "name": "Player Choice Enchant",
+        "set": "TB",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 64191,
+        "id": "TB_013_DecisionsDiscoverSpell",
+        "name": "Decisions, Decisions...",
+        "set": "TB",
+        "text": "Choose one of two powerful cards. Your opponent gets the other one.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 64039,
+        "id": "TB_013_DecisionsEnchant",
+        "name": "Decisions Enchant",
         "set": "TB",
         "type": "ENCHANTMENT"
     },
@@ -106534,7 +108184,7 @@
     },
     {
         "cardClass": "MAGE",
-        "cost": 3,
+        "cost": 0,
         "dbfId": 58512,
         "id": "TB_Bacon_Secrets_12",
         "mechanics": [
@@ -106548,6 +108198,29 @@
         "set": "BATTLEGROUNDS",
         "text": "<b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.",
         "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 1,
+        "dbfId": 70114,
+        "id": "TB_Bacon_Secrets_13",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Competitive Spirit",
+        "rarity": "RARE",
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Secret:</b> When your turn starts, give your minions +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 70115,
+        "id": "TB_Bacon_Secrets_13e",
+        "name": "Competitive Spirit",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
@@ -106623,7 +108296,6 @@
         "type": "HERO"
     },
     {
-        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57635,
         "health": 40,
@@ -106675,7 +108347,6 @@
         "type": "HERO"
     },
     {
-        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 57924,
         "health": 40,
@@ -106812,6 +108483,17 @@
         "hideCost": true,
         "id": "TB_BaconShop_HERO_28",
         "name": "Infinite Toki",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 58535,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_29",
+        "name": "C'Thun",
         "set": "BATTLEGROUNDS",
         "type": "HERO"
     },
@@ -107261,6 +108943,28 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 66196,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_92",
+        "name": "Y'Shaarj",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 66483,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_93",
+        "name": "N'Zoth",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 59194,
         "health": 0,
@@ -107594,7 +109298,7 @@
         "id": "TB_BaconShop_HP_037a",
         "name": "Wax Warband",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nGive a friendly minion\nof each minion type\n+2/+1.",
+        "text": "[x]<b>Hero Power</b>\nGive a friendly minion\nof each minion type\n+1/+1.",
         "type": "HERO_POWER"
     },
     {
@@ -107881,13 +109585,12 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": "</b>.",
         "cost": 2,
         "dbfId": 60265,
         "id": "TB_BaconShop_HP_047t",
         "name": "Recruitment Map",
         "set": "BATTLEGROUNDS",
-        "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier",
+        "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier 0</b>.",
         "type": "SPELL"
     },
     {
@@ -108236,7 +109939,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 4,
+        "cost": 3,
         "dbfId": 62243,
         "id": "TB_BaconShop_HP_072",
         "name": "Pirate Parrrrty!",
@@ -108442,34 +110145,93 @@
     {
         "artist": "Eva Widermann",
         "cardClass": "NEUTRAL",
-        "collectionText": "</b>.",
         "cost": 0,
         "dbfId": 64484,
         "id": "TB_BaconShop_HP_101t2",
         "name": "Prize",
         "set": "BATTLEGROUNDS",
-        "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier",
+        "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier 0</b>.",
         "type": "SPELL"
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 4,
+        "cost": 3,
         "dbfId": 64486,
         "id": "TB_BaconShop_HP_102",
         "name": "Three Wishes",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\nIf you have two copies\nof a minion, find the third.\n<i>(3 wishes left)</i>",
+        "text": "[x]<b>Hero Power</b>\nIf you have two copies of\na minion, find the third.\n<i>(3 Wishes left!)</i>",
         "type": "HERO_POWER"
     },
     {
         "cardClass": "NEUTRAL",
-        "collectionText": "</b>.",
+        "cost": 2,
+        "dbfId": 66197,
+        "id": "TB_BaconShop_HP_103",
+        "name": "Embrace your Rage",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\n<b>Start of Combat:</b> Add a\nminion from your Tavern Tier\nto your warband. Keep it.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 66246,
+        "id": "TB_BaconShop_HP_104",
+        "name": "Saturday C'Thuns!",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nAt end of turn, give a friendly\nminion +1/+1. Repeat 0 times.\n<i>(Upgrades after each use!)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66248,
+        "id": "TB_BaconShop_HP_104e",
+        "name": "Saturday C'Thuns!",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 66484,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_105",
+        "name": "Avatar of N'Zoth",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nStart the game with a 1/1\nFish that gains all your\n<b>Deathrattles</b> in combat.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 1,
+        "battlegroundsPremiumDbfId": 67216,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67213,
+        "elite": true,
+        "health": 1,
+        "id": "TB_BaconShop_HP_105t",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fish of N'Zoth",
+        "race": "BEAST",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "After a friendly <b>Deathrattle</b> minion dies, gain its <b>Deathrattle</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 59604,
         "id": "TB_BaconShop_Triples_01",
         "name": "Triple Reward",
         "set": "BATTLEGROUNDS",
-        "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier",
+        "text": "<b>Discover</b> a minion\nfrom <b>Tavern Tier 0</b>.",
         "type": "SPELL"
     },
     {
@@ -110800,32 +112562,6 @@
         "type": "MINION"
     },
     {
-        "attack": 8,
-        "battlegroundsNormalDbfId": 61059,
-        "cardClass": "NEUTRAL",
-        "cost": 7,
-        "dbfId": 61081,
-        "health": 12,
-        "id": "TB_BaconUps_119",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
-        "name": "Master Demonologist",
-        "race": "DEMON",
-        "set": "BATTLEGROUNDS",
-        "text": "Whenever you summon a Demon, gain +2/+2.",
-        "type": "MINION"
-    },
-    {
-        "cardClass": "NEUTRAL",
-        "dbfId": 61082,
-        "id": "TB_BaconUps_119e",
-        "name": "Demonic Fury",
-        "set": "BATTLEGROUNDS",
-        "text": "Increased stats.",
-        "type": "ENCHANTMENT"
-    },
-    {
         "attack": 10,
         "battlegroundsNormalDbfId": 42442,
         "cardClass": "NEUTRAL",
@@ -111900,6 +113636,277 @@
         "name": "Deadly Spore",
         "set": "BATTLEGROUNDS",
         "text": "<b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 63614,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 65658,
+        "health": 4,
+        "id": "TB_BaconUps_255",
+        "mechanics": [
+            "REBORN",
+            "TAUNT"
+        ],
+        "name": "Acolyte of C'Thun",
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Taunt</b>\n<b>Reborn</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 65660,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65665,
+        "health": 6,
+        "id": "TB_BaconUps_256",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Warden of Old",
+        "set": "BATTLEGROUNDS",
+        "text": "<b>Deathrattle:</b> Add 2 Gold Coins to your hand.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 65661,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 65668,
+        "health": 6,
+        "id": "TB_BaconUps_257",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Tormented Ritualist",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Taunt</b>\nWhenever this is attacked,\ngive adjacent minions\n+2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66839,
+        "id": "TB_BaconUps_257e",
+        "name": "Ritual Sacrifice",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 65662,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 65671,
+        "elite": true,
+        "health": 8,
+        "id": "TB_BaconUps_258",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Mythrax the Unraveler",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]At the end of your turn,\ngain +2/+4 for each\n  minion type you control.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65672,
+        "id": "TB_BaconUps_258e",
+        "name": "Void Echoes",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+4.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "battlegroundsNormalDbfId": 63623,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 65666,
+        "health": 4,
+        "id": "TB_BaconUps_301",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Champion of Y'Shaarj",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "Whenever a friendly <b>Taunt</b> minion is attacked, gain +2/+2 permanently.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65667,
+        "id": "TB_BaconUps_301e",
+        "name": "Y'Shaarj!!!!!!",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 63622,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 65673,
+        "health": 10,
+        "id": "TB_BaconUps_302",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Arm of the Empire",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "Whenever a friendly <b>Taunt</b> minion is attacked, give it +6 Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65674,
+        "id": "TB_BaconUps_302e",
+        "name": "Double Armed!",
+        "set": "BATTLEGROUNDS",
+        "text": "+6 Attack",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 10,
+        "battlegroundsNormalDbfId": 63619,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 65675,
+        "health": 10,
+        "id": "TB_BaconUps_303",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Qiraji Harbinger",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "After a friendly minion with <b>Taunt</b> dies, give its neighbors +4/+4.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68226,
+        "id": "TB_BaconUps_303e",
+        "name": "Harbinger's Illusion",
+        "set": "BATTLEGROUNDS",
+        "text": "+4/+4.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 66227,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 66237,
+        "health": 8,
+        "id": "TB_BaconUps_304",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bigfernal",
+        "race": "DEMON",
+        "set": "BATTLEGROUNDS",
+        "text": "After you summon a Demon, gain +2/+2 permanently.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66238,
+        "id": "TB_BaconUps_304e",
+        "name": "Bigger!!!",
+        "set": "BATTLEGROUNDS",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 8,
+        "battlegroundsNormalDbfId": 63627,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 66597,
+        "health": 8,
+        "id": "TB_BaconUps_305",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Faceless Taverngoer",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Battlecry:</b> Choose a minion\nin Bob's Tavern. Transform\ninto a Golden copy of it.",
+        "type": "MINION"
+    },
+    {
+        "attack": 14,
+        "battlegroundsNormalDbfId": 66835,
+        "cardClass": "NEUTRAL",
+        "cost": 8,
+        "dbfId": 66840,
+        "elite": true,
+        "health": 14,
+        "id": "TB_BaconUps_306",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "REBORN",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Elistra the Immortal",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Divine Shield</b>. <b>Reborn</b>.\nWhenever a friendly <b>Taunt</b>\nminion is attacked, this\n  gets attacked instead.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 67213,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67216,
+        "elite": true,
+        "health": 2,
+        "id": "TB_BaconUps_307",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fish of N'Zoth",
+        "race": "BEAST",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "After a friendly <b>Deathrattle</b> minion dies, gain its <b>Deathrattle</b> twice.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "battlegroundsNormalDbfId": 59616,
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 67493,
+        "health": 2,
+        "id": "TB_BaconUps_308",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Argent Braggart",
+        "rarity": "EPIC",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Battlecry:</b> Gain double\nthe Attack and Health\nof the highest in\nthe battlefield.",
         "type": "MINION"
     },
     {
@@ -117096,9 +119103,6 @@
         "cost": 0,
         "dbfId": 42897,
         "id": "TB_MammothParty_s998",
-        "mechanics": [
-            "UNTOUCHABLE"
-        ],
         "name": "Noise Complaint",
         "set": "TB",
         "text": "If the board opposing the <b>Boss</b> is full, destroy all those minions.",
@@ -128942,7 +130946,7 @@
         "attack": 2,
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 53926,
         "elite": true,
         "flavor": "Brann's new dino-taming hobby is going well—his pet can already make him sit, stand, and roll over!",
@@ -133306,6 +135310,7 @@
     },
     {
         "cardClass": "NEUTRAL",
+        "collectionText": "<b>Discover</b> {0} |4(card, cards).\nGain {0} Mana |4(Crystal, Crystals).",
         "cost": 0,
         "dbfId": 57005,
         "id": "ULDA_301",
@@ -133314,7 +135319,7 @@
             "DISCOVER"
         ],
         "set": "ULDUM",
-        "text": "<b>Discover</b> a card and gain a Mana Crystal for each <b>Boss</b> you've defeated this run.1<b>Discover</b> {0} card.\nGain {0} Mana |4(Crystal, Crystals).",
+        "text": "<b>Discover</b> a card and gain a Mana Crystal for each <b>Boss</b> you've defeated this run.",
         "type": "SPELL"
     },
     {
