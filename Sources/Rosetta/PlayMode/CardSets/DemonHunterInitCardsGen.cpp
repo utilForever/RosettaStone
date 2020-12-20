@@ -112,7 +112,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_351", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_354] Blade Dance - COST:2
+    // [BT_354] Blade Dance - COST:3
     // - Set: Demon Hunter Initiate, Rarity: Rare
     // --------------------------------------------------------
     // Text: Deal damage equal to your hero's Attack

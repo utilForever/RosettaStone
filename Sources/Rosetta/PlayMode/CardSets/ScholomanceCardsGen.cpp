@@ -1743,7 +1743,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [SCH_355] Shardshatter Mystic - COST:3 [ATK:3/HP:2]
+    // [SCH_355] Shardshatter Mystic - COST:4 [ATK:3/HP:2]
     // - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy a Soul Fragment
@@ -2027,7 +2027,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [SCH_142] Voracious Reader - COST:2 [ATK:1/HP:3]
+    // [SCH_142] Voracious Reader - COST:3 [ATK:1/HP:3]
     // - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the end of your turn, draw until you have 3 cards.
@@ -2509,7 +2509,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("SCH_425", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [SCH_428] Lorekeeper Polkelt - COST:4 [ATK:4/HP:5]
+    // [SCH_428] Lorekeeper Polkelt - COST:5 [ATK:4/HP:5]
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Reorder your deck from the highest

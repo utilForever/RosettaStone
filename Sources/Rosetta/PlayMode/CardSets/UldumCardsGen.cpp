@@ -603,7 +603,7 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("ULD_155", CardDef(power, 20, 0));
 
     // ---------------------------------------- MINION - HUNTER
-    // [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
+    // [ULD_156] Dinotamer Brann - COST:8 [ATK:2/HP:4]
     // - Set: Uldum, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,

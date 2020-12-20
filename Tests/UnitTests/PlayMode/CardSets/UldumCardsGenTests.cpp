@@ -1836,7 +1836,7 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
 }
 
 // ---------------------------------------- MINION - HUNTER
-// [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
+// [ULD_156] Dinotamer Brann - COST:8 [ATK:2/HP:4]
 // - Set: Uldum, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If your deck has no duplicates,
