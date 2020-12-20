@@ -108,7 +108,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 51;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 52;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -135,19 +135,19 @@ constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 constexpr int NUM_TIER1_MINIONS = 17;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 22;
+constexpr int NUM_TIER2_MINIONS = 23;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 27;
+constexpr int NUM_TIER3_MINIONS = 26;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 20;
+constexpr int NUM_TIER4_MINIONS = 23;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 20;
+constexpr int NUM_TIER5_MINIONS = 22;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 15;
+constexpr int NUM_TIER6_MINIONS = 16;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Beast Pool
@@ -174,10 +174,10 @@ constexpr int NUM_TIER6_MINIONS = 15;
 // Deck Swabbie (61055)
 // Scallywag (61061)
 // Neutral
-// Righteous Protector (42467)
+// Acolyte of C'Thun (63614)
 constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
     40426, 1281,  56112, 43121, 59670, 60628, 59968, 64042, 64038,
-    60055, 53445, 475,   976,   41245, 61055, 61061, 42467
+    60055, 53445, 475,   976,   41245, 61055, 61061, 63614
 };
 
 //! A list of Tier 2 minion dbfIDs in Battlegrounds.
@@ -210,17 +210,18 @@ constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
 // Menagerie Mug (63435)
 // Spawn of N'Zoth (38797)
 // Selfless Hero (38740)
+// Tormented Ritualist (65661)
 // Unstable Ghoul (1808)
 constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
-    39481, 59940, 62162, 59937, 59186, 61029, 60621, 60559, 64296, 64056, 778,
-    49279, 2016,  1063,  736,   61049, 680,   61060, 63435, 38797, 38740, 1808
+    39481, 59940, 62162, 59937, 59186, 61029, 60621, 60559,
+    64296, 64056, 778,   49279, 2016,  1063,  736,   61049,
+    680,   61060, 63435, 38797, 38740, 65661, 1808
 };
 
 //! A list of Tier 3 minion dbfIDs in Battlegrounds.
 // Beast Pool
 // Infested Wolf (38734)
 // Monstrous Macaw (62230)
-// The Beast (962)
 // Houndmaster (1003)
 // Rat Pack (40428)
 // Demon Pool
@@ -249,13 +250,13 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Salty Looter (62734)
 // Southsea Strongarm (61048)
 // Neutral
-// Crowd Favorite (2518)
+// Arm of the Empire (63622)
 // Khadgar (52502)
-// Shifter Zerus (57742)
+// Warden of Old (65660)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
-    38734, 62230, 962,   1003,  40428, 2288,  40391, 59660, 60558,
-    60552, 60626, 64297, 64054, 64069, 61930, 1992,  60048, 2023,
-    48536, 453,   56393, 61053, 62734, 61048, 2518,  52502, 57742
+    38734, 62230, 1003,  40428, 2288,  40391, 59660, 60558, 60552,
+    60626, 64297, 64054, 64069, 61930, 1992,  60048, 2023,  48536,
+    453,   56393, 61053, 62734, 61048, 63622, 52502, 65660
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.
@@ -264,6 +265,7 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Savannah Highmane (1261)
 // Virmen Sensei (40641)
 // Demon Pool
+// Bigfernal (66227)
 // Floating Watcher (2068)
 // Siegebreaker (54835)
 // Dragon Pool
@@ -285,11 +287,14 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Ripsnarl Captain (61056)
 // Neutral
 // Bolvar, Fireblood (45392)
+// Champion of Y'Shaarj (63623)
 // Defender of Argus (763)
 // Menagerie Jug (63487)
+// Qiraji Harbinger (63619)
 constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
-    43358, 1261,  40641, 2068,  54835, 42442, 61072, 60498, 63630, 64189,
-    48993, 49169, 48100, 60028, 52277, 61066, 61056, 45392, 763,   63487
+    43358, 1261,  40641, 66227, 2068,  54835, 42442, 61072,
+    60498, 63630, 64189, 48993, 49169, 48100, 60028, 52277,
+    61066, 61056, 45392, 63623, 763,   63487, 63619
 };
 
 //! A list of Tier 5 minion dbfIDs in Battlegrounds.
@@ -319,11 +324,13 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Baron Rivendare (1915)
 // Brann Bronzebeard (2949)
 // Deadly Spore (65031)
-// Strongshell Scavenger (43022)
+// Faceless Taverngoer (63627)
 // Lightfang Enforcer (59707)
+// Mythrax the Unraveler (65662)
+// Strongshell Scavenger (43022)
 constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
-    49973, 60036, 59714, 1986,  46056, 60637, 60561, 63626, 64077, 2074,
-    59682, 60247, 61989, 61046, 62458, 1915,  2949,  65031, 43022, 59707
+    49973, 60036, 59714, 1986,  46056, 60637, 60561, 63626, 64077, 2074,  59682,
+    60247, 61989, 61046, 62458, 1915,  2949,  65031, 63627, 59707, 65662, 43022
 };
 
 //! A list of Tier 6 minion dbfIDs in Battlegrounds.
@@ -350,10 +357,11 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // The Tide Razor (62232)
 // Neutral
 // Amalgadon (61444)
+// Elistra the Immortal (66835)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
     59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081,
-    63624, 2081,  59935, 61047, 62232, 61444, 60040
+    63624, 2081,  59935, 61047, 62232, 61444, 66835, 60040
 };
 
 //! The total number of tier minions in Battlegrounds Tavern.
