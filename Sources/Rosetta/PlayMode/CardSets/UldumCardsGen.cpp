@@ -30,6 +30,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
@@ -2140,6 +2141,17 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Destroy all your minions.
     //       For each one, destroy a random enemy minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            player->game->taskStack.num[0] = player->GetFieldZone()->GetCount();
+        }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+                  std::make_shared<DestroyTask>(EntityType::STACK) }));
+    cards.emplace("ULD_717", CardDef(power));
 }
 
 void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
