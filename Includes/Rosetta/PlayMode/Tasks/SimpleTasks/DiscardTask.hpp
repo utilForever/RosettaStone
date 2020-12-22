@@ -10,6 +10,14 @@
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+//! The type of discard task.
+enum class DiscardType
+{
+    DEFAULT,       //!< Don't care.
+    LOWEST_COST,   //!< Lowest cost card.
+    HIGHEST_COST,  //!< Highest cost card.
+};
+
 //!
 //! \brief DiscardTask class.
 //!
