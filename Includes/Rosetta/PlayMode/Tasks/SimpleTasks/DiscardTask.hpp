@@ -26,11 +26,13 @@ enum class DiscardType
 class DiscardTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount and \p discardType.
+    //! Constructs task with given \p amount, \p discardType and \p saveCard.
     //! \param amount The amount to discard card(s).
     //! \param discardType The type of discard task.
+    //! \param saveCard A flag to save card to discard in playable's game tag.
     explicit DiscardTask(int amount,
-                         DiscardType discardType = DiscardType::DEFAULT);
+                         DiscardType discardType = DiscardType::DEFAULT,
+                         bool saveCard = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -44,6 +46,7 @@ class DiscardTask : public ITask
 
     int m_amount = 1;
     DiscardType m_discardType = DiscardType::DEFAULT;
+    bool m_saveCard = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
 

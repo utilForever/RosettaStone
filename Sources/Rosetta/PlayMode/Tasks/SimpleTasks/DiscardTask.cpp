@@ -14,8 +14,8 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-DiscardTask::DiscardTask(int amount, DiscardType discardType)
-    : m_amount(amount), m_discardType(discardType)
+DiscardTask::DiscardTask(int amount, DiscardType discardType, bool saveCard)
+    : m_amount(amount), m_discardType(discardType), m_saveCard(saveCard)
 {
     // Do nothing
 }
@@ -59,6 +59,12 @@ TaskStatus DiscardTask::Impl(Player* player)
         player->GetHandZone()->Remove(handCards[i]);
         player->GetGraveyardZone()->Add(handCards[i]);
 
+        if (m_amount == 1 && m_saveCard == true)
+        {
+            m_source->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1,
+                                 handCards[i]->GetGameTag(GameTag::ENTITY_ID));
+        }
+
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
     }
@@ -68,6 +74,6 @@ TaskStatus DiscardTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DiscardTask::CloneImpl()
 {
-    return std::make_unique<DiscardTask>(m_amount, m_discardType);
+    return std::make_unique<DiscardTask>(m_amount, m_discardType, m_saveCard);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks
