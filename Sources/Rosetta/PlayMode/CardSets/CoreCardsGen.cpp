@@ -2063,8 +2063,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::HAND, 1));
-    power.AddPowerTask(std::make_shared<DiscardTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DiscardTask>(1));
     cards.emplace("EX1_306", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -2078,8 +2077,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::HAND, 1));
-    power.AddPowerTask(std::make_shared<DiscardTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DiscardTask>(1));
     cards.emplace(
         "EX1_308",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));

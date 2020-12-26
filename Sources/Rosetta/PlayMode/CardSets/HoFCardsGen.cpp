@@ -378,8 +378,7 @@ void HoFCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::HAND, 2));
-    power.AddPowerTask(std::make_shared<DiscardTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DiscardTask>(2));
     cards.emplace("EX1_310", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
