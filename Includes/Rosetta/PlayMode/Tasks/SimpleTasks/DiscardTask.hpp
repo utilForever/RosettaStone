@@ -26,9 +26,11 @@ enum class DiscardType
 class DiscardTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType.
-    //! \param entityType The entity type of target to discard card(s).
-    explicit DiscardTask(EntityType entityType);
+    //! Constructs task with given \p amount and \p discardType.
+    //! \param amount The amount to discard card(s).
+    //! \param discardType The type of discard task.
+    explicit DiscardTask(int amount,
+                         DiscardType discardType = DiscardType::DEFAULT);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -39,6 +41,9 @@ class DiscardTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
+
+    int m_amount = 1;
+    DiscardType m_discardType = DiscardType::DEFAULT;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
 

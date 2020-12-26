@@ -5,7 +5,6 @@
 
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -15,22 +14,50 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
+DiscardTask::DiscardTask(int amount, DiscardType discardType)
+    : m_amount(amount), m_discardType(discardType)
 {
     // Do nothing
 }
 
 TaskStatus DiscardTask::Impl(Player* player)
 {
-    auto playables =
-        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+    std::vector<Playable*> handCards = player->GetHandZone()->GetAll();
 
-    for (auto& playable : playables)
+    switch (m_discardType)
     {
+        case DiscardType::DEFAULT:
+            std::shuffle(handCards.begin(), handCards.end(),
+                         Random::get_engine());
+            break;
+        case DiscardType::LOWEST_COST:
+            std::sort(handCards.begin(), handCards.end(),
+                      [](const Playable* card1, const Playable* card2) {
+                          return card1->GetCost() < card2->GetCost();
+                      });
+            break;
+        case DiscardType::HIGHEST_COST:
+
+            std::sort(handCards.begin(), handCards.end(),
+                      [](const Playable* card1, const Playable* card2) {
+                          return card1->GetCost() > card2->GetCost();
+                      });
+            break;
+    }
+
+    const int handSize = static_cast<int>(handCards.size());
+
+    for (int i = 0; i < m_amount; ++i)
+    {
+        if (i >= handSize)
+        {
+            break;
+        }
+
         player->game->taskQueue.StartEvent();
 
-        player->GetHandZone()->Remove(playable);
-        player->GetGraveyardZone()->Add(playable);
+        player->GetHandZone()->Remove(handCards[i]);
+        player->GetGraveyardZone()->Add(handCards[i]);
 
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
@@ -41,6 +68,6 @@ TaskStatus DiscardTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DiscardTask::CloneImpl()
 {
-    return std::make_unique<DiscardTask>(m_entityType);
+    return std::make_unique<DiscardTask>(m_amount, m_discardType);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks
