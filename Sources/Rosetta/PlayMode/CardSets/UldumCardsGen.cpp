@@ -27,6 +27,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
@@ -2076,6 +2077,14 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscardTask>(1, DiscardType::HIGHEST_COST, true));
+    power.AddDeathrattleTask(std::make_shared<GetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_ENT_1));
+    power.AddDeathrattleTask(
+        std::make_shared<CopyTask>(EntityType::STACK_NUM0, ZoneType::HAND, 2));
+    cards.emplace("ULD_163", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_165] Riftcleaver - COST:6 [ATK:7/HP:5]
