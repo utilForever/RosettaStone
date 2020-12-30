@@ -23,6 +23,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConsecutiveDamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
@@ -1881,6 +1882,10 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage to all minions,
     //       then deal 2 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConsecutiveDamageTask>(
+        EntityType::ALL_MINIONS, std::vector<int>{ 5, 2 }, true));
+    cards.emplace("ULD_181", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [ULD_276] EVIL Totem - COST:2 [ATK:0/HP:2]
