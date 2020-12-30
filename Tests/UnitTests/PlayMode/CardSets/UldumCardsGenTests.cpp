@@ -1145,6 +1145,58 @@ TEST_CASE("[Shaman : Spell] - ULD_291 : Corrupt the Waters")
     CHECK_EQ(curField[2]->GetAttack(), 1);
 }
 
+// ---------------------------------------- WEAPON - SHAMAN
+// [ULD_413] Splitting Axe - COST:4 [ATK:3/HP:0]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon copies of your Totems.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Weapon] - ULD_413 : Splitting Axe")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Splitting Axe"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("EVIL Totem"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[3]->IsRace(Race::TOTEM), true);
+    CHECK_EQ(curField[4]->IsRace(Race::TOTEM), true);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [ULD_140] Supreme Archaeology - COST:1
 // - Set: Uldum, Rarity: Legendary

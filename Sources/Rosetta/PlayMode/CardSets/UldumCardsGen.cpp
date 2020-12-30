@@ -1942,6 +1942,13 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::STACK));
+    cards.emplace("ULD_413", CardDef(power));
 }
 
 void UldumCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
