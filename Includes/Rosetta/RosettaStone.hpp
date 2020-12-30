@@ -180,6 +180,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeUnidentifiedTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ClearStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConsecutiveDamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CountTask.hpp>
