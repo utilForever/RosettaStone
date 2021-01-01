@@ -125,6 +125,14 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->tasks = { std::make_shared<HealTask>(
         EntityType::MINIONS, 1) };
     cards.emplace("AT_132_SHAMANa", CardDef(power));
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [AT_132_SHAMANb] Searing Totem (*) - COST:0 [ATK:1/HP:1]
+    // - Set: Tgt
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AT_132_SHAMANb", CardDef(power));
 }
 
 void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
