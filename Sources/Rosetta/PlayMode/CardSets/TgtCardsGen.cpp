@@ -5,6 +5,9 @@
 
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -109,7 +112,19 @@ void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    Power power;
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [AT_132_SHAMANa] Healing Totem (*) - COST:0 [ATK:0/HP:2]
+    // - Set: Tgt
+    // --------------------------------------------------------
+    // Text: At the end of your turn, restore 1 Health to all friendly minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(
+        EntityType::MINIONS, 1) };
+    cards.emplace("AT_132_SHAMANa", CardDef(power));
 }
 
 void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
