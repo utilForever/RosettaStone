@@ -19,6 +19,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
@@ -249,6 +250,22 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
                           { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } },
                 ChooseCardIDs{},
                 Entourages{ "CS2_050", "CS2_051", "CS2_052", "NEW1_009" }));
+
+    // ------------------------------------ HERO_POWER - SHAMAN
+    // [HERO_02bp2] Totemic Slam (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Summon a Totem of your choice.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::BASIC_TOTEM));
+    cards.emplace(
+        "HERO_02bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [HERO_03bp] Dagger Mastery (*) - COST:2
