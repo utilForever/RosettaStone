@@ -431,6 +431,21 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         "HERO_09bp",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
+    // ------------------------------------ HERO_POWER - PRIEST
+    // [HERO_09bp2] Heal (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Restore 4 Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 4));
+    cards.emplace(
+        "HERO_09bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
     // ------------------------------- HERO_POWER - DEMONHUNTER
     // [HERO_10bp] Demon Claws (*) - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
