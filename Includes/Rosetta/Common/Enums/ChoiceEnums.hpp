@@ -39,6 +39,7 @@ enum class DiscoverType
 enum class ChoiceAction
 {
     INVALID,             //!< Invalid action.
+    CHANGE_HERO_POWER,   //!< Change hero power.
     HAND,                //!< Hand.
     HAND_AND_STACK,      //!< Hand and stack.
     ENCHANTMENT,         //!< Enchantment.

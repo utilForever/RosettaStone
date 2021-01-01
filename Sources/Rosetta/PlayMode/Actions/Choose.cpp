@@ -123,6 +123,15 @@ bool ChoicePick(Player* player, int choice)
     // Process pick by choice action
     switch (choiceVal->choiceAction)
     {
+        case ChoiceAction::CHANGE_HERO_POWER:
+        {
+            delete player->GetHero()->heroPower;
+            player->GetSetasideZone()->Remove(playable);
+            playable->SetGameTag(GameTag::ZONE,
+                                 static_cast<int>(ZoneType::PLAY));
+            player->GetHero()->heroPower = dynamic_cast<HeroPower*>(playable);
+            break;
+        }
         case ChoiceAction::HAND:
         {
             player->GetSetasideZone()->Remove(playable);
