@@ -286,6 +286,22 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         "HERO_04bp",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
+    // ----------------------------------- HERO_POWER - PALADIN
+    // [HERO_04bp2] The Silver Hand (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Summon two 1/1 Recruits.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 2, SummonSide::DEFAULT));
+    cards.emplace(
+        "HERO_04bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+
     // ------------------------------------ HERO_POWER - HUNTER
     // [HERO_05bp] Steady Shot (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
