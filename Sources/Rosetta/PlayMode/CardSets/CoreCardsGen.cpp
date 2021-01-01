@@ -262,7 +262,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DiscoverTask>(DiscoverType::BASIC_TOTEM));
+        std::make_shared<DiscoverTask>(DiscoverType::BASIC_TOTEM, 4));
     cards.emplace(
         "HERO_02bp2",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
