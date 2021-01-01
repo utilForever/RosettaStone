@@ -33,6 +33,7 @@ enum class DiscoverType
     TORTOLLAN_PILGRIM,
     FROM_STACK,
     SIAMAT,
+    SIR_FINLEY_OF_THE_SANDS,
 };
 
 //! The action type of choice.

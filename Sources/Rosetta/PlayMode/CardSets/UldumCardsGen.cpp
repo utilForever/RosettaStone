@@ -1134,9 +1134,9 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
     //       <b>Discover</b> an upgraded Hero Power.
     // --------------------------------------------------------
-    // Entourage: AT_132_DRUID, AT_132_HUNTER, AT_132_MAGE, AT_132_PALADIN,
-    //            AT_132_PRIEST, AT_132_SHAMAN, AT_132_ROGUE, AT_132_WARLOCK,
-    //            AT_132_WARRIOR
+    // Entourage: HERO_01bp2, HERO_02bp2, HERO_03bp2, HERO_04bp2,
+    //            HERO_05bp2, HERO_06bp2, HERO_07bp2, HERO_08bp2,
+    //            HERO_09bp2, HERO_10bp2
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1144,6 +1144,14 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(
+                  DiscoverType::SIR_FINLEY_OF_THE_SANDS) }));
+    cards.emplace("ULD_500", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [ULD_716] Tip the Scales - COST:8

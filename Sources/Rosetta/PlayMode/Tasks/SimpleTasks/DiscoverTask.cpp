@@ -437,6 +437,21 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                       Cards::FindCardByID("ULD_178a3"),
                       Cards::FindCardByID("ULD_178a4") };
             break;
+        case DiscoverType::SIR_FINLEY_OF_THE_SANDS:
+            choiceAction = ChoiceAction::CHANGE_HERO_POWER;
+            cards = {
+                Cards::FindCardByID("HERO_01bp2"),
+                Cards::FindCardByID("HERO_02bp2"),
+                Cards::FindCardByID("HERO_03bp2"),
+                Cards::FindCardByID("HERO_04bp2"),
+                Cards::FindCardByID("HERO_05bp2"),
+                Cards::FindCardByID("HERO_06bp2"),
+                Cards::FindCardByID("HERO_07bp2"),
+                Cards::FindCardByID("HERO_08bp2"),
+                Cards::FindCardByID("HERO_09bp2"),
+                Cards::FindCardByID("HERO_10bp2"),
+            };
+            break;
     }
 
     return cards;
