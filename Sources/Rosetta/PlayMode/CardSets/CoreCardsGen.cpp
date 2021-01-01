@@ -400,6 +400,22 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         "HERO_08bp",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
+    // -------------------------------------- HERO_POWER - MAGE
+    // [HERO_08bp2] Fireblast Rank 2 (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Deal 2 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
+    cards.emplace(
+        "HERO_08bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
     // ------------------------------------ HERO_POWER - PRIEST
     // [HERO_09bp] Lesser Heal (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
