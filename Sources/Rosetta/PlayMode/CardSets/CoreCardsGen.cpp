@@ -350,6 +350,18 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<ArmorTask>(1));
     cards.emplace("HERO_06bp", CardDef(power));
 
+    // ------------------------------------- HERO_POWER - DRUID
+    // [HERO_06bp2] Dire Shapeshift (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> +2 Attack this turn. +2 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("AT_132_DRUIDe",
+                                                            EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("HERO_06bp2", CardDef(power));
+
     // ----------------------------------- HERO_POWER - WARLOCK
     // [HERO_07bp] Life Tap (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
