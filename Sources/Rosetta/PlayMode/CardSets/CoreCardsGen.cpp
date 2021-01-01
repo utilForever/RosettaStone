@@ -184,6 +184,16 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<ArmorTask>(2));
     cards.emplace("HERO_01bp", CardDef(power));
 
+    // ----------------------------------- HERO_POWER - WARRIOR
+    // [HERO_01bp2] Tank Up! (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Gain 4 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cards.emplace("HERO_01bp2", CardDef(power));
+
     // ------------------------------------ HERO_POWER - SHAMAN
     // [HERO_02bp] Totemic Call (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
