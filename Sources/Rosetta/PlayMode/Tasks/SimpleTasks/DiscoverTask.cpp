@@ -223,6 +223,13 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::INVALID:
             throw std::invalid_argument(
                 "DiscoverTask::Discover() - Invalid discover type");
+        case DiscoverType::BASIC_TOTEM:
+            choiceAction = ChoiceAction::SUMMON;
+            cards = { Cards::FindCardByID("AT_132_SHAMANa"),
+                      Cards::FindCardByID("AT_132_SHAMANb"),
+                      Cards::FindCardByID("AT_132_SHAMANc"),
+                      Cards::FindCardByID("AT_132_SHAMANd") };
+            break;
         case DiscoverType::CHOOSE_ONE:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
