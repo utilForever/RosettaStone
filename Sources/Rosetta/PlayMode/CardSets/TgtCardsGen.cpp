@@ -133,6 +133,16 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("AT_132_SHAMANb", CardDef(power));
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [AT_132_SHAMANc] Stoneclaw Totem (*) - COST:0 [ATK:0/HP:2]
+    // - Set: Tgt
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AT_132_SHAMANc", CardDef(power));
 }
 
 void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
