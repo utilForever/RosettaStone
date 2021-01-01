@@ -260,6 +260,16 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<WeaponTask>("CS2_082"));
     cards.emplace("HERO_03bp", CardDef(power));
 
+    // ------------------------------------- HERO_POWER - ROGUE
+    // [HERO_03bp2] Poisoned Daggers (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Equip a 2/2 Weapon.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("AT_132_ROGUEt"));
+    cards.emplace("HERO_03bp2", CardDef(power));
+
     // ----------------------------------- HERO_POWER - PALADIN
     // [HERO_04bp] Reinforce (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
