@@ -74,7 +74,18 @@ void TgtCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    Power power;
+
+    // ----------------------------------------- WEAPON - ROGUE
+    // [AT_132_ROGUEt] Poisoned Dagger (*) - COST:1 [ATK:2/HP:0]
+    // - Set: Tgt
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AT_132_ROGUEt", CardDef(power));
 }
 
 void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
