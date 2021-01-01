@@ -374,6 +374,16 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DrawTask>(1));
     cards.emplace("HERO_07bp", CardDef(power));
 
+    // ----------------------------------- HERO_POWER - WARLOCK
+    // [HERO_07bp2] Soul Tap (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("HERO_07bp2", CardDef(power));
+
     // -------------------------------------- HERO_POWER - MAGE
     // [HERO_08bp] Fireblast (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
