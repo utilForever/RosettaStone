@@ -320,6 +320,24 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
                                  { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
 
+    // ------------------------------------ HERO_POWER - HUNTER
+    // [HERO_05bp2] Ballista Shot (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_STEADY_SHOT = 0
+    // - REQ_MINION_OR_ENEMY_HERO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, false));
+    cards.emplace(
+        "HERO_05bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
+                                 { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
+
     // ------------------------------------- HERO_POWER - DRUID
     // [HERO_06bp] Shapeshift (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
