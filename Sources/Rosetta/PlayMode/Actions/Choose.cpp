@@ -123,6 +123,9 @@ bool ChoicePick(Player* player, int choice)
     // Process pick by choice action
     switch (choiceVal->choiceAction)
     {
+        case ChoiceAction::INVALID:
+            throw std::invalid_argument(
+                "ChoicePick() - Invalid choice action!");
         case ChoiceAction::CHANGE_HERO_POWER:
         {
             delete player->GetHero()->heroPower;
@@ -255,9 +258,6 @@ bool ChoicePick(Player* player, int choice)
             }
             break;
         }
-        default:
-            throw std::invalid_argument(
-                "ChoicePick() - Invalid choice action!");
     }
 
     Choice* nextChoice = choiceVal->TryPopNextChoice(choice);
