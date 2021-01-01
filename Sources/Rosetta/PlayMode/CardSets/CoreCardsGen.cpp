@@ -354,7 +354,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // [HERO_10bp2] Demon's Bite (*) - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>\ +2 Attack this turn.
+    // Text: <b>Hero Power</b> +2 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
