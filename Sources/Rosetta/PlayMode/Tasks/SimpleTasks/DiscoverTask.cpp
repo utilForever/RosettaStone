@@ -221,7 +221,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
     switch (discoverType)
     {
         case DiscoverType::INVALID:
-            throw std::out_of_range(
+            throw std::invalid_argument(
                 "DiscoverTask::Discover() - Invalid discover type");
         case DiscoverType::CHOOSE_ONE:
             choiceAction = ChoiceAction::HAND;
