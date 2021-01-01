@@ -3502,25 +3502,25 @@ TEST_CASE("[Paladin : Minion] - ULD_500 : Sir Finley of the Sands")
             SUBCASE("Shaman - Healing Totem")
             {
                 TestUtils::ChooseNthChoice(game, 1);
-                CHECK_EQ(curField[0]->card->name, "Healing Totem");
+                CHECK_EQ(curField[1]->card->name, "Healing Totem");
             }
 
             SUBCASE("Shaman - Searing Totem")
             {
                 TestUtils::ChooseNthChoice(game, 2);
-                CHECK_EQ(curField[0]->card->name, "Searing Totem");
+                CHECK_EQ(curField[1]->card->name, "Searing Totem");
             }
 
             SUBCASE("Shaman - Stoneclaw Totem")
             {
                 TestUtils::ChooseNthChoice(game, 3);
-                CHECK_EQ(curField[0]->card->name, "Stoneclaw Totem");
+                CHECK_EQ(curField[1]->card->name, "Stoneclaw Totem");
             }
 
             SUBCASE("Shaman - Wrath of Air Totem")
             {
                 TestUtils::ChooseNthChoice(game, 4);
-                CHECK_EQ(curField[0]->card->name, "Wrath of Air Totem");
+                CHECK_EQ(curField[1]->card->name, "Wrath of Air Totem");
             }
         }
     }
@@ -3543,13 +3543,13 @@ TEST_CASE("[Paladin : Minion] - ULD_500 : Sir Finley of the Sands")
             auto& curField = *(curPlayer->GetFieldZone());
 
             game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(curField.GetCount(), 2);
-            CHECK_EQ(curField[0]->card->name, "Silver Hand Recruit");
-            CHECK_EQ(curField[0]->GetAttack(), 1);
-            CHECK_EQ(curField[0]->GetHealth(), 1);
+            CHECK_EQ(curField.GetCount(), 3);
             CHECK_EQ(curField[1]->card->name, "Silver Hand Recruit");
             CHECK_EQ(curField[1]->GetAttack(), 1);
             CHECK_EQ(curField[1]->GetHealth(), 1);
+            CHECK_EQ(curField[2]->card->name, "Silver Hand Recruit");
+            CHECK_EQ(curField[2]->GetAttack(), 1);
+            CHECK_EQ(curField[2]->GetHealth(), 1);
         }
     }
     // Hunter
