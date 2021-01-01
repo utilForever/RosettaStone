@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 
 namespace RosettaStone::PlayMode
 {
@@ -24,7 +25,20 @@ void TgtCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    Power power;
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [AT_132_DRUIDe] Dire Claws (*) - COST:0
+    // - Set: Tgt
+    // --------------------------------------------------------
+    // Text: +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AT_132_DRUIDe"));
+    cards.emplace("AT_132_DRUIDe", CardDef(power));
 }
 
 void TgtCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
