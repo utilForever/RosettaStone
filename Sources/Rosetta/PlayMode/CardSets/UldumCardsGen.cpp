@@ -2128,6 +2128,16 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: After your hero takes damage on your turn,
     //       summon a random 3-Cost minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsMyTurn());
+    power.GetTrigger()->tasks =
+        TaskList{ std::make_shared<RandomMinionTask>(
+                      TagValues{ { GameTag::COST, 3, RelaSign::EQ } }),
+                  std::make_shared<SummonStackTask>() };
+    cards.emplace("ULD_167", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_168] Dark Pharaoh Tekahn - COST:5 [ATK:4/HP:4]
