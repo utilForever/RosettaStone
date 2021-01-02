@@ -26,6 +26,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConsecutiveDamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
@@ -2120,6 +2121,19 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DamageNumberTask>(EntityType::HERO));
+    cards.emplace(
+        "ULD_165",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_167] Diseased Vulture - COST:4 [ATK:3/HP:5]
