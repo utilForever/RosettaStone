@@ -2143,6 +2143,10 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - MARK_OF_EVIL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_168e", EntityType::PLAYER));
+    cards.emplace("ULD_168", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_324] Impbalming - COST:4
@@ -2218,6 +2222,15 @@ void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your <b>Lackeys</b> are 4/4.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_AND_HAND, "ULD_168e3"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsLackey());
+    }
+    cards.emplace("ULD_168e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [ULD_168e2] Lackey Empowerment (*) - COST:0
@@ -2235,6 +2248,9 @@ void UldumCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ENCHANTMENT_INVISIBLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_168e3"));
+    cards.emplace("ULD_168e3", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [ULD_324t] Worthless Imp (*) - COST:1 [ATK:1/HP:1]

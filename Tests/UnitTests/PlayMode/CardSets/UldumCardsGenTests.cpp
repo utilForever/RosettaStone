@@ -2735,6 +2735,85 @@ TEST_CASE("[Mage : Minion] - ULD_293 : Cloud Prince")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [ULD_168] Dark Pharaoh Tekahn - COST:5 [ATK:4/HP:4]
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> For the rest of the game,
+//       your <b>Lackeys</b> are 4/4.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - MARK_OF_EVIL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - ULD_168 : Dark Pharaoh Tekahn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByID("DAL_739");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dark Pharaoh Tekahn"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("DAL_739"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetHealth(), 4);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [ULD_324] Impbalming - COST:4
 // - Set: Uldum, Rarity: Rare
