@@ -2833,6 +2833,10 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - AURA = 1
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND,
+                                         EffectList{ Effects::ReduceCost(1) }));
+    cards.emplace("ULD_214", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_215] Wrapped Golem - COST:7 [ATK:7/HP:5]

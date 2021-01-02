@@ -5845,6 +5845,76 @@ TEST_CASE("[Neutral : Minion] - ULD_208 : Khartut Defender")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_214] Generous Mummy - COST:3 [ATK:5/HP:4]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Reborn</b> Your opponent's cards cost (1) less.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_214 : Generous Mummy")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Generous Mummy"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    [[maybe_unused]] const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 4);
+    CHECK_EQ(card4->GetCost(), 3);
+    CHECK_EQ(card5->GetCost(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 2);
+    CHECK_EQ(card5->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 2);
+    CHECK_EQ(card5->GetCost(), 1);
+
+    game.Process(opPlayer, HeroPowerTask(curField[0]));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 3);
+    CHECK_EQ(card5->GetCost(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_215] Wrapped Golem - COST:7 [ATK:7/HP:5]
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
