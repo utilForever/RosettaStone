@@ -41,9 +41,6 @@ TEST_CASE("[Character] - Health")
     curField[0]->SetBaseHealth(8);
     CHECK_EQ(curField[0]->GetDamage(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 6);
-
-    curField[0]->SetBaseHealth(0);
-    CHECK_EQ(curField[0]->isDestroyed, true);
 }
 
 TEST_CASE("[Character] - MaxHealth")
