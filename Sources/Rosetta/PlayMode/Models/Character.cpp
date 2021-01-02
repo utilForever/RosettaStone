@@ -75,11 +75,6 @@ int Character::GetBaseHealth() const
 
 void Character::SetBaseHealth(int baseHealth)
 {
-    if (baseHealth <= 0)
-    {
-        Destroy();
-    }
-
     SetGameTag(GameTag::HEALTH, baseHealth);
 }
 
