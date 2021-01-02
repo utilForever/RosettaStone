@@ -337,6 +337,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsInZone(ZoneType zone);
 
+    //! SelfCondition wrapper for checking it is my turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsMyTurn();
+
     //! SelfCondition wrapper for checking it is enemy turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEnemyTurn();

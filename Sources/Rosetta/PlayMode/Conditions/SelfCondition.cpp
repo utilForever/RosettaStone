@@ -673,6 +673,13 @@ SelfCondition SelfCondition::IsInZone(ZoneType zone)
         [zone](Playable* playable) { return playable->GetZoneType() == zone; });
 }
 
+SelfCondition SelfCondition::IsMyTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player == playable->game->GetCurrentPlayer();
+    });
+}
+
 SelfCondition SelfCondition::IsEnemyTurn()
 {
     return SelfCondition([](Playable* playable) {
