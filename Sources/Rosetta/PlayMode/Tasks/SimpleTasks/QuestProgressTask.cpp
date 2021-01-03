@@ -78,6 +78,13 @@ TaskStatus QuestProgressTask::Impl(Player* player)
                 spell->IncreaseQuestProgress();
             }
             break;
+        case ProgressType::RESTORE_HEALTH:
+            const int amount = player->game->currentEventData->eventNumber;
+            for (int i = 0; i < amount; ++i)
+            {
+                spell->IncreaseQuestProgress();
+            }
+            break;
     }
 
     if (spell->GetQuestProgress() >= spell->GetQuestProgressTotal())
