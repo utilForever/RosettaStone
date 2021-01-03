@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchant.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
@@ -218,6 +219,17 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "ULD_724e", EntityType::TARGET) }));
+    cards.emplace(
+        "ULD_724p",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
 void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -1434,6 +1446,11 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 54750
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_724p", ProgressType::RESTORE_HEALTH) };
+    cards.emplace("ULD_724", CardDef(power, 15, 0));
 }
 
 void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
@@ -1469,6 +1486,9 @@ void UldumCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackHealthN(3)));
+    cards.emplace("ULD_724e", CardDef(power));
 }
 
 void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)

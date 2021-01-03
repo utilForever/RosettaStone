@@ -4410,6 +4410,111 @@ TEST_CASE("[Priest : Spell] - ULD_718 : Plague of Death")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [ULD_724] Activate the Obelisk - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Restore 15 Health.
+//       <b>Reward:</b> Obelisk's Eye.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 15
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 54750
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto& curField = *(curPlayer->GetFieldZone());
+    const auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Activate the Obelisk"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curSecret->quest != nullptr);
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 15);
+
+    game.Process(curPlayer, HeroPowerTask(curHero));
+    CHECK_EQ(curHero->GetHealth(), 30);
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+
+    curHero->SetDamage(24);
+    
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curHero));
+    CHECK_EQ(curHero->GetHealth(), 12);
+    CHECK_EQ(quest->GetQuestProgress(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curHero));
+    CHECK_EQ(curHero->GetHealth(), 18);
+    CHECK_EQ(quest->GetQuestProgress(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(curHero));
+    CHECK_EQ(curHero->GetHealth(), 20);
+    CHECK_EQ(quest->GetQuestProgress(), 14);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card5, curHero));
+    CHECK(curSecret->quest == nullptr);
+    CHECK_EQ(curHero->GetHealth(), 26);
+    CHECK_EQ(quest->GetQuestProgress(), 20);
+    CHECK_EQ(curHero->heroPower->card->id, "ULD_724p");
+
+    game.Process(curPlayer, HeroPowerTask(curHero));
+    CHECK_EQ(curHero->GetHealth(), 29);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [ULD_186] Pharaoh Cat - COST:1 [ATK:1/HP:2]
 // - Race: Beast, Set: Uldum, Rarity: Common
