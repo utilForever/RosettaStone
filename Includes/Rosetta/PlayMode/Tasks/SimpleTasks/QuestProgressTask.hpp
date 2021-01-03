@@ -33,6 +33,12 @@ class QuestProgressTask : public ITask
     //! \param questRewardID The card ID that is a reward of the quest.
     explicit QuestProgressTask(const std::string& questRewardID);
 
+    //! Constructs task with given \p questRewardID and \p progressType.
+    //! \param questRewardID The card ID that is a reward of the quest.
+    //! \param progressType The type of quest progress.
+    explicit QuestProgressTask(const std::string& questRewardID,
+                               ProgressType progressType);
+
     //! Constructs task with given \p rewardTasks and \p progressType.
     //! \param rewardTasks A list of tasks to run that is a reward of the quest.
     //! \param progressType The type of quest progress.

@@ -19,6 +19,13 @@ QuestProgressTask::QuestProgressTask(const std::string& questRewardID)
     // Do nothing
 }
 
+QuestProgressTask::QuestProgressTask(const std::string& questRewardID,
+                                     ProgressType progressType)
+    : m_card(Cards::FindCardByID(questRewardID)), m_progressType(progressType)
+{
+    // Do nothing
+}
+
 QuestProgressTask::QuestProgressTask(
     std::vector<std::shared_ptr<ITask>> rewardTasks, ProgressType progressType)
     : m_progressType(progressType), m_tasks(std::move(rewardTasks))
