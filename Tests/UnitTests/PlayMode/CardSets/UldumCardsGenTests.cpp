@@ -6643,6 +6643,133 @@ TEST_CASE("[Warrior : Minion] - ULD_709 : Armored Goon")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [ULD_711] Hack the System - COST:1
+// - Set: Uldum, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Quest:</b> Attack 5 times with your hero.
+//       <b>Reward:</b> Anraphet's Core.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - QUEST = 1
+// - QUEST_PROGRESS_TOTAL = 5
+// - 676 = 1
+// - 839 = 1
+// - QUEST_REWARD_DATABASE_ID = 54416
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - ULD_711 : Hack the System")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+    auto& curField = *(curPlayer->GetFieldZone());
+    const auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hack the System"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+
+    auto quest = dynamic_cast<Spell*>(card1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curSecret->quest != nullptr);
+    CHECK_EQ(quest->GetQuestProgress(), 0);
+    CHECK_EQ(quest->GetQuestProgressTotal(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+    CHECK_EQ(quest->GetQuestProgress(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(opHero->GetHealth(), 24);
+    CHECK_EQ(quest->GetQuestProgress(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(opHero->GetHealth(), 21);
+    CHECK_EQ(quest->GetQuestProgress(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(opHero->GetHealth(), 18);
+    CHECK_EQ(quest->GetQuestProgress(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card4));
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK(curSecret->quest == nullptr);
+    CHECK_EQ(opHero->GetHealth(), 15);
+    CHECK_EQ(quest->GetQuestProgress(), 5);
+    CHECK_EQ(curHero->heroPower->card->id, "ULD_711p3");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Stone Golem");
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(opHero->GetHealth(), 12);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Stone Golem");
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
 // - Set: Uldum, Rarity: Epic

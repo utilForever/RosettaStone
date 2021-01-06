@@ -208,6 +208,15 @@ void UldumCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("ULD_711t"));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = TaskList{ std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::EXHAUSTED, 0) };
+    cards.emplace(
+        "ULD_711p3",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [ULD_724p] Obelisk's Eye (*) - COST:2
@@ -2460,6 +2469,12 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - 839 = 1
     // - QUEST_REWARD_DATABASE_ID = 54416
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "ULD_711p3") };
+    cards.emplace("ULD_711", CardDef(power, 5, 0));
 
     // --------------------------------------- MINION - WARRIOR
     // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
@@ -2490,10 +2505,15 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
 void UldumCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [ULD_711t] Stone Golem (*) - COST:3 [ATK:4/HP:3]
     // - Set: Uldum
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ULD_711t", CardDef(power));
 }
 
 void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
