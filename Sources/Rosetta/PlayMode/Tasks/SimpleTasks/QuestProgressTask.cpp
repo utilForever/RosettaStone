@@ -105,6 +105,12 @@ TaskStatus QuestProgressTask::Impl(Player* player)
                 {
                     heroPower->card->power.GetAura()->Activate(heroPower);
                 }
+
+                // Process trigger
+                if (heroPower->card->power.GetTrigger())
+                {
+                    heroPower->card->power.GetTrigger()->Activate(heroPower);
+                }
             }
             else
             {
