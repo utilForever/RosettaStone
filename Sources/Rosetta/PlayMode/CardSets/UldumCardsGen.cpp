@@ -2648,6 +2648,12 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the start of your turn,
     //       this has a 50% chance to fall asleep.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->percentage = 0.5f;
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::EXHAUSTED, 1) };
+    cards.emplace("ULD_180", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_182] Spitting Camel - COST:2 [ATK:2/HP:4]

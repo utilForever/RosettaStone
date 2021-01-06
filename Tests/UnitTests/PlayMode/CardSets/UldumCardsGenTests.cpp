@@ -5454,6 +5454,48 @@ TEST_CASE("[Neutral : Minion] - ULD_179 : Phalanx Commander")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_180] Sunstruck Henchman - COST:4 [ATK:6/HP:5]
+// - Set: Uldum, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       this has a 50% chance to fall asleep.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_180 : Phalanx Commander")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sunstruck Henchman"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_182] Spitting Camel - COST:2 [ATK:2/HP:4]
 // - Race: Beast, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
