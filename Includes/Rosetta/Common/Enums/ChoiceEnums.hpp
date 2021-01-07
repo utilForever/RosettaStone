@@ -35,6 +35,7 @@ enum class DiscoverType
     FROM_STACK,
     SIAMAT,
     SIR_FINLEY_OF_THE_SANDS,
+    VULPERA_SCOUNDREL,
 };
 
 //! The action type of choice.

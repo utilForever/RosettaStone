@@ -432,6 +432,19 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 Cards::FindCardByID("HERO_10bp2"),
             };
             break;
+        case DiscoverType::VULPERA_SCOUNDREL:
+            choiceAction = ChoiceAction::VULPERA_SCOUNDREL;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            Random::shuffle(cards.begin(), cards.end());
+            cards.resize(3);
+            cards.emplace_back(Cards::FindCardByID("ULD_209t"));
+            break;
     }
 
     return cards;
