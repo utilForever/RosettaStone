@@ -111,6 +111,41 @@ const std::vector<Card*>& Cards::GetAllWildCards()
     return m_allWildCards;
 }
 
+const std::vector<Card*> Cards::GetDiscoverCards(CardClass baseClass,
+                                                  FormatType format)
+{
+    std::vector<Card*> result;
+
+    // NOTE: Assume there is no card that has 'CardType::SPELL' and
+    // 'CardClass::NEUTRAL'.
+    if (format == FormatType::STANDARD)
+    {
+        for (const auto& card : GetAllStandardCards())
+        {
+            if ((card->IsCardClass(baseClass) && !card->IsQuest()) ||
+                (card->GetCardType() != CardType::SPELL &&
+                 card->GetCardClass() == CardClass::NEUTRAL))
+            {
+                result.emplace_back(card);
+            }
+        }
+    }
+    else
+    {
+        for (const auto& card : GetAllWildCards())
+        {
+            if ((card->IsCardClass(baseClass) && !card->IsQuest()) ||
+                (card->GetCardType() != CardType::SPELL &&
+                 card->GetCardClass() == CardClass::NEUTRAL))
+            {
+                result.emplace_back(card);
+            }
+        }
+    }
+
+    return result;
+}
+
 std::vector<Card*> Cards::GetLackeys()
 {
     return m_lackeys;
