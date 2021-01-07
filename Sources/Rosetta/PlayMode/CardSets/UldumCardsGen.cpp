@@ -2908,6 +2908,10 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::VULPERA_SCOUNDREL, 4));
+    cards.emplace("ULD_209", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_214] Generous Mummy - COST:3 [ATK:5/HP:4]
