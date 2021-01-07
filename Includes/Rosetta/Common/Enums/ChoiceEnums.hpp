@@ -53,6 +53,7 @@ enum class ChoiceAction
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
     TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
     SIAMAT,              //!< Siamat.
+    VULPERA_SCOUNDREL,   //!< Vulpera Scoundrel.
 };
 }  // namespace RosettaStone
 

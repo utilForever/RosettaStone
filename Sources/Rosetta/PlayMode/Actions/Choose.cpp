@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
@@ -255,6 +256,35 @@ bool ChoicePick(Player* player, int choice)
             {
                 choiceVal->source->SetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2,
                                               playable->card->dbfID);
+            }
+            break;
+        }
+        case ChoiceAction::VULPERA_SCOUNDREL:
+        {
+            if (playable->card->id == "ULD_209t")
+            {
+                std::vector<Card*> allCards = Cards::GetDiscoverCards(
+                    player->baseClass, player->game->GetFormatType());
+
+                std::vector<Card*> spellCards;
+                for (auto& card : allCards)
+                {
+                    if (card->GetCardType() == CardType::SPELL)
+                    {
+                        spellCards.emplace_back(card);
+                    }
+                }
+
+                const auto idx =
+                    Random::get<std::size_t>(0, spellCards.size() - 1);
+
+                Playable* spell = Entity::GetFromCard(player, spellCards[idx]);
+                AddCardToHand(player, spell);
+            }
+            else
+            {
+                player->GetSetasideZone()->Remove(playable);
+                AddCardToHand(player, playable);
             }
             break;
         }
