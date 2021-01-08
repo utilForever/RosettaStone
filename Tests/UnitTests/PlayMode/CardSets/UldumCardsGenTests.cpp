@@ -7256,6 +7256,69 @@ TEST_CASE("[Neutral : Minion] - ULD_450 : Vilefiend")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_706] Blatant Decoy - COST:6 [ATK:5/HP:5]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Each player summons
+//       the lowest Cost minion from their hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_706 : Blatant Decoy")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Blatant Decoy"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Consecration"));
+    [[maybe_unused]] const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ancestral Guardian"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    [[maybe_unused]] const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+    [[maybe_unused]] const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Windfury Harpy"));
+    [[maybe_unused]] const auto card8 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ravenholdt Assassin"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Ancestral Guardian");
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Windfury Harpy");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_712] Bug Collector - COST:2 [ATK:2/HP:1]
 // - Set: Uldum, Rarity: Common
 // --------------------------------------------------------
