@@ -499,6 +499,25 @@ SelfCondition SelfCondition::IsComboCard()
     });
 }
 
+SelfCondition SelfCondition::IsLowestCostMinion()
+{
+    return SelfCondition([](Playable* playable) {
+        int lowestCost = std::numeric_limits<int>::max();
+
+        for (const auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardType() == CardType::MINION &&
+                handCard->GetCost() < lowestCost)
+            {
+                lowestCost = handCard->GetCost();
+            }
+        }
+
+        return playable->card->GetCardType() == CardType::MINION &&
+               playable->GetCost() == lowestCost;
+    });
+}
+
 SelfCondition SelfCondition::HasPlayerSpellPower()
 {
     return SelfCondition([](Playable* playable) {

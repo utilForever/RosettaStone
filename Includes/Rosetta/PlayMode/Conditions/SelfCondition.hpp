@@ -233,6 +233,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsComboCard();
 
+    //! SelfCondition wrapper for checking the card has lowest cost minion.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsLowestCostMinion();
+
     //! SelfCondition wrapper for checking the player has spellpower.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasPlayerSpellPower();
