@@ -3055,6 +3055,59 @@ TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 4);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_428] Lorekeeper Polkelt - COST:5 [ATK:4/HP:5]
+// - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Reorder your deck from the highest
+//       Cost card to the lowest Cost card.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Arch-Villain Rafaam"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    curPlayer->SetUsedMana(0);
+
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lorekeeper Polkelt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    CHECK_EQ(curDeck.GetCount(), 5);
+    for (int count = 1; count < curDeck.GetCount(); ++count)
+    {
+        CHECK(curDeck.GetNthTopCard(count)->GetCost() >=
+              curDeck.GetNthTopCard(count + 1)->GetCost());
+    }
+}
+
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_509] Brain Freeze - COST:1
 // - Set: SCHOLOMANCE, Rarity: Rare

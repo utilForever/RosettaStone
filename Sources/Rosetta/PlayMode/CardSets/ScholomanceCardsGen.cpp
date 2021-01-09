@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <algorithm>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
@@ -2540,6 +2541,24 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            DeckZone* deckZone = player->GetDeckZone();
+            auto v = deckZone->GetAll();
+            sort(v.begin(), v.end(), [](Playable* p1, Playable* p2) {
+                return p1->GetCost() < p2->GetCost();
+            });
+
+            for (int idx = 0; idx < deckZone->GetCount(); ++idx)
+            {
+                deckZone->SetEntity(idx, v[idx]);
+            }
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace("SCH_428", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_509] Brain Freeze - COST:1

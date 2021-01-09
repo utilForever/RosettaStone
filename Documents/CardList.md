@@ -1178,7 +1178,7 @@ SCHOLOMANCE | SCH_422 | Double Jump |
 SCHOLOMANCE | SCH_425 | Doctor Krastinov | O
 SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom | O
-SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
+SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt | O
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
 SCHOLOMANCE | SCH_509 | Brain Freeze | O
 SCHOLOMANCE | SCH_512 | Initiation |  
