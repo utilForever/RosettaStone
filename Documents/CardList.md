@@ -1118,7 +1118,7 @@ SCHOLOMANCE | SCH_157 | Enchanted Cauldron |
 SCHOLOMANCE | SCH_158 | Demonic Studies | O
 SCHOLOMANCE | SCH_159 | Mindrender Illucia |  
 SCHOLOMANCE | SCH_160 | Wandmaker |  
-SCHOLOMANCE | SCH_162 | Vectus |  
+SCHOLOMANCE | SCH_162 | Vectus | O
 SCHOLOMANCE | SCH_181 | Archwitch Willow |  
 SCHOLOMANCE | SCH_182 | Speaker Gidra |  
 SCHOLOMANCE | SCH_199 | Transfer Student |  

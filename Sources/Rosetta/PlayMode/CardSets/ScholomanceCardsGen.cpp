@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
@@ -2103,6 +2104,26 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()),
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ENTITY_ID));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_162t", SummonSide::LEFT));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "SCH_162e", EntityType::STACK, false, true));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ENTITY_ID));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_162t", SummonSide::RIGHT));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "SCH_162e", EntityType::STACK, false, true));
+    cards.emplace("SCH_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_182] Speaker Gidra - COST:3 [ATK:1/HP:4]
@@ -2805,6 +2826,10 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Copied <b>Deathrattle</b> from {0}.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<ActivateCapturedDeathrattleTask>());
+    cards.emplace("SCH_162e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_162t] Plagued Hatchling - COST:1 [ATK:1/HP:1]
@@ -2813,6 +2838,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_162t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_199t] Transfer Student - COST:2 [ATK:2/HP:2]

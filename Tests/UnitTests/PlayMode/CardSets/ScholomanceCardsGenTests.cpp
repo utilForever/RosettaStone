@@ -2245,6 +2245,64 @@ TEST_CASE("[Neutral : Minion] - SCH_145 : Desk Imp")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SCH_162] Vectus - COST:5 [ATK:4/HP:4]
+// - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Whelps.
+//       Each gains a <b>Deathrattle</b> from your minions
+//       that died this game.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_162 : Vectus")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kobold Sandtrooper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vectus"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
 // - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
