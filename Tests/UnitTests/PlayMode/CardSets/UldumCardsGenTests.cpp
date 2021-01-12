@@ -7256,6 +7256,67 @@ TEST_CASE("[Neutral : Minion] - ULD_450 : Vilefiend")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_703] Desert Obelisk - COST:5 [ATK:0/HP:5]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: If you control 3 of these at the end of your turn,
+//       deal 5 damage to a random enemy.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_703 : Desert Obelisk")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Obelisk"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Obelisk"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Obelisk"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Obelisk"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 10);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_706] Blatant Decoy - COST:6 [ATK:5/HP:5]
 // - Set: Uldum, Rarity: Epic
 // --------------------------------------------------------

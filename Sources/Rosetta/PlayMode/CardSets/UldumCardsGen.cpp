@@ -3125,6 +3125,15 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: If you control 3 of these at the end of your turn,
     //       deal 5 damage to a random enemy.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::ControlThisCard(3));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 5)
+    };
+    cards.emplace("ULD_703", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_705] Mogu Cultist - COST:1 [ATK:1/HP:1]
