@@ -837,6 +837,23 @@ SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
     });
 }
 
+SelfCondition SelfCondition::ControlThisCard(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        int count = 0;
+
+        for (auto& deckCard : playable->player->GetFieldZone()->GetAll())
+        {
+            if (playable->card->dbfID == deckCard->card->dbfID)
+            {
+                ++count;
+            }
+        }
+
+        return count >= num;
+    });
+}
+
 SelfCondition SelfCondition::HasSoulFragmentInDeck()
 {
     return SelfCondition([](Playable* playable) {
