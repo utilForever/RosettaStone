@@ -7256,6 +7256,67 @@ TEST_CASE("[Neutral : Minion] - ULD_450 : Vilefiend")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_702] Mortuary Machine - COST:5 [ATK:8/HP:8]
+// - Race: Mechanical, Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: After your opponent plays a minion,
+//       give it <b>Reborn</b>.
+// --------------------------------------------------------
+// RefTag:
+// - REBORN = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_702 : Mortuary Machine")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mortuary Machine"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->HasReborn(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[1]->HasReborn(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_703] Desert Obelisk - COST:5 [ATK:0/HP:5]
 // - Set: Uldum, Rarity: Epic
 // --------------------------------------------------------
@@ -7283,7 +7344,6 @@ TEST_CASE("[Neutral : Minion] - ULD_703 : Desert Obelisk")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Obelisk"));

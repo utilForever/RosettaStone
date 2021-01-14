@@ -3117,6 +3117,12 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - REBORN = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::REBORN, 1) };
+    cards.emplace("ULD_702", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_703] Desert Obelisk - COST:5 [ATK:0/HP:5]
