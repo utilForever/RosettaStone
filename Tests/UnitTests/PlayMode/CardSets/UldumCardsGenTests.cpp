@@ -7377,6 +7377,87 @@ TEST_CASE("[Neutral : Minion] - ULD_703 : Desert Obelisk")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_705] Mogu Cultist - COST:1 [ATK:1/HP:1]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your board is full of Mogu Cultists,
+//       sacrifice them all and summon Highkeeper Ra.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_705 : Mogu Cultist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Cultist"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Cultist"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Cultist"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Cultist"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Cultist"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Cultist"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mogu Cultist"));
+    const auto card8 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card8));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    opPlayer->GetHero()->SetDamage(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Highkeeper Ra");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_706] Blatant Decoy - COST:6 [ATK:5/HP:5]
 // - Set: Uldum, Rarity: Epic
 // --------------------------------------------------------
