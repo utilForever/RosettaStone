@@ -3555,6 +3555,14 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_616e", EntityType::TARGET));
+    cards.emplace(
+        "ULD_616",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ULD_616e] Hardened (*) - COST:0
@@ -3562,6 +3570,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2 Health and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ULD_616e"));
+    cards.emplace("ULD_616e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_705t] Highkeeper Ra (*) - COST:10 [ATK:20/HP:20]
