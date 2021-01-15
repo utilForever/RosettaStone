@@ -253,6 +253,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SwapHeroPowerTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SwapTopCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
