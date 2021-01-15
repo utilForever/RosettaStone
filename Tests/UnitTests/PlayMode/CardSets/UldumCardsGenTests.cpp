@@ -6379,6 +6379,77 @@ TEST_CASE("[Neutral : Minion] - ULD_215 : Wrapped Golem")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_229] Mischief Maker - COST:3 [ATK:3/HP:3]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Swap the top card of your deck
+//       with your opponent's.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_229 : Mischief Maker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i] = Cards::FindCardByName("Wolfrider");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mischief Maker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(opHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opHand.GetCount(), 6);
+    CHECK_EQ(opHand[5]->card->name, "Malygos");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Wolfrider");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opHand.GetCount(), 7);
+    CHECK_EQ(opHand[6]->card->name, "Wolfrider");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Malygos");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_250] Infested Goblin - COST:3 [ATK:2/HP:3]
 // - Set: Uldum, Rarity: Rare
 // --------------------------------------------------------
