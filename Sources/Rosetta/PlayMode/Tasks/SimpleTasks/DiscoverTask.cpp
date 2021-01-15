@@ -267,14 +267,14 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::DEATHRATTLE_MINION_DIED:
-            choiceAction = ChoiceAction::HAND_AND_STACK;
-            for (auto& playable : player->GetGraveyardZone()->GetAll())
+        case DiscoverType::RUSH_MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
             {
-                if (playable->card->GetCardType() == CardType::MINION &&
-                    playable->HasDeathrattle() && playable->isDestroyed)
+                if (card->GetCardType() == CardType::MINION &&
+                    card->HasGameTag(GameTag::RUSH) == 1)
                 {
-                    cards.emplace_back(playable->card);
+                    cards.emplace_back(card);
                 }
             }
             break;
@@ -289,14 +289,14 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::RUSH_MINION:
-            choiceAction = ChoiceAction::HAND;
-            for (auto& card : allCards)
+        case DiscoverType::DEATHRATTLE_MINION_DIED:
+            choiceAction = ChoiceAction::HAND_AND_STACK;
+            for (auto& playable : player->GetGraveyardZone()->GetAll())
             {
-                if (card->GetCardType() == CardType::MINION &&
-                    card->HasGameTag(GameTag::RUSH) == 1)
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->HasDeathrattle() && playable->isDestroyed)
                 {
-                    cards.emplace_back(card);
+                    cards.emplace_back(playable->card);
                 }
             }
             break;
