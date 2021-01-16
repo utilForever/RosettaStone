@@ -445,6 +445,17 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             cards.resize(3);
             cards.emplace_back(Cards::FindCardByID("ULD_209t"));
             break;
+        case DiscoverType::BODY_WRAPPER:
+            choiceAction = ChoiceAction::DECK;
+            for (auto& playable : player->GetGraveyardZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->isDestroyed)
+                {
+                    cards.emplace_back(playable->card);
+                }
+            }
+            break;
     }
 
     return cards;

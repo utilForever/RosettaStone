@@ -36,6 +36,7 @@ enum class DiscoverType
     SIAMAT,
     SIR_FINLEY_OF_THE_SANDS,
     VULPERA_SCOUNDREL,
+    BODY_WRAPPER,
 };
 
 //! The action type of choice.
