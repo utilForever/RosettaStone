@@ -62,6 +62,8 @@
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
+#include "Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp"
+
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
@@ -3086,6 +3088,39 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            std::vector<int> spellCosts;
+            for (const auto& playable : player->GetHandZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::SPELL)
+                {
+                    spellCosts.emplace_back(playable->GetCost());
+                }
+            }
+
+            const auto& task1 =
+                std::make_shared<RandomMinionNumberTask>(GameTag::COST);
+            const auto& task2 = std::make_shared<SummonStackTask>();
+
+            for (const auto& cost : spellCosts)
+            {
+                player->game->taskStack.num[0] = cost;
+
+                task1->SetPlayer(player);
+                task1->SetSource(source);
+                task1->SetTarget(target);
+                task1->Run();
+
+                task2->SetPlayer(player);
+                task2->SetSource(source);
+                task2->SetTarget(target);
+                task2->Run();
+            }
+        }));
+    cards.emplace("ULD_304", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_309] Dwarven Archaeologist - COST:2 [ATK:2/HP:3]
