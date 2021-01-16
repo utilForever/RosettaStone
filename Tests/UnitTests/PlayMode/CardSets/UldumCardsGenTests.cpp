@@ -4449,10 +4449,10 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
     auto& curField = *(curPlayer->GetFieldZone());
     const auto curSecret = curPlayer->GetSecretZone();
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Activate the Obelisk"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Activate the Obelisk"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
     const auto card4 =
@@ -4472,7 +4472,7 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
     CHECK_EQ(quest->GetQuestProgress(), 0);
 
     curHero->SetDamage(24);
-    
+
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curHero));
     CHECK_EQ(curHero->GetHealth(), 12);
     CHECK_EQ(quest->GetQuestProgress(), 6);
@@ -7722,4 +7722,75 @@ TEST_CASE("[Neutral : Minion] - ULD_721 : Colossus of the Moon")
 TEST_CASE("[Neutral : Minion] - ULD_723 : Murmy")
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [ULD_727] Body Wrapper - COST:4 [ATK:4/HP:4]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a friendly minion
+//       that died this game. Shuffle it into your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_727 : Body Wrapper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Body Wrapper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Body Wrapper"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    CHECK_EQ(cards.size(), 1);
+    CHECK_EQ(cards[0]->name, "Wolfrider");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curDeck[0]->card->name, "Wolfrider");
 }

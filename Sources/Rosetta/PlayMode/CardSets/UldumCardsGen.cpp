@@ -3265,6 +3265,10 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::BODY_WRAPPER));
+    cards.emplace("ULD_727", CardDef(power));
 }
 
 void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
