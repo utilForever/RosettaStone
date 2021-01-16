@@ -149,6 +149,12 @@ bool ChoicePick(Player* player, int choice)
             player->choice->AddToStack(choice);
             break;
         }
+        case ChoiceAction::DECK:
+        {
+            player->GetSetasideZone()->Remove(playable);
+            ShuffleIntoDeck(player, choiceVal->source, playable);
+            break;
+        }
         case ChoiceAction::ENCHANTMENT:
         {
             player->game->taskStack.num[0] = static_cast<int>(choice);

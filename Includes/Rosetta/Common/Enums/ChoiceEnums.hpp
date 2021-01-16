@@ -45,6 +45,7 @@ enum class ChoiceAction
     CHANGE_HERO_POWER,   //!< Change hero power.
     HAND,                //!< Hand.
     HAND_AND_STACK,      //!< Hand and stack.
+    DECK,                //!< Deck.
     ENCHANTMENT,         //!< Enchantment.
     CAST_SPELL,          //!< Cast spell.
     SUMMON,              //!< Summon.
