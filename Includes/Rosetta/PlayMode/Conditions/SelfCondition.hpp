@@ -56,6 +56,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDeathrattleCard();
 
+    //! SelfCondition wrapper for checking the card has Discover.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDiscoverCard();
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();

@@ -65,6 +65,12 @@ SelfCondition SelfCondition::IsDeathrattleCard()
         [](Playable* playable) { return playable->HasDeathrattle(); });
 }
 
+SelfCondition SelfCondition::IsDiscoverCard()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->HasDiscover(); });
+}
+
 SelfCondition SelfCondition::IsGalakrondHero()
 {
     return SelfCondition(
