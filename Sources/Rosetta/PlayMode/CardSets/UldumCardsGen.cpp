@@ -3132,6 +3132,14 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsDiscoverCard());
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "ULD_309e", EntityType::STACK_NUM0) };
+    cards.emplace("ULD_309", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
@@ -3574,6 +3582,9 @@ void UldumCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("ULD_309e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ULD_430t] Locust (*) - COST:1 [ATK:1/HP:1]

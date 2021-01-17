@@ -7312,6 +7312,62 @@ TEST_CASE("[Neutral : Minion] - ULD_304 : King Phaoris")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [ULD_309] Dwarven Archaeologist - COST:2 [ATK:2/HP:3]
+// - Set: Uldum, Rarity: Epic
+// --------------------------------------------------------
+// Text: After you <b>Discover</b> a card,
+//       reduce its cost by (1).
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ULD_309 : Dwarven Archaeologist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dwarven Archaeologist"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Worthy Expedition"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK(curPlayer->choice != nullptr);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    const int reducedCost = curHand[0]->GetCost();
+    const int originalCost = curHand[0]->card->GetCost();
+    if (originalCost == 0)
+    {
+        CHECK_EQ(originalCost, reducedCost);
+    }
+    else
+    {
+        CHECK_EQ(originalCost, reducedCost + 1);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
 // - Race: Demon, Set: Uldum, Rarity: Common
 // --------------------------------------------------------
