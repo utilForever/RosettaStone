@@ -3,7 +3,6 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <algorithm>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
@@ -46,6 +45,8 @@
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+
+#include <algorithm>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -2546,14 +2547,15 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             DeckZone* deckZone = player->GetDeckZone();
-            auto v = deckZone->GetAll();
-            sort(v.begin(), v.end(), [](Playable* p1, Playable* p2) {
-                return p1->GetCost() < p2->GetCost();
-            });
+            std::vector<Playable*> deckCards = deckZone->GetAll();
+            std::sort(deckCards.begin(), deckCards.end(),
+                      [](Playable* p1, Playable* p2) {
+                          return p1->GetCost() < p2->GetCost();
+                      });
 
             for (int idx = 0; idx < deckZone->GetCount(); ++idx)
             {
-                deckZone->SetEntity(idx, v[idx]);
+                deckZone->SetEntity(idx, deckCards[idx]);
             }
 
             return TaskStatus::COMPLETE;
