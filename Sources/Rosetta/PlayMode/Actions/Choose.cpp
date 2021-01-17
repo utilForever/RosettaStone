@@ -286,6 +286,7 @@ bool ChoicePick(Player* player, int choice)
 
                 Playable* spell = Entity::GetFromCard(player, spellCards[idx]);
                 AddCardToHand(player, spell);
+                playable = spell;
             }
             else
             {
@@ -326,6 +327,27 @@ bool ChoicePick(Player* player, int choice)
 
                 clonedTask->Run();
             }
+        }
+
+        // NOTE: Temporary code for 'Dwarven Archaeologist' (ULD_309)
+        // TODO: We'll refactor it later using Coroutines in C++20
+        if (const Entity* source = choiceVal->source;
+            source && source->GetGameTag(GameTag::DISCOVER) == 1)
+        {
+            player->game->taskStack.num[0] =
+                playable->GetGameTag(GameTag::ENTITY_ID);
+
+            // Validate play card trigger
+            Trigger::ValidateTriggers(player->game, choiceVal->source,
+                                      SequenceType::PLAY_CARD);
+
+            // Process after play card trigger
+            player->game->taskQueue.StartEvent();
+            player->game->triggerManager.OnAfterPlayCardTrigger(
+                choiceVal->source);
+            player->game->ProcessTasks();
+            player->game->taskQueue.EndEvent();
+            player->game->ProcessDestroyAndUpdateAura();
         }
 
         // It's done! - Reset choice
