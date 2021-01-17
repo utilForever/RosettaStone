@@ -95,6 +95,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has choose one.
     bool HasChooseOne() const;
 
+    //! Returns the flag that indicates whether it has discover.
+    //! \return The flag that indicates whether it has discover.
+    bool HasDiscover() const;
+
     //! Returns the flag that indicates whether it has lifesteal.
     //! \return The flag that indicates whether it has lifesteal.
     virtual bool HasLifesteal() const;
