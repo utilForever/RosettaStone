@@ -102,6 +102,7 @@
 * SummonTask
 * SwapAttackHealthTask
 * SwapHeroPowerTask
+* SwapTopDeckTask
 * TempManaTask
 * TransformCopyTask
 * TransformMinionTask
