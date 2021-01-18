@@ -44,6 +44,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 #include <algorithm>
@@ -2107,24 +2108,37 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
-        std::make_shared<SelfCondition>(SelfCondition::IsDead()),
-        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
-                                                        GameTag::ENTITY_ID));
     power.AddPowerTask(
-        std::make_shared<SummonTask>("SCH_162t", SummonSide::LEFT));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "SCH_162e", EntityType::STACK, false, true));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
-                                                        GameTag::ENTITY_ID));
+        std::make_shared<SummonTask>("SCH_162t", SummonSide::LEFT, true));
     power.AddPowerTask(
-        std::make_shared<SummonTask>("SCH_162t", SummonSide::RIGHT));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "SCH_162e", EntityType::STACK, false, true));
+        std::make_shared<SummonTask>("SCH_162t", SummonSide::RIGHT, true));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            const std::vector<Playable*> whelps =
+                player->game->taskStack.playables;
+
+            std::vector<Playable*> minions;
+            for (const auto& playable : player->GetGraveyardZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->isDestroyed == true &&
+                    playable->HasDeathrattle() == true)
+                {
+                    minions.emplace_back(playable);
+                }
+            }
+
+            std::vector<Playable*> selectedMinions =
+                ChooseNElements(minions, whelps.size());
+            for (std::size_t i = 0; i < whelps.size(); ++i)
+            {
+                const int entityID =
+                    selectedMinions[i]->GetGameTag(GameTag::ENTITY_ID);
+                Generic::AddEnchantment(Cards::FindCardByID("SCH_162e"),
+                                        dynamic_cast<Playable*>(source),
+                                        whelps[i], entityID, 0, entityID);
+            }
+        }));
     cards.emplace("SCH_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
