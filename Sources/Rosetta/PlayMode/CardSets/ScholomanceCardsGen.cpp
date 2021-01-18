@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
@@ -43,7 +44,10 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+
+#include <algorithm>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -2103,6 +2107,39 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_162t", SummonSide::LEFT, true));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SCH_162t", SummonSide::RIGHT, true));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            const std::vector<Playable*> whelps =
+                player->game->taskStack.playables;
+
+            std::vector<Playable*> minions;
+            for (const auto& playable : player->GetGraveyardZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->isDestroyed == true &&
+                    playable->HasDeathrattle() == true)
+                {
+                    minions.emplace_back(playable);
+                }
+            }
+
+            std::vector<Playable*> selectedMinions =
+                ChooseNElements(minions, whelps.size());
+            for (std::size_t i = 0; i < whelps.size(); ++i)
+            {
+                const int entityID =
+                    selectedMinions[i]->GetGameTag(GameTag::ENTITY_ID);
+                Generic::AddEnchantment(Cards::FindCardByID("SCH_162e"),
+                                        dynamic_cast<Playable*>(source),
+                                        whelps[i], entityID, 0, entityID);
+            }
+        }));
+    cards.emplace("SCH_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_182] Speaker Gidra - COST:3 [ATK:1/HP:4]
@@ -2519,6 +2556,25 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            DeckZone* deckZone = player->GetDeckZone();
+            std::vector<Playable*> deckCards = deckZone->GetAll();
+            std::sort(deckCards.begin(), deckCards.end(),
+                      [](Playable* p1, Playable* p2) {
+                          return p1->GetCost() < p2->GetCost();
+                      });
+
+            for (int idx = 0; idx < deckZone->GetCount(); ++idx)
+            {
+                deckZone->SetEntity(idx, deckCards[idx]);
+            }
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace("SCH_428", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_509] Brain Freeze - COST:1
@@ -2805,6 +2861,10 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Copied <b>Deathrattle</b> from {0}.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<ActivateCapturedDeathrattleTask>());
+    cards.emplace("SCH_162e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_162t] Plagued Hatchling - COST:1 [ATK:1/HP:1]
@@ -2813,6 +2873,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_162t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_199t] Transfer Student - COST:2 [ATK:2/HP:2]
