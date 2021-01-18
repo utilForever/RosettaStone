@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -3080,8 +3081,17 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
     config.player1Class = CardClass::ROGUE;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
+
+    const std::string INNKEEPER_EXPERT_WARLOCK =
+        "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
+    auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
+
+    for (size_t j = 0; j < deck.size(); ++j)
+    {
+        config.player1Deck[j] = Cards::FindCardByID(deck[j]);
+    }
 
     Game game(config);
     game.Start();
@@ -3097,18 +3107,11 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
     auto& curDeck = *(curPlayer->GetDeckZone());
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Arch-Villain Rafaam"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-
-    curPlayer->SetUsedMana(0);
-
-    const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Lorekeeper Polkelt"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 26);
 
-    CHECK_EQ(curDeck.GetCount(), 5);
     for (int count = 1; count < curDeck.GetCount(); ++count)
     {
         CHECK(curDeck.GetNthTopCard(count)->GetCost() >=
