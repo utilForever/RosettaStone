@@ -19,6 +19,8 @@ enum class ProgressType
                            //!< mana on spells.
     PLAY_ELEMENTAL_MINONS,  //!< Increases progress count when the player plays
                             //!< an elemental minion in this turn.
+    RESTORE_HEALTH,  //!< Increases progress count when the hero or friendly
+                     //!< minion(s) restores health.
 };
 
 //!
@@ -32,6 +34,12 @@ class QuestProgressTask : public ITask
     //! Constructs task with given \p questRewardID.
     //! \param questRewardID The card ID that is a reward of the quest.
     explicit QuestProgressTask(const std::string& questRewardID);
+
+    //! Constructs task with given \p questRewardID and \p progressType.
+    //! \param questRewardID The card ID that is a reward of the quest.
+    //! \param progressType The type of quest progress.
+    explicit QuestProgressTask(const std::string& questRewardID,
+                               ProgressType progressType);
 
     //! Constructs task with given \p rewardTasks and \p progressType.
     //! \param rewardTasks A list of tasks to run that is a reward of the quest.

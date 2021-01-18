@@ -10,6 +10,14 @@
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+//! The type of discard task.
+enum class DiscardType
+{
+    DEFAULT,       //!< Don't care.
+    LOWEST_COST,   //!< Lowest cost card.
+    HIGHEST_COST,  //!< Highest cost card.
+};
+
 //!
 //! \brief DiscardTask class.
 //!
@@ -18,9 +26,13 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class DiscardTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType.
-    //! \param entityType The entity type of target to discard card(s).
-    explicit DiscardTask(EntityType entityType);
+    //! Constructs task with given \p amount, \p discardType and \p saveCard.
+    //! \param amount The amount to discard card(s).
+    //! \param discardType The type of discard task.
+    //! \param saveCard A flag to save card to discard in playable's game tag.
+    explicit DiscardTask(int amount,
+                         DiscardType discardType = DiscardType::DEFAULT,
+                         bool saveCard = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -31,6 +43,10 @@ class DiscardTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
+
+    int m_amount = 1;
+    DiscardType m_discardType = DiscardType::DEFAULT;
+    bool m_saveCard = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
 

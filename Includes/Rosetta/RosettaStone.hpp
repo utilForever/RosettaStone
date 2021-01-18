@@ -104,6 +104,7 @@
 #include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
@@ -180,6 +181,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeUnidentifiedTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ClearStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConsecutiveDamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CountTask.hpp>
@@ -251,6 +253,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SwapHeroPowerTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SwapTopCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>

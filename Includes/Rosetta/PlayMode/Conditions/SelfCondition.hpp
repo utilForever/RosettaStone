@@ -56,6 +56,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDeathrattleCard();
 
+    //! SelfCondition wrapper for checking the card has Discover.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDiscoverCard();
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
@@ -233,6 +237,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsComboCard();
 
+    //! SelfCondition wrapper for checking the card has lowest cost minion.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsLowestCostMinion();
+
     //! SelfCondition wrapper for checking the player has spellpower.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasPlayerSpellPower();
@@ -337,6 +345,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsInZone(ZoneType zone);
 
+    //! SelfCondition wrapper for checking it is my turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsMyTurn();
+
     //! SelfCondition wrapper for checking it is enemy turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEnemyTurn();
@@ -388,6 +400,11 @@ class SelfCondition
     //! that costs (5) or more this turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition Cast5MoreCostSpellInThisTurn();
+
+    //! SelfCondition wrapper for checking the player controls this card.
+    //! \param num The number of card to control.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition ControlThisCard(int num);
 
     //! SelfCondition wrapper for checking the player has the card
     //! 'Soul Fragment' in deck.

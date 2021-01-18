@@ -185,35 +185,8 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                                           DiscoverType discoverType,
                                           ChoiceAction& choiceAction) const
 {
-    const FormatType format = game->GetFormatType();
-
-    // NOTE: Assume there is no card that has 'CardType::SPELL' and
-    // 'CardClass::NEUTRAL'.
-    std::vector<Card*> allCards;
-    if (format == FormatType::STANDARD)
-    {
-        for (const auto& card : Cards::GetAllStandardCards())
-        {
-            if ((card->IsCardClass(player->baseClass) && !card->IsQuest()) ||
-                (card->GetCardType() != CardType::SPELL &&
-                 card->GetCardClass() == CardClass::NEUTRAL))
-            {
-                allCards.emplace_back(card);
-            }
-        }
-    }
-    else
-    {
-        for (const auto& card : Cards::GetAllWildCards())
-        {
-            if ((card->IsCardClass(player->baseClass) && !card->IsQuest()) ||
-                (card->GetCardType() != CardType::SPELL &&
-                 card->GetCardClass() == CardClass::NEUTRAL))
-            {
-                allCards.emplace_back(card);
-            }
-        }
-    }
+    std::vector<Card*> allCards =
+        Cards::GetDiscoverCards(player->baseClass, game->GetFormatType());
 
     std::vector<Card*> cards;
     choiceAction = ChoiceAction::INVALID;
@@ -221,8 +194,15 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
     switch (discoverType)
     {
         case DiscoverType::INVALID:
-            throw std::out_of_range(
+            throw std::invalid_argument(
                 "DiscoverTask::Discover() - Invalid discover type");
+        case DiscoverType::BASIC_TOTEM:
+            choiceAction = ChoiceAction::SUMMON;
+            cards = { Cards::FindCardByID("AT_132_SHAMANa"),
+                      Cards::FindCardByID("AT_132_SHAMANb"),
+                      Cards::FindCardByID("AT_132_SHAMANc"),
+                      Cards::FindCardByID("AT_132_SHAMANd") };
+            break;
         case DiscoverType::CHOOSE_ONE:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
@@ -287,14 +267,14 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::DEATHRATTLE_MINION_DIED:
-            choiceAction = ChoiceAction::HAND_AND_STACK;
-            for (auto& playable : player->GetGraveyardZone()->GetAll())
+        case DiscoverType::RUSH_MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
             {
-                if (playable->card->GetCardType() == CardType::MINION &&
-                    playable->HasDeathrattle() && playable->isDestroyed)
+                if (card->GetCardType() == CardType::MINION &&
+                    card->HasGameTag(GameTag::RUSH) == 1)
                 {
-                    cards.emplace_back(playable->card);
+                    cards.emplace_back(card);
                 }
             }
             break;
@@ -309,14 +289,14 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
-        case DiscoverType::RUSH_MINION:
-            choiceAction = ChoiceAction::HAND;
-            for (auto& card : allCards)
+        case DiscoverType::DEATHRATTLE_MINION_DIED:
+            choiceAction = ChoiceAction::HAND_AND_STACK;
+            for (auto& playable : player->GetGraveyardZone()->GetAll())
             {
-                if (card->GetCardType() == CardType::MINION &&
-                    card->HasGameTag(GameTag::RUSH) == 1)
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->HasDeathrattle() && playable->isDestroyed)
                 {
-                    cards.emplace_back(card);
+                    cards.emplace_back(playable->card);
                 }
             }
             break;
@@ -436,6 +416,45 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                       Cards::FindCardByID("ULD_178a"),
                       Cards::FindCardByID("ULD_178a3"),
                       Cards::FindCardByID("ULD_178a4") };
+            break;
+        case DiscoverType::SIR_FINLEY_OF_THE_SANDS:
+            choiceAction = ChoiceAction::CHANGE_HERO_POWER;
+            cards = {
+                Cards::FindCardByID("HERO_01bp2"),
+                Cards::FindCardByID("HERO_02bp2"),
+                Cards::FindCardByID("HERO_03bp2"),
+                Cards::FindCardByID("HERO_04bp2"),
+                Cards::FindCardByID("HERO_05bp2"),
+                Cards::FindCardByID("HERO_06bp2"),
+                Cards::FindCardByID("HERO_07bp2"),
+                Cards::FindCardByID("HERO_08bp2"),
+                Cards::FindCardByID("HERO_09bp2"),
+                Cards::FindCardByID("HERO_10bp2"),
+            };
+            break;
+        case DiscoverType::VULPERA_SCOUNDREL:
+            choiceAction = ChoiceAction::VULPERA_SCOUNDREL;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL)
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            Random::shuffle(cards.begin(), cards.end());
+            cards.resize(3);
+            cards.emplace_back(Cards::FindCardByID("ULD_209t"));
+            break;
+        case DiscoverType::BODY_WRAPPER:
+            choiceAction = ChoiceAction::DECK;
+            for (auto& playable : player->GetGraveyardZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->isDestroyed)
+                {
+                    cards.emplace_back(playable->card);
+                }
+            }
             break;
     }
 

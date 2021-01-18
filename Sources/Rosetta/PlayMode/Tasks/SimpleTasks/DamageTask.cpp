@@ -40,10 +40,6 @@ TaskStatus DamageTask::Impl(Player* player)
     {
         const auto source = dynamic_cast<Playable*>(m_source);
         const auto character = dynamic_cast<Character*>(playable);
-        if (character == nullptr)
-        {
-            continue;
-        }
 
         int randomDamage = 0;
         if (m_randomDamage > 0)

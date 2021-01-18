@@ -93,6 +93,12 @@ TaskStatus CopyTask::Impl(Player* player)
                 }
                 break;
             }
+            case EntityType::STACK_NUM0:
+            {
+                toBeCopied =
+                    player->game->entityList[player->game->taskStack.num[0]];
+                break;
+            }
             default:
                 throw std::invalid_argument(
                     "CopyTask::Impl() - Invalid entity type");

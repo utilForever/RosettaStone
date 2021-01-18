@@ -19,6 +19,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
@@ -184,6 +185,16 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<ArmorTask>(2));
     cards.emplace("HERO_01bp", CardDef(power));
 
+    // ----------------------------------- HERO_POWER - WARRIOR
+    // [HERO_01bp2] Tank Up! (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Gain 4 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cards.emplace("HERO_01bp2", CardDef(power));
+
     // ------------------------------------ HERO_POWER - SHAMAN
     // [HERO_02bp] Totemic Call (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -240,6 +251,22 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
                 ChooseCardIDs{},
                 Entourages{ "CS2_050", "CS2_051", "CS2_052", "NEW1_009" }));
 
+    // ------------------------------------ HERO_POWER - SHAMAN
+    // [HERO_02bp2] Totemic Slam (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Summon a Totem of your choice.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::BASIC_TOTEM, 4));
+    cards.emplace(
+        "HERO_02bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+
     // ------------------------------------- HERO_POWER - ROGUE
     // [HERO_03bp] Dagger Mastery (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -249,6 +276,16 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<WeaponTask>("CS2_082"));
     cards.emplace("HERO_03bp", CardDef(power));
+
+    // ------------------------------------- HERO_POWER - ROGUE
+    // [HERO_03bp2] Poisoned Daggers (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Equip a 2/2 Weapon.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("AT_132_ROGUEt"));
+    cards.emplace("HERO_03bp2", CardDef(power));
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [HERO_04bp] Reinforce (*) - COST:2
@@ -264,6 +301,22 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         std::make_shared<SummonTask>("CS2_101t", SummonSide::DEFAULT));
     cards.emplace(
         "HERO_04bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+
+    // ----------------------------------- HERO_POWER - PALADIN
+    // [HERO_04bp2] The Silver Hand (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Summon two 1/1 Recruits.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 2, SummonSide::DEFAULT));
+    cards.emplace(
+        "HERO_04bp2",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------ HERO_POWER - HUNTER
@@ -284,6 +337,24 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
                                  { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
 
+    // ------------------------------------ HERO_POWER - HUNTER
+    // [HERO_05bp2] Ballista Shot (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_STEADY_SHOT = 0
+    // - REQ_MINION_OR_ENEMY_HERO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, false));
+    cards.emplace(
+        "HERO_05bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
+                                 { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
+
     // ------------------------------------- HERO_POWER - DRUID
     // [HERO_06bp] Shapeshift (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -296,6 +367,18 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<ArmorTask>(1));
     cards.emplace("HERO_06bp", CardDef(power));
 
+    // ------------------------------------- HERO_POWER - DRUID
+    // [HERO_06bp2] Dire Shapeshift (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> +2 Attack this turn. +2 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("AT_132_DRUIDe",
+                                                            EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("HERO_06bp2", CardDef(power));
+
     // ----------------------------------- HERO_POWER - WARLOCK
     // [HERO_07bp] Life Tap (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -307,6 +390,16 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::HERO, 2, false));
     power.AddPowerTask(std::make_shared<DrawTask>(1));
     cards.emplace("HERO_07bp", CardDef(power));
+
+    // ----------------------------------- HERO_POWER - WARLOCK
+    // [HERO_07bp2] Soul Tap (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("HERO_07bp2", CardDef(power));
 
     // -------------------------------------- HERO_POWER - MAGE
     // [HERO_08bp] Fireblast (*) - COST:2
@@ -324,6 +417,22 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
         "HERO_08bp",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
+    // -------------------------------------- HERO_POWER - MAGE
+    // [HERO_08bp2] Fireblast Rank 2 (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Deal 2 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
+    cards.emplace(
+        "HERO_08bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
     // ------------------------------------ HERO_POWER - PRIEST
     // [HERO_09bp] Lesser Heal (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -337,6 +446,21 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 2));
     cards.emplace(
         "HERO_09bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
+    // ------------------------------------ HERO_POWER - PRIEST
+    // [HERO_09bp2] Heal (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b> Restore 4 Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 4));
+    cards.emplace(
+        "HERO_09bp2",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------- HERO_POWER - DEMONHUNTER
@@ -354,7 +478,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // [HERO_10bp2] Demon's Bite (*) - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>\ +2 Attack this turn.
+    // Text: <b>Hero Power</b> +2 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -2063,8 +2187,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::HAND, 1));
-    power.AddPowerTask(std::make_shared<DiscardTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DiscardTask>(1));
     cards.emplace("EX1_306", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -2078,8 +2201,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::HAND, 1));
-    power.AddPowerTask(std::make_shared<DiscardTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<DiscardTask>(1));
     cards.emplace(
         "EX1_308",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));

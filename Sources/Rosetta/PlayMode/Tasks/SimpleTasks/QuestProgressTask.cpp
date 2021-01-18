@@ -19,6 +19,13 @@ QuestProgressTask::QuestProgressTask(const std::string& questRewardID)
     // Do nothing
 }
 
+QuestProgressTask::QuestProgressTask(const std::string& questRewardID,
+                                     ProgressType progressType)
+    : m_card(Cards::FindCardByID(questRewardID)), m_progressType(progressType)
+{
+    // Do nothing
+}
+
 QuestProgressTask::QuestProgressTask(
     std::vector<std::shared_ptr<ITask>> rewardTasks, ProgressType progressType)
     : m_progressType(progressType), m_tasks(std::move(rewardTasks))
@@ -71,6 +78,13 @@ TaskStatus QuestProgressTask::Impl(Player* player)
                 spell->IncreaseQuestProgress();
             }
             break;
+        case ProgressType::RESTORE_HEALTH:
+            const int amount = player->game->currentEventData->eventNumber;
+            for (int i = 0; i < amount; ++i)
+            {
+                spell->IncreaseQuestProgress();
+            }
+            break;
     }
 
     if (spell->GetQuestProgress() >= spell->GetQuestProgressTotal())
@@ -90,6 +104,12 @@ TaskStatus QuestProgressTask::Impl(Player* player)
                 if (heroPower->card->power.GetAura())
                 {
                     heroPower->card->power.GetAura()->Activate(heroPower);
+                }
+
+                // Process trigger
+                if (heroPower->card->power.GetTrigger())
+                {
+                    heroPower->card->power.GetTrigger()->Activate(heroPower);
                 }
             }
             else

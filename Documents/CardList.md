@@ -647,10 +647,10 @@ ULDUM | ULD_158 | Sandstorm Elemental | O
 ULDUM | ULD_160 | Sinister Deal | O
 ULDUM | ULD_161 | Neferset Thrasher | O
 ULDUM | ULD_162 | EVIL Recruiter | O
-ULDUM | ULD_163 | Expired Merchant |  
-ULDUM | ULD_165 | Riftcleaver |  
-ULDUM | ULD_167 | Diseased Vulture |  
-ULDUM | ULD_168 | Dark Pharaoh Tekahn |  
+ULDUM | ULD_163 | Expired Merchant | O
+ULDUM | ULD_165 | Riftcleaver | O
+ULDUM | ULD_167 | Diseased Vulture | O
+ULDUM | ULD_168 | Dark Pharaoh Tekahn | O
 ULDUM | ULD_169 | Mogu Fleshshaper | O
 ULDUM | ULD_170 | Weaponized Wasp | O
 ULDUM | ULD_171 | Totemic Surge | O
@@ -660,8 +660,8 @@ ULDUM | ULD_174 | Serpent Egg | O
 ULDUM | ULD_177 | Octosari | O
 ULDUM | ULD_178 | Siamat | O
 ULDUM | ULD_179 | Phalanx Commander | O
-ULDUM | ULD_180 | Sunstruck Henchman |  
-ULDUM | ULD_181 | Earthquake |  
+ULDUM | ULD_180 | Sunstruck Henchman | O
+ULDUM | ULD_181 | Earthquake | O
 ULDUM | ULD_182 | Spitting Camel | O
 ULDUM | ULD_183 | Anubisath Warbringer | O
 ULDUM | ULD_184 | Kobold Sandtrooper | O
@@ -681,13 +681,13 @@ ULDUM | ULD_205 | Candletaker | O
 ULDUM | ULD_206 | Restless Mummy | O
 ULDUM | ULD_207 | Ancestral Guardian | O
 ULDUM | ULD_208 | Khartut Defender | O
-ULDUM | ULD_209 | Vulpera Scoundrel |  
+ULDUM | ULD_209 | Vulpera Scoundrel | O
 ULDUM | ULD_212 | Wild Bloodstinger | O
-ULDUM | ULD_214 | Generous Mummy |  
+ULDUM | ULD_214 | Generous Mummy | O
 ULDUM | ULD_215 | Wrapped Golem | O
 ULDUM | ULD_216 | Puzzle Box of Yogg-Saron | O
 ULDUM | ULD_217 | Micro Mummy | O
-ULDUM | ULD_229 | Mischief Maker |  
+ULDUM | ULD_229 | Mischief Maker | O
 ULDUM | ULD_231 | Whirlkick Master | O
 ULDUM | ULD_236 | Tortollan Pilgrim | O
 ULDUM | ULD_238 | Reno the Relicologist | O
@@ -719,15 +719,15 @@ ULDUM | ULD_290 | History Buff | O
 ULDUM | ULD_291 | Corrupt the Waters | O
 ULDUM | ULD_292 | Oasis Surger | O
 ULDUM | ULD_293 | Cloud Prince | O
-ULDUM | ULD_304 | King Phaoris |  
-ULDUM | ULD_309 | Dwarven Archaeologist |  
+ULDUM | ULD_304 | King Phaoris | O
+ULDUM | ULD_309 | Dwarven Archaeologist | O
 ULDUM | ULD_324 | Impbalming | O
 ULDUM | ULD_326 | Bazaar Burglary | O
 ULDUM | ULD_327 | Bazaar Mugger | O
 ULDUM | ULD_328 | Clever Disguise | O
 ULDUM | ULD_329 | Dune Sculptor | O
 ULDUM | ULD_410 | Scarlet Webweaver | O
-ULDUM | ULD_413 | Splitting Axe |  
+ULDUM | ULD_413 | Splitting Axe | O
 ULDUM | ULD_429 | Hunter's Pack | O
 ULDUM | ULD_430 | Desert Spear | O
 ULDUM | ULD_431 | Making Mummies | O
@@ -736,32 +736,32 @@ ULDUM | ULD_435 | Naga Sand Witch | O
 ULDUM | ULD_438 | Salhet's Pride | O
 ULDUM | ULD_439 | Sandwasp Queen | O
 ULDUM | ULD_450 | Vilefiend | O
-ULDUM | ULD_500 | Sir Finley of the Sands |  
-ULDUM | ULD_702 | Mortuary Machine |  
-ULDUM | ULD_703 | Desert Obelisk |  
-ULDUM | ULD_705 | Mogu Cultist |  
-ULDUM | ULD_706 | Blatant Decoy |  
+ULDUM | ULD_500 | Sir Finley of the Sands | O
+ULDUM | ULD_702 | Mortuary Machine | O
+ULDUM | ULD_703 | Desert Obelisk | O
+ULDUM | ULD_705 | Mogu Cultist | O
+ULDUM | ULD_706 | Blatant Decoy | O
 ULDUM | ULD_707 | Plague of Wrath | O
 ULDUM | ULD_708 | Livewire Lance | O
 ULDUM | ULD_709 | Armored Goon | O
-ULDUM | ULD_711 | Hack the System |  
+ULDUM | ULD_711 | Hack the System | O
 ULDUM | ULD_712 | Bug Collector | O
 ULDUM | ULD_713 | Swarm of Locusts | O
 ULDUM | ULD_714 | Penance | O
 ULDUM | ULD_715 | Plague of Madness | O
 ULDUM | ULD_716 | Tip the Scales | O
-ULDUM | ULD_717 | Plague of Flames |  
+ULDUM | ULD_717 | Plague of Flames | O
 ULDUM | ULD_718 | Plague of Death | O
 ULDUM | ULD_719 | Desert Hare | O
 ULDUM | ULD_720 | Bloodsworn Mercenary | O
 ULDUM | ULD_721 | Colossus of the Moon | O
 ULDUM | ULD_723 | Murmy | O
-ULDUM | ULD_724 | Activate the Obelisk |  
+ULDUM | ULD_724 | Activate the Obelisk | O
 ULDUM | ULD_726 | Ancient Mysteries | O
-ULDUM | ULD_727 | Body Wrapper |  
+ULDUM | ULD_727 | Body Wrapper | O
 ULDUM | ULD_728 | Subdue | O
 
-- Progress: 83% (113 of 135 Cards)
+- Progress: 99% (134 of 135 Cards)
 
 ## Descent of Dragons
 

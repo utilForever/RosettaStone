@@ -65,6 +65,12 @@ SelfCondition SelfCondition::IsDeathrattleCard()
         [](Playable* playable) { return playable->HasDeathrattle(); });
 }
 
+SelfCondition SelfCondition::IsDiscoverCard()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->HasDiscover(); });
+}
+
 SelfCondition SelfCondition::IsGalakrondHero()
 {
     return SelfCondition(
@@ -499,6 +505,25 @@ SelfCondition SelfCondition::IsComboCard()
     });
 }
 
+SelfCondition SelfCondition::IsLowestCostMinion()
+{
+    return SelfCondition([](Playable* playable) {
+        int lowestCost = std::numeric_limits<int>::max();
+
+        for (const auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardType() == CardType::MINION &&
+                handCard->GetCost() < lowestCost)
+            {
+                lowestCost = handCard->GetCost();
+            }
+        }
+
+        return playable->card->GetCardType() == CardType::MINION &&
+               playable->GetCost() == lowestCost;
+    });
+}
+
 SelfCondition SelfCondition::HasPlayerSpellPower()
 {
     return SelfCondition([](Playable* playable) {
@@ -673,6 +698,13 @@ SelfCondition SelfCondition::IsInZone(ZoneType zone)
         [zone](Playable* playable) { return playable->GetZoneType() == zone; });
 }
 
+SelfCondition SelfCondition::IsMyTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player == playable->game->GetCurrentPlayer();
+    });
+}
+
 SelfCondition SelfCondition::IsEnemyTurn()
 {
     return SelfCondition([](Playable* playable) {
@@ -808,6 +840,23 @@ SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
         }
 
         return false;
+    });
+}
+
+SelfCondition SelfCondition::ControlThisCard(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        int count = 0;
+
+        for (auto& deckCard : playable->player->GetFieldZone()->GetAll())
+        {
+            if (playable->card->dbfID == deckCard->card->dbfID)
+            {
+                ++count;
+            }
+        }
+
+        return count >= num;
     });
 }
 

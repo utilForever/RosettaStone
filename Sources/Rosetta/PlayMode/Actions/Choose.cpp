@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
@@ -123,6 +124,18 @@ bool ChoicePick(Player* player, int choice)
     // Process pick by choice action
     switch (choiceVal->choiceAction)
     {
+        case ChoiceAction::INVALID:
+            throw std::invalid_argument(
+                "ChoicePick() - Invalid choice action!");
+        case ChoiceAction::CHANGE_HERO_POWER:
+        {
+            delete player->GetHero()->heroPower;
+            player->GetSetasideZone()->Remove(playable);
+            playable->SetGameTag(GameTag::ZONE,
+                                 static_cast<int>(ZoneType::PLAY));
+            player->GetHero()->heroPower = dynamic_cast<HeroPower*>(playable);
+            break;
+        }
         case ChoiceAction::HAND:
         {
             player->GetSetasideZone()->Remove(playable);
@@ -134,6 +147,12 @@ bool ChoicePick(Player* player, int choice)
             player->GetSetasideZone()->Remove(playable);
             AddCardToHand(player, playable);
             player->choice->AddToStack(choice);
+            break;
+        }
+        case ChoiceAction::DECK:
+        {
+            player->GetSetasideZone()->Remove(playable);
+            ShuffleIntoDeck(player, choiceVal->source, playable);
             break;
         }
         case ChoiceAction::ENCHANTMENT:
@@ -246,9 +265,36 @@ bool ChoicePick(Player* player, int choice)
             }
             break;
         }
-        default:
-            throw std::invalid_argument(
-                "ChoicePick() - Invalid choice action!");
+        case ChoiceAction::VULPERA_SCOUNDREL:
+        {
+            if (playable->card->id == "ULD_209t")
+            {
+                std::vector<Card*> allCards = Cards::GetDiscoverCards(
+                    player->baseClass, player->game->GetFormatType());
+
+                std::vector<Card*> spellCards;
+                for (auto& card : allCards)
+                {
+                    if (card->GetCardType() == CardType::SPELL)
+                    {
+                        spellCards.emplace_back(card);
+                    }
+                }
+
+                const auto idx =
+                    Random::get<std::size_t>(0, spellCards.size() - 1);
+
+                Playable* spell = Entity::GetFromCard(player, spellCards[idx]);
+                AddCardToHand(player, spell);
+                playable = spell;
+            }
+            else
+            {
+                player->GetSetasideZone()->Remove(playable);
+                AddCardToHand(player, playable);
+            }
+            break;
+        }
     }
 
     Choice* nextChoice = choiceVal->TryPopNextChoice(choice);
@@ -281,6 +327,27 @@ bool ChoicePick(Player* player, int choice)
 
                 clonedTask->Run();
             }
+        }
+
+        // NOTE: Temporary code for 'Dwarven Archaeologist' (ULD_309)
+        // TODO: We'll refactor it later using Coroutines in C++20
+        if (const Entity* source = choiceVal->source;
+            source && source->GetGameTag(GameTag::DISCOVER) == 1)
+        {
+            player->game->taskStack.num[0] =
+                playable->GetGameTag(GameTag::ENTITY_ID);
+
+            // Validate play card trigger
+            Trigger::ValidateTriggers(player->game, choiceVal->source,
+                                      SequenceType::PLAY_CARD);
+
+            // Process after play card trigger
+            player->game->taskQueue.StartEvent();
+            player->game->triggerManager.OnAfterPlayCardTrigger(
+                choiceVal->source);
+            player->game->ProcessTasks();
+            player->game->taskQueue.EndEvent();
+            player->game->ProcessDestroyAndUpdateAura();
         }
 
         // It's done! - Reset choice

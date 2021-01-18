@@ -79,6 +79,13 @@ class Cards
     //! \return A list of all wild cards.
     static const std::vector<Card*>& GetAllWildCards();
 
+    //! Returns a list of discover cards.
+    //! \param baseClass The base class of the player.
+    //! \param format The format type of the game.
+    //! \return A list of discover cards.
+    static const std::vector<Card*> GetDiscoverCards(CardClass baseClass,
+                                                     FormatType format);
+
     //! Returns a list of Lackey cards.
     //! \return A list of Lackey cards.
     static std::vector<Card*> GetLackeys();
