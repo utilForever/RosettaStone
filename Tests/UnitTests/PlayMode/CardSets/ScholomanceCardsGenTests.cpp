@@ -2294,12 +2294,20 @@ TEST_CASE("[Neutral : Minion] - SCH_162 : Vectus")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
     game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+
     game.Process(curPlayer, PlayCardTask::Minion(card4));
     CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+    CHECK_EQ(curField[2]->HasDeathrattle(), true);
 
     game.Process(curPlayer, PlayCardTask::Spell(card5));
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 10);
 }
 
 // --------------------------------------- MINION - NEUTRAL
