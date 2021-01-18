@@ -1234,7 +1234,7 @@ SCHOLOMANCE | SCH_713 | Cult Neophyte | O
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster | O
 
-- Progress: 46% (63 of 135 Cards)
+- Progress: 48% (65 of 135 Cards)
 
 ## Madness at the Darkmoon Faire
 
