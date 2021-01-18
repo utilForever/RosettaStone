@@ -1118,7 +1118,7 @@ SCHOLOMANCE | SCH_157 | Enchanted Cauldron |
 SCHOLOMANCE | SCH_158 | Demonic Studies | O
 SCHOLOMANCE | SCH_159 | Mindrender Illucia |  
 SCHOLOMANCE | SCH_160 | Wandmaker |  
-SCHOLOMANCE | SCH_162 | Vectus |  
+SCHOLOMANCE | SCH_162 | Vectus | O
 SCHOLOMANCE | SCH_181 | Archwitch Willow |  
 SCHOLOMANCE | SCH_182 | Speaker Gidra |  
 SCHOLOMANCE | SCH_199 | Transfer Student |  
@@ -1178,7 +1178,7 @@ SCHOLOMANCE | SCH_422 | Double Jump |
 SCHOLOMANCE | SCH_425 | Doctor Krastinov | O
 SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom | O
-SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt |  
+SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt | O
 SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
 SCHOLOMANCE | SCH_509 | Brain Freeze | O
 SCHOLOMANCE | SCH_512 | Initiation |  
@@ -1234,7 +1234,7 @@ SCHOLOMANCE | SCH_713 | Cult Neophyte | O
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster | O
 
-- Progress: 46% (63 of 135 Cards)
+- Progress: 48% (65 of 135 Cards)
 
 ## Madness at the Darkmoon Faire
 

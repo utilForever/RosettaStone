@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -2245,6 +2246,72 @@ TEST_CASE("[Neutral : Minion] - SCH_145 : Desk Imp")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SCH_162] Vectus - COST:5 [ATK:4/HP:4]
+// - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Whelps.
+//       Each gains a <b>Deathrattle</b> from your minions
+//       that died this game.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_162 : Vectus")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kobold Sandtrooper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vectus"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+    CHECK_EQ(curField[2]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 10);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
 // - Race: Dragon, Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
@@ -2995,6 +3062,61 @@ TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
     game.Process(curPlayer, AttackTask(card3, card4));
     CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 3);
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_428] Lorekeeper Polkelt - COST:5 [ATK:4/HP:5]
+// - Set: SCHOLOMANCE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Reorder your deck from the highest
+//       Cost card to the lowest Cost card.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    const std::string INNKEEPER_EXPERT_WARLOCK =
+        "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
+    auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
+
+    for (size_t j = 0; j < deck.size(); ++j)
+    {
+        config.player1Deck[j] = Cards::FindCardByID(deck[j]);
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lorekeeper Polkelt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    for (int count = 1; count < curDeck.GetCount(); ++count)
+    {
+        CHECK(curDeck.GetNthTopCard(count)->GetCost() >=
+              curDeck.GetNthTopCard(count + 1)->GetCost());
+    }
 }
 
 // ---------------------------------------- SPELL - NEUTRAL
