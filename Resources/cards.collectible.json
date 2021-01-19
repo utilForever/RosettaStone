@@ -6142,7 +6142,7 @@
     },
     {
         "artist": "Grace Liu",
-        "attack": 4,
+        "attack": 3,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 5,
@@ -26036,7 +26036,7 @@
         "attack": 2,
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 306,
         "elite": true,
         "flavor": "He led the Stonemasons in the reconstruction of Stormwind, and when the nobles refused to pay, he founded the Defias Brotherhood to, well, <i>deconstruct</i> Stormwind.",

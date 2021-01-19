@@ -5385,13 +5385,13 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 7,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 66840,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 66835,
         "elite": true,
-        "health": 7,
+        "health": 4,
         "id": "BGS_205",
         "mechanics": [
             "DIVINE_SHIELD",
@@ -15361,7 +15361,7 @@
     },
     {
         "artist": "Grace Liu",
-        "attack": 4,
+        "attack": 3,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 5,
@@ -55864,7 +55864,7 @@
         "attack": 2,
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 306,
         "elite": true,
         "flavor": "He led the Stonemasons in the reconstruction of Stormwind, and when the nobles refused to pay, he founded the Defias Brotherhood to, well, <i>deconstruct</i> Stormwind.",
@@ -113850,13 +113850,13 @@
         "type": "MINION"
     },
     {
-        "attack": 14,
+        "attack": 8,
         "battlegroundsNormalDbfId": 66835,
         "cardClass": "NEUTRAL",
         "cost": 8,
         "dbfId": 66840,
         "elite": true,
-        "health": 14,
+        "health": 8,
         "id": "TB_BaconUps_306",
         "mechanics": [
             "DIVINE_SHIELD",
