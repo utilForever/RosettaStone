@@ -5419,7 +5419,7 @@ TEST_CASE("[Rogue : Minion] - EX1_522 : Patient Assassin")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
+// [EX1_613] Edwin VanCleef - COST:4 [ATK:2/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Combo:</b> Gain +2/+2 for each other card
@@ -5465,6 +5465,8 @@ TEST_CASE("[Rogue : Minion] - EX1_613 : Edwin VanCleef")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[1]->GetAttack(), 4);
     CHECK_EQ(curField[1]->GetHealth(), 4);
+
+    curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curField[2]->GetAttack(), 6);

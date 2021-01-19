@@ -2655,7 +2655,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_522", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
-    // [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
+    // [EX1_613] Edwin VanCleef - COST:4 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Combo:</b> Gain +2/+2 for each other card
