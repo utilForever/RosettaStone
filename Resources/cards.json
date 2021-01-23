@@ -4426,6 +4426,33 @@
         "type": "ENCHANTMENT"
     },
     {
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 61081,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61059,
+        "health": 3,
+        "id": "BGS_059",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Soul Devourer",
+        "race": "DEMON",
+        "set": "BATTLEGROUNDS",
+        "techLevel": 3,
+        "text": "[x]<b>Battlecry:</b> Choose a\nfriendly Demon. Remove\nit to gain its stats and\n3 Gold.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 61080,
+        "id": "BGS_059e",
+        "name": "Devoured Soul",
+        "set": "BATTLEGROUNDS",
+        "text": "Increased stats.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "attack": 2,
         "battlegroundsPremiumDbfId": 63782,
         "cardClass": "NEUTRAL",
@@ -5615,7 +5642,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "BATTLEGROUNDS",
-        "text": "Give a minion <b>Divine Shield</b>.",
+        "text": "Give a friendly minion <b>Divine Shield</b>.",
         "type": "SPELL"
     },
     {
@@ -5739,7 +5766,7 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "text": "Give a minion +5/+5 and <b>Taunt</b>.",
+        "text": "Give a friendly minion +5/+5 and <b>Taunt</b>.",
         "type": "SPELL"
     },
     {
@@ -5748,25 +5775,8 @@
         "id": "BGS_Treasures_026e",
         "name": "Bouncy Bouncy",
         "set": "BATTLEGROUNDS",
-        "text": "+5/+5 and <b>Taunt</b>",
+        "text": "+5/+5 and <b>Taunt</b>.",
         "type": "ENCHANTMENT"
-    },
-    {
-        "cardClass": "MAGE",
-        "cost": 0,
-        "dbfId": 65529,
-        "id": "BGS_Treasures_027",
-        "mechanics": [
-            "SECRET"
-        ],
-        "name": "Ice Block",
-        "rarity": "EPIC",
-        "referencedTags": [
-            "IMMUNE"
-        ],
-        "set": "BATTLEGROUNDS",
-        "text": "<b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.",
-        "type": "SPELL"
     },
     {
         "cardClass": "NEUTRAL",
@@ -5774,6 +5784,10 @@
         "dbfId": 66424,
         "id": "BGS_Treasures_028",
         "name": "Give A Dog A Bone",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "WINDFURY"
+        ],
         "set": "BATTLEGROUNDS",
         "text": "Give a friendly minion <b>Divine Shield</b>, <b>Windfury</b>, and +10/+10.",
         "type": "SPELL"
@@ -6126,7 +6140,7 @@
         "name": "Weapons Project",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "text": "Each player equips a 2/3 Weapon and\ngains 6 Armor.",
+        "text": "Each player equips a 2/3 weapon and\ngains 6 Armor.",
         "type": "SPELL"
     },
     {
@@ -39150,6 +39164,51 @@
         "type": "SPELL"
     },
     {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 70142,
+        "id": "DH_Lunar_TBBucket_1",
+        "name": "Devastation",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 70145,
+        "id": "DH_Lunar_TBBucket_2",
+        "name": "Outcast",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 70180,
+        "id": "DH_Lunar_TBBucket_3",
+        "name": "Sacrifice",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 70182,
+        "id": "DH_Lunar_TBBucket_4",
+        "name": "Souls",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 0,
+        "dbfId": 70183,
+        "id": "DH_Lunar_TBBucket_5",
+        "name": "Strike",
+        "set": "TB",
+        "type": "SPELL"
+    },
+    {
         "cardClass": "WARLOCK",
         "cost": 3,
         "dbfId": 62056,
@@ -39302,7 +39361,7 @@
         "id": "DMF_004t6",
         "name": "Rod of Roasting",
         "set": "DARKMOON_FAIRE",
-        "text": "Cast 'Pyroblast' randomly until a player dies.",
+        "text": "Cast 'Pyroblast' randomly until a hero dies.",
         "type": "SPELL"
     },
     {
@@ -39769,7 +39828,7 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Battlecry:</b> Both players draw a card.",
+        "text": "<b>Battlecry:</b> Each player draws a card.",
         "type": "MINION"
     },
     {
@@ -40578,12 +40637,12 @@
         "flavor": "If you liked it, then you shoulda put a ring on it!",
         "id": "DMF_105",
         "mechanics": [
-            "CORRUPT"
+            "CORRUPT",
+            "DISCOVER"
         ],
         "name": "Ring Toss",
         "rarity": "RARE",
         "referencedTags": [
-            "DISCOVER",
             "SECRET"
         ],
         "set": "DARKMOON_FAIRE",
@@ -40596,10 +40655,12 @@
         "cost": 4,
         "dbfId": 61292,
         "id": "DMF_105t",
+        "mechanics": [
+            "DISCOVER"
+        ],
         "name": "Ring Toss",
         "rarity": "RARE",
         "referencedTags": [
-            "DISCOVER",
             "SECRET"
         ],
         "set": "DARKMOON_FAIRE",
@@ -40808,7 +40869,7 @@
         "name": "Revenant Rascal",
         "rarity": "EPIC",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Battlecry:</b> Destroy a Mana Crystal for both players.",
+        "text": "<b>Battlecry:</b> Destroy a Mana Crystal for each player.",
         "type": "MINION"
     },
     {
@@ -42787,6 +42848,7 @@
     {
         "artist": "James Ryman",
         "attack": 6,
+        "battlegroundsPremiumDbfId": 67728,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 6,
@@ -42802,6 +42864,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
+        "techLevel": 4,
         "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon\ntwo 3/2 Imps.",
         "type": "MINION"
     },
@@ -43247,7 +43310,7 @@
         "cardClass": "NEUTRAL",
         "cost": 0,
         "dbfId": 64828,
-        "flavor": "Just one of these could buy you sixty whole seconds of Whack-a-Gnoll bliss.\nObtained by owning all Darkmoon Faire set cards.",
+        "flavor": "Just one of these could buy you sixty whole seconds of Whack-a-Gnoll bliss.\nObtained by owning 135 Darkmoon Faire set cards.",
         "id": "DMF_COIN2",
         "name": "The Coin",
         "set": "DARKMOON_FAIRE",
@@ -69197,7 +69260,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "GVG",
-        "techLevel": 4,
         "text": "Whenever your hero takes damage on your turn, gain +2/+2.",
         "type": "MINION"
     },
@@ -69926,6 +69988,17 @@
         "type": "HERO_POWER"
     },
     {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 67521,
+        "health": 30,
+        "id": "HERO_01g",
+        "name": "Lü Bu Garrosh",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -70164,6 +70237,17 @@
         "type": "HERO_POWER"
     },
     {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 67522,
+        "health": 30,
+        "id": "HERO_03e",
+        "name": "Diao Chan Valeera",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 671,
@@ -70310,6 +70394,17 @@
         "health": 30,
         "id": "HERO_04g",
         "name": "Uther Lawbringer",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 67519,
+        "health": 30,
+        "id": "HERO_04h",
+        "name": "Guan Yu Uther",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -70944,6 +71039,28 @@
         "set": "HERO_SKINS",
         "text": "<b>Hero Power</b>\nRestore #4 Health.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 67710,
+        "health": 30,
+        "id": "HERO_09e",
+        "name": "SI:7 Anduin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 67523,
+        "health": 30,
+        "id": "HERO_09f",
+        "name": "Zhuge Liang Anduin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
     },
     {
         "artist": "Alex Horley Orlandelli",
@@ -89696,6 +89813,25 @@
         "type": "MINION"
     },
     {
+        "cardClass": "WARLOCK",
+        "dbfId": 68189,
+        "id": "Mission_ForceDrawInOrder",
+        "name": "Mission Force Draw In Order",
+        "set": "MISSIONS",
+        "text": "Force Draws the cards of the Deck ID set in ScriptDataNum2",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 68227,
+        "health": 30,
+        "id": "MissionExampleHero",
+        "name": "Example Hero",
+        "set": "BLACK_TEMPLE",
+        "text": "This Hero has Examples of a lot of Triggers to Copy From",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 1825,
         "health": 30,
@@ -96198,7 +96334,7 @@
         ],
         "name": "Outlander",
         "set": "TB",
-        "text": "[x]<b>Hero Power</b>\nAfter you play the left- \nor right-most card, \ngain 1 Attack this turn.",
+        "text": "[x]<b>Passive Hero Power</b>\nAfter you play the left- \nor right-most card, \ngain 1 Attack this turn.",
         "type": "HERO_POWER"
     },
     {
@@ -96455,6 +96591,9 @@
             "SPELLBURST"
         ],
         "name": "Droplet of Insanity",
+        "referencedTags": [
+            "CORRUPT"
+        ],
         "set": "TB",
         "text": "<b>Spellburst</b>: Add two <b>Corrupt</b> cards to your hand, then <b>Corrupt</b> them.",
         "type": "MINION"
@@ -96606,6 +96745,9 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Gift of the Old Gods",
+        "referencedTags": [
+            "CORRUPT"
+        ],
         "set": "TB",
         "text": "Draw 2 <b>Corrupt</b> Cards, then <b>Corrupt</b> them.",
         "type": "SPELL"
@@ -98577,6 +98719,30 @@
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
+        "dbfId": 68071,
+        "flavor": "Coming Soon!",
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoon_Forever",
+        "name": "Coming Soon",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 68072,
+        "flavor": "Coming Soon!",
+        "hideStats": true,
+        "id": "PVPDR_SCH_ComingSoon_Foreverp1",
+        "name": "Coming Soon",
+        "set": "TB",
+        "text": "Coming Soon!",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
         "dbfId": 65415,
         "flavor": "Coming Soon!",
         "hideStats": true,
@@ -98785,6 +98951,29 @@
         "set": "TB",
         "text": "[x]<b>Choose One -</b>\n Refresh your Mana Crystals;\n or Summon a Treant for each\n Mana Crystal you have.",
         "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 1,
+        "dbfId": 64407,
+        "flavor": "Why not both?",
+        "id": "PVPDR_SCH_Druidt5",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Marvelous Mycelium",
+        "set": "TB",
+        "text": "<b>Discover</b> a <b>Choose One</b> card. <b>Choose One</b> cards trigger both effects until the end of turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 64408,
+        "id": "PVPDR_SCH_Druidt5e",
+        "name": "Marvelous Spores",
+        "set": "TB",
+        "text": "Discard this at the end of your turn.",
+        "type": "ENCHANTMENT"
     },
     {
         "attack": 0,
@@ -99244,6 +99433,34 @@
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
+        "dbfId": 65689,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive18",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "All Shall Serve",
+        "set": "TB",
+        "text": "<b>Passive</b>\nWhenever a Demon dies, draw a card and deal 1 damage to your hero.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65690,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive18e",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "All Shall Serve",
+        "set": "TB",
+        "text": "<b>Passive</b>\nWhenever a Demon dies, draw a card and deal 1 damage to your hero.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
         "dbfId": 65696,
         "hideStats": true,
         "id": "PVPDR_SCH_Passive19",
@@ -99322,6 +99539,47 @@
         ],
         "set": "TB",
         "text": "<b>Passive</b>\n Your Dragons cost (2) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 65735,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive21",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Dragonblood",
+        "set": "TB",
+        "text": "<b>Passive</b>\n After a friendly Dragon dies, give your minions +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65736,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive21e",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Dragonblood",
+        "set": "TB",
+        "text": "<b>Passive</b>\n After a friendly Dragon dies, give your minions +1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65737,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive21e2",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Dragonblood",
+        "set": "TB",
+        "text": "Increased stats.",
         "type": "ENCHANTMENT"
     },
     {
@@ -99565,6 +99823,34 @@
     {
         "cardClass": "NEUTRAL",
         "cost": 0,
+        "dbfId": 65783,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive36",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF"
+        ],
+        "name": "Starving",
+        "set": "TB",
+        "text": "<b>Passive</b>\nWhenever a friendly Beast dies, draw a card.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 65784,
+        "hideStats": true,
+        "id": "PVPDR_SCH_Passive36e",
+        "mechanics": [
+            "DUNGEON_PASSIVE_BUFF",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Starving",
+        "set": "TB",
+        "text": "<b>Passive</b>\nWhenever a friendly Beast dies, draw a card.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
         "dbfId": 65905,
         "hideStats": true,
         "id": "PVPDR_SCH_Passive39",
@@ -99573,7 +99859,7 @@
         ],
         "name": "The Floor is Lava",
         "set": "TB",
-        "text": "<b>Passive</b>\nAfter a minion is played, deal 1 damage to it.",
+        "text": "<b>Passive</b>\nAfter you play a minion, deal 1 damage to it and give it +1 Attack.",
         "type": "SPELL"
     },
     {
@@ -99587,7 +99873,16 @@
         ],
         "name": "The Floor is Lava",
         "set": "TB",
-        "text": "<b>Passive</b>\nAfter a minion is played, deal 1 damage to it.",
+        "text": "<b>Passive</b>\nAfter you play a minion, deal 1 damage to it and give it +1 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67791,
+        "id": "PVPDR_SCH_Passive39e2",
+        "name": "Lava Floor",
+        "set": "TB",
+        "text": "Increased Attack.",
         "type": "ENCHANTMENT"
     },
     {
@@ -99629,6 +99924,17 @@
         "set": "TB",
         "text": "<b>Hero Power</b>\nEquip a 1/2 Dagger.\n<b>Combo:</b> Equip a 2/2 Dagger.",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 64951,
+        "flavor": "It's like last turn...but this turn.",
+        "id": "PVPDR_SCH_Roguet1",
+        "name": "Ace in the Hole",
+        "set": "TB",
+        "text": "Add a copy of each card you played last turn to your hand.",
+        "type": "SPELL"
     },
     {
         "cardClass": "ROGUE",
@@ -99729,6 +100035,20 @@
         "type": "ENCHANTMENT"
     },
     {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 64219,
+        "hideCost": true,
+        "id": "PVPDR_SCH_Warlockp3",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Soulcial Studies",
+        "set": "TB",
+        "text": "<b>Passive Hero Power</b>\nWhen you play a card that generates Soul Fragments, summon a Flame Imp.",
+        "type": "HERO_POWER"
+    },
+    {
         "attack": 3,
         "cardClass": "WARLOCK",
         "cost": 6,
@@ -99754,6 +100074,46 @@
         "name": "Unstoppable",
         "set": "TB",
         "text": "Increased Attack and Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 7,
+        "dbfId": 64405,
+        "flavor": "Who wants to go first?",
+        "id": "PVPDR_SCH_Warlockt4",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Demonology 101",
+        "set": "TB",
+        "text": "Destroy ALL minions.\nAdd a soul fragment to your deck for each enemy minion destroyed.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "cost": 3,
+        "dbfId": 64406,
+        "flavor": "Demonizer, Demon-Demonizer.",
+        "health": 4,
+        "id": "PVPDR_SCH_Warlockt5",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Demonizer",
+        "race": "DEMON",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Add 1 Demon to your hand. |4(It costs, They cost) (3) less. <i>(Improves during run)</i>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67823,
+        "id": "PVPDR_SCH_Warlockt5e1",
+        "name": "Demonized",
+        "set": "TB",
+        "text": "Reduced Cost.",
         "type": "ENCHANTMENT"
     },
     {
@@ -99799,6 +100159,31 @@
         "name": "Auto-Armed",
         "set": "TB",
         "text": "+1/+1",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "cost": 3,
+        "dbfId": 65091,
+        "durability": 1,
+        "flavor": "Yeah, it hurts a lot now, but trust us. It's going to make you look great.",
+        "id": "PVPDR_SCH_Warriort2",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Spiked Arms",
+        "set": "TB",
+        "text": "After you summon a minion, deal 1 damage to it and give it +2 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 65093,
+        "id": "PVPDR_SCH_Warriort2e1",
+        "name": "Brutal Inspiration",
+        "set": "TB",
+        "text": "+2 Attack.",
         "type": "ENCHANTMENT"
     },
     {
@@ -99890,6 +100275,681 @@
         "set": "TB",
         "text": "Refresh your Mana Crystals.",
         "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 67798,
+        "id": "PVPDR_YOP_Active01",
+        "name": "Astral Portal",
+        "set": "TB",
+        "text": "Summon a random <b>Legendary</b> minion.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 3,
+        "dbfId": 67799,
+        "id": "PVPDR_YOP_Active02",
+        "name": "Mage Armor",
+        "set": "TB",
+        "text": "Gain 10 Armor.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "classes": [
+            "HUNTER",
+            "DEMONHUNTER"
+        ],
+        "cost": 2,
+        "dbfId": 67487,
+        "flavor": "Driver picks the music, shotgun shuts their fish hole. Them's the rules.",
+        "health": 3,
+        "id": "PVPDR_YOP_DemHun",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "HUNTER_DEMONHUNTER",
+        "name": "Traktamer Aelessa",
+        "set": "TB",
+        "text": "After your hero attacks, summon a random demon companion attacking the same target.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 2,
+        "dbfId": 67381,
+        "id": "PVPDR_YOP_DemonHunterP1",
+        "name": "Illidari Strike",
+        "set": "TB",
+        "text": "<b> Hero Power </b> \nSummon two 1/1 Illidari that attack target enemy minion.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "cost": 4,
+        "dbfId": 67382,
+        "flavor": "I think someone might have taken that advice a little too literally...",
+        "id": "PVPDR_YOP_DemonHuntert1",
+        "name": "Binding Chains",
+        "set": "TB",
+        "text": "Three random enemy minions go <b>Dormant</b> for 2 turns.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 67383,
+        "hideStats": true,
+        "id": "PVPDR_YOP_DemonHuntert1e1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Binding Chains",
+        "set": "TB",
+        "text": "<b>Dormant</b>. Awaken in 2 turns.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "cost": 4,
+        "dbfId": 67384,
+        "durability": 2,
+        "flavor": "A blade so fast, it gets you all the Outcasts!",
+        "id": "PVPDR_YOP_DemonHuntert2",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Blade of Quickening",
+        "referencedTags": [
+            "OUTCAST"
+        ],
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Draw 1 <b>Outcast</b> card.\n |4(It costs, They cost) (1) less. <i>(Improves during run)</i>",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 67385,
+        "id": "PVPDR_YOP_DemonHuntert2e1",
+        "name": "Quickening",
+        "set": "TB",
+        "text": "Reduced cost.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "dbfId": 67386,
+        "id": "PVPDR_YOP_DemonHuntert2e2",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "Quickening",
+        "set": "TB",
+        "text": "Increased attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 2,
+        "dbfId": 67473,
+        "id": "PVPDR_YOP_DruidP1",
+        "name": "Harvest Time!",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nDestroy a minion, then \nsummon two 2/2 Treants for that minion's owner.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 8,
+        "cardClass": "DRUID",
+        "cost": 8,
+        "dbfId": 67477,
+        "flavor": "\"I don't know, Fred, but you should probably stop climbing on it.\"\n- Friend of Fred",
+        "health": 12,
+        "id": "PVPDR_YOP_DruidT1",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Awakened Ancient",
+        "set": "TB",
+        "targetingArrowText": "Deal damage.",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> Draw 1 card, deal 1 damage, and gain 1 Armor.\n<i>(Improves during run)</i>",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "DRUID",
+        "classes": [
+            "DRUID",
+            "SHAMAN"
+        ],
+        "cost": 3,
+        "dbfId": 67462,
+        "flavor": "Three-time consecutive 3rd place winner. Number 1 in our hearts.",
+        "health": 5,
+        "id": "PVPDR_YOP_DruShaT1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Zukara the Wild",
+        "set": "TB",
+        "text": "After you play a spell that costs 4 or more, cast it again. (Targets chosen randomly)",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 0,
+        "dbfId": 67496,
+        "hideStats": true,
+        "id": "PVPDR_YOP_HunterP1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Savage Secrets",
+        "set": "TB",
+        "text": "[x]<b>Passive Hero Power</b>\n After a friendly <b>Secret</b> is\nrevealed, add a 2-Cost\nBeast to your hand.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "cost": 2,
+        "dbfId": 67518,
+        "flavor": "\"Fred, we should leave. It's called Deathstrider for a reason.\"\n- Friend of Fred",
+        "health": 3,
+        "id": "PVPDR_YOP_HunterT1",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Deathstrider",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Trigger 1 random friendly minion's <b>Deathrattle</b>.\n<i>(Improves during run)</i>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "cost": 3,
+        "dbfId": 67494,
+        "durability": 3,
+        "flavor": "The arrows are coated in sugar. Beasts love sugar.",
+        "id": "PVPDR_YOP_HunterT2",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bow of the Beast",
+        "set": "TB",
+        "text": "After you attack, give your Beasts +1/+1.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 67495,
+        "id": "PVPDR_YOP_HunterT2e",
+        "name": "Beastly Vigor",
+        "set": "TB",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "classes": [
+            "PRIEST",
+            "WARLOCK"
+        ],
+        "cost": 4,
+        "dbfId": 67492,
+        "flavor": "It's easy winning when all the racers are you.",
+        "health": 4,
+        "id": "PVPDR_YOP_LocPriT1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "PRIEST_WARLOCK",
+        "name": "Joras Thuldoom",
+        "set": "TB",
+        "text": "Whenever your health changes on your turn, summon a copy of this minion.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 1,
+        "dbfId": 67434,
+        "id": "PVPDR_YOP_MageP1",
+        "name": "Frost Shards",
+        "set": "TB",
+        "text": "[x]<b>Hero Power</b>\nDeal $1 damage.\nAdd a 1/1 Ice Shard that\n<b>Freezes</b> to your hand.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 67824,
+        "id": "PVPDR_YOP_MageP1e1",
+        "name": "Elemental Shards",
+        "set": "TB",
+        "text": "Reduced Cost.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 10,
+        "dbfId": 67437,
+        "flavor": "Another chance to spin that wheel round. Right round.",
+        "id": "PVPDR_YOP_MageT1",
+        "name": "Yogg-tastic Tasties",
+        "set": "TB",
+        "text": "Spin the Wheel of Yogg-Saron. Costs (0) less.\n<i>(Improves during run)</i>",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 70293,
+        "id": "PVPDR_YOP_MageT1t",
+        "name": "Devouring Hunger",
+        "set": "TB",
+        "text": "Destroy all minions.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 5,
+        "dbfId": 67447,
+        "flavor": "Sometimes all it takes is the right spark of inspiration.",
+        "health": 5,
+        "id": "PVPDR_YOP_MageT3",
+        "mechanics": [
+            "SPELLBURST"
+        ],
+        "name": "Embercaster",
+        "set": "TB",
+        "text": "<b><b>Spellburst</b>:</b> Add 3 copies of the spell to your hand.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 2,
+        "dbfId": 67394,
+        "id": "PVPDR_YOP_PaladinP1",
+        "name": "Modest Aspirations",
+        "set": "TB",
+        "text": "[x]<b>Hero Power</b>\nSet a minion's Attack\nand Health to 3.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67395,
+        "id": "PVPDR_YOP_PaladinP1e1",
+        "name": "Modest Aspiration",
+        "set": "TB",
+        "text": "Stats set to 3/3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "cost": 4,
+        "dbfId": 67397,
+        "flavor": "With blessings like these, who needs favorings.",
+        "health": 3,
+        "id": "PVPDR_YOP_PaladinT1",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Favored Racer",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Cast 1 random blessing on this minion.\n<i>(Improves during run)</i>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PALADIN",
+        "cost": 5,
+        "dbfId": 67396,
+        "flavor": "\"The Rules.\"",
+        "id": "PVPDR_YOP_PaladinT3",
+        "name": "Humble Blessings",
+        "set": "TB",
+        "text": "Change the Attack, Health, and Cost of all your minions to 3 for the rest of the game.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67398,
+        "id": "PVPDR_YOP_PaladinT3e1",
+        "name": "Humble Blessing",
+        "set": "TB",
+        "text": "Your minions Cost, Attack, and Health are 3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67399,
+        "id": "PVPDR_YOP_PaladinT3e2",
+        "mechanics": [
+            "CANT_BE_SILENCED"
+        ],
+        "name": "Humble Blessing",
+        "set": "TB",
+        "text": "Cost, Attack, and Health are set 3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PALADIN",
+        "dbfId": 67400,
+        "id": "PVPDR_YOP_PaladinT3e3",
+        "mechanics": [
+            "CANT_BE_SILENCED",
+            "ENCHANTMENT_INVISIBLE"
+        ],
+        "name": "Humble Blessing",
+        "set": "TB",
+        "text": "Cost, Attack, and Health are set 3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 2,
+        "dbfId": 67389,
+        "id": "PVPDR_YOP_PriestP1",
+        "name": "Call of Madness",
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nSummon a 0/1 Voidfiend.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 0,
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 67390,
+        "health": 1,
+        "id": "PVPDR_YOP_PriestP1m1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Voidfiend",
+        "set": "TB",
+        "text": "At the end of your turn,\nsteal 1 Health from the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67989,
+        "id": "PVPDR_YOP_PriestP1m1e",
+        "name": "Void Drink",
+        "set": "TB",
+        "text": "Increased Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 3,
+        "dbfId": 67391,
+        "flavor": "\"Hey, Fred! That one looks like it's wearing your shoe! Fred?\"\n- Friend of Fred",
+        "id": "PVPDR_YOP_PriestT1",
+        "mechanics": [
+            "AFFECTED_BY_SPELL_POWER"
+        ],
+        "name": "Shadow Word: Void",
+        "set": "TB",
+        "text": "Destroy a minion and summon 0/1 Voidfiends equal to its Health.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 67392,
+        "id": "PVPDR_YOP_PriestT1e1",
+        "name": "Spirit Bond",
+        "set": "TB",
+        "text": "<b>Deathrattle:</b> Return to your hand.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "cost": 5,
+        "dbfId": 67393,
+        "flavor": "The sounds of wings makes its heart sing.",
+        "health": 6,
+        "id": "PVPDR_YOP_PriestT2",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Herald of the Scaled Ones",
+        "set": "TB",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> Add 1 Dragon to your hand.\n|4(It costs, They cost) (2) less. <i>(Improves during run)</i>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68069,
+        "id": "PVPDR_YOP_PriestT2e1",
+        "name": "Heralded Arrival",
+        "set": "TB",
+        "text": "Reduced cost.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "MAGE",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "cost": 2,
+        "dbfId": 67448,
+        "flavor": "Is anyone sure that trophy is real?",
+        "health": 3,
+        "id": "PVPDR_YOP_RogMagT1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "Britz Blazebucket",
+        "set": "TB",
+        "text": "After you play a spell, summon a random minion of the same Cost. It dies when it takes damage.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "MAGE",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "dbfId": 67455,
+        "id": "PVPDR_YOP_RogMagT1e",
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "After Image",
+        "set": "TB",
+        "text": "This minion dies when it takes damage.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 67424,
+        "id": "PVPDR_YOP_RogueP1",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Vile Concoction",
+        "referencedTags": [
+            "POISONOUS",
+            "STEALTH"
+        ],
+        "set": "TB",
+        "text": "<b>Hero Power</b>\nGive a minion <b>Poisonous</b>. <b>Combo</b>: Also give it <b>Stealth</b> for 1 turn.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68555,
+        "id": "PVPDR_YOP_RogueP1e",
+        "name": "Cloaked",
+        "set": "TB",
+        "text": "Stealthed until your next turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 67425,
+        "durability": 2,
+        "flavor": "At least it's not the blue shell.",
+        "id": "PVPDR_YOP_RogueT1",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Green Tortollan Shell",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Return 1 random enemy minion to |4(its, their) owner's hand. <i>(Improves during run)</i>",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 67459,
+        "hideStats": true,
+        "id": "PVPDR_YOP_ShamanP1",
+        "name": "Stormcatcher",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
+        "set": "TB",
+        "text": "[x]<b>Passive Hero Power</b>\nYou can't be <b>Overloaded</b>.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "cost": 3,
+        "dbfId": 67460,
+        "flavor": "Wait, what kind of specialist?",
+        "health": 3,
+        "id": "PVPDR_YOP_ShamanT1",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Payload Totem Specialist",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Add 1 non-basic Totem to your hand.\n|4(It costs, They cost) (2) less.\n<i>(Improves during run)</i>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68556,
+        "id": "PVPDR_YOP_ShamanT1e1",
+        "name": "Specialist Discount",
+        "set": "TB",
+        "text": "Reduced cost.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 1,
+        "dbfId": 67463,
+        "flavor": "Storm's at one.",
+        "id": "PVPDR_YOP_ShamanT2",
+        "name": "Chaos Storm",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
+        "set": "TB",
+        "text": "After you play a card with <b>Overload</b> this turn, add an <b>Overload</b> card to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 67465,
+        "id": "PVPDR_YOP_ShamanT2e1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Chaos Storm",
+        "set": "TB",
+        "text": "Random <b>Overload</b> cards this turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "classes": [
+            "PALADIN",
+            "WARRIOR"
+        ],
+        "cost": 4,
+        "dbfId": 67428,
+        "flavor": "All gas, no breaks!",
+        "health": 6,
+        "id": "PVPDR_YOP_WarPalT1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "PALADIN_WARRIOR",
+        "name": "Su Leadfoot",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "RUSH"
+        ],
+        "set": "TB",
+        "text": "After you summon a minion, it gains <b>Divine Shield</b> and <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 67413,
+        "hideStats": true,
+        "id": "PVPDR_YOP_WarriorP1",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Magnetic Mines",
+        "set": "TB",
+        "text": "<b>Passive Hero Power</b>\nAt the end of your turn, shuffle a bomb into your opponent's deck if you have any armor.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 5,
+        "dbfId": 67416,
+        "id": "PVPDR_YOP_WarriorP1s1",
+        "mechanics": [
+            "TOPDECK",
+            "ImmuneToSpellpower"
+        ],
+        "name": "Magnetic Mine",
+        "set": "TB",
+        "text": "<b>Casts When Drawn</b>\nYou take 5 damage.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "cost": 6,
+        "dbfId": 67421,
+        "flavor": "Bombbastic, tell me fantastic.",
+        "health": 5,
+        "id": "PVPDR_YOP_WarriorT1",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Scrapmetal Demolitionist",
+        "race": "MECHANICAL",
+        "set": "TB",
+        "text": "<b>Battlecry:</b> Gain 5 Armor. Shuffle 1 Bomb into your opponent’s deck. <i>(Improves during run)</i>",
+        "type": "MINION"
     },
     {
         "artist": "Slawomir Maniak",
@@ -106334,6 +107394,19 @@
         "type": "ENCHANTMENT"
     },
     {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67748,
+        "hideStats": true,
+        "id": "Story_03_Harmonized2",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Harmonized",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>. Awaken on your turn.",
+        "type": "ENCHANTMENT"
+    },
+    {
         "attack": 1,
         "cardClass": "WARRIOR",
         "cost": 2,
@@ -107651,6 +108724,1121 @@
         "type": "HERO_POWER"
     },
     {
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "cost": 1,
+        "dbfId": 67144,
+        "elite": true,
+        "health": 6,
+        "id": "Story_05_Alleria",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Alleria Windrunner",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the start of your turn, deal 2 damage to the enemy hero. <b>Deathrattle:</b> Go <b>Dormant</b> for 3 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "HUNTER",
+        "cost": 11,
+        "dbfId": 67145,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_05_AlleriaDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Alleria Windrunner",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 67124,
+        "faction": "ALLIANCE",
+        "id": "Story_05_AllianceCommander",
+        "mechanics": [
+            "TWINSPELL"
+        ],
+        "name": "Alliance Commander",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Twinspell</b>\nSummon two 2/2 Squires with <b>Taunt</b> and a 1/4 Alliance Siege Tower.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 67125,
+        "faction": "ALLIANCE",
+        "id": "Story_05_AllianceCommanderts",
+        "name": "Alliance Commander",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon two 2/2 Squires with <b>Taunt</b> and a 1/4 Alliance Siege Tower.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 67747,
+        "faction": "ALLIANCE",
+        "health": 4,
+        "id": "Story_05_AncientBrewmaster",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ancient Brewmaster",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Return a friendly minion from the battlefield to your hand.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 66899,
+        "health": 30,
+        "id": "Story_05_Anduin",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 68247,
+        "health": 30,
+        "id": "Story_05_Anduin2",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 68248,
+        "health": 30,
+        "id": "Story_05_Anduin3",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 68249,
+        "health": 30,
+        "id": "Story_05_Anduin4",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 1,
+        "dbfId": 66924,
+        "id": "Story_05_AnduinHP",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Light Thinking",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\n<b>Discover</b> a card from your deck. Reduce its cost by 1.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 66925,
+        "id": "Story_05_AnduinHP2",
+        "name": "Harmonic Mallet",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Hero Power</b>\nTurn the Divine Bell\n<b>Dormant</b> this turn.\nDeal 4 damage randomly\nsplit among all enemies.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 66900,
+        "health": 30,
+        "id": "Story_05_AnduinKing",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 3,
+        "dbfId": 66923,
+        "id": "Story_05_AnduinKingHP",
+        "name": "Equip Shalamayne",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nEquip Shalamayne.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 66898,
+        "health": 30,
+        "id": "Story_05_AnduinSI7",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66922,
+        "id": "Story_05_AnduinSI7HP",
+        "name": "Infiltrator's Spyglass",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nLook at the top 3 cards of your opponent's deck. Choose one to put on top and increase its cost by (1).",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68100,
+        "id": "Story_05_AnduinSI7HPe",
+        "name": "Infiltrated",
+        "set": "DARKMOON_FAIRE",
+        "text": "Costs (1) more.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66897,
+        "health": 30,
+        "id": "Story_05_AnduinYoung",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68245,
+        "health": 30,
+        "id": "Story_05_AnduinYoung2",
+        "name": "Anduin",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66920,
+        "id": "Story_05_AnduinYoungHP",
+        "name": "Uncertain Destiny",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\n<b>Discover</b> a spell from any class.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 66921,
+        "id": "Story_05_AnduinYoungHP2",
+        "name": "Uncertain Destiny Rank 2",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\n<b>Discover</b> two spells from any class.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 68094,
+        "id": "Story_05_Bananas",
+        "name": "Bananas",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>You can now fight the Monkey King!</i>\nGive a minion +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 67130,
+        "elite": true,
+        "health": 50,
+        "hideCost": true,
+        "id": "Story_05_BlightCauldron",
+        "mechanics": [
+            "CANT_ATTACK",
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Blight Cauldron",
+        "referencedTags": [
+            "DEATHRATTLE",
+            "POISONOUS"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]Can't attack. <b>Taunt</b>.\nAt the start of your turn,\ngive a friendly minion <b>Poisonous</b>.\n<b>Deathrattle</b>: Advance fight.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 67131,
+        "elite": true,
+        "health": 20,
+        "hideCost": true,
+        "id": "Story_05_Durja",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT",
+            "TRIGGER_VISUAL",
+            "WINDFURY"
+        ],
+        "name": "Windseeker Durja",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>. <b>Windfury</b>.\n<b>Deathrattle:</b> Advance fight.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67122,
+        "id": "Story_05_FaithsDefender",
+        "mechanics": [
+            "TWINSPELL"
+        ],
+        "name": "Faith's Defender",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Twinspell</b>\nGive a friendly minion <b>Taunt</b>. Draw 2 cards.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67123,
+        "id": "Story_05_FaithsDefendere",
+        "name": "Defending the Faith",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67842,
+        "id": "Story_05_FaithsDefenderts",
+        "name": "Faith's Defender",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Give a friendly minion <b>Taunt</b>. Draw 2 cards.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "cost": 4,
+        "dbfId": 68090,
+        "durability": 4,
+        "id": "Story_05_Fearbreaker",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fearbreaker",
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks, give a minion in your hand +1/+1.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68091,
+        "id": "Story_05_Fearbreakere",
+        "name": "Fearless",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 0,
+        "dbfId": 67743,
+        "id": "Story_05_ForbiddenWords",
+        "name": "Forbidden Words",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]Spend all your Mana.\nDestroy a minion with that\nmuch Attack or less.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 66908,
+        "health": 50,
+        "id": "Story_05_Garrosh",
+        "name": "Garrosh Hellscream",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The Warchief of the Horde tangles with powers beyond his imagining! This could get ugly.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 5,
+        "dbfId": 66919,
+        "id": "Story_05_GarroshHP",
+        "name": "Equip Gorehowl",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nEquip Gorehowl.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67127,
+        "elite": true,
+        "health": 5,
+        "id": "Story_05_Greymane",
+        "mechanics": [
+            "AURA",
+            "DEATHRATTLE"
+        ],
+        "name": "Genn Greymane",
+        "set": "DARKMOON_FAIRE",
+        "text": "Your Hero Power\ncosts (2) less.\n<b>Deathrattle:</b> Go\n <b>Dormant</b> for 2 turns.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67781,
+        "id": "Story_05_Greymanee",
+        "name": "Gilnean Frugality",
+        "set": "DARKMOON_FAIRE",
+        "text": "Costs (2) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 11,
+        "dbfId": 67128,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_05_GreymaneMinionDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Genn Greymane",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 66962,
+        "elite": true,
+        "health": 7,
+        "id": "Story_05_HighPriestRohan",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "High Priest Rohan",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]At the end of your turn,\nsummon two friendly minions\nthat died this game.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 67197,
+        "health": 6,
+        "hideStats": true,
+        "id": "Story_05_HordeAdventurer",
+        "name": "Horde Adventurer",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Deliver the Scouting Reports to General Nazgrim.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67090,
+        "elite": true,
+        "health": 10,
+        "hideCost": true,
+        "id": "Story_05_JadeWarlord",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Jade Warlord",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]At the end of your turn,\ngain +1 Attack.\n<b>Deathrattle:</b> Destroy all friendly\nminions and advance fight.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67745,
+        "id": "Story_05_JadeWarlorde",
+        "name": "Conqueror's Will",
+        "set": "DARKMOON_FAIRE",
+        "text": "Increased Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 66902,
+        "health": 30,
+        "id": "Story_05_Jaina",
+        "name": "Jaina Proudmoore",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The archmage gave you the power to visit her in Theramore whenever you want! Like right now.</i>",
+        "type": "HERO"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 11,
+        "dbfId": 67801,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_05_JainaDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Jaina Proudmoore",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 66918,
+        "id": "Story_05_JainaHP",
+        "name": "Polymorphonics",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nTransform an enemy minion into a 1/1 creature.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 5,
+        "cardClass": "MAGE",
+        "cost": 1,
+        "dbfId": 67137,
+        "elite": true,
+        "health": 4,
+        "id": "Story_05_JainaMinion",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Jaina Proudmoore",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn, <b>Freeze</b> a random enemy minion. <b>Deathrattle:</b> Go <b>Dormant</b> for 2 turns.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 67868,
+        "id": "Story_05_JourneyBelow",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Journey Below",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Discover</b> a <b>Deathrattle</b> card.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 4,
+        "dbfId": 67073,
+        "id": "Story_05_LightProphecy",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Light Prophecy",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Discover</b> a 4-Cost minion. Summon it and give it +3 Health.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "cost": 6,
+        "dbfId": 67821,
+        "elite": true,
+        "health": 5,
+        "id": "Story_05_Lorthemar",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lor'themar Theron",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]At the end of your turn,\ngive another random\nfriendly minion +1/+1.\n<b>Deathrattle:</b> Shuffle into\nyour deck.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 4,
+        "dbfId": 67800,
+        "id": "Story_05_MarkedShot",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Marked Shot",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $4 damage to a minion. <b>Discover</b> a spell.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 9,
+        "dbfId": 67782,
+        "id": "Story_05_MassResurrection",
+        "name": "Mass Resurrection",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon 3 friendly minions that died\nthis game.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67138,
+        "elite": true,
+        "health": 5,
+        "id": "Story_05_Mekkatorque",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLBURST"
+        ],
+        "name": "Gelbin Mekkatorque",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b><b>Spellburst</b>:</b> Summon an AWESOME invention. <b>Deathrattle:</b> Go <b>Dormant</b> for 4 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 11,
+        "dbfId": 67139,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_05_MekkatorqueDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Gelbin Mekkatorque",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 70287,
+        "id": "Story_05_MekkatorqueE",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Imprisoned_Mekkatorque",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>. Awaken in 4 turns.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 66966,
+        "id": "Story_05_MercifulHeart",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Merciful Heart",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Secret:</b> When a friendly minion dies, return it to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 67093,
+        "id": "Story_05_MetalBrew",
+        "name": "Metal Brew",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Give a friendly minion <b>Taunt</b>.\nDraw a card.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 66903,
+        "health": 30,
+        "id": "Story_05_Moira",
+        "name": "Moira Thaurissan",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Help Moira and Varian resolve their differences peacefully before war breaks out!</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 3,
+        "dbfId": 66913,
+        "id": "Story_05_MoiraHP",
+        "name": "Royal Entourage",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nSummon a 3/3 Arena Patron.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 66906,
+        "health": 40,
+        "id": "Story_05_MonkeyKing",
+        "name": "Monkey King",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Myth holds that this enigmatic figure knew the location of the Harmonic Mallet before he was imprisoned.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 66916,
+        "id": "Story_05_MonkeyKingHP",
+        "name": "Flying Monkey Kick",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDeal $1-$3 damage to three random enemy minions.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 67132,
+        "elite": true,
+        "health": 20,
+        "hideCost": true,
+        "id": "Story_05_Nathanos",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Nathanos Blightcaller",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\nAt the end of your turn,\ndeal $3 damage to two\nrandom enemy minions.\n<b>Deathrattle:</b> Advance fight.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 66905,
+        "health": 50,
+        "id": "Story_05_Nazgrim",
+        "name": "General Nazgrim",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Your diplomatic mission to Pandaria was going well—until you were captured by the Horde general.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 66915,
+        "id": "Story_05_NazgrimHP",
+        "name": "No Escape!",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nA random friendly minion attacks a random enemy minion.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 68093,
+        "faction": "ALLIANCE",
+        "health": 3,
+        "id": "Story_05_RepairBot",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Repair Bot",
+        "race": "MECHANICAL",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn, restore #6 Health to a damaged friendly character.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67092,
+        "elite": true,
+        "health": 15,
+        "hideCost": true,
+        "id": "Story_05_SamtheWise",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Sam the Wise",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]At the start of your turn,\nrestore 3 Health to himself.\n<b>Deathrattle:</b> Gift the Metal Brew\nand advance fight.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 67134,
+        "health": 40,
+        "id": "Story_05_Saurfang",
+        "name": "Varok Saurfang",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 0,
+        "dbfId": 67830,
+        "id": "Story_05_SaurfangHP",
+        "name": "Bold Determination",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nGive your lowest Health minion +1/+2.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68098,
+        "id": "Story_05_SaurfangHPe",
+        "name": "Determined",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 66945,
+        "durability": 2,
+        "elite": true,
+        "id": "Story_05_Shalamayne",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Shalamayne",
+        "set": "DARKMOON_FAIRE",
+        "text": "After you attack, give +1/+1 to your legendary minions.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67988,
+        "id": "Story_05_Shalamaynee",
+        "name": "Royal Fortitude",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 67742,
+        "durability": 2,
+        "elite": true,
+        "id": "Story_05_ShalamayneVarian",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Shalamayne",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "After you attack, give +1/+1 to your minions with <b>Rush</b>.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 67843,
+        "health": 4,
+        "id": "Story_05_SiegeTower",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Alliance Siege Tower",
+        "race": "MECHANICAL",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]At the start of your turn,\ndeal 1-2 damage\nto a random enemy. Restore\n1 Health to your hero.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67094,
+        "id": "Story_05_SolvetheRiddles",
+        "mechanics": [
+            "QUEST"
+        ],
+        "name": "Solve the Riddles",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Quest:</b> Defeat\nthe Jade Warlord,\nUntamed Ambertail,\nand Sam the Wise.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 67744,
+        "health": 4,
+        "id": "Story_05_StewardofScrolls",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER",
+            "SPELLPOWER"
+        ],
+        "name": "Steward of Scrolls",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>\n<b>Battlecry:</b> <b>Discover</b> a spell.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "HUNTER",
+        "dbfId": 66909,
+        "health": 100,
+        "id": "Story_05_Sylvanas",
+        "name": "Sylvanas Windrunner",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The latest Warchief has committed a shocking atrocity against the night elves.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "cost": 4,
+        "dbfId": 66917,
+        "id": "Story_05_SylvanasHP",
+        "name": "Equip Windrunner's Bow",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nEquip Windrunner's Bow.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "cost": 1,
+        "dbfId": 67965,
+        "health": 2,
+        "id": "Story_05_TownCrier",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Town Crier",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Draw a <b>Rush</b> minion from your deck.",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 67056,
+        "durability": 5,
+        "id": "Story_05_TrainingSword",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Training Sword",
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks, gain +1 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 68096,
+        "health": 2,
+        "id": "Story_05_UndercityHuckster",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Undercity Huckster",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Deathrattle:</b> Add a random card to your hand <i>(from your opponent's class)</i>.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 67091,
+        "elite": true,
+        "health": 10,
+        "hideCost": true,
+        "id": "Story_05_UntamedAmbertail",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Untamed Ambertail",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]At the end of your turn, deal\n3 damage randomly split\namong all enemies.\n<b>Deathrattle:</b> Destroy all friendly\nminions and advance fight.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 66901,
+        "health": 30,
+        "id": "Story_05_Varian",
+        "name": "King Varian",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Like every father, Varian only wants what's best for his child. Even if he has no idea what that is...</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 2,
+        "dbfId": 66911,
+        "id": "Story_05_VarianHP",
+        "name": "Scold",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nReturn a random enemy minion to your opponent's hand.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 7,
+        "cardClass": "WARRIOR",
+        "cost": 6,
+        "dbfId": 68092,
+        "elite": true,
+        "health": 7,
+        "id": "Story_05_VarianMinion",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Varian Wrynn",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Summon\ntwo SI:7 Agents.\n<b>Deathrattle:</b> Shuffle this into your deck.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 66904,
+        "health": 30,
+        "id": "Story_05_Velen",
+        "name": "Prophet Velen",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>The ancient leader of the draenei knows much about the Light, but not human nature...</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "cost": 2,
+        "dbfId": 66914,
+        "id": "Story_05_VelenHP",
+        "name": "Blessed Cycle",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDeal 2 damage to all\nenemy minions. If any die, draw a card.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 67129,
+        "elite": true,
+        "health": 20,
+        "hideCost": true,
+        "id": "Story_05_WarMachine",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Horde War Machine",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\nAt the end of your turn, deal 1 damage to all enemy minions.\n<b>Deathrattle:</b> Advance fight.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "cost": 6,
+        "dbfId": 66949,
+        "durability": 2,
+        "elite": true,
+        "id": "Story_05_WindrunnersBow",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Windrunner's Bow",
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks,\nsummon three reinforcements.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 2,
+        "dbfId": 67746,
+        "faction": "ALLIANCE",
+        "health": 2,
+        "id": "Story_05_YouthfulBrewmaster",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Youthful Brewmaster",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Return a friendly minion from the battlefield to your hand.",
+        "type": "MINION"
+    },
+    {
         "cardClass": "MAGE",
         "dbfId": 46435,
         "id": "TagTeamIceBlock",
@@ -108965,6 +111153,28 @@
         "type": "HERO"
     },
     {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 67356,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_94",
+        "name": "Tickatus",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
+        "battlegroundsHero": true,
+        "cardClass": "NEUTRAL",
+        "dbfId": 67553,
+        "health": 40,
+        "hideCost": true,
+        "id": "TB_BaconShop_HERO_95",
+        "name": "Greybough",
+        "set": "BATTLEGROUNDS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "NEUTRAL",
         "dbfId": 59194,
         "health": 0,
@@ -110168,7 +112378,7 @@
         "cost": 2,
         "dbfId": 66197,
         "id": "TB_BaconShop_HP_103",
-        "name": "Embrace your Rage",
+        "name": "Embrace Your Rage",
         "set": "BATTLEGROUNDS",
         "text": "[x]<b>Hero Power</b>\n<b>Start of Combat:</b> Add a\nminion from your Tavern Tier\nto your warband. Keep it.",
         "type": "HERO_POWER"
@@ -110223,6 +112433,46 @@
         "set": "BATTLEGROUNDS",
         "text": "After a friendly <b>Deathrattle</b> minion dies, gain its <b>Deathrattle</b>.",
         "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 67357,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_106",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Prize Wall",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nEvery 4 turns, <b>Discover</b>\na Darkmoon Prize.\n<i>(0 turns left!)</i>",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 0,
+        "dbfId": 67554,
+        "hideCost": true,
+        "id": "TB_BaconShop_HP_107",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Sprout It Out!",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Passive Hero Power</b>\nGive +1/+2 and <b>Taunt</b>\nto minions you summon\nduring combat.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67556,
+        "id": "TB_BaconShop_HP_107e",
+        "name": "Sprout It Out!",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+2 and <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
@@ -112562,6 +114812,23 @@
         "type": "MINION"
     },
     {
+        "attack": 6,
+        "battlegroundsNormalDbfId": 61059,
+        "cardClass": "NEUTRAL",
+        "cost": 4,
+        "dbfId": 61081,
+        "health": 6,
+        "id": "TB_BaconUps_119",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Soul Devourer",
+        "race": "DEMON",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Battlecry:</b> Choose a\nfriendly Demon. Remove\nit to gain double its stats\nand 6 Gold.",
+        "type": "MINION"
+    },
+    {
         "attack": 10,
         "battlegroundsNormalDbfId": 42442,
         "cardClass": "NEUTRAL",
@@ -113906,7 +116173,38 @@
         "name": "Argent Braggart",
         "rarity": "EPIC",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Battlecry:</b> Gain double\nthe Attack and Health\nof the highest in\nthe battlefield.",
+        "text": "[x]<b>Battlecry:</b> Gain Attack and\nHealth to match double the\nhighest in the battlefield.",
+        "type": "MINION"
+    },
+    {
+        "attack": 12,
+        "battlegroundsNormalDbfId": 61884,
+        "cardClass": "WARLOCK",
+        "cost": 6,
+        "dbfId": 67728,
+        "health": 8,
+        "id": "TB_BaconUps_309",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Ring Matron",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon\ntwo 6/4 Imps.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 67729,
+        "health": 4,
+        "id": "TB_BaconUps_309t",
+        "name": "Fiery Imp",
+        "race": "DEMON",
+        "set": "BATTLEGROUNDS",
         "type": "MINION"
     },
     {
@@ -118553,6 +120851,14 @@
         "set": "TB",
         "text": "<b>Hero Power</b>\nGive each player a random card. It costs (0).",
         "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 70121,
+        "id": "TB_Lunar_DiscoverDH_Copy",
+        "name": "Lunar New Year Discover - Demon Hunter - Not Player Facing_Copy",
+        "set": "TB",
+        "type": "ENCHANTMENT"
     },
     {
         "cardClass": "NEUTRAL",
@@ -145502,6 +147808,927 @@
         ],
         "set": "YEAR_OF_THE_DRAGON",
         "text": "<b>Battlecry:</b> Give your Murlocs <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61939,
+        "flavor": "\"Don't read texts and drive.\"",
+        "id": "YOP_001",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Illidari Studies",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "OUTCAST"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Discover</b> an <b>Outcast</b> card. Your next one costs (1) less.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62005,
+        "id": "YOP_001e",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Loner",
+        "set": "DARKMOON_FAIRE",
+        "text": "Your next <b>Outcast</b> card costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61940,
+        "flavor": "Some drivers rev their engines. This one growls all on its own.",
+        "health": 6,
+        "id": "YOP_002",
+        "name": "Felsaber",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Can only attack if your hero attacked this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "WARLOCK",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61941,
+        "flavor": "Always brings his own reusable shopping bag, satchel, barrel, trunk, tray, and fluffy pillow.",
+        "health": 4,
+        "id": "YOP_003",
+        "mechanics": [
+            "BATTLECRY",
+            "CORRUPT"
+        ],
+        "multiClassGroup": "WARLOCK_DEMONHUNTER",
+        "name": "Luckysoul Hoarder",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Shuffle 2 Soul\nFragments into your deck.\n<b>Corrupt:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "WARLOCK",
+            "DEMONHUNTER"
+        ],
+        "cost": 3,
+        "dbfId": 61976,
+        "health": 4,
+        "id": "YOP_003t",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "multiClassGroup": "WARLOCK_DEMONHUNTER",
+        "name": "Luckysoul Hoarder",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Corrupted</b>\n<b>Battlecry:</b> Shuffle 2 Soul\nFragments into your deck\nand draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 5,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61942,
+        "elite": true,
+        "flavor": "\"Time to roll. Rusted Legion, ho!\"",
+        "health": 4,
+        "id": "YOP_004",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Envoy Rustwix",
+        "race": "DEMON",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Deathrattle:</b> Shuffle 3\nrandom Prime Legendary\nminions into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "PALADIN",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61943,
+        "flavor": "The Alliance and Horde join forces to enforce the fire safety capacity.",
+        "id": "YOP_005",
+        "multiClassGroup": "PALADIN_WARRIOR",
+        "name": "Barricade",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon a 2/4 Guard with <b>Taunt</b>. If it's your only minion, summon another.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Phroilan Gardner",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "PALADIN",
+            "WARRIOR"
+        ],
+        "cost": 3,
+        "dbfId": 62031,
+        "health": 4,
+        "id": "YOP_005t",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "multiClassGroup": "PALADIN_WARRIOR",
+        "name": "Race Guard",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sean McNally",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "PRIEST",
+            "WARLOCK"
+        ],
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61944,
+        "flavor": "\"My mount and I share a special connection. Just not a good one.\"",
+        "id": "YOP_006",
+        "multiClassGroup": "PRIEST_WARLOCK",
+        "name": "Hysteria",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]Choose a minion.\nIt attacks random\nminions until it dies.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61945,
+        "elite": true,
+        "flavor": "Fear is the mind-killer, and also the name of my wurm.",
+        "health": 5,
+        "id": "YOP_007",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Dark Inquisitor Xanesh",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "CORRUPT"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Reduce the Cost\nof all <b>Corrupt</b> cards in your\nhand and deck by (2).",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 67372,
+        "id": "YOP_007e",
+        "name": "Dark Inquisition",
+        "set": "DARKMOON_FAIRE",
+        "text": "Costs (2) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61946,
+        "flavor": "All the steed, half the calories.",
+        "health": 6,
+        "id": "YOP_008",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lightsteed",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Your healing effects also give affected minions\n+2 Health.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "PRIEST",
+        "dbfId": 62794,
+        "id": "YOP_008e",
+        "name": "Lightsteed",
+        "set": "DARKMOON_FAIRE",
+        "text": "+2 Health.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "PALADIN",
+            "PRIEST"
+        ],
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 61947,
+        "flavor": "One for the squire, two for the gnome, three for the glory, and GO, GO, GO!",
+        "id": "YOP_009",
+        "multiClassGroup": "PALADIN_PRIEST",
+        "name": "Rally!",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Resurrect a friendly\n1-Cost, 2-Cost, and\n3-Cost minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Sean McNally",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61948,
+        "flavor": "\"Look at your deck, now back to me, now back at your deck, now back to me. Who am I? None of your—I'm on a horse.\"",
+        "health": 5,
+        "id": "YOP_010",
+        "mechanics": [
+            "SPELLBURST"
+        ],
+        "name": "Imprisoned Celestial",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Dormant</b> for 2 turns.\n<b>Spellburst</b>: Give your minions\n<b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 5,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 61949,
+        "durability": 3,
+        "flavor": "You really can't judge a book by its cover.",
+        "id": "YOP_011",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "name": "Libram of Judgment",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupt:</b> Gain <b>Lifesteal</b>.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 5,
+        "cardClass": "PALADIN",
+        "cost": 7,
+        "dbfId": 61981,
+        "durability": 3,
+        "id": "YOP_011t",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Libram of Judgment",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupted</b>\n<b>Lifesteal</b>",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61950,
+        "flavor": "Ride or die takes on a new meaning.",
+        "health": 5,
+        "id": "YOP_012",
+        "name": "Deathwarden",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Deathrattles</b> can't trigger.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68064,
+        "id": "YOP_012e",
+        "mechanics": [
+            "CANT_BE_SILENCED"
+        ],
+        "name": "Quiet Death",
+        "set": "DARKMOON_FAIRE",
+        "text": "This card's <b>Deathrattles</b> don't trigger.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Gabe Gonzalez",
+        "attack": 0,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61951,
+        "durability": 2,
+        "flavor": "Great for driving, terrible for steering.",
+        "id": "YOP_013",
+        "name": "Spiked Wheel",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Has +3 Attack while your hero has Armor.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62004,
+        "id": "YOP_013e",
+        "name": "Buckling Swash",
+        "set": "DARKMOON_FAIRE",
+        "text": "+3 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61952,
+        "flavor": "With one inch of clearance, Ironclad proved ineffective against speedbumps.",
+        "health": 4,
+        "id": "YOP_014",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ironclad",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> If your hero has Armor, gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62003,
+        "id": "YOP_014e",
+        "name": "Chief Beef",
+        "set": "DARKMOON_FAIRE",
+        "text": "+2/+2.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "ROGUE",
+            "WARRIOR"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61953,
+        "flavor": "Pouring iced milk into your vehicle's fuel tank does NOT provide a Nitro boost, but it does go great with your victory cookies.",
+        "id": "YOP_015",
+        "mechanics": [
+            "CORRUPT"
+        ],
+        "multiClassGroup": "ROGUE_WARRIOR",
+        "name": "Nitroboost Poison",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Give a minion +2 Attack.\n<b>Corrupt:</b> And your weapon.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 62002,
+        "id": "YOP_015e",
+        "name": "Nitroboost Poison",
+        "set": "DARKMOON_FAIRE",
+        "text": "+2 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "ROGUE",
+            "WARRIOR"
+        ],
+        "cost": 1,
+        "dbfId": 62001,
+        "id": "YOP_015t",
+        "multiClassGroup": "ROGUE_WARRIOR",
+        "name": "Nitroboost Poison",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupted</b>\nGive a minion and your weapon +2 Attack.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61954,
+        "flavor": "\"These do NOT spark joy!\"",
+        "health": 3,
+        "id": "YOP_016",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sparkjoy Cheat",
+        "rarity": "RARE",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> If you're holding a <b>Secret</b>, cast it and draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61955,
+        "flavor": "It's not personal, it's just monkey business.",
+        "id": "YOP_017",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Shenanigans",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Secret:</b> When your opponent draws their second card in a turn, transform it into a Banana.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anzka Nguyen",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61956,
+        "elite": true,
+        "flavor": "She learned exactly one thing from her old man: copying.",
+        "health": 5,
+        "id": "YOP_018",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLBURST"
+        ],
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "Keywarden Ivory",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\ndual-class spell from\nany class. <b><b>Spellburst</b>:</b>\nGet another copy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Adam Byrne",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61957,
+        "flavor": "So THIS is why she was AFK.",
+        "id": "YOP_019",
+        "name": "Conjure Mana Biscuit",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Add a Biscuit to your hand that refreshes 2 Mana Crystals.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Adam Byrne",
+        "cardClass": "MAGE",
+        "cost": 0,
+        "dbfId": 61980,
+        "id": "YOP_019t",
+        "name": "Mana Biscuit",
+        "set": "DARKMOON_FAIRE",
+        "text": "Refresh 2 Mana Crystals.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Agatha Zhou",
+        "attack": 1,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61958,
+        "flavor": "It’s just not the same without a super suit.",
+        "health": 3,
+        "id": "YOP_020",
+        "mechanics": [
+            "SPELLBURST"
+        ],
+        "name": "Glacier Racer",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Spellburst</b>: Deal 3 damage to all <b>Frozen</b> enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61959,
+        "flavor": "It's actually pretty easy to escape chains when you can burst into flames.",
+        "health": 3,
+        "id": "YOP_021",
+        "mechanics": [
+            "SPELLPOWER"
+        ],
+        "multiClassGroup": "MAGE_SHAMAN",
+        "name": "Imprisoned Phoenix",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "spellDamage": 2,
+        "text": "<b>Dormant</b> for 2 turns.\n<b>Spell Damage +2</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61960,
+        "flavor": "\"Get IT off me!!!\"",
+        "health": 4,
+        "id": "YOP_022",
+        "mechanics": [
+            "BATTLECRY",
+            "OVERLOAD"
+        ],
+        "name": "Mistrunner",
+        "overload": 1,
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "targetingArrowText": "Give +3/+3.",
+        "text": "<b>Battlecry:</b> Give a friendly minion +3/+3.\n<b>Overload:</b> (1)",
+        "type": "MINION"
+    },
+    {
+        "dbfId": 62958,
+        "id": "YOP_022e",
+        "name": "Mounted",
+        "set": "DARKMOON_FAIRE",
+        "text": "+3/+3.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61961,
+        "flavor": "\"And they win it by a landslide! Wait, where did all the other racers go?\"",
+        "id": "YOP_023",
+        "name": "Landslide",
+        "rarity": "RARE",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]Deal $1 damage to\nall enemy minions.\nIf you're <b>Overloaded</b>,\ndeal $1 damage again.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ware Lee",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "DRUID",
+            "SHAMAN"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61962,
+        "flavor": "Plainsrunning will result in disqualification.",
+        "id": "YOP_024",
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Guidance",
+        "rarity": "RARE",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Look at two spells. Add one to your hand or <b>Overload:</b> (1) to get both.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ware Lee",
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "DRUID",
+            "SHAMAN"
+        ],
+        "cost": 0,
+        "dbfId": 63148,
+        "id": "YOP_024t",
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Spirit Path",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Add both spells to your hand.\n<b>Overload</b> (1)",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61963,
+        "flavor": "Some dragons dream of conquering Azeroth, some just dream of being 5/6s.",
+        "health": 4,
+        "id": "YOP_025",
+        "mechanics": [
+            "CORRUPT",
+            "TAUNT"
+        ],
+        "name": "Dreaming Drake",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>\n<b>Corrupt:</b> Gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "cost": 3,
+        "dbfId": 63080,
+        "health": 6,
+        "id": "YOP_025t",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Dreaming Drake",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Corrupted</b>\n<b>Taunt</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61964,
+        "flavor": "If you can’t outrun a tree, you really shouldn’t be here anyway.",
+        "id": "YOP_026",
+        "name": "Arbor Up",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "Summon two 2/2 Treants. Give your minions +2/+1.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "DRUID",
+        "dbfId": 63818,
+        "id": "YOP_026e",
+        "name": "Forest Guards",
+        "set": "DARKMOON_FAIRE",
+        "text": "+2/+1.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "MAR Studio",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61965,
+        "flavor": "On second thought, bolas aren't very good against flying worms.",
+        "id": "YOP_027",
+        "name": "Bola Shot",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $1 damage to a minion and $2 damage to its neighbors.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61966,
+        "flavor": "Seat covers. Check.\nRacing stripes. Check.\nCupholder. Check.",
+        "health": 4,
+        "id": "YOP_028",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Saddlemaster",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "After you play a Beast, add a random Beast to your hand.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "DRUID",
+            "HUNTER"
+        ],
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61967,
+        "flavor": "Just don't put a Resizing Pouch inside the Resizing Pouch.",
+        "id": "YOP_029",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "multiClassGroup": "DRUID_HUNTER",
+        "name": "Resizing Pouch",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Discover</b> a card with Cost\nequal to your remaining\nMana Crystals.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Angelica Alieva",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "HUNTER",
+            "DEMONHUNTER"
+        ],
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61968,
+        "flavor": "She only shoots people who pet her cat without asking first.",
+        "health": 3,
+        "id": "YOP_030",
+        "mechanics": [
+            "AURA"
+        ],
+        "multiClassGroup": "HUNTER_DEMONHUNTER",
+        "name": "Felfire Deadeye",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Your Hero Power costs (1) less.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 66588,
+        "id": "YOP_030e",
+        "name": "Deadeye",
+        "set": "DARKMOON_FAIRE",
+        "text": "Costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 61969,
+        "flavor": "\"Now I'm falling asleep and she's calling a crab…\"",
+        "health": 4,
+        "id": "YOP_031",
+        "mechanics": [
+            "RUSH",
+            "WINDFURY"
+        ],
+        "name": "Crabrider",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>\n<b>Windfury</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 61970,
+        "flavor": "\"You look like the kind of person that would buy three sets of armor. One to wear, a spare, and a spare for the spare.\"",
+        "health": 3,
+        "id": "YOP_032",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Armor Vendor",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Give 4 Armor to each hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 61971,
+        "flavor": "\"That's the last time I let an imp spit gasoline into my car.\"",
+        "id": "YOP_033",
+        "name": "Backfire",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw 3 cards. Deal $3 damage to your hero.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 9,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 61972,
+        "flavor": "It has been 5 minutes since our last Azeroth Racing League violation.",
+        "health": 9,
+        "id": "YOP_034",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Runaway Blackwing",
+        "race": "DRAGON",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]At the end of your turn,\ndeal 9 damage to a\nrandom enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 61973,
+        "elite": true,
+        "flavor": "Moonforehead just didn't have the same ring to it.",
+        "health": 3,
+        "id": "YOP_035",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Moonfang",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "Can only take 1 damage at a time.",
         "type": "MINION"
     }
 ]
