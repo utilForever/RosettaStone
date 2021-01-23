@@ -20,7 +20,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -156,6 +155,25 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [YOP_025] Dreaming Drake - COST:3 [ATK:3/HP:4]
+    // - Race: Dragon, Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Corrupt:</b> Gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CORRUPT = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [YOP_026] Arbor Up - COST:5
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Summon two 2/2 Treants. Give your minions +2/+1.
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddDruidNonCollect(
@@ -275,6 +293,24 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
         std::make_shared<AddEnchantmentTask>("DMF_730e", EntityType::HERO));
     power.AddPowerTask(std::make_shared<ArmorTask>(6));
     cards.emplace("DMF_730t", CardDef(power));
+
+    // ----------------------------------------- MINION - DRUID
+    // [YOP_025t] Dreaming Drake - COST:3 [ATK:5/HP:6]
+    // - Race: Dragon, Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Corrupted</b>
+    //       <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [YOP_026e] Forest Guards - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: +2/+1.
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -414,6 +450,23 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [YOP_027] Bola Shot - COST:2
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to a minion and 2 damage to its neighbors.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [YOP_028] Saddlemaster - COST:3 [ATK:3/HP:4]
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you play a Beast, add a random Beast to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
 }
 
@@ -615,6 +668,25 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [YOP_019] Conjure Mana Biscuit - COST:2
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Add a Biscuit to your hand that
+    //       refreshes 2 Mana Crystals.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [YOP_020] Glacier Racer - COST:1 [ATK:1/HP:3]
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Spellburst</b>: Deal 3 damage
+    //       to all <b>Frozen</b> enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLBURST = 1
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddMageNonCollect(
@@ -659,6 +731,13 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     // RefTag:
     // - DISCOVER = 1
     // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [YOP_019t] Mana Biscuit - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: Refresh 2 Mana Crystals.
     // --------------------------------------------------------
 }
 
@@ -816,6 +895,34 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         "DMF_244",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
                 "DMF_244t"));
+
+    // --------------------------------------- MINION - PALADIN
+    // [YOP_010] Imprisoned Celestial - COST:3 [ATK:4/HP:5]
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b> for 2 turns.
+    //       <b>Spellburst</b>: Give your minions
+    //       <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLBURST = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - PALADIN
+    // [YOP_011] Libram of Judgment - COST:7
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Corrupt:</b> Gain <b>Lifesteal</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CORRUPT = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddPaladinNonCollect(
@@ -886,6 +993,17 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     cards.emplace(
         "DMF_244t",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+
+    // --------------------------------------- WEAPON - PALADIN
+    // [YOP_011t] Libram of Judgment - COST:7
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Corrupted</b>
+    //       <b>Lifesteal</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
@@ -1007,6 +1125,32 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [YOP_007] Dark Inquisitor Xanesh - COST:5 [ATK:3/HP:5]
+    // - Set: DARKMOON_FAIRE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Reduce the Cost of all
+    //       <b>Corrupt</b> cards in your hand and deck by (2).
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CORRUPT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [YOP_008] Lightsteed - COST:4 [ATK:3/HP:6]
+    // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Your healing effects also give affected minions
+    //       +2 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddPriestNonCollect(
@@ -1049,6 +1193,13 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Summon a random 7-Cost minion.
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [YOP_008e] Lightsteed - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: +2 Health.
     // --------------------------------------------------------
 }
 
@@ -1181,6 +1332,31 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - COMBO = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [YOP_016] Sparkjoy Cheat - COST:3 [ATK:3/HP:3]
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you're holding a <b>Secret</b>,
+    //       cast it and draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [YOP_017] Shenanigans - COST:2
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your opponent draws their
+    //       second card in a turn, transform it into a Banana.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
     // --------------------------------------------------------
 }
 
@@ -1381,6 +1557,29 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [YOP_022] Mistrunner - COST:5 [ATK:4/HP:4]
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +3/+3.
+    //       <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [YOP_023] Landslide - COST:2
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to all enemy minions.
+    //       If you're <b>Overloaded</b>, deal 1 damage again.
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddShamanNonCollect(
@@ -1469,6 +1668,13 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
     // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [YOP_022e] Mounted - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: +3/+3.
     // --------------------------------------------------------
 }
 
@@ -1583,6 +1789,25 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [YOP_004] Envoy Rustwix - COST:5 [ATK:5/HP:4]
+    // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Shuffle 3 random Prime Legendary
+    //       minions into your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [YOP_033] Backfire - COST:3
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Draw 3 cards. Deal 3 damage to your hero.
     // --------------------------------------------------------
 }
 
@@ -1780,6 +2005,23 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInHand("DMF_531e"));
     cards.emplace("DMF_531", CardDef(power));
+
+    // --------------------------------------- WEAPON - WARRIOR
+    // [YOP_013] Spiked Wheel - COST:1
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Has +3 Attack while your hero has Armor.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [YOP_014] Ironclad - COST:3 [ATK:2/HP:4]
+    // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If your hero has Armor, gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddWarriorNonCollect(
@@ -2028,6 +2270,27 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: Draw 2 cards. If you play both this turn, draw 2 more.
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [YOP_001] Illidari Studies - COST:1
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Discover</b> an <b>Outcast</b> card.
+    //       Your next one costs (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [YOP_002] Felsaber - COST:4 [ATK:5/HP:6]
+    // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Can only attack if your hero attacked this turn.
     // --------------------------------------------------------
 }
 
@@ -2519,6 +2782,171 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("DMF_532", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_003] Luckysoul Hoarder - COST:3 [ATK:3/HP:4]
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck.
+    //       <b>Corrupt:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - CORRUPT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_005] Barricade - COST:4
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Summon a 2/4 Guard with <b>Taunt</b>.
+    //       If it's your only minion, summon another.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_006] Hysteria - COST:3
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Choose a minion.
+    //       It attacks random
+    //       minions until it dies.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_009] Rally! - COST:4
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Resurrect a friendly 1-Cost, 2-Cost, and
+    //       3-Cost minion.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_012] Deathwarden - COST:3 [ATK:2/HP:5]
+    // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Deathrattles</b> can't trigger.
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_015] Nitroboost Poison - COST:1
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a minion +2 Attack.
+    //       <b>Corrupt:</b> And your weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CORRUPT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_018] Keywarden Ivory - COST:5 [ATK:4/HP:5]
+    // - Set: DARKMOON_FAIRE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Discover</b> a dual-class spell
+    //       from any class.
+    //       <b><b>Spellburst</b>:</b> Get another copy.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // - SPELLBURST = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_021] Imprisoned Phoenix - COST:2 [ATK:2/HP:3]
+    // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b> for 2 turns.
+    //       <b>Spell Damage +2</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_024] Guidance - COST:1
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Look at two spells. Add one to your hand or
+    //       <b>Overload:</b> (1) to get both.
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_029] Resizing Pouch - COST:1
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Discover</b> a card with Cost equal to
+    //       your remaining Mana Crystals.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_030] Felfire Deadeye - COST:2 [ATK:2/HP:3]
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your Hero Power costs (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_031] Crabrider - COST:2 [ATK:1/HP:4]
+    // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       <b>Windfury</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_032] Armor Vendor - COST:1 [ATK:1/HP:3]
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give 4 Armor to each hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_034] Runaway Blackwing - COST:9 [ATK:9/HP:9]
+    // - Race: Dragon, Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       deal 9 damage to a random enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_035] Moonfang - COST:5 [ATK:6/HP:3]
+    // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Can only take 1 damage at a time.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 }
 
 void DarkmoonFaireCardsGen::AddNeutralNonCollect(
@@ -3023,6 +3451,99 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_001e] Loner - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: Your next <b>Outcast</b> card costs (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_003t] Luckysoul Hoarder - COST:3 [ATK:3/HP:4]
+    // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Corrupted</b>
+    //       <b>Battlecry:</b> Shuffle 2 Soul Fragments into your deck
+    //       and draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [YOP_005t] Race Guard - COST:3 [ATK:2/HP:4]
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_007e] Dark Inquisition - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_012e] Quiet Death - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: This card's <b>Deathrattles</b> don't trigger.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_SILENCED = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_013e] Buckling Swash - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: +3 Attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_014e] Chief Beef - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: +2/+2.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_015e] Nitroboost Poison - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_015t] Nitroboost Poison - COST:1
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Corrupted</b>
+    //       Give a minion and your weapon +2 Attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [YOP_024t] Spirit Path - COST:0
+    // - Set: DARKMOON_FAIRE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Add both spells to your hand.
+    //       <b>Overload</b> (1)
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_030e] Deadeye - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
     // --------------------------------------------------------
 }
 

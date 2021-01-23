@@ -70,7 +70,7 @@ constexpr std::array<CardSet, 25> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 10696;
+constexpr int NUM_ALL_CARDS = 10924;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -108,7 +108,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 52;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 54;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -138,7 +138,7 @@ constexpr int NUM_TIER1_MINIONS = 17;
 constexpr int NUM_TIER2_MINIONS = 23;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 26;
+constexpr int NUM_TIER3_MINIONS = 27;
 
 //! The number of tier 4 minions in Battlegrounds.
 constexpr int NUM_TIER4_MINIONS = 23;
@@ -227,6 +227,7 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Demon Pool
 // Imp Gang Boss (2288)
 // Crystalweaver (40391)
+// Soul Devourer (61059)
 // Soul Juggler (59660)
 // Dragon Pool
 // Bronze Warden (60558)
@@ -254,9 +255,9 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Khadgar (52502)
 // Warden of Old (65660)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
-    38734, 62230, 1003,  40428, 2288,  40391, 59660, 60558, 60552,
-    60626, 64297, 64054, 64069, 61930, 1992,  60048, 2023,  48536,
-    453,   56393, 61053, 62734, 61048, 63622, 52502, 65660
+    38734, 62230, 1003,  40428, 2288,  40391, 61059, 59660, 60558,
+    60552, 60626, 64297, 64054, 64069, 61930, 1992,  60048, 2023,
+    48536, 453,   56393, 61053, 62734, 61048, 63622, 52502, 65660
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.
@@ -266,7 +267,7 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Virmen Sensei (40641)
 // Demon Pool
 // Bigfernal (66227)
-// Floating Watcher (2068)
+// Ring Matron (61884)
 // Siegebreaker (54835)
 // Dragon Pool
 // Cobalt Scalebane (42442)
@@ -292,7 +293,7 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Menagerie Jug (63487)
 // Qiraji Harbinger (63619)
 constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
-    43358, 1261,  40641, 66227, 2068,  54835, 42442, 61072,
+    43358, 1261,  40641, 66227, 61884, 54835, 42442, 61072,
     60498, 63630, 64189, 48993, 49169, 48100, 60028, 52277,
     61066, 61056, 45392, 63623, 763,   63487, 63619
 };
