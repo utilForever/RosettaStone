@@ -369,6 +369,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();
 
+    //! SelfCondition wrapper for checking the player used hero power this turn. 
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsUsedHeroPowerThisTurn();
+
     //! SelfCondition wrapper for checking it is no duplicate cards in deck.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNoDuplicateInDeck();

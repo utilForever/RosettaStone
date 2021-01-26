@@ -742,6 +742,13 @@ SelfCondition SelfCondition::IsUnspentMana()
     });
 }
 
+SelfCondition SelfCondition::IsUsedHeroPowerThisTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetHero()->heroPower->IsExhausted();
+    });
+}
+
 SelfCondition SelfCondition::IsNoDuplicateInDeck()
 {
     return SelfCondition([](Playable* playable) {
