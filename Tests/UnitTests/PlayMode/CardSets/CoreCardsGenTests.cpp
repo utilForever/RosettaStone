@@ -1543,18 +1543,38 @@ TEST_CASE("[Hunter : Spell] - NEW1_031 : Animal Companion")
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Animal Companion"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Animal Companion"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
 
-    int isLeokk1 = (curField[0]->card->name == "Leokk") ? 1 : 0;
-    int isLeokk2 = (curField[1]->card->name == "Leokk") ? 1 : 0;
-
-    CHECK_EQ(curField[0]->card->gameTags[GameTag::ATK] + isLeokk2,
-             curField[0]->GetAttack());
-    CHECK_EQ(curField[1]->card->gameTags[GameTag::ATK] + isLeokk1,
-             curField[1]->GetAttack());
+    if (curField[1]->card->id == "NEW1_032")
+    {
+        SUBCASE("Misha - NEW1_032")
+        {
+            CHECK_EQ(curField[1]->GetAttack(), 4);
+            CHECK_EQ(curField[1]->GetHealth(), 4);
+            CHECK_EQ(curField[1]->HasTaunt(), true);
+        }
+    }
+    else if (curField[1]->card->id == "NEW1_033")
+    {
+        SUBCASE("Leokk - NEW1_033")
+        {
+            CHECK_EQ(curField[1]->GetAttack(), 2);
+            CHECK_EQ(curField[1]->GetHealth(), 4);
+            CHECK_EQ(curField[0]->GetAttack(), 4);
+        }
+    }
+    else
+    {
+        SUBCASE("Huffer - NEW1_034")
+        {
+            CHECK_EQ(curField[1]->GetAttack(), 4);
+            CHECK_EQ(curField[1]->GetHealth(), 2);
+            CHECK_EQ(curField[1]->HasCharge(), true);
+        }
+    }
 }
 
 // ------------------------------------------- SPELL - MAGE
