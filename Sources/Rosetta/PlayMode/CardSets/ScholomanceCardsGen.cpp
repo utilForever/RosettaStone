@@ -2377,6 +2377,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SCH_312e", EntityType::PLAYER));
+    cards.emplace("SCH_312", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_313] Wretched Tutor - COST:4 [ATK:2/HP:5]
@@ -3309,6 +3313,14 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Your Hero Power costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HERO_POWER,
+                                         EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::USE_HERO_POWER, nullptr };
+    }
+    cards.emplace("SCH_312e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_351a] This is an Illusion. - COST:0
