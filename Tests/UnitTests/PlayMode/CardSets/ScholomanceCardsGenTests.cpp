@@ -3472,6 +3472,66 @@ TEST_CASE("[Neutral : Minion] - SCH_522 : Steeldancer")
     CHECK_EQ(curField[3]->GetCost(), 4);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_530] Sorcerous Substitute - COST:6 [ATK:6/HP:6]
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you have <b>Spell Damage</b>,
+//       summon a copy of this.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_530 : Sorcerous Substitute")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sorcerous Substitute"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sorcerous Substitute"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[2]->card->name, "Sorcerous Substitute");
+    CHECK_EQ(curField[3]->card->name, "Sorcerous Substitute");
+}
+
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_623] Cutting Class - COST:5
 // - Set: SCHOLOMANCE, Rarity: Common

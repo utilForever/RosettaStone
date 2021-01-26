@@ -2699,6 +2699,14 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasPlayerSpellPower()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonCopyTask>(
+                  EntityType::SOURCE, false, false, SummonSide::SPELL) }));
+    cards.emplace("SCH_530", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_537] Trick Totem - COST:2 [ATK:0/HP:3]
