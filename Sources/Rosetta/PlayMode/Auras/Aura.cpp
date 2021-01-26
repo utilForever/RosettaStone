@@ -406,6 +406,11 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::HERO_POWER:
+        {
+            Apply(m_owner->player->GetHero()->heroPower);
+            break;
+        }
         case AuraType::ENEMY_HERO_POWER:
         {
             Apply(m_owner->player->opponent->GetHero()->heroPower);
