@@ -2116,6 +2116,76 @@ TEST_CASE("[Demon Hunter : Minion] - SCH_355 : Shardshatter Mystic")
     CHECK_EQ(opField[0]->GetHealth(), 9);
 }
 
+// ------------------------------------ SPELL - DEMONHUNTER
+// [SCH_600] Demon Companion - COST:1
+// - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon a random Demon Companion.
+// --------------------------------------------------------
+// Entourage: SCH_600t1, SCH_600t2, SCH_600t3
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - SCH_600 : Demon Companion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Demon Companion"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    if (curField[1]->card->id == "SCH_600t1")
+    {
+        SUBCASE("Reffuh - SCH_600t1")
+        {
+            CHECK_EQ(curField[1]->GetAttack(), 2);
+            CHECK_EQ(curField[1]->GetHealth(), 1);
+            CHECK_EQ(curField[1]->HasCharge(), true);
+        }
+    }
+    else if (curField[1]->card->id == "SCH_600t2")
+    {
+        SUBCASE("Shima - SCH_600t2")
+        {
+            CHECK_EQ(curField[1]->GetAttack(), 2);
+            CHECK_EQ(curField[1]->GetHealth(), 2);
+            CHECK_EQ(curField[1]->HasTaunt(), true);
+        }
+    }
+    else
+    {
+        SUBCASE("Kolek - SCH_600t3")
+        {
+            CHECK_EQ(curField[1]->GetAttack(), 1);
+            CHECK_EQ(curField[1]->GetHealth(), 2);
+            CHECK_EQ(curField[0]->GetAttack(), 4);
+        }
+    }
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [SCH_704] Soulshard Lapidary - COST:5 [ATK:5/HP:5]
 // - Set: SCHOLOMANCE, Rarity: Common

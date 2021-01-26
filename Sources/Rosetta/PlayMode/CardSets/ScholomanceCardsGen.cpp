@@ -33,6 +33,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
@@ -492,6 +493,9 @@ void ScholomanceCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Kolek is granting this minion +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_600t3e"));
+    cards.emplace("SCH_600t3e", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [SCH_607a] Transfiguration - COST:3
@@ -1818,6 +1822,19 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a random Demon Companion.
     // --------------------------------------------------------
+    // Entourage: SCH_600t1, SCH_600t2, SCH_600t3
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace(
+        "SCH_600",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "SCH_600t1", "SCH_600t2", "SCH_600t3" }));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SCH_603] Star Student Stelina - COST:4 [ATK:4/HP:3]
@@ -1967,6 +1984,9 @@ void ScholomanceCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_600t1", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SCH_600t2] Shima - COST:1 [ATK:2/HP:2]
@@ -1977,6 +1997,9 @@ void ScholomanceCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_600t2", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SCH_600t3] Kolek - COST:1 [ATK:1/HP:2]
@@ -1987,6 +2010,10 @@ void ScholomanceCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "SCH_600t3e"));
+    cards.emplace("SCH_600t3", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [SCH_702e] Felosophically Inclined - COST:0
@@ -2171,6 +2198,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_230] Onyx Magescribe - COST:6 [ATK:4/HP:9]
