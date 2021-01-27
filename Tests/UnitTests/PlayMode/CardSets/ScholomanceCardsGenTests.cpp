@@ -2316,6 +2316,56 @@ TEST_CASE("[Neutral : Minion] - SCH_145 : Desk Imp")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SCH_160] Wandmaker - COST:2 [ATK:2/HP:2]
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a 1-Cost spell
+//       from your class to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_160 : Wandmaker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wandmaker"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wandmaker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->IsCardClass(CardClass::WARRIOR), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(opHand[1]->card->IsCardClass(CardClass::MAGE), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SCH_162] Vectus - COST:5 [ATK:4/HP:4]
 // - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------

@@ -36,6 +36,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetPlayerGameTagTask.hpp>
@@ -2118,6 +2119,11 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomSpellTask>(
+        CardClass::PLAYER_CLASS, GameTag::COST, 1));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("SCH_160", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_162] Vectus - COST:5 [ATK:4/HP:4]
