@@ -13,7 +13,7 @@ namespace RosettaStone::PlayMode
 class Entity;
 
 constexpr int AURA_EFFECT_CARD_SIZE = 0;
-constexpr int AURA_EFFECT_WEAPON_SIZE = AURA_EFFECT_CARD_SIZE + 1;
+constexpr int AURA_EFFECT_WEAPON_SIZE = AURA_EFFECT_CARD_SIZE + 2;
 constexpr int AURA_EFFECT_CHARACTER_SIZE = AURA_EFFECT_CARD_SIZE + 2;
 constexpr int AURA_EFFECT_HERO_SIZE = AURA_EFFECT_CHARACTER_SIZE + 3;
 constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 5;
@@ -148,6 +148,7 @@ class AuraEffects
     // ...
     // Weapon
     // 0 : IMMUNE
+    // 1 : ATK
     // Character
     // 0 : CANT_BE_TARGETED_BY_SPELLS / CANT_BE_TARGETED_BY_HERO_POWERS
     // 1 : ATK

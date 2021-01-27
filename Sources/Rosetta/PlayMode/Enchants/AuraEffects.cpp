@@ -46,14 +46,7 @@ int AuraEffects::GetGameTag(GameTag tag) const
         case GameTag::CANT_BE_TARGETED_BY_HERO_POWERS:
             return GetCantBeTargetedBySpells();
         case GameTag::ATK:
-        {
-            if (m_type != CardType::MINION)
-            {
-                return 0;
-            }
-
             return GetAttack();
-        }
         case GameTag::CANNOT_ATTACK_HEROES:
             return GetCannotAttackHeroes();
         case GameTag::HEROPOWER_DAMAGE:
