@@ -1124,6 +1124,15 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::WEAPON, "SCH_519e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsWeaponEquipped());
+        aura->restless = true;
+    }
+    cards.emplace("SCH_519", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [SCH_622] Self-Sharpening Sword - COST:3
@@ -3449,6 +3458,9 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SCH_519e"));
+    cards.emplace("SCH_519e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SCH_524e] Shield of Honor - COST:0
