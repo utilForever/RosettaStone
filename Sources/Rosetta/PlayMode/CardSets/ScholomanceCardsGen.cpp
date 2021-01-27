@@ -2372,6 +2372,11 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1, true) };
+    cards.emplace("SCH_273", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_283] Manafeeder Panthara - COST:2 [ATK:2/HP:3]
