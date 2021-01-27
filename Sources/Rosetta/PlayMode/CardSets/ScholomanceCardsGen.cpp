@@ -2402,6 +2402,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::MINIONS_NOSOURCE, GameTag::RUSH, 1));
+    cards.emplace("SCH_311", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SCH_312] Tour Guide - COST:1 [ATK:1/HP:1]
