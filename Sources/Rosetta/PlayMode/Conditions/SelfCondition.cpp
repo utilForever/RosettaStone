@@ -356,6 +356,12 @@ SelfCondition SelfCondition::IsChooseOneCard()
         [](Playable* playable) { return playable->HasChooseOne(); });
 }
 
+SelfCondition SelfCondition::IsOutcastCard()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->HasOutcast(); });
+}
+
 SelfCondition SelfCondition::IsFrozen()
 {
     return SelfCondition([](Playable* playable) {
