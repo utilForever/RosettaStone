@@ -2117,6 +2117,61 @@ TEST_CASE("[Demon Hunter : Minion] - SCH_355 : Shardshatter Mystic")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
+// [SCH_422] Double Jump - COST:1
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw an <b>Outcast</b> card from your deck.
+// --------------------------------------------------------
+// RefTag:
+// - OUTCAST = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - SCH_422 : Double Jump")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = (i < 5)
+                                    ? Cards::FindCardByName("Eye Beam")
+                                    : Cards::FindCardByName("Faerie Dragon");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Double Jump"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Double Jump"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curDeck.GetCount(), 25);
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Eye Beam");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curDeck.GetCount(), 25);
+    CHECK_EQ(curHand.GetCount(), 5);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
 // [SCH_600] Demon Companion - COST:1
 // - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
