@@ -122,7 +122,7 @@ int AuraEffects::GetImmune() const
 
     if (m_type == CardType::HERO)
     {
-        return m_data[4];
+        return m_data[3];
     }
 
     return 0;
@@ -136,7 +136,7 @@ void AuraEffects::SetImmune(int value)
     }
     else if (m_type == CardType::HERO)
     {
-        m_data[4] = value;
+        m_data[3] = value;
     }
     else
     {
@@ -147,91 +147,91 @@ void AuraEffects::SetImmune(int value)
 
 int AuraEffects::GetCantBeTargetedBySpells() const
 {
-    return m_data[1];
+    return m_data[0];
 }
 
 void AuraEffects::SetCantBeTargetedBySpells(int value)
 {
-    m_data[1] = value;
+    m_data[0] = value;
 }
 
 int AuraEffects::GetAttack() const
 {
-    return m_data[2];
+    return m_data[1];
 }
 
 void AuraEffects::SetAttack(int value)
 {
-    m_data[2] = value;
+    m_data[1] = value;
 }
 
 int AuraEffects::GetCannotAttackHeroes() const
 {
-    return m_data[3];
+    return m_data[2];
 }
 
 void AuraEffects::SetCannotAttackHeroes(int value)
 {
-    m_data[3] = value;
+    m_data[2] = value;
 }
 
 int AuraEffects::GetHeroPowerDamage() const
 {
-    return m_data[5];
+    return m_data[4];
 }
 
 void AuraEffects::SetHeroPowerDamage(int value)
 {
-    m_data[5] = value;
+    m_data[4] = value;
 }
 
 int AuraEffects::GetHealth() const
 {
-    return m_data[3];
+    return m_data[2];
 }
 
 void AuraEffects::SetHealth(int value)
 {
-    m_data[3] = value;
+    m_data[2] = value;
 }
 
 int AuraEffects::GetCharge() const
 {
-    return m_data[4];
+    return m_data[3];
 }
 
 void AuraEffects::SetCharge(int value)
 {
-    m_data[4] = value;
+    m_data[3] = value;
 }
 
 int AuraEffects::GetTaunt() const
 {
-    return m_data[5];
+    return m_data[4];
 }
 
 void AuraEffects::SetTaunt(int value)
 {
-    m_data[5] = value;
+    m_data[4] = value;
 }
 
 int AuraEffects::GetLifesteal() const
 {
-    return m_data[6];
+    return m_data[5];
 }
 
 void AuraEffects::SetLifesteal(int value)
 {
-    m_data[6] = value;
+    m_data[5] = value;
 }
 
 int AuraEffects::GetCantAttack() const
 {
-    return m_data[7];
+    return m_data[6];
 }
 
 void AuraEffects::SetCantAttack(int value)
 {
-    m_data[7] = value;
+    m_data[6] = value;
 }
 }  // namespace RosettaStone::PlayMode
