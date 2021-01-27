@@ -416,6 +416,14 @@ void Aura::UpdateInternal()
             Apply(m_owner->player->opponent->GetHero()->heroPower);
             break;
         }
+        case AuraType::WEAPON:
+        {
+            if (m_owner->player->GetHero()->HasWeapon())
+            {
+                Apply(m_owner->player->GetHero()->weapon);
+            }
+            break;
+        }
         case AuraType::HAND:
         {
             for (auto& card : m_owner->player->GetHandZone()->GetAll())
