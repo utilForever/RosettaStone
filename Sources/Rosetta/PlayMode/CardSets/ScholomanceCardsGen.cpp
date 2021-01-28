@@ -771,6 +771,12 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "SCH_526e", EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1));
+    cards.emplace("SCH_526", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [SCH_532] Goody Two-Shields - COST:3 [ATK:4/HP:2]
@@ -1699,6 +1705,9 @@ void ScholomanceCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Health changed to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
+    cards.emplace("SCH_526e", CardDef(power));
 }
 
 void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
