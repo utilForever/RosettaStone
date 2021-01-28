@@ -78,6 +78,8 @@ class Hero : public Character
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
 
+    std::vector<Aura*> weaponAuras;
+
     int fatigue = 0;
     int damageTakenThisTurn = 0;
 };
