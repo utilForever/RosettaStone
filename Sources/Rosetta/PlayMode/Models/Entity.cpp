@@ -35,6 +35,11 @@ Entity::~Entity()
     m_gameTags.clear();
 }
 
+int Entity::GetNativeGameTag(GameTag tag) const
+{
+    return m_gameTags.find(tag) == m_gameTags.end() ? 0 : m_gameTags.at(tag);
+}
+
 std::map<GameTag, int> Entity::GetGameTags() const
 {
     return m_gameTags;

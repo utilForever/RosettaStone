@@ -58,6 +58,11 @@ class Entity
     //! Deleted move assignment operator.
     Entity& operator=(Entity&&) noexcept = delete;
 
+    //! Returns the value of native game tag.
+    //! \param tag The game tag of card.
+    //! \return The value of native game tag.
+    int GetNativeGameTag(GameTag tag) const;
+
     //! Returns a list of game tag.
     //! \return A list of game tag.
     std::map<GameTag, int> GetGameTags() const;
