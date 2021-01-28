@@ -24,21 +24,21 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
             std::make_pair(entity, new Effect(*this)));
     }
 
-    const int prevValue = entity->GetGameTag(m_gameTag);
+    const int prevValue = entity->GetNativeGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            entity->SetGameTag(m_gameTag, prevValue + m_value);
+            entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
             break;
         case EffectOperator::SUB:
-            entity->SetGameTag(m_gameTag, prevValue - m_value);
+            entity->SetNativeGameTag(m_gameTag, prevValue - m_value);
             break;
         case EffectOperator::MUL:
-            entity->SetGameTag(m_gameTag, prevValue * m_value);
+            entity->SetNativeGameTag(m_gameTag, prevValue * m_value);
             break;
         case EffectOperator::SET:
-            entity->SetGameTag(m_gameTag, m_value);
+            entity->SetNativeGameTag(m_gameTag, m_value);
             break;
         default:
             throw std::invalid_argument(
@@ -113,19 +113,18 @@ void Effect::ApplyAuraTo(Entity* entity) const
 
 void Effect::RemoveFrom(Entity* entity) const
 {
-    const int prevValue = entity->GetGameTag(m_gameTag);
+    const int prevValue = entity->GetNativeGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            entity->SetGameTag(m_gameTag, prevValue - m_value);
+            entity->SetNativeGameTag(m_gameTag, prevValue - m_value);
             break;
         case EffectOperator::SUB:
-            entity->SetGameTag(m_gameTag,
-                               entity->card->gameTags.at(m_gameTag) + m_value);
+            entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
             break;
         case EffectOperator::SET:
-            entity->SetGameTag(m_gameTag, 0);
+            entity->SetNativeGameTag(m_gameTag, 0);
             break;
         default:
             throw std::invalid_argument(
