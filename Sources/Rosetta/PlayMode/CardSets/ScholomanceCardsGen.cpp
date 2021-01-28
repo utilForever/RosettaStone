@@ -782,6 +782,10 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("SCH_532", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_533] Commencement - COST:7

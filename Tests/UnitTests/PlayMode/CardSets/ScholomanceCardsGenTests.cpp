@@ -1025,6 +1025,61 @@ TEST_CASE("[Paladin : Spell] - SCH_524 : Shield of Honor")
     CHECK_EQ(curField[0]->HasDivineShield(), true);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [SCH_532] Goody Two-Shields - COST:3 [ATK:4/HP:2]
+// - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+//       <b>Spellburst:</b> Gain <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - SCH_532 : Goody Two-Shields")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Goody Two-Shields"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Redemption"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasSpellburst(), true);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->HasSpellburst(), false);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [SCH_533] Commencement - COST:7
 // - Set: SCHOLOMANCE, Rarity: Rare
@@ -1039,7 +1094,7 @@ TEST_CASE("[Paladin : Spell] - SCH_524 : Shield of Honor")
 TEST_CASE("[Paladin : Spell] - SCH_533 : Commencement")
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::PALADIN;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
