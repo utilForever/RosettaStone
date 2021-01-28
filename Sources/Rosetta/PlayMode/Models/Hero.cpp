@@ -54,6 +54,11 @@ void Hero::AddWeapon(Weapon& _weapon)
     {
         SetExhausted(false);
     }
+
+    for (int i = static_cast<int>(weaponAuras.size()) - 1; i >= 0; --i)
+    {
+        weaponAuras[i]->NotifyEntityAdded(weapon);
+    }
 }
 
 void Hero::RemoveWeapon()
@@ -70,6 +75,11 @@ void Hero::RemoveWeapon()
     game->ProcessTasks();
 
     game->triggerManager.OnDeathTrigger(weapon);
+
+    for (int i = static_cast<int>(weaponAuras.size()) - 1; i >= 0; --i)
+    {
+        weaponAuras[i]->NotifyEntityRemoved(weapon);
+    }
 
     player->GetGraveyardZone()->Add(weapon);
 
