@@ -1130,7 +1130,6 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsWeaponEquipped());
-        aura->restless = true;
     }
     cards.emplace("SCH_519", CardDef(power));
 

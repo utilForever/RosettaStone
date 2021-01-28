@@ -1375,55 +1375,55 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
 // GameTag:
 // - AURA = 1
 // --------------------------------------------------------
-//TEST_CASE("[Rogue : Minion] - SCH_519 : Vulpera Toxinblade")
-//{
-//    GameConfig config;
-//    config.player1Class = CardClass::ROGUE;
-//    config.player2Class = CardClass::MAGE;
-//    config.startPlayer = PlayerType::PLAYER1;
-//    config.doFillDecks = true;
-//    config.autoRun = false;
-//
-//    Game game(config);
-//    game.Start();
-//    game.ProcessUntil(Step::MAIN_ACTION);
-//
-//    Player* curPlayer = game.GetCurrentPlayer();
-//    Player* opPlayer = game.GetOpponentPlayer();
-//    curPlayer->SetTotalMana(10);
-//    curPlayer->SetUsedMana(0);
-//    opPlayer->SetTotalMana(10);
-//    opPlayer->SetUsedMana(0);
-//
-//    auto curHero = curPlayer->GetHero();
-//    auto opHero = opPlayer->GetHero();
-//
-//    const auto card1 = Generic::DrawCard(
-//        curPlayer, Cards::FindCardByName("Vulpera Toxinblade"));
-//    const auto card2 = Generic::DrawCard(
-//        curPlayer, Cards::FindCardByName("Self-Sharpening Sword"));
-//    const auto card3 =
-//        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
-//
-//    game.Process(curPlayer, PlayCardTask::Minion(card1));
-//    CHECK_EQ(curHero->GetAttack(), 0);
-//
-//    game.Process(curPlayer, PlayCardTask::Weapon(card2));
-//    CHECK_EQ(curHero->GetAttack(), 3);
-//
-//    game.Process(curPlayer, AttackTask(curHero, opHero));
-//    CHECK_EQ(curHero->GetAttack(), 4);
-//    CHECK_EQ(opHero->GetHealth(), 27);
-//
-//    game.Process(curPlayer, HeroPowerTask());
-//    CHECK_EQ(curHero->GetAttack(), 3);
-//
-//    game.Process(curPlayer, EndTurnTask());
-//    game.ProcessUntil(Step::MAIN_ACTION);
-//
-//    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
-//    CHECK_EQ(curHero->GetAttack(), 1);
-//}
+TEST_CASE("[Rogue : Minion] - SCH_519 : Vulpera Toxinblade")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Vulpera Toxinblade"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Self-Sharpening Sword"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHero->GetAttack(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(curHero->GetAttack(), 3);
+
+    game.Process(curPlayer, AttackTask(curHero, opHero));
+    CHECK_EQ(curHero->GetAttack(), 4);
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHero->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curHero->GetAttack(), 1);
+}
 
 // ----------------------------------------- WEAPON - ROGUE
 // [SCH_622] Self-Sharpening Sword - COST:3
