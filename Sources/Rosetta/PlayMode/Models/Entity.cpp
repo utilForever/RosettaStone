@@ -112,6 +112,7 @@ void Entity::Reset()
     m_gameTags.erase(GameTag::WINDFURY);
     m_gameTags.erase(GameTag::DIVINE_SHIELD);
     m_gameTags.erase(GameTag::STEALTH);
+    m_gameTags.erase(GameTag::SPELLBURST);
     m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
 }
 
