@@ -40,6 +40,11 @@ int Entity::GetNativeGameTag(GameTag tag) const
     return m_gameTags.find(tag) == m_gameTags.end() ? 0 : m_gameTags.at(tag);
 }
 
+void Entity::SetNativeGameTag(GameTag tag, int value)
+{
+    m_gameTags.insert_or_assign(tag, value);
+}
+
 std::map<GameTag, int> Entity::GetGameTags() const
 {
     return m_gameTags;

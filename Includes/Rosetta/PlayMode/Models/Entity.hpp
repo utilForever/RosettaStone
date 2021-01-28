@@ -63,6 +63,11 @@ class Entity
     //! \return The value of native game tag.
     int GetNativeGameTag(GameTag tag) const;
 
+    //! Sets the value of game tag to the card.
+    //! \param tag The game tag to indicate ability or condition.
+    //! \param value The value to set for native game tag.
+    void SetNativeGameTag(GameTag tag, int value);
+
     //! Returns a list of game tag.
     //! \return A list of game tag.
     std::map<GameTag, int> GetGameTags() const;
