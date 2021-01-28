@@ -101,6 +101,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnTargetTrigger(Entity* sender);
 
+    //! Callback for trigger when a card is discarded from hand.
+    //! \param sender An entity that is the source of trigger.
+    void OnDiscardTrigger(Entity* sender);
+
     //! Callback for trigger when minion is dead.
     //! \param sender An entity that is the source of trigger.
     void OnDeathTrigger(Entity* sender);
@@ -133,6 +137,7 @@ class TriggerManager
     TriggerEvent dealDamageTrigger;
     TriggerEvent takeDamageTrigger;
     TriggerEvent targetTrigger;
+    TriggerEvent discardTrigger;
     TriggerEvent deathTrigger;
     TriggerEvent useHeroPowerTrigger;
     TriggerEvent shuffleIntoDeckTrigger;
