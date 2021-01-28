@@ -224,6 +224,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger += instance->handler;
             break;
+        case TriggerType::DISCARD:
+            game->triggerManager.discardTrigger += instance->handler;
+            break;
         case TriggerType::DEATH:
             game->triggerManager.deathTrigger += instance->handler;
             break;
@@ -375,6 +378,9 @@ void Trigger::Remove() const
             }
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger -= handler;
+            break;
+        case TriggerType::DISCARD:
+            game->triggerManager.discardTrigger -= handler;
             break;
         case TriggerType::DEATH:
             game->triggerManager.deathTrigger -= handler;

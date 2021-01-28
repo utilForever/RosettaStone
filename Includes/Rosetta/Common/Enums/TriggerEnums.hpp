@@ -46,9 +46,11 @@ enum class TriggerType
     PREDAMAGE,    //!< The effect will be triggered when a character gets
                 //!< predamage. This event happens just before the character is
                 //!< actually damaged.
-    TARGET,  //!< The effect will be triggered when a card is targeted by an
-             //!< attacking minion or a played card.
-    DEATH,   //!< The effect will be triggered when a minion dies.
+    TARGET,   //!< The effect will be triggered when a card is targeted by an
+              //!< attacking minion or a played card.
+    DISCARD,  //!< The effect will be triggered when a card is discarded from
+              //!< hand.
+    DEATH,    //!< The effect will be triggered when a minion dies.
     USE_HERO_POWER,  //!< The effect will be triggered when a hero uses power.
     SHUFFLE_INTO_DECK,  //!< The effect will be triggered when a card is
                         //!< shuffled into a deck.
