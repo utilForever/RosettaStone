@@ -67,7 +67,7 @@ class Entity
     //! \return The value of game tag.
     virtual int GetGameTag(GameTag tag) const;
 
-    //! Sets game tag to the card.
+    //! Sets the value of game tag to the card.
     //! \param tag The game tag to indicate ability or condition.
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
