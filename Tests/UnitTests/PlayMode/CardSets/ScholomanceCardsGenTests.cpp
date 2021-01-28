@@ -2873,6 +2873,70 @@ TEST_CASE("[Neutral : Minion] - SCH_245 : Steward of Scrolls")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 23);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [SCH_248] Pen Flinger - COST:1 [ATK:1/HP:1]
+// - Set: SCHOLOMANCE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage.
+//       <b>Spellburst:</b> Return this to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SCH_248 : Pen Flinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pen Flinger"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Redemption"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Equality"));
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, opHero));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Pen Flinger");
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[5], opHero));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(opHero->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Pen Flinger");
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[4], opHero));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(opHero->GetHealth(), 27);
+}
+
 // --------------------------------------- WEAPON - NEUTRAL
 // [SCH_259] Sphere of Sapience - COST:1
 // - Set: SCHOLOMANCE, Rarity: Legendary

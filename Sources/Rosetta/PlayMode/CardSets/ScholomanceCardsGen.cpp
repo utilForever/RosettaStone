@@ -39,6 +39,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetPlayerGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
@@ -2312,6 +2313,16 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddSpellburstTask(
+        std::make_shared<ReturnHandTask>(EntityType::SOURCE));
+    cards.emplace(
+        "SCH_248",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - NEUTRAL
     // [SCH_259] Sphere of Sapience - COST:1
