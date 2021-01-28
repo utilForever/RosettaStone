@@ -1668,6 +1668,60 @@ TEST_CASE("[Rogue : Spell] - SCH_706 : Plagiarize")
     CHECK_EQ(curHand[1]->card->name, "Blizzard");
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [SCH_147] Boneweb Egg - COST:2 [ATK:0/HP:2]
+// - Set: SCHOLOMANCE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon two 2/1 Spiders.
+//       If you discard this, trigger its <b>Deathrattle</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - InvisibleDeathrattle = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - SCH_147 : Boneweb Egg")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boneweb Egg"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boneweb Egg"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Soulfire"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curField[0]->card->name, "Boneweb Spider");
+    CHECK_EQ(curField[1]->card->name, "Boneweb Spider");
+    CHECK_EQ(curField[2]->card->name, "Boneweb Spider");
+    CHECK_EQ(curField[3]->card->name, "Boneweb Spider");
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_158] Demonic Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common

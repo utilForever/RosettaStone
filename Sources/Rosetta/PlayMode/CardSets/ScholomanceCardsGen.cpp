@@ -12,6 +12,7 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateDeathrattleTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
@@ -1348,6 +1349,13 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - InvisibleDeathrattle = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SCH_147t", 2, SummonSide::DEATHRATTLE));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    power.GetTrigger()->tasks = { std::make_shared<ActivateDeathrattleTask>(
+        EntityType::SOURCE) };
+    cards.emplace("SCH_147", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_158] Demonic Studies - COST:1
@@ -1507,6 +1515,9 @@ void ScholomanceCardsGen::AddWarlockNonCollect(
     // [SCH_147t] Boneweb Spider - COST:1 [ATK:2/HP:1]
     // - Race: Beast, Set: SCHOLOMANCE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SCH_147t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [SCH_158e] Demonic Studies - COST:0
