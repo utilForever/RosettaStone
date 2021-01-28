@@ -108,6 +108,11 @@ void TriggerManager::OnTargetTrigger(Entity* sender)
     targetTrigger(sender);
 }
 
+void TriggerManager::OnDiscardTrigger(Entity* sender)
+{
+    discardTrigger(sender);
+}
+
 void TriggerManager::OnDeathTrigger(Entity* sender)
 {
     deathTrigger(sender);

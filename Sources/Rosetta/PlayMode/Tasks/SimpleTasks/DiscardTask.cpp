@@ -56,6 +56,8 @@ TaskStatus DiscardTask::Impl(Player* player)
 
         player->game->taskQueue.StartEvent();
 
+        player->game->triggerManager.OnDiscardTrigger(handCards[i]);
+
         player->GetHandZone()->Remove(handCards[i]);
         player->GetGraveyardZone()->Add(handCards[i]);
 

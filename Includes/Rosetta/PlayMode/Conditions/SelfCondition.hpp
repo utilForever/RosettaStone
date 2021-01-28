@@ -189,6 +189,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsChooseOneCard();
 
+    //! SelfCondition wrapper for checking the entity is outcast card.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOutcastCard();
+
     //! SelfCondition wrapper for checking the entity is frozen.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
@@ -368,6 +372,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the player has unspent mana.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUnspentMana();
+
+    //! SelfCondition wrapper for checking the player used hero power this turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsUsedHeroPowerThisTurn();
 
     //! SelfCondition wrapper for checking it is no duplicate cards in deck.
     //! \return Generated SelfCondition for intended purpose.

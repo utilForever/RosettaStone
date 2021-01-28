@@ -131,6 +131,12 @@ void Aura::Remove()
                     [this](Aura* aura) { return aura == this; });
             break;
         }
+        case AuraType::WEAPON:
+        {
+            EraseIf(m_owner->player->GetHero()->weaponAuras,
+                    [this](Aura* aura) { return aura == this; });
+            break;
+        }
         case AuraType::HAND:
         {
             EraseIf(m_owner->player->GetHandZone()->auras,
@@ -341,6 +347,9 @@ void Aura::AddToGame(Playable& owner, Aura& aura)
         case AuraType::FIELD_EXCEPT_SOURCE:
             owner.player->GetFieldZone()->auras.emplace_back(&aura);
             break;
+        case AuraType::WEAPON:
+            owner.player->GetHero()->weaponAuras.emplace_back(&aura);
+            break;
         case AuraType::HAND:
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
@@ -406,9 +415,22 @@ void Aura::UpdateInternal()
             }
             break;
         }
+        case AuraType::HERO_POWER:
+        {
+            Apply(m_owner->player->GetHero()->heroPower);
+            break;
+        }
         case AuraType::ENEMY_HERO_POWER:
         {
             Apply(m_owner->player->opponent->GetHero()->heroPower);
+            break;
+        }
+        case AuraType::WEAPON:
+        {
+            if (m_owner->player->GetHero()->HasWeapon())
+            {
+                Apply(m_owner->player->GetHero()->weapon);
+            }
             break;
         }
         case AuraType::HAND:

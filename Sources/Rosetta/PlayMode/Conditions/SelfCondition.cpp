@@ -356,6 +356,12 @@ SelfCondition SelfCondition::IsChooseOneCard()
         [](Playable* playable) { return playable->HasChooseOne(); });
 }
 
+SelfCondition SelfCondition::IsOutcastCard()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->HasOutcast(); });
+}
+
 SelfCondition SelfCondition::IsFrozen()
 {
     return SelfCondition([](Playable* playable) {
@@ -739,6 +745,13 @@ SelfCondition SelfCondition::IsUnspentMana()
 {
     return SelfCondition([](Playable* playable) {
         return playable->player->GetRemainingMana() > 0;
+    });
+}
+
+SelfCondition SelfCondition::IsUsedHeroPowerThisTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetHero()->heroPower->IsExhausted();
     });
 }
 
