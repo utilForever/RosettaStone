@@ -1112,12 +1112,12 @@ SCHOLOMANCE | SCH_142 | Voracious Reader |
 SCHOLOMANCE | SCH_143 | Divine Rager | O
 SCHOLOMANCE | SCH_145 | Desk Imp | O
 SCHOLOMANCE | SCH_146 | Robes of Protection |  
-SCHOLOMANCE | SCH_147 | Boneweb Egg |  
+SCHOLOMANCE | SCH_147 | Boneweb Egg | O
 SCHOLOMANCE | SCH_149 | Argent Braggart |  
 SCHOLOMANCE | SCH_157 | Enchanted Cauldron |  
 SCHOLOMANCE | SCH_158 | Demonic Studies | O
 SCHOLOMANCE | SCH_159 | Mindrender Illucia |  
-SCHOLOMANCE | SCH_160 | Wandmaker |  
+SCHOLOMANCE | SCH_160 | Wandmaker | O
 SCHOLOMANCE | SCH_162 | Vectus | O
 SCHOLOMANCE | SCH_181 | Archwitch Willow |  
 SCHOLOMANCE | SCH_182 | Speaker Gidra |  
@@ -1139,25 +1139,25 @@ SCHOLOMANCE | SCH_243 | Wyrm Weaver | O
 SCHOLOMANCE | SCH_244 | Teacher's Pet | O
 SCHOLOMANCE | SCH_245 | Steward of Scrolls | O
 SCHOLOMANCE | SCH_247 | First Day of School | O
-SCHOLOMANCE | SCH_248 | Pen Flinger |  
+SCHOLOMANCE | SCH_248 | Pen Flinger | O
 SCHOLOMANCE | SCH_250 | Wave of Apathy |  
 SCHOLOMANCE | SCH_252 | Marrowslicer | O
 SCHOLOMANCE | SCH_253 | Cycle of Hatred |  
 SCHOLOMANCE | SCH_259 | Sphere of Sapience | O
 SCHOLOMANCE | SCH_270 | Primordial Studies | O
 SCHOLOMANCE | SCH_271 | Molten Blast |  
-SCHOLOMANCE | SCH_273 | Ras Frostwhisper |  
+SCHOLOMANCE | SCH_273 | Ras Frostwhisper | O
 SCHOLOMANCE | SCH_276 | Magehunter |  
 SCHOLOMANCE | SCH_279 | Trueaim Crescent |  
-SCHOLOMANCE | SCH_283 | Manafeeder Panthara |  
+SCHOLOMANCE | SCH_283 | Manafeeder Panthara | O
 SCHOLOMANCE | SCH_300 | Carrion Studies | O
 SCHOLOMANCE | SCH_301 | Rune Dagger |  
 SCHOLOMANCE | SCH_302 | Gift of Luminance |  
 SCHOLOMANCE | SCH_305 | Secret Passage |  
 SCHOLOMANCE | SCH_307 | School Spirits | O
 SCHOLOMANCE | SCH_310 | Lab Partner | O
-SCHOLOMANCE | SCH_311 | Animated Broomstick |  
-SCHOLOMANCE | SCH_312 | Tour Guide |  
+SCHOLOMANCE | SCH_311 | Animated Broomstick | O
+SCHOLOMANCE | SCH_312 | Tour Guide | O
 SCHOLOMANCE | SCH_313 | Wretched Tutor | O
 SCHOLOMANCE | SCH_317 | Playmaker |  
 SCHOLOMANCE | SCH_333 | Nature Studies | O
@@ -1174,7 +1174,7 @@ SCHOLOMANCE | SCH_355 | Shardshatter Mystic | O
 SCHOLOMANCE | SCH_356 | Glide |  
 SCHOLOMANCE | SCH_357 | Fel Guardians |  
 SCHOLOMANCE | SCH_400 | Mozaki, Master Duelist |  
-SCHOLOMANCE | SCH_422 | Double Jump |  
+SCHOLOMANCE | SCH_422 | Double Jump | O
 SCHOLOMANCE | SCH_425 | Doctor Krastinov | O
 SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
 SCHOLOMANCE | SCH_427 | Lightning Bloom | O
@@ -1185,21 +1185,21 @@ SCHOLOMANCE | SCH_512 | Initiation |
 SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |  
 SCHOLOMANCE | SCH_514 | Raise Dead |  
 SCHOLOMANCE | SCH_517 | Shadowlight Scholar | O
-SCHOLOMANCE | SCH_519 | Vulpera Toxinblade |  
+SCHOLOMANCE | SCH_519 | Vulpera Toxinblade | O
 SCHOLOMANCE | SCH_521 | Coerce | O
 SCHOLOMANCE | SCH_522 | Steeldancer | O
 SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
 SCHOLOMANCE | SCH_524 | Shield of Honor | O
 SCHOLOMANCE | SCH_525 | In Formation! | O
-SCHOLOMANCE | SCH_526 | Lord Barov |  
-SCHOLOMANCE | SCH_530 | Sorcerous Substitute |  
-SCHOLOMANCE | SCH_532 | Goody Two-Shields |  
+SCHOLOMANCE | SCH_526 | Lord Barov | O
+SCHOLOMANCE | SCH_530 | Sorcerous Substitute | O
+SCHOLOMANCE | SCH_532 | Goody Two-Shields | O
 SCHOLOMANCE | SCH_533 | Commencement | O
 SCHOLOMANCE | SCH_535 | Tidal Wave |  
 SCHOLOMANCE | SCH_537 | Trick Totem |  
 SCHOLOMANCE | SCH_538 | Ace Hunter Kreen |  
 SCHOLOMANCE | SCH_539 | Professor Slate |  
-SCHOLOMANCE | SCH_600 | Demon Companion |  
+SCHOLOMANCE | SCH_600 | Demon Companion | O
 SCHOLOMANCE | SCH_603 | Star Student Stelina |  
 SCHOLOMANCE | SCH_604 | Overwhelm |  
 SCHOLOMANCE | SCH_605 | Lake Thresher |  
@@ -1234,7 +1234,7 @@ SCHOLOMANCE | SCH_713 | Cult Neophyte | O
 SCHOLOMANCE | SCH_714 | Educated Elekk |  
 SCHOLOMANCE | SCH_717 | Keymaster Alabaster | O
 
-- Progress: 48% (65 of 135 Cards)
+- Progress: 57% (78 of 135 Cards)
 
 ## Madness at the Darkmoon Faire
 
