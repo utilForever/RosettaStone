@@ -54239,7 +54239,7 @@
         "name": "Hysteria",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "[x]Choose a minion.\nIt attacks random\nminions until it dies.",
+        "text": "[x]Choose an enemy minion.\nIt attacks random\nminions until it dies.",
         "type": "SPELL"
     },
     {

@@ -96326,15 +96326,12 @@
     },
     {
         "cardClass": "DEMONHUNTER",
-        "cost": 0,
+        "cost": 1,
         "dbfId": 66729,
         "id": "PVPDR_DMF_DemonHunterp1",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
         "name": "Outlander",
         "set": "TB",
-        "text": "[x]<b>Passive Hero Power</b>\nAfter you play the left- \nor right-most card, \ngain 1 Attack this turn.",
+        "text": "[x]<b>Hero Power</b>\nAfter you play the left- \nor right-most card, \ngain +1 Attack this turn.",
         "type": "HERO_POWER"
     },
     {
@@ -96342,7 +96339,7 @@
         "dbfId": 66732,
         "id": "PVPDR_DMF_DemonHunterp1e",
         "mechanics": [
-            "TAG_ONE_TURN_EFFECT"
+            "TRIGGER_VISUAL"
         ],
         "name": "Outlander's Power",
         "set": "TB",
@@ -96411,7 +96408,7 @@
             "DEATHRATTLE"
         ],
         "set": "TB",
-        "text": "[x]<b>Hero Power</b>\nTrigger a minion's\n<b>Deathrattle</b>.",
+        "text": "<b>Hero Power</b>\nTrigger a random friendly minion's <b>Deathrattle</b>.",
         "type": "HERO_POWER"
     },
     {
@@ -99014,7 +99011,7 @@
     {
         "attack": 5,
         "cardClass": "HUNTER",
-        "cost": 6,
+        "cost": 8,
         "dbfId": 65088,
         "flavor": "Your enemies will have an unhappy Noblegarden.",
         "health": 3,
@@ -99024,6 +99021,7 @@
             "RUSH"
         ],
         "name": "Bonecrusher",
+        "race": "BEAST",
         "set": "TB",
         "text": "<b>Rush</b>. <b>Deathrattle</b>: Summon two other minions with <b>Deathrattle</b> that died this game.",
         "type": "MINION"
@@ -99102,7 +99100,7 @@
     {
         "attack": 6,
         "cardClass": "PALADIN",
-        "cost": 6,
+        "cost": 5,
         "dbfId": 64953,
         "durability": 3,
         "flavor": "Tales of its power are…Legendary.",
@@ -99897,7 +99895,7 @@
     },
     {
         "cardClass": "PRIEST",
-        "cost": 5,
+        "cost": 4,
         "dbfId": 65089,
         "faction": "HORDE",
         "flavor": "Mime your manners.",
@@ -100726,6 +100724,7 @@
             "TAUNT"
         ],
         "name": "Herald of the Scaled Ones",
+        "race": "DRAGON",
         "set": "TB",
         "text": "<b>Taunt</b>. <b>Battlecry:</b> Add 1 Dragon to your hand.\n|4(It costs, They cost) (2) less. <i>(Improves during run)</i>",
         "type": "MINION"
@@ -147986,7 +147985,7 @@
         "name": "Hysteria",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "[x]Choose a minion.\nIt attacks random\nminions until it dies.",
+        "text": "[x]Choose an enemy minion.\nIt attacks random\nminions until it dies.",
         "type": "SPELL"
     },
     {
