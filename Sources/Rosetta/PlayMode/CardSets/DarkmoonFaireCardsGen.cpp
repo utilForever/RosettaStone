@@ -2810,9 +2810,8 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [YOP_006] Hysteria - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Choose a minion.
-    //       It attacks random
-    //       minions until it dies.
+    // Text: Choose an enemy minion.
+    //       It attacks random minions until it dies.
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - NEUTRAL
