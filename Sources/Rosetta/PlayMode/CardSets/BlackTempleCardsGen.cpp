@@ -995,17 +995,13 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::UNTOUCHABLE, 1));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 2));
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
         []([[maybe_unused]] Player* player, Entity* source,
            [[maybe_unused]] Playable* target) {
             const int value =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
-            if (value <= 2)
+            if (value <= source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
             {
                 source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
             }
@@ -2349,17 +2345,13 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::UNTOUCHABLE, 1));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 2));
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
         []([[maybe_unused]] Player* player, Entity* source,
            [[maybe_unused]] Playable* target) {
             const int value =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
-            if (value <= 2)
+            if (value <= source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
             {
                 source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
             }
