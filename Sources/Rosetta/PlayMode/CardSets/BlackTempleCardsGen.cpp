@@ -996,22 +996,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
-        []([[maybe_unused]] Player* player, Entity* source,
-           [[maybe_unused]] Playable* target) {
-            const int value =
-                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
-            if (value <= source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
-            {
-                source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
-            }
-
-            if (value + 1 == source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
-            {
-                source->SetGameTag(GameTag::UNTOUCHABLE, 0);
-                source->SetGameTag(GameTag::EXHAUSTED, 1);
-            }
-        }) };
+    power.GetTrigger()->tasks = { ComplexTask::IncreaseDormantTurn() };
     cards.emplace("BT_258", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
@@ -2346,22 +2331,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
-        []([[maybe_unused]] Player* player, Entity* source,
-           [[maybe_unused]] Playable* target) {
-            const int value =
-                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
-            if (value <= source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
-            {
-                source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
-            }
-
-            if (value + 1 == source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
-            {
-                source->SetGameTag(GameTag::UNTOUCHABLE, 0);
-                source->SetGameTag(GameTag::EXHAUSTED, 1);
-            }
-        }) };
+    power.GetTrigger()->tasks = { ComplexTask::IncreaseDormantTurn() };
     cards.emplace("BT_156", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
