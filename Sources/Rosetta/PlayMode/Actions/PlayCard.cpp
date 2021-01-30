@@ -142,6 +142,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
 
+    // Process echo card
     if (hasEcho)
     {
         if (const auto spell = dynamic_cast<Spell*>(source);
@@ -298,6 +299,12 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         (handPos == 0 || handPos == player->GetHandZone()->GetCount()))
     {
         minion->ActivateTask(PowerType::OUTCAST, target);
+    }
+
+    // Check card has dormant
+    if (minion->HasDormant())
+    {
+        minion->SetGameTag(GameTag::UNTOUCHABLE, 1);
     }
 
     // Check card has overload
