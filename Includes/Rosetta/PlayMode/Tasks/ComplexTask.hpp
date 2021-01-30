@@ -7,9 +7,11 @@
 #define ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
@@ -99,10 +101,13 @@ class ComplexTask
         return ret;
     }
 
-    //! Returns a list of task for increasing turn of the dormant.
-    static TaskList IncreaseDormantTurn()
+    //! Returns a list of task for processing the keyword 'Dormant'.
+    //! \param awakenTasks A list of task to execute when the minion awakens.
+    static TaskList ProcessDormant(TaskList awakenTasks)
     {
-        return TaskList{ std::make_shared<SimpleTasks::CustomTask>(
+        TaskList ret;
+
+        ret.emplace_back(std::make_shared<SimpleTasks::CustomTask>(
             []([[maybe_unused]] Player* player, Entity* source,
                [[maybe_unused]] Playable* target) {
                 const int value =
@@ -119,7 +124,14 @@ class ComplexTask
                     source->SetGameTag(GameTag::UNTOUCHABLE, 0);
                     source->SetGameTag(GameTag::EXHAUSTED, 1);
                 }
-            }) };
+            }));
+        ret.emplace_back(std::make_shared<SimpleTasks::ConditionTask>(
+            EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsAwaken()) }));
+        ret.emplace_back(std::make_shared<SimpleTasks::FlagTask>(
+            true, std::move(awakenTasks)));
+
+        return ret;
     }
 };
 }  // namespace RosettaStone::PlayMode

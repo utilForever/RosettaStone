@@ -996,7 +996,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { ComplexTask::IncreaseDormantTurn() };
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
     cards.emplace("BT_258", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
@@ -2331,7 +2331,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { ComplexTask::IncreaseDormantTurn() };
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
     cards.emplace("BT_156", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
