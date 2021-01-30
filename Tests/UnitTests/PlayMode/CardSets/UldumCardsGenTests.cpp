@@ -7307,16 +7307,10 @@ TEST_CASE("[Neutral : Minion] - ULD_304 : King Phaoris")
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 7);
-    if (curField[1]->card->name == "Kirin Tor Tricaster")
-    {
-        CHECK_EQ(curField[5]->card->GetCost(), 4);
-        CHECK_EQ(curField[6]->card->GetCost(), 7);
-    }
-    else
-    {
-        CHECK_EQ(curField[5]->card->GetCost(), 3);
-        CHECK_EQ(curField[6]->card->GetCost(), 6);
-    }
+    CHECK_EQ(curField[5]->card->GetCost(),
+             curField[1]->card->name == "Kirin Tor Tricaster" ? 4 : 3);
+    CHECK_EQ(curField[6]->card->GetCost(),
+             curField[1]->card->name == "Kirin Tor Tricaster" ? 7 : 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
