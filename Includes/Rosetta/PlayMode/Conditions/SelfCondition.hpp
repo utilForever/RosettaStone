@@ -60,6 +60,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDiscoverCard();
 
+    //! SelfCondition wrapper for checking the minion is awaken.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsAwaken();
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
