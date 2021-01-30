@@ -18,6 +18,12 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
 
     minion->player->GetFieldZone()->Add(minion, fieldPos);
 
+    // Check card has dormant
+    if (minion->HasDormant())
+    {
+        minion->SetGameTag(GameTag::UNTOUCHABLE, 1);
+    }
+
     game->UpdateAura();
 
     game->summonedMinions.emplace_back(minion);
