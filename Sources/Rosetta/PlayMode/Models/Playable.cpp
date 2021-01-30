@@ -139,7 +139,7 @@ bool Playable::HasLifesteal() const
     return GetGameTag(GameTag::LIFESTEAL) == 1;
 }
 
-bool Playable::IsEcho() const
+bool Playable::HasEcho() const
 {
     return GetGameTag(GameTag::ECHO) == 1;
 }

@@ -54,7 +54,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
                             tempUsed);
     }
 
-    const bool isEcho = source->IsEcho();
+    const bool hasEcho = source->HasEcho();
 
     // Process keyword 'Corrupt'
     for (auto& playable : player->GetHandZone()->GetAll())
@@ -142,7 +142,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
 
-    if (isEcho)
+    if (hasEcho)
     {
         if (const auto spell = dynamic_cast<Spell*>(source);
             spell == nullptr || !spell->IsCountered())
