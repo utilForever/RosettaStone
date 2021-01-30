@@ -107,6 +107,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has echo.
     bool HasEcho() const;
 
+    //! Returns the flag that indicates whether it has dormant.
+    //! \return The flag that indicates whether it has dormant.
+    bool HasDormant() const;
+
     //! Returns the flag that indicates whether it has corrupt.
     //! \return The flag that indicates whether it has corrupt.
     bool HasCorrupt() const;

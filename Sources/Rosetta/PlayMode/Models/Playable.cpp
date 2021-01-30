@@ -144,6 +144,11 @@ bool Playable::HasEcho() const
     return GetGameTag(GameTag::ECHO) == 1;
 }
 
+bool Playable::HasDormant() const
+{
+    return GetGameTag(GameTag::DORMANT) == 1;
+}
+
 bool Playable::HasCorrupt() const
 {
     return GetGameTag(GameTag::CORRUPT) == 1;
