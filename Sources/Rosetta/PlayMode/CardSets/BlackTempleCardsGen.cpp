@@ -530,6 +530,11 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: <b>Dormant</b> for 2 turns.
     //       When this awakens, deal 2 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2) }) };
+    cards.emplace("BT_004", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [BT_006] Evocation - COST:2
@@ -540,6 +545,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
     // [BT_014] Starscryer - COST:2 [ATK:3/HP:1]
