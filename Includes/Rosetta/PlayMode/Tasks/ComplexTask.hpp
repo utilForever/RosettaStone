@@ -7,6 +7,7 @@
 #define ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -96,6 +97,29 @@ class ComplexTask
             EntityType::SOURCE));
 
         return ret;
+    }
+
+    //! Returns a list of task for increasing turn of the dormant.
+    static TaskList IncreaseDormantTurn()
+    {
+        return TaskList{ std::make_shared<SimpleTasks::CustomTask>(
+            []([[maybe_unused]] Player* player, Entity* source,
+               [[maybe_unused]] Playable* target) {
+                const int value =
+                    source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
+                if (value <= source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
+                {
+                    source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2,
+                                       value + 1);
+                }
+
+                if (value + 1 ==
+                    source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
+                {
+                    source->SetGameTag(GameTag::UNTOUCHABLE, 0);
+                    source->SetGameTag(GameTag::EXHAUSTED, 1);
+                }
+            }) };
     }
 };
 }  // namespace RosettaStone::PlayMode
