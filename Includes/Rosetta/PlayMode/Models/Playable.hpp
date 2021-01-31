@@ -103,9 +103,13 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has lifesteal.
     virtual bool HasLifesteal() const;
 
-    //! Returns the flag that indicates whether it is echo.
-    //! \return The flag that indicates whether it is echo.
-    bool IsEcho() const;
+    //! Returns the flag that indicates whether it has echo.
+    //! \return The flag that indicates whether it has echo.
+    bool HasEcho() const;
+
+    //! Returns the flag that indicates whether it has dormant.
+    //! \return The flag that indicates whether it has dormant.
+    bool HasDormant() const;
 
     //! Returns the flag that indicates whether it has corrupt.
     //! \return The flag that indicates whether it has corrupt.

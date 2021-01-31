@@ -77,6 +77,21 @@ SelfCondition SelfCondition::IsGalakrondHero()
         [](Playable* playable) { return playable->card->IsGalakrond(); });
 }
 
+SelfCondition SelfCondition::IsAwaken()
+{
+    return SelfCondition([](Playable* playable) {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (minion)
+        {
+            return minion->HasDormant() &&
+                   minion->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) ==
+                       minion->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsDead()
 {
     return SelfCondition(

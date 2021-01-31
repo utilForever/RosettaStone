@@ -530,6 +530,11 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: <b>Dormant</b> for 2 turns.
     //       When this awakens, deal 2 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2) }) };
+    cards.emplace("BT_004", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [BT_006] Evocation - COST:2
@@ -540,6 +545,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
     // [BT_014] Starscryer - COST:2 [ATK:3/HP:1]
@@ -995,27 +1001,8 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::UNTOUCHABLE, 1));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 2));
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
-        []([[maybe_unused]] Player* player, Entity* source,
-           [[maybe_unused]] Playable* target) {
-            const int value =
-                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
-            if (value <= 2)
-            {
-                source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
-            }
-
-            if (value + 1 == source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
-            {
-                source->SetGameTag(GameTag::UNTOUCHABLE, 0);
-                source->SetGameTag(GameTag::EXHAUSTED, 1);
-            }
-        }) };
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
     cards.emplace("BT_258", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
@@ -2349,27 +2336,8 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::UNTOUCHABLE, 1));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 2));
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
-        []([[maybe_unused]] Player* player, Entity* source,
-           [[maybe_unused]] Playable* target) {
-            const int value =
-                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
-            if (value <= 2)
-            {
-                source->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, value + 1);
-            }
-
-            if (value + 1 == source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
-            {
-                source->SetGameTag(GameTag::UNTOUCHABLE, 0);
-                source->SetGameTag(GameTag::EXHAUSTED, 1);
-            }
-        }) };
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
     cards.emplace("BT_156", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
