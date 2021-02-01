@@ -369,6 +369,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOverloaded();
 
+    //! SelfCondition wrapper for checking the player has at least
+    //! \p num mana crystal.
+    //! \param num The number of mana crystal to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasAtLeastManaCrystal(int num);
+
     //! SelfCondition wrapper for checking the player's total mana is full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsManaCrystalFull();
