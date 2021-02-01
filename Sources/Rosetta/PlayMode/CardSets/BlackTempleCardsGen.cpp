@@ -164,6 +164,20 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion.
     //       Costs (0) if you have at least 7 Mana Crystals.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>(
+        []([[maybe_unused]] Playable* playable) { return 0; },
+        EffectOperator::SET, SelfCondition::HasAtLeastManaCrystal(7)));
+    cards.emplace(
+        "BT_134",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_135] Glowfly Swarm - COST:5
