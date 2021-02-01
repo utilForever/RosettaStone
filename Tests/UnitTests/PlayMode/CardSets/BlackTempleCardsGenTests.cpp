@@ -115,6 +115,70 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [BT_132] Ironbark - COST:2
+// - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give a minion +1/+3 and <b>Taunt</b>.
+//       Costs (0) if you have at least 7 Mana Crystals.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - BT_132 : Ironbark")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(6);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironbark"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    CHECK_EQ(card1->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetAttack(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+    CHECK_EQ(opField[0]->HasTaunt(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+    CHECK_EQ(opField[0]->GetAttack(), 5);
+    CHECK_EQ(opField[0]->GetHealth(), 15);
+    CHECK_EQ(opField[0]->HasTaunt(), true);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [BT_134] Bogbeam - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------

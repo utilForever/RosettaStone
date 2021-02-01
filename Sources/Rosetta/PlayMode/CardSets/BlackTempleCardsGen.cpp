@@ -144,6 +144,20 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_132e", EntityType::TARGET));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>(
+        []([[maybe_unused]] Playable* playable) { return 0; },
+        EffectOperator::SET, SelfCondition::HasAtLeastManaCrystal(7)));
+    cards.emplace(
+        "BT_132",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [BT_133] Marsh Hydra - COST:7 [ATK:7/HP:7]
@@ -222,6 +236,9 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1/+3 and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_132e"));
+    cards.emplace("BT_132e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BT_135t] Glowfly - COST:2 [ATK:2/HP:2]
