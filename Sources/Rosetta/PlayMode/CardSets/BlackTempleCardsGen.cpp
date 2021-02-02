@@ -723,6 +723,12 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: <b>Dormant</b> for 2 turns. When this awakens,
     //       summon two 1/1 Murlocs.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{
+        std::make_shared<SummonTask>("BT_009t", 1, SummonSide::LEFT),
+        std::make_shared<SummonTask>("BT_009t", 1, SummonSide::RIGHT) }) };
+    cards.emplace("BT_009", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BT_011] Libram of Justice - COST:5
@@ -858,6 +864,9 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     // [BT_009t] Sungill Streamrunner - COST:1 [ATK:1/HP:1]
     // - Race: Murloc, Set: BLACK_TEMPLE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BT_009t", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [BT_011t] Overdue Justice - COST:1

@@ -861,6 +861,68 @@ TEST_CASE("[Mage : Spell] - BT_291 : Apexis Blast")
     CHECK_EQ(curField[0]->card->GetCost(), 5);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [BT_009] Imprisoned Sungill - COST:1 [ATK:2/HP:1]
+// - Race: Murloc, Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Dormant</b> for 2 turns. When this awakens,
+//       summon two 1/1 Murlocs.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - BT_009 : Imprisoned Sungill")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Imprisoned Sungill"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1), 2);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 0);
+    CHECK_EQ(curField[0]->IsUntouchable(), true);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 1);
+    CHECK_EQ(curField[0]->IsUntouchable(), true);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Sungill Streamrunner");
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 2);
+    CHECK_EQ(curField[1]->IsUntouchable(), false);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[2]->card->name, "Sungill Streamrunner");
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [BT_011] Libram of Justice - COST:5
 // - Set: BLACK_TEMPLE, Rarity: Common
