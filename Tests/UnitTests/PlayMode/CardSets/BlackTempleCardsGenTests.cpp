@@ -3207,6 +3207,75 @@ TEST_CASE("[Demon Hunter : Minion] - BT_761 : Coilfang Warlord")
     CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [BT_934] Imprisoned Antaen - COST:6 [ATK:10/HP:6]
+// - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Dormant</b> for 2 turns. When this awakens,
+//       deal 10 damage randomly split among all enemies.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BT_934 : Imprisoned Antaen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Imprisoned Antaen"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1), 2);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 0);
+    CHECK_EQ(curField[0]->IsUntouchable(), true);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    int totalHealth =
+        opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 42);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 1);
+    CHECK_EQ(curField[0]->IsUntouchable(), true);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 2);
+    CHECK_EQ(curField[0]->IsUntouchable(), false);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+    totalHealth = opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 32);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [BT_008] Rustsworn Initiate - COST:2 [ATK:2/HP:2]
 // - Set: BLACK_TEMPLE, Rarity: Common

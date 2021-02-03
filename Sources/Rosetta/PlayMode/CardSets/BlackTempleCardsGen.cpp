@@ -2283,6 +2283,17 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // Text: <b>Dormant</b> for 2 turns. When this awakens,
     //       deal 10 damage randomly split among all enemies.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(
+        TaskList{ std::make_shared<EnqueueTask>(
+            TaskList{ std::make_shared<FilterStackTask>(
+                          SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsNotDead()) }),
+                      std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+                      std::make_shared<DamageTask>(EntityType::STACK, 1) },
+            10, false) }) };
+    cards.emplace("BT_934", CardDef(power));
 }
 
 void BlackTempleCardsGen::AddDemonHunterNonCollect(
