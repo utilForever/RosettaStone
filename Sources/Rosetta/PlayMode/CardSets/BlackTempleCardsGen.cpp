@@ -1724,6 +1724,13 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: <b>Dormant</b> for 2 turns. When this awakens,
     //       give all minions in your hand +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(
+        TaskList{ std::make_shared<AddEnchantmentTask>(
+            "BT_305e", EntityType::HAND, false, false,
+            SelfCondition::IsMinion()) }) };
+    cards.emplace("BT_305", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_306] Shadow Council - COST:1
@@ -1780,6 +1787,9 @@ void BlackTempleCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BT_305e"));
+    cards.emplace("BT_305e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [BT_306e] Ritual Summons - COST:0
