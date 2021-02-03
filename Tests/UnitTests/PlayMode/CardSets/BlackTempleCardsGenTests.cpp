@@ -977,6 +977,53 @@ TEST_CASE("[Paladin : Spell] - BT_011 : Libram of Justice")
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
+// --------------------------------------- WEAPON - PALADIN
+// [BT_018] Underlight Angling Rod - COST:3
+// - Set: BLACK_TEMPLE, Rarity: Epic
+// --------------------------------------------------------
+// Text: After your Hero attacks,
+//       add a random Murloc to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - BT_018 : Underlight Angling Rod")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Underlight Angling Rod"));
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->GetRace(), Race::MURLOC);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [BT_024] Libram of Hope - COST:9
 // - Set: BLACK_TEMPLE, Rarity: Epic
