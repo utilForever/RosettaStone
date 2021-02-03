@@ -1915,6 +1915,11 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: <b>Dormant</b> for 2 turns.
     //       When this awakens, equip a 3/2 Axe.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(
+        TaskList{ std::make_shared<WeaponTask>("CS2_106") }) };
+    cards.emplace("BT_121", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BT_123] Kargath Bladefist - COST:4 [ATK:4/HP:4]
