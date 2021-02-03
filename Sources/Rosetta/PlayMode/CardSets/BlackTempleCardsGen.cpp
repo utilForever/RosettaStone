@@ -172,6 +172,14 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<RandomMinionTask>(TagValues{
+                                      { GameTag::COST, 8, RelaSign::EQ } }),
+                                  std::make_shared<AddStackToTask>(
+                                      EntityType::HAND) };
+    cards.emplace("BT_133", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_134] Bogbeam - COST:3
