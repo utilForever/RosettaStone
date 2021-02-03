@@ -3090,6 +3090,51 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
+// [BT_514] Immolation Aura - COST:2
+// - Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 1 damage to all minions twice.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_514 : Immolation Aura")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Immolation Aura"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Hench-Clan Hogsteed"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Argent Commander"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
 // [BT_601] Skull of Gul'dan - COST:6
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
