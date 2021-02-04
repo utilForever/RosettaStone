@@ -958,14 +958,14 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 BLACK_TEMPLE | BT_002 | Incanter's Flow | O
 BLACK_TEMPLE | BT_003 | Netherwind Portal | O
-BLACK_TEMPLE | BT_004 | Imprisoned Observer |  
+BLACK_TEMPLE | BT_004 | Imprisoned Observer | O
 BLACK_TEMPLE | BT_006 | Evocation |  
 BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
-BLACK_TEMPLE | BT_009 | Imprisoned Sungill |  
+BLACK_TEMPLE | BT_009 | Imprisoned Sungill | O
 BLACK_TEMPLE | BT_010 | Felfin Navigator | O
 BLACK_TEMPLE | BT_011 | Libram of Justice | O
 BLACK_TEMPLE | BT_014 | Starscryer | O
-BLACK_TEMPLE | BT_018 | Underlight Angling Rod |  
+BLACK_TEMPLE | BT_018 | Underlight Angling Rod | O
 BLACK_TEMPLE | BT_019 | Murgur Murgurgle |  
 BLACK_TEMPLE | BT_020 | Aldor Attendant |  
 BLACK_TEMPLE | BT_021 | Font of Power |  
@@ -987,21 +987,21 @@ BLACK_TEMPLE | BT_114 | Shattered Rumbler | O
 BLACK_TEMPLE | BT_115 | Marshspawn | O
 BLACK_TEMPLE | BT_117 | Bladestorm | O
 BLACK_TEMPLE | BT_120 | Warmaul Challenger | O
-BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg |  
+BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg | O
 BLACK_TEMPLE | BT_123 | Kargath Bladefist | O
 BLACK_TEMPLE | BT_124 | Corsair Cache | O
 BLACK_TEMPLE | BT_126 | Teron Gorefiend |  
-BLACK_TEMPLE | BT_127 | Imprisoned Satyr |  
+BLACK_TEMPLE | BT_127 | Imprisoned Satyr | O
 BLACK_TEMPLE | BT_128 | Fungal Fortunes |  
 BLACK_TEMPLE | BT_129 | Germination |  
 BLACK_TEMPLE | BT_130 | Overgrowth | O
 BLACK_TEMPLE | BT_131 | Ysiel Windsinger | O
-BLACK_TEMPLE | BT_132 | Ironbark |  
-BLACK_TEMPLE | BT_133 | Marsh Hydra |  
-BLACK_TEMPLE | BT_134 | Bogbeam |  
+BLACK_TEMPLE | BT_132 | Ironbark | O
+BLACK_TEMPLE | BT_133 | Marsh Hydra | O
+BLACK_TEMPLE | BT_134 | Bogbeam | O
 BLACK_TEMPLE | BT_135 | Glowfly Swarm |  
 BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O
-BLACK_TEMPLE | BT_138 | Bloodboil Brute |  
+BLACK_TEMPLE | BT_138 | Bloodboil Brute | O
 BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
 BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
 BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
@@ -1031,17 +1031,17 @@ BLACK_TEMPLE | BT_252 | Renew | O
 BLACK_TEMPLE | BT_253 | Psyche Split | O
 BLACK_TEMPLE | BT_254 | Sethekk Veilweaver |  
 BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |  
-BLACK_TEMPLE | BT_256 | Dragonmaw Overseer |  
+BLACK_TEMPLE | BT_256 | Dragonmaw Overseer | O
 BLACK_TEMPLE | BT_257 | Apotheosis | O
 BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
 BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel | O
 BLACK_TEMPLE | BT_291 | Apexis Blast | O
 BLACK_TEMPLE | BT_292 | Hand of A'dal | O
 BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
-BLACK_TEMPLE | BT_301 | Nightshade Matron |  
-BLACK_TEMPLE | BT_302 | The Dark Portal |  
+BLACK_TEMPLE | BT_301 | Nightshade Matron | O
+BLACK_TEMPLE | BT_302 | The Dark Portal | O
 BLACK_TEMPLE | BT_304 | Enhanced Dreadlord | O
-BLACK_TEMPLE | BT_305 | Imprisoned Scrap Imp |  
+BLACK_TEMPLE | BT_305 | Imprisoned Scrap Imp | O
 BLACK_TEMPLE | BT_306 | Shadow Council |  
 BLACK_TEMPLE | BT_307 | Darkglare |  
 BLACK_TEMPLE | BT_309 | Kanrethad Ebonlocke |  
@@ -1057,7 +1057,7 @@ BLACK_TEMPLE | BT_491 | Spectral Sight | O
 BLACK_TEMPLE | BT_493 | Priestess of Fury | O
 BLACK_TEMPLE | BT_496 | Furious Felfin | O
 BLACK_TEMPLE | BT_509 | Fel Summoner | O
-BLACK_TEMPLE | BT_514 | Immolation Aura |  
+BLACK_TEMPLE | BT_514 | Immolation Aura | O
 BLACK_TEMPLE | BT_601 | Skull of Gul'dan | O
 BLACK_TEMPLE | BT_701 | Spymistress | O
 BLACK_TEMPLE | BT_702 | Ashtongue Slayer |  
@@ -1090,9 +1090,9 @@ BLACK_TEMPLE | BT_737 | Maiev Shadowsong |
 BLACK_TEMPLE | BT_761 | Coilfang Warlord | O
 BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |  
 BLACK_TEMPLE | BT_850 | Magtheridon |  
-BLACK_TEMPLE | BT_934 | Imprisoned Antaen |  
+BLACK_TEMPLE | BT_934 | Imprisoned Antaen | O
 
-- Progress: 48% (65 of 135 Cards)
+- Progress: 59% (80 of 135 Cards)
 
 ## Scholomance Academy
 
