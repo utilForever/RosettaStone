@@ -832,6 +832,13 @@ SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
     });
 }
 
+SelfCondition SelfCondition::HasAtLeastCardInHand(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        return playable->player->GetHandZone()->GetCount() >= num;
+    });
+}
+
 SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
 {
     return SelfCondition([](Playable* playable) {

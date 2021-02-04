@@ -400,6 +400,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasNoNeutralCardsInDeck();
 
+    //! SelfCondition wrapper for checking the player has at least
+    //! \p num card(s) in hand.
+    //! \param num The number of card(s) to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasAtLeastCardInHand(int num);
+
     //! SelfCondition wrapper for checking it is left- or right-most card
     //! in your hand.
     //! \return Generated SelfCondition for intended purpose.
