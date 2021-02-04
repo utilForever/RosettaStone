@@ -2816,6 +2816,60 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[4])->GetDurability(), 3);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [BT_138] Bloodboil Brute - COST:7 [ATK:5/HP:8]
+// - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b> Costs (1) less for each damaged minion.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BT_138 : Bloodboil Brute")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    [[maybe_unused]] const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodboil Brute"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Sorcerer's Apprentice"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(opPlayer, HeroPowerTask(card3));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(card1->GetCost(), 5);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [BT_233] Sword and Board - COST:1
 // - Set: BLACK_TEMPLE, Rarity: Common

@@ -41,6 +41,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1983,6 +1984,31 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        FieldZone* curField = playable->player->GetFieldZone();
+        FieldZone* opField = playable->player->opponent->GetFieldZone();
+        int count = 0;
+
+        for (auto& minion : curField->GetAll())
+        {
+            if (minion->GetDamage() > 0)
+            {
+                ++count;
+            }
+        }
+
+        for (auto& minion : opField->GetAll())
+        {
+            if (minion->GetDamage() > 0)
+            {
+                ++count;
+            }
+        }
+
+        return count;
+    }));
+    cards.emplace("BT_138", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BT_140] Bonechewer Raider - COST:3 [ATK:3/HP:3]
