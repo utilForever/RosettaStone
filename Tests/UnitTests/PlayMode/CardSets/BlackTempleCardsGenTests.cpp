@@ -2343,6 +2343,51 @@ TEST_CASE("[Warlock : Spell] - BT_199 : Unstable Felbolt")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [BT_301] Nightshade Matron - COST:4 [ATK:5/HP:5]
+// - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Battlecry:</b> Discard your highest Cost card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - BT_301 : Nightshade Matron")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nightshade Matron"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Wolfrider");
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [BT_304] Enhanced Dreadlord - COST:8 [ATK:5/HP:7]
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
