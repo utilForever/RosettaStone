@@ -2359,7 +2359,7 @@ TEST_CASE("[Warlock : Minion] - BT_301 : Nightshade Matron")
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
@@ -2378,9 +2378,9 @@ TEST_CASE("[Warlock : Minion] - BT_301 : Nightshade Matron")
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Nightshade Matron"));
     [[maybe_unused]] const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
     [[maybe_unused]] const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 1);
