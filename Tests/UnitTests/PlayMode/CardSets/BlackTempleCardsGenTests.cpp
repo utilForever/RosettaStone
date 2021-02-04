@@ -2387,6 +2387,63 @@ TEST_CASE("[Warlock : Minion] - BT_301 : Nightshade Matron")
     CHECK_EQ(curHand[0]->card->name, "Wolfrider");
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [BT_302] The Dark Portal - COST:4
+// - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a minion. If you have at least 8 cards in hand,
+//       it costs (5) less.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - BT_302 : The Dark Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("The Dark Portal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("The Dark Portal"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curHand[7]->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[6]->GetCost(), 9);
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [BT_304] Enhanced Dreadlord - COST:8 [ATK:5/HP:7]
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
