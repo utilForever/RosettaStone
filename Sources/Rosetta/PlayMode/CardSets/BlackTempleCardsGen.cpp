@@ -91,6 +91,14 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: <b>Dormant</b> for 2 turns. When this awakens,
     //       reduce the Cost of a random minion in your hand by (5).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{
+        std::make_shared<IncludeTask>(EntityType::HAND),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<AddEnchantmentTask>("BT_127e", EntityType::STACK) }) };
+    cards.emplace("BT_127", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BT_128] Fungal Fortunes - COST:3
@@ -242,6 +250,9 @@ void BlackTempleCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (5) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(5)));
+    cards.emplace("BT_127e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BT_132e] Ironbark - COST:0
