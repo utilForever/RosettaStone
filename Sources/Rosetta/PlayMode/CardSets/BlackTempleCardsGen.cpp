@@ -1031,6 +1031,14 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<AddEnchantmentTask>("BT_256e", EntityType::STACK)
+    };
+    cards.emplace("BT_256", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BT_257] Apotheosis - COST:3
@@ -1145,6 +1153,9 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: Stats increased.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackHealthN(2)));
+    cards.emplace("BT_256e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [BT_257e] Apotheosis - COST:0

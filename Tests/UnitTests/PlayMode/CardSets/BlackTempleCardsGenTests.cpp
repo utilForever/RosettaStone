@@ -1232,6 +1232,55 @@ TEST_CASE("[Preist : Spell] - BT_253 : Psyche Split")
     CHECK_EQ(curField[1]->GetHealth(), 3);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [BT_256] Dragonmaw Overseer - COST:3 [ATK:2/HP:2]
+// - Set: BLACK_TEMPLE, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn,
+//       give another friendly minion +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Preist : Minion] - BT_256 : Dragonmaw Overseer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dragonmaw Overseer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [BT_257] Apotheosis - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
@@ -1265,12 +1314,12 @@ TEST_CASE("[Preist : Spell] - BT_257 : Apotheosis")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curField = *(curPlayer->GetFieldZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Apotheosis"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Loot Hoarder"));
-
-    auto& curField = *(curPlayer->GetFieldZone());
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[0]->GetGameTag(GameTag::LIFESTEAL), 0);
