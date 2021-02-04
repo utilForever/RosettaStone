@@ -749,6 +749,13 @@ SelfCondition SelfCondition::IsOverloaded()
     });
 }
 
+SelfCondition SelfCondition::HasAtLeastManaCrystal(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        return playable->player->GetTotalMana() >= num;
+    });
+}
+
 SelfCondition SelfCondition::IsManaCrystalFull()
 {
     return SelfCondition([](Playable* playable) {
@@ -822,6 +829,13 @@ SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
         }
 
         return true;
+    });
+}
+
+SelfCondition SelfCondition::HasAtLeastCardInHand(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        return playable->player->GetHandZone()->GetCount() >= num;
     });
 }
 
