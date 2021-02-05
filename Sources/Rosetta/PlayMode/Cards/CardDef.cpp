@@ -58,6 +58,15 @@ CardDef::CardDef(Power _power, std::map<PlayReq, int> _playReqs,
     // Do nothing
 }
 
+CardDef::CardDef(Power _power, std::vector<std::string> _chooseCardIDs,
+                 std::string _corruptCardID)
+    : power(std::move(_power)),
+      chooseCardIDs(std::move(_chooseCardIDs)),
+      corruptCardID(std::move(_corruptCardID))
+{
+    // Do nothing
+}
+
 CardDef::CardDef(Power _power, std::map<PlayReq, int> _playReqs,
                  std::vector<std::string> _chooseCardIDs,
                  std::vector<std::string> _entourages)
