@@ -31,6 +31,7 @@ using namespace SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
@@ -100,6 +101,11 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHOOSE_ONE = 1
     // - CORRUPT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "DMF_061",
+        CardDef(power, ChooseCardIDs{ "DMF_061a", "DMF_061b" }, "DMF_061t"));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_075] Guess the Weight - COST:2
@@ -224,6 +230,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("DMF_061a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_061b] Dig It Up - COST:3
@@ -231,6 +240,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Summon a 2/2 Treant.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_061t2"));
+    cards.emplace("DMF_061b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_061t] Faire Arborist - COST:3 [ATK:2/HP:2]
@@ -242,11 +254,18 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_061t2"));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("DMF_061t", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_061t2] Treant - COST:2 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_061t2", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_075a] More! - COST:0

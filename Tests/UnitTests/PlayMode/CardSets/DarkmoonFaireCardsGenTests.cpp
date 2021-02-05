@@ -32,6 +32,78 @@ TEST_CASE("[Druid : Minion] - DMF_059 : Fizzy Elemental")
     // Do nothing
 }
 
+// ----------------------------------------- MINION - DRUID
+// [DMF_061] Faire Arborist - COST:3 [ATK:2/HP:2]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One - </b>Draw a card;
+//       or Summon a 2/2 Treant.
+//       <b>Corrupt:</b> Do both.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// - CORRUPT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DMF_061 : Faire Arborist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faire Arborist"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faire Arborist"));
+    [[maybe_unused]] auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faire Arborist"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curHand.GetCount(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Treant");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curHand[4]->card->id, "DMF_061");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(curHand[4]->card->id, "DMF_061t");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[4]->card->name, "Treant");
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [DMF_730] Moontouched Amulet - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Rare
