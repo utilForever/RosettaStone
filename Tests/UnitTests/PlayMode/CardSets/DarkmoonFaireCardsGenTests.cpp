@@ -606,6 +606,76 @@ TEST_CASE("[Paladin : Weapon] - DMF_238 : Hammer of the Naaru")
     CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [DMF_241] High Exarch Yrel - COST:8 [ATK:7/HP:5]
+// - Set: DARKMOON_FAIRE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no Neutral cards,
+//       gain <b>Rush</b>, <b>Lifesteal</b>, <b>Taunt</b>,
+//       and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// - LIFESTEAL = 1
+// - RUSH = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DMF_241 : High Exarch Yrel")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (std::size_t i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Leper Gnome");
+        config.player2Deck[i] = Cards::FindCardByName("Leper Gnome");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("High Exarch Yrel"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("High Exarch Yrel"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasRush(), false);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->HasRush(), true);
+    CHECK_EQ(curField[1]->HasLifesteal(), true);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->HasDivineShield(), true);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DMF_244] Day at the Faire - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Common

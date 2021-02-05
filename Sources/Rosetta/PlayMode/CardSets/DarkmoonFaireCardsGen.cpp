@@ -893,6 +893,20 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasNoNeutralCardsInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::RUSH, 1),
+                        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::LIFESTEAL, 1),
+                        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::TAUNT, 1),
+                        std::make_shared<SetGameTagTask>(
+                            EntityType::SOURCE, GameTag::DIVINE_SHIELD, 1) }));
+    cards.emplace("DMF_241", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DMF_244] Day at the Faire - COST:3
