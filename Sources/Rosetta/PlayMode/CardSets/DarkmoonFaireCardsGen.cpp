@@ -1545,6 +1545,15 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::MINIONS),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<AddEnchantmentTask>("DMF_705e", EntityType::STACK)
+    };
+    cards.emplace("DMF_705", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_706] Deathmatch Pavilion - COST:2
@@ -1691,6 +1700,9 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_705e"));
+    cards.emplace("DMF_705e", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_706t] Pavilion Duelist - COST:2 [ATK:3/HP:2]
