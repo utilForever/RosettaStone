@@ -10,6 +10,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -942,6 +943,60 @@ TEST_CASE("[Rogue : Minion] - DMF_517 : Sweet Tooth")
     game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
     CHECK_EQ(curField[1]->HasStealth(), true);
     CHECK_EQ(curField[1]->GetAttack(), 5);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [YOP_016] Sparkjoy Cheat - COST:3 [ATK:3/HP:3]
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a <b>Secret</b>,
+//       cast it and draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - YOP_016 : Sparkjoy Cheat")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sparkjoy Cheat"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sparkjoy Cheat"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ambush"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(curSecret[0]->card->name, "Ambush");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curSecret.GetCount(), 1);
 }
 
 // ----------------------------------------- SPELL - SHAMAN

@@ -20,6 +20,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/PlayTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -1380,6 +1381,19 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<IncludeTask>(EntityType::HAND),
+                        std::make_shared<FilterStackTask>(
+                            SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsSecret()) }),
+                        std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<PlayTask>(PlayType::SPELL, false),
+                        std::make_shared<DrawTask>(1) }));
+    cards.emplace("YOP_016", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [YOP_017] Shenanigans - COST:2
