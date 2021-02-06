@@ -153,6 +153,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingLackey();
 
+    //! SelfCondition wrapper for checking the player has secret card
+    //! in hand zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHoldingSecret();
+
     //! SelfCondition wrapper for checking the player has entity
     //! with \p race in hand zone.
     //! \param race The race for checking.

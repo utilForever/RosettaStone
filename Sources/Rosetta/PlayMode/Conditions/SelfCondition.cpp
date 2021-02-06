@@ -285,6 +285,21 @@ SelfCondition SelfCondition::IsControllingLackey()
     });
 }
 
+SelfCondition SelfCondition::IsHoldingSecret()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->IsSecret() == true)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHoldingRace(Race race)
 {
     return SelfCondition([race](Playable* playable) {
