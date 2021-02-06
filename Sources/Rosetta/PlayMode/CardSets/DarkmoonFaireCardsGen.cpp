@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
@@ -2051,6 +2052,13 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("DMF_526", CardDef(power, "DMF_526a"));
 
     // --------------------------------------- MINION - WARRIOR
     // [DMF_528] Tent Trasher - COST:5 [ATK:5/HP:5]
@@ -2149,6 +2157,15 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_526e", EntityType::STACK));
+    cards.emplace("DMF_526a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DMF_526e] Bweeeoooow! - COST:0
@@ -2156,6 +2173,9 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_526e"));
+    cards.emplace("DMF_526e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DMF_530e] So Strong! - COST:0

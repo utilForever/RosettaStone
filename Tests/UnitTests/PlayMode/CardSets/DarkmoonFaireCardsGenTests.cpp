@@ -1581,6 +1581,76 @@ TEST_CASE("[Warrior : Spell] - DMF_522 : Minefield")
     CHECK_EQ(totalHealth, 9);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [DMF_526] Stage Dive - COST:1
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a <b>Rush</b> minion.
+//       <b>Corrupt:</b> Give it +2/+1.
+// --------------------------------------------------------
+// GameTag:
+// - CORRUPT = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - DMF_526 : Stage Dive")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Faerie Dragon");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Shotbot");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Burly Shovelfist");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stage Dive"));
+    [[maybe_unused]] auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stage Dive"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Heroic Strike"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curHand[7]->card->name, "Burly Shovelfist");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[7])->GetAttack(), 9);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[7])->GetHealth(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand[4]->card->id, "DMF_526");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand[4]->card->id, "DMF_526a");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Burly Shovelfist");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetAttack(), 11);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetHealth(), 10);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DMF_531] Stage Hand - COST:2 [ATK:3/HP:2]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
