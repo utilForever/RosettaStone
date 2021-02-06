@@ -2016,6 +2016,10 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DMF_523t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("DMF_523", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [DMF_524] Ringmaster's Baton - COST:2
@@ -3546,6 +3550,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_523t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DMF_534e] Deck of Chaos - COST:0

@@ -1581,6 +1581,56 @@ TEST_CASE("[Warrior : Spell] - DMF_522 : Minefield")
     CHECK_EQ(totalHealth, 9);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [DMF_523] Bumper Car - COST:2 [ATK:1/HP:3]
+// - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Deathrattle:</b> Add two 1/1 Riders
+//       with <b>Rush</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DMF_523 : Bumper Car")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bumper Car"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Darkmoon Rider");
+    CHECK_EQ(curField[1]->card->name, "Darkmoon Rider");
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [DMF_526] Stage Dive - COST:1
 // - Set: DARKMOON_FAIRE, Rarity: Rare
