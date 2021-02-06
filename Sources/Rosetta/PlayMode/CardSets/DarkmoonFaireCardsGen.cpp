@@ -1633,6 +1633,19 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_022e", EntityType::TARGET));
+    cards.emplace(
+        "YOP_022",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [YOP_023] Landslide - COST:2
@@ -1746,6 +1759,9 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_022e"));
+    cards.emplace("YOP_022e", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
