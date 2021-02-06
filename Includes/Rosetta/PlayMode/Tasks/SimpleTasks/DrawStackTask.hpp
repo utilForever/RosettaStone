@@ -18,9 +18,10 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class DrawStackTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount.
+    //! Constructs task with given \p amount and \p addToStack.
     //! \param amount The amount to draw card.
-    explicit DrawStackTask(std::size_t amount);
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawStackTask(std::size_t amount, bool addToStack = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,6 +34,7 @@ class DrawStackTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     std::size_t m_amount = 0;
+    bool m_addToStack = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
 
