@@ -206,6 +206,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
 
+    //! SelfCondition wrapper for checking the hero has armor.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasHeroArmor();
+
     //! SelfCondition wrapper for checking the entity has spellpower.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasSpellPower();

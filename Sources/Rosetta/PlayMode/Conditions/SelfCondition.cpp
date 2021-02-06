@@ -405,6 +405,13 @@ SelfCondition SelfCondition::IsFrozen()
     });
 }
 
+SelfCondition SelfCondition::HasHeroArmor()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetHero()->GetArmor() > 0;
+    });
+}
+
 SelfCondition SelfCondition::HasSpellPower()
 {
     return SelfCondition([](Playable* playable) {
