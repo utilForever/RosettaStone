@@ -1701,6 +1701,52 @@ TEST_CASE("[Warrior : Minion] - DMF_531 : Stage Hand")
     CHECK_EQ(totalHealth, 4);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [YOP_014] Ironclad - COST:3 [ATK:2/HP:4]
+// - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your hero has Armor, gain +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - YOP_014 : Ironclad")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironclad"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironclad"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+}
+
 // ------------------------------------ SPELL - DEMONHUNTER
 // [DMF_219] Relentless Pursuit - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Common

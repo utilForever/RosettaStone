@@ -2125,6 +2125,14 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasHeroArmor()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "YOP_014e", EntityType::SOURCE) }));
+    cards.emplace("YOP_014", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarriorNonCollect(
@@ -3629,6 +3637,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_014e"));
+    cards.emplace("YOP_014e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [YOP_015e] Nitroboost Poison - COST:0
