@@ -1836,6 +1836,10 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DMF_533t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("DMF_533", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_534] Deck of Chaos - COST:6
@@ -1870,6 +1874,8 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [DMF_111e] Dark Power - COST:0
     // - Set: DARKMOON_FAIRE
@@ -1925,6 +1931,9 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // [DMF_533t] Fiery Imp - COST:2 [ATK:3/HP:2]
     // - Race: Demon, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_533t", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
