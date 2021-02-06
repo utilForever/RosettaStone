@@ -123,6 +123,11 @@ int Player::GetCurrentSpellPower() const
 
     for (auto& minion : GetFieldZone()->GetAll())
     {
+        if (minion->IsUntouchable())
+        {
+            continue;
+        }
+
         value += minion->GetSpellPower();
     }
 
