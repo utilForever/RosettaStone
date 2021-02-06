@@ -1553,6 +1553,14 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Summon a 3/2 Duelist.
     //       If your hero attacked this turn, summon another.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_706t"));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsAttackThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("DMF_706t") }));
+    cards.emplace("DMF_706", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_707] Magicfin - COST:3 [ATK:3/HP:4]
@@ -1688,6 +1696,9 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // [DMF_706t] Pavilion Duelist - COST:2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_706t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DMF_708e] Storm Crashing - COST:0

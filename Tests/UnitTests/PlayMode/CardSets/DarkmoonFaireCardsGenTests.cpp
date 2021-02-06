@@ -1192,13 +1192,64 @@ TEST_CASE("[Shaman : Minion] - DMF_704 : Cagematch Custodian")
 
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card = Generic::DrawCard(
+    const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Cagematch Custodian"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(card));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Stormforged Axe");
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [DMF_706] Deathmatch Pavilion - COST:2
+// - Set: DARKMOON_FAIRE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Summon a 3/2 Duelist.
+//       If your hero attacked this turn, summon another.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - DMF_706 : Deathmatch Pavilion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Deathmatch Pavilion"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Deathmatch Pavilion"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stormforged Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Pavilion Duelist");
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Pavilion Duelist");
+    CHECK_EQ(curField[2]->card->name, "Pavilion Duelist");
 }
 
 // --------------------------------------- MINION - WARLOCK
