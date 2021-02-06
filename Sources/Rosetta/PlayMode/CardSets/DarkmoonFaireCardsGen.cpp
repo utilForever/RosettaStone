@@ -2997,6 +2997,10 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
+    cards.emplace("YOP_021", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_024] Guidance - COST:1
