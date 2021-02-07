@@ -1251,7 +1251,7 @@ DARKMOON_FAIRE | DMF_057 | Lunar Eclipse |
 DARKMOON_FAIRE | DMF_058 | Solar Eclipse |  
 DARKMOON_FAIRE | DMF_059 | Fizzy Elemental | O
 DARKMOON_FAIRE | DMF_060 | Umbral Owl |  
-DARKMOON_FAIRE | DMF_061 | Faire Arborist |  
+DARKMOON_FAIRE | DMF_061 | Faire Arborist | O
 DARKMOON_FAIRE | DMF_062 | Gyreworm |  
 DARKMOON_FAIRE | DMF_064 | Carousel Gryphon | O
 DARKMOON_FAIRE | DMF_065 | Banana Vendor | O
@@ -1288,8 +1288,8 @@ DARKMOON_FAIRE | DMF_106 | Occult Conjurer |
 DARKMOON_FAIRE | DMF_107 | Rigged Faire Game |  
 DARKMOON_FAIRE | DMF_108 | Deck of Lunacy |  
 DARKMOON_FAIRE | DMF_109 | Sayge, Seer of Darkmoon |  
-DARKMOON_FAIRE | DMF_110 | Fire Breather |  
-DARKMOON_FAIRE | DMF_111 | Man'ari Mosher |  
+DARKMOON_FAIRE | DMF_110 | Fire Breather | O
+DARKMOON_FAIRE | DMF_111 | Man'ari Mosher | O
 DARKMOON_FAIRE | DMF_113 | Free Admission |  
 DARKMOON_FAIRE | DMF_114 | Midway Maniac | O
 DARKMOON_FAIRE | DMF_115 | Revenant Rascal |  
@@ -1332,7 +1332,7 @@ DARKMOON_FAIRE | DMF_236 | Oh My Yogg! |
 DARKMOON_FAIRE | DMF_237 | Carnival Barker |  
 DARKMOON_FAIRE | DMF_238 | Hammer of the Naaru | O
 DARKMOON_FAIRE | DMF_240 | Lothraxion the Redeemed |  
-DARKMOON_FAIRE | DMF_241 | High Exarch Yrel |  
+DARKMOON_FAIRE | DMF_241 | High Exarch Yrel | O
 DARKMOON_FAIRE | DMF_244 | Day at the Faire | O
 DARKMOON_FAIRE | DMF_247 | Insatiable Felhound | O
 DARKMOON_FAIRE | DMF_248 | Felsteel Executioner |  
@@ -1341,7 +1341,7 @@ DARKMOON_FAIRE | DMF_254 | C'Thun, the Shattered |
 DARKMOON_FAIRE | DMF_511 | Foxy Fraud |  
 DARKMOON_FAIRE | DMF_512 | Cloak of Shadows |  
 DARKMOON_FAIRE | DMF_513 | Shadow Clone |  
-DARKMOON_FAIRE | DMF_514 | Ticket Master |  
+DARKMOON_FAIRE | DMF_514 | Ticket Master | O
 DARKMOON_FAIRE | DMF_515 | Swindle | O
 DARKMOON_FAIRE | DMF_516 | Grand Empress Shek'zara |  
 DARKMOON_FAIRE | DMF_517 | Sweet Tooth | O
@@ -1350,24 +1350,24 @@ DARKMOON_FAIRE | DMF_519 | Prize Plunderer |
 DARKMOON_FAIRE | DMF_520 | Parade Leader |  
 DARKMOON_FAIRE | DMF_521 | Sword Eater | O
 DARKMOON_FAIRE | DMF_522 | Minefield | O
-DARKMOON_FAIRE | DMF_523 | Bumper Car |  
+DARKMOON_FAIRE | DMF_523 | Bumper Car | O
 DARKMOON_FAIRE | DMF_524 | Ringmaster's Baton |  
 DARKMOON_FAIRE | DMF_525 | Ringmaster Whatley |  
-DARKMOON_FAIRE | DMF_526 | Stage Dive |  
+DARKMOON_FAIRE | DMF_526 | Stage Dive | O
 DARKMOON_FAIRE | DMF_528 | Tent Trasher |  
 DARKMOON_FAIRE | DMF_529 | E.T.C., God of Metal |  
 DARKMOON_FAIRE | DMF_530 | Feat of Strength |  
 DARKMOON_FAIRE | DMF_531 | Stage Hand | O
 DARKMOON_FAIRE | DMF_532 | Circus Amalgam | O
-DARKMOON_FAIRE | DMF_533 | Ring Matron |  
+DARKMOON_FAIRE | DMF_533 | Ring Matron | O
 DARKMOON_FAIRE | DMF_534 | Deck of Chaos |  
 DARKMOON_FAIRE | DMF_700 | Revolve |  
 DARKMOON_FAIRE | DMF_701 | Dunk Tank | O
 DARKMOON_FAIRE | DMF_702 | Stormstrike | O
 DARKMOON_FAIRE | DMF_703 | Pit Master | O
 DARKMOON_FAIRE | DMF_704 | Cagematch Custodian | O
-DARKMOON_FAIRE | DMF_705 | Whack-A-Gnoll Hammer |  
-DARKMOON_FAIRE | DMF_706 | Deathmatch Pavilion |  
+DARKMOON_FAIRE | DMF_705 | Whack-A-Gnoll Hammer | O
+DARKMOON_FAIRE | DMF_706 | Deathmatch Pavilion | O
 DARKMOON_FAIRE | DMF_707 | Magicfin |  
 DARKMOON_FAIRE | DMF_708 | Inara Stormcrash |  
 DARKMOON_FAIRE | DMF_709 | Grand Totem Eys'or |  
@@ -1375,5 +1375,40 @@ DARKMOON_FAIRE | DMF_730 | Moontouched Amulet | O
 DARKMOON_FAIRE | DMF_732 | Cenarion Ward |  
 DARKMOON_FAIRE | DMF_733 | Kiri, Chosen of Elune |  
 DARKMOON_FAIRE | DMF_734 | Greybough |  
+DARKMOON_FAIRE | YOP_001 | Illidari Studies |  
+DARKMOON_FAIRE | YOP_002 | Felsaber |  
+DARKMOON_FAIRE | YOP_003 | Luckysoul Hoarder |  
+DARKMOON_FAIRE | YOP_004 | Envoy Rustwix |  
+DARKMOON_FAIRE | YOP_005 | Barricade |  
+DARKMOON_FAIRE | YOP_006 | Hysteria |  
+DARKMOON_FAIRE | YOP_007 | Dark Inquisitor Xanesh |  
+DARKMOON_FAIRE | YOP_008 | Lightsteed |  
+DARKMOON_FAIRE | YOP_009 | Rally! |  
+DARKMOON_FAIRE | YOP_010 | Imprisoned Celestial |  
+DARKMOON_FAIRE | YOP_011 | Libram of Judgment |  
+DARKMOON_FAIRE | YOP_012 | Deathwarden |  
+DARKMOON_FAIRE | YOP_013 | Spiked Wheel |  
+DARKMOON_FAIRE | YOP_014 | Ironclad | O
+DARKMOON_FAIRE | YOP_015 | Nitroboost Poison |  
+DARKMOON_FAIRE | YOP_016 | Sparkjoy Cheat | O
+DARKMOON_FAIRE | YOP_017 | Shenanigans |  
+DARKMOON_FAIRE | YOP_018 | Keywarden Ivory |  
+DARKMOON_FAIRE | YOP_019 | Conjure Mana Biscuit |  
+DARKMOON_FAIRE | YOP_020 | Glacier Racer |  
+DARKMOON_FAIRE | YOP_021 | Imprisoned Phoenix | O
+DARKMOON_FAIRE | YOP_022 | Mistrunner | O
+DARKMOON_FAIRE | YOP_023 | Landslide | O
+DARKMOON_FAIRE | YOP_024 | Guidance |  
+DARKMOON_FAIRE | YOP_025 | Dreaming Drake |  
+DARKMOON_FAIRE | YOP_026 | Arbor Up |  
+DARKMOON_FAIRE | YOP_027 | Bola Shot |  
+DARKMOON_FAIRE | YOP_028 | Saddlemaster |  
+DARKMOON_FAIRE | YOP_029 | Resizing Pouch |  
+DARKMOON_FAIRE | YOP_030 | Felfire Deadeye |  
+DARKMOON_FAIRE | YOP_031 | Crabrider |  
+DARKMOON_FAIRE | YOP_032 | Armor Vendor |  
+DARKMOON_FAIRE | YOP_033 | Backfire |  
+DARKMOON_FAIRE | YOP_034 | Runaway Blackwing |  
+DARKMOON_FAIRE | YOP_035 | Moonfang |  
 
-- Progress: 28% (38 of 135 Cards)
+- Progress: 31% (53 of 170 Cards)
