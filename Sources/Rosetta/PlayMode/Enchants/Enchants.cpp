@@ -87,6 +87,7 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     }
 
     if (text.find("this turn") != std::string::npos ||
+        text.find("until end of turn") != std::string::npos ||
         card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] > 0)
     {
         isOneTurn = true;
