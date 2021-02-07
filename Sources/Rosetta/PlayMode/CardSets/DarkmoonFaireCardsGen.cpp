@@ -1802,6 +1802,13 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsNotRace(Race::DEMON)) }));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::STACK, 2));
+    cards.emplace("DMF_110", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DMF_111] Man'ari Mosher - COST:3 [ATK:3/HP:4]
