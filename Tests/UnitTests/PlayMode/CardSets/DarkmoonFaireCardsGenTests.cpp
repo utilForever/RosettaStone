@@ -8,6 +8,7 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
@@ -821,6 +822,58 @@ TEST_CASE("[Priest : Minion] - DMF_184 : Fairground Fool")
     CHECK_EQ(curField[1]->HasTaunt(), true);
     CHECK_EQ(curField[1]->GetAttack(), 4);
     CHECK_EQ(curField[1]->GetHealth(), 7);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [DMF_514] Ticket Master - COST:3 [ATK:4/HP:3]
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Shuffle 3 Tickets into your deck.
+//       When drawn, summon a 3/3 Plush Bear.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DMF_514 : Ticket Master")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ticket Master"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->card->name, "Plush Bear");
+    CHECK_EQ(curField[2]->card->name, "Plush Bear");
+    CHECK_EQ(curField[3]->card->name, "Plush Bear");
 }
 
 // ------------------------------------------ SPELL - ROGUE

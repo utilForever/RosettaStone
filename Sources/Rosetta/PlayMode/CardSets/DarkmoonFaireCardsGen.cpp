@@ -1302,6 +1302,10 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "DMF_514t", 3));
+    cards.emplace("DMF_514", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_515] Swindle - COST:2
@@ -1448,11 +1452,21 @@ void DarkmoonFaireCardsGen::AddRogueNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    // RefTag:
+    // - CASTSWHENDRAWN = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<SummonTask>("DMF_514t2"));
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_514t2"));
+    cards.emplace("DMF_514t", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DMF_514t2] Plush Bear - COST:3 [ATK:3/HP:3]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_514t2", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DMF_517a] Sweet Tooth - COST:2 [ATK:5/HP:2]
