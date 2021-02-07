@@ -1474,6 +1474,75 @@ TEST_CASE("[Shaman : Minion] - YOP_022 : Mistrunner")
     CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [YOP_023] Landslide - COST:2
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 1 damage to all enemy minions.
+//       If you're <b>Overloaded</b>, deal 1 damage again.
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - YOP_023 : Landslide")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Landslide"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Landslide"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mistrunner"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Onyxia"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card4, card3));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [DMF_114] Midway Maniac - COST:2 [ATK:1/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
