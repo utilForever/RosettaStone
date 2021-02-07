@@ -1625,6 +1625,97 @@ TEST_CASE("[Warlock : Minion] - DMF_110 : Fire Breather")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [DMF_111] Man'ari Mosher - COST:3 [ATK:3/HP:4]
+// - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly Demon +3 Attack
+//       and <b>Lifesteal</b> this turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_TARGET_WITH_RACE = 15
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DMF_111 : Man'ari Mosher")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Man'ari Mosher"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Midway Maniac"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasLifesteal(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasLifesteal(), false);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
+
+    game.Process(curPlayer, AttackTask(card2, card4));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(opField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [DMF_114] Midway Maniac - COST:2 [ATK:1/HP:5]
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------

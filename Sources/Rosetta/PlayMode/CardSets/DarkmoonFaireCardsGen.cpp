@@ -1820,9 +1820,22 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_WITH_RACE = 15
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_111e", EntityType::TARGET));
+    cards.emplace(
+        "DMF_111",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 15 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_113] Free Admission - COST:3
@@ -1948,6 +1961,9 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // - LIFESTEAL = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_111e"));
+    cards.emplace("DMF_111e", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_117t] Cascading Disaster - COST:4
