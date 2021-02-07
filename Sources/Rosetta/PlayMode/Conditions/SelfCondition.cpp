@@ -210,6 +210,13 @@ SelfCondition SelfCondition::IsRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsNotRace(Race race)
+{
+    return SelfCondition([race](Playable* playable) {
+        return playable->card->GetRace() != race;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
     return SelfCondition([race](Playable* playable) {

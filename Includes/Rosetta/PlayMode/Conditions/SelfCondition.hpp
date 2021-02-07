@@ -121,6 +121,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRace(Race race);
 
+    //! SelfCondition wrapper for checking race of entity is not \p race.
+    //! \param race The race for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotRace(Race race);
+
     //! SelfCondition wrapper for checking there is the entity
     //! with \p race in field zone.
     //! \param race The race for checking.
