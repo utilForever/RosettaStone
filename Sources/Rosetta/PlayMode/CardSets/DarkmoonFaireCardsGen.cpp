@@ -14,12 +14,14 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawWeaponTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/PlayTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -31,6 +33,7 @@ using namespace SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
@@ -100,6 +103,11 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHOOSE_ONE = 1
     // - CORRUPT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "DMF_061",
+        CardDef(power, ChooseCardIDs{ "DMF_061a", "DMF_061b" }, "DMF_061t"));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_075] Guess the Weight - COST:2
@@ -224,6 +232,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("DMF_061a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_061b] Dig It Up - COST:3
@@ -231,6 +242,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Summon a 2/2 Treant.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_061t2"));
+    cards.emplace("DMF_061b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_061t] Faire Arborist - COST:3 [ATK:2/HP:2]
@@ -242,11 +256,18 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_061t2"));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("DMF_061t", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_061t2] Treant - COST:2 [ATK:2/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_061t2", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_075a] More! - COST:0
@@ -874,6 +895,20 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasNoNeutralCardsInDeck()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::RUSH, 1),
+                        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::LIFESTEAL, 1),
+                        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::TAUNT, 1),
+                        std::make_shared<SetGameTagTask>(
+                            EntityType::SOURCE, GameTag::DIVINE_SHIELD, 1) }));
+    cards.emplace("DMF_241", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DMF_244] Day at the Faire - COST:3
@@ -1267,6 +1302,10 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "DMF_514t", 3));
+    cards.emplace("DMF_514", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_515] Swindle - COST:2
@@ -1347,6 +1386,19 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<IncludeTask>(EntityType::HAND),
+                        std::make_shared<FilterStackTask>(
+                            SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsSecret()) }),
+                        std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<PlayTask>(PlayType::SPELL, false),
+                        std::make_shared<DrawTask>(1) }));
+    cards.emplace("YOP_016", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [YOP_017] Shenanigans - COST:2
@@ -1400,11 +1452,21 @@ void DarkmoonFaireCardsGen::AddRogueNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    // RefTag:
+    // - CASTSWHENDRAWN = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<SummonTask>("DMF_514t2"));
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_514t2"));
+    cards.emplace("DMF_514t", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DMF_514t2] Plush Bear - COST:3 [ATK:3/HP:3]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_514t2", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [DMF_517a] Sweet Tooth - COST:2 [ATK:5/HP:2]
@@ -1512,6 +1574,15 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::MINIONS),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<AddEnchantmentTask>("DMF_705e", EntityType::STACK)
+    };
+    cards.emplace("DMF_705", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_706] Deathmatch Pavilion - COST:2
@@ -1520,6 +1591,14 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Summon a 3/2 Duelist.
     //       If your hero attacked this turn, summon another.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("DMF_706t"));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsAttackThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("DMF_706t") }));
+    cards.emplace("DMF_706", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_707] Magicfin - COST:3 [ATK:3/HP:4]
@@ -1569,6 +1648,19 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_022e", EntityType::TARGET));
+    cards.emplace(
+        "YOP_022",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [YOP_023] Landslide - COST:2
@@ -1580,6 +1672,16 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsOverloaded()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS,
+                                                     1, true) }));
+    cards.emplace("YOP_023", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddShamanNonCollect(
@@ -1650,11 +1752,17 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_705e"));
+    cards.emplace("DMF_705e", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [DMF_706t] Pavilion Duelist - COST:2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_706t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [DMF_708e] Storm Crashing - COST:0
@@ -1676,6 +1784,9 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_022e"));
+    cards.emplace("YOP_022e", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
@@ -1691,6 +1802,13 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsNotRace(Race::DEMON)) }));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::STACK, 2));
+    cards.emplace("DMF_110", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DMF_111] Man'ari Mosher - COST:3 [ATK:3/HP:4]
@@ -1702,9 +1820,22 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_WITH_RACE = 15
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_111e", EntityType::TARGET));
+    cards.emplace(
+        "DMF_111",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 15 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_113] Free Admission - COST:3
@@ -1780,6 +1911,10 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DMF_533t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("DMF_533", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_534] Deck of Chaos - COST:6
@@ -1814,6 +1949,8 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [DMF_111e] Dark Power - COST:0
     // - Set: DARKMOON_FAIRE
@@ -1824,6 +1961,9 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // - LIFESTEAL = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_111e"));
+    cards.emplace("DMF_111e", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_117t] Cascading Disaster - COST:4
@@ -1869,6 +2009,9 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // [DMF_533t] Fiery Imp - COST:2 [ATK:3/HP:2]
     // - Race: Demon, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_533t", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
@@ -1920,6 +2063,10 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("DMF_523t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("DMF_523", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [DMF_524] Ringmaster's Baton - COST:2
@@ -1956,6 +2103,13 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    cards.emplace("DMF_526", CardDef(power, "DMF_526a"));
 
     // --------------------------------------- MINION - WARRIOR
     // [DMF_528] Tent Trasher - COST:5 [ATK:5/HP:5]
@@ -2022,6 +2176,14 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasHeroArmor()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "YOP_014e", EntityType::SOURCE) }));
+    cards.emplace("YOP_014", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarriorNonCollect(
@@ -2054,6 +2216,15 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_526e", EntityType::STACK));
+    cards.emplace("DMF_526a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DMF_526e] Bweeeoooow! - COST:0
@@ -2061,6 +2232,9 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_526e"));
+    cards.emplace("DMF_526e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [DMF_530e] So Strong! - COST:0
@@ -2870,6 +3044,10 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
+    cards.emplace("YOP_021", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_024] Guidance - COST:1
@@ -3423,6 +3601,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_523t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DMF_534e] Deck of Chaos - COST:0
@@ -3514,6 +3695,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_014e"));
+    cards.emplace("YOP_014e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [YOP_015e] Nitroboost Poison - COST:0

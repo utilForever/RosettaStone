@@ -121,6 +121,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRace(Race race);
 
+    //! SelfCondition wrapper for checking race of entity is not \p race.
+    //! \param race The race for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotRace(Race race);
+
     //! SelfCondition wrapper for checking there is the entity
     //! with \p race in field zone.
     //! \param race The race for checking.
@@ -152,6 +157,11 @@ class SelfCondition
     //! with Lackey in field zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingLackey();
+
+    //! SelfCondition wrapper for checking the player has secret card
+    //! in hand zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHoldingSecret();
 
     //! SelfCondition wrapper for checking the player has entity
     //! with \p race in hand zone.
@@ -200,6 +210,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the entity is frozen.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrozen();
+
+    //! SelfCondition wrapper for checking the hero has armor.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasHeroArmor();
 
     //! SelfCondition wrapper for checking the entity has spellpower.
     //! \return Generated SelfCondition for intended purpose.

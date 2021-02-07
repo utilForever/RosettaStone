@@ -210,6 +210,13 @@ SelfCondition SelfCondition::IsRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsNotRace(Race race)
+{
+    return SelfCondition([race](Playable* playable) {
+        return playable->card->GetRace() != race;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
     return SelfCondition([race](Playable* playable) {
@@ -276,6 +283,21 @@ SelfCondition SelfCondition::IsControllingLackey()
         for (auto& minion : playable->player->GetFieldZone()->GetAll())
         {
             if (minion->card->IsLackey())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::IsHoldingSecret()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->IsSecret() == true)
             {
                 return true;
             }
@@ -387,6 +409,13 @@ SelfCondition SelfCondition::IsFrozen()
         }
 
         return character->IsFrozen();
+    });
+}
+
+SelfCondition SelfCondition::HasHeroArmor()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetHero()->GetArmor() > 0;
     });
 }
 

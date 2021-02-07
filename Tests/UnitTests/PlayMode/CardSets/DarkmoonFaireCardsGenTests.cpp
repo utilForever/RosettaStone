@@ -8,8 +8,10 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -30,6 +32,78 @@ using namespace SimpleTasks;
 TEST_CASE("[Druid : Minion] - DMF_059 : Fizzy Elemental")
 {
     // Do nothing
+}
+
+// ----------------------------------------- MINION - DRUID
+// [DMF_061] Faire Arborist - COST:3 [ATK:2/HP:2]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One - </b>Draw a card;
+//       or Summon a 2/2 Treant.
+//       <b>Corrupt:</b> Do both.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// - CORRUPT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DMF_061 : Faire Arborist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faire Arborist"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faire Arborist"));
+    [[maybe_unused]] auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faire Arborist"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Missiles"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curHand.GetCount(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Treant");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curHand[4]->card->id, "DMF_061");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(curHand[4]->card->id, "DMF_061t");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[4]->card->name, "Treant");
 }
 
 // ------------------------------------------ SPELL - DRUID
@@ -534,6 +608,76 @@ TEST_CASE("[Paladin : Weapon] - DMF_238 : Hammer of the Naaru")
     CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [DMF_241] High Exarch Yrel - COST:8 [ATK:7/HP:5]
+// - Set: DARKMOON_FAIRE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no Neutral cards,
+//       gain <b>Rush</b>, <b>Lifesteal</b>, <b>Taunt</b>,
+//       and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// - LIFESTEAL = 1
+// - RUSH = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DMF_241 : High Exarch Yrel")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (std::size_t i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Leper Gnome");
+        config.player2Deck[i] = Cards::FindCardByName("Leper Gnome");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("High Exarch Yrel"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("High Exarch Yrel"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasRush(), false);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->HasRush(), true);
+    CHECK_EQ(curField[1]->HasLifesteal(), true);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->HasDivineShield(), true);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [DMF_244] Day at the Faire - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Common
@@ -680,6 +824,58 @@ TEST_CASE("[Priest : Minion] - DMF_184 : Fairground Fool")
     CHECK_EQ(curField[1]->GetHealth(), 7);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [DMF_514] Ticket Master - COST:3 [ATK:4/HP:3]
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Shuffle 3 Tickets into your deck.
+//       When drawn, summon a 3/3 Plush Bear.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - DMF_514 : Ticket Master")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ticket Master"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->card->name, "Plush Bear");
+    CHECK_EQ(curField[2]->card->name, "Plush Bear");
+    CHECK_EQ(curField[3]->card->name, "Plush Bear");
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [DMF_515] Swindle - COST:2
 // - Set: DARKMOON_FAIRE, Rarity: Common
@@ -800,6 +996,60 @@ TEST_CASE("[Rogue : Minion] - DMF_517 : Sweet Tooth")
     game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
     CHECK_EQ(curField[1]->HasStealth(), true);
     CHECK_EQ(curField[1]->GetAttack(), 5);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [YOP_016] Sparkjoy Cheat - COST:3 [ATK:3/HP:3]
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a <b>Secret</b>,
+//       cast it and draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - YOP_016 : Sparkjoy Cheat")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sparkjoy Cheat"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sparkjoy Cheat"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ambush"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(curSecret[0]->card->name, "Ambush");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curSecret.GetCount(), 1);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -1050,13 +1300,419 @@ TEST_CASE("[Shaman : Minion] - DMF_704 : Cagematch Custodian")
 
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card = Generic::DrawCard(
+    const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Cagematch Custodian"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(card));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Stormforged Axe");
+}
+
+// ---------------------------------------- WEAPON - SHAMAN
+// [DMF_705] Whack-A-Gnoll Hammer - COST:3
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: After your hero attacks,
+//       give a random friendly minion +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Weapon] - DMF_705 : Whack-A-Gnoll Hammer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Whack-A-Gnoll Hammer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [DMF_706] Deathmatch Pavilion - COST:2
+// - Set: DARKMOON_FAIRE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Summon a 3/2 Duelist.
+//       If your hero attacked this turn, summon another.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - DMF_706 : Deathmatch Pavilion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Deathmatch Pavilion"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Deathmatch Pavilion"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stormforged Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Pavilion Duelist");
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Pavilion Duelist");
+    CHECK_EQ(curField[2]->card->name, "Pavilion Duelist");
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [YOP_022] Mistrunner - COST:5 [ATK:4/HP:4]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly minion +3/+3.
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - OVERLOAD = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - YOP_022 : Mistrunner")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mistrunner"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mistrunner"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [YOP_023] Landslide - COST:2
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 1 damage to all enemy minions.
+//       If you're <b>Overloaded</b>, deal 1 damage again.
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - YOP_023 : Landslide")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Landslide"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Landslide"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mistrunner"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Onyxia"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card4, card3));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [DMF_110] Fire Breather - COST:4 [ATK:4/HP:3]
+// - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 2 damage to all minions except Demons.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DMF_110 : Fire Breather")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Breather"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Servant"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Evasive Feywing"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Midway Maniac"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("River Crocolisk"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Southsea Captain"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Crabrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[1]->GetHealth(), 3);
+    CHECK_EQ(opField[2]->GetHealth(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 3);
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[2]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [DMF_111] Man'ari Mosher - COST:3 [ATK:3/HP:4]
+// - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly Demon +3 Attack
+//       and <b>Lifesteal</b> this turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_TARGET_WITH_RACE = 15
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DMF_111 : Man'ari Mosher")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Man'ari Mosher"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Midway Maniac"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasLifesteal(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasLifesteal(), false);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
+
+    game.Process(curPlayer, AttackTask(card2, card4));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(opField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
 }
 
 // --------------------------------------- MINION - WARLOCK
@@ -1071,6 +1727,56 @@ TEST_CASE("[Shaman : Minion] - DMF_704 : Cagematch Custodian")
 TEST_CASE("[Warlock : Minion] - DMF_114 : Midway Maniac")
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [DMF_533] Ring Matron - COST:6 [ATK:6/HP:4]
+// - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Deathrattle:</b> Summon two 3/2 Imps.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - DMF_533 : Ring Matron")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ring Matron"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Fiery Imp");
+    CHECK_EQ(curField[1]->card->name, "Fiery Imp");
 }
 
 // --------------------------------------- MINION - WARRIOR
@@ -1170,6 +1876,126 @@ TEST_CASE("[Warrior : Spell] - DMF_522 : Minefield")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [DMF_523] Bumper Car - COST:2 [ATK:1/HP:3]
+// - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Deathrattle:</b> Add two 1/1 Riders
+//       with <b>Rush</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - DMF_523 : Bumper Car")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bumper Car"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Darkmoon Rider");
+    CHECK_EQ(curField[1]->card->name, "Darkmoon Rider");
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [DMF_526] Stage Dive - COST:1
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a <b>Rush</b> minion.
+//       <b>Corrupt:</b> Give it +2/+1.
+// --------------------------------------------------------
+// GameTag:
+// - CORRUPT = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - DMF_526 : Stage Dive")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Faerie Dragon");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Shotbot");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Burly Shovelfist");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stage Dive"));
+    [[maybe_unused]] auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stage Dive"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Heroic Strike"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curHand[7]->card->name, "Burly Shovelfist");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[7])->GetAttack(), 9);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[7])->GetHealth(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand[4]->card->id, "DMF_526");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand[4]->card->id, "DMF_526a");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Burly Shovelfist");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetAttack(), 11);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->GetHealth(), 10);
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [DMF_531] Stage Hand - COST:2 [ATK:3/HP:2]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
@@ -1217,6 +2043,52 @@ TEST_CASE("[Warrior : Minion] - DMF_531 : Stage Hand")
                             dynamic_cast<Minion*>(card3)->GetHealth();
     CHECK_EQ(totalAttack, 7);
     CHECK_EQ(totalHealth, 4);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [YOP_014] Ironclad - COST:3 [ATK:2/HP:4]
+// - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your hero has Armor, gain +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - YOP_014 : Ironclad")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironclad"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironclad"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
@@ -2125,4 +2997,78 @@ TEST_CASE("[Neutral : Minion] - DMF_532 : Circus Amalgam")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 6);
     CHECK_EQ(curField[0]->GetHealth(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [YOP_021] Imprisoned Phoenix - COST:2 [ATK:2/HP:3]
+// - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Dormant</b> for 2 turns.
+//       <b>Spell Damage +2</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOP_021 : Imprisoned Phoenix")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Imprisoned Phoenix"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1), 2);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 0);
+    CHECK_EQ(curField[0]->IsUntouchable(), true);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 1);
+    CHECK_EQ(curField[0]->IsUntouchable(), true);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2), 2);
+    CHECK_EQ(curField[0]->IsUntouchable(), false);
+    CHECK_EQ(curField[0]->CanAttack(), false);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 16);
 }
