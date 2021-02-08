@@ -4009,31 +4009,13 @@ TEST_CASE("[Shaman : Minion] - DAL_431 : Swampqueen Hagatha")
 
     auto spell1 = Cards::FindCardByDbfID(dbfID1);
     auto spell2 = Cards::FindCardByDbfID(dbfID2);
-    bool isSpell1TargetingCard = false;
-    bool isSpell2TargetingCard = false;
-
-    for (auto& playReq : spell1->playRequirements)
-    {
-        if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
-            playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
-        {
-            isSpell1TargetingCard = true;
-            break;
-        }
-    }
-
-    for (auto& playReq : spell2->playRequirements)
-    {
-        if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
-            playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
-        {
-            isSpell2TargetingCard = true;
-            break;
-        }
-    }
-
-    const bool check = isSpell1TargetingCard && isSpell2TargetingCard;
-    CHECK_EQ(check, false);
+    const bool isSpell1TargetingCard =
+        spell1->targetingType != TargetingType::NONE;
+    const bool isSpell2TargetingCard =
+        spell2->targetingType != TargetingType::NONE;
+    const bool isTargetingCardDouble =
+        isSpell1TargetingCard && isSpell2TargetingCard;
+    CHECK_FALSE(isTargetingCardDouble);
 }
 
 // ---------------------------------------- MINION - SHAMAN
