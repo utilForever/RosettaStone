@@ -7423,11 +7423,11 @@ TEST_CASE("[Neutral : Minion] - DAL_752 : Jepetto Joybuzz")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 6);
 
-    const bool check = (curHand[4]->card->name == "Malygos" ||
-                        curHand[4]->card->name == "Nozari") &&
-                       (curHand[5]->card->name == "Malygos" ||
-                        curHand[5]->card->name == "Nozari");
-    CHECK_EQ(check, true);
+    // NOTE: dbfID of the card 'Malygos' is 436
+    //       dbfID of the card 'Nozari' is 52685
+    const int dbfTotal = curHand[4]->card->dbfID + curHand[5]->card->dbfID;
+    CHECK_EQ(dbfTotal, 53121);
+
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::ATK), 1);
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::HEALTH), 1);
     CHECK_EQ(curHand[4]->GetCost(), 1);
