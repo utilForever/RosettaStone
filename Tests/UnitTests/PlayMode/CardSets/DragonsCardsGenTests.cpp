@@ -3345,7 +3345,7 @@ TEST_CASE("[Paladin : Minion] - DRG_231 : Lightforged Crusader")
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curHand.GetCount(), 10);
-    for (std::size_t i = 5; i < 10; ++i)
+    for (int i = 5; i < 10; ++i)
     {
         CHECK_EQ(curHand[i]->card->GetCardClass(), CardClass::PALADIN);
     }
@@ -3516,7 +3516,7 @@ TEST_CASE("[Paladin : Minion] - DRG_235 : Dragonrider Talritha")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Amber Watcher"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Amber Watcher"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
     const auto card5 =
@@ -3528,46 +3528,39 @@ TEST_CASE("[Paladin : Minion] - DRG_235 : Dragonrider Talritha")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(minion2->GetAttack(), 4);
     CHECK_EQ(minion2->GetHealth(), 6);
-    CHECK_EQ(minion3->GetAttack(), 4);
-    CHECK_EQ(minion3->GetHealth(), 6);
+    CHECK_EQ(minion3->GetAttack(), 3);
+    CHECK_EQ(minion3->GetHealth(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
-    bool check1 = (minion2->GetAttack() == 7 && minion2->GetHealth() == 9 &&
-                   minion2->HasDeathrattle() == true &&
-                   minion3->GetAttack() == 4 && minion3->GetHealth() == 6);
-    bool check2 = (minion2->GetAttack() == 4 && minion2->GetHealth() == 6 &&
-                   minion3->GetAttack() == 7 && minion3->GetHealth() == 9 &&
-                   minion3->HasDeathrattle() == true);
-    bool check = check1 || check2;
-    CHECK_EQ(check, true);
+    CHECK_EQ(minion2->GetAttack(), 7);
+    CHECK_EQ(minion2->GetHealth(), 9);
+    CHECK_EQ(minion2->HasDeathrattle(), true);
+    CHECK_EQ(minion3->GetAttack(), 3);
+    CHECK_EQ(minion3->GetHealth(), 1);
+    CHECK_EQ(minion3->HasDeathrattle(), false);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    if (check1)
-    {
-        game.Process(curPlayer,
-                     PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
-    }
-    else
-    {
-        game.Process(curPlayer,
-                     PlayCardTask::MinionTarget(card3, curPlayer->GetHero()));
-    }
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
     CHECK_EQ(curField[0]->GetAttack(), 7);
     CHECK_EQ(curField[0]->GetHealth(), 9);
     CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    [[maybe_unused]] const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Amber Watcher"));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card5, curField[0]));
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 7);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 9);
-    CHECK_EQ(curHand[0]->HasDeathrattle(), true);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 7);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 9);
+    CHECK_EQ(curHand[1]->HasDeathrattle(), true);
 }
 
 // ---------------------------------------- SPELL - PALADIN
