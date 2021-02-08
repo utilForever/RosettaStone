@@ -4415,14 +4415,14 @@ TEST_CASE("[Warlock : Spell] - DAL_173 : Darkest Hour")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 3);
 
-    const bool check1 = (curField[0]->card->name == "Wolfrider" ||
-                         curField[0]->card->name == "Siegebreaker");
-    const bool check2 = (curField[1]->card->name == "Wolfrider" ||
-                         curField[1]->card->name == "Siegebreaker");
-    const bool check3 = (curField[2]->card->name == "Wolfrider" ||
-                         curField[2]->card->name == "Siegebreaker");
-    const bool check = check1 && check2 && check3;
-    CHECK_EQ(check, true);
+    const int field1DbfID = curField[0]->card->dbfID;
+    const int field2DbfID = curField[1]->card->dbfID;
+    const int field3DbfID = curField[2]->card->dbfID;
+    const bool checkDbfID1 = field1DbfID == 289 || field1DbfID == 54835;
+    const bool checkDbfID2 = field2DbfID == 289 || field2DbfID == 54835;
+    const bool checkDbfID3 = field3DbfID == 289 || field3DbfID == 54835;
+    const bool checkDbfID = checkDbfID1 && checkDbfID2 && checkDbfID3;
+    CHECK(checkDbfID);
 }
 
 // --------------------------------------- MINION - WARLOCK
