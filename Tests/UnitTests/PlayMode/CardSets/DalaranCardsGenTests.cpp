@@ -7395,11 +7395,10 @@ TEST_CASE("[Neutral : Minion] - DAL_752 : Jepetto Joybuzz")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    for (int i = 0; i < 30; i += 3)
+    for (int i = 0; i < 30; i += 2)
     {
-        config.player1Deck[i] = Cards::FindCardByName("Malygos");
-        config.player1Deck[i + 1] = Cards::FindCardByName("Never Surrender!");
-        config.player1Deck[i + 2] = Cards::FindCardByName("Nozari");
+        config.player1Deck[i] = Cards::FindCardByName("Never Surrender!");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Nozari");
     }
 
     Game game(config);
@@ -7423,10 +7422,9 @@ TEST_CASE("[Neutral : Minion] - DAL_752 : Jepetto Joybuzz")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 6);
 
-    // NOTE: dbfID of the card 'Malygos' is 436
-    //       dbfID of the card 'Nozari' is 52685
+    // NOTE: dbfID of the card 'Nozari' is 52685
     const int dbfTotal = curHand[4]->card->dbfID + curHand[5]->card->dbfID;
-    CHECK_EQ(dbfTotal, 53121);
+    CHECK_EQ(dbfTotal, 105370);
 
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::ATK), 1);
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::HEALTH), 1);
