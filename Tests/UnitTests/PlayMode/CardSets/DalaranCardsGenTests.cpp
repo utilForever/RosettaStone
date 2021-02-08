@@ -3016,26 +3016,20 @@ TEST_CASE("[Priest : Spell] - DAL_729 : Madame Lazul")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Madame Lazul"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK(curPlayer->choice != nullptr);
 
     auto cards = TestUtils::GetChoiceCards(game);
-    const bool check1 = (cards[0]->name == "The Coin") ||
-                        (cards[0]->name == "Wolfrider") ||
-                        (cards[0]->name == "Wisp");
-    const bool check2 = (cards[1]->name == "The Coin") ||
-                        (cards[1]->name == "Wolfrider") ||
-                        (cards[1]->name == "Wisp");
-    const bool check3 = (cards[2]->name == "The Coin") ||
-                        (cards[2]->name == "Wolfrider") ||
-                        (cards[2]->name == "Wisp");
-    const bool check = check1 && check2 && check3;
-    CHECK_EQ(check, true);
+    // NOTE: dbfID of the card 'The Coin' is 1746
+    //       dbfID of the card 'Wolfrider' is 289
+    //       dbfID of the card 'Wisp' is 179
+    const int dbfTotal = cards[0]->dbfID + cards[1]->dbfID + cards[2]->dbfID;
+    CHECK_EQ(dbfTotal, 2214);
 }
 
 // ------------------------------------------ SPELL - ROGUE
