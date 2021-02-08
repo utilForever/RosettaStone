@@ -304,13 +304,13 @@ TEST_CASE("[Demon Hunter : Spell] - BT_354 : Blade Dance")
     auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironfur Grizzly"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
-    const auto card4 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Goldshire Footman"));
     const auto card5 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Blade Dance"));
 
@@ -327,16 +327,10 @@ TEST_CASE("[Demon Hunter : Spell] - BT_354 : Blade Dance")
     CHECK_EQ(opPlayer->GetHero()->GetAttack(), 1);
 
     game.Process(opPlayer, PlayCardTask::Spell(card5));
-    bool check1 = curField.GetCount() == 2 && (curField[0]->GetHealth() == 3 ||
-                                               curField[1]->GetHealth() == 3);
-    bool check2 =
-        curField.GetCount() == 3 &&
-        ((curField[0]->GetHealth() == 1 && curField[1]->GetHealth() == 3 &&
-          curField[2]->GetHealth() == 3) ||
-         (curField[0]->GetHealth() == 3 && curField[1]->GetHealth() == 3 &&
-          curField[2]->GetHealth() == 1));
-    bool check = check1 || check2;
-    CHECK_EQ(check, true);
+    const int totalHealth = curField[0]->GetHealth() +
+                            curField[1]->GetHealth() +
+                            curField[2]->GetHealth() + curField[3]->GetHealth();
+    CHECK_EQ(totalHealth, 10);
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
