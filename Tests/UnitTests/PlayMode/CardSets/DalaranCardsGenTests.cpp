@@ -3133,38 +3133,92 @@ TEST_CASE("[Rogue : Spell] - DAL_366 : Unidentified Contract")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Silverback Patriarch"));
-    const auto card4 = Generic::DrawCard(
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card6 = Generic::DrawCard(
         opPlayer, Cards::FindCardByName("Unidentified Contract"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("NEW1_030"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    const bool isAssassins = card6->card->id == "DAL_366t1";
+    const bool isRecruitment = card6->card->id == "DAL_366t2";
+    const bool isLucrative = card6->card->id == "DAL_366t3";
+    const bool isTurncoat = card6->card->id == "DAL_366t4";
+    const bool isContract =
+        isAssassins || isRecruitment || isLucrative || isTurncoat;
+    CHECK(isContract);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
     game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
     CHECK_EQ(curField.GetCount(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
-    CHECK_EQ(curField.GetCount(), 2);
+    SUBCASE("Assassin's Contract - DAL_366t1")
+    {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t1"));
 
-    if (card4->card->id == "DAL_366t1")
-    {
-        CHECK_EQ(opField.GetCount(), 1);
-        CHECK_EQ(opField[0]->card->name, "Patient Assassin");
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card1));
+        CHECK_EQ(opField.GetCount(), 2);
+        CHECK_EQ(opField[1]->card->name, "Patient Assassin");
     }
-    else if (card4->card->id == "DAL_366t2")
+
+    SUBCASE("Recruitment Contract - DAL_366t2")
     {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t2"));
+
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card1));
+        CHECK_EQ(opHand.GetCount(), 1);
+        CHECK_EQ(opHand[0]->card->name, "Silverback Patriarch");
+    }
+
+    SUBCASE("Lucrative Contract - DAL_366t3")
+    {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t3"));
+
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card1));
         CHECK_EQ(opHand.GetCount(), 2);
-        CHECK_EQ(opHand[1]->card->name, "Wolfrider");
-    }
-    else if (card4->card->id == "DAL_366t3")
-    {
-        CHECK_EQ(opHand.GetCount(), 3);
+        CHECK_EQ(opHand[0]->card->name, "The Coin");
         CHECK_EQ(opHand[1]->card->name, "The Coin");
-        CHECK_EQ(opHand[2]->card->name, "The Coin");
     }
-    else
+
+    SUBCASE("Turncoat Contract - DAL_366t4")
     {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t4"));
+
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card4));
         CHECK_EQ(curField[0]->GetHealth(), 1);
         CHECK_EQ(curField[1]->GetHealth(), 1);
     }
