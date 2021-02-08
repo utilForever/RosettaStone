@@ -6089,7 +6089,7 @@ TEST_CASE("[Neutral : Minion] - DAL_538 : Unseen Saboteur")
     auto& curHand = *(curPlayer->GetHandZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 =
+    [[maybe_unused]] const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Unseen Saboteur"));
@@ -6103,17 +6103,14 @@ TEST_CASE("[Neutral : Minion] - DAL_538 : Unseen Saboteur")
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curHand.GetCount(), 0);
 
-    const bool check1 = curPlayer->GetHero()->GetHealth() == 24 &&
-                        opField.GetCount() == 1 &&
-                        opPlayer->GetHero()->GetHealth() == 30;
-    const bool check2 = curPlayer->GetHero()->GetHealth() == 30 &&
-                        opField.GetCount() == 0 &&
-                        opPlayer->GetHero()->GetHealth() == 30;
-    const bool check3 = curPlayer->GetHero()->GetHealth() == 30 &&
-                        opField.GetCount() == 1 &&
-                        opPlayer->GetHero()->GetHealth() == 24;
-    const bool check = check1 || check2 || check3;
-    CHECK_EQ(check, true);
+    const int curHeroHealth = curPlayer->GetHero()->GetHealth();
+    const int opHeroHealth = opPlayer->GetHero()->GetHealth();
+    const int totalHealth = curHeroHealth + opHeroHealth;
+    const int opFieldCount = opField.GetCount();
+    const bool check1 = totalHealth == 54 && opFieldCount == 1;
+    const bool check2 = totalHealth == 60 && opFieldCount == 0;
+    const bool check = check1 || check2;
+    CHECK(check);
 }
 
 // --------------------------------------- MINION - NEUTRAL
