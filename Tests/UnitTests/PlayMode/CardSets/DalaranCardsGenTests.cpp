@@ -6606,17 +6606,11 @@ TEST_CASE("[Neutral : Minion] - DAL_558 : Archmage Vargoth")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    const bool check1 = (curHero->GetHealth() == 27) &&
-                        (curField[0]->GetHealth() == 6) &&
-                        (opHero->GetHealth() == 27);
-    const bool check2 = (curHero->GetHealth() == 30) &&
-                        (curField[0]->GetHealth() == 3) &&
-                        (opHero->GetHealth() == 27);
-    const bool check3 = (curHero->GetHealth() == 30) &&
-                        (curField[0]->GetHealth() == 6) &&
-                        (opHero->GetHealth() == 24);
-    const bool check = check1 || check2 || check3;
-    CHECK_EQ(check, true);
+    const int curHeroHealth = curHero->GetHealth();
+    const int opHeroHealth = opHero->GetHealth();
+    const int curMinionHealth = curField[0]->GetHealth();
+    const int totalHealth = curHeroHealth + opHeroHealth + curMinionHealth;
+    CHECK_EQ(totalHealth, 60);
 }
 
 // --------------------------------------- MINION - NEUTRAL
