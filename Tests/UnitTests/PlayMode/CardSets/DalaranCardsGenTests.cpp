@@ -2971,17 +2971,13 @@ TEST_CASE("[Priest : Spell] - DAL_724 : Mass Resurrection")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curField.GetCount(), 3);
-    const bool check1 = (curField[0]->card->name == "Wolfrider") ||
-                        (curField[0]->card->name == "Wisp") ||
-                        (curField[0]->card->name == "Bloodfen Raptor");
-    const bool check2 = (curField[1]->card->name == "Wolfrider") ||
-                        (curField[1]->card->name == "Wisp") ||
-                        (curField[1]->card->name == "Bloodfen Raptor");
-    const bool check3 = (curField[2]->card->name == "Wolfrider") ||
-                        (curField[2]->card->name == "Wisp") ||
-                        (curField[2]->card->name == "Bloodfen Raptor");
-    const bool check = check1 && check2 && check3;
-    CHECK_EQ(check, true);
+
+    // NOTE: dbfID of the card 'Wolfrider' is 289
+    //       dbfID of the card 'Wisp' is 179
+    //       dbfID of the card 'Bloodfen Raptor' is 216
+    const int dbfTotal = curField[0]->card->dbfID + curField[1]->card->dbfID +
+                         curField[2]->card->dbfID;
+    CHECK_EQ(dbfTotal, 684);
 }
 
 // ---------------------------------------- MINION - PRIEST
