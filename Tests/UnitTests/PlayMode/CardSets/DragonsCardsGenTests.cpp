@@ -2302,11 +2302,9 @@ TEST_CASE("[Hunter : Minion] - DRG_256 : Dragonbane")
     game.Process(opPlayer, PlayCardTask::Minion(card2));
 
     game.Process(opPlayer, HeroPowerTask());
-    const bool check = (curPlayer->GetHero()->GetHealth() == 23 &&
-                        curField[0]->GetHealth() == 12) ||
-                       (curPlayer->GetHero()->GetHealth() == 28 &&
-                        curField[0]->GetHealth() == 7);
-    CHECK_EQ(check, true);
+    const int totalHealth =
+        curPlayer->GetHero()->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 35);
 }
 
 // ------------------------------------------ MINION - MAGE
