@@ -4616,33 +4616,20 @@ TEST_CASE("[Warlock : Minion] - DAL_563 : Eager Underling")
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
     const auto card4 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card5 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
-    const bool check1 =
-        curField[0]->GetAttack() == 5 && curField[0]->GetHealth() == 4 &&
-        curField[1]->GetAttack() == 3 && curField[1]->GetHealth() == 3 &&
-        curField[2]->GetAttack() == 3 && curField[2]->GetHealth() == 1;
-    const bool check2 =
-        curField[0]->GetAttack() == 5 && curField[0]->GetHealth() == 4 &&
-        curField[1]->GetAttack() == 1 && curField[1]->GetHealth() == 1 &&
-        curField[2]->GetAttack() == 5 && curField[2]->GetHealth() == 3;
-    const bool check3 =
-        curField[0]->GetAttack() == 3 && curField[0]->GetHealth() == 2 &&
-        curField[1]->GetAttack() == 3 && curField[1]->GetHealth() == 3 &&
-        curField[2]->GetAttack() == 5 && curField[2]->GetHealth() == 3;
-    const bool check = check1 || check2 || check3;
-    CHECK_EQ(check, true);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
