@@ -5189,9 +5189,8 @@ TEST_CASE("[Warrior : Minion] - DAL_064 : Blastmaster Boom")
 
     game.Process(opPlayer, HeroPowerTask(curField[2]));
     const int opHeroHealth = opPlayer->GetHero()->GetHealth();
-    const bool check = (opHeroHealth == 1) || (opHeroHealth == 2) ||
-                       (opHeroHealth == 3) || (opHeroHealth == 4);
-    CHECK_EQ(check, true);
+    CHECK_GT(opHeroHealth, 1);
+    CHECK_LT(opHeroHealth, 4);
 }
 
 // --------------------------------------- MINION - WARRIOR
