@@ -4176,12 +4176,18 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     CHECK(opPlayer->choice != nullptr);
 
     auto cards = TestUtils::GetChoiceCards(game);
-    Generic::ChoicePick(opPlayer, 36);
+    TestUtils::ChooseNthChoice(game, 1);
 
-    const bool check =
-        ((opHand.GetCount() == 1) ||
-         (opHand.GetCount() == 2 && opHand[1]->card->name == "Wisp"));
-    CHECK_EQ(check, true);
+    int dbfTotal = 0;
+    for (auto& handCard : opHand.GetAll())
+    {
+        dbfTotal += handCard->card->dbfID;
+    }
+
+    // NOTE: dbfID of the card 'The Coin' is 1746
+    //       dbfID of the card 'Wisp' is 179
+    const bool isCorrect = dbfTotal == 1746 || dbfTotal == 1925;
+    CHECK(isCorrect);
 }
 
 // ----------------------------------------- SPELL - PRIEST
