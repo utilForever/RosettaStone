@@ -7359,14 +7359,8 @@ TEST_CASE("[Neutral : Minion] - ULD_309 : Dwarven Archaeologist")
 
     const int reducedCost = curHand[0]->GetCost();
     const int originalCost = curHand[0]->card->GetCost();
-    if (originalCost == 0)
-    {
-        CHECK_EQ(originalCost, reducedCost);
-    }
-    else
-    {
-        CHECK_EQ(originalCost, reducedCost + 1);
-    }
+    const int costDifference = originalCost - reducedCost;
+    CHECK_LE(costDifference, 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
