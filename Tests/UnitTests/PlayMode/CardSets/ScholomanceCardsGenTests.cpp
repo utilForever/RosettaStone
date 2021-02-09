@@ -1436,53 +1436,29 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
-    auto curHero = curPlayer->GetHero();
-    auto opHero = opPlayer->GetHero();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Infiltrator Lilian"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Consecration"));
-    const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
-    const auto card4 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
-    const auto card5 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card4));
-    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
 
-    // Case when attack "Abomination"
-    if (curField.GetCount() == 0)
-    {
-        CHECK_EQ(opField.GetCount(), 0);
-        CHECK_EQ(curHero->GetHealth(), 26);
-        CHECK_EQ(opHero->GetHealth(), 24);
-    }
-    // Case when attack opponent hero
-    else if (curField.GetCount() == 1)
-    {
-        CHECK_EQ(opField.GetCount(), 2);
-        CHECK_EQ(curHero->GetHealth(), 30);
-        CHECK_EQ(opHero->GetHealth(), 24);
-    }
-    else
-    {
-        CHECK(false);
-    }
+    const int totalHealth =
+        opField[0]->GetHealth() + opPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 38);
 }
 
 // ----------------------------------------- MINION - ROGUE
