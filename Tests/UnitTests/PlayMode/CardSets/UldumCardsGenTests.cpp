@@ -3608,148 +3608,157 @@ TEST_CASE("[Paladin : Minion] - ULD_500 : Sir Finley of the Sands")
     CHECK(heroPower != nullptr);
 
     // Warrior
-    if (heroPower->card->id == "HERO_01bp2")
+    SUBCASE("Warrior - HERO_01bp2")
     {
-        SUBCASE("Warrior - HERO_01bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
-        }
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_01bp2"));
+
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
     }
+
     // Shaman
-    else if (heroPower->card->id == "HERO_02bp2")
+    SUBCASE("Shaman - HERO_02bp2")
     {
-        SUBCASE("Shaman - HERO_02bp2")
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_02bp2"));
+
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK(curPlayer->choice != nullptr);
+
+        auto totemCards = TestUtils::GetChoiceCards(game);
+        for (auto& card : totemCards)
         {
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK(curPlayer->choice != nullptr);
+            CHECK_EQ(card->GetRace(), Race::TOTEM);
+        }
 
-            auto totemCards = TestUtils::GetChoiceCards(game);
-            for (auto& card : totemCards)
-            {
-                CHECK_EQ(card->GetRace(), Race::TOTEM);
-            }
+        auto& curField = *(curPlayer->GetFieldZone());
 
-            auto& curField = *(curPlayer->GetFieldZone());
+        SUBCASE("Shaman - Healing Totem")
+        {
+            TestUtils::ChooseNthChoice(game, 1);
+            CHECK_EQ(curField[1]->card->name, "Healing Totem");
+        }
 
-            SUBCASE("Shaman - Healing Totem")
-            {
-                TestUtils::ChooseNthChoice(game, 1);
-                CHECK_EQ(curField[1]->card->name, "Healing Totem");
-            }
+        SUBCASE("Shaman - Searing Totem")
+        {
+            TestUtils::ChooseNthChoice(game, 2);
+            CHECK_EQ(curField[1]->card->name, "Searing Totem");
+        }
 
-            SUBCASE("Shaman - Searing Totem")
-            {
-                TestUtils::ChooseNthChoice(game, 2);
-                CHECK_EQ(curField[1]->card->name, "Searing Totem");
-            }
+        SUBCASE("Shaman - Stoneclaw Totem")
+        {
+            TestUtils::ChooseNthChoice(game, 3);
+            CHECK_EQ(curField[1]->card->name, "Stoneclaw Totem");
+        }
 
-            SUBCASE("Shaman - Stoneclaw Totem")
-            {
-                TestUtils::ChooseNthChoice(game, 3);
-                CHECK_EQ(curField[1]->card->name, "Stoneclaw Totem");
-            }
-
-            SUBCASE("Shaman - Wrath of Air Totem")
-            {
-                TestUtils::ChooseNthChoice(game, 4);
-                CHECK_EQ(curField[1]->card->name, "Wrath of Air Totem");
-            }
+        SUBCASE("Shaman - Wrath of Air Totem")
+        {
+            TestUtils::ChooseNthChoice(game, 4);
+            CHECK_EQ(curField[1]->card->name, "Wrath of Air Totem");
         }
     }
+
     // Rogue
-    else if (heroPower->card->id == "HERO_03bp2")
+    SUBCASE("Rogue - HERO_03bp2")
     {
-        SUBCASE("Rogue - HERO_03bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
-            CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
-            CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
-        }
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_03bp2"));
+
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+        CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+        CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
     }
+
     // Paladin
-    else if (heroPower->card->id == "HERO_04bp2")
+    SUBCASE("Paladin - HERO_04bp2")
     {
-        SUBCASE("Paladin - HERO_04bp2")
-        {
-            auto& curField = *(curPlayer->GetFieldZone());
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_04bp2"));
 
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(curField.GetCount(), 3);
-            CHECK_EQ(curField[1]->card->name, "Silver Hand Recruit");
-            CHECK_EQ(curField[1]->GetAttack(), 1);
-            CHECK_EQ(curField[1]->GetHealth(), 1);
-            CHECK_EQ(curField[2]->card->name, "Silver Hand Recruit");
-            CHECK_EQ(curField[2]->GetAttack(), 1);
-            CHECK_EQ(curField[2]->GetHealth(), 1);
-        }
+        auto& curField = *(curPlayer->GetFieldZone());
+
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK_EQ(curField.GetCount(), 3);
+        CHECK_EQ(curField[1]->card->name, "Silver Hand Recruit");
+        CHECK_EQ(curField[1]->GetAttack(), 1);
+        CHECK_EQ(curField[1]->GetHealth(), 1);
+        CHECK_EQ(curField[2]->card->name, "Silver Hand Recruit");
+        CHECK_EQ(curField[2]->GetAttack(), 1);
+        CHECK_EQ(curField[2]->GetHealth(), 1);
     }
+
     // Hunter
-    else if (heroPower->card->id == "HERO_05bp2")
+    SUBCASE("Hunter - HERO_05bp2")
     {
-        SUBCASE("Hunter - HERO_05bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(opPlayer->GetHero()->GetHealth(), 17);
-        }
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_05bp2"));
+
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK_EQ(opPlayer->GetHero()->GetHealth(), 17);
     }
+
     // Druid
-    else if (heroPower->card->id == "HERO_06bp2")
+    SUBCASE("Druid - HERO_06bp2")
     {
-        SUBCASE("Druid - HERO_06bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
-            CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_06bp2"));
 
-            game.Process(curPlayer, EndTurnTask());
-            game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+        CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 
-            CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
-            CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
-        }
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+        CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
     }
+
     // Warlock
-    else if (heroPower->card->id == "HERO_07bp2")
+    SUBCASE("Warlock - HERO_07bp2")
     {
-        SUBCASE("Warlock - HERO_07bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
-        }
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_07bp2"));
+
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
     }
+
     // Mage
-    else if (heroPower->card->id == "HERO_08bp2")
+    SUBCASE("Mage - HERO_08bp2")
     {
-        SUBCASE("Mage - HERO_08bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
-            CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
-        }
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_08bp2"));
+
+        game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+        CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
     }
+
     // Priest
-    else if (heroPower->card->id == "HERO_09bp2")
+    SUBCASE("Priest - HERO_09bp2")
     {
-        SUBCASE("Priest - HERO_09bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
-            CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
-        }
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_09bp2"));
+
+        game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+        CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
     }
+
     // Demon Hunter
-    else if (heroPower->card->id == "HERO_10bp2")
+    SUBCASE("Demon Hunter - HERO_10bp2")
     {
-        SUBCASE("Demon Hunter - HERO_10bp2")
-        {
-            game.Process(curPlayer, HeroPowerTask());
-            CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+        TestUtils::ChangeHeroPower(curPlayer,
+                                   Cards::FindCardByID("HERO_10bp2"));
 
-            game.Process(curPlayer, EndTurnTask());
-            game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, HeroPowerTask());
+        CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
 
-            CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
-        }
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
     }
 }
 
