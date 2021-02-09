@@ -2416,36 +2416,68 @@ TEST_CASE("[Demon Hunter : Spell] - SCH_600 : Demon Companion")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Demon Companion"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
 
-    if (curField[1]->card->id == "SCH_600t1")
+    const bool isReffuh = curField[1]->card->id == "SCH_600t1";
+    const bool isShima = curField[1]->card->id == "SCH_600t2";
+    const bool isKolek = curField[1]->card->id == "SCH_600t3";
+    const bool isDemon = isReffuh || isShima || isKolek;
+    CHECK(isDemon);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Reffuh - SCH_600t1")
     {
-        SUBCASE("Reffuh - SCH_600t1")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 2);
-            CHECK_EQ(curField[1]->GetHealth(), 1);
-            CHECK_EQ(curField[1]->HasCharge(), true);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("SCH_600t1"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 1);
+        CHECK_EQ(curField[1]->HasCharge(), true);
     }
-    else if (curField[1]->card->id == "SCH_600t2")
+
+    SUBCASE("Shima - SCH_600t2")
     {
-        SUBCASE("Shima - SCH_600t2")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 2);
-            CHECK_EQ(curField[1]->GetHealth(), 2);
-            CHECK_EQ(curField[1]->HasTaunt(), true);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("SCH_600t2"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[1]->HasTaunt(), true);
     }
-    else
+
+    SUBCASE("Kolek - SCH_600t3")
     {
-        SUBCASE("Kolek - SCH_600t3")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 1);
-            CHECK_EQ(curField[1]->GetHealth(), 2);
-            CHECK_EQ(curField[0]->GetAttack(), 4);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("SCH_600t3"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 1);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[0]->GetAttack(), 4);
     }
 }
 
