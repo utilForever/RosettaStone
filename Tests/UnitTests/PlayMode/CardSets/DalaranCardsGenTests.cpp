@@ -2810,18 +2810,15 @@ TEST_CASE("[Priest : Minion] - DAL_721 : Catrina Muerte")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
     CHECK_EQ(curField.GetCount(), 0);
 
     game.Process(opPlayer, EndTurnTask());
@@ -2834,9 +2831,7 @@ TEST_CASE("[Priest : Minion] - DAL_721 : Catrina Muerte")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 2);
-    bool check = (curField[1]->card->name == "Wolfrider") ||
-                 (curField[1]->card->name == "Wisp");
-    CHECK_EQ(check, true);
+    CHECK_EQ(curField[1]->card->name, "Wolfrider");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -2845,12 +2840,7 @@ TEST_CASE("[Priest : Minion] - DAL_721 : Catrina Muerte")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 3);
-    const bool check1 = (curField[1]->card->name == "Wolfrider") ||
-                        (curField[1]->card->name == "Wisp");
-    const bool check2 = (curField[2]->card->name == "Wolfrider") ||
-                        (curField[2]->card->name == "Wisp");
-    check = check1 && check2;
-    CHECK_EQ(check, true);
+    CHECK_EQ(curField[2]->card->name, "Wolfrider");
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2971,17 +2961,13 @@ TEST_CASE("[Priest : Spell] - DAL_724 : Mass Resurrection")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curField.GetCount(), 3);
-    const bool check1 = (curField[0]->card->name == "Wolfrider") ||
-                        (curField[0]->card->name == "Wisp") ||
-                        (curField[0]->card->name == "Bloodfen Raptor");
-    const bool check2 = (curField[1]->card->name == "Wolfrider") ||
-                        (curField[1]->card->name == "Wisp") ||
-                        (curField[1]->card->name == "Bloodfen Raptor");
-    const bool check3 = (curField[2]->card->name == "Wolfrider") ||
-                        (curField[2]->card->name == "Wisp") ||
-                        (curField[2]->card->name == "Bloodfen Raptor");
-    const bool check = check1 && check2 && check3;
-    CHECK_EQ(check, true);
+
+    // NOTE: dbfID of the card 'Wolfrider' is 289
+    //       dbfID of the card 'Wisp' is 179
+    //       dbfID of the card 'Bloodfen Raptor' is 216
+    const int dbfTotal = curField[0]->card->dbfID + curField[1]->card->dbfID +
+                         curField[2]->card->dbfID;
+    CHECK_EQ(dbfTotal, 684);
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -3020,26 +3006,20 @@ TEST_CASE("[Priest : Spell] - DAL_729 : Madame Lazul")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Madame Lazul"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK(curPlayer->choice != nullptr);
 
     auto cards = TestUtils::GetChoiceCards(game);
-    const bool check1 = (cards[0]->name == "The Coin") ||
-                        (cards[0]->name == "Wolfrider") ||
-                        (cards[0]->name == "Wisp");
-    const bool check2 = (cards[1]->name == "The Coin") ||
-                        (cards[1]->name == "Wolfrider") ||
-                        (cards[1]->name == "Wisp");
-    const bool check3 = (cards[2]->name == "The Coin") ||
-                        (cards[2]->name == "Wolfrider") ||
-                        (cards[2]->name == "Wisp");
-    const bool check = check1 && check2 && check3;
-    CHECK_EQ(check, true);
+    // NOTE: dbfID of the card 'The Coin' is 1746
+    //       dbfID of the card 'Wolfrider' is 289
+    //       dbfID of the card 'Wisp' is 179
+    const int dbfTotal = cards[0]->dbfID + cards[1]->dbfID + cards[2]->dbfID;
+    CHECK_EQ(dbfTotal, 2214);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3143,38 +3123,92 @@ TEST_CASE("[Rogue : Spell] - DAL_366 : Unidentified Contract")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Silverback Patriarch"));
-    const auto card4 = Generic::DrawCard(
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card6 = Generic::DrawCard(
         opPlayer, Cards::FindCardByName("Unidentified Contract"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("NEW1_030"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    const bool isAssassins = card6->card->id == "DAL_366t1";
+    const bool isRecruitment = card6->card->id == "DAL_366t2";
+    const bool isLucrative = card6->card->id == "DAL_366t3";
+    const bool isTurncoat = card6->card->id == "DAL_366t4";
+    const bool isContract =
+        isAssassins || isRecruitment || isLucrative || isTurncoat;
+    CHECK(isContract);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
     game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
     CHECK_EQ(curField.GetCount(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card2));
-    CHECK_EQ(curField.GetCount(), 2);
+    SUBCASE("Assassin's Contract - DAL_366t1")
+    {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t1"));
 
-    if (card4->card->id == "DAL_366t1")
-    {
-        CHECK_EQ(opField.GetCount(), 1);
-        CHECK_EQ(opField[0]->card->name, "Patient Assassin");
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card1));
+        CHECK_EQ(opField.GetCount(), 2);
+        CHECK_EQ(opField[1]->card->name, "Patient Assassin");
     }
-    else if (card4->card->id == "DAL_366t2")
+
+    SUBCASE("Recruitment Contract - DAL_366t2")
     {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t2"));
+
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card1));
+        CHECK_EQ(opHand.GetCount(), 1);
+        CHECK_EQ(opHand[0]->card->name, "Silverback Patriarch");
+    }
+
+    SUBCASE("Lucrative Contract - DAL_366t3")
+    {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t3"));
+
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card1));
         CHECK_EQ(opHand.GetCount(), 2);
-        CHECK_EQ(opHand[1]->card->name, "Wolfrider");
-    }
-    else if (card4->card->id == "DAL_366t3")
-    {
-        CHECK_EQ(opHand.GetCount(), 3);
+        CHECK_EQ(opHand[0]->card->name, "The Coin");
         CHECK_EQ(opHand[1]->card->name, "The Coin");
-        CHECK_EQ(opHand[2]->card->name, "The Coin");
     }
-    else
+
+    SUBCASE("Turncoat Contract - DAL_366t4")
     {
+        const auto card =
+            Generic::DrawCard(opPlayer, Cards::FindCardByID("DAL_366t4"));
+
+        game.Process(opPlayer, PlayCardTask::SpellTarget(card, card4));
         CHECK_EQ(curField[0]->GetHealth(), 1);
         CHECK_EQ(curField[1]->GetHealth(), 1);
     }
@@ -3965,31 +3999,13 @@ TEST_CASE("[Shaman : Minion] - DAL_431 : Swampqueen Hagatha")
 
     auto spell1 = Cards::FindCardByDbfID(dbfID1);
     auto spell2 = Cards::FindCardByDbfID(dbfID2);
-    bool isSpell1TargetingCard = false;
-    bool isSpell2TargetingCard = false;
-
-    for (auto& playReq : spell1->playRequirements)
-    {
-        if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
-            playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
-        {
-            isSpell1TargetingCard = true;
-            break;
-        }
-    }
-
-    for (auto& playReq : spell2->playRequirements)
-    {
-        if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
-            playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
-        {
-            isSpell2TargetingCard = true;
-            break;
-        }
-    }
-
-    const bool check = isSpell1TargetingCard && isSpell2TargetingCard;
-    CHECK_EQ(check, false);
+    const bool isSpell1TargetingCard =
+        spell1->targetingType != TargetingType::NONE;
+    const bool isSpell2TargetingCard =
+        spell2->targetingType != TargetingType::NONE;
+    const bool isTargetingCardDouble =
+        isSpell1TargetingCard && isSpell2TargetingCard;
+    CHECK_FALSE(isTargetingCardDouble);
 }
 
 // ---------------------------------------- MINION - SHAMAN
@@ -4389,14 +4405,14 @@ TEST_CASE("[Warlock : Spell] - DAL_173 : Darkest Hour")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 3);
 
-    const bool check1 = (curField[0]->card->name == "Wolfrider" ||
-                         curField[0]->card->name == "Siegebreaker");
-    const bool check2 = (curField[1]->card->name == "Wolfrider" ||
-                         curField[1]->card->name == "Siegebreaker");
-    const bool check3 = (curField[2]->card->name == "Wolfrider" ||
-                         curField[2]->card->name == "Siegebreaker");
-    const bool check = check1 && check2 && check3;
-    CHECK_EQ(check, true);
+    const int field1DbfID = curField[0]->card->dbfID;
+    const int field2DbfID = curField[1]->card->dbfID;
+    const int field3DbfID = curField[2]->card->dbfID;
+    const bool checkDbfID1 = field1DbfID == 289 || field1DbfID == 54835;
+    const bool checkDbfID2 = field2DbfID == 289 || field2DbfID == 54835;
+    const bool checkDbfID3 = field3DbfID == 289 || field3DbfID == 54835;
+    const bool checkDbfID = checkDbfID1 && checkDbfID2 && checkDbfID3;
+    CHECK(checkDbfID);
 }
 
 // --------------------------------------- MINION - WARLOCK
@@ -4590,33 +4606,20 @@ TEST_CASE("[Warlock : Minion] - DAL_563 : Eager Underling")
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
     const auto card4 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card5 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
-    const bool check1 =
-        curField[0]->GetAttack() == 5 && curField[0]->GetHealth() == 4 &&
-        curField[1]->GetAttack() == 3 && curField[1]->GetHealth() == 3 &&
-        curField[2]->GetAttack() == 3 && curField[2]->GetHealth() == 1;
-    const bool check2 =
-        curField[0]->GetAttack() == 5 && curField[0]->GetHealth() == 4 &&
-        curField[1]->GetAttack() == 1 && curField[1]->GetHealth() == 1 &&
-        curField[2]->GetAttack() == 5 && curField[2]->GetHealth() == 3;
-    const bool check3 =
-        curField[0]->GetAttack() == 3 && curField[0]->GetHealth() == 2 &&
-        curField[1]->GetAttack() == 3 && curField[1]->GetHealth() == 3 &&
-        curField[2]->GetAttack() == 5 && curField[2]->GetHealth() == 3;
-    const bool check = check1 || check2 || check3;
-    CHECK_EQ(check, true);
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -5176,9 +5179,8 @@ TEST_CASE("[Warrior : Minion] - DAL_064 : Blastmaster Boom")
 
     game.Process(opPlayer, HeroPowerTask(curField[2]));
     const int opHeroHealth = opPlayer->GetHero()->GetHealth();
-    const bool check = (opHeroHealth == 1) || (opHeroHealth == 2) ||
-                       (opHeroHealth == 3) || (opHeroHealth == 4);
-    CHECK_EQ(check, true);
+    CHECK_GE(opHeroHealth, 1);
+    CHECK_LE(opHeroHealth, 4);
 }
 
 // --------------------------------------- MINION - WARRIOR
@@ -6077,7 +6079,7 @@ TEST_CASE("[Neutral : Minion] - DAL_538 : Unseen Saboteur")
     auto& curHand = *(curPlayer->GetHandZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 =
+    [[maybe_unused]] const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Unseen Saboteur"));
@@ -6091,17 +6093,14 @@ TEST_CASE("[Neutral : Minion] - DAL_538 : Unseen Saboteur")
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curHand.GetCount(), 0);
 
-    const bool check1 = curPlayer->GetHero()->GetHealth() == 24 &&
-                        opField.GetCount() == 1 &&
-                        opPlayer->GetHero()->GetHealth() == 30;
-    const bool check2 = curPlayer->GetHero()->GetHealth() == 30 &&
-                        opField.GetCount() == 0 &&
-                        opPlayer->GetHero()->GetHealth() == 30;
-    const bool check3 = curPlayer->GetHero()->GetHealth() == 30 &&
-                        opField.GetCount() == 1 &&
-                        opPlayer->GetHero()->GetHealth() == 24;
-    const bool check = check1 || check2 || check3;
-    CHECK_EQ(check, true);
+    const int curHeroHealth = curPlayer->GetHero()->GetHealth();
+    const int opHeroHealth = opPlayer->GetHero()->GetHealth();
+    const int totalHealth = curHeroHealth + opHeroHealth;
+    const int opFieldCount = opField.GetCount();
+    const bool check1 = totalHealth == 54 && opFieldCount == 1;
+    const bool check2 = totalHealth == 60 && opFieldCount == 0;
+    const bool check = check1 || check2;
+    CHECK(check);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6597,17 +6596,11 @@ TEST_CASE("[Neutral : Minion] - DAL_558 : Archmage Vargoth")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    const bool check1 = (curHero->GetHealth() == 27) &&
-                        (curField[0]->GetHealth() == 6) &&
-                        (opHero->GetHealth() == 27);
-    const bool check2 = (curHero->GetHealth() == 30) &&
-                        (curField[0]->GetHealth() == 3) &&
-                        (opHero->GetHealth() == 27);
-    const bool check3 = (curHero->GetHealth() == 30) &&
-                        (curField[0]->GetHealth() == 6) &&
-                        (opHero->GetHealth() == 24);
-    const bool check = check1 || check2 || check3;
-    CHECK_EQ(check, true);
+    const int curHeroHealth = curHero->GetHealth();
+    const int opHeroHealth = opHero->GetHealth();
+    const int curMinionHealth = curField[0]->GetHealth();
+    const int totalHealth = curHeroHealth + opHeroHealth + curMinionHealth;
+    CHECK_EQ(totalHealth, 60);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -7392,11 +7385,10 @@ TEST_CASE("[Neutral : Minion] - DAL_752 : Jepetto Joybuzz")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    for (int i = 0; i < 30; i += 3)
+    for (int i = 0; i < 30; i += 2)
     {
-        config.player1Deck[i] = Cards::FindCardByName("Malygos");
-        config.player1Deck[i + 1] = Cards::FindCardByName("Never Surrender!");
-        config.player1Deck[i + 2] = Cards::FindCardByName("Nozari");
+        config.player1Deck[i] = Cards::FindCardByName("Never Surrender!");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Nozari");
     }
 
     Game game(config);
@@ -7420,11 +7412,10 @@ TEST_CASE("[Neutral : Minion] - DAL_752 : Jepetto Joybuzz")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 6);
 
-    const bool check = (curHand[4]->card->name == "Malygos" ||
-                        curHand[4]->card->name == "Nozari") &&
-                       (curHand[5]->card->name == "Malygos" ||
-                        curHand[5]->card->name == "Nozari");
-    CHECK_EQ(check, true);
+    // NOTE: dbfID of the card 'Nozari' is 52685
+    const int dbfTotal = curHand[4]->card->dbfID + curHand[5]->card->dbfID;
+    CHECK_EQ(dbfTotal, 105370);
+
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::ATK), 1);
     CHECK_EQ(curHand[4]->GetGameTag(GameTag::HEALTH), 1);
     CHECK_EQ(curHand[4]->GetCost(), 1);

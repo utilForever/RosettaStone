@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
@@ -91,6 +92,15 @@ void PlayEnchantmentCard(Player* player, Card* card, Entity* target)
         enchantment->GetGameTag(GameTag::ENTITY_ID), enchantment);
 
     graveyardZone.Add(enchantment);
+}
+
+void ChangeHeroPower(Player* player, Card* card)
+{
+    const auto newHeroPower = Entity::GetFromCard(player, card);
+
+    delete player->GetHero()->heroPower;
+    newHeroPower->SetGameTag(GameTag::ZONE, static_cast<int>(ZoneType::PLAY));
+    player->GetHero()->heroPower = dynamic_cast<HeroPower*>(newHeroPower);
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

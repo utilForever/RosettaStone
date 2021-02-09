@@ -1436,53 +1436,29 @@ TEST_CASE("[Rogue : Minion] - SCH_426 : Infiltrator Lilian")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
-    auto curHero = curPlayer->GetHero();
-    auto opHero = opPlayer->GetHero();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Infiltrator Lilian"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Consecration"));
-    const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Backstab"));
-    const auto card4 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
-    const auto card5 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Abomination"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card4));
-    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
 
-    // Case when attack "Abomination"
-    if (curField.GetCount() == 0)
-    {
-        CHECK_EQ(opField.GetCount(), 0);
-        CHECK_EQ(curHero->GetHealth(), 26);
-        CHECK_EQ(opHero->GetHealth(), 24);
-    }
-    // Case when attack opponent hero
-    else if (curField.GetCount() == 1)
-    {
-        CHECK_EQ(opField.GetCount(), 2);
-        CHECK_EQ(curHero->GetHealth(), 30);
-        CHECK_EQ(opHero->GetHealth(), 24);
-    }
-    else
-    {
-        CHECK(false);
-    }
+    const int totalHealth =
+        opField[0]->GetHealth() + opPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 38);
 }
 
 // ----------------------------------------- MINION - ROGUE
@@ -2440,36 +2416,68 @@ TEST_CASE("[Demon Hunter : Spell] - SCH_600 : Demon Companion")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Demon Companion"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
 
-    if (curField[1]->card->id == "SCH_600t1")
+    const bool isReffuh = curField[1]->card->id == "SCH_600t1";
+    const bool isShima = curField[1]->card->id == "SCH_600t2";
+    const bool isKolek = curField[1]->card->id == "SCH_600t3";
+    const bool isDemon = isReffuh || isShima || isKolek;
+    CHECK(isDemon);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Reffuh - SCH_600t1")
     {
-        SUBCASE("Reffuh - SCH_600t1")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 2);
-            CHECK_EQ(curField[1]->GetHealth(), 1);
-            CHECK_EQ(curField[1]->HasCharge(), true);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("SCH_600t1"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 1);
+        CHECK_EQ(curField[1]->HasCharge(), true);
     }
-    else if (curField[1]->card->id == "SCH_600t2")
+
+    SUBCASE("Shima - SCH_600t2")
     {
-        SUBCASE("Shima - SCH_600t2")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 2);
-            CHECK_EQ(curField[1]->GetHealth(), 2);
-            CHECK_EQ(curField[1]->HasTaunt(), true);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("SCH_600t2"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[1]->HasTaunt(), true);
     }
-    else
+
+    SUBCASE("Kolek - SCH_600t3")
     {
-        SUBCASE("Kolek - SCH_600t3")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 1);
-            CHECK_EQ(curField[1]->GetHealth(), 2);
-            CHECK_EQ(curField[0]->GetAttack(), 4);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("SCH_600t3"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 1);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[0]->GetAttack(), 4);
     }
 }
 

@@ -1544,36 +1544,68 @@ TEST_CASE("[Hunter : Spell] - NEW1_031 : Animal Companion")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Animal Companion"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
 
-    if (curField[1]->card->id == "NEW1_032")
+    const bool isMisha = curField[1]->card->id == "NEW1_032";
+    const bool isLeokk = curField[1]->card->id == "NEW1_033";
+    const bool isHuffer = curField[1]->card->id == "NEW1_034";
+    const bool isAnimal = isMisha || isLeokk || isHuffer;
+    CHECK(isAnimal);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Misha - NEW1_032")
     {
-        SUBCASE("Misha - NEW1_032")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 4);
-            CHECK_EQ(curField[1]->GetHealth(), 4);
-            CHECK_EQ(curField[1]->HasTaunt(), true);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_032"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[1]->HasTaunt(), true);
     }
-    else if (curField[1]->card->id == "NEW1_033")
+
+    SUBCASE("Leokk - NEW1_033")
     {
-        SUBCASE("Leokk - NEW1_033")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 2);
-            CHECK_EQ(curField[1]->GetHealth(), 4);
-            CHECK_EQ(curField[0]->GetAttack(), 4);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_033"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[0]->GetAttack(), 4);
     }
-    else
+
+    SUBCASE("Huffer - NEW1_034")
     {
-        SUBCASE("Huffer - NEW1_034")
-        {
-            CHECK_EQ(curField[1]->GetAttack(), 4);
-            CHECK_EQ(curField[1]->GetHealth(), 2);
-            CHECK_EQ(curField[1]->HasCharge(), true);
-        }
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_034"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[1]->HasCharge(), true);
     }
 }
 
