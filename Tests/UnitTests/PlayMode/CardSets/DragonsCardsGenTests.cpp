@@ -2724,12 +2724,6 @@ TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Oasis Snapjaw"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Archmage"));
-    const auto card5 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
-    const auto card6 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
-    const auto card7 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
 
@@ -2738,25 +2732,13 @@ TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    game.Process(opPlayer, PlayCardTask::Minion(card5));
-    game.Process(opPlayer, PlayCardTask::Minion(card6));
-    opPlayer->SetUsedMana(0);
-    game.Process(opPlayer, PlayCardTask::Minion(card7));
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
-    const bool check1 =
-        opField.GetCount() == 4 && opField[0]->card->name == "Oasis Snapjaw" &&
-        opField[0]->GetHealth() == 5 && opField[1]->card->name == "Wisp" &&
-        opField[2]->card->name == "Wisp" &&
-        opField[3]->card->name == "Wolfrider";
-    const bool check2 =
-        opField.GetCount() == 2 && opField[0]->card->name == "Oasis Snapjaw" &&
-        opField[0]->GetHealth() == 7 && opField[1]->card->name == "Wolfrider";
-    const bool check = check1 || check2;
-    CHECK_EQ(check, true);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 }
 
 // ------------------------------------------ MINION - MAGE
