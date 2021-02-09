@@ -4927,7 +4927,6 @@ TEST_CASE("[Shaman : Minion] - DRG_096 : Bandersmosh")
     opPlayer->SetUsedMana(0);
 
     auto& curHand = *(curPlayer->GetHandZone());
-    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Bandersmosh"));
@@ -6847,11 +6846,11 @@ TEST_CASE("[Neutral : Minion] - DRG_056 : Parachute Brigand")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
     const auto card5 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Southsea Deckhand"));
-    const auto card6 = Generic::DrawCard(
+    [[maybe_unused]] const auto card6 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Parachute Brigand"));
-    const auto card7 = Generic::DrawCard(
+    [[maybe_unused]] const auto card7 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Parachute Brigand"));
-    const auto card8 = Generic::DrawCard(
+    [[maybe_unused]] const auto card8 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Parachute Brigand"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
@@ -7363,10 +7362,8 @@ TEST_CASE("[Neutral : Minion] - DRG_067 : Troll Batrider")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    const bool check =
-        (curField[0]->GetHealth() == 6 && curField[1]->GetHealth() == 12) ||
-        (curField[0]->GetHealth() == 9 && curField[1]->GetHealth() == 9);
-    CHECK_EQ(check, true);
+    const int totalHealth = curField[0]->GetHealth() + curField[1]->GetHealth();
+    CHECK_EQ(totalHealth, 18);
 }
 
 // --------------------------------------- MINION - NEUTRAL
