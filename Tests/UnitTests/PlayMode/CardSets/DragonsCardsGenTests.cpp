@@ -6309,22 +6309,13 @@ TEST_CASE("[Warrior : Minion] - DRG_023 : Skybarge")
     game.Process(opPlayer, PlayCardTask::Minion(card2));
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    bool check31 = curField[0]->GetHealth() == 3 &&
-                   curPlayer->GetHero()->GetHealth() == 30;
-    bool check32 = curField[0]->GetHealth() == 5 &&
-                   curPlayer->GetHero()->GetHealth() == 28;
-    bool check3 = (check31 || check32);
-    CHECK(check3);
+    int totalHealth =
+        curField[0]->GetHealth() + curPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 33);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    bool check41 = curField[0]->GetHealth() == 1 &&
-                   curPlayer->GetHero()->GetHealth() == 30;
-    bool check42 = curField[0]->GetHealth() == 3 &&
-                   curPlayer->GetHero()->GetHealth() == 28;
-    bool check43 = curField[0]->GetHealth() == 5 &&
-                   curPlayer->GetHero()->GetHealth() == 26;
-    bool check4 = (check41 || check42 || check43);
-    CHECK(check4);
+    totalHealth = curField[0]->GetHealth() + curPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 31);
 }
 
 // --------------------------------------- MINION - WARRIOR
