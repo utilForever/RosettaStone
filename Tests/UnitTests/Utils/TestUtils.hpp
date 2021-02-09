@@ -20,6 +20,7 @@ Card GenerateEnchantmentCard(std::string&& id);
 void PlayMinionCard(Player* player, Card* card);
 void PlayWeaponCard(Player* player, Card* card);
 void PlayEnchantmentCard(Player* player, Card* card, Entity* target);
+void ChangeHeroPower(Player* player, Card* card);
 
 void ExpectCardEqual(const Card& card1, const Card& card2);
 
