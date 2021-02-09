@@ -2810,18 +2810,15 @@ TEST_CASE("[Priest : Minion] - DAL_721 : Catrina Muerte")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
     CHECK_EQ(curField.GetCount(), 0);
 
     game.Process(opPlayer, EndTurnTask());
@@ -2834,9 +2831,7 @@ TEST_CASE("[Priest : Minion] - DAL_721 : Catrina Muerte")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 2);
-    bool check = (curField[1]->card->name == "Wolfrider") ||
-                 (curField[1]->card->name == "Wisp");
-    CHECK_EQ(check, true);
+    CHECK_EQ(curField[1]->card->name, "Wolfrider");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -2845,12 +2840,7 @@ TEST_CASE("[Priest : Minion] - DAL_721 : Catrina Muerte")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 3);
-    const bool check1 = (curField[1]->card->name == "Wolfrider") ||
-                        (curField[1]->card->name == "Wisp");
-    const bool check2 = (curField[2]->card->name == "Wolfrider") ||
-                        (curField[2]->card->name == "Wisp");
-    check = check1 && check2;
-    CHECK_EQ(check, true);
+    CHECK_EQ(curField[2]->card->name, "Wolfrider");
 }
 
 // ----------------------------------------- SPELL - PRIEST
