@@ -189,6 +189,9 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CORRUPT = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_025", CardDef(power, "YOP_025t"));
 
     // ------------------------------------------ SPELL - DRUID
     // [YOP_026] Arbor Up - COST:5
@@ -339,6 +342,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_025t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [YOP_026e] Forest Guards - COST:0
