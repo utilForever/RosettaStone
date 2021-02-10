@@ -199,6 +199,12 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants. Give your minions +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DMF_061t2", 2, SummonSide::SPELL));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_026e", EntityType::MINIONS));
+    cards.emplace("YOP_026", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddDruidNonCollect(
@@ -352,6 +358,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_026e"));
+    cards.emplace("YOP_026e", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
