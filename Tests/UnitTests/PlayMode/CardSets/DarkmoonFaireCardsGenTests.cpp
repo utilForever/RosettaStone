@@ -207,6 +207,48 @@ TEST_CASE("[Druid : Spell] - DMF_732 : Cenarion Ward")
     CHECK_EQ(curField[0]->card->GetCost(), 8);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [DMF_733] Kiri, Chosen of Elune - COST:4 [ATK:2/HP:2]
+// - Set: DARKMOON_FAIRE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a Solar Eclipse and
+//       Lunar Eclipse to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DMF_733 : Kiri, Chosen of Elune")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kiri, Chosen of Elune"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Solar Eclipse");
+    CHECK_EQ(curHand[1]->card->name, "Lunar Eclipse");
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DMF_083] Dancing Cobra - COST:2 [ATK:1/HP:5]
 // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common

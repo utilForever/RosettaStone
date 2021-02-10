@@ -158,6 +158,12 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DMF_058"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DMF_057"));
+    cards.emplace("DMF_733", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_734] Greybough - COST:5 [ATK:4/HP:6]
