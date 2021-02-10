@@ -22,6 +22,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/PlayTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
@@ -32,6 +33,7 @@ using namespace SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
@@ -138,6 +140,12 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 8 Armor. Summon a random 8-Cost minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 8, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("DMF_732", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_733] Kiri, Chosen of Elune - COST:4 [ATK:2/HP:2]

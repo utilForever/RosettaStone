@@ -170,6 +170,43 @@ TEST_CASE("[Druid : Spell] - DMF_730 : Moontouched Amulet")
     CHECK_EQ(curHero.GetArmor(), 6);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [DMF_732] Cenarion Ward - COST:8
+// - Set: DARKMOON_FAIRE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Gain 8 Armor. Summon a random 8-Cost minion.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DMF_732 : Cenarion Ward")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cenarion Ward"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 8);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DMF_083] Dancing Cobra - COST:2 [ATK:1/HP:5]
 // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Common
