@@ -38,6 +38,7 @@ using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void DarkmoonFaireCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -58,6 +59,19 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion.
     //       Your next spell this turn costs (2) less.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_057o", EntityType::PLAYER));
+    cards.emplace(
+        "DMF_057",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_058] Solar Eclipse - COST:2
@@ -228,6 +242,16 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
+    }
+    cards.emplace("DMF_057o", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [DMF_058e] Solar Empowerment - COST:0
