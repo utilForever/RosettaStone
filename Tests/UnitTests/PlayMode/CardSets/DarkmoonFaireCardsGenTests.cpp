@@ -651,6 +651,47 @@ TEST_CASE("[Hunter : Minion] - DMF_085 : Darkmoon Tonk")
 }
 
 // ------------------------------------------ MINION - MAGE
+// [DMF_100] Confection Cyclone - COST:2 [ATK:3/HP:2]
+// - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add two 1/2 Sugar Elementals
+//       to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DMF_100 : Confection Cyclone")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Confection Cyclone"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Sugar Elemental");
+    CHECK_EQ(curHand[1]->card->name, "Sugar Elemental");
+}
+
+// ------------------------------------------ MINION - MAGE
 // [DMF_101] Firework Elemental - COST:5 [ATK:3/HP:5]
 // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------

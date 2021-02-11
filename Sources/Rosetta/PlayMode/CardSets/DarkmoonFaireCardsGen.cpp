@@ -631,6 +631,10 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DMF_100t", 2));
+    cards.emplace("DMF_100", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DMF_101] Firework Elemental - COST:5 [ATK:3/HP:5]
@@ -791,6 +795,9 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     // [DMF_100t] Sugar Elemental - COST:1 [ATK:1/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_100t", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DMF_101t] Firework Elemental - COST:5 [ATK:3/HP:5]
