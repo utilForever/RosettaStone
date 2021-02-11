@@ -53,6 +53,12 @@ void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
             spell->ActivateTask(PowerType::POWER, target, chooseOne);
         }
 
+        // If player has extra cast spell, activate power task again
+        if (player->ExtraCastSpell())
+        {
+            spell->ActivateTask(PowerType::POWER, target, chooseOne);
+        }
+
         // Process outcast tasks
         if (spell->HasOutcast() &&
             (spell->GetZonePosition() == 0 ||
