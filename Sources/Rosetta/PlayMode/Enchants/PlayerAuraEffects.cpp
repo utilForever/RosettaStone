@@ -26,14 +26,16 @@ int PlayerAuraEffects::GetValue(GameTag tag) const
             return m_cantBeFrozen;
         case GameTag::RESOURCES_USED:
             return m_resourcesUsed;
+        case GameTag::EXTRA_BATTLECRIES_BASE:
+            return m_extraBattlecry;
+        case GameTag::EXTRA_CAST_SPELL:
+            return m_extraCastSpell;
         case GameTag::EXTRA_TRIGGER_SECRET:
             return m_extraTriggerSecret;
         case GameTag::MEGA_WINDFURY:
             return m_megaWindfury;
         case GameTag::CHOOSE_BOTH:
             return m_chooseBoth;
-        case GameTag::EXTRA_BATTLECRIES_BASE:
-            return m_extraBattlecry;
         case GameTag::HEROPOWER_DAMAGE:
             return m_heroPowerDamage;
         default:
@@ -65,6 +67,12 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
         case GameTag::RESOURCES_USED:
             m_resourcesUsed = value;
             break;
+        case GameTag::EXTRA_BATTLECRIES_BASE:
+            m_extraBattlecry = value;
+            break;
+        case GameTag::EXTRA_CAST_SPELL:
+            m_extraCastSpell = value;
+            break;
         case GameTag::EXTRA_TRIGGER_SECRET:
             m_extraTriggerSecret = value;
             break;
@@ -73,9 +81,6 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
             break;
         case GameTag::CHOOSE_BOTH:
             m_chooseBoth = value;
-            break;
-        case GameTag::EXTRA_BATTLECRIES_BASE:
-            m_extraBattlecry = value;
             break;
         case GameTag::HEROPOWER_DAMAGE:
             m_heroPowerDamage = value;
