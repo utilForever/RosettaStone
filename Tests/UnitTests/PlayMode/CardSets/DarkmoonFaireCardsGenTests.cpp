@@ -83,6 +83,48 @@ TEST_CASE("[Druid : Spell] - DMF_057 : Lunar Eclipse")
     CHECK_EQ(card2->GetCost(), 4);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [DMF_058] Solar Eclipse - COST:2
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Your next spell this turn casts twice.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - DMF_058 : Solar Eclipse")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Solar Eclipse"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("The Forest's Aid"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->id, "DAL_256ts");
+    CHECK_EQ(curHand[1]->card->id, "DAL_256ts");
+}
+
 // ----------------------------------------- MINION - DRUID
 // [DMF_059] Fizzy Elemental - COST:9 [ATK:10/HP:10]
 // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Rare

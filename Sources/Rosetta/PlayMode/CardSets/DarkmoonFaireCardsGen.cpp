@@ -79,6 +79,10 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your next spell this turn casts twice.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_058o", EntityType::PLAYER));
+    cards.emplace("DMF_058", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_059] Fizzy Elemental - COST:9 [ATK:10/HP:10]
@@ -272,6 +276,16 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_CAST_SPELL,
+                                             EffectOperator::SET, 1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::AFTER_CAST, nullptr };
+    }
+    cards.emplace("DMF_058o", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_061a] Prune the Fruit - COST:3
