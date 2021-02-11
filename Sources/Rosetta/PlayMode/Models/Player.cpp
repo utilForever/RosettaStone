@@ -173,14 +173,19 @@ bool Player::CantBeFrozen() const
     return playerAuraEffects.GetValue(GameTag::CANT_BE_FROZEN) > 0;
 }
 
-bool Player::ExtraTriggerSecret() const
-{
-    return playerAuraEffects.GetValue(GameTag::EXTRA_TRIGGER_SECRET) > 0;
-}
-
 bool Player::ExtraBattlecry() const
 {
     return playerAuraEffects.GetValue(GameTag::EXTRA_BATTLECRIES_BASE) > 0;
+}
+
+bool Player::ExtraCastSpell() const
+{
+    return playerAuraEffects.GetValue(GameTag::EXTRA_CAST_SPELL) > 0;
+}
+
+bool Player::ExtraTriggerSecret() const
+{
+    return playerAuraEffects.GetValue(GameTag::EXTRA_TRIGGER_SECRET) > 0;
 }
 
 bool Player::ChooseBoth() const

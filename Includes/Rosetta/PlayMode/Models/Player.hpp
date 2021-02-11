@@ -132,14 +132,18 @@ class Player : public Entity
     //! \return true if for my minions can't be Frozen, false otherwise.
     bool CantBeFrozen() const;
 
-    //! Returns whether this player triggers secrets twice.
-    //! \return true if for this player triggers secrets twice, false otherwise.
-    bool ExtraTriggerSecret() const;
-
     //! Returns whether this player triggers battlecries twice.
     //! \return true if for this player triggers battlecries twice,
     //! false otherwise.
     bool ExtraBattlecry() const;
+
+    //! Returns whether this player casts spells twice.
+    //! \return true if for this player casts spells twice, false otherwise.
+    bool ExtraCastSpell() const;
+
+    //! Returns whether this player triggers secrets twice.
+    //! \return true if for this player triggers secrets twice, false otherwise.
+    bool ExtraTriggerSecret() const;
 
     //! Returns whether this player chooses both cards.
     //! \return true if for this player chooses both cards, false otherwise.
