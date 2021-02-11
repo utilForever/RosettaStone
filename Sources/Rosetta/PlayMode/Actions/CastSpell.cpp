@@ -72,6 +72,15 @@ void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
             const auto twinspell = Entity::GetFromCard(
                 player, Cards::FindCardByID(spell->card->id + "ts"));
             AddCardToHand(player, twinspell);
+
+            // If player has extra cast spell,
+            // add another twin spell card to hand
+            if (player->ExtraCastSpell())
+            {
+                const auto extraTwinspell = Entity::GetFromCard(
+                    player, Cards::FindCardByID(spell->card->id + "ts"));
+                AddCardToHand(player, extraTwinspell);
+            }
         }
 
         // Check card has overload
