@@ -142,6 +142,61 @@ TEST_CASE("[Druid : Minion] - DMF_059 : Fizzy Elemental")
 }
 
 // ----------------------------------------- MINION - DRUID
+// [DMF_060] Umbral Owl - COST:7 [ATK:4/HP:4]
+// - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       Costs (1) less for each spell
+//       you've cast this game.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - DMF_060 : Umbral Owl")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Umbral Owl"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Moontouched Amulet"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Moontouched Amulet"));
+
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(card1->GetCost(), 5);
+}
+
+// ----------------------------------------- MINION - DRUID
 // [DMF_061] Faire Arborist - COST:3 [ATK:2/HP:2]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------

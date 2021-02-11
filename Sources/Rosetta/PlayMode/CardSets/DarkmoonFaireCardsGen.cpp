@@ -110,6 +110,11 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetNumSpellsPlayedThisGame();
+    }));
+    cards.emplace("DMF_060", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_061] Faire Arborist - COST:3 [ATK:2/HP:2]
