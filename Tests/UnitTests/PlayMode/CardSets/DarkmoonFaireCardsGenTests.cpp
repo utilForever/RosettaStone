@@ -834,6 +834,70 @@ TEST_CASE("[Mage : Spell] - DMF_103 : Mask of C'Thun")
     CHECK_EQ(totalHealth, 32);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [YOP_019] Conjure Mana Biscuit - COST:2
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Add a Biscuit to your hand that
+//       refreshes 2 Mana Crystals.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - YOP_019 : Conjure Mana Biscuit")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conjure Mana Biscuit"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conjure Mana Biscuit"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[2]->card->name, "Mana Biscuit");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[2]->card->name, "Mana Biscuit");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 5);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[1]));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [DMF_064] Carousel Gryphon - COST:5 [ATK:5/HP:5]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common

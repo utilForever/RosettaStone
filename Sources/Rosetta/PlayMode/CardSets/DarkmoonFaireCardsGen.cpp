@@ -24,6 +24,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/PlayTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RefreshManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
@@ -773,6 +774,10 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Add a Biscuit to your hand that
     //       refreshes 2 Mana Crystals.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "YOP_019t"));
+    cards.emplace("YOP_019", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [YOP_020] Glacier Racer - COST:1 [ATK:1/HP:3]
@@ -839,6 +844,9 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Refresh 2 Mana Crystals.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RefreshManaTask>(2));
+    cards.emplace("YOP_019t", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
