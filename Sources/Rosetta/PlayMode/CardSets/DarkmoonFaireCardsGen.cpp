@@ -22,7 +22,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/PlayTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RefreshManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
@@ -32,10 +34,12 @@ using namespace SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void DarkmoonFaireCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -56,6 +60,19 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion.
     //       Your next spell this turn costs (2) less.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_057o", EntityType::PLAYER));
+    cards.emplace(
+        "DMF_057",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_058] Solar Eclipse - COST:2
@@ -63,6 +80,10 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your next spell this turn casts twice.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_058o", EntityType::PLAYER));
+    cards.emplace("DMF_058", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_059] Fizzy Elemental - COST:9 [ATK:10/HP:10]
@@ -90,6 +111,11 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetNumSpellsPlayedThisGame();
+    }));
+    cards.emplace("DMF_060", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_061] Faire Arborist - COST:3 [ATK:2/HP:2]
@@ -138,6 +164,12 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 8 Armor. Summon a random 8-Cost minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 8, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("DMF_732", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_733] Kiri, Chosen of Elune - COST:4 [ATK:2/HP:2]
@@ -150,6 +182,12 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DMF_058"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DMF_057"));
+    cards.emplace("DMF_733", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DMF_734] Greybough - COST:5 [ATK:4/HP:6]
@@ -175,6 +213,9 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CORRUPT = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_025", CardDef(power, "YOP_025t"));
 
     // ------------------------------------------ SPELL - DRUID
     // [YOP_026] Arbor Up - COST:5
@@ -182,6 +223,12 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants. Give your minions +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("DMF_061t2", 2, SummonSide::SPELL));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_026e", EntityType::MINIONS));
+    cards.emplace("YOP_026", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddDruidNonCollect(
@@ -205,6 +252,16 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
+    }
+    cards.emplace("DMF_057o", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [DMF_058e] Solar Empowerment - COST:0
@@ -225,6 +282,16 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_CAST_SPELL,
+                                             EffectOperator::SET, 1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::AFTER_CAST, nullptr };
+    }
+    cards.emplace("DMF_058o", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [DMF_061a] Prune the Fruit - COST:3
@@ -325,6 +392,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_025t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [YOP_026e] Forest Guards - COST:0
@@ -332,6 +402,9 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_026e"));
+    cards.emplace("YOP_026e", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -559,6 +632,10 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DMF_100t", 2));
+    cards.emplace("DMF_100", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DMF_101] Firework Elemental - COST:5 [ATK:3/HP:5]
@@ -697,6 +774,10 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Add a Biscuit to your hand that
     //       refreshes 2 Mana Crystals.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "YOP_019t"));
+    cards.emplace("YOP_019", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [YOP_020] Glacier Racer - COST:1 [ATK:1/HP:3]
@@ -708,6 +789,12 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLBURST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(std::make_shared<IncludeTask>(EntityType::ENEMIES));
+    power.AddSpellburstTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFrozen()) }));
+    power.AddSpellburstTask(std::make_shared<DamageTask>(EntityType::STACK, 3));
+    cards.emplace("YOP_020", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddMageNonCollect(
@@ -719,6 +806,9 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     // [DMF_100t] Sugar Elemental - COST:1 [ATK:1/HP:2]
     // - Race: Elemental, Set: DARKMOON_FAIRE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DMF_100t", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [DMF_101t] Firework Elemental - COST:5 [ATK:3/HP:5]
@@ -760,6 +850,9 @@ void DarkmoonFaireCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Refresh 2 Mana Crystals.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RefreshManaTask>(2));
+    cards.emplace("YOP_019t", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)

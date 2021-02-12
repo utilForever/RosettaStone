@@ -84,6 +84,7 @@
 * RandomMinionTask
 * RandomSpellTask
 * RandomTask
+* RefreshManaTask
 * RemoveDurabilityTask
 * RemoveEnchantmentTask
 * RemoveHandTask

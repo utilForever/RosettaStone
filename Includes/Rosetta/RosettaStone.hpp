@@ -235,6 +235,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RefreshManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveDurabilityTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveHandTask.hpp>

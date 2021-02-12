@@ -1247,10 +1247,10 @@ DARKMOON_FAIRE | DMF_053 | Blood of G'huun |
 DARKMOON_FAIRE | DMF_054 | Insight |  
 DARKMOON_FAIRE | DMF_055 | Idol of Y'Shaarj |  
 DARKMOON_FAIRE | DMF_056 | G'huun the Blood God |  
-DARKMOON_FAIRE | DMF_057 | Lunar Eclipse |  
-DARKMOON_FAIRE | DMF_058 | Solar Eclipse |  
+DARKMOON_FAIRE | DMF_057 | Lunar Eclipse | O
+DARKMOON_FAIRE | DMF_058 | Solar Eclipse | O
 DARKMOON_FAIRE | DMF_059 | Fizzy Elemental | O
-DARKMOON_FAIRE | DMF_060 | Umbral Owl |  
+DARKMOON_FAIRE | DMF_060 | Umbral Owl | O
 DARKMOON_FAIRE | DMF_061 | Faire Arborist | O
 DARKMOON_FAIRE | DMF_062 | Gyreworm |  
 DARKMOON_FAIRE | DMF_064 | Carousel Gryphon | O
@@ -1278,7 +1278,7 @@ DARKMOON_FAIRE | DMF_088 | Rinling's Rifle |
 DARKMOON_FAIRE | DMF_089 | Maxima Blastenheimer |  
 DARKMOON_FAIRE | DMF_090 | Don't Feed the Animals |  
 DARKMOON_FAIRE | DMF_091 | Wriggling Horror | O
-DARKMOON_FAIRE | DMF_100 | Confection Cyclone |  
+DARKMOON_FAIRE | DMF_100 | Confection Cyclone | O
 DARKMOON_FAIRE | DMF_101 | Firework Elemental | O
 DARKMOON_FAIRE | DMF_102 | Game Master |  
 DARKMOON_FAIRE | DMF_103 | Mask of C'Thun | O
@@ -1372,8 +1372,8 @@ DARKMOON_FAIRE | DMF_707 | Magicfin |
 DARKMOON_FAIRE | DMF_708 | Inara Stormcrash |  
 DARKMOON_FAIRE | DMF_709 | Grand Totem Eys'or |  
 DARKMOON_FAIRE | DMF_730 | Moontouched Amulet | O
-DARKMOON_FAIRE | DMF_732 | Cenarion Ward |  
-DARKMOON_FAIRE | DMF_733 | Kiri, Chosen of Elune |  
+DARKMOON_FAIRE | DMF_732 | Cenarion Ward | O
+DARKMOON_FAIRE | DMF_733 | Kiri, Chosen of Elune | O
 DARKMOON_FAIRE | DMF_734 | Greybough |  
 DARKMOON_FAIRE | YOP_001 | Illidari Studies |  
 DARKMOON_FAIRE | YOP_002 | Felsaber |  
@@ -1393,14 +1393,14 @@ DARKMOON_FAIRE | YOP_015 | Nitroboost Poison |
 DARKMOON_FAIRE | YOP_016 | Sparkjoy Cheat | O
 DARKMOON_FAIRE | YOP_017 | Shenanigans |  
 DARKMOON_FAIRE | YOP_018 | Keywarden Ivory |  
-DARKMOON_FAIRE | YOP_019 | Conjure Mana Biscuit |  
-DARKMOON_FAIRE | YOP_020 | Glacier Racer |  
+DARKMOON_FAIRE | YOP_019 | Conjure Mana Biscuit | O
+DARKMOON_FAIRE | YOP_020 | Glacier Racer | O
 DARKMOON_FAIRE | YOP_021 | Imprisoned Phoenix | O
 DARKMOON_FAIRE | YOP_022 | Mistrunner | O
 DARKMOON_FAIRE | YOP_023 | Landslide | O
 DARKMOON_FAIRE | YOP_024 | Guidance |  
-DARKMOON_FAIRE | YOP_025 | Dreaming Drake |  
-DARKMOON_FAIRE | YOP_026 | Arbor Up |  
+DARKMOON_FAIRE | YOP_025 | Dreaming Drake | O
+DARKMOON_FAIRE | YOP_026 | Arbor Up | O
 DARKMOON_FAIRE | YOP_027 | Bola Shot |  
 DARKMOON_FAIRE | YOP_028 | Saddlemaster |  
 DARKMOON_FAIRE | YOP_029 | Resizing Pouch |  
@@ -1411,4 +1411,4 @@ DARKMOON_FAIRE | YOP_033 | Backfire |
 DARKMOON_FAIRE | YOP_034 | Runaway Blackwing |  
 DARKMOON_FAIRE | YOP_035 | Moonfang |  
 
-- Progress: 31% (53 of 170 Cards)
+- Progress: 37% (63 of 170 Cards)
