@@ -789,6 +789,12 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLBURST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddSpellburstTask(std::make_shared<IncludeTask>(EntityType::ENEMIES));
+    power.AddSpellburstTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFrozen()) }));
+    power.AddSpellburstTask(std::make_shared<DamageTask>(EntityType::STACK, 3));
+    cards.emplace("YOP_020", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddMageNonCollect(
