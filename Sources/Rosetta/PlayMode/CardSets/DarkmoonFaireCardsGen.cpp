@@ -1038,6 +1038,12 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
+    power.AddSpellburstTask(std::make_shared<SetGameTagTask>(
+        EntityType::MINIONS, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("YOP_010", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [YOP_011] Libram of Judgment - COST:7
