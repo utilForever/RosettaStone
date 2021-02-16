@@ -1051,6 +1051,9 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_011", CardDef(power, "YOP_011t"));
 }
 
 void DarkmoonFaireCardsGen::AddPaladinNonCollect(
@@ -1132,6 +1135,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_011t", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)

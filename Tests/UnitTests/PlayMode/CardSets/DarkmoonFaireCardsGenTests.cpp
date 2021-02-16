@@ -1290,6 +1290,81 @@ TEST_CASE("[Paladin : Spell] - DMF_244 : Day at the Faire")
     CHECK_EQ(curField[4]->card->name, "Silver Hand Recruit");
 }
 
+// --------------------------------------- WEAPON - PALADIN
+// [YOP_011] Libram of Judgment - COST:7
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Corrupt:</b> Gain <b>Lifesteal</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CORRUPT = 1
+// --------------------------------------------------------
+// RefTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - YOP_011 : Libram of Judgment")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Libram of Judgment"));
+    [[maybe_unused]] auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Libram of Judgment"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shotbot"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHero.HasWeapon(), true);
+    CHECK_EQ(curHero.weapon->GetAttack(), 5);
+    CHECK_EQ(curHero.weapon->GetDurability(), 3);
+    CHECK_EQ(curHero.HasLifesteal(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand[0]->card->id, "YOP_011");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand[0]->card->id, "YOP_011t");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(curHand[0]));
+    CHECK_EQ(curHero.HasWeapon(), true);
+    CHECK_EQ(curHero.weapon->GetAttack(), 5);
+    CHECK_EQ(curHero.weapon->GetDurability(), 3);
+    CHECK_EQ(curHero.HasLifesteal(), true);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [DMF_184] Fairground Fool - COST:3 [ATK:4/HP:3]
 // - Set: DARKMOON_FAIRE, Rarity: Common
