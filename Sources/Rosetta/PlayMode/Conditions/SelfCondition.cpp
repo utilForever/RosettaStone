@@ -203,6 +203,12 @@ SelfCondition SelfCondition::IsLackey()
     });
 }
 
+SelfCondition SelfCondition::IsSilverHandRecruit()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->card->id == "CS2_101t"; });
+}
+
 SelfCondition SelfCondition::IsRace(Race race)
 {
     return SelfCondition([race](Playable* playable) {

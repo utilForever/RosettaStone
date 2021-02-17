@@ -116,6 +116,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsLackey();
 
+    //! SelfCondition wrapper for checking it is Silver Hand Recruit.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsSilverHandRecruit();
+
     //! SelfCondition wrapper for checking race of entity is \p race.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
