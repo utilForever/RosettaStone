@@ -1306,7 +1306,7 @@ DARKMOON_FAIRE | DMF_125 | Safety Inspector |
 DARKMOON_FAIRE | DMF_163 | Carnival Clown |  
 DARKMOON_FAIRE | DMF_174 | Circus Medic | O
 DARKMOON_FAIRE | DMF_184 | Fairground Fool | O
-DARKMOON_FAIRE | DMF_186 | Auspicious Spirits |  
+DARKMOON_FAIRE | DMF_186 | Auspicious Spirits | O
 DARKMOON_FAIRE | DMF_187 | Palm Reading |  
 DARKMOON_FAIRE | DMF_188 | Y'Shaarj, the Defiler |  
 DARKMOON_FAIRE | DMF_189 | Costumed Entertainer | O
@@ -1327,9 +1327,9 @@ DARKMOON_FAIRE | DMF_227 | Dreadlord's Bite | O
 DARKMOON_FAIRE | DMF_229 | Stiltstepper |  
 DARKMOON_FAIRE | DMF_230 | Il'gynoth |  
 DARKMOON_FAIRE | DMF_231 | Zai, the Incredible |  
-DARKMOON_FAIRE | DMF_235 | Balloon Merchant |  
+DARKMOON_FAIRE | DMF_235 | Balloon Merchant | O
 DARKMOON_FAIRE | DMF_236 | Oh My Yogg! |  
-DARKMOON_FAIRE | DMF_237 | Carnival Barker |  
+DARKMOON_FAIRE | DMF_237 | Carnival Barker | O
 DARKMOON_FAIRE | DMF_238 | Hammer of the Naaru | O
 DARKMOON_FAIRE | DMF_240 | Lothraxion the Redeemed |  
 DARKMOON_FAIRE | DMF_241 | High Exarch Yrel | O
@@ -1361,7 +1361,7 @@ DARKMOON_FAIRE | DMF_531 | Stage Hand | O
 DARKMOON_FAIRE | DMF_532 | Circus Amalgam | O
 DARKMOON_FAIRE | DMF_533 | Ring Matron | O
 DARKMOON_FAIRE | DMF_534 | Deck of Chaos |  
-DARKMOON_FAIRE | DMF_700 | Revolve |  
+DARKMOON_FAIRE | DMF_700 | Revolve | O
 DARKMOON_FAIRE | DMF_701 | Dunk Tank | O
 DARKMOON_FAIRE | DMF_702 | Stormstrike | O
 DARKMOON_FAIRE | DMF_703 | Pit Master | O
@@ -1384,12 +1384,12 @@ DARKMOON_FAIRE | YOP_006 | Hysteria |
 DARKMOON_FAIRE | YOP_007 | Dark Inquisitor Xanesh |  
 DARKMOON_FAIRE | YOP_008 | Lightsteed |  
 DARKMOON_FAIRE | YOP_009 | Rally! |  
-DARKMOON_FAIRE | YOP_010 | Imprisoned Celestial |  
-DARKMOON_FAIRE | YOP_011 | Libram of Judgment |  
+DARKMOON_FAIRE | YOP_010 | Imprisoned Celestial | O
+DARKMOON_FAIRE | YOP_011 | Libram of Judgment | O
 DARKMOON_FAIRE | YOP_012 | Deathwarden |  
 DARKMOON_FAIRE | YOP_013 | Spiked Wheel |  
 DARKMOON_FAIRE | YOP_014 | Ironclad | O
-DARKMOON_FAIRE | YOP_015 | Nitroboost Poison |  
+DARKMOON_FAIRE | YOP_015 | Nitroboost Poison | O
 DARKMOON_FAIRE | YOP_016 | Sparkjoy Cheat | O
 DARKMOON_FAIRE | YOP_017 | Shenanigans |  
 DARKMOON_FAIRE | YOP_018 | Keywarden Ivory |  
@@ -1405,10 +1405,10 @@ DARKMOON_FAIRE | YOP_027 | Bola Shot |
 DARKMOON_FAIRE | YOP_028 | Saddlemaster |  
 DARKMOON_FAIRE | YOP_029 | Resizing Pouch |  
 DARKMOON_FAIRE | YOP_030 | Felfire Deadeye |  
-DARKMOON_FAIRE | YOP_031 | Crabrider |  
-DARKMOON_FAIRE | YOP_032 | Armor Vendor |  
+DARKMOON_FAIRE | YOP_031 | Crabrider | O
+DARKMOON_FAIRE | YOP_032 | Armor Vendor | O
 DARKMOON_FAIRE | YOP_033 | Backfire |  
-DARKMOON_FAIRE | YOP_034 | Runaway Blackwing |  
+DARKMOON_FAIRE | YOP_034 | Runaway Blackwing | O
 DARKMOON_FAIRE | YOP_035 | Moonfang |  
 
-- Progress: 37% (63 of 170 Cards)
+- Progress: 42% (73 of 170 Cards)
