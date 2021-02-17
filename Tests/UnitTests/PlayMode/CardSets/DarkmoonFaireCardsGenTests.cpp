@@ -1095,6 +1095,61 @@ TEST_CASE("[Paladin : Minion] - DMF_194 : Redscale Dragontamer")
 }
 
 // --------------------------------------- MINION - PALADIN
+// [DMF_235] Balloon Merchant - COST:4 [ATK:3/HP:5]
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your Silver Hand Recruits
+//       +1 Attack and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - DMF_235 : Balloon Merchant")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Balloon Merchant"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+}
+
+// --------------------------------------- MINION - PALADIN
 // [DMF_237] Carnival Barker - COST:3 [ATK:3/HP:2]
 // - Set: DARKMOON_FAIRE, Rarity: Rare
 // --------------------------------------------------------
@@ -1106,7 +1161,7 @@ TEST_CASE("[Paladin : Minion] - DMF_194 : Redscale Dragontamer")
 TEST_CASE("[Paladin : Minion] - DMF_237 : Carnival Barker")
 {
     GameConfig config;
-    config.player1Class = CardClass::HUNTER;
+    config.player1Class = CardClass::PALADIN;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -1158,7 +1213,7 @@ TEST_CASE("[Paladin : Minion] - DMF_237 : Carnival Barker")
 TEST_CASE("[Paladin : Weapon] - DMF_238 : Hammer of the Naaru")
 {
     GameConfig config;
-    config.player1Class = CardClass::HUNTER;
+    config.player1Class = CardClass::PALADIN;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;

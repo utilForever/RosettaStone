@@ -915,6 +915,16 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsSilverHandRecruit()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_235e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("DMF_235", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DMF_236] Oh My Yogg! - COST:1
@@ -1096,6 +1106,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_235e"));
+    cards.emplace("DMF_235e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DMF_236t] Oh My Yogg! - COST:0
