@@ -3276,6 +3276,16 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 9)
+    };
+    cards.emplace("YOP_034", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_035] Moonfang - COST:5 [ATK:6/HP:3]

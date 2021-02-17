@@ -4126,3 +4126,59 @@ TEST_CASE("[Neutral : Minion] - YOP_032 : Armor Vendor")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
     CHECK_EQ(opPlayer->GetHero()->GetArmor(), 4);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [YOP_034] Runaway Blackwing - COST:9 [ATK:9/HP:9]
+// - Race: Dragon, Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn,
+//       deal 9 damage to a random enemy minion.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOP_034 : Runaway Blackwing")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Runaway Blackwing"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+}
