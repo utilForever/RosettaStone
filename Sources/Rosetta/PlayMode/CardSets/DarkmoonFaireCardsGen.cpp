@@ -936,6 +936,14 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsHealth(1, RelaSign::EQ));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DMF_237e", EntityType::TARGET) };
+    cards.emplace("DMF_237", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [DMF_238] Hammer of the Naaru - COST:6
@@ -1100,6 +1108,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_237e"));
+    cards.emplace("DMF_237e", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DMF_238t] Holy Elemental - COST:6 [ATK:6/HP:6]
