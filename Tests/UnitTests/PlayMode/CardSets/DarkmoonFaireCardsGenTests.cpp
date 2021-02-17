@@ -1405,7 +1405,7 @@ TEST_CASE("[Paladin : Minion] - YOP_010 : Imprisoned Celestial")
     CHECK_EQ(curField[0]->CanAttack(), false);
 
     game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
     CHECK_EQ(curField[0]->HasSpellburst(), true);
     CHECK_EQ(curField[0]->HasDivineShield(), false);
     CHECK_EQ(curField[1]->HasDivineShield(), false);
@@ -1422,7 +1422,7 @@ TEST_CASE("[Paladin : Minion] - YOP_010 : Imprisoned Celestial")
     CHECK_EQ(curField[0]->HasSpellburst(), true);
 
     game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
     CHECK_EQ(curField[0]->HasSpellburst(), false);
     CHECK_EQ(curField[0]->HasDivineShield(), true);
     CHECK_EQ(curField[1]->HasDivineShield(), true);
