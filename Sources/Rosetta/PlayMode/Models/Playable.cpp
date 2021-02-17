@@ -159,6 +159,25 @@ bool Playable::HasCorrupt() const
     return GetGameTag(GameTag::CORRUPT) == 1;
 }
 
+bool Playable::CanActivateSpellburst() const
+{
+    if (!HasSpellburst())
+    {
+        return false;
+    }
+
+    if (const auto minion = dynamic_cast<const Minion*>(this); minion)
+    {
+        if (minion->isDestroyed || minion->isTransformed ||
+            minion->IsUntouchable())
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void Playable::ResetCost()
 {
     costManager = nullptr;

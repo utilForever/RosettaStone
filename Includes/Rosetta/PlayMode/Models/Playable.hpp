@@ -119,6 +119,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has corrupt.
     bool HasCorrupt() const;
 
+    //! Returns the flag that indicates it can activate 'Spellbrust'.
+    //! \return The flag that indicates it can activate 'Spellbrust'.
+    bool CanActivateSpellburst() const;
+
     //! Resets the value of the cost.
     void ResetCost();
 
