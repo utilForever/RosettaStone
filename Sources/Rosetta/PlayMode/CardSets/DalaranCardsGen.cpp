@@ -2456,7 +2456,7 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<GetGameTagTask>(
         EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1));
-    power.AddPowerTask(std::make_shared<ArmorTask>(0, true));
+    power.AddPowerTask(std::make_shared<ArmorTask>(0, false, true));
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
     power.GetTrigger()->tasks = {

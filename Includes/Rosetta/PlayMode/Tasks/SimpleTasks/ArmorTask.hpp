@@ -18,11 +18,13 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class ArmorTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount and \p useNumber.
+    //! Constructs task with given \p amount, \p isOpponent and \p useNumber.
     //! \param amount The amount to gain armor.
+    //! \param isOpponent A flag to owner indicating opponent player.
     //! \param useNumber The flag that indicates it adds the value
     //! contained in task stack as armor.
-    explicit ArmorTask(int amount, bool useNumber = false);
+    explicit ArmorTask(int amount, bool isOpponent = false,
+                       bool useNumber = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -35,6 +37,7 @@ class ArmorTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     int m_amount;
+    bool m_isOpponent = false;
     bool m_useNumber = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
