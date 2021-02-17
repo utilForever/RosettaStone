@@ -3997,3 +3997,40 @@ TEST_CASE("[Neutral : Minion] - YOP_021 : Imprisoned Phoenix")
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 16);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [YOP_032] Armor Vendor - COST:1 [ATK:1/HP:3]
+// - Set: DARKMOON_FAIRE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give 4 Armor to each hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOP_032 : Armor Vendor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Armor Vendor"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 4);
+}

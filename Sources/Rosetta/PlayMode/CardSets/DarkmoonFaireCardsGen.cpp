@@ -3246,6 +3246,10 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    power.AddPowerTask(std::make_shared<ArmorTask>(4, true));
+    cards.emplace("YOP_032", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_034] Runaway Blackwing - COST:9 [ATK:9/HP:9]
