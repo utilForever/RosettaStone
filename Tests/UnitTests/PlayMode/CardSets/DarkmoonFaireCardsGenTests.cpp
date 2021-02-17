@@ -3924,6 +3924,82 @@ TEST_CASE("[Neutral : Minion] - DMF_532 : Circus Amalgam")
     CHECK_EQ(curField[0]->GetHealth(), 7);
 }
 
+// ---------------------------------------- SPELL - NEUTRAL
+// [YOP_015] Nitroboost Poison - COST:1
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +2 Attack.
+//       <b>Corrupt:</b> And your weapon.
+// --------------------------------------------------------
+// GameTag:
+// - CORRUPT = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - YOP_015 : Nitroboost Poison")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nitroboost Poison"));
+    [[maybe_unused]] auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nitroboost Poison"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fan of Knives"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sinister Strike"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curHero.weapon->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card5));
+    CHECK_EQ(curHero.weapon->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curHand[0]->card->id, "YOP_015");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand[0]->card->id, "YOP_015t");
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(curHand[0], card5));
+    CHECK_EQ(curHero.weapon->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [YOP_021] Imprisoned Phoenix - COST:2 [ATK:2/HP:3]
 // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common

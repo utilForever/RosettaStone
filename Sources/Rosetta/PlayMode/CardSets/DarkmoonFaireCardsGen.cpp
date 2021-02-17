@@ -3160,6 +3160,18 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CORRUPT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_015e", EntityType::TARGET));
+    cards.emplace("YOP_015",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                    { PlayReq::REQ_TARGET_TO_PLAY, 0 } },
+                          "YOP_015t"));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_018] Keywarden Ivory - COST:5 [ATK:4/HP:5]
@@ -3856,6 +3868,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_015e"));
+    cards.emplace("YOP_015e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_015t] Nitroboost Poison - COST:1
@@ -3864,6 +3879,19 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // Text: <b>Corrupted</b>
     //       Give a minion and your weapon +2 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_015e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_015e", EntityType::WEAPON));
+    cards.emplace(
+        "YOP_015t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_024t] Spirit Path - COST:0
