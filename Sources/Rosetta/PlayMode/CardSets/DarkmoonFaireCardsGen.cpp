@@ -27,6 +27,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RefreshManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::PlayMode;
@@ -1632,6 +1633,10 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform all minions into random ones with the same Cost.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformMinionTask>(EntityType::ALL_MINIONS, 0));
+    cards.emplace("DMF_700", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_701] Dunk Tank - COST:4

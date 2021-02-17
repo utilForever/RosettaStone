@@ -1915,6 +1915,69 @@ TEST_CASE("[Rogue : Minion] - YOP_016 : Sparkjoy Cheat")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
+// [DMF_700] Revolve - COST:1
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Transform all minions into random ones with the same Cost.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - DMF_700 : Revolve")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Revolve"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Cagematch Custodian"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[0]->card->GetCost(), 3);
+    CHECK_EQ(curField[1]->card->GetCost(), 0);
+    CHECK_EQ(curField[2]->card->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField[0]->card->GetCost(), 9);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->card->GetCost(), 3);
+    CHECK_EQ(curField[1]->card->GetCost(), 0);
+    CHECK_EQ(curField[2]->card->GetCost(), 2);
+    CHECK_EQ(opField[0]->card->GetCost(), 9);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
 // [DMF_701] Dunk Tank - COST:4
 // - Set: DARKMOON_FAIRE, Rarity: Rare
 // --------------------------------------------------------
