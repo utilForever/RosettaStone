@@ -1351,7 +1351,7 @@ TEST_CASE("[Neutral : Minion] - EX1_284 : Azure Drake")
 // Text: Can't attack. At the end of your turn, deal 8 damage
 //       to a random enemy.
 // --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] EX1_298 : Ragnaros the Firelord")
+TEST_CASE("[Neutral : Minion] - EX1_298 : Ragnaros the Firelord")
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
@@ -1371,10 +1371,7 @@ TEST_CASE("[Neutral : Minion] EX1_298 : Ragnaros the Firelord")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
-
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Ragnaros the Firelord"));
@@ -1382,7 +1379,6 @@ TEST_CASE("[Neutral : Minion] EX1_298 : Ragnaros the Firelord")
         opPlayer, Cards::FindCardByName("Grommash Hellscream"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -1390,6 +1386,7 @@ TEST_CASE("[Neutral : Minion] EX1_298 : Ragnaros the Firelord")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 

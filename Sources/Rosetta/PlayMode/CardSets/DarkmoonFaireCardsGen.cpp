@@ -27,6 +27,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RefreshManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::PlayMode;
@@ -915,6 +916,16 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsSilverHandRecruit()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DMF_235e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("DMF_235", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [DMF_236] Oh My Yogg! - COST:1
@@ -936,6 +947,14 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsHealth(1, RelaSign::EQ));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DMF_237e", EntityType::TARGET) };
+    cards.emplace("DMF_237", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [DMF_238] Hammer of the Naaru - COST:6
@@ -1038,6 +1057,12 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::ProcessDormant(TaskList{}) };
+    power.AddSpellburstTask(std::make_shared<SetGameTagTask>(
+        EntityType::MINIONS, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("YOP_010", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [YOP_011] Libram of Judgment - COST:7
@@ -1051,6 +1076,9 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_011", CardDef(power, "YOP_011t"));
 }
 
 void DarkmoonFaireCardsGen::AddPaladinNonCollect(
@@ -1079,6 +1107,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_235e"));
+    cards.emplace("DMF_235e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DMF_236t] Oh My Yogg! - COST:0
@@ -1091,6 +1122,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DMF_237e"));
+    cards.emplace("DMF_237e", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [DMF_238t] Holy Elemental - COST:6 [ATK:6/HP:6]
@@ -1132,6 +1166,9 @@ void DarkmoonFaireCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_011t", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
@@ -1242,6 +1279,11 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CORRUPT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 4, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("DMF_186", CardDef(power, "DMF_186a"));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_187] Palm Reading - COST:3
@@ -1322,6 +1364,11 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // Text: <b>Corrupted</b>
     //       Summon a random 7-Cost minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 7, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("DMF_186a", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [YOP_008e] Lightsteed - COST:0
@@ -1586,6 +1633,10 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform all minions into random ones with the same Cost.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformMinionTask>(EntityType::ALL_MINIONS, 0));
+    cards.emplace("DMF_700", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_701] Dunk Tank - COST:4
@@ -3109,6 +3160,18 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CORRUPT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_015e", EntityType::TARGET));
+    cards.emplace("YOP_015",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                    { PlayReq::REQ_TARGET_TO_PLAY, 0 } },
+                          "YOP_015t"));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_018] Keywarden Ivory - COST:5 [ATK:4/HP:5]
@@ -3185,6 +3248,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_031", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_032] Armor Vendor - COST:1 [ATK:1/HP:3]
@@ -3195,6 +3261,10 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    power.AddPowerTask(std::make_shared<ArmorTask>(4, true));
+    cards.emplace("YOP_032", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_034] Runaway Blackwing - COST:9 [ATK:9/HP:9]
@@ -3206,6 +3276,16 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 9)
+    };
+    cards.emplace("YOP_034", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_035] Moonfang - COST:5 [ATK:6/HP:3]
@@ -3798,6 +3878,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_015e"));
+    cards.emplace("YOP_015e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_015t] Nitroboost Poison - COST:1
@@ -3806,6 +3889,19 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // Text: <b>Corrupted</b>
     //       Give a minion and your weapon +2 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_015e", EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_015e", EntityType::WEAPON));
+    cards.emplace(
+        "YOP_015t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_024t] Spirit Path - COST:0

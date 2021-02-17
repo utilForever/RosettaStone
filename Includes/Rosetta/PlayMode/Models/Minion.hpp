@@ -90,10 +90,6 @@ class Minion : public Character
     //! \return The flag that indicates whether it has reborn.
     bool HasReborn() const;
 
-    //! Returns the flag that indicates whether it has spellburst.
-    //! \return The flag that indicates whether it has spellburst.
-    bool HasSpellburst() const;
-
     //! Returns the flag that indicates whether it is attackable by rush.
     //! \return The flag that indicates whether it is attackable by rush.
     bool IsAttackableByRush() const;

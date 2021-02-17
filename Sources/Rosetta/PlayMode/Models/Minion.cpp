@@ -122,11 +122,6 @@ bool Minion::HasReborn() const
     return static_cast<bool>(GetGameTag(GameTag::REBORN));
 }
 
-bool Minion::HasSpellburst() const
-{
-    return static_cast<bool>(GetGameTag(GameTag::SPELLBURST));
-}
-
 bool Minion::IsAttackableByRush() const
 {
     return static_cast<bool>(GetGameTag(GameTag::ATTACKABLE_BY_RUSH));
