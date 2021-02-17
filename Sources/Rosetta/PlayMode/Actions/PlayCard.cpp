@@ -394,8 +394,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 
     for (auto& minion : minions)
     {
-        if (!minion->isDestroyed && !minion->isTransformed &&
-            minion->HasSpellburst())
+        if (minion->CanActivateSpellburst())
         {
             minion->ActivateTask(PowerType::SPELLBURST);
             minion->SetGameTag(GameTag::SPELLBURST, 0);
