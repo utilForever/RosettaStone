@@ -1278,6 +1278,11 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CORRUPT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 4, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("DMF_186", CardDef(power, "DMF_186a"));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_187] Palm Reading - COST:3
@@ -1358,6 +1363,11 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // Text: <b>Corrupted</b>
     //       Summon a random 7-Cost minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 7, RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("DMF_186a", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [YOP_008e] Lightsteed - COST:0
