@@ -149,6 +149,11 @@ bool Playable::HasDormant() const
     return GetGameTag(GameTag::DORMANT) == 1;
 }
 
+bool Playable::HasSpellburst() const
+{
+    return GetGameTag(GameTag::SPELLBURST) == 1;
+}
+
 bool Playable::HasCorrupt() const
 {
     return GetGameTag(GameTag::CORRUPT) == 1;
