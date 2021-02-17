@@ -3999,6 +3999,22 @@ TEST_CASE("[Neutral : Minion] - YOP_021 : Imprisoned Phoenix")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [YOP_031] Crabrider - COST:2 [ATK:1/HP:4]
+// - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOP_031 : Crabrider")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [YOP_032] Armor Vendor - COST:1 [ATK:1/HP:3]
 // - Set: DARKMOON_FAIRE, Rarity: Rare
 // --------------------------------------------------------

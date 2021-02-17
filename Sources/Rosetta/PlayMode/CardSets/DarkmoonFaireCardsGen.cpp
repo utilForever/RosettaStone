@@ -3236,6 +3236,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("YOP_031", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOP_032] Armor Vendor - COST:1 [ATK:1/HP:3]
