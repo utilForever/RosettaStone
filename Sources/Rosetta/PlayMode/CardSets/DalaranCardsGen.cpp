@@ -2598,7 +2598,7 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEAL_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
     power.GetTrigger()->tasks = { std::make_shared<GetEventNumberTask>(),
-                                  std::make_shared<ArmorTask>(0, true) };
+                                  std::make_shared<ArmorTask>(0, false, true) };
     cards.emplace("DAL_759", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
