@@ -2481,6 +2481,27 @@
         "type": "MINION"
     },
     {
+        "artist": "Steven Prescott",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 62176,
+        "elite": true,
+        "flavor": "You wouldn’t see this swap-meet on the Zandalari Roadshow.",
+        "health": 6,
+        "id": "BAR_080",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shadow Hunter Vol'jin",
+        "rarity": "LEGENDARY",
+        "set": "THE_BARRENS",
+        "targetingArrowText": "Swap with a minion in hand.",
+        "text": "<b>Battlecry:</b> Choose a minion. Swap it with a random one in its owners hand.",
+        "type": "MINION"
+    },
+    {
         "artist": "Jim Nelson",
         "attack": 1,
         "cardClass": "NEUTRAL",
@@ -31522,7 +31543,7 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "GVG",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "Whenever a friendly Mech dies, gain +2/+2.",
         "type": "MINION"
     },
@@ -32134,6 +32155,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 67846,
+        "health": 30,
+        "id": "HERO_03f",
+        "name": "Gladiator Valeera",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 671,
@@ -32362,6 +32394,17 @@
         "id": "HERO_06e",
         "name": "Cenarion Malfurion",
         "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 69988,
+        "health": 30,
+        "id": "HERO_06f",
+        "name": "Hamuul Runetotem",
+        "rarity": "EPIC",
         "set": "HERO_SKINS",
         "type": "HERO"
     },
@@ -43006,7 +43049,7 @@
             "PRIEST"
         ],
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 59587,
         "elite": true,
         "flavor": "She's all about hitting the books. Literally.",
@@ -54358,6 +54401,9 @@
         "flavor": "Ride or die takes on a new meaning.",
         "health": 5,
         "id": "YOP_012",
+        "mechanics": [
+            "AURA"
+        ],
         "name": "Deathwarden",
         "rarity": "EPIC",
         "referencedTags": [
@@ -54481,14 +54527,12 @@
         "id": "YOP_018",
         "mechanics": [
             "BATTLECRY",
+            "DISCOVER",
             "SPELLBURST"
         ],
         "multiClassGroup": "MAGE_ROGUE",
         "name": "Keywarden Ivory",
         "rarity": "LEGENDARY",
-        "referencedTags": [
-            "DISCOVER"
-        ],
         "set": "DARKMOON_FAIRE",
         "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\ndual-class spell from\nany class. <b><b>Spellburst</b>:</b>\nGet another copy.",
         "type": "MINION"
