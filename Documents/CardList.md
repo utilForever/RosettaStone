@@ -11,6 +11,7 @@
 * [Ashes of Outland](#ashes-of-outland)
 * [Scholomance Academy](#scholomance-academy)
 * [Madness at the Darkmoon Faire](#madness-at-the-darkmoon-faire)
+* [Forged in the Barrens](#forged-in-the-barrens)
 
 ## Basic
 
@@ -1412,3 +1413,11 @@ DARKMOON_FAIRE | YOP_034 | Runaway Blackwing | O
 DARKMOON_FAIRE | YOP_035 | Moonfang |  
 
 - Progress: 42% (73 of 170 Cards)
+
+## Forged in the Barrens
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+THE_BARRENS | BAR_080 | Shadow Hunter Vol'jin |  
+
+- Progress: 0% (0 of 1 Cards)
