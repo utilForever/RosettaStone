@@ -107,6 +107,17 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
 
 void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - NEUTRAL
+    // [BAR_080] Shadow Hunter Vol'jin - COST:5 [ATK:3/HP:6]
+    // - Set: THE_BARRENS, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Choose a minion.
+    //       Swap it with a random one in its owners hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddNeutralNonCollect(
