@@ -3272,6 +3272,27 @@
         "type": "ENCHANTMENT"
     },
     {
+        "artist": "Steven Prescott",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 62176,
+        "elite": true,
+        "flavor": "You wouldn’t see this swap-meet on the Zandalari Roadshow.",
+        "health": 6,
+        "id": "BAR_080",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shadow Hunter Vol'jin",
+        "rarity": "LEGENDARY",
+        "set": "THE_BARRENS",
+        "targetingArrowText": "Swap with a minion in hand.",
+        "text": "<b>Battlecry:</b> Choose a minion. Swap it with a random one in its owners hand.",
+        "type": "MINION"
+    },
+    {
         "cardClass": "HUNTER",
         "cost": 2,
         "dbfId": 49225,
@@ -3578,12 +3599,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 3,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 59976,
         "cardClass": "NEUTRAL",
         "cost": 9,
         "dbfId": 59935,
-        "health": 6,
+        "health": 8,
         "id": "BGS_012",
         "mechanics": [
             "DEATHRATTLE"
@@ -4002,7 +4023,7 @@
         "cost": 3,
         "dbfId": 60559,
         "elite": true,
-        "health": 2,
+        "health": 3,
         "id": "BGS_035",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4458,7 +4479,7 @@
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 61060,
-        "health": 5,
+        "health": 6,
         "id": "BGS_060",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4631,7 +4652,7 @@
         "type": "MINION"
     },
     {
-        "attack": 4,
+        "attack": 3,
         "battlegroundsPremiumDbfId": 62165,
         "cardClass": "HUNTER",
         "cost": 3,
@@ -4648,7 +4669,7 @@
         ],
         "set": "BATTLEGROUNDS",
         "techLevel": 2,
-        "text": "After you play a minion with <b>Deathrattle</b>, gain +1/+1.",
+        "text": "After you play a minion with <b>Deathrattle</b>, gain +1/+2.",
         "type": "MINION"
     },
     {
@@ -4657,7 +4678,7 @@
         "id": "BGS_075e",
         "name": "Rabid",
         "set": "BATTLEGROUNDS",
-        "text": "+1/+1.",
+        "text": "+1/+2.",
         "type": "ENCHANTMENT"
     },
     {
@@ -4950,7 +4971,7 @@
         ],
         "set": "BATTLEGROUNDS",
         "techLevel": 3,
-        "text": "Whenever a friendly <b>Taunt</b> minion is attacked, give it +3 Attack.",
+        "text": "[x]Whenever a friendly <b>Taunt</b>\nminion is attacked,\ngive it +2 Attack\npermanently.",
         "type": "MINION"
     },
     {
@@ -4959,16 +4980,16 @@
         "id": "BGS_110e",
         "name": "Armed!",
         "set": "BATTLEGROUNDS",
-        "text": "+3 Attack",
+        "text": "+2 Attack",
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 2,
+        "attack": 4,
         "battlegroundsPremiumDbfId": 65666,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 63623,
-        "health": 2,
+        "health": 4,
         "id": "BGS_111",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -5247,7 +5268,7 @@
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 64296,
-        "health": 3,
+        "health": 4,
         "id": "BGS_127",
         "mechanics": [
             "TAUNT",
@@ -5430,7 +5451,6 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "techLevel": 6,
         "text": "[x]<b>Divine Shield</b>. <b>Reborn</b>.\nWhenever a friendly <b>Taunt</b>\nminion is attacked, this\n  gets attacked instead.",
         "type": "MINION"
     },
@@ -58411,26 +58431,6 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 0,
-        "dbfId": 46592,
-        "id": "FB_LKDebug001",
-        "name": "LK Phase 2 Debug",
-        "set": "TB",
-        "text": "Change boss to phase 2",
-        "type": "SPELL"
-    },
-    {
-        "cardClass": "NEUTRAL",
-        "cost": 0,
-        "dbfId": 46593,
-        "id": "FB_LKDebug002",
-        "name": "LK Phase 3 Debug",
-        "set": "TB",
-        "text": "Change boss to phase 3",
-        "type": "SPELL"
-    },
-    {
-        "cardClass": "NEUTRAL",
         "dbfId": 46540,
         "id": "FB_LKStats001",
         "name": "Innkeeper Tools",
@@ -69420,7 +69420,7 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "GVG",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "Whenever a friendly Mech dies, gain +2/+2.",
         "type": "MINION"
     },
@@ -70248,6 +70248,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 67846,
+        "health": 30,
+        "id": "HERO_03f",
+        "name": "Gladiator Valeera",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 671,
@@ -70625,6 +70636,38 @@
         "cost": 2,
         "dbfId": 66928,
         "id": "HERO_06ebp2",
+        "name": "Dire Shapeshift",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\n+2 Attack this turn.\n+2 Armor.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 69988,
+        "health": 30,
+        "id": "HERO_06f",
+        "name": "Hamuul Runetotem",
+        "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 2,
+        "dbfId": 69989,
+        "id": "HERO_06fbp",
+        "name": "Shapeshift",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "text": "<b>Hero Power</b>\n+1 Attack this turn.\n+1 Armor.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "DRUID",
+        "cost": 2,
+        "dbfId": 69990,
+        "id": "HERO_06fbp2",
         "name": "Dire Shapeshift",
         "set": "HERO_SKINS",
         "text": "<b>Hero Power</b>\n+2 Attack this turn.\n+2 Armor.",
@@ -96447,7 +96490,7 @@
     },
     {
         "cardClass": "PALADIN",
-        "cost": 6,
+        "cost": 4,
         "dbfId": 66815,
         "flavor": "We're looking for a few good 3/3s.",
         "id": "PVPDR_DMF_Paladint1",
@@ -99791,6 +99834,9 @@
             "DUNGEON_PASSIVE_BUFF"
         ],
         "name": "Staking A Claim",
+        "referencedTags": [
+            "DISCOVER"
+        ],
         "set": "TB",
         "text": "<b>Passive</b>\nWhenever you play a <b>Discover</b> card, all friendly minions gain +1/+1.",
         "type": "SPELL"
@@ -99986,12 +100032,12 @@
         "type": "HERO_POWER"
     },
     {
-        "attack": 0,
+        "attack": 1,
         "cardClass": "SHAMAN",
         "cost": 2,
         "dbfId": 65083,
         "flavor": "Think carefully about board position when placing this treasure.",
-        "health": 3,
+        "health": 4,
         "id": "PVPDR_SCH_Shamant2",
         "mechanics": [
             "STEALTH",
@@ -100049,7 +100095,7 @@
     {
         "attack": 3,
         "cardClass": "WARLOCK",
-        "cost": 6,
+        "cost": 7,
         "dbfId": 64276,
         "flavor": "You don't want to know what he's smiling about.",
         "health": 3,
@@ -100091,7 +100137,7 @@
     {
         "attack": 4,
         "cardClass": "WARLOCK",
-        "cost": 3,
+        "cost": 4,
         "dbfId": 64406,
         "flavor": "Demonizer, Demon-Demonizer.",
         "health": 4,
@@ -100160,11 +100206,11 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 4,
+        "attack": 3,
         "cardClass": "WARRIOR",
         "cost": 3,
         "dbfId": 65091,
-        "durability": 1,
+        "durability": 3,
         "flavor": "Yeah, it hurts a lot now, but trust us. It's going to make you look great.",
         "id": "PVPDR_SCH_Warriort2",
         "mechanics": [
@@ -100285,7 +100331,7 @@
         "type": "SPELL"
     },
     {
-        "cardClass": "MAGE",
+        "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 67799,
         "id": "PVPDR_YOP_Active02",
@@ -100477,12 +100523,12 @@
         "cost": 3,
         "dbfId": 67494,
         "durability": 3,
-        "flavor": "The arrows are coated in sugar. Beasts love sugar.",
+        "flavor": "The carrots are coated in sugar. Beasts love sugar.",
         "id": "PVPDR_YOP_HunterT2",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
-        "name": "Bow of the Beast",
+        "name": "Carrot on a Stick",
         "set": "TB",
         "text": "After you attack, give your Beasts +1/+1.",
         "type": "WEAPON"
@@ -100519,7 +100565,7 @@
     },
     {
         "cardClass": "MAGE",
-        "cost": 1,
+        "cost": 2,
         "dbfId": 67434,
         "id": "PVPDR_YOP_MageP1",
         "name": "Frost Shards",
@@ -100611,7 +100657,7 @@
     },
     {
         "cardClass": "PALADIN",
-        "cost": 5,
+        "cost": 3,
         "dbfId": 67396,
         "flavor": "\"The Rules.\"",
         "id": "PVPDR_YOP_PaladinT3",
@@ -101199,7 +101245,7 @@
             "PRIEST"
         ],
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 59587,
         "elite": true,
         "flavor": "She's all about hitting the books. Literally.",
@@ -109838,6 +109884,1228 @@
         "type": "MINION"
     },
     {
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "cost": 3,
+        "dbfId": 70901,
+        "health": 3,
+        "id": "Story_06_ArcaneWraith",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Arcane Wraith",
+        "race": "ELEMENTAL",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> If you control\na <b><b>Stealth</b>ed</b> minion,\ndraw 2 cards.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 5,
+        "dbfId": 71007,
+        "elite": true,
+        "id": "Story_06_AssassinsTraining",
+        "name": "Assassin's Training",
+        "set": "DARKMOON_FAIRE",
+        "text": "Draw the rest of\nyour deck. Reduce the Cost of spells in your deck by (1).",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "DRUID",
+        "cost": 1,
+        "dbfId": 68034,
+        "elite": true,
+        "health": 3,
+        "id": "Story_06_Broll",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLBURST"
+        ],
+        "name": "Broll Bearmantle",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Spellburst:</b> Transform into a 3/6 Bear with <b>Rush</b>.\n<b>Deathrattle:</b> Go\n <b>Dormant</b> for 2 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "DRUID",
+        "cost": 1,
+        "dbfId": 68047,
+        "elite": true,
+        "health": 6,
+        "id": "Story_06_BrollBear",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Broll Bearmantle",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>\n<b>Deathrattle:</b> Go\n <b>Dormant</b> for 2 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "DRUID",
+        "cost": 11,
+        "dbfId": 68035,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_06_BrollDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Broll Bearmantle",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 68021,
+        "health": 100,
+        "id": "Story_06_ChoGall_007hb",
+        "name": "Cho'Gall",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Infamous for aiding Gul'dan, this two-headed ogre became the leader of the Twilight's Hammer.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 0,
+        "dbfId": 68029,
+        "id": "Story_06_ChoGall_07p",
+        "mechanics": [
+            "AI_MUST_PLAY",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Shadow Volley",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Passive Hero Power</b>\nDeal 2 damage to the enemy\nhero and discard the lowest\ncost card in their hand.",
+        "type": "HERO_POWER"
+    },
+    {
+        "artist": "Ekaterina Shapovalova",
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 71011,
+        "flavor": "\"It me! Togwaggle!\"",
+        "id": "Story_06_CleverDisguise",
+        "name": "Clever Disguise",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "Add 2 random spells from another class to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68017,
+        "health": 40,
+        "id": "Story_06_Daerion_003hb",
+        "name": "Daerion the Assassin",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Focused on tracking down his quarry, he has yet to notice your presence...</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 68025,
+        "id": "Story_06_Daerion_03p",
+        "name": "Sharp Idea",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nEquip a weapon\nfrom your deck.\nGive it +1 Attack.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 71172,
+        "id": "Story_06_Daerion_03pe",
+        "name": "Sharpened",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "cost": 5,
+        "dbfId": 68048,
+        "health": 5,
+        "id": "Story_06_EbonGryphon",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Ebon Gryphon",
+        "race": "BEAST",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>\n<b>Battlecry:</b> Draw a minion from your deck.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 71003,
+        "id": "Story_06_FelFuror",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Fel Furor",
+        "set": "DARKMOON_FAIRE",
+        "text": "Give your Demons +1 Attack.\n<b>Combo:</b> Give all your minions +1 Attack.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 71004,
+        "id": "Story_06_FelFurore",
+        "name": "Fel Furious",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 68046,
+        "id": "Story_06_FutureGladiator",
+        "mechanics": [
+            "QUEST"
+        ],
+        "name": "Future Gladiator",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Quest:</b> Kill the\n Training Totem.\n<b>Reward:</b> Victory!",
+        "type": "SPELL"
+    },
+    {
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 68065,
+        "elite": true,
+        "health": 4,
+        "id": "Story_06_Garona",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Garona Halforcen",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]Also damages the minions\nnext to whomever she attacks.\n<b>Deathrattle:</b> Go <b>Dormant</b>\nfor 2 turns.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 68020,
+        "health": 50,
+        "id": "Story_06_Garona_006hb",
+        "name": "Garona Halforcen",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Though she assassinated Varian's father years ago, she seems different now. What secret is she keeping?</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 68028,
+        "id": "Story_06_Garona_06p",
+        "name": "Equip Kingslayers",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nEquip the Kingslayers.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 0,
+        "cardClass": "ROGUE",
+        "cost": 11,
+        "dbfId": 68066,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_06_GaronaDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Garona Halforcen",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 71014,
+        "elite": true,
+        "health": 9,
+        "id": "Story_06_GaronaShadow",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Garona Halforcen",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "cardClass": "WARRIOR",
+        "cost": 7,
+        "dbfId": 70989,
+        "elite": true,
+        "health": 5,
+        "id": "Story_06_GarroshMinion",
+        "mechanics": [
+            "CHARGE",
+            "ENRAGED"
+        ],
+        "name": "Garrosh Hellscream",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Charge</b>\nHas +5 Attack while damaged.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 71010,
+        "id": "Story_06_GarroshMinione",
+        "mechanics": [
+            "ENRAGED"
+        ],
+        "name": "Enraged",
+        "set": "DARKMOON_FAIRE",
+        "text": "+5 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 70998,
+        "durability": 3,
+        "id": "Story_06_HastyBlade",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Hasty Blade",
+        "referencedTags": [
+            "CHARGE"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Deathrattle:</b> Give a random friendly minion <b>Charge</b>.",
+        "type": "WEAPON"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 70999,
+        "id": "Story_06_HastyBladee",
+        "name": "Making Haste!",
+        "set": "DARKMOON_FAIRE",
+        "text": "Has <b>Charge</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70899,
+        "health": 3,
+        "id": "Story_06_Hawkstrider",
+        "mechanics": [
+            "RUSH",
+            "STEALTH"
+        ],
+        "name": "Battle Hawkstrider",
+        "race": "BEAST",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Stealth</b>\n<b>Rush</b>\nCosts (1) less per Attack of your weapon.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "dbfId": 68016,
+        "health": 30,
+        "id": "Story_06_Helka_002hb",
+        "name": "Helka Grimtotem",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Helka wants you to lead her new gladiator team! She's not at all interested in how </i>you<i> feel about this.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "cost": 3,
+        "dbfId": 68024,
+        "id": "Story_06_Helka_02p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Fight's On!",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nSummon a random gladiator.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 5,
+        "cardClass": "MAGE",
+        "cost": 6,
+        "dbfId": 70992,
+        "elite": true,
+        "health": 4,
+        "id": "Story_06_JainaMinion",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLBURST"
+        ],
+        "name": "Jaina Proudmoore",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Spellburst:</b> Summon a 3/6 Water Elemental. <b>Deathrattle:</b> Shuffle into your deck.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68022,
+        "health": 300,
+        "id": "Story_06_Jorach_008hb",
+        "name": "Jorach Ravenholdt",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>He has sent a mysterious invitation requesting your presence at his manor.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 0,
+        "dbfId": 68030,
+        "id": "Story_06_Jorach_08p",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Shrouded in Mystery",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Passive Hero Power</b>\nAt the start of your turn,\ngive a Silent Shadow\n+1 Attack.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 5,
+        "cardClass": "WARLOCK",
+        "cost": 8,
+        "dbfId": 68042,
+        "elite": true,
+        "health": 5,
+        "id": "Story_06_Kathranatir",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Kathra'natir",
+        "race": "DEMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Battlecry:</b> Summon a random Demon from your hand and deck.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 68033,
+        "durability": 1,
+        "elite": true,
+        "id": "Story_06_Kingslayers",
+        "name": "The Kingslayers",
+        "set": "DARKMOON_FAIRE",
+        "text": "Double all damage dealt to the enemy hero.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70883,
+        "elite": true,
+        "health": 5,
+        "id": "Story_06_Lilian",
+        "mechanics": [
+            "DEATHRATTLE",
+            "STEALTH"
+        ],
+        "name": "Lilian Voss",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Stealth</b>\n<b>Deathrattle:</b> Deal 4 damage\nto the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "cost": 1,
+        "dbfId": 68036,
+        "elite": true,
+        "health": 5,
+        "id": "Story_06_LoGosh",
+        "mechanics": [
+            "DEATHRATTLE",
+            "INSPIRE"
+        ],
+        "name": "Lo'Gosh",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Inspire:</b> Draw a card.\n<b>Deathrattle:</b> Go\n <b>Dormant</b> for 3 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "WARRIOR",
+        "cost": 11,
+        "dbfId": 68038,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_06_LoGoshDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Lo'Gosh",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 70900,
+        "health": 1,
+        "id": "Story_06_ManaWyrm",
+        "mechanics": [
+            "DEATHRATTLE",
+            "STEALTH"
+        ],
+        "name": "Shifting Mana Wyrm",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Stealth</b>\n<b>Deathrattle:</b> Gain an empty Mana Crystal.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "MAGE",
+        "cost": 5,
+        "dbfId": 68041,
+        "elite": true,
+        "health": 4,
+        "id": "Story_06_Meryl",
+        "mechanics": [
+            "DEATHRATTLE",
+            "SPELLPOWER"
+        ],
+        "name": "Meryl Winterstorm",
+        "set": "DARKMOON_FAIRE",
+        "spellDamage": 2,
+        "text": "<b>Spell Damage +2</b>\n<b>Deathrattle:</b> Go <b>Dormant</b> for 2 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "MAGE",
+        "cost": 11,
+        "dbfId": 70993,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_06_MerylDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Meryl Winterstorm",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 71000,
+        "id": "Story_06_NoMercy",
+        "name": "No Mercy",
+        "set": "DARKMOON_FAIRE",
+        "text": "Double your weapon's Attack for this turn.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 71001,
+        "id": "Story_06_NoMercye",
+        "mechanics": [
+            "TAG_ONE_TURN_EFFECT"
+        ],
+        "name": "No Mercy",
+        "set": "DARKMOON_FAIRE",
+        "text": "Weapon Attack doubled.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "dbfId": 68015,
+        "health": 30,
+        "id": "Story_06_Rehgar_001hb",
+        "name": "Rehgar Earthfury",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>This skillful trainer has a gift for turning misfits into stars of the fighting arenas.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "cost": 0,
+        "dbfId": 68023,
+        "id": "Story_06_Rehgar_01p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Teambuilder",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nRestore 2 Health to the Training Totem.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 5,
+        "cardClass": "SHAMAN",
+        "cost": 6,
+        "dbfId": 70990,
+        "elite": true,
+        "health": 4,
+        "id": "Story_06_RehgarMinion",
+        "mechanics": [
+            "SPELLBURST"
+        ],
+        "name": "Rehgar Earthfury",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Spellburst</b>: Summon a random Totem.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 71006,
+        "id": "Story_06_SanguineStrike",
+        "mechanics": [
+            "AFFECTED_BY_SPELL_POWER"
+        ],
+        "name": "Sanguine Strike",
+        "set": "DARKMOON_FAIRE",
+        "text": "Deal $2 damage to all enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 71016,
+        "id": "Story_06_ShadyBusiness",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Shady Business",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Secret:</b> After your opponent plays a minion, summon a 7/5\n Ravenholdt Assassin.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 70996,
+        "id": "Story_06_ShroudedinMysterye",
+        "name": "Shrouded in Mystery",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70813,
+        "health": 9,
+        "hideStats": true,
+        "id": "Story_06_SilentShadow",
+        "mechanics": [
+            "STEALTH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Silent Shadow",
+        "set": "DARKMOON_FAIRE",
+        "text": "Permanently <b>Stealth</b>ed.\nHidden stats.\nAt the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70814,
+        "health": 15,
+        "hideStats": true,
+        "id": "Story_06_SilentShadow2",
+        "mechanics": [
+            "STEALTH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Silent Shadow",
+        "set": "DARKMOON_FAIRE",
+        "text": "Permanently <b>Stealth</b>ed.\nHidden stats.\nAt the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70815,
+        "health": 13,
+        "hideStats": true,
+        "id": "Story_06_SilentShadow3",
+        "mechanics": [
+            "STEALTH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Silent Shadow",
+        "set": "DARKMOON_FAIRE",
+        "text": "Permanently <b>Stealth</b>ed.\nHidden stats.\nAt the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "attack": 6,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70816,
+        "health": 6,
+        "hideStats": true,
+        "id": "Story_06_SilentShadow4",
+        "mechanics": [
+            "STEALTH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Silent Shadow",
+        "set": "DARKMOON_FAIRE",
+        "text": "Permanently <b>Stealth</b>ed.\nHidden stats.\nAt the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "MAGE",
+        "dbfId": 68019,
+        "health": 50,
+        "id": "Story_06_Stasia_005hb",
+        "name": "Stasia Fallshadow",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>A suspicious attacker has interrupted a meeting between leaders of the Alliance and Horde.</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "cost": 2,
+        "dbfId": 68027,
+        "id": "Story_06_Stasia_05p",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Freeze Out",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nFor each spell in the enemy hero's hand, deal $1 damage to a random enemy minion.",
+        "type": "HERO_POWER"
+    },
+    {
+        "artist": "Gonzalo Ordonez",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "ROGUE",
+            "WARRIOR"
+        ],
+        "cost": 4,
+        "dbfId": 71013,
+        "flavor": "Pretty powerful if you blade your cards right.",
+        "health": 4,
+        "id": "Story_06_Steeldancer",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "multiClassGroup": "ROGUE_WARRIOR",
+        "name": "Steeldancer",
+        "rarity": "EPIC",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Battlecry:</b> Summon a random\nminion with Cost equal to\nyour weapon's Attack.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 1,
+        "dbfId": 71009,
+        "id": "Story_06_Subtlety",
+        "name": "Subtlety",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "The next <b>Secret</b>\nyou play this turn costs (0).",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70994,
+        "elite": true,
+        "health": 15,
+        "id": "Story_06_Taoshi",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Taoshi",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Axer",
+        "attack": 6,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 71015,
+        "elite": true,
+        "health": 6,
+        "id": "Story_06_TessGreymane",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Tess Greymane",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 70995,
+        "elite": true,
+        "health": 13,
+        "id": "Story_06_Tethys",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fleet Admiral Tethys",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "cost": 4,
+        "dbfId": 71002,
+        "durability": 2,
+        "id": "Story_06_ThistleDagger",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Thistle Dagger",
+        "set": "DARKMOON_FAIRE",
+        "text": "After your hero attacks, draw a card. Add an extra copy of it to your hand.",
+        "type": "WEAPON"
+    },
+    {
+        "attack": 5,
+        "cardClass": "SHAMAN",
+        "cost": 7,
+        "dbfId": 70988,
+        "elite": true,
+        "health": 6,
+        "id": "Story_06_ThrallMinion",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Warchief Thrall",
+        "referencedTags": [
+            "WINDFURY"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "On your turn, your hero has +2 Attack and <b>Windfury</b>.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 71005,
+        "id": "Story_06_ToxicVial",
+        "name": "Toxic Vial",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "Give a minion <b>Poisonous</b>.",
+        "type": "SPELL"
+    },
+    {
+        "attack": 1,
+        "cardClass": "SHAMAN",
+        "cost": 2,
+        "dbfId": 68043,
+        "health": 35,
+        "id": "Story_06_TrainingTotem",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Training Totem",
+        "race": "TOTEM",
+        "set": "DARKMOON_FAIRE",
+        "text": "Whenever this attacks and kills a minion, gain +1 Attack.\n<b>Deathrattle:</b> Victory!",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68044,
+        "id": "Story_06_TrainingToteme",
+        "name": "Lesson Learned",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1 Attack.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "SHAMAN"
+        ],
+        "cost": 2,
+        "dbfId": 70997,
+        "health": 3,
+        "id": "Story_06_TrickTotem",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "multiClassGroup": "MAGE_SHAMAN",
+        "name": "Trick Totem",
+        "race": "TOTEM",
+        "rarity": "RARE",
+        "set": "DARKMOON_FAIRE",
+        "text": "At the end of your turn, cast a random spell that costs (3) or less.",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 4,
+        "dbfId": 71008,
+        "id": "Story_06_Upheaval",
+        "mechanics": [
+            "AI_MUST_PLAY"
+        ],
+        "name": "Upheaval",
+        "set": "DARKMOON_FAIRE",
+        "text": "Return a minion in your opponent's hand to their deck.",
+        "type": "SPELL"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68001,
+        "health": 30,
+        "id": "Story_06_Valeera_001hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68002,
+        "health": 30,
+        "id": "Story_06_Valeera_002hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68003,
+        "health": 30,
+        "id": "Story_06_Valeera_003hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68004,
+        "health": 30,
+        "id": "Story_06_Valeera_004hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68005,
+        "health": 30,
+        "id": "Story_06_Valeera_005hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68006,
+        "health": 30,
+        "id": "Story_06_Valeera_006hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68007,
+        "health": 30,
+        "id": "Story_06_Valeera_007hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68008,
+        "health": 30,
+        "id": "Story_06_Valeera_008hp",
+        "name": "Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "dbfId": 68031,
+        "health": 30,
+        "id": "Story_06_Valeera_009hb",
+        "name": "Possessed Valeera",
+        "set": "DARKMOON_FAIRE",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 68009,
+        "id": "Story_06_Valeera_03p",
+        "name": "Elusiveness",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nGive a friendly minion <b>Stealth</b> and +1 Attack.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 71400,
+        "id": "Story_06_Valeera_03pe",
+        "name": "Cloaked in Shadow",
+        "set": "DARKMOON_FAIRE",
+        "text": "+1 Attack",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 68010,
+        "id": "Story_06_Valeera_04p",
+        "name": "Elusiveness Rank 2",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nGive a friendly minion <b>Stealth</b> and +2 Attack.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68050,
+        "id": "Story_06_Valeera_04pe",
+        "name": "Cloaked in Shadow",
+        "set": "DARKMOON_FAIRE",
+        "text": "+2 Attack",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 3,
+        "dbfId": 68011,
+        "id": "Story_06_Valeera_05p",
+        "name": "Sleight of Hand",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Hero Power</b>\nSteal a card from your\nopponent's deck and\nput it into your hand.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 68012,
+        "id": "Story_06_Valeera_06p",
+        "name": "Sleight of Hand Rank 2",
+        "set": "DARKMOON_FAIRE",
+        "text": "[x]<b>Hero Power</b>\nSteal a card from your\nopponent's deck and\nput it into your hand.\nIt costs (1) less.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68067,
+        "id": "Story_06_Valeera_06pe",
+        "name": "Sleightly Cheaper",
+        "set": "DARKMOON_FAIRE",
+        "text": "Costs (1) less.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 68013,
+        "id": "Story_06_Valeera_07p",
+        "name": "Fan of Knives",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDeal $1 damage to all enemies. Draw a card.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "ROGUE",
+        "cost": 2,
+        "dbfId": 68014,
+        "id": "Story_06_Valeera_08p",
+        "name": "Fan of Knives Rank 2",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nDeal $2 damage to all enemies. Draw a card.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 2,
+        "dbfId": 68032,
+        "id": "Story_06_Valeera_09p",
+        "name": "Fel Portal",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nSummon a random demon from your deck.",
+        "type": "HERO_POWER"
+    },
+    {
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "cost": 1,
+        "dbfId": 68039,
+        "elite": true,
+        "health": 5,
+        "id": "Story_06_Varian",
+        "mechanics": [
+            "DEATHRATTLE",
+            "INSPIRE"
+        ],
+        "name": "Varian Wrynn",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Inspire:</b> Draw a card.\n<b>Deathrattle:</b> Go\n <b>Dormant</b> for 3 turns.",
+        "type": "MINION"
+    },
+    {
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "cost": 11,
+        "dbfId": 68040,
+        "elite": true,
+        "health": 1,
+        "hideStats": true,
+        "id": "Story_06_VarianDormant",
+        "mechanics": [
+            "TRIGGER_VISUAL",
+            "UNTOUCHABLE"
+        ],
+        "name": "Varian Wrynn",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Dormant</b>",
+        "type": "MINION"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "dbfId": 68018,
+        "health": 50,
+        "id": "Story_06_Vendellin_004hb",
+        "name": "Vendellin Soulfire",
+        "set": "DARKMOON_FAIRE",
+        "text": "<i>Each of Varian's foes is more threatening than the last. There's something odd about this one...</i>",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "cost": 3,
+        "dbfId": 68026,
+        "id": "Story_06_Vendellin_04p",
+        "name": "Possession",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Hero Power</b>\nTake control of a random non-Legendary enemy minion and transform it into a Demon.",
+        "type": "HERO_POWER"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "classes": [
+            "MAGE",
+            "ROGUE"
+        ],
+        "cost": 1,
+        "dbfId": 71012,
+        "flavor": "\"What’re ya buyin’?”",
+        "health": 2,
+        "id": "Story_06_WandThief",
+        "mechanics": [
+            "COMBO",
+            "DISCOVER"
+        ],
+        "multiClassGroup": "MAGE_ROGUE",
+        "name": "Wand Thief",
+        "rarity": "COMMON",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Combo:</b> <b>Discover</b> a Mage spell.",
+        "type": "MINION"
+    },
+    {
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "cost": 6,
+        "dbfId": 70882,
+        "elite": true,
+        "health": 5,
+        "id": "Story_06_Wrathion",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Wrathion",
+        "rarity": "LEGENDARY",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> Draw a card for each Silent Shadow you control.",
+        "type": "MINION"
+    },
+    {
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "cost": 5,
+        "dbfId": 68049,
+        "health": 5,
+        "id": "Story_06_Wyvern",
+        "mechanics": [
+            "COMBO",
+            "RUSH"
+        ],
+        "name": "Bristling Wyvern",
+        "race": "BEAST",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Rush</b>\n<b>Combo:</b> Gain +2/+2\nfor each other card you've played this turn.",
+        "type": "MINION"
+    },
+    {
         "cardClass": "MAGE",
         "dbfId": 46435,
         "id": "TagTeamIceBlock",
@@ -111009,7 +112277,6 @@
         "type": "HERO"
     },
     {
-        "battlegroundsHero": true,
         "cardClass": "NEUTRAL",
         "dbfId": 62266,
         "health": 40,
@@ -111794,7 +113061,7 @@
     },
     {
         "cardClass": "NEUTRAL",
-        "cost": 2,
+        "cost": 3,
         "dbfId": 60265,
         "id": "TB_BaconShop_HP_047t",
         "name": "Recruitment Map",
@@ -112379,7 +113646,7 @@
         "id": "TB_BaconShop_HP_103",
         "name": "Embrace Your Rage",
         "set": "BATTLEGROUNDS",
-        "text": "[x]<b>Hero Power</b>\n<b>Start of Combat:</b> Add a\nminion from your Tavern Tier\nto your warband. Keep it.",
+        "text": "[x]<b>Hero Power</b>\n<b>Start of Combat:</b> Summon a\nminion from your Tavern Tier.\nAdd a copy to your hand.",
         "type": "HERO_POWER"
     },
     {
@@ -112471,6 +113738,25 @@
         "name": "Sprout It Out!",
         "set": "BATTLEGROUNDS",
         "text": "+1/+2 and <b>Taunt</b>.",
+        "type": "ENCHANTMENT"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "cost": 1,
+        "dbfId": 68130,
+        "id": "TB_BaconShop_HP_108",
+        "name": "Mosh Pit!",
+        "set": "BATTLEGROUNDS",
+        "text": "[x]<b>Hero Power</b>\nGive +1/+1 to a random\nfriendly minion of\neach Tavern Tier.",
+        "type": "HERO_POWER"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 68131,
+        "id": "TB_BaconShop_HP_108e",
+        "name": "Moshin'",
+        "set": "BATTLEGROUNDS",
+        "text": "+1/+1.",
         "type": "ENCHANTMENT"
     },
     {
@@ -114192,12 +115478,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 6,
+        "attack": 8,
         "battlegroundsNormalDbfId": 59935,
         "cardClass": "NEUTRAL",
         "cost": 9,
         "dbfId": 59976,
-        "health": 12,
+        "health": 16,
         "id": "TB_BaconUps_087",
         "mechanics": [
             "DEATHRATTLE"
@@ -114536,7 +115822,7 @@
         "cost": 3,
         "dbfId": 60647,
         "elite": true,
-        "health": 4,
+        "health": 6,
         "id": "TB_BaconUps_105",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -114931,7 +116217,7 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 8,
+        "attack": 6,
         "battlegroundsNormalDbfId": 62162,
         "cardClass": "HUNTER",
         "cost": 3,
@@ -114947,7 +116233,7 @@
             "DEATHRATTLE"
         ],
         "set": "BATTLEGROUNDS",
-        "text": "After you play a minion with <b>Deathrattle</b>, gain +2/+2.",
+        "text": "After you play a minion with <b>Deathrattle</b>, gain +2/+4.",
         "type": "MINION"
     },
     {
@@ -114956,7 +116242,7 @@
         "id": "TB_BaconUps_125e",
         "name": "Rabid",
         "set": "BATTLEGROUNDS",
-        "text": "+2/+2.",
+        "text": "+2/+4.",
         "type": "ENCHANTMENT"
     },
     {
@@ -115463,7 +116749,7 @@
         "cardClass": "NEUTRAL",
         "cost": 6,
         "dbfId": 63782,
-        "health": 10,
+        "health": 12,
         "id": "TB_BaconUps_150",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -115775,7 +117061,7 @@
         "cardClass": "NEUTRAL",
         "cost": 3,
         "dbfId": 64300,
-        "health": 6,
+        "health": 8,
         "id": "TB_Baconups_202",
         "mechanics": [
             "TAUNT",
@@ -115990,12 +117276,12 @@
         "type": "ENCHANTMENT"
     },
     {
-        "attack": 4,
+        "attack": 8,
         "battlegroundsNormalDbfId": 63623,
         "cardClass": "NEUTRAL",
         "cost": 4,
         "dbfId": 65666,
-        "health": 4,
+        "health": 8,
         "id": "TB_BaconUps_301",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -116033,7 +117319,7 @@
             "TAUNT"
         ],
         "set": "BATTLEGROUNDS",
-        "text": "Whenever a friendly <b>Taunt</b> minion is attacked, give it +6 Attack.",
+        "text": "[x]Whenever a friendly <b>Taunt</b>\nminion is attacked,\ngive it +4 Attack\npermanently.",
         "type": "MINION"
     },
     {
@@ -116042,7 +117328,7 @@
         "id": "TB_BaconUps_302e",
         "name": "Double Armed!",
         "set": "BATTLEGROUNDS",
-        "text": "+6 Attack",
+        "text": "+4 Attack",
         "type": "ENCHANTMENT"
     },
     {
@@ -148139,6 +149425,9 @@
         "flavor": "Ride or die takes on a new meaning.",
         "health": 5,
         "id": "YOP_012",
+        "mechanics": [
+            "AURA"
+        ],
         "name": "Deathwarden",
         "rarity": "EPIC",
         "referencedTags": [
@@ -148318,17 +149607,27 @@
         "id": "YOP_018",
         "mechanics": [
             "BATTLECRY",
+            "DISCOVER",
             "SPELLBURST"
         ],
         "multiClassGroup": "MAGE_ROGUE",
         "name": "Keywarden Ivory",
         "rarity": "LEGENDARY",
-        "referencedTags": [
-            "DISCOVER"
-        ],
         "set": "DARKMOON_FAIRE",
         "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\ndual-class spell from\nany class. <b><b>Spellburst</b>:</b>\nGet another copy.",
         "type": "MINION"
+    },
+    {
+        "cardClass": "NEUTRAL",
+        "dbfId": 71162,
+        "id": "YOP_018e",
+        "mechanics": [
+            "ENCHANTMENT_INVISIBLE"
+        ],
+        "name": "Key to Victory",
+        "set": "DARKMOON_FAIRE",
+        "text": "<b>Spellburst</b> Add {0} to your hand.",
+        "type": "ENCHANTMENT"
     },
     {
         "artist": "Adam Byrne",
