@@ -88,18 +88,18 @@ TEST_CASE("[Generic] - GetZone")
 
     Player* curPlayer = game.GetCurrentPlayer();
 
-    CHECK_EQ(curPlayer->GetDeckZone(),
-             Generic::GetZone(curPlayer, ZoneType::DECK));
-    CHECK_EQ(curPlayer->GetFieldZone(),
-             Generic::GetZone(curPlayer, ZoneType::PLAY));
-    CHECK_EQ(curPlayer->GetGraveyardZone(),
-             Generic::GetZone(curPlayer, ZoneType::GRAVEYARD));
-    CHECK_EQ(curPlayer->GetHandZone(),
-             Generic::GetZone(curPlayer, ZoneType::HAND));
-    CHECK_EQ(curPlayer->GetSecretZone(),
-             Generic::GetZone(curPlayer, ZoneType::SECRET));
-    CHECK_EQ(curPlayer->GetSetasideZone(),
-             Generic::GetZone(curPlayer, ZoneType::SETASIDE));
+    CHECK_EQ(curPlayer->GetDeckZone()->GetType(),
+             Generic::GetZone(curPlayer, ZoneType::DECK)->GetType());
+    CHECK_EQ(curPlayer->GetFieldZone()->GetType(),
+             Generic::GetZone(curPlayer, ZoneType::PLAY)->GetType());
+    CHECK_EQ(curPlayer->GetGraveyardZone()->GetType(),
+             Generic::GetZone(curPlayer, ZoneType::GRAVEYARD)->GetType());
+    CHECK_EQ(curPlayer->GetHandZone()->GetType(),
+             Generic::GetZone(curPlayer, ZoneType::HAND)->GetType());
+    CHECK_EQ(curPlayer->GetSecretZone()->GetType(),
+             Generic::GetZone(curPlayer, ZoneType::SECRET)->GetType());
+    CHECK_EQ(curPlayer->GetSetasideZone()->GetType(),
+             Generic::GetZone(curPlayer, ZoneType::SETASIDE)->GetType());
     CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::INVALID));
     CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::REMOVEDFROMGAME));
 }

@@ -4,7 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/TestUtils.hpp>
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
@@ -14,7 +13,6 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <effolkronium/random.hpp>
 
