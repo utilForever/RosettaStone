@@ -7,6 +7,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 MathNumberIndexTask::MathNumberIndexTask(int indexA, int indexB,

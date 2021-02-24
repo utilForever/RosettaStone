@@ -4,6 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include "doctest_proxy.hpp"
+
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 

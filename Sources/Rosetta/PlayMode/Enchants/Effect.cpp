@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Enchants/Effect.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Minion.hpp>
 
 #include <stdexcept>
 

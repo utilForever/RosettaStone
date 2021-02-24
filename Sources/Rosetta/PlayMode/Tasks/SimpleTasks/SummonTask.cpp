@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
@@ -124,7 +125,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
             else
             {
                 throw std::invalid_argument(
-                    "SummonTask::Impl() - target is nullptr"); 
+                    "SummonTask::Impl() - target is nullptr");
             }
             break;
         }
@@ -154,7 +155,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
                     source->player->opponent->GetFieldZone()->GetCount();
             }
             alternateCount++;
-            break;    
+            break;
         }
         default:
             throw std::invalid_argument(

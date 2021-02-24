@@ -10,6 +10,8 @@
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 CopyTask::CopyTask(EntityType entityType, ZoneType zoneType, int amount,

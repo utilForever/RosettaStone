@@ -7,6 +7,7 @@
 #define ROSETTASTONE_PLAYMODE_ATK_HPP
 
 #include <Rosetta/PlayMode/Enchants/Attrs/SelfContainedIntAttr.hpp>
+#include <Rosetta/PlayMode/Models/Minion.hpp>
 
 #include <memory>
 

@@ -15,7 +15,11 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <effolkronium/random.hpp>
+
 #include <algorithm>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::Generic
 {

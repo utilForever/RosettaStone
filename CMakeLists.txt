@@ -24,13 +24,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Includes
 include_directories(Includes)
 include_directories(Extensions/RosettaPython/Includes)
-include_directories(Extensions/RosettaRL/Includes)
 include_directories(Libraries)
 include_directories(Libraries/doctest/doctest)
 include_directories(Libraries/Lyra/include)
 include_directories(Libraries/random/include)
 include_directories(Libraries/pybind11/include)
-include_directories(Libraries/tiny-dnn)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)
@@ -55,11 +53,6 @@ add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
-
-add_subdirectory(Extensions/RosettaRL)
-add_dependencies(RosettaRL # just make sure of the dependency
-                 RosettaStone
-)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 

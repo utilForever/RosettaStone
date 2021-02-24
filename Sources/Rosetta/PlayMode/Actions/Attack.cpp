@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Attack.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 
 namespace RosettaStone::PlayMode::Generic

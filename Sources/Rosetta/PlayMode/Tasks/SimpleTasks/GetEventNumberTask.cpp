@@ -6,6 +6,8 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 GetEventNumberTask::GetEventNumberTask(int numIndex) : m_numIndex(numIndex)

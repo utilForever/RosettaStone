@@ -15,6 +15,8 @@
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <cmath>
+
 namespace RosettaStone::PlayMode::Generic
 {
 void TakeDamageToCharacter(Playable* source, Character* target, int amount,
