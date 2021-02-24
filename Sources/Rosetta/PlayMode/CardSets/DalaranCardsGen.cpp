@@ -54,7 +54,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MathAddTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToDeckTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/PlayTask.hpp>
@@ -79,6 +78,10 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 

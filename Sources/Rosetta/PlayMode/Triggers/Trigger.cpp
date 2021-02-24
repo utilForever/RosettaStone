@@ -6,6 +6,7 @@
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 #include <Rosetta/PlayMode/Triggers/Trigger.hpp>

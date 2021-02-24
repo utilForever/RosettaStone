@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/ChooseTask.hpp>
 
+#include <stdexcept>
 #include <utility>
 
 namespace RosettaStone::PlayMode::PlayerTasks

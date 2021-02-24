@@ -7,6 +7,8 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 AddStackToTask::AddStackToTask(EntityType entityType) : ITask(entityType)

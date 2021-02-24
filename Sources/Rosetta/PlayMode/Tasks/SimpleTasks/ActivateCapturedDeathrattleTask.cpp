@@ -7,6 +7,8 @@
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 TaskStatus ActivateCapturedDeathrattleTask::Impl(Player* player)

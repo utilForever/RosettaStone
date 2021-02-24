@@ -14,13 +14,12 @@
 #include <Rosetta/PlayMode/Tasks/EventMetaData.hpp>
 #include <Rosetta/PlayMode/Tasks/TaskQueue.hpp>
 #include <Rosetta/PlayMode/Tasks/TaskStack.hpp>
-#include <Rosetta/PlayMode/Views/ReducedBoardView.hpp>
 
 #include <map>
 
 namespace RosettaStone::PlayMode
 {
-class ActionParams;
+class Minion;
 
 //!
 //! \brief Game class.
@@ -202,15 +201,6 @@ class Game
     //! Process game until given step arriving.
     //! \param step The game step to process until arrival.
     void ProcessUntil(Step step);
-
-    //! Performs selected action.
-    //! \param params The action params.
-    //! \return The result of the game (player1 and player2).
-    std::tuple<PlayState, PlayState> PerformAction(ActionParams& params);
-
-    //! Creates board view.
-    //! \return The reduced board view.
-    ReducedBoardView CreateView();
 
     State state = State::INVALID;
 

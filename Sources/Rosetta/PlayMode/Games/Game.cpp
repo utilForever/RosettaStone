@@ -3,7 +3,6 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/PlayMode/Actions/ActionParams.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
@@ -15,12 +14,10 @@
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
-#include <Rosetta/PlayMode/Tasks/PlayerTasks/HeroPowerTask.hpp>
-#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <Rosetta/PlayMode/Views/BoardRefView.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -803,80 +800,6 @@ void Game::ProcessUntil(Step untilStep)
     while (nextStep != untilStep)
     {
         GameManager::ProcessNextStep(*this, nextStep);
-    }
-}
-
-std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
-{
-    std::unique_ptr<ITask> task;
-    const auto mainOp = params.ChooseMainOp();
-
-    switch (mainOp)
-    {
-        case MainOpType::PLAY_CARD:
-        {
-            Playable* playCard = params.ChooseHandCard();
-            Character* target =
-                params.GetSpecifiedTarget(playCard->GetValidPlayTargets());
-            const int totalMinions =
-                GetCurrentPlayer()->GetFieldZone()->GetCount();
-            const int fieldPos = params.GetMinionPutLocation(totalMinions);
-            int chooseOne = 0;
-
-            if (playCard->HasChooseOne())
-            {
-                std::vector<std::size_t> cardIDs;
-                for (std::size_t i = 1;
-                     i <= playCard->card->chooseCardIDs.size(); ++i)
-                {
-                    cardIDs.emplace_back(i);
-                }
-
-                chooseOne = params.ChooseOne(cardIDs);
-            }
-            task = std::make_unique<PlayCardTask>(playCard, target, fieldPos,
-                                                  chooseOne);
-            break;
-        }
-        case MainOpType::ATTACK:
-        {
-            Character* source = params.GetAttacker();
-            Character* target = params.GetSpecifiedTarget(
-                source->GetValidAttackTargets(GetCurrentPlayer()->opponent));
-            task = std::make_unique<AttackTask>(source, target);
-            break;
-        }
-        case MainOpType::USE_HERO_POWER:
-        {
-            Hero* hero = GetCurrentPlayer()->GetHero();
-            Character* target = params.GetSpecifiedTarget(
-                hero->heroPower->GetValidPlayTargets());
-            task = std::make_unique<HeroPowerTask>(target);
-            break;
-        }
-        case MainOpType::END_TURN:
-        {
-            task = std::make_unique<EndTurnTask>();
-            break;
-        }
-        default:
-        {
-            throw std::runtime_error("Invalid main op type");
-        }
-    }
-
-    return Process(GetCurrentPlayer(), std::move(task));
-}
-
-ReducedBoardView Game::CreateView()
-{
-    if (m_currentPlayer == PlayerType::PLAYER1)
-    {
-        return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER1));
-    }
-    else
-    {
-        return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER2));
     }
 }
 

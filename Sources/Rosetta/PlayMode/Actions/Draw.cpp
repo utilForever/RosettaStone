@@ -12,6 +12,10 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
+
 namespace RosettaStone::PlayMode::Generic
 {
 Playable* Draw(Player* player, Playable* cardToDraw)

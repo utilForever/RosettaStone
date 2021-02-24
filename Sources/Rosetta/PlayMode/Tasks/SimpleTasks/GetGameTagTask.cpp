@@ -7,6 +7,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 GetGameTagTask::GetGameTagTask(EntityType entityType, GameTag tag,
