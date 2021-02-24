@@ -66,17 +66,8 @@
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Accounts/AccountInfo.hpp>
 #include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
-#include <Rosetta/PlayMode/Actions/ActionApplyHelper.hpp>
-#include <Rosetta/PlayMode/Actions/ActionChoices.hpp>
-#include <Rosetta/PlayMode/Actions/ActionParams.hpp>
-#include <Rosetta/PlayMode/Actions/ActionTargets.hpp>
-#include <Rosetta/PlayMode/Actions/ActionValidChecker.hpp>
-#include <Rosetta/PlayMode/Actions/ActionValidGetter.hpp>
 #include <Rosetta/PlayMode/Actions/Attack.hpp>
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
-#include <Rosetta/PlayMode/Actions/Choices/ChooseFromCardIDs.hpp>
-#include <Rosetta/PlayMode/Actions/Choices/ChooseFromNumbers.hpp>
-#include <Rosetta/PlayMode/Actions/Choices/InvalidChoice.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Copy.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
