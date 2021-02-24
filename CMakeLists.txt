@@ -24,13 +24,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Includes
 include_directories(Includes)
 include_directories(Extensions/RosettaPython/Includes)
-include_directories(Extensions/RosettaRL/Includes)
 include_directories(Libraries)
 include_directories(Libraries/doctest/doctest)
 include_directories(Libraries/Lyra/include)
 include_directories(Libraries/random/include)
 include_directories(Libraries/pybind11/include)
-include_directories(Libraries/tiny-dnn)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)
