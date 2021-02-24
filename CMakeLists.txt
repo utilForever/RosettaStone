@@ -56,11 +56,6 @@ add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
 
-add_subdirectory(Extensions/RosettaRL)
-add_dependencies(RosettaRL # just make sure of the dependency
-                 RosettaStone
-)
-
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 
 # Code coverage - Debug only
