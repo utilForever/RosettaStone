@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
 #include <algorithm>
+#include <cmath>
 #include <utility>
 
 namespace RosettaStone::PlayMode
