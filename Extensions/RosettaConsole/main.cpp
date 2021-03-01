@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     // Process CLI
     const auto cli =
         lyra::cli() | lyra::help(showHelp) |
-        lyra::opt(mode, "mode")["m"]["--mode"](
+        lyra::opt(mode, "mode")["-m"]["--mode"](
             "The game mode. (1 - Standard, 2 - Wild, 3 - Battlegrounds");
     const auto result = cli.parse({ argc, argv });
 
