@@ -15,5 +15,23 @@ Console::Console(Mode mode) : m_mode{ mode }
 
 void Console::ProcessGame()
 {
+    switch (m_mode)
+    {
+        case Mode::STANDARD:
+        case Mode::WILD:
+            InputDeckCodes();
+            break;
+        case Mode::BATTLEGROUNDS:
+            PlayBattlegrounds();
+            break;
+    }
+}
+
+void Console::InputDeckCodes()
+{
+}
+
+void Console::PlayBattlegrounds()
+{
 }
 }  // namespace RosettaStone

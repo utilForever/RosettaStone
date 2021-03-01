@@ -27,6 +27,12 @@ class Console
     void ProcessGame();
 
  private:
+    //! Inputs two deck codes to play Standard or Wild mode.
+    void InputDeckCodes();
+
+    //! Plays a Battlegrounds mode.
+    void PlayBattlegrounds();
+
     Mode m_mode;
 };
 }  // namespace RosettaStone
