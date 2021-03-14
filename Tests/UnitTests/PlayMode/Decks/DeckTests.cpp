@@ -7,8 +7,8 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
-#include <Rosetta/PlayMode/Decks/Deck.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Decks/Deck.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 using namespace RosettaStone;
@@ -17,12 +17,10 @@ using namespace PlayMode;
 TEST_CASE("[Deck] - Constructors")
 {
     const Deck deck1;
-    CHECK_EQ(deck1.GetName(), "Empty");
     CHECK_EQ(deck1.GetClass(), CardClass::INVALID);
     CHECK_EQ(deck1.GetNumOfCards(), 0u);
 
-    const Deck deck2("Ice Magician", CardClass::MAGE);
-    CHECK_EQ(deck2.GetName(), "Ice Magician");
+    const Deck deck2(CardClass::MAGE);
     CHECK_EQ(deck2.GetClass(), CardClass::MAGE);
     CHECK_EQ(deck2.GetNumOfCards(), 0u);
 }
@@ -34,7 +32,7 @@ TEST_CASE("[Deck] - CardControl")
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
-    Deck deck("Ice Magician", CardClass::MAGE);
+    Deck deck(CardClass::MAGE);
     CHECK_NOTHROW(deck.ShowCardList());
     CHECK(deck.AddCard(mageCards.at(0)->id, 1));
     CHECK_EQ(deck.GetCard(0).second, 1u);
@@ -61,7 +59,7 @@ TEST_CASE("[Deck] - GetNumCardInDeck")
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
-    Deck deck("Ice Magician", CardClass::MAGE);
+    Deck deck(CardClass::MAGE);
     deck.AddCard(mageCards.at(0)->id, 1);
 
     CHECK_EQ(deck.GetNumCardInDeck(mageCards.at(0)->id), 1u);
@@ -73,7 +71,7 @@ TEST_CASE("[Deck] - GetPrimitiveDeck")
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
-    Deck deck("Ice Magician", CardClass::MAGE);
+    Deck deck(CardClass::MAGE);
     deck.AddCard(mageCards.at(0)->id, 1);
 
     std::vector<Card*> priDeck = deck.GetPrimitiveDeck();

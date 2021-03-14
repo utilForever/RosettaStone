@@ -12,20 +12,10 @@
 
 namespace RosettaStone::PlayMode
 {
-Deck::Deck() : m_name("Empty")
+Deck::Deck(const CardClass deckClass)
+    : m_class(deckClass)
 {
     // Do nothing
-}
-
-Deck::Deck(std::string name, const CardClass deckClass)
-    : m_name(std::move(name)), m_class(deckClass)
-{
-    // Do nothing
-}
-
-std::string Deck::GetName() const
-{
-    return m_name;
 }
 
 CardClass Deck::GetClass() const

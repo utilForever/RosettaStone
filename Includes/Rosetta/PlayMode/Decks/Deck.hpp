@@ -24,16 +24,11 @@ class Deck
 {
  public:
     //! Default constructor.
-    Deck();
+    Deck() = default;
 
-    //! Constructs deck with given \p name and \p deckClass.
-    //! \param name The name of deck.
-    //! \param deckClass The class of deck.
-    Deck(std::string name, CardClass deckClass);
-
-    //! Returns the name of deck.
-    //! \return The name of deck.
-    std::string GetName() const;
+    //! Constructs deck with given \p deckClass.
+    //! \param deckClass The card class of deck.
+    Deck(CardClass deckClass);
 
     //! Returns the class of deck.
     //! \return The class of deck.
@@ -83,7 +78,6 @@ class Deck
     std::vector<std::string> GetCardIDs();
 
  private:
-    std::string m_name;
     CardClass m_class = CardClass::INVALID;
 
     std::size_t m_numOfCards = 0;

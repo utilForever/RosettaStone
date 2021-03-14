@@ -19,15 +19,13 @@ void AddDeck(pybind11::module& m)
         m, "Deck",
         R"pbdoc(This class stores deck information that contains exactly 30 cards.)pbdoc")
         .def(pybind11::init<>(), R"pbdoc(Default constructor.)pbdoc")
-        .def(pybind11::init<std::string, CardClass>(),
-             R"pbdoc(Constructs deck with given name and deck_class.
+        .def(pybind11::init<CardClass>(),
+             R"pbdoc(Constructs deck with given deck_class.
 
              Parameters
              ----------
-             name : The name of deck.
              deck_class : The class of deck.)pbdoc",
-             pybind11::arg("name"), pybind11::arg("deck_class"))
-        .def("name", &Deck::GetName, R"pbdoc(Returns the name of deck.)pbdoc")
+             pybind11::arg("deck_class"))
         .def("deck_class", &Deck::GetClass,
              R"pbdoc(Returns the class of deck.)pbdoc")
         .def("num_of_cards", &Deck::GetNumOfCards,
