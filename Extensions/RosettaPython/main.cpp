@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Python/PlayMode/Accounts/DeckInfo.hpp>
-
 #include <Python/PlayMode/Cards/Card.hpp>
 #include <Python/PlayMode/Cards/Cards.hpp>
+
+#include <Python/PlayMode/Decks/DeckInfo.hpp>
 
 #include <Python/PlayMode/Enums/ActionEnums.hpp>
 #include <Python/PlayMode/Enums/AuraEnums.hpp>
@@ -30,12 +30,12 @@ PYBIND11_MODULE(pyRosetta, m)
     m.doc() =
         R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
 
-    // Accounts
-    AddDeckInfo(m);
-
     // Cards
     AddCard(m);
     AddCards(m);
+
+    // Decks
+    AddDeckInfo(m);
 
     // Enums
     AddActionEnums(m);

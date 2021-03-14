@@ -64,7 +64,6 @@
 #include <Rosetta/Common/PriorityQueue.hpp>
 #include <Rosetta/Common/SpinLocks.hpp>
 #include <Rosetta/Common/Utils.hpp>
-#include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Actions/Attack.hpp>
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
@@ -104,6 +103,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
+#include <Rosetta/PlayMode/Decks/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/Atk.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/Attr.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/BoolAttr.hpp>

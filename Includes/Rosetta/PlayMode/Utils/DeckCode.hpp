@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_DECK_CODE_HPP
 #define ROSETTASTONE_PLAYMODE_DECK_CODE_HPP
 
-#include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
+#include <Rosetta/PlayMode/Decks/DeckInfo.hpp>
 
 #include <string_view>
 

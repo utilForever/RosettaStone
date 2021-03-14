@@ -7,8 +7,8 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
-#include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Decks/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 using namespace RosettaStone;

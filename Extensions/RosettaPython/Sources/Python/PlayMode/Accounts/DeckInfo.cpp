@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Python/PlayMode/Accounts/DeckInfo.hpp>
-#include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
+#include <Python/PlayMode/Decks/DeckInfo.hpp>
+#include <Rosetta/PlayMode/Decks/DeckInfo.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>

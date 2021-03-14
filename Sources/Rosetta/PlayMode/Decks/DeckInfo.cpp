@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Decks/DeckInfo.hpp>
 
 #include <algorithm>
 #include <iostream>
