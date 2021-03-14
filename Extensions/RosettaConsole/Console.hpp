@@ -7,6 +7,8 @@
 #ifndef ROSETTASTONE_CONSOLE_HPP
 #define ROSETTASTONE_CONSOLE_HPP
 
+#include <Rosetta/PlayMode/Decks/Deck.hpp>
+
 namespace RosettaStone
 {
 class Console
@@ -29,6 +31,11 @@ class Console
  private:
     //! Inputs two deck codes to play Standard or Wild mode.
     void InputDeckCodes();
+
+    //! Plays a Standard or Wild mode.
+    //! \param deck1 The deck of player 1.
+    //! \param deck2 The deck of player 2.
+    void PlayStandardOrWild(PlayMode::Deck&& deck1, PlayMode::Deck&& deck2);
 
     //! Plays a Battlegrounds mode.
     void PlayBattlegrounds();

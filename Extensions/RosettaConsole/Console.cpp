@@ -6,7 +6,7 @@
 
 #include "Console.hpp"
 
-#include <Rosetta/PlayMode/Decks/Deck.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <iostream>
@@ -36,10 +36,10 @@ void Console::InputDeckCodes()
 {
     std::string deckCode1, deckCode2;
 
-    std::cout << "Input first player's deck code: ";
+    std::cout << "Input player 1 deck code: ";
     std::cin >> deckCode1;
 
-    std::cout << "Input second player's deck code: ";
+    std::cout << "Input player 2 deck code: ";
     std::cin >> deckCode2;
 
     PlayMode::Deck deck1 = PlayMode::DeckCode::Decode(deckCode1);
@@ -63,6 +63,20 @@ void Console::InputDeckCodes()
                 "The game mode and the deck's format type aren't match.");
         }
     }
+
+    PlayStandardOrWild(std::move(deck1), std::move(deck2));
+}
+
+void Console::PlayStandardOrWild(PlayMode::Deck&& deck1, PlayMode::Deck&& deck2)
+{
+    PlayMode::GameConfig gameConfig;
+    gameConfig.player1Class = deck1.GetClass();
+    gameConfig.player1Deck = deck1.GetCards();
+    gameConfig.player2Class = deck2.GetClass();
+    gameConfig.player2Deck = deck2.GetCards();
+
+    PlayMode::Game game{ gameConfig };
+    game.Start();
 }
 
 void Console::PlayBattlegrounds()
