@@ -64,7 +64,6 @@
 #include <Rosetta/Common/PriorityQueue.hpp>
 #include <Rosetta/Common/SpinLocks.hpp>
 #include <Rosetta/Common/Utils.hpp>
-#include <Rosetta/PlayMode/Accounts/AccountInfo.hpp>
 #include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Actions/Attack.hpp>
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>

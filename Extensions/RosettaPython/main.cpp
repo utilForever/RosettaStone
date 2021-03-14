@@ -4,7 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Python/PlayMode/Accounts/AccountInfo.hpp>
 #include <Python/PlayMode/Accounts/DeckInfo.hpp>
 
 #include <Python/PlayMode/Cards/Card.hpp>
@@ -33,7 +32,6 @@ PYBIND11_MODULE(pyRosetta, m)
         R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
 
     // Accounts
-    AddAccountInfo(m);
     AddDeckInfo(m);
 
     // Cards
