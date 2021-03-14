@@ -6,6 +6,8 @@
 
 #include "Console.hpp"
 
+#include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
@@ -24,9 +26,11 @@ void Console::ProcessGame()
     {
         case Mode::STANDARD:
         case Mode::WILD:
+            PlayMode::Cards::GetInstance();
             InputDeckCodes();
             break;
         case Mode::BATTLEGROUNDS:
+            Battlegrounds::Cards::GetInstance();
             PlayBattlegrounds();
             break;
     }
@@ -74,6 +78,8 @@ void Console::PlayStandardOrWild(PlayMode::Deck&& deck1, PlayMode::Deck&& deck2)
     gameConfig.player1Deck = deck1.GetCards();
     gameConfig.player2Class = deck2.GetClass();
     gameConfig.player2Deck = deck2.GetCards();
+    gameConfig.autoRun = true;
+    gameConfig.skipMulligan = false;
 
     PlayMode::Game game{ gameConfig };
     game.Start();
