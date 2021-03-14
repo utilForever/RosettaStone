@@ -17,7 +17,6 @@
 #include <Python/PlayMode/Enums/TaskEnums.hpp>
 #include <Python/PlayMode/Enums/TriggerEnums.hpp>
 
-#include <Python/PlayMode/Loaders/AccountLoader.hpp>
 #include <Python/PlayMode/Loaders/InternalCardLoader.hpp>
 #include <Python/PlayMode/Loaders/TargetingPredicates.hpp>
 
@@ -48,7 +47,6 @@ PYBIND11_MODULE(pyRosetta, m)
     AddTriggerEnums(m);
 
     // Loaders
-    AddAccountLoader(m);
     AddInternalCardLoader(m);
     AddTargetingPredicates(m);
 
