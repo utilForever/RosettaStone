@@ -26,12 +26,17 @@ class Deck
     //! Default constructor.
     Deck() = default;
 
-    //! Constructs deck with given \p deckClass.
+    //! Constructs deck with given \p formatType and \p deckClass.
+    //! \param formatType The format type of deck.
     //! \param deckClass The card class of deck.
-    Deck(CardClass deckClass);
+    Deck(FormatType formatType, CardClass deckClass);
 
-    //! Returns the class of deck.
-    //! \return The class of deck.
+    //! Returns the format type of deck.
+    //! \return The format type of deck.
+    FormatType GetFormatType() const;
+
+    //! Returns the card class of deck.
+    //! \return The card class of deck.
     CardClass GetClass() const;
 
     //! Returns the number of cards in deck.
@@ -78,6 +83,7 @@ class Deck
     std::vector<std::string> GetCardIDs();
 
  private:
+    FormatType m_formatType = FormatType::UNKNOWN;
     CardClass m_class = CardClass::INVALID;
 
     std::size_t m_numOfCards = 0;

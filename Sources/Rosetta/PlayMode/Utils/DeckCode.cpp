@@ -70,7 +70,7 @@ Deck DeckCode::Decode(std::string_view deckCode)
         throw std::runtime_error("Invalid hero");
     }
 
-    Deck deckInfo(hero->GetCardClass());
+    Deck deckInfo(format, hero->GetCardClass());
 
     // Single-copy cards
     num = ReadVarint();

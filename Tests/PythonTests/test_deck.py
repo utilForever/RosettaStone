@@ -14,8 +14,9 @@ def test_constructors():
     assert deck1.deck_class() == pyRosetta.CardClass.INVALID
     assert deck1.num_of_cards() == 0
 
-    deck2 = pyRosetta.Deck(pyRosetta.CardClass.MAGE)
+    deck2 = pyRosetta.Deck(pyRosetta.FormatType.STANDARD, pyRosetta.CardClass.MAGE)
 
+    assert deck2.format_type() == pyRosetta.FormatType.STANDARD
     assert deck2.deck_class() == pyRosetta.CardClass.MAGE
     assert deck2.num_of_cards() == 0
 
@@ -23,7 +24,7 @@ def test_card_control():
     druid_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.DRUID)
     mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.MAGE)
 
-    deck = pyRosetta.Deck(pyRosetta.CardClass.MAGE)
+    deck = pyRosetta.Deck(pyRosetta.FormatType.WILD, pyRosetta.CardClass.MAGE)
     deck.show_card_list()
     assert deck.add_card(mage_cards[0].id, 1) is True
     assert deck.card(0)[1] == 1
@@ -46,7 +47,7 @@ def test_card_control():
 def test_num_card_in_deck():
     mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.MAGE)
 
-    deck = pyRosetta.Deck(pyRosetta.CardClass.MAGE)
+    deck = pyRosetta.Deck(pyRosetta.FormatType.WILD, pyRosetta.CardClass.MAGE)
     deck.add_card(mage_cards[0].id, 1)
 
     pri_deck = deck.primitive_deck()

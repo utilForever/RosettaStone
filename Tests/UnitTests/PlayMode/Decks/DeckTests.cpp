@@ -20,7 +20,8 @@ TEST_CASE("[Deck] - Constructors")
     CHECK_EQ(deck1.GetClass(), CardClass::INVALID);
     CHECK_EQ(deck1.GetNumOfCards(), 0u);
 
-    const Deck deck2(CardClass::MAGE);
+    const Deck deck2(FormatType::STANDARD, CardClass::MAGE);
+    CHECK_EQ(deck2.GetFormatType(), FormatType::STANDARD);
     CHECK_EQ(deck2.GetClass(), CardClass::MAGE);
     CHECK_EQ(deck2.GetNumOfCards(), 0u);
 }
@@ -32,7 +33,7 @@ TEST_CASE("[Deck] - CardControl")
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
-    Deck deck(CardClass::MAGE);
+    Deck deck(FormatType::WILD, CardClass::MAGE);
     CHECK_NOTHROW(deck.ShowCardList());
     CHECK(deck.AddCard(mageCards.at(0)->id, 1));
     CHECK_EQ(deck.GetCard(0).second, 1u);
@@ -59,7 +60,7 @@ TEST_CASE("[Deck] - GetNumCardInDeck")
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
-    Deck deck(CardClass::MAGE);
+    Deck deck(FormatType::WILD, CardClass::MAGE);
     deck.AddCard(mageCards.at(0)->id, 1);
 
     CHECK_EQ(deck.GetNumCardInDeck(mageCards.at(0)->id), 1u);
@@ -71,7 +72,7 @@ TEST_CASE("[Deck] - GetPrimitiveDeck")
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
-    Deck deck(CardClass::MAGE);
+    Deck deck(FormatType::WILD, CardClass::MAGE);
     deck.AddCard(mageCards.at(0)->id, 1);
 
     std::vector<Card*> priDeck = deck.GetPrimitiveDeck();

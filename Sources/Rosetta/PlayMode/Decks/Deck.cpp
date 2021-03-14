@@ -12,10 +12,15 @@
 
 namespace RosettaStone::PlayMode
 {
-Deck::Deck(const CardClass deckClass)
-    : m_class(deckClass)
+Deck::Deck(const FormatType formatType, const CardClass deckClass)
+    : m_formatType(formatType), m_class(deckClass)
 {
     // Do nothing
+}
+
+FormatType Deck::GetFormatType() const
+{
+    return m_formatType;
 }
 
 CardClass Deck::GetClass() const

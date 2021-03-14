@@ -19,15 +19,18 @@ void AddDeck(pybind11::module& m)
         m, "Deck",
         R"pbdoc(This class stores deck information that contains exactly 30 cards.)pbdoc")
         .def(pybind11::init<>(), R"pbdoc(Default constructor.)pbdoc")
-        .def(pybind11::init<CardClass>(),
-             R"pbdoc(Constructs deck with given deck_class.
+        .def(pybind11::init<FormatType, CardClass>(),
+             R"pbdoc(Constructs deck with given format_type and deck_class.
 
              Parameters
              ----------
-             deck_class : The class of deck.)pbdoc",
-             pybind11::arg("deck_class"))
+             format_type : The format type of deck.
+             deck_class : The card class of deck.)pbdoc",
+             pybind11::arg("format_type"), pybind11::arg("deck_class"))
+        .def("format_type", &Deck::GetFormatType,
+             R"pbdoc(Returns the format type of deck.)pbdoc")
         .def("deck_class", &Deck::GetClass,
-             R"pbdoc(Returns the class of deck.)pbdoc")
+             R"pbdoc(Returns the card class of deck.)pbdoc")
         .def("num_of_cards", &Deck::GetNumOfCards,
              R"pbdoc(Returns the number of cards in deck.)pbdoc")
         .def("unique_num_of_cards", &Deck::GetUniqueNumOfCards,
