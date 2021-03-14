@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
-#define ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
+#ifndef ROSETTASTONE_PLAYMODE_DECK_HPP
+#define ROSETTASTONE_PLAYMODE_DECK_HPP
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
@@ -15,21 +15,21 @@
 namespace RosettaStone::PlayMode
 {
 //!
-//! \brief DeckInfo class.
+//! \brief Deck class.
 //!
 //! This class stores deck information that contains exactly 30 cards.
 //! This information imports/exports from/to json file.
 //!
-class DeckInfo
+class Deck
 {
  public:
     //! Default constructor.
-    DeckInfo();
+    Deck();
 
     //! Constructs deck with given \p name and \p deckClass.
     //! \param name The name of deck.
     //! \param deckClass The class of deck.
-    DeckInfo(std::string name, CardClass deckClass);
+    Deck(std::string name, CardClass deckClass);
 
     //! Returns the name of deck.
     //! \return The name of deck.
@@ -91,4 +91,4 @@ class DeckInfo
 };
 }  // namespace RosettaStone::PlayMode
 
-#endif  // ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
+#endif  // ROSETTASTONE_PLAYMODE_DECK_HPP

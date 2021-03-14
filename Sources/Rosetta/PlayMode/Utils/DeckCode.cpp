@@ -13,7 +13,7 @@
 
 namespace RosettaStone::PlayMode
 {
-DeckInfo DeckCode::Decode(std::string_view deckCode)
+Deck DeckCode::Decode(std::string_view deckCode)
 {
     std::size_t pos = 0;
     std::vector<unsigned char> code = DecodeBase64(deckCode);
@@ -70,7 +70,7 @@ DeckInfo DeckCode::Decode(std::string_view deckCode)
         throw std::runtime_error("Invalid hero");
     }
 
-    DeckInfo deckInfo("EMPTY", hero->GetCardClass());
+    Deck deckInfo("EMPTY", hero->GetCardClass());
 
     // Single-copy cards
     num = ReadVarint();

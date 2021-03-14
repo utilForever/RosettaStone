@@ -103,7 +103,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
-#include <Rosetta/PlayMode/Decks/DeckInfo.hpp>
+#include <Rosetta/PlayMode/Decks/Deck.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/Atk.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/Attr.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/BoolAttr.hpp>

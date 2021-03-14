@@ -7,7 +7,7 @@
 #include <Python/PlayMode/Cards/Card.hpp>
 #include <Python/PlayMode/Cards/Cards.hpp>
 
-#include <Python/PlayMode/Decks/DeckInfo.hpp>
+#include <Python/PlayMode/Decks/Deck.hpp>
 
 #include <Python/PlayMode/Enums/ActionEnums.hpp>
 #include <Python/PlayMode/Enums/AuraEnums.hpp>
@@ -35,7 +35,7 @@ PYBIND11_MODULE(pyRosetta, m)
     AddCards(m);
 
     // Decks
-    AddDeckInfo(m);
+    AddDeck(m);
 
     // Enums
     AddActionEnums(m);

@@ -30,7 +30,7 @@ TEST_CASE("[DeckString] - Decode")
         DeckCode::Decode("AAECAQAIxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
                          "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
 
-    DeckInfo info = DeckCode::Decode(
+    Deck info = DeckCode::Decode(
         "AAECAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArUDxQj+DJjwAu/xAvWJA+aWA/"
         "mWA76YAwA=");
 
@@ -56,7 +56,7 @@ TEST_CASE("[DeckString] - Decode")
     CHECK_EQ(info.GetNumCardInDeck("DAL_378"), 2);   // Unleash the Beast
     CHECK_EQ(info.GetNumCardInDeck("TRL_065"), 1);   // Zul'jin
 
-    DeckInfo info2 = DeckCode::Decode(
+    Deck info2 = DeckCode::Decode(
         "AAECAR8IxwOHBMkErgaggAOnggObhQPWmQMAC54BAqgCArUDAsUIAv4MApjwAgLv8QIC9Y"
         "kDAuaWAwL5lgMCvpgDAg==");
 

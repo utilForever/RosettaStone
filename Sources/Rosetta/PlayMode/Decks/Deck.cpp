@@ -5,45 +5,45 @@
 // property of any third parties.
 
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Decks/DeckInfo.hpp>
+#include <Rosetta/PlayMode/Decks/Deck.hpp>
 
 #include <algorithm>
 #include <iostream>
 
 namespace RosettaStone::PlayMode
 {
-DeckInfo::DeckInfo() : m_name("Empty")
+Deck::Deck() : m_name("Empty")
 {
     // Do nothing
 }
 
-DeckInfo::DeckInfo(std::string name, const CardClass deckClass)
+Deck::Deck(std::string name, const CardClass deckClass)
     : m_name(std::move(name)), m_class(deckClass)
 {
     // Do nothing
 }
 
-std::string DeckInfo::GetName() const
+std::string Deck::GetName() const
 {
     return m_name;
 }
 
-CardClass DeckInfo::GetClass() const
+CardClass Deck::GetClass() const
 {
     return m_class;
 }
 
-std::size_t DeckInfo::GetNumOfCards() const
+std::size_t Deck::GetNumOfCards() const
 {
     return m_numOfCards;
 }
 
-std::size_t DeckInfo::GetUniqueNumOfCards() const
+std::size_t Deck::GetUniqueNumOfCards() const
 {
     return m_cards.size();
 }
 
-std::size_t DeckInfo::GetNumCardInDeck(std::string cardID)
+std::size_t Deck::GetNumCardInDeck(std::string cardID)
 {
     const auto cardIter = std::find_if(
         m_cards.begin(), m_cards.end(),
@@ -60,7 +60,7 @@ std::size_t DeckInfo::GetNumCardInDeck(std::string cardID)
     return 0;
 }
 
-std::vector<Card*> DeckInfo::GetPrimitiveDeck() const
+std::vector<Card*> Deck::GetPrimitiveDeck() const
 {
     std::vector<Card*> deck;
 
@@ -77,12 +77,12 @@ std::vector<Card*> DeckInfo::GetPrimitiveDeck() const
     return deck;
 }
 
-std::pair<std::string, std::size_t> DeckInfo::GetCard(std::size_t idx) const
+std::pair<std::string, std::size_t> Deck::GetCard(std::size_t idx) const
 {
     return m_cards.at(idx);
 }
 
-void DeckInfo::ShowCardList() const
+void Deck::ShowCardList() const
 {
     int idx = 1;
 
@@ -102,7 +102,7 @@ void DeckInfo::ShowCardList() const
     }
 }
 
-bool DeckInfo::AddCard(std::string cardID, std::size_t numCardToAdd)
+bool Deck::AddCard(std::string cardID, std::size_t numCardToAdd)
 {
     Card* card = Cards::GetInstance().FindCardByID(cardID);
 
@@ -137,7 +137,7 @@ bool DeckInfo::AddCard(std::string cardID, std::size_t numCardToAdd)
     return true;
 }
 
-bool DeckInfo::DeleteCard(std::string cardID, std::size_t numCardToDelete)
+bool Deck::DeleteCard(std::string cardID, std::size_t numCardToDelete)
 {
     const auto cardIter = std::find_if(
         m_cards.begin(), m_cards.end(),
@@ -166,7 +166,7 @@ bool DeckInfo::DeleteCard(std::string cardID, std::size_t numCardToDelete)
     return false;
 }
 
-std::vector<std::string> DeckInfo::GetCardIDs()
+std::vector<std::string> Deck::GetCardIDs()
 {
     std::vector<std::string> ret;
     ret.reserve(m_numOfCards);
