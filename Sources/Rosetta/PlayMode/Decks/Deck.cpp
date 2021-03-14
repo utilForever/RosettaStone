@@ -55,9 +55,15 @@ std::size_t Deck::GetNumCardInDeck(std::string cardID)
     return 0;
 }
 
-std::vector<Card*> Deck::GetPrimitiveDeck() const
+std::pair<std::string, std::size_t> Deck::GetCard(std::size_t idx) const
 {
-    std::vector<Card*> deck;
+    return m_cards.at(idx);
+}
+
+std::array<Card*, START_DECK_SIZE> Deck::GetCards() const
+{
+    std::array<Card*, START_DECK_SIZE> deck{};
+    std::size_t cardIdx = 0;
 
     for (const auto& [id, num] : m_cards)
     {
@@ -65,16 +71,11 @@ std::vector<Card*> Deck::GetPrimitiveDeck() const
 
         for (std::size_t i = 0; i < num; ++i)
         {
-            deck.push_back(card);
+            deck[cardIdx++] = card;
         }
     }
 
     return deck;
-}
-
-std::pair<std::string, std::size_t> Deck::GetCard(std::size_t idx) const
-{
-    return m_cards.at(idx);
 }
 
 void Deck::ShowCardList() const

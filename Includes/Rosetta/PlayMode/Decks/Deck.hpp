@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_DECK_HPP
 #define ROSETTASTONE_PLAYMODE_DECK_HPP
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
 
@@ -52,14 +53,14 @@ class Deck
     //! \return The number of cards in deck that matches \p cardID.
     std::size_t GetNumCardInDeck(std::string cardID);
 
-    //! Creates a deck from a list of pointers to cards to play game.
-    //! \return A deck from a list of pointers to cards.
-    std::vector<Card*> GetPrimitiveDeck() const;
-
     //! Returns card ID and the number of card at \p idx in deck.
     //! \param idx Index of cards in deck.
     //! \return card ID and the number of card at \p idx in deck.
     std::pair<std::string, std::size_t> GetCard(std::size_t idx) const;
+
+    //! Creates a deck from a list of pointers to cards to play game.
+    //! \return A deck from a list of pointers to cards.
+    std::array<Card*, START_DECK_SIZE> GetCards() const;
 
     //! Prints card list in deck.
     void ShowCardList() const;

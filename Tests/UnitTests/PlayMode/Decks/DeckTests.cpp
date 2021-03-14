@@ -67,7 +67,7 @@ TEST_CASE("[Deck] - GetNumCardInDeck")
     CHECK_EQ(deck.GetNumCardInDeck(mageCards.at(1)->id), 0u);
 }
 
-TEST_CASE("[Deck] - GetPrimitiveDeck")
+TEST_CASE("[Deck] - GetCards")
 {
     std::vector<Card*> mageCards =
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
@@ -75,7 +75,7 @@ TEST_CASE("[Deck] - GetPrimitiveDeck")
     Deck deck(FormatType::WILD, CardClass::MAGE);
     deck.AddCard(mageCards.at(0)->id, 1);
 
-    std::vector<Card*> priDeck = deck.GetPrimitiveDeck();
+    std::array<Card*, START_DECK_SIZE> priDeck = deck.GetCards();
 
     CHECK_EQ(priDeck.at(0)->id, mageCards.at(0)->id);
 }

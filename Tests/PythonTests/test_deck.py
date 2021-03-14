@@ -50,8 +50,8 @@ def test_num_card_in_deck():
     deck = pyRosetta.Deck(pyRosetta.FormatType.WILD, pyRosetta.CardClass.MAGE)
     deck.add_card(mage_cards[0].id, 1)
 
-    pri_deck = deck.primitive_deck()
-    assert pri_deck[0].id == mage_cards[0].id
+    deck_cards = deck.cards()
+    assert deck_cards[0].id == mage_cards[0].id
 
 def test_card_ids():
     INKEEPER_EXPERT_WARLOCK = 'AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA'

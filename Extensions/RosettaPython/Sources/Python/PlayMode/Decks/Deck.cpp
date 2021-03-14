@@ -42,9 +42,6 @@ void AddDeck(pybind11::module& m)
              ----------
              card_id : The ID of the card.)pbdoc",
              pybind11::arg("card_id"))
-        .def(
-            "primitive_deck", &Deck::GetPrimitiveDeck,
-            R"pbdoc(Creates a deck from a list of pointers to cards to play game.)pbdoc")
         .def("card", &Deck::GetCard,
              R"pbdoc(Returns card ID and the number of card at idx in deck.
 
@@ -52,6 +49,9 @@ void AddDeck(pybind11::module& m)
              ----------
              idx : Index of cards in deck.)pbdoc",
              pybind11::arg("idx"))
+        .def(
+            "cards", &Deck::GetCards,
+            R"pbdoc(Creates a deck from a list of pointers to cards to play game.)pbdoc")
         .def("show_card_list", &Deck::ShowCardList,
              R"pbdoc(Prints card list in deck.)pbdoc")
         .def(
