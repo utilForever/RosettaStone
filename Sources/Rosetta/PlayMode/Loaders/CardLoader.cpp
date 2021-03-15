@@ -149,6 +149,12 @@ void CardLoader::Load(std::vector<Card*>& cards)
         // Remove unnecessary substrings
         RemoveSubstrs(text, std::string{ "\n" });
         RemoveSubstrs(text, std::string{ "[x]" });
+
+        // Remove unnecessary whitespace
+        std::string::size_type pos = text.find_first_not_of(' ');
+        text.erase(0, pos);
+        text = std::regex_replace(text, std::regex("[' ']{2,}"), " ");
+
         card->text = text;
 
         card->gameTags = gameTags;
