@@ -172,6 +172,12 @@ void RemoveSubstrs(std::basic_string<T>& str,
          i = str.find(pattern))
     {
         str.erase(i, n);
+
+        if (pattern == "\n" && str.substr(i - 1, 1) != " " &&
+            str.substr(i, 1) != " ")
+        {
+            str.insert(i, " ");
+        }
     }
 }
 
