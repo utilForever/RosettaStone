@@ -159,6 +159,22 @@ std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
     return results;
 }
 
+//! Removes all substrings \p pattern from a string \p str.
+//! \param str An original string.
+//! \param pattern A substring to remove.
+template <typename T>
+void RemoveSubstrs(std::basic_string<T>& str,
+                   const std::basic_string<T>& pattern)
+{
+    typename std::basic_string<T>::size_type n = pattern.length();
+
+    for (decltype(n) i = str.find(pattern); i != std::basic_string<T>::npos;
+         i = str.find(pattern))
+    {
+        str.erase(i, n);
+    }
+}
+
 //! Finds out if \p value ends with \p ending.
 //! \param value The original string.
 //! \param ending The suffix string to check.
