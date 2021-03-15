@@ -173,6 +173,7 @@ void RemoveSubstrs(std::basic_string<T>& str,
     {
         str.erase(i, n);
 
+        // Insert whitespace instead of new line
         if (pattern == "\n" && str.substr(i - 1, 1) != " " &&
             str.substr(i, 1) != " ")
         {
