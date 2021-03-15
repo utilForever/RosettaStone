@@ -7,9 +7,17 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest.h>
 
+#include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+
+using namespace RosettaStone;
+
 int main()
 {
     doctest::Context context;
+
+    PlayMode::Cards::GetInstance();
+    Battlegrounds::Cards::GetInstance();
 
     // Run queries, or run tests unless --no-run is specified
     const int res = context.run();
