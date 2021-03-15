@@ -8,6 +8,7 @@
 #define ROSETTASTONE_CONSOLE_HPP
 
 #include <Rosetta/PlayMode/Decks/Deck.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 
 namespace RosettaStone
 {
@@ -39,6 +40,10 @@ class Console
 
     //! Plays a Battlegrounds mode.
     void PlayBattlegrounds();
+
+    //! Processes a mulligan.
+    //! \param game The game context.
+    void ProcessMulligan(PlayMode::Game& game);
 
     Mode m_mode;
 };

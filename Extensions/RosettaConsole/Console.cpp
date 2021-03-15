@@ -8,7 +8,6 @@
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 
 #include <iostream>
@@ -83,9 +82,29 @@ void Console::PlayStandardOrWild(PlayMode::Deck&& deck1, PlayMode::Deck&& deck2)
 
     PlayMode::Game game{ gameConfig };
     game.Start();
+
+    ProcessMulligan(game);
 }
 
 void Console::PlayBattlegrounds()
 {
+}
+
+void Console::ProcessMulligan(PlayMode::Game& game)
+{
+    std::cout << "Starting hand\n";
+    std::cout << "Keep or Replace Cards\n\n";
+
+    std::vector<int> p1Choices = game.GetPlayer1()->choice->choices;
+    for (auto& choice : p1Choices)
+    {
+        PlayMode::Playable* playable = game.entityList[choice];
+        std::cout << playable->card->name << " (" << playable->card->GetCost()
+                  << "): " << playable->card->text << '\n';
+    }
+
+    std::string indexStr;
+    std::cout << "Choose card index to replace: ";
+    std::cin >> indexStr;
 }
 }  // namespace RosettaStone
