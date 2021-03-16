@@ -45,6 +45,10 @@ class Console
     //! \param game The game context.
     void ProcessMulligan(PlayMode::Game& game);
 
+    //! Shows simple card information.
+    //! \param playable A playable to show card information.
+    void ShowSimpleCardInfo(PlayMode::Playable* playable);
+
     Mode m_mode;
 };
 }  // namespace RosettaStone

@@ -97,13 +97,11 @@ void Console::ProcessMulligan(PlayMode::Game& game)
 {
     std::cout << "Starting hand\n";
     std::cout << "Keep or Replace Cards\n\n";
-
     std::vector<int> p1Choices = game.GetPlayer1()->choice->choices;
     for (auto& choice : p1Choices)
     {
         PlayMode::Playable* playable = game.entityList[choice];
-        std::cout << playable->card->name << " (" << playable->card->GetCost()
-                  << "): " << playable->card->text << '\n';
+        ShowSimpleCardInfo(playable);
     }
 
     std::string indexStr;
@@ -126,8 +124,13 @@ void Console::ProcessMulligan(PlayMode::Game& game)
     std::cout << "Replaced Cards\n\n";
     for (auto& playable : game.GetPlayer1()->GetHandZone()->GetAll())
     {
-        std::cout << playable->card->name << " (" << playable->card->GetCost()
-                  << "): " << playable->card->text << '\n';
+        ShowSimpleCardInfo(playable);
     }
+}
+
+void Console::ShowSimpleCardInfo(PlayMode::Playable* playable)
+{
+    std::cout << playable->card->name << " (" << playable->card->GetCost()
+              << "): " << playable->card->text << '\n';
 }
 }  // namespace RosettaStone
