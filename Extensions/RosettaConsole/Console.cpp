@@ -7,8 +7,11 @@
 #include "Console.hpp"
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
+#include <Rosetta/Common/Utils.hpp>
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 #include <iostream>
 
@@ -105,6 +108,24 @@ void Console::ProcessMulligan(PlayMode::Game& game)
 
     std::string indexStr;
     std::cout << "Choose card index to replace: ";
-    std::cin >> indexStr;
+    std::cin.ignore(32767, '\n');
+    std::getline(std::cin, indexStr);
+
+    const std::vector<std::string> indexes = SplitString(indexStr, " ");
+    std::vector<int> convertedIndexes;
+    convertedIndexes.reserve(indexes.size());
+    for (const auto& index : indexes)
+    {
+        convertedIndexes.emplace_back(p1Choices[std::atoi(index.c_str())]);
+    }
+
+    PlayMode::Generic::ChoiceMulligan(game.GetPlayer1(), convertedIndexes);
+
+    std::cout << "Replaced Cards\n\n";
+    for (auto& playable : game.GetPlayer1()->GetHandZone()->GetAll())
+    {
+        std::cout << playable->card->name << " (" << playable->card->GetCost()
+                  << "): " << playable->card->text << '\n';
+    }
 }
 }  // namespace RosettaStone
