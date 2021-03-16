@@ -45,6 +45,14 @@ class Console
     //! \param game The game context.
     void ProcessMulligan(PlayMode::Game& game);
 
+    //! Processes a mulligan for human.
+    //! \param game The game context.
+    void ProcessMulliganForHuman(PlayMode::Game& game);
+
+    //! Processes a mulligan for computer.
+    //! \param game The game context.
+    void ProcessMulliganForComputer(PlayMode::Game& game);
+
     //! Shows simple card information.
     //! \param playable A playable to show card information.
     void ShowSimpleCardInfo(PlayMode::Playable* playable);

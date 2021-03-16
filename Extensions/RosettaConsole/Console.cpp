@@ -42,10 +42,10 @@ void Console::InputDeckCodes()
 {
     std::string deckCode1, deckCode2;
 
-    std::cout << "Input player 1 deck code: ";
+    std::cout << "Input player 1 (You) deck code: ";
     std::cin >> deckCode1;
 
-    std::cout << "Input player 2 deck code: ";
+    std::cout << "Input player 2 (Computer) deck code: ";
     std::cin >> deckCode2;
 
     PlayMode::Deck deck1 = PlayMode::DeckCode::Decode(deckCode1);
@@ -96,6 +96,12 @@ void Console::PlayBattlegrounds()
 
 void Console::ProcessMulligan(PlayMode::Game& game)
 {
+    ProcessMulliganForHuman(game);
+    ProcessMulliganForComputer(game);
+}
+
+void Console::ProcessMulliganForHuman(PlayMode::Game& game)
+{
     std::cout << "Starting hand\n";
     std::cout << "Keep or Replace Cards\n\n";
     std::vector<int> p1Choices = game.GetPlayer1()->choice->choices;
@@ -127,6 +133,11 @@ void Console::ProcessMulligan(PlayMode::Game& game)
     {
         ShowSimpleCardInfo(playable);
     }
+}
+
+void Console::ProcessMulliganForComputer(PlayMode::Game& game)
+{
+    (void)game;
 }
 
 void Console::ShowSimpleCardInfo(PlayMode::Playable* playable)
