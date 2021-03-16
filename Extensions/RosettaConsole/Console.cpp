@@ -111,15 +111,17 @@ void Console::ProcessMulligan(PlayMode::Game& game)
     std::cin.ignore(32767, '\n');
     std::getline(std::cin, indexStr);
 
-    const std::vector<std::string> indexes = SplitString(indexStr, " ");
-    std::vector<int> convertedIndexes;
-    convertedIndexes.reserve(indexes.size());
-    for (const auto& index : indexes)
+    const std::vector<std::string> strIndices = SplitString(indexStr, " ");
+    std::vector<int> intIndices;
+    intIndices.reserve(strIndices.size());
+
+    for (const auto& index : strIndices)
     {
-        convertedIndexes.emplace_back(p1Choices[std::atoi(index.c_str())]);
+        intIndices.emplace_back(
+            p1Choices[std::strtol(index.c_str(), nullptr, 10)]);
     }
 
-    PlayMode::Generic::ChoiceMulligan(game.GetPlayer1(), convertedIndexes);
+    PlayMode::Generic::ChoiceMulligan(game.GetPlayer1(), intIndices);
 
     std::cout << "Replaced Cards\n\n";
     for (auto& playable : game.GetPlayer1()->GetHandZone()->GetAll())
