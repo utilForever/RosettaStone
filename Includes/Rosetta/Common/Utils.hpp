@@ -159,6 +159,36 @@ std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
     return results;
 }
 
+//! Splits a string \p str using \p delim.
+//! \param str An original string.
+//! \param delim A string delimiter to split.
+//! \return A splitted string.
+inline std::vector<std::string> SplitString(const std::string& str,
+                                            const std::string& delim)
+{
+    std::vector<std::string> tokens;
+    std::size_t prev = 0, pos;
+
+    do
+    {
+        pos = str.find(delim, prev);
+        if (pos == std::string::npos)
+        {
+            pos = str.length();
+        }
+
+        std::string token = str.substr(prev, pos - prev);
+        if (!token.empty())
+        {
+            tokens.push_back(token);
+        }
+
+        prev = pos + delim.length();
+    } while (pos < str.length() && prev < str.length());
+
+    return tokens;
+}
+
 //! Removes all substrings \p pattern from a string \p str.
 //! \param str An original string.
 //! \param pattern A substring to remove.
