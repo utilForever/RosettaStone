@@ -82,6 +82,7 @@ void Console::PlayStandardOrWild(PlayMode::Deck&& deck1, PlayMode::Deck&& deck2)
     gameConfig.player2Deck = deck2.GetCards();
     gameConfig.autoRun = true;
     gameConfig.skipMulligan = false;
+    gameConfig.startPlayer = PlayMode::PlayerType::RANDOM;
 
     PlayMode::Game game{ gameConfig };
     game.Start();
