@@ -7,4 +7,8 @@
 
 namespace RosettaStone::PlayMode
 {
+std::vector<int> RandomAgent::GetActionForMulligan(const Game& state)
+{
+    return std::vector<int>{};
+}
 }  // namespace RosettaStone::PlayMode

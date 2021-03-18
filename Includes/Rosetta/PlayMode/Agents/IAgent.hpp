@@ -6,6 +6,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_IAGENT_HPP
 #define ROSETTASTONE_PLAYMODE_IAGENT_HPP
 
+#include <Rosetta/PlayMode/Games/Game.hpp>
+
 namespace RosettaStone::PlayMode
 {
 //!
@@ -18,6 +20,11 @@ class IAgent
  public:
     //! Default virtual destructor.
     virtual ~IAgent() = default;
+
+    //! Gets an action of agent for mulligan cards.
+    //! \param state The current game state.
+    //! \return An action of agent for mulligan cards.
+    virtual std::vector<int> GetActionForMulligan(const Game& state) = 0;
 };
 }  // namespace RosettaStone::PlayMode
 

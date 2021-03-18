@@ -20,6 +20,11 @@ class RandomAgent final : public IAgent
  public:
     //! Default virtual destructor.
     ~RandomAgent() override = default;
+
+    //! Gets an action of agent for mulligan cards.
+    //! \param state The current game state.
+    //! \return An action of agent for mulligan cards.
+    std::vector<int> GetActionForMulligan(const Game& state) override;
 };
 }  // namespace RosettaStone::PlayMode
 
