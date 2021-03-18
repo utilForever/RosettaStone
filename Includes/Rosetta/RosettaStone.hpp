@@ -72,6 +72,7 @@
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/PlayCard.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
+#include <Rosetta/PlayMode/Agents/IAgent.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
