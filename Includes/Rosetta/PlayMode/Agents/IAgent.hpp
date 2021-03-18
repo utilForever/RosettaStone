@@ -21,6 +21,10 @@ class IAgent
     //! Default virtual destructor.
     virtual ~IAgent() = default;
 
+    //! Sets a player type.
+    //! \param playerType A player type.
+    virtual void SetPlayerType(PlayerType playerType) = 0;
+
     //! Gets an action of agent for mulligan cards.
     //! \param state The current game state.
     //! \return An action of agent for mulligan cards.

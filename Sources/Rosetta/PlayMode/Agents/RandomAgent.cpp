@@ -7,6 +7,11 @@
 
 namespace RosettaStone::PlayMode
 {
+void RandomAgent::SetPlayerType(PlayerType playerType)
+{
+    m_playerType = playerType;
+}
+
 std::vector<int> RandomAgent::GetActionForMulligan(const Game& state)
 {
     return std::vector<int>{};
