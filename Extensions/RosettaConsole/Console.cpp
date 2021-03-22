@@ -88,6 +88,9 @@ void Console::PlayStandardOrWild(PlayMode::Deck&& deck1, PlayMode::Deck&& deck2)
     gameConfig.skipMulligan = false;
     gameConfig.startPlayer = PlayMode::PlayerType::RANDOM;
 
+    // Player 2 is computer-based agent
+    m_computerAgent->SetPlayerType(PlayMode::PlayerType::PLAYER2);
+
     PlayMode::Game game{ gameConfig };
     game.Start();
 
