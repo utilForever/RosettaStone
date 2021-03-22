@@ -7,8 +7,11 @@
 #ifndef ROSETTASTONE_CONSOLE_HPP
 #define ROSETTASTONE_CONSOLE_HPP
 
+#include <Rosetta/PlayMode/Agents/IAgent.hpp>
 #include <Rosetta/PlayMode/Decks/Deck.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+
+#include <memory>
 
 namespace RosettaStone
 {
@@ -58,6 +61,8 @@ class Console
     void ShowSimpleCardInfo(PlayMode::Playable* playable);
 
     Mode m_mode;
+
+    std::unique_ptr<PlayMode::IAgent> m_computerAgent;
 };
 }  // namespace RosettaStone
 
