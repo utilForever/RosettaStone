@@ -144,7 +144,25 @@ void Console::ProcessMulliganForHuman(PlayMode::Game& game)
 
 void Console::ProcessMulliganForComputer(PlayMode::Game& game)
 {
-    (void)game;
+    std::cout << "Starting hand\n";
+    std::cout << "Keep or Replace Cards\n\n";
+    std::vector<int> p2Choices = game.GetPlayer2()->choice->choices;
+    for (auto& choice : p2Choices)
+    {
+        PlayMode::Playable* playable = game.entityList[choice];
+        ShowSimpleCardInfo(playable);
+    }
+
+    const std::vector<int> intIndices =
+        m_computerAgent->GetActionForMulligan(game);
+
+    PlayMode::Generic::ChoiceMulligan(game.GetPlayer2(), intIndices);
+
+    std::cout << "Replaced Cards\n\n";
+    for (auto& playable : game.GetPlayer2()->GetHandZone()->GetAll())
+    {
+        ShowSimpleCardInfo(playable);
+    }
 }
 
 void Console::ShowSimpleCardInfo(PlayMode::Playable* playable)
