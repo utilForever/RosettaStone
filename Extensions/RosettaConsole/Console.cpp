@@ -9,6 +9,7 @@
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Agents/RandomAgent.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -19,7 +20,10 @@ namespace RosettaStone
 {
 Console::Console(Mode mode) : m_mode{ mode }
 {
-    // Do nothing
+    if (mode == Mode::STANDARD || mode == Mode::WILD)
+    {
+        m_computerAgent = std::make_unique<PlayMode::RandomAgent>();
+    }
 }
 
 void Console::ProcessGame()
