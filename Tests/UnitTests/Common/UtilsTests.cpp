@@ -47,3 +47,13 @@ TEST_CASE("[Utils] - ChooseNElements (std::vector)")
         delete elem;
     }
 }
+
+TEST_CASE("[Utils] - SplitSpring")
+{
+    const std::string str = "1 2 3";
+    const std::vector<std::string> tokens = SplitString(str, " ");
+    CHECK_EQ(tokens.size(), 3);
+    CHECK_EQ(tokens[0], "1");
+    CHECK_EQ(tokens[1], "2");
+    CHECK_EQ(tokens[2], "3");
+}
