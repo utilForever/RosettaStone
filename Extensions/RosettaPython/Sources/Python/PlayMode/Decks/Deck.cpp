@@ -52,8 +52,6 @@ void AddDeck(pybind11::module& m)
         .def(
             "cards", &Deck::GetCards,
             R"pbdoc(Creates a deck from a list of pointers to cards to play game.)pbdoc")
-        .def("show_card_list", &Deck::ShowCardList,
-             R"pbdoc(Prints card list in deck.)pbdoc")
         .def(
             "add_card", &Deck::AddCard,
             R"pbdoc(Add card(s) to deck with given card_id and num_card_to_add.

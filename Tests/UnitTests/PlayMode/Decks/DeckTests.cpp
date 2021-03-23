@@ -34,7 +34,6 @@ TEST_CASE("[Deck] - CardControl")
         Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
     Deck deck(FormatType::WILD, CardClass::MAGE);
-    CHECK_NOTHROW(deck.ShowCardList());
     CHECK(deck.AddCard(mageCards.at(0)->id, 1));
     CHECK_EQ(deck.GetCard(0).second, 1u);
     CHECK(deck.AddCard(mageCards.at(0)->id, 1));
@@ -42,7 +41,6 @@ TEST_CASE("[Deck] - CardControl")
     CHECK_FALSE(deck.AddCard(mageCards.at(0)->id, 1));
     CHECK_FALSE(deck.AddCard(mageCards.at(1)->id, 3));
     CHECK_FALSE(deck.AddCard(druidCards.at(0)->id, 1));
-    CHECK_NOTHROW(deck.ShowCardList());
 
     CHECK_EQ(deck.GetUniqueNumOfCards(), 1u);
     CHECK_EQ(deck.GetNumOfCards(), 2u);
@@ -52,7 +50,6 @@ TEST_CASE("[Deck] - CardControl")
     // CHECK_EQ(deck.GetCard(0).second, 1u);
     CHECK_FALSE(deck.DeleteCard(mageCards.at(0)->id, 4));
     CHECK_FALSE(deck.DeleteCard(druidCards.at(0)->id, 1));
-    CHECK_NOTHROW(deck.ShowCardList());
 }
 
 TEST_CASE("[Deck] - GetNumCardInDeck")

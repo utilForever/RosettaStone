@@ -25,7 +25,6 @@ def test_card_control():
     mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.MAGE)
 
     deck = pyRosetta.Deck(pyRosetta.FormatType.WILD, pyRosetta.CardClass.MAGE)
-    deck.show_card_list()
     assert deck.add_card(mage_cards[0].id, 1) is True
     assert deck.card(0)[1] == 1
     assert deck.add_card(mage_cards[0].id, 1) is True
@@ -33,7 +32,6 @@ def test_card_control():
     assert deck.add_card(mage_cards[0].id, 1) is False
     assert deck.add_card(mage_cards[1].id, 3) is False
     assert deck.add_card(druid_cards[0].id, 1) is False
-    deck.show_card_list()
 
     assert deck.unique_num_of_cards() == 1
     assert deck.num_of_cards() == 2
@@ -42,7 +40,6 @@ def test_card_control():
     assert deck.delete_card(mage_cards[0].id, 1) is True
     assert deck.delete_card(mage_cards[0].id, 4) is False
     assert deck.delete_card(druid_cards[0].id, 1) is False
-    deck.show_card_list()
 
 def test_num_card_in_deck():
     mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.MAGE)

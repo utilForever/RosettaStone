@@ -62,9 +62,6 @@ class Deck
     //! \return A deck from a list of pointers to cards.
     std::array<Card*, START_DECK_SIZE> GetCards() const;
 
-    //! Prints card list in deck.
-    void ShowCardList() const;
-
     //! Add card(s) to deck with given \p cardID and \p numCardToAdd.
     //! \param cardID The ID of the card to add to deck.
     //! \param numCardToAdd The number of card to add to deck.

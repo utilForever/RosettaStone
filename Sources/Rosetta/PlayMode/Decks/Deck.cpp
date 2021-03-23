@@ -78,26 +78,6 @@ std::array<Card*, START_DECK_SIZE> Deck::GetCards() const
     return deck;
 }
 
-void Deck::ShowCardList() const
-{
-    int idx = 1;
-
-    for (auto& cardInfo : m_cards)
-    {
-        Card* card = Cards::GetInstance().FindCardByID(cardInfo.first);
-        if (card->id.empty())
-        {
-            continue;
-        }
-
-        std::cout << idx << ". ";
-        card->ShowBriefInfo();
-        std::cout << "(" << cardInfo.second << " card(s))\n";
-
-        idx++;
-    }
-}
-
 bool Deck::AddCard(std::string cardID, std::size_t numCardToAdd)
 {
     Card* card = Cards::GetInstance().FindCardByID(cardID);
