@@ -52,7 +52,6 @@
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
 #include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 #include <Rosetta/Common/Constants.hpp>
-#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/Common/Enums/AuraEnums.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/Common/Enums/ChoiceEnums.hpp>
