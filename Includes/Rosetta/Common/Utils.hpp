@@ -35,18 +35,6 @@ constexpr bool AllCondIsTrue(const T& t, const Others&... args)
     return (static_cast<bool>(t)) && AllCondIsTrue(args...);
 }
 
-//! Combines hash function with given \p v.
-//! \param seed The seed value to combine hash function.
-//! \param v The value to pass std::hash.
-//!
-//! It is based on peter1591's hearthstone-ai repository.
-//! References: https://github.com/peter1591/hearthstone-ai
-template <typename T>
-void CombineHash(std::size_t& seed, const T& v)
-{
-    seed ^= std::hash<T>()(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-}
-
 //! Erases item if it is matched predicate.
 //! \param items A container consists of item.
 //! \param predicate The condition to erase item.
