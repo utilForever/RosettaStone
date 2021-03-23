@@ -35,18 +35,6 @@ constexpr bool AllCondIsTrue(const T& t, const Others&... args)
     return (static_cast<bool>(t)) && AllCondIsTrue(args...);
 }
 
-//! Combines hash function with given \p v.
-//! \param seed The seed value to combine hash function.
-//! \param v The value to pass std::hash.
-//!
-//! It is based on peter1591's hearthstone-ai repository.
-//! References: https://github.com/peter1591/hearthstone-ai
-template <typename T>
-void CombineHash(std::size_t& seed, const T& v)
-{
-    seed ^= std::hash<T>()(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-}
-
 //! Erases item if it is matched predicate.
 //! \param items A container consists of item.
 //! \param predicate The condition to erase item.
@@ -157,6 +145,59 @@ std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
     }
 
     return results;
+}
+
+//! Splits a string \p str using \p delim.
+//! \param str An original string.
+//! \param delim A string delimiter to split.
+//! \return A splitted string.
+inline std::vector<std::string> SplitString(const std::string& str,
+                                            const std::string& delim)
+{
+    std::vector<std::string> tokens;
+    std::size_t prev = 0, pos;
+
+    do
+    {
+        pos = str.find(delim, prev);
+        if (pos == std::string::npos)
+        {
+            pos = str.length();
+        }
+
+        std::string token = str.substr(prev, pos - prev);
+        if (!token.empty())
+        {
+            tokens.push_back(token);
+        }
+
+        prev = pos + delim.length();
+    } while (pos < str.length() && prev < str.length());
+
+    return tokens;
+}
+
+//! Removes all substrings \p pattern from a string \p str.
+//! \param str An original string.
+//! \param pattern A substring to remove.
+template <typename T>
+void RemoveSubstrs(std::basic_string<T>& str,
+                   const std::basic_string<T>& pattern)
+{
+    typename std::basic_string<T>::size_type n = pattern.length();
+
+    for (decltype(n) i = str.find(pattern); i != std::basic_string<T>::npos;
+         i = str.find(pattern))
+    {
+        str.erase(i, n);
+
+        // Insert whitespace instead of new line
+        if (pattern == "\n" && str.substr(i - 1, 1) != " " &&
+            str.substr(i, 1) != " ")
+        {
+            str.insert(i, " ");
+        }
+    }
 }
 
 //! Finds out if \p value ends with \p ending.

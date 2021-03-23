@@ -4,9 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
-#define ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
+#ifndef ROSETTASTONE_PLAYMODE_DECK_HPP
+#define ROSETTASTONE_PLAYMODE_DECK_HPP
 
+#include <Rosetta/Common/Constants.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Cards/Card.hpp>
 
@@ -15,28 +16,28 @@
 namespace RosettaStone::PlayMode
 {
 //!
-//! \brief DeckInfo class.
+//! \brief Deck class.
 //!
 //! This class stores deck information that contains exactly 30 cards.
 //! This information imports/exports from/to json file.
 //!
-class DeckInfo
+class Deck
 {
  public:
     //! Default constructor.
-    DeckInfo();
+    Deck() = default;
 
-    //! Constructs deck with given \p name and \p deckClass.
-    //! \param name The name of deck.
-    //! \param deckClass The class of deck.
-    DeckInfo(std::string name, CardClass deckClass);
+    //! Constructs deck with given \p formatType and \p deckClass.
+    //! \param formatType The format type of deck.
+    //! \param deckClass The card class of deck.
+    Deck(FormatType formatType, CardClass deckClass);
 
-    //! Returns the name of deck.
-    //! \return The name of deck.
-    std::string GetName() const;
+    //! Returns the format type of deck.
+    //! \return The format type of deck.
+    FormatType GetFormatType() const;
 
-    //! Returns the class of deck.
-    //! \return The class of deck.
+    //! Returns the card class of deck.
+    //! \return The card class of deck.
     CardClass GetClass() const;
 
     //! Returns the number of cards in deck.
@@ -52,17 +53,14 @@ class DeckInfo
     //! \return The number of cards in deck that matches \p cardID.
     std::size_t GetNumCardInDeck(std::string cardID);
 
-    //! Creates a deck from a list of pointers to cards to play game.
-    //! \return A deck from a list of pointers to cards.
-    std::vector<Card*> GetPrimitiveDeck() const;
-
     //! Returns card ID and the number of card at \p idx in deck.
     //! \param idx Index of cards in deck.
     //! \return card ID and the number of card at \p idx in deck.
     std::pair<std::string, std::size_t> GetCard(std::size_t idx) const;
 
-    //! Prints card list in deck.
-    void ShowCardList() const;
+    //! Creates a deck from a list of pointers to cards to play game.
+    //! \return A deck from a list of pointers to cards.
+    std::array<Card*, START_DECK_SIZE> GetCards() const;
 
     //! Add card(s) to deck with given \p cardID and \p numCardToAdd.
     //! \param cardID The ID of the card to add to deck.
@@ -83,7 +81,7 @@ class DeckInfo
     std::vector<std::string> GetCardIDs();
 
  private:
-    std::string m_name;
+    FormatType m_formatType = FormatType::UNKNOWN;
     CardClass m_class = CardClass::INVALID;
 
     std::size_t m_numOfCards = 0;
@@ -91,4 +89,4 @@ class DeckInfo
 };
 }  // namespace RosettaStone::PlayMode
 
-#endif  // ROSETTASTONE_PLAYMODE_DECK_INFO_HPP
+#endif  // ROSETTASTONE_PLAYMODE_DECK_HPP

@@ -46,7 +46,7 @@
         "name": "Fallen Hero",
         "rarity": "RARE",
         "set": "TGT",
-        "text": "Your Hero Power deals 1 extra damage.",
+        "text": "Your Hero Power deals 1 extra damage.",
         "type": "MINION"
     },
     {
@@ -269,7 +269,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "cardClass": "PRIEST",
         "collectible": true,
         "cost": 2,
@@ -2488,7 +2488,7 @@
         "cost": 5,
         "dbfId": 62176,
         "elite": true,
-        "flavor": "You wouldn’t see this swap-meet on the Zandalari Roadshow.",
+        "flavor": "You wouldn't see this swap-meet on the Zandalari Roadshow.",
         "health": 6,
         "id": "BAR_080",
         "mechanics": [
@@ -2577,7 +2577,7 @@
         "name": "Bomb Toss",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "text": "Deal $2 damage. Summon a 0/2 Goblin Bomb.",
+        "text": "Deal $2 damage. Summon a 0/2 Goblin Bomb.",
         "type": "SPELL"
     },
     {
@@ -2711,7 +2711,7 @@
         "name": "Biology Project",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "text": "Each player gains 2 Mana Crystals.",
+        "text": "Each player gains 2 Mana Crystals.",
         "type": "SPELL"
     },
     {
@@ -2731,7 +2731,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "text": "Whenever this minion takes damage, gain 2 Armor.",
+        "text": "Whenever this minion takes damage, gain 2 Armor.",
         "type": "MINION"
     },
     {
@@ -2843,7 +2843,7 @@
             "DEATHRATTLE"
         ],
         "set": "BOOMSDAY",
-        "text": "Add 2 random <b>Deathrattle</b> cards to your hand.",
+        "text": "Add 2 random <b>Deathrattle</b> cards to your hand.",
         "type": "SPELL"
     },
     {
@@ -2857,7 +2857,7 @@
         "name": "Academic Espionage",
         "rarity": "EPIC",
         "set": "BOOMSDAY",
-        "text": "Shuffle 10 cards from your opponent's class into your deck. They cost (1).",
+        "text": "Shuffle 10 cards from your opponent's class into your deck. They cost (1).",
         "type": "SPELL"
     },
     {
@@ -2871,7 +2871,7 @@
         "name": "Elementary Reaction",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "text": "Draw a card. Copy it if you played an Elemental last turn.",
+        "text": "Draw a card. Copy it if you played an Elemental last turn.",
         "type": "SPELL"
     },
     {
@@ -2902,7 +2902,7 @@
         "name": "Eureka!",
         "rarity": "RARE",
         "set": "BOOMSDAY",
-        "text": "Summon a copy of a random minion from your hand.",
+        "text": "Summon a copy of a random minion from your hand.",
         "type": "SPELL"
     },
     {
@@ -2977,7 +2977,7 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BOOMSDAY",
-        "text": "<b>Battlecry:</b> Deal 5 damage randomly split among all minions except Mechs.",
+        "text": "<b>Battlecry:</b> Deal 5 damage randomly split among all minions except Mechs.",
         "type": "MINION"
     },
     {
@@ -3283,7 +3283,7 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BOOMSDAY",
-        "text": "<b>Magnetic</b>\n<b>Deathrattle:</b> Destroy a random enemy minion.",
+        "text": "<b>Magnetic</b>\n<b>Deathrattle:</b> Destroy a random enemy minion.",
         "type": "MINION"
     },
     {
@@ -3292,7 +3292,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 48803,
-        "flavor": "Sometimes science is more art than science. A lot of people don’t get that.",
+        "flavor": "Sometimes science is more art than science. A lot of people don't get that.",
         "id": "BOT_254",
         "name": "Unexpected Results",
         "rarity": "EPIC",
@@ -3411,7 +3411,7 @@
             "TAUNT"
         ],
         "set": "BOOMSDAY",
-        "text": "<b>Battlecry:</b> Summon two 1/2 Mechs with <b>Taunt</b> and <b>Divine Shield</b>.",
+        "text": "<b>Battlecry:</b> Summon two 1/2 Mechs with <b>Taunt</b> and <b>Divine Shield</b>.",
         "type": "MINION"
     },
     {
@@ -3430,7 +3430,7 @@
         "name": "Holomancer",
         "rarity": "EPIC",
         "set": "BOOMSDAY",
-        "text": "After your opponent plays a minion, summon a 1/1 copy of it.",
+        "text": "After your opponent plays a minion, summon a 1/1 copy of it.",
         "type": "MINION"
     },
     {
@@ -3508,7 +3508,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "BOOMSDAY",
-        "text": "<b>Battlecry:</b> Draw a spell from your deck that costs (5) or more.",
+        "text": "<b>Battlecry:</b> Draw a spell from your deck that costs (5) or more.",
         "type": "MINION"
     },
     {
@@ -3626,7 +3626,7 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "BOOMSDAY",
-        "text": "<b>Deathrattle:</b> Add a random <b>Legendary</b> minion to your hand.",
+        "text": "<b>Deathrattle:</b> Add a random <b>Legendary</b> minion to your hand.",
         "type": "MINION"
     },
     {
@@ -3891,7 +3891,7 @@
         "name": "Whirliglider",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "text": "<b>Battlecry:</b> Summon a 0/2 Goblin Bomb.",
+        "text": "<b>Battlecry:</b> Summon a 0/2 Goblin Bomb.",
         "type": "MINION"
     },
     {
@@ -3977,7 +3977,7 @@
             "RUSH"
         ],
         "set": "BOOMSDAY",
-        "text": "Give a friendly minion +3/+3 and <b>Rush</b>. It dies at end of turn.",
+        "text": "Give a friendly minion +3/+3 and <b>Rush</b>. It dies at end of turn.",
         "type": "SPELL"
     },
     {
@@ -3994,7 +3994,7 @@
             "DEATHRATTLE"
         ],
         "set": "BOOMSDAY",
-        "text": "Give your minions \"<b>Deathrattle:</b> Add a random Mech to your hand.\"",
+        "text": "Give your minions \"<b>Deathrattle:</b> Add a random Mech to your hand.\"",
         "type": "SPELL"
     },
     {
@@ -4267,7 +4267,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "L Chanchai",
+        "artist": "L Chanchai",
         "attack": 2,
         "cardClass": "MAGE",
         "collectible": true,
@@ -4286,7 +4286,7 @@
             "SPELLPOWER"
         ],
         "set": "BOOMSDAY",
-        "text": "<b>Battlecry:</b> Your next spell this turn has <b>Spell Damage +2</b>.",
+        "text": "<b>Battlecry:</b> Your next spell this turn has <b>Spell Damage +2</b>.",
         "type": "MINION"
     },
     {
@@ -4386,7 +4386,7 @@
         "name": "Omega Agent",
         "rarity": "EPIC",
         "set": "BOOMSDAY",
-        "text": "[x]<b>Battlecry:</b> If you have 10\nMana Crystals, summon\n 2 copies of this minion.",
+        "text": "[x]<b>Battlecry:</b> If you have 10\nMana Crystals, summon\n 2 copies of this minion.",
         "type": "MINION"
     },
     {
@@ -4412,7 +4412,7 @@
         "type": "MINION"
     },
     {
-        "artist": "L Chanchai",
+        "artist": "L Chanchai",
         "attack": 2,
         "cardClass": "NEUTRAL",
         "collectible": true,
@@ -4431,7 +4431,7 @@
             "RUSH"
         ],
         "set": "BOOMSDAY",
-        "text": "<b>Battlecry:</b> Add a \n1/1 Spark with <b>Rush</b> to your hand.",
+        "text": "<b>Battlecry:</b> Add a \n1/1 Spark with <b>Rush</b> to your hand.",
         "type": "MINION"
     },
     {
@@ -4635,7 +4635,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "BOOMSDAY",
-        "text": "Whenever you shuffle a card into a deck, shuffle in an extra copy.",
+        "text": "Whenever you shuffle a card into a deck, shuffle in an extra copy.",
         "type": "MINION"
     },
     {
@@ -4741,7 +4741,7 @@
         "name": "Zerek's Cloning Gallery",
         "rarity": "LEGENDARY",
         "set": "BOOMSDAY",
-        "text": "Summon a 1/1 copy of each minion in your deck.",
+        "text": "Summon a 1/1 copy of each minion in your deck.",
         "type": "SPELL"
     },
     {
@@ -4814,7 +4814,7 @@
         "name": "Research Project",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "text": "Each player draws 2 cards.",
+        "text": "Each player draws 2 cards.",
         "type": "SPELL"
     },
     {
@@ -4896,7 +4896,7 @@
         "rarity": "COMMON",
         "set": "BOOMSDAY",
         "techLevel": 2,
-        "text": "<b>Deathrattle:</b> Deal 4 damage to a random enemy minion.",
+        "text": "<b>Deathrattle:</b> Deal 4 damage to a random enemy minion.",
         "type": "MINION"
     },
     {
@@ -5111,7 +5111,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 2275,
-        "flavor": "Flamewakers HATE being confused for Flamewalkers. They just wake up fire, they don’t walk on it. Walking on fire is CRAZY.",
+        "flavor": "Flamewakers HATE being confused for Flamewalkers. They just wake up fire, they don't walk on it. Walking on fire is CRAZY.",
         "health": 4,
         "howToEarn": "Unlocked in Blackwing Lair, in the Blackrock Mountain adventure.",
         "howToEarnGolden": "Crafting unlocked in Blackwing Lair, in the Blackrock Mountain adventure.",
@@ -5568,7 +5568,7 @@
         "race": "DRAGON",
         "rarity": "COMMON",
         "set": "BRM",
-        "text": "<b>Battlecry:</b> Summon a random 1-Cost minion for your opponent.",
+        "text": "<b>Battlecry:</b> Summon a random 1-Cost minion for your opponent.",
         "type": "MINION"
     },
     {
@@ -5738,7 +5738,7 @@
         "name": "Incanter's Flow",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "Reduce the Cost of spells in your deck by (1).",
+        "text": "Reduce the Cost of spells in your deck by (1).",
         "type": "SPELL"
     },
     {
@@ -5941,7 +5941,7 @@
         "name": "Aldor Attendant",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Battlecry:</b> Reduce the Cost of your Librams by (1) this game.",
+        "text": "<b>Battlecry:</b> Reduce the Cost of your Librams by (1) this game.",
         "type": "MINION"
     },
     {
@@ -5999,7 +5999,7 @@
             "TAUNT"
         ],
         "set": "BLACK_TEMPLE",
-        "text": "Restore 8 Health. Summon an 8/8 Guardian with <b>Taunt</b> and <b>Divine Shield</b>.",
+        "text": "Restore 8 Health. Summon an 8/8 Guardian with <b>Taunt</b> and <b>Divine Shield</b>.",
         "type": "SPELL"
     },
     {
@@ -6026,7 +6026,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 56556,
-        "flavor": "It’s under 'T.'",
+        "flavor": "It's under 'T.'",
         "health": 6,
         "id": "BT_026",
         "mechanics": [
@@ -6072,7 +6072,7 @@
         "name": "Chaos Strike",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your hero +2 Attack this turn. Draw a card.",
+        "text": "Give your hero +2 Attack this turn. Draw a card.",
         "type": "SPELL"
     },
     {
@@ -6089,7 +6089,7 @@
             "RUSH"
         ],
         "set": "CORE",
-        "text": "Summon three 1/1 Illidari with <b>Rush</b>.",
+        "text": "Summon three 1/1 Illidari with <b>Rush</b>.",
         "type": "SPELL"
     },
     {
@@ -6386,7 +6386,7 @@
         "cost": 3,
         "dbfId": 56660,
         "elite": true,
-        "flavor": "\"You’re fine, friendly minions! You're fine! Don’t tell Mom!\"",
+        "flavor": "\"You're fine, friendly minions! You're fine! Don't tell Mom!\"",
         "health": 4,
         "id": "BT_126",
         "mechanics": [
@@ -6458,7 +6458,7 @@
         "name": "Overgrowth",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "Gain two empty Mana Crystals.",
+        "text": "Gain two empty Mana Crystals.",
         "type": "SPELL"
     },
     {
@@ -6530,7 +6530,7 @@
         "name": "Bogbeam",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "Deal $3 damage to a minion.\nCosts (0) if you have at least 7 Mana Crystals.",
+        "text": "Deal $3 damage to a minion.\nCosts (0) if you have at least 7 Mana Crystals.",
         "type": "SPELL"
     },
     {
@@ -6544,7 +6544,7 @@
         "name": "Glowfly Swarm",
         "rarity": "EPIC",
         "set": "BLACK_TEMPLE",
-        "text": "Summon a 2/2 Glowfly for each spell in your hand.",
+        "text": "Summon a 2/2 Glowfly for each spell in your hand.",
         "type": "SPELL"
     },
     {
@@ -6626,7 +6626,7 @@
         "race": "DEMON",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "<b>Battlecry:</b> Give your hero +1 Attack this turn.",
+        "text": "<b>Battlecry:</b> Give your hero +1 Attack this turn.",
         "type": "MINION"
     },
     {
@@ -6687,7 +6687,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Battlecry:</b> Summon three 1/1 Huntresses for your opponent.",
+        "text": "<b>Battlecry:</b> Summon three 1/1 Huntresses for your opponent.",
         "type": "MINION"
     },
     {
@@ -6732,7 +6732,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 56841,
-        "flavor": "Give me an R! \nGive me a U! \nGive me an S! \nGive me an H! \nYou two, you’re exclamation points!",
+        "flavor": "Give me an R! \nGive me a U! \nGive me an S! \nGive me an H! \nYou two, you're exclamation points!",
         "id": "BT_173",
         "name": "Command the Illidari",
         "rarity": "COMMON",
@@ -6740,7 +6740,7 @@
             "RUSH"
         ],
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "Summon six 1/1 Illidari with <b>Rush</b>.",
+        "text": "Summon six 1/1 Illidari with <b>Rush</b>.",
         "type": "SPELL"
     },
     {
@@ -6778,7 +6778,7 @@
             "TAUNT"
         ],
         "set": "BLACK_TEMPLE",
-        "text": "<b>Charge</b>\nAll friendly attacks ignore <b>Taunt</b>.",
+        "text": "<b>Charge</b>\nAll friendly attacks ignore <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -6874,7 +6874,7 @@
         "cost": 7,
         "dbfId": 57160,
         "elite": true,
-        "flavor": "It’s a doppelgang-war!",
+        "flavor": "It's a doppelgang-war!",
         "id": "BT_198",
         "name": "Soul Mirror",
         "rarity": "LEGENDARY",
@@ -6942,7 +6942,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 56484,
-        "flavor": "\"Just you wait, I’ll go get on my main!\"",
+        "flavor": "\"Just you wait, I'll go get on my main!\"",
         "id": "BT_203",
         "mechanics": [
             "SECRET"
@@ -6964,7 +6964,7 @@
         "name": "Scrap Shot",
         "rarity": "RARE",
         "set": "BLACK_TEMPLE",
-        "text": "Deal $3 damage.\nGive a random Beast in your hand +3/+3.",
+        "text": "Deal $3 damage.\nGive a random Beast in your hand +3/+3.",
         "type": "SPELL"
     },
     {
@@ -7003,7 +7003,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "[x]<b>Dormant</b> for 2 turns.\nWhen this awakens,\n  attack a random enemy.",
+        "text": "[x]<b>Dormant</b> for 2 turns.\nWhen this awakens,\n  attack a random enemy.",
         "type": "MINION"
     },
     {
@@ -7112,7 +7112,7 @@
         "name": "Chaos Nova",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $4 damage to all minions.",
+        "text": "Deal $4 damage to all minions.",
         "type": "SPELL"
     },
     {
@@ -7301,7 +7301,7 @@
         "name": "Flamereaper",
         "rarity": "EPIC",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "Also damages the minions next to whomever your hero attacks.",
+        "text": "Also damages the minions next to whomever your hero attacks.",
         "type": "WEAPON"
     },
     {
@@ -7456,7 +7456,7 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "BLACK_TEMPLE",
-        "text": "After your hero takes damage, refresh a Mana Crystal.",
+        "text": "After your hero takes damage, refresh a Mana Crystal.",
         "type": "MINION"
     },
     {
@@ -7569,7 +7569,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 58487,
-        "flavor": "Say what you like about my hatchet-headed hooligan, he’s my battle-friend.",
+        "flavor": "Say what you like about my hatchet-headed hooligan, he's my battle-friend.",
         "health": 2,
         "id": "BT_351",
         "mechanics": [
@@ -7635,7 +7635,7 @@
         "name": "Wrathscale Naga",
         "rarity": "EPIC",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "After a friendly minion dies, deal 3 damage to a random enemy.",
+        "text": "After a friendly minion dies, deal 3 damage to a random enemy.",
         "type": "MINION"
     },
     {
@@ -7684,7 +7684,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 56860,
-        "flavor": "Demons have destroyed the lives of the Ashtongue draenei. Now he’s got a shoulder-axe to grind.",
+        "flavor": "Demons have destroyed the lives of the Ashtongue draenei. Now he's got a shoulder-axe to grind.",
         "health": 5,
         "id": "BT_423",
         "mechanics": [
@@ -7824,7 +7824,7 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "<b>Rush</b>. After this attacks and kills a minion, it may attack again.",
+        "text": "<b>Rush</b>. After this attacks and kills a minion, it may attack again.",
         "type": "MINION"
     },
     {
@@ -7858,7 +7858,7 @@
             "SILENCE"
         ],
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "<b>Silence</b> an enemy minion.\n<b>Outcast:</b> Draw a card.",
+        "text": "<b>Silence</b> an enemy minion.\n<b>Outcast:</b> Draw a card.",
         "type": "SPELL"
     },
     {
@@ -7957,7 +7957,7 @@
         "name": "Fel Summoner",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Deathrattle:</b> Summon a random Demon from your hand.",
+        "text": "<b>Deathrattle:</b> Summon a random Demon from your hand.",
         "type": "MINION"
     },
     {
@@ -7992,7 +7992,7 @@
         "name": "Inner Demon",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your hero +8 Attack this turn.",
+        "text": "Give your hero +8 Attack this turn.",
         "type": "SPELL"
     },
     {
@@ -8033,7 +8033,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 56377,
-        "flavor": "Spies in Outland must blend into the environment. That means hot-pink gear and bright green hair. It’s a weird place.",
+        "flavor": "Spies in Outland must blend into the environment. That means hot-pink gear and bright green hair. It's a weird place.",
         "health": 1,
         "id": "BT_701",
         "mechanics": [
@@ -8214,7 +8214,7 @@
         ],
         "set": "BLACK_TEMPLE",
         "targetingArrowText": "Freeze an enemy.",
-        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
+        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
         "type": "MINION"
     },
     {
@@ -8234,7 +8234,7 @@
         "name": "Bonechewer Brawler",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "[x]<b>Taunt</b>\nWhenever this minion takes\n damage, gain +2 Attack.",
+        "text": "[x]<b>Taunt</b>\nWhenever this minion takes\n damage, gain +2 Attack.",
         "type": "MINION"
     },
     {
@@ -8495,7 +8495,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 57191,
-        "flavor": "\"The best thing about being me—there’s so many 'me's.\"",
+        "flavor": "\"The best thing about being me—there's so many 'me's.\"",
         "health": 2,
         "id": "BT_731",
         "mechanics": [
@@ -8504,7 +8504,7 @@
         "name": "Infectious Sporeling",
         "rarity": "RARE",
         "set": "BLACK_TEMPLE",
-        "text": "After this damages a minion, turn it into an Infectious Sporeling.",
+        "text": "After this damages a minion, turn it into an Infectious Sporeling.",
         "type": "MINION"
     },
     {
@@ -8524,7 +8524,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Battlecry:</b> Deal 6 damage randomly split among all other minions.",
+        "text": "<b>Battlecry:</b> Deal 6 damage randomly split among all other minions.",
         "type": "MINION"
     },
     {
@@ -8626,7 +8626,7 @@
         "collectible": true,
         "cost": 0,
         "dbfId": 58607,
-        "flavor": "\"What are you trying to tell me? That I can dodge axes?\" \n\"I’m trying to tell you that when you’re a Demon Hunter, you won’t have to.\"",
+        "flavor": "\"What are you trying to tell me? That I can dodge axes?\" \n\"I'm trying to tell you that when you're a Demon Hunter, you won't have to.\"",
         "id": "BT_752",
         "name": "Blur",
         "rarity": "COMMON",
@@ -8688,7 +8688,7 @@
         "name": "Bulwark of Azzinoth",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "[x]Whenever your hero would\ntake damage, this loses\n 1 Durability instead.",
+        "text": "[x]Whenever your hero would\ntake damage, this loses\n 1 Durability instead.",
         "type": "WEAPON"
     },
     {
@@ -8729,7 +8729,7 @@
             "IMMUNE"
         ],
         "set": "DEMON_HUNTER_INITIATE",
-        "text": "<b>Rush</b>\n<b>Outcast:</b> Gain <b>Immune</b> this turn.",
+        "text": "<b>Rush</b>\n<b>Outcast:</b> Gain <b>Immune</b> this turn.",
         "type": "MINION"
     },
     {
@@ -8780,7 +8780,7 @@
         "cost": 2,
         "dbfId": 56587,
         "durability": 2,
-        "flavor": "Demon Hunters refer to these glaives as \"the ol’ flappy-attackys.\"",
+        "flavor": "Demon Hunters refer to these glaives as \"the ol' flappy-attackys.\"",
         "id": "BT_922",
         "mechanics": [
             "BATTLECRY"
@@ -8882,7 +8882,7 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "GANGS",
-        "text": "Whenever this attacks a minion and survives, draw a card.",
+        "text": "Whenever this attacks a minion and survives, draw a card.",
         "type": "MINION"
     },
     {
@@ -8984,7 +8984,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "GANGS",
-        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Give adjacent\n minions <b>Divine Shield</b>.",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Give adjacent\n minions <b>Divine Shield</b>.",
         "type": "MINION"
     },
     {
@@ -9023,7 +9023,7 @@
             "BATTLECRY"
         ],
         "set": "GANGS",
-        "text": "Whenever you summon a <b>Battlecry</b> minion while this is in your hand, gain +1/+1.",
+        "text": "Whenever you summon a <b>Battlecry</b> minion while this is in your hand, gain +1/+1.",
         "type": "MINION"
     },
     {
@@ -9037,7 +9037,7 @@
         "name": "Volcanic Potion",
         "rarity": "RARE",
         "set": "GANGS",
-        "text": "Deal $2 damage to all minions.",
+        "text": "Deal $2 damage to all minions.",
         "type": "SPELL"
     },
     {
@@ -9160,7 +9160,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 40371,
-        "flavor": "One of the most famous busts in Gadgetzan’s history happened on Smuggler’s Run, where Sergeant Sally apprehended a cadre of Grimy Goons transporting a massive number of illegal fish heads.",
+        "flavor": "One of the most famous busts in Gadgetzan's history happened on Smuggler's Run, where Sergeant Sally apprehended a cadre of Grimy Goons transporting a massive number of illegal fish heads.",
         "id": "CFM_305",
         "name": "Smuggler's Run",
         "rarity": "COMMON",
@@ -9242,7 +9242,7 @@
         "overload": 1,
         "rarity": "EPIC",
         "set": "GANGS",
-        "text": "<b>Discover</b> a card with <b>Overload</b>. <b>Overload:</b> (1)",
+        "text": "<b>Discover</b> a card with <b>Overload</b>. <b>Overload:</b> (1)",
         "type": "SPELL"
     },
     {
@@ -9264,7 +9264,7 @@
         "rarity": "COMMON",
         "set": "GANGS",
         "techLevel": 1,
-        "text": "<b>Battlecry:</b> Summon a 1/1 Cat.",
+        "text": "<b>Battlecry:</b> Summon a 1/1 Cat.",
         "type": "MINION"
     },
     {
@@ -9286,7 +9286,7 @@
         "rarity": "EPIC",
         "set": "GANGS",
         "techLevel": 3,
-        "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 1/1 Rats equal\n to this minion's Attack.",
+        "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 1/1 Rats equal\n to this minion's Attack.",
         "type": "MINION"
     },
     {
@@ -9370,7 +9370,7 @@
         "name": "Fight Promoter",
         "rarity": "EPIC",
         "set": "GANGS",
-        "text": "[x]<b>Battlecry:</b> If you control\na minion with 6 or more\n Health, draw two cards.",
+        "text": "[x]<b>Battlecry:</b> If you control\na minion with 6 or more\n Health, draw two cards.",
         "type": "MINION"
     },
     {
@@ -9570,7 +9570,7 @@
         "race": "MURLOC",
         "rarity": "LEGENDARY",
         "set": "GANGS",
-        "text": "[x]<b>Stealth</b>\n   Whenever this attacks and   \nkills a minion, summon 2\n Murlocs from your deck.",
+        "text": "[x]<b>Stealth</b>\n   Whenever this attacks and   \nkills a minion, summon 2\n Murlocs from your deck.",
         "type": "MINION"
     },
     {
@@ -9660,7 +9660,7 @@
         "race": "ELEMENTAL",
         "rarity": "EPIC",
         "set": "GANGS",
-        "text": "Whenever this minion is healed, summon a 2/2 Crystal.",
+        "text": "Whenever this minion is healed, summon a 2/2 Crystal.",
         "type": "MINION"
     },
     {
@@ -9693,7 +9693,7 @@
         "name": "Fel Orc Soulfiend",
         "rarity": "EPIC",
         "set": "GANGS",
-        "text": "At the start of your turn, deal 2 damage to this minion.",
+        "text": "At the start of your turn, deal 2 damage to this minion.",
         "type": "MINION"
     },
     {
@@ -9845,7 +9845,7 @@
         "name": "Kazakus",
         "rarity": "LEGENDARY",
         "set": "GANGS",
-        "text": "[x]<b>Battlecry:</b> If your deck\nhas no duplicates,\n create a custom spell.",
+        "text": "[x]<b>Battlecry:</b> If your deck\nhas no duplicates,\n create a custom spell.",
         "type": "MINION"
     },
     {
@@ -10020,7 +10020,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 40492,
-        "flavor": "Quit playing games with his heart. And his fingers. And foot. It's rude.",
+        "flavor": "Quit playing games with his heart. And his fingers. And foot. It's rude.",
         "health": 1,
         "id": "CFM_646",
         "mechanics": [
@@ -10069,7 +10069,7 @@
         "name": "Big-Time Racketeer",
         "rarity": "COMMON",
         "set": "GANGS",
-        "text": "<b>Battlecry:</b> Summon a 6/6 Ogre.",
+        "text": "<b>Battlecry:</b> Summon a 6/6 Ogre.",
         "type": "MINION"
     },
     {
@@ -10193,7 +10193,7 @@
         "name": "Friendly Bartender",
         "rarity": "COMMON",
         "set": "GANGS",
-        "text": "At the end of your turn, restore #1 Health to your hero.",
+        "text": "At the end of your turn, restore #1 Health to your hero.",
         "type": "MINION"
     },
     {
@@ -10244,7 +10244,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 40929,
-        "flavor": "Gadgetzan Writer’s Award goes to the player who writes the most compelling fanfic about why this Arakkoa has a golden frog in his hand!",
+        "flavor": "Gadgetzan Writer's Award goes to the player who writes the most compelling fanfic about why this Arakkoa has a golden frog in his hand!",
         "health": 5,
         "id": "CFM_657",
         "mechanics": [
@@ -10296,7 +10296,7 @@
         "rarity": "COMMON",
         "set": "GANGS",
         "targetingArrowText": "Restore 2 Health.",
-        "text": "<b>Battlecry:</b> Restore #2 Health.",
+        "text": "<b>Battlecry:</b> Restore #2 Health.",
         "type": "MINION"
     },
     {
@@ -10589,7 +10589,7 @@
             "TAUNT"
         ],
         "set": "GANGS",
-        "text": "<b>Battlecry:</b> If an enemy minion has <b>Taunt</b>, gain <b>Charge</b>.",
+        "text": "<b>Battlecry:</b> If an enemy minion has <b>Taunt</b>, gain <b>Charge</b>.",
         "type": "MINION"
     },
     {
@@ -10711,7 +10711,7 @@
         "name": "Lotus Illusionist",
         "rarity": "EPIC",
         "set": "GANGS",
-        "text": "[x]After this minion attacks\na hero, transform it into a\n random 6-Cost minion.",
+        "text": "[x]After this minion attacks\na hero, transform it into a\n random 6-Cost minion.",
         "type": "MINION"
     },
     {
@@ -10731,7 +10731,7 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "GANGS",
-        "text": "[x]<b>Battlecry:</b> The next Murloc\nyou play this turn costs\n Health instead of Mana.",
+        "text": "[x]<b>Battlecry:</b> The next Murloc\nyou play this turn costs\n Health instead of Mana.",
         "type": "MINION"
     },
     {
@@ -10780,7 +10780,7 @@
             "SHAMAN"
         ],
         "collectible": true,
-        "collectionText": "<b>Battlecry:</b> Summon a <b>Jade Golem</b>.",
+        "collectionText": "<b>Battlecry:</b> Summon a <b>Jade Golem</b>.",
         "cost": 4,
         "dbfId": 40527,
         "flavor": "\"He's so cute!  I just want to squeeze him, then use him for Jade Golem parts!\" - Aya Blackpaw",
@@ -10796,7 +10796,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "GANGS",
-        "text": "<b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>.",
+        "text": "<b>Battlecry:</b> Summon a{1} {0} <b>Jade Golem</b>.",
         "type": "MINION"
     },
     {
@@ -10855,7 +10855,7 @@
         "race": "DEMON",
         "rarity": "LEGENDARY",
         "set": "GANGS",
-        "text": "[x]<b>Battlecry:</b> If your deck has\nno duplicates, summon all\n Demons from your hand. ",
+        "text": "[x]<b>Battlecry:</b> If your deck has\nno duplicates, summon all\n Demons from your hand. ",
         "type": "MINION"
     },
     {
@@ -11007,7 +11007,7 @@
             "SECRET"
         ],
         "set": "GANGS",
-        "text": "Costs (2) less for each <b>Secret</b> you've played this game.",
+        "text": "Costs (2) less for each <b>Secret</b> you've played this game.",
         "type": "MINION"
     },
     {
@@ -11363,7 +11363,7 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "GANGS",
-        "text": "After you summon a minion, deal 5 damage to your hero.",
+        "text": "After you summon a minion, deal 5 damage to your hero.",
         "type": "MINION"
     },
     {
@@ -11488,7 +11488,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "cardClass": "PRIEST",
         "collectible": true,
         "cost": 10,
@@ -11562,7 +11562,7 @@
         "name": "Power Word: Shield",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give a minion +2 Health.",
+        "text": "Give a minion +2 Health.",
         "type": "SPELL"
     },
     {
@@ -11578,7 +11578,7 @@
         "name": "Claw",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your hero +2 Attack this turn. Gain 2 Armor.",
+        "text": "Give your hero +2 Attack this turn. Gain 2 Armor.",
         "type": "SPELL"
     },
     {
@@ -11645,11 +11645,11 @@
         "name": "Savage Roar",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your characters +2 Attack this turn.",
+        "text": "Give your characters +2 Attack this turn.",
         "type": "SPELL"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 4,
@@ -11728,7 +11728,7 @@
         "name": "Frostbolt",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $3 damage to a character and <b>Freeze</b> it.",
+        "text": "Deal $3 damage to a character and <b>Freeze</b> it.",
         "type": "SPELL"
     },
     {
@@ -11999,7 +11999,7 @@
         "name": "Bloodlust",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your minions +3 Attack this turn.",
+        "text": "Give your minions +3 Attack this turn.",
         "type": "SPELL"
     },
     {
@@ -12022,7 +12022,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 914,
-        "flavor": "It’s a Bolt.   It's made out of Shadow.   What more do you need to know!",
+        "flavor": "It's a Bolt.   It's made out of Shadow.   What more do you need to know!",
         "howToEarn": "Unlocked at Level 1.",
         "howToEarnGolden": "Unlocked at Level 47.",
         "id": "CS2_057",
@@ -12082,7 +12082,7 @@
         "name": "Hellfire",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $3 damage to ALL characters.",
+        "text": "Deal $3 damage to ALL characters.",
         "type": "SPELL"
     },
     {
@@ -12191,7 +12191,7 @@
         "name": "Deadly Poison",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your weapon +2 Attack.",
+        "text": "Give your weapon +2 Attack.",
         "type": "SPELL"
     },
     {
@@ -12207,7 +12207,7 @@
         "name": "Sinister Strike",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $3 damage to the enemy hero.",
+        "text": "Deal $3 damage to the enemy hero.",
         "type": "SPELL"
     },
     {
@@ -12288,7 +12288,7 @@
         "name": "Blessing of Might",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give a minion +3 Attack.",
+        "text": "Give a minion +3 Attack.",
         "type": "SPELL"
     },
     {
@@ -12374,7 +12374,7 @@
         "name": "Consecration",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $2 damage to all enemies.",
+        "text": "Deal $2 damage to all enemies.",
         "type": "SPELL"
     },
     {
@@ -12411,7 +12411,7 @@
         "name": "Truesilver Champion",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Whenever your hero attacks, restore #2 Health to it.",
+        "text": "Whenever your hero attacks, restore #2 Health to it.",
         "type": "WEAPON"
     },
     {
@@ -12460,7 +12460,7 @@
         "name": "Heroic Strike",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your hero +4 Attack this turn.",
+        "text": "Give your hero +4 Attack this turn.",
         "type": "SPELL"
     },
     {
@@ -12546,7 +12546,7 @@
         "rarity": "COMMON",
         "set": "EXPERT1",
         "targetingArrowText": "Restore 3 Health.",
-        "text": "<b>Battlecry:</b> Restore #3 Health.",
+        "text": "<b>Battlecry:</b> Restore #3 Health.",
         "type": "MINION"
     },
     {
@@ -12850,7 +12850,7 @@
         "name": "Silver Hand Knight",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "<b>Battlecry:</b> Summon a 2/2 Squire.",
+        "text": "<b>Battlecry:</b> Summon a 2/2 Squire.",
         "type": "MINION"
     },
     {
@@ -13127,7 +13127,7 @@
         "rarity": "COMMON",
         "set": "EXPERT1",
         "targetingArrowText": "Give +2 Attack this turn.",
-        "text": "<b>Battlecry:</b> Give a minion +2 Attack this turn.",
+        "text": "<b>Battlecry:</b> Give a minion +2 Attack this turn.",
         "type": "MINION"
     },
     {
@@ -13170,7 +13170,7 @@
         "name": "Razorfen Hunter",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "<b>Battlecry:</b> Summon a 1/1 Boar.",
+        "text": "<b>Battlecry:</b> Summon a 1/1 Boar.",
         "type": "MINION"
     },
     {
@@ -13217,7 +13217,7 @@
         "collectible": true,
         "cost": 7,
         "dbfId": 1687,
-        "flavor": "You don’t tame a Core Hound. You just train it to eat someone else before it eats you.",
+        "flavor": "You don't tame a Core Hound. You just train it to eat someone else before it eats you.",
         "health": 5,
         "howToEarnGolden": "Unlocked at Hunter Level 51.",
         "id": "CS2_201",
@@ -13249,7 +13249,7 @@
         ],
         "set": "EXPERT1",
         "targetingArrowText": "<b>Silence</b> a minion.",
-        "text": "<b>Battlecry:</b> <b>Silence</b> a minion.",
+        "text": "<b>Battlecry:</b> <b>Silence</b> a minion.",
         "type": "MINION"
     },
     {
@@ -13421,7 +13421,7 @@
         "name": "Shadow Word: Pain",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Destroy a minion with 3 or less Attack.",
+        "text": "Destroy a minion with 3 or less Attack.",
         "type": "SPELL"
     },
     {
@@ -13573,7 +13573,7 @@
         ],
         "set": "DALARAN",
         "targetingArrowText": "Transform into a 2/2 copy.",
-        "text": "<b>Battlecry:</b> Transform into a 2/2 copy of a friendly <b>Deathrattle</b> minion.",
+        "text": "<b>Battlecry:</b> Transform into a 2/2 copy of a friendly <b>Deathrattle</b> minion.",
         "type": "MINION"
     },
     {
@@ -13583,7 +13583,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 51714,
-        "flavor": "It’s always nice to steal a familiar face.",
+        "flavor": "It's always nice to steal a familiar face.",
         "health": 6,
         "id": "DAL_039",
         "mechanics": [
@@ -13809,7 +13809,7 @@
         "cost": 10,
         "dbfId": 52086,
         "elite": true,
-        "flavor": "“What’s better than reaving? BOOM reaving!”",
+        "flavor": "“What's better than reaving? BOOM reaving!”",
         "health": 9,
         "id": "DAL_070",
         "mechanics": [
@@ -14015,7 +14015,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 52290,
-        "flavor": "He’d be a lot sneakier if he wasn’t trailing 300 yards of power cable…",
+        "flavor": "He'd be a lot sneakier if he wasn't trailing 300 yards of power cable…",
         "health": 3,
         "id": "DAL_090",
         "mechanics": [
@@ -14110,7 +14110,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 51757,
-        "flavor": "This is why you shouldn’t shoot the messenger.",
+        "flavor": "This is why you shouldn't shoot the messenger.",
         "health": 2,
         "id": "DAL_146",
         "mechanics": [
@@ -14183,7 +14183,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 51971,
-        "flavor": "If only you’d let it go to voicemail…",
+        "flavor": "If only you'd let it go to voicemail…",
         "id": "DAL_177",
         "mechanics": [
             "TWINSPELL"
@@ -14241,7 +14241,7 @@
         "collectible": true,
         "cost": 8,
         "dbfId": 52819,
-        "flavor": "Delicious Forest’s Aid! Made from real forests.",
+        "flavor": "Delicious Forest's Aid! Made from real forests.",
         "id": "DAL_256",
         "mechanics": [
             "TWINSPELL"
@@ -14266,7 +14266,7 @@
         "name": "Crystal Power",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "<b>Choose One -</b> Deal $2 damage to a minion; or Restore #5 Health.",
+        "text": "<b>Choose One -</b> Deal $2 damage to a minion; or Restore #5 Health.",
         "type": "SPELL"
     },
     {
@@ -14310,7 +14310,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 51790,
-        "flavor": "You’d be nuts to mess with the squirrel squad.",
+        "flavor": "You'd be nuts to mess with the squirrel squad.",
         "health": 1,
         "id": "DAL_354",
         "mechanics": [
@@ -14373,7 +14373,7 @@
         "name": "Unidentified Contract",
         "rarity": "EPIC",
         "set": "DALARAN",
-        "text": "Destroy a minion. Gains a bonus effect in your hand.",
+        "text": "Destroy a minion. Gains a bonus effect in your hand.",
         "type": "SPELL"
     },
     {
@@ -14390,7 +14390,7 @@
         "name": "Marked Shot",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "Deal $4 damage to a minion. <b>Discover</b> a spell.",
+        "text": "Deal $4 damage to a minion. <b>Discover</b> a spell.",
         "type": "SPELL"
     },
     {
@@ -14527,7 +14527,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "<b>Battlecry:</b> Add a <b>Lackey</b> to your hand.",
+        "text": "<b>Battlecry:</b> Add a <b>Lackey</b> to your hand.",
         "type": "MINION"
     },
     {
@@ -14537,7 +14537,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 52109,
-        "flavor": "Kobold! There’s a place you can handle\nI said kobold! When you’re short in the candle\nCast a spell with the E! V! I! L!",
+        "flavor": "Kobold! There's a place you can handle\nI said kobold! When you're short in the candle\nCast a spell with the E! V! I! L!",
         "health": 2,
         "id": "DAL_413",
         "mechanics": [
@@ -14575,7 +14575,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 52112,
-        "flavor": "She’s more of a rat burglar.",
+        "flavor": "She's more of a rat burglar.",
         "health": 3,
         "id": "DAL_416",
         "mechanics": [
@@ -14607,7 +14607,7 @@
         "name": "Heistbaron Togwaggle",
         "rarity": "LEGENDARY",
         "set": "DALARAN",
-        "text": "<b>Battlecry:</b> If you control a <b>Lackey</b>, choose a fantastic treasure.",
+        "text": "<b>Battlecry:</b> If you control a <b>Lackey</b>, choose a fantastic treasure.",
         "type": "MINION"
     },
     {
@@ -14752,7 +14752,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 52312,
-        "flavor": "Everyone gets two because that’s all she can hold.",
+        "flavor": "Everyone gets two because that's all she can hold.",
         "health": 1,
         "id": "DAL_544",
         "mechanics": [
@@ -14781,7 +14781,7 @@
         "name": "Barista Lynchen",
         "rarity": "LEGENDARY",
         "set": "DALARAN",
-        "text": "<b>Battlecry:</b> Add a copy of each of your other <b>Battlecry</b> minions to your hand.",
+        "text": "<b>Battlecry:</b> Add a copy of each of your other <b>Battlecry</b> minions to your hand.",
         "type": "MINION"
     },
     {
@@ -14823,7 +14823,7 @@
         "name": "Underbelly Ooze",
         "rarity": "RARE",
         "set": "DALARAN",
-        "text": "After this minion survives damage, summon a copy of it.",
+        "text": "After this minion survives damage, summon a copy of it.",
         "type": "MINION"
     },
     {
@@ -14881,7 +14881,7 @@
         "name": "Chef Nomi",
         "rarity": "LEGENDARY",
         "set": "DALARAN",
-        "text": "<b>Battlecry:</b> If your deck is empty, summon six 6/6 Greasefire Elementals.",
+        "text": "<b>Battlecry:</b> If your deck is empty, summon six 6/6 Greasefire Elementals.",
         "type": "MINION"
     },
     {
@@ -14967,7 +14967,7 @@
         "collectible": true,
         "cost": 6,
         "dbfId": 52486,
-        "flavor": "It’s like an interdimensional game of demon tag.",
+        "flavor": "It's like an interdimensional game of demon tag.",
         "health": 6,
         "id": "DAL_565",
         "mechanics": [
@@ -14990,7 +14990,7 @@
         "collectible": true,
         "cost": 6,
         "dbfId": 52487,
-        "flavor": "Them’s fightin’ words!",
+        "flavor": "Them's fightin' words!",
         "health": 4,
         "id": "DAL_566",
         "mechanics": [
@@ -15036,7 +15036,7 @@
         "name": "Never Surrender!",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "<b>Secret:</b> When your opponent casts a spell, give your minions +2 Health.",
+        "text": "<b>Secret:</b> When your opponent casts a spell, give your minions +2 Health.",
         "type": "SPELL"
     },
     {
@@ -15104,7 +15104,7 @@
         "rarity": "LEGENDARY",
         "set": "DALARAN",
         "techLevel": 3,
-        "text": "Your cards that summon minions summon twice as many.",
+        "text": "Your cards that summon minions summon twice as many.",
         "type": "MINION"
     },
     {
@@ -15235,12 +15235,12 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 53099,
-        "flavor": "Not sure I’d call it a good party if everyone ends up beside themselves.",
+        "flavor": "Not sure I'd call it a good party if everyone ends up beside themselves.",
         "id": "DAL_589",
         "name": "Hunting Party",
         "rarity": "RARE",
         "set": "DALARAN",
-        "text": "Copy all Beasts in your hand.",
+        "text": "Copy all Beasts in your hand.",
         "type": "SPELL"
     },
     {
@@ -15260,7 +15260,7 @@
         "name": "Batterhead",
         "rarity": "EPIC",
         "set": "DALARAN",
-        "text": "<b>Rush</b>. After this attacks and kills a minion, it may attack again.",
+        "text": "<b>Rush</b>. After this attacks and kills a minion, it may attack again.",
         "type": "MINION"
     },
     {
@@ -15269,7 +15269,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 52698,
-        "flavor": "It’s coming from inside the deck!",
+        "flavor": "It's coming from inside the deck!",
         "id": "DAL_602",
         "name": "Plot Twist",
         "rarity": "RARE",
@@ -15348,7 +15348,7 @@
         "rarity": "COMMON",
         "set": "DALARAN",
         "targetingArrowText": "Destroy a friendly minion.",
-        "text": "<b>Battlecry:</b> Destroy a friendly minion to add 2 random <b>Lackeys</b> to your hand.",
+        "text": "<b>Battlecry:</b> Destroy a friendly minion to add 2 random <b>Lackeys</b> to your hand.",
         "type": "MINION"
     },
     {
@@ -15439,7 +15439,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 52603,
-        "flavor": "She’ll take anything you have—except scruples and a good work ethic.",
+        "flavor": "She'll take anything you have—except scruples and a good work ethic.",
         "health": 3,
         "id": "DAL_714",
         "mechanics": [
@@ -15451,7 +15451,7 @@
             "RUSH"
         ],
         "set": "DALARAN",
-        "text": "[x]<b>Battlecry:</b> If you're holding\na card from another class,\n gain +1/+1 and <b><b>Rush</b>.</b>",
+        "text": "[x]<b>Battlecry:</b> If you're holding\na card from another class,\n gain +1/+1 and <b><b>Rush</b>.</b>",
         "type": "MINION"
     },
     {
@@ -15612,7 +15612,7 @@
         "cost": 3,
         "dbfId": 52715,
         "elite": true,
-        "flavor": "Of course she knows the future, she’s been looking at your cards the WHOLE TIME!",
+        "flavor": "Of course she knows the future, she's been looking at your cards the WHOLE TIME!",
         "health": 2,
         "id": "DAL_729",
         "mechanics": [
@@ -15631,7 +15631,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 52742,
-        "flavor": "If you don’t fight to the death, it’s Duel Yielding.",
+        "flavor": "If you don't fight to the death, it's Duel Yielding.",
         "id": "DAL_731",
         "name": "Duel!",
         "rarity": "EPIC",
@@ -15656,7 +15656,7 @@
         "name": "Keeper Stalladris",
         "rarity": "LEGENDARY",
         "set": "DALARAN",
-        "text": "After you cast a <b>Choose One</b> spell, add copies of both choices to your hand.",
+        "text": "After you cast a <b>Choose One</b> spell, add copies of both choices to your hand.",
         "type": "MINION"
     },
     {
@@ -15716,7 +15716,7 @@
         "name": "Archivist Elysiana",
         "rarity": "LEGENDARY",
         "set": "DALARAN",
-        "text": "<b>Battlecry:</b> <b>Discover</b> 5 cards. Replace your deck with 2 copies of each.",
+        "text": "<b>Battlecry:</b> <b>Discover</b> 5 cards. Replace your deck with 2 copies of each.",
         "type": "MINION"
     },
     {
@@ -15873,7 +15873,7 @@
         "cost": 8,
         "dbfId": 52954,
         "elite": true,
-        "flavor": "“I’m a real toy now!”",
+        "flavor": "“I'm a real toy now!”",
         "health": 6,
         "id": "DAL_752",
         "mechanics": [
@@ -15945,7 +15945,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 53138,
-        "flavor": "The Alpha Devastator didn’t devastate enough. The Beta Devastator devastated too much. But the Omega was just right!",
+        "flavor": "The Alpha Devastator didn't devastate enough. The Beta Devastator devastated too much. But the Omega was just right!",
         "health": 5,
         "id": "DAL_770",
         "mechanics": [
@@ -16191,7 +16191,7 @@
         "name": "Idol of Y'Shaarj",
         "rarity": "EPIC",
         "set": "DARKMOON_FAIRE",
-        "text": "Summon a 10/10 copy of a minion in your deck.",
+        "text": "Summon a 10/10 copy of a minion in your deck.",
         "type": "SPELL"
     },
     {
@@ -16321,7 +16321,7 @@
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
         "targetingArrowText": "Deal 3 damage.",
-        "text": "<b>Battlecry:</b> If you played an Elemental last turn, deal 3 damage.",
+        "text": "<b>Battlecry:</b> If you played an Elemental last turn, deal 3 damage.",
         "type": "MINION"
     },
     {
@@ -16345,7 +16345,7 @@
             "TAUNT"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Divine Shield</b>\n<b>Corrupt:</b> Gain +3/+3 and <b>Taunt</b>.",
+        "text": "<b>Divine Shield</b>\n<b>Corrupt:</b> Gain +3/+3 and <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -16496,7 +16496,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 61639,
-        "flavor": "\"It's dirigible? I don’t even know what diriging is!\"",
+        "flavor": "\"It's dirigible? I don't even know what diriging is!\"",
         "health": 2,
         "id": "DMF_073",
         "mechanics": [
@@ -16845,7 +16845,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Battlecry:</b> Add two 1/2 Sugar Elementals to your hand.",
+        "text": "<b>Battlecry:</b> Add two 1/2 Sugar Elementals to your hand.",
         "type": "MINION"
     },
     {
@@ -16963,7 +16963,7 @@
             "SECRET"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Battlecry:</b> If you control a <b>Secret</b>, summon a copy of this.",
+        "text": "<b>Battlecry:</b> If you control a <b>Secret</b>, summon a copy of this.",
         "type": "MINION"
     },
     {
@@ -17282,7 +17282,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 61685,
-        "flavor": "Stop picking at it! You’re only making it worse.",
+        "flavor": "Stop picking at it! You're only making it worse.",
         "health": 2,
         "id": "DMF_124",
         "mechanics": [
@@ -17310,7 +17310,7 @@
         "name": "Safety Inspector",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "[x]<b>Battlecry:</b> Shuffle the\n lowest-Cost card from\n your hand into your\n deck. Draw a card.",
+        "text": "[x]<b>Battlecry:</b> Shuffle the\n lowest-Cost card from\n your hand into your\n deck. Draw a card.",
         "type": "MINION"
     },
     {
@@ -17487,7 +17487,7 @@
             "SILENCE"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Deathrattle:</b> <b>Silence</b> all minions.",
+        "text": "<b>Deathrattle:</b> <b>Silence</b> all minions.",
         "type": "MINION"
     },
     {
@@ -17534,7 +17534,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 60892,
-        "flavor": "So long as it doesn’t kill you, it's considered part of the ride \"experience.\"",
+        "flavor": "So long as it doesn't kill you, it's considered part of the ride \"experience.\"",
         "health": 2,
         "id": "DMF_202",
         "mechanics": [
@@ -17568,7 +17568,7 @@
             "OUTCAST"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "Your <b>Outcast</b> cards cost (1) less.",
+        "text": "Your <b>Outcast</b> cards cost (1) less.",
         "type": "MINION"
     },
     {
@@ -17647,7 +17647,7 @@
             "TAUNT"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Summon two\n  1/1 Assistants with <b>Taunt</b>.  ",
+        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Summon two\n  1/1 Assistants with <b>Taunt</b>.  ",
         "type": "MINION"
     },
     {
@@ -17664,7 +17664,7 @@
             "RUSH"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "Summon seven 1/1 Illidari with <b>Rush</b>. If they all die this turn, summon seven more.",
+        "text": "Summon seven 1/1 Illidari with <b>Rush</b>. If they all die this turn, summon seven more.",
         "type": "SPELL"
     },
     {
@@ -17678,7 +17678,7 @@
         "name": "Throw Glaive",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "Deal $2 damage to a minion. If it dies, add a temporary copy of this to your hand.",
+        "text": "Deal $2 damage to a minion. If it dies, add a temporary copy of this to your hand.",
         "type": "SPELL"
     },
     {
@@ -17947,7 +17947,7 @@
             "TAUNT"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Taunt</b>\n <b>Corrupt:</b> Gain +1/+1 and <b>Lifesteal</b>.",
+        "text": "<b>Taunt</b>\n <b>Corrupt:</b> Gain +1/+1 and <b>Lifesteal</b>.",
         "type": "MINION"
     },
     {
@@ -18026,7 +18026,7 @@
             "COMBO"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Battlecry:</b> Your next\n<b>Combo</b> card this turn costs (2) less.",
+        "text": "<b>Battlecry:</b> Your next\n<b>Combo</b> card this turn costs (2) less.",
         "type": "MINION"
     },
     {
@@ -18063,7 +18063,7 @@
             "STEALTH"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Secret:</b> After a minion attacks your hero, summon a copy of it with <b>Stealth</b>.",
+        "text": "<b>Secret:</b> After a minion attacks your hero, summon a copy of it with <b>Stealth</b>.",
         "type": "SPELL"
     },
     {
@@ -18158,7 +18158,7 @@
         "name": "Malevolent Strike",
         "rarity": "EPIC",
         "set": "DARKMOON_FAIRE",
-        "text": "[x]Destroy a minion.\n Costs (1) less for each\n  card in your deck that\n  didn't start there.",
+        "text": "[x]Destroy a minion.\n Costs (1) less for each\n  card in your deck that\n  didn't start there.",
         "type": "SPELL"
     },
     {
@@ -18222,7 +18222,7 @@
         "race": "PIRATE",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Equip a 3/2 Sword.",
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Equip a 3/2 Sword.",
         "type": "MINION"
     },
     {
@@ -18260,7 +18260,7 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Rush</b>\n<b>Deathrattle:</b> Add two 1/1 Riders with <b>Rush</b> to your hand.",
+        "text": "<b>Rush</b>\n<b>Deathrattle:</b> Add two 1/1 Riders with <b>Rush</b> to your hand.",
         "type": "MINION"
     },
     {
@@ -18457,7 +18457,7 @@
         "name": "Deck of Chaos",
         "rarity": "LEGENDARY",
         "set": "DARKMOON_FAIRE",
-        "text": "Swap the Cost and Attack of all minions in your deck.",
+        "text": "Swap the Cost and Attack of all minions in your deck.",
         "type": "SPELL"
     },
     {
@@ -18522,7 +18522,7 @@
         "name": "Pit Master",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Battlecry:</b> Summon a 3/2 Duelist.\n<b>Corrupt:</b> Summon two.",
+        "text": "<b>Battlecry:</b> Summon a 3/2 Duelist.\n<b>Corrupt:</b> Summon two.",
         "type": "MINION"
     },
     {
@@ -18741,7 +18741,7 @@
         "name": "Stormhammer",
         "rarity": "EPIC",
         "set": "DRAGONS",
-        "text": "Doesn't lose Durability while you control a Dragon.",
+        "text": "Doesn't lose Durability while you control a Dragon.",
         "type": "WEAPON"
     },
     {
@@ -18750,7 +18750,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 54924,
-        "flavor": "\"And I hereby dub thee a cadet of the Explorer’s League! NEXT!\"",
+        "flavor": "\"And I hereby dub thee a cadet of the Explorer's League! NEXT!\"",
         "id": "DRG_008",
         "mechanics": [
             "SIDEQUEST"
@@ -18779,7 +18779,7 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "DRAGONS",
-        "text": "<b>Rush</b>\n<b>Battlecry:</b> Draw a <b>Rush</b> minion from your deck.",
+        "text": "<b>Rush</b>\n<b>Battlecry:</b> Draw a <b>Rush</b> minion from your deck.",
         "type": "MINION"
     },
     {
@@ -18800,7 +18800,7 @@
         "race": "DRAGON",
         "rarity": "EPIC",
         "set": "DRAGONS",
-        "text": "<b>Rush</b>. <b>Battlecry:</b> If you've <b>Invoked</b> twice, summon 2 copies of this.",
+        "text": "<b>Rush</b>. <b>Battlecry:</b> If you've <b>Invoked</b> twice, summon 2 copies of this.",
         "type": "MINION"
     },
     {
@@ -18912,7 +18912,7 @@
         "name": "Ancharrr",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "After your hero attacks, draw a Pirate from your deck.",
+        "text": "After your hero attacks, draw a Pirate from your deck.",
         "type": "WEAPON"
     },
     {
@@ -18969,7 +18969,7 @@
         "name": "Dragon's Hoard",
         "rarity": "RARE",
         "set": "DRAGONS",
-        "text": "<b>Discover</b> a <b>Legendary</b> minion from another class.",
+        "text": "<b>Discover</b> a <b>Legendary</b> minion from another class.",
         "type": "SPELL"
     },
     {
@@ -19019,7 +19019,7 @@
         "name": "Candle Breath",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "Draw 3 cards. Costs (3) less while you're holding a Dragon.",
+        "text": "Draw 3 cards. Costs (3) less while you're holding a Dragon.",
         "type": "SPELL"
     },
     {
@@ -19048,7 +19048,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 55103,
-        "flavor": "They’re pretty fly for some pirate guys.",
+        "flavor": "They're pretty fly for some pirate guys.",
         "health": 1,
         "id": "DRG_035",
         "mechanics": [
@@ -19090,7 +19090,7 @@
         "cost": 6,
         "dbfId": 55105,
         "elite": true,
-        "flavor": "Junior explorers scan the night sky in fear of her candle’s flame!",
+        "flavor": "Junior explorers scan the night sky in fear of her candle's flame!",
         "health": 4,
         "id": "DRG_037",
         "mechanics": [
@@ -19272,7 +19272,7 @@
             "RUSH"
         ],
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> If you control a Mech, gain +1/+1 and <b>Rush</b>.",
+        "text": "<b>Battlecry:</b> If you control a Mech, gain +1/+1 and <b>Rush</b>.",
         "type": "MINION"
     },
     {
@@ -19282,7 +19282,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 55405,
-        "flavor": "It’s our fault for making all those card backs that look like food.",
+        "flavor": "It's our fault for making all those card backs that look like food.",
         "health": 3,
         "id": "DRG_060",
         "mechanics": [
@@ -19459,7 +19459,7 @@
             "FREEZE"
         ],
         "set": "DRAGONS",
-        "text": "Your minions can't be <b>Frozen</b>.",
+        "text": "Your minions can't be <b>Frozen</b>.",
         "type": "MINION"
     },
     {
@@ -19498,7 +19498,7 @@
         "rarity": "RARE",
         "set": "DRAGONS",
         "targetingArrowText": "Add a copy to your hand.",
-        "text": "<b>Battlecry:</b> Choose a friendly Dragon. Add a copy of it to your hand.",
+        "text": "<b>Battlecry:</b> Choose a friendly Dragon. Add a copy of it to your hand.",
         "type": "MINION"
     },
     {
@@ -19548,7 +19548,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 55423,
-        "flavor": "I've never heard of this fey-dragon called \"Brightwing,\" but if I HAD, I’d say we’d be best friends.",
+        "flavor": "I've never heard of this fey-dragon called \"Brightwing,\" but if I HAD, I'd say we'd be best friends.",
         "health": 4,
         "id": "DRG_073",
         "mechanics": [
@@ -19582,7 +19582,7 @@
             "STEALTH"
         ],
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> Give your other Mechs <b>Stealth</b> until your next turn.",
+        "text": "<b>Battlecry:</b> Give your other Mechs <b>Stealth</b> until your next turn.",
         "type": "MINION"
     },
     {
@@ -19602,7 +19602,7 @@
         "race": "DRAGON",
         "rarity": "RARE",
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> Add two 1-Cost spells from your class to your hand.",
+        "text": "<b>Battlecry:</b> Add two 1-Cost spells from your class to your hand.",
         "type": "MINION"
     },
     {
@@ -19661,7 +19661,7 @@
         "name": "Depth Charge",
         "rarity": "RARE",
         "set": "DRAGONS",
-        "text": "At the start of your turn, deal 5 damage to ALL minions.",
+        "text": "At the start of your turn, deal 5 damage to ALL minions.",
         "type": "MINION"
     },
     {
@@ -19743,7 +19743,7 @@
         "name": "Tentacled Menace",
         "rarity": "EPIC",
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> Each player draws a card. Swap their Costs.",
+        "text": "<b>Battlecry:</b> Each player draws a card. Swap their Costs.",
         "type": "MINION"
     },
     {
@@ -19784,7 +19784,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "DRAGONS",
-        "text": "Has +3 Attack for each other Dread Raven you control.",
+        "text": "Has +3 Attack for each other Dread Raven you control.",
         "type": "MINION"
     },
     {
@@ -19826,7 +19826,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> Play all cards your opponent played last turn.",
+        "text": "<b>Battlecry:</b> Play all cards your opponent played last turn.",
         "type": "MINION"
     },
     {
@@ -19846,7 +19846,7 @@
         "name": "Shu'ma",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "At the end of your turn,\nfill your board with 1/1 Tentacles.",
+        "text": "At the end of your turn,\nfill your board with 1/1 Tentacles.",
         "type": "MINION"
     },
     {
@@ -19964,7 +19964,7 @@
         "race": "ELEMENTAL",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "After you cast three spells in a turn, summon a 5/5 Elemental.",
+        "text": "After you cast three spells in a turn, summon a 5/5 Elemental.",
         "type": "MINION"
     },
     {
@@ -20001,7 +20001,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "<b>Deathrattle:</b> Add an 'Arcane Missiles' spell to your hand.",
+        "text": "<b>Deathrattle:</b> Add an 'Arcane Missiles' spell to your hand.",
         "type": "MINION"
     },
     {
@@ -20067,7 +20067,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 54890,
-        "flavor": "If you’re not wearing your regulation cultist clothing, how will Galakrond know to devour you last?",
+        "flavor": "If you're not wearing your regulation cultist clothing, how will Galakrond know to devour you last?",
         "health": 4,
         "id": "DRG_203",
         "mechanics": [
@@ -20116,12 +20116,12 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 54893,
-        "flavor": "You know it’s autumn when the skies rain brimstone and fire. Also: pumpkin spice!",
+        "flavor": "You know it's autumn when the skies rain brimstone and fire. Also: pumpkin spice!",
         "id": "DRG_206",
         "name": "Rain of Fire",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "Deal $1 damage to all characters.",
+        "text": "Deal $1 damage to all characters.",
         "type": "SPELL"
     },
     {
@@ -20265,7 +20265,7 @@
             "OVERLOAD"
         ],
         "set": "DRAGONS",
-        "text": "Has +1 Attack while you have <b>Overloaded</b> Mana Crystals.",
+        "text": "Has +1 Attack while you have <b>Overloaded</b> Mana Crystals.",
         "type": "MINION"
     },
     {
@@ -20405,7 +20405,7 @@
         "rarity": "COMMON",
         "set": "DRAGONS",
         "targetingArrowText": "Restore 8 Health.",
-        "text": "<b>Battlecry:</b> Restore #8 Health.",
+        "text": "<b>Battlecry:</b> Restore #8 Health.",
         "type": "MINION"
     },
     {
@@ -20465,7 +20465,7 @@
         "name": "Lightforged Zealot",
         "rarity": "RARE",
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> If your deck has no Neutral cards, equip a   4/2 Truesilver Champion. ",
+        "text": "<b>Battlecry:</b> If your deck has no Neutral cards, equip a   4/2 Truesilver Champion. ",
         "type": "MINION"
     },
     {
@@ -20596,7 +20596,7 @@
         "name": "Awaken!",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "<b>Invoke</b> Galakrond. Deal $1 damage to all minions.",
+        "text": "<b>Invoke</b> Galakrond. Deal $1 damage to all minions.",
         "type": "SPELL"
     },
     {
@@ -20610,7 +20610,7 @@
         "name": "Fiendish Rites",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "<b>Invoke</b> Galakrond.\nGive your minions +1 Attack.",
+        "text": "<b>Invoke</b> Galakrond.\nGive your minions +1 Attack.",
         "type": "SPELL"
     },
     {
@@ -20669,7 +20669,7 @@
         "name": "Dwarven Sharpshooter",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "Your Hero Power can target minions.",
+        "text": "Your Hero Power can target minions.",
         "type": "MINION"
     },
     {
@@ -20719,7 +20719,7 @@
         "cost": 4,
         "dbfId": 55303,
         "elite": true,
-        "flavor": "*Thunk* \"That wasn’t a dragon!\" *Thunk* \"THAT wasn’t a dragon!\"",
+        "flavor": "*Thunk* \"That wasn't a dragon!\" *Thunk* \"THAT wasn't a dragon!\"",
         "health": 5,
         "id": "DRG_256",
         "mechanics": [
@@ -20749,7 +20749,7 @@
         "name": "Frizz Kindleroost",
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> Reduce the Cost of Dragons in your deck by (2).",
+        "text": "<b>Battlecry:</b> Reduce the Cost of Dragons in your deck by (2).",
         "type": "MINION"
     },
     {
@@ -20820,12 +20820,12 @@
         "collectible": true,
         "cost": 0,
         "dbfId": 54872,
-        "flavor": "Madame Lazul’s ASMR program is off to a promising start!",
+        "flavor": "Madame Lazul's ASMR program is off to a promising start!",
         "id": "DRG_301",
         "name": "Whispers of EVIL",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "Add a <b>Lackey</b> to your hand.",
+        "text": "Add a <b>Lackey</b> to your hand.",
         "type": "SPELL"
     },
     {
@@ -20925,7 +20925,7 @@
         "cost": 3,
         "dbfId": 54917,
         "elite": true,
-        "flavor": "It’s pronounced \"Kaahrj.\"",
+        "flavor": "It's pronounced \"Kaahrj.\"",
         "health": 3,
         "id": "DRG_308",
         "mechanics": [
@@ -21018,7 +21018,7 @@
         "name": "Shrubadier",
         "rarity": "COMMON",
         "set": "DRAGONS",
-        "text": "<b>Battlecry:</b> Summon a 2/2 Treant.",
+        "text": "<b>Battlecry:</b> Summon a 2/2 Treant.",
         "type": "MINION"
     },
     {
@@ -21169,7 +21169,7 @@
         "collectible": true,
         "cost": 7,
         "dbfId": 55280,
-        "flavor": "It’s challenging to perform magic on dragonback. It’s so easy to drop the rabbit.",
+        "flavor": "It's challenging to perform magic on dragonback. It's so easy to drop the rabbit.",
         "health": 4,
         "id": "DRG_322",
         "mechanics": [
@@ -21204,7 +21204,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 55283,
-        "flavor": "Reno’s lucky he wasn’t caught by a fire elemental.",
+        "flavor": "Reno's lucky he wasn't caught by a fire elemental.",
         "id": "DRG_324",
         "mechanics": [
             "SIDEQUEST"
@@ -21253,7 +21253,7 @@
         "rarity": "LEGENDARY",
         "set": "DRAGONS",
         "targetingArrowText": "Add a copy to your hand, deck, and battlefield.",
-        "text": "<b>Battlecry:</b> Choose a friendly minion. Add a copy of it to your hand, deck, and battlefield.",
+        "text": "<b>Battlecry:</b> Choose a friendly minion. Add a copy of it to your hand, deck, and battlefield.",
         "type": "MINION"
     },
     {
@@ -21281,7 +21281,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 55935,
-        "flavor": "Pizza so hot it burns OTHER PEOPLE’S MOUTHS.",
+        "flavor": "Pizza so hot it burns OTHER PEOPLE'S MOUTHS.",
         "id": "DRG_500",
         "name": "Molten Breath",
         "rarity": "RARE",
@@ -21380,7 +21380,7 @@
         "cost": 7,
         "dbfId": 57416,
         "elite": true,
-        "flavor": "Lazul called Galakrond’s name, her voice echoed by whispers from the deep. Both of Galakrond’s eyes opened… and then other eyes opened, as well.",
+        "flavor": "Lazul called Galakrond's name, her voice echoed by whispers from the deep. Both of Galakrond's eyes opened… and then other eyes opened, as well.",
         "health": 30,
         "id": "DRG_660",
         "mechanics": [
@@ -21458,7 +21458,7 @@
         "race": "BEAST",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Your other Beasts have +1 Attack.",
+        "text": "Your other Beasts have +1 Attack.",
         "type": "MINION"
     },
     {
@@ -21515,7 +21515,7 @@
         "name": "Tracking",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Look at the top 3 cards of your deck. Draw one and discard the others.",
+        "text": "Look at the top 3 cards of your deck. Draw one and discard the others.",
         "type": "SPELL"
     },
     {
@@ -21576,7 +21576,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 1655,
-        "flavor": "She’s smaller than her sisters Mediumwarden and Heavywarden.",
+        "flavor": "She's smaller than her sisters Mediumwarden and Heavywarden.",
         "health": 2,
         "id": "EX1_001",
         "mechanics": [
@@ -21652,7 +21652,7 @@
         "type": "MINION"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "attack": 0,
         "cardClass": "NEUTRAL",
         "collectible": true,
@@ -21678,7 +21678,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 1659,
-        "flavor": "He trained when he was younger to be an acolyte of joy, but things didn’t work out like he thought they would.",
+        "flavor": "He trained when he was younger to be an acolyte of joy, but things didn't work out like he thought they would.",
         "health": 3,
         "id": "EX1_007",
         "mechanics": [
@@ -21687,7 +21687,7 @@
         "name": "Acolyte of Pain",
         "rarity": "COMMON",
         "set": "HOF",
-        "text": "Whenever this minion takes damage, draw a card.",
+        "text": "Whenever this minion takes damage, draw a card.",
         "type": "MINION"
     },
     {
@@ -21769,7 +21769,7 @@
         "rarity": "FREE",
         "set": "CORE",
         "targetingArrowText": "Restore 2 Health.",
-        "text": "<b>Battlecry:</b> Restore #2 Health.",
+        "text": "<b>Battlecry:</b> Restore #2 Health.",
         "type": "MINION"
     },
     {
@@ -21946,7 +21946,7 @@
         "cost": 4,
         "dbfId": 34,
         "faction": "HORDE",
-        "flavor": "The first time they tried to guard Silvermoon against the scourge, it didn’t go so well…",
+        "flavor": "The first time they tried to guard Silvermoon against the scourge, it didn't go so well…",
         "health": 3,
         "id": "EX1_023",
         "mechanics": [
@@ -22016,7 +22016,7 @@
         "name": "Leper Gnome",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "<b>Deathrattle:</b> Deal 2 damage to the enemy hero.",
+        "text": "<b>Deathrattle:</b> Deal 2 damage to the enemy hero.",
         "type": "MINION"
     },
     {
@@ -22027,7 +22027,7 @@
         "cost": 6,
         "dbfId": 759,
         "faction": "ALLIANCE",
-        "flavor": "She doesn’t ACTUALLY walk on the Sun.  It's just a name.  Don’t worry!",
+        "flavor": "She doesn't ACTUALLY walk on the Sun.  It's just a name.  Don't worry!",
         "health": 5,
         "id": "EX1_032",
         "mechanics": [
@@ -22138,7 +22138,7 @@
         "rarity": "COMMON",
         "set": "EXPERT1",
         "targetingArrowText": "Give +2 Attack.",
-        "text": "<b>Battlecry:</b> Give a minion +2 Attack this turn.",
+        "text": "<b>Battlecry:</b> Give a minion +2 Attack this turn.",
         "type": "MINION"
     },
     {
@@ -22162,7 +22162,7 @@
         ],
         "set": "HOF",
         "targetingArrowText": "<b>Silence</b> a minion.",
-        "text": "<b>Battlecry:</b> <b>Silence</b> a minion.",
+        "text": "<b>Battlecry:</b> <b>Silence</b> a minion.",
         "type": "MINION"
     },
     {
@@ -22173,7 +22173,7 @@
         "cost": 2,
         "dbfId": 415,
         "faction": "ALLIANCE",
-        "flavor": "His youthful enthusiasm doesn’t always equal excellence in his brews.   Don’t drink the Mogu Stout!",
+        "flavor": "His youthful enthusiasm doesn't always equal excellence in his brews.   Don't drink the Mogu Stout!",
         "health": 2,
         "id": "EX1_049",
         "mechanics": [
@@ -22214,7 +22214,7 @@
         "cost": 2,
         "dbfId": 12,
         "faction": "ALLIANCE",
-        "flavor": "She’s trying to kick the habit, but still takes some mana whenever she has a stressful day.",
+        "flavor": "She's trying to kick the habit, but still takes some mana whenever she has a stressful day.",
         "health": 3,
         "id": "EX1_055",
         "mechanics": [
@@ -22384,7 +22384,7 @@
         "cost": 1,
         "dbfId": 158,
         "faction": "ALLIANCE",
-        "flavor": "Where is Mankrik’s wife? She’ll never tell.",
+        "flavor": "Where is Mankrik's wife? She'll never tell.",
         "health": 2,
         "id": "EX1_080",
         "mechanics": [
@@ -22533,7 +22533,7 @@
         "cost": 4,
         "dbfId": 763,
         "faction": "ALLIANCE",
-        "flavor": "You wouldn’t think that Argus would need this much defending.  But it does.",
+        "flavor": "You wouldn't think that Argus would need this much defending.  But it does.",
         "health": 3,
         "id": "EX1_093",
         "mechanics": [
@@ -22624,7 +22624,7 @@
         "name": "Lorewalker Cho",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "Whenever a player casts a spell, put a copy into the other player’s hand.",
+        "text": "Whenever a player casts a spell, put a copy into the other player's hand.",
         "type": "MINION"
     },
     {
@@ -22796,7 +22796,7 @@
             "STEALTH"
         ],
         "set": "HOF",
-        "text": "Give your minions <b>Stealth</b> until your next turn.",
+        "text": "Give your minions <b>Stealth</b> until your next turn.",
         "type": "SPELL"
     },
     {
@@ -22812,7 +22812,7 @@
         "name": "Fan of Knives",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $1 damage to all enemy minions. Draw a card.",
+        "text": "Deal $1 damage to all enemy minions. Draw a card.",
         "type": "SPELL"
     },
     {
@@ -22865,7 +22865,7 @@
         "name": "Eye for an Eye",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "<b>Secret:</b> When your hero takes damage, deal that much damage to the enemy hero.",
+        "text": "<b>Secret:</b> When your hero takes damage, deal that much damage to the enemy hero.",
         "type": "SPELL"
     },
     {
@@ -22915,7 +22915,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 140,
-        "flavor": "I am not sure how you get demptioned the first time.  It’s a mystery!",
+        "flavor": "I am not sure how you get demptioned the first time.  It's a mystery!",
         "id": "EX1_136",
         "mechanics": [
             "SECRET"
@@ -22954,7 +22954,7 @@
         "name": "Shadowstep",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "Return a friendly minion to your hand. It costs (2) less.",
+        "text": "Return a friendly minion to your hand. It costs (2) less.",
         "type": "SPELL"
     },
     {
@@ -23053,7 +23053,7 @@
         "name": "Naturalize",
         "rarity": "COMMON",
         "set": "HOF",
-        "text": "Destroy a minion.\nYour opponent draws 2 cards.",
+        "text": "Destroy a minion.\nYour opponent draws 2 cards.",
         "type": "SPELL"
     },
     {
@@ -23075,7 +23075,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "Adjacent minions have +1 Attack.",
+        "text": "Adjacent minions have +1 Attack.",
         "type": "MINION"
     },
     {
@@ -23092,7 +23092,7 @@
         "name": "Nourish",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "text": "<b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.",
+        "text": "<b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.",
         "type": "SPELL"
     },
     {
@@ -23137,7 +23137,7 @@
             "SILENCE"
         ],
         "set": "EXPERT1",
-        "text": "<b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.",
+        "text": "<b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.",
         "type": "MINION"
     },
     {
@@ -23193,7 +23193,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "attack": 5,
         "cardClass": "DRUID",
         "collectible": true,
@@ -23270,7 +23270,7 @@
         "name": "Pilfer",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "Add a random card from another class to your hand.",
+        "text": "Add a random card from another class to your hand.",
         "type": "SPELL"
     },
     {
@@ -23337,7 +23337,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 54836,
-        "flavor": "What will she destroy? It’s a secret!",
+        "flavor": "What will she destroy? It's a secret!",
         "health": 4,
         "id": "EX1_186",
         "mechanics": [
@@ -23379,7 +23379,7 @@
         "collectible": true,
         "cost": 7,
         "dbfId": 54838,
-        "flavor": "It’s never Huffer.",
+        "flavor": "It's never Huffer.",
         "health": 4,
         "id": "EX1_188",
         "mechanics": [
@@ -23409,7 +23409,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "<b>Battlecry:</b> Add a random <b>Legendary</b> minion to your hand.",
+        "text": "<b>Battlecry:</b> Add a random <b>Legendary</b> minion to your hand.",
         "type": "MINION"
     },
     {
@@ -23429,7 +23429,7 @@
         "name": "High Inquisitor Whitemane",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "<b>Battlecry:</b> Summon all friendly minions that died this turn.",
+        "text": "<b>Battlecry:</b> Summon all friendly minions that died this turn.",
         "type": "MINION"
     },
     {
@@ -23485,7 +23485,7 @@
         "name": "Psychic Conjurer",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "<b>Battlecry:</b> Copy a card in your opponent’s deck and add it to your hand.",
+        "text": "<b>Battlecry:</b> Copy a card in your opponent's deck and add it to your hand.",
         "type": "MINION"
     },
     {
@@ -23539,7 +23539,7 @@
         "rarity": "RARE",
         "set": "EXPERT1",
         "targetingArrowText": "Give -2 Attack\nuntil next turn.",
-        "text": "<b>Battlecry:</b> Give an enemy minion -2 Attack until your next turn.",
+        "text": "<b>Battlecry:</b> Give an enemy minion -2 Attack until your next turn.",
         "type": "MINION"
     },
     {
@@ -23648,7 +23648,7 @@
         "name": "Totemic Might",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Give your Totems +2 Health.",
+        "text": "Give your Totems +2 Health.",
         "type": "SPELL"
     },
     {
@@ -23786,7 +23786,7 @@
         "overload": 2,
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "Deal $2 damage to 2 random enemy minions. <b>Overload:</b> (2)",
+        "text": "Deal $2 damage to 2 random enemy minions. <b>Overload:</b> (2)",
         "type": "SPELL"
     },
     {
@@ -23809,7 +23809,7 @@
             "OVERLOAD"
         ],
         "set": "EXPERT1",
-        "text": "Whenever you play a card with <b>Overload</b>, gain +1/+1.",
+        "text": "Whenever you play a card with <b>Overload</b>, gain +1/+1.",
         "type": "MINION"
     },
     {
@@ -23827,7 +23827,7 @@
         "overload": 2,
         "rarity": "RARE",
         "set": "EXPERT1",
-        "text": "Deal $2-$3 damage to all enemy minions. <b>Overload:</b> (2)",
+        "text": "Deal $2-$3 damage to all enemy minions. <b>Overload:</b> (2)",
         "type": "SPELL"
     },
     {
@@ -23849,7 +23849,7 @@
             "SECRET"
         ],
         "set": "EXPERT1",
-        "text": "If you control a <b>Secret</b> at the end of your turn, gain +2/+2.",
+        "text": "If you control a <b>Secret</b> at the end of your turn, gain +2/+2.",
         "type": "MINION"
     },
     {
@@ -23937,7 +23937,7 @@
         "rarity": "COMMON",
         "set": "EXPERT1",
         "targetingArrowText": "Freeze a character.",
-        "text": "<b>Battlecry:</b> <b>Freeze</b> a character.",
+        "text": "<b>Battlecry:</b> <b>Freeze</b> a character.",
         "type": "MINION"
     },
     {
@@ -24044,7 +24044,7 @@
         "cost": 8,
         "dbfId": 374,
         "elite": true,
-        "flavor": "Ragnaros was summoned by the Dark Iron dwarves, who were eventually enslaved by the Firelord.  Summoning Ragnaros often doesn’t work out the way you want it to.",
+        "flavor": "Ragnaros was summoned by the Dark Iron dwarves, who were eventually enslaved by the Firelord.  Summoning Ragnaros often doesn't work out the way you want it to.",
         "health": 8,
         "id": "EX1_298",
         "mechanics": [
@@ -24181,7 +24181,7 @@
         "name": "Siphon Soul",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "text": "Destroy a minion. Restore #3 Health to your hero.",
+        "text": "Destroy a minion. Restore #3 Health to your hero.",
         "type": "SPELL"
     },
     {
@@ -24278,7 +24278,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 860,
-        "flavor": "Generally demons are pretty obvious and you don’t need a spell to sense them.",
+        "flavor": "Generally demons are pretty obvious and you don't need a spell to sense them.",
         "id": "EX1_317",
         "name": "Sense Demons",
         "rarity": "COMMON",
@@ -24317,7 +24317,7 @@
         "name": "Bane of Doom",
         "rarity": "EPIC",
         "set": "EXPERT1",
-        "text": "Deal $2 damage to a character. If that kills it, summon a random Demon.",
+        "text": "Deal $2 damage to a character. If that kills it, summon a random Demon.",
         "type": "SPELL"
     },
     {
@@ -24478,7 +24478,7 @@
         "name": "Lay on Hands",
         "rarity": "EPIC",
         "set": "EXPERT1",
-        "text": "Restore #8 Health. Draw 3 cards.",
+        "text": "Restore #8 Health. Draw 3 cards.",
         "type": "SPELL"
     },
     {
@@ -24562,7 +24562,7 @@
         "name": "Holy Wrath",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "text": "Draw a card and deal damage equal to its Cost.",
+        "text": "Draw a card and deal damage equal to its Cost.",
         "type": "SPELL"
     },
     {
@@ -24581,7 +24581,7 @@
         "name": "Sword of Justice",
         "rarity": "EPIC",
         "set": "EXPERT1",
-        "text": "After you summon a minion, give it +1/+1 and this loses 1 Durability.",
+        "text": "After you summon a minion, give it +1/+1 and this loses 1 Durability.",
         "type": "WEAPON"
     },
     {
@@ -24590,7 +24590,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 727,
-        "flavor": "This spell has been renamed so many times, even paladins don’t know what it should be called anymore.",
+        "flavor": "This spell has been renamed so many times, even paladins don't know what it should be called anymore.",
         "howToEarn": "Unlocked at Level 1.",
         "howToEarnGolden": "Unlocked at Level 23.",
         "id": "EX1_371",
@@ -24637,7 +24637,7 @@
         "rarity": "RARE",
         "set": "EXPERT1",
         "targetingArrowText": "Change Attack to 1.",
-        "text": "<b>Battlecry:</b> Change an enemy minion's Attack to 1.",
+        "text": "<b>Battlecry:</b> Change an enemy minion's Attack to 1.",
         "type": "MINION"
     },
     {
@@ -24659,7 +24659,7 @@
         "name": "Tirion Fordring",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "<b><b>Divine Shield</b>,</b> <b>Taunt</b> <b>Deathrattle:</b> Equip a 5/3 Ashbringer.",
+        "text": "<b><b>Divine Shield</b>,</b> <b>Taunt</b> <b>Deathrattle:</b> Equip a 5/3 Ashbringer.",
         "type": "MINION"
     },
     {
@@ -24781,7 +24781,7 @@
         "name": "Arathi Weaponsmith",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "<b>Battlecry:</b> Equip a 2/2 weapon.",
+        "text": "<b>Battlecry:</b> Equip a 2/2 weapon.",
         "type": "MINION"
     },
     {
@@ -24801,7 +24801,7 @@
         "name": "Gurubashi Berserker",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Whenever this minion takes damage, gain +3 Attack.",
+        "text": "Whenever this minion takes damage, gain +3 Attack.",
         "type": "MINION"
     },
     {
@@ -24817,7 +24817,7 @@
         "name": "Whirlwind",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Deal $1 damage to ALL minions.",
+        "text": "Deal $1 damage to ALL minions.",
         "type": "SPELL"
     },
     {
@@ -24836,7 +24836,7 @@
         "name": "Armorsmith",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "text": "Whenever a friendly minion takes damage, gain 1 Armor.",
+        "text": "Whenever a friendly minion takes damage, gain 1 Armor.",
         "type": "MINION"
     },
     {
@@ -24996,7 +24996,7 @@
         "rarity": "FREE",
         "set": "CORE",
         "techLevel": 1,
-        "text": "<b>Battlecry:</b> Summon a 1/1 Murloc Scout.",
+        "text": "<b>Battlecry:</b> Summon a 1/1 Murloc Scout.",
         "type": "MINION"
     },
     {
@@ -25028,7 +25028,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 510,
-        "flavor": "These are the brainy murlocs.  It turns out that doesn’t mean much.",
+        "flavor": "These are the brainy murlocs.  It turns out that doesn't mean much.",
         "health": 1,
         "howToEarnGolden": "Unlocked at Warlock Level 53.",
         "id": "EX1_508",
@@ -25071,7 +25071,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 1133,
-        "flavor": "He’s not really that patient. It just takes a while for someone to walk by that he can actually reach.",
+        "flavor": "He's not really that patient. It just takes a while for someone to walk by that he can actually reach.",
         "health": 1,
         "id": "EX1_522",
         "mechanics": [
@@ -25222,7 +25222,7 @@
         "cost": 9,
         "dbfId": 1144,
         "elite": true,
-        "flavor": "The best defense against King Krush is to have someone you don’t like standing in front of you.",
+        "flavor": "The best defense against King Krush is to have someone you don't like standing in front of you.",
         "health": 8,
         "id": "EX1_543",
         "mechanics": [
@@ -25366,7 +25366,7 @@
         "name": "Archmage Antonidas",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "Whenever you cast a spell, add a 'Fireball' spell to your hand.",
+        "text": "Whenever you cast a spell, add a 'Fireball' spell to your hand.",
         "type": "MINION"
     },
     {
@@ -25384,7 +25384,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "Players only have 15 seconds to take their turns.",
+        "text": "Players only have 15 seconds to take their turns.",
         "type": "MINION"
     },
     {
@@ -25492,7 +25492,7 @@
         "race": "TOTEM",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Adjacent minions have +2 Attack.",
+        "text": "Adjacent minions have +2 Attack.",
         "type": "MINION"
     },
     {
@@ -25527,7 +25527,7 @@
         "name": "Bite",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "text": "Give your hero +4 Attack this turn. Gain 4 Armor.",
+        "text": "Give your hero +4 Attack this turn. Gain 4 Armor.",
         "type": "SPELL"
     },
     {
@@ -25562,7 +25562,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "At the end of your turn, add a Dream Card to your hand.",
+        "text": "At the end of your turn, add a Dream Card to your hand.",
         "type": "MINION"
     },
     {
@@ -25722,7 +25722,7 @@
             "SPELLPOWER"
         ],
         "set": "EXPERT1",
-        "text": "<b>Battlecry:</b> Give adjacent minions <b>Spell Damage +1</b>.",
+        "text": "<b>Battlecry:</b> Give adjacent minions <b>Spell Damage +1</b>.",
         "type": "MINION"
     },
     {
@@ -25871,7 +25871,7 @@
         "name": "Demonfire",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "Deal $2 damage to a minion. If it’s a friendly Demon, give it +2/+2 instead.",
+        "text": "Deal $2 damage to a minion. If it's a friendly Demon, give it +2/+2 instead.",
         "type": "SPELL"
     },
     {
@@ -25910,7 +25910,7 @@
         "rarity": "COMMON",
         "set": "EXPERT1",
         "targetingArrowText": "Deal 1 damage and grant +2 Attack.",
-        "text": "<b>Battlecry:</b> Deal 1 damage to a minion and give it +2 Attack.",
+        "text": "<b>Battlecry:</b> Deal 1 damage to a minion and give it +2 Attack.",
         "type": "MINION"
     },
     {
@@ -25959,7 +25959,7 @@
         "name": "Inner Rage",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "Deal $1 damage to a minion and give it +2 Attack.",
+        "text": "Deal $1 damage to a minion and give it +2 Attack.",
         "type": "SPELL"
     },
     {
@@ -26170,7 +26170,7 @@
         "name": "Circle of Healing",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "Restore #4 Health to ALL minions.",
+        "text": "Restore #4 Health to ALL minions.",
         "type": "SPELL"
     },
     {
@@ -26186,7 +26186,7 @@
         "name": "Shadow Word: Death",
         "rarity": "FREE",
         "set": "CORE",
-        "text": "Destroy a minion with 5 or more Attack.",
+        "text": "Destroy a minion with 5 or more Attack.",
         "type": "SPELL"
     },
     {
@@ -26238,7 +26238,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "cardClass": "PRIEST",
         "collectible": true,
         "cost": 4,
@@ -27061,7 +27061,7 @@
         "name": "Mossy Horror",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "text": "<b>Battlecry:</b> Destroy all other minions with 2 or less Attack.",
+        "text": "<b>Battlecry:</b> Destroy all other minions with 2 or less Attack.",
         "type": "MINION"
     },
     {
@@ -27101,7 +27101,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "GILNEAS",
-        "text": "<b>Battlecry:</b> Double the Attack and Health of all minions in your hand.",
+        "text": "<b>Battlecry:</b> Double the Attack and Health of all minions in your hand.",
         "type": "MINION"
     },
     {
@@ -27136,7 +27136,7 @@
         "name": "Holy Water",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "text": "Deal $4 damage to a minion. If that kills it, add a copy of it to your hand.",
+        "text": "Deal $4 damage to a minion. If that kills it, add a copy of it to your hand.",
         "type": "SPELL"
     },
     {
@@ -27311,7 +27311,7 @@
         "race": "DRAGON",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "text": "Whenever a friendly minion is healed, summon a 3/3 Whelp.",
+        "text": "Whenever a friendly minion is healed, summon a 3/3 Whelp.",
         "type": "MINION"
     },
     {
@@ -27345,7 +27345,7 @@
         "name": "Azalina Soulthief",
         "rarity": "LEGENDARY",
         "set": "GILNEAS",
-        "text": "<b>Battlecry:</b> Replace your hand with a copy of your opponent's.",
+        "text": "<b>Battlecry:</b> Replace your hand with a copy of your opponent's.",
         "type": "MINION"
     },
     {
@@ -27412,7 +27412,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 46621,
-        "flavor": "When one buke just isn’t enough.",
+        "flavor": "When one buke just isn't enough.",
         "id": "GIL_203",
         "name": "Rebuke",
         "rarity": "COMMON",
@@ -27512,7 +27512,7 @@
         "name": "Cheap Shot",
         "rarity": "COMMON",
         "set": "GILNEAS",
-        "text": "<b>Echo</b>\n Deal $2 damage to a minion.",
+        "text": "<b>Echo</b>\n Deal $2 damage to a minion.",
         "type": "SPELL"
     },
     {
@@ -27532,7 +27532,7 @@
         "name": "Bewitched Guardian",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Gain +1 Health\n for each card in your hand. ",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Gain +1 Health\n for each card in your hand. ",
         "type": "MINION"
     },
     {
@@ -27574,7 +27574,7 @@
             "ECHO"
         ],
         "set": "GILNEAS",
-        "text": "Whenever you play an <b>Echo</b> card, gain +1/+1.",
+        "text": "Whenever you play an <b>Echo</b> card, gain +1/+1.",
         "type": "MINION"
     },
     {
@@ -27730,7 +27730,7 @@
         "rarity": "RARE",
         "set": "HOF",
         "targetingArrowText": "Deal 2 damage.",
-        "text": "<b>Battlecry:</b> If your deck has only even-Cost cards, deal 2 damage.",
+        "text": "<b>Battlecry:</b> If your deck has only even-Cost cards, deal 2 damage.",
         "type": "MINION"
     },
     {
@@ -27871,7 +27871,7 @@
         "cost": 6,
         "dbfId": 47055,
         "elite": true,
-        "flavor": "Just a twist to the left, one quarter turn to the right and … oops! Well, we didn’t need that timeline anyway.",
+        "flavor": "Just a twist to the left, one quarter turn to the right and … oops! Well, we didn't need that timeline anyway.",
         "health": 5,
         "id": "GIL_549",
         "mechanics": [
@@ -28164,7 +28164,7 @@
         "cost": 8,
         "dbfId": 47201,
         "durability": 4,
-        "flavor": "Silver’s malleability limits its utility as an edged weapon. On the other hand... SHINY!",
+        "flavor": "Silver's malleability limits its utility as an edged weapon. On the other hand... SHINY!",
         "id": "GIL_596",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -28361,7 +28361,7 @@
             "ECHO"
         ],
         "set": "GILNEAS",
-        "text": "Minions in your hand have <b>Echo</b>.",
+        "text": "Minions in your hand have <b>Echo</b>.",
         "type": "MINION"
     },
     {
@@ -28541,7 +28541,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "text": "<b>Battlecry:</b> If you played an Elemental last turn, draw a card.",
+        "text": "<b>Battlecry:</b> If you played an Elemental last turn, draw a card.",
         "type": "MINION"
     },
     {
@@ -28558,7 +28558,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "GILNEAS",
-        "text": "Double the damage and healing of your Hero Power.",
+        "text": "Double the damage and healing of your Hero Power.",
         "type": "MINION"
     },
     {
@@ -28568,7 +28568,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 47458,
-        "flavor": "Empty your pockets, I know you’ve got a Wandering Monster in there!",
+        "flavor": "Empty your pockets, I know you've got a Wandering Monster in there!",
         "health": 6,
         "id": "GIL_648",
         "mechanics": [
@@ -28591,7 +28591,7 @@
         "cost": 4,
         "dbfId": 47488,
         "elite": true,
-        "flavor": "They’re good dogs, Tess.",
+        "flavor": "They're good dogs, Tess.",
         "health": 6,
         "id": "GIL_650",
         "mechanics": [
@@ -28642,7 +28642,7 @@
         "name": "Warpath",
         "rarity": "COMMON",
         "set": "GILNEAS",
-        "text": "<b>Echo</b>\nDeal $1 damage to all minions.",
+        "text": "<b>Echo</b>\nDeal $1 damage to all minions.",
         "type": "SPELL"
     },
     {
@@ -28748,7 +28748,7 @@
         "name": "Curse of Weakness",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "text": "<b>Echo</b>\nGive all enemy minions -2 Attack until your next turn.",
+        "text": "<b>Echo</b>\nGive all enemy minions -2 Attack until your next turn.",
         "type": "SPELL"
     },
     {
@@ -28798,7 +28798,7 @@
         "cost": 3,
         "dbfId": 47599,
         "elite": true,
-        "flavor": "“I’ll trade you a Malfurion for an Anduin.”",
+        "flavor": "“I'll trade you a Malfurion for an Anduin.”",
         "health": 2,
         "id": "GIL_677",
         "mechanics": [
@@ -28884,7 +28884,7 @@
         "name": "Muck Hunter",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "text": "<b>Rush</b>\n<b>Battlecry:</b> Summon two 2/1 Mucklings for your opponent.",
+        "text": "<b>Rush</b>\n<b>Battlecry:</b> Summon two 2/1 Mucklings for your opponent.",
         "type": "MINION"
     },
     {
@@ -28917,7 +28917,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 47614,
-        "flavor": "She’s all fun and games until someone rings that stupid bell.",
+        "flavor": "She's all fun and games until someone rings that stupid bell.",
         "health": 5,
         "id": "GIL_685",
         "name": "Paragon of Light",
@@ -28961,7 +28961,7 @@
         "name": "Archmage Arugal",
         "rarity": "LEGENDARY",
         "set": "GILNEAS",
-        "text": "Whenever you draw a minion, add a copy of it to your hand.",
+        "text": "Whenever you draw a minion, add a copy of it to your hand.",
         "type": "MINION"
     },
     {
@@ -29001,7 +29001,7 @@
         "name": "Blood Witch",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "text": "At the start of your turn, deal 1 damage to your hero.",
+        "text": "At the start of your turn, deal 1 damage to your hero.",
         "type": "MINION"
     },
     {
@@ -29021,7 +29021,7 @@
         "name": "Prince Liam",
         "rarity": "LEGENDARY",
         "set": "GILNEAS",
-        "text": "[x]<b>Battlecry:</b> Transform all\n1-Cost cards in your deck\n into <b>Legendary</b> minions.",
+        "text": "[x]<b>Battlecry:</b> Transform all\n1-Cost cards in your deck\n into <b>Legendary</b> minions.",
         "type": "MINION"
     },
     {
@@ -29095,7 +29095,7 @@
         "name": "Militia Commander",
         "rarity": "RARE",
         "set": "GILNEAS",
-        "text": "<b>Rush</b>\n<b>Battlecry:</b> Gain +3 Attack this turn.",
+        "text": "<b>Rush</b>\n<b>Battlecry:</b> Gain +3 Attack this turn.",
         "type": "MINION"
     },
     {
@@ -29134,7 +29134,7 @@
         "race": "ELEMENTAL",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "text": "Whenever you cast a spell, draw a minion from your deck.",
+        "text": "Whenever you cast a spell, draw a minion from your deck.",
         "type": "MINION"
     },
     {
@@ -29464,7 +29464,7 @@
         "name": "Lady in White",
         "rarity": "LEGENDARY",
         "set": "GILNEAS",
-        "text": "[x]<b>Battlecry:</b> Cast 'Inner Fire'\n on every minion in your deck \n<i>(set Attack equal to Health).</i>",
+        "text": "[x]<b>Battlecry:</b> Cast 'Inner Fire'\n on every minion in your deck \n<i>(set Attack equal to Health).</i>",
         "type": "MINION"
     },
     {
@@ -29562,7 +29562,7 @@
         "type": "MINION"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "cardClass": "MAGE",
         "collectible": true,
         "cost": 2,
@@ -29719,7 +29719,7 @@
         "rarity": "COMMON",
         "set": "GVG",
         "targetingArrowText": "Give -2 Attack this turn.",
-        "text": "<b>Battlecry:</b> Give a minion -2 Attack this turn.",
+        "text": "<b>Battlecry:</b> Give a minion -2 Attack this turn.",
         "type": "MINION"
     },
     {
@@ -30092,7 +30092,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 2225,
-        "flavor": "Likes: Hiking and the great outdoors. Dislikes: Goblin shredders and sandals. (Can’t find any that fit!).",
+        "flavor": "Likes: Hiking and the great outdoors. Dislikes: Goblin shredders and sandals. (Can't find any that fit!).",
         "health": 4,
         "id": "GVG_032",
         "mechanics": [
@@ -30278,7 +30278,7 @@
             "TAUNT"
         ],
         "set": "GVG",
-        "text": "<b>Choose One -</b> Summon 5 Wisps; or Give a minion +5/+5 and <b>Taunt</b>.",
+        "text": "<b>Choose One -</b> Summon 5 Wisps; or Give a minion +5/+5 and <b>Taunt</b>.",
         "type": "SPELL"
     },
     {
@@ -30289,7 +30289,7 @@
         "cost": 7,
         "dbfId": 2010,
         "elite": true,
-        "flavor": "Neptulon is \"The Tidehunter\". He’s one of the four elemental lords. And he and Ragnaros get together and make really amazing saunas.",
+        "flavor": "Neptulon is \"The Tidehunter\". He's one of the four elemental lords. And he and Ragnaros get together and make really amazing saunas.",
         "health": 7,
         "id": "GVG_042",
         "mechanics": [
@@ -31310,7 +31310,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 2063,
-        "flavor": "He’s not such a binge exploder anymore. These days, he only explodes socially.",
+        "flavor": "He's not such a binge exploder anymore. These days, he only explodes socially.",
         "health": 4,
         "id": "GVG_095",
         "name": "Goblin Sapper",
@@ -31579,7 +31579,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 2076,
-        "flavor": "For when you didn’t combobulate quite right the first time around.",
+        "flavor": "For when you didn't combobulate quite right the first time around.",
         "health": 2,
         "id": "GVG_108",
         "mechanics": [
@@ -32127,7 +32127,7 @@
         "dbfId": 57755,
         "health": 30,
         "id": "HERO_03b",
-        "name": "Cap’n Valeera",
+        "name": "Cap'n Valeera",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -33097,7 +33097,7 @@
             "TAUNT"
         ],
         "set": "ICECROWN",
-        "text": "Summon a 1/5 Scarab with <b>Taunt</b>. If your opponent has more minions, cast this again.",
+        "text": "Summon a 1/5 Scarab with <b>Taunt</b>. If your opponent has more minions, cast this again.",
         "type": "SPELL"
     },
     {
@@ -33155,7 +33155,7 @@
         ],
         "set": "ICECROWN",
         "targetingArrowText": "Freeze an enemy.",
-        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
+        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
         "type": "MINION"
     },
     {
@@ -33194,7 +33194,7 @@
         "name": "Blood Razor",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "text": "<b>Battlecry and Deathrattle:</b>\nDeal 1 damage to all minions.",
+        "text": "<b>Battlecry and Deathrattle:</b>\nDeal 1 damage to all minions.",
         "type": "WEAPON"
     },
     {
@@ -33344,7 +33344,7 @@
         "name": "Gnash",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "text": "Give your hero +3 Attack this turn. Gain 3 Armor.",
+        "text": "Give your hero +3 Attack this turn. Gain 3 Armor.",
         "type": "SPELL"
     },
     {
@@ -33382,7 +33382,7 @@
         "name": "Frozen Clone",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "text": "<b>Secret:</b> After your opponent plays a minion, add two copies of it to your hand.",
+        "text": "<b>Secret:</b> After your opponent plays a minion, add two copies of it to your hand.",
         "type": "SPELL"
     },
     {
@@ -33663,7 +33663,7 @@
             "POISONOUS"
         ],
         "set": "ICECROWN",
-        "text": "<b>Secret:</b> When one of your minions is attacked, summon a 2/3 <b>Poisonous</b> Cobra.",
+        "text": "<b>Secret:</b> When one of your minions is attacked, summon a 2/3 <b>Poisonous</b> Cobra.",
         "type": "SPELL"
     },
     {
@@ -33717,7 +33717,7 @@
         "name": "Treachery",
         "rarity": "EPIC",
         "set": "ICECROWN",
-        "text": "Choose a friendly minion and give it to your opponent.",
+        "text": "Choose a friendly minion and give it to your opponent.",
         "type": "SPELL"
     },
     {
@@ -33827,7 +33827,7 @@
         "name": "Archbishop Benedictus",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "<b>Battlecry:</b> Shuffle a copy of your opponent's deck into your deck.",
+        "text": "<b>Battlecry:</b> Shuffle a copy of your opponent's deck into your deck.",
         "type": "MINION"
     },
     {
@@ -33847,7 +33847,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "text": "Whenever this minion takes damage, discard a random card.",
+        "text": "Whenever this minion takes damage, discard a random card.",
         "type": "MINION"
     },
     {
@@ -33901,7 +33901,7 @@
         "name": "Doomerang",
         "rarity": "EPIC",
         "set": "ICECROWN",
-        "text": "Throw your weapon at a minion. It deals its damage, then returns to your hand.",
+        "text": "Throw your weapon at a minion. It deals its damage, then returns to your hand.",
         "type": "SPELL"
     },
     {
@@ -33915,7 +33915,7 @@
         "name": "Shadow Essence",
         "rarity": "RARE",
         "set": "ICECROWN",
-        "text": "Summon a 5/5 copy of a random minion in your deck.",
+        "text": "Summon a 5/5 copy of a random minion in your deck.",
         "type": "SPELL"
     },
     {
@@ -33937,7 +33937,7 @@
             "FREEZE"
         ],
         "set": "ICECROWN",
-        "text": "Destroy any <b>Frozen</b> minion damaged by this.",
+        "text": "Destroy any <b>Frozen</b> minion damaged by this.",
         "type": "WEAPON"
     },
     {
@@ -33998,7 +33998,7 @@
             "DEATHRATTLE"
         ],
         "set": "ICECROWN",
-        "text": "Your <b>Deathrattle</b> cards cost (2) less.",
+        "text": "Your <b>Deathrattle</b> cards cost (2) less.",
         "type": "MINION"
     },
     {
@@ -34309,7 +34309,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 42398,
-        "flavor": "If you ever tried to plow permafrost, you’d be wretched, too.",
+        "flavor": "If you ever tried to plow permafrost, you'd be wretched, too.",
         "health": 1,
         "id": "ICC_468",
         "mechanics": [
@@ -34318,7 +34318,7 @@
         "name": "Wretched Tiller",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "text": "Whenever this minion attacks, deal 2 damage to the enemy hero.",
+        "text": "Whenever this minion attacks, deal 2 damage to the enemy hero.",
         "type": "MINION"
     },
     {
@@ -34406,7 +34406,7 @@
         "name": "Shallow Gravedigger",
         "rarity": "RARE",
         "set": "ICECROWN",
-        "text": "<b>Deathrattle:</b> Add a random <b>Deathrattle</b> minion to your hand.",
+        "text": "<b>Deathrattle:</b> Add a random <b>Deathrattle</b> minion to your hand.",
         "type": "MINION"
     },
     {
@@ -34470,7 +34470,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "ICECROWN",
-        "text": "<b>Battlecry:</b> Draw a <b>Divine Shield</b> minion from your deck.",
+        "text": "<b>Battlecry:</b> Draw a <b>Divine Shield</b> minion from your deck.",
         "type": "MINION"
     },
     {
@@ -34487,7 +34487,7 @@
         "name": "Spirit Lash",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "text": "<b>Lifesteal</b>\nDeal $1 damage to all minions.",
+        "text": "<b>Lifesteal</b>\nDeal $1 damage to all minions.",
         "type": "SPELL"
     },
     {
@@ -34755,7 +34755,7 @@
         "name": "Shadowreaper Anduin",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "<b>Battlecry:</b> Destroy all minions with 5 or more Attack.",
+        "text": "<b>Battlecry:</b> Destroy all minions with 5 or more Attack.",
         "type": "HERO"
     },
     {
@@ -34775,7 +34775,7 @@
         "name": "Bloodreaver Gul'dan",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "<b>Battlecry:</b> Summon all friendly Demons that died this game.",
+        "text": "<b>Battlecry:</b> Summon all friendly Demons that died this game.",
         "type": "HERO"
     },
     {
@@ -34842,7 +34842,7 @@
         "name": "Scourgelord Garrosh",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "<b>Battlecry</b>: Equip a 4/3 Shadowmourne that also damages adjacent minions.",
+        "text": "<b>Battlecry</b>: Equip a 4/3 Shadowmourne that also damages adjacent minions.",
         "type": "HERO"
     },
     {
@@ -34994,7 +34994,7 @@
         "name": "Prince Keleseth",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "<b>Battlecry:</b> If your deck has no 2-Cost cards, give all minions in your deck +1/+1.",
+        "text": "<b>Battlecry:</b> If your deck has no 2-Cost cards, give all minions in your deck +1/+1.",
         "type": "MINION"
     },
     {
@@ -35015,7 +35015,7 @@
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
         "targetingArrowText": "Transform into a copy.",
-        "text": "<b>Battlecry:</b> If your deck has no 3-Cost cards, transform into a 3/3 copy of a minion.",
+        "text": "<b>Battlecry:</b> If your deck has no 3-Cost cards, transform into a 3/3 copy of a minion.",
         "type": "MINION"
     },
     {
@@ -35060,7 +35060,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "<b>Deathrattle:</b> Add a random <b>Death Knight</b> card to your hand.",
+        "text": "<b>Deathrattle:</b> Add a random <b>Death Knight</b> card to your hand.",
         "type": "MINION"
     },
     {
@@ -35125,7 +35125,7 @@
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
         "techLevel": 4,
-        "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +2 Attack.",
+        "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +2 Attack.",
         "type": "MINION"
     },
     {
@@ -35199,7 +35199,7 @@
         "rarity": "COMMON",
         "set": "ICECROWN",
         "targetingArrowText": "Destroy a friendly minion.",
-        "text": "<b>Battlecry:</b> Destroy a friendly minion and gain +2/+2.",
+        "text": "<b>Battlecry:</b> Destroy a friendly minion and gain +2/+2.",
         "type": "MINION"
     },
     {
@@ -35218,7 +35218,7 @@
         "name": "Wicked Skeleton",
         "rarity": "COMMON",
         "set": "ICECROWN",
-        "text": "<b>Battlecry:</b> Gain +1/+1 for each minion that died this turn.",
+        "text": "<b>Battlecry:</b> Gain +1/+1 for each minion that died this turn.",
         "type": "MINION"
     },
     {
@@ -35277,7 +35277,7 @@
         "name": "Keening Banshee",
         "rarity": "RARE",
         "set": "ICECROWN",
-        "text": "Whenever you play a card, remove the top 3 cards of your deck.",
+        "text": "Whenever you play a card, remove the top 3 cards of your deck.",
         "type": "MINION"
     },
     {
@@ -35421,7 +35421,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 39477,
-        "flavor": "Originally joined to be Arcanagos’ Templar, but has to admit that ordering pizza has become waaaay easier.",
+        "flavor": "Originally joined to be Arcanagos' Templar, but has to admit that ordering pizza has become waaaay easier.",
         "health": 3,
         "howToEarn": "Unlocked in the Menagerie, in One Night in Karazhan.",
         "howToEarnGolden": "Crafting unlocked in the Menagerie, in One Night in Karazhan.",
@@ -35493,7 +35493,7 @@
         "name": "Wicked Witchdoctor",
         "rarity": "COMMON",
         "set": "KARA",
-        "text": "Whenever you cast a spell, summon a random basic Totem.",
+        "text": "Whenever you cast a spell, summon a random basic Totem.",
         "type": "MINION"
     },
     {
@@ -35759,7 +35759,7 @@
         "cost": 7,
         "dbfId": 39225,
         "elite": true,
-        "flavor": "The Curator guards Azeroth’s deadliest creatures, but it’s secretly terrified of squirrels.",
+        "flavor": "The Curator guards Azeroth's deadliest creatures, but it's secretly terrified of squirrels.",
         "health": 6,
         "howToEarn": "Unlocked in the Menagerie, in One Night in Karazhan.",
         "howToEarnGolden": "Crafting unlocked in the Menagerie, in One Night in Karazhan.",
@@ -35837,7 +35837,7 @@
         "rarity": "COMMON",
         "set": "KARA",
         "targetingArrowText": "Summon a copy.",
-        "text": "<b>Battlecry:</b> Choose a friendly Beast. Summon a copy of it.",
+        "text": "<b>Battlecry:</b> Choose a friendly Beast. Summon a copy of it.",
         "type": "MINION"
     },
     {
@@ -35896,7 +35896,7 @@
         "name": "Maelstrom Portal",
         "rarity": "RARE",
         "set": "KARA",
-        "text": "Deal $1 damage to all enemy minions. Summon a random\n1-Cost minion.",
+        "text": "Deal $1 damage to all enemy minions. Summon a random\n1-Cost minion.",
         "type": "SPELL"
     },
     {
@@ -36062,7 +36062,7 @@
         "cost": 5,
         "dbfId": 39840,
         "elite": true,
-        "flavor": "He was super excited to acquire Gorehowl at a garage sale!  Then super disappointed to find out it was a foam reproduction.",
+        "flavor": "He was super excited to acquire Gorehowl at a garage sale!  Then super disappointed to find out it was a foam reproduction.",
         "health": 6,
         "howToEarn": "Unlocked in the Spire, in One Night in Karazhan.",
         "howToEarnGolden": "Crafting unlocked in the Spire, in One Night in Karazhan.",
@@ -36210,7 +36210,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 39491,
-        "flavor": "He’s really just a Blacksmith, but he thought the fancy title would bring in more business.",
+        "flavor": "He's really just a Blacksmith, but he thought the fancy title would bring in more business.",
         "health": 2,
         "howToEarn": "Unlocked in the Parlor, in One Night in Karazhan.",
         "howToEarnGolden": "Crafting unlocked in the Parlor, in One Night in Karazhan.",
@@ -36234,7 +36234,7 @@
         "collectible": true,
         "cost": 12,
         "dbfId": 39426,
-        "flavor": "Claims to be drawn to Karazhan because of the ley lines. Actually, just loves Moroes’ cooking.",
+        "flavor": "Claims to be drawn to Karazhan because of the ley lines. Actually, just loves Moroes' cooking.",
         "health": 8,
         "howToEarn": "Unlocked in the Opera, in One Night in Karazhan.",
         "howToEarnGolden": "Crafting unlocked in the Opera, in One Night in Karazhan.",
@@ -36252,7 +36252,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 39313,
-        "flavor": "She’s much more cheerful after losing the ‘n’ in her name.",
+        "flavor": "She's much more cheerful after losing the ‘n' in her name.",
         "health": 3,
         "howToEarn": "Unlocked in the Spire, in One Night in Karazhan.",
         "howToEarnGolden": "Crafting unlocked in the Spire, in One Night in Karazhan.",
@@ -36530,7 +36530,7 @@
         ],
         "set": "LOE",
         "targetingArrowText": "Gain a Deathrattle.",
-        "text": "<b>Battlecry:</b> Choose a friendly minion. Gain a copy of its <b>Deathrattle</b>.",
+        "text": "<b>Battlecry:</b> Choose a friendly minion. Gain a copy of its <b>Deathrattle</b>.",
         "type": "MINION"
     },
     {
@@ -37064,7 +37064,7 @@
         "name": "Eerie Statue",
         "rarity": "RARE",
         "set": "LOE",
-        "text": "Can’t attack unless it’s the only minion on the battlefield.",
+        "text": "Can't attack unless it's the only minion on the battlefield.",
         "type": "MINION"
     },
     {
@@ -37271,7 +37271,7 @@
         "name": "Kobold Librarian",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> Draw a card. Deal 2 damage to your hero.",
+        "text": "<b>Battlecry:</b> Draw a card. Deal 2 damage to your hero.",
         "type": "MINION"
     },
     {
@@ -37309,7 +37309,7 @@
             "TAUNT"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> If you have 15 or less Health, gain +3/+3 and <b>Taunt</b>.",
+        "text": "<b>Battlecry:</b> If you have 15 or less Health, gain +3/+3 and <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -37319,7 +37319,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 43228,
-        "flavor": "What’s worse? Seeing the spider, or NOT seeing the spider, but knowing it’s somewhere in your deck?",
+        "flavor": "What's worse? Seeing the spider, or NOT seeing the spider, but knowing it's somewhere in your deck?",
         "health": 4,
         "id": "LOOT_026",
         "mechanics": [
@@ -37441,7 +37441,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 43288,
-        "flavor": "In ancient woods, elves fought the curse\nThe demon’s shadow to disperse\nBut hatred raged and frail souls turned\nNow horned and hooved their forests burned.",
+        "flavor": "In ancient woods, elves fought the curse\nThe demon's shadow to disperse\nBut hatred raged and frail souls turned\nNow horned and hooved their forests burned.",
         "id": "LOOT_051",
         "name": "Lesser Jasper Spellstone",
         "rarity": "RARE",
@@ -37479,7 +37479,7 @@
         "name": "Astral Tiger",
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Deathrattle:</b> Shuffle a\n copy of this minion into your deck.",
+        "text": "<b>Deathrattle:</b> Shuffle a\n copy of this minion into your deck.",
         "type": "MINION"
     },
     {
@@ -37552,7 +37552,7 @@
         "name": "Sewer Crawler",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> Summon a 2/3 Giant Rat.",
+        "text": "<b>Battlecry:</b> Summon a 2/3 Giant Rat.",
         "type": "MINION"
     },
     {
@@ -37611,12 +37611,12 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 43363,
-        "flavor": "An emerald stone for Tauren hands\nWho sought its strength to save their lands\nTheir tribes now lost, their rage released\nWho’s hunting now? And who’s the beast?",
+        "flavor": "An emerald stone for Tauren hands\nWho sought its strength to save their lands\nTheir tribes now lost, their rage released\nWho's hunting now? And who's the beast?",
         "id": "LOOT_080",
         "name": "Lesser Emerald Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Summon two 3/3 Wolves. <i>(Play a <b>Secret</b> to upgrade.)</i>",
+        "text": "Summon two 3/3 Wolves. <i>(Play a <b>Secret</b> to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -37636,7 +37636,7 @@
         "name": "Rhok'delar",
         "rarity": "LEGENDARY",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> If your deck has no minions, fill your hand with Hunter spells.",
+        "text": "<b>Battlecry:</b> If your deck has no minions, fill your hand with Hunter spells.",
         "type": "WEAPON"
     },
     {
@@ -37653,7 +37653,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Give a minion <b>Divine Shield</b>.\nDraw a card.",
+        "text": "Give a minion <b>Divine Shield</b>.\nDraw a card.",
         "type": "SPELL"
     },
     {
@@ -37719,7 +37719,7 @@
         "name": "Lesser Ruby Spellstone",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Add 1 random Mage spell to your hand. <i>(Play 2 Elementals to upgrade.)</i>",
+        "text": "Add 1 random Mage spell to your hand. <i>(Play 2 Elementals to upgrade.)</i>",
         "type": "SPELL"
     },
     {
@@ -37934,7 +37934,7 @@
             "TAUNT"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "At the end of your turn, summon a 1/2 Ooze with <b>Taunt</b>.",
+        "text": "At the end of your turn, summon a 1/2 Ooze with <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -38051,7 +38051,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
-        "text": "Costs (1) less whenever a minion dies while this is in your hand.",
+        "text": "Costs (1) less whenever a minion dies while this is in your hand.",
         "type": "MINION"
     },
     {
@@ -38072,7 +38072,7 @@
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
         "targetingArrowText": "Transform a minion.",
-        "text": "<b>Battlecry:</b> Transform a friendly minion into a 6/6 Elemental.",
+        "text": "<b>Battlecry:</b> Transform a friendly minion into a 6/6 Elemental.",
         "type": "MINION"
     },
     {
@@ -38131,7 +38131,7 @@
         "name": "Gravelsnout Knight",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> Summon a random 1-Cost minion for your opponent.",
+        "text": "<b>Battlecry:</b> Summon a random 1-Cost minion for your opponent.",
         "type": "MINION"
     },
     {
@@ -38220,7 +38220,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 45271,
-        "flavor": "“C’mon Hucklemuck. She’ll never notice if we take just one little coin.”",
+        "flavor": "“C'mon Hucklemuck. She'll never notice if we take just one little coin.”",
         "id": "LOOT_172",
         "mechanics": [
             "AFFECTED_BY_SPELL_POWER"
@@ -38228,7 +38228,7 @@
         "name": "Dragon's Fury",
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
-        "text": "Reveal a spell from your deck. Deal damage equal to its Cost to all minions.",
+        "text": "Reveal a spell from your deck. Deal damage equal to its Cost to all minions.",
         "type": "SPELL"
     },
     {
@@ -38259,7 +38259,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 45353,
-        "flavor": "If you’re experiencing resurrection sickness, press 1.",
+        "flavor": "If you're experiencing resurrection sickness, press 1.",
         "id": "LOOT_187",
         "name": "Twilight's Call",
         "rarity": "RARE",
@@ -38349,7 +38349,7 @@
         "name": "Sudden Betrayal",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Secret:</b> When a minion attacks your hero, instead it attacks one of its neighbors.",
+        "text": "<b>Secret:</b> When a minion attacks your hero, instead it attacks one of its neighbors.",
         "type": "SPELL"
     },
     {
@@ -38438,7 +38438,7 @@
         "name": "Feral Gibberer",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "After this minion attacks a hero, add a copy of it to your hand.",
+        "text": "After this minion attacks a hero, add a copy of it to your hand.",
         "type": "MINION"
     },
     {
@@ -38449,7 +38449,7 @@
         "cost": 1,
         "dbfId": 45537,
         "durability": 3,
-        "flavor": "Once called Cahn’delar, Shortbow of the Ancient Whisker.",
+        "flavor": "Once called Cahn'delar, Shortbow of the Ancient Whisker.",
         "id": "LOOT_222",
         "name": "Candleshot",
         "rarity": "COMMON",
@@ -38477,7 +38477,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "Whenever you cast a spell, gain Armor equal to its Cost.",
+        "text": "Whenever you cast a spell, gain Armor equal to its Cost.",
         "type": "MINION"
     },
     {
@@ -38526,7 +38526,7 @@
         "name": "Unidentified Elixir",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "Give a minion +2/+2. Gains a bonus effect in your hand.",
+        "text": "Give a minion +2/+2. Gains a bonus effect in your hand.",
         "type": "SPELL"
     },
     {
@@ -38535,12 +38535,12 @@
         "collectible": true,
         "cost": 6,
         "dbfId": 45775,
-        "flavor": "The kobold stared at the bundle for a long time. “Ah hah!” he said. “It’s a shield.”",
+        "flavor": "The kobold stared at the bundle for a long time. “Ah hah!” he said. “It's a shield.”",
         "id": "LOOT_285",
         "name": "Unidentified Shield",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "Gain 5 Armor.\nGains a bonus effect in your hand.",
+        "text": "Gain 5 Armor.\nGains a bonus effect in your hand.",
         "type": "SPELL"
     },
     {
@@ -38556,7 +38556,7 @@
         "name": "Unidentified Maul",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Gains a bonus effect in your hand.",
+        "text": "Gains a bonus effect in your hand.",
         "type": "WEAPON"
     },
     {
@@ -38576,7 +38576,7 @@
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
         "targetingArrowText": "Restore 4 Health.",
-        "text": "<b>Battlecry:</b> Restore #4 Health.",
+        "text": "<b>Battlecry:</b> Restore #4 Health.",
         "type": "MINION"
     },
     {
@@ -38598,7 +38598,7 @@
             "RECRUIT"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "<b>Deathrattle:</b> <b>Recruit</b> a Demon.",
+        "text": "<b>Deathrattle:</b> <b>Recruit</b> a Demon.",
         "type": "MINION"
     },
     {
@@ -38658,7 +38658,7 @@
             "RECRUIT"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> <b>Recruit</b> 2 minions that cost (4) or less.",
+        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> <b>Recruit</b> 2 minions that cost (4) or less.",
         "type": "MINION"
     },
     {
@@ -38715,7 +38715,7 @@
             "TAUNT"
         ],
         "set": "LOOTAPALOOZA",
-        "text": "Give your Silver Hand Recruits +2/+2 and <b>Taunt</b>.",
+        "text": "Give your Silver Hand Recruits +2/+2 and <b>Taunt</b>.",
         "type": "SPELL"
     },
     {
@@ -38751,7 +38751,7 @@
         "name": "Kobold Apprentice",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> Deal 3 damage randomly split among all enemies.",
+        "text": "<b>Battlecry:</b> Deal 3 damage randomly split among all enemies.",
         "type": "MINION"
     },
     {
@@ -38846,7 +38846,7 @@
         "name": "Drygulch Jailor",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Deathrattle:</b> Add 3 Silver Hand Recruits to your hand.",
+        "text": "<b>Deathrattle:</b> Add 3 Silver Hand Recruits to your hand.",
         "type": "MINION"
     },
     {
@@ -38930,7 +38930,7 @@
         "collectible": true,
         "cost": 6,
         "dbfId": 46058,
-        "flavor": "Thrilling adventure! Danger guaranteed! Loot uncertain! Death optional!  Who’s with me?",
+        "flavor": "Thrilling adventure! Danger guaranteed! Loot uncertain! Death optional!  Who's with me?",
         "id": "LOOT_370",
         "name": "Gather Your Party",
         "rarity": "RARE",
@@ -39016,7 +39016,7 @@
         "name": "Kobold Monk",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "Your hero can't be targeted by spells or Hero Powers.",
+        "text": "Your hero can't be targeted by spells or Hero Powers.",
         "type": "MINION"
     },
     {
@@ -39133,7 +39133,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "text": "At the end of your turn, restore #3 Health to your hero.",
+        "text": "At the end of your turn, restore #3 Health to your hero.",
         "type": "MINION"
     },
     {
@@ -39365,7 +39365,7 @@
         "cost": 8,
         "dbfId": 46390,
         "elite": true,
-        "flavor": "She’s not one of those treehugger elves – but she does like the occasional cuddle.",
+        "flavor": "She's not one of those treehugger elves – but she does like the occasional cuddle.",
         "health": 6,
         "id": "LOOT_511",
         "mechanics": [
@@ -39419,7 +39419,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> Your next <b>Battlecry</b> this turn triggers twice.",
+        "text": "<b>Battlecry:</b> Your next <b>Battlecry</b> this turn triggers twice.",
         "type": "MINION"
     },
     {
@@ -39438,7 +39438,7 @@
         "name": "Windshear Stormcaller",
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> If you control all 4 basic Totems, summon Al'Akir the Windlord.",
+        "text": "<b>Battlecry:</b> If you control all 4 basic Totems, summon Al'Akir the Windlord.",
         "type": "MINION"
     },
     {
@@ -39458,7 +39458,7 @@
         "name": "Geosculptor Yip",
         "rarity": "LEGENDARY",
         "set": "LOOTAPALOOZA",
-        "text": "At the end of your turn, summon a random minion with Cost equal to your Armor <i>(up to 10)</i>.",
+        "text": "At the end of your turn, summon a random minion with Cost equal to your Armor <i>(up to 10)</i>.",
         "type": "MINION"
     },
     {
@@ -39577,7 +39577,7 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
-        "text": "<b>Battlecry:</b> Swap the\nAttack and Health of all other minions.",
+        "text": "<b>Battlecry:</b> Swap the\nAttack and Health of all other minions.",
         "type": "MINION"
     },
     {
@@ -39759,7 +39759,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "Sean O’Daniels",
+        "artist": "Sean O'Daniels",
         "cardClass": "ROGUE",
         "collectible": true,
         "cost": 6,
@@ -39790,7 +39790,7 @@
         "rarity": "EPIC",
         "set": "EXPERT1",
         "targetingArrowText": "Return a minion to hand.",
-        "text": "<b>Combo:</b> Return a minion to its owner's hand.",
+        "text": "<b>Combo:</b> Return a minion to its owner's hand.",
         "type": "MINION"
     },
     {
@@ -40053,7 +40053,7 @@
         "race": "PIRATE",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "text": "<b>Taunt</b>\nCosts (1) less per Attack of your weapon.",
+        "text": "<b>Taunt</b>\nCosts (1) less per Attack of your weapon.",
         "type": "MINION"
     },
     {
@@ -40197,7 +40197,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "<b>Battlecry:</b> Destroy all other minions and discard your hand.",
+        "text": "<b>Battlecry:</b> Destroy all other minions and discard your hand.",
         "type": "MINION"
     },
     {
@@ -40289,7 +40289,7 @@
             "TAUNT"
         ],
         "set": "EXPERT1",
-        "text": "At the end of your turn, summon a 2/2 Gnoll with <b>Taunt</b>.",
+        "text": "At the end of your turn, summon a 2/2 Gnoll with <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -41130,7 +41130,7 @@
         "collectible": true,
         "cost": 6,
         "dbfId": 38517,
-        "flavor": "It’s a self-reducing prophecy.",
+        "flavor": "It's a self-reducing prophecy.",
         "health": 4,
         "id": "OG_138",
         "name": "Nerubian Prophet",
@@ -41375,7 +41375,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 38547,
-        "flavor": "C’Thun’s recruiting pitch involves cookies, which is why it’s the most popular Old God.",
+        "flavor": "C'Thun's recruiting pitch involves cookies, which is why it's the most popular Old God.",
         "health": 1,
         "id": "OG_162",
         "mechanics": [
@@ -41827,7 +41827,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 38781,
-        "flavor": "Sometimes the Old Gods' corruptions gives you power untold, sometimes you get +1 Attack. We can’t all be winners in the Eldritch lottery.",
+        "flavor": "Sometimes the Old Gods' corruptions gives you power untold, sometimes you get +1 Attack. We can't all be winners in the Eldritch lottery.",
         "health": 1,
         "id": "OG_247",
         "mechanics": [
@@ -42086,7 +42086,7 @@
         "rarity": "EPIC",
         "set": "OG",
         "targetingArrowText": "Destroy a minion.",
-        "text": "<b>Battlecry:</b> Destroy a minion. Add its Attack and Health to your C'Thun's <i>(wherever it is).</i>",
+        "text": "<b>Battlecry:</b> Destroy a minion. Add its Attack and Health to your C'Thun's <i>(wherever it is).</i>",
         "type": "MINION"
     },
     {
@@ -42187,7 +42187,7 @@
         "rarity": "EPIC",
         "set": "OG",
         "targetingArrowText": "Add a 1/1 copy to your hand.",
-        "text": "<b>Battlecry:</b> Choose a friendly minion. Add a 1/1 copy to your hand that costs (1).",
+        "text": "<b>Battlecry:</b> Choose a friendly minion. Add a 1/1 copy to your hand that costs (1).",
         "type": "MINION"
     },
     {
@@ -42408,7 +42408,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 38913,
-        "flavor": "Wait, how can you have a light in the dark?  If you turn on a light while it’s dark, doesn’t that mean it’s no longer dark?",
+        "flavor": "Wait, how can you have a light in the dark?  If you turn on a light while it's dark, doesn't that mean it's no longer dark?",
         "id": "OG_311",
         "mechanics": [
             "DISCOVER"
@@ -42622,7 +42622,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 38961,
-        "flavor": "Roll ‘greed’ OR THIS COULD HAPPEN TO YOU.",
+        "flavor": "Roll ‘greed' OR THIS COULD HAPPEN TO YOU.",
         "health": 2,
         "id": "OG_323",
         "mechanics": [
@@ -42759,7 +42759,7 @@
         "name": "Shifting Shade",
         "rarity": "RARE",
         "set": "OG",
-        "text": "[x]<b>Deathrattle:</b> Copy a card\nfrom your opponent's deck\n and add it to your hand.",
+        "text": "[x]<b>Deathrattle:</b> Copy a card\nfrom your opponent's deck\n and add it to your hand.",
         "type": "MINION"
     },
     {
@@ -42897,7 +42897,7 @@
         "cost": 4,
         "dbfId": 59623,
         "elite": true,
-        "flavor": "\"He doesn’t grade on a curve, but on a sharp spike instead.\"",
+        "flavor": "\"He doesn't grade on a curve, but on a sharp spike instead.\"",
         "health": 6,
         "id": "SCH_126",
         "mechanics": [
@@ -42991,7 +42991,7 @@
         "name": "Blessing of Authority",
         "rarity": "RARE",
         "set": "SCHOLOMANCE",
-        "text": "Give a minion +8/+8. It can't attack heroes this turn.",
+        "text": "Give a minion +8/+8. It can't attack heroes this turn.",
         "type": "SPELL"
     },
     {
@@ -43253,7 +43253,7 @@
         "name": "Wandmaker",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b>Battlecry:</b> Add a 1-Cost spell from your class to your hand.",
+        "text": "<b>Battlecry:</b> Add a 1-Cost spell from your class to your hand.",
         "type": "MINION"
     },
     {
@@ -43264,7 +43264,7 @@
         "cost": 5,
         "dbfId": 59658,
         "elite": true,
-        "flavor": "Don’t let that dark magic worry you. He’ll ensure they hatch without a scratch.",
+        "flavor": "Don't let that dark magic worry you. He'll ensure they hatch without a scratch.",
         "health": 4,
         "id": "SCH_162",
         "mechanics": [
@@ -43379,7 +43379,7 @@
         "race": "DRAGON",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b>Spellburst:</b> Add 2 random spells from your class to your hand.",
+        "text": "<b>Spellburst:</b> Add 2 random spells from your class to your hand.",
         "type": "MINION"
     },
     {
@@ -43398,7 +43398,7 @@
         "name": "Intrepid Initiate",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b>Spellburst:</b> Gain +2 Attack.",
+        "text": "<b>Spellburst:</b> Gain +2 Attack.",
         "type": "MINION"
     },
     {
@@ -43577,7 +43577,7 @@
         "name": "Firebrand",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b><b>Spellburst</b>:</b> Deal 4 damage randomly split among all enemy minions.",
+        "text": "<b><b>Spellburst</b>:</b> Deal 4 damage randomly split among all enemy minions.",
         "type": "MINION"
     },
     {
@@ -43699,7 +43699,7 @@
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
         "targetingArrowText": "Deal 1 damage.",
-        "text": "<b>Battlecry:</b> Deal 1 damage. <b>Spellburst:</b> Return this to your hand.",
+        "text": "<b>Battlecry:</b> Deal 1 damage. <b>Spellburst:</b> Return this to your hand.",
         "type": "MINION"
     },
     {
@@ -43712,7 +43712,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 59083,
-        "flavor": "\"Flavor text? Eh. Can’t be bothered.\"",
+        "flavor": "\"Flavor text? Eh. Can't be bothered.\"",
         "id": "SCH_250",
         "multiClassGroup": "PALADIN_PRIEST",
         "name": "Wave of Apathy",
@@ -43771,7 +43771,7 @@
         "name": "Sphere of Sapience",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
-        "text": "[x]At the start of your turn,\nlook at your top card. You\ncan put it on the bottom\n and lose 1 Durability.",
+        "text": "[x]At the start of your turn,\nlook at your top card. You\ncan put it on the bottom\n and lose 1 Durability.",
         "type": "WEAPON"
     },
     {
@@ -43969,7 +43969,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "SCHOLOMANCE",
-        "text": "Give a minion <b>Divine Shield</b>, then summon a 1/1 copy of it.",
+        "text": "Give a minion <b>Divine Shield</b>, then summon a 1/1 copy of it.",
         "type": "SPELL"
     },
     {
@@ -44097,7 +44097,7 @@
             "RUSH"
         ],
         "set": "SCHOLOMANCE",
-        "text": "[x]After you play a <b>Rush</b>\nminion, summon a copy\n with 1 Health remaining.",
+        "text": "[x]After you play a <b>Rush</b>\nminion, summon a copy\n with 1 Health remaining.",
         "type": "MINION"
     },
     {
@@ -44205,7 +44205,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 59556,
-        "flavor": "\"What’re ya buyin’?”",
+        "flavor": "\"What're ya buyin'?”",
         "health": 2,
         "id": "SCH_350",
         "mechanics": [
@@ -44216,7 +44216,7 @@
         "name": "Wand Thief",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b>Combo:</b> <b>Discover</b> a Mage spell.",
+        "text": "<b>Combo:</b> <b>Discover</b> a Mage spell.",
         "type": "MINION"
     },
     {
@@ -44241,7 +44241,7 @@
         "name": "Jandice Barov",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
-        "text": "[x]<b>Battlecry:</b> Summon two\nrandom 5-Cost minions.\nSecretly pick one that dies\n when it takes damage.",
+        "text": "[x]<b>Battlecry:</b> Summon two\nrandom 5-Cost minions.\nSecretly pick one that dies\n when it takes damage.",
         "type": "MINION"
     },
     {
@@ -44350,7 +44350,7 @@
             "TAUNT"
         ],
         "set": "SCHOLOMANCE",
-        "text": "Summon three 1/2 Demons with <b>Taunt</b>. Costs (1) less whenever a friendly minion dies.",
+        "text": "Summon three 1/2 Demons with <b>Taunt</b>. Costs (1) less whenever a friendly minion dies.",
         "type": "SPELL"
     },
     {
@@ -44580,7 +44580,7 @@
         "collectible": true,
         "cost": 0,
         "dbfId": 59223,
-        "flavor": "Technically, it’s just really late healing.",
+        "flavor": "Technically, it's just really late healing.",
         "id": "SCH_514",
         "multiClassGroup": "PRIEST_WARLOCK",
         "name": "Raise Dead",
@@ -44625,7 +44625,7 @@
         "name": "Vulpera Toxinblade",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "Your weapon has +2 Attack.",
+        "text": "Your weapon has +2 Attack.",
         "type": "MINION"
     },
     {
@@ -44752,7 +44752,7 @@
         "cost": 3,
         "dbfId": 59411,
         "elite": true,
-        "flavor": "Alexei Barov stayed at Scholomance despite leasing it to Kel’Thuzad. He says it’s for \"supervision.\"",
+        "flavor": "Alexei Barov stayed at Scholomance despite leasing it to Kel'Thuzad. He says it's for \"supervision.\"",
         "health": 2,
         "id": "SCH_526",
         "mechanics": [
@@ -44909,7 +44909,7 @@
         "cost": 3,
         "dbfId": 60004,
         "elite": true,
-        "flavor": "\"Don’t worry, this will be over in a second. It might FEEL like an eternity, but I assure you, it’s quite quick!\"",
+        "flavor": "\"Don't worry, this will be over in a second. It might FEEL like an eternity, but I assure you, it's quite quick!\"",
         "health": 4,
         "id": "SCH_539",
         "mechanics": [
@@ -44984,7 +44984,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 59452,
-        "flavor": "\"There’s a monster in the lake?!\" \n\"That’s not a monster, that’s Gary.\"",
+        "flavor": "\"There's a monster in the lake?!\" \n\"That's not a monster, that's Gary.\"",
         "health": 6,
         "id": "SCH_605",
         "name": "Lake Thresher",
@@ -45005,7 +45005,7 @@
         "name": "Partner Assignment",
         "rarity": "RARE",
         "set": "SCHOLOMANCE",
-        "text": "Add a random 2-Cost and 3-Cost Beast to your hand.",
+        "text": "Add a random 2-Cost and 3-Cost Beast to your hand.",
         "type": "SPELL"
     },
     {
@@ -45066,7 +45066,7 @@
             "RUSH"
         ],
         "set": "SCHOLOMANCE",
-        "text": "Summon two Beasts that cost (5) or less from your deck. Give them <b>Rush</b>.",
+        "text": "Summon two Beasts that cost (5) or less from your deck. Give them <b>Rush</b>.",
         "type": "SPELL"
     },
     {
@@ -45107,7 +45107,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 59553,
-        "flavor": "It’s tricky for dryads to tend the garden without trampling the flowers.",
+        "flavor": "It's tricky for dryads to tend the garden without trampling the flowers.",
         "health": 5,
         "id": "SCH_613",
         "mechanics": [
@@ -45414,7 +45414,7 @@
         "name": "Vilefiend Trainer",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b>Outcast:</b> Summon two 1/1 Demons.",
+        "text": "<b>Outcast:</b> Summon two 1/1 Demons.",
         "type": "MINION"
     },
     {
@@ -45452,7 +45452,7 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost with <b>Rush</b> to your hand.",
+        "text": "<b>Rush</b>. <b>Deathrattle:</b> Add a 4/3 Ghost with <b>Rush</b> to your hand.",
         "type": "MINION"
     },
     {
@@ -45492,7 +45492,7 @@
         "name": "Smug Senior",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "<b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost with <b>Taunt</b> to your hand.",
+        "text": "<b>Taunt</b>. <b>Deathrattle:</b> Add a 5/7 Ghost with <b>Taunt</b> to your hand.",
         "type": "MINION"
     },
     {
@@ -45524,7 +45524,7 @@
         "collectible": true,
         "cost": 8,
         "dbfId": 59948,
-        "flavor": "\"What’s in the drake?! WHAT’S IN THE DRAKE?\"",
+        "flavor": "\"What's in the drake?! WHAT'S IN THE DRAKE?\"",
         "health": 8,
         "id": "SCH_711",
         "mechanics": [
@@ -45572,7 +45572,7 @@
         "name": "Cult Neophyte",
         "rarity": "RARE",
         "set": "SCHOLOMANCE",
-        "text": "<b>Battlecry:</b> Your opponent's spells cost (1) more next turn.",
+        "text": "<b>Battlecry:</b> Your opponent's spells cost (1) more next turn.",
         "type": "MINION"
     },
     {
@@ -45613,7 +45613,7 @@
         "name": "Keymaster Alabaster",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
-        "text": "[x]Whenever your opponent\n draws a card, add a copy to \n your hand that costs (1).",
+        "text": "[x]Whenever your opponent\n draws a card, add a copy to \n your hand that costs (1).",
         "type": "MINION"
     },
     {
@@ -45690,7 +45690,7 @@
         "name": "Sightless Ranger",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "<b>Rush</b>\n<b>Overkill</b>: Summon two 1/1 Bats.",
+        "text": "<b>Rush</b>\n<b>Overkill</b>: Summon two 1/1 Bats.",
         "type": "MINION"
     },
     {
@@ -45820,7 +45820,7 @@
         "cost": 1,
         "dbfId": 49843,
         "durability": 3,
-        "flavor": "The tooth hurts, don’t it?",
+        "flavor": "The tooth hurts, don't it?",
         "id": "TRL_074",
         "mechanics": [
             "DEATHRATTLE"
@@ -45905,7 +45905,7 @@
         "name": "Spirit of the Shark",
         "rarity": "RARE",
         "set": "TROLL",
-        "text": "[x]<b>Stealth</b> for 1 turn.\nYour minions' <b>Battlecries</b>\n  and <b>Combos</b> trigger twice. ",
+        "text": "[x]<b>Stealth</b> for 1 turn.\nYour minions' <b>Battlecries</b>\n  and <b>Combos</b> trigger twice. ",
         "type": "MINION"
     },
     {
@@ -45940,7 +45940,7 @@
         "name": "Seance",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "Choose a minion. Add a copy of it to your hand.",
+        "text": "Choose a minion. Add a copy of it to your hand.",
         "type": "SPELL"
     },
     {
@@ -45990,7 +45990,7 @@
         "name": "Raiding Party",
         "rarity": "RARE",
         "set": "TROLL",
-        "text": "Draw 2 Pirates from your deck.\n<b>Combo:</b> And a weapon.",
+        "text": "Draw 2 Pirates from your deck.\n<b>Combo:</b> And a weapon.",
         "type": "SPELL"
     },
     {
@@ -46080,7 +46080,7 @@
         "name": "Former Champ",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> Summon a 5/5 Hotshot.",
+        "text": "<b>Battlecry:</b> Summon a 5/5 Hotshot.",
         "type": "MINION"
     },
     {
@@ -46131,7 +46131,7 @@
         "name": "Spirit of the Raptor",
         "rarity": "RARE",
         "set": "TROLL",
-        "text": "[x]<b>Stealth</b> for 1 turn.\nAfter your hero attacks and\n  kills a minion, draw a card.  ",
+        "text": "[x]<b>Stealth</b> for 1 turn.\nAfter your hero attacks and\n  kills a minion, draw a card.  ",
         "type": "MINION"
     },
     {
@@ -46153,7 +46153,7 @@
         "rarity": "COMMON",
         "set": "TROLL",
         "techLevel": 5,
-        "text": "<b>Overkill:</b> Summon a 5/5 Ironhide Runt.",
+        "text": "<b>Overkill:</b> Summon a 5/5 Ironhide Runt.",
         "type": "MINION"
     },
     {
@@ -46184,7 +46184,7 @@
         "cost": 7,
         "dbfId": 49985,
         "elite": true,
-        "flavor": "There’s a word for Zandalari druids who refuse to pledge loyalty to Gonk: “Delicious.”",
+        "flavor": "There's a word for Zandalari druids who refuse to pledge loyalty to Gonk: “Delicious.”",
         "health": 9,
         "id": "TRL_241",
         "mechanics": [
@@ -46194,7 +46194,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "TROLL",
-        "text": "After your hero attacks and kills a minion, it may attack again.",
+        "text": "After your hero attacks and kills a minion, it may attack again.",
         "type": "MINION"
     },
     {
@@ -46208,7 +46208,7 @@
         "name": "Pounce",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "Give your hero +2 Attack this turn.",
+        "text": "Give your hero +2 Attack this turn.",
         "type": "SPELL"
     },
     {
@@ -46217,7 +46217,7 @@
         "collectible": true,
         "cost": 4,
         "dbfId": 49994,
-        "flavor": "Somebody’s been eating their funnel cakes.",
+        "flavor": "Somebody's been eating their funnel cakes.",
         "id": "TRL_244",
         "name": "Predatory Instincts",
         "rarity": "RARE",
@@ -46278,7 +46278,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 50012,
-        "flavor": "There’s no “Aiiiieeee” in “Team.”",
+        "flavor": "There's no “Aiiiieeee” in “Team.”",
         "id": "TRL_249",
         "name": "Grim Rally",
         "rarity": "RARE",
@@ -46336,7 +46336,7 @@
         "cost": 8,
         "dbfId": 50034,
         "elite": true,
-        "flavor": "REPEL’S EFFECT WORE OFF.",
+        "flavor": "REPEL'S EFFECT WORE OFF.",
         "health": 1,
         "id": "TRL_253",
         "mechanics": [
@@ -46372,7 +46372,7 @@
         "collectible": true,
         "cost": 6,
         "dbfId": 50044,
-        "flavor": "[x]The Gurubashi Arena has an\nextremely permissive policy on\npets in the workplace.",
+        "flavor": "[x]The Gurubashi Arena has an\nextremely permissive policy on\npets in the workplace.",
         "id": "TRL_255",
         "name": "Stampeding Roar",
         "rarity": "EPIC",
@@ -46410,7 +46410,7 @@
         "name": "Mass Hysteria",
         "rarity": "RARE",
         "set": "TROLL",
-        "text": "Force each minion to attack another random minion.",
+        "text": "Force each minion to attack another random minion.",
         "type": "SPELL"
     },
     {
@@ -46430,7 +46430,7 @@
         "name": "Princess Talanji",
         "rarity": "LEGENDARY",
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> Summon all minions from your hand that didn't start in your deck.",
+        "text": "<b>Battlecry:</b> Summon all minions from your hand that didn't start in your deck.",
         "type": "MINION"
     },
     {
@@ -46461,7 +46461,7 @@
         "cost": 25,
         "dbfId": 49981,
         "elite": true,
-        "flavor": "On bended knee Thekal placed his weapon upon Shirvallah’s altar, whereupon she slowly knocked it off with her paw.",
+        "flavor": "On bended knee Thekal placed his weapon upon Shirvallah's altar, whereupon she slowly knocked it off with her paw.",
         "health": 5,
         "id": "TRL_300",
         "mechanics": [
@@ -46583,7 +46583,7 @@
         "name": "High Priest Thekal",
         "rarity": "LEGENDARY",
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> Convert all but 1 of your Hero's Health into Armor.",
+        "text": "<b>Battlecry:</b> Convert all but 1 of your Hero's Health into Armor.",
         "type": "MINION"
     },
     {
@@ -46617,7 +46617,7 @@
         "name": "Elemental Evocation",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "The next Elemental you play this turn costs (2) less.",
+        "text": "The next Elemental you play this turn costs (2) less.",
         "type": "SPELL"
     },
     {
@@ -46637,7 +46637,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> If you played an Elemental last turn, deal 3 damage to all other minions.",
+        "text": "<b>Battlecry:</b> If you played an Elemental last turn, deal 3 damage to all other minions.",
         "type": "MINION"
     },
     {
@@ -46647,7 +46647,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 50083,
-        "flavor": "But don’t ask her to use it in a sentence.",
+        "flavor": "But don't ask her to use it in a sentence.",
         "health": 3,
         "id": "TRL_312",
         "name": "Spellzerker",
@@ -46689,7 +46689,7 @@
         "name": "Pyromaniac",
         "rarity": "RARE",
         "set": "TROLL",
-        "text": "Whenever your Hero Power kills a minion, draw a card.",
+        "text": "Whenever your Hero Power kills a minion, draw a card.",
         "type": "MINION"
     },
     {
@@ -46720,7 +46720,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 50086,
-        "flavor": "If you’re burning and you know it, wave your hands!",
+        "flavor": "If you're burning and you know it, wave your hands!",
         "id": "TRL_317",
         "mechanics": [
             "OVERKILL"
@@ -46728,7 +46728,7 @@
         "name": "Blast Wave",
         "rarity": "EPIC",
         "set": "TROLL",
-        "text": "Deal $2 damage to all minions.\n<b>Overkill</b>: Add a random Mage spell to your hand.",
+        "text": "Deal $2 damage to all minions.\n<b>Overkill</b>: Add a random Mage spell to your hand.",
         "type": "SPELL"
     },
     {
@@ -46758,7 +46758,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 50093,
-        "flavor": "Dragonhawks aren’t known for their accuracy.",
+        "flavor": "Dragonhawks aren't known for their accuracy.",
         "health": 3,
         "id": "TRL_319",
         "mechanics": [
@@ -46827,7 +46827,7 @@
         "cost": 6,
         "dbfId": 50056,
         "durability": 4,
-        "flavor": "“Griftah here with de Sul’chop. One chop, you get four damage. Two chops, eight damage - you gonna change de way you fight.\"",
+        "flavor": "“Griftah here with de Sul'chop. One chop, you get four damage. Two chops, eight damage - you gonna change de way you fight.\"",
         "id": "TRL_325",
         "mechanics": [
             "OVERKILL"
@@ -46910,7 +46910,7 @@
         "cost": 8,
         "dbfId": 50074,
         "elite": true,
-        "flavor": "Most trolls only get to “AAAAHHH!” and don’t make it to the “kali” part.",
+        "flavor": "Most trolls only get to “AAAAHHH!” and don't make it to the “kali” part.",
         "health": 5,
         "id": "TRL_329",
         "mechanics": [
@@ -46968,7 +46968,7 @@
         "cost": 3,
         "dbfId": 43310,
         "elite": true,
-        "flavor": "“Ravasaur!”\n“Pretty scary”\n“…Blammodax!”\n“Is that a thing?”\n“SMAXODON!”\n“….now you’re just making those up.”",
+        "flavor": "“Ravasaur!”\n“Pretty scary”\n“…Blammodax!”\n“Is that a thing?”\n“SMAXODON!”\n“….now you're just making those up.”",
         "health": 2,
         "id": "TRL_343",
         "mechanics": [
@@ -46998,7 +46998,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> Return all spells you played last turn to your hand.",
+        "text": "<b>Battlecry:</b> Return all spells you played last turn to your hand.",
         "type": "MINION"
     },
     {
@@ -47046,7 +47046,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 50471,
-        "flavor": "“Shoot them in the face” is more of a <i>tactic</i> than a <i>strategy</i>.",
+        "flavor": "“Shoot them in the face” is more of a <i>tactic</i> than a <i>strategy</i>.",
         "health": 4,
         "id": "TRL_349",
         "mechanics": [
@@ -47154,7 +47154,7 @@
             "TAUNT"
         ],
         "set": "TROLL",
-        "text": "<b>Deathrattle:</b> Summon a 0/3 Free Agent with <b>Taunt</b> for your opponent.",
+        "text": "<b>Deathrattle:</b> Summon a 0/3 Free Agent with <b>Taunt</b> for your opponent.",
         "type": "MINION"
     },
     {
@@ -47173,7 +47173,7 @@
         "name": "Daring Fire-Eater",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> Your next Hero Power this turn deals 2 more damage.",
+        "text": "<b>Battlecry:</b> Your next Hero Power this turn deals 2 more damage.",
         "type": "MINION"
     },
     {
@@ -47277,7 +47277,7 @@
         "cost": 5,
         "dbfId": 50775,
         "elite": true,
-        "flavor": "“… We’re gonna need a bigger board.”",
+        "flavor": "“… We're gonna need a bigger board.”",
         "health": 2,
         "id": "TRL_409",
         "mechanics": [
@@ -47331,7 +47331,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 50352,
-        "flavor": "Just because you’re dead doesn’t mean you’re off the team.",
+        "flavor": "Just because you're dead doesn't mean you're off the team.",
         "health": 3,
         "id": "TRL_502",
         "mechanics": [
@@ -47351,7 +47351,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 50372,
-        "flavor": "They say you can’t make an omelet without AHHH THEY’RE EATING MY FACE!",
+        "flavor": "They say you can't make an omelet without AHHH THEY'RE EATING MY FACE!",
         "health": 2,
         "id": "TRL_503",
         "mechanics": [
@@ -47389,7 +47389,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 50377,
-        "flavor": "It can’t be all that helpful. Not wif dose widdle wings!",
+        "flavor": "It can't be all that helpful. Not wif dose widdle wings!",
         "health": 1,
         "id": "TRL_505",
         "mechanics": [
@@ -47458,7 +47458,7 @@
         "name": "Regeneratin' Thug",
         "rarity": "COMMON",
         "set": "TROLL",
-        "text": "At the start of your turn, restore #2 Health to this minion.",
+        "text": "At the start of your turn, restore #2 Health to this minion.",
         "type": "MINION"
     },
     {
@@ -47508,7 +47508,7 @@
         "collectible": true,
         "cost": 8,
         "dbfId": 50392,
-        "flavor": "Can’t break the rules if you can’t read ‘em.",
+        "flavor": "Can't break the rules if you can't read ‘em.",
         "health": 14,
         "id": "TRL_513",
         "mechanics": [
@@ -47576,7 +47576,7 @@
         "name": "Gurubashi Offering",
         "rarity": "EPIC",
         "set": "TROLL",
-        "text": "At the start of your turn, destroy this and gain 8 Armor.",
+        "text": "At the start of your turn, destroy this and gain 8 Armor.",
         "type": "MINION"
     },
     {
@@ -47654,7 +47654,7 @@
         "rarity": "COMMON",
         "set": "TROLL",
         "targetingArrowText": "Deal 2 damage.",
-        "text": "<b>Battlecry:</b> If you played 2 spells this turn, deal 2 damage.",
+        "text": "<b>Battlecry:</b> If you played 2 spells this turn, deal 2 damage.",
         "type": "MINION"
     },
     {
@@ -47747,7 +47747,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 50414,
-        "flavor": "“It’s an <i>illusion</i>, Malacrass!”",
+        "flavor": "“It's an <i>illusion</i>, Malacrass!”",
         "health": 4,
         "id": "TRL_527",
         "mechanics": [
@@ -47766,7 +47766,7 @@
         "collectible": true,
         "cost": 7,
         "dbfId": 50416,
-        "flavor": "\"Tell me if you’ve heard this one!\"",
+        "flavor": "\"Tell me if you've heard this one!\"",
         "health": 10,
         "id": "TRL_528",
         "mechanics": [
@@ -47797,7 +47797,7 @@
             "SECRET"
         ],
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> If you control a <b>Secret</b>, cast a <b>Secret</b> from your deck.",
+        "text": "<b>Battlecry:</b> If you control a <b>Secret</b>, cast a <b>Secret</b> from your deck.",
         "type": "MINION"
     },
     {
@@ -47857,7 +47857,7 @@
             "FREEZE"
         ],
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> If you control a <b>Frozen</b> minion, gain 8 Armor.",
+        "text": "<b>Battlecry:</b> If you control a <b>Frozen</b> minion, gain 8 Armor.",
         "type": "MINION"
     },
     {
@@ -47877,7 +47877,7 @@
         "name": "Snapjaw Shellfighter",
         "rarity": "EPIC",
         "set": "TROLL",
-        "text": "[x]Whenever an adjacent\nminion takes damage, this\n minion takes it instead.",
+        "text": "[x]Whenever an adjacent\nminion takes damage, this\n minion takes it instead.",
         "type": "MINION"
     },
     {
@@ -47888,7 +47888,7 @@
         "cost": 8,
         "dbfId": 50443,
         "elite": true,
-        "flavor": "First Deathrattle: Draw a card.\nSecond: Draw 2 cards.\nThird: Throw Mon'kind off a steel cage and plummet sixteen feet through an announcer’s table.",
+        "flavor": "First Deathrattle: Draw a card.\nSecond: Draw 2 cards.\nThird: Throw Mon'kind off a steel cage and plummet sixteen feet through an announcer's table.",
         "health": 5,
         "id": "TRL_537",
         "mechanics": [
@@ -48054,7 +48054,7 @@
         "collectible": true,
         "cost": 8,
         "dbfId": 50991,
-        "flavor": "Or as it’s known in troll, “De bolt, mon.”",
+        "flavor": "Or as it's known in troll, “De bolt, mon.”",
         "id": "TRL_555",
         "name": "Demonbolt",
         "rarity": "COMMON",
@@ -48144,7 +48144,7 @@
         "cost": 5,
         "dbfId": 50659,
         "elite": true,
-        "flavor": "Remember, you’re only as strong as your weakest lynx.",
+        "flavor": "Remember, you're only as strong as your weakest lynx.",
         "health": 2,
         "id": "TRL_900",
         "mechanics": [
@@ -48157,7 +48157,7 @@
             "RUSH"
         ],
         "set": "TROLL",
-        "text": "<b>Battlecry:</b> Fill your hand with 1/1 Lynxes that have <b>Rush</b>.",
+        "text": "<b>Battlecry:</b> Fill your hand with 1/1 Lynxes that have <b>Rush</b>.",
         "type": "MINION"
     },
     {
@@ -48167,7 +48167,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 50660,
-        "flavor": "Much of this shrine’s power lies in the can-opener noise it makes.",
+        "flavor": "Much of this shrine's power lies in the can-opener noise it makes.",
         "health": 3,
         "id": "TRL_901",
         "mechanics": [
@@ -48473,7 +48473,7 @@
         "name": "Pressure Plate",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "<b>Secret:</b> After your opponent casts a spell, destroy a random enemy minion.",
+        "text": "<b>Secret:</b> After your opponent casts a spell, destroy a random enemy minion.",
         "type": "SPELL"
     },
     {
@@ -48514,7 +48514,7 @@
         "name": "Unseal the Vault",
         "rarity": "LEGENDARY",
         "set": "ULDUM",
-        "text": "<b>Quest:</b> Summon 20 minions.\n<b>Reward:</b> Pharaoh's Warmask.",
+        "text": "<b>Quest:</b> Summon 20 minions.\n<b>Reward:</b> Pharaoh's Warmask.",
         "type": "SPELL"
     },
     {
@@ -48614,7 +48614,7 @@
         "name": "Neferset Thrasher",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "Whenever this attacks, deal 3 damage to your hero.",
+        "text": "Whenever this attacks, deal 3 damage to your hero.",
         "type": "MINION"
     },
     {
@@ -48755,7 +48755,7 @@
         "rarity": "RARE",
         "set": "ULDUM",
         "targetingArrowText": "Deal 3 damage.",
-        "text": "<b>Battlecry:</b> If you control\na <b>Lackey</b>, deal 3 damage.",
+        "text": "<b>Battlecry:</b> If you control\na <b>Lackey</b>, deal 3 damage.",
         "type": "MINION"
     },
     {
@@ -48769,7 +48769,7 @@
         "name": "Totemic Surge",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "Give your Totems +2 Attack.",
+        "text": "Give your Totems +2 Attack.",
         "type": "SPELL"
     },
     {
@@ -48915,7 +48915,7 @@
         "name": "Sunstruck Henchman",
         "rarity": "RARE",
         "set": "ULDUM",
-        "text": "At the start of your turn, this has a 50% chance to fall asleep.",
+        "text": "At the start of your turn, this has a 50% chance to fall asleep.",
         "type": "MINION"
     },
     {
@@ -48949,7 +48949,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "[x]At the end of your turn,\n  deal 1 damage to another  \nrandom friendly minion.",
+        "text": "[x]At the end of your turn,\n  deal 1 damage to another  \nrandom friendly minion.",
         "type": "MINION"
     },
     {
@@ -48988,7 +48988,7 @@
         "name": "Kobold Sandtrooper",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "<b>Deathrattle:</b> Deal 3 damage to the enemy hero.",
+        "text": "<b>Deathrattle:</b> Deal 3 damage to the enemy hero.",
         "type": "MINION"
     },
     {
@@ -49031,7 +49031,7 @@
             "REBORN"
         ],
         "set": "ULDUM",
-        "text": "<b>Battlecry:</b> Add a random <b>Reborn</b> minion to your hand.",
+        "text": "<b>Battlecry:</b> Add a random <b>Reborn</b> minion to your hand.",
         "type": "MINION"
     },
     {
@@ -49173,7 +49173,7 @@
         "name": "Frightened Flunky",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "<b>Taunt</b>\n<b>Battlecry:</b> <b>Discover</b> a <b>Taunt</b> minion.",
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> <b>Discover</b> a <b>Taunt</b> minion.",
         "type": "MINION"
     },
     {
@@ -49192,7 +49192,7 @@
         "name": "Neferset Ritualist",
         "rarity": "RARE",
         "set": "ULDUM",
-        "text": "<b>Battlecry:</b> Restore adjacent minions to full Health.",
+        "text": "<b>Battlecry:</b> Restore adjacent minions to full Health.",
         "type": "MINION"
     },
     {
@@ -49212,7 +49212,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "ULDUM",
-        "text": "<b>Battlecry:</b> Give all enemy minions -2 Attack this turn.",
+        "text": "<b>Battlecry:</b> Give all enemy minions -2 Attack this turn.",
         "type": "MINION"
     },
     {
@@ -49362,7 +49362,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 53438,
-        "flavor": "Yeah, she's mummified, but her money hasn’t dried up!",
+        "flavor": "Yeah, she's mummified, but her money hasn't dried up!",
         "health": 4,
         "id": "ULD_214",
         "mechanics": [
@@ -49451,7 +49451,7 @@
         "name": "Mischief Maker",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "text": "<b>Battlecry:</b> Swap the top card of your deck with your opponent's.",
+        "text": "<b>Battlecry:</b> Swap the top card of your deck with your opponent's.",
         "type": "MINION"
     },
     {
@@ -49679,7 +49679,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 53933,
-        "flavor": "A grandmummy’s love is eternal.",
+        "flavor": "A grandmummy's love is eternal.",
         "health": 2,
         "id": "ULD_266",
         "mechanics": [
@@ -49784,7 +49784,7 @@
         "name": "Holy Ripple",
         "rarity": "RARE",
         "set": "ULDUM",
-        "text": "Deal $1 damage to all enemies. Restore #1 Health to all friendly characters.",
+        "text": "Deal $1 damage to all enemies. Restore #1 Health to all friendly characters.",
         "type": "SPELL"
     },
     {
@@ -49878,7 +49878,7 @@
         "race": "PIRATE",
         "rarity": "RARE",
         "set": "ULDUM",
-        "text": "<b>Deathrattle:</b> Return a  random enemy minion to  your opponent's hand.",
+        "text": "<b>Deathrattle:</b> Return a  random enemy minion to  your opponent's hand.",
         "type": "MINION"
     },
     {
@@ -49973,7 +49973,7 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "<b>Battlecry:</b> Add a\nrandom Murloc to each player's hand.",
+        "text": "<b>Battlecry:</b> Add a\nrandom Murloc to each player's hand.",
         "type": "MINION"
     },
     {
@@ -50166,7 +50166,7 @@
         "name": "Clever Disguise",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "Add 2 random spells from another class to your hand.",
+        "text": "Add 2 random spells from another class to your hand.",
         "type": "SPELL"
     },
     {
@@ -50205,7 +50205,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "text": "<b>Battlecry:</b> Reduce the Cost of a random Beast in your hand by (5).",
+        "text": "<b>Battlecry:</b> Reduce the Cost of a random Beast in your hand by (5).",
         "type": "MINION"
     },
     {
@@ -50241,7 +50241,7 @@
             "SECRET"
         ],
         "set": "ULDUM",
-        "text": "Add a random Hunter Beast, <b>Secret</b>, and weapon to your hand.",
+        "text": "Add a random Hunter Beast, <b>Secret</b>, and weapon to your hand.",
         "type": "SPELL"
     },
     {
@@ -50341,7 +50341,7 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "ULDUM",
-        "text": "<b>Deathrattle:</b> Draw two\n1-Health minions from your deck.",
+        "text": "<b>Deathrattle:</b> Draw two\n1-Health minions from your deck.",
         "type": "MINION"
     },
     {
@@ -50508,7 +50508,7 @@
         "cost": 3,
         "dbfId": 54389,
         "durability": 2,
-        "flavor": "The lance is heavy but it’s the battery pack that really does a number on the shoulders.",
+        "flavor": "The lance is heavy but it's the battery pack that really does a number on the shoulders.",
         "id": "ULD_708",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -50516,7 +50516,7 @@
         "name": "Livewire Lance",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "text": "After your Hero attacks, add a <b>Lackey</b> to your hand.",
+        "text": "After your Hero attacks, add a <b>Lackey</b> to your hand.",
         "type": "WEAPON"
     },
     {
@@ -50602,7 +50602,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 54425,
-        "flavor": "This is what happens when you don’t give a sincere apology.",
+        "flavor": "This is what happens when you don't give a sincere apology.",
         "id": "ULD_714",
         "mechanics": [
             "LIFESTEAL"
@@ -50610,7 +50610,7 @@
         "name": "Penance",
         "rarity": "COMMON",
         "set": "ULDUM",
-        "text": "<b>Lifesteal</b>\nDeal $3 damage to a minion.",
+        "text": "<b>Lifesteal</b>\nDeal $3 damage to a minion.",
         "type": "SPELL"
     },
     {
@@ -50672,7 +50672,7 @@
         "name": "Plague of Death",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "text": "<b>Silence</b> and destroy all minions.",
+        "text": "<b>Silence</b> and destroy all minions.",
         "type": "SPELL"
     },
     {
@@ -50682,7 +50682,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 54488,
-        "flavor": "After they're caught, they’re dessert hares.",
+        "flavor": "After they're caught, they're dessert hares.",
         "health": 1,
         "id": "ULD_719",
         "mechanics": [
@@ -50771,7 +50771,7 @@
         "name": "Activate the Obelisk",
         "rarity": "LEGENDARY",
         "set": "ULDUM",
-        "text": "<b>Quest:</b> Restore 15 Health.\n<b>Reward:</b> Obelisk's Eye.",
+        "text": "<b>Quest:</b> Restore 15 Health.\n<b>Reward:</b> Obelisk's Eye.",
         "type": "SPELL"
     },
     {
@@ -50868,7 +50868,7 @@
             "ADAPT"
         ],
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> <b>Adapt</b>, then <b>Adapt</b>.",
+        "text": "<b>Battlecry:</b> <b>Adapt</b>, then <b>Adapt</b>.",
         "type": "MINION"
     },
     {
@@ -50905,7 +50905,7 @@
             "ADAPT"
         ],
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> If you control at least 2 other minions, <b>Adapt.</b>",
+        "text": "<b>Battlecry:</b> If you control at least 2 other minions, <b>Adapt.</b>",
         "type": "MINION"
     },
     {
@@ -50985,7 +50985,7 @@
         "name": "Flame Geyser",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "text": "Deal $2 damage.\nAdd a 1/2 Elemental to your hand.",
+        "text": "Deal $2 damage.\nAdd a 1/2 Elemental to your hand.",
         "type": "SPELL"
     },
     {
@@ -51017,7 +51017,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 41153,
-        "flavor": "What did you draw? Shhhh… it’s a secret.",
+        "flavor": "What did you draw? Shhhh… it's a secret.",
         "health": 3,
         "id": "UNG_020",
         "mechanics": [
@@ -51105,7 +51105,7 @@
         "overload": 2,
         "rarity": "RARE",
         "set": "UNGORO",
-        "text": "Deal $15 damage randomly split among all minions.\n<b>Overload:</b> (2)",
+        "text": "Deal $15 damage randomly split among all minions.\n<b>Overload:</b> (2)",
         "type": "SPELL"
     },
     {
@@ -51126,7 +51126,7 @@
         "race": "ELEMENTAL",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
-        "text": "<b>Deathrattle:</b> Return this to your hand as a 6/6 that costs (6).",
+        "text": "<b>Deathrattle:</b> Return this to your hand as a 6/6 that costs (6).",
         "type": "MINION"
     },
     {
@@ -51136,7 +51136,7 @@
         "cost": 1,
         "dbfId": 41168,
         "elite": true,
-        "flavor": "Although powerful, the incantation is simple. It’s just a jump to the left, and then a step to the right.",
+        "flavor": "Although powerful, the incantation is simple. It's just a jump to the left, and then a step to the right.",
         "id": "UNG_028",
         "mechanics": [
             "QUEST"
@@ -51154,7 +51154,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 41169,
-        "flavor": "This one’s a bird. And here’s a bunny!",
+        "flavor": "This one's a bird. And here's a bunny!",
         "id": "UNG_029",
         "mechanics": [
             "DISCOVER"
@@ -51197,7 +51197,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "UNGORO",
-        "text": "[x]<b>Deathrattle:</b> Copy a card\nfrom your opponent's deck\n and add it to your hand.",
+        "text": "[x]<b>Deathrattle:</b> Copy a card\nfrom your opponent's deck\n and add it to your hand.",
         "type": "MINION"
     },
     {
@@ -51257,7 +51257,7 @@
         "name": "Tortollan Shellraiser",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +1/+1.",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +1/+1.",
         "type": "MINION"
     },
     {
@@ -51281,7 +51281,7 @@
         ],
         "set": "UNGORO",
         "targetingArrowText": "Destroy a friendly minion.",
-        "text": "<b>Battlecry:</b> Destroy a friendly minion to <b>Adapt</b> twice.",
+        "text": "<b>Battlecry:</b> Destroy a friendly minion to <b>Adapt</b> twice.",
         "type": "MINION"
     },
     {
@@ -51315,7 +51315,7 @@
         "name": "Razorpetal Volley",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "text": "Add two Razorpetals to your hand that deal 1 damage.",
+        "text": "Add two Razorpetals to your hand that deal 1 damage.",
         "type": "SPELL"
     },
     {
@@ -51359,7 +51359,7 @@
         "cost": 4,
         "dbfId": 41213,
         "durability": 3,
-        "flavor": "You know you’re a Rogue when a sharp rock makes you go “Ooh!  Dagger!”",
+        "flavor": "You know you're a Rogue when a sharp rock makes you go “Ooh!  Dagger!”",
         "id": "UNG_061",
         "name": "Obsidian Shard",
         "rarity": "RARE",
@@ -51465,7 +51465,7 @@
             "TAUNT"
         ],
         "set": "UNGORO",
-        "text": "[x]<b>Battlecry:</b> If you played an\nElemental last turn, gain\n <b>Taunt</b> and <b>Divine Shield</b>.",
+        "text": "[x]<b>Battlecry:</b> If you played an\nElemental last turn, gain\n <b>Taunt</b> and <b>Divine Shield</b>.",
         "type": "MINION"
     },
     {
@@ -51506,7 +51506,7 @@
         "name": "Stonehill Defender",
         "rarity": "RARE",
         "set": "UNGORO",
-        "text": "<b>Taunt</b>\n<b>Battlecry:</b> <b>Discover</b> a <b>Taunt</b> minion.",
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> <b>Discover</b> a <b>Taunt</b> minion.",
         "type": "MINION"
     },
     {
@@ -51552,7 +51552,7 @@
             "ADAPT"
         ],
         "set": "UNGORO",
-        "text": "After this minion attacks a hero, <b>Adapt</b>.",
+        "text": "After this minion attacks a hero, <b>Adapt</b>.",
         "type": "MINION"
     },
     {
@@ -51581,7 +51581,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 41252,
-        "flavor": "In the Tortollan tongue, Un’goro is known as the “Land of the Lost and Found.”",
+        "flavor": "In the Tortollan tongue, Un'goro is known as the “Land of the Lost and Found.”",
         "health": 2,
         "id": "UNG_078",
         "mechanics": [
@@ -51636,7 +51636,7 @@
             "ADAPT"
         ],
         "set": "UNGORO",
-        "text": "<b>Battlecry</b>: If you played an Elemental last turn, <b>Adapt</b>.",
+        "text": "<b>Battlecry</b>: If you played an Elemental last turn, <b>Adapt</b>.",
         "type": "MINION"
     },
     {
@@ -51737,7 +51737,7 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "UNGORO",
-        "text": "Whenever this minion takes damage, deal 3 damage to your hero.",
+        "text": "Whenever this minion takes damage, deal 3 damage to your hero.",
         "type": "MINION"
     },
     {
@@ -51757,7 +51757,7 @@
         "name": "Tortollan Primalist",
         "rarity": "EPIC",
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> <b>Discover</b> a spell and cast it with random targets.",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a spell and cast it with random targets.",
         "type": "MINION"
     },
     {
@@ -51780,7 +51780,7 @@
             "ADAPT"
         ],
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs.",
+        "text": "<b>Battlecry:</b> <b>Adapt</b> your Murlocs.",
         "type": "MINION"
     },
     {
@@ -51811,7 +51811,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 40971,
-        "flavor": "Always sticking its neck into other people’s business.",
+        "flavor": "Always sticking its neck into other people's business.",
         "health": 4,
         "id": "UNG_100",
         "mechanics": [
@@ -51964,7 +51964,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 41105,
-        "flavor": "Emits a sound only murlocs can hear, which is good because it’s REALLY annoying.",
+        "flavor": "Emits a sound only murlocs can hear, which is good because it's REALLY annoying.",
         "health": 3,
         "id": "UNG_201",
         "mechanics": [
@@ -51994,7 +51994,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> Reduce the Cost of Elementals in your hand by (1).",
+        "text": "<b>Battlecry:</b> Reduce the Cost of Elementals in your hand by (1).",
         "type": "MINION"
     },
     {
@@ -52018,7 +52018,7 @@
         ],
         "set": "UNGORO",
         "targetingArrowText": "Freeze an enemy.",
-        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
+        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
         "type": "MINION"
     },
     {
@@ -52108,7 +52108,7 @@
             "TAUNT"
         ],
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> If you control at least 2 other minions, gain <b>Taunt</b>.",
+        "text": "<b>Battlecry:</b> If you control at least 2 other minions, gain <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -52309,7 +52309,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "UNGORO",
-        "text": "[x]<b>Battlecry:</b> If you played\nan Elemental last turn,\n <b>Discover</b> an Elemental.",
+        "text": "[x]<b>Battlecry:</b> If you played\nan Elemental last turn,\n <b>Discover</b> an Elemental.",
         "type": "MINION"
     },
     {
@@ -52370,7 +52370,7 @@
         "cost": 1,
         "dbfId": 41856,
         "elite": true,
-        "flavor": "They asked, “And what must we give in return?” Gul’dan lowered his hood and answered: “Six… cards…”",
+        "flavor": "They asked, “And what must we give in return?” Gul'dan lowered his hood and answered: “Six… cards…”",
         "id": "UNG_829",
         "mechanics": [
             "QUEST"
@@ -52407,7 +52407,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 41871,
-        "flavor": "The most terrifying of Un’goro magics is both silent… AND deadly.",
+        "flavor": "The most terrifying of Un'goro magics is both silent… AND deadly.",
         "id": "UNG_831",
         "name": "Corrupting Mist",
         "rarity": "RARE",
@@ -52523,7 +52523,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "text": "<b>Taunt</b>\nHas +4 Attack during your opponent’s turn.",
+        "text": "<b>Taunt</b>\nHas +4 Attack during your opponent's turn.",
         "type": "MINION"
     },
     {
@@ -52543,7 +52543,7 @@
         "name": "Hemet, Jungle Hunter",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> Destroy all cards in your deck that cost (3) or less.",
+        "text": "<b>Battlecry:</b> Destroy all cards in your deck that cost (3) or less.",
         "type": "MINION"
     },
     {
@@ -52644,7 +52644,7 @@
         "rarity": "EPIC",
         "set": "UNGORO",
         "targetingArrowText": "Deal 5 damage.",
-        "text": "<b>Battlecry:</b> If you played an Elemental last turn, deal 5 damage.",
+        "text": "<b>Battlecry:</b> If you played an Elemental last turn, deal 5 damage.",
         "type": "MINION"
     },
     {
@@ -52685,7 +52685,7 @@
         "name": "Elise the Trailblazer",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> Shuffle a sealed <b>Un'Goro</b> pack into your deck.",
+        "text": "<b>Battlecry:</b> Shuffle a sealed <b>Un'Goro</b> pack into your deck.",
         "type": "MINION"
     },
     {
@@ -52810,7 +52810,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 41353,
-        "flavor": "It’s not LITERALLY jeweled. The goblins were terribly disappointed.",
+        "flavor": "It's not LITERALLY jeweled. The goblins were terribly disappointed.",
         "health": 1,
         "id": "UNG_912",
         "mechanics": [
@@ -52849,7 +52849,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 41357,
-        "flavor": "They’re just baby teeth. Lots and lots of baby teeth.",
+        "flavor": "They're just baby teeth. Lots and lots of baby teeth.",
         "health": 1,
         "id": "UNG_914",
         "mechanics": [
@@ -52883,7 +52883,7 @@
         ],
         "set": "UNGORO",
         "targetingArrowText": "Adapt a Beast.",
-        "text": "<b>Battlecry:</b> <b>Adapt</b> a friendly Beast.",
+        "text": "<b>Battlecry:</b> <b>Adapt</b> a friendly Beast.",
         "type": "MINION"
     },
     {
@@ -52897,7 +52897,7 @@
         "name": "Stampede",
         "rarity": "EPIC",
         "set": "UNGORO",
-        "text": "Each time you play a Beast this turn, add a random Beast to your hand.",
+        "text": "Each time you play a Beast this turn, add a random Beast to your hand.",
         "type": "SPELL"
     },
     {
@@ -52932,7 +52932,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
-        "text": "After your opponent plays a minion, attack it.",
+        "text": "After your opponent plays a minion, attack it.",
         "type": "MINION"
     },
     {
@@ -52968,7 +52968,7 @@
             "DISCOVER"
         ],
         "set": "UNGORO",
-        "text": "Replace your deck with copies of \"<b>Discover</b> a card.\"",
+        "text": "Replace your deck with copies of \"<b>Discover</b> a card.\"",
         "type": "SPELL"
     },
     {
@@ -53026,7 +53026,7 @@
         "name": "Cornered Sentry",
         "rarity": "RARE",
         "set": "UNGORO",
-        "text": "<b>Taunt</b>. <b>Battlecry:</b> Summon three 1/1 Raptors for your opponent.",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> Summon three 1/1 Raptors for your opponent.",
         "type": "MINION"
     },
     {
@@ -53071,7 +53071,7 @@
         "cost": 1,
         "dbfId": 41420,
         "durability": 1,
-        "flavor": "It’s a sword! It’s a knife! It’s a swizzle-stick!",
+        "flavor": "It's a sword! It's a knife! It's a swizzle-stick!",
         "id": "UNG_929",
         "name": "Molten Blade",
         "rarity": "RARE",
@@ -53140,7 +53140,7 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> If you control another Murloc, <b>Discover</b> a Murloc.",
+        "text": "<b>Battlecry:</b> If you control another Murloc, <b>Discover</b> a Murloc.",
         "type": "MINION"
     },
     {
@@ -53162,7 +53162,7 @@
         "rarity": "COMMON",
         "set": "UNGORO",
         "targetingArrowText": "Restore 3 Health.",
-        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Restore #3 Health.",
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Restore #3 Health.",
         "type": "MINION"
     },
     {
@@ -53351,7 +53351,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 41879,
-        "flavor": "I guess you can say they’re… “soul survivors.”",
+        "flavor": "I guess you can say they're… “soul survivors.”",
         "id": "UNG_956",
         "name": "Spirit Echo",
         "rarity": "EPIC",
@@ -53359,7 +53359,7 @@
             "DEATHRATTLE"
         ],
         "set": "UNGORO",
-        "text": "Give your minions \"<b>Deathrattle:</b> Return  this to your hand.\"",
+        "text": "Give your minions \"<b>Deathrattle:</b> Return  this to your hand.\"",
         "type": "SPELL"
     },
     {
@@ -53435,7 +53435,7 @@
             "ADAPT"
         ],
         "set": "UNGORO",
-        "text": "<b>Battlecry:</b> <b>Adapt</b> your Silver Hand Recruits.",
+        "text": "<b>Battlecry:</b> <b>Adapt</b> your Silver Hand Recruits.",
         "type": "MINION"
     },
     {
@@ -53474,7 +53474,7 @@
         "name": "Rising Winds",
         "rarity": "COMMON",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Twinspell</b>\n<b>Choose One -</b> Draw a card; or Summon a 3/2 Eagle.",
+        "text": "<b>Twinspell</b>\n<b>Choose One -</b> Draw a card; or Summon a 3/2 Eagle.",
         "type": "SPELL"
     },
     {
@@ -53596,7 +53596,7 @@
         "race": "ELEMENTAL",
         "rarity": "COMMON",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "Your Hero Power deals 2 extra damage.",
+        "text": "Your Hero Power deals 2 extra damage.",
         "type": "MINION"
     },
     {
@@ -53657,7 +53657,7 @@
             "TAUNT"
         ],
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Twinspell</b>\nSummon two 1/1 Silver Hand Recruits with <b>Taunt</b>.",
+        "text": "<b>Twinspell</b>\nSummon two 1/1 Silver Hand Recruits with <b>Taunt</b>.",
         "type": "SPELL"
     },
     {
@@ -53698,7 +53698,7 @@
         "rarity": "COMMON",
         "set": "YEAR_OF_THE_DRAGON",
         "targetingArrowText": "Deal damage equal to a minion's Attack.",
-        "text": "<b>Battlecry:</b> Deal damage to a minion equal to its Attack.",
+        "text": "<b>Battlecry:</b> Deal damage to a minion equal to its Attack.",
         "type": "MINION"
     },
     {
@@ -53812,7 +53812,7 @@
         "race": "PIRATE",
         "rarity": "RARE",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "After you play a minion, deal 1 damage to all minions.",
+        "text": "After you play a minion, deal 1 damage to all minions.",
         "type": "MINION"
     },
     {
@@ -53849,7 +53849,7 @@
         "name": "Bomb Wrangler",
         "rarity": "RARE",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "Whenever this minion takes damage, summon a 1/1 Boom Bot.",
+        "text": "Whenever this minion takes damage, summon a 1/1 Boom Bot.",
         "type": "MINION"
     },
     {
@@ -54008,7 +54008,7 @@
         "name": "Boompistol Bully",
         "rarity": "EPIC",
         "set": "YEAR_OF_THE_DRAGON",
-        "text": "<b>Battlecry:</b> Enemy <b>Battlecry</b> cards cost (5) more next turn.",
+        "text": "<b>Battlecry:</b> Enemy <b>Battlecry</b> cards cost (5) more next turn.",
         "type": "MINION"
     },
     {
@@ -54263,7 +54263,7 @@
             "TAUNT"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "Summon a 2/4 Guard with <b>Taunt</b>. If it's your only minion, summon another.",
+        "text": "Summon a 2/4 Guard with <b>Taunt</b>. If it's your only minion, summon another.",
         "type": "SPELL"
     },
     {
@@ -54325,7 +54325,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "Your healing effects also give affected minions\n+2 Health.",
+        "text": "Your healing effects also give affected minions\n+2 Health.",
         "type": "MINION"
     },
     {
@@ -54558,7 +54558,7 @@
         "collectible": true,
         "cost": 1,
         "dbfId": 61958,
-        "flavor": "It’s just not the same without a super suit.",
+        "flavor": "It's just not the same without a super suit.",
         "health": 3,
         "id": "YOP_020",
         "mechanics": [
@@ -54684,7 +54684,7 @@
         "collectible": true,
         "cost": 5,
         "dbfId": 61964,
-        "flavor": "If you can’t outrun a tree, you really shouldn’t be here anyway.",
+        "flavor": "If you can't outrun a tree, you really shouldn't be here anyway.",
         "id": "YOP_026",
         "name": "Arbor Up",
         "rarity": "RARE",
@@ -54722,7 +54722,7 @@
         "name": "Saddlemaster",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "After you play a Beast, add a random Beast to your hand.",
+        "text": "After you play a Beast, add a random Beast to your hand.",
         "type": "MINION"
     },
     {
@@ -54807,7 +54807,7 @@
         "name": "Armor Vendor",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Battlecry:</b> Give 4 Armor to each hero.",
+        "text": "<b>Battlecry:</b> Give 4 Armor to each hero.",
         "type": "MINION"
     },
     {
@@ -54862,7 +54862,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "DARKMOON_FAIRE",
-        "text": "Can only take 1 damage at a time.",
+        "text": "Can only take 1 damage at a time.",
         "type": "MINION"
     }
 ]

@@ -4,13 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Python/PlayMode/Accounts/AccountInfo.hpp>
-#include <Python/PlayMode/Accounts/DeckInfo.hpp>
-
 #include <Python/PlayMode/Cards/Card.hpp>
 #include <Python/PlayMode/Cards/Cards.hpp>
 
-#include <Python/PlayMode/Enums/ActionEnums.hpp>
+#include <Python/PlayMode/Decks/Deck.hpp>
+
 #include <Python/PlayMode/Enums/AuraEnums.hpp>
 #include <Python/PlayMode/Enums/CardEnums.hpp>
 #include <Python/PlayMode/Enums/GameEnums.hpp>
@@ -18,7 +16,6 @@
 #include <Python/PlayMode/Enums/TaskEnums.hpp>
 #include <Python/PlayMode/Enums/TriggerEnums.hpp>
 
-#include <Python/PlayMode/Loaders/AccountLoader.hpp>
 #include <Python/PlayMode/Loaders/InternalCardLoader.hpp>
 #include <Python/PlayMode/Loaders/TargetingPredicates.hpp>
 
@@ -32,16 +29,14 @@ PYBIND11_MODULE(pyRosetta, m)
     m.doc() =
         R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
 
-    // Accounts
-    AddAccountInfo(m);
-    AddDeckInfo(m);
-
     // Cards
     AddCard(m);
     AddCards(m);
 
+    // Decks
+    AddDeck(m);
+
     // Enums
-    AddActionEnums(m);
     AddAuraEnums(m);
     AddCardEnums(m);
     AddGameEnums(m);
@@ -50,7 +45,6 @@ PYBIND11_MODULE(pyRosetta, m)
     AddTriggerEnums(m);
 
     // Loaders
-    AddAccountLoader(m);
     AddInternalCardLoader(m);
     AddTargetingPredicates(m);
 

@@ -137,12 +137,6 @@ class Card
     //! \return A list of valid play targets.
     std::vector<Character*> GetValidPlayTargets(Player* player);
 
-    //! Prints brief card information.
-    void ShowBriefInfo() const;
-
-    //! Prints card information.
-    void ShowInfo() const;
-
     std::string id;
     int dbfID;
     std::string name;

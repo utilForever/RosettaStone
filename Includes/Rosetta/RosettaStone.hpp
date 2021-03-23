@@ -52,7 +52,6 @@
 #include <Rosetta/Battlegrounds/Zones/FieldZone.hpp>
 #include <Rosetta/Battlegrounds/Zones/HandZone.hpp>
 #include <Rosetta/Common/Constants.hpp>
-#include <Rosetta/Common/Enums/ActionEnums.hpp>
 #include <Rosetta/Common/Enums/AuraEnums.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/Common/Enums/ChoiceEnums.hpp>
@@ -64,8 +63,6 @@
 #include <Rosetta/Common/PriorityQueue.hpp>
 #include <Rosetta/Common/SpinLocks.hpp>
 #include <Rosetta/Common/Utils.hpp>
-#include <Rosetta/PlayMode/Accounts/AccountInfo.hpp>
-#include <Rosetta/PlayMode/Accounts/DeckInfo.hpp>
 #include <Rosetta/PlayMode/Actions/Attack.hpp>
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
@@ -74,6 +71,8 @@
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/PlayCard.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
+#include <Rosetta/PlayMode/Agents/IAgent.hpp>
+#include <Rosetta/PlayMode/Agents/RandomAgent.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
@@ -105,6 +104,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
 #include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
+#include <Rosetta/PlayMode/Decks/Deck.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/Atk.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/Attr.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/BoolAttr.hpp>
@@ -126,7 +126,6 @@
 #include <Rosetta/PlayMode/Enchants/SwapCostEnchant.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
-#include <Rosetta/PlayMode/Loaders/AccountLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/InternalCardLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>

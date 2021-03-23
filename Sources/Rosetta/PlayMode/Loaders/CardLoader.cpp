@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
 
 #include <fstream>
@@ -40,9 +41,9 @@ void CardLoader::Load(std::vector<Card*>& cards)
                                      : cardData["name"].get<std::string>();
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
-        const std::string text = cardData["text"].is_null()
-                                     ? ""
-                                     : cardData["text"].get<std::string>();
+        std::string text = cardData["text"].is_null()
+                               ? ""
+                               : cardData["text"].get<std::string>();
 
         const int attack =
             cardData["attack"].is_null() ? 0 : cardData["attack"].get<int>();
@@ -134,7 +135,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
         {
             gameTags.emplace(GameTag::DIVINE_SHIELD, 1);
         }
-        else if (dbfID == 16221 || dbfID == 16222 || dbfID == 16223 || dbfID == 16225)
+        else if (dbfID == 16221 || dbfID == 16222 || dbfID == 16223 ||
+                 dbfID == 16225)
         {
             cardRace = static_cast<int>(Race::TOTEM);
         }
@@ -143,6 +145,16 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->id = id;
         card->dbfID = dbfID;
         card->name = name;
+
+        // Remove unnecessary substrings
+        RemoveSubstrs(text, std::string{ "\n" });
+        RemoveSubstrs(text, std::string{ "[x]" });
+
+        // Remove unnecessary whitespace
+        std::string::size_type pos = text.find_first_not_of(' ');
+        text.erase(0, pos);
+        text = std::regex_replace(text, std::regex("[' ']{2,}"), " ");
+
         card->text = text;
 
         card->gameTags = gameTags;

@@ -12,8 +12,6 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
-#include <iostream>
-
 namespace RosettaStone::PlayMode
 {
 void Card::Initialize()
@@ -621,24 +619,5 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
     }
 
     return ret;
-}
-
-void Card::ShowBriefInfo() const
-{
-    std::cout << name.c_str() << " (" << id.c_str() << ") ";
-}
-
-void Card::ShowInfo() const
-{
-    std::cout << "ID: " << id.c_str() << '\n';
-    std::cout << "dbfID: " << dbfID << '\n';
-    std::cout << "Name: " << name.c_str() << '\n';
-    std::cout << "Text: " << text.c_str() << '\n';
-    std::cout << "Rarity: " << EnumToStr<Rarity>(GetRarity()) << '\n';
-    std::cout << "Faction: " << EnumToStr<Faction>(GetFaction()) << '\n';
-    std::cout << "CardSet: " << EnumToStr<CardSet>(GetCardSet()) << '\n';
-    std::cout << "CardClass: " << EnumToStr<CardClass>(GetCardClass()) << '\n';
-    std::cout << "CardType: " << EnumToStr<CardType>(GetCardType()) << '\n';
-    std::cout << "Race: " << EnumToStr<Race>(GetRace()) << '\n';
 }
 }  // namespace RosettaStone::PlayMode

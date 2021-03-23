@@ -42,8 +42,6 @@ TEST_CASE("[Card] - Constructer")
     card2.gameTags[GameTag::COST] = 1;
     card2.Initialize();
 
-    CHECK_NOTHROW(card1.ShowBriefInfo());
-    CHECK_NOTHROW(card1.ShowInfo());
     CHECK_EQ("cardTest1", card1.id);
     CHECK_EQ(Rarity::COMMON, card1.GetRarity());
     CHECK_EQ(CardClass::NEUTRAL, card1.GetCardClass());

@@ -323,10 +323,6 @@ void Game::BeginDraw()
         {
             // Draw 4th card for second player
             Generic::Draw(&player);
-
-            // Give "The Coin" card to second player
-            Card* coin = Cards::FindCardByID("GAME_005");
-            player.GetHandZone()->Add(Entity::GetFromCard(&player, coin));
         }
     }
 
@@ -371,6 +367,11 @@ void Game::BeginMulligan()
 
 void Game::MainBegin()
 {
+    // Give "The Coin" card to second player
+    Card* coin = Cards::FindCardByID("GAME_005");
+    GetOpponentPlayer()->GetHandZone()->Add(
+        Entity::GetFromCard(GetOpponentPlayer(), coin));
+
     // Process tasks
     ProcessTasks();
 

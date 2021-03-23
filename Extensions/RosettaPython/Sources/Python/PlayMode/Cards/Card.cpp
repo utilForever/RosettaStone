@@ -89,9 +89,5 @@ void AddCard(pybind11::module& m)
             Parameters
             ----------
             - player : The player of the source.)pbdoc",
-            pybind11::arg("player"))
-        .def("show_brief_info", &Card::ShowBriefInfo,
-             R"pbdoc(Prints brief card information.)pbdoc")
-        .def("show_info", &Card::ShowInfo,
-             R"pbdoc(Prints card information.)pbdoc");
+            pybind11::arg("player"));
 }

@@ -58,24 +58,12 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
             auto hand = player->GetHandZone();
             auto deck = player->GetDeckZone();
 
-            // Collect cards to redraw
-            std::vector<Playable*> mulliganList;
-            for (const auto entity : hand->GetAll())
-            {
-                const bool isExist =
-                    std::find(choices.begin(), choices.end(),
-                              entity->GetGameTag(GameTag::ENTITY_ID)) ==
-                    choices.end();
-                if (isExist && entity->card->id != "GAME_005")
-                {
-                    mulliganList.push_back(entity);
-                }
-            }
-
             // Process redraw
-            for (const auto& entity : mulliganList)
+            for (const auto& entityID : choices)
             {
+                Playable* entity = player->game->entityList[entityID];
                 Playable* playable = deck->Remove(deck->GetTopCard());
+
                 AddCardToHand(player, playable);
                 hand->Swap(entity, playable);
 
