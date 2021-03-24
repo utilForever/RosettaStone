@@ -603,6 +603,83 @@ TEST_CASE("[Hunter : Minion] - DMF_083 : Dancing Cobra")
     CHECK_EQ(curField[1]->HasPoisonous(), true);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [DMF_084] Jewel of N'Zoth - COST:8
+// - Set: DARKMOON_FAIRE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Summon three friendly <b>Deathrattle</b> minions
+//       that died this game.
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// - REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - DMF_084 : Jewel of N'Zoth")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Jewel of N'Zoth"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kobold Sandtrooper"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curField.GetCount(), 2);
+
+    // NOTE: dbfID of the card 'Leper Gnome' is 658
+    //       dbfID of the card 'Kobold Sandtrooper' is 54259
+    const int dbfTotal = curField[0]->card->dbfID + curField[1]->card->dbfID;
+    CHECK_EQ(dbfTotal, 54917);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DMF_085] Darkmoon Tonk - COST:7 [ATK:8/HP:5]
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare

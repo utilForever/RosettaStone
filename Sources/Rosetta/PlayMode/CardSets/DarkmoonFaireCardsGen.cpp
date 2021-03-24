@@ -9,6 +9,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
@@ -439,6 +440,25 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()),
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 3));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY));
+    cards.emplace(
+        "DMF_084",
+        CardDef(
+            power,
+            PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                      { PlayReq::REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME,
+                        0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [DMF_085] Darkmoon Tonk - COST:7 [ATK:8/HP:5]
