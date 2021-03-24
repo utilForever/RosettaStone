@@ -25,6 +25,7 @@ enum class DiscoverType
     DEATHRATTLE_MINION_DIED,
     SPELL,
     SPELL_THREE_COST_OR_LESS,
+    SECRET,
     DEMON,
     DRAGON,
     LACKEY,
