@@ -7,6 +7,7 @@
 #include "doctest_proxy.hpp"
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -650,6 +651,56 @@ TEST_CASE("[Hunter : Minion] - DMF_085 : Darkmoon Tonk")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
     CHECK_EQ(opHero.GetHealth(), 22);
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [DMF_122] Mystery Winner - COST:1 [ATK:1/HP:1]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a <b>Secret.</b>
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - DMF_122 : Mystery Winner")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mystery Winner"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->IsSecret(), true);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curPlayer->GetSecretZone()->GetCount(), 1);
 }
 
 // ------------------------------------------ MINION - MAGE

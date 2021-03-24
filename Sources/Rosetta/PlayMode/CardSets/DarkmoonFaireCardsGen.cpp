@@ -10,6 +10,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawRaceMinionTask.hpp>
@@ -534,6 +535,9 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SECRET));
+    cards.emplace("DMF_122", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [DMF_123] Open the Cages - COST:2
