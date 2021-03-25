@@ -466,6 +466,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::RINLINGS_RIFLE:
+            choiceAction = ChoiceAction::CAST_SPELL;
+            for (auto& card : allCards)
+            {
+                if (card->IsSecret())
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
     }
 
     return cards;

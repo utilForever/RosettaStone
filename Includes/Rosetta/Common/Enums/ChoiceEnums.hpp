@@ -38,6 +38,7 @@ enum class DiscoverType
     SIR_FINLEY_OF_THE_SANDS,
     VULPERA_SCOUNDREL,
     BODY_WRAPPER,
+    RINLINGS_RIFLE,
 };
 
 //! The action type of choice.
