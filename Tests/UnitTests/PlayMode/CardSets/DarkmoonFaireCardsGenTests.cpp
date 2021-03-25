@@ -2895,6 +2895,45 @@ TEST_CASE("[Warlock : Minion] - DMF_533 : Ring Matron")
     CHECK_EQ(curField[1]->card->name, "Fiery Imp");
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [YOP_033] Backfire - COST:3
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 3 cards. Deal 3 damage to your hero.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - YOP_033 : Backfire")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Backfire"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curHand.GetCount(), 7);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [DMF_521] Sword Eater - COST:4 [ATK:2/HP:5]
 // - Race: Pirate, Set: DARKMOON_FAIRE, Rarity: Common

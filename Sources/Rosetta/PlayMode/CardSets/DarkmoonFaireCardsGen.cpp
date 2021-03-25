@@ -2117,6 +2117,10 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 3 cards. Deal 3 damage to your hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(3));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3, true));
+    cards.emplace("YOP_033", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddWarlockNonCollect(
