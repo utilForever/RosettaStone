@@ -730,6 +730,64 @@ TEST_CASE("[Hunter : Minion] - DMF_085 : Darkmoon Tonk")
     CHECK_EQ(opHero.GetHealth(), 22);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [DMF_088] Rinling's Rifle - COST:4
+// - Set: DARKMOON_FAIRE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After your hero attacks,
+//       <b>Discover</b> a <b>Secret</b> and cast it.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - DMF_088 : Rinling's Rifle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rinling's Rifle"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->IsSecret(), true);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curPlayer->GetSecretZone()->GetCount(), 1);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [DMF_122] Mystery Winner - COST:1 [ATK:1/HP:1]
 // - Set: DARKMOON_FAIRE, Rarity: Common

@@ -519,6 +519,12 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<DiscoverTask>(
+        DiscoverType::RINLINGS_RIFLE) };
+    cards.emplace("DMF_088", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [DMF_089] Maxima Blastenheimer - COST:6 [ATK:4/HP:4]
