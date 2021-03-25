@@ -821,6 +821,8 @@ TEST_CASE("[Hunter : Minion] - DMF_122 : Mystery Winner")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mystery Winner"));
 
@@ -835,7 +837,8 @@ TEST_CASE("[Hunter : Minion] - DMF_122 : Mystery Winner")
     }
 
     TestUtils::ChooseNthChoice(game, 1);
-    CHECK_EQ(curPlayer->GetSecretZone()->GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->IsSecret(), true);
 }
 
 // ------------------------------------------ MINION - MAGE
