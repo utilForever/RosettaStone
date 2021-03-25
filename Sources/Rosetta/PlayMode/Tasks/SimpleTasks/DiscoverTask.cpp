@@ -322,7 +322,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             }
             break;
         case DiscoverType::SECRET:
-            choiceAction = ChoiceAction::CAST_SPELL;
+            choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
             {
                 if (card->IsSecret())
