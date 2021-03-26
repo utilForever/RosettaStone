@@ -1271,17 +1271,17 @@ DARKMOON_FAIRE | DMF_080 | Fleethoof Pearltusk | O
 DARKMOON_FAIRE | DMF_081 | K'thir Ritualist |  
 DARKMOON_FAIRE | DMF_082 | Darkmoon Statue |  
 DARKMOON_FAIRE | DMF_083 | Dancing Cobra | O
-DARKMOON_FAIRE | DMF_084 | Jewel of N'Zoth |  
+DARKMOON_FAIRE | DMF_084 | Jewel of N'Zoth | O
 DARKMOON_FAIRE | DMF_085 | Darkmoon Tonk | O
 DARKMOON_FAIRE | DMF_086 | Petting Zoo |  
 DARKMOON_FAIRE | DMF_087 | Trampling Rhino |  
-DARKMOON_FAIRE | DMF_088 | Rinling's Rifle |  
+DARKMOON_FAIRE | DMF_088 | Rinling's Rifle | O
 DARKMOON_FAIRE | DMF_089 | Maxima Blastenheimer |  
 DARKMOON_FAIRE | DMF_090 | Don't Feed the Animals |  
 DARKMOON_FAIRE | DMF_091 | Wriggling Horror | O
 DARKMOON_FAIRE | DMF_100 | Confection Cyclone | O
 DARKMOON_FAIRE | DMF_101 | Firework Elemental | O
-DARKMOON_FAIRE | DMF_102 | Game Master |  
+DARKMOON_FAIRE | DMF_102 | Game Master | O
 DARKMOON_FAIRE | DMF_103 | Mask of C'Thun | O
 DARKMOON_FAIRE | DMF_104 | Grand Finale |  
 DARKMOON_FAIRE | DMF_105 | Ring Toss |  
@@ -1293,14 +1293,14 @@ DARKMOON_FAIRE | DMF_110 | Fire Breather | O
 DARKMOON_FAIRE | DMF_111 | Man'ari Mosher | O
 DARKMOON_FAIRE | DMF_113 | Free Admission |  
 DARKMOON_FAIRE | DMF_114 | Midway Maniac | O
-DARKMOON_FAIRE | DMF_115 | Revenant Rascal |  
+DARKMOON_FAIRE | DMF_115 | Revenant Rascal | O
 DARKMOON_FAIRE | DMF_116 | The Nameless One |  
 DARKMOON_FAIRE | DMF_117 | Cascading Disaster |  
 DARKMOON_FAIRE | DMF_118 | Tickatus |  
 DARKMOON_FAIRE | DMF_119 | Wicked Whispers |  
 DARKMOON_FAIRE | DMF_120 | Nazmani Bloodweaver |  
 DARKMOON_FAIRE | DMF_121 | Fortune Teller |  
-DARKMOON_FAIRE | DMF_122 | Mystery Winner |  
+DARKMOON_FAIRE | DMF_122 | Mystery Winner | O
 DARKMOON_FAIRE | DMF_123 | Open the Cages |  
 DARKMOON_FAIRE | DMF_124 | Horrendous Growth |  
 DARKMOON_FAIRE | DMF_125 | Safety Inspector |  
@@ -1408,11 +1408,11 @@ DARKMOON_FAIRE | YOP_029 | Resizing Pouch |
 DARKMOON_FAIRE | YOP_030 | Felfire Deadeye |  
 DARKMOON_FAIRE | YOP_031 | Crabrider | O
 DARKMOON_FAIRE | YOP_032 | Armor Vendor | O
-DARKMOON_FAIRE | YOP_033 | Backfire |  
+DARKMOON_FAIRE | YOP_033 | Backfire | O
 DARKMOON_FAIRE | YOP_034 | Runaway Blackwing | O
 DARKMOON_FAIRE | YOP_035 | Moonfang |  
 
-- Progress: 42% (73 of 170 Cards)
+- Progress: 46% (79 of 170 Cards)
 
 ## Forged in the Barrens
 
