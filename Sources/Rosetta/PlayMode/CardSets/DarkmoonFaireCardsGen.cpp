@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
@@ -704,6 +705,16 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::SpellsCastThisTurn(0),
+        TriggerType::CAST_SPELL, EffectList{ Effects::SetCost(1) }));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    }
+    cards.emplace("DMF_102", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [DMF_103] Mask of C'Thun - COST:7

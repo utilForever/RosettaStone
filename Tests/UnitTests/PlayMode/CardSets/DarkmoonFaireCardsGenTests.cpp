@@ -967,6 +967,64 @@ TEST_CASE("[Mage : Minion] - DMF_101 : Firework Elemental")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [DMF_102] Game Master - COST:2 [ATK:2/HP:3]
+// - Set: DARKMOON_FAIRE, Rarity: Common
+// --------------------------------------------------------
+// Text: The first <b>Secret</b> you play each turn costs (1).
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - DMF_102 : Game Master")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Game Master"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Counterspell"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
+
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 1);
+    CHECK_EQ(card3->GetCost(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(card3->GetCost(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->GetCost(), 1);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [DMF_103] Mask of C'Thun - COST:7
 // - Set: DARKMOON_FAIRE, Rarity: Rare
