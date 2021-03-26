@@ -25,6 +25,7 @@ enum class DiscoverType
     DEATHRATTLE_MINION_DIED,
     SPELL,
     SPELL_THREE_COST_OR_LESS,
+    SECRET,
     DEMON,
     DRAGON,
     LACKEY,
@@ -37,6 +38,7 @@ enum class DiscoverType
     SIR_FINLEY_OF_THE_SANDS,
     VULPERA_SCOUNDREL,
     BODY_WRAPPER,
+    RINLINGS_RIFLE,
 };
 
 //! The action type of choice.

@@ -321,6 +321,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::SECRET:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->IsSecret())
+                {
+                    cards.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::DEMON:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
@@ -453,6 +463,16 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                     playable->isDestroyed)
                 {
                     cards.emplace_back(playable->card);
+                }
+            }
+            break;
+        case DiscoverType::RINLINGS_RIFLE:
+            choiceAction = ChoiceAction::CAST_SPELL;
+            for (auto& card : allCards)
+            {
+                if (card->IsSecret())
+                {
+                    cards.emplace_back(card);
                 }
             }
             break;
