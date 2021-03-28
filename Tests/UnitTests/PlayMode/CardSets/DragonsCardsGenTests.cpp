@@ -1906,7 +1906,7 @@ TEST_CASE("[Hunter : Minion] - DRG_095 : Veranus")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 1);
     CHECK_EQ(curField[2]->GetHealth(), 6);
 

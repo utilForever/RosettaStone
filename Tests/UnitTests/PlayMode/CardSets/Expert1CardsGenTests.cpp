@@ -2776,7 +2776,7 @@ TEST_CASE("[Mage : Minion] - EX1_612 : Kirin Tor Mage")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
+// [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:2]
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +1 Attack.

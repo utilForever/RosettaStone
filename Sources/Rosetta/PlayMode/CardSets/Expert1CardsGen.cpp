@@ -1534,7 +1534,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_612", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
-    // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
+    // [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:2]
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever you cast a spell, gain +1 Attack.
