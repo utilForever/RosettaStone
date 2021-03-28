@@ -2349,7 +2349,7 @@ void BasicCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: Your <b>Charge</b> minions have +1 Attack.
+    // Text: After you summon another minion, give it <b>Rush</b>.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
@@ -2358,13 +2358,10 @@ void BasicCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "EX1_084e"));
-    {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = std::make_shared<SelfCondition>(
-            SelfCondition::IsTagValue(GameTag::CHARGE, 1));
-        aura->restless = true;
-    }
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_084e", EntityType::TARGET) };
     cards.emplace("EX1_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -2440,10 +2437,10 @@ void BasicCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_105e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
-    // [EX1_084e] Charge (*) - COST:0
+    // [EX1_084e] Rush (*) - COST:0
     // - Set: Basic
     // --------------------------------------------------------
-    // Text: Warsong Commander is granting this minion +1 Attack.
+    // Text: Has <b>Rush</b>.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_084e"));

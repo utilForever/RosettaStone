@@ -5198,7 +5198,7 @@ TEST_CASE("[Warrior : Spell] - CS2_114 : Cleave")
 // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: Your <b>Charge</b> minions have +1 Attack.
+// Text: After you summon another minion, give it <b>Rush</b>.
 // --------------------------------------------------------
 // GameTag:
 // - AURA = 1
@@ -5228,27 +5228,19 @@ TEST_CASE("[Warrior : Minion] - EX1_084 : Warsong Commander")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Raider"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card4 = Generic::DrawCard(
+    const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Warsong Commander"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasRush(), false);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[1]->GetAttack(), 1);
-    CHECK_EQ(curField[2]->GetAttack(), 3);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[1]->GetAttack(), 2);
-    CHECK_EQ(curField[2]->GetAttack(), 4);
-    CHECK_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->HasRush(), true);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
