@@ -712,7 +712,7 @@ void BasicCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
-    // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2]
+    // [CS2_237] Starving Buzzard - COST:2 [ATK:2/HP:1]
     // - Race: Beast, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever you summon a Beast, draw a card.

@@ -1027,7 +1027,7 @@ TEST_CASE("[Hunter : Spell] - CS2_084 : Hunter's Mark")
 }
 
 // ---------------------------------------- MINION - HUNTER
-// [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2]
+// [CS2_237] Starving Buzzard - COST:2 [ATK:2/HP:1]
 // - Race: Beast, Set: Basic, Rarity: Free
 // --------------------------------------------------------
 // Text: Whenever you summon a Beast, draw a card.
@@ -1137,8 +1137,8 @@ TEST_CASE("[Hunter : Minion] - DS1_070 : Houndmaster")
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    CHECK_EQ(curField[1]->GetAttack(), 5);
-    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
 }
 
@@ -1193,16 +1193,16 @@ TEST_CASE("[Hunter : Minion] - DS1_175 : Timber Wolf")
     CHECK_EQ(curField[1]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    CHECK_EQ(curField[2]->GetAttack(), 4);
-    CHECK_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 1);
     CHECK_EQ(curField[1]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetHealth(), 1);
-    CHECK_EQ(curField[2]->GetAttack(), 5);
-    CHECK_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
     CHECK_EQ(curField[3]->GetAttack(), 2);
     CHECK_EQ(curField[3]->GetHealth(), 1);
 
@@ -1215,8 +1215,8 @@ TEST_CASE("[Hunter : Minion] - DS1_175 : Timber Wolf")
     CHECK_EQ(curField[0]->GetHealth(), 1);
     CHECK_EQ(curField[1]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetHealth(), 1);
-    CHECK_EQ(curField[2]->GetAttack(), 4);
-    CHECK_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
 }
 
 // ---------------------------------------- MINION - HUNTER
