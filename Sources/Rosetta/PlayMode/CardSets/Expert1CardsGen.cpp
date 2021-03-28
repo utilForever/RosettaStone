@@ -2210,7 +2210,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_MAX_ATTACK, 3 } }));
 
     // ---------------------------------------- MINION - PRIEST
-    // [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
+    // [EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: This minion's Attack is always equal to its Health.

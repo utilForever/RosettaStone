@@ -4281,7 +4281,7 @@ TEST_CASE("[Priest : Spell] - EX1_334 : Shadow Madness")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
+// [EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: This minion's Attack is always equal to its Health.
@@ -4314,16 +4314,16 @@ TEST_CASE("[Priest : Minion] - EX1_335 : Lightspawn")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
 // ----------------------------------------- SPELL - PRIEST
