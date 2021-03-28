@@ -1910,7 +1910,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
+    // [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:2]
     // - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Adjacent minions have +2 Attack.

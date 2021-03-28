@@ -4221,7 +4221,7 @@ TEST_CASE("[Shaman : Spell] - EX1_246 : Hex")
 }
 
 // ---------------------------------------- MINION - SHAMAN
-// [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
+// [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:2]
 // - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
 // Text: Adjacent minions have +2 Attack.
@@ -4271,7 +4271,7 @@ TEST_CASE("[Shaman : Minion] - EX1_565 : Flametongue Totem")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 0);
-    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Minion(card5));
     CHECK_EQ(curField[1]->GetAttack(), 8);
@@ -4287,7 +4287,7 @@ TEST_CASE("[Shaman : Minion] - EX1_565 : Flametongue Totem")
     CHECK_EQ(curField[1]->GetAttack(), 10);
     CHECK_EQ(curField[1]->GetHealth(), 7);
     CHECK_EQ(curField[2]->GetAttack(), 0);
-    CHECK_EQ(curField[2]->GetHealth(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Minion(card6));
     CHECK_EQ(curField[3]->GetAttack(), 3);
@@ -4303,7 +4303,7 @@ TEST_CASE("[Shaman : Minion] - EX1_565 : Flametongue Totem")
     CHECK_EQ(curField[3]->GetAttack(), 5);
     CHECK_EQ(curField[3]->GetHealth(), 4);
     CHECK_EQ(curField[4]->GetAttack(), 0);
-    CHECK_EQ(curField[4]->GetHealth(), 3);
+    CHECK_EQ(curField[4]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Minion(card7));
     CHECK_EQ(curField[5]->GetAttack(), 5);
@@ -4319,7 +4319,7 @@ TEST_CASE("[Shaman : Minion] - EX1_565 : Flametongue Totem")
     CHECK_EQ(curField[5]->GetAttack(), 7);
     CHECK_EQ(curField[5]->GetHealth(), 1);
     CHECK_EQ(curField[6]->GetAttack(), 0);
-    CHECK_EQ(curField[6]->GetHealth(), 3);
+    CHECK_EQ(curField[6]->GetHealth(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -4328,9 +4328,9 @@ TEST_CASE("[Shaman : Minion] - EX1_565 : Flametongue Totem")
     game.Process(opPlayer, AttackTask(card8, card7));
 
     CHECK_EQ(curField[4]->GetAttack(), 2);
-    CHECK_EQ(curField[4]->GetHealth(), 3);
+    CHECK_EQ(curField[4]->GetHealth(), 2);
     CHECK_EQ(curField[5]->GetAttack(), 2);
-    CHECK_EQ(curField[5]->GetHealth(), 3);
+    CHECK_EQ(curField[5]->GetHealth(), 2);
 }
 
 // ---------------------------------------- MINION - SHAMAN
