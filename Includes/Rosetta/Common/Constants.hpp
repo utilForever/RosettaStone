@@ -62,6 +62,11 @@ constexpr std::array<CardSet, 27> WILD_CARD_SETS = {
     CardSet::THE_BARRENS,            // Forged in the Barrens, 2021
 };
 
+//! Specifies which card sets combine into the CLASSIC set.
+constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
+    CardSet::VANILLA,  // Classic, 2021
+};
+
 //! The number of all cards.
 constexpr int NUM_ALL_CARDS = 12429;
 
