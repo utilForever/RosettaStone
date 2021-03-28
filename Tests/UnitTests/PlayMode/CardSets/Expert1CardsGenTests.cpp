@@ -330,11 +330,11 @@ TEST_CASE("[Druid : Spell] - EX1_164 : Nourish")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
+// [EX1_165] Druid of the Claw - COST:5 [ATK:5/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
-//       or a 4/6 with <b>Taunt</b>.
+// Text: <b>Choose One -</b> Transform into a 5/4 with <b>Charge</b>;
+//       or a 5/6 with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
@@ -373,19 +373,19 @@ TEST_CASE("[Druid : Minion] - EX1_165 : Druid of the Claw")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Silence"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 4);
     CHECK(curField[0]->CanAttack());
     CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
-    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
     CHECK_FALSE(curField[1]->CanAttack());
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
-    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
     CHECK_FALSE(curField[1]->CanAttack());
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);

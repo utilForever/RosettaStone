@@ -251,11 +251,11 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
                   CardDef(power, ChooseCardIDs{ "EX1_164a", "EX1_164b" }));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
+    // [EX1_165] Druid of the Claw - COST:5 [ATK:5/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
-    //       or a 4/6 with <b>Taunt</b>.
+    // Text: <b>Choose One -</b> Transform into a 5/4 with <b>Charge</b>;
+    //       or a 5/6 with <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -652,7 +652,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_164b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_165a] Cat Form (*) - COST:5 [ATK:4/HP:4]
+    // [EX1_165a] Cat Form (*) - COST:5 [ATK:5/HP:4]
     // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
     // Text: <b>Charge</b>
@@ -663,7 +663,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_165a", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_165b] Bear Form (*) - COST:5 [ATK:4/HP:6]
+    // [EX1_165b] Bear Form (*) - COST:5 [ATK:5/HP:6]
     // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
