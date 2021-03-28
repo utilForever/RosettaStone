@@ -5093,7 +5093,7 @@ TEST_CASE("[Shaman : Minion] - DRG_216 : Surging Tempest")
 // - Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
 // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
-//       If you've <b>Invoked</b> twice, give them +2/+2.
+//       If you've <b>Invoked</b> twice, give them +3/+3.
 // --------------------------------------------------------
 // GameTag:
 // - 676 = 1
@@ -5144,11 +5144,11 @@ TEST_CASE("[Shaman : Spell] - DRG_217 : Dragon's Pack")
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(curField[2]->card->name, "Spirit Wolf");
-    CHECK_EQ(curField[2]->GetAttack(), 4);
-    CHECK_EQ(curField[2]->GetHealth(), 5);
+    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 6);
     CHECK_EQ(curField[3]->card->name, "Spirit Wolf");
-    CHECK_EQ(curField[3]->GetAttack(), 4);
-    CHECK_EQ(curField[3]->GetHealth(), 5);
+    CHECK_EQ(curField[3]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 6);
 }
 
 // ---------------------------------------- MINION - SHAMAN

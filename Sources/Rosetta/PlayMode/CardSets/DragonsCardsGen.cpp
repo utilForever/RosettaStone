@@ -2640,7 +2640,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
-    //       If you've <b>Invoked</b> twice, give them +2/+2.
+    //       If you've <b>Invoked</b> twice, give them +3/+3.
     // --------------------------------------------------------
     // GameTag:
     // - 676 = 1
@@ -4529,7 +4529,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // [DRG_217e] Galakrond's Power (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: +2/+2.
+    // Text: +3/+3.
     // --------------------------------------------------------
     // GameTag:
     // - HIDE_WATERMARK = 1
