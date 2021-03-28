@@ -6488,7 +6488,7 @@ TEST_CASE("[Neutral : Minion] - CS2_213 : Reckless Rocketeer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6]
+// [CS2_222] Stormwind Champion - COST:7 [ATK:7/HP:7]
 // - Faction: Alliance, Set: Basic, Rarity: Free
 // --------------------------------------------------------
 // Text: Your other minions have +1/+1.
@@ -6517,7 +6517,6 @@ TEST_CASE("[Neutral : Minion] - CS2_222 : Stormwind Champion")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Stormwind Champion"));
@@ -6541,23 +6540,21 @@ TEST_CASE("[Neutral : Minion] - CS2_222 : Stormwind Champion")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 7);
     CHECK_EQ(curField[0]->GetHealth(), 8);
-    CHECK_EQ(curField[1]->GetAttack(), 6);
-    CHECK_EQ(curField[1]->GetHealth(), 6);
+    CHECK_EQ(curField[1]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    opField[0]->SetAttack(7);
     game.Process(opPlayer, AttackTask(card3, card2));
     CHECK_EQ(curField[0]->GetAttack(), 7);
-    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    opField[0]->SetAttack(6);
     game.Process(opPlayer, AttackTask(card4, card1));
-    CHECK_EQ(curField[0]->GetAttack(), 6);
-    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -3074,7 +3074,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_213", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6]
+    // [CS2_222] Stormwind Champion - COST:7 [ATK:7/HP:7]
     // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your other minions have +1/+1.
