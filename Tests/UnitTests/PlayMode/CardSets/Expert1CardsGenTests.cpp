@@ -5921,7 +5921,8 @@ TEST_CASE("[Shaman : Weapon] - EX1_247 : Stormforged Axe")
 // [EX1_248] Feral Spirit - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>. <b>Overload:</b> (2)
+// Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
+//       <b>Overload:</b> (1)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -5970,9 +5971,9 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
     CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
-    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
 // ---------------------------------------- MINION - SHAMAN

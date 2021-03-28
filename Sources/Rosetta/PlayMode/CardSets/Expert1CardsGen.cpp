@@ -2935,7 +2935,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
-    //       <b>Overload:</b> (2)
+    //       <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 2
