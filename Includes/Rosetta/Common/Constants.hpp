@@ -70,7 +70,7 @@ constexpr std::array<CardSet, 25> WILD_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 11020;
+constexpr int NUM_ALL_CARDS = 12429;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -108,7 +108,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 53;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 54;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -240,7 +240,6 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Mech Pool
 // Deflect-o-Bot (61930)
 // Iron Sensei (1992)
-// Piloted Shredder (60048)
 // Screwjank Clunker (2023)
 // Replicating Menace (48536)
 // Murloc Pool
@@ -252,12 +251,13 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Southsea Strongarm (61048)
 // Neutral
 // Arm of the Empire (63622)
+// Barrens Blacksmith (62582)
 // Khadgar (52502)
 // Warden of Old (65660)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
     38734, 62230, 1003,  40428, 2288,  40391, 61059, 59660, 60558,
-    60552, 60626, 64297, 64054, 64069, 61930, 1992,  60048, 2023,
-    48536, 453,   56393, 61053, 62734, 61048, 63622, 52502, 65660
+    60552, 60626, 64297, 64054, 64069, 61930, 1992,  2023,  48536,
+    453,   56393, 61053, 62734, 61048, 63622, 62582, 52502, 65660
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.
