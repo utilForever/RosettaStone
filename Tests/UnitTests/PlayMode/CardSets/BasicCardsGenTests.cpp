@@ -2926,10 +2926,10 @@ TEST_CASE("[Priest : Spell] - CS2_003 : Mind Vision")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [CS2_004] Power Word: Shield - COST:0
+// [CS2_004] Power Word: Shield - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: Give a minion +2 Health.
+// Text: Give a minion +2 Health. Draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2969,8 +2969,8 @@ TEST_CASE("[Priest : Spell] - CS2_004 : Power Word: Shield")
     CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    CHECK_EQ(curPlayer->GetRemainingMana(), 4);
-    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
+    CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 9);
 }
 
