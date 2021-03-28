@@ -5,7 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
-#include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/BasicCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
@@ -56,13 +56,13 @@ using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 
-void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------------- HERO - WARRIOR
     // [HERO_01] Garrosh Hellscream - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 725
@@ -73,7 +73,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ HERO - SHAMAN
     // [HERO_02] Thrall - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 687
@@ -84,7 +84,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- HERO - ROGUE
     // [HERO_03] Valeera Sanguinar - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 730
@@ -95,7 +95,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- HERO - PALADIN
     // [HERO_04] Uther Lightbringer - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 472
@@ -106,7 +106,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ HERO - HUNTER
     // [HERO_05] Rexxar - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 229
@@ -117,7 +117,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- HERO - DRUID
     // [HERO_06] Malfurion Stormrage - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 1123
@@ -128,7 +128,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- HERO - WARLOCK
     // [HERO_07] Gul'dan - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 300
@@ -139,7 +139,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // -------------------------------------------- HERO - MAGE
     // [HERO_08] Jaina Proudmoore - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 807
@@ -150,7 +150,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ HERO - PRIEST
     // [HERO_09] Anduin Wrynn - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 479
@@ -161,7 +161,7 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------- HERO - DEMONHUNTER
     // [HERO_10] Illidan Stormrage - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - HERO_POWER = 60224
@@ -171,13 +171,13 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     cards.emplace("HERO_10", CardDef(power));
 }
 
-void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [HERO_01bp] Armor Up! (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Gain 2 Armor.
     // --------------------------------------------------------
@@ -187,7 +187,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [HERO_01bp2] Tank Up! (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Gain 4 Armor.
     // --------------------------------------------------------
@@ -197,7 +197,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [HERO_02bp] Totemic Call (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a random Totem.
     // --------------------------------------------------------
@@ -253,7 +253,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [HERO_02bp2] Totemic Slam (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a Totem of your choice.
     // --------------------------------------------------------
@@ -269,7 +269,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [HERO_03bp] Dagger Mastery (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
     // --------------------------------------------------------
@@ -279,7 +279,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [HERO_03bp2] Poisoned Daggers (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Equip a 2/2 Weapon.
     // --------------------------------------------------------
@@ -289,7 +289,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [HERO_04bp] Reinforce (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
     // --------------------------------------------------------
@@ -305,7 +305,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [HERO_04bp2] The Silver Hand (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon two 1/1 Recruits.
     // --------------------------------------------------------
@@ -321,7 +321,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [HERO_05bp] Steady Shot (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
     // --------------------------------------------------------
@@ -339,7 +339,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [HERO_05bp2] Ballista Shot (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
@@ -357,7 +357,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------- HERO_POWER - DRUID
     // [HERO_06bp] Shapeshift (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
     // --------------------------------------------------------
@@ -369,7 +369,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------- HERO_POWER - DRUID
     // [HERO_06bp2] Dire Shapeshift (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +2 Attack this turn. +2 Armor.
     // --------------------------------------------------------
@@ -381,7 +381,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [HERO_07bp] Life Tap (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card and take 2 damage.
     // --------------------------------------------------------
@@ -393,7 +393,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [HERO_07bp2] Soul Tap (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card.
     // --------------------------------------------------------
@@ -403,7 +403,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // -------------------------------------- HERO_POWER - MAGE
     // [HERO_08bp] Fireblast (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 1 damage.
     // --------------------------------------------------------
@@ -419,7 +419,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // -------------------------------------- HERO_POWER - MAGE
     // [HERO_08bp2] Fireblast Rank 2 (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 2 damage.
     // --------------------------------------------------------
@@ -435,7 +435,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [HERO_09bp] Lesser Heal (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Restore 2 Health.
     // --------------------------------------------------------
@@ -450,7 +450,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [HERO_09bp2] Heal (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Restore 4 Health.
     // --------------------------------------------------------
@@ -465,7 +465,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------- HERO_POWER - DEMONHUNTER
     // [HERO_10bp] Demon Claws (*) - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +1 Attack this turn.
     // --------------------------------------------------------
@@ -476,7 +476,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
     // ------------------------------- HERO_POWER - DEMONHUNTER
     // [HERO_10bp2] Demon's Bite (*) - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +2 Attack this turn.
     // --------------------------------------------------------
@@ -486,13 +486,13 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     cards.emplace("HERO_10bp2", CardDef(power));
 }
 
-void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_005] Claw - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
     // --------------------------------------------------------
@@ -504,7 +504,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_007] Healing Touch - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Restore 8 Health.
     // --------------------------------------------------------
@@ -519,7 +519,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_008] Moonfire - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 1 damage.
     // --------------------------------------------------------
@@ -535,7 +535,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_009] Mark of the Wild - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion <b>Taunt</b> and +2/+2.<i>
     //       (+2 Attack/+2 Health)</i>
@@ -557,7 +557,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_011] Savage Roar - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your characters +2 Attack this turn.
     // --------------------------------------------------------
@@ -568,7 +568,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_012] Swipe - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 4 damage to an enemy and 1 damage to all other enemies.
     // --------------------------------------------------------
@@ -587,7 +587,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [CS2_013] Wild Growth - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Gain an empty Mana Crystal.
     // --------------------------------------------------------
@@ -597,7 +597,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
-    // - Faction: neutral, Set: Core, Rarity: Free
+    // - Faction: neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -610,7 +610,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_169] Innervate - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
     // --------------------------------------------------------
@@ -620,7 +620,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_173] Starfire - COST:6
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 5 damage. Draw a card.
     // --------------------------------------------------------
@@ -635,13 +635,13 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
-void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_005o] Claw (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2 Attack this turn.
     // --------------------------------------------------------
@@ -654,7 +654,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_009e] Mark of the Wild (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -664,7 +664,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_011o] Savage Roar (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2 Attack this turn.
     // --------------------------------------------------------
@@ -677,7 +677,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_017o] Claws (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Your hero has +1 Attack this turn.
     // --------------------------------------------------------
@@ -689,13 +689,13 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_017o", CardDef(power));
 }
 
-void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------------- SPELL - HUNTER
     // [CS2_084] Hunter's Mark - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Change a minion's Health to 1.
     // --------------------------------------------------------
@@ -713,7 +713,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2]
-    // - Race: Beast, Set: Core, Rarity: Free
+    // - Race: Beast, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever you summon a Beast, draw a card.
     // --------------------------------------------------------
@@ -727,7 +727,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -753,7 +753,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your other Beasts have +1 Attack.
     // --------------------------------------------------------
@@ -772,7 +772,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your Beasts have <b>Charge</b>.
     // --------------------------------------------------------
@@ -793,7 +793,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_183] Multi-Shot - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage to two random enemy minions.
     // --------------------------------------------------------
@@ -811,7 +811,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_184] Tracking - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Look at the top 3 cards of your deck.
     //       Draw one and discard the others.
@@ -844,7 +844,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_185] Arcane Shot - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 2 damage.
     // --------------------------------------------------------
@@ -860,7 +860,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_539] Kill Command - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage. If you control a Beast,
     //       deal 5 damage instead.
@@ -885,7 +885,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [NEW1_031] Animal Companion - COST:3
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Summon a random Beast Companion.
     // --------------------------------------------------------
@@ -904,13 +904,13 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                 Entourages{ "NEW1_032", "NEW1_033", "NEW1_034" }));
 }
 
-void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [CS2_084e] Hunter's Mark (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: This minion has 1 Health.
     // --------------------------------------------------------
@@ -921,7 +921,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DS1_070o] Master's Presence (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -931,7 +931,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DS1_175o] Furious Howl (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +1 Attack from Timber Wolf.
     // --------------------------------------------------------
@@ -941,7 +941,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DS1_178e] Charge (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Tundra Rhino grants <b>Charge</b>.
     // --------------------------------------------------------
@@ -951,7 +951,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [NEW1_032] Misha (*) - COST:3 [ATK:4/HP:4]
-    // - Race: Beast, Set: Core, Rarity: Common
+    // - Race: Beast, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -964,7 +964,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [NEW1_033] Leokk (*) - COST:3 [ATK:2/HP:4]
-    // - Race: Beast, Set: Core, Rarity: Common
+    // - Race: Beast, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     // Text: Your other minions have +1 Attack.
     // --------------------------------------------------------
@@ -978,7 +978,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [NEW1_033o] Eye In The Sky (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Leokk is granting this minion +1 Attack.
     // --------------------------------------------------------
@@ -988,7 +988,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [NEW1_034] Huffer (*) - COST:3 [ATK:4/HP:2]
-    // - Race: Beast, Set: Core, Rarity: Common
+    // - Race: Beast, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -1000,13 +1000,13 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_034", CardDef(power));
 }
 
-void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_022] Polymorph - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Transform a minion
     //       into a 1/1 Sheep.
@@ -1025,7 +1025,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_023] Arcane Intellect - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------
@@ -1035,7 +1035,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_024] Frostbolt - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage to a character and <b>Freeze</b> it.
     // --------------------------------------------------------
@@ -1056,7 +1056,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_025] Arcane Explosion - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemy minions.
     // --------------------------------------------------------
@@ -1067,7 +1067,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_026] Frost Nova - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Freeze</b> all enemy minions.
     // --------------------------------------------------------
@@ -1081,7 +1081,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_027] Mirror Image - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Summon two 0/2 minions with <b>Taunt</b>.
     // --------------------------------------------------------
@@ -1099,7 +1099,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_029] Fireball - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 6 damage.
     // --------------------------------------------------------
@@ -1115,7 +1115,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_032] Flamestrike - COST:7
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 4 damage to all enemy minions.
     // --------------------------------------------------------
@@ -1126,7 +1126,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ MINION - MAGE
     // [CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
-    // - Race: Elemental, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Elemental, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Freeze</b> any character damaged by this minion.
     // --------------------------------------------------------
@@ -1139,7 +1139,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_277] Arcane Missiles - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage randomly split among all enemies.
     // --------------------------------------------------------
@@ -1157,18 +1157,18 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_277", CardDef(power));
 }
 
-void CoreCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_087] Blessing of Might - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion +3 Attack.
     // --------------------------------------------------------
@@ -1186,7 +1186,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - PALADIN
     // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Restore 6 Health to your hero.
     // --------------------------------------------------------
@@ -1199,7 +1199,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_089] Holy Light - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Restore 6 Health.
     // --------------------------------------------------------
@@ -1214,7 +1214,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- WEAPON - PALADIN
     // [CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 4
@@ -1225,7 +1225,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_092] Blessing of Kings - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
     // --------------------------------------------------------
@@ -1243,7 +1243,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_093] Consecration - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
@@ -1254,7 +1254,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_094] Hammer of Wrath - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage. Draw a card.
     // --------------------------------------------------------
@@ -1271,7 +1271,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- WEAPON - PALADIN
     // [CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
@@ -1287,7 +1287,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_360] Humility - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Change a minion's Attack to 1.
     // --------------------------------------------------------
@@ -1305,7 +1305,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_371] Hand of Protection - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion <b>Divine Shield</b>.
     // --------------------------------------------------------
@@ -1325,13 +1325,13 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
-void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [CS2_087e] Blessing of Might (*) - COST:0
-    // - Faction: Neutral, Set: Core
+    // - Faction: Neutral, Set: Basic
     // --------------------------------------------------------
     // Text: +3 Attack.
     // --------------------------------------------------------
@@ -1341,7 +1341,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [CS2_092e] Blessing of Kings (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
@@ -1351,7 +1351,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - PALADIN
     // [CS2_101t] Silver Hand Recruit (*) - COST:1 [ATK:1/HP:1]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -1359,7 +1359,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_360e] Humility (*) - COST:0
-    // - Faction: Neutral, Set: Core
+    // - Faction: Neutral, Set: Basic
     // --------------------------------------------------------
     // Text: Attack has been changed to 1.
     // --------------------------------------------------------
@@ -1369,13 +1369,13 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_360e", CardDef(power));
 }
 
-void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_112] Holy Nova - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     //       Restore 2 Health to all friendly characters.
@@ -1388,7 +1388,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_113] Mind Control - COST:10
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Take control of an enemy minion.
     // --------------------------------------------------------
@@ -1409,7 +1409,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_130] Holy Smite - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
@@ -1427,7 +1427,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_003] Mind Vision - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Put a copy of a random card in your opponent's hand into your hand.
     // --------------------------------------------------------
@@ -1439,7 +1439,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_004] Power Word: Shield - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion +2 Health.
     // --------------------------------------------------------
@@ -1457,7 +1457,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_234] Shadow Word: Pain - COST:2
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy a minion with 3 or less Attack.
     // --------------------------------------------------------
@@ -1476,7 +1476,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_192] Radiance - COST:1
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Restore 5 Health to your hero.
     // --------------------------------------------------------
@@ -1486,7 +1486,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
-    // - Set: Core, Rarity: Common
+    // - Set: Basic, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Copy a card in your opponent's deck
     //       and add it to your hand.
@@ -1502,7 +1502,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_194] Power Infusion - COST:4
-    // - Set: Core, Rarity: Common
+    // - Set: Basic, Rarity: Common
     // --------------------------------------------------------
     // Text: Give a minion +2/+6.
     // --------------------------------------------------------
@@ -1520,7 +1520,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_622] Shadow Word: Death - COST:2
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy a minion with 5 or more Attack.
     // --------------------------------------------------------
@@ -1538,13 +1538,13 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_MIN_ATTACK, 5 } }));
 }
 
-void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [CS2_004e] Power Word: Shield (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
@@ -1554,7 +1554,7 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_194e] Power Infusion (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2/+6.
     // --------------------------------------------------------
@@ -1563,13 +1563,13 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_194e", CardDef(power));
 }
 
-void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_072] Backstab - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 2 damage to an undamaged minion.
     // --------------------------------------------------------
@@ -1589,7 +1589,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_074] Deadly Poison - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your weapon +2 Attack.
     // --------------------------------------------------------
@@ -1605,7 +1605,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_075] Sinister Strike - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
@@ -1616,7 +1616,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_076] Assassinate - COST:5
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy an enemy minion.
     // --------------------------------------------------------
@@ -1634,7 +1634,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_077] Sprint - COST:7
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Draw 4 cards.
     // --------------------------------------------------------
@@ -1644,7 +1644,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- WEAPON - ROGUE
     // [CS2_080] Assassin's Blade - COST:5 [ATK:3/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 4
@@ -1655,7 +1655,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_129] Fan of Knives - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemy minions. Draw a card.
     // --------------------------------------------------------
@@ -1667,7 +1667,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_191] Plaguebringer - COST:4 [ATK:3/HP:3]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a friendly minion <b>Poisonous</b>.
     // --------------------------------------------------------
@@ -1693,7 +1693,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_278] Shiv - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 1 damage. Draw a card.
     // --------------------------------------------------------
@@ -1710,7 +1710,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_581] Sap - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Return an enemy minion to your opponent's hand.
     // --------------------------------------------------------
@@ -1727,13 +1727,13 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 }
 
-void CoreCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------------- WEAPON - ROGUE
     // [CS2_082] Wicked Knife (*) - COST:1 [ATK:1/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 2
@@ -1744,7 +1744,7 @@ void CoreCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [EX1_191e] Plaguetouched (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: <b>Poisonous</b>
     // --------------------------------------------------------
@@ -1756,13 +1756,13 @@ void CoreCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_191e", CardDef(power));
 }
 
-void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_037] Frost Shock - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
     // --------------------------------------------------------
@@ -1784,7 +1784,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_039] Windfury - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion <b>Windfury</b>.
     // --------------------------------------------------------
@@ -1805,7 +1805,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Restore a minion
     //       to full Health and
@@ -1829,7 +1829,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
-    // - Race: Elemental, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Elemental, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 3 damage.
     // --------------------------------------------------------
@@ -1847,7 +1847,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_045] Rockbiter Weapon - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a friendly character +3 Attack this turn.
     // --------------------------------------------------------
@@ -1865,7 +1865,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_046] Bloodlust - COST:5
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
@@ -1876,7 +1876,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_244] Totemic Might - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your Totems +2 Health.
     // --------------------------------------------------------
@@ -1890,7 +1890,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_246] Hex - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
     // --------------------------------------------------------
@@ -1911,7 +1911,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Adjacent minions have +2 Attack.
     // --------------------------------------------------------
@@ -1925,7 +1925,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
-    // - Faction: Neutral, Set: core, Rarity: free
+    // - Faction: Neutral, Set: Basic, Rarity: free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a friendly minion <b>Windfury</b>.
     // --------------------------------------------------------
@@ -1950,13 +1950,13 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 }
 
-void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Taunt.
     // --------------------------------------------------------
@@ -1969,7 +1969,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_045e] Rockbiter Weapon (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: This character has +3 Attack this turn.
     // --------------------------------------------------------
@@ -1982,7 +1982,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_046e] Bloodlust (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +3 Attack this turn.
     // --------------------------------------------------------
@@ -1995,7 +1995,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [CS2_050] Searing Totem (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2003,7 +2003,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [CS2_051] Stoneclaw Totem (*) - COST:1 [ATK:0/HP:2]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2016,7 +2016,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [CS2_052] Wrath of Air Totem (*) - COST:1 [ATK:0/HP:2]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     // --------------------------------------------------------
@@ -2029,7 +2029,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [EX1_244e] Totemic Might (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
@@ -2039,7 +2039,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [EX1_565o] Flametongue (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2 Attack from Flametongue Totem.
     // --------------------------------------------------------
@@ -2049,7 +2049,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [NEW1_009] Healing Totem (*) - COST:1 [ATK:0/HP:2]
-    // - Race: Totem, Set: Core, Rarity: Free
+    // - Race: Totem, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: At the end of your turn, restore 1 Health to all friendly minions.
     // --------------------------------------------------------
@@ -2060,13 +2060,13 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_009", CardDef(power));
 }
 
-void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_057] Shadow Bolt - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion.
     // --------------------------------------------------------
@@ -2084,7 +2084,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_061] Drain Life - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 2 damage. Restore 2 Health to your hero.
     // --------------------------------------------------------
@@ -2101,7 +2101,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_062] Hellfire - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 3 damage to all characters.
     // --------------------------------------------------------
@@ -2111,7 +2111,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_063] Corruption - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Choose an enemy minion. At the start of your turn, destroy it.
     // --------------------------------------------------------
@@ -2130,7 +2130,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - WARLOCK
     // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
-    // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Demon, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to all other characters.
     // --------------------------------------------------------
@@ -2143,7 +2143,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - WARLOCK
     // [CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
-    // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Demon, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2156,7 +2156,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_302] Mortal Coil - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion. If that kills it, draw a card.
     // --------------------------------------------------------
@@ -2179,7 +2179,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Discard a random card.
     // --------------------------------------------------------
@@ -2192,7 +2192,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_308] Soulfire - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 4 damage. Discard a random card.
     // --------------------------------------------------------
@@ -2208,7 +2208,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [NEW1_003] Sacrificial Pact - COST:0
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy a friendly Demon. Restore 5 Health to your hero.
     // --------------------------------------------------------
@@ -2227,13 +2227,13 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_WITH_RACE, 15 } }));
 }
 
-void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [CS2_063e] Corruption (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: At the start of the corrupting player's turn, destroy this minion.
     // --------------------------------------------------------
@@ -2244,13 +2244,13 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_063e", CardDef(power));
 }
 
-void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS2_103] Charge - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a friendly minion <b>Charge</b>.
     //       It can't attack heroes this turn.
@@ -2274,7 +2274,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS2_105] Heroic Strike - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
@@ -2285,7 +2285,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- WEAPON - WARRIOR
     // [CS2_106] Fiery War Axe - COST:3 [ATK:3/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 2
@@ -2296,7 +2296,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS2_108] Execute - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy a damaged enemy minion.
     // --------------------------------------------------------
@@ -2317,7 +2317,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- WEAPON - WARRIOR
     // [CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 2
@@ -2328,7 +2328,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS2_114] Cleave - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 2 damage to two random enemy minions.
     // --------------------------------------------------------
@@ -2346,7 +2346,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your <b>Charge</b> minions have +1 Attack.
     // --------------------------------------------------------
@@ -2368,7 +2368,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_400] Whirlwind - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 1 damage to all minions.
     // --------------------------------------------------------
@@ -2379,7 +2379,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_606] Shield Block - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Gain 5 Armor.
     //       Draw a card.
@@ -2391,7 +2391,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - WARRIOR
     // [NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -2403,13 +2403,13 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_011", CardDef(power));
 }
 
-void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS2_103e2] Charge (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Has <b>Charge</b>.
     // --------------------------------------------------------
@@ -2427,7 +2427,7 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS2_105e] Heroic Strike (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +4 Attack this turn.
     // --------------------------------------------------------
@@ -2440,7 +2440,7 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_084e] Charge (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Warsong Commander is granting this minion +1 Attack.
     // --------------------------------------------------------
@@ -2449,13 +2449,13 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_084e", CardDef(power));
 }
 
-void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_035] Chaos Strike - COST:2
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn. Draw a card.
     // --------------------------------------------------------
@@ -2467,7 +2467,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_036] Coordinated Strike - COST:3
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Summon three 1/1 Illidari with <b>Rush</b>.
     // --------------------------------------------------------
@@ -2477,7 +2477,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
-    // - Race: Demon, Set: Core, Rarity: Free
+    // - Race: Demon, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
     // --------------------------------------------------------
@@ -2491,7 +2491,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_235] Chaos Nova - COST:5
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 4 damage to all minions.
     // --------------------------------------------------------
@@ -2502,7 +2502,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_323] Sightless Watcher (*) - COST:2 [ATK:3/HP:2]
-    // - Race: Demon, Set: Core, Rarity: Free
+    // - Race: Demon, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Look at 3 cards in your deck.
     //       Choose one to put on top.
@@ -2532,7 +2532,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_352] Satyr Overseer (*) - COST:3 [ATK:4/HP:2]
-    // - Race: Demon, Set: Core, Rarity: Free
+    // - Race: Demon, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: After your hero attacks, summon a 2/2 Satyr.
     // --------------------------------------------------------
@@ -2548,7 +2548,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_495] Glaivebound Adept (*) - COST:5 [ATK:6/HP:4]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your hero attacked this turn,
     //       deal 4 damage.
@@ -2571,7 +2571,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_512] Inner Demon - COST:8
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your hero +8 Attack this turn.
     // --------------------------------------------------------
@@ -2582,7 +2582,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_740] Soul Cleave - COST:8
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
     // --------------------------------------------------------
@@ -2603,7 +2603,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
     // --------------------------------------------------------
@@ -2616,14 +2616,14 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_921", CardDef(power));
 }
 
-void CoreCardsGen::AddDemonHunterNonCollect(
+void BasicCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BT_035e] Chaos Strike (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2 Attack this turn.
     // --------------------------------------------------------
@@ -2636,7 +2636,7 @@ void CoreCardsGen::AddDemonHunterNonCollect(
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_036t] Illidari Initiate (*) - COST:1 [ATK:1/HP:1]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2644,7 +2644,7 @@ void CoreCardsGen::AddDemonHunterNonCollect(
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BT_142e] Sharpened Claws (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +1 Attack this turn.
     // --------------------------------------------------------
@@ -2657,7 +2657,7 @@ void CoreCardsGen::AddDemonHunterNonCollect(
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_352t] Illidari Satyr (*) - COST:2 [ATK:2/HP:2]
-    // - Race: Demon, Set: Core, Rarity: Free
+    // - Race: Demon, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2665,7 +2665,7 @@ void CoreCardsGen::AddDemonHunterNonCollect(
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BT_512e] Demon Power (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +8 Attack.
     // --------------------------------------------------------
@@ -2678,7 +2678,7 @@ void CoreCardsGen::AddDemonHunterNonCollect(
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [HERO_10bpe] Demon Claws (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Your hero has +1 Attack this turn.
     // --------------------------------------------------------
@@ -2691,7 +2691,7 @@ void CoreCardsGen::AddDemonHunterNonCollect(
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [HERO_10pe2] Demon's Bite (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Your hero has +2 Attack this turn.
     // --------------------------------------------------------
@@ -2703,13 +2703,13 @@ void CoreCardsGen::AddDemonHunterNonCollect(
     cards.emplace("HERO_10pe2", CardDef(power));
 }
 
-void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2722,7 +2722,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
-    // - Race: Elemental, Set: Core, Rarity: Free
+    // - Race: Elemental, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2730,7 +2730,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]
-    // - Race: Beast, Set: Core, Rarity: Free
+    // - Race: Beast, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2738,7 +2738,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
-    // - Race: Beast, Set: Core, Rarity: Free
+    // - Race: Beast, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2746,7 +2746,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_121] Frostwolf Grunt - COST:2 [ATK:2/HP:2]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2759,7 +2759,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_122] Raid Leader - COST:3 [ATK:2/HP:2]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your other minions have +1 Attack.
     // --------------------------------------------------------
@@ -2773,7 +2773,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -2786,7 +2786,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_125] Ironfur Grizzly - COST:3 [ATK:3/HP:3]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2799,7 +2799,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_127] Silverback Patriarch - COST:3 [ATK:1/HP:4]
-    // - Race: Beast, Faction: Horde, Set: Core, Rarity: Free
+    // - Race: Beast, Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2812,7 +2812,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -2825,7 +2825,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage.
     // --------------------------------------------------------
@@ -2845,7 +2845,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     // --------------------------------------------------------
@@ -2858,7 +2858,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a card.
     // --------------------------------------------------------
@@ -2871,7 +2871,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 2 damage.
     // --------------------------------------------------------
@@ -2891,7 +2891,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     // --------------------------------------------------------
@@ -2904,7 +2904,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2917,7 +2917,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
-    // - Race: Murloc, Faction: Alliance, Set: Core, Rarity: Free
+    // - Race: Murloc, Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2925,7 +2925,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_171] Stonetusk Boar - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -2938,7 +2938,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
-    // - Race: Beast, Faction: Horde, Set: Core, Rarity: Free
+    // - Race: Beast, Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2946,7 +2946,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Murloc, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -2959,7 +2959,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -2972,7 +2972,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2980,7 +2980,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_186] War Golem - COST:7 [ATK:7/HP:7]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -2988,7 +2988,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -3001,7 +3001,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage.
     // --------------------------------------------------------
@@ -3021,7 +3021,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 1/1 Boar.
     // --------------------------------------------------------
@@ -3035,7 +3035,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     // --------------------------------------------------------
@@ -3048,7 +3048,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
-    // - Set: Core, Rarity: Free
+    // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -3056,7 +3056,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
-    // - Race: Beast, Set: Core, Rarity: Free
+    // - Race: Beast, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -3064,7 +3064,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -3077,7 +3077,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your other minions have +1/+1.
     // --------------------------------------------------------
@@ -3091,7 +3091,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the
     // battlefield.
@@ -3108,7 +3108,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
     // --------------------------------------------------------
@@ -3121,7 +3121,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // - Faction: Horde, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Restore 2 Health.
     // --------------------------------------------------------
@@ -3139,7 +3139,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_015] Novice Engineer - COST:2 [ATK:1/HP:1]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a card.
     // --------------------------------------------------------
@@ -3152,7 +3152,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a friendly minion +1/+1.
     // --------------------------------------------------------
@@ -3175,7 +3175,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 2/1 Mechanical Dragonling.
     // --------------------------------------------------------
@@ -3189,7 +3189,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // - Faction: Alliance, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy your opponent's weapon.
     // --------------------------------------------------------
@@ -3202,7 +3202,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever this minion takes damage, gain +3 Attack.
     // --------------------------------------------------------
@@ -3215,7 +3215,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Murloc, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
     // --------------------------------------------------------
@@ -3229,7 +3229,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Murloc, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your other Murlocs have +1 Attack.
     // --------------------------------------------------------
@@ -3245,7 +3245,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     // --------------------------------------------------------
@@ -3258,7 +3258,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_593] Nightblade - COST:5 [ATK:4/HP:4]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry: </b>Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
@@ -3270,13 +3270,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_593", CardDef(power));
 }
 
-void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_074e] Deadly Poison (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
@@ -3286,7 +3286,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_122e] Enhanced (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Raid Leader is granting this minion +1 Attack.
     // --------------------------------------------------------
@@ -3296,7 +3296,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_222o] Might of Stormwind (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Has +1/+1.
     // --------------------------------------------------------
@@ -3306,7 +3306,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_226e] Frostwolf Banner (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
@@ -3317,7 +3317,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_boar] Boar (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -3325,7 +3325,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_tk1] Sheep (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -3333,7 +3333,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_019e] Cleric's Blessing (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
@@ -3343,7 +3343,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_025t] Mechanical Dragonling (*) - COST:1 [ATK:2/HP:1]
-    // - Race: Mechanical, Faction: Neutral, Set: Core, Rarity: Common
+    // - Race: Mechanical, Faction: Neutral, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -3351,7 +3351,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_506a] Murloc Scout (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Common
+    // - Race: Murloc, Faction: Neutral, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -3359,7 +3359,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_508o] Mlarggragllabl! (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: This Murloc has +1 Attack.
     // --------------------------------------------------------
@@ -3369,7 +3369,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_399e] Berserking (*) - COST:0
-    // - Set: Core
+    // - Set: Basic
     // --------------------------------------------------------
     // Text: This minion has increased Attack.
     // --------------------------------------------------------
@@ -3379,7 +3379,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -3391,7 +3391,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("hexfrog", CardDef(power));
 }
 
-void CoreCardsGen::AddAll(std::map<std::string, CardDef>& cards)
+void BasicCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 {
     AddHeroes(cards);
     AddHeroPowers(cards);

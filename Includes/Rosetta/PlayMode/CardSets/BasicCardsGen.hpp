@@ -3,8 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_PLAYMODE_CORE_CARDS_GEN_HPP
-#define ROSETTASTONE_PLAYMODE_CORE_CARDS_GEN_HPP
+#ifndef ROSETTASTONE_PLAYMODE_BASIC_CARDS_GEN_HPP
+#define ROSETTASTONE_PLAYMODE_BASIC_CARDS_GEN_HPP
 
 #include <Rosetta/PlayMode/Cards/CardDef.hpp>
 
@@ -14,12 +14,12 @@
 namespace RosettaStone::PlayMode
 {
 //!
-//! \brief CoreCardsGen class.
+//! \brief BasicCardsGen class.
 //!
-//! This structure adds CORE cards to the data storage with powers,
+//! This structure adds BASIC cards to the data storage with powers,
 //! play requirements and entourages.
 //!
-class CoreCardsGen
+class BasicCardsGen
 {
  public:
     //! Adds hero cards to \p cards.
@@ -149,4 +149,4 @@ class CoreCardsGen
 };
 }  // namespace RosettaStone::PlayMode
 
-#endif  // ROSETTASTONE_PLAYMODE_CORE_CARDS_GEN_HPP
+#endif  // ROSETTASTONE_PLAYMODE_BASIC_CARDS_GEN_HPP
