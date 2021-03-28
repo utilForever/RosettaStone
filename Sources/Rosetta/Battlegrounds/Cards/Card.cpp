@@ -63,6 +63,11 @@ void Card::Initialize()
     }
 }
 
+CardSet Card::GetCardSet() const
+{
+    return static_cast<CardSet>(gameTags.at(GameTag::CARD_SET));
+}
+
 CardType Card::GetCardType() const
 {
     return static_cast<CardType>(gameTags.at(GameTag::CARDTYPE));
