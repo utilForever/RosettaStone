@@ -651,8 +651,8 @@ TEST_CASE("[Druid : Spell] - CS2_008 : Moonfire")
 // [CS2_009] Mark of the Wild - COST:2
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: Give a minion <b>Taunt</b> and +2/+2.<i>
-//       (+2 Attack/+2 Health)</i>
+// Text: Give a minion <b>Taunt</b> and +2/+3.<i>
+//       (+2 Attack/+3 Health)</i>
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -696,7 +696,7 @@ TEST_CASE("[Druid : Spell] - CS2_009 : Mark of the Wild")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
     CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
     CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
 // ------------------------------------------ SPELL - DRUID

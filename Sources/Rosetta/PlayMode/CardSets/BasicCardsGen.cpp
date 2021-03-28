@@ -537,8 +537,8 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [CS2_009] Mark of the Wild - COST:2
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give a minion <b>Taunt</b> and +2/+2.<i>
-    //       (+2 Attack/+2 Health)</i>
+    // Text: Give a minion <b>Taunt</b> and +2/+3.<i>
+    //       (+2 Attack/+3 Health)</i>
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -656,7 +656,7 @@ void BasicCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // [CS2_009e] Mark of the Wild (*) - COST:0
     // - Set: Basic
     // --------------------------------------------------------
-    // Text: +2/+2 and <b>Taunt</b>.
+    // Text: +2/+3 and <b>Taunt</b>.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_009e"));
