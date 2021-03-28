@@ -112,7 +112,9 @@ Card Cards::FindCardByName(const std::string_view& name)
 {
     for (auto& card : m_cards)
     {
-        if (card.name == name)
+        if (card.name == name &&
+            (card.GetCardSet() == CardSet::BATTLEGROUNDS ||
+             card.normalDbfID != 0 || card.premiumDbfID != 0))
         {
             return card;
         }
