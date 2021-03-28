@@ -252,9 +252,11 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
     return result;
 }
 
-Card* Cards::FindCardByName(const std::string_view& name)
+Card* Cards::FindCardByName(const std::string_view& name, FormatType format)
 {
-    for (Card* card : m_cards)
+    auto cards =
+        (format == FormatType::STANDARD) ? m_allStandardCards : m_allWildCards;
+    for (Card* card : cards)
     {
         if (card->name == name && card->IsCollectible())
         {
