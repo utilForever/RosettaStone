@@ -6577,7 +6577,7 @@ TEST_CASE("[Warlock : Spell] - EX1_303 : Shadowflame")
 }
 
 // --------------------------------------- MINION - WARLOCK
-// [EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
+// [EX1_304] Void Terror - COST:3 [ATK:3/HP:4]
 // - Race: Demon, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Destroy both adjacent minions
@@ -6628,12 +6628,12 @@ TEST_CASE("[Warlock : Minion] - EX1_304 : Void Terror")
     game.Process(curPlayer, PlayCardTask(card1, nullptr, 1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 6);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask(card2, nullptr, 1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 9);
-    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 11);
 }
 
 // ---------------------------------------- SPELL - WARLOCK

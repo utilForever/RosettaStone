@@ -3220,7 +3220,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
-    // [EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
+    // [EX1_304] Void Terror - COST:3 [ATK:3/HP:4]
     // - Race: Demon, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy both adjacent minions
