@@ -187,7 +187,8 @@ enum class FormatType
 {
     UNKNOWN,
     WILD,
-    STANDARD
+    STANDARD,
+    CLASSIC
 };
 
 //! \brief An enumerator for identifying the play state.
