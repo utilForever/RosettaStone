@@ -813,33 +813,10 @@ void BasicCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [DS1_184] Tracking - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: Look at the top 3 cards of your deck.
-    //       Draw one and discard the others.
+    // Text: <b>Discover</b> a card from your deck.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
-        DeckZone* deck = playable->player->GetDeckZone();
-        if (deck->IsEmpty())
-        {
-            return 0;
-        }
-
-        std::vector<int> ids;
-        ids.reserve(3);
-
-        for (int i = 0; i < 3 && deck->GetCount() != 0; ++i)
-        {
-            Playable* card = deck->GetTopCard();
-            deck->Remove(card);
-            ids.emplace_back(card->GetGameTag(GameTag::ENTITY_ID));
-            playable->player->GetSetasideZone()->Add(card);
-        }
-
-        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
-                              ChoiceAction::HAND, ids);
-
-        return 0;
-    }));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DECK));
     cards.emplace("DS1_184", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER

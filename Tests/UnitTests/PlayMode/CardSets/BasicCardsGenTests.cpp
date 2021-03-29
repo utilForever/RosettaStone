@@ -7,6 +7,7 @@
 #include "doctest_proxy.hpp"
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -1356,8 +1357,7 @@ TEST_CASE("[Hunter : Spell] - DS1_183 : Multi-Shot")
 // [DS1_184] Tracking - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: Look at the top 3 cards of your deck. Draw one and discard
-// the others.
+// Text: <b>Discover</b> a card from your deck.
 // --------------------------------------------------------
 TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
 {
@@ -1389,9 +1389,8 @@ TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
     CHECK(curPlayer->choice != nullptr);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
-    game.Process(curPlayer,
-                 ChooseTask::Pick(curPlayer, curPlayer->choice->choices[0]));
-    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 2);
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 4);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
