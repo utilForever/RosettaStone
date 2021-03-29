@@ -9845,7 +9845,7 @@ TEST_CASE("[Neutral : Minion] - EX1_089 : Arcane Golem")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_093] Defender of Argus - COST:4 [ATK:2/HP:3]
+// [EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
 // - Faction: Alliance, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
@@ -9897,7 +9897,7 @@ TEST_CASE("[Neutral : Minion] - EX1_093 : Defender of Argus")
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
-    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetHealth(), 3);
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
     CHECK_EQ(curField[2]->GetAttack(), 4);
