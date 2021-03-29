@@ -6921,7 +6921,7 @@ TEST_CASE("[Warrior : Spell] - ULD_711 : Hack the System")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
+// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:3/HP:3]
 // - Set: Uldum, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry</b>: Choose a damaged friendly minion.
@@ -6966,8 +6966,8 @@ TEST_CASE("[Warrior : Minion] - ULD_720 : Bloodsworn Mercenary")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Rampage"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 1);
@@ -6976,20 +6976,20 @@ TEST_CASE("[Warrior : Minion] - ULD_720 : Bloodsworn Mercenary")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, HeroPowerTask(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 3);
-    CHECK_EQ(curField[1]->GetAttack(), 5);
-    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL

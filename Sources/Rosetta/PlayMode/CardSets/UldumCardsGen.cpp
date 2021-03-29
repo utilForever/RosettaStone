@@ -2480,7 +2480,7 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("ULD_711", CardDef(power, 5, 0));
 
     // --------------------------------------- MINION - WARRIOR
-    // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
+    // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:3/HP:3]
     // - Set: Uldum, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry</b>: Choose a damaged friendly minion.
