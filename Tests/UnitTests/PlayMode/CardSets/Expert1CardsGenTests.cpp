@@ -13398,7 +13398,7 @@ TEST_CASE("[Dream : Spell] - DREAM_04 : Dream")
 // [DREAM_05] Nightmare (*) - COST:0
 // - Set: Expert1
 // --------------------------------------------------------
-// Text: Give a minion +5/+5. At the start of your next turn, destroy it.
+// Text: Give a minion +4/+4. At the start of your next turn, destroy it.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -13439,8 +13439,8 @@ TEST_CASE("[Dream : Spell] - DREAM_05 : Nightmare")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
     CHECK_EQ(curField[0]->appliedEnchantments.size(), 1);
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 10);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

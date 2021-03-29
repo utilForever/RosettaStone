@@ -5748,7 +5748,7 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // [DREAM_05e] Nightmare (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: This minion has +5/+5, but will be destroyed soon.
+    // Text: This minion has +4/+4, but will be destroyed soon.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DREAM_05e"));
@@ -6233,7 +6233,7 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     // [DREAM_05] Nightmare (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: Give a minion +5/+5. At the start of your next turn, destroy it.
+    // Text: Give a minion +4/+4. At the start of your next turn, destroy it.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
