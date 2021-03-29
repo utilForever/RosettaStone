@@ -11435,12 +11435,15 @@ TEST_CASE("[Neutral : Minion] - EX1_561 : Alexstrasza")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 14);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -11448,6 +11451,7 @@ TEST_CASE("[Neutral : Minion] - EX1_561 : Alexstrasza")
     game.Process(opPlayer,
                  PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL
