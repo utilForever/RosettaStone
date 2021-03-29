@@ -2203,7 +2203,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------- WEAPON - DEMONHUNTER
-    // [BT_430] Warglaives of Azzinoth - COST:6
+    // [BT_430] Warglaives of Azzinoth - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
     // Text: After attacking a minion, your hero may attack again.
