@@ -20,6 +20,59 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ----------------------------------------- HERO - WARLOCK
+// [EX1_323] Lord Jaraxxus - COST:9 [ATK:0/HP:30]
+// - Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Equip a 3/8 Blood Fury.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Hero] - EX1_323 : Lord Jaraxxus")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_323"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [EX1_154] Wrath - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -7017,59 +7070,6 @@ TEST_CASE("[Warlock : Spell] - EX1_320 : Bane of Doom")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->card->GetRace(), Race::DEMON);
-}
-
-// --------------------------------------- MINION - WARLOCK
-// [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
-// - Race: Demon, Set: Expert1, Rarity: Legendary
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Destroy your hero and replace it
-//       with Lord Jaraxxus.
-// --------------------------------------------------------
-// GameTag:
-// - ELITE = 1
-// - BATTLECRY = 1
-// --------------------------------------------------------
-TEST_CASE("[Warlock : Minion] - EX1_323 : Lord Jaraxxus")
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARLOCK;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_323"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 8);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask());
-    CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 6);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
 }
 
 // ---------------------------------------- SPELL - WARLOCK

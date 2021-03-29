@@ -58,7 +58,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveDurabilityTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveHandTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ReplaceHeroTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RevealStealthTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
@@ -74,7 +73,6 @@
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -95,15 +93,18 @@ void Expert1CardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ----------------------------------------- HERO - WARLOCK
-    // [EX1_323h] Lord Jaraxxus (*) - COST:0 [ATK:0/HP:15]
-    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // [EX1_323] Lord Jaraxxus - COST:9 [ATK:0/HP:30]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Equip a 3/8 Blood Fury.
     // --------------------------------------------------------
     // GameTag:
-    // - HERO_POWER = 1178
+    // - ELITE = 1
+    // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_323h", CardDef(power));
+    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_323w"));
+    cards.emplace("EX1_323", CardDef(power, 0, 1178));
 }
 
 void Expert1CardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
@@ -3366,22 +3367,6 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "EX1_320",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // --------------------------------------- MINION - WARLOCK
-    // [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
-    // - Race: Demon, Set: Expert1, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy your hero and replace it
-    //       with Lord Jaraxxus.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<ReplaceHeroTask>("EX1_323h", "EX1_tk33", "EX1_323w"));
-    cards.emplace("EX1_323", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_596] Demonfire - COST:2
