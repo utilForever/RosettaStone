@@ -7995,7 +7995,7 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(curPlayer, HeroPowerTask(card1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
 
     game.Process(curPlayer, EndTurnTask());
@@ -8007,8 +8007,8 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curHand.GetCount(), 8);
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
     CHECK_EQ(curField[0]->GetAttack(), 8);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card1));
@@ -8022,14 +8022,14 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(curPlayer, HeroPowerTask(card1));
     CHECK_EQ(curField[0]->GetHealth(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 11);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(opPlayer, HeroPowerTask(card1));
     CHECK(curField.IsEmpty());
 }
 

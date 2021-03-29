@@ -3199,7 +3199,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7]
+    // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever this minion takes damage, gain +3 Attack.
