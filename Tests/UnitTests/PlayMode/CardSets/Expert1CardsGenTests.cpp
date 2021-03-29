@@ -10514,7 +10514,7 @@ TEST_CASE("[Neutral : Minion] - EX1_186 : SI:7 Infiltrator")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5]
+// [EX1_187] Arcane Devourer - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +2/+2.
@@ -10549,8 +10549,8 @@ TEST_CASE("[Neutral : Minion] - EX1_187 : Arcane Devourer")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -10560,13 +10560,13 @@ TEST_CASE("[Neutral : Minion] - EX1_187 : Arcane Devourer")
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 7);
-    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 9);
-    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 12);
 }
 
 // --------------------------------------- MINION - NEUTRAL

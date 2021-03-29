@@ -4875,7 +4875,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_186", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5]
+    // [EX1_187] Arcane Devourer - COST:8 [ATK:4/HP:8]
     // - Race: Elemental, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Whenever you cast a spell, gain +2/+2.
