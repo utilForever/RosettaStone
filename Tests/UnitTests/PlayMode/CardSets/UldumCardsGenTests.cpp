@@ -122,9 +122,9 @@ TEST_CASE("[Druid : Spell] - ULD_131 : Untapped Potential")
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 6);
-    CHECK_EQ(curField[0]->HasCharge(), true);
+    CHECK_EQ(curField[0]->HasRush(), true);
     CHECK_EQ(curField[0]->HasTaunt(), true);
 
     curPlayer->SetTotalMana(10);
