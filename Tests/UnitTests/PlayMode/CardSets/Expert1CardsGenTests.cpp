@@ -10280,10 +10280,10 @@ TEST_CASE("[Neutral : Minion] - EX1_103 : Coldlight Seer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
+// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
 // - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof.
+// Text: <b>Deathrattle:</b> Summon a 5/5 Baine Bloodhoof.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -10326,7 +10326,7 @@ TEST_CASE("[Neutral : Minion] - EX1_110 : Cairne Bloodhoof")
     game.Process(opPlayer, AttackTask(card2, card1));
     CHECK(card1->isDestroyed);
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 

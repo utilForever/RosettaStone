@@ -4814,10 +4814,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_103", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
+    // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
     // - Faction: Alliance, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof.
+    // Text: <b>Deathrattle:</b> Summon a 5/5 Baine Bloodhoof.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -5919,7 +5919,7 @@ void Expert1CardsGen::AddNeutralNonCollect(
     cards.emplace("EX1_187e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5]
+    // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:5/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // GameTag:
