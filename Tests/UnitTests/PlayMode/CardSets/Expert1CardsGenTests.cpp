@@ -728,7 +728,7 @@ TEST_CASE("[Druid : Spell] - EX1_571 : Force of Nature")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
+// [EX1_573] Cenarius - COST:8 [ATK:5/HP:8]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Give your other minions +2/+2;

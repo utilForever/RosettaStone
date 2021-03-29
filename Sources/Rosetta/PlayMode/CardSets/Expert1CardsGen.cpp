@@ -352,7 +352,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
+    // [EX1_573] Cenarius - COST:8 [ATK:5/HP:8]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Give your other minions +2/+2;
