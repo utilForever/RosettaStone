@@ -5695,7 +5695,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_041", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
+    // [tt_004] Flesheating Ghoul - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever a minion dies, gain +1 Attack.

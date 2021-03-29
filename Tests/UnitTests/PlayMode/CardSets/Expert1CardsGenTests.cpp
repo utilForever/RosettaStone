@@ -13178,7 +13178,7 @@ TEST_CASE("[Neutral : Minion] - NEW1_041 : Stampeding Kodo")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
+// [tt_004] Flesheating Ghoul - COST:3 [ATK:3/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever a minion dies, gain +1 Attack.
@@ -13219,7 +13219,7 @@ TEST_CASE("[Neutral : Minion] - tt_004 : Flesheating Ghoul")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -13228,10 +13228,10 @@ TEST_CASE("[Neutral : Minion] - tt_004 : Flesheating Ghoul")
     game.Process(opPlayer, PlayCardTask::Minion(card5));
 
     game.Process(opPlayer, AttackTask(card4, card2));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
 
     game.Process(opPlayer, AttackTask(card5, card3));
-    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
 }
 
 // ----------------------------------------- MINION - DREAM
