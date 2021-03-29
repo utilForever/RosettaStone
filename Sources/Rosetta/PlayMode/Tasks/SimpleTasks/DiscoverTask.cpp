@@ -196,6 +196,24 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::INVALID:
             throw std::invalid_argument(
                 "DiscoverTask::Discover() - Invalid discover type");
+        case DiscoverType::DECK:
+        {
+            choiceAction = ChoiceAction::HAND;
+            auto& deckZone = *(player->GetDeckZone());
+            if (Playable* playable = deckZone.GetNthTopCard(1); playable)
+            {
+                cards.emplace_back(playable->card);
+            }
+            if (Playable* playable = deckZone.GetNthTopCard(2); playable)
+            {
+                cards.emplace_back(playable->card);
+            }
+            if (Playable* playable = deckZone.GetNthTopCard(3); playable)
+            {
+                cards.emplace_back(playable->card);
+            }
+            break;
+        }
         case DiscoverType::BASIC_TOTEM:
             choiceAction = ChoiceAction::SUMMON;
             cards = { Cards::FindCardByID("AT_132_SHAMANa"),

@@ -13,6 +13,7 @@ namespace RosettaStone
 enum class DiscoverType
 {
     INVALID,
+    DECK,
     BASIC_TOTEM,
     CHOOSE_ONE,
     FOUR_COST_CARD,
