@@ -4488,6 +4488,7 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
 TEST_CASE("[Rogue : Minion] - ULD_186 : Pharaoh Cat")
 {
     GameConfig config;
+    config.formatType = FormatType::WILD;
     config.player1Class = CardClass::ROGUE;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
