@@ -4981,7 +4981,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_190", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
+    // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
     // Text: At the end of your turn, deal 2 damage to all other characters.

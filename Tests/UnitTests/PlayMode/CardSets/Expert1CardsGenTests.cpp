@@ -10782,7 +10782,7 @@ TEST_CASE("[Neutral : Minion] - EX1_190 : High Inquisitor Whitemane")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
+// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: At the end of your turn, deal 2 damage to all other characters.
@@ -10829,7 +10829,7 @@ TEST_CASE("[Neutral : Minion] - EX1_249 : Baron Geddon")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
@@ -10843,7 +10843,7 @@ TEST_CASE("[Neutral : Minion] - EX1_249 : Baron Geddon")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 5);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
