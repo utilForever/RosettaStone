@@ -354,8 +354,8 @@ bool ChoicePick(Player* player, int choice)
     return true;
 }
 
-void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
-                  const std::vector<int>& choices)
+void CreateChoice(Player* player, Entity* source, ChoiceType type,
+                  ChoiceAction action, const std::vector<int>& choices)
 {
     // Block it if choice is exist
     if (player->choice != nullptr)
@@ -367,6 +367,7 @@ void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
     player->choice = new Choice(player);
     player->choice->choiceType = type;
     player->choice->choiceAction = action;
+    player->choice->source = source;
     player->choice->choices = choices;
     player->choice->depth = 1;
 }

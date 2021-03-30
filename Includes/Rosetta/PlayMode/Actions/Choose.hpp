@@ -25,11 +25,12 @@ bool ChoicePick(Player* player, int choice);
 
 //! Creates a choice for player.
 //! \param player The player to create a choice.
+//! \param source The source entity.
 //! \param type A choice type.
 //! \param action A choice action.
 //! \param choices A container of card to choose.
-void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
-                  const std::vector<int>& choices);
+void CreateChoice(Player* player, Entity* source, ChoiceType type,
+                  ChoiceAction action, const std::vector<int>& choices);
 
 //! Creates choice cards for player.
 //! \param player The player to create choice cards.
