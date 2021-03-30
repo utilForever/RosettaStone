@@ -93,14 +93,14 @@ void Choice::TryPrepare()
                                                     std::vector<int>{}, 3);
 }
 
-Choice* Choice::TryPopNextChoice(int lastChoice)
+Choice* Choice::TryPopNextChoice(int _lastChoice) const
 {
     if (nextChoice == nullptr)
     {
         return nullptr;
     }
 
-    nextChoice->lastChoice = lastChoice;
+    nextChoice->lastChoice = _lastChoice;
     nextChoice->TryPrepare();
     nextChoice->entityStack = entityStack;
 
