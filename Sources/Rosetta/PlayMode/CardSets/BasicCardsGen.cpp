@@ -2498,7 +2498,7 @@ void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
             ids.emplace_back(p->GetGameTag(GameTag::ENTITY_ID));
         }
 
-        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
+        Generic::CreateChoice(playable->player, playable, ChoiceType::GENERAL,
                               ChoiceAction::SIGHTLESS_WATCHER, ids);
 
         return 0;

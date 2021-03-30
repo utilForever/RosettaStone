@@ -359,9 +359,9 @@ void Game::BeginMulligan()
     }
 
     // Create choice for each player
-    Generic::CreateChoice(GetPlayer1(), ChoiceType::MULLIGAN,
+    Generic::CreateChoice(GetPlayer1(), GetPlayer1(), ChoiceType::MULLIGAN,
                           ChoiceAction::HAND, p1HandIDs);
-    Generic::CreateChoice(GetPlayer2(), ChoiceType::MULLIGAN,
+    Generic::CreateChoice(GetPlayer2(), GetPlayer1(), ChoiceType::MULLIGAN,
                           ChoiceAction::HAND, p2HandIDs);
 }
 
