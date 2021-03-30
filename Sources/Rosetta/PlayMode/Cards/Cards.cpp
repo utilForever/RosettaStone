@@ -41,8 +41,7 @@ Cards::Cards()
                                    ? static_cast<int>(card->GetCardClass()) - 5
                                    : static_cast<int>(card->GetCardClass()) - 2;
 
-        if (card->IsCollectible() && card->IsStandardSet() &&
-            card->GetCardType() != CardType::HERO)
+        if (card->IsCollectible() && card->IsStandardSet())
         {
             if (card->GetCardClass() != CardClass::NEUTRAL)
             {
@@ -51,8 +50,7 @@ Cards::Cards()
             m_allStandardCards.emplace_back(card);
         }
 
-        if (card->IsCollectible() && card->IsWildSet() &&
-            card->GetCardType() != CardType::HERO)
+        if (card->IsCollectible() && card->IsWildSet())
         {
             if (card->GetCardClass() != CardClass::NEUTRAL)
             {
@@ -112,7 +110,7 @@ const std::vector<Card*>& Cards::GetAllWildCards()
 }
 
 const std::vector<Card*> Cards::GetDiscoverCards(CardClass baseClass,
-                                                  FormatType format)
+                                                 FormatType format)
 {
     std::vector<Card*> result;
 
@@ -122,7 +120,8 @@ const std::vector<Card*> Cards::GetDiscoverCards(CardClass baseClass,
     {
         for (const auto& card : GetAllStandardCards())
         {
-            if ((card->IsCardClass(baseClass) && !card->IsQuest()) ||
+            if ((card->IsCardClass(baseClass) && !card->IsQuest() &&
+                 card->GetCardType() != CardType::HERO) ||
                 (card->GetCardType() != CardType::SPELL &&
                  card->GetCardClass() == CardClass::NEUTRAL))
             {
@@ -134,7 +133,8 @@ const std::vector<Card*> Cards::GetDiscoverCards(CardClass baseClass,
     {
         for (const auto& card : GetAllWildCards())
         {
-            if ((card->IsCardClass(baseClass) && !card->IsQuest()) ||
+            if ((card->IsCardClass(baseClass) && !card->IsQuest() &&
+                 card->GetCardType() != CardType::HERO) ||
                 (card->GetCardType() != CardType::SPELL &&
                  card->GetCardClass() == CardClass::NEUTRAL))
             {
