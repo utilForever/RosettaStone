@@ -90,12 +90,16 @@ class DiscoverTask : public ITask
                           int repeat = 1, bool keepAll = false);
 
     //! Gets cards to choose from the sets.
-    //! \param cardsToDiscover A list of cards to discover.
+    //! \param source The source entity.
+    //! \param cardsForGeneration A list of cards for generation.
+    //! \param cardsForOtherEffect A list of cards for other effect.
     //! \param numberOfChoices The number of choices.
     //! \param doShuffle The flag that indicates it does shuffle.
-    static std::vector<Card*> GetChoices(std::vector<Card*> cardsToDiscover,
-                                         int numberOfChoices,
-                                         bool doShuffle = true);
+    static std::vector<int> GetChoices(Entity* source,
+                                       std::vector<Card*> cardsForGeneration,
+                                       std::vector<int> cardsForOtherEffect,
+                                       int numberOfChoices,
+                                       bool doShuffle = true);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -113,9 +117,9 @@ class DiscoverTask : public ITask
     //! \param discoverType The type of discover.
     //! \param choiceAction The choice action of discover effect.
     //! \return A list of cards to discover.
-    std::vector<Card*> Discover(Game* game, Player* player,
-                                DiscoverType discoverType,
-                                ChoiceAction& choiceAction) const;
+    auto Discover(Game* game, Player* player, DiscoverType discoverType,
+                  ChoiceAction& choiceAction) const
+        -> std::tuple<std::vector<Card*>, std::vector<int>>;
 
     //! Evaluates a list of cards by the discover criteria.
     //! \param game The game context.
