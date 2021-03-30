@@ -606,6 +606,11 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
     {
         if (player->ChooseBoth() && !card->IsTransformMinion())
         {
+            if (card->chooseCardIDs.empty())
+            {
+                return;
+            }
+
             Playable* playable0 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[0]),
                             std::nullopt, player->GetSetasideZone());
@@ -637,6 +642,11 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
 
         if (!player->ChooseBoth() && chooseOne > 0)
         {
+            if (card->chooseCardIDs.empty())
+            {
+                return;
+            }
+
             Playable* playable = GetFromCard(
                 player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
                 std::nullopt, player->GetSetasideZone());
