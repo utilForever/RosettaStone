@@ -51,6 +51,7 @@ enum class ChoiceAction
     HAND_AND_STACK,      //!< Hand and stack.
     DECK,                //!< Deck.
     ENCHANTMENT,         //!< Enchantment.
+    DRAW_FROM_DECK,      //!< Draw from deck.
     CAST_SPELL,          //!< Cast spell.
     SUMMON,              //!< Summon.
     STACK,               //!< Stack.

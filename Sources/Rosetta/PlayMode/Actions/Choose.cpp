@@ -152,6 +152,12 @@ bool ChoicePick(Player* player, int choice)
             player->game->taskStack.num[0] = static_cast<int>(choice);
             break;
         }
+        case ChoiceAction::DRAW_FROM_DECK:
+        {
+            player->GetDeckZone()->Remove(playable);
+            AddCardToHand(player, playable);
+            break;
+        }
         case ChoiceAction::CAST_SPELL:
         {
             player->game->currentEventData = std::make_unique<EventMetaData>(
