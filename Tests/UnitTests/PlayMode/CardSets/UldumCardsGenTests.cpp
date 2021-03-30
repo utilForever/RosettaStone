@@ -2459,20 +2459,22 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
     auto curHero = curPlayer->GetHero();
     auto opHero = opPlayer->GetHero();
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Tortollan Pilgrim"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curDeck.GetCount(), 26);
 
     auto cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 1);
 
-    // NOTE: dbfID of the card 'Fireball' is 315
+    // NOTE: dbfID of the card 'Frostbolt' is 662
     const int dbfTotal = cards[0]->dbfID;
     CHECK_EQ(dbfTotal, 662);
 
@@ -2480,6 +2482,7 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
     const int totalHealth =
         curHero->GetHealth() + opHero->GetHealth() + curField[0]->GetHealth();
     CHECK_EQ(totalHealth, 62);
+    CHECK_EQ(curDeck.GetCount(), 25);
 }
 
 // ------------------------------------------ MINION - MAGE

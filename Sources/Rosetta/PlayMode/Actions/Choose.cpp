@@ -220,8 +220,15 @@ bool ChoicePick(Player* player, int choice)
         }
         case ChoiceAction::TORTOLLAN_PILGRIM:
         {
-            auto spellToCast = dynamic_cast<Spell*>(
-                Entity::GetFromCard(player, playable->card));
+            player->GetDeckZone()->Remove(playable);
+
+            auto spellToCast = dynamic_cast<Spell*>(playable);
+            if (!spellToCast)
+            {
+                throw std::logic_error(
+                    "Tortollan Pilgram casts non-spell card!");
+            }
+
             const auto randTarget = spellToCast->GetRandomValidTarget();
             const int randChooseOne = Random::get<int>(1, 2);
 

@@ -450,23 +450,30 @@ auto DiscoverTask::Discover(Game* game, Player* player,
         {
             choiceAction = ChoiceAction::TORTOLLAN_PILGRIM;
 
-            std::vector<int> list;
+            std::vector<std::tuple<int, int>> candidates;
             for (auto& playable : player->GetDeckZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::SPELL)
                 {
-                    list.emplace_back(playable->card->dbfID);
+                    candidates.emplace_back(std::make_tuple(
+                        playable->GetGameTag(GameTag::ENTITY_ID),
+                        playable->card->dbfID));
                 }
             }
 
-            std::sort(list.begin(), list.end());
-            const auto last = std::unique(list.begin(), list.end());
-            list.erase(last, list.end());
-            Random::shuffle(list.begin(), list.end());
+            std::sort(candidates.begin(), candidates.end());
+            const auto last =
+                std::unique(candidates.begin(), candidates.end(),
+                            [](const std::tuple<int, int>& a,
+                               const std::tuple<int, int>& b) {
+                                return std::get<1>(a) == std::get<1>(b);
+                            });
+            candidates.erase(last, candidates.end());
+            Random::shuffle(candidates.begin(), candidates.end());
 
-            for (auto& dbfID : list)
+            for (auto& candidate : candidates)
             {
-                cardsForGeneration.emplace_back(Cards::FindCardByDbfID(dbfID));
+                cardsForOtherEffect.emplace_back(std::get<0>(candidate));
             }
 
             break;
