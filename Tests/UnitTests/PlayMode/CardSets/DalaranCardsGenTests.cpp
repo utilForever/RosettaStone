@@ -3006,22 +3006,52 @@ TEST_CASE("[Priest : Spell] - DAL_729 : Madame Lazul")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Madame Lazul"));
-    [[maybe_unused]] const auto card2 =
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadow Word: Death"));
+    const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
-    [[maybe_unused]] const auto card3 =
+    const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Anubisath Warbringer"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(opHand[0]));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card5));
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK(curPlayer->choice != nullptr);
 
     auto cards = TestUtils::GetChoiceCards(game);
-    // NOTE: dbfID of the card 'The Coin' is 1746
-    //       dbfID of the card 'Wolfrider' is 289
+    // NOTE: dbfID of the card 'Wolfrider' is 289
     //       dbfID of the card 'Wisp' is 179
-    const int dbfTotal = cards[0]->dbfID + cards[1]->dbfID + cards[2]->dbfID;
-    CHECK_EQ(dbfTotal, 2214);
+    const int dbfTotal = cards[0]->dbfID + cards[1]->dbfID;
+    CHECK_EQ(dbfTotal, 468);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 4);
+    CHECK_EQ(opHand.GetCount(), 2);
 }
 
 // ------------------------------------------ SPELL - ROGUE

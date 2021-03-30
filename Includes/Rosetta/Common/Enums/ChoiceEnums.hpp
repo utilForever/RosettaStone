@@ -57,6 +57,7 @@ enum class ChoiceAction
     STACK,               //!< Stack.
     ENVOY_OF_LAZUL,      //!< Envoy Of Lazul.
     SIGHTLESS_WATCHER,   //!< Sightless Watcher.
+    MADAME_LAZUL,        //!< Madame Lazul.
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
     TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
     SIAMAT,              //!< Siamat.

@@ -429,10 +429,11 @@ auto DiscoverTask::Discover(Game* game, Player* player,
                                    Cards::FindCardByID("LOOT_998k") };
             break;
         case DiscoverType::MADAME_LAZUL:
-            choiceAction = ChoiceAction::HAND;
+            choiceAction = ChoiceAction::MADAME_LAZUL;
             for (auto& playable : player->opponent->GetHandZone()->GetAll())
             {
-                cardsForGeneration.emplace_back(playable->card);
+                cardsForOtherEffect.emplace_back(
+                    playable->GetGameTag(GameTag::ENTITY_ID));
             }
             break;
         case DiscoverType::SWAMPQUEEN_HAGATHA:

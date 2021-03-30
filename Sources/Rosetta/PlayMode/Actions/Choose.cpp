@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Actions/Copy.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -202,6 +203,11 @@ bool ChoicePick(Player* player, int choice)
         {
             const auto deckZone = player->GetDeckZone();
             deckZone->Swap(playable, deckZone->GetTopCard());
+            break;
+        }
+        case ChoiceAction::MADAME_LAZUL:
+        {
+            Copy(player, playable, ZoneType::HAND);
             break;
         }
         case ChoiceAction::SWAMPQUEEN_HAGATHA:
