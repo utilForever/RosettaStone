@@ -2208,7 +2208,7 @@ TEST_CASE("[Mage : Minion] - EX1_274 : Ethereal Arcanist")
 }
 
 // ------------------------------------------- SPELL - MAGE
-// [EX1_275] Cone of Cold - COST:4
+// [EX1_275] Cone of Cold - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a minion and the minions next to it,
