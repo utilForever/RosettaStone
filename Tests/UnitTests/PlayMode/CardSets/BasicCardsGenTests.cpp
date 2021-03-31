@@ -3907,7 +3907,7 @@ TEST_CASE("[Shaman : Spell] - CS2_041 : Ancestral Healing")
 // [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
 // - Race: Elemental, Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Deal 3 damage.
+// Text: <b>Battlecry:</b> Deal 4 damage.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -3946,7 +3946,7 @@ TEST_CASE("[Shaman : Minion] - CS2_042 : Fire Elemental")
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -3958,7 +3958,7 @@ TEST_CASE("[Shaman : Minion] - CS2_042 : Fire Elemental")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opField[0]));
-    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
 }
 
 // ----------------------------------------- SPELL - SHAMAN

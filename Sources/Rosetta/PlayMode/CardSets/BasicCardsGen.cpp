@@ -1806,7 +1806,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
     // - Race: Elemental, Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 3 damage.
+    // Text: <b>Battlecry:</b> Deal 4 damage.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1815,7 +1815,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
     cards.emplace(
         "CS2_042",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
