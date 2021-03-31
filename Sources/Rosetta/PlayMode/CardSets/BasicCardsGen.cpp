@@ -1608,7 +1608,7 @@ void BasicCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_077] Sprint - COST:7
+    // [CS2_077] Sprint - COST:6
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Draw 4 cards.
