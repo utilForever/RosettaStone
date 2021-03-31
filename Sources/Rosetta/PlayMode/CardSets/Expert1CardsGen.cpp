@@ -273,7 +273,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
                   CardDef(power, ChooseCardIDs{ "EX1_165a", "EX1_165b" }));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2]
+    // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.

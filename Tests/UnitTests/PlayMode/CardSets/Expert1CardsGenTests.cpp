@@ -445,7 +445,7 @@ TEST_CASE("[Druid : Minion] - EX1_165 : Druid of the Claw")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2]
+// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.
