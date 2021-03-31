@@ -1618,11 +1618,11 @@ void BasicCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_077", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
-    // [CS2_080] Assassin's Blade - COST:5 [ATK:3/HP:0]
+    // [CS2_080] Assassin's Blade - COST:4 [ATK:2/HP:0]
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // GameTag:
-    // - DURABILITY = 4
+    // - DURABILITY = 5
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);

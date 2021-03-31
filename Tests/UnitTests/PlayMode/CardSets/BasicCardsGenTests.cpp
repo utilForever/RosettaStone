@@ -3451,11 +3451,11 @@ TEST_CASE("[Rogue : Spell] - CS2_077 : Sprint")
 }
 
 // ----------------------------------------- WEAPON - ROGUE
-// [CS2_080] Assassin's Blade - COST:5 [ATK:3/HP:0]
+// [CS2_080] Assassin's Blade - COST:4 [ATK:2/HP:0]
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
 // GameTag:
-// - DURABILITY = 4
+// - DURABILITY = 5
 // --------------------------------------------------------
 TEST_CASE("[Rogue : Weapon] - CS2_080 : Assassin's Blade")
 {
