@@ -1590,7 +1590,7 @@ void BasicCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_075", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_076] Assassinate - COST:5
+    // [CS2_076] Assassinate - COST:4
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy an enemy minion.

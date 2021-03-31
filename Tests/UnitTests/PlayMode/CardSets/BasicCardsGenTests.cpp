@@ -3361,7 +3361,7 @@ TEST_CASE("[Rogue : Spell] - CS2_075 : Sinister Strike")
 }
 
 // ------------------------------------------ SPELL - ROGUE
-// [CS2_076] Assassinate - COST:5
+// [CS2_076] Assassinate - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
 // Text: Destroy an enemy minion.
