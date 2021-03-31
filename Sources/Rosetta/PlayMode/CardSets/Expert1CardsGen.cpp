@@ -3060,17 +3060,17 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_575", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
+    // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
     // - Race: Elemental, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge, Divine Shield, Taunt, Windfury</b>
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - WINDFURY = 1
-    // - TAUNT = 1
-    // - DIVINE_SHIELD = 1
     // - CHARGE = 1
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // - WINDFURY = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
