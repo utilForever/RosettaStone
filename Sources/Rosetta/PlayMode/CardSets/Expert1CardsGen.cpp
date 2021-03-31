@@ -3262,7 +3262,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_304", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [EX1_309] Siphon Soul - COST:6
+    // [EX1_309] Siphon Soul - COST:5
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Destroy a minion. Restore 3 Health to your hero.

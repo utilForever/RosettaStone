@@ -6784,7 +6784,7 @@ TEST_CASE("[Warlock : Minion] - EX1_304 : Void Terror")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
-// [EX1_309] Siphon Soul - COST:6
+// [EX1_309] Siphon Soul - COST:5
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Destroy a minion. Restore 3 Health to your hero.
