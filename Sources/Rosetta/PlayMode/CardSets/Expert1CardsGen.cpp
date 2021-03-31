@@ -2652,7 +2652,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_182", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
-    // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
+    // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Stealth</b>

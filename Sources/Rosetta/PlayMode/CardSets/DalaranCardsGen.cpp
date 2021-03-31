@@ -1878,7 +1878,7 @@ void DalaranCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // [DAL_366t1] Assassin's Contract (*) - COST:6
     // - Set: Dalaran, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Destroy a minion. Summon a 1/1 Patient Assassin.
+    // Text: Destroy a minion. Summon a 1/2 Patient Assassin.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0

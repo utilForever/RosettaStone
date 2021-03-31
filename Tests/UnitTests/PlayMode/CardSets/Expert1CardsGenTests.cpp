@@ -5476,7 +5476,7 @@ TEST_CASE("[Rogue : Spell] - EX1_182 : Pilfer")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
+// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Stealth</b>
