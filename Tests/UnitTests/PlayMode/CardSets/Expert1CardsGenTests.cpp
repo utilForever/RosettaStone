@@ -10664,7 +10664,7 @@ TEST_CASE("[Neutral : Minion] - EX1_187 : Arcane Devourer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4]
+// [EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a random Beast.
