@@ -1753,7 +1753,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
-    // [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
+    // [EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.

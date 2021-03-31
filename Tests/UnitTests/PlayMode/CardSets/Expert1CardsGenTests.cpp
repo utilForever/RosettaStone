@@ -3301,7 +3301,7 @@ TEST_CASE("[Paladin : Spell] - EX1_355 : Blessed Champion")
 }
 
 // --------------------------------------- MINION - PALADIN
-// [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
+// [EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
@@ -3332,8 +3332,13 @@ TEST_CASE("[Paladin : Minion] - EX1_362 : Argent Protector")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer->SetTotalMana(10);
     curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
@@ -3342,9 +3347,6 @@ TEST_CASE("[Paladin : Minion] - EX1_362 : Argent Protector")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
     CHECK(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD));
 }
 
