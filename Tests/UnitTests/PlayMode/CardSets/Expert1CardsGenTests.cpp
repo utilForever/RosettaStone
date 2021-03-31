@@ -3762,7 +3762,7 @@ TEST_CASE("[Paladin : Spell] - EX1_384 : Avenging Wrath")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [EX1_619] Equality - COST:4
+// [EX1_619] Equality - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Change the Health of all minions to 1.

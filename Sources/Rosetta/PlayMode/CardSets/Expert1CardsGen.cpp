@@ -1921,7 +1921,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_384", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
-    // [EX1_619] Equality - COST:4
+    // [EX1_619] Equality - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Change the Health of all minions to 1.
