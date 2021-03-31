@@ -22,6 +22,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeAttackingTargetTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
@@ -2315,6 +2316,16 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 },
                                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_625] Shadowform - COST:2
+    // - Faction: Priest, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Your Hero Power becomes 'Deal 2 damage'.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ChangeHeroPowerTask>("EX1_625t"));
+    cards.emplace("EX1_625", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_626] Mass Dispel - COST:4

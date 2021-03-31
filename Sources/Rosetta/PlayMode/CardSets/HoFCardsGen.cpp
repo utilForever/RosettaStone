@@ -8,7 +8,6 @@
 #include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
@@ -260,30 +259,6 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "EX1_624",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [EX1_625] Shadowform - COST:3
-    // - Faction: Priest, Set: HoF, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Your Hero Power becomes 'Deal 2 damage'.
-    //       If already in Shadowform: 3 damage.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
-                                SelfCondition::IsHeroPowerCard("EX1_625t")) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<ChangeHeroPowerTask>("EX1_625t2") }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        false,
-        TaskList{ std::make_shared<ConditionTask>(
-                      EntityType::SOURCE,
-                      SelfCondList{ std::make_shared<SelfCondition>(
-                          SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
-                  std::make_shared<FlagTask>(
-                      false, TaskList{ std::make_shared<ChangeHeroPowerTask>(
-                                 "EX1_625t") }) }));
-    cards.emplace("EX1_625", CardDef(power));
 }
 
 void HoFCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
