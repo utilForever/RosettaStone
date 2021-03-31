@@ -10745,7 +10745,7 @@ TEST_CASE("[Neutral : Minion] - EX1_189 : Brightwing")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8]
+// [EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
 // - Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon all friendly minions
