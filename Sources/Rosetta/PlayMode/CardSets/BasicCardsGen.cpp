@@ -2730,7 +2730,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_121", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_122] Raid Leader - COST:3 [ATK:2/HP:2]
+    // [CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
     // - Set: Basic, Rarity: Free
     // --------------------------------------------------------
     // Text: Your other minions have +1 Attack.
