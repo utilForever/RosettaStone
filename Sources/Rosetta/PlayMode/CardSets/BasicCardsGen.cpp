@@ -1178,16 +1178,11 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [CS2_089] Holy Light - COST:2
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: Restore 6 Health.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
+    // Text: Restore 8 Health to your hero.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 6));
-    cards.emplace(
-        "CS2_089",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 8));
+    cards.emplace("CS2_089", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]

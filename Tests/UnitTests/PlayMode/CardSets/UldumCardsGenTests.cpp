@@ -4417,8 +4417,6 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
     const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
-    const auto card5 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
 
     auto quest = dynamic_cast<Spell*>(card1);
 
@@ -4433,32 +4431,28 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
 
     curHero->SetDamage(24);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curHero));
-    CHECK_EQ(curHero->GetHealth(), 12);
-    CHECK_EQ(quest->GetQuestProgress(), 6);
-
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curHero));
-    CHECK_EQ(curHero->GetHealth(), 18);
-    CHECK_EQ(quest->GetQuestProgress(), 12);
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHero->GetHealth(), 14);
+    CHECK_EQ(quest->GetQuestProgress(), 8);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, HeroPowerTask(curHero));
-    CHECK_EQ(curHero->GetHealth(), 20);
-    CHECK_EQ(quest->GetQuestProgress(), 14);
+    CHECK_EQ(curHero->GetHealth(), 16);
+    CHECK_EQ(quest->GetQuestProgress(), 10);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card5, curHero));
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
     CHECK(curSecret->quest == nullptr);
-    CHECK_EQ(curHero->GetHealth(), 26);
-    CHECK_EQ(quest->GetQuestProgress(), 20);
+    CHECK_EQ(curHero->GetHealth(), 24);
+    CHECK_EQ(quest->GetQuestProgress(), 18);
     CHECK_EQ(curHero->heroPower->card->id, "ULD_724p");
 
     game.Process(curPlayer, HeroPowerTask(curHero));
-    CHECK_EQ(curHero->GetHealth(), 29);
+    CHECK_EQ(curHero->GetHealth(), 27);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

@@ -2295,10 +2295,7 @@ TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
 // [CS2_089] Holy Light - COST:2
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: Restore 6 Health.
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_TARGET_TO_PLAY = 0
+// Text: Restore 8 Health to your hero.
 // --------------------------------------------------------
 TEST_CASE("[Paladin : Spell] - CS2_089 : Holy Light")
 {
@@ -2320,32 +2317,13 @@ TEST_CASE("[Paladin : Spell] - CS2_089 : Holy Light")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
 
     curPlayer->GetHero()->SetDamage(15);
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    opField[0]->SetDamage(6);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 21);
-
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    CHECK_EQ(opField[0]->GetHealth(), 7);
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
 }
 
 // --------------------------------------- WEAPON - PALADIN
