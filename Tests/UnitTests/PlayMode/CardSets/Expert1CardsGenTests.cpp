@@ -6062,12 +6062,16 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 3);
-    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
     CHECK_EQ(curField[1]->GetAttack(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 3);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -6085,7 +6089,7 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
-//       <b><b>Overload</b>:</b> (3)
+//       <b><b>Overload</b>:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 3
@@ -6094,7 +6098,48 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Minion] - EX1_250 : Earth Elemental")
 {
-    // Do nothing
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Earth Elemental"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
 }
 
 // ----------------------------------------- SPELL - SHAMAN

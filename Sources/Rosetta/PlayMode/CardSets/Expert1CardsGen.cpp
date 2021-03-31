@@ -2967,7 +2967,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
-    //       <b><b>Overload</b>:</b> (3)
+    //       <b><b>Overload</b>:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 3
