@@ -4703,8 +4703,6 @@ TEST_CASE("[Priest : Spell] - EX1_625 : Shadowform")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
 
     game.Process(curPlayer, HeroPowerTask(opHero));
     CHECK_EQ(opHero->GetHealth(), 29);
@@ -6239,7 +6237,7 @@ TEST_CASE("[Shaman : Minion] - EX1_258 : Unbound Elemental")
 // [EX1_259] Lightning Storm - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal 2-3 damage to all enemy minions. <b>Overload:</b> (2)
+// Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -6293,10 +6291,8 @@ TEST_CASE("[Shaman : Spell] - EX1_259 : Lightning Storm")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ((opField[0]->GetHealth() == 4 || opField[0]->GetHealth() == 5),
-             true);
-    CHECK_EQ((opField[1]->GetHealth() == 4 || opField[1]->GetHealth() == 5),
-             true);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[1]->GetHealth(), 4);
     CHECK_EQ(curPlayer->GetRemainingMana(), 7);
     CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
     CHECK_EQ(curPlayer->GetOverloadLocked(), 0);

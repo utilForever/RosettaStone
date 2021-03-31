@@ -3021,7 +3021,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [EX1_259] Lightning Storm - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 2-3 damage to all enemy minions. <b>Overload:</b> (2)
+    // Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 2
@@ -3029,7 +3029,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, 1, true));
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true));
     cards.emplace("EX1_259", CardDef(power));
 
     // ---------------------------------------- WEAPON - SHAMAN
