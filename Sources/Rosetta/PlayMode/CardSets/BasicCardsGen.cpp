@@ -1094,11 +1094,11 @@ void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [CS2_032] Flamestrike - COST:7
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 4 damage to all enemy minions.
+    // Text: Deal 5 damage to all enemy minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 4, true));
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 5, true));
     cards.emplace("CS2_032", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE

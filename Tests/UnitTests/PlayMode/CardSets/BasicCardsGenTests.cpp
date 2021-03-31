@@ -2044,7 +2044,7 @@ TEST_CASE("[Mage : Spell] - CS2_029 : Fireball")
 // [CS2_032] Flamestrike - COST:7
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: Deal 4 damage to all enemy minions.
+// Text: Deal 5 damage to all enemy minions.
 // --------------------------------------------------------
 TEST_CASE("[Mage : Spell] - CS2_032 : Flamestrike")
 {
@@ -2087,7 +2087,7 @@ TEST_CASE("[Mage : Spell] - CS2_032 : Flamestrike")
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(opField.GetCount(), 1);
-    CHECK_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
 }
 
 // ------------------------------------------ MINION - MAGE
