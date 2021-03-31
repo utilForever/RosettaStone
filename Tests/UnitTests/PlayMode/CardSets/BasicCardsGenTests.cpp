@@ -2252,13 +2252,15 @@ TEST_CASE("[Paladin : SPell] - CS2_087 : Blessing of Might")
 }
 
 // --------------------------------------- MINION - PALADIN
-// [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
+// [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Restore 6 Health to your hero.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
+// - TAUNT = 1
 // --------------------------------------------------------
 TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
 {
@@ -2266,7 +2268,7 @@ TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
     config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
@@ -2279,16 +2281,15 @@ TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-    opPlayer->GetHero()->SetDamage(6);
 
-    const auto card1 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Guardian of Kings"));
+    auto& curField = *(curPlayer->GetFieldZone());
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Guardian of Kings"));
 
-    game.Process(opPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
 }
 
 // ---------------------------------------- SPELL - PALADIN

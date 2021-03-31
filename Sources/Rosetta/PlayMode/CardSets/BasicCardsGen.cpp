@@ -1162,13 +1162,15 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
-    // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
+    // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Restore 6 Health to your hero.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
