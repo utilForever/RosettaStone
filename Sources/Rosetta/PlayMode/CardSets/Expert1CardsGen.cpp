@@ -4210,7 +4210,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
+    // [EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
     // - Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy a minion
