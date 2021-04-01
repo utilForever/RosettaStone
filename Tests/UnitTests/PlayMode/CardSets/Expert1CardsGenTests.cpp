@@ -947,7 +947,7 @@ TEST_CASE("[Druid : Spell] - NEW1_007 : Starfall")
 // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
+// Text: <b>Choose One -</b> Draw 2 cards; or Restore 5 Health.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
@@ -981,8 +981,10 @@ TEST_CASE("[Druid : Minion] - NEW1_008 : Ancient of Lore")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient of Lore"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, curPlayer->GetHero(), 1));
+    CHECK_EQ(card1->GetZoneType(), ZoneType::GRAVEYARD);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card2, curPlayer->GetHero(), 2));
