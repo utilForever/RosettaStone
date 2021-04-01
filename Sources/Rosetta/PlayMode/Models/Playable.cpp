@@ -234,24 +234,12 @@ bool Playable::IsPlayableByCardReq(int chooseOne) const
     // These cards can be targeting or non-targeting.
     if (card->dbfID == 52812)
     {
-        const auto card1 =
+        Card* card1 =
             Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
-        const auto card2 =
+        Card* card2 =
             Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
 
-        if (!card1->IsPlayableByCardReq(player) ||
-            !card2->IsPlayableByCardReq(player))
-        {
-            return false;
-        }
-
-        if ((card1->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card1)) ||
-            (card2->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card2)))
-        {
-            return false;
-        }
-
-        return true;
+        return IsPlayableByCardReqInternal(card1, card2);
     }
 
     if (HasChooseOne())
@@ -261,23 +249,7 @@ bool Playable::IsPlayableByCardReq(int chooseOne) const
             Card* card1 = Cards::FindCardByID(card->chooseCardIDs[0]);
             Card* card2 = Cards::FindCardByID(card->chooseCardIDs[1]);
 
-            if (!card1->IsPlayableByCardReq(player) &&
-                !card2->IsPlayableByCardReq(player))
-            {
-                return false;
-            }
-
-            if (card1->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card1))
-            {
-                return false;
-            }
-
-            if (card2->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card2))
-            {
-                return false;
-            }
-
-            return true;
+            return IsPlayableByCardReqInternal(card1, card2);
         }
 
         if (!player->ChooseBoth() && chooseOne > 0)
@@ -285,32 +257,11 @@ bool Playable::IsPlayableByCardReq(int chooseOne) const
             Card* chosenCard =
                 Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
 
-            if (!chosenCard->IsPlayableByCardReq(player))
-            {
-                return false;
-            }
-
-            if (chosenCard->mustHaveToTargetToPlay &&
-                !HasAnyValidPlayTargets(chosenCard))
-            {
-                return false;
-            }
-
-            return true;
+            return IsPlayableByCardReqInternal(chosenCard);
         }
     }
 
-    if (!card->IsPlayableByCardReq(player))
-    {
-        return false;
-    }
-
-    if (card->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card))
-    {
-        return false;
-    }
-
-    return true;
+    return IsPlayableByCardReqInternal(card);
 }
 
 std::vector<Character*> Playable::GetValidPlayTargets() const
@@ -420,7 +371,8 @@ bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
                 Card* card1 = Cards::FindCardByID(card->chooseCardIDs[0]);
                 Card* card2 = Cards::FindCardByID(card->chooseCardIDs[1]);
 
-                if (card1->mustHaveToTargetToPlay && card2->mustHaveToTargetToPlay)
+                if (card1->mustHaveToTargetToPlay &&
+                    card2->mustHaveToTargetToPlay)
                 {
                     return false;
                 }
@@ -458,11 +410,12 @@ bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
                     !HasAnyValidPlayTargets(card2))
                 {
                     return true;
-                }           
+                }
             }
             else if (!player->ChooseBoth() && chooseOne > 0)
             {
-                Card* chosenCard = Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
+                Card* chosenCard =
+                    Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
 
                 if (chosenCard->mustHaveToTargetToPlay)
                 {
@@ -910,5 +863,37 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
 
         game->taskQueue.Enqueue(std::move(clonedTask));
     }
+}
+
+bool Playable::IsPlayableByCardReqInternal(Card* card) const
+{
+    if (!card->IsPlayableByCardReq(player))
+    {
+        return false;
+    }
+
+    if (card->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool Playable::IsPlayableByCardReqInternal(Card* card1, Card* card2) const
+{
+    if (!card1->IsPlayableByCardReq(player) ||
+        !card2->IsPlayableByCardReq(player))
+    {
+        return false;
+    }
+
+    if ((card1->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card1)) ||
+        (card2->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card2)))
+    {
+        return false;
+    }
+
+    return true;
 }
 }  // namespace RosettaStone::PlayMode

@@ -191,6 +191,18 @@ class Playable : public Entity
     int orderOfPlay = 0;
     bool isDestroyed = false;
     bool isTransformed = false;
+
+ private:
+    //! Internal method of IsPlayableByCardReq().
+    //! \param card A card to check it is playable by card requirements.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReqInternal(Card* card) const;
+
+    //! Internal method of IsPlayableByCardReq().
+    //! \param card1 A first card to check it is playable by card requirements.
+    //! \param card2 A second card to check it is playable by card requirements.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReqInternal(Card* card1, Card* card2) const;
 };
 }  // namespace RosettaStone::PlayMode
 
