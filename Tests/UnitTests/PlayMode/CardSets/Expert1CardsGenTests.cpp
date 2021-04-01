@@ -933,7 +933,7 @@ TEST_CASE("[Druid : Spell] - NEW1_007 : Starfall")
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 2);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card7, card1, 1));
+    game.Process(opPlayer, PlayCardTask::Spell(card7, 1));
     CHECK_EQ(curField.GetCount(), 0);
 
     game.Process(opPlayer, EndTurnTask());
@@ -981,10 +981,15 @@ TEST_CASE("[Druid : Minion] - NEW1_008 : Ancient of Lore")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient of Lore"));
 
-    game.Process(curPlayer,
-                 PlayCardTask::MinionTarget(card1, curPlayer->GetHero(), 1));
-    CHECK_EQ(card1->GetZoneType(), ZoneType::GRAVEYARD);
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    CHECK_EQ(card1->GetZoneType(), ZoneType::PLAY);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card2, curPlayer->GetHero(), 2));

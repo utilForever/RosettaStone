@@ -291,8 +291,7 @@ TEST_CASE("[Druid : Spell] - ULD_135 : Hidden Oasis")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Hidden Oasis"));
 
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero(), 1));
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Vir'naal Ancient");
 
