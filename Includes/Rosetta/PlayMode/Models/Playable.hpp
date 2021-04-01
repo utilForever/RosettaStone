@@ -129,13 +129,6 @@ class Playable : public Entity
     //! Destroys entity.
     virtual void Destroy();
 
-    //! Gets a value indicating whether this entity is playable. Some entities
-    //! require specific requirements before they can be played. This method
-    //! will process the requirements and produce a result for the current state
-    //! of the game.
-    //! \return true if this entity is playable, false otherwise.
-    bool IsPlayable();
-
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
     //! \param card A card to check targeting requirements.

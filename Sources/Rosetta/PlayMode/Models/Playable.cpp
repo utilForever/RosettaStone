@@ -199,11 +199,6 @@ void Playable::Destroy()
     isDestroyed = true;
 }
 
-bool Playable::IsPlayable()
-{
-    return IsPlayableByPlayer() && IsPlayableByCardReq();
-}
-
 bool Playable::TargetingRequirements(Card* card, Character* target) const
 {
     return card->TargetingRequirements(player, target);
