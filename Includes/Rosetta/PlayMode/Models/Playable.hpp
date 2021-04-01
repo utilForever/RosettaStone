@@ -196,15 +196,43 @@ class Playable : public Entity
 
  private:
     //! Internal method of IsPlayableByCardReq().
-    //! \param card A card to check it is playable by card requirements.
+    //! \param _card A card to check it is playable by card requirements.
     //! \return true if it is playable by card requirements, false otherwise.
-    bool IsPlayableByCardReqInternal(Card* card) const;
+    bool IsPlayableByCardReqInternal(Card* _card) const;
 
     //! Internal method of IsPlayableByCardReq().
     //! \param card1 A first card to check it is playable by card requirements.
     //! \param card2 A second card to check it is playable by card requirements.
     //! \return true if it is playable by card requirements, false otherwise.
     bool IsPlayableByCardReqInternal(Card* card1, Card* card2) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param _card A card to check the specified character is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Card* _card) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param card1 A first card to check the specified character
+    //! is a valid target.
+    //! \param card2 A second card to check the specified character
+    //! is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Card* card1, Card* card2) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param target The proposed target.
+    //! \param _card A card to check the specified character is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Character* target, Card* _card);
+
+    //! Determines whether the specified character is a valid target.
+    //! \param target The proposed target.
+    //! \param card1 A first card to check the specified character
+    //! is a valid target.
+    //! \param card2 A second card to check the specified character
+    //! is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Character* target, Card* card1, Card* card2);
 };
 }  // namespace RosettaStone::PlayMode
 

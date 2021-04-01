@@ -313,7 +313,7 @@ Character* Playable::GetRandomValidTarget()
 
 bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
 {
-    if (target == nullptr)
+    if (target)
     {
         // NOTE: Card 'Drustvar Horror' (DAL_431t) has two generated spells.
         // These cards can be targeting or non-targeting.
@@ -324,303 +324,63 @@ bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
             const auto card2 = Cards::FindCardByDbfID(
                 GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
 
-            if (card1->mustHaveToTargetToPlay || card2->mustHaveToTargetToPlay)
-            {
-                return false;
-            }
-
-            if (card1->targetingType == TargetingType::NONE &&
-                card2->targetingType == TargetingType::NONE)
-            {
-                return true;
-            }
-
-            bool check1 = false, check2 = false;
-
-            for (auto& predicate : card1->targetingAvailabilityPredicate)
-            {
-                if (!predicate(player, card1))
-                {
-                    check1 = true;
-                }
-            }
-
-            for (auto& predicate : card2->targetingAvailabilityPredicate)
-            {
-                if (!predicate(player, card2))
-                {
-                    check2 = true;
-                }
-            }
-
-            if (check1 && check2)
-            {
-                return true;
-            }
-
-            if (!HasAnyValidPlayTargets(card1) &&
-                !HasAnyValidPlayTargets(card2))
-            {
-                return true;
-            }
+            return IsValidPlayTargetInternal(target, card1, card2);
         }
-        else if (HasChooseOne())
+
+        if (HasChooseOne())
         {
             if (player->ChooseBoth())
             {
                 Card* card1 = Cards::FindCardByID(card->chooseCardIDs[0]);
                 Card* card2 = Cards::FindCardByID(card->chooseCardIDs[1]);
 
-                if (card1->mustHaveToTargetToPlay &&
-                    card2->mustHaveToTargetToPlay)
-                {
-                    return false;
-                }
-
-                if (card1->targetingType == TargetingType::NONE &&
-                    card2->targetingType == TargetingType::NONE)
-                {
-                    return true;
-                }
-
-                bool check1 = false, check2 = false;
-
-                for (auto& predicate : card1->targetingAvailabilityPredicate)
-                {
-                    if (!predicate(player, card1))
-                    {
-                        check1 = true;
-                    }
-                }
-
-                for (auto& predicate : card2->targetingAvailabilityPredicate)
-                {
-                    if (!predicate(player, card2))
-                    {
-                        check2 = true;
-                    }
-                }
-
-                if (check1 && check2)
-                {
-                    return true;
-                }
-
-                if (!HasAnyValidPlayTargets(card1) &&
-                    !HasAnyValidPlayTargets(card2))
-                {
-                    return true;
-                }
+                return IsValidPlayTargetInternal(target, card1, card2);
             }
-            else if (!player->ChooseBoth() && chooseOne > 0)
+
+            if (!player->ChooseBoth() && chooseOne > 0)
             {
                 Card* chosenCard =
                     Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
 
-                if (chosenCard->mustHaveToTargetToPlay)
-                {
-                    return false;
-                }
-
-                if (chosenCard->targetingType == TargetingType::NONE)
-                {
-                    return true;
-                }
-
-                for (auto& predicate :
-                     chosenCard->targetingAvailabilityPredicate)
-                {
-                    if (!predicate(player, chosenCard))
-                    {
-                        return true;
-                    }
-                }
-
-                if (!HasAnyValidPlayTargets(chosenCard))
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                if (card->mustHaveToTargetToPlay)
-                {
-                    return false;
-                }
-
-                if (card->targetingType == TargetingType::NONE)
-                {
-                    return true;
-                }
-
-                for (auto& predicate : card->targetingAvailabilityPredicate)
-                {
-                    if (!predicate(player, card))
-                    {
-                        return true;
-                    }
-                }
-
-                if (!HasAnyValidPlayTargets(card))
-                {
-                    return true;
-                }
-            }
-        }
-        else
-        {
-            if (card->mustHaveToTargetToPlay)
-            {
-                return false;
-            }
-
-            if (card->targetingType == TargetingType::NONE)
-            {
-                return true;
-            }
-
-            for (auto& predicate : card->targetingAvailabilityPredicate)
-            {
-                if (!predicate(player, card))
-                {
-                    return true;
-                }
-            }
-
-            if (!HasAnyValidPlayTargets(card))
-            {
-                return true;
+                return IsValidPlayTargetInternal(target, chosenCard);
             }
         }
 
-        return false;
+        return IsValidPlayTargetInternal(target, card);
     }
 
     // NOTE: Card 'Drustvar Horror' (DAL_431t) has two generated spells.
     // These cards can be targeting or non-targeting.
     if (card->dbfID == 52812)
     {
-        const auto card1 =
-            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
-        const auto card2 =
-            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
+        const auto card1 = Cards::FindCardByDbfID(
+            GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
+        const auto card2 = Cards::FindCardByDbfID(
+            GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
 
-        if (!CheckTargetingType(card1, target) &&
-            !CheckTargetingType(card2, target))
-        {
-            return false;
-        }
-
-        for (auto& predicate : card1->targetingAvailabilityPredicate)
-        {
-            if (!predicate(player, card1))
-            {
-                return false;
-            }
-        }
-
-        for (auto& predicate : card2->targetingAvailabilityPredicate)
-        {
-            if (!predicate(player, card2))
-            {
-                return false;
-            }
-        }
-
-        if (TargetingRequirements(card1, target) &&
-            TargetingRequirements(card2, target))
-        {
-            return true;
-        }
+        return IsValidPlayTargetInternal(card1, card2);
     }
-    else if (HasChooseOne())
+
+    if (HasChooseOne())
     {
         if (player->ChooseBoth())
         {
             Card* card1 = Cards::FindCardByID(card->chooseCardIDs[0]);
             Card* card2 = Cards::FindCardByID(card->chooseCardIDs[1]);
 
-            if (!CheckTargetingType(card1, target) &&
-                !CheckTargetingType(card2, target))
-            {
-                return false;
-            }
-
-            bool check1 = false, check2 = false;
-
-            for (auto& predicate : card1->targetingAvailabilityPredicate)
-            {
-                if (!predicate(player, card1))
-                {
-                    check1 = true;
-                }
-            }
-
-            for (auto& predicate : card2->targetingAvailabilityPredicate)
-            {
-                if (!predicate(player, card2))
-                {
-                    check2 = true;
-                }
-            }
-
-            if (check1 && check2)
-            {
-                return true;
-            }
-
-            if (TargetingRequirements(card1, target) &&
-                TargetingRequirements(card2, target))
-            {
-                return true;
-            }
+            return IsValidPlayTargetInternal(card1, card2);
         }
-        else if (!player->ChooseBoth() && chooseOne > 0)
+
+        if (!player->ChooseBoth() && chooseOne > 0)
         {
             Card* chosenCard =
                 Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
 
-            if (!CheckTargetingType(chosenCard, target))
-            {
-                return false;
-            }
-
-            for (auto& predicate : chosenCard->targetingAvailabilityPredicate)
-            {
-                if (!predicate(player, chosenCard))
-                {
-                    return false;
-                }
-            }
-
-            if (TargetingRequirements(chosenCard, target))
-            {
-                return true;
-            }
-        }
-    }
-    else
-    {
-        if (!CheckTargetingType(card, target))
-        {
-            return false;
-        }
-
-        for (auto& predicate : card->targetingAvailabilityPredicate)
-        {
-            if (!predicate(player, card))
-            {
-                return false;
-            }
-        }
-
-        if (TargetingRequirements(card, target))
-        {
-            return true;
+            return IsValidPlayTargetInternal(chosenCard);
         }
     }
 
-    return false;
+    return IsValidPlayTargetInternal(card);
 }
 
 bool Playable::HasAnyValidPlayTargets(Card* card) const
@@ -865,14 +625,14 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
     }
 }
 
-bool Playable::IsPlayableByCardReqInternal(Card* card) const
+bool Playable::IsPlayableByCardReqInternal(Card* _card) const
 {
-    if (!card->IsPlayableByCardReq(player))
+    if (!_card->IsPlayableByCardReq(player))
     {
         return false;
     }
 
-    if (card->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card))
+    if (_card->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(_card))
     {
         return false;
     }
@@ -895,5 +655,141 @@ bool Playable::IsPlayableByCardReqInternal(Card* card1, Card* card2) const
     }
 
     return true;
+}
+
+bool Playable::IsValidPlayTargetInternal(Card* _card) const
+{
+    if (_card->mustHaveToTargetToPlay)
+    {
+        return false;
+    }
+
+    if (_card->targetingType == TargetingType::NONE)
+    {
+        return true;
+    }
+
+    for (auto& predicate : _card->targetingAvailabilityPredicate)
+    {
+        if (!predicate(player, _card))
+        {
+            return true;
+        }
+    }
+
+    if (!HasAnyValidPlayTargets(_card))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Playable::IsValidPlayTargetInternal(Card* card1, Card* card2) const
+{
+    if (card1->mustHaveToTargetToPlay && card2->mustHaveToTargetToPlay)
+    {
+        return false;
+    }
+
+    if (card1->targetingType == TargetingType::NONE &&
+        card2->targetingType == TargetingType::NONE)
+    {
+        return true;
+    }
+
+    bool check1 = false, check2 = false;
+
+    for (auto& predicate : card1->targetingAvailabilityPredicate)
+    {
+        if (!predicate(player, card1))
+        {
+            check1 = true;
+        }
+    }
+
+    for (auto& predicate : card2->targetingAvailabilityPredicate)
+    {
+        if (!predicate(player, card2))
+        {
+            check2 = true;
+        }
+    }
+
+    if (check1 && check2)
+    {
+        return true;
+    }
+
+    if (!HasAnyValidPlayTargets(card1) && !HasAnyValidPlayTargets(card2))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Playable::IsValidPlayTargetInternal(Character* target, Card* _card)
+{
+    if (!CheckTargetingType(_card, target))
+    {
+        return false;
+    }
+
+    for (auto& predicate : _card->targetingAvailabilityPredicate)
+    {
+        if (!predicate(player, _card))
+        {
+            return false;
+        }
+    }
+
+    if (TargetingRequirements(_card, target))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Playable::IsValidPlayTargetInternal(Character* target, Card* card1,
+                                         Card* card2)
+{
+    if (!CheckTargetingType(card1, target) &&
+        !CheckTargetingType(card2, target))
+    {
+        return false;
+    }
+
+    bool check1 = false, check2 = false;
+
+    for (auto& predicate : card1->targetingAvailabilityPredicate)
+    {
+        if (!predicate(player, card1))
+        {
+            check1 = true;
+        }
+    }
+
+    for (auto& predicate : card2->targetingAvailabilityPredicate)
+    {
+        if (!predicate(player, card2))
+        {
+            check2 = true;
+        }
+    }
+
+    if (check1 && check2)
+    {
+        return true;
+    }
+
+    if (TargetingRequirements(card1, target) &&
+        TargetingRequirements(card2, target))
+    {
+        return true;
+    }
+
+    return false;
 }
 }  // namespace RosettaStone::PlayMode
