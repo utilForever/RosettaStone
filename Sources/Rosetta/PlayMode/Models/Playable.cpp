@@ -233,7 +233,7 @@ bool Playable::IsPlayableByPlayer()
     return true;
 }
 
-bool Playable::IsPlayableByCardReq() const
+bool Playable::IsPlayableByCardReq(int chooseOne) const
 {
     // NOTE: Card 'Drustvar Horror' (DAL_431t) has two generated spells.
     // These cards can be targeting or non-targeting.
@@ -257,6 +257,52 @@ bool Playable::IsPlayableByCardReq() const
         }
 
         return true;
+    }
+
+    if (HasChooseOne())
+    {
+        if (player->ChooseBoth())
+        {
+            Card* card1 = Cards::FindCardByID(card->chooseCardIDs[0]);
+            Card* card2 = Cards::FindCardByID(card->chooseCardIDs[1]);
+
+            if (!card1->IsPlayableByCardReq(player) &&
+                !card2->IsPlayableByCardReq(player))
+            {
+                return false;
+            }
+
+            if (card1->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card1))
+            {
+                return false;
+            }
+
+            if (card2->mustHaveToTargetToPlay && !HasAnyValidPlayTargets(card2))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        if (!player->ChooseBoth() && chooseOne > 0)
+        {
+            Card* chosenCard =
+                Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
+
+            if (!chosenCard->IsPlayableByCardReq(player))
+            {
+                return false;
+            }
+
+            if (chosenCard->mustHaveToTargetToPlay &&
+                !HasAnyValidPlayTargets(chosenCard))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 
     if (!card->IsPlayableByCardReq(player))
@@ -319,7 +365,7 @@ Character* Playable::GetRandomValidTarget()
     return randTarget;
 }
 
-bool Playable::IsValidPlayTarget(Character* target)
+bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
 {
     if (target == nullptr)
     {
@@ -370,6 +416,107 @@ bool Playable::IsValidPlayTarget(Character* target)
                 !HasAnyValidPlayTargets(card2))
             {
                 return true;
+            }
+        }
+        else if (HasChooseOne())
+        {
+            if (player->ChooseBoth())
+            {
+                Card* card1 = Cards::FindCardByID(card->chooseCardIDs[0]);
+                Card* card2 = Cards::FindCardByID(card->chooseCardIDs[1]);
+
+                if (card1->mustHaveToTargetToPlay && card2->mustHaveToTargetToPlay)
+                {
+                    return false;
+                }
+
+                if (card1->targetingType == TargetingType::NONE &&
+                    card2->targetingType == TargetingType::NONE)
+                {
+                    return true;
+                }
+
+                bool check1 = false, check2 = false;
+
+                for (auto& predicate : card1->targetingAvailabilityPredicate)
+                {
+                    if (!predicate(player, card1))
+                    {
+                        check1 = true;
+                    }
+                }
+
+                for (auto& predicate : card2->targetingAvailabilityPredicate)
+                {
+                    if (!predicate(player, card2))
+                    {
+                        check2 = true;
+                    }
+                }
+
+                if (check1 && check2)
+                {
+                    return true;
+                }
+
+                if (!HasAnyValidPlayTargets(card1) &&
+                    !HasAnyValidPlayTargets(card2))
+                {
+                    return true;
+                }           
+            }
+            else if (!player->ChooseBoth() && chooseOne > 0)
+            {
+                Card* chosenCard = Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
+
+                if (chosenCard->mustHaveToTargetToPlay)
+                {
+                    return false;
+                }
+
+                if (chosenCard->targetingType == TargetingType::NONE)
+                {
+                    return true;
+                }
+
+                for (auto& predicate :
+                     chosenCard->targetingAvailabilityPredicate)
+                {
+                    if (!predicate(player, chosenCard))
+                    {
+                        return true;
+                    }
+                }
+
+                if (!HasAnyValidPlayTargets(chosenCard))
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (card->mustHaveToTargetToPlay)
+                {
+                    return false;
+                }
+
+                if (card->targetingType == TargetingType::NONE)
+                {
+                    return true;
+                }
+
+                for (auto& predicate : card->targetingAvailabilityPredicate)
+                {
+                    if (!predicate(player, card))
+                    {
+                        return true;
+                    }
+                }
+
+                if (!HasAnyValidPlayTargets(card))
+                {
+                    return true;
+                }
             }
         }
         else
@@ -436,6 +583,72 @@ bool Playable::IsValidPlayTarget(Character* target)
             TargetingRequirements(card2, target))
         {
             return true;
+        }
+    }
+    else if (HasChooseOne())
+    {
+        if (player->ChooseBoth())
+        {
+            Card* card1 = Cards::FindCardByID(card->chooseCardIDs[0]);
+            Card* card2 = Cards::FindCardByID(card->chooseCardIDs[1]);
+
+            if (!CheckTargetingType(card1, target) &&
+                !CheckTargetingType(card2, target))
+            {
+                return false;
+            }
+
+            bool check1 = false, check2 = false;
+
+            for (auto& predicate : card1->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, card1))
+                {
+                    check1 = true;
+                }
+            }
+
+            for (auto& predicate : card2->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, card2))
+                {
+                    check2 = true;
+                }
+            }
+
+            if (check1 && check2)
+            {
+                return true;
+            }
+
+            if (TargetingRequirements(card1, target) &&
+                TargetingRequirements(card2, target))
+            {
+                return true;
+            }
+        }
+        else if (!player->ChooseBoth() && chooseOne > 0)
+        {
+            Card* chosenCard =
+                Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]);
+
+            if (!CheckTargetingType(chosenCard, target))
+            {
+                return false;
+            }
+
+            for (auto& predicate : chosenCard->targetingAvailabilityPredicate)
+            {
+                if (!predicate(player, chosenCard))
+                {
+                    return false;
+                }
+            }
+
+            if (TargetingRequirements(chosenCard, target))
+            {
+                return true;
+            }
         }
     }
     else

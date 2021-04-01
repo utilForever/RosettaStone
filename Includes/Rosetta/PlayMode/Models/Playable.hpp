@@ -153,7 +153,7 @@ class Playable : public Entity
     //! Gets a value indicating whether source entity is playable by card
     //! requirements. Static requirements are checked.
     //! \return true if it is playable by card requirements, false otherwise.
-    bool IsPlayableByCardReq() const;
+    bool IsPlayableByCardReq(int chooseOne = 0) const;
 
     //! Gets the valid play targets.
     //! This method defaults to targeting in the context of spells/hero powers.
@@ -167,7 +167,7 @@ class Playable : public Entity
     //! Determines whether the specified character is a valid target.
     //! \param target The proposed target.
     //! \return true if the specified target is valid, false otherwise.
-    bool IsValidPlayTarget(Character* target);
+    bool IsValidPlayTarget(Character* target, int chooseOne = 0);
 
     //! Gets whether the current field has any valid play targets
     //! for this playable.
