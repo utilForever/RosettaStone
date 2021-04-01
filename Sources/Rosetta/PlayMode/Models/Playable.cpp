@@ -199,9 +199,9 @@ void Playable::Destroy()
     isDestroyed = true;
 }
 
-bool Playable::TargetingRequirements(Card* card, Character* target) const
+bool Playable::TargetingRequirements(Card* _card, Character* target) const
 {
-    return card->TargetingRequirements(player, target);
+    return _card->TargetingRequirements(player, target);
 }
 
 bool Playable::IsPlayableByPlayer()
@@ -311,7 +311,7 @@ Character* Playable::GetRandomValidTarget()
     return randTarget;
 }
 
-bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
+bool Playable::IsValidPlayTarget(Character* target, int chooseOne) const
 {
     if (target)
     {
@@ -353,10 +353,10 @@ bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
     // These cards can be targeting or non-targeting.
     if (card->dbfID == 52812)
     {
-        const auto card1 = Cards::FindCardByDbfID(
-            GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
-        const auto card2 = Cards::FindCardByDbfID(
-            GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
+        const auto card1 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1));
+        const auto card2 =
+            Cards::FindCardByDbfID(GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2));
 
         return IsValidPlayTargetInternal(card1, card2);
     }
@@ -383,12 +383,12 @@ bool Playable::IsValidPlayTarget(Character* target, int chooseOne)
     return IsValidPlayTargetInternal(card);
 }
 
-bool Playable::HasAnyValidPlayTargets(Card* card) const
+bool Playable::HasAnyValidPlayTargets(Card* _card) const
 {
     bool friendlyMinions = false, enemyMinions = false;
     bool hero = false, enemyHero = false;
 
-    switch (card->targetingType)
+    switch (_card->targetingType)
     {
         case TargetingType::NONE:
             return false;
@@ -431,7 +431,7 @@ bool Playable::HasAnyValidPlayTargets(Card* card) const
     {
         for (auto& minion : player->GetFieldZone()->GetAll())
         {
-            if (TargetingRequirements(card, minion))
+            if (TargetingRequirements(_card, minion))
             {
                 return true;
             }
@@ -442,19 +442,19 @@ bool Playable::HasAnyValidPlayTargets(Card* card) const
     {
         for (auto& minion : player->opponent->GetFieldZone()->GetAll())
         {
-            if (TargetingRequirements(card, minion))
+            if (TargetingRequirements(_card, minion))
             {
                 return true;
             }
         }
     }
 
-    if (hero && TargetingRequirements(card, player->GetHero()))
+    if (hero && TargetingRequirements(_card, player->GetHero()))
     {
         return true;
     }
 
-    if (enemyHero && TargetingRequirements(card, player->opponent->GetHero()))
+    if (enemyHero && TargetingRequirements(_card, player->opponent->GetHero()))
     {
         return true;
     }
@@ -462,9 +462,9 @@ bool Playable::HasAnyValidPlayTargets(Card* card) const
     return false;
 }
 
-bool Playable::CheckTargetingType(Card* card, Character* target)
+bool Playable::CheckTargetingType(Card* _card, Character* target) const
 {
-    switch (card->targetingType)
+    switch (_card->targetingType)
     {
         case TargetingType::NONE:
             return false;
@@ -729,7 +729,7 @@ bool Playable::IsValidPlayTargetInternal(Card* card1, Card* card2) const
     return false;
 }
 
-bool Playable::IsValidPlayTargetInternal(Character* target, Card* _card)
+bool Playable::IsValidPlayTargetInternal(Character* target, Card* _card) const
 {
     if (!CheckTargetingType(_card, target))
     {
@@ -753,7 +753,7 @@ bool Playable::IsValidPlayTargetInternal(Character* target, Card* _card)
 }
 
 bool Playable::IsValidPlayTargetInternal(Character* target, Card* card1,
-                                         Card* card2)
+                                         Card* card2) const
 {
     if (!CheckTargetingType(card1, target) &&
         !CheckTargetingType(card2, target))
