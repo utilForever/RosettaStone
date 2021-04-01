@@ -145,6 +145,7 @@ class Playable : public Entity
 
     //! Gets a value indicating whether source entity is playable by card
     //! requirements. Static requirements are checked.
+    //! \param chooseOne The index of chosen card from two cards.
     //! \return true if it is playable by card requirements, false otherwise.
     bool IsPlayableByCardReq(int chooseOne = 0) const;
 
@@ -159,6 +160,7 @@ class Playable : public Entity
 
     //! Determines whether the specified character is a valid target.
     //! \param target The proposed target.
+    //! \param chooseOne The index of chosen card from two cards.
     //! \return true if the specified target is valid, false otherwise.
     bool IsValidPlayTarget(Character* target, int chooseOne = 0);
 
