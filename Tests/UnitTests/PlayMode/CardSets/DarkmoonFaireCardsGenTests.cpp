@@ -1889,7 +1889,7 @@ TEST_CASE("[Priest : Spell] - DMF_186 : Auspicious Spirits")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PRIEST;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
     config.autoRun = false;
@@ -1916,15 +1916,24 @@ TEST_CASE("[Priest : Spell] - DMF_186 : Auspicious Spirits")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Blizzard"));
     const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Plague of Death"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField[0]->card->GetCost(), 4);
 
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card5));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
     CHECK_EQ(curHand[0]->card->id, "DMF_186");
-
-    curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
     CHECK_EQ(curHand[0]->card->id, "DMF_186a");
@@ -1932,7 +1941,7 @@ TEST_CASE("[Priest : Spell] - DMF_186 : Auspicious Spirits")
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
-    CHECK_EQ(curField[1]->card->GetCost(), 7);
+    CHECK_EQ(curField[0]->card->GetCost(), 7);
 }
 
 // ----------------------------------------- MINION - ROGUE
