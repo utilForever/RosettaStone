@@ -2938,7 +2938,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->tasks = {
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::HAND, 1, true),
-        std::make_shared<AddEnchantmentTask>("DRG_089e", EntityType::STACK)
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::COST, 1)
     };
     cards.emplace("SCH_717", CardDef(power));
 }
