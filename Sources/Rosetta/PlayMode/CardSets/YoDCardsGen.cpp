@@ -797,7 +797,7 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("YOD_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [YOD_032] Skydiving Instructor - COST:4 [ATK:3/HP:3]
+    // [YOD_032] Frenzied Felwing - COST:4 [ATK:3/HP:3]
     // - Race: Demon, Faction: Neutral, Set: YoD, Rarity: Rare
     // --------------------------------------------------------
     // Text: Costs (1) less for each damage dealt to
