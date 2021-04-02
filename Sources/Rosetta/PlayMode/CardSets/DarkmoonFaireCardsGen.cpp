@@ -3201,7 +3201,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - NEUTRAL
-    // [YOP_015] Nitroboost Poison - COST:1
+    // [YOP_015] Nitroboost Poison - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: Give a minion +2 Attack.
@@ -3933,7 +3933,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     cards.emplace("YOP_015e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
-    // [YOP_015t] Nitroboost Poison - COST:1
+    // [YOP_015t] Nitroboost Poison - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
