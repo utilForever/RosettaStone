@@ -564,10 +564,10 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("SCH_241", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
-    // [SCH_243] Wyrm Weaver - COST:5 [ATK:3/HP:6]
+    // [SCH_243] Wyrm Weaver - COST:4 [ATK:3/HP:5]
     // - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
+    // Text: <b>Spellburst:</b> Summon two 1/2 Mana Wyrms.
     // --------------------------------------------------------
     power.ClearData();
     power.AddSpellburstTask(
