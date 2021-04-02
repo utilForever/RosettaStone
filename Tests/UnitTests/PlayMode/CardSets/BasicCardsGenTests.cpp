@@ -59,7 +59,7 @@ TEST_CASE("[Warrior : Hero Power] - HERO_01bp : Armor Up!")
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Summon a random Totem.
 // --------------------------------------------------------
-// Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
+// Entourage: CS2_050, CS2_051, CS2_058, NEW1_009
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_NUM_MINION_SLOTS = 1

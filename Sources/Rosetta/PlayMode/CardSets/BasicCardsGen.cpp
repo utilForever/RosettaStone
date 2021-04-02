@@ -201,7 +201,7 @@ void BasicCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a random Totem.
     // --------------------------------------------------------
-    // Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
+    // Entourage: CS2_050, CS2_051, CS2_058, NEW1_009
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
@@ -249,7 +249,7 @@ void BasicCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
                 PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
                           { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } },
                 ChooseCardIDs{},
-                Entourages{ "CS2_050", "CS2_051", "CS2_052", "NEW1_009" }));
+                Entourages{ "CS2_050", "CS2_051", "CS2_058", "NEW1_009" }));
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [HERO_02bp2] Totemic Slam (*) - COST:2
@@ -2001,6 +2001,31 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_052", CardDef(power));
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CS2_058] Strength Totem (*) - COST:1 [ATK:0/HP:2]
+    // - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       give another friendly minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("CS2_058e", EntityType::STACK)
+    };
+    cards.emplace("CS2_058", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_058e] Strength of Earth (*) - COST:0
+    // - Set: Basic
+    // --------------------------------------------------------
+    // Text: +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_058e"));
+    cards.emplace("CS2_058e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [EX1_244e] Totemic Might (*) - COST:0
