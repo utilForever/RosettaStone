@@ -3160,7 +3160,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - WARRIOR
-    // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
+    // [DRG_019] Scion of Ruin - COST:3 [ATK:3/HP:2]
     // - Race: Dragon, Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Rush</b>. <b>Battlecry:</b> If you've
