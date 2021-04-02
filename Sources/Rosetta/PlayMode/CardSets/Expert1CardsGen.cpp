@@ -2449,7 +2449,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_233] Blade Flurry - COST:4
+    // [CS2_233] Blade Flurry - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Destroy your weapon and deal its damage to all enemy minions.
