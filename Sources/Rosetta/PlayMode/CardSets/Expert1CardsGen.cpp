@@ -5470,7 +5470,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_018", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
+    // [NEW1_019] Knife Juggler - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: After you summon a minion,
