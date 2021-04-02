@@ -31,13 +31,17 @@ def cardCommentGen(card):
     if "rarity" in card.keys():
         str_format = str_format + ", " + \
             "Rarity: " + card['rarity'].capitalize()
+    if "spellSchool" in card.keys():
+        str_format = str_format + comm
+        str_format = str_format + "- " + \
+            "SpellSchool: " + card['spellSchool'].capitalize()
     str_format = str_format + div
     if "text" in card.keys():
         card['text'] = card['text'].replace("[x]", "")
         card['text'] = card['text'].replace("$", "")
         card['text'] = card['text'].replace("\n", "\n//       ")
         str_format = str_format + comm + "Text: " + card['text'] + div
-    # if card has GameTag, PlayReq, or RefTag, add it.
+    # If card has GameTag or RefTag, add it.
     # GameTag
     if "mechanics" in card.keys() or "elite" in card.keys():
         str_format = str_format + comm + "GameTag:"
@@ -47,8 +51,6 @@ def cardCommentGen(card):
             for tag in card['mechanics']:
                 str_format = str_format + comm + "- " + tag + " = 1"
             str_format = str_format + div
-    # How About PlayReq?
-
     # RefTag
     if "referencedTags" in card.keys():
         str_format = str_format + comm + "RefTag:"
