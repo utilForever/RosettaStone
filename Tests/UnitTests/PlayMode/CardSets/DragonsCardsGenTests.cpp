@@ -2744,7 +2744,7 @@ TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [DRG_322] Dragoncaster - COST:7 [ATK:4/HP:4]
+// [DRG_322] Dragoncaster - COST:6 [ATK:4/HP:4]
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If you're holding a Dragon,
