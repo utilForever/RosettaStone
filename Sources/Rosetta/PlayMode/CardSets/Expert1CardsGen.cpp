@@ -4693,13 +4693,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_083", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:4]
+    // [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give your opponent a Mana Crystal.
+    // Text: <b>Charge</b>.
+    //       <b>Battlecry:</b> Give your opponent a Mana Crystal.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false, true));

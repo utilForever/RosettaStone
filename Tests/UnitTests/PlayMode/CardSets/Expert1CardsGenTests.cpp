@@ -9908,13 +9908,15 @@ TEST_CASE("[Neutral : Minion] - EX1_083 : Tinkmaster Overspark")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:4]
+// [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give your opponent a Mana Crystal.
+// Text: <b>Charge</b>.
+//       <b>Battlecry:</b> Give your opponent a Mana Crystal.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
+// - CHARGE = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_089 : Arcane Golem")
 {
@@ -9943,6 +9945,9 @@ TEST_CASE("[Neutral : Minion] - EX1_089 : Arcane Golem")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(opPlayer->GetTotalMana(), 4);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 }
 
 // --------------------------------------- MINION - NEUTRAL
