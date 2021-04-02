@@ -4882,11 +4882,10 @@ TEST_CASE("[Warlock : Spell] - NEW1_003 : Sacrificial Pact")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [CS2_103] Charge - COST:1
+// [CS2_103] Charge - COST:3
 // - Faction: Neutral, Set: Basic, Rarity: Free
 // --------------------------------------------------------
-// Text: Give a friendly minion <b>Charge</b>.
-//       It can't attack heroes this turn.
+// Text: Give a friendly minion +2 Attack and <b>Charge</b>.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4917,45 +4916,25 @@ TEST_CASE("[Warrior : Spell] - CS2_103 : Charge")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Charge"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 0);
-
-    game.Process(curPlayer, AttackTask(card2, card3));
-    CHECK_EQ(opField.GetCount(), 1);
-
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->HasCharge(), false);
 
     game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
-    game.Process(curPlayer, AttackTask(card2, card3));
-    CHECK_EQ(opField.GetCount(), 0);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->HasCharge(), true);
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::CANNOT_ATTACK_HEROES), 0);
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }
 
 // ---------------------------------------- SPELL - WARRIOR

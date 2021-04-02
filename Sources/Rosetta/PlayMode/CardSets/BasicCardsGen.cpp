@@ -2224,11 +2224,10 @@ void BasicCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [CS2_103] Charge - COST:1
+    // [CS2_103] Charge - COST:3
     // - Faction: Neutral, Set: Basic, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give a friendly minion <b>Charge</b>.
-    //       It can't attack heroes this turn.
+    // Text: Give a friendly minion +2 Attack and <b>Charge</b>.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -2383,18 +2382,10 @@ void BasicCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     // [CS2_103e2] Charge (*) - COST:0
     // - Set: Basic
     // --------------------------------------------------------
-    // Text: Has <b>Charge</b>.
+    // Text: +2 Attack and <b>Charge</b>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(
-        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
-            Effects::Charge,
-            std::make_shared<Effect>(GameTag::CANNOT_ATTACK_HEROES,
-                                     EffectOperator::SET, 1) }));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
-        EntityType::TARGET, GameTag::CANNOT_ATTACK_HEROES, 0) };
-    power.GetTrigger()->removeAfterTriggered = true;
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_103e2"));
     cards.emplace("CS2_103e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
