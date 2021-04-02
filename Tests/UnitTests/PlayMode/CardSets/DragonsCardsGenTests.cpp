@@ -321,7 +321,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610t2 : Galakrond, the Apocalypse")
 // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 4 cards. They cost (1).
+// Text: <b>Battlecry:</b> Draw 4 cards. They cost (0).
 //       Equip a 5/2 Claw.
 // --------------------------------------------------------
 // GameTag:
@@ -370,10 +370,10 @@ TEST_CASE("[Rogue : Hero] - DRG_610t3 : Galakrond, Azeroth's End")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 8);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 1);
-    CHECK_EQ(curHand[5]->GetCost(), 1);
-    CHECK_EQ(curHand[6]->GetCost(), 1);
-    CHECK_EQ(curHand[7]->GetCost(), 1);
+    CHECK_EQ(curHand[4]->GetCost(), 0);
+    CHECK_EQ(curHand[5]->GetCost(), 0);
+    CHECK_EQ(curHand[6]->GetCost(), 0);
+    CHECK_EQ(curHand[7]->GetCost(), 0);
     CHECK_EQ(curPlayer->GetWeapon().card->name, "Dragon Claw");
     CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 5);
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);

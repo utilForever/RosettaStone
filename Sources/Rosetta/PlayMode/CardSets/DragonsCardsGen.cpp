@@ -210,7 +210,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 4 cards. They cost (1).
+    // Text: <b>Battlecry:</b> Draw 4 cards. They cost (0).
     //       Equip a 5/2 Claw.
     // --------------------------------------------------------
     // GameTag:
