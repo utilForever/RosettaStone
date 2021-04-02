@@ -3093,7 +3093,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace("DRG_209", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [DRG_250] Fiendish Rites - COST:4
+    // [DRG_250] Fiendish Rites - COST:3
     // - Set: Dragons, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Invoke</b> Galakrond.

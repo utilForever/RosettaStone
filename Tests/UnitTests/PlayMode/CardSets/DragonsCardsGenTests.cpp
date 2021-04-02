@@ -5990,7 +5990,7 @@ TEST_CASE("[Warlock : Minion] - DRG_209 : Zzeraku the Warped")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
-// [DRG_250] Fiendish Rites - COST:4
+// [DRG_250] Fiendish Rites - COST:3
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Invoke</b> Galakrond.
