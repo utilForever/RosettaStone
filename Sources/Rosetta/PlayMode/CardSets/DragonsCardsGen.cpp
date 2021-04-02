@@ -2750,7 +2750,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cards.emplace("DRG_224", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [DRG_248] Invocation of Frost - COST:2
+    // [DRG_248] Invocation of Frost - COST:1
     // - Set: Dragons, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Freeze</b> an enemy. <b>Invoke</b> Galakrond.

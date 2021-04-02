@@ -5415,7 +5415,7 @@ TEST_CASE("[Shaman : Minion] - DRG_224 : Nithogg")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
-// [DRG_248] Invocation of Frost - COST:2
+// [DRG_248] Invocation of Frost - COST:1
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Freeze</b> an enemy. <b>Invoke</b> Galakrond.
