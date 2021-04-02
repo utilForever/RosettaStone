@@ -6203,13 +6203,13 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("DREAM_01", CardDef(power));
 
     // ------------------------------------------ SPELL - DREAM
-    // [DREAM_02] Ysera Awakens (*) - COST:2
+    // [DREAM_02] Ysera Awakens (*) - COST:3
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: Deal 5 damage to all characters except Ysera.
+    // Text: Deal 5 damage to all minions except Ysera.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
     power.AddPowerTask(std::make_shared<FilterStackTask>(
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsName("Ysera", false)) }));

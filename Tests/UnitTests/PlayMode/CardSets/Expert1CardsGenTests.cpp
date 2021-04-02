@@ -13356,10 +13356,10 @@ TEST_CASE("[Dream : Minion] - DREAM_01 : Laughing Sister")
 }
 
 // ------------------------------------------ SPELL - DREAM
-// [DREAM_02] Ysera Awakens (*) - COST:2
+// [DREAM_02] Ysera Awakens (*) - COST:3
 // - Set: Expert1
 // --------------------------------------------------------
-// Text: Deal 5 damage to all characters except Ysera.
+// Text: Deal 5 damage to all minions except Ysera.
 // --------------------------------------------------------
 TEST_CASE("[Dream : Spell] - DREAM_02 : Ysera Awakens")
 {
@@ -13419,8 +13419,8 @@ TEST_CASE("[Dream : Spell] - DREAM_02 : Ysera Awakens")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(card2->GetGameTag(GameTag::DAMAGE), 0);
     CHECK_EQ(card4->GetGameTag(GameTag::DAMAGE), 0);
     CHECK_EQ(card3->GetGameTag(GameTag::DAMAGE), 5);
