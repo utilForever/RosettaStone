@@ -13437,14 +13437,15 @@ TEST_CASE("[Dream : Minion] - DREAM_03 : Emerald Drake")
 }
 
 // ------------------------------------------ SPELL - DREAM
-// [DREAM_04] Dream (*) - COST:0
+// [DREAM_04] Dream (*) - COST:1
 // - Set: Expert1
 // --------------------------------------------------------
-// Text: Return a minion to its owner's hand.
+// Text: Return an enemy minion to your opponent's hand.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
 TEST_CASE("[Dream : Spell] - DREAM_04 : Dream")
 {
@@ -13452,7 +13453,7 @@ TEST_CASE("[Dream : Spell] - DREAM_04 : Dream")
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PRIEST;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
@@ -13474,30 +13475,27 @@ TEST_CASE("[Dream : Spell] - DREAM_04 : Dream")
     const auto card1 =
         Generic::DrawCard(opPlayer, Cards::FindCardByID("DREAM_04"));
     const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByID("DREAM_04"));
-    const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Magma Rager"));
-    const auto card4 =
+    const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 1);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
-    CHECK_EQ(curHand.GetCount(), 4);
-    CHECK_EQ(opHand.GetCount(), 8);
-    CHECK_EQ(opHand[7]->card->name, "Magma Rager");
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(opHand[1]->card->name, "Dream");
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
-    CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(opHand.GetCount(), 7);
-    CHECK_EQ(curHand[4]->card->name, "Magma Rager");
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Magma Rager");
 }
 
 // ------------------------------------------ SPELL - DREAM

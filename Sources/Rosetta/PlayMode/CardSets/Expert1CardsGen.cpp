@@ -6226,21 +6226,22 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("DREAM_03", CardDef(power));
 
     // ------------------------------------------ SPELL - DREAM
-    // [DREAM_04] Dream (*) - COST:0
+    // [DREAM_04] Dream (*) - COST:1
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: Return a minion to its owner's hand.
+    // Text: Return an enemy minion to your opponent's hand.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    cards.emplace(
-        "DREAM_04",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cards.emplace("DREAM_04",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DREAM
     // [DREAM_05] Nightmare (*) - COST:0
