@@ -189,7 +189,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 2 cards. They cost (1).
+    // Text: <b>Battlecry:</b> Draw 2 cards. They cost (0).
     //       <i>(@)</i>
     // --------------------------------------------------------
     // GameTag:
