@@ -13341,7 +13341,7 @@ TEST_CASE("[Neutral : Minion] - tt_004 : Flesheating Ghoul")
 }
 
 // ----------------------------------------- MINION - DREAM
-// [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5]
+// [DREAM_01] Laughing Sister (*) - COST:2 [ATK:3/HP:5]
 // - Set: Expert1
 // --------------------------------------------------------
 // Text: Can't be targeted by spells or Hero Powers.

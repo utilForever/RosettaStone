@@ -6189,7 +6189,7 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ----------------------------------------- MINION - DREAM
-    // [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5]
+    // [DREAM_01] Laughing Sister (*) - COST:2 [ATK:3/HP:5]
     // - Set: Expert1
     // --------------------------------------------------------
     // Text: Can't be targeted by spells or Hero Powers.
