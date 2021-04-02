@@ -8350,7 +8350,7 @@ TEST_CASE("[Neutral : Minion] - DRG_088 : Dread Raven")
 // - Race: Dragon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If your deck has no duplicates,
-//       add 2 other random Dragons to your hand. They cost (1).
+//       add 2 other random Dragons to your hand. They cost (0).
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -8402,10 +8402,10 @@ TEST_CASE("[Neutral : Minion] - DRG_089 : Dragonqueen Alexstrasza")
     CHECK_EQ(curHand.GetCount(), 7);
     CHECK_NE(curHand[5]->card->name, "Dragonqueen Alexstrasza");
     CHECK_EQ(curHand[5]->card->GetRace(), Race::DRAGON);
-    CHECK_EQ(curHand[5]->GetCost(), 1);
+    CHECK_EQ(curHand[5]->GetCost(), 0);
     CHECK_NE(curHand[6]->card->name, "Dragonqueen Alexstrasza");
     CHECK_EQ(curHand[6]->card->GetRace(), Race::DRAGON);
-    CHECK_EQ(curHand[6]->GetCost(), 1);
+    CHECK_EQ(curHand[6]->GetCost(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL

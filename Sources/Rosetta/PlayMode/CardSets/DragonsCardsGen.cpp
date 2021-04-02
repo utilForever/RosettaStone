@@ -4039,7 +4039,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Dragon, Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
-    //       add 2 other random Dragons to your hand. They cost (1).
+    //       add 2 other random Dragons to your hand. They cost (0).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -4395,10 +4395,10 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // [DRG_089e] A Queen's Discount (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: Costs (1).
+    // Text: Costs (0).
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
     cards.emplace("DRG_089e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
