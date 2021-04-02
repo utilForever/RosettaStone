@@ -142,6 +142,20 @@ const std::string RARITY_STR[] = {
 #undef X
 };
 
+//! \brief An enumerator for identifying the spell school of the card.
+enum class SpellSchool
+{
+#define X(a) a,
+#include "Rosetta/Common/Enums/SpellSchool.def"
+#undef X
+};
+
+const std::string SPELL_SCHOOL_STR[] = {
+#define X(a) #a,
+#include "Rosetta/Common/Enums/SpellSchool.def"
+#undef X
+};
+
 //! \brief An enumerator for identifying the locale of the card.
 enum class Locale
 {
@@ -290,6 +304,7 @@ ENUM_AND_STR(GameTag, GAME_TAG_STR)
 ENUM_AND_STR(PlayReq, PLAY_REQ_STR)
 ENUM_AND_STR(Race, RACE_STR)
 ENUM_AND_STR(Rarity, RARITY_STR)
+ENUM_AND_STR(SpellSchool, SPELL_SCHOOL_STR)
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_CARD_ENUMS_HPP
