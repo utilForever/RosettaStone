@@ -2182,7 +2182,7 @@ TEST_CASE("[Hunter : Minion] - DRG_254 : Primordial Explorer")
 // - Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Sidequest:</b> Use your Hero Power three times.
-//       <b>Reward:</b> Summon three 1/1 Leper Gnomes.
+//       <b>Reward:</b> Summon three 2/1 Leper Gnomes.
 // --------------------------------------------------------
 // GameTag:
 // - QUEST_PROGRESS_TOTAL = 3
