@@ -4395,7 +4395,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_028", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
+    // [EX1_029] Leper Gnome - COST:1 [ATK:2/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.

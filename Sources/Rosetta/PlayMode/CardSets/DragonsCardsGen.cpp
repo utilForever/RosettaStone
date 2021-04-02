@@ -4601,7 +4601,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
     cards.emplace("DRG_250e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DRG_255t2] Leper Gnome (*) - COST:1 [ATK:1/HP:1]
+    // [DRG_255t2] Leper Gnome (*) - COST:1 [ATK:2/HP:1]
     // - Faction: Neutral, Set: Dragons, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.

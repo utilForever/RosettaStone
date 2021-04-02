@@ -9168,7 +9168,7 @@ TEST_CASE("[Neutral : Minion] - EX1_028 : Stranglethorn Tiger")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
+// [EX1_029] Leper Gnome - COST:1 [ATK:2/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.
