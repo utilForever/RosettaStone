@@ -5152,7 +5152,7 @@ TEST_CASE("[Shaman : Spell] - DRG_217 : Dragon's Pack")
 }
 
 // ---------------------------------------- MINION - SHAMAN
-// [DRG_218] Corrupt Elementalist - COST:6 [ATK:3/HP:3]
+// [DRG_218] Corrupt Elementalist - COST:5 [ATK:3/HP:3]
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> <b>Invoke</b> Galakrond twice.
