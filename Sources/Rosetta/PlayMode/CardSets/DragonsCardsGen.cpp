@@ -167,7 +167,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 1 card. It costs (1).
+    // Text: <b>Battlecry:</b> Draw 1 card. It costs (0).
     //       <i>(@)</i>
     // --------------------------------------------------------
     // GameTag:
@@ -2547,10 +2547,10 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // [DRG_610e] Galakrond's Wonder (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: Costs (1).
+    // Text: Costs (0).
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
     cards.emplace("DRG_610e", CardDef(power));
 }
 

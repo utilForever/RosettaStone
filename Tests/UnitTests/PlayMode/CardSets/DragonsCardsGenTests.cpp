@@ -197,7 +197,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600t3 : Galakrond, Azeroth's End")
 // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 1 card. It costs (1).
+// Text: <b>Battlecry:</b> Draw 1 card. It costs (0).
 //       <i>(@)</i>
 // --------------------------------------------------------
 // GameTag:
@@ -248,7 +248,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 1);
+    CHECK_EQ(curHand[4]->GetCost(), 0);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 6);
