@@ -1476,7 +1476,7 @@ TEST_CASE("[Hunter : Minion] - EX1_543 : King Krush")
 }
 
 // ----------------------------------------- SPELL - HUNTER
-// [EX1_544] Flare - COST:2
+// [EX1_544] Flare - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: All minions lose <b>Stealth</b>.

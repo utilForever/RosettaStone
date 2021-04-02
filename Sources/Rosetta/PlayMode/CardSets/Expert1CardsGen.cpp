@@ -1046,7 +1046,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_543", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
-    // [EX1_544] Flare - COST:2
+    // [EX1_544] Flare - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: All minions lose <b>Stealth</b>.
