@@ -95,6 +95,11 @@ void CardLoader::Load(std::vector<Card*>& cards)
         const int overload = cardData["overload"].is_null()
                                  ? 0
                                  : cardData["overload"].get<int>();
+        const int spellSchool =
+            cardData["spellSchool"].is_null()
+                ? 0
+                : static_cast<int>(StrToEnum<SpellSchool>(
+                      cardData["spellSchool"].get<std::string>()));
 
         std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])
@@ -172,6 +177,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
         card->gameTags[GameTag::ARMOR] = armor;
         card->gameTags[GameTag::HEALTH] = health;
         card->gameTags[GameTag::RARITY] = rarity;
+        card->gameTags[GameTag::SPELL_SCHOOL] = spellSchool;
 
         if (spellPower > 0)
         {
