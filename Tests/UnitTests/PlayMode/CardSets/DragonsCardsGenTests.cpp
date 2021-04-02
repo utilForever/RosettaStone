@@ -4476,7 +4476,7 @@ TEST_CASE("[Rogue : Spell] - DRG_030 : Praise Galakrond!")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [DRG_031] Necrium Apothecary - COST:5 [ATK:2/HP:5]
+// [DRG_031] Necrium Apothecary - COST:4 [ATK:2/HP:5]
 // - Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Combo:</b> Draw a <b>Deathrattle</b> minion

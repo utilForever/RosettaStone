@@ -2332,7 +2332,7 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
-    // [DRG_031] Necrium Apothecary - COST:5 [ATK:2/HP:5]
+    // [DRG_031] Necrium Apothecary - COST:4 [ATK:2/HP:5]
     // - Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Combo:</b> Draw a <b>Deathrattle</b> minion
