@@ -331,6 +331,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_753] Mana Burn - COST:1
     // - Set: Demon Hunter Initiate, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Your opponent has 2 fewer Mana Crystals next turn.
     // --------------------------------------------------------
@@ -342,6 +343,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_801] Eye Beam - COST:3
     // - Set: Demon Hunter Initiate, Rarity: Epic
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
     //       <b>Outcast:</b> This costs (1).

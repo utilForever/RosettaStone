@@ -2485,6 +2485,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // ------------------------------------ SPELL - DEMONHUNTER
     // [DMF_221] Felscream Blast - COST:1
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>.
     //       Deal 1 damage to a minion and its neighbors.

@@ -2449,6 +2449,7 @@ void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_035] Chaos Strike - COST:2
     // - Set: Basic, Rarity: Free
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn. Draw a card.
     // --------------------------------------------------------
@@ -2485,6 +2486,7 @@ void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_235] Chaos Nova - COST:5
     // - Set: Basic, Rarity: Free
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 4 damage to all minions.
     // --------------------------------------------------------

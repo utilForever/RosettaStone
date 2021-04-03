@@ -1691,6 +1691,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_199] Unstable Felbolt - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 3 damage to an enemy minion
     //       and a random friendly one.
@@ -1745,6 +1746,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_302] The Dark Portal - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Draw a minion. If you have at least 8 cards in hand,
     //       it costs (5) less.
@@ -1796,6 +1798,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_306] Shadow Council - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Epic
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Replace your hand with random Demons. Give them +2/+2.
     // --------------------------------------------------------
@@ -2198,6 +2201,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_429] Metamorphosis - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Swap your Hero Power to "Deal 4 damage."
     //       After 2 uses, swap it back.
@@ -2324,6 +2328,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_514] Immolation Aura - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 1 damage to all minions twice.
     // --------------------------------------------------------

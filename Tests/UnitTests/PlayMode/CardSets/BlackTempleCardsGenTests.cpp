@@ -2402,6 +2402,7 @@ TEST_CASE("[Shaman : Minion] - BT_115 : Marshspawn")
 // ---------------------------------------- SPELL - WARLOCK
 // [BT_199] Unstable Felbolt - COST:1
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 3 damage to an enemy minion
 //       and a random friendly one.
@@ -2505,6 +2506,7 @@ TEST_CASE("[Warlock : Minion] - BT_301 : Nightshade Matron")
 // ---------------------------------------- SPELL - WARLOCK
 // [BT_302] The Dark Portal - COST:4
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Draw a minion. If you have at least 8 cards in hand,
 //       it costs (5) less.
@@ -3461,6 +3463,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_514] Immolation Aura - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 1 damage to all minions twice.
 // --------------------------------------------------------

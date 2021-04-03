@@ -1484,6 +1484,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_702] Felosophy - COST:1
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Copy the lowest Cost Demon in your hand.
     //       <b>Outcast:</b> Give both +1/+1.
@@ -1821,6 +1822,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SCH_357] Fel Guardians - COST:7
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Summon three 1/2 Demons with <b>Taunt</b>.
     //       Costs (1) less whenever a friendly minion dies.

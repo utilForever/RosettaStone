@@ -5325,6 +5325,7 @@ TEST_CASE("[Warrior : Minion] - NEW1_011 : Kor'kron Elite")
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_035] Chaos Strike - COST:2
 // - Set: Basic, Rarity: Free
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Give your hero +2 Attack this turn. Draw a card.
 // --------------------------------------------------------
@@ -5474,6 +5475,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_142 : Shadowhoof Slayer")
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_235] Chaos Nova - COST:5
 // - Set: Basic, Rarity: Free
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 4 damage to all minions.
 // --------------------------------------------------------

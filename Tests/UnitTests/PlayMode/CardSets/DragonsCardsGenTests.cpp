@@ -5656,6 +5656,7 @@ TEST_CASE("[Warlock : Minion] - DRG_203 : Veiled Worshipper")
 // ---------------------------------------- SPELL - WARLOCK
 // [DRG_204] Dark Skies - COST:3
 // - Faction: Neutral, Set: Dragons, Rarity: Epic
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 1 damage to a random minion.
 //       Repeat for each card in your hand.
@@ -5703,6 +5704,7 @@ TEST_CASE("[Warlock : Spell] - DRG_204 : Dark Skies")
 // ---------------------------------------- SPELL - WARLOCK
 // [DRG_205] Nether Breath - COST:2
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 2 damage. If you're holding a Dragon,
 //       deal 4 damage with <b>Lifesteal</b> instead.
@@ -5754,6 +5756,7 @@ TEST_CASE("[Warlock : Spell] - DRG_205 : Nether Breath")
 // ---------------------------------------- SPELL - WARLOCK
 // [DRG_206] Rain of Fire - COST:1
 // - Set: Dragons, Rarity: Common
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 1 damage to all characters.
 // --------------------------------------------------------

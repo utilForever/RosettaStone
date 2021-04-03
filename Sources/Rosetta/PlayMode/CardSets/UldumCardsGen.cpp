@@ -2208,6 +2208,7 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_324] Impbalming - COST:4
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Destroy a minion. Shuffle 3 Worthless Imps into your deck.
     // --------------------------------------------------------
