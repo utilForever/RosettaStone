@@ -4337,6 +4337,7 @@ TEST_CASE("[Shaman : Minion] - DAL_726 : Scargil")
 // ---------------------------------------- SPELL - WARLOCK
 // [DAL_007] Rafaam's Scheme - COST:3
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Summon @ 1/1 (Imp, Imps). <i>(Upgrades each turn!)</i>
 // --------------------------------------------------------
@@ -4703,6 +4704,7 @@ TEST_CASE("[Warlock : Spell] - DAL_602 : Plot Twist")
 // ---------------------------------------- SPELL - WARLOCK
 // [DAL_605] Impferno - COST:3
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Give your Demons +1 Attack.
 //       Deal 1 damage to all enemy minions.

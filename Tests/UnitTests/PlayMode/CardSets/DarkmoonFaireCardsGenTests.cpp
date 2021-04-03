@@ -3028,6 +3028,7 @@ TEST_CASE("[Warlock : Minion] - DMF_533 : Ring Matron")
 // ---------------------------------------- SPELL - WARLOCK
 // [YOP_033] Backfire - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Draw 3 cards. Deal 3 damage to your hero.
 // --------------------------------------------------------

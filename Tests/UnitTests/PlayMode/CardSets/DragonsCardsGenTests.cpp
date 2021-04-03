@@ -2686,6 +2686,7 @@ TEST_CASE("[Mage : Minion] - DRG_270 : Malygos, Aspect of Magic")
 // ------------------------------------------- SPELL - MAGE
 // [DRG_321] Rolling Fireball - COST:5
 // - Set: Dragons, Rarity: Epic
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 8 damage to a minion. Any excess damage
 //       continues to the left or right.
@@ -4554,6 +4555,7 @@ TEST_CASE("[Rogue : Minion] - DRG_031 : Necrium Apothecary")
 // ------------------------------------------ SPELL - ROGUE
 // [DRG_033] Candle Breath - COST:6
 // - Set: Dragons, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Draw 3 cards.
 //       Costs (3) less while you're holding a Dragon.
@@ -6540,6 +6542,7 @@ TEST_CASE("[Warrior : Spell] - DRG_249 : Awaken!")
 // ---------------------------------------- SPELL - WARRIOR
 // [DRG_500] Molten Breath - COST:4
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 5 damage to a minion.
 //       If you're holding a Dragon, gain 5 Armor.

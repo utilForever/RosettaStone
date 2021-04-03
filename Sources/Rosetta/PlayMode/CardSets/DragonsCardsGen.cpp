@@ -1188,6 +1188,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_321] Rolling Fireball - COST:5
     // - Set: Dragons, Rarity: Epic
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 8 damage to a minion. Any excess damage
     //       continues to the left or right.
@@ -1523,6 +1524,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t7] Malygos's Flamestrike (*) - COST:7
     // - Set: Dragons
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 8 damage to all enemy minions.
     // --------------------------------------------------------
@@ -1558,6 +1560,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t9] Malygos's Fireball (*) - COST:4
     // - Set: Dragons
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 8 damage.
     // --------------------------------------------------------
@@ -2371,6 +2374,7 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [DRG_033] Candle Breath - COST:6
     // - Set: Dragons, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Draw 3 cards.
     //       Costs (3) less while you're holding a Dragon.
@@ -3358,6 +3362,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARRIOR
     // [DRG_500] Molten Breath - COST:4
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 5 damage to a minion.
     //       If you're holding a Dragon, gain 5 Armor.

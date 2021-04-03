@@ -1975,6 +1975,7 @@ TEST_CASE("[Mage : Spell] - CS2_027 : Mirror Image")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_029] Fireball - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 6 damage.
 // --------------------------------------------------------
@@ -2048,6 +2049,7 @@ TEST_CASE("[Mage : Spell] - CS2_029 : Fireball")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_032] Flamestrike - COST:7
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 5 damage to all enemy minions.
 // --------------------------------------------------------
@@ -4490,6 +4492,7 @@ TEST_CASE("[Warlock : Spell] - CS2_061 : Drain Life")
 // ---------------------------------------- SPELL - WARLOCK
 // [CS2_062] Hellfire - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 3 damage to all characters.
 // --------------------------------------------------------
@@ -4776,6 +4779,7 @@ TEST_CASE("[Warlock : Minion] - EX1_306 : Felstalker")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_308] Soulfire - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 4 damage. Discard a random card.
 // --------------------------------------------------------

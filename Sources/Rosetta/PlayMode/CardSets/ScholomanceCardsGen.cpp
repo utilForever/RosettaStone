@@ -592,6 +592,7 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [SCH_348] Combustion - COST:3
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion.
     //       Any excess damages both neighbors.
@@ -1254,6 +1255,7 @@ void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [SCH_271] Molten Blast - COST:3
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 2 damage. Summon that many 1/1 Elementals.
     // --------------------------------------------------------

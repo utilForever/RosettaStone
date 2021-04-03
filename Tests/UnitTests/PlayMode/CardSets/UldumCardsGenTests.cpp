@@ -2557,6 +2557,7 @@ TEST_CASE("[Mage : Minion] - ULD_238 : Reno the Relicologist")
 // ------------------------------------------- SPELL - MAGE
 // [ULD_239] Flame Ward - COST:3
 // - Faction: Neutral, Set: Uldum, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After a minion attacks your hero,
 //       deal 3 damage to all enemy minions.
@@ -2924,6 +2925,7 @@ TEST_CASE("[Warlock : Spell] - ULD_324 : Impbalming")
 // ---------------------------------------- SPELL - WARLOCK
 // [ULD_717] Plague of Flames - COST:1
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Destroy all your minions.
 //       For each one, destroy a random enemy minion.

@@ -739,6 +739,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DMF_104] Grand Finale - COST:8
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Summon an 8/8 Elemental.
     //       Repeat for each Elemental you played last turn.
@@ -2133,6 +2134,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [YOP_033] Backfire - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Draw 3 cards. Deal 3 damage to your hero.
     // --------------------------------------------------------

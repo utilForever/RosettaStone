@@ -993,6 +993,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_537] Explosive Shot - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
     // --------------------------------------------------------
@@ -1136,6 +1137,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_610] Explosive Trap - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When your hero is attacked,
     //       deal 2 damage to all enemies.
@@ -1385,6 +1387,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 10 damage.
     // --------------------------------------------------------
@@ -1488,6 +1491,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_594] Vaporize - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
     // --------------------------------------------------------
@@ -2879,6 +2883,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_241] Lava Burst - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 5 damage. <b>Overload:</b> (2)
     // --------------------------------------------------------
