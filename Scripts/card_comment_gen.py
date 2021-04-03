@@ -34,7 +34,7 @@ def cardCommentGen(card):
     if "spellSchool" in card.keys():
         str_format = str_format + comm
         str_format = str_format + "- " + \
-            "SpellSchool: " + card['spellSchool'].capitalize()
+            "Spell School: " + card['spellSchool'].capitalize()
     str_format = str_format + div
     if "text" in card.keys():
         card['text'] = card['text'].replace("[x]", "")
