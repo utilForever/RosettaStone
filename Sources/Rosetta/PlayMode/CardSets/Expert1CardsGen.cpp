@@ -1676,6 +1676,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_132] Eye for an Eye - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When your hero takes damage,
     //       deal that much damage to the enemy hero.
@@ -1694,6 +1695,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_136] Redemption - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When a friendly minion dies,
     //       return it to life with 1 Health.
@@ -1723,6 +1725,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_184] Righteousness - COST:5
     // - Set: Expert1, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give your minions <b>Divine Shield</b>.
     // --------------------------------------------------------
@@ -1737,6 +1740,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 8 Health. Draw 3 cards.
     // --------------------------------------------------------
@@ -1753,6 +1757,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_355] Blessed Champion - COST:5
     // - Set: Expert1, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Double a minion's Attack.
     // --------------------------------------------------------
@@ -1799,6 +1804,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_363] Blessing of Wisdom - COST:1
     // - Set: Expert1, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Choose a minion. Whenever it attacks, draw a card.
     // --------------------------------------------------------
@@ -1817,6 +1823,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - PALADIN
     // [EX1_365] Holy Wrath - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Draw a card and deal damage equal to its Cost.
     // --------------------------------------------------------
@@ -1857,6 +1864,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_379] Repentance - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After your opponent plays a minion,
     //       reduce its Health to 1.
@@ -1923,6 +1931,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_384] Avenging Wrath - COST:6
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 8 damage randomly split among all enemies.
     // --------------------------------------------------------
@@ -1939,6 +1948,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_619] Equality - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
@@ -2302,6 +2312,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 4 Health to all minions.
     // --------------------------------------------------------
@@ -2345,6 +2356,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_626] Mass Dispel - COST:4
     // - Set: Expert1, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Silence</b> all enemy minions. Draw a card.
     // --------------------------------------------------------

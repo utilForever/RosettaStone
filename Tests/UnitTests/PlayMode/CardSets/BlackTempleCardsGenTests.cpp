@@ -1044,6 +1044,7 @@ TEST_CASE("[Paladin : Minion] - BT_009 : Imprisoned Sungill")
 // ---------------------------------------- SPELL - PALADIN
 // [BT_011] Libram of Justice - COST:5
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Equip a 1/4 weapon.
 //       Change the Health of all enemy minions to 1.
@@ -1145,6 +1146,7 @@ TEST_CASE("[Paladin : Weapon] - BT_018 : Underlight Angling Rod")
 // ---------------------------------------- SPELL - PALADIN
 // [BT_024] Libram of Hope - COST:9
 // - Set: BLACK_TEMPLE, Rarity: Epic
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 8 Health. Summon an 8/8 Guardian
 //       with <b>Taunt</b> and <b>Divine Shield</b>.
@@ -1196,6 +1198,7 @@ TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
 // ----------------------------------------- SPELL - PRIEST
 // [BT_252] Renew - COST:1
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 3 Health. <b>Discover</b> a spell.
 // --------------------------------------------------------
@@ -1351,6 +1354,7 @@ TEST_CASE("[Preist : Minion] - BT_256 : Dragonmaw Overseer")
 // ----------------------------------------- SPELL - PRIEST
 // [BT_257] Apotheosis - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2/+3 and <b>Lifesteal</b>.
 // --------------------------------------------------------
@@ -1584,6 +1588,7 @@ TEST_CASE("[Priest : Minion] - BT_341 : Skeletal Dragon")
 // ---------------------------------------- SPELL - PALADIN
 // [BT_292] Hand of A'dal - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2/+2. Draw a card.
 // --------------------------------------------------------

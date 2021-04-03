@@ -2219,6 +2219,7 @@ TEST_CASE("[Mage : Spell] - EX1_277 : Arcane Missiles")
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_087] Blessing of Might - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +3 Attack.
 // --------------------------------------------------------
@@ -2304,6 +2305,7 @@ TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_089] Holy Light - COST:2
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 8 Health to your hero.
 // --------------------------------------------------------
@@ -2351,6 +2353,7 @@ TEST_CASE("[Paladin : Weapon] - CS2_091 : Light's Justice")
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_092] Blessing of Kings - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
 // --------------------------------------------------------
@@ -2397,6 +2400,7 @@ TEST_CASE("[Paladin : Spell] - CS2_092 : Blessing of Kings")
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_093] Consecration - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemies.
 // --------------------------------------------------------
@@ -2448,6 +2452,7 @@ TEST_CASE("[Paladin : Spell] - CS2_093 : Consecration")
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_094] Hammer of Wrath - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 3 damage. Draw a card.
 // --------------------------------------------------------
@@ -2593,6 +2598,7 @@ TEST_CASE("[Paladin : Spell] - EX1_360 : Humility")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_371] Hand of Protection - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion <b>Divine Shield</b>.
 // --------------------------------------------------------
@@ -2654,6 +2660,7 @@ TEST_CASE("[Paladin : Spell] - EX1_371 : Hand of Protection")
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_112] Holy Nova - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemy minions.
 //       Restore 2 Health to all friendly characters.
@@ -2797,6 +2804,7 @@ TEST_CASE("[Priest : Spell] - CS1_113 : Mind Control")
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_130] Holy Smite - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion.
 // --------------------------------------------------------
@@ -2915,6 +2923,7 @@ TEST_CASE("[Priest : Spell] - CS2_003 : Mind Vision")
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_004] Power Word: Shield - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2 Health. Draw a card.
 // --------------------------------------------------------
@@ -3029,6 +3038,7 @@ TEST_CASE("[Priest : Spell] - CS2_234 : Shadow Word: Pain")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_192] Radiance - COST:1
 // - Set: Basic, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 5 Health to your hero.
 // --------------------------------------------------------
@@ -3119,6 +3129,7 @@ TEST_CASE("[Priest : Minion] - EX1_193 : Psychic Conjurer")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_194] Power Infusion - COST:4
 // - Set: Basic, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2/+6.
 // --------------------------------------------------------

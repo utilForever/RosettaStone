@@ -762,6 +762,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_011] Libram of Justice - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Equip a 1/4 weapon.
     //       Change the Health of all enemy minions to 1.
@@ -819,6 +820,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_024] Libram of Hope - COST:9
     // - Set: BLACK_TEMPLE, Rarity: Epic
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 8 Health. Summon an 8/8 Guardian
     //       with <b>Taunt</b> and <b>Divine Shield</b>.
@@ -841,6 +843,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_025] Libram of Wisdom - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +1/+1 and "<b>Deathrattle:</b>
     //       Add a 'Libram of Wisdom' spell to your hand."
@@ -864,6 +867,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_292] Hand of A'dal - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +2/+2. Draw a card.
     // --------------------------------------------------------
@@ -991,6 +995,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_252] Renew - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 3 Health. <b>Discover</b> a spell.
     // --------------------------------------------------------
@@ -1059,6 +1064,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_257] Apotheosis - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +2/+3 and <b>Lifesteal</b>.
     // --------------------------------------------------------

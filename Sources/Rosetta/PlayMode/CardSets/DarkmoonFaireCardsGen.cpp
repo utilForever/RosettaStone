@@ -1004,6 +1004,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------- WEAPON - PALADIN
     // [DMF_238] Hammer of the Naaru - COST:6
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 6/6 Holy Elemental
     //       with <b>Taunt</b>.
@@ -3190,6 +3191,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_009] Rally! - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Resurrect a friendly 1-Cost, 2-Cost, and
     //       3-Cost minion.

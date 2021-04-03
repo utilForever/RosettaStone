@@ -140,9 +140,10 @@ TEST_CASE("[Mage : Spell] - CS2_031 : Ice Lance")
 // ----------------------------------------- SPELL - PALADIN
 // [EX1_349] Divine Favor - COST:3
 // - Faction: Neutral, Set: HoF, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Draw cards until you have as many in hand
-//       as your opponent
+//       as your opponent.
 // --------------------------------------------------------
 TEST_CASE("[Paladin : Spell] - EX1_349 : Divine Favor")
 {
@@ -232,6 +233,7 @@ TEST_CASE("[Priest : Minion] - CS2_235 : Northshire Cleric")
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_236] Divine Spirit - COST:2
 // - Set: HoF, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Double a minion's Health.
 // --------------------------------------------------------
@@ -481,6 +483,7 @@ TEST_CASE("[Priest : Minion] - EX1_591 : Auchenai Soulpriest")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_624] Holy Fire - COST:6
 // - Faction: Priest, Set: HoF, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 5 damage. Restore 5 Health to your hero.
 // --------------------------------------------------------

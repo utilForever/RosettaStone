@@ -1029,6 +1029,7 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [ULD_143] Pharaoh's Blessing - COST:6
     // - Faction: Neutral, Set: Uldum, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +4/+4, <b>Divine Shield</b>,
     //       and <b>Taunt</b>.
@@ -1400,6 +1401,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_272] Holy Ripple - COST:2
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemies. Restore 1 Health
     //       to all friendly characters.
@@ -1413,6 +1415,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_714] Penance - COST:2
     // - Set: Uldum, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b> Deal 3 damage to a minion.
     // --------------------------------------------------------

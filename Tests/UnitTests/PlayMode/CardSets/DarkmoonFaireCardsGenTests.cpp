@@ -1451,6 +1451,7 @@ TEST_CASE("[Paladin : Minion] - DMF_237 : Carnival Barker")
 // --------------------------------------- WEAPON - PALADIN
 // [DMF_238] Hammer of the Naaru - COST:6
 // - Set: DARKMOON_FAIRE, Rarity: Epic
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a 6/6 Holy Elemental
 //       with <b>Taunt</b>.

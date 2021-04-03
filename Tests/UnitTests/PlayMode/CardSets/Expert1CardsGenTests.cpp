@@ -3045,6 +3045,7 @@ TEST_CASE("[Paladin : Spell] - EX1_130 : Noble Sacrifice")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_132] Eye for an Eye - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When your hero takes damage,
 //       deal that much damage to the enemy hero.
@@ -3118,6 +3119,7 @@ TEST_CASE("[Paladin : Spell] - EX1_132 : Eye for an Eye")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_136] Redemption - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When a friendly minion dies,
 //       return it to life with 1 Health.
@@ -3174,6 +3176,7 @@ TEST_CASE("[Paladin : Spell] - EX1_136 : Redemption")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_184] Righteousness - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give your minions <b>Divine Shield</b>.
 // --------------------------------------------------------
@@ -3233,6 +3236,7 @@ TEST_CASE("[Paladin : Spell] - EX1_184 : Righteousness")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_354] Lay on Hands - COST:8
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 8 Health. Draw 3 cards.
 // --------------------------------------------------------
@@ -3276,6 +3280,7 @@ TEST_CASE("[Paladin : Spell] - EX1_354 : Lay on Hands")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_355] Blessed Champion - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Double a minion's Attack.
 // --------------------------------------------------------
@@ -3373,6 +3378,7 @@ TEST_CASE("[Paladin : Minion] - EX1_362 : Argent Protector")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_363] Blessing of Wisdom - COST:1
 // - Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Choose a minion. Whenever it attacks, draw a card.
 // --------------------------------------------------------
@@ -3416,6 +3422,7 @@ TEST_CASE("[Paladin : Spell] - EX1_363 : Blessing of Wisdom")
 // ------------------------------------------ SPELL - PALADIN
 // [EX1_365] Holy Wrath - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Draw a card and deal damage equal to its Cost.
 // --------------------------------------------------------
@@ -3535,6 +3542,7 @@ TEST_CASE("[Paladin : Weapon] - EX1_366 : Sword of Justice")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_379] Repentance - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After your opponent plays a minion,
 //       reduce its Health to 1.
@@ -3715,6 +3723,7 @@ TEST_CASE("[Paladin : Minion] - EX1_383 : Tirion Fordring")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_384] Avenging Wrath - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 8 damage randomly split among all enemies.
 // --------------------------------------------------------
@@ -3784,6 +3793,7 @@ TEST_CASE("[Paladin : Spell] - EX1_384 : Avenging Wrath")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_619] Equality - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Change the Health of all minions to 1.
 // --------------------------------------------------------
@@ -4570,6 +4580,7 @@ TEST_CASE("[Priest : Spell] - EX1_345 : Mindgames")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_621] Circle of Healing - COST:0
 // - Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 4 Health to all minions.
 // --------------------------------------------------------
@@ -4743,6 +4754,7 @@ TEST_CASE("[Priest : Spell] - EX1_625 : Shadowform")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_626] Mass Dispel - COST:4
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Silence</b> all enemy minions. Draw a card.
 // --------------------------------------------------------

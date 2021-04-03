@@ -1155,6 +1155,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_087] Blessing of Might - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +3 Attack.
     // --------------------------------------------------------
@@ -1188,6 +1189,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_089] Holy Light - COST:2
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 8 Health to your hero.
     // --------------------------------------------------------
@@ -1209,6 +1211,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_092] Blessing of Kings - COST:4
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
     // --------------------------------------------------------
@@ -1227,6 +1230,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_093] Consecration - COST:4
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
@@ -1238,6 +1242,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [CS2_094] Hammer of Wrath - COST:4
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 3 damage. Draw a card.
     // --------------------------------------------------------
@@ -1289,6 +1294,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_371] Hand of Protection - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion <b>Divine Shield</b>.
     // --------------------------------------------------------
@@ -1359,6 +1365,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_112] Holy Nova - COST:4
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     //       Restore 2 Health to all friendly characters.
@@ -1393,6 +1400,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_130] Holy Smite - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
@@ -1423,6 +1431,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_004] Power Word: Shield - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +2 Health. Draw a card.
     // --------------------------------------------------------
@@ -1461,6 +1470,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_192] Radiance - COST:1
     // - Set: Basic, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 5 Health to your hero.
     // --------------------------------------------------------
@@ -1487,6 +1497,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_194] Power Infusion - COST:4
     // - Set: Basic, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +2/+6.
     // --------------------------------------------------------

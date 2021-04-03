@@ -969,6 +969,7 @@ TEST_CASE("[Paladin : Spell] - SCH_247 : First Day of School")
 // ---------------------------------------- SPELL - PALADIN
 // [SCH_524] Shield of Honor - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a damaged minion +3 Attack and <b>Divine Shield</b>.
 // --------------------------------------------------------

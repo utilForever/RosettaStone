@@ -660,6 +660,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_138] Blessing of Authority - COST:5
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +8/+8. It can't attack heroes this turn.
     // --------------------------------------------------------
@@ -722,6 +723,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_302] Gift of Luminance - COST:3
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion <b>Divine Shield</b>,
     //       then summon a 1/1 copy of it.
@@ -744,6 +746,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_524] Shield of Honor - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a damaged minion +3 Attack and <b>Divine Shield</b>.
     // --------------------------------------------------------

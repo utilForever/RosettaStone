@@ -1164,6 +1164,7 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568] Lightforged Blessing - COST:2
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Give a friendly minion <b>Lifesteal</b>.
     // --------------------------------------------------------
@@ -1384,6 +1385,7 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568ts] Lightforged Blessing (*) - COST:2
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a friendly minion <b>Lifesteal</b>.
     // --------------------------------------------------------
@@ -1610,6 +1612,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_724] Mass Resurrection - COST:9
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Summon 3 friendly minions that died this game.
     // --------------------------------------------------------

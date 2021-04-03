@@ -140,9 +140,10 @@ void HoFCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PALADIN
     // [EX1_349] Divine Favor - COST:3
     // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Draw cards until you have as many in hand
-    //       as your opponent
+    //       as your opponent.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
@@ -179,6 +180,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_236] Divine Spirit - COST:2
     // - Set: HoF, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Double a minion's Health.
     // --------------------------------------------------------
@@ -247,6 +249,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_624] Holy Fire - COST:6
     // - Faction: Priest, Set: HoF, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 5 damage. Restore 5 Health to your hero.
     // --------------------------------------------------------
