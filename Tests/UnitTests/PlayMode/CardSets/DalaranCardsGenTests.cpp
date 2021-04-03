@@ -25,6 +25,7 @@ using namespace SimpleTasks;
 // ------------------------------------------ SPELL - DRUID
 // [DAL_256] The Forest's Aid - COST:8
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> Summon five 2/2 Treants.
 // --------------------------------------------------------
@@ -115,6 +116,7 @@ TEST_CASE("[Druid : Spell] - DAL_256 : The Forest's Aid")
 // ------------------------------------------ SPELL - DRUID
 // [DAL_350] Crystal Power - COST:1
 // - Faction: Neutral, Set: Dalaran, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Deal 2 damage to a minion;
 //       or Restore 5 Health.
@@ -175,6 +177,7 @@ TEST_CASE("[Druid : Spell] - DAL_350 : Crystal Power")
 // ------------------------------------------ SPELL - DRUID
 // [DAL_351] Blessing of the Ancients - COST:3
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> Give your minions +1/+1.
 // --------------------------------------------------------
@@ -250,6 +253,7 @@ TEST_CASE("[Druid : Spell] - DAL_351 : Blessing of the Ancients")
 // ------------------------------------------ SPELL - DRUID
 // [DAL_352] Crystalsong Portal - COST:2
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Discover</b> a Druid minion.
 //       If your hand has no minions, keep all 3.
@@ -3771,6 +3775,7 @@ TEST_CASE("[Rogue : Spell] - DAL_728 : Daring Escape")
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_009] Hagatha's Scheme - COST:5
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal @ damage to all minions.
 //       <i>(Upgrades each turn!)</i>
@@ -3937,6 +3942,7 @@ TEST_CASE("[Shaman : Minion] - DAL_052 : Muckmorpher")
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_071] Mutate - COST:0
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Transform a friendly minion into a random one
 //       that costs (1) more.
@@ -4103,6 +4109,7 @@ TEST_CASE("[Shaman : Minion] - DAL_431t : Drustvar Horror")
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_432] Witch's Brew - COST:2
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Restore 4 Health. Repeatable this turn.
 // --------------------------------------------------------

@@ -524,6 +524,7 @@ TEST_CASE("[Druid : Spell] - CS2_005 : Claw")
 // ------------------------------------------ SPELL - DRUID
 // [CS2_007] Healing Touch - COST:3
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Restore 8 Health.
 // --------------------------------------------------------
@@ -652,6 +653,7 @@ TEST_CASE("[Druid : Spell] - CS2_008 : Moonfire")
 // ------------------------------------------ SPELL - DRUID
 // [CS2_009] Mark of the Wild - COST:2
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a minion <b>Taunt</b> and +2/+3.<i>
 //       (+2 Attack/+3 Health)</i>
@@ -822,6 +824,7 @@ TEST_CASE("[Druid : Spell] - CS2_012 : Swipe")
 // ------------------------------------------ SPELL - DRUID
 // [CS2_013] Wild Growth - COST:3
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain an empty Mana Crystal.
 // --------------------------------------------------------
@@ -876,6 +879,7 @@ TEST_CASE("[Druid : Minion] - CS2_232 : Ironbark Protector")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_169] Innervate - COST:0
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain 1 Mana Crystal this turn only.
 // --------------------------------------------------------
@@ -3304,6 +3308,7 @@ TEST_CASE("[Rogue : Spell] - CS2_072 : Backstab")
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_074] Deadly Poison - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your weapon +2 Attack.
 // --------------------------------------------------------
@@ -3806,6 +3811,7 @@ TEST_CASE("[Shaman : Spell] - CS2_037 : Frost Shock")
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_039] Windfury - COST:2
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a minion <b>Windfury</b>.
 // --------------------------------------------------------
@@ -3868,6 +3874,7 @@ TEST_CASE("[Shaman : Spell] - CS2_039 : Windfury")
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_041] Ancestral Healing - COST:0
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Restore a minion
 //       to full Health and
@@ -3989,6 +3996,7 @@ TEST_CASE("[Shaman : Minion] - CS2_042 : Fire Elemental")
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_045] Rockbiter Weapon - COST:2
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a friendly character +3 Attack this turn.
 // --------------------------------------------------------
@@ -4158,6 +4166,7 @@ TEST_CASE("[Shaman : Spell] - EX1_244 : Totemic Might")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_246] Hex - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
 // --------------------------------------------------------

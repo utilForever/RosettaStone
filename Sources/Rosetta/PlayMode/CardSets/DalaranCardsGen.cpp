@@ -114,6 +114,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256] The Forest's Aid - COST:8
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Summon five 2/2 Treants.
     // --------------------------------------------------------
@@ -134,6 +135,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350] Crystal Power - COST:1
     // - Faction: Neutral, Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Deal 2 damage to a minion;
     //       or Restore 5 Health.
@@ -153,6 +155,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351] Blessing of the Ancients - COST:3
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Give your minions +1/+1.
     // --------------------------------------------------------
@@ -173,6 +176,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_352] Crystalsong Portal - COST:2
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Discover</b> a Druid minion.
     //       If your hand has no minions, keep all 3.
@@ -331,6 +335,7 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256ts] The Forest's Aid (*) - COST:8
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon five 2/2 Treants.
     // --------------------------------------------------------
@@ -380,6 +385,7 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351ts] Blessing of the Ancients (*) - COST:3
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your minions +1/+1.
     // --------------------------------------------------------
@@ -1974,6 +1980,7 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_009] Hagatha's Scheme - COST:5
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal @ damage to all minions.
     //       <i>(Upgrades each turn!)</i>
@@ -2053,6 +2060,7 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_071] Mutate - COST:0
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Transform a friendly minion into a random one
     //       that costs (1) more.
@@ -2110,6 +2118,7 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_432] Witch's Brew - COST:2
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Restore 4 Health. Repeatable this turn.
     // --------------------------------------------------------

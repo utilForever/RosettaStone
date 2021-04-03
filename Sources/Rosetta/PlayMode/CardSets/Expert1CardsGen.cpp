@@ -165,6 +165,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154] Wrath - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Deal 3 damage to a minion;
     //       or 1 damage and draw a card.
@@ -187,6 +188,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155] Mark of Nature - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Give a minion +4 Attack;
     //       or +4 Health and <b>Taunt</b>.
@@ -212,6 +214,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_158] Soul of the Forest - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
     // --------------------------------------------------------
@@ -241,6 +244,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164] Nourish - COST:6
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
     // --------------------------------------------------------
@@ -314,6 +318,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_183] Gift of the Wild - COST:8
     // - Set: Expert1, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your minions +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -340,6 +345,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_571] Force of Nature - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon three 2/2 Treants.
     // --------------------------------------------------------
@@ -443,8 +449,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ------------------------------------------ SPELL - DRUID
-    // [EX1_154a] Wrath (*) - COST:0
+    // [EX1_154a] Solar Wrath (*) - COST:0
     // - Faction: Neutral, Set: Expert1
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
@@ -461,8 +468,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
-    // [EX1_154b] Wrath (*) - COST:0
+    // [EX1_154b] Nature's Wrath (*) - COST:0
     // - Faction: Neutral, Set: Expert1
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion. Draw a card.
     // --------------------------------------------------------
@@ -482,6 +490,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155a] Tiger's Fury (*) - COST:0
     // - Faction: Neutral, Set: Expert1
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: +4 Attack.
     // --------------------------------------------------------
@@ -510,6 +519,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155b] Thick Hide (*) - COST:0
     // - Faction: Neutral, Set: Expert1
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: +4 Health and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -637,6 +647,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164a] Rampant Growth (*) - COST:6
     // - Faction: Neutral, Set: Expert1
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain 2 Mana Crystals.
     // --------------------------------------------------------
@@ -647,6 +658,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164b] Enrich (*) - COST:6
     // - Faction: Neutral, Set: Expert1
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Draw 3 cards.
     // --------------------------------------------------------
@@ -2888,6 +2900,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_238] Lightning Bolt - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage. <b>Overload:</b> (1)
     // --------------------------------------------------------
@@ -2944,6 +2957,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_245] Earth Shock - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Silence</b> a minion, then deal 1 damage to it.
     // --------------------------------------------------------
@@ -3017,6 +3031,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_251] Forked Lightning - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 2 damage to 2 random enemy minions. <b>Overload:</b> (2)
     // --------------------------------------------------------
@@ -3056,6 +3071,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_259] Lightning Storm - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
     // --------------------------------------------------------

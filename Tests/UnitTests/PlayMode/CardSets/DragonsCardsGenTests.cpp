@@ -1104,6 +1104,7 @@ TEST_CASE("[Druid : Spell] - DRG_051 : Strength in Numbers")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_311] Treenforcements - COST:1
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Give a minion +2 Health and
 //       <b>Taunt</b>; or Summon a 2/2 Treant.
@@ -1257,6 +1258,7 @@ TEST_CASE("[Druid : Minion] - DRG_313 : Emerald Explorer")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_314] Aeroponics - COST:5
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Draw 2 cards.
 //       Costs (2) less for each Treant you control.
@@ -1315,6 +1317,7 @@ TEST_CASE("[Druid : Spell] - DRG_314 : Aeroponics")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_315] Embiggen - COST:0
 // - Set: Dragons, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give all minions in your deck +2/+2.
 //       They cost (1) more <i>(up to 10)</i>.
@@ -1454,6 +1457,7 @@ TEST_CASE("[Druid : Spell] - DRG_317 : Secure the Deck")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_318] Breath of Dreams - COST:2
 // - Faction: Neutral, Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Draw a card. If you're holding a Dragon,
 //       gain an empty Mana Crystal.
@@ -1674,6 +1678,7 @@ TEST_CASE("[Druid : Minion] - DRG_320 : Ysera, Unleashed")
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion. If you're holding
 //       a Dragon, it also hits the enemy hero.
@@ -4962,6 +4967,7 @@ TEST_CASE("[Shaman : Minion] - DRG_211 : Squallhunter")
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_215] Storm's Wrath - COST:1
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your minions +1/+1. <b>Overload:</b> (1)
 // --------------------------------------------------------
@@ -5095,6 +5101,7 @@ TEST_CASE("[Shaman : Minion] - DRG_216 : Surging Tempest")
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_217] Dragon's Pack - COST:5
 // - Set: Dragons, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
 //       If you've <b>Invoked</b> twice, give them +3/+3.
@@ -5203,6 +5210,7 @@ TEST_CASE("[Shaman : Minion] - DRG_218 : Corrupt Elementalist")
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_219] Lightning Breath - COST:3
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 4 damage to a minion. If you're holding
 //       a Dragon, also damage its neighbors.

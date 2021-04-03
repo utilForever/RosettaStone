@@ -511,6 +511,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311] Treenforcements - COST:1
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Give a minion +2 Health and
     //       <b>Taunt</b>; or Summon a 2/2 Treant.
@@ -567,6 +568,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_314] Aeroponics - COST:5
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     //       Costs (2) less for each Treant you control.
@@ -592,6 +594,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_315] Embiggen - COST:0
     // - Set: Dragons, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give all minions in your deck +2/+2.
     //       They cost (1) more <i>(up to 10)</i>.
@@ -644,6 +647,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_318] Breath of Dreams - COST:2
     // - Faction: Neutral, Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Draw a card. If you're holding a Dragon,
     //       gain an empty Mana Crystal.
@@ -698,6 +702,7 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311a] Spin 'em Up (*) - COST:0
     // - Set: Dragons
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon a 2/2 Treant.
     // --------------------------------------------------------
@@ -714,6 +719,7 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311b] Small Repairs (*) - COST:0
     // - Set: Dragons
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion +2 Health and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -789,6 +795,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - HUNTER
     // [DRG_006] Corrosive Breath - COST:2
     // - Set: Dragons, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion. If you're holding
     //       a Dragon, it also hits the enemy hero.
@@ -2616,6 +2623,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_215] Storm's Wrath - COST:1
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your minions +1/+1. <b>Overload:</b> (1)
     // --------------------------------------------------------
@@ -2650,6 +2658,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_217] Dragon's Pack - COST:5
     // - Set: Dragons, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
     //       If you've <b>Invoked</b> twice, give them +3/+3.
@@ -2691,6 +2700,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_219] Lightning Breath - COST:3
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion. If you're holding
     //       a Dragon, also damage its neighbors.

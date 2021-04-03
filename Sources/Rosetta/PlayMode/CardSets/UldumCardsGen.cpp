@@ -310,6 +310,7 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135] Hidden Oasis - COST:6
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One</b> - Summon a 6/6 Ancient with <b>Taunt</b>;
     //       or Restore 12 Health.
@@ -413,6 +414,7 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [ULD_273] Overflow - COST:7
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Restore 5 Health to all characters. Draw 5 cards.
     // --------------------------------------------------------
@@ -453,6 +455,7 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135a] Befriend the Ancient (*) - COST:0
     // - Set: Uldum
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon a 6/6 Ancient with <b>Taunt</b>.
     // --------------------------------------------------------
@@ -472,6 +475,7 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- MINION - DRUID
     // [ULD_135at] Vir'naal Ancient (*) - COST:6 [ATK:6/HP:6]
     // - Set: Uldum
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -1877,6 +1881,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_171] Totemic Surge - COST:0
     // - Set: Uldum, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your Totems +2 Attack.
     // --------------------------------------------------------
@@ -1927,6 +1932,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_181] Earthquake - COST:7
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 5 damage to all minions,
     //       then deal 2 damage to all minions.

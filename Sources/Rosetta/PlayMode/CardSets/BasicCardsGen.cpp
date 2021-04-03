@@ -505,6 +505,7 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [CS2_007] Healing Touch - COST:3
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Restore 8 Health.
     // --------------------------------------------------------
@@ -537,6 +538,7 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [CS2_009] Mark of the Wild - COST:2
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion <b>Taunt</b> and +2/+3.<i>
     //       (+2 Attack/+3 Health)</i>
@@ -589,6 +591,7 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [CS2_013] Wild Growth - COST:3
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain an empty Mana Crystal.
     // --------------------------------------------------------
@@ -612,6 +615,7 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_169] Innervate - COST:0
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
     // --------------------------------------------------------
@@ -1589,6 +1593,7 @@ void BasicCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_074] Deadly Poison - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your weapon +2 Attack.
     // --------------------------------------------------------
@@ -1785,6 +1790,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_039] Windfury - COST:2
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion <b>Windfury</b>.
     // --------------------------------------------------------
@@ -1806,6 +1812,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Restore a minion
     //       to full Health and
@@ -1848,6 +1855,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_045] Rockbiter Weapon - COST:2
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a friendly character +3 Attack this turn.
     // --------------------------------------------------------
@@ -1891,6 +1899,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_246] Hex - COST:4
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
     // --------------------------------------------------------

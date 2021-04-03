@@ -21,6 +21,7 @@ using namespace SimpleTasks;
 // ------------------------------------------ SPELL - DRUID
 // [EX1_161] Naturalize - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Destroy a minion. Your opponent draws 2 cards.
 // --------------------------------------------------------

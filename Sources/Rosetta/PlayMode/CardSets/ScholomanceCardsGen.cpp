@@ -95,6 +95,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [SCH_333] Nature Studies - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Discover</b> a spell. Your next one costs (1) less.
     // --------------------------------------------------------
@@ -110,6 +111,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [SCH_427] Lightning Bloom - COST:0
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain 2 Mana Crystals this turn only.
     //       <b>Overload:</b> (2)
@@ -149,6 +151,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612] Runic Carvings - COST:6
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Summon four 2/2 Treant Totems; or
     //       <b>Overload:</b> (2) to summon them with <b>Rush</b>.
@@ -277,6 +280,7 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612a] Call to Aid - COST:6
     // - Set: SCHOLOMANCE
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon four 2/2 Treant Totems.
     // --------------------------------------------------------
@@ -288,6 +292,7 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612b] Alarm the Forest - COST:6
     // - Set: SCHOLOMANCE
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon four 2/2 Treant Totems with <b>Rush</b>.
     //       <b>Overload:</b> (2)
@@ -1298,10 +1303,9 @@ void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [SCH_535] Tidal Wave - COST:8
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: <b>Lifesteal</b>
-    //       Deal 3 damage to
-    //       all minions.
+    // Text: <b>Lifesteal</b> Deal 3 damage to all minions.
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1

@@ -715,6 +715,7 @@ TEST_CASE("[Rogue : Minion] - YOD_016 : Skyvateer")
 // ----------------------------------------- SPELL - SHAMAN
 // [YOD_020] Explosive Evolution - COST:2
 // - Set: YoD, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Transform a minion into a random one that costs (3) more.
 // --------------------------------------------------------
@@ -764,6 +765,7 @@ TEST_CASE("[Shaman : Spell] - YOD_020 : Explosive Evolution")
 // ----------------------------------------- SPELL - SHAMAN
 // [YOD_041] Eye of the Storm - COST:10
 // - Set: YoD, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Summon three 5/6 Elementals with <b>Taunt</b>.
 //       <b>Overload:</b> (3)

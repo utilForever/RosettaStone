@@ -90,6 +90,7 @@ TEST_CASE("[Druid : Spell] - DMF_057 : Lunar Eclipse")
 // ------------------------------------------ SPELL - DRUID
 // [DMF_058] Solar Eclipse - COST:2
 // - Set: DARKMOON_FAIRE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Your next spell this turn casts twice.
 // --------------------------------------------------------
@@ -339,6 +340,7 @@ TEST_CASE("[Druid : Spell] - DMF_730 : Moontouched Amulet")
 // ------------------------------------------ SPELL - DRUID
 // [DMF_732] Cenarion Ward - COST:8
 // - Set: DARKMOON_FAIRE, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain 8 Armor. Summon a random 8-Cost minion.
 // --------------------------------------------------------
@@ -487,6 +489,7 @@ TEST_CASE("[Druid : Minion] - YOP_025 : Dreaming Drake")
 // ------------------------------------------ SPELL - DRUID
 // [YOP_026] Arbor Up - COST:5
 // - Set: DARKMOON_FAIRE, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Summon two 2/2 Treants. Give your minions +2/+1.
 // --------------------------------------------------------
@@ -2242,6 +2245,7 @@ TEST_CASE("[Shaman : Spell] - DMF_700 : Revolve")
 // ----------------------------------------- SPELL - SHAMAN
 // [DMF_701] Dunk Tank - COST:4
 // - Set: DARKMOON_FAIRE, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 4 damage.
 //       <b>Corrupt:</b> Then deal 2 damage to all enemy minions.
@@ -2333,6 +2337,7 @@ TEST_CASE("[Shaman : Spell] - DMF_701 : Dunk Tank")
 // ----------------------------------------- SPELL - SHAMAN
 // [DMF_702] Stormstrike - COST:3
 // - Set: DARKMOON_FAIRE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion.
 //       Give your hero +3 Attack this turn.
@@ -2664,6 +2669,7 @@ TEST_CASE("[Shaman : Minion] - YOP_022 : Mistrunner")
 // ----------------------------------------- SPELL - SHAMAN
 // [YOP_023] Landslide - COST:2
 // - Set: DARKMOON_FAIRE, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 1 damage to all enemy minions.
 //       If you're <b>Overloaded</b>, deal 1 damage again.
@@ -4290,6 +4296,7 @@ TEST_CASE("[Neutral : Minion] - DMF_532 : Circus Amalgam")
 // ---------------------------------------- SPELL - NEUTRAL
 // [YOP_015] Nitroboost Poison - COST:2
 // - Set: DARKMOON_FAIRE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a minion +2 Attack.
 //       <b>Corrupt:</b> And your weapon.

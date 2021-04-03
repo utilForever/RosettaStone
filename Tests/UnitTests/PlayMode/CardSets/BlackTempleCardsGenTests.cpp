@@ -86,6 +86,7 @@ TEST_CASE("[Druid : Minion] - BT_127 : Imprisoned Satyr")
 // ------------------------------------------ SPELL - DRUID
 // [BT_130] Overgrowth - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain two empty Mana Crystals.
 // --------------------------------------------------------
@@ -181,6 +182,7 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
 // ------------------------------------------ SPELL - DRUID
 // [BT_132] Ironbark - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a minion +1/+3 and <b>Taunt</b>.
 //       Costs (0) if you have at least 7 Mana Crystals.
@@ -1996,6 +1998,7 @@ TEST_CASE("[Rogue : Minion] - BT_711 : Blackjack Stunner")
 // ----------------------------------------- SPELL - SHAMAN
 // [BT_100] Serpentshrine Portal - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage. Summon a random 3-Cost minion.
 //       <b>Overload:</b> (1)
@@ -2153,6 +2156,7 @@ TEST_CASE("[Shaman : Minion] - BT_106 : Bogstrok Clacker")
 // ----------------------------------------- SPELL - SHAMAN
 // [BT_110] Torrent - COST:4
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 8 damage to a minion.
 //       Costs (3) less if you cast a spell last turn.

@@ -64,6 +64,7 @@ void HoFCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_161] Naturalize - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Destroy a minion. Your opponent draws 2 cards.
     // --------------------------------------------------------

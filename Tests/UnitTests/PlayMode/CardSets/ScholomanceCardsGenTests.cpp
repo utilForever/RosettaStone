@@ -77,6 +77,7 @@ TEST_CASE("[Druid : Minion] - SCH_242 : Gibberling")
 // ------------------------------------------ SPELL - DRUID
 // [SCH_333] Nature Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Discover</b> a spell. Your next one costs (1) less.
 // --------------------------------------------------------
@@ -144,6 +145,7 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
 // ------------------------------------------ SPELL - DRUID
 // [SCH_427] Lightning Bloom - COST:0
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain 2 Mana Crystals this turn only.
 //       <b>Overload:</b> (2)
@@ -253,6 +255,7 @@ TEST_CASE("[Druid : Spell] - SCH_606 : Partner Assignment")
 // ------------------------------------------ SPELL - DRUID
 // [SCH_612] Runic Carvings - COST:6
 // - Set: SCHOLOMANCE, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Summon four 2/2 Treant Totems; or
 //       <b>Overload:</b> (2) to summon them with <b>Rush</b>.

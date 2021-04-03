@@ -83,6 +83,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DMF_058] Solar Eclipse - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Your next spell this turn casts twice.
     // --------------------------------------------------------
@@ -167,6 +168,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DMF_732] Cenarion Ward - COST:8
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain 8 Armor. Summon a random 8-Cost minion.
     // --------------------------------------------------------
@@ -226,6 +228,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [YOP_026] Arbor Up - COST:5
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants. Give your minions +2/+1.
     // --------------------------------------------------------
@@ -1695,6 +1698,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_701] Dunk Tank - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 4 damage.
     //       <b>Corrupt:</b> Then deal 2 damage to all enemy minions.
@@ -1715,6 +1719,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_702] Stormstrike - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     //       Give your hero +3 Attack this turn.
@@ -1863,6 +1868,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [YOP_023] Landslide - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemy minions.
     //       If you're <b>Overloaded</b>, deal 1 damage again.
@@ -1890,6 +1896,7 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_701t] Dunk Tank - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Deal 4 damage, then deal 2 damage to all enemy minions.
@@ -3221,6 +3228,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_015] Nitroboost Poison - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion +2 Attack.
     //       <b>Corrupt:</b> And your weapon.
@@ -3953,6 +3961,7 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_015t] Nitroboost Poison - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Give a minion and your weapon +2 Attack.

@@ -549,6 +549,7 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_020] Explosive Evolution - COST:2
     // - Set: YoD, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Transform a minion into a random one that costs (3) more.
     // --------------------------------------------------------
@@ -567,6 +568,7 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_041] Eye of the Storm - COST:10
     // - Set: YoD, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon three 5/6 Elementals with <b>Taunt</b>.
     //       <b>Overload:</b> (3)

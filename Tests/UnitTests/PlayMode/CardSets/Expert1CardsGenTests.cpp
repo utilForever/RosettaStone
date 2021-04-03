@@ -76,6 +76,7 @@ TEST_CASE("[Warlock : Hero] - EX1_323 : Lord Jaraxxus")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_154] Wrath - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Deal 3 damage to a minion;
 //       or 1 damage and draw a card.
@@ -137,6 +138,7 @@ TEST_CASE("[Druid : Spell] - EX1_154 : Wrath")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_155] Mark of Nature - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Give a minion +4 Attack;
 //       or +4 Health and <b>Taunt</b>.
@@ -199,6 +201,7 @@ TEST_CASE("[Druid : Spell] - EX1_155 : Mark of Nature")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_158] Soul of the Forest - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
 // --------------------------------------------------------
@@ -329,6 +332,7 @@ TEST_CASE("[Druid : Spell] - EX1_160 : Power of the Wild")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_164] Nourish - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
 // --------------------------------------------------------
@@ -557,6 +561,7 @@ TEST_CASE("[Druid : Minion] - EX1_178 : Ancient of War")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_183] Gift of the Wild - COST:8
 // - Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your minions +2/+2 and <b>Taunt</b>.
 // --------------------------------------------------------
@@ -672,6 +677,7 @@ TEST_CASE("[Druid : Spell] - EX1_570 : Bite")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_571] Force of Nature - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Summon three 2/2 Treants.
 // --------------------------------------------------------
@@ -5870,6 +5876,7 @@ TEST_CASE("[Shaman : Spell] - CS2_053 : Far Sight")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_238] Lightning Bolt - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage. <b>Overload:</b> (1)
 // --------------------------------------------------------
@@ -5995,6 +6002,7 @@ TEST_CASE("[Shaman : Minion] - EX1_243 : Dust Devil")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_245] Earth Shock - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Silence</b> a minion, then deal 1 damage to it.
 // --------------------------------------------------------
@@ -6186,6 +6194,7 @@ TEST_CASE("[Shaman : Minion] - EX1_250 : Earth Elemental")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_251] Forked Lightning - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 2 damage to 2 random enemy minions. <b>Overload:</b> (2)
 // --------------------------------------------------------
@@ -6322,6 +6331,7 @@ TEST_CASE("[Shaman : Minion] - EX1_258 : Unbound Elemental")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_259] Lightning Storm - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
 // --------------------------------------------------------
