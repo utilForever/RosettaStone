@@ -1018,6 +1018,7 @@ void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [CS2_024] Frostbolt - COST:2
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Deal 3 damage to a character and <b>Freeze</b> it.
     // --------------------------------------------------------
@@ -1050,6 +1051,7 @@ void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [CS2_026] Frost Nova - COST:3
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> all enemy minions.
     // --------------------------------------------------------
@@ -1745,6 +1747,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_037] Frost Shock - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
     // --------------------------------------------------------

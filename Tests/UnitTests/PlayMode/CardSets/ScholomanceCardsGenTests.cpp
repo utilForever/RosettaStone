@@ -3813,6 +3813,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_509] Brain Freeze - COST:1
 // - Set: SCHOLOMANCE, Rarity: Rare
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a minion.
 //       <b>Combo:</b> Also deal 3 damage to it.

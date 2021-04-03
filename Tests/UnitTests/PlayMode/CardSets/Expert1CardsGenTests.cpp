@@ -1856,6 +1856,7 @@ TEST_CASE("[Hunter : Spell] - EX1_610 : Explosive Trap")
 // ----------------------------------------- SPELL - HUNTER
 // [EX1_611] Freezing Trap - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When an enemy minion attacks,
 //       return it to its owner's hand. It costs (2) more.
@@ -1979,6 +1980,7 @@ TEST_CASE("[Hunter : Spell] - EX1_617 : Deadly Shot")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_028] Blizzard - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
 // --------------------------------------------------------
@@ -2047,6 +2049,7 @@ TEST_CASE("[Mage : Spell] - CS2_028 : Blizzard")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_179] Icicle - COST:2
 // - Set: Expert1, Rarity: Epic
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion.
 //       If it's <b>Frozen</b>, draw a card.
@@ -2221,6 +2224,7 @@ TEST_CASE("[Mage : Minion] - EX1_274 : Ethereal Arcanist")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_275] Cone of Cold - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a minion and the minions next to it,
 //       and deal 1 damage to them.
@@ -2455,6 +2459,7 @@ TEST_CASE("[Mage : Spell] - EX1_287 : Counterspell")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_289] Ice Barrier - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When your hero is attacked,
 //       gain 8 Armor.

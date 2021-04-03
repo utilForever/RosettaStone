@@ -2693,6 +2693,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_509] Brain Freeze - COST:1
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a minion.
     //       <b>Combo:</b> Also deal 3 damage to it.

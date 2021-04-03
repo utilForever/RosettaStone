@@ -1539,6 +1539,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t8] Malygos's Frostbolt (*) - COST:0
     // - Set: Dragons
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Deal 3 damage to a character and <b>Freeze</b> it.
     // --------------------------------------------------------
@@ -2762,6 +2763,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_248] Invocation of Frost - COST:1
     // - Set: Dragons, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> an enemy. <b>Invoke</b> Galakrond.
     // --------------------------------------------------------

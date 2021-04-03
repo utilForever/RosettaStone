@@ -872,6 +872,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577] Ray of Frost - COST:1
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> <b>Freeze</b> a minion.
     //       If it's already <b>Frozen</b>, deal 2 damage to it.
@@ -1036,6 +1037,7 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577ts] Ray of Frost (*) - COST:1
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a minion.
     //       If it's already <b>Frozen</b>, deal 2 damage to it.

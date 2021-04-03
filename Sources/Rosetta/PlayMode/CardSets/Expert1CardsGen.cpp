@@ -1157,6 +1157,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_611] Freezing Trap - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When an enemy minion attacks,
     //       return it to its owner's hand. It costs (2) more.
@@ -1284,6 +1285,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [CS2_028] Blizzard - COST:6
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
     // --------------------------------------------------------
@@ -1300,6 +1302,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_179] Icicle - COST:2
     // - Set: Expert1, Rarity: Epic
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion.
     //       If it's <b>Frozen</b>, draw a card.
@@ -1361,6 +1364,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_275] Cone of Cold - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a minion and the minions next to it,
     //       and deal 1 damage to them.
@@ -1426,6 +1430,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_289] Ice Barrier - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When your hero is attacked,
     //       gain 8 Armor.

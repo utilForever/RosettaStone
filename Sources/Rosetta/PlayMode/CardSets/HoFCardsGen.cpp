@@ -102,6 +102,7 @@ void HoFCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [CS2_031] Ice Lance - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>,
     //       deal 4 damage instead.

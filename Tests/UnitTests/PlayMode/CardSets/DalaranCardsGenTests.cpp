@@ -1539,6 +1539,7 @@ TEST_CASE("[Mage : Minion] - DAL_576 : Kirin Tor Tricaster")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_577] Ray of Frost - COST:1
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> <b>Freeze</b> a minion.
 //       If it's already <b>Frozen</b>, deal 2 damage to it.

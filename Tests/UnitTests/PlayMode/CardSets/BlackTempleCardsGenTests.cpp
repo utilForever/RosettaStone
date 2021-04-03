@@ -864,6 +864,7 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
 // ------------------------------------------- SPELL - MAGE
 // [BT_072] Deep Freeze - COST:8
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.
 // --------------------------------------------------------

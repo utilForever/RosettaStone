@@ -68,6 +68,7 @@ TEST_CASE("[Druid : Spell] - EX1_161 : Naturalize")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_031] Ice Lance - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>,
 //       deal 4 damage instead.

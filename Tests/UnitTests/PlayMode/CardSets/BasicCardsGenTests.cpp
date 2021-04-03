@@ -1716,6 +1716,7 @@ TEST_CASE("[Mage : Spell] - CS2_023 : Arcane Intellect")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_024] Frostbolt - COST:2
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 3 damage to a character and <b>Freeze</b> it.
 // --------------------------------------------------------
@@ -1855,6 +1856,7 @@ TEST_CASE("[Mage : Spell] - CS2_025 : Arcane Explosion")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_026] Frost Nova - COST:3
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> all enemy minions.
 // --------------------------------------------------------
@@ -3726,6 +3728,7 @@ TEST_CASE("[Rogue : Spell] - EX1_581 : Sap")
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_037] Frost Shock - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
 // --------------------------------------------------------
