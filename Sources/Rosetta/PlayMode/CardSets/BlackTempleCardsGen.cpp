@@ -985,6 +985,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_198] Soul Mirror - COST:7
     // - Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Summon copies of enemy minions.
     //       They attack their copies.
@@ -1015,6 +1016,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_253] Psyche Split - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give a minion +1/+2. Summon a copy of it.
     // --------------------------------------------------------
@@ -1727,6 +1729,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_300] Hand of Gul'dan - COST:6
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: When you play or discard this, draw 3 cards.
     // --------------------------------------------------------

@@ -2736,6 +2736,7 @@ TEST_CASE("[Priest : Spell] - CS1_112 : Holy Nova")
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_113] Mind Control - COST:10
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Take control of an enemy minion.
 // --------------------------------------------------------
@@ -2876,6 +2877,7 @@ TEST_CASE("[Priest : Spell] - CS1_130 : Holy Smite")
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_003] Mind Vision - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Put a copy of a random card in your opponent's hand into your hand.
 // --------------------------------------------------------
@@ -2973,6 +2975,7 @@ TEST_CASE("[Priest : Spell] - CS2_004 : Power Word: Shield")
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_234] Shadow Word: Pain - COST:2
 // - Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a minion with 3 or less Attack.
 // --------------------------------------------------------
@@ -3176,6 +3179,7 @@ TEST_CASE("[Priest : Spell] - EX1_194 : Power Infusion")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_622] Shadow Word: Death - COST:2
 // - Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a minion with 5 or more Attack.
 // --------------------------------------------------------
@@ -4403,6 +4407,7 @@ TEST_CASE("[Shaman : Minion] - EX1_587 : Windspeaker")
 // ---------------------------------------- SPELL - WARLOCK
 // [CS2_057] Shadow Bolt - COST:3
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 4 damage to a minion.
 // --------------------------------------------------------
@@ -4458,6 +4463,7 @@ TEST_CASE("[Warlock : Spell] - CS2_057 : Shadow Bolt")
 // ---------------------------------------- SPELL - WARLOCK
 // [CS2_061] Drain Life - COST:3
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 2 damage. Restore 2 Health to your hero.
 // --------------------------------------------------------
@@ -4693,6 +4699,7 @@ TEST_CASE("[Warlock : Minion] - CS2_065 : Voidwalker")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_302] Mortal Coil - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 1 damage to a minion. If that kills it, draw a card.
 // --------------------------------------------------------
@@ -4853,6 +4860,7 @@ TEST_CASE("[Warlock : Spell] - EX1_308 : Soulfire")
 // ---------------------------------------- SPELL - WARLOCK
 // [NEW1_003] Sacrificial Pact - COST:0
 // - Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a friendly Demon. Restore 5 Health to your hero.
 // --------------------------------------------------------
@@ -5756,8 +5764,9 @@ TEST_CASE("[Demon Hunter : Spell] - BT_512 : Inner Demon")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
-// [BT_740] Soul Cleave - COST:8
+// [BT_740] Soul Cleave - COST:3
 // - Set: Basic, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
 // --------------------------------------------------------

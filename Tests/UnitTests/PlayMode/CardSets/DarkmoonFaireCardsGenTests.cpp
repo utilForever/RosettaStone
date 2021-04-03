@@ -1881,6 +1881,7 @@ TEST_CASE("[Priest : Minion] - DMF_184 : Fairground Fool")
 // ----------------------------------------- SPELL - PRIEST
 // [DMF_186] Auspicious Spirits - COST:4
 // - Set: DARKMOON_FAIRE, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Summon a random 4-Cost minion.
 //       <b>Corrupt:</b> Summon a 7-Cost minion instead.

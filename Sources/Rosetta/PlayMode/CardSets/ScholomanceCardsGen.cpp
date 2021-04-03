@@ -970,6 +970,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [SCH_512] Initiation - COST:6
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion. If that kills it,
     //       summon a new copy.
@@ -989,6 +990,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [SCH_514] Raise Dead - COST:0
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 3 damage to your hero. Return two friendly minions
     //       that died this game to your hand.
@@ -1367,6 +1369,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_158] Demonic Studies - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Discover</b> a Demon. Your next one costs (1) less.
     // --------------------------------------------------------
@@ -1394,6 +1397,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_307] School Spirits - COST:3
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 2 damage to all minions.
     //       Shuffle 2 Soul Fragments into your deck.
@@ -1468,6 +1472,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_701] Soul Shear - COST:2
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     //       Shuffle 2 Soul Fragments into your deck.

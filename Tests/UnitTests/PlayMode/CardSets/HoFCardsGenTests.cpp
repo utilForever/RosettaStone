@@ -290,6 +290,7 @@ TEST_CASE("[Priest : Spell] - CS2_236 : Divine Spirit")
 // ----------------------------------------- SPELL - PRIEST
 // [DS1_233] Mind Blast - COST:2
 // - Faction: Neutral, Set: HoF, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 5 damage to the enemy hero.
 // --------------------------------------------------------
@@ -523,6 +524,7 @@ TEST_CASE("[Priest : Spell] - EX1_624 : Holy Fire")
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_128] Conceal - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give your minions <b>Stealth</b> until your next turn.
 // --------------------------------------------------------
@@ -697,6 +699,7 @@ TEST_CASE("[Warlock : Minion] - EX1_310 : Doomguard")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_316] Power Overwhelming - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give a friendly minion +4/+4 until end of turn.
 //       Then, it dies. Horribly.

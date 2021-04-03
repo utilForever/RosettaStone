@@ -463,6 +463,7 @@ void YoDCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [YOD_015] Dark Prophecy - COST:3
     // - Set: YoD, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Discover</b> a 2 Cost minion.
     //       Summon it and give it +3 Health.

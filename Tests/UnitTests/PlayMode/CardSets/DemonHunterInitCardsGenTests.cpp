@@ -506,6 +506,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_416 : Raging Felscreamer")
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_427] Feast of Souls - COST:2
 // - Set: Demon Hunter Initiate, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Draw a card for each friendly minion that died this turn.
 // --------------------------------------------------------
@@ -669,6 +670,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_487 : Hulking Overfiend")
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_488] Soul Split (*) - COST:4
 // - Set: Demon Hunter Initiate, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Choose a friendly Demon. Summon a copy of it.
 // --------------------------------------------------------
@@ -723,6 +725,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_488 : Soul Split")
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_490] Consume Magic - COST:1
 // - Set: Demon Hunter Initiate, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Silence</b> an enemy minion.
 //       <b>Outcast:</b> Draw a card.

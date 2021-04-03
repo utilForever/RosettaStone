@@ -2078,6 +2078,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- MINION - PRIEST
     // [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Take control of an enemy minion
     //       that has 2 or less Attack.
@@ -2150,6 +2151,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_197] Shadow Word: Ruin - COST:4
     // - Set: Expert1, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy all minions with 5 or more Attack.
     // --------------------------------------------------------
@@ -2193,6 +2195,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_332] Silence - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Silence</b> a minion.
     // --------------------------------------------------------
@@ -2213,6 +2216,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_334] Shadow Madness - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Gain control of an enemy minion with 3 or less Attack
     //       until end of turn.
@@ -2252,6 +2256,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_339] Thoughtsteal - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Copy 2 cards in your opponent's deck and
     //       add them to your hand.
@@ -2283,6 +2288,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_345] Mindgames - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Put a copy of a random minion from
     //       your opponent's deck into the battlefield.
@@ -2346,6 +2352,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_625] Shadowform - COST:2
     // - Faction: Priest, Set: Expert1, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Your Hero Power becomes 'Deal 2 damage'.
     // --------------------------------------------------------
@@ -2636,6 +2643,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_144] Shadowstep - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Return a friendly minion to your hand. It costs (2) less.
     // --------------------------------------------------------
@@ -3187,6 +3195,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_181] Call of the Void - COST:1
     // - Set: Expert1, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Add a random Demon to your hand.
     // --------------------------------------------------------
@@ -3235,6 +3244,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_303] Shadowflame - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy a friendly minion and deal its Attack damage
     //       to all enemy minions.
@@ -3292,6 +3302,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:5
     // - Set: Expert1, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy a minion. Restore 3 Health to your hero.
     // --------------------------------------------------------
@@ -3310,6 +3321,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_312] Twisting Nether - COST:8
     // - Set: Expert1, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy all minions.
     // --------------------------------------------------------
@@ -3346,6 +3358,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_317] Sense Demons - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Draw 2 Demons from your deck.
     // --------------------------------------------------------
@@ -3386,6 +3399,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_320] Bane of Doom - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 2 damage to a character. If that kills it,
     //       summon a random Demon.

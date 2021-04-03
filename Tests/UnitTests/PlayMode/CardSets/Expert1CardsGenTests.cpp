@@ -3907,6 +3907,7 @@ TEST_CASE("[Priest : Spell] - CS1_129 : Inner Fire")
 // ---------------------------------------- MINION - PRIEST
 // [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Take control of an enemy minion
 //       that has 2 or less Attack.
@@ -4089,6 +4090,7 @@ TEST_CASE("[Priest : Minion] - EX1_196 : Scarlet Subjugator")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_197] Shadow Word: Ruin - COST:4
 // - Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy all minions with 5 or more Attack.
 // --------------------------------------------------------
@@ -4214,6 +4216,7 @@ TEST_CASE("[Priest : Minion] - EX1_198 : Natalie Seline")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_332] Silence - COST:0
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Silence</b> a minion.
 // --------------------------------------------------------
@@ -4278,6 +4281,7 @@ TEST_CASE("[Priest : Spell] - EX1_332 : Silence")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_334] Shadow Madness - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Gain control of an enemy minion with 3 or less Attack
 //       until end of turn.
@@ -4414,6 +4418,7 @@ TEST_CASE("[Priest : Minion] - EX1_335 : Lightspawn")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_339] Thoughtsteal - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Copy 2 cards in your opponent's deck and
 //       add them to your hand.
@@ -4516,6 +4521,7 @@ TEST_CASE("[Priest : Minion] - EX1_341 : Lightwell")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_345] Mindgames - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Put a copy of a random minion from
 //       your opponent's deck into the battlefield.
@@ -4705,6 +4711,7 @@ TEST_CASE("[Priest : Minion] - EX1_623 : Temple Enforcer")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_625] Shadowform - COST:2
 // - Faction: Priest, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Your Hero Power becomes 'Deal 2 damage'.
 // --------------------------------------------------------
@@ -5302,6 +5309,7 @@ TEST_CASE("[Rogue : Spell] - EX1_137 : Headcrack")
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_144] Shadowstep - COST:0
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Return a friendly minion to your hand. It costs (2) less.
 // --------------------------------------------------------
@@ -6551,6 +6559,7 @@ TEST_CASE("[Warlock : Minion] - CS2_059 : Blood Imp")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_181] Call of the Void - COST:1
 // - Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Add a random Demon to your hand.
 // --------------------------------------------------------
@@ -6696,6 +6705,7 @@ TEST_CASE("[Warlock : Minion] - EX1_301 : Felguard")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_303] Shadowflame - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a friendly minion and deal its Attack damage
 //       to all enemy minions.
@@ -6819,6 +6829,7 @@ TEST_CASE("[Warlock : Minion] - EX1_304 : Void Terror")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_309] Siphon Soul - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a minion. Restore 3 Health to your hero.
 // --------------------------------------------------------
@@ -6866,6 +6877,7 @@ TEST_CASE("[Warlock : Spell] - EX1_309 : Siphon Soul")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_312] Twisting Nether - COST:8
 // - Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy all minions.
 // --------------------------------------------------------
@@ -7054,6 +7066,7 @@ TEST_CASE("[Warlock : Minion] - EX1_315 : Summoning Portal")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_317] Sense Demons - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Draw 2 Demons from your deck.
 // --------------------------------------------------------
@@ -7142,6 +7155,7 @@ TEST_CASE("[Warlock : Minion] - EX1_319 : Flame Imp")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_320] Bane of Doom - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 2 damage to a character. If that kills it,
 //       summon a random Demon.

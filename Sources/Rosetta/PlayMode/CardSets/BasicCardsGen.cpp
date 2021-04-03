@@ -1379,6 +1379,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_113] Mind Control - COST:10
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Take control of an enemy minion.
     // --------------------------------------------------------
@@ -1419,6 +1420,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_003] Mind Vision - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Put a copy of a random card in your opponent's hand into your hand.
     // --------------------------------------------------------
@@ -1451,6 +1453,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_234] Shadow Word: Pain - COST:2
     // - Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy a minion with 3 or less Attack.
     // --------------------------------------------------------
@@ -1516,6 +1519,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_622] Shadow Word: Death - COST:2
     // - Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy a minion with 5 or more Attack.
     // --------------------------------------------------------
@@ -2088,6 +2092,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_057] Shadow Bolt - COST:3
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion.
     // --------------------------------------------------------
@@ -2106,6 +2111,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [CS2_061] Drain Life - COST:3
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 2 damage. Restore 2 Health to your hero.
     // --------------------------------------------------------
@@ -2179,6 +2185,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_302] Mortal Coil - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion. If that kills it, draw a card.
     // --------------------------------------------------------
@@ -2232,6 +2239,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [NEW1_003] Sacrificial Pact - COST:0
     // - Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy a friendly Demon. Restore 5 Health to your hero.
     // --------------------------------------------------------
@@ -2594,8 +2602,9 @@ void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_512", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_740] Soul Cleave - COST:8
+    // [BT_740] Soul Cleave - COST:3
     // - Set: Basic, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
     // --------------------------------------------------------

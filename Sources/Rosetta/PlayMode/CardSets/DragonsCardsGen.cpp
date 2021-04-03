@@ -2047,6 +2047,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DRG_302] Grave Rune - COST:4
     // - Faction: Neutral, Set: Dragons, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give a minion "<b>Deathrattle:</b> Summon 2 copies of this."
     // --------------------------------------------------------

@@ -205,6 +205,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: HoF, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 5 damage to the enemy hero.
     // --------------------------------------------------------
@@ -287,6 +288,7 @@ void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_128] Conceal - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give your minions <b>Stealth</b> until your next turn.
     // --------------------------------------------------------
@@ -363,6 +365,7 @@ void HoFCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_316] Power Overwhelming - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give a friendly minion +4/+4 until end of turn.
     //       Then, it dies. Horribly.

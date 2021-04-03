@@ -1255,6 +1255,7 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
 // ----------------------------------------- SPELL - PRIEST
 // [BT_253] Psyche Split - COST:5
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give a minion +1/+2. Summon a copy of it.
 // --------------------------------------------------------

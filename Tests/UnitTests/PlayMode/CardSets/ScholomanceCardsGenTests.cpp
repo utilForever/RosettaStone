@@ -1704,6 +1704,7 @@ TEST_CASE("[Warlock : Minion] - SCH_147 : Boneweb Egg")
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_158] Demonic Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Discover</b> a Demon. Your next one costs (1) less.
 // --------------------------------------------------------
@@ -1774,6 +1775,7 @@ TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_307] School Spirits - COST:3
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 2 damage to all minions.
 //       Shuffle 2 Soul Fragments into your deck.
@@ -2014,6 +2016,7 @@ TEST_CASE("[Warlock : Minion] - SCH_700 : Spirit Jailer")
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_701] Soul Shear - COST:2
 // - Set: SCHOLOMANCE, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion.
 //       Shuffle 2 Soul Fragments into your deck.

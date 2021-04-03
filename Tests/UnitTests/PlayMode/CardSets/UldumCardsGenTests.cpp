@@ -4325,6 +4325,7 @@ TEST_CASE("[Priest : Spell] - ULD_714 : Penance")
 // ----------------------------------------- SPELL - PRIEST
 // [ULD_718] Plague of Death - COST:9
 // - Set: Uldum, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Silence</b> and destroy all minions.
 // --------------------------------------------------------
@@ -4703,6 +4704,7 @@ TEST_CASE("[Rogue : Weapon] - ULD_285 : Hooked Scimitar")
 // ------------------------------------------ SPELL - ROGUE
 // [ULD_286] Shadow of Death - COST:4
 // - Set: Uldum, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Choose a minion. Shuffle 3 'Shadows' into your deck
 //       that summon a copy when drawn.
@@ -4993,6 +4995,7 @@ TEST_CASE("[Rogue : Spell] - ULD_328 : Clever Disguise")
 // ------------------------------------------ SPELL - ROGUE
 // [ULD_715] Plague of Madness - COST:1
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Each player equips a 2/2 Knife with <b>Poisonous</b>.
 // --------------------------------------------------------

@@ -1424,6 +1424,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_011] Lazul's Scheme - COST:0
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Reduce the Attack of an enemy minion by
     //       @ until your next turn. <i>(Upgrades each turn!)</i>
@@ -1458,6 +1459,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- MINION - PRIEST
     // [DAL_030] Shadowy Figure - COST:2 [ATK:2/HP:2]
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Transform into a 2/2 copy of
     //       a friendly <b>Deathrattle</b> minion.
@@ -1519,6 +1521,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_065] Unsleeping Soul - COST:4
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Silence</b> a friendly minion, then summon a copy of it.
     // --------------------------------------------------------
@@ -1579,6 +1582,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_723] Forbidden Words - COST:0
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Spend all your Mana. Destroy a minion with that
     //       much Attack or less.
@@ -2267,6 +2271,7 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DAL_173] Darkest Hour - COST:6
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy all friendly minions.
     //       For each one, summon a random minion from your deck.

@@ -3888,6 +3888,7 @@ TEST_CASE("[Priest : Spell] - DRG_301 : Whispers of EVIL")
 // ----------------------------------------- SPELL - PRIEST
 // [DRG_302] Grave Rune - COST:4
 // - Faction: Neutral, Set: Dragons, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give a minion "<b>Deathrattle:</b> Summon 2 copies of this."
 // --------------------------------------------------------

@@ -1437,6 +1437,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_718] Plague of Death - COST:9
     // - Set: Uldum, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Silence</b> and destroy all minions.
     // --------------------------------------------------------
@@ -1589,6 +1590,7 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_286] Shadow of Death - COST:4
     // - Set: Uldum, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Choose a minion. Shuffle 3 'Shadows' into your deck
     //       that summon a copy when drawn.
@@ -1704,6 +1706,7 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_715] Plague of Madness - COST:1
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Each player equips a 2/2 Knife with <b>Poisonous</b>.
     // --------------------------------------------------------

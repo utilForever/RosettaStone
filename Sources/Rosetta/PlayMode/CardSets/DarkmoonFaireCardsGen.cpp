@@ -975,6 +975,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [DMF_236] Oh My Yogg! - COST:1
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When your opponent casts a spell,
     //       they instead cast a random one of the same Cost.
@@ -1236,6 +1237,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_054] Insight - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Draw a minion. <b>Corrupt:</b> Reduce its Cost by (2).
     // --------------------------------------------------------
@@ -1318,6 +1320,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_186] Auspicious Spirits - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Summon a random 4-Cost minion.
     //       <b>Corrupt:</b> Summon a 7-Cost minion instead.
@@ -1334,6 +1337,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_187] Palm Reading - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Discover</b> a spell.
     //       Reduce the Cost of spells in your hand by (1).
@@ -1377,6 +1381,7 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_054t] Insight - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Draw a minion. Reduce its Cost by (2).
@@ -1406,6 +1411,7 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_186a] Auspicious Spirits - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Summon a random 7-Cost minion.
@@ -1457,6 +1463,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_512] Cloak of Shadows - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give your hero <b>Stealth</b> for 1 turn.
     // --------------------------------------------------------
@@ -1467,6 +1474,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_513] Shadow Clone - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After a minion attacks your hero,
     //       summon a copy of it with <b>Stealth</b>.
@@ -2090,6 +2098,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_119] Wicked Whispers - COST:1
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Discard your lowest Cost card. Give your minions +1/+1.
     // --------------------------------------------------------
@@ -2113,6 +2122,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_534] Deck of Chaos - COST:6
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Swap the Cost and Attack of all minions in your deck.
     // --------------------------------------------------------
@@ -3183,6 +3193,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_006] Hysteria - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Choose an enemy minion.
     //       It attacks random minions until it dies.
