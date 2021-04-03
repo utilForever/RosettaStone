@@ -61,6 +61,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DMF_057] Lunar Eclipse - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     //       Your next spell this turn costs (2) less.
@@ -813,6 +814,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [YOP_019] Conjure Mana Biscuit - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Add a Biscuit to your hand that
     //       refreshes 2 Mana Crystals.

@@ -581,6 +581,7 @@ TEST_CASE("[Druid : Spell] - CS2_007 : Healing Touch")
 // ------------------------------------------ SPELL - DRUID
 // [CS2_008] Moonfire - COST:0
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 1 damage.
 // --------------------------------------------------------
@@ -933,6 +934,7 @@ TEST_CASE("[Druid : Spell] - EX1_169 : Innervate")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_173] Starfire - COST:6
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 5 damage. Draw a card.
 // --------------------------------------------------------
@@ -1397,6 +1399,7 @@ TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
 // ----------------------------------------- SPELL - HUNTER
 // [DS1_185] Arcane Shot - COST:1
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 2 damage.
 // --------------------------------------------------------
@@ -1613,6 +1616,7 @@ TEST_CASE("[Hunter : Spell] - NEW1_031 : Animal Companion")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_022] Polymorph - COST:4
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Transform a minion
 //       into a 1/1 Sheep.
@@ -1677,6 +1681,7 @@ TEST_CASE("[Mage : Spell] - CS2_022 : Polymorph")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_023] Arcane Intellect - COST:3
 // - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Draw 2 cards.
 // --------------------------------------------------------

@@ -761,6 +761,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177] Conjurer's Calling - COST:3
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Destroy a minion.
     //       Summon 2 minions of the same Cost to replace it.
@@ -904,6 +905,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_578] Power of Creation - COST:8
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a 6-Cost minion. Summon two copies of it.
     // --------------------------------------------------------
@@ -954,6 +956,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_608] Magic Trick - COST:1
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a spell that costs (3) or less.
     // --------------------------------------------------------
@@ -998,8 +1001,10 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177ts] Conjurer's Calling (*) - COST:3
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: Destroy a minion. Summon 2 minions of the same Cost to replace it.
+    // Text: Destroy a minion.
+    //       Summon 2 minions of the same Cost to replace it.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0

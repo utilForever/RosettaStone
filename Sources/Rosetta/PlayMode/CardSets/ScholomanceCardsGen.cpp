@@ -603,6 +603,7 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [SCH_353] Cram Session - COST:2
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw 1 cards (improved by <b>Spell Damage</b>).
     // --------------------------------------------------------
@@ -2294,6 +2295,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_235] Devolving Missiles - COST:1
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Shoot three missiles at random enemy minions
     //       that transform them into ones that cost (1) less.
@@ -2399,6 +2401,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_270] Primordial Studies - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a <b>Spell Damage</b> minion.
     //       Your next one costs (1) less.
@@ -2618,6 +2621,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_352] Potion of Illusion - COST:4
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Add 1/1 copies of your minions to your hand.
     //       They cost (1).

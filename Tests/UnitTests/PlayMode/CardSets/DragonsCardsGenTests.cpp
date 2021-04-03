@@ -2447,6 +2447,7 @@ TEST_CASE("[Mage : Minion] - DRG_104 : Chenvaala")
 // ------------------------------------------- SPELL - MAGE
 // [DRG_106] Arcane Breath - COST:1
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion. If you're holding a Dragon,
 //       <b>Discover</b> a spell.

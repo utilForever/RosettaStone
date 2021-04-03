@@ -978,6 +978,7 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [ULD_726] Ancient Mysteries - COST:2
     // - Set: Uldum, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw a <b>Secret</b> from your deck. It costs (0).
     // --------------------------------------------------------

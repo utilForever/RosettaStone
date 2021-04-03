@@ -397,6 +397,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [NEW1_007] Starfall - COST:5
     // - Set: Expert1, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Choose One -</b>
     //       Deal 5 damage to a minion;
@@ -819,8 +820,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_tk9", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
-    // [NEW1_007a] Starfall (*) - COST:0
+    // [NEW1_007a] Stellar Drift (*) - COST:0
     // - Set: Expert1
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     // --------------------------------------------------------
@@ -830,8 +832,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_007a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
-    // [NEW1_007b] Starfall (*) - COST:0
+    // [NEW1_007b] Starlord (*) - COST:0
     // - Set: Expert1
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 5 damage to a minion.
     // --------------------------------------------------------
@@ -1322,6 +1325,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_180] Tome of Intellect - COST:1
     // - Set: Expert1, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Add a random Mage spell to your hand.
     // --------------------------------------------------------
@@ -1397,6 +1401,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_287] Counterspell - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
     // --------------------------------------------------------
@@ -1436,6 +1441,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [EX1_294] Mirror Entity - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After your opponent plays a minion,
     //       summon a copy of it.

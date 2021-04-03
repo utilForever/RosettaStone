@@ -1316,6 +1316,7 @@ TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_177] Conjurer's Calling - COST:3
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> Destroy a minion.
 //       Summon 2 minions of the same Cost to replace it.
@@ -1619,6 +1620,7 @@ TEST_CASE("[Mage : Spell] - DAL_577 : Ray of Frost")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_578] Power of Creation - COST:8
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Discover</b> a 6-Cost minion. Summon two copies of it.
 // --------------------------------------------------------
@@ -1734,6 +1736,7 @@ TEST_CASE("[Mage : Minion] - DAL_603 : Mana Cyclone")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_608] Magic Trick - COST:1
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Discover</b> a spell that costs (3) or less.
 // --------------------------------------------------------

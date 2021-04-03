@@ -3091,6 +3091,7 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_270] Primordial Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Discover</b> a <b>Spell Damage</b> minion.
 //       Your next one costs (1) less.
@@ -3610,6 +3611,7 @@ TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_352] Potion of Illusion - COST:4
 // - Set: SCHOLOMANCE, Rarity: Epic
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Add 1/1 copies of your minions to your hand.
 //       They cost (1).

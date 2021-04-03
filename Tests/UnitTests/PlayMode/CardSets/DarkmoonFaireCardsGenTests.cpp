@@ -24,6 +24,7 @@ using namespace SimpleTasks;
 // ------------------------------------------ SPELL - DRUID
 // [DMF_057] Lunar Eclipse - COST:2
 // - Set: DARKMOON_FAIRE, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion.
 //       Your next spell this turn costs (2) less.
@@ -1086,6 +1087,7 @@ TEST_CASE("[Mage : Spell] - DMF_103 : Mask of C'Thun")
 // ------------------------------------------- SPELL - MAGE
 // [YOP_019] Conjure Mana Biscuit - COST:2
 // - Set: DARKMOON_FAIRE, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Add a Biscuit to your hand that
 //       refreshes 2 Mana Crystals.

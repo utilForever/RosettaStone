@@ -871,6 +871,7 @@ TEST_CASE("[Druid : Spell] - EX1_578 : Savagery")
 // ------------------------------------------ SPELL - DRUID
 // [NEW1_007] Starfall - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Choose One -</b>
 //       Deal 5 damage to a minion;
@@ -2106,6 +2107,7 @@ TEST_CASE("[Mage : Spell] - EX1_179 : Icicle")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_180] Tome of Intellect - COST:1
 // - Set: Expert1, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Add a random Mage spell to your hand.
 // --------------------------------------------------------
@@ -2383,6 +2385,7 @@ TEST_CASE("[Mage : Spell] - EX1_279 : Pyroblast")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_287] Counterspell - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
 // --------------------------------------------------------
@@ -2500,6 +2503,7 @@ TEST_CASE("[Mage : Spell] - EX1_289 : Ice Barrier")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_294] Mirror Entity - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After your opponent plays a minion,
 //       summon a copy of it.

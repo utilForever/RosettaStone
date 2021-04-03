@@ -1100,6 +1100,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_106] Arcane Breath - COST:1
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion. If you're holding a Dragon,
     //       <b>Discover</b> a spell.
@@ -1428,6 +1429,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t1] Malygos's Intellect (*) - COST:3
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw 4 cards.
     // --------------------------------------------------------
@@ -1441,6 +1443,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t2] Malygos's Tome (*) - COST:1
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Add 3 random Mage spells to your hand.
     // --------------------------------------------------------
@@ -1458,6 +1461,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t4] Malygos's Explosion (*) - COST:2
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     // --------------------------------------------------------
@@ -1488,6 +1492,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // - Set: Dragons
     // --------------------------------------------------------
     // Text: Transform a minion into a 1/1 Sheep.
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1572,6 +1577,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t11] Malygos's Missiles (*) - COST:1
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 6 damage randomly split among all enemies.
     // --------------------------------------------------------

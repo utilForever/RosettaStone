@@ -520,6 +520,7 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [CS2_008] Moonfire - COST:0
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 1 damage.
     // --------------------------------------------------------
@@ -621,6 +622,7 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_173] Starfire - COST:6
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 5 damage. Draw a card.
     // --------------------------------------------------------
@@ -822,6 +824,7 @@ void BasicCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_185] Arcane Shot - COST:1
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 2 damage.
     // --------------------------------------------------------
@@ -984,6 +987,7 @@ void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [CS2_022] Polymorph - COST:4
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Transform a minion
     //       into a 1/1 Sheep.
@@ -1003,6 +1007,7 @@ void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [CS2_023] Arcane Intellect - COST:3
     // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------

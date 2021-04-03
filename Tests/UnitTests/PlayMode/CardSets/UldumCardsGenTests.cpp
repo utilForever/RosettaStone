@@ -3251,6 +3251,7 @@ TEST_CASE("[Mage : Minion] - ULD_435 : Naga Sand Witch")
 // ------------------------------------------- SPELL - MAGE
 // [ULD_726] Ancient Mysteries - COST:2
 // - Set: Uldum, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Draw a <b>Secret</b> from your deck. It costs (0).
 // --------------------------------------------------------

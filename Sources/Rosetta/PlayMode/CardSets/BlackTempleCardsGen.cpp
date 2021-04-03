@@ -546,6 +546,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_002] Incanter's Flow - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Reduce the Cost of spells in your deck by (1).
     // --------------------------------------------------------
@@ -560,6 +561,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_003] Netherwind Portal - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After your opponent casts a spell,
     //       summon a random 4-Cost minion.
@@ -594,6 +596,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_006] Evocation - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Fill your hand with random Mage spells.
     //       At the end of your turn, discard them.
@@ -618,6 +621,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_021] Font of Power - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a Mage minion.
     //       If your deck has no minions, keep all 3.
