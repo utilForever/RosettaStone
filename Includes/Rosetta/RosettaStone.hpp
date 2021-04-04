@@ -85,6 +85,7 @@
 #include <Rosetta/PlayMode/CardSets/BasicCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
