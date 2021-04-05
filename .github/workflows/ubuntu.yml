@@ -11,26 +11,16 @@ jobs:
     strategy:
       matrix:
         include:
-          # Ubuntu 16.04 + gcc-7
-          #- name: "Ubuntu 16.04 + gcc-7"
-          #  os: ubuntu-16.04
-          #  compiler: gcc
-          #  version: "7"
-          # Ubuntu 18.04 + gcc-8
-          - name: "Ubuntu 18.04 + gcc-8"
+          # Ubuntu 18.04 + gcc-9
+          - name: "Ubuntu 18.04 + gcc-9"
             os: ubuntu-18.04
             compiler: gcc
-            version: "8"
-          # Ubuntu 20.04 + gcc-9
-          - name: "Ubuntu 20.04 + gcc-9"
+            version: "9"
+          # Ubuntu 20.04 + gcc-10
+          - name: "Ubuntu 20.04 + gcc-10"
             os: ubuntu-20.04
             compiler: gcc
-            version: "9"
-          # Ubuntu 16.04 + clang-8
-          #- name: "Ubuntu 16.04 + clang-8"
-          #  os: ubuntu-16.04
-          #  compiler: clang
-          #  version: "8"
+            version: "10"
           # Ubuntu 18.04 + clang-9
           - name: "Ubuntu 18.04 + clang-9"
             os: ubuntu-18.04
