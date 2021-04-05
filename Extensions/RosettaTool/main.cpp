@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Common/Macros.hpp>
+#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 
 #include <lyra/cli_parser.hpp>
@@ -76,7 +77,8 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
     return false;
 }
 
-inline void ExportFile(const std::string& projectPath, CardSet cardSet)
+[[noreturn]] inline void ExportFile(const std::string& projectPath,
+                                    CardSet cardSet)
 {
     std::ofstream outputFile("result.md");
     if (outputFile)
@@ -101,8 +103,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         {
             cards.erase(std::remove_if(cards.begin(), cards.end(),
                                        [](const Card* c) {
-                                           return c->GetCardType() ==
-                                                  CardType::HERO;
+                                           return StartsWith(c->name, "HERO_");
                                        }),
                         cards.end());
         }
@@ -133,8 +134,9 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         }
 
         // Adds the number of card that implemented by ability
-        const auto implPercent = static_cast<size_t>(
-            static_cast<double>(impledCardNum) / allCardNum * 100);
+        const auto implPercent =
+            static_cast<size_t>(static_cast<double>(impledCardNum) /
+                                static_cast<double>(allCardNum) * 100);
         outputFile << '\n';
         outputFile << "- Progress: " << implPercent << "% (" << impledCardNum
                    << " of " << allCardNum << " Cards)";
@@ -156,15 +158,15 @@ int main(int argc, char* argv[])
     std::string projectPath;
 
     // Parsing
-    auto parser = lyra::cli_parser() | lyra::help(showHelp) |
-                  lyra::opt(isExportAllCard)["-a"]["--all"](
-                      "Export a list of all expansion cards") |
-                  lyra::opt(cardSetName, "cardSet")["-c"]["--cardset"](
-                      "Export a list of specific expansion cards") |
-                  lyra::opt(projectPath, "path")["-p"]["--path"](
-                      "Specify RosettaStone project path");
+    const auto parser = lyra::cli_parser() | lyra::help(showHelp) |
+                        lyra::opt(isExportAllCard)["-a"]["--all"](
+                            "Export a list of all expansion cards") |
+                        lyra::opt(cardSetName, "cardSet")["-c"]["--cardset"](
+                            "Export a list of specific expansion cards") |
+                        lyra::opt(projectPath, "path")["-p"]["--path"](
+                            "Specify RosettaStone project path");
 
-    auto result = parser.parse({ argc, argv });
+    const auto result = parser.parse({ argc, argv });
 
     if (!result)
     {
