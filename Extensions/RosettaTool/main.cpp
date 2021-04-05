@@ -203,6 +203,4 @@ int main(int argc, char* argv[])
     }
 
     ExportFile(projectPath, cardSet);
-
-    exit(EXIT_SUCCESS);
 }
