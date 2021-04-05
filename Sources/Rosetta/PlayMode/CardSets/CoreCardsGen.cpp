@@ -186,11 +186,30 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next spell you cast this turn
+    //       costs (3) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS3_012e] Nature's Rite - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Your next spell this turn costs (3) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -342,6 +361,18 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Discover</b> a copy of a Beast
+    //       in your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
     // --------------------------------------------------------
 }
 
@@ -507,11 +538,38 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [CS3_001] Aegwynn, the Guardian - COST:5 [ATK:5/HP:5]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +2</b>
+    //       <b>Deathrattle:</b> The next minion you draw
+    //       inherits these powers.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [CS3_001e] Guardian's Legacy - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +2</b> and
+    //       "<b>Deathrattle:</b> Pass on the Guardian's Legacy."
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [CS3_001e2] Guardian's Legacy (player) - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: The next minion you draw inherits the Guardian's Legacy.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
@@ -659,11 +717,44 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 1/1 Silver Hand Recruits.
     // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS3_016] Reckoning - COST:1
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> After an enemy minion deals 3 or
+    //       more damage, destroy it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS3_029] Pursuit of Justice - COST:2
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Give +1 Attack to Silver Hand Recruits
+    //       you summon this game.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [CS3_029e] Pursuit of Justice - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Your Silver Hand Recruits have +1 Attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [CS3_029e2] Pursuit of Justice - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: +1 Attack.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
@@ -773,11 +864,64 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your Hero Power becomes 'Deal 2 damage.'
     // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After a friendly character is healed, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS3_027] Focused Will - COST:1
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> a minion, then give it +3 Health.
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS3_028] Thrive in the Shadows - COST:2
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: <b>Discover</b> a spell from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS3_014e] Holy Affinity - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: +1 Attack.
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS3_027e] Focused Will - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: +3 Health.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
@@ -913,6 +1057,18 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: <b>Combo:</b> Gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [CS3_005] Vanessa VanCleef - COST:2 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Add a copy of the last card your
+    //       opponent played to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
     // - COMBO = 1
     // --------------------------------------------------------
 }
@@ -1093,6 +1249,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CS3_007] Novice Zapper - COST:1 [ATK:3/HP:2]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b> <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
@@ -1217,12 +1384,49 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CS3_002] Ritual of Doom - COST:0
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a friendly minion.
+    //       If you had 5 or more, summon a 5/5 Demon.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_003] Felsoul Jailer - COST:5 [ATK:4/HP:6]
+    // - Race: Demon, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Your opponent discards a minion.
+    //       <b>Deathrattle:</b> Return it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>. Also damages the minions next to
+    //       whomever this attacks.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARLOCK
     // [CORE_GIL_191t] Imp - COST:1 [ATK:1/HP:1]
+    // - Race: Demon, Set: CORE
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_002t] Demonic Tyrant - COST:5 [ATK:5/HP:5]
     // - Race: Demon, Set: CORE
     // --------------------------------------------------------
 }
@@ -1343,11 +1547,45 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
+    // - Race: Pirate, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next weapon you play costs
+    //       (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS3_009] War Cache - COST:3
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Add a random Warrior minion, spell,
+    //       and weapon to your hand.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [CS3_008e] To Arrrms! - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Your next weapon costs (1) less.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
@@ -1482,12 +1720,60 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CS3_017] Gan'arg Glaivesmith - COST:3 [ATK:3/HP:2]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Outcast:</b> Give your hero +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CS3_019] Kor'vas Bloodthorn - COST:2 [ATK:2/HP:2]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>, <b>Lifesteal</b>
+    //       After you play a card with <b>Outcast</b>,
+    //       return this to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHARGE = 1
+    // - LIFESTEAL = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CS3_020] Illidari Inquisitor - COST:8 [ATK:8/HP:8]
+    // - Race: Demon, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. After your hero attacks an enemy,
+    //       this attacks it too.
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [CS3_017e] Felfist - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -2146,6 +2432,136 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
+    // - Race: Pirate, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you have a weapon equipped,
+    //       deal 2 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_024] Taelan Fordring - COST:5 [ATK:3/HP:3]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b><b>Taunt</b>, Divine Shield</b>
+    //       <b>Deathrattle:</b> Draw your highest Cost minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_025] Overlord Runthak - COST:5 [ATK:3/HP:6]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. Whenever this attacks,
+    //       give +1/+1 to all minions in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_031] Alexstrasza the Life-Binder - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry</b>: Choose a character.
+    //       If it's friendly, restore 8 Health.
+    //       If it's an enemy, deal 8 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_032] Onyxia the Broodmother - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of each turn,
+    //       fill your board with 1/1 Whelps.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_033] Ysera the Dreamer - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Add one of each Dream card
+    //       to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_034] Malygos the Spellweaver - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw spells until your hand is full.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_035] Nozdormu the Eternal - COST:7 [ATK:8/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Start of Game:</b> If this is in both players'
+    //       decks, turns are only 15 seconds long.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - START_OF_GAME = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_036] Deathwing the Destroyer - COST:10 [ATK:12/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy all other minions.
+    //       Discard a card for each destroyed.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_037] Emerald Skytalon - COST:1 [ATK:2/HP:1]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_038] Redgill Razorjaw - COST:2 [ATK:3/HP:1]
+    // - Race: Murloc, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
@@ -2153,6 +2569,20 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506a] Murloc Scout - COST:1 [ATK:1/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS3_025e] Rallying Cry - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS3_035e] Nozdormu Time - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Turns are 15 seconds long.
     // --------------------------------------------------------
 }
 
