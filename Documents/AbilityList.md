@@ -36,6 +36,7 @@
 * [x] Counter
 * [x] Dormant
 * [x] Echo
+* [ ] Frenzy
 * [x] Immune
 * [ ] Inspire
 * [x] Invoke
