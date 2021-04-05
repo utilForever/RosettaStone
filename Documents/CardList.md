@@ -17,149 +17,149 @@
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-CORE | BT_035 | Chaos Strike | O
-CORE | BT_036 | Coordinated Strike | O
-CORE | BT_142 | Shadowhoof Slayer | O
-CORE | BT_235 | Chaos Nova | O
-CORE | BT_323 | Sightless Watcher | O
-CORE | BT_352 | Satyr Overseer | O
-CORE | BT_495 | Glaivebound Adept | O
-CORE | BT_512 | Inner Demon | O
-CORE | BT_740 | Soul Cleave | O
-CORE | BT_921 | Aldrachi Warblades | O
-CORE | CS1_042 | Goldshire Footman | O
-CORE | CS1_112 | Holy Nova | O
-CORE | CS1_113 | Mind Control | O
-CORE | CS1_130 | Holy Smite | O
-CORE | CS2_003 | Mind Vision | O
-CORE | CS2_004 | Power Word: Shield | O
-CORE | CS2_005 | Claw | O
-CORE | CS2_007 | Healing Touch | O
-CORE | CS2_008 | Moonfire | O
-CORE | CS2_009 | Mark of the Wild | O
-CORE | CS2_011 | Savage Roar | O
-CORE | CS2_012 | Swipe | O
-CORE | CS2_013 | Wild Growth | O
-CORE | CS2_022 | Polymorph | O
-CORE | CS2_023 | Arcane Intellect | O
-CORE | CS2_024 | Frostbolt | O
-CORE | CS2_025 | Arcane Explosion | O
-CORE | CS2_026 | Frost Nova | O
-CORE | CS2_027 | Mirror Image | O
-CORE | CS2_029 | Fireball | O
-CORE | CS2_032 | Flamestrike | O
-CORE | CS2_033 | Water Elemental | O
-CORE | CS2_037 | Frost Shock | O
-CORE | CS2_039 | Windfury | O
-CORE | CS2_041 | Ancestral Healing | O
-CORE | CS2_042 | Fire Elemental | O
-CORE | CS2_045 | Rockbiter Weapon | O
-CORE | CS2_046 | Bloodlust | O
-CORE | CS2_057 | Shadow Bolt | O
-CORE | CS2_061 | Drain Life | O
-CORE | CS2_062 | Hellfire | O
-CORE | CS2_063 | Corruption | O
-CORE | CS2_064 | Dread Infernal | O
-CORE | CS2_065 | Voidwalker | O
-CORE | CS2_072 | Backstab | O
-CORE | CS2_074 | Deadly Poison | O
-CORE | CS2_075 | Sinister Strike | O
-CORE | CS2_076 | Assassinate | O
-CORE | CS2_077 | Sprint | O
-CORE | CS2_080 | Assassin's Blade | O
-CORE | CS2_084 | Hunter's Mark | O
-CORE | CS2_087 | Blessing of Might | O
-CORE | CS2_088 | Guardian of Kings | O
-CORE | CS2_089 | Holy Light | O
-CORE | CS2_091 | Light's Justice | O
-CORE | CS2_092 | Blessing of Kings | O
-CORE | CS2_093 | Consecration | O
-CORE | CS2_094 | Hammer of Wrath | O
-CORE | CS2_097 | Truesilver Champion | O
-CORE | CS2_103 | Charge | O
-CORE | CS2_105 | Heroic Strike | O
-CORE | CS2_106 | Fiery War Axe | O
-CORE | CS2_108 | Execute | O
-CORE | CS2_112 | Arcanite Reaper | O
-CORE | CS2_114 | Cleave | O
-CORE | CS2_118 | Magma Rager | O
-CORE | CS2_119 | Oasis Snapjaw | O
-CORE | CS2_120 | River Crocolisk | O
-CORE | CS2_121 | Frostwolf Grunt | O
-CORE | CS2_122 | Raid Leader | O
-CORE | CS2_124 | Wolfrider | O
-CORE | CS2_125 | Ironfur Grizzly | O
-CORE | CS2_127 | Silverback Patriarch | O
-CORE | CS2_131 | Stormwind Knight | O
-CORE | CS2_141 | Ironforge Rifleman | O
-CORE | CS2_142 | Kobold Geomancer | O
-CORE | CS2_147 | Gnomish Inventor | O
-CORE | CS2_150 | Stormpike Commando | O
-CORE | CS2_155 | Archmage | O
-CORE | CS2_162 | Lord of the Arena | O
-CORE | CS2_168 | Murloc Raider | O
-CORE | CS2_171 | Stonetusk Boar | O
-CORE | CS2_172 | Bloodfen Raptor | O
-CORE | CS2_173 | Bluegill Warrior | O
-CORE | CS2_179 | Sen'jin Shieldmasta | O
-CORE | CS2_182 | Chillwind Yeti | O
-CORE | CS2_186 | War Golem | O
-CORE | CS2_187 | Booty Bay Bodyguard | O
-CORE | CS2_189 | Elven Archer | O
-CORE | CS2_196 | Razorfen Hunter | O
-CORE | CS2_197 | Ogre Magi | O
-CORE | CS2_200 | Boulderfist Ogre | O
-CORE | CS2_201 | Core Hound | O
-CORE | CS2_213 | Reckless Rocketeer | O
-CORE | CS2_222 | Stormwind Champion | O
-CORE | CS2_226 | Frostwolf Warlord | O
-CORE | CS2_232 | Ironbark Protector | O
-CORE | CS2_234 | Shadow Word: Pain | O
-CORE | CS2_237 | Starving Buzzard | O
-CORE | DS1_055 | Darkscale Healer | O
-CORE | DS1_070 | Houndmaster | O
-CORE | DS1_175 | Timber Wolf | O
-CORE | DS1_178 | Tundra Rhino | O
-CORE | DS1_183 | Multi-Shot | O
-CORE | DS1_184 | Tracking | O
-CORE | DS1_185 | Arcane Shot | O
-CORE | EX1_011 | Voodoo Doctor | O
-CORE | EX1_015 | Novice Engineer | O
-CORE | EX1_019 | Shattered Sun Cleric | O
-CORE | EX1_025 | Dragonling Mechanic | O
-CORE | EX1_066 | Acidic Swamp Ooze | O
-CORE | EX1_084 | Warsong Commander | O
-CORE | EX1_129 | Fan of Knives | O
-CORE | EX1_169 | Innervate | O
-CORE | EX1_173 | Starfire | O
-CORE | EX1_191 | Plaguebringer | O
-CORE | EX1_192 | Radiance | O
-CORE | EX1_193 | Psychic Conjurer | O
-CORE | EX1_194 | Power Infusion | O
-CORE | EX1_244 | Totemic Might | O
-CORE | EX1_246 | Hex | O
-CORE | EX1_277 | Arcane Missiles | O
-CORE | EX1_278 | Shiv | O
-CORE | EX1_302 | Mortal Coil | O
-CORE | EX1_306 | Felstalker | O
-CORE | EX1_308 | Soulfire | O
-CORE | EX1_360 | Humility | O
-CORE | EX1_371 | Hand of Protection | O
-CORE | EX1_399 | Gurubashi Berserker | O
-CORE | EX1_400 | Whirlwind | O
-CORE | EX1_506 | Murloc Tidehunter | O
-CORE | EX1_508 | Grimscale Oracle | O
-CORE | EX1_539 | Kill Command | O
-CORE | EX1_565 | Flametongue Totem | O
-CORE | EX1_581 | Sap | O
-CORE | EX1_582 | Dalaran Mage | O
-CORE | EX1_587 | Windspeaker | O
-CORE | EX1_593 | Nightblade | O
-CORE | EX1_606 | Shield Block | O
-CORE | EX1_622 | Shadow Word: Death | O
-CORE | NEW1_003 | Sacrificial Pact | O
-CORE | NEW1_011 | Kor'kron Elite | O
-CORE | NEW1_031 | Animal Companion | O
+BASIC | BT_035 | Chaos Strike | O
+BASIC | BT_036 | Coordinated Strike | O
+BASIC | BT_142 | Shadowhoof Slayer | O
+BASIC | BT_235 | Chaos Nova | O
+BASIC | BT_323 | Sightless Watcher | O
+BASIC | BT_352 | Satyr Overseer | O
+BASIC | BT_495 | Glaivebound Adept | O
+BASIC | BT_512 | Inner Demon | O
+BASIC | BT_740 | Soul Cleave | O
+BASIC | BT_921 | Aldrachi Warblades | O
+BASIC | CS1_042 | Goldshire Footman | O
+BASIC | CS1_112 | Holy Nova | O
+BASIC | CS1_113 | Mind Control | O
+BASIC | CS1_130 | Holy Smite | O
+BASIC | CS2_003 | Mind Vision | O
+BASIC | CS2_004 | Power Word: Shield | O
+BASIC | CS2_005 | Claw | O
+BASIC | CS2_007 | Healing Touch | O
+BASIC | CS2_008 | Moonfire | O
+BASIC | CS2_009 | Mark of the Wild | O
+BASIC | CS2_011 | Savage Roar | O
+BASIC | CS2_012 | Swipe | O
+BASIC | CS2_013 | Wild Growth | O
+BASIC | CS2_022 | Polymorph | O
+BASIC | CS2_023 | Arcane Intellect | O
+BASIC | CS2_024 | Frostbolt | O
+BASIC | CS2_025 | Arcane Explosion | O
+BASIC | CS2_026 | Frost Nova | O
+BASIC | CS2_027 | Mirror Image | O
+BASIC | CS2_029 | Fireball | O
+BASIC | CS2_032 | Flamestrike | O
+BASIC | CS2_033 | Water Elemental | O
+BASIC | CS2_037 | Frost Shock | O
+BASIC | CS2_039 | Windfury | O
+BASIC | CS2_041 | Ancestral Healing | O
+BASIC | CS2_042 | Fire Elemental | O
+BASIC | CS2_045 | Rockbiter Weapon | O
+BASIC | CS2_046 | Bloodlust | O
+BASIC | CS2_057 | Shadow Bolt | O
+BASIC | CS2_061 | Drain Life | O
+BASIC | CS2_062 | Hellfire | O
+BASIC | CS2_063 | Corruption | O
+BASIC | CS2_064 | Dread Infernal | O
+BASIC | CS2_065 | Voidwalker | O
+BASIC | CS2_072 | Backstab | O
+BASIC | CS2_074 | Deadly Poison | O
+BASIC | CS2_075 | Sinister Strike | O
+BASIC | CS2_076 | Assassinate | O
+BASIC | CS2_077 | Sprint | O
+BASIC | CS2_080 | Assassin's Blade | O
+BASIC | CS2_084 | Hunter's Mark | O
+BASIC | CS2_087 | Blessing of Might | O
+BASIC | CS2_088 | Guardian of Kings | O
+BASIC | CS2_089 | Holy Light | O
+BASIC | CS2_091 | Light's Justice | O
+BASIC | CS2_092 | Blessing of Kings | O
+BASIC | CS2_093 | Consecration | O
+BASIC | CS2_094 | Hammer of Wrath | O
+BASIC | CS2_097 | Truesilver Champion | O
+BASIC | CS2_103 | Charge | O
+BASIC | CS2_105 | Heroic Strike | O
+BASIC | CS2_106 | Fiery War Axe | O
+BASIC | CS2_108 | Execute | O
+BASIC | CS2_112 | Arcanite Reaper | O
+BASIC | CS2_114 | Cleave | O
+BASIC | CS2_118 | Magma Rager | O
+BASIC | CS2_119 | Oasis Snapjaw | O
+BASIC | CS2_120 | River Crocolisk | O
+BASIC | CS2_121 | Frostwolf Grunt | O
+BASIC | CS2_122 | Raid Leader | O
+BASIC | CS2_124 | Wolfrider | O
+BASIC | CS2_125 | Ironfur Grizzly | O
+BASIC | CS2_127 | Silverback Patriarch | O
+BASIC | CS2_131 | Stormwind Knight | O
+BASIC | CS2_141 | Ironforge Rifleman | O
+BASIC | CS2_142 | Kobold Geomancer | O
+BASIC | CS2_147 | Gnomish Inventor | O
+BASIC | CS2_150 | Stormpike Commando | O
+BASIC | CS2_155 | Archmage | O
+BASIC | CS2_162 | Lord of the Arena | O
+BASIC | CS2_168 | Murloc Raider | O
+BASIC | CS2_171 | Stonetusk Boar | O
+BASIC | CS2_172 | Bloodfen Raptor | O
+BASIC | CS2_173 | Bluegill Warrior | O
+BASIC | CS2_179 | Sen'jin Shieldmasta | O
+BASIC | CS2_182 | Chillwind Yeti | O
+BASIC | CS2_186 | War Golem | O
+BASIC | CS2_187 | Booty Bay Bodyguard | O
+BASIC | CS2_189 | Elven Archer | O
+BASIC | CS2_196 | Razorfen Hunter | O
+BASIC | CS2_197 | Ogre Magi | O
+BASIC | CS2_200 | Boulderfist Ogre | O
+BASIC | CS2_201 | Core Hound | O
+BASIC | CS2_213 | Reckless Rocketeer | O
+BASIC | CS2_222 | Stormwind Champion | O
+BASIC | CS2_226 | Frostwolf Warlord | O
+BASIC | CS2_232 | Ironbark Protector | O
+BASIC | CS2_234 | Shadow Word: Pain | O
+BASIC | CS2_237 | Starving Buzzard | O
+BASIC | DS1_055 | Darkscale Healer | O
+BASIC | DS1_070 | Houndmaster | O
+BASIC | DS1_175 | Timber Wolf | O
+BASIC | DS1_178 | Tundra Rhino | O
+BASIC | DS1_183 | Multi-Shot | O
+BASIC | DS1_184 | Tracking | O
+BASIC | DS1_185 | Arcane Shot | O
+BASIC | EX1_011 | Voodoo Doctor | O
+BASIC | EX1_015 | Novice Engineer | O
+BASIC | EX1_019 | Shattered Sun Cleric | O
+BASIC | EX1_025 | Dragonling Mechanic | O
+BASIC | EX1_066 | Acidic Swamp Ooze | O
+BASIC | EX1_084 | Warsong Commander | O
+BASIC | EX1_129 | Fan of Knives | O
+BASIC | EX1_169 | Innervate | O
+BASIC | EX1_173 | Starfire | O
+BASIC | EX1_191 | Plaguebringer | O
+BASIC | EX1_192 | Radiance | O
+BASIC | EX1_193 | Psychic Conjurer | O
+BASIC | EX1_194 | Power Infusion | O
+BASIC | EX1_244 | Totemic Might | O
+BASIC | EX1_246 | Hex | O
+BASIC | EX1_277 | Arcane Missiles | O
+BASIC | EX1_278 | Shiv | O
+BASIC | EX1_302 | Mortal Coil | O
+BASIC | EX1_306 | Felstalker | O
+BASIC | EX1_308 | Soulfire | O
+BASIC | EX1_360 | Humility | O
+BASIC | EX1_371 | Hand of Protection | O
+BASIC | EX1_399 | Gurubashi Berserker | O
+BASIC | EX1_400 | Whirlwind | O
+BASIC | EX1_506 | Murloc Tidehunter | O
+BASIC | EX1_508 | Grimscale Oracle | O
+BASIC | EX1_539 | Kill Command | O
+BASIC | EX1_565 | Flametongue Totem | O
+BASIC | EX1_581 | Sap | O
+BASIC | EX1_582 | Dalaran Mage | O
+BASIC | EX1_587 | Windspeaker | O
+BASIC | EX1_593 | Nightblade | O
+BASIC | EX1_606 | Shield Block | O
+BASIC | EX1_622 | Shadow Word: Death | O
+BASIC | NEW1_003 | Sacrificial Pact | O
+BASIC | NEW1_011 | Kor'kron Elite | O
+BASIC | NEW1_031 | Animal Companion | O
 
 - Progress: 100% (143 of 143 Cards)
 
