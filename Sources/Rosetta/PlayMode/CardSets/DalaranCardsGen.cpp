@@ -114,6 +114,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256] The Forest's Aid - COST:8
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Summon five 2/2 Treants.
     // --------------------------------------------------------
@@ -134,6 +135,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_350] Crystal Power - COST:1
     // - Faction: Neutral, Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Deal 2 damage to a minion;
     //       or Restore 5 Health.
@@ -153,6 +155,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351] Blessing of the Ancients - COST:3
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Give your minions +1/+1.
     // --------------------------------------------------------
@@ -173,6 +176,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_352] Crystalsong Portal - COST:2
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Discover</b> a Druid minion.
     //       If your hand has no minions, keep all 3.
@@ -331,6 +335,7 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_256ts] The Forest's Aid (*) - COST:8
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon five 2/2 Treants.
     // --------------------------------------------------------
@@ -380,6 +385,7 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DAL_351ts] Blessing of the Ancients (*) - COST:3
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your minions +1/+1.
     // --------------------------------------------------------
@@ -761,6 +767,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177] Conjurer's Calling - COST:3
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Destroy a minion.
     //       Summon 2 minions of the same Cost to replace it.
@@ -871,6 +878,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577] Ray of Frost - COST:1
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> <b>Freeze</b> a minion.
     //       If it's already <b>Frozen</b>, deal 2 damage to it.
@@ -904,6 +912,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_578] Power of Creation - COST:8
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a 6-Cost minion. Summon two copies of it.
     // --------------------------------------------------------
@@ -954,6 +963,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_608] Magic Trick - COST:1
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a spell that costs (3) or less.
     // --------------------------------------------------------
@@ -998,8 +1008,10 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_177ts] Conjurer's Calling (*) - COST:3
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: Destroy a minion. Summon 2 minions of the same Cost to replace it.
+    // Text: Destroy a minion.
+    //       Summon 2 minions of the same Cost to replace it.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1031,6 +1043,7 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DAL_577ts] Ray of Frost (*) - COST:1
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a minion.
     //       If it's already <b>Frozen</b>, deal 2 damage to it.
@@ -1157,6 +1170,7 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568] Lightforged Blessing - COST:2
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> Give a friendly minion <b>Lifesteal</b>.
     // --------------------------------------------------------
@@ -1377,6 +1391,7 @@ void DalaranCardsGen::AddPaladinNonCollect(
     // ---------------------------------------- SPELL - PALADIN
     // [DAL_568ts] Lightforged Blessing (*) - COST:2
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a friendly minion <b>Lifesteal</b>.
     // --------------------------------------------------------
@@ -1415,6 +1430,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_011] Lazul's Scheme - COST:0
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Reduce the Attack of an enemy minion by
     //       @ until your next turn. <i>(Upgrades each turn!)</i>
@@ -1449,6 +1465,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- MINION - PRIEST
     // [DAL_030] Shadowy Figure - COST:2 [ATK:2/HP:2]
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Transform into a 2/2 copy of
     //       a friendly <b>Deathrattle</b> minion.
@@ -1510,6 +1527,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_065] Unsleeping Soul - COST:4
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Silence</b> a friendly minion, then summon a copy of it.
     // --------------------------------------------------------
@@ -1570,6 +1588,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_723] Forbidden Words - COST:0
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Spend all your Mana. Destroy a minion with that
     //       much Attack or less.
@@ -1603,6 +1622,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DAL_724] Mass Resurrection - COST:9
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Summon 3 friendly minions that died this game.
     // --------------------------------------------------------
@@ -1878,7 +1898,7 @@ void DalaranCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // [DAL_366t1] Assassin's Contract (*) - COST:6
     // - Set: Dalaran, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Destroy a minion. Summon a 1/1 Patient Assassin.
+    // Text: Destroy a minion. Summon a 1/2 Patient Assassin.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1960,6 +1980,7 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_009] Hagatha's Scheme - COST:5
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal @ damage to all minions.
     //       <i>(Upgrades each turn!)</i>
@@ -2039,6 +2060,7 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_071] Mutate - COST:0
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Transform a friendly minion into a random one
     //       that costs (1) more.
@@ -2096,6 +2118,7 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DAL_432] Witch's Brew - COST:2
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Restore 4 Health. Repeatable this turn.
     // --------------------------------------------------------
@@ -2227,6 +2250,7 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DAL_007] Rafaam's Scheme - COST:3
     // - Set: Dalaran, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Summon @ 1/1 (Imp, Imps). <i>(Upgrades each turn!)</i>
     // --------------------------------------------------------
@@ -2256,6 +2280,7 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DAL_173] Darkest Hour - COST:6
     // - Set: Dalaran, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Destroy all friendly minions.
     //       For each one, summon a random minion from your deck.
@@ -2357,6 +2382,7 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DAL_605] Impferno - COST:3
     // - Set: Dalaran, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Give your Demons +1 Attack.
     //       Deal 1 damage to all enemy minions.

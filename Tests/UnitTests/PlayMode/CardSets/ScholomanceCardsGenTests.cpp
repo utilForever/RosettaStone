@@ -77,6 +77,7 @@ TEST_CASE("[Druid : Minion] - SCH_242 : Gibberling")
 // ------------------------------------------ SPELL - DRUID
 // [SCH_333] Nature Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Discover</b> a spell. Your next one costs (1) less.
 // --------------------------------------------------------
@@ -144,6 +145,7 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
 // ------------------------------------------ SPELL - DRUID
 // [SCH_427] Lightning Bloom - COST:0
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain 2 Mana Crystals this turn only.
 //       <b>Overload:</b> (2)
@@ -253,6 +255,7 @@ TEST_CASE("[Druid : Spell] - SCH_606 : Partner Assignment")
 // ------------------------------------------ SPELL - DRUID
 // [SCH_612] Runic Carvings - COST:6
 // - Set: SCHOLOMANCE, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Summon four 2/2 Treant Totems; or
 //       <b>Overload:</b> (2) to summon them with <b>Rush</b>.
@@ -864,10 +867,10 @@ TEST_CASE("[Mage : Minion] - SCH_241 : Firebrand")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [SCH_243] Wyrm Weaver - COST:5 [ATK:3/HP:6]
+// [SCH_243] Wyrm Weaver - COST:4 [ATK:3/HP:5]
 // - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
+// Text: <b>Spellburst:</b> Summon two 1/2 Mana Wyrms.
 // --------------------------------------------------------
 TEST_CASE("[Mage : Minion] - SCH_243 : Wyrm Weaver")
 {
@@ -969,6 +972,7 @@ TEST_CASE("[Paladin : Spell] - SCH_247 : First Day of School")
 // ---------------------------------------- SPELL - PALADIN
 // [SCH_524] Shield of Honor - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a damaged minion +3 Attack and <b>Divine Shield</b>.
 // --------------------------------------------------------
@@ -1703,6 +1707,7 @@ TEST_CASE("[Warlock : Minion] - SCH_147 : Boneweb Egg")
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_158] Demonic Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Discover</b> a Demon. Your next one costs (1) less.
 // --------------------------------------------------------
@@ -1773,6 +1778,7 @@ TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_307] School Spirits - COST:3
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 2 damage to all minions.
 //       Shuffle 2 Soul Fragments into your deck.
@@ -2013,6 +2019,7 @@ TEST_CASE("[Warlock : Minion] - SCH_700 : Spirit Jailer")
 // ---------------------------------------- SPELL - WARLOCK
 // [SCH_701] Soul Shear - COST:2
 // - Set: SCHOLOMANCE, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion.
 //       Shuffle 2 Soul Fragments into your deck.
@@ -3091,6 +3098,7 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_270] Primordial Studies - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Discover</b> a <b>Spell Damage</b> minion.
 //       Your next one costs (1) less.
@@ -3610,6 +3618,7 @@ TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_352] Potion of Illusion - COST:4
 // - Set: SCHOLOMANCE, Rarity: Epic
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Add 1/1 copies of your minions to your hand.
 //       They cost (1).
@@ -3811,6 +3820,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
 // ---------------------------------------- SPELL - NEUTRAL
 // [SCH_509] Brain Freeze - COST:1
 // - Set: SCHOLOMANCE, Rarity: Rare
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a minion.
 //       <b>Combo:</b> Also deal 3 damage to it.

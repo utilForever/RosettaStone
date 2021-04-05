@@ -24,53 +24,51 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 10> STANDARD_CARD_SETS = {
-    CardSet::CORE,                   // Basic, 2014
-    CardSet::EXPERT1,                // Classic, 2014
-    CardSet::DEMON_HUNTER_INITIATE,  // Ashes of Outland, 2020
-    CardSet::DALARAN,                // Rise of Shadows, 2019
-    CardSet::ULDUM,                  // Saviors of Uldum, 2019
-    CardSet::DRAGONS,                // Descent of Dragons, 2019
-    CardSet::YEAR_OF_THE_DRAGON,     // Galakrond's Awakening, 2020
-    CardSet::BLACK_TEMPLE,           // Ashes of Outland, 2020
-    CardSet::SCHOLOMANCE,            // Scholomance Academy, 2020
-    CardSet::DARKMOON_FAIRE          // Madness at the Darkmoon Faire, 2020
+constexpr std::array<CardSet, 5> STANDARD_CARD_SETS = {
+    CardSet::CORE,            // Core, 2021
+    CardSet::BLACK_TEMPLE,    // Ashes of Outland, 2020
+    CardSet::SCHOLOMANCE,     // Scholomance Academy, 2020
+    CardSet::DARKMOON_FAIRE,  // Madness at the Darkmoon Faire, 2020
+    CardSet::THE_BARRENS,     // Forged in the Barrens, 2021
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 25> WILD_CARD_SETS = {
-    // Standard
-    CardSet::CORE,                   // Basic, 2014
+constexpr std::array<CardSet, 27> WILD_CARD_SETS = {
+    CardSet::BASIC,                  // Basic, 2014
     CardSet::EXPERT1,                // Classic, 2014
-    CardSet::DEMON_HUNTER_INITIATE,  // Ashes of Outland, 2020
+    CardSet::NAXX,                   // Curse of Naxxramas, 2014
+    CardSet::GVG,                    // Goblins vs Gnomes, 2014
+    CardSet::BRM,                    // Blackrock Mountain, 2015
+    CardSet::TGT,                    // The Grand Tournament, 2015
+    CardSet::LOE,                    // The League of Explorers, 2015
+    CardSet::OG,                     // Whispers of the Old Gods, 2016
+    CardSet::KARA,                   // One Night in Karazhan, 2016
+    CardSet::GANGS,                  // Mean Streets of Gadgetzan, 2016
+    CardSet::HOF,                    // Hall of Fame, 2017
+    CardSet::UNGORO,                 // Journey to Un'Goro, 2017
+    CardSet::ICECROWN,               // Knights of the Frozen Throne, 2017
+    CardSet::LOOTAPALOOZA,           // Kobolds & Catacombs, 2017
+    CardSet::GILNEAS,                // The Witchwood, 2018
+    CardSet::BOOMSDAY,               // The Boomsday Project, 2018
+    CardSet::TROLL,                  // Rastakhan's Rumble, 2018
     CardSet::DALARAN,                // Rise of Shadows, 2019
     CardSet::ULDUM,                  // Saviors of Uldum, 2019
     CardSet::DRAGONS,                // Descent of Dragons, 2019
     CardSet::YEAR_OF_THE_DRAGON,     // Galakrond's Awakening, 2020
+    CardSet::DEMON_HUNTER_INITIATE,  // Ashes of Outland, 2020
     CardSet::BLACK_TEMPLE,           // Ashes of Outland, 2020
     CardSet::SCHOLOMANCE,            // Scholomance Academy, 2020
     CardSet::DARKMOON_FAIRE,         // Madness at the Darkmoon Faire, 2020
+    CardSet::THE_BARRENS,            // Forged in the Barrens, 2021
+};
 
-    // Wild
-    CardSet::NAXX,          // Curse of Naxxramas, 2014
-    CardSet::GVG,           // Goblins vs Gnomes, 2014
-    CardSet::BRM,           // Blackrock Mountain, 2015
-    CardSet::TGT,           // The Grand Tournament, 2015
-    CardSet::LOE,           // The League of Explorers, 2015
-    CardSet::OG,            // Whispers of the Old Gods, 2016
-    CardSet::KARA,          // One Night in Karazhan, 2016
-    CardSet::GANGS,         // Mean Streets of Gadgetzan, 2016
-    CardSet::HOF,           // Hall of Fame, 2017
-    CardSet::UNGORO,        // Journey to Un'Goro, 2017
-    CardSet::ICECROWN,      // Knights of the Frozen Throne, 2017
-    CardSet::LOOTAPALOOZA,  // Kobolds & Catacombs, 2017
-    CardSet::GILNEAS,       // The Witchwood, 2018
-    CardSet::BOOMSDAY,      // The Boomsday Project, 2018
-    CardSet::TROLL,         // Rastakhan's Rumble, 2018
+//! Specifies which card sets combine into the CLASSIC set.
+constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
+    CardSet::VANILLA,  // Classic, 2021
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 11020;
+constexpr int NUM_ALL_CARDS = 12429;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -108,7 +106,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 53;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 54;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -240,7 +238,6 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Mech Pool
 // Deflect-o-Bot (61930)
 // Iron Sensei (1992)
-// Piloted Shredder (60048)
 // Screwjank Clunker (2023)
 // Replicating Menace (48536)
 // Murloc Pool
@@ -252,12 +249,13 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Southsea Strongarm (61048)
 // Neutral
 // Arm of the Empire (63622)
+// Barrens Blacksmith (62582)
 // Khadgar (52502)
 // Warden of Old (65660)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
     38734, 62230, 1003,  40428, 2288,  40391, 61059, 59660, 60558,
-    60552, 60626, 64297, 64054, 64069, 61930, 1992,  60048, 2023,
-    48536, 453,   56393, 61053, 62734, 61048, 63622, 52502, 65660
+    60552, 60626, 64297, 64054, 64069, 61930, 1992,  2023,  48536,
+    453,   56393, 61053, 62734, 61048, 63622, 62582, 52502, 65660
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.

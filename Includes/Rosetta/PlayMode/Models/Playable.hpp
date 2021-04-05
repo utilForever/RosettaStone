@@ -9,8 +9,6 @@
 
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 
-#include <array>
-
 namespace RosettaStone::PlayMode
 {
 class Character;
@@ -129,19 +127,12 @@ class Playable : public Entity
     //! Destroys entity.
     virtual void Destroy();
 
-    //! Gets a value indicating whether this entity is playable. Some entities
-    //! require specific requirements before they can be played. This method
-    //! will process the requirements and produce a result for the current state
-    //! of the game.
-    //! \return true if this entity is playable, false otherwise.
-    bool IsPlayable();
-
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
-    //! \param card A card to check targeting requirements.
+    //! \param _card A card to check targeting requirements.
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
-    virtual bool TargetingRequirements(Card* card, Character* target) const;
+    virtual bool TargetingRequirements(Card* _card, Character* target) const;
 
     //! Gets a value indicating whether source entity is playable by player.
     //! Dynamic requirements are checked, eg: If a spell costs health instead of
@@ -152,8 +143,9 @@ class Playable : public Entity
 
     //! Gets a value indicating whether source entity is playable by card
     //! requirements. Static requirements are checked.
+    //! \param chooseOne The index of chosen card from two cards.
     //! \return true if it is playable by card requirements, false otherwise.
-    bool IsPlayableByCardReq() const;
+    bool IsPlayableByCardReq(int chooseOne = 0) const;
 
     //! Gets the valid play targets.
     //! This method defaults to targeting in the context of spells/hero powers.
@@ -166,22 +158,23 @@ class Playable : public Entity
 
     //! Determines whether the specified character is a valid target.
     //! \param target The proposed target.
+    //! \param chooseOne The index of chosen card from two cards.
     //! \return true if the specified target is valid, false otherwise.
-    bool IsValidPlayTarget(Character* target);
+    bool IsValidPlayTarget(Character* target, int chooseOne = 0) const;
 
     //! Gets whether the current field has any valid play targets
     //! for this playable.
-    //! \param card A card to check the current field has any valid play
+    //! \param _card A card to check the current field has any valid play
     //! targets.
     //! \return true if the current field has any valid play targets,
     //! false otherwise.
-    bool HasAnyValidPlayTargets(Card* card) const;
+    bool HasAnyValidPlayTargets(Card* _card) const;
 
     //! Checks the targeting type of a card.
-    //! \param card A card to check the targeting type.
+    //! \param _card A card to check the targeting type.
     //! \param target The proposed target.
     //! \return true if the targeting type is valid, false otherwise.
-    bool CheckTargetingType(Card* card, Character* target);
+    bool CheckTargetingType(Card* _card, Character* target) const;
 
     //! Activates the task.
     //! \param type The type of power.
@@ -198,6 +191,47 @@ class Playable : public Entity
     int orderOfPlay = 0;
     bool isDestroyed = false;
     bool isTransformed = false;
+
+ private:
+    //! Internal method of IsPlayableByCardReq().
+    //! \param _card A card to check it is playable by card requirements.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReqInternal(Card* _card) const;
+
+    //! Internal method of IsPlayableByCardReq().
+    //! \param card1 A first card to check it is playable by card requirements.
+    //! \param card2 A second card to check it is playable by card requirements.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReqInternal(Card* card1, Card* card2) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param _card A card to check the specified character is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Card* _card) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param card1 A first card to check the specified character
+    //! is a valid target.
+    //! \param card2 A second card to check the specified character
+    //! is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Card* card1, Card* card2) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param target The proposed target.
+    //! \param _card A card to check the specified character is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Character* target, Card* _card) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \param target The proposed target.
+    //! \param card1 A first card to check the specified character
+    //! is a valid target.
+    //! \param card2 A second card to check the specified character
+    //! is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTargetInternal(Character* target, Card* card1,
+                                   Card* card2) const;
 };
 }  // namespace RosettaStone::PlayMode
 

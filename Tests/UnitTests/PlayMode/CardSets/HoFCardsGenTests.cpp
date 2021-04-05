@@ -21,6 +21,7 @@ using namespace SimpleTasks;
 // ------------------------------------------ SPELL - DRUID
 // [EX1_161] Naturalize - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Destroy a minion. Your opponent draws 2 cards.
 // --------------------------------------------------------
@@ -68,6 +69,7 @@ TEST_CASE("[Druid : Spell] - EX1_161 : Naturalize")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_031] Ice Lance - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>,
 //       deal 4 damage instead.
@@ -139,9 +141,10 @@ TEST_CASE("[Mage : Spell] - CS2_031 : Ice Lance")
 // ----------------------------------------- SPELL - PALADIN
 // [EX1_349] Divine Favor - COST:3
 // - Faction: Neutral, Set: HoF, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Draw cards until you have as many in hand
-//       as your opponent
+//       as your opponent.
 // --------------------------------------------------------
 TEST_CASE("[Paladin : Spell] - EX1_349 : Divine Favor")
 {
@@ -231,6 +234,7 @@ TEST_CASE("[Priest : Minion] - CS2_235 : Northshire Cleric")
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_236] Divine Spirit - COST:2
 // - Set: HoF, Rarity: Free
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Double a minion's Health.
 // --------------------------------------------------------
@@ -287,6 +291,7 @@ TEST_CASE("[Priest : Spell] - CS2_236 : Divine Spirit")
 // ----------------------------------------- SPELL - PRIEST
 // [DS1_233] Mind Blast - COST:2
 // - Faction: Neutral, Set: HoF, Rarity: Free
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 5 damage to the enemy hero.
 // --------------------------------------------------------
@@ -480,6 +485,7 @@ TEST_CASE("[Priest : Minion] - EX1_591 : Auchenai Soulpriest")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_624] Holy Fire - COST:6
 // - Faction: Priest, Set: HoF, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 5 damage. Restore 5 Health to your hero.
 // --------------------------------------------------------
@@ -516,85 +522,10 @@ TEST_CASE("[Priest : Spell] - EX1_624 : Holy Fire")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
 }
 
-// ----------------------------------------- SPELL - PRIEST
-// [EX1_625] Shadowform - COST:3
-// - Faction: Priest, Set: HoF, Rarity: Epic
-// --------------------------------------------------------
-// Text: Your Hero Power becomes 'Deal 2 damage'.
-//       If already in Shadowform: 3 damage.
-// --------------------------------------------------------
-TEST_CASE("[Priest : Spell] - EX1_625 : Shadowform")
-{
-    GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    Hero* opHero = opPlayer->GetHero();
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 29);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 27);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 25);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Shatter");
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 22);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 19);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card3));
-    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Shatter");
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 19);
-}
-
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_128] Conceal - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give your minions <b>Stealth</b> until your next turn.
 // --------------------------------------------------------
@@ -769,6 +700,7 @@ TEST_CASE("[Warlock : Minion] - EX1_310 : Doomguard")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_316] Power Overwhelming - COST:1
 // - Faction: Neutral, Set: HoF, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give a friendly minion +4/+4 until end of turn.
 //       Then, it dies. Horribly.

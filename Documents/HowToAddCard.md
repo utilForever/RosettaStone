@@ -126,6 +126,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
     // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Restore a minion
     //       to full Health and

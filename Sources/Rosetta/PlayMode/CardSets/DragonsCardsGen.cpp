@@ -167,7 +167,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 1 card. It costs (1).
+    // Text: <b>Battlecry:</b> Draw 1 card. It costs (0).
     //       <i>(@)</i>
     // --------------------------------------------------------
     // GameTag:
@@ -189,7 +189,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 2 cards. They cost (1).
+    // Text: <b>Battlecry:</b> Draw 2 cards. They cost (0).
     //       <i>(@)</i>
     // --------------------------------------------------------
     // GameTag:
@@ -210,7 +210,7 @@ void DragonsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
     // - Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw 4 cards. They cost (1).
+    // Text: <b>Battlecry:</b> Draw 4 cards. They cost (0).
     //       Equip a 5/2 Claw.
     // --------------------------------------------------------
     // GameTag:
@@ -511,6 +511,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311] Treenforcements - COST:1
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Give a minion +2 Health and
     //       <b>Taunt</b>; or Summon a 2/2 Treant.
@@ -567,6 +568,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_314] Aeroponics - COST:5
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     //       Costs (2) less for each Treant you control.
@@ -592,6 +594,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_315] Embiggen - COST:0
     // - Set: Dragons, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give all minions in your deck +2/+2.
     //       They cost (1) more <i>(up to 10)</i>.
@@ -644,6 +647,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_318] Breath of Dreams - COST:2
     // - Faction: Neutral, Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Draw a card. If you're holding a Dragon,
     //       gain an empty Mana Crystal.
@@ -698,6 +702,7 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311a] Spin 'em Up (*) - COST:0
     // - Set: Dragons
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon a 2/2 Treant.
     // --------------------------------------------------------
@@ -714,6 +719,7 @@ void DragonsCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DRG_311b] Small Repairs (*) - COST:0
     // - Set: Dragons
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion +2 Health and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -789,6 +795,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - HUNTER
     // [DRG_006] Corrosive Breath - COST:2
     // - Set: Dragons, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion. If you're holding
     //       a Dragon, it also hits the enemy hero.
@@ -974,7 +981,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Sidequest:</b> Use your Hero Power three times.
-    //       <b>Reward:</b> Summon three 1/1 Leper Gnomes.
+    //       <b>Reward:</b> Summon three 2/1 Leper Gnomes.
     // --------------------------------------------------------
     // GameTag:
     // - QUEST_PROGRESS_TOTAL = 3
@@ -1100,6 +1107,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_106] Arcane Breath - COST:1
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion. If you're holding a Dragon,
     //       <b>Discover</b> a spell.
@@ -1187,6 +1195,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_321] Rolling Fireball - COST:5
     // - Set: Dragons, Rarity: Epic
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 8 damage to a minion. Any excess damage
     //       continues to the left or right.
@@ -1337,7 +1346,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
-    // [DRG_322] Dragoncaster - COST:7 [ATK:4/HP:4]
+    // [DRG_322] Dragoncaster - COST:6 [ATK:4/HP:4]
     // - Set: Dragons, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you're holding a Dragon,
@@ -1428,6 +1437,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t1] Malygos's Intellect (*) - COST:3
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw 4 cards.
     // --------------------------------------------------------
@@ -1441,6 +1451,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t2] Malygos's Tome (*) - COST:1
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Add 3 random Mage spells to your hand.
     // --------------------------------------------------------
@@ -1458,6 +1469,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t4] Malygos's Explosion (*) - COST:2
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     // --------------------------------------------------------
@@ -1488,6 +1500,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // - Set: Dragons
     // --------------------------------------------------------
     // Text: Transform a minion into a 1/1 Sheep.
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1518,6 +1531,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t7] Malygos's Flamestrike (*) - COST:7
     // - Set: Dragons
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 8 damage to all enemy minions.
     // --------------------------------------------------------
@@ -1532,6 +1546,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t8] Malygos's Frostbolt (*) - COST:0
     // - Set: Dragons
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Deal 3 damage to a character and <b>Freeze</b> it.
     // --------------------------------------------------------
@@ -1553,6 +1568,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t9] Malygos's Fireball (*) - COST:4
     // - Set: Dragons
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 8 damage.
     // --------------------------------------------------------
@@ -1572,6 +1588,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DRG_270t11] Malygos's Missiles (*) - COST:1
     // - Set: Dragons
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 6 damage randomly split among all enemies.
     // --------------------------------------------------------
@@ -2037,6 +2054,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DRG_302] Grave Rune - COST:4
     // - Faction: Neutral, Set: Dragons, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give a minion "<b>Deathrattle:</b> Summon 2 copies of this."
     // --------------------------------------------------------
@@ -2332,7 +2350,7 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
-    // [DRG_031] Necrium Apothecary - COST:5 [ATK:2/HP:5]
+    // [DRG_031] Necrium Apothecary - COST:4 [ATK:2/HP:5]
     // - Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Combo:</b> Draw a <b>Deathrattle</b> minion
@@ -2365,6 +2383,7 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [DRG_033] Candle Breath - COST:6
     // - Set: Dragons, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Draw 3 cards.
     //       Costs (3) less while you're holding a Dragon.
@@ -2547,10 +2566,10 @@ void DragonsCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // [DRG_610e] Galakrond's Wonder (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: Costs (1).
+    // Text: Costs (0).
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
     cards.emplace("DRG_610e", CardDef(power));
 }
 
@@ -2604,6 +2623,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_215] Storm's Wrath - COST:1
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your minions +1/+1. <b>Overload:</b> (1)
     // --------------------------------------------------------
@@ -2638,9 +2658,10 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_217] Dragon's Pack - COST:5
     // - Set: Dragons, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
-    //       If you've <b>Invoked</b> twice, give them +2/+2.
+    //       If you've <b>Invoked</b> twice, give them +3/+3.
     // --------------------------------------------------------
     // GameTag:
     // - 676 = 1
@@ -2661,7 +2682,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cards.emplace("DRG_217", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [DRG_218] Corrupt Elementalist - COST:6 [ATK:3/HP:3]
+    // [DRG_218] Corrupt Elementalist - COST:5 [ATK:3/HP:3]
     // - Set: Dragons, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Invoke</b> Galakrond twice.
@@ -2679,6 +2700,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DRG_219] Lightning Breath - COST:3
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion. If you're holding
     //       a Dragon, also damage its neighbors.
@@ -2750,8 +2772,9 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cards.emplace("DRG_224", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [DRG_248] Invocation of Frost - COST:2
+    // [DRG_248] Invocation of Frost - COST:1
     // - Set: Dragons, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> an enemy. <b>Invoke</b> Galakrond.
     // --------------------------------------------------------
@@ -2971,6 +2994,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DRG_204] Dark Skies - COST:3
     // - Faction: Neutral, Set: Dragons, Rarity: Epic
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 1 damage to a random minion.
     //       Repeat for each card in your hand.
@@ -2987,6 +3011,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DRG_205] Nether Breath - COST:2
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 2 damage. If you're holding a Dragon,
     //       deal 4 damage with <b>Lifesteal</b> instead.
@@ -3015,6 +3040,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DRG_206] Rain of Fire - COST:1
     // - Set: Dragons, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 1 damage to all characters.
     // --------------------------------------------------------
@@ -3093,7 +3119,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace("DRG_209", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [DRG_250] Fiendish Rites - COST:4
+    // [DRG_250] Fiendish Rites - COST:3
     // - Set: Dragons, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Invoke</b> Galakrond.
@@ -3160,7 +3186,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - WARRIOR
-    // [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
+    // [DRG_019] Scion of Ruin - COST:3 [ATK:3/HP:2]
     // - Race: Dragon, Set: Dragons, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Rush</b>. <b>Battlecry:</b> If you've
@@ -3349,6 +3375,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARRIOR
     // [DRG_500] Molten Breath - COST:4
     // - Set: Dragons, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 5 damage to a minion.
     //       If you're holding a Dragon, gain 5 Armor.
@@ -4039,7 +4066,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Dragon, Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
-    //       add 2 other random Dragons to your hand. They cost (1).
+    //       add 2 other random Dragons to your hand. They cost (0).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -4395,10 +4422,10 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // [DRG_089e] A Queen's Discount (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: Costs (1).
+    // Text: Costs (0).
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
     cards.emplace("DRG_089e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4529,7 +4556,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
     // [DRG_217e] Galakrond's Power (*) - COST:0
     // - Set: Dragons
     // --------------------------------------------------------
-    // Text: +2/+2.
+    // Text: +3/+3.
     // --------------------------------------------------------
     // GameTag:
     // - HIDE_WATERMARK = 1
@@ -4601,7 +4628,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
     cards.emplace("DRG_250e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DRG_255t2] Leper Gnome (*) - COST:1 [ATK:1/HP:1]
+    // [DRG_255t2] Leper Gnome (*) - COST:1 [ATK:2/HP:1]
     // - Faction: Neutral, Set: Dragons, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.

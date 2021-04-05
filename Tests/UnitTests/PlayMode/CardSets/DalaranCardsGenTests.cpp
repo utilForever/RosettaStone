@@ -25,6 +25,7 @@ using namespace SimpleTasks;
 // ------------------------------------------ SPELL - DRUID
 // [DAL_256] The Forest's Aid - COST:8
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> Summon five 2/2 Treants.
 // --------------------------------------------------------
@@ -115,6 +116,7 @@ TEST_CASE("[Druid : Spell] - DAL_256 : The Forest's Aid")
 // ------------------------------------------ SPELL - DRUID
 // [DAL_350] Crystal Power - COST:1
 // - Faction: Neutral, Set: Dalaran, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Deal 2 damage to a minion;
 //       or Restore 5 Health.
@@ -175,6 +177,7 @@ TEST_CASE("[Druid : Spell] - DAL_350 : Crystal Power")
 // ------------------------------------------ SPELL - DRUID
 // [DAL_351] Blessing of the Ancients - COST:3
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> Give your minions +1/+1.
 // --------------------------------------------------------
@@ -250,6 +253,7 @@ TEST_CASE("[Druid : Spell] - DAL_351 : Blessing of the Ancients")
 // ------------------------------------------ SPELL - DRUID
 // [DAL_352] Crystalsong Portal - COST:2
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Discover</b> a Druid minion.
 //       If your hand has no minions, keep all 3.
@@ -1316,6 +1320,7 @@ TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_177] Conjurer's Calling - COST:3
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> Destroy a minion.
 //       Summon 2 minions of the same Cost to replace it.
@@ -1538,6 +1543,7 @@ TEST_CASE("[Mage : Minion] - DAL_576 : Kirin Tor Tricaster")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_577] Ray of Frost - COST:1
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> <b>Freeze</b> a minion.
 //       If it's already <b>Frozen</b>, deal 2 damage to it.
@@ -1619,6 +1625,7 @@ TEST_CASE("[Mage : Spell] - DAL_577 : Ray of Frost")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_578] Power of Creation - COST:8
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Discover</b> a 6-Cost minion. Summon two copies of it.
 // --------------------------------------------------------
@@ -1734,6 +1741,7 @@ TEST_CASE("[Mage : Minion] - DAL_603 : Mana Cyclone")
 // ------------------------------------------- SPELL - MAGE
 // [DAL_608] Magic Trick - COST:1
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Discover</b> a spell that costs (3) or less.
 // --------------------------------------------------------
@@ -2015,6 +2023,7 @@ TEST_CASE("[Paladin : Minion] - DAL_147 : Dragon Speaker")
 // ---------------------------------------- SPELL - PALADIN
 // [DAL_568] Lightforged Blessing - COST:2
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Twinspell</b> Give a friendly minion <b>Lifesteal</b>.
 // --------------------------------------------------------
@@ -2429,6 +2438,7 @@ TEST_CASE("[Paladin : Spell] - DAL_731 : Duel!")
 // ----------------------------------------- SPELL - PRIEST
 // [DAL_011] Lazul's Scheme - COST:0
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Reduce the Attack of an enemy minion by
 //       @ until your next turn. <i>(Upgrades each turn!)</i>
@@ -2498,6 +2508,7 @@ TEST_CASE("[Priest : Spell] - DAL_011 : Lazul's Scheme")
 // ---------------------------------------- MINION - PRIEST
 // [DAL_030] Shadowy Figure - COST:2 [ATK:2/HP:2]
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Transform into a 2/2 copy of
 //       a friendly <b>Deathrattle</b> minion.
@@ -2665,6 +2676,7 @@ TEST_CASE("[Priest : Minion] - DAL_040 : Hench-Clan Shadequill")
 // ----------------------------------------- SPELL - PRIEST
 // [DAL_065] Unsleeping Soul - COST:4
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Silence</b> a friendly minion, then summon a copy of it.
 // --------------------------------------------------------
@@ -2848,6 +2860,7 @@ TEST_CASE("[Priest : Minion] - DAL_721 : Catrina Muerte")
 // ----------------------------------------- SPELL - PRIEST
 // [DAL_723] Forbidden Words - COST:0
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Spend all your Mana. Destroy a minion with that
 //       much Attack or less.
@@ -2900,6 +2913,7 @@ TEST_CASE("[Priest : Spell] - DAL_723 : Forbidden Words")
 // ----------------------------------------- SPELL - PRIEST
 // [DAL_724] Mass Resurrection - COST:9
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Summon 3 friendly minions that died this game.
 // --------------------------------------------------------
@@ -3006,22 +3020,52 @@ TEST_CASE("[Priest : Spell] - DAL_729 : Madame Lazul")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Madame Lazul"));
-    [[maybe_unused]] const auto card2 =
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadow Word: Death"));
+    const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
-    [[maybe_unused]] const auto card3 =
+    const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Anubisath Warbringer"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(opHand[0]));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card5));
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK(curPlayer->choice != nullptr);
 
     auto cards = TestUtils::GetChoiceCards(game);
-    // NOTE: dbfID of the card 'The Coin' is 1746
-    //       dbfID of the card 'Wolfrider' is 289
+    // NOTE: dbfID of the card 'Wolfrider' is 289
     //       dbfID of the card 'Wisp' is 179
-    const int dbfTotal = cards[0]->dbfID + cards[1]->dbfID + cards[2]->dbfID;
-    CHECK_EQ(dbfTotal, 2214);
+    const int dbfTotal = cards[0]->dbfID + cards[1]->dbfID;
+    CHECK_EQ(dbfTotal, 468);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 4);
+    CHECK_EQ(opHand.GetCount(), 2);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3731,6 +3775,7 @@ TEST_CASE("[Rogue : Spell] - DAL_728 : Daring Escape")
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_009] Hagatha's Scheme - COST:5
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal @ damage to all minions.
 //       <i>(Upgrades each turn!)</i>
@@ -3897,6 +3942,7 @@ TEST_CASE("[Shaman : Minion] - DAL_052 : Muckmorpher")
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_071] Mutate - COST:0
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Transform a friendly minion into a random one
 //       that costs (1) more.
@@ -4063,6 +4109,7 @@ TEST_CASE("[Shaman : Minion] - DAL_431t : Drustvar Horror")
 // ----------------------------------------- SPELL - SHAMAN
 // [DAL_432] Witch's Brew - COST:2
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Restore 4 Health. Repeatable this turn.
 // --------------------------------------------------------
@@ -4304,6 +4351,7 @@ TEST_CASE("[Shaman : Minion] - DAL_726 : Scargil")
 // ---------------------------------------- SPELL - WARLOCK
 // [DAL_007] Rafaam's Scheme - COST:3
 // - Set: Dalaran, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Summon @ 1/1 (Imp, Imps). <i>(Upgrades each turn!)</i>
 // --------------------------------------------------------
@@ -4357,6 +4405,7 @@ TEST_CASE("[Warlock : Spell] - DAL_007 : Rafaam's Scheme")
 // ---------------------------------------- SPELL - WARLOCK
 // [DAL_173] Darkest Hour - COST:6
 // - Set: Dalaran, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy all friendly minions.
 //       For each one, summon a random minion from your deck.
@@ -4670,6 +4719,7 @@ TEST_CASE("[Warlock : Spell] - DAL_602 : Plot Twist")
 // ---------------------------------------- SPELL - WARLOCK
 // [DAL_605] Impferno - COST:3
 // - Set: Dalaran, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Give your Demons +1 Attack.
 //       Deal 1 damage to all enemy minions.

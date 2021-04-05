@@ -463,6 +463,7 @@ void YoDCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [YOD_015] Dark Prophecy - COST:3
     // - Set: YoD, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Discover</b> a 2 Cost minion.
     //       Summon it and give it +3 Health.
@@ -548,6 +549,7 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_020] Explosive Evolution - COST:2
     // - Set: YoD, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Transform a minion into a random one that costs (3) more.
     // --------------------------------------------------------
@@ -566,6 +568,7 @@ void YoDCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [YOD_041] Eye of the Storm - COST:10
     // - Set: YoD, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon three 5/6 Elementals with <b>Taunt</b>.
     //       <b>Overload:</b> (3)
@@ -797,7 +800,7 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("YOD_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [YOD_032] Skydiving Instructor - COST:4 [ATK:3/HP:3]
+    // [YOD_032] Frenzied Felwing - COST:4 [ATK:3/HP:3]
     // - Race: Demon, Faction: Neutral, Set: YoD, Rarity: Rare
     // --------------------------------------------------------
     // Text: Costs (1) less for each damage dealt to

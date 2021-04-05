@@ -197,7 +197,7 @@ TEST_CASE("[Warlock : Hero] - DRG_600t3 : Galakrond, Azeroth's End")
 // [DRG_610] Galakrond, the Nightmare - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 1 card. It costs (1).
+// Text: <b>Battlecry:</b> Draw 1 card. It costs (0).
 //       <i>(@)</i>
 // --------------------------------------------------------
 // GameTag:
@@ -248,7 +248,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 1);
+    CHECK_EQ(curHand[4]->GetCost(), 0);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 6);
@@ -259,7 +259,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
 // [DRG_610t2] Galakrond, the Apocalypse (*) - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 2 cards. They cost (1).
+// Text: <b>Battlecry:</b> Draw 2 cards. They cost (0).
 //       <i>(@)</i>
 // --------------------------------------------------------
 // GameTag:
@@ -309,8 +309,8 @@ TEST_CASE("[Rogue : Hero] - DRG_610t2 : Galakrond, the Apocalypse")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 1);
-    CHECK_EQ(curHand[5]->GetCost(), 1);
+    CHECK_EQ(curHand[4]->GetCost(), 0);
+    CHECK_EQ(curHand[5]->GetCost(), 0);
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 7);
@@ -321,7 +321,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610t2 : Galakrond, the Apocalypse")
 // [DRG_610t3] Galakrond, Azeroth's End (*) - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Draw 4 cards. They cost (1).
+// Text: <b>Battlecry:</b> Draw 4 cards. They cost (0).
 //       Equip a 5/2 Claw.
 // --------------------------------------------------------
 // GameTag:
@@ -370,10 +370,10 @@ TEST_CASE("[Rogue : Hero] - DRG_610t3 : Galakrond, Azeroth's End")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
     CHECK_EQ(curHand.GetCount(), 8);
     CHECK_EQ(curHand[3]->GetCost(), 4);
-    CHECK_EQ(curHand[4]->GetCost(), 1);
-    CHECK_EQ(curHand[5]->GetCost(), 1);
-    CHECK_EQ(curHand[6]->GetCost(), 1);
-    CHECK_EQ(curHand[7]->GetCost(), 1);
+    CHECK_EQ(curHand[4]->GetCost(), 0);
+    CHECK_EQ(curHand[5]->GetCost(), 0);
+    CHECK_EQ(curHand[6]->GetCost(), 0);
+    CHECK_EQ(curHand[7]->GetCost(), 0);
     CHECK_EQ(curPlayer->GetWeapon().card->name, "Dragon Claw");
     CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 5);
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
@@ -1104,6 +1104,7 @@ TEST_CASE("[Druid : Spell] - DRG_051 : Strength in Numbers")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_311] Treenforcements - COST:1
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Give a minion +2 Health and
 //       <b>Taunt</b>; or Summon a 2/2 Treant.
@@ -1257,6 +1258,7 @@ TEST_CASE("[Druid : Minion] - DRG_313 : Emerald Explorer")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_314] Aeroponics - COST:5
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Draw 2 cards.
 //       Costs (2) less for each Treant you control.
@@ -1315,6 +1317,7 @@ TEST_CASE("[Druid : Spell] - DRG_314 : Aeroponics")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_315] Embiggen - COST:0
 // - Set: Dragons, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give all minions in your deck +2/+2.
 //       They cost (1) more <i>(up to 10)</i>.
@@ -1454,6 +1457,7 @@ TEST_CASE("[Druid : Spell] - DRG_317 : Secure the Deck")
 // ------------------------------------------ SPELL - DRUID
 // [DRG_318] Breath of Dreams - COST:2
 // - Faction: Neutral, Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Draw a card. If you're holding a Dragon,
 //       gain an empty Mana Crystal.
@@ -1674,6 +1678,7 @@ TEST_CASE("[Druid : Minion] - DRG_320 : Ysera, Unleashed")
 // ----------------------------------------- SPELL - HUNTER
 // [DRG_006] Corrosive Breath - COST:2
 // - Set: Dragons, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion. If you're holding
 //       a Dragon, it also hits the enemy hero.
@@ -1906,7 +1911,7 @@ TEST_CASE("[Hunter : Minion] - DRG_095 : Veranus")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 1);
     CHECK_EQ(curField[2]->GetHealth(), 6);
 
@@ -2182,7 +2187,7 @@ TEST_CASE("[Hunter : Minion] - DRG_254 : Primordial Explorer")
 // - Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Sidequest:</b> Use your Hero Power three times.
-//       <b>Reward:</b> Summon three 1/1 Leper Gnomes.
+//       <b>Reward:</b> Summon three 2/1 Leper Gnomes.
 // --------------------------------------------------------
 // GameTag:
 // - QUEST_PROGRESS_TOTAL = 3
@@ -2447,6 +2452,7 @@ TEST_CASE("[Mage : Minion] - DRG_104 : Chenvaala")
 // ------------------------------------------- SPELL - MAGE
 // [DRG_106] Arcane Breath - COST:1
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion. If you're holding a Dragon,
 //       <b>Discover</b> a spell.
@@ -2685,6 +2691,7 @@ TEST_CASE("[Mage : Minion] - DRG_270 : Malygos, Aspect of Magic")
 // ------------------------------------------- SPELL - MAGE
 // [DRG_321] Rolling Fireball - COST:5
 // - Set: Dragons, Rarity: Epic
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 8 damage to a minion. Any excess damage
 //       continues to the left or right.
@@ -2744,7 +2751,7 @@ TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [DRG_322] Dragoncaster - COST:7 [ATK:4/HP:4]
+// [DRG_322] Dragoncaster - COST:6 [ATK:4/HP:4]
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If you're holding a Dragon,
@@ -3886,6 +3893,7 @@ TEST_CASE("[Priest : Spell] - DRG_301 : Whispers of EVIL")
 // ----------------------------------------- SPELL - PRIEST
 // [DRG_302] Grave Rune - COST:4
 // - Faction: Neutral, Set: Dragons, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give a minion "<b>Deathrattle:</b> Summon 2 copies of this."
 // --------------------------------------------------------
@@ -4476,7 +4484,7 @@ TEST_CASE("[Rogue : Spell] - DRG_030 : Praise Galakrond!")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [DRG_031] Necrium Apothecary - COST:5 [ATK:2/HP:5]
+// [DRG_031] Necrium Apothecary - COST:4 [ATK:2/HP:5]
 // - Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Combo:</b> Draw a <b>Deathrattle</b> minion
@@ -4553,6 +4561,7 @@ TEST_CASE("[Rogue : Minion] - DRG_031 : Necrium Apothecary")
 // ------------------------------------------ SPELL - ROGUE
 // [DRG_033] Candle Breath - COST:6
 // - Set: Dragons, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Draw 3 cards.
 //       Costs (3) less while you're holding a Dragon.
@@ -4958,6 +4967,7 @@ TEST_CASE("[Shaman : Minion] - DRG_211 : Squallhunter")
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_215] Storm's Wrath - COST:1
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your minions +1/+1. <b>Overload:</b> (1)
 // --------------------------------------------------------
@@ -5091,9 +5101,10 @@ TEST_CASE("[Shaman : Minion] - DRG_216 : Surging Tempest")
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_217] Dragon's Pack - COST:5
 // - Set: Dragons, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
-//       If you've <b>Invoked</b> twice, give them +2/+2.
+//       If you've <b>Invoked</b> twice, give them +3/+3.
 // --------------------------------------------------------
 // GameTag:
 // - 676 = 1
@@ -5144,15 +5155,15 @@ TEST_CASE("[Shaman : Spell] - DRG_217 : Dragon's Pack")
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(curField[2]->card->name, "Spirit Wolf");
-    CHECK_EQ(curField[2]->GetAttack(), 4);
-    CHECK_EQ(curField[2]->GetHealth(), 5);
+    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 6);
     CHECK_EQ(curField[3]->card->name, "Spirit Wolf");
-    CHECK_EQ(curField[3]->GetAttack(), 4);
-    CHECK_EQ(curField[3]->GetHealth(), 5);
+    CHECK_EQ(curField[3]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 6);
 }
 
 // ---------------------------------------- MINION - SHAMAN
-// [DRG_218] Corrupt Elementalist - COST:6 [ATK:3/HP:3]
+// [DRG_218] Corrupt Elementalist - COST:5 [ATK:3/HP:3]
 // - Set: Dragons, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> <b>Invoke</b> Galakrond twice.
@@ -5199,6 +5210,7 @@ TEST_CASE("[Shaman : Minion] - DRG_218 : Corrupt Elementalist")
 // ----------------------------------------- SPELL - SHAMAN
 // [DRG_219] Lightning Breath - COST:3
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 4 damage to a minion. If you're holding
 //       a Dragon, also damage its neighbors.
@@ -5415,8 +5427,9 @@ TEST_CASE("[Shaman : Minion] - DRG_224 : Nithogg")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
-// [DRG_248] Invocation of Frost - COST:2
+// [DRG_248] Invocation of Frost - COST:1
 // - Set: Dragons, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> an enemy. <b>Invoke</b> Galakrond.
 // --------------------------------------------------------
@@ -5655,6 +5668,7 @@ TEST_CASE("[Warlock : Minion] - DRG_203 : Veiled Worshipper")
 // ---------------------------------------- SPELL - WARLOCK
 // [DRG_204] Dark Skies - COST:3
 // - Faction: Neutral, Set: Dragons, Rarity: Epic
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 1 damage to a random minion.
 //       Repeat for each card in your hand.
@@ -5702,6 +5716,7 @@ TEST_CASE("[Warlock : Spell] - DRG_204 : Dark Skies")
 // ---------------------------------------- SPELL - WARLOCK
 // [DRG_205] Nether Breath - COST:2
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 2 damage. If you're holding a Dragon,
 //       deal 4 damage with <b>Lifesteal</b> instead.
@@ -5753,6 +5768,7 @@ TEST_CASE("[Warlock : Spell] - DRG_205 : Nether Breath")
 // ---------------------------------------- SPELL - WARLOCK
 // [DRG_206] Rain of Fire - COST:1
 // - Set: Dragons, Rarity: Common
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 1 damage to all characters.
 // --------------------------------------------------------
@@ -5990,7 +6006,7 @@ TEST_CASE("[Warlock : Minion] - DRG_209 : Zzeraku the Warped")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
-// [DRG_250] Fiendish Rites - COST:4
+// [DRG_250] Fiendish Rites - COST:3
 // - Set: Dragons, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Invoke</b> Galakrond.
@@ -6047,7 +6063,7 @@ TEST_CASE("[Warlock : Spell] - DRG_250 : Fiendish Rites")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [DRG_019] Scion of Ruin - COST:4 [ATK:3/HP:2]
+// [DRG_019] Scion of Ruin - COST:3 [ATK:3/HP:2]
 // - Race: Dragon, Set: Dragons, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Rush</b>. <b>Battlecry:</b> If you've
@@ -6536,6 +6552,7 @@ TEST_CASE("[Warrior : Spell] - DRG_249 : Awaken!")
 // ---------------------------------------- SPELL - WARRIOR
 // [DRG_500] Molten Breath - COST:4
 // - Set: Dragons, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 5 damage to a minion.
 //       If you're holding a Dragon, gain 5 Armor.
@@ -8350,7 +8367,7 @@ TEST_CASE("[Neutral : Minion] - DRG_088 : Dread Raven")
 // - Race: Dragon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If your deck has no duplicates,
-//       add 2 other random Dragons to your hand. They cost (1).
+//       add 2 other random Dragons to your hand. They cost (0).
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -8402,10 +8419,10 @@ TEST_CASE("[Neutral : Minion] - DRG_089 : Dragonqueen Alexstrasza")
     CHECK_EQ(curHand.GetCount(), 7);
     CHECK_NE(curHand[5]->card->name, "Dragonqueen Alexstrasza");
     CHECK_EQ(curHand[5]->card->GetRace(), Race::DRAGON);
-    CHECK_EQ(curHand[5]->GetCost(), 1);
+    CHECK_EQ(curHand[5]->GetCost(), 0);
     CHECK_NE(curHand[6]->card->name, "Dragonqueen Alexstrasza");
     CHECK_EQ(curHand[6]->card->GetRace(), Race::DRAGON);
-    CHECK_EQ(curHand[6]->GetCost(), 1);
+    CHECK_EQ(curHand[6]->GetCost(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL

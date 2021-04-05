@@ -86,6 +86,7 @@ TEST_CASE("[Druid : Minion] - BT_127 : Imprisoned Satyr")
 // ------------------------------------------ SPELL - DRUID
 // [BT_130] Overgrowth - COST:4
 // - Faction: Neutral, Set: Core, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain two empty Mana Crystals.
 // --------------------------------------------------------
@@ -181,6 +182,7 @@ TEST_CASE("[Druid : Minion] - BT_131 : Ysiel Windsinger")
 // ------------------------------------------ SPELL - DRUID
 // [BT_132] Ironbark - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a minion +1/+3 and <b>Taunt</b>.
 //       Costs (0) if you have at least 7 Mana Crystals.
@@ -590,6 +592,7 @@ TEST_CASE("[Hunter : Spell] - BT_213 : Scavenger's Ingenuity")
 // ------------------------------------------- SPELL - MAGE
 // [BT_002] Incanter's Flow - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Reduce the Cost of spells in your deck by (1).
 // --------------------------------------------------------
@@ -647,6 +650,7 @@ TEST_CASE("[Mage : Spell] - BT_002 : Incanter's Flow")
 // ------------------------------------------- SPELL - MAGE
 // [BT_003] Netherwind Portal - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After your opponent casts a spell,
 //       summon a random 4-Cost minion.
@@ -862,6 +866,7 @@ TEST_CASE("[Mage : Minion] - BT_014 : Starscryer")
 // ------------------------------------------- SPELL - MAGE
 // [BT_072] Deep Freeze - COST:8
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.
 // --------------------------------------------------------
@@ -1041,6 +1046,7 @@ TEST_CASE("[Paladin : Minion] - BT_009 : Imprisoned Sungill")
 // ---------------------------------------- SPELL - PALADIN
 // [BT_011] Libram of Justice - COST:5
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Equip a 1/4 weapon.
 //       Change the Health of all enemy minions to 1.
@@ -1142,6 +1148,7 @@ TEST_CASE("[Paladin : Weapon] - BT_018 : Underlight Angling Rod")
 // ---------------------------------------- SPELL - PALADIN
 // [BT_024] Libram of Hope - COST:9
 // - Set: BLACK_TEMPLE, Rarity: Epic
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 8 Health. Summon an 8/8 Guardian
 //       with <b>Taunt</b> and <b>Divine Shield</b>.
@@ -1193,6 +1200,7 @@ TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
 // ----------------------------------------- SPELL - PRIEST
 // [BT_252] Renew - COST:1
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 3 Health. <b>Discover</b> a spell.
 // --------------------------------------------------------
@@ -1249,6 +1257,7 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
 // ----------------------------------------- SPELL - PRIEST
 // [BT_253] Psyche Split - COST:5
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Give a minion +1/+2. Summon a copy of it.
 // --------------------------------------------------------
@@ -1348,6 +1357,7 @@ TEST_CASE("[Preist : Minion] - BT_256 : Dragonmaw Overseer")
 // ----------------------------------------- SPELL - PRIEST
 // [BT_257] Apotheosis - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2/+3 and <b>Lifesteal</b>.
 // --------------------------------------------------------
@@ -1581,6 +1591,7 @@ TEST_CASE("[Priest : Minion] - BT_341 : Skeletal Dragon")
 // ---------------------------------------- SPELL - PALADIN
 // [BT_292] Hand of A'dal - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2/+2. Draw a card.
 // --------------------------------------------------------
@@ -1987,6 +1998,7 @@ TEST_CASE("[Rogue : Minion] - BT_711 : Blackjack Stunner")
 // ----------------------------------------- SPELL - SHAMAN
 // [BT_100] Serpentshrine Portal - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage. Summon a random 3-Cost minion.
 //       <b>Overload:</b> (1)
@@ -2144,6 +2156,7 @@ TEST_CASE("[Shaman : Minion] - BT_106 : Bogstrok Clacker")
 // ----------------------------------------- SPELL - SHAMAN
 // [BT_110] Torrent - COST:4
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 8 damage to a minion.
 //       Costs (3) less if you cast a spell last turn.
@@ -2400,6 +2413,7 @@ TEST_CASE("[Shaman : Minion] - BT_115 : Marshspawn")
 // ---------------------------------------- SPELL - WARLOCK
 // [BT_199] Unstable Felbolt - COST:1
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 3 damage to an enemy minion
 //       and a random friendly one.
@@ -2503,6 +2517,7 @@ TEST_CASE("[Warlock : Minion] - BT_301 : Nightshade Matron")
 // ---------------------------------------- SPELL - WARLOCK
 // [BT_302] The Dark Portal - COST:4
 // - Set: BLACK_TEMPLE, Rarity: Rare
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Draw a minion. If you have at least 8 cards in hand,
 //       it costs (5) less.
@@ -3459,6 +3474,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_509 : Fel Summoner")
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_514] Immolation Aura - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 1 damage to all minions twice.
 // --------------------------------------------------------

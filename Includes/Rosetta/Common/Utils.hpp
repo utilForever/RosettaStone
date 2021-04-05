@@ -200,6 +200,20 @@ void RemoveSubstrs(std::basic_string<T>& str,
     }
 }
 
+//! Finds out if \p value starts with \p starting.
+//! \param value The original string.
+//! \param starting The suffix string to check.
+//! \return true if \p value starts with \p starting, false otherwise.
+inline bool StartsWith(const std::string& value, const std::string& starting)
+{
+    if (starting.size() > value.size())
+    {
+        return false;
+    }
+
+    return std::equal(starting.rbegin(), starting.rend(), value.rbegin());
+}
+
 //! Finds out if \p value ends with \p ending.
 //! \param value The original string.
 //! \param ending The suffix string to check.

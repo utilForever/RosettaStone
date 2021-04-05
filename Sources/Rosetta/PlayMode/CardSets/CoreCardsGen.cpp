@@ -1,2508 +1,1624 @@
 ﻿// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ControlTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/CountTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FuncNumberTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealFullTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ManaCrystalTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomEntourageTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ReturnHandTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/TempManaTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
-
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
-
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ----------------------------------------- HERO - WARRIOR
-    // [HERO_01] Garrosh Hellscream - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 725
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_01", CardDef(power));
-
-    // ------------------------------------------ HERO - SHAMAN
-    // [HERO_02] Thrall - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 687
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_02", CardDef(power));
-
-    // ------------------------------------------- HERO - ROGUE
-    // [HERO_03] Valeera Sanguinar - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 730
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_03", CardDef(power));
-
-    // ----------------------------------------- HERO - PALADIN
-    // [HERO_04] Uther Lightbringer - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 472
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_04", CardDef(power));
-
-    // ------------------------------------------ HERO - HUNTER
-    // [HERO_05] Rexxar - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 229
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_05", CardDef(power));
-
-    // ------------------------------------------- HERO - DRUID
-    // [HERO_06] Malfurion Stormrage - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 1123
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_06", CardDef(power));
-
     // ----------------------------------------- HERO - WARLOCK
-    // [HERO_07] Gul'dan - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_323] Lord Jaraxxus - COST:9
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Equip a 3/8 Blood Fury.
     // --------------------------------------------------------
     // GameTag:
-    // - HERO_POWER = 300
+    // - ELITE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_07", CardDef(power));
-
-    // -------------------------------------------- HERO - MAGE
-    // [HERO_08] Jaina Proudmoore - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // RefTag:
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 807
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_08", CardDef(power));
-
-    // ------------------------------------------ HERO - PRIEST
-    // [HERO_09] Anduin Wrynn - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 479
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_09", CardDef(power));
-
-    // ------------------------------------- HERO - DEMONHUNTER
-    // [HERO_10] Illidan Stormrage - COST:0 [ATK:0/HP:30]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - HERO_POWER = 60224
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("HERO_10", CardDef(power));
 }
 
 void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ----------------------------------- HERO_POWER - WARRIOR
-    // [HERO_01bp] Armor Up! (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Gain 2 Armor.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ArmorTask>(2));
-    cards.emplace("HERO_01bp", CardDef(power));
-
-    // ----------------------------------- HERO_POWER - WARRIOR
-    // [HERO_01bp2] Tank Up! (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Gain 4 Armor.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ArmorTask>(4));
-    cards.emplace("HERO_01bp2", CardDef(power));
-
-    // ------------------------------------ HERO_POWER - SHAMAN
-    // [HERO_02bp] Totemic Call (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Summon a random Totem.
-    // --------------------------------------------------------
-    // Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
-        auto minions = playable->player->GetFieldZone()->GetAll();
-        std::vector<Card*> totemCards;
-        totemCards.reserve(4);
-
-        for (const auto& id : playable->card->entourages)
-        {
-            bool exist = false;
-            for (const auto& minion : minions)
-            {
-                if (id == minion->card->id)
-                {
-                    exist = true;
-                    break;
-                }
-            }
-
-            if (!exist)
-            {
-                totemCards.emplace_back(Cards::FindCardByID(id));
-            }
-        }
-
-        if (totemCards.empty())
-        {
-            return 0;
-        }
-
-        const auto idx = Random::get<std::size_t>(0, totemCards.size() - 1);
-        Playable* totem =
-            Entity::GetFromCard(playable->player, totemCards[idx]);
-        playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));
-
-        return 0;
-    }));
-    cards.emplace(
-        "HERO_02bp",
-        CardDef(power,
-                PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
-                          { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } },
-                ChooseCardIDs{},
-                Entourages{ "CS2_050", "CS2_051", "CS2_052", "NEW1_009" }));
-
-    // ------------------------------------ HERO_POWER - SHAMAN
-    // [HERO_02bp2] Totemic Slam (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Summon a Totem of your choice.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DiscoverTask>(DiscoverType::BASIC_TOTEM, 4));
-    cards.emplace(
-        "HERO_02bp2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
-
-    // ------------------------------------- HERO_POWER - ROGUE
-    // [HERO_03bp] Dagger Mastery (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<WeaponTask>("CS2_082"));
-    cards.emplace("HERO_03bp", CardDef(power));
-
-    // ------------------------------------- HERO_POWER - ROGUE
-    // [HERO_03bp2] Poisoned Daggers (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Equip a 2/2 Weapon.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<WeaponTask>("AT_132_ROGUEt"));
-    cards.emplace("HERO_03bp2", CardDef(power));
-
-    // ----------------------------------- HERO_POWER - PALADIN
-    // [HERO_04bp] Reinforce (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<SummonTask>("CS2_101t", SummonSide::DEFAULT));
-    cards.emplace(
-        "HERO_04bp",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
-
-    // ----------------------------------- HERO_POWER - PALADIN
-    // [HERO_04bp2] The Silver Hand (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Summon two 1/1 Recruits.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<SummonTask>("CS2_101t", 2, SummonSide::DEFAULT));
-    cards.emplace(
-        "HERO_04bp2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
-
-    // ------------------------------------ HERO_POWER - HUNTER
-    // [HERO_05bp] Steady Shot (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_STEADY_SHOT = 0
-    // - REQ_MINION_OR_ENEMY_HERO = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
-    cards.emplace(
-        "HERO_05bp",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
-                                 { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
-
-    // ------------------------------------ HERO_POWER - HUNTER
-    // [HERO_05bp2] Ballista Shot (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Deal 3 damage to the enemy hero.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_STEADY_SHOT = 0
-    // - REQ_MINION_OR_ENEMY_HERO = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 3, false));
-    cards.emplace(
-        "HERO_05bp2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
-                                 { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
-
-    // ------------------------------------- HERO_POWER - DRUID
-    // [HERO_06bp] Shapeshift (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_017o", EntityType::HERO));
-    power.AddPowerTask(std::make_shared<ArmorTask>(1));
-    cards.emplace("HERO_06bp", CardDef(power));
-
-    // ------------------------------------- HERO_POWER - DRUID
-    // [HERO_06bp2] Dire Shapeshift (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> +2 Attack this turn. +2 Armor.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("AT_132_DRUIDe",
-                                                            EntityType::HERO));
-    power.AddPowerTask(std::make_shared<ArmorTask>(2));
-    cards.emplace("HERO_06bp2", CardDef(power));
-
-    // ----------------------------------- HERO_POWER - WARLOCK
-    // [HERO_07bp] Life Tap (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Draw a card and take 2 damage.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::HERO, 2, false));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("HERO_07bp", CardDef(power));
-
-    // ----------------------------------- HERO_POWER - WARLOCK
-    // [HERO_07bp2] Soul Tap (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("HERO_07bp2", CardDef(power));
-
-    // -------------------------------------- HERO_POWER - MAGE
-    // [HERO_08bp] Fireblast (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Deal 1 damage.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 1, false));
-    cards.emplace(
-        "HERO_08bp",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // -------------------------------------- HERO_POWER - MAGE
-    // [HERO_08bp2] Fireblast Rank 2 (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Deal 2 damage.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
-    cards.emplace(
-        "HERO_08bp2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ------------------------------------ HERO_POWER - PRIEST
-    // [HERO_09bp] Lesser Heal (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Restore 2 Health.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 2));
-    cards.emplace(
-        "HERO_09bp",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ------------------------------------ HERO_POWER - PRIEST
-    // [HERO_09bp2] Heal (*) - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Restore 4 Health.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 4));
-    cards.emplace(
-        "HERO_09bp2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ------------------------------- HERO_POWER - DEMONHUNTER
-    // [HERO_10bp] Demon Claws (*) - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> +1 Attack this turn.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("HERO_10bpe", EntityType::HERO));
-    cards.emplace("HERO_10bp", CardDef(power));
-
-    // ------------------------------- HERO_POWER - DEMONHUNTER
-    // [HERO_10bp2] Demon's Bite (*) - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Hero Power</b> +2 Attack this turn.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("HERO_10pe2", EntityType::HERO));
-    cards.emplace("HERO_10bp2", CardDef(power));
+    // Do nothing
 }
 
 void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_BOT_420] Landscaping - COST:3
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Summon two 2/2 Treants.
+    // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
-    // [CS2_005] Claw - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_009] Mark of the Wild - COST:2
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ArmorTask>(2));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_005o", EntityType::HERO));
-    cards.emplace("CS2_005", CardDef(power));
-
-    // ------------------------------------------ SPELL - DRUID
-    // [CS2_007] Healing Touch - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Restore 8 Health.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
-    cards.emplace(
-        "CS2_007",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ------------------------------------------ SPELL - DRUID
-    // [CS2_008] Moonfire - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 1 damage.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
-    cards.emplace(
-        "CS2_008",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ------------------------------------------ SPELL - DRUID
-    // [CS2_009] Mark of the Wild - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Give a minion <b>Taunt</b> and +2/+2.<i>
-    //       (+2 Attack/+2 Health)</i>
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
+    // Text: Give a minion <b>Taunt</b> and +2/+3.<i>
+    //       (+2 Attack/+3 Health)</i>
     // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_009e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_009",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
-    // [CS2_011] Savage Roar - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Give your characters +2 Attack this turn.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_011o", EntityType::FRIENDS));
-    cards.emplace("CS2_011", CardDef(power));
-
-    // ------------------------------------------ SPELL - DRUID
-    // [CS2_012] Swipe - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 4 damage to an enemy and 1 damage to all other enemies.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_ENEMY_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMIES_NOTARGET, 1, true));
-    cards.emplace("CS2_012",
-                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
-
-    // ------------------------------------------ SPELL - DRUID
-    // [CS2_013] Wild Growth - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_013] Wild Growth - COST:3
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain an empty Mana Crystal.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
-    cards.emplace("CS2_013", CardDef(power));
-
-    // ----------------------------------------- MINION - DRUID
-    // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
-    // - Faction: neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_232", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
-    // [EX1_169] Innervate - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_158] Soul of the Forest - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Give your minions
+    //       "<b>Deathrattle:</b> Summon a 2/2 Treant."
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_EX1_160] Power of the Wild - COST:2
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Give your minions +1/+1;
+    //       or Summon a 3/2 Panther.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_EX1_164] Nourish - COST:6
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Gain 2 Mana Crystals;
+    //       or Draw 3 cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_EX1_165] Druid of the Claw - COST:5 [ATK:5/HP:4]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Transform into a 5/4
+    //       with <b>Rush</b>; or a 5/6 with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_EX1_169] Innervate - COST:0
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<TempManaTask>(1));
-    cards.emplace("EX1_169", CardDef(power));
+
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b>
+    //       +5 Attack; or +5 Health and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
-    // [EX1_173] Starfire - COST:6
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_571] Force of Nature - COST:5
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 5 damage. Draw a card.
+    // Text: Summon three 2/2 Treants.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 5));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace(
-        "EX1_173",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-}
 
-void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
-{
-    Power power;
-
-    // ------------------------------------ ENCHANTMENT - DRUID
-    // [CS2_005o] Claw (*) - COST:0
-    // - Set: Core
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_EX1_573] Cenarius - COST:8 [ATK:5/HP:8]
+    // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: +2 Attack this turn.
+    // Text: <b>Choose One -</b> Give your other minions +2/+2;
+    //       or Summon two 2/2 Treants with <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
+    // - ELITE = 1
+    // - CHOOSE_ONE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_005o"));
-    cards.emplace("CS2_005o", CardDef(power));
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
 
-    // ------------------------------------ ENCHANTMENT - DRUID
-    // [CS2_009e] Mark of the Wild (*) - COST:0
-    // - Set: Core
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_KAR_065] Menagerie Warden - COST:5 [ATK:4/HP:4]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: +2/+2 and <b>Taunt</b>.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_009e"));
-    cards.emplace("CS2_009e", CardDef(power));
-
-    // ------------------------------------ ENCHANTMENT - DRUID
-    // [CS2_011o] Savage Roar (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +2 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_011o"));
-    cards.emplace("CS2_011o", CardDef(power));
-
-    // ------------------------------------ ENCHANTMENT - DRUID
-    // [CS2_017o] Claws (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Your hero has +1 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_017o"));
-    cards.emplace("CS2_017o", CardDef(power));
-}
-
-void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
-{
-    Power power;
-
-    // ----------------------------------------- SPELL - HUNTER
-    // [CS2_084] Hunter's Mark - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Change a minion's Health to 1.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_084e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_084",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // ---------------------------------------- MINION - HUNTER
-    // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2]
-    // - Race: Beast, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Whenever you summon a Beast, draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("CS2_237", CardDef(power));
-
-    // ---------------------------------------- MINION - HUNTER
-    // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
+    // Text: <b>Battlecry:</b> Choose a friendly Beast.
+    //       Summon a copy of it.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // - REQ_TARGET_WITH_RACE = 20
-    // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("DS1_070o", EntityType::TARGET));
-    cards.emplace(
-        "DS1_070",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
-    // ---------------------------------------- MINION - HUNTER
-    // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
+    // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your other Beasts have +1 Attack.
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_OG_047] Feral Rage - COST:3
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Give your hero +4 Attack this turn;
+    //       or Gain 8 Armor.
     // --------------------------------------------------------
     // GameTag:
-    // - AURA = 1
+    // - CHOOSE_ONE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
-        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
-    {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition =
-            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
-    }
-    cards.emplace("DS1_175", CardDef(power));
 
-    // ---------------------------------------- MINION - HUNTER
-    // [DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_TRL_243] Pounce - COST:0
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your Beasts have <b>Charge</b>.
+    // Text: Give your hero +2 Attack this turn.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next spell you cast this turn
+    //       costs (3) less.
     // --------------------------------------------------------
     // GameTag:
-    // - AURA = 1
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    // RefTag:
-    // - CHARGE = 1
+}
+
+void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
+{
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS3_012e] Nature's Rite - COST:0
+    // - Set: CORE
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "DS1_178e"));
-    {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition =
-            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
-    }
-    cards.emplace("DS1_178", CardDef(power));
+    // Text: Your next spell this turn costs (3) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+}
+
+void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
+{
+    // ----------------------------------------- SPELL - HUNTER
+    // [CORE_AT_061] Lock and Load - COST:1
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Each time you cast a spell this turn,
+    //       add a random Hunter card to your hand.
+    // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - HUNTER
-    // [DS1_183] Multi-Shot - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_BRM_013] Quick Shot - COST:2
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 3 damage to two random enemy minions.
+    // Text: Deal 3 damage. If your hand is empty, draw a card.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::STACK, 3, true));
-    cards.emplace(
-        "DS1_183",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ----------------------------------------- SPELL - HUNTER
-    // [DS1_184] Tracking - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_DS1_184] Tracking - COST:1
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Look at the top 3 cards of your deck.
-    //       Draw one and discard the others.
+    // Text: <b>Discover</b> a card from your deck.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
-        DeckZone* deck = playable->player->GetDeckZone();
-        if (deck->IsEmpty())
-        {
-            return 0;
-        }
-
-        std::vector<int> ids;
-        ids.reserve(3);
-
-        for (int i = 0; i < 3 && deck->GetCount() != 0; ++i)
-        {
-            Playable* card = deck->GetTopCard();
-            deck->Remove(card);
-            ids.emplace_back(card->GetGameTag(GameTag::ENTITY_ID));
-            playable->player->GetSetasideZone()->Add(card);
-        }
-
-        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
-                              ChoiceAction::HAND, ids);
-
-        return 0;
-    }));
-    cards.emplace("DS1_184", CardDef(power));
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - HUNTER
-    // [DS1_185] Arcane Shot - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_DS1_185] Arcane Shot - COST:1
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 2 damage.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    cards.emplace(
-        "DS1_185",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ----------------------------------------- SPELL - HUNTER
-    // [EX1_539] Kill Command - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 3 damage. If you control a Beast,
-    //       deal 5 damage instead.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE,
-        SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsControllingRace(Race::BEAST)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        true,
-        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 5, true) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        false,
-        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3, true) }));
-    cards.emplace(
-        "EX1_539",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ----------------------------------------- SPELL - HUNTER
-    // [NEW1_031] Animal Companion - COST:3
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Summon a random Beast Companion.
-    // --------------------------------------------------------
-    // Entourage: NEW1_032, NEW1_033, NEW1_034
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
-    power.AddPowerTask(std::make_shared<SummonTask>());
-    cards.emplace(
-        "NEW1_031",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
-                ChooseCardIDs{},
-                Entourages{ "NEW1_032", "NEW1_033", "NEW1_034" }));
-}
-
-void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
-{
-    Power power;
-
-    // ----------------------------------- ENCHANTMENT - HUNTER
-    // [CS2_084e] Hunter's Mark (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: This minion has 1 Health.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
-        std::make_unique<Enchant>(GameTag::HEALTH, EffectOperator::SET, 1));
-    cards.emplace("CS2_084e", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - HUNTER
-    // [DS1_070o] Master's Presence (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +2/+2 and <b>Taunt</b>.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("DS1_070o"));
-    cards.emplace("DS1_070o", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - HUNTER
-    // [DS1_175o] Furious Howl (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +1 Attack from Timber Wolf.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("DS1_175o"));
-    cards.emplace("DS1_175o", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - HUNTER
-    // [DS1_178e] Charge (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Tundra Rhino grants <b>Charge</b>.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("DS1_178e"));
-    cards.emplace("DS1_178e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
-    // [NEW1_032] Misha (*) - COST:3 [ATK:4/HP:4]
-    // - Race: Beast, Set: Core, Rarity: Common
+    // [CORE_EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>
+    // Text: Whenever a friendly Beast dies, gain +2/+1.
     // --------------------------------------------------------
     // GameTag:
-    // - TAUNT = 1
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_032", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
-    // [NEW1_033] Leokk (*) - COST:3 [ATK:2/HP:4]
-    // - Race: Beast, Set: Core, Rarity: Common
+    // [CORE_EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
+    // - Race: Beast, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Your other minions have +1 Attack.
+    // Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
     // --------------------------------------------------------
     // GameTag:
-    // - AURA = 1
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
-        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_033o"));
-    cards.emplace("NEW1_033", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - HUNTER
-    // [NEW1_033o] Eye In The Sky (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Leokk is granting this minion +1 Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_033o"));
-    cards.emplace("NEW1_033o", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
-    // [NEW1_034] Huffer (*) - COST:3 [ATK:4/HP:2]
-    // - Race: Beast, Set: Core, Rarity: Common
+    // [CORE_EX1_543] King Krush - COST:9 [ATK:8/HP:8]
+    // - Race: Beast, Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
     // GameTag:
+    // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_034", CardDef(power));
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [CORE_EX1_554] Snake Trap - COST:2
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When one of your minions is attacked,
+    //       summon three 1/1 Snakes.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [CORE_EX1_610] Explosive Trap - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your hero is attacked,
+    //       deal 2 damage to all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [CORE_EX1_611] Freezing Trap - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy minion attacks,
+    //       return it to its owner's hand. It costs (2) more.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [CORE_EX1_617] Deadly Shot - COST:3
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Destroy a random enemy minion.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [CORE_FP1_011] Webspinner - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Add a random Beast card to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [CORE_GIL_828] Dire Frenzy - COST:4
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a Beast +3/+3.
+    //       Shuffle 3 copies into your deck with +3/+3.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [CORE_ICC_419] Bearshark - COST:3 [ATK:4/HP:3]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Can't be targeted by spells or Hero Powers.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_TARGETED_BY_SPELLS = 1
+    // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- WEAPON - HUNTER
+    // [CORE_TRL_111] Headhunter's Hatchet - COST:2
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you control a Beast,
+    //       gain +1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Discover</b> a copy of a Beast
+    //       in your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+}
+
+void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
+{
+    // Do nothing
 }
 
 void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // ------------------------------------------ MINION - MAGE
+    // [CORE_AT_003] Fallen Hero - COST:2 [ATK:3/HP:2]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Your Hero Power deals 1 extra damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - HEROPOWER_DAMAGE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [CORE_AT_008] Coldarra Drake - COST:6 [ATK:6/HP:7]
+    // - Race: Dragon, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: You can use your Hero Power any number of times.
+    // --------------------------------------------------------
 
     // ------------------------------------------- SPELL - MAGE
-    // [CS2_022] Polymorph - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_BOT_453] Shooting Star - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: Transform a minion
-    //       into a 1/1 Sheep.
+    // Text: Deal 1 damage to a minion and the minions next to it.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<TransformTask>(EntityType::TARGET, "CS2_tk1"));
-    cards.emplace(
-        "CS2_022",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
-    // [CS2_023] Arcane Intellect - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_023] Arcane Intellect - COST:3
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(2));
-    cards.emplace("CS2_023", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
-    // [CS2_024] Frostbolt - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 3 damage to a character and <b>Freeze</b> it.
-    // --------------------------------------------------------
-    // GameTag:
-    // - FREEZE = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
-    cards.emplace(
-        "CS2_024",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ------------------------------------------- SPELL - MAGE
-    // [CS2_025] Arcane Explosion - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 1 damage to all enemy minions.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
-    cards.emplace("CS2_025", CardDef(power));
-
-    // ------------------------------------------- SPELL - MAGE
-    // [CS2_026] Frost Nova - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Freeze</b> all enemy minions.
-    // --------------------------------------------------------
-    // GameTag:
-    // - FREEZE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
-    cards.emplace("CS2_026", CardDef(power));
-
-    // ------------------------------------------- SPELL - MAGE
-    // [CS2_027] Mirror Image - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Summon two 0/2 minions with <b>Taunt</b>.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("CS2_mirror", 2));
-    cards.emplace(
-        "CS2_027",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
-
-    // ------------------------------------------- SPELL - MAGE
-    // [CS2_029] Fireball - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_029] Fireball - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 6 damage.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 6, true));
-    cards.emplace(
-        "CS2_029",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
-    // [CS2_032] Flamestrike - COST:7
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_032] Flamestrike - COST:7
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Fire
     // --------------------------------------------------------
-    // Text: Deal 4 damage to all enemy minions.
+    // Text: Deal 5 damage to all enemy minions.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 4, true));
-    cards.emplace("CS2_032", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
-    // [CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
-    // - Race: Elemental, Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
+    // - Race: Elemental, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Freeze</b> any character damaged by this minion.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_033", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
-    // [EX1_277] Arcane Missiles - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_275] Cone of Cold - COST:3
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
-    // Text: Deal 3 damage randomly split among all enemies.
+    // Text: <b>Freeze</b> a minion and the minions next to it,
+    //       and deal 1 damage to them.
     // --------------------------------------------------------
     // GameTag:
-    // - ImmuneToSpellpower = 1
+    // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{
-            std::make_shared<FilterStackTask>(SelfCondList{
-                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
-            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
-            std::make_shared<DamageTask>(EntityType::STACK, 1) },
-        3, true));
-    cards.emplace("EX1_277", CardDef(power));
-}
 
-void CoreCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
-{
-    (void)cards;
-}
+    // ------------------------------------------- SPELL - MAGE
+    // [CORE_EX1_287] Counterspell - COST:3
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Arcane
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your opponent casts a spell,
+    //       <b>Counter</b> it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - COUNTER = 1
+    // --------------------------------------------------------
 
-void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
-{
-    Power power;
+    // ------------------------------------------- SPELL - MAGE
+    // [CORE_EX1_289] Ice Barrier - COST:3
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your hero is attacked,
+    //       gain 8 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
 
-    // ---------------------------------------- SPELL - PALADIN
-    // [CS2_087] Blessing of Might - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // ------------------------------------------- SPELL - MAGE
+    // [CORE_EX1_294] Mirror Entity - COST:3
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: Give a minion +3 Attack.
+    // Text: <b>Secret:</b> After your opponent plays a minion,
+    //       summon a copy of it.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
+    // GameTag:
+    // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_087e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_087",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
-    // --------------------------------------- MINION - PALADIN
-    // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // ------------------------------------------- SPELL - MAGE
+    // [CORE_GIL_801] Snap Freeze - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+    // Text: <b>Freeze</b> a minion.
+    //       If it's already <b>Frozen</b>, destroy it.
+    // --------------------------------------------------------
+    // RefTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [CORE_KAR_009] Babbling Book - COST:1 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Add a random Mage spell to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
-    cards.emplace("CS2_088", CardDef(power));
 
-    // ---------------------------------------- SPELL - PALADIN
-    // [CS2_089] Holy Light - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // ------------------------------------------ MINION - MAGE
+    // [CORE_LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:4]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Restore 6 Health.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 6));
-    cards.emplace(
-        "CS2_089",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // --------------------------------------- WEAPON - PALADIN
-    // [CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // Text: <b>Battlecry: Discover</b> a spell.
     // --------------------------------------------------------
     // GameTag:
-    // - DURABILITY = 4
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_091", CardDef(power));
+
+    // ------------------------------------------ MINION - MAGE
+    // [CORE_UNG_020] Arcanologist - COST:2 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a <b>Secret</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [CS3_001] Aegwynn, the Guardian - COST:5 [ATK:5/HP:5]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +2</b>
+    //       <b>Deathrattle:</b> The next minion you draw
+    //       inherits these powers.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+}
+
+void CoreCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
+{
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [CS3_001e] Guardian's Legacy - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +2</b> and
+    //       "<b>Deathrattle:</b> Pass on the Guardian's Legacy."
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [CS3_001e2] Guardian's Legacy (player) - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: The next minion you draw inherits the Guardian's Legacy.
+    // --------------------------------------------------------
+}
+
+void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
+{
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_AT_075] Warhorse Trainer - COST:3 [ATK:3/HP:4]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your Silver Hand Recruits have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Restore 6 Health to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
-    // [CS2_092] Blessing of Kings - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_089] Holy Light - COST:2
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Restore 8 Health to your hero.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CORE_CS2_092] Blessing of Kings - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_092e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_092",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
-    // [CS2_093] Consecration - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_093] Consecration - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
-    cards.emplace("CS2_093", CardDef(power));
-
-    // ---------------------------------------- SPELL - PALADIN
-    // [CS2_094] Hammer of Wrath - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 3 damage. Draw a card.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace(
-        "CS2_094",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_097] Truesilver Champion - COST:4
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever your hero attacks, restore 2 Health to it.
+    // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
     // GameTag:
-    // - DURABILITY = 2
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
-                                                             2) };
-    cards.emplace("CS2_097", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
-    // [EX1_360] Humility - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_130] Noble Sacrifice - COST:1
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Change a minion's Attack to 1.
+    // Text: <b>Secret:</b> When an enemy attacks,
+    //       summon a 2/1 Defender as the new target.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
+    // GameTag:
+    // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_360e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_360",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
-    // ---------------------------------------- SPELL - PALADIN
-    // [EX1_371] Hand of Protection - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give a minion <b>Divine Shield</b>.
+    // Text: <b>Battlecry:</b> Give a friendly minion
+    //       <b>Divine Shield</b>.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
+    // GameTag:
+    // - BATTLECRY = 1
     // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
-    cards.emplace(
-        "EX1_371",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
+    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CORE_EX1_619] Equality - COST:3
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Change the Health of ALL minions to 1.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CORE_FP1_020] Avenge - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When one of your minions dies,
+    //       give a random friendly minion +3/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_ICC_038] Righteous Protector - COST:1 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Divine Shield</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CORE_OG_273] Stand Against Darkness - COST:5
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Summon five 1/1 Silver Hand Recruits.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS3_016] Reckoning - COST:1
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> After an enemy minion deals 3 or
+    //       more damage, destroy it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS3_029] Pursuit of Justice - COST:2
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Give +1 Attack to Silver Hand Recruits
+    //       you summon this game.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [CS3_029e] Pursuit of Justice - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Your Silver Hand Recruits have +1 Attack.
+    // --------------------------------------------------------
 
     // ---------------------------------- ENCHANTMENT - PALADIN
-    // [CS2_087e] Blessing of Might (*) - COST:0
-    // - Faction: Neutral, Set: Core
+    // [CS3_029e2] Pursuit of Justice - COST:0
+    // - Set: CORE
     // --------------------------------------------------------
-    // Text: +3 Attack.
+    // Text: +1 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_087e"));
-    cards.emplace("CS2_087e", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - PALADIN
-    // [CS2_092e] Blessing of Kings (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +4/+4.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_092e"));
-    cards.emplace("CS2_092e", CardDef(power));
-
-    // --------------------------------------- MINION - PALADIN
-    // [CS2_101t] Silver Hand Recruit (*) - COST:1 [ATK:1/HP:1]
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_101t", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - PALADIN
-    // [EX1_360e] Humility (*) - COST:0
-    // - Faction: Neutral, Set: Core
-    // --------------------------------------------------------
-    // Text: Attack has been changed to 1.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
-        std::make_unique<Enchant>(GameTag::ATK, EffectOperator::SET, 1));
-    cards.emplace("EX1_360e", CardDef(power));
 }
 
 void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // ----------------------------------------- SPELL - PRIEST
+    // [CORE_AT_055] Flash Heal - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Restore 5 Health.
+    // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - PRIEST
-    // [CS1_112] Holy Nova - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS1_112] Holy Nova - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     //       Restore 2 Health to all friendly characters.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
-    cards.emplace("CS1_112", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
-    // [CS1_113] Mind Control - COST:10
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Take control of an enemy minion.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_ENEMY_TARGET = 0
-    // - REQ_NUM_MINION_SLOTS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
-    cards.emplace(
-        "CS1_113",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
-                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [CS1_130] Holy Smite - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS1_130] Holy Smite - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    cards.emplace(
-        "CS1_130",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [CS2_003] Mind Vision - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Put a copy of a random card in your opponent's hand into your hand.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_HAND, 1));
-    power.AddPowerTask(
-        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
-    cards.emplace("CS2_003", CardDef(power));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [CS2_004] Power Word: Shield - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Give a minion +2 Health.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_004e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_004",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [CS2_234] Shadow Word: Pain - COST:2
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Destroy a minion with 3 or less Attack.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_TARGET_MAX_ATTACK = 3
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace(
-        "CS2_234",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_TARGET_MAX_ATTACK, 3 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [EX1_192] Radiance - COST:1
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Restore 5 Health to your hero.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
-    cards.emplace("EX1_192", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
-    // [EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
-    // - Set: Core, Rarity: Common
+    // [CORE_EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Copy a card in your opponent's deck
+    // Text: <b>Battlecry:</b> Copy a card in your opponent’s deck
     //       and add it to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 1));
-    power.AddPowerTask(
-        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
-    cards.emplace("EX1_193", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
-    // [EX1_194] Power Infusion - COST:4
-    // - Set: Core, Rarity: Common
+    // [CORE_EX1_194] Power Infusion - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +2/+6.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_EX1_195] Kul Tiran Chaplain - COST:2 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_194e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_194",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    // Text: <b>Battlecry:</b> Give a friendly minion +2 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - PRIEST
-    // [EX1_622] Shadow Word: Death - COST:2
-    // - Set: Core, Rarity: Free
+    // [CORE_EX1_197] Shadow Word: Ruin - COST:4
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Destroy a minion with 5 or more Attack.
+    // Text: Destroy all minions with 5 or more Attack.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_TARGET_MIN_ATTACK = 5
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_EX1_198] Natalie Seline - COST:8 [ATK:8/HP:1]
+    // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_622",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_MIN_ATTACK, 5 } }));
+    // Text: <b>Battlecry:</b> Destroy a minion and gain its Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
+    // - Race: Elemental, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: This minion's Attack is always equal to its Health.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CORE_EX1_622] Shadow Word: Death - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a minion with 5 or more Attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_EX1_623] Temple Enforcer - COST:5 [ATK:5/HP:6]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CORE_EX1_625] Shadowform - COST:2
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Your Hero Power becomes 'Deal 2 damage.'
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After a friendly character is healed, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS3_027] Focused Will - COST:1
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> a minion, then give it +3 Health.
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS3_028] Thrive in the Shadows - COST:2
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: <b>Discover</b> a spell from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS3_014e] Holy Affinity - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: +1 Attack.
+    // --------------------------------------------------------
 
     // ----------------------------------- ENCHANTMENT - PRIEST
-    // [CS2_004e] Power Word: Shield (*) - COST:0
-    // - Set: Core
+    // [CS3_027e] Focused Will - COST:0
+    // - Set: CORE
     // --------------------------------------------------------
-    // Text: +2 Health.
+    // Text: +3 Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_004e"));
-    cards.emplace("CS2_004e", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - PRIEST
-    // [EX1_194e] Power Infusion (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +2/+6.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_194e"));
-    cards.emplace("EX1_194e", CardDef(power));
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_072] Backstab - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_072] Backstab - COST:0
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 2 damage to an undamaged minion.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_UNDAMAGED_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    cards.emplace(
-        "CS2_072",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_UNDAMAGED_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_074] Deadly Poison - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_073] Cold Blood - COST:2
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your weapon +2 Attack.
+    // Text: Give a minion +2 Attack.
+    //       <b>Combo:</b> +4 Attack instead.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_WEAPON_EQUIPPED = 0
+    // GameTag:
+    // - COMBO = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_074e", EntityType::WEAPON));
-    cards.emplace(
-        "CS2_074",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_075] Sinister Strike - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_074] Deadly Poison - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 3 damage to the enemy hero.
+    // Text: Give your weapon +2 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3, true));
-    cards.emplace("CS2_075", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_076] Assassinate - COST:5
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_075] Sinister Strike - COST:1
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [CORE_CS2_076] Assassinate - COST:4
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Destroy an enemy minion.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_ENEMY_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace("CS2_076",
-                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_MINION_TARGET, 0 },
-                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_077] Sprint - COST:7
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_077] Sprint - COST:6
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: Draw 4 cards.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(4));
-    cards.emplace("CS2_077", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
-    // [CS2_080] Assassin's Blade - COST:5 [ATK:3/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_080] Assassin's Blade - COST:4
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // GameTag:
-    // - DURABILITY = 4
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_080", CardDef(power));
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [EX1_129] Fan of Knives - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 1 damage to all enemy minions. Draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_129", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
-    // [EX1_191] Plaguebringer - COST:4 [ATK:3/HP:3]
-    // - Set: Core, Rarity: Free
+    // [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly minion <b>Poisonous</b>.
+    // Text: <b>Combo:</b> Deal 2 damage.
     // --------------------------------------------------------
     // GameTag:
-    // - BATTLECRY = 1
+    // - COMBO = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_MINION_TARGET = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // - REQ_TARGET_IF_AVAILABLE = 0
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [CORE_EX1_144] Shadowstep - COST:0
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Return a friendly minion to your hand.
+    //       It costs (2) less.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [CORE_EX1_145] Preparation - COST:0
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: The next spell you cast this turn costs (2) less.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [CORE_EX1_522] Patient Assassin - COST:2 [ATK:1/HP:2]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    //       <b>Poisonous</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - POISONOUS = 1
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [CORE_ICC_809] Plague Scientist - COST:3 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Give a friendly minion <b>Poisonous</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
     // --------------------------------------------------------
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_191e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_191",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
-    // ------------------------------------------ SPELL - ROGUE
-    // [EX1_278] Shiv - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // ----------------------------------------- MINION - ROGUE
+    // [CORE_KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
+    // - Race: Pirate, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 1 damage. Draw a card.
+    // Text: <b>Battlecry:</b> Add a random card from another class
+    //       to your hand.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
+    // GameTag:
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace(
-        "EX1_278",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
-    // ------------------------------------------ SPELL - ROGUE
-    // [EX1_581] Sap - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // ----------------------------------------- MINION - ROGUE
+    // [CORE_LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Return an enemy minion to your opponent's hand.
+    // Text: <b>Deathrattle:</b> Add a Coin to your hand.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_ENEMY_TARGET = 0
+    // GameTag:
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    cards.emplace("EX1_581",
-                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_MINION_TARGET, 0 },
-                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+
+    // ----------------------------------------- MINION - ROGUE
+    // [CORE_OG_070] Bladed Cultist - COST:1 [ATK:1/HP:2]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Gain +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [CS3_005] Vanessa VanCleef - COST:2 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Add a copy of the last card your
+    //       opponent played to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - COMBO = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ----------------------------------------- WEAPON - ROGUE
-    // [CS2_082] Wicked Knife (*) - COST:1 [ATK:1/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - DURABILITY = 2
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_082", CardDef(power));
-
-    // ------------------------------------ ENCHANTMENT - ROGUE
-    // [EX1_191e] Plaguetouched (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: <b>Poisonous</b>
-    // --------------------------------------------------------
-    // RefTag:
-    // - POISONOUS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_191e"));
-    cards.emplace("EX1_191e", CardDef(power));
+    // Do nothing
 }
 
 void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ----------------------------------------- SPELL - SHAMAN
-    // [CS2_037] Frost Shock - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:5]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
+    // Text: <b>Battlecry:</b> Gain +1/+1 for each friendly Totem.
     // --------------------------------------------------------
     // GameTag:
-    // - FREEZE = 1
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_ENEMY_TARGET = 0
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_BOT_533] Menacing Nimbus - COST:2 [ATK:2/HP:2]
+    // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
-    cards.emplace("CS2_037",
-                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+    // Text: <b>Battlecry:</b> Add a random Elemental to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [CS2_039] Windfury - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_039] Windfury - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion <b>Windfury</b>.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::WINDFURY, 1));
-    cards.emplace(
-        "CS2_039",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // ----------------------------------------- SPELL - SHAMAN
-    // [CS2_041] Ancestral Healing - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Restore a minion
-    //       to full Health and
-    //       give it <b>Taunt</b>.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    // Tag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::TARGET));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_041e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_041",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
-    // - Race: Elemental, Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
+    // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 3 damage.
+    // Text: <b>Battlecry:</b> Deal 4 damage.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
-    cards.emplace(
-        "CS2_042",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [CS2_045] Rockbiter Weapon - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_045] Rockbiter Weapon - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a friendly character +3 Attack this turn.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_045e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_045",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [CS2_046] Bloodlust - COST:5
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_238] Lightning Bolt - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Give your minions +3 Attack this turn.
+    // Text: Deal 3 damage. <b>Overload:</b> (1)
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_046e", EntityType::MINIONS));
-    cards.emplace("CS2_046", CardDef(power));
+    // GameTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [EX1_244] Totemic Might - COST:0
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Give your Totems +2 Health.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_244e", EntityType::STACK));
-    cards.emplace("EX1_244", CardDef(power));
-
-    // ----------------------------------------- SPELL - SHAMAN
-    // [EX1_246] Hex - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_246] Hex - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<TransformTask>(EntityType::TARGET, "hexfrog"));
-    cards.emplace(
-        "EX1_246",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
-    // ---------------------------------------- MINION - SHAMAN
-    // [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CORE_EX1_248] Feral Spirit - COST:3
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Adjacent minions have +2 Attack.
+    // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
+    //       <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
-    // - ADJACENT_BUFF = 1
-    // - AURA = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdjacentAura>("EX1_565o"));
-    cards.emplace("EX1_565", CardDef(power));
-
-    // ---------------------------------------- MINION - SHAMAN
-    // [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
-    // - Faction: Neutral, Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly minion <b>Windfury</b>.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_FRIENDLY_TARGET = 0
+    // - OVERLOAD = 1
     // --------------------------------------------------------
     // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
+    // - Race: Elemental, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b><b>Overload</b>:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+    // - Race: Elemental, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever you play a card with <b>Overload</b>,
+    //       gain +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CORE_EX1_259] Lightning Storm - COST:3
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Deal 3 damage to all enemy minions.
+    //       <b>Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- WEAPON - SHAMAN
+    // [CORE_EX1_567] Doomhammer - COST:5
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Windfury, Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::WINDFURY, 1));
-    cards.emplace(
-        "EX1_587",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
+    // - Race: Totem, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
+    // - Race: Elemental, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge, Divine Shield, Taunt, Windfury</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHARGE = 1
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CORE_UNG_817] Tidal Surge - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    //       Deal 4 damage to a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CS3_007] Novice Zapper - COST:1 [ATK:3/HP:2]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b> <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ----------------------------------- ENCHANTMENT - SHAMAN
-    // [CS2_041e] Ancestral Infusion (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Taunt.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_unique<Enchant>(Effects::Taunt));
-    cards.emplace("CS2_041e", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - SHAMAN
-    // [CS2_045e] Rockbiter Weapon (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: This character has +3 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_045e"));
-    cards.emplace("CS2_045e", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - SHAMAN
-    // [CS2_046e] Bloodlust (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +3 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_046e"));
-    cards.emplace("CS2_046e", CardDef(power));
-
-    // ---------------------------------------- MINION - SHAMAN
-    // [CS2_050] Searing Totem (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_050", CardDef(power));
-
-    // ---------------------------------------- MINION - SHAMAN
-    // [CS2_051] Stoneclaw Totem (*) - COST:1 [ATK:0/HP:2]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_051", CardDef(power));
-
-    // ---------------------------------------- MINION - SHAMAN
-    // [CS2_052] Wrath of Air Totem (*) - COST:1 [ATK:0/HP:2]
-    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - SPELLPOWER = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_052", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - SHAMAN
-    // [EX1_244e] Totemic Might (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +2 Health.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_244e"));
-    cards.emplace("EX1_244e", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - SHAMAN
-    // [EX1_565o] Flametongue (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +2 Attack from Flametongue Totem.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_565o"));
-    cards.emplace("EX1_565o", CardDef(power));
-
-    // ---------------------------------------- MINION - SHAMAN
-    // [NEW1_009] Healing Totem (*) - COST:1 [ATK:0/HP:2]
-    // - Race: Totem, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: At the end of your turn, restore 1 Health to all friendly minions.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<HealTask>(
-        EntityType::MINIONS, 1) };
-    cards.emplace("NEW1_009", CardDef(power));
+    // Do nothing
 }
 
 void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_AT_021] Tiny Knight of Evil - COST:2 [ATK:3/HP:2]
+    // - Race: Demon, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you discard a card, gain +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [CS2_057] Shadow Bolt - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 4 damage to a minion.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
-    cards.emplace(
-        "CS2_057",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // ---------------------------------------- SPELL - WARLOCK
-    // [CS2_061] Drain Life - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 2 damage. Restore 2 Health to your hero.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 2));
-    cards.emplace(
-        "CS2_061",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ---------------------------------------- SPELL - WARLOCK
-    // [CS2_062] Hellfire - COST:4
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_062] Hellfire - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 3 damage to all characters.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 3, true));
-    cards.emplace("CS2_062", CardDef(power));
-
-    // ---------------------------------------- SPELL - WARLOCK
-    // [CS2_063] Corruption - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Choose an enemy minion. At the start of your turn, destroy it.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_ENEMY_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_063e", EntityType::TARGET));
-    cards.emplace("CS2_063",
-                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_MINION_TARGET, 0 },
-                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
-    // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
-    // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
+    // - Race: Demon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to all other characters.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 1));
-    cards.emplace("CS2_064", CardDef(power));
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CORE_EX1_302] Mortal Coil - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to a minion.
+    //       If that kills it, draw a card.
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
-    // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_304] Void Terror - COST:3 [ATK:3/HP:4]
+    // - Race: Demon, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy both adjacent minions
+    //       and gain their Attack and Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CORE_EX1_309] Siphon Soul - COST:5
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a minion. Restore #3 Health to your hero.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CORE_EX1_312] Twisting Nether - COST:8
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy all minions.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_EX1_319] Flame Imp - COST:1 [ATK:3/HP:2]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CORE_GIL_191] Fiendish Circle - COST:4
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: Summon four 1/1 Imps.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CORE_ICC_055] Drain Soul - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    //       Deal 3 damage to a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_OG_241] Possessed Villager - COST:1 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 1/1 Shadowbeast.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_UNG_833] Lakkari Felhound - COST:4 [ATK:3/HP:8]
+    // - Race: Demon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Discard your two lowest-Cost cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CS3_002] Ritual of Doom - COST:0
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a friendly minion.
+    //       If you had 5 or more, summon a 5/5 Demon.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_003] Felsoul Jailer - COST:5 [ATK:4/HP:6]
+    // - Race: Demon, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Your opponent discards a minion.
+    //       <b>Deathrattle:</b> Return it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>. Also damages the minions next to
+    //       whomever this attacks.
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_065", CardDef(power));
-
-    // ---------------------------------------- SPELL - WARLOCK
-    // [EX1_302] Mortal Coil - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 1 damage to a minion. If that kills it, draw a card.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
-                                SelfCondition::IsDead()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<DrawTask>(1) }));
-    cards.emplace(
-        "EX1_302",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // --------------------------------------- MINION - WARLOCK
-    // [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
-    // - Faction: Horde, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Discard a random card.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscardTask>(1));
-    cards.emplace("EX1_306", CardDef(power));
-
-    // ---------------------------------------- SPELL - WARLOCK
-    // [EX1_308] Soulfire - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 4 damage. Discard a random card.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
-    power.AddPowerTask(std::make_shared<DiscardTask>(1));
-    cards.emplace(
-        "EX1_308",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ---------------------------------------- SPELL - WARLOCK
-    // [NEW1_003] Sacrificial Pact - COST:0
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Destroy a friendly Demon. Restore 5 Health to your hero.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // - REQ_TARGET_WITH_RACE = 15
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
-    cards.emplace(
-        "NEW1_003",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_WITH_RACE, 15 } }));
 }
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_GIL_191t] Imp - COST:1 [ATK:1/HP:1]
+    // - Race: Demon, Set: CORE
+    // --------------------------------------------------------
 
-    // ---------------------------------- ENCHANTMENT - WARLOCK
-    // [CS2_063e] Corruption (*) - COST:0
-    // - Set: Core
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_002t] Demonic Tyrant - COST:5 [ATK:5/HP:5]
+    // - Race: Demon, Set: CORE
     // --------------------------------------------------------
-    // Text: At the start of the corrupting player's turn, destroy this minion.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
-        EntityType::TARGET) };
-    cards.emplace("CS2_063e", CardDef(power));
 }
 
 void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ---------------------------------------- SPELL - WARRIOR
-    // [CS2_103] Charge - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Give a friendly minion <b>Charge</b>.
-    //       It can't attack heroes this turn.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    // RefTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_103e2", EntityType::TARGET));
-    cards.emplace(
-        "CS2_103",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
-    // ---------------------------------------- SPELL - WARRIOR
-    // [CS2_105] Heroic Strike - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Give your hero +4 Attack this turn.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_105e", EntityType::HERO));
-    cards.emplace("CS2_105", CardDef(power));
-
     // --------------------------------------- WEAPON - WARRIOR
-    // [CS2_106] Fiery War Axe - COST:3 [ATK:3/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_106] Fiery War Axe - COST:3
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // GameTag:
-    // - DURABILITY = 2
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_106", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [CS2_108] Execute - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_108] Execute - COST:2
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Destroy a damaged enemy minion.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_ENEMY_TARGET = 0
-    // - REQ_DAMAGED_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace(
-        "CS2_108",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
-                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
-
-    // --------------------------------------- WEAPON - WARRIOR
-    // [CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // GameTag:
-    // - DURABILITY = 2
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_112", CardDef(power));
-
-    // ---------------------------------------- SPELL - WARRIOR
-    // [CS2_114] Cleave - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal 2 damage to two random enemy minions.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_MINIMUM_ENEMY_MINIONS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
-    cards.emplace(
-        "CS2_114",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // --------------------------------------- MINION - WARRIOR
-    // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your <b>Charge</b> minions have +1 Attack.
-    // --------------------------------------------------------
-    // GameTag:
-    // - AURA = 1
+    // Text: After you summon another minion, give it <b>Rush</b>.
     // --------------------------------------------------------
     // RefTag:
-    // - CHARGE = 1
+    // - RUSH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "EX1_084e"));
-    {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = std::make_shared<SelfCondition>(
-            SelfCondition::IsTagValue(GameTag::CHARGE, 1));
-        aura->restless = true;
-    }
-    cards.emplace("EX1_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [EX1_400] Whirlwind - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_391] Slam - COST:2
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 1 damage to all minions.
+    // Text: Deal 2 damage to a minion. If it survives, draw a card.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
-    cards.emplace("EX1_400", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [EX1_606] Shield Block - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_400] Whirlwind - COST:1
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Gain 5 Armor.
-    //       Draw a card.
+    // Text: Deal 1 damage to ALL minions.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ArmorTask>(5));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_606", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
-    // [NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3]
-    // - Set: Core, Rarity: Free
+    // [CORE_EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a friendly minion takes damage, gain 1 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CORE_EX1_407] Brawl - COST:5
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Destroy all minions except one.
+    //       <i>(chosen randomly)</i>
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CORE_EX1_410] Shield Slam - COST:1
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to a minion for each Armor you have.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - WARRIOR
+    // [CORE_EX1_411] Gorehowl - COST:7
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Attacking a minion costs 1 Attack instead of 1 Durability.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CORE_EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
+    // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b>
+    //       Has +6 Attack while damaged.
     // --------------------------------------------------------
     // GameTag:
+    // - ELITE = 1
     // - CHARGE = 1
+    // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_011", CardDef(power));
-}
 
-void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
-{
-    Power power;
-
-    // ---------------------------------- ENCHANTMENT - WARRIOR
-    // [CS2_103e2] Charge (*) - COST:0
-    // - Set: Core
+    // --------------------------------------- MINION - WARRIOR
+    // [CORE_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Has <b>Charge</b>.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
-        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
-            Effects::Charge,
-            std::make_shared<Effect>(GameTag::CANNOT_ATTACK_HEROES,
-                                     EffectOperator::SET, 1) }));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
-        EntityType::TARGET, GameTag::CANNOT_ATTACK_HEROES, 0) };
-    power.GetTrigger()->removeAfterTriggered = true;
-    cards.emplace("CS2_103e2", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - WARRIOR
-    // [CS2_105e] Heroic Strike (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +4 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_105e"));
-    cards.emplace("CS2_105e", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - WARRIOR
-    // [EX1_084e] Charge (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Warsong Commander is granting this minion +1 Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_084e"));
-    cards.emplace("EX1_084e", CardDef(power));
-}
-
-void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
-{
-    Power power;
-
-    // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_035] Chaos Strike - COST:2
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Give your hero +2 Attack this turn. Draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BT_035e", EntityType::HERO));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("BT_035", CardDef(power));
-
-    // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_036] Coordinated Strike - COST:3
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 3));
-    cards.emplace("BT_036", CardDef(power));
-
-    // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
-    // - Race: Demon, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion and
+    //       give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BT_142e", EntityType::HERO));
-    cards.emplace("BT_142", CardDef(power));
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CORE_EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a minion takes damage, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CORE_GVG_053] Shieldmaiden - COST:6 [ATK:5/HP:5]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain 5 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
+    // - Race: Pirate, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next weapon you play costs
+    //       (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS3_009] War Cache - COST:3
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Add a random Warrior minion, spell,
+    //       and weapon to your hand.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+}
+
+void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
+{
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [CS3_008e] To Arrrms! - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Your next weapon costs (1) less.
+    // --------------------------------------------------------
+}
+
+void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
+{
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [CORE_BT_035] Chaos Strike - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: Give your hero +2 Attack this turn. Draw a card.
+    // --------------------------------------------------------
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_235] Chaos Nova - COST:5
-    // - Set: Core, Rarity: Free
+    // [CORE_BT_036] Coordinated Strike - COST:3
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 4 damage to all minions.
+    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
-    cards.emplace("BT_235", CardDef(power));
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [CORE_BT_235] Chaos Nova - COST:5
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: Deal 4 damage to all minions.
+    // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_323] Sightless Watcher (*) - COST:2 [ATK:3/HP:2]
-    // - Race: Demon, Set: Core, Rarity: Free
+    // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
+    // - Race: Demon, Faction: Horde, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Look at 3 cards in your deck.
     //       Choose one to put on top.
@@ -2510,885 +1626,964 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::DECK, 3));
-    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
-        auto playables = playable->game->taskStack.playables;
-
-        std::vector<int> ids;
-        ids.reserve(3);
-
-        for (auto& p : playables)
-        {
-            ids.emplace_back(p->GetGameTag(GameTag::ENTITY_ID));
-        }
-
-        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
-                              ChoiceAction::SIGHTLESS_WATCHER, ids);
-
-        return 0;
-    }));
-    cards.emplace("BT_323", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_352] Satyr Overseer (*) - COST:3 [ATK:4/HP:2]
-    // - Race: Demon, Set: Core, Rarity: Free
+    // [CORE_BT_351] Battlefiend - COST:1 [ATK:1/HP:2]
+    // - Race: Demon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: After your hero attacks, summon a 2/2 Satyr.
+    // Text: After your hero attacks, gain +1 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
-        "BT_352t", SummonSide::RIGHT) };
-    cards.emplace("BT_352", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_495] Glaivebound Adept (*) - COST:5 [ATK:6/HP:4]
-    // - Set: Core, Rarity: Free
+    // [CORE_BT_416] Raging Felscreamer - COST:4 [ATK:4/HP:4]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> If your hero attacked this turn,
-    //       deal 4 damage.
+    // Text: <b>Battlecry:</b> The next Demon you play costs (2) less.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
-                              SelfCondition::IsAttackThisTurn()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4) }));
-    cards.emplace(
-        "BT_495",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
-    // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_512] Inner Demon - COST:8
-    // - Set: Core, Rarity: Free
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CORE_BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your hero +8 Attack this turn.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BT_512e", EntityType::HERO));
-    cards.emplace("BT_512", CardDef(power));
-
-    // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_740] Soul Cleave - COST:8
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
+    // Text: <b>Taunt</b>
+    //       <b>Lifesteal</b>
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
+    // - TAUNT = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [CORE_BT_427] Feast of Souls - COST:2
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
-    cards.emplace(
-        "BT_740",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
+    // Text: Draw a card for each friendly minion that died this turn.
+    // --------------------------------------------------------
 
     // ----------------------------------- WEAPON - DEMONHUNTER
-    // [BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
-    // - Set: Core, Rarity: Free
+    // [CORE_BT_430] Warglaives of Azzinoth - COST:5
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: After attacking a minion, your hero may attack again.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CORE_BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Outcast:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [CORE_BT_491] Spectral Sight - COST:2
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Draw a card.
+    //       <b>Outcast:</b> Draw another.
+    // --------------------------------------------------------
+    // GameTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [CORE_BT_801] Eye Beam - COST:3
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
+    //       <b>Outcast:</b> This costs (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- WEAPON - DEMONHUNTER
+    // [CORE_BT_921] Aldrachi Warblades - COST:3
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
-    // - DURABILITY = 2
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("BT_921", CardDef(power));
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CS3_017] Gan'arg Glaivesmith - COST:3 [ATK:3/HP:2]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Outcast:</b> Give your hero +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CS3_019] Kor'vas Bloodthorn - COST:2 [ATK:2/HP:2]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>, <b>Lifesteal</b>
+    //       After you play a card with <b>Outcast</b>,
+    //       return this to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHARGE = 1
+    // - LIFESTEAL = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [CS3_020] Illidari Inquisitor - COST:8 [ATK:8/HP:8]
+    // - Race: Demon, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. After your hero attacks an enemy,
+    //       this attacks it too.
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
-    // [BT_035e] Chaos Strike (*) - COST:0
-    // - Set: Core
+    // [CS3_017e] Felfist - COST:0
+    // - Set: CORE
     // --------------------------------------------------------
-    // Text: +2 Attack this turn.
+    // Text: +3 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("BT_035e"));
-    cards.emplace("BT_035e", CardDef(power));
-
-    // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_036t] Illidari Initiate (*) - COST:1 [ATK:1/HP:1]
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("BT_036t", CardDef(power));
-
-    // ------------------------------ ENCHANTMENT - DEMONHUNTER
-    // [BT_142e] Sharpened Claws (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +1 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("BT_142e"));
-    cards.emplace("BT_142e", CardDef(power));
-
-    // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_352t] Illidari Satyr (*) - COST:2 [ATK:2/HP:2]
-    // - Race: Demon, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("BT_352t", CardDef(power));
-
-    // ------------------------------ ENCHANTMENT - DEMONHUNTER
-    // [BT_512e] Demon Power (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +8 Attack.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("BT_512e"));
-    cards.emplace("BT_512e", CardDef(power));
-
-    // ------------------------------ ENCHANTMENT - DEMONHUNTER
-    // [HERO_10bpe] Demon Claws (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Your hero has +1 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("HERO_10bpe"));
-    cards.emplace("HERO_10bpe", CardDef(power));
-
-    // ------------------------------ ENCHANTMENT - DEMONHUNTER
-    // [HERO_10pe2] Demon's Bite (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Your hero has +2 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAG_ONE_TURN_EFFECT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("HERO_10pe2"));
-    cards.emplace("HERO_10pe2", CardDef(power));
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_AT_092] Ice Rager - COST:3 [ATK:5/HP:2]
+    // - Race: Elemental, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // [CORE_BOT_083] Toxicologist - COST:2 [ATK:2/HP:2]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>
+    // Text: <b>Battlecry:</b> Give your weapon +1 Attack.
     // --------------------------------------------------------
     // GameTag:
-    // - TAUNT = 1
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS1_042", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
-    // - Race: Elemental, Set: Core, Rarity: Free
+    // [CORE_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_118", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]
-    // - Race: Beast, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_119", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
-    // - Race: Beast, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_120", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_121] Frostwolf Grunt - COST:2 [ATK:2/HP:2]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
+    // Text: <b>Battlecry:</b> Restore 3 Health.
     // --------------------------------------------------------
     // GameTag:
-    // - TAUNT = 1
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_121", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_122] Raid Leader - COST:3 [ATK:2/HP:2]
-    // - Set: Core, Rarity: Free
+    // [CORE_CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Your other minions have +1 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
-        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
-    cards.emplace("CS2_122", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // [CORE_CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
+    // - Faction: Horde, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Charge</b>
+    // Text: <b>Spell Damage +1</b>
     // --------------------------------------------------------
     // GameTag:
-    // - CHARGE = 1
+    // - SPELLPOWER = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_124", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_125] Ironfur Grizzly - COST:3 [ATK:3/HP:3]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
+    // - Faction: Horde, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_125", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_127] Silverback Patriarch - COST:3 [ATK:1/HP:4]
-    // - Race: Beast, Faction: Horde, Set: Core, Rarity: Free
+    // [CORE_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
+    // - Faction: Horde, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>
+    // Text: <b>Battlecry:</b> Deal 4 damage to himself.
     // --------------------------------------------------------
     // GameTag:
-    // - TAUNT = 1
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_127", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // [CORE_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Charge</b>
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
+    // - Faction: Alliance, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
-    // - CHARGE = 1
+    // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_131", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // [CORE_CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
+    // - Faction: Horde, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_NONSELF_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
-    cards.emplace(
-        "CS2_141",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // [CORE_CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1]
+    // - Race: Beast, Faction: Horde, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - SPELLPOWER = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_142", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4]
-    // - Faction: Alliance, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw a card.
+    // Text: <b>Battlecry:</b> <b>Silence</b> a minion.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("CS2_147", CardDef(power));
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 2 damage.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_NONSELF_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
-    cards.emplace(
-        "CS2_150",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
-    // - Faction: Alliance, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - SPELLPOWER = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_155", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5]
-    // - Faction: Alliance, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_162", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
-    // - Race: Murloc, Faction: Alliance, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_168", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_171] Stonetusk Boar - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_171", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
-    // - Race: Beast, Faction: Horde, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_172", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_173", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
-    // - Faction: Horde, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_179", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_182", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_186] War Golem - COST:7 [ATK:7/HP:7]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_186", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
-    // - Faction: Horde, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_187", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
-    // - Faction: Horde, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_NONSELF_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
-    cards.emplace(
-        "CS2_189",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
-    // - Faction: Horde, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 1/1 Boar.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<SummonTask>("CS2_boar", SummonSide::RIGHT));
-    cards.emplace("CS2_196", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - SPELLPOWER = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_197", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_200", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
-    // - Race: Beast, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_201", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
-    // - Faction: Horde, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_213", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // [CORE_CS2_222] Stormwind Champion - COST:7 [ATK:7/HP:7]
+    // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Your other minions have +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
-        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_222o"));
-    cards.emplace("CS2_222", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // [CORE_DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the
-    // battlefield.
+    // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+    //       gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<CountTask>(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "CS2_226e", EntityType::SOURCE, true));
-    cards.emplace("CS2_226", CardDef(power));
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+    // Text: At the end of your turn,
+    //       give another random friendly minion +1 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
-    cards.emplace("DS1_055", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
-    // - Faction: Horde, Set: Core, Rarity: Free
+    // [CORE_EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
+    // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 2 Health.
+    // Text: <b>Divine Shield</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
+    // - Faction: Alliance, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
+    // - Faction: Horde, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Restore 2 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 2));
-    cards.emplace(
-        "EX1_011",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_015] Novice Engineer - COST:2 [ATK:1/HP:1]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // [CORE_EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
+    // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Draw a card.
+    // Text: <b>Spell Damage +1</b>
+    //       <b>Deathrattle:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
+    // - Race: Beast, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your opponent 2 Bananas.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
+    // - Race: Beast, Faction: Horde, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
+    // - Race: Beast, Faction: Alliance, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
+    // - Faction: Alliance, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_015", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
+    // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly minion +1/+1.
+    // Text: <b>Battlecry:</b> Return a friendly minion from
+    //       the battlefield to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_019e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_019",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // [CORE_EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 2/1 Mechanical Dragonling.
+    // Text: <b>Battlecry:</b> Swap the Attack and Health of a minion.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<SummonTask>("EX1_025t", SummonSide::RIGHT));
-    cards.emplace("EX1_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
-    // - Faction: Alliance, Set: Core, Rarity: Free
+    // [CORE_EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
+    // - Faction: Alliance, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy your opponent's weapon.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
-    cards.emplace("EX1_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]
+    // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, gain +3 Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-        "EX1_399e", EntityType::SOURCE) };
-    cards.emplace("EX1_399", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+    // Text: <b>Battlecry:</b> Deal 3 damage randomly split
+    //       between all other characters.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<SummonTask>("EX1_506a", SummonSide::RIGHT));
-    cards.emplace("EX1_506", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
+    // - Faction: Alliance, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Your other Murlocs have +1 Attack.
+    // Text: <b>Battlecry:</b> Give adjacent minions +1/+1
+    //       and <b>Taunt</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
-        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
-    {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition = std::make_shared<SelfCondition>(
-            SelfCondition::IsRace(Race::MURLOC));
-    }
-    cards.emplace("EX1_508", CardDef(power));
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_EX1_095] Gadgetzan Auctioneer - COST:6 [ATK:4/HP:4]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b>
+    // Text: Whenever you cast a spell, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
+    // - Race: Murloc, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your other Murlocs +2 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
+    // - Faction: Alliance, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 5/5 Baine Bloodhoof.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Adjacent minions have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ADJACENT_BUFF = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a random enemy <b>Secret</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_187] Arcane Devourer - COST:8 [ATK:4/HP:8]
+    // - Race: Elemental, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a random Beast.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Add a random <b>Legendary</b>
+    //       minion to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon all friendly minions
+    //       that died this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
+    // - Race: Elemental, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       deal 2 damage to all other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, gain +3 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
+    // - Race: Murloc, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
+    // - Race: Murloc, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you summon a Murloc, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Choose a minion and become a copy of it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 4/4 Nerubian.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Your minions trigger their <b>Deathrattles</b> twice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_GVG_013] Cogmaster - COST:1 [ATK:1/HP:2]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Has +2 Attack while you have a Mech.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
+    // - Race: Mechanical, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
+    // - Race: Mechanical, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Deal 2 damage to all minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_GVG_085] Annoy-o-Tron - COST:2 [ATK:1/HP:2]
+    // - Race: Mechanical, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Divine Shield</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_GVG_109] Mini-Mage - COST:3 [ATK:3/HP:1]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    //       <b>Spell Damage +1</b>
     // --------------------------------------------------------
     // GameTag:
     // - SPELLPOWER = 1
+    // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_582", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_593] Nightblade - COST:5 [ATK:4/HP:4]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // [CORE_GVG_121] Clockwork Giant - COST:12 [ATK:8/HP:8]
+    // - Race: Mechanical, Set: CORE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry: </b>Deal 3 damage to the enemy hero.
+    // Text: Costs (1) less for each card in your opponent's hand.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_ICC_026] Grim Necromancer - COST:4 [ATK:2/HP:4]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon two 1/1 Skeletons.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
-    cards.emplace("EX1_593", CardDef(power));
-}
-
-void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
-{
-    Power power;
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [CS2_074e] Deadly Poison (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +2 Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_074e"));
-    cards.emplace("CS2_074e", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [CS2_122e] Enhanced (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Raid Leader is granting this minion +1 Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_122e"));
-    cards.emplace("CS2_122e", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [CS2_222o] Might of Stormwind (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Has +1/+1.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_222o"));
-    cards.emplace("CS2_222o", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [CS2_226e] Frostwolf Banner (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: Increased stats.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
-        std::make_unique<Enchant>(Enchants::AddAttackHealthScriptTag));
-    cards.emplace("CS2_226e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_boar] Boar (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // [CORE_KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
+    // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_boar", CardDef(power));
+    // Text: After you cast a spell, give this minion +1 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_tk1] Sheep (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
+    // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_tk1", CardDef(power));
-
-    // ----------------------------------- ENCHANTMENT - PRIEST
-    // [EX1_019e] Cleric's Blessing (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: +1/+1.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_019e"));
-    cards.emplace("EX1_019e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_025t] Mechanical Dragonling (*) - COST:1 [ATK:2/HP:1]
-    // - Race: Mechanical, Faction: Neutral, Set: Core, Rarity: Common
+    // [CORE_LOOT_124] Lone Champion - COST:3 [ATK:2/HP:4]
+    // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_025t", CardDef(power));
+    // Text: <b>Battlecry:</b> If you control no other minions,
+    //       gain <b>Taunt</b> and <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_506a] Murloc Scout (*) - COST:1 [ATK:1/HP:1]
-    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Common
+    // [CORE_LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
+    // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_506a", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [EX1_508o] Mlarggragllabl! (*) - COST:0
-    // - Set: Core
+    // Text: <b>Divine Shield</b>
+    //       <b>Poisonous</b>
     // --------------------------------------------------------
-    // Text: This Murloc has +1 Attack.
+    // GameTag:
+    // - DIVINE_SHIELD = 1
+    // - POISONOUS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_508o"));
-    cards.emplace("EX1_508o", CardDef(power));
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [EX1_399e] Berserking (*) - COST:0
-    // - Set: Core
-    // --------------------------------------------------------
-    // Text: This minion has increased Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_unique<Enchant>(Effects::AttackN(3)));
-    cards.emplace("EX1_399e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]
-    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // [CORE_LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("hexfrog", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
+    // - Race: Pirate, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain Attack equal to the Attack
+    //       of your weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell,
+    //       summon a 1/1 Violet Apprentice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
+    // - Race: Pirate, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Your other Pirates have +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_tt_004] Flesheating Ghoul - COST:3 [ATK:3/HP:3]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever a minion dies, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
+    // - Race: Elemental, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_UNG_844] Humongous Razorleaf - COST:3 [ATK:4/HP:8]
+    // - Faction: Alliance, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Can't attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_ATTACK = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
+    // - Race: Pirate, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you have a weapon equipped,
+    //       deal 2 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_024] Taelan Fordring - COST:5 [ATK:3/HP:3]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b><b>Taunt</b>, Divine Shield</b>
+    //       <b>Deathrattle:</b> Draw your highest Cost minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - DIVINE_SHIELD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_025] Overlord Runthak - COST:5 [ATK:3/HP:6]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. Whenever this attacks,
+    //       give +1/+1 to all minions in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_031] Alexstrasza the Life-Binder - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry</b>: Choose a character.
+    //       If it's friendly, restore 8 Health.
+    //       If it's an enemy, deal 8 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_032] Onyxia the Broodmother - COST:9 [ATK:8/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of each turn,
+    //       fill your board with 1/1 Whelps.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_033] Ysera the Dreamer - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Add one of each Dream card
+    //       to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_034] Malygos the Spellweaver - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw spells until your hand is full.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_035] Nozdormu the Eternal - COST:7 [ATK:8/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Start of Game:</b> If this is in both players'
+    //       decks, turns are only 15 seconds long.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - START_OF_GAME = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_036] Deathwing the Destroyer - COST:10 [ATK:12/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy all other minions.
+    //       Discard a card for each destroyed.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_037] Emerald Skytalon - COST:1 [ATK:2/HP:1]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS3_038] Redgill Razorjaw - COST:2 [ATK:3/HP:1]
+    // - Race: Murloc, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+}
+
+void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
+{
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_506a] Murloc Scout - COST:1 [ATK:1/HP:1]
+    // - Race: Murloc, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS3_025e] Rallying Cry - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS3_035e] Nozdormu Time - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Turns are 15 seconds long.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddAll(std::map<std::string, CardDef>& cards)

@@ -8,7 +8,6 @@
 #include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
@@ -65,6 +64,7 @@ void HoFCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [EX1_161] Naturalize - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Destroy a minion. Your opponent draws 2 cards.
     // --------------------------------------------------------
@@ -103,6 +103,7 @@ void HoFCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [CS2_031] Ice Lance - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>,
     //       deal 4 damage instead.
@@ -140,9 +141,10 @@ void HoFCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PALADIN
     // [EX1_349] Divine Favor - COST:3
     // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Draw cards until you have as many in hand
-    //       as your opponent
+    //       as your opponent.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
@@ -179,6 +181,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_236] Divine Spirit - COST:2
     // - Set: HoF, Rarity: Free
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Double a minion's Health.
     // --------------------------------------------------------
@@ -203,6 +206,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: HoF, Rarity: Free
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 5 damage to the enemy hero.
     // --------------------------------------------------------
@@ -247,6 +251,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_624] Holy Fire - COST:6
     // - Faction: Priest, Set: HoF, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 5 damage. Restore 5 Health to your hero.
     // --------------------------------------------------------
@@ -260,30 +265,6 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "EX1_624",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [EX1_625] Shadowform - COST:3
-    // - Faction: Priest, Set: HoF, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Your Hero Power becomes 'Deal 2 damage'.
-    //       If already in Shadowform: 3 damage.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
-                                SelfCondition::IsHeroPowerCard("EX1_625t")) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<ChangeHeroPowerTask>("EX1_625t2") }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
-        false,
-        TaskList{ std::make_shared<ConditionTask>(
-                      EntityType::SOURCE,
-                      SelfCondList{ std::make_shared<SelfCondition>(
-                          SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
-                  std::make_shared<FlagTask>(
-                      false, TaskList{ std::make_shared<ChangeHeroPowerTask>(
-                                 "EX1_625t") }) }));
-    cards.emplace("EX1_625", CardDef(power));
 }
 
 void HoFCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
@@ -308,6 +289,7 @@ void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_128] Conceal - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give your minions <b>Stealth</b> until your next turn.
     // --------------------------------------------------------
@@ -384,6 +366,7 @@ void HoFCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_316] Power Overwhelming - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give a friendly minion +4/+4 until end of turn.
     //       Then, it dies. Horribly.

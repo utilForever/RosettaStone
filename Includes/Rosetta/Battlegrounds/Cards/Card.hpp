@@ -28,6 +28,10 @@ class Card
     //! Initializes card data.
     void Initialize();
 
+    //! Returns the value of card set.
+    //! \return The value of card set.
+    CardSet GetCardSet() const;
+
     //! Returns the value of card type.
     //! \return The value of card type.
     CardType GetCardType() const;

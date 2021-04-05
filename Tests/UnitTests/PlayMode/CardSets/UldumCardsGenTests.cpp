@@ -122,9 +122,9 @@ TEST_CASE("[Druid : Spell] - ULD_131 : Untapped Potential")
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 6);
-    CHECK_EQ(curField[0]->HasCharge(), true);
+    CHECK_EQ(curField[0]->HasRush(), true);
     CHECK_EQ(curField[0]->HasTaunt(), true);
 
     curPlayer->SetTotalMana(10);
@@ -250,6 +250,7 @@ TEST_CASE("[Druid : Spell] - ULD_134 : BEEEES!!!")
 // ------------------------------------------ SPELL - DRUID
 // [ULD_135] Hidden Oasis - COST:6
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One</b> - Summon a 6/6 Ancient with <b>Taunt</b>;
 //       or Restore 12 Health.
@@ -291,8 +292,7 @@ TEST_CASE("[Druid : Spell] - ULD_135 : Hidden Oasis")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Hidden Oasis"));
 
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero(), 1));
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Vir'naal Ancient");
 
@@ -709,6 +709,7 @@ TEST_CASE("[Shaman : Minion] - ULD_170 : Weaponized Wasp")
 // ----------------------------------------- SPELL - SHAMAN
 // [ULD_171] Totemic Surge - COST:0
 // - Set: Uldum, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your Totems +2 Attack.
 // --------------------------------------------------------
@@ -907,6 +908,7 @@ TEST_CASE("[Shaman : Minion] - ULD_173 : Vessina")
 // ----------------------------------------- SPELL - SHAMAN
 // [ULD_181] Earthquake - COST:7
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 5 damage to all minions,
 //       then deal 2 damage to all minions.
@@ -1544,6 +1546,7 @@ TEST_CASE("[Warlock : Minion] - ULD_165 : Riftcleaver")
 // ---------------------------------------- SPELL - PALADIN
 // [ULD_143] Pharaoh's Blessing - COST:6
 // - Faction: Neutral, Set: Uldum, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +4/+4, <b>Divine Shield</b>,
 //       and <b>Taunt</b>.
@@ -1654,6 +1657,7 @@ TEST_CASE("[Paladin : Minion] - ULD_144 : Brazen Zealot")
 // ------------------------------------------ SPELL - DRUID
 // [ULD_273] Overflow - COST:7
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Restore 5 Health to all characters. Draw 5 cards.
 // --------------------------------------------------------
@@ -2069,7 +2073,7 @@ TEST_CASE("[Hunter : Spell] - ULD_155 : Unseal the Vault")
 }
 
 // ---------------------------------------- MINION - HUNTER
-// [ULD_156] Dinotamer Brann - COST:8 [ATK:2/HP:4]
+// [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
 // - Set: Uldum, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If your deck has no duplicates,
@@ -2459,20 +2463,22 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
     auto curHero = curPlayer->GetHero();
     auto opHero = opPlayer->GetHero();
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Tortollan Pilgrim"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curDeck.GetCount(), 26);
 
     auto cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 1);
 
-    // NOTE: dbfID of the card 'Fireball' is 315
+    // NOTE: dbfID of the card 'Frostbolt' is 662
     const int dbfTotal = cards[0]->dbfID;
     CHECK_EQ(dbfTotal, 662);
 
@@ -2480,6 +2486,7 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
     const int totalHealth =
         curHero->GetHealth() + opHero->GetHealth() + curField[0]->GetHealth();
     CHECK_EQ(totalHealth, 62);
+    CHECK_EQ(curDeck.GetCount(), 25);
 }
 
 // ------------------------------------------ MINION - MAGE
@@ -2555,6 +2562,7 @@ TEST_CASE("[Mage : Minion] - ULD_238 : Reno the Relicologist")
 // ------------------------------------------- SPELL - MAGE
 // [ULD_239] Flame Ward - COST:3
 // - Faction: Neutral, Set: Uldum, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After a minion attacks your hero,
 //       deal 3 damage to all enemy minions.
@@ -2873,6 +2881,7 @@ TEST_CASE("[Warlock : Minion] - ULD_168 : Dark Pharaoh Tekahn")
 // ---------------------------------------- SPELL - WARLOCK
 // [ULD_324] Impbalming - COST:4
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Destroy a minion. Shuffle 3 Worthless Imps into your deck.
 // --------------------------------------------------------
@@ -2921,6 +2930,7 @@ TEST_CASE("[Warlock : Spell] - ULD_324 : Impbalming")
 // ---------------------------------------- SPELL - WARLOCK
 // [ULD_717] Plague of Flames - COST:1
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Destroy all your minions.
 //       For each one, destroy a random enemy minion.
@@ -3249,6 +3259,7 @@ TEST_CASE("[Mage : Minion] - ULD_435 : Naga Sand Witch")
 // ------------------------------------------- SPELL - MAGE
 // [ULD_726] Ancient Mysteries - COST:2
 // - Set: Uldum, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Draw a <b>Secret</b> from your deck. It costs (0).
 // --------------------------------------------------------
@@ -4214,6 +4225,7 @@ TEST_CASE("[Priest : Minion] - ULD_270 : Sandhoof Waterbearer")
 // ----------------------------------------- SPELL - PRIEST
 // [ULD_272] Holy Ripple - COST:2
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 1 damage to all enemies. Restore 1 Health
 //       to all friendly characters.
@@ -4269,6 +4281,7 @@ TEST_CASE("[Priest : Spell] - ULD_272 : Holy Ripple")
 // ----------------------------------------- SPELL - PRIEST
 // [ULD_714] Penance - COST:2
 // - Set: Uldum, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Lifesteal</b> Deal 3 damage to a minion.
 // --------------------------------------------------------
@@ -4316,6 +4329,7 @@ TEST_CASE("[Priest : Spell] - ULD_714 : Penance")
 // ----------------------------------------- SPELL - PRIEST
 // [ULD_718] Plague of Death - COST:9
 // - Set: Uldum, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Silence</b> and destroy all minions.
 // --------------------------------------------------------
@@ -4414,8 +4428,6 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
     const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
-    const auto card5 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
 
     auto quest = dynamic_cast<Spell*>(card1);
 
@@ -4430,32 +4442,28 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
 
     curHero->SetDamage(24);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curHero));
-    CHECK_EQ(curHero->GetHealth(), 12);
-    CHECK_EQ(quest->GetQuestProgress(), 6);
-
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curHero));
-    CHECK_EQ(curHero->GetHealth(), 18);
-    CHECK_EQ(quest->GetQuestProgress(), 12);
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHero->GetHealth(), 14);
+    CHECK_EQ(quest->GetQuestProgress(), 8);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, HeroPowerTask(curHero));
-    CHECK_EQ(curHero->GetHealth(), 20);
-    CHECK_EQ(quest->GetQuestProgress(), 14);
+    CHECK_EQ(curHero->GetHealth(), 16);
+    CHECK_EQ(quest->GetQuestProgress(), 10);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card5, curHero));
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
     CHECK(curSecret->quest == nullptr);
-    CHECK_EQ(curHero->GetHealth(), 26);
-    CHECK_EQ(quest->GetQuestProgress(), 20);
+    CHECK_EQ(curHero->GetHealth(), 24);
+    CHECK_EQ(quest->GetQuestProgress(), 18);
     CHECK_EQ(curHero->heroPower->card->id, "ULD_724p");
 
     game.Process(curPlayer, HeroPowerTask(curHero));
-    CHECK_EQ(curHero->GetHealth(), 29);
+    CHECK_EQ(curHero->GetHealth(), 27);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -4488,6 +4496,7 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
 TEST_CASE("[Rogue : Minion] - ULD_186 : Pharaoh Cat")
 {
     GameConfig config;
+    config.formatType = FormatType::WILD;
     config.player1Class = CardClass::ROGUE;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
@@ -4699,6 +4708,7 @@ TEST_CASE("[Rogue : Weapon] - ULD_285 : Hooked Scimitar")
 // ------------------------------------------ SPELL - ROGUE
 // [ULD_286] Shadow of Death - COST:4
 // - Set: Uldum, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Choose a minion. Shuffle 3 'Shadows' into your deck
 //       that summon a copy when drawn.
@@ -4989,6 +4999,7 @@ TEST_CASE("[Rogue : Spell] - ULD_328 : Clever Disguise")
 // ------------------------------------------ SPELL - ROGUE
 // [ULD_715] Plague of Madness - COST:1
 // - Set: Uldum, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Each player equips a 2/2 Knife with <b>Poisonous</b>.
 // --------------------------------------------------------
@@ -6920,7 +6931,7 @@ TEST_CASE("[Warrior : Spell] - ULD_711 : Hack the System")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
+// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:3/HP:3]
 // - Set: Uldum, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry</b>: Choose a damaged friendly minion.
@@ -6965,8 +6976,8 @@ TEST_CASE("[Warrior : Minion] - ULD_720 : Bloodsworn Mercenary")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Rampage"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 1);
@@ -6975,20 +6986,20 @@ TEST_CASE("[Warrior : Minion] - ULD_720 : Bloodsworn Mercenary")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, HeroPowerTask(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 3);
-    CHECK_EQ(curField[1]->GetAttack(), 5);
-    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL

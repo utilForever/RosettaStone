@@ -32,8 +32,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check if we can play this card and the target is valid
-    if (!source->IsPlayableByPlayer() || !source->IsPlayableByCardReq() ||
-        !source->IsValidPlayTarget(target))
+    if (!source->IsPlayableByPlayer() || !source->IsPlayableByCardReq(chooseOne) ||
+        !source->IsValidPlayTarget(target, chooseOne))
     {
         return;
     }

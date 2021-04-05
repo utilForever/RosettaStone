@@ -31,87 +31,53 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * Deck tracker
   * Web simulator
 
-## Roadmap
-
-### 2020
-
-  * Implement all standard cards
-    * Rise of Shadows
-    * Saviors of Uldum
-    * Descent of Dragons
-    * Ashes of Outland
-    * Scholomance Academy
-  * Implement programs for playing game
-    * Console-based
-    * GUI-based
-    * Web-based
-  * Prepare "Hearthstone pro gamer" vs AI match-up
-  * Implement "Hearthstone Battlegrounds"
-  * Support various deep-learning framework for RL environment
-    * Tensorflow
-    * PyTorch
-  * Fully support Python API
-  * Write a paper on Hearthstone's RL environment
-  * Make architecture documents for contributors
-  * Make tutorials for programs
-
-### 2019
-
-  * Implement all original cards
-  * Implement console and GUI program
-  * Provide RL environment using PyTorch C++ API
-  * Support API for another language such as Python
-
-### 2018
-
-  * Implement basic system (game and task)
-  * Implement basic console program
-  * Implement some original cards
-  * Support cross-platform build (Windows/Linux/MacOS)
-  * Provide API documentation using doxygen
-
 ## Cards Implementation
 
-### Basic & Classic
+### Standard Format
+
+  * 0% Core Set (0 of 235 cards)
+  * 59% Ashes of Outland (80 of 135 cards)
+  * 57% Scholomance Academy (78 of 135 cards)
+  * 46% Madness at the Darkmoon Faire (79 of 170 cards)
+  * 0% Forged in the Barrens (0 of 135 cards)
+
+### Wild Format
 
   * **100% Basic (143 of 143 Cards)**
   * **100% Classic (240 of 240 Cards)**
   * **100% Demon Hunter Initiate (20 of 20 Cards)**
   * 71% Hall of Fame (25 of 35 Cards)
-
-### Adventures
-
-  * 57% Galakrond's Awakening (20 of 35 cards)
-  * 0% One Night in Karazhan (0 of 45 Cards)
-  * 0% The League of Explorers (0 of 45 Cards)
-  * 0% Blackrock Mountain (0 of 31 Cards)
   * 0% Curse of Naxxramas (0 of 30 Cards)
-
-### Expansions
-
-  * 0% Forged in the Barrens (0 of 1 cards)
-  * 46% Madness at the Darkmoon Faire (79 of 170 cards)
-  * 57% Scholomance Academy (78 of 135 cards)
-  * 59% Ashes of Outland (80 of 135 cards)
-  * **100% Descent of Dragons (140 of 140 cards)**
+  * 0% Goblins vs Gnomes (0 of 123 Cards)
+  * 0% Blackrock Mountain (0 of 31 Cards)
+  * 0% The Grand Tournament (0 of 132 Cards)
+  * 0% The League of Explorers (0 of 45 Cards)
+  * 0% Whispers of the Old Gods (0 of 134 Cards)
+  * 0% One Night in Karazhan (0 of 45 Cards)
+  * 0% Mean Streets of Gadgetzan (0 of 132 Cards)
+  * 0% Journey to Un'Goro (0 of 135 Cards)
+  * 0% Knights of the Frozen Throne (0 of 135 Cards)
+  * 0% Kobolds & Catacombs (0 of 135 Cards)
+  * 0% The Witchwood (0 of 135 Cards)
+  * 0% The Boomsday Project (0 of 135 Cards)
+  * 0% Rastakhan's Rumble (0 of 135 Cards)
+  * **100% Rise of Shadows (136 of 136 cards)**
   * **99% Saviors of Uldum (134 of 135 cards)**
     * Except 'Zephrys the Great' (ULD_003)
-  * **100% Rise of Shadows (136 of 136 cards)**
-  * 0% Rastakhan's Rumble (0 of 135 Cards)
-  * 0% The Boomsday Project (0 of 135 Cards)
-  * 0% The Witchwood (0 of 135 Cards)
-  * 0% Kobolds & Catacombs (0 of 135 Cards)
-  * 0% Knights of the Frozen Throne (0 of 135 Cards)
-  * 0% Journey to Un'Goro (0 of 135 Cards)
-  * 0% Mean Streets of Gadgetzan (0 of 132 Cards)
-  * 0% Whispers of the Old Gods (0 of 134 Cards)
-  * 0% The Grand Tournament (0 of 132 Cards)
-  * 0% Goblins vs Gnomes (0 of 123 Cards)
+  * **100% Descent of Dragons (140 of 140 cards)**
+  * 57% Galakrond's Awakening (20 of 35 cards)
+
+### Classic Format
+
+  * 0% Vanilla Set (0 of 382 Cards)
 
 ## Implementation List
 
   * [Ability list](./Documents/AbilityList.md)
-  * [Card list](./Documents/CardList.md)
+  * Card list
+    * [Standard Format](./Documents/CardList%20-%20Standard.md)
+    * [Wild Format](./Documents/CardList%20-%20Wild.md)
+    * [Classic Format](./Documents/CardList%20-%20Classic.md)
   * [Task list](./Documents/TaskList.md)
 
 ## Quick Start
@@ -240,7 +206,7 @@ The class is licensed under the [Affero GPLv3 License](https://opensource.org/li
 
 RosettaStone is based on part of Sabberstone's code
 
-Copyright (c) 2017-2020 SabberStone Team, darkfriend77 & rnilva
+Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
 
 RosettaStone is based on part of hearthstone-ai's code
 
@@ -248,7 +214,7 @@ Copyright (c) 2017 Peter Shih, peter1591
 
 RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
-Copyright (c) 2017-2020 RosettaStone Team
+Copyright (c) 2017-2021 RosettaStone Team
 
   * [Chris Ohk](http://www.github.com/utilForever)
   * [Youngjoong Kim](https://github.com/revsic)

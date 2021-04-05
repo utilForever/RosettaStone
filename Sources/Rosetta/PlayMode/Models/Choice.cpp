@@ -89,29 +89,18 @@ void Choice::TryPrepare()
                 [=](Card* card) { return effect->card->id == card->id; });
     }
 
-    auto cards = SimpleTasks::DiscoverTask::GetChoices(cardSets, 3);
-
-    std::vector<int> choiceCards;
-    choiceCards.reserve(3);
-
-    for (auto& card : cards)
-    {
-        const auto playable = Entity::GetFromCard(player, card, std::nullopt,
-                                                  player->GetSetasideZone());
-        choiceCards.emplace_back(playable->GetGameTag(GameTag::ENTITY_ID));
-    }
-
-    choices = choiceCards;
+    choices = SimpleTasks::DiscoverTask::GetChoices(source, cardSets,
+                                                    std::vector<int>{}, 3);
 }
 
-Choice* Choice::TryPopNextChoice(int lastChoice)
+Choice* Choice::TryPopNextChoice(int _lastChoice) const
 {
     if (nextChoice == nullptr)
     {
         return nullptr;
     }
 
-    nextChoice->lastChoice = lastChoice;
+    nextChoice->lastChoice = _lastChoice;
     nextChoice->TryPrepare();
     nextChoice->entityStack = entityStack;
 

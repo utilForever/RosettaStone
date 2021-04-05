@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Actions/Copy.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -152,6 +153,12 @@ bool ChoicePick(Player* player, int choice)
             player->game->taskStack.num[0] = static_cast<int>(choice);
             break;
         }
+        case ChoiceAction::DRAW_FROM_DECK:
+        {
+            player->GetDeckZone()->Remove(playable);
+            AddCardToHand(player, playable);
+            break;
+        }
         case ChoiceAction::CAST_SPELL:
         {
             player->game->currentEventData = std::make_unique<EventMetaData>(
@@ -198,6 +205,11 @@ bool ChoicePick(Player* player, int choice)
             deckZone->Swap(playable, deckZone->GetTopCard());
             break;
         }
+        case ChoiceAction::MADAME_LAZUL:
+        {
+            Copy(player, playable, ZoneType::HAND);
+            break;
+        }
         case ChoiceAction::SWAMPQUEEN_HAGATHA:
         {
             if (choiceVal->depth == 1)
@@ -214,8 +226,15 @@ bool ChoicePick(Player* player, int choice)
         }
         case ChoiceAction::TORTOLLAN_PILGRIM:
         {
-            auto spellToCast = dynamic_cast<Spell*>(
-                Entity::GetFromCard(player, playable->card));
+            player->GetDeckZone()->Remove(playable);
+
+            auto spellToCast = dynamic_cast<Spell*>(playable);
+            if (!spellToCast)
+            {
+                throw std::logic_error(
+                    "Tortollan Pilgram casts non-spell card!");
+            }
+
             const auto randTarget = spellToCast->GetRandomValidTarget();
             const int randChooseOne = Random::get<int>(1, 2);
 
@@ -354,8 +373,8 @@ bool ChoicePick(Player* player, int choice)
     return true;
 }
 
-void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
-                  const std::vector<int>& choices)
+void CreateChoice(Player* player, Entity* source, ChoiceType type,
+                  ChoiceAction action, const std::vector<int>& choices)
 {
     // Block it if choice is exist
     if (player->choice != nullptr)
@@ -367,6 +386,7 @@ void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
     player->choice = new Choice(player);
     player->choice->choiceType = type;
     player->choice->choiceAction = action;
+    player->choice->source = source;
     player->choice->choices = choices;
     player->choice->depth = 1;
 }

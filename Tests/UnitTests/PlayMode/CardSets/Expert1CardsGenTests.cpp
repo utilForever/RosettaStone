@@ -20,9 +20,63 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ----------------------------------------- HERO - WARLOCK
+// [EX1_323] Lord Jaraxxus - COST:9 [ATK:0/HP:30]
+// - Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Equip a 3/8 Blood Fury.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Hero] - EX1_323 : Lord Jaraxxus")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_323"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [EX1_154] Wrath - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Deal 3 damage to a minion;
 //       or 1 damage and draw a card.
@@ -84,6 +138,7 @@ TEST_CASE("[Druid : Spell] - EX1_154 : Wrath")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_155] Mark of Nature - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Give a minion +4 Attack;
 //       or +4 Health and <b>Taunt</b>.
@@ -146,6 +201,7 @@ TEST_CASE("[Druid : Spell] - EX1_155 : Mark of Nature")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_158] Soul of the Forest - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
 // --------------------------------------------------------
@@ -276,6 +332,7 @@ TEST_CASE("[Druid : Spell] - EX1_160 : Power of the Wild")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_164] Nourish - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
 // --------------------------------------------------------
@@ -330,11 +387,11 @@ TEST_CASE("[Druid : Spell] - EX1_164 : Nourish")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
+// [EX1_165] Druid of the Claw - COST:5 [ATK:5/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
-//       or a 4/6 with <b>Taunt</b>.
+// Text: <b>Choose One -</b> Transform into a 5/4 with <b>Charge</b>;
+//       or a 5/6 with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
@@ -373,26 +430,26 @@ TEST_CASE("[Druid : Minion] - EX1_165 : Druid of the Claw")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Silence"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 4);
     CHECK(curField[0]->CanAttack());
     CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
-    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
     CHECK_FALSE(curField[1]->CanAttack());
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
-    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
     CHECK_FALSE(curField[1]->CanAttack());
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
 }
 
 // ----------------------------------------- MINION - DRUID
-// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2]
+// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.
@@ -504,6 +561,7 @@ TEST_CASE("[Druid : Minion] - EX1_178 : Ancient of War")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_183] Gift of the Wild - COST:8
 // - Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your minions +2/+2 and <b>Taunt</b>.
 // --------------------------------------------------------
@@ -619,6 +677,7 @@ TEST_CASE("[Druid : Spell] - EX1_570 : Bite")
 // ------------------------------------------ SPELL - DRUID
 // [EX1_571] Force of Nature - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Summon three 2/2 Treants.
 // --------------------------------------------------------
@@ -675,7 +734,7 @@ TEST_CASE("[Druid : Spell] - EX1_571 : Force of Nature")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
+// [EX1_573] Cenarius - COST:8 [ATK:5/HP:8]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Choose One -</b> Give your other minions +2/+2;
@@ -818,6 +877,7 @@ TEST_CASE("[Druid : Spell] - EX1_578 : Savagery")
 // ------------------------------------------ SPELL - DRUID
 // [NEW1_007] Starfall - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Choose One -</b>
 //       Deal 5 damage to a minion;
@@ -880,7 +940,7 @@ TEST_CASE("[Druid : Spell] - NEW1_007 : Starfall")
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 2);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card7, card1, 1));
+    game.Process(opPlayer, PlayCardTask::Spell(card7, 1));
     CHECK_EQ(curField.GetCount(), 0);
 
     game.Process(opPlayer, EndTurnTask());
@@ -894,7 +954,7 @@ TEST_CASE("[Druid : Spell] - NEW1_007 : Starfall")
 // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
+// Text: <b>Choose One -</b> Draw 2 cards; or Restore 5 Health.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
@@ -929,7 +989,14 @@ TEST_CASE("[Druid : Minion] - NEW1_008 : Ancient of Lore")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient of Lore"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(card1->GetZoneType(), ZoneType::PLAY);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card2, curPlayer->GetHero(), 2));
@@ -1242,6 +1309,7 @@ TEST_CASE("[Hunter : Weapon] - EX1_536 : Eaglehorn Bow")
 // ----------------------------------------- SPELL - HUNTER
 // [EX1_537] Explosive Shot - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
 // --------------------------------------------------------
@@ -1416,7 +1484,7 @@ TEST_CASE("[Hunter : Minion] - EX1_543 : King Krush")
 }
 
 // ----------------------------------------- SPELL - HUNTER
-// [EX1_544] Flare - COST:2
+// [EX1_544] Flare - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: All minions lose <b>Stealth</b>.
@@ -1723,6 +1791,7 @@ TEST_CASE("[Hunter : Spell] - EX1_609 : Snipe")
 // ----------------------------------------- SPELL - HUNTER
 // [EX1_610] Explosive Trap - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When your hero is attacked,
 //       deal 2 damage to all enemies.
@@ -1793,6 +1862,7 @@ TEST_CASE("[Hunter : Spell] - EX1_610 : Explosive Trap")
 // ----------------------------------------- SPELL - HUNTER
 // [EX1_611] Freezing Trap - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When an enemy minion attacks,
 //       return it to its owner's hand. It costs (2) more.
@@ -1916,6 +1986,7 @@ TEST_CASE("[Hunter : Spell] - EX1_617 : Deadly Shot")
 // ------------------------------------------- SPELL - MAGE
 // [CS2_028] Blizzard - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
 // --------------------------------------------------------
@@ -1984,6 +2055,7 @@ TEST_CASE("[Mage : Spell] - CS2_028 : Blizzard")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_179] Icicle - COST:2
 // - Set: Expert1, Rarity: Epic
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion.
 //       If it's <b>Frozen</b>, draw a card.
@@ -2046,6 +2118,7 @@ TEST_CASE("[Mage : Spell] - EX1_179 : Icicle")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_180] Tome of Intellect - COST:1
 // - Set: Expert1, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Add a random Mage spell to your hand.
 // --------------------------------------------------------
@@ -2155,8 +2228,9 @@ TEST_CASE("[Mage : Minion] - EX1_274 : Ethereal Arcanist")
 }
 
 // ------------------------------------------- SPELL - MAGE
-// [EX1_275] Cone of Cold - COST:4
+// [EX1_275] Cone of Cold - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> a minion and the minions next to it,
 //       and deal 1 damage to them.
@@ -2238,6 +2312,7 @@ TEST_CASE("[Mage : Spell] - EX1_275 : Cone of Cold")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_279] Pyroblast - COST:10
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 10 damage.
 // --------------------------------------------------------
@@ -2323,6 +2398,7 @@ TEST_CASE("[Mage : Spell] - EX1_279 : Pyroblast")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_287] Counterspell - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
 // --------------------------------------------------------
@@ -2389,6 +2465,7 @@ TEST_CASE("[Mage : Spell] - EX1_287 : Counterspell")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_289] Ice Barrier - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When your hero is attacked,
 //       gain 8 Armor.
@@ -2440,6 +2517,7 @@ TEST_CASE("[Mage : Spell] - EX1_289 : Ice Barrier")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_294] Mirror Entity - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Arcane
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After your opponent plays a minion,
 //       summon a copy of it.
@@ -2589,6 +2667,7 @@ TEST_CASE("[Mage : Minion] - EX1_559 : Archmage Antonidas")
 // ------------------------------------------- SPELL - MAGE
 // [EX1_594] Vaporize - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
 // --------------------------------------------------------
@@ -2776,7 +2855,7 @@ TEST_CASE("[Mage : Minion] - EX1_612 : Kirin Tor Mage")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
+// [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:2]
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +1 Attack.
@@ -2972,6 +3051,7 @@ TEST_CASE("[Paladin : Spell] - EX1_130 : Noble Sacrifice")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_132] Eye for an Eye - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When your hero takes damage,
 //       deal that much damage to the enemy hero.
@@ -3045,6 +3125,7 @@ TEST_CASE("[Paladin : Spell] - EX1_132 : Eye for an Eye")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_136] Redemption - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Secret:</b> When a friendly minion dies,
 //       return it to life with 1 Health.
@@ -3101,6 +3182,7 @@ TEST_CASE("[Paladin : Spell] - EX1_136 : Redemption")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_184] Righteousness - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give your minions <b>Divine Shield</b>.
 // --------------------------------------------------------
@@ -3160,6 +3242,7 @@ TEST_CASE("[Paladin : Spell] - EX1_184 : Righteousness")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_354] Lay on Hands - COST:8
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 8 Health. Draw 3 cards.
 // --------------------------------------------------------
@@ -3203,6 +3286,7 @@ TEST_CASE("[Paladin : Spell] - EX1_354 : Lay on Hands")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_355] Blessed Champion - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Double a minion's Attack.
 // --------------------------------------------------------
@@ -3248,7 +3332,7 @@ TEST_CASE("[Paladin : Spell] - EX1_355 : Blessed Champion")
 }
 
 // --------------------------------------- MINION - PALADIN
-// [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
+// [EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
@@ -3279,8 +3363,13 @@ TEST_CASE("[Paladin : Minion] - EX1_362 : Argent Protector")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer->SetTotalMana(10);
     curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
@@ -3289,15 +3378,13 @@ TEST_CASE("[Paladin : Minion] - EX1_362 : Argent Protector")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
     CHECK(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD));
 }
 
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_363] Blessing of Wisdom - COST:1
 // - Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Choose a minion. Whenever it attacks, draw a card.
 // --------------------------------------------------------
@@ -3341,6 +3428,7 @@ TEST_CASE("[Paladin : Spell] - EX1_363 : Blessing of Wisdom")
 // ------------------------------------------ SPELL - PALADIN
 // [EX1_365] Holy Wrath - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Draw a card and deal damage equal to its Cost.
 // --------------------------------------------------------
@@ -3460,6 +3548,7 @@ TEST_CASE("[Paladin : Weapon] - EX1_366 : Sword of Justice")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_379] Repentance - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After your opponent plays a minion,
 //       reduce its Health to 1.
@@ -3640,6 +3729,7 @@ TEST_CASE("[Paladin : Minion] - EX1_383 : Tirion Fordring")
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_384] Avenging Wrath - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 8 damage randomly split among all enemies.
 // --------------------------------------------------------
@@ -3707,8 +3797,9 @@ TEST_CASE("[Paladin : Spell] - EX1_384 : Avenging Wrath")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [EX1_619] Equality - COST:4
+// [EX1_619] Equality - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Change the Health of all minions to 1.
 // --------------------------------------------------------
@@ -3822,6 +3913,7 @@ TEST_CASE("[Priest : Spell] - CS1_129 : Inner Fire")
 // ---------------------------------------- MINION - PRIEST
 // [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Take control of an enemy minion
 //       that has 2 or less Attack.
@@ -4004,6 +4096,7 @@ TEST_CASE("[Priest : Minion] - EX1_196 : Scarlet Subjugator")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_197] Shadow Word: Ruin - COST:4
 // - Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy all minions with 5 or more Attack.
 // --------------------------------------------------------
@@ -4129,6 +4222,7 @@ TEST_CASE("[Priest : Minion] - EX1_198 : Natalie Seline")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_332] Silence - COST:0
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Silence</b> a minion.
 // --------------------------------------------------------
@@ -4193,6 +4287,7 @@ TEST_CASE("[Priest : Spell] - EX1_332 : Silence")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_334] Shadow Madness - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Gain control of an enemy minion with 3 or less Attack
 //       until end of turn.
@@ -4281,7 +4376,7 @@ TEST_CASE("[Priest : Spell] - EX1_334 : Shadow Madness")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
+// [EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: This minion's Attack is always equal to its Health.
@@ -4314,21 +4409,22 @@ TEST_CASE("[Priest : Minion] - EX1_335 : Lightspawn")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_339] Thoughtsteal - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Copy 2 cards in your opponent's deck and
 //       add them to your hand.
@@ -4431,6 +4527,7 @@ TEST_CASE("[Priest : Minion] - EX1_341 : Lightwell")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_345] Mindgames - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Put a copy of a random minion from
 //       your opponent's deck into the battlefield.
@@ -4495,6 +4592,7 @@ TEST_CASE("[Priest : Spell] - EX1_345 : Mindgames")
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_621] Circle of Healing - COST:0
 // - Set: Expert1, Rarity: Common
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 4 Health to all minions.
 // --------------------------------------------------------
@@ -4617,8 +4715,59 @@ TEST_CASE("[Priest : Minion] - EX1_623 : Temple Enforcer")
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [EX1_625] Shadowform - COST:2
+// - Faction: Priest, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Your Hero Power becomes 'Deal 2 damage'.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - EX1_625 : Shadowform")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    Hero* opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 25);
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [EX1_626] Mass Dispel - COST:4
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Holy
 // --------------------------------------------------------
 // Text: <b>Silence</b> all enemy minions. Draw a card.
 // --------------------------------------------------------
@@ -4741,7 +4890,7 @@ TEST_CASE("[Rogue : Spell] - CS2_073 : Cold Blood")
 }
 
 // ------------------------------------------ SPELL - ROGUE
-// [CS2_233] Blade Flurry - COST:4
+// [CS2_233] Blade Flurry - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Destroy your weapon and deal its damage to all enemy minions.
@@ -5166,6 +5315,7 @@ TEST_CASE("[Rogue : Spell] - EX1_137 : Headcrack")
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_144] Shadowstep - COST:0
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Return a friendly minion to your hand. It costs (2) less.
 // --------------------------------------------------------
@@ -5370,7 +5520,7 @@ TEST_CASE("[Rogue : Spell] - EX1_182 : Pilfer")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
+// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Stealth</b>
@@ -5421,7 +5571,7 @@ TEST_CASE("[Rogue : Minion] - EX1_522 : Patient Assassin")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [EX1_613] Edwin VanCleef - COST:4 [ATK:2/HP:2]
+// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Combo:</b> Gain +2/+2 for each other card
@@ -5726,6 +5876,7 @@ TEST_CASE("[Shaman : Spell] - CS2_053 : Far Sight")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_238] Lightning Bolt - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 3 damage. <b>Overload:</b> (1)
 // --------------------------------------------------------
@@ -5780,6 +5931,7 @@ TEST_CASE("[Shaman : Spell] - EX1_238 : Lightning Bolt")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_241] Lava Burst - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 5 damage. <b>Overload:</b> (2)
 // --------------------------------------------------------
@@ -5850,6 +6002,7 @@ TEST_CASE("[Shaman : Minion] - EX1_243 : Dust Devil")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_245] Earth Shock - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: <b>Silence</b> a minion, then deal 1 damage to it.
 // --------------------------------------------------------
@@ -5921,7 +6074,8 @@ TEST_CASE("[Shaman : Weapon] - EX1_247 : Stormforged Axe")
 // [EX1_248] Feral Spirit - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>. <b>Overload:</b> (2)
+// Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
+//       <b>Overload:</b> (1)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -5957,12 +6111,74 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 3);
-    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
     CHECK_EQ(curField[1]->GetAttack(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 3);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b><b>Overload</b>:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 3
+// - OVERLOAD_OWED = 3
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - EX1_250 : Earth Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Earth Elemental"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -5975,26 +6191,10 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
 }
 
-// ---------------------------------------- MINION - SHAMAN
-// [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
-// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
-// --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b><b>Overload</b>:</b> (3)
-// --------------------------------------------------------
-// GameTag:
-// - OVERLOAD = 3
-// - OVERLOAD_OWED = 3
-// - TAUNT = 1
-// --------------------------------------------------------
-TEST_CASE("[Shaman : Minion] - EX1_250 : Earth Elemental")
-{
-    // Do nothing
-}
-
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_251] Forked Lightning - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Nature
 // --------------------------------------------------------
 // Text: Deal 2 damage to 2 random enemy minions. <b>Overload:</b> (2)
 // --------------------------------------------------------
@@ -6131,8 +6331,9 @@ TEST_CASE("[Shaman : Minion] - EX1_258 : Unbound Elemental")
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_259] Lightning Storm - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Nature
 // --------------------------------------------------------
-// Text: Deal 2-3 damage to all enemy minions. <b>Overload:</b> (2)
+// Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -6186,10 +6387,8 @@ TEST_CASE("[Shaman : Spell] - EX1_259 : Lightning Storm")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ((opField[0]->GetHealth() == 4 || opField[0]->GetHealth() == 5),
-             true);
-    CHECK_EQ((opField[1]->GetHealth() == 4 || opField[1]->GetHealth() == 5),
-             true);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[1]->GetHealth(), 4);
     CHECK_EQ(curPlayer->GetRemainingMana(), 7);
     CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
     CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
@@ -6295,17 +6494,17 @@ TEST_CASE("[Shaman : Minion] - EX1_575 : Mana Tide Totem")
 }
 
 // ---------------------------------------- MINION - SHAMAN
-// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
+// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
 // - Race: Elemental, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Charge, Divine Shield, Taunt, Windfury</b>
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
-// - WINDFURY = 1
-// - TAUNT = 1
-// - DIVINE_SHIELD = 1
 // - CHARGE = 1
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// - WINDFURY = 1
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Minion] - NEW1_010 : Al'Akir the Windlord")
 {
@@ -6370,6 +6569,7 @@ TEST_CASE("[Warlock : Minion] - CS2_059 : Blood Imp")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_181] Call of the Void - COST:1
 // - Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Add a random Demon to your hand.
 // --------------------------------------------------------
@@ -6515,6 +6715,7 @@ TEST_CASE("[Warlock : Minion] - EX1_301 : Felguard")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_303] Shadowflame - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a friendly minion and deal its Attack damage
 //       to all enemy minions.
@@ -6576,7 +6777,7 @@ TEST_CASE("[Warlock : Spell] - EX1_303 : Shadowflame")
 }
 
 // --------------------------------------- MINION - WARLOCK
-// [EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
+// [EX1_304] Void Terror - COST:3 [ATK:3/HP:4]
 // - Race: Demon, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Destroy both adjacent minions
@@ -6627,17 +6828,18 @@ TEST_CASE("[Warlock : Minion] - EX1_304 : Void Terror")
     game.Process(curPlayer, PlayCardTask(card1, nullptr, 1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 6);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask(card2, nullptr, 1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 9);
-    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 11);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
-// [EX1_309] Siphon Soul - COST:6
+// [EX1_309] Siphon Soul - COST:5
 // - Set: Expert1, Rarity: Rare
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a minion. Restore 3 Health to your hero.
 // --------------------------------------------------------
@@ -6685,6 +6887,7 @@ TEST_CASE("[Warlock : Spell] - EX1_309 : Siphon Soul")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_312] Twisting Nether - COST:8
 // - Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy all minions.
 // --------------------------------------------------------
@@ -6873,6 +7076,7 @@ TEST_CASE("[Warlock : Minion] - EX1_315 : Summoning Portal")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_317] Sense Demons - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Draw 2 Demons from your deck.
 // --------------------------------------------------------
@@ -6961,6 +7165,7 @@ TEST_CASE("[Warlock : Minion] - EX1_319 : Flame Imp")
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_320] Bane of Doom - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 2 damage to a character. If that kills it,
 //       summon a random Demon.
@@ -7018,62 +7223,10 @@ TEST_CASE("[Warlock : Spell] - EX1_320 : Bane of Doom")
     CHECK_EQ(opField[0]->card->GetRace(), Race::DEMON);
 }
 
-// --------------------------------------- MINION - WARLOCK
-// [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
-// - Race: Demon, Set: Expert1, Rarity: Legendary
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Destroy your hero and replace it
-//       with Lord Jaraxxus.
-// --------------------------------------------------------
-// GameTag:
-// - ELITE = 1
-// - BATTLECRY = 1
-// --------------------------------------------------------
-TEST_CASE("[Warlock : Minion] - EX1_323 : Lord Jaraxxus")
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARLOCK;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_323"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 8);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask());
-    CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 6);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
-}
-
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_596] Demonfire - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion. If it’s a friendly Demon,
 //       give it +2/+2 instead.
@@ -7994,7 +8147,7 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(curPlayer, HeroPowerTask(card1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
 
     game.Process(curPlayer, EndTurnTask());
@@ -8006,8 +8159,8 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curHand.GetCount(), 8);
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
     CHECK_EQ(curField[0]->GetAttack(), 8);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card1));
@@ -8021,14 +8174,14 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(curPlayer, HeroPowerTask(card1));
     CHECK_EQ(curField[0]->GetHealth(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 11);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(opPlayer, HeroPowerTask(card1));
     CHECK(curField.IsEmpty());
 }
 
@@ -8665,7 +8818,7 @@ TEST_CASE("[Neutral : Minion] - EX1_004 : Young Priestess")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
+// [EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
@@ -9066,7 +9219,7 @@ TEST_CASE("[Neutral : Minion] - EX1_028 : Stranglethorn Tiger")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
+// [EX1_029] Leper Gnome - COST:1 [ATK:2/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.
@@ -9806,13 +9959,15 @@ TEST_CASE("[Neutral : Minion] - EX1_083 : Tinkmaster Overspark")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:4]
+// [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give your opponent a Mana Crystal.
+// Text: <b>Charge</b>.
+//       <b>Battlecry:</b> Give your opponent a Mana Crystal.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
+// - CHARGE = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_089 : Arcane Golem")
 {
@@ -9841,10 +9996,13 @@ TEST_CASE("[Neutral : Minion] - EX1_089 : Arcane Golem")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(opPlayer->GetTotalMana(), 4);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_093] Defender of Argus - COST:4 [ATK:2/HP:3]
+// [EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
 // - Faction: Alliance, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
@@ -9896,7 +10054,7 @@ TEST_CASE("[Neutral : Minion] - EX1_093 : Defender of Argus")
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
-    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetHealth(), 3);
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
     CHECK_EQ(curField[2]->GetAttack(), 4);
@@ -10279,10 +10437,10 @@ TEST_CASE("[Neutral : Minion] - EX1_103 : Coldlight Seer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
+// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
 // - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof.
+// Text: <b>Deathrattle:</b> Summon a 5/5 Baine Bloodhoof.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -10325,7 +10483,7 @@ TEST_CASE("[Neutral : Minion] - EX1_110 : Cairne Bloodhoof")
     game.Process(opPlayer, AttackTask(card2, card1));
     CHECK(card1->isDestroyed);
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
@@ -10513,7 +10671,7 @@ TEST_CASE("[Neutral : Minion] - EX1_186 : SI:7 Infiltrator")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5]
+// [EX1_187] Arcane Devourer - COST:8 [ATK:4/HP:8]
 // - Race: Elemental, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +2/+2.
@@ -10548,8 +10706,8 @@ TEST_CASE("[Neutral : Minion] - EX1_187 : Arcane Devourer")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -10559,17 +10717,17 @@ TEST_CASE("[Neutral : Minion] - EX1_187 : Arcane Devourer")
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 7);
-    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 9);
-    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 12);
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4]
+// [EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a random Beast.
@@ -10650,7 +10808,7 @@ TEST_CASE("[Neutral : Minion] - EX1_189 : Brightwing")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8]
+// [EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
 // - Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon all friendly minions
@@ -10781,7 +10939,7 @@ TEST_CASE("[Neutral : Minion] - EX1_190 : High Inquisitor Whitemane")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
+// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: At the end of your turn, deal 2 damage to all other characters.
@@ -10828,7 +10986,7 @@ TEST_CASE("[Neutral : Minion] - EX1_249 : Baron Geddon")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
@@ -10842,7 +11000,7 @@ TEST_CASE("[Neutral : Minion] - EX1_249 : Baron Geddon")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 5);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
@@ -11434,12 +11592,15 @@ TEST_CASE("[Neutral : Minion] - EX1_561 : Alexstrasza")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 14);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -11447,6 +11608,7 @@ TEST_CASE("[Neutral : Minion] - EX1_561 : Alexstrasza")
     game.Process(opPlayer,
                  PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -12302,7 +12464,7 @@ TEST_CASE("[Neutral : Minion] - NEW1_018 : Bloodsail Raider")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
+// [NEW1_019] Knife Juggler - COST:2 [ATK:3/HP:2]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: After you summon a minion,
@@ -13173,7 +13335,7 @@ TEST_CASE("[Neutral : Minion] - NEW1_041 : Stampeding Kodo")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
+// [tt_004] Flesheating Ghoul - COST:3 [ATK:3/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever a minion dies, gain +1 Attack.
@@ -13214,7 +13376,7 @@ TEST_CASE("[Neutral : Minion] - tt_004 : Flesheating Ghoul")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -13223,14 +13385,14 @@ TEST_CASE("[Neutral : Minion] - tt_004 : Flesheating Ghoul")
     game.Process(opPlayer, PlayCardTask::Minion(card5));
 
     game.Process(opPlayer, AttackTask(card4, card2));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
 
     game.Process(opPlayer, AttackTask(card5, card3));
-    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 7);
 }
 
 // ----------------------------------------- MINION - DREAM
-// [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5]
+// [DREAM_01] Laughing Sister (*) - COST:2 [ATK:3/HP:5]
 // - Set: Expert1
 // --------------------------------------------------------
 // Text: Can't be targeted by spells or Hero Powers.
@@ -13245,10 +13407,10 @@ TEST_CASE("[Dream : Minion] - DREAM_01 : Laughing Sister")
 }
 
 // ------------------------------------------ SPELL - DREAM
-// [DREAM_02] Ysera Awakens (*) - COST:2
+// [DREAM_02] Ysera Awakens (*) - COST:3
 // - Set: Expert1
 // --------------------------------------------------------
-// Text: Deal 5 damage to all characters except Ysera.
+// Text: Deal 5 damage to all minions except Ysera.
 // --------------------------------------------------------
 TEST_CASE("[Dream : Spell] - DREAM_02 : Ysera Awakens")
 {
@@ -13308,8 +13470,8 @@ TEST_CASE("[Dream : Spell] - DREAM_02 : Ysera Awakens")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(card2->GetGameTag(GameTag::DAMAGE), 0);
     CHECK_EQ(card4->GetGameTag(GameTag::DAMAGE), 0);
     CHECK_EQ(card3->GetGameTag(GameTag::DAMAGE), 5);
@@ -13326,14 +13488,15 @@ TEST_CASE("[Dream : Minion] - DREAM_03 : Emerald Drake")
 }
 
 // ------------------------------------------ SPELL - DREAM
-// [DREAM_04] Dream (*) - COST:0
+// [DREAM_04] Dream (*) - COST:1
 // - Set: Expert1
 // --------------------------------------------------------
-// Text: Return a minion to its owner's hand.
+// Text: Return an enemy minion to your opponent's hand.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
 // --------------------------------------------------------
 TEST_CASE("[Dream : Spell] - DREAM_04 : Dream")
 {
@@ -13341,7 +13504,7 @@ TEST_CASE("[Dream : Spell] - DREAM_04 : Dream")
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PRIEST;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
@@ -13363,37 +13526,34 @@ TEST_CASE("[Dream : Spell] - DREAM_04 : Dream")
     const auto card1 =
         Generic::DrawCard(opPlayer, Cards::FindCardByID("DREAM_04"));
     const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByID("DREAM_04"));
-    const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Magma Rager"));
-    const auto card4 =
+    const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 1);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
-    CHECK_EQ(curHand.GetCount(), 4);
-    CHECK_EQ(opHand.GetCount(), 8);
-    CHECK_EQ(opHand[7]->card->name, "Magma Rager");
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(opHand[1]->card->name, "Dream");
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
-    CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(opHand.GetCount(), 7);
-    CHECK_EQ(curHand[4]->card->name, "Magma Rager");
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Magma Rager");
 }
 
 // ------------------------------------------ SPELL - DREAM
 // [DREAM_05] Nightmare (*) - COST:0
 // - Set: Expert1
 // --------------------------------------------------------
-// Text: Give a minion +5/+5. At the start of your next turn, destroy it.
+// Text: Give a minion +4/+4. At the start of your next turn, destroy it.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -13434,8 +13594,8 @@ TEST_CASE("[Dream : Spell] - DREAM_05 : Nightmare")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
     CHECK_EQ(curField[0]->appliedEnchantments.size(), 1);
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 10);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

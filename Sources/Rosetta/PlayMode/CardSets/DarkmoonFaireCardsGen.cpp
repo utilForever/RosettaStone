@@ -61,6 +61,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DMF_057] Lunar Eclipse - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     //       Your next spell this turn costs (2) less.
@@ -82,6 +83,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DMF_058] Solar Eclipse - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Your next spell this turn casts twice.
     // --------------------------------------------------------
@@ -166,6 +168,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [DMF_732] Cenarion Ward - COST:8
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain 8 Armor. Summon a random 8-Cost minion.
     // --------------------------------------------------------
@@ -225,6 +228,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [YOP_026] Arbor Up - COST:5
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants. Give your minions +2/+1.
     // --------------------------------------------------------
@@ -738,6 +742,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [DMF_104] Grand Finale - COST:8
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Summon an 8/8 Elemental.
     //       Repeat for each Elemental you played last turn.
@@ -813,6 +818,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [YOP_019] Conjure Mana Biscuit - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Add a Biscuit to your hand that
     //       refreshes 2 Mana Crystals.
@@ -972,6 +978,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [DMF_236] Oh My Yogg! - COST:1
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When your opponent casts a spell,
     //       they instead cast a random one of the same Cost.
@@ -1001,6 +1008,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------- WEAPON - PALADIN
     // [DMF_238] Hammer of the Naaru - COST:6
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 6/6 Holy Elemental
     //       with <b>Taunt</b>.
@@ -1232,6 +1240,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_054] Insight - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Draw a minion. <b>Corrupt:</b> Reduce its Cost by (2).
     // --------------------------------------------------------
@@ -1314,6 +1323,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_186] Auspicious Spirits - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Summon a random 4-Cost minion.
     //       <b>Corrupt:</b> Summon a 7-Cost minion instead.
@@ -1330,6 +1340,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_187] Palm Reading - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Discover</b> a spell.
     //       Reduce the Cost of spells in your hand by (1).
@@ -1373,6 +1384,7 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_054t] Insight - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Draw a minion. Reduce its Cost by (2).
@@ -1402,6 +1414,7 @@ void DarkmoonFaireCardsGen::AddPriestNonCollect(
     // ----------------------------------------- SPELL - PRIEST
     // [DMF_186a] Auspicious Spirits - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Summon a random 7-Cost minion.
@@ -1453,6 +1466,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_512] Cloak of Shadows - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give your hero <b>Stealth</b> for 1 turn.
     // --------------------------------------------------------
@@ -1463,6 +1477,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [DMF_513] Shadow Clone - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After a minion attacks your hero,
     //       summon a copy of it with <b>Stealth</b>.
@@ -1683,6 +1698,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_701] Dunk Tank - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 4 damage.
     //       <b>Corrupt:</b> Then deal 2 damage to all enemy minions.
@@ -1703,6 +1719,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_702] Stormstrike - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     //       Give your hero +3 Attack this turn.
@@ -1851,6 +1868,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [YOP_023] Landslide - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemy minions.
     //       If you're <b>Overloaded</b>, deal 1 damage again.
@@ -1878,6 +1896,7 @@ void DarkmoonFaireCardsGen::AddShamanNonCollect(
     // ----------------------------------------- SPELL - SHAMAN
     // [DMF_701t] Dunk Tank - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Deal 4 damage, then deal 2 damage to all enemy minions.
@@ -2086,6 +2105,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_119] Wicked Whispers - COST:1
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Discard your lowest Cost card. Give your minions +1/+1.
     // --------------------------------------------------------
@@ -2109,6 +2129,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [DMF_534] Deck of Chaos - COST:6
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Swap the Cost and Attack of all minions in your deck.
     // --------------------------------------------------------
@@ -2131,6 +2152,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [YOP_033] Backfire - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Draw 3 cards. Deal 3 damage to your hero.
     // --------------------------------------------------------
@@ -2483,6 +2505,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // ------------------------------------ SPELL - DEMONHUNTER
     // [DMF_221] Felscream Blast - COST:1
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>.
     //       Deal 1 damage to a minion and its neighbors.
@@ -3177,6 +3200,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_006] Hysteria - COST:3
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Choose an enemy minion.
     //       It attacks random minions until it dies.
@@ -3185,6 +3209,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [YOP_009] Rally! - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Resurrect a friendly 1-Cost, 2-Cost, and
     //       3-Cost minion.
@@ -3201,8 +3226,9 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - NEUTRAL
-    // [YOP_015] Nitroboost Poison - COST:1
+    // [YOP_015] Nitroboost Poison - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion +2 Attack.
     //       <b>Corrupt:</b> And your weapon.
@@ -3933,8 +3959,9 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     cards.emplace("YOP_015e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
-    // [YOP_015t] Nitroboost Poison - COST:1
+    // [YOP_015t] Nitroboost Poison - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
     //       Give a minion and your weapon +2 Attack.

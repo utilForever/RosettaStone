@@ -103,6 +103,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [BT_128] Fungal Fortunes - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Draw 3 cards. Discard any minions drawn.
     // --------------------------------------------------------
@@ -110,6 +111,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [BT_129] Germination - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon a copy of a friendly minion.
     //       Give the copy <b>Taunt</b>.
@@ -121,6 +123,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [BT_130] Overgrowth - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain two empty Mana Crystals.
     // --------------------------------------------------------
@@ -150,6 +153,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [BT_132] Ironbark - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give a minion +1/+3 and <b>Taunt</b>.
     //       Costs (0) if you have at least 7 Mana Crystals.
@@ -546,6 +550,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_002] Incanter's Flow - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Reduce the Cost of spells in your deck by (1).
     // --------------------------------------------------------
@@ -560,6 +565,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_003] Netherwind Portal - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After your opponent casts a spell,
     //       summon a random 4-Cost minion.
@@ -594,6 +600,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_006] Evocation - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Fill your hand with random Mage spells.
     //       At the end of your turn, discard them.
@@ -618,6 +625,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_021] Font of Power - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a Mage minion.
     //       If your deck has no minions, keep all 3.
@@ -656,6 +664,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [BT_072] Deep Freeze - COST:8
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> an enemy. Summon two 3/6 Water Elementals.
     // --------------------------------------------------------
@@ -757,6 +766,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_011] Libram of Justice - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Equip a 1/4 weapon.
     //       Change the Health of all enemy minions to 1.
@@ -814,6 +824,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_024] Libram of Hope - COST:9
     // - Set: BLACK_TEMPLE, Rarity: Epic
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 8 Health. Summon an 8/8 Guardian
     //       with <b>Taunt</b> and <b>Divine Shield</b>.
@@ -836,6 +847,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_025] Libram of Wisdom - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +1/+1 and "<b>Deathrattle:</b>
     //       Add a 'Libram of Wisdom' spell to your hand."
@@ -859,6 +871,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [BT_292] Hand of A'dal - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +2/+2. Draw a card.
     // --------------------------------------------------------
@@ -976,6 +989,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_198] Soul Mirror - COST:7
     // - Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Summon copies of enemy minions.
     //       They attack their copies.
@@ -986,6 +1000,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_252] Renew - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 3 Health. <b>Discover</b> a spell.
     // --------------------------------------------------------
@@ -1005,6 +1020,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_253] Psyche Split - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give a minion +1/+2. Summon a copy of it.
     // --------------------------------------------------------
@@ -1054,6 +1070,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [BT_257] Apotheosis - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +2/+3 and <b>Lifesteal</b>.
     // --------------------------------------------------------
@@ -1438,6 +1455,7 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [BT_100] Serpentshrine Portal - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 3 damage. Summon a random 3-Cost minion.
     //       <b>Overload:</b> (1)
@@ -1461,6 +1479,7 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [BT_101] Vivid Spores - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your minions
     //       "<b>Deathrattle:</b> Resummon this minion."
@@ -1519,6 +1538,7 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [BT_110] Torrent - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 8 damage to a minion.
     //       Costs (3) less if you cast a spell last turn.
@@ -1687,6 +1707,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_199] Unstable Felbolt - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 3 damage to an enemy minion
     //       and a random friendly one.
@@ -1715,6 +1736,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_300] Hand of Gul'dan - COST:6
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: When you play or discard this, draw 3 cards.
     // --------------------------------------------------------
@@ -1741,6 +1763,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_302] The Dark Portal - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Rare
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Draw a minion. If you have at least 8 cards in hand,
     //       it costs (5) less.
@@ -1792,6 +1815,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [BT_306] Shadow Council - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Epic
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Replace your hand with random Demons. Give them +2/+2.
     // --------------------------------------------------------
@@ -2194,6 +2218,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_429] Metamorphosis - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Legendary
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Swap your Hero Power to "Deal 4 damage."
     //       After 2 uses, swap it back.
@@ -2203,7 +2228,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------- WEAPON - DEMONHUNTER
-    // [BT_430] Warglaives of Azzinoth - COST:6
+    // [BT_430] Warglaives of Azzinoth - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
     // Text: After attacking a minion, your hero may attack again.
@@ -2320,6 +2345,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BT_514] Immolation Aura - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Deal 1 damage to all minions twice.
     // --------------------------------------------------------

@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -85,27 +86,70 @@ DiscoverTask::DiscoverTask(std::vector<Card*> cards, DiscoverType discoverType,
     // Do nothing
 }
 
-std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
-                                            int numberOfChoices, bool doShuffle)
+std::vector<int> DiscoverTask::GetChoices(Entity* source,
+                                          std::vector<Card*> cardsForGeneration,
+                                          std::vector<int> cardsForOtherEffect,
+                                          int numberOfChoices, bool doShuffle)
 {
-    std::vector<Card*> result;
+    std::vector<int> result;
 
-    if (numberOfChoices >= static_cast<int>(cardsToDiscover.size()))
+    if (!cardsForGeneration.empty())
     {
-        result = cardsToDiscover;
-    }
-    else
-    {
-        result.reserve(numberOfChoices);
+        std::vector<Card*> selectedCards;
 
-        if (doShuffle)
+        if (numberOfChoices >= static_cast<int>(cardsForGeneration.size()))
         {
-            Random::shuffle(cardsToDiscover);
+            selectedCards = cardsForGeneration;
+        }
+        else
+        {
+            selectedCards.reserve(numberOfChoices);
+
+            if (doShuffle)
+            {
+                Random::shuffle(cardsForGeneration);
+            }
+
+            for (int i = 0; i < numberOfChoices; ++i)
+            {
+                selectedCards.emplace_back(cardsForGeneration[i]);
+            }
         }
 
-        for (int i = 0; i < numberOfChoices; ++i)
+        for (auto& card : selectedCards)
         {
-            result.emplace_back(cardsToDiscover[i]);
+            std::map<GameTag, int> cardTags;
+            cardTags.emplace(GameTag::CREATOR,
+                             source->GetGameTag(GameTag::ENTITY_ID));
+            cardTags.emplace(GameTag::DISPLAYED_CREATOR,
+                             source->GetGameTag(GameTag::ENTITY_ID));
+
+            Playable* choiceEntity =
+                Entity::GetFromCard(source->player, card, cardTags,
+                                    source->player->GetSetasideZone());
+            source->player->GetSetasideZone()->Add(choiceEntity);
+            result.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
+        }
+    }
+    else if (!cardsForOtherEffect.empty())
+    {
+        if (numberOfChoices >= static_cast<int>(cardsForOtherEffect.size()))
+        {
+            result = cardsForOtherEffect;
+        }
+        else
+        {
+            result.reserve(numberOfChoices);
+
+            if (doShuffle)
+            {
+                Random::shuffle(cardsForOtherEffect);
+            }
+
+            for (int i = 0; i < numberOfChoices; ++i)
+            {
+                result.emplace_back(cardsForOtherEffect[i]);
+            }
         }
     }
 
@@ -114,23 +158,27 @@ std::vector<Card*> DiscoverTask::GetChoices(std::vector<Card*> cardsToDiscover,
 
 TaskStatus DiscoverTask::Impl(Player* player)
 {
-    std::vector<Card*> result;
-    std::vector<Card*> cardsToDiscover;
+    std::vector<int> result;
+    std::vector<Card*> cardsForGeneration;
+    std::vector<int> cardsForOtherEffect;
 
     if (!m_cards.empty())
     {
-        result = GetChoices(m_cards, m_numberOfChoices, m_doShuffle);
+        result = GetChoices(m_source, m_cards, std::vector<int>{},
+                            m_numberOfChoices, m_doShuffle);
     }
     else if (m_discoverType != DiscoverType::INVALID)
     {
-        cardsToDiscover =
+        std::tie(cardsForGeneration, cardsForOtherEffect) =
             Discover(player->game, player, m_discoverType, m_choiceAction);
-        result = GetChoices(cardsToDiscover, m_numberOfChoices, m_doShuffle);
+        result = GetChoices(m_source, cardsForGeneration, cardsForOtherEffect,
+                            m_numberOfChoices, m_doShuffle);
     }
     else
     {
-        cardsToDiscover = Discover(player->game, player, m_discoverCriteria);
-        result = GetChoices(cardsToDiscover, m_numberOfChoices, m_doShuffle);
+        cardsForGeneration = Discover(player->game, player, m_discoverCriteria);
+        result = GetChoices(m_source, cardsForGeneration, cardsForOtherEffect,
+                            m_numberOfChoices, m_doShuffle);
     }
 
     if (result.empty())
@@ -143,14 +191,14 @@ TaskStatus DiscoverTask::Impl(Player* player)
         for (std::size_t i = 0;
              i < result.size() && !player->GetHandZone()->IsFull(); ++i)
         {
-            const auto entity = Entity::GetFromCard(
-                player, result[i], std::nullopt, player->GetHandZone());
-            Generic::AddCardToHand(player, entity);
+            Playable* playable = player->game->entityList[result[i]];
+            player->GetSetasideZone()->Remove(playable);
+            Generic::AddCardToHand(player, playable);
         }
     }
 
-    Generic::CreateChoiceCards(player, m_source, ChoiceType::GENERAL,
-                               m_choiceAction, result);
+    Generic::CreateChoice(player, m_source, ChoiceType::GENERAL, m_choiceAction,
+                          result);
 
     if (m_repeat > 1)
     {
@@ -158,7 +206,7 @@ TaskStatus DiscoverTask::Impl(Player* player)
 
         for (int i = 1; i < m_repeat; ++i)
         {
-            auto choice = new Choice(player, cardsToDiscover);
+            auto choice = new Choice(player, cardsForGeneration);
             choice->choiceType = ChoiceType::GENERAL;
             choice->choiceAction = m_choiceAction;
             choice->source = m_source;
@@ -181,14 +229,16 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
         m_doShuffle, m_repeat, m_keepAll);
 }
 
-std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
-                                          DiscoverType discoverType,
-                                          ChoiceAction& choiceAction) const
+auto DiscoverTask::Discover(Game* game, Player* player,
+                            DiscoverType discoverType,
+                            ChoiceAction& choiceAction) const
+    -> std::tuple<std::vector<Card*>, std::vector<int>>
 {
     std::vector<Card*> allCards =
         Cards::GetDiscoverCards(player->baseClass, game->GetFormatType());
 
-    std::vector<Card*> cards;
+    std::vector<Card*> cardsForGeneration;
+    std::vector<int> cardsForOtherEffect;
     choiceAction = ChoiceAction::INVALID;
 
     switch (discoverType)
@@ -196,12 +246,22 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::INVALID:
             throw std::invalid_argument(
                 "DiscoverTask::Discover() - Invalid discover type");
+        case DiscoverType::DECK:
+        {
+            choiceAction = ChoiceAction::DRAW_FROM_DECK;
+            for (auto& playable : player->GetDeckZone()->GetAll())
+            {
+                cardsForOtherEffect.emplace_back(
+                    playable->GetGameTag(GameTag::ENTITY_ID));
+            }
+            break;
+        }
         case DiscoverType::BASIC_TOTEM:
             choiceAction = ChoiceAction::SUMMON;
-            cards = { Cards::FindCardByID("AT_132_SHAMANa"),
-                      Cards::FindCardByID("AT_132_SHAMANb"),
-                      Cards::FindCardByID("AT_132_SHAMANc"),
-                      Cards::FindCardByID("AT_132_SHAMANd") };
+            cardsForGeneration = { Cards::FindCardByID("AT_132_SHAMANa"),
+                                   Cards::FindCardByID("AT_132_SHAMANb"),
+                                   Cards::FindCardByID("AT_132_SHAMANc"),
+                                   Cards::FindCardByID("AT_132_SHAMANd") };
             break;
         case DiscoverType::CHOOSE_ONE:
             choiceAction = ChoiceAction::HAND;
@@ -209,7 +269,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->HasGameTag(GameTag::CHOOSE_ONE))
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -219,7 +279,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->GetCost() == 4)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -230,7 +290,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::MINION &&
                     card->GetCost() == 6)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -241,7 +301,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::MINION &&
                     card->GetRarity() == Rarity::LEGENDARY)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -252,7 +312,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::MINION &&
                     card->HasGameTag(GameTag::TAUNT) == 1)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -263,7 +323,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::MINION &&
                     card->HasGameTag(GameTag::DEATHRATTLE) == 1)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -274,7 +334,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::MINION &&
                     card->HasGameTag(GameTag::RUSH) == 1)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -285,7 +345,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::MINION &&
                     card->HasGameTag(GameTag::SPELLPOWER) == 1)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -296,7 +356,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (playable->card->GetCardType() == CardType::MINION &&
                     playable->HasDeathrattle() && playable->isDestroyed)
                 {
-                    cards.emplace_back(playable->card);
+                    cardsForGeneration.emplace_back(playable->card);
                 }
             }
             break;
@@ -306,7 +366,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->GetCardType() == CardType::SPELL)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -317,7 +377,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::SPELL &&
                     card->GetCost() <= 3)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -327,7 +387,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->IsSecret())
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -337,7 +397,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->GetRace() == Race::DEMON)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -347,7 +407,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->GetRace() == Race::DRAGON)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -357,22 +417,23 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->IsLackey())
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
         case DiscoverType::HEISTBARON_TOGWAGGLE:
             choiceAction = ChoiceAction::HAND;
-            cards = { Cards::FindCardByID("LOOT_998h"),
-                      Cards::FindCardByID("LOOT_998j"),
-                      Cards::FindCardByID("LOOT_998l"),
-                      Cards::FindCardByID("LOOT_998k") };
+            cardsForGeneration = { Cards::FindCardByID("LOOT_998h"),
+                                   Cards::FindCardByID("LOOT_998j"),
+                                   Cards::FindCardByID("LOOT_998l"),
+                                   Cards::FindCardByID("LOOT_998k") };
             break;
         case DiscoverType::MADAME_LAZUL:
-            choiceAction = ChoiceAction::HAND;
+            choiceAction = ChoiceAction::MADAME_LAZUL;
             for (auto& playable : player->opponent->GetHandZone()->GetAll())
             {
-                cards.emplace_back(playable->card);
+                cardsForOtherEffect.emplace_back(
+                    playable->GetGameTag(GameTag::ENTITY_ID));
             }
             break;
         case DiscoverType::SWAMPQUEEN_HAGATHA:
@@ -382,7 +443,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (card->GetCardType() == CardType::SPELL &&
                     card->GetCardClass() == CardClass::SHAMAN)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
@@ -390,23 +451,30 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
         {
             choiceAction = ChoiceAction::TORTOLLAN_PILGRIM;
 
-            std::vector<int> list;
+            std::vector<std::tuple<int, int>> candidates;
             for (auto& playable : player->GetDeckZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::SPELL)
                 {
-                    list.emplace_back(playable->card->dbfID);
+                    candidates.emplace_back(std::make_tuple(
+                        playable->GetGameTag(GameTag::ENTITY_ID),
+                        playable->card->dbfID));
                 }
             }
 
-            std::sort(list.begin(), list.end());
-            const auto last = std::unique(list.begin(), list.end());
-            list.erase(last, list.end());
-            Random::shuffle(list.begin(), list.end());
+            std::sort(candidates.begin(), candidates.end());
+            const auto last =
+                std::unique(candidates.begin(), candidates.end(),
+                            [](const std::tuple<int, int>& a,
+                               const std::tuple<int, int>& b) {
+                                return std::get<1>(a) == std::get<1>(b);
+                            });
+            candidates.erase(last, candidates.end());
+            Random::shuffle(candidates.begin(), candidates.end());
 
-            for (auto& dbfID : list)
+            for (auto& candidate : candidates)
             {
-                cards.emplace_back(Cards::FindCardByDbfID(dbfID));
+                cardsForOtherEffect.emplace_back(std::get<0>(candidate));
             }
 
             break;
@@ -416,20 +484,20 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             choiceAction = ChoiceAction::STACK;
             for (auto& playable : game->taskStack.playables)
             {
-                cards.emplace_back(playable->card);
+                cardsForGeneration.emplace_back(playable->card);
             }
             break;
         }
         case DiscoverType::SIAMAT:
             choiceAction = ChoiceAction::SIAMAT;
-            cards = { Cards::FindCardByID("ULD_178a2"),
-                      Cards::FindCardByID("ULD_178a"),
-                      Cards::FindCardByID("ULD_178a3"),
-                      Cards::FindCardByID("ULD_178a4") };
+            cardsForGeneration = { Cards::FindCardByID("ULD_178a2"),
+                                   Cards::FindCardByID("ULD_178a"),
+                                   Cards::FindCardByID("ULD_178a3"),
+                                   Cards::FindCardByID("ULD_178a4") };
             break;
         case DiscoverType::SIR_FINLEY_OF_THE_SANDS:
             choiceAction = ChoiceAction::CHANGE_HERO_POWER;
-            cards = {
+            cardsForGeneration = {
                 Cards::FindCardByID("HERO_01bp2"),
                 Cards::FindCardByID("HERO_02bp2"),
                 Cards::FindCardByID("HERO_03bp2"),
@@ -448,12 +516,13 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->GetCardType() == CardType::SPELL)
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
-            Random::shuffle(cards.begin(), cards.end());
-            cards.resize(3);
-            cards.emplace_back(Cards::FindCardByID("ULD_209t"));
+            Random::shuffle(cardsForGeneration.begin(),
+                            cardsForGeneration.end());
+            cardsForGeneration.resize(3);
+            cardsForGeneration.emplace_back(Cards::FindCardByID("ULD_209t"));
             break;
         case DiscoverType::BODY_WRAPPER:
             choiceAction = ChoiceAction::DECK;
@@ -462,7 +531,7 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
                 if (playable->card->GetCardType() == CardType::MINION &&
                     playable->isDestroyed)
                 {
-                    cards.emplace_back(playable->card);
+                    cardsForGeneration.emplace_back(playable->card);
                 }
             }
             break;
@@ -472,13 +541,13 @@ std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
             {
                 if (card->IsSecret())
                 {
-                    cards.emplace_back(card);
+                    cardsForGeneration.emplace_back(card);
                 }
             }
             break;
     }
 
-    return cards;
+    return std::make_tuple(cardsForGeneration, cardsForOtherEffect);
 }
 
 std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,

@@ -13,6 +13,7 @@ namespace RosettaStone
 enum class DiscoverType
 {
     INVALID,
+    DECK,
     BASIC_TOTEM,
     CHOOSE_ONE,
     FOUR_COST_CARD,
@@ -50,11 +51,13 @@ enum class ChoiceAction
     HAND_AND_STACK,      //!< Hand and stack.
     DECK,                //!< Deck.
     ENCHANTMENT,         //!< Enchantment.
+    DRAW_FROM_DECK,      //!< Draw from deck.
     CAST_SPELL,          //!< Cast spell.
     SUMMON,              //!< Summon.
     STACK,               //!< Stack.
     ENVOY_OF_LAZUL,      //!< Envoy Of Lazul.
     SIGHTLESS_WATCHER,   //!< Sightless Watcher.
+    MADAME_LAZUL,        //!< Madame Lazul.
     SWAMPQUEEN_HAGATHA,  //!< Swampqueen Hagatha.
     TORTOLLAN_PILGRIM,   //!< Tortollan Pilgrim.
     SIAMAT,              //!< Siamat.

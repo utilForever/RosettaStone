@@ -310,6 +310,7 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135] Hidden Oasis - COST:6
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One</b> - Summon a 6/6 Ancient with <b>Taunt</b>;
     //       or Restore 12 Health.
@@ -413,6 +414,7 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [ULD_273] Overflow - COST:7
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Restore 5 Health to all characters. Draw 5 cards.
     // --------------------------------------------------------
@@ -453,6 +455,7 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [ULD_135a] Befriend the Ancient (*) - COST:0
     // - Set: Uldum
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon a 6/6 Ancient with <b>Taunt</b>.
     // --------------------------------------------------------
@@ -472,6 +475,7 @@ void UldumCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- MINION - DRUID
     // [ULD_135at] Vir'naal Ancient (*) - COST:6 [ATK:6/HP:6]
     // - Set: Uldum
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -631,7 +635,7 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("ULD_155", CardDef(power, 20, 0));
 
     // ---------------------------------------- MINION - HUNTER
-    // [ULD_156] Dinotamer Brann - COST:8 [ATK:2/HP:4]
+    // [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
     // - Set: Uldum, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
@@ -860,6 +864,7 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [ULD_239] Flame Ward - COST:3
     // - Faction: Neutral, Set: Uldum, Rarity: Common
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After a minion attacks your hero,
     //       deal 3 damage to all enemy minions.
@@ -978,6 +983,7 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [ULD_726] Ancient Mysteries - COST:2
     // - Set: Uldum, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw a <b>Secret</b> from your deck. It costs (0).
     // --------------------------------------------------------
@@ -1027,6 +1033,7 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [ULD_143] Pharaoh's Blessing - COST:6
     // - Faction: Neutral, Set: Uldum, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +4/+4, <b>Divine Shield</b>,
     //       and <b>Taunt</b>.
@@ -1398,6 +1405,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_272] Holy Ripple - COST:2
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemies. Restore 1 Health
     //       to all friendly characters.
@@ -1411,6 +1419,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_714] Penance - COST:2
     // - Set: Uldum, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b> Deal 3 damage to a minion.
     // --------------------------------------------------------
@@ -1432,6 +1441,7 @@ void UldumCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [ULD_718] Plague of Death - COST:9
     // - Set: Uldum, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Silence</b> and destroy all minions.
     // --------------------------------------------------------
@@ -1584,6 +1594,7 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_286] Shadow of Death - COST:4
     // - Set: Uldum, Rarity: Epic
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Choose a minion. Shuffle 3 'Shadows' into your deck
     //       that summon a copy when drawn.
@@ -1699,6 +1710,7 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - ROGUE
     // [ULD_715] Plague of Madness - COST:1
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Each player equips a 2/2 Knife with <b>Poisonous</b>.
     // --------------------------------------------------------
@@ -1869,6 +1881,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_171] Totemic Surge - COST:0
     // - Set: Uldum, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Give your Totems +2 Attack.
     // --------------------------------------------------------
@@ -1919,6 +1932,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [ULD_181] Earthquake - COST:7
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Deal 5 damage to all minions,
     //       then deal 2 damage to all minions.
@@ -2207,6 +2221,7 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_324] Impbalming - COST:4
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Destroy a minion. Shuffle 3 Worthless Imps into your deck.
     // --------------------------------------------------------
@@ -2226,6 +2241,7 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [ULD_717] Plague of Flames - COST:1
     // - Set: Uldum, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Destroy all your minions.
     //       For each one, destroy a random enemy minion.
@@ -2480,7 +2496,7 @@ void UldumCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("ULD_711", CardDef(power, 5, 0));
 
     // --------------------------------------- MINION - WARRIOR
-    // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:2/HP:2]
+    // [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:3/HP:3]
     // - Set: Uldum, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry</b>: Choose a damaged friendly minion.

@@ -95,6 +95,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [SCH_333] Nature Studies - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Discover</b> a spell. Your next one costs (1) less.
     // --------------------------------------------------------
@@ -110,6 +111,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [SCH_427] Lightning Bloom - COST:0
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Gain 2 Mana Crystals this turn only.
     //       <b>Overload:</b> (2)
@@ -149,6 +151,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612] Runic Carvings - COST:6
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One -</b> Summon four 2/2 Treant Totems; or
     //       <b>Overload:</b> (2) to summon them with <b>Rush</b>.
@@ -277,6 +280,7 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612a] Call to Aid - COST:6
     // - Set: SCHOLOMANCE
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon four 2/2 Treant Totems.
     // --------------------------------------------------------
@@ -288,6 +292,7 @@ void ScholomanceCardsGen::AddDruidNonCollect(
     // ------------------------------------------ SPELL - DRUID
     // [SCH_612b] Alarm the Forest - COST:6
     // - Set: SCHOLOMANCE
+    // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Summon four 2/2 Treant Totems with <b>Rush</b>.
     //       <b>Overload:</b> (2)
@@ -564,10 +569,10 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("SCH_241", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
-    // [SCH_243] Wyrm Weaver - COST:5 [ATK:3/HP:6]
+    // [SCH_243] Wyrm Weaver - COST:4 [ATK:3/HP:5]
     // - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Spellburst:</b> Summon two 1/3 Mana Wyrms.
+    // Text: <b>Spellburst:</b> Summon two 1/2 Mana Wyrms.
     // --------------------------------------------------------
     power.ClearData();
     power.AddSpellburstTask(
@@ -592,6 +597,7 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [SCH_348] Combustion - COST:3
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion.
     //       Any excess damages both neighbors.
@@ -603,6 +609,7 @@ void ScholomanceCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // ------------------------------------------- SPELL - MAGE
     // [SCH_353] Cram Session - COST:2
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Draw 1 cards (improved by <b>Spell Damage</b>).
     // --------------------------------------------------------
@@ -658,6 +665,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_138] Blessing of Authority - COST:5
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion +8/+8. It can't attack heroes this turn.
     // --------------------------------------------------------
@@ -720,6 +728,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_302] Gift of Luminance - COST:3
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a minion <b>Divine Shield</b>,
     //       then summon a 1/1 copy of it.
@@ -742,6 +751,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [SCH_524] Shield of Honor - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Give a damaged minion +3 Attack and <b>Divine Shield</b>.
     // --------------------------------------------------------
@@ -965,6 +975,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [SCH_512] Initiation - COST:6
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion. If that kills it,
     //       summon a new copy.
@@ -984,6 +995,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - PRIEST
     // [SCH_514] Raise Dead - COST:0
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 3 damage to your hero. Return two friendly minions
     //       that died this game to your hand.
@@ -1253,6 +1265,7 @@ void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [SCH_271] Molten Blast - COST:3
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 2 damage. Summon that many 1/1 Elementals.
     // --------------------------------------------------------
@@ -1290,10 +1303,9 @@ void ScholomanceCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [SCH_535] Tidal Wave - COST:8
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: <b>Lifesteal</b>
-    //       Deal 3 damage to
-    //       all minions.
+    // Text: <b>Lifesteal</b> Deal 3 damage to all minions.
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
@@ -1361,6 +1373,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_158] Demonic Studies - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Discover</b> a Demon. Your next one costs (1) less.
     // --------------------------------------------------------
@@ -1388,6 +1401,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_307] School Spirits - COST:3
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 2 damage to all minions.
     //       Shuffle 2 Soul Fragments into your deck.
@@ -1462,6 +1476,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_701] Soul Shear - COST:2
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     //       Shuffle 2 Soul Fragments into your deck.
@@ -1483,6 +1498,7 @@ void ScholomanceCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [SCH_702] Felosophy - COST:1
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Copy the lowest Cost Demon in your hand.
     //       <b>Outcast:</b> Give both +1/+1.
@@ -1820,6 +1836,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SCH_357] Fel Guardians - COST:7
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Summon three 1/2 Demons with <b>Taunt</b>.
     //       Costs (1) less whenever a friendly minion dies.
@@ -2294,6 +2311,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_235] Devolving Missiles - COST:1
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Shoot three missiles at random enemy minions
     //       that transform them into ones that cost (1) less.
@@ -2399,6 +2417,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_270] Primordial Studies - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: <b>Discover</b> a <b>Spell Damage</b> minion.
     //       Your next one costs (1) less.
@@ -2618,6 +2637,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_352] Potion of Illusion - COST:4
     // - Set: SCHOLOMANCE, Rarity: Epic
+    // - Spell School: Arcane
     // --------------------------------------------------------
     // Text: Add 1/1 copies of your minions to your hand.
     //       They cost (1).
@@ -2685,6 +2705,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - NEUTRAL
     // [SCH_509] Brain Freeze - COST:1
     // - Set: SCHOLOMANCE, Rarity: Rare
+    // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a minion.
     //       <b>Combo:</b> Also deal 3 damage to it.
@@ -2938,7 +2959,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->tasks = {
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::HAND, 1, true),
-        std::make_shared<AddEnchantmentTask>("DRG_089e", EntityType::STACK)
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::COST, 1)
     };
     cards.emplace("SCH_717", CardDef(power));
 }

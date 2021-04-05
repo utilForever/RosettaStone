@@ -125,10 +125,12 @@ class Cards
     //! \return A list of cards that matches condition.
     static std::vector<Card*> FindCardByRace(Race race);
 
-    //! Returns a card that matches \p name.
+    //! Returns a card that matches \p name and \p format.
     //! \param name The name of the card.
+    //! \param format The format type of the game.
     //! \return A card that matches condition.
-    static Card* FindCardByName(const std::string_view& name);
+    static Card* FindCardByName(const std::string_view& name,
+                                FormatType format = FormatType::WILD);
 
     //! Returns a list of cards whose cost is between \p minVal and \p maxVal.
     //! \param minVal The minimum cost value of the card.
