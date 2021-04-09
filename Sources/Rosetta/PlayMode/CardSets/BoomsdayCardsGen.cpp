@@ -98,6 +98,8 @@ void BoomsdayCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void BoomsdayCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [BOT_054] Biology Project - COST:1
     // - Set: BOOMSDAY, Rarity: Common
@@ -133,6 +135,14 @@ void BoomsdayCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 2));
+    cards.emplace(
+        "BOT_420",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [BOT_422] Tending Tauren - COST:6 [ATK:3/HP:4]
