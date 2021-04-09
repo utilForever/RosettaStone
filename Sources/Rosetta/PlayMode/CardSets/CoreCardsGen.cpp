@@ -130,6 +130,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_164",
+                  CardDef(power, ChooseCardIDs{ "EX1_164a", "EX1_164b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_EX1_165] Druid of the Claw - COST:5 [ATK:5/HP:4]

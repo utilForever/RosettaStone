@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -308,4 +309,63 @@ TEST_CASE("[Druid : Spell] - CORE_EX1_160 : Power of the Wild")
     CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(opField[0]->GetAttack(), 4);
     CHECK_EQ(opField[0]->GetHealth(), 3);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [CORE_EX1_164] Nourish - COST:6
+// - Set: CORE, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Gain 2 Mana Crystals;
+//       or Draw 3 cards.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - CORE_EX1_164 : Nourish")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(6);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nourish"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nourish"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Nourish"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curPlayer->GetTotalMana(), 8);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
+    CHECK_EQ(opPlayer->GetTotalMana(), 10);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curHand.GetCount(), 8);
 }
