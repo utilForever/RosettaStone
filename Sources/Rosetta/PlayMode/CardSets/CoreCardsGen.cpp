@@ -11,6 +11,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -113,6 +114,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_160",
+                  CardDef(power, ChooseCardIDs{ "EX1_160a", "EX1_160b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_164] Nourish - COST:6
