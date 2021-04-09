@@ -8,6 +8,12 @@
 
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 
+// Forward declaration
+namespace RosettaStone::PlayMode
+{
+struct TaskStack;
+}  // namespace RosettaStone::PlayMode
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 //! The operation of mathematics.
