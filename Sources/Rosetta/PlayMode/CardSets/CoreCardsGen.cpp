@@ -61,9 +61,20 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a minion <b>Taunt</b> and +2/+3.<i>
     //       (+2 Attack/+3 Health)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_009e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_009",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_CS2_013] Wild Growth - COST:3
