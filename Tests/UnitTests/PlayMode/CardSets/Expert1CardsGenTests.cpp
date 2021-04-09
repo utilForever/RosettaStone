@@ -260,9 +260,9 @@ TEST_CASE("[Druid : Spell] - EX1_158 : Soul of the Forest")
     game.Process(opPlayer, PlayCardTask::Minion(card6));
 
     game.Process(opPlayer, PlayCardTask::Spell(card7));
-    CHECK(!opField[0]->appliedEnchantments.empty());
-    CHECK(!opField[1]->appliedEnchantments.empty());
-    CHECK(!opField[2]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[0]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[1]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[2]->appliedEnchantments.empty());
 
     game.Process(opPlayer, PlayCardTask::Spell(card8));
     CHECK_EQ(curField.GetCount(), 0);
